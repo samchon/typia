@@ -11,6 +11,7 @@ import TSON from "typescript-json";
 TSON.stringify<T>(input);
 ```
 
+## Introduction
 The `typescript-json` is a wrapper library for the [fast-json-stringify](https://github.com/fastify/fast-json-stringify), who can generate JSON string 2x faster than the native `JSON.stringify()` function. Also, the `typescript-json` doesn't need any extra schema defition. It just requires only line: `TSON.stringify<T>(input)`.
 
 If you choose other similar libraries like [fast-json-stringify](https://github.com/fastify/fast-json-stringify) or [slow-json-stringify](https://github.com/lucagez/slow-json-stringify), you've define the complicate data schema that is different from the TypeScript type system. Beside, the `typescript-json` requires only one line with your own TypeScript type definition. You don't need any extra data schema definition.
@@ -85,6 +86,7 @@ stringify(company);
 
 
 ## Installation
+### NPM Package
 At first, install this `typescript-json` by the `npm install` command. 
 
 Also, you need additional `devDependencies` to compile the TypeScript code with transformation. Therefore, install those all libraries `typescript`, `ttypescript` and `ts-node`. Inform that, the `ttypescript` is not mis-writing. Therefore, do not forget to install the `ttypescript`.
@@ -98,6 +100,7 @@ npm install --save-dev ttypescript
 npm install --save-dev ts-node
 ```
 
+### tsconfig.json
 After the installation, you've to configure the `tsconfig.json` file like below. Add the new property `transform` and its value `typescript-json/lib/transform` into the `compilerOptions.plugins` array.
 
 ```json
@@ -122,6 +125,7 @@ npx ttsc
 npx ts-node -C ttypescript
 ```
 
+### webpack
 If you're using a `webpack` with the `ts-loader`, configure the `webpack.config.js` file like below:
 
 ```javascript
@@ -149,6 +153,7 @@ module.exports = {
 
 
 ## Features
+### Functions
 ```typescript
 export function stringify<T>(input: T): string;
 export function createStringifier<T>(): (input: T) => string;
@@ -164,6 +169,12 @@ Method | Strength | Weakness
 -------|----------|------------
 `stringify()` | Convenient to use | Use global memory
 `createStringifier()` | Save global memory | Inconvenient to manage
+
+### `public`
+When you put a class type into this `typescript-json`, only `public` members would be converted to JSON string. The `private` or `protected` members would be all ignored.
+
+### `toJSON()`
+The [fast-json-stringify](https://github.com/fastify/fast-json-stringify) is not supporting the `toJSON()` method. If such unsupported situation keeps for a long time, I promise you that I'll fix the problem even by developing the JSON conversion logic by myself.
 
 
 
