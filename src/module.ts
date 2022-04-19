@@ -55,7 +55,7 @@ export function stringify<T>
 
     const [key, closure] = param;
     if (typeof key !== "string" || typeof closure !== "function")
-        throw new Error("Error on typescript-json.stringify(): the hidden parameter must only be specified by the transformer.");
+        throw new Error("Error on TSON.stringify(): the hidden parameter must only be specified by the transformer.");
 
     return JsonMemory.stringify(key, closure)(input);
 }
@@ -106,11 +106,11 @@ export function createStringifier<T>
     if (!plan)
         halt("createStringifier");
     else if (typeof plan !== "function")
-        throw new Error("Error on typescript-json.stringify(): the hidden parameter must only be specified by the transformer.");
+        throw new Error("Error on TSON.stringify(): the hidden parameter must only be specified by the transformer.");
     
     const [schema, storage] = plan();
     if (typeof schema !== "object" || typeof storage !== "object")
-        throw new Error("Error on typescript-json.stringify(): the hidden parameter must only be specified by the transformer.");
+        throw new Error("Error on TSON.stringify(): the hidden parameter must only be specified by the transformer.");
 
     return faster(schema as any, { schema: storage as any });
 }
@@ -120,5 +120,5 @@ export function createStringifier<T>
  */
 function halt(name: string): never
 {
-    throw new Error(`Error on typescript-json.${name}(): no transform has been configured. Configure the "tsconfig.json" file following the README - https://github.com/samchon/typescript-json`);
+    throw new Error(`Error on TSON.${name}(): no transform has been configured. Configure the "tsconfig.json" file following the README - https://github.com/samchon/typescript-json`);
 }
