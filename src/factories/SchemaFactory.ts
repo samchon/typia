@@ -16,7 +16,7 @@ export namespace SchemaFactory
         ): ISchema.IApplication | null
     {
         // CONSTRUCT SCHEMA WITH OBJECTS
-        const dict: HashMap<Pair<ts.InterfaceType, boolean>, [string, ISchema.IObject]> = new HashMap();
+        const dict: HashMap<Pair<ts.Type, boolean>, [string, ISchema.IObject]> = new HashMap();
         const entity: ISchema | null = explore(checker, dict, type);
 
         // SERIALIZE STORAGE
@@ -33,7 +33,7 @@ export namespace SchemaFactory
     function explore
         (
             checker: ts.TypeChecker, 
-            dict: HashMap<Pair<ts.InterfaceType, boolean>, [string, ISchema.IObject]>,
+            dict: HashMap<Pair<ts.Type, boolean>, [string, ISchema.IObject]>,
             type: ts.Type | null,
         ): ISchema | null
     {
@@ -54,7 +54,7 @@ export namespace SchemaFactory
     function iterate
         (
             checker: ts.TypeChecker, 
-            dict: HashMap<Pair<ts.InterfaceType, boolean>, [string, ISchema.IObject]>, 
+            dict: HashMap<Pair<ts.Type, boolean>, [string, ISchema.IObject]>, 
             schema: ISchema, 
             type: ts.Type
         ): boolean
@@ -117,14 +117,26 @@ export namespace SchemaFactory
             for (const elem of node.elements.slice(1))
                 if (iterate(checker, dict, elemSchema, checker.getTypeFromTypeNode(elem)) === false)
                     return false;
-
-            const key: string = get_uid(elemSchema);
-            schema.arraies.set(key, elemSchema);
         }
 
-        // WHEN OBJECT
-        else if (type.isClassOrInterface())
+        // WHEN OBJECT, MAYBE
+        else if (type.isClassOrInterface() || ts.isTypeLiteralNode(node) || type.isIntersection())
         {
+            if (type.isIntersection())
+            {
+                const fakeDict: HashMap<Pair<ts.Type, boolean>, [string, ISchema.IObject]> = new HashMap();
+                const fakeSchema: ISchema = {
+                    atomics: new Set(),
+                    arraies: new Map(),
+                    objects: new Set(),
+                    nullable: false
+                };
+                if (type.types.every(t => iterate(checker, fakeDict, fakeSchema, t)) === false)
+                    return false;
+                else if (fakeSchema.atomics.size || fakeSchema.arraies.size || !fakeSchema.objects.size)
+                    return false;
+            }
+
             const key: string = emplace(checker, dict, type, schema.nullable);
             schema.objects.add(`external#/${key}`);
         }
@@ -134,14 +146,14 @@ export namespace SchemaFactory
     function emplace
         (
             checker: ts.TypeChecker,
-            dict: HashMap<Pair<ts.InterfaceType, boolean>, [string, ISchema.IObject]>,
-            type: ts.InterfaceType,
+            dict: HashMap<Pair<ts.Type, boolean>, [string, ISchema.IObject]>,
+            type: ts.Type,
             nullable: boolean
         ): string
     {
         // CHECK MEMORY
-        const key: Pair<ts.InterfaceType, boolean> = new Pair(type, nullable);
-        const it: HashMap.Iterator<Pair<ts.InterfaceType, boolean>, [string, ISchema.IObject]> = dict.find(key);
+        const key: Pair<ts.Type, boolean> = new Pair(type, nullable);
+        const it: HashMap.Iterator<Pair<ts.Type, boolean>, [string, ISchema.IObject]> = dict.find(key);
         if (it.equals(dict.end()) === false)
             return it.second[0];
 
@@ -157,12 +169,12 @@ export namespace SchemaFactory
         const isClass: boolean = type.isClass();
         const pred: (node: ts.Declaration) => boolean = isClass
             ? node => (ts.isParameter(node) || ts.isPropertyDeclaration(node))
-            : node => ts.isPropertySignature(node);
-        
+            : node => (ts.isPropertySignature(node) || ts.isTypeLiteralNode(node));
+
         for (const prop of type.getProperties())
         {
             // CHECK NODE IS A FORMAL PROPERTY
-            const node: ts.PropertyDeclaration = prop.valueDeclaration as any;
+            const node: ts.PropertyDeclaration | undefined = (prop.getDeclarations() || [])[0] as ts.PropertyDeclaration | undefined;
             if (!node || !pred(node))
                 continue;
             else if (node.getChildren().some(child => TypeFactory.is_function(child)))
@@ -177,8 +189,10 @@ export namespace SchemaFactory
             }
 
             // DETERMINE PROPERTY TYPE BY ADDITIONAL EXPLORATION
-            const key = node.name.getText();
-            const type = node.type ? checker.getTypeFromTypeNode(node.type) : null;
+            const key: string = node.name.getText();
+            const type: ts.Type | null = node.type 
+                ? checker.getTypeFromTypeNode(node.type) 
+                : null;
 
             object.properties[key] = type
                 ? explore(checker, dict, type) 

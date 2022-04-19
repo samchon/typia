@@ -48,10 +48,13 @@ export namespace FileTransformer
         }
         catch (exp)
         {
+            if (exp instanceof Error && exp.message.indexOf("Error on TSON") !== -1)
+                throw exp;
+
             const file: ts.SourceFile = node.getSourceFile();
             const { line, character } = file.getLineAndCharacterOfPosition(node.pos);
 
-            throw new NestedError(`Error on typescript-json.tranformer(): failed to transform - ${file.fileName}:${line + 1}:${character +1}`, exp as Error);    
+            throw new NestedError(`Error on TSON.tranformer(): failed to transform - ${file.fileName}:${line + 1}:${character +1 }`, exp as Error);    
         }
     }
 }

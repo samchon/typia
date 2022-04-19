@@ -13,7 +13,7 @@ export function test_stringify_class_getter(): void
     const expected: string = JSON.stringify(person);
 
     if (json !== expected)
-        throw new Error("Bug on typescript-json.stringify(): failed to understand the class getter.");
+        throw new Error("Bug on TSON.stringify(): failed to understand the class getter.");
 }
 
 class Person

@@ -21,7 +21,7 @@ export function test_stringify_array_recursive(): void
     const expected: string = JSON.stringify(categories);
 
     if (json !== expected)
-        throw new Error("Bug on typescript-json.stringify(): failed to understand the recursive array type.");
+        throw new Error("Bug on TSON.stringify(): failed to understand the recursive array type.");
 }
 
 interface ICategory

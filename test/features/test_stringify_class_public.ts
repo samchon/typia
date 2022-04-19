@@ -7,7 +7,7 @@ export function test_stringify_class_public(): void
     const expected: string = JSON.stringify({ implicit: "public", shown: "public" });
 
     if (json !== expected)
-        throw new Error("Bug on typescript-json.stringify(): failed to understand the private class member.");
+        throw new Error("Bug on TSON.stringify(): failed to understand the private class member.");
 }
 
 class Accessor

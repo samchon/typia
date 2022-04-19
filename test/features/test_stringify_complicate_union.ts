@@ -11,7 +11,7 @@ export function test_stringify_complicate(): void
         const expected: string = JSON.stringify(input);
 
         if (json !== expected)
-            throw new Error(`Bug on typescript-json.createStringifier(): failed to understand the complicate union type.`);
+            throw new Error(`Bug on TSON.createStringifier(): failed to understand the complicate union type.`);
     };
 
     // CONSTRUCT BUILDINGS

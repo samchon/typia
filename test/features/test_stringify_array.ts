@@ -16,7 +16,7 @@ export function test_stringify_array(): void
     const parsed: IPerson = JSON.parse(json);
 
     if (Primitive.equal_to(person, parsed) === false)
-        throw new Error("Bug on typescript-json.stringify(): failed to understand the array.");
+        throw new Error("Bug on TSON.stringify(): failed to understand the array.");
 }
 
 interface IPerson

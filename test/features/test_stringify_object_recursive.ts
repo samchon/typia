@@ -18,7 +18,7 @@ export function test_stringify_object_recursive(): void
     const expected: string = JSON.stringify(department);
 
     if (json !== expected)
-        throw new Error("Bug on typescript-json.stringify(): failed to understand the recursive object.");
+        throw new Error("Bug on TSON.stringify(): failed to understand the recursive object.");
 }
 
 interface IDepartment

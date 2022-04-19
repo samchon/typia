@@ -7,7 +7,7 @@ runner.register({
     compiler: "ttypescript"
 });
 
-const program = require("./features/test_stringify_class_private.ts");
+const program = require("./features/test_stringify_object_intersection.ts");
 for (const value of Object.values(program))
     if (typeof value === "function")
         value();

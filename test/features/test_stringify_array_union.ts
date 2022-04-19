@@ -9,7 +9,7 @@ export function test_stringify_array_union(): void
         const expected: string = JSON.stringify(input);
 
         if (json !== expected)
-            throw new Error(`Bug on typescript-json.createStringifier(): failed to understand the union array type.`);
+            throw new Error(`Bug on TSON.createStringifier(): failed to understand the union array type.`);
     };
 
     test(true);

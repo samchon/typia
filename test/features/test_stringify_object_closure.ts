@@ -10,7 +10,7 @@ export function test_stringify_object_closure(): void
     const expected: string = JSON.stringify(record);
 
     if (json !== expected)
-        throw new Error("Bug on typescript-json.stringify(): failed to understand the object closure type.");
+        throw new Error("Bug on TSON.stringify(): failed to understand the object closure type.");
 }
 
 interface IRecord

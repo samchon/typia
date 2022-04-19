@@ -9,5 +9,5 @@ export function test_stringify_to_json_object_closure(): void
     
     const json = TSON.stringify<typeof obj>(obj);
     if (json !== "9")
-        throw new Error("Bug on typescript-json.stringify(): failed to detect the toJSON() closure function.");
+        throw new Error("Bug on TSON.stringify(): failed to detect the toJSON() closure function.");
 }

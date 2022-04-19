@@ -8,25 +8,25 @@ export namespace NodeTransformer
     export function transform
         (
             project: IProject,
-            node: ts.Node
+            expression: ts.Node
         ): ts.Node
     {
-        if (!ts.isCallExpression(node))
-            return node;
+        if (!ts.isCallExpression(expression))
+            return expression;
         
-        const func = get_json_function(project, node);
+        const func = get_json_function(project, expression);
         if (func === null)
-            return node;
+            return expression;
         
-        const generic: ts.TypeNode = node.typeArguments![0]!;
+        const generic: ts.TypeNode = expression.typeArguments![0]!;
         const type: ts.Type = project.checker.getTypeFromTypeNode(generic);
         
         return ts.factory.updateCallExpression
         (
-            node,
-            node.expression,
-            node.typeArguments,
-            [ ...node.arguments, func(project, type, generic) ]
+            expression,
+            expression.expression,
+            expression.typeArguments,
+            [ ...expression.arguments, func(project, type, generic) ]
         );
     }
 }

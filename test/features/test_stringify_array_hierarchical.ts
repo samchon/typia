@@ -16,7 +16,7 @@ export function test_stringify_array_hierarchical(): void
     const expected: string = JSON.stringify(company);
 
     if (json !== expected)
-        throw new Error("Bug on typescript-json.stringify(): failed to understand the hierarchical object.");
+        throw new Error("Bug on TSON.stringify(): failed to understand the hierarchical object.");
 }
 
 interface ICompany

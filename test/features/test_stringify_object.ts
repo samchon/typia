@@ -10,7 +10,7 @@ export function test_stringify_object(): void
         const expected: string = JSON.stringify(member);
 
         if (json !== expected)
-            throw new Error("Bug on typescript-json.createStringifier(): failed to undertstand the object type.");
+            throw new Error("Bug on TSON.createStringifier(): failed to undertstand the object type.");
     }
 
     for (const id of [RandomGenerator.string(), null])

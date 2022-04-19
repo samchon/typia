@@ -7,7 +7,7 @@ export function test_stringify_class_closure()
     const expected: string = JSON.stringify(something);
 
     if (json !== expected)
-        throw new Error("Bug on typescript-json.stringify(): failed to understand the class closure type.");
+        throw new Error("Bug on TSON.stringify(): failed to understand the class closure type.");
 }
 
 class Something

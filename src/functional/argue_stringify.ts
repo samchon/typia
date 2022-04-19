@@ -8,7 +8,7 @@ import { ISchema } from "../structures/ISchema";
 
 export function argue_stringify
     (
-        project: IProject, 
+        project: IProject,
         type: ts.Type,
         node: ts.TypeNode,
     ): ts.ArrayLiteralExpression

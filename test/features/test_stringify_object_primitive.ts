@@ -20,7 +20,7 @@ export function test_stringify_object_primitive(): void
     const expected: string = JSON.stringify(article);
 
     if (json !== expected)
-        throw new Error("Bug on typescript-json.stringify(): failed to understand the primitive object.");
+        throw new Error("Bug on TSON.stringify(): failed to understand the primitive object.");
 }
 
 type Input = Primitive<IArticle.IStore>;

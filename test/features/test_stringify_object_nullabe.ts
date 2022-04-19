@@ -14,7 +14,7 @@ export function test_stringify_object_nullable(): void
     const expected: string = JSON.stringify(product);
 
     if (json !== expected)
-        throw new Error("Bug on typescript-json.stringify(): failed to understand the nullable object.");
+        throw new Error("Bug on TSON.stringify(): failed to understand the nullable object.");
 }
 
 interface IProduct

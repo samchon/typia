@@ -9,7 +9,7 @@ export function test_stringify_atomic_union(): void
         const expected: string = JSON.stringify(value)
         
         if (json !== expected)
-            throw new Error("Bug on typescript-json.createStringifier(): failed to understand the atomic union type.");;
+            throw new Error("Bug on TSON.createStringifier(): failed to understand the atomic union type.");;
     };
     
     test(true);

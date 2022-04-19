@@ -14,5 +14,5 @@ function test<T>(stringify: (input: T) => string, input: T)
     const expected: string = JSON.stringify(input);
 
     if (json !== expected)
-        throw new Error("Bug on typescript-json.stringify(): failed to understand the atomic type.");
+        throw new Error("Bug on TSON.stringify(): failed to understand the atomic type.");
 }

@@ -7,5 +7,5 @@ export function test_stringify_array_tuple(): void
     const expected: string = JSON.stringify(tuple);
 
     if (json !== expected)
-        throw new Error("Bug on typescript-json.stringify(): failed to understand the array tuple.");
+        throw new Error("Bug on TSON.stringify(): failed to understand the array tuple.");
 }

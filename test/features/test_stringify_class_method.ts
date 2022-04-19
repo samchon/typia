@@ -12,7 +12,7 @@ export function test_stringify_class_method(): void
     const expected: string = JSON.stringify(animal);
 
     if (json !== expected)
-        throw new Error("Bug on typescript-json.stringify(): failed to understand the class method.");
+        throw new Error("Bug on TSON.stringify(): failed to understand the class method.");
 }
 
 class Animal

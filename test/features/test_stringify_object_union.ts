@@ -13,7 +13,7 @@ export function test_stringify_object_union(): void
         const expected: string = JSON.stringify(input);
 
         if (json !== expected)
-            throw new Error("Bug on typescript-json.createStringifier(): failed to understand the union object type.");
+            throw new Error("Bug on TSON.createStringifier(): failed to understand the union object type.");
     };
 
     test({ type: "store", name: RandomGenerator.string() });

@@ -6,7 +6,7 @@ export function test_stringify_to_json_class(): void
     const json: string = TSON.stringify<Operator>(operator);
     
     if (json !== "9")
-        throw new Error("Bug on typescript-json.stringify(): failed to detect the toJSON() method.");
+        throw new Error("Bug on TSON.stringify(): failed to detect the toJSON() method.");
 }
 
 class Operator

@@ -17,7 +17,7 @@ export function test_stringify_object_alias(): void
     const parsed: Alias = JSON.parse(json);
 
     if (Primitive.equal_to(member, parsed) === false)
-        throw new Error("Bug on typescript-json.createStringifier(): failed to understand the object alias type.");
+        throw new Error("Bug on TSON.createStringifier(): failed to understand the object alias type.");
 }
 
 interface IMember
