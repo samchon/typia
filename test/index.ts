@@ -1,5 +1,6 @@
+import { IPointer } from "tstl/functional/IPointer";
+
 import { DynamicImportIterator } from "./internal/DynamicImportIterator";
-import { IPointer } from "./internal/IPointer";
 
 async function main(): Promise<void>
 {

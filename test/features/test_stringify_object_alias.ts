@@ -1,9 +1,9 @@
 import TSON from "../../src";
 import { Primitive } from "../internal/Primitive";
 
-export function test_stringify_simple(): void
+export function test_stringify_object_alias(): void
 {
-    const member: IMember = {
+    const member: Alias = {
         id: "some-id",
         email: "someone@someone.com",
         name: "someone",
@@ -11,13 +11,13 @@ export function test_stringify_simple(): void
         age: null,
         dead: null,
     };
-    const stringify: (input: IMember) => string = TSON.createStringifier<IMember>();
+    const stringify: (input: Alias) => string = TSON.createStringifier<Alias>();
     
     const json: string = stringify(member);
-    const parsed: IMember = JSON.parse(json);
+    const parsed: Alias = JSON.parse(json);
 
     if (Primitive.equal_to(member, parsed) === false)
-        throw new Error("Bug on typescript-json.createStringifier(): wrong string conversion.");
+        throw new Error("Bug on typescript-json.createStringifier(): failed to understand the object alias type.");
 }
 
 interface IMember
@@ -29,3 +29,4 @@ interface IMember
     age: number | null;
     dead: boolean | null;
 }
+type Alias = IMember;

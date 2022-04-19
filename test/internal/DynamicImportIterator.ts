@@ -4,8 +4,8 @@ if (EXTENSION === "js")
 
 import cli from "cli";
 import fs from  "fs";
+import { IPointer } from "tstl/functional/IPointer";
 
-import { IPointer } from "./IPointer";
 import { StopWatch } from "./StopWatch";
 
 interface ICommand

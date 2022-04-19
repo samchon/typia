@@ -1,10 +1,10 @@
 import TSON from "../../src";
 
-export function test_stringify_atomic(): void
+export function test_stringify_atomic_literal()
 {
-    test(input => TSON.stringify<boolean>(input), true);
-    test(input => TSON.stringify<number>(input), 3);
-    test(input => TSON.stringify<string>(input), "hello");
+    test(input => TSON.stringify<true>(input), true as const);
+    test(input => TSON.stringify<1>(input), 1 as const);
+    test(input => TSON.stringify<"hello">(input), "hello" as const);
     test(input => TSON.stringify<null>(input), null);
 }
 

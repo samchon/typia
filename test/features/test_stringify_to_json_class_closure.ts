@@ -1,6 +1,6 @@
 import TSON from "../../src";
 
-export function test_stringify_to_json_class(): void
+export function test_stringify_to_json_class_closure(): void
 {
     const operator: Operator = new Operator(2, 3, 4);
     const json: string = TSON.stringify<Operator>(operator);
