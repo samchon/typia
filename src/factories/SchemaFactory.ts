@@ -139,6 +139,7 @@ export namespace SchemaFactory
             nullable: boolean
         ): string
     {
+        // CHECK MEMORY
         const key: Pair<ts.InterfaceType, boolean> = new Pair(type, nullable);
         const it: HashMap.Iterator<Pair<ts.InterfaceType, boolean>, [string, ISchema.IObject]> = dict.find(key);
         if (it.equals(dict.end()) === false)
@@ -152,17 +153,30 @@ export namespace SchemaFactory
         };
         dict.set(key, [id, object]);
         
-        const pred: (node: ts.Declaration) => boolean = type.isClass()
+        // PREPARE ASSETS
+        const isClass: boolean = type.isClass();
+        const pred: (node: ts.Declaration) => boolean = isClass
             ? node => (ts.isParameter(node) || ts.isPropertyDeclaration(node))
             : node => ts.isPropertySignature(node);
+        
         for (const prop of type.getProperties())
         {
+            // CHECK NODE IS A FORMAL PROPERTY
             const node: ts.PropertyDeclaration = prop.valueDeclaration as any;
             if (!node || !pred(node))
                 continue;
             else if (node.getChildren().some(child => TypeFactory.is_function(child)))
                 continue;
 
+            // CHECK NOT PRIVATE OR PROTECTED MEMBER
+            if (isClass)
+            {
+                const kind = node.getChildren()[0]?.getChildren()[0]?.kind;
+                if (kind === ts.SyntaxKind.PrivateKeyword || kind === ts.SyntaxKind.ProtectedKeyword)
+                    continue;
+            }
+
+            // DETERMINE PROPERTY TYPE BY ADDITIONAL EXPLORATION
             const key = node.name.getText();
             const type = node.type ? checker.getTypeFromTypeNode(node.type) : null;
 
