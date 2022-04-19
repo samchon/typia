@@ -4,7 +4,7 @@ import ts from "typescript";
 import { JsonFactory } from "../factories/JsonFactory";
 import { SchemaFactory } from "../factories/SchemaFactory";
 import { IProject } from "../structures/IProject";
-import { ISchema } from "../structures/IMetadata";
+import { ISchema } from "../structures/ISchema";
 
 export function argue_stringify
     (

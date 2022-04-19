@@ -9,7 +9,8 @@ export namespace ISchema
 {
     export interface IObject
     {
-        [key: string]: ISchema | null;
+        properties: Record<string, ISchema | null>;
+        nullable: boolean;
     }
 
     export interface IApplication

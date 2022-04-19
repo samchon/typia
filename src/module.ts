@@ -1,5 +1,11 @@
+import crypto from "crypto";
 import faster from "fast-json-stringify";
+import { v4 } from "uuid";
+
 import { JsonMemory } from "./storages/JsonMemory";
+
+if (!crypto.randomUUID)
+    crypto.randomUUID = () => v4();
 
 /**
  * 2x faster `JSON.stringify()` function.

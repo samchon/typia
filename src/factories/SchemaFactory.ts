@@ -1,34 +1,45 @@
+import crypto from "crypto";
 import ts from "typescript";
+import { HashMap } from "tstl/container/HashMap";
+import { Pair } from "tstl/utility/Pair";
 import { Singleton } from "tstl/thread/Singleton";
 
-import { ISchema } from "../structures/IMetadata";
+import { ISchema } from "../structures/ISchema";
+import { TypeFactory } from "./TypeFactry";
 
 export namespace SchemaFactory
 {
-    export function generate(checker: ts.TypeChecker, type: ts.Type): ISchema.IApplication | null
+    export function generate
+        (
+            checker: ts.TypeChecker, 
+            type: ts.Type | null
+        ): ISchema.IApplication | null
     {
         // CONSTRUCT SCHEMA WITH OBJECTS
-        const dict: Map<ts.InterfaceType, [string, ISchema.IObject]> = new Map();
-        const schema: ISchema | null = explore(checker, dict, type);
+        const dict: HashMap<Pair<ts.InterfaceType, boolean>, [string, ISchema.IObject]> = new HashMap();
+        const entity: ISchema | null = explore(checker, dict, type);
 
         // SERIALIZE STORAGE
         const storage: ISchema.IStorage = {};
-        for (const [key, value] of dict.values())
-            storage[key] = value;
+        for (const it of dict)
+            storage[it.second[0]] = it.second[1];
 
         // RETURNS
-        return schema 
-            ? { ...schema, storage } 
+        return entity 
+            ? { ...entity, storage } 
             : null;
     }
 
     function explore
         (
             checker: ts.TypeChecker, 
-            dict: Map<ts.InterfaceType, [string, ISchema.IObject]>,
-            type: ts.Type,
+            dict: HashMap<Pair<ts.InterfaceType, boolean>, [string, ISchema.IObject]>,
+            type: ts.Type | null,
         ): ISchema | null
     {
+        if (type === null)
+            return null;
+
         const schema: ISchema = {
             atomics: new Set(),
             arraies: new Map(),
@@ -43,14 +54,19 @@ export namespace SchemaFactory
     function iterate
         (
             checker: ts.TypeChecker, 
-            dict: Map<ts.InterfaceType, [string, ISchema.IObject]>, 
+            dict: HashMap<Pair<ts.InterfaceType, boolean>, [string, ISchema.IObject]>, 
             schema: ISchema, 
             type: ts.Type
         ): boolean
     {
+        type = TypeFactory.escape(checker, type);
         if (type.isUnion())
             return type.types.every(t => iterate(checker, dict, schema, t));
 
+        const node: ts.TypeNode | undefined = checker.typeToTypeNode(type, undefined, undefined);
+        if (!node)
+            return false;
+        
         const filter = (flag: ts.TypeFlags) => (type.flags & flag) !== 0;
         const check = (flag: ts.TypeFlags, literal: ts.TypeFlags, className: string) =>
         {
@@ -73,10 +89,43 @@ export namespace SchemaFactory
             if (check(flag, literal, className) === true)
                 return true;
 
-        // WHEN OBJECT
-        if (type.isClassOrInterface())
+        // WHEN ARRAY
+        if (ts.isArrayTypeNode(node))
         {
-            const key: string = emplace(checker, dict, type);
+            const elemType: ts.Type | null = checker.getTypeArguments(type as ts.TypeReference)[0] || null;
+            const elemSchema: ISchema | null = explore(checker, dict, elemType);
+            
+            const key: string = get_uid(elemSchema);
+            schema.arraies.set(key, elemSchema);
+        }
+
+        // WHEN TUPLE
+        else if (ts.isTupleTypeNode(node))
+        {
+            if (node.elements.length === 0)
+                return false;
+
+            const elemSchema: ISchema | null = explore
+            (
+                checker, 
+                dict, 
+                checker.getTypeFromTypeNode(node.elements[0]!)
+            );
+            if (elemSchema === null)
+                return false;
+            
+            for (const elem of node.elements.slice(1))
+                if (iterate(checker, dict, elemSchema, checker.getTypeFromTypeNode(elem)) === false)
+                    return false;
+
+            const key: string = get_uid(elemSchema);
+            schema.arraies.set(key, elemSchema);
+        }
+
+        // WHEN OBJECT
+        else if (type.isClassOrInterface())
+        {
+            const key: string = emplace(checker, dict, type, schema.nullable);
             schema.objects.add(`external#/${key}`);
         }
         return true;
@@ -85,30 +134,65 @@ export namespace SchemaFactory
     function emplace
         (
             checker: ts.TypeChecker,
-            dict: Map<ts.InterfaceType, [string, ISchema.IObject]>,
+            dict: HashMap<Pair<ts.InterfaceType, boolean>, [string, ISchema.IObject]>,
             type: ts.InterfaceType,
+            nullable: boolean
         ): string
     {
-        const oldbie = dict.get(type);
-        if (oldbie !== undefined)
-            oldbie[0];
+        const key: Pair<ts.InterfaceType, boolean> = new Pair(type, nullable);
+        const it: HashMap.Iterator<Pair<ts.InterfaceType, boolean>, [string, ISchema.IObject]> = dict.find(key);
+        if (it.equals(dict.end()) === false)
+            return it.second[0];
 
-        const key: string = `o${++sequence}`;
-        const object: ISchema.IObject = {};
+        // PRE-ENROLLMENT FOR THE RECURSIVE STRUCTURE
+        const id: string = `o${++sequence}`;
+        const object: ISchema.IObject = {
+            properties: {},
+            nullable
+        };
+        dict.set(key, [id, object]);
         
+        const pred: (node: ts.Declaration) => boolean = type.isClass()
+            ? node => (ts.isParameter(node) || ts.isPropertyDeclaration(node))
+            : node => ts.isPropertySignature(node);
         for (const prop of type.getProperties())
         {
-            const node = prop.valueDeclaration;
-            if (!node || !ts.isPropertySignature(node))
+            const node: ts.PropertyDeclaration = prop.valueDeclaration as any;
+            if (!node || !pred(node))
+                continue;
+            else if (node.getChildren().some(child => TypeFactory.is_function(child)))
                 continue;
 
             const key = node.name.getText();
             const type = node.type ? checker.getTypeFromTypeNode(node.type) : null;
-            object[key] = type ? explore(checker, dict, type) : null;
+
+            object.properties[key] = type
+                ? explore(checker, dict, type) 
+                : null;
         }
-        
-        dict.set(type, [key, object]);
-        return key;
+        return id;
+    }
+
+    function get_uid(schema: ISchema | null): string
+    {
+        if (schema === null)
+            return "null";
+
+        return crypto.createHash("sha256")
+            .update(JSON.stringify(to_primitive(schema)))
+            .digest("base64");
+    }
+
+    function to_primitive(schema: ISchema | null): any
+    {
+        if (schema === null)
+            return null;
+        return {
+            atomics: Array.from(schema.atomics),
+            arraies: [...schema.arraies].map(([key, value]) => [key, to_primitive(value)]),
+            objects: Array.from(schema.objects),
+            nullable: schema.nullable
+        };
     }
 }
 

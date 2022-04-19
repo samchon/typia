@@ -1,7 +1,7 @@
 import ts from "typescript";
 import { Singleton } from "tstl/thread/Singleton";
 
-import { ISchema } from "../structures/IMetadata";
+import { ISchema } from "../structures/ISchema";
 
 export namespace JsonFactory
 {
@@ -40,18 +40,24 @@ export namespace JsonFactory
     function generate_object(object: ISchema.IObject): ts.ObjectLiteralExpression
     {
         const properties: ts.PropertyAssignment[] = Object
-            .entries(object)
+            .entries(object.properties)
             .map(([key, value]) => ts.factory.createPropertyAssignment
             (
                 key,
                 schema(value)
             ));
-        const assignment: ts.PropertyAssignment = ts.factory.createPropertyAssignment
-        (
-            "properties",
-            ts.factory.createObjectLiteralExpression(properties, true)
-        );
-        return ts.factory.createObjectLiteralExpression([ assignment ], true)
+        const members: ts.PropertyAssignment[] = [
+            ts.factory.createPropertyAssignment("type", 
+                ts.factory.createStringLiteral("object")
+            ),
+            ts.factory.createPropertyAssignment("properties", 
+                ts.factory.createObjectLiteralExpression(properties, true)
+            ),
+            ts.factory.createPropertyAssignment("nullable",
+                ts.factory.createIdentifier(object.nullable.toString())
+            )
+        ];
+        return ts.factory.createObjectLiteralExpression(members, true)
     }
 
     /* -----------------------------------------------------------
@@ -67,7 +73,9 @@ export namespace JsonFactory
         for (const type of elem.atomics)
             unions.push(generate_atomic(type, elem.nullable));
         for (const address of elem.objects.values())
-            unions.push(generate_pointer(address, elem.nullable));
+            unions.push(generate_pointer(address));
+        for (const schema of elem.arraies.values())
+            unions.push(generate_array(schema, elem.nullable));
 
         // NO MULTIPLE UNION TYPES
         if (unions.length === 0)
@@ -90,7 +98,7 @@ export namespace JsonFactory
             nullable: boolean
         ): ts.ObjectLiteralExpression
     {
-        const properties: ts.PropertyAssignment[] = [
+        const parameters: ts.PropertyAssignment[] = [
             ts.factory.createPropertyAssignment("type", 
                 ts.factory.createStringLiteral(type)
             ),
@@ -98,20 +106,33 @@ export namespace JsonFactory
                 ts.factory.createIdentifier(nullable.toString())
             )
         ];
-        return ts.factory.createObjectLiteralExpression(properties, true);
+        return ts.factory.createObjectLiteralExpression(parameters, true);
     }
 
-    function generate_pointer(address: string, nullable: boolean): ts.ObjectLiteralExpression
+    function generate_pointer(address: string): ts.ObjectLiteralExpression
     {
-        const properties: ts.PropertyAssignment[] = [
+        const members: ts.PropertyAssignment[] = [
             ts.factory.createPropertyAssignment("$ref", 
                 ts.factory.createStringLiteral(address)
+            )
+        ];
+        return ts.factory.createObjectLiteralExpression(members, true);
+    }
+
+    function generate_array(elem: ISchema | null, nullable: boolean)
+    {
+        const members: ts.PropertyAssignment[] = [
+            ts.factory.createPropertyAssignment("type",
+                ts.factory.createStringLiteral("array")
             ),
-            ts.factory.createPropertyAssignment("nullable", 
+            ts.factory.createPropertyAssignment("items", 
+                schema(elem)
+            ),
+            ts.factory.createPropertyAssignment("nullable",
                 ts.factory.createIdentifier(nullable.toString())
             )
         ];
-        return ts.factory.createObjectLiteralExpression(properties, true);
+        return ts.factory.createObjectLiteralExpression(members, true);
     }
 }
 const empty = new Singleton(() => ts.factory.createObjectLiteralExpression([], true));
