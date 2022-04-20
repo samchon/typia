@@ -1,6 +1,6 @@
 import TSON from "../../src";
 
-export function test_stringify_class_closure()
+export function test_stringify_class_closure(): void
 {
     const something: Something = new Something("1234");
     const json: string = TSON.stringify<Something>(something);
