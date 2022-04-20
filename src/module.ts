@@ -61,6 +61,34 @@ export function stringify<T>
 }
 
 /**
+ * > You must configure the generic argument `T`.
+ * 
+ * 2x faster `JSON.stringify()` function generator.
+ * 
+ * Creates a function who can convert TypeScript value to the JSON (JavaSript Object Noation) 
+ * string. directly. The returned function is two times faster than the native 
+ * `JSON.stringify()`, because the function constructs a dedicated JSON string builder 
+ * only for the type `T`.
+ * 
+ * Also, the returned function is always reusable until you forget the returned function
+ * variable. Of course, it means that you've to manage the returned function by yourself.
+ * If you feel annoying for management, you can choose {@link stringify} instead. The 
+ * {@link stringify} function stores the type `T` and its JSON string builder in the
+ * global memory and reused whenever the {@link stringify} function be called with the
+ * same type `T`.
+ * 
+ * On the other hand, if you've encountered an error which starts from the 
+ * "no transform has been configured" message when calling this {@link createStringifier} 
+ * function, it means that you haven't configured the `tsconfig.json` file. Visit the 
+ * https://github.com/samchon/typescript-json and configure the `tsconfig.json` file follow 
+ * the [README](https://github.com/samchon/typescript-json#tsconfigjson) content.
+ * 
+ * @return 2x faster `JSON.stringify()` function.
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createStringifier(): never;
+
+/**
  * 2x faster `JSON.stringify()` function generator.
  * 
  * Creates a function who can convert TypeScript value to the JSON (JavaSript Object Noation) 

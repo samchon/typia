@@ -1,7 +1,7 @@
 import ts from "typescript";
 
+import { FunctionFactory } from "../factories/FunctionFactory";
 import { IProject } from "../structures/IProject";
-import { get_json_function } from "../functional/get_json_function";
 
 export namespace NodeTransformer
 {
@@ -14,19 +14,25 @@ export namespace NodeTransformer
         if (!ts.isCallExpression(expression))
             return expression;
         
-        const func = get_json_function(project, expression);
+        const func: FunctionFactory.Closure | null = FunctionFactory.generate
+        (
+            project, 
+            expression
+        );
         if (func === null)
             return expression;
         
-        const generic: ts.TypeNode = expression.typeArguments![0]!;
-        const type: ts.Type = project.checker.getTypeFromTypeNode(generic);
+        const noe: ts.TypeNode | null = (expression.typeArguments || [])[0] || null;
+        const type: ts.Type | null = noe 
+            ? project.checker.getTypeFromTypeNode(noe) 
+            : null;
         
         return ts.factory.updateCallExpression
         (
             expression,
             expression.expression,
             expression.typeArguments,
-            [ ...expression.arguments, func(project, type, generic) ]
+            [ ...expression.arguments, func(project, expression, type) ]
         );
     }
 }
