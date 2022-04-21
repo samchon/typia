@@ -30,7 +30,7 @@ interface ICompany
 interface IEmployee
 {
     name: string;
-    gendor: string | number | null;
+    gender: string | number | null;
 }
 const company: ICompany;
 
