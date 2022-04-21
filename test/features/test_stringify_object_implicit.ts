@@ -18,6 +18,6 @@ export function test_stringify_object_implicit(): void
 interface ILecture
 {
     name: string;
-    professor: string;
-    grade: number;
+    professor?: string | number;
+    grade: number | undefined;
 }
