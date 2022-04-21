@@ -2,10 +2,11 @@ import crypto from "crypto";
 import path from "path";
 import ts from "typescript";
 
-import { JsonFactory } from "../factories/JsonFactory";
 import { SchemaFactory } from "../factories/SchemaFactory";
+import { IMetadata } from "../structures/IMetadata";
 import { IProject } from "../structures/IProject";
-import { ISchema } from "../structures/ISchema";
+import { ExpressionFactory } from "./ExpressionFactory";
+import { MetadataFactory } from "./MetadataFactory";
 
 export namespace FunctionFactory
 {
@@ -61,12 +62,14 @@ export namespace FunctionFactory
             type = project.checker.getTypeAtLocation(top);
         }
 
-        const app: ISchema.IApplication | null = SchemaFactory.generate(project.checker, type);
-        const tuple: ts.ArrayLiteralExpression = JsonFactory.application(app);
+        const app: IMetadata.IApplication | null = MetadataFactory.generate(project.checker, type);
+        const tuple = SchemaFactory.application(app);
+        const literal = ExpressionFactory.generate(tuple);
+
         const script: string = project.printer.printNode
         (
             ts.EmitHint.Unspecified, 
-            tuple,
+            literal,
             expression.getSourceFile()
         );
         const key: string = crypto
@@ -84,7 +87,7 @@ export namespace FunctionFactory
                 [],
                 undefined,
                 undefined,
-                tuple
+                literal
             )
         ]);
     }
@@ -104,8 +107,9 @@ export namespace FunctionFactory
             throw new Error(`Error on TSON.createStringifier(): the generic argument must be specified - ${file.fileName}:${line + 1}:${character + 1}.`);
         }
 
-        const app: ISchema.IApplication | null = SchemaFactory.generate(project.checker, type);
-        const tuple: ts.ArrayLiteralExpression = JsonFactory.application(app);
+        const app: IMetadata.IApplication | null = MetadataFactory.generate(project.checker, type);
+        const tuple = SchemaFactory.application(app);
+        const literal = ExpressionFactory.generate(tuple);
 
         return ts.factory.createArrowFunction
         (
@@ -114,7 +118,7 @@ export namespace FunctionFactory
             [],
             undefined,
             undefined,
-            tuple
+            literal
         );
     }
 
