@@ -6,7 +6,7 @@ export namespace RandomGenerator
 
     export function string(length: number = randint(3, 10)): string
     {
-        return [...new Array(length)].reduce((prev)=>prev+CHARACTERS[randint(0, CHARACTERS.length - 1)]);
+        return [...new Array(length)].reduce((prev)=>prev+CHARACTERS[randint(0, CHARACTERS.length - 1)],"");
     }
 
     export function number(min: number = 0, max: number = 100): number
