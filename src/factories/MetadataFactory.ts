@@ -6,6 +6,7 @@ import { Singleton } from "tstl/thread/Singleton";
 
 import { IMetadata } from "../structures/IMetadata";
 import { TypeFactory } from "./TypeFactry";
+import { IPointer } from "tstl/functional/IPointer";
 
 export namespace MetadataFactory
 {
@@ -17,7 +18,8 @@ export namespace MetadataFactory
     {
         // CONSTRUCT SCHEMA WITH OBJECTS
         const dict: HashMap<Pair<ts.Type, boolean>, [string, IMetadata.IObject]> = new HashMap();
-        const entity: IMetadata | null = explore(checker, dict, type);
+        const counter: IPointer<number> = { value: 0 };
+        const entity: IMetadata | null = explore(checker, dict, counter, type);
 
         // SERIALIZE STORAGE
         const storage: IMetadata.IStorage = {};
@@ -34,6 +36,7 @@ export namespace MetadataFactory
         (
             checker: ts.TypeChecker, 
             dict: HashMap<Pair<ts.Type, boolean>, [string, IMetadata.IObject]>,
+            counter: IPointer<number>,
             type: ts.Type | null,
         ): IMetadata | null
     {
@@ -47,7 +50,7 @@ export namespace MetadataFactory
             nullable: false,
             required: true,
         };
-        if (iterate(checker, dict, schema, type) === false)
+        if (iterate(checker, dict, counter, schema, type) === false)
             return null;
         return schema;
     }
@@ -56,13 +59,14 @@ export namespace MetadataFactory
         (
             checker: ts.TypeChecker, 
             dict: HashMap<Pair<ts.Type, boolean>, [string, IMetadata.IObject]>, 
+            counter: IPointer<number>,
             schema: IMetadata, 
             type: ts.Type,
         ): boolean
     {
         type = TypeFactory.escape(checker, type);
         if (type.isUnion())
-            return type.types.every(t => iterate(checker, dict, schema, t));
+            return type.types.every(t => iterate(checker, dict, counter, schema, t));
 
         const node: ts.TypeNode | undefined = checker.typeToTypeNode(type, undefined, undefined);
         if (!node)
@@ -96,7 +100,7 @@ export namespace MetadataFactory
         if (ts.isArrayTypeNode(node))
         {
             const elemType: ts.Type | null = checker.getTypeArguments(type as ts.TypeReference)[0] || null;
-            const elemSchema: IMetadata | null = explore(checker, dict, elemType);
+            const elemSchema: IMetadata | null = explore(checker, dict, counter, elemType);
             
             const key: string = get_uid(elemSchema);
             schema.arraies.set(key, elemSchema);
@@ -112,13 +116,14 @@ export namespace MetadataFactory
             (
                 checker, 
                 dict, 
+                counter,
                 checker.getTypeFromTypeNode(node.elements[0]!)
             );
             if (elemSchema === null)
                 return false;
             
             for (const elem of node.elements.slice(1))
-                if (iterate(checker, dict, elemSchema, checker.getTypeFromTypeNode(elem)) === false)
+                if (iterate(checker, dict, counter, elemSchema, checker.getTypeFromTypeNode(elem)) === false)
                     return false;
         }
 
@@ -135,13 +140,15 @@ export namespace MetadataFactory
                     nullable: false,
                     required: true,
                 };
-                if (type.types.every(t => iterate(checker, fakeDict, fakeSchema, t)) === false)
+                const fakeCounter: IPointer<number> = { value: 0 };
+
+                if (type.types.every(t => iterate(checker, fakeDict, fakeCounter, fakeSchema, t)) === false)
                     return false;
                 else if (fakeSchema.atomics.size || fakeSchema.arraies.size || !fakeSchema.objects.size)
                     return false;
             }
 
-            const key: string = emplace(checker, dict, type, schema.nullable);
+            const key: string = emplace(checker, dict, counter, type, schema.nullable);
             schema.objects.add(`external#/${key}`);
         }
         return true;
@@ -151,6 +158,7 @@ export namespace MetadataFactory
         (
             checker: ts.TypeChecker,
             dict: HashMap<Pair<ts.Type, boolean>, [string, IMetadata.IObject]>,
+            counter: IPointer<number>,
             type: ts.Type,
             nullable: boolean
         ): string
@@ -162,7 +170,7 @@ export namespace MetadataFactory
             return it.second[0];
 
         // PRE-ENROLLMENT FOR THE RECURSIVE STRUCTURE
-        const id: string = `o${++sequence}`;
+        const id: string = `o${counter.value++}`;
         const object: IMetadata.IObject = {
             properties: {},
             nullable
@@ -198,7 +206,7 @@ export namespace MetadataFactory
                 ? checker.getTypeFromTypeNode(node.type) 
                 : null;
 
-            const child = type ? explore(checker, dict, type) : null;
+            const child = type ? explore(checker, dict, counter, type) : null;
             if (child && node.questionToken)
                 child.required = false;
 
@@ -236,5 +244,3 @@ const ATOMICS: Singleton<[ts.TypeFlags, ts.TypeFlags, string][]> = new Singleton
     [ts.TypeFlags.BigIntLike, ts.TypeFlags.BigIntLiteral, "BigInt"],
     [ts.TypeFlags.StringLike, ts.TypeFlags.StringLiteral, "String"]
 ]);
-
-let sequence: number = 0;
