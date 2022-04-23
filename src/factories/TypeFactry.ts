@@ -2,9 +2,10 @@ import ts from "typescript";
 
 export namespace TypeFactory
 {
-    export function escape(checker: ts.TypeChecker, type: ts.Type): ts.Type
+    export function escape(checker: ts.TypeChecker, type: ts.Type): [ts.Type, boolean]
     {
-        return get_return_type(checker, type, "toJSON") ?? type;
+        const converted: ts.Type | null = get_return_type(checker, type, "toJSON");
+        return [converted || type, !!converted];
     }
 
     export function is_function(node: ts.Node): boolean
