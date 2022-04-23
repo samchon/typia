@@ -2,9 +2,9 @@ import TSON from "../../src";
 
 export function test_stringify_class_public(): void
 {
-    const accessor: Accessor = new Accessor("public", "public", "protected", "private");
+    const accessor: Accessor = new Accessor("implicit", "public", "protected", "private");
     const json: string = TSON.stringify<Accessor>(accessor);
-    const expected: string = JSON.stringify({ implicit: "public", shown: "public" });
+    const expected: string = JSON.stringify({ implicit: "implicit", shown: "public" });
 
     if (json !== expected)
         throw new Error("Bug on TSON.stringify(): failed to understand the private class member.");
