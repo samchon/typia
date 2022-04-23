@@ -1,12 +1,12 @@
 import crypto from "crypto";
 import ts from "typescript";
 import { HashMap } from "tstl/container/HashMap";
+import { IPointer } from "tstl/functional/IPointer";
 import { Pair } from "tstl/utility/Pair";
 import { Singleton } from "tstl/thread/Singleton";
 
 import { IMetadata } from "../structures/IMetadata";
 import { TypeFactory } from "./TypeFactry";
-import { IPointer } from "tstl/functional/IPointer";
 
 export namespace MetadataFactory
 {
@@ -62,11 +62,16 @@ export namespace MetadataFactory
             counter: IPointer<number>,
             schema: IMetadata, 
             type: ts.Type,
+            parentEscaped: boolean = false
         ): boolean
     {
-        type = TypeFactory.escape(checker, type);
+        const [converted, partialEscaped] = TypeFactory.escape(checker, type);
+        if (partialEscaped === true)
+            type = converted;
+        
+        const escaped: boolean = partialEscaped || parentEscaped;;
         if (type.isUnion())
-            return type.types.every(t => iterate(checker, dict, counter, schema, t));
+            return type.types.every(t => iterate(checker, dict, counter, schema, t, escaped));
 
         const node: ts.TypeNode | undefined = checker.typeToTypeNode(type, undefined, undefined);
         if (!node)
@@ -87,18 +92,21 @@ export namespace MetadataFactory
         if (filter(ts.TypeFlags.Unknown) || filter(ts.TypeFlags.Never) || filter(ts.TypeFlags.Any))
             return false;
         else if (filter(ts.TypeFlags.Null))
-            return schema.nullable = true;
+            return escaped ? false : schema.nullable = true;
         else if (filter(ts.TypeFlags.Undefined))
-            return !(schema.required = false);
+            return escaped ? false : !(schema.required = false);
 
         // ATOMIC VALUE TYPES
         for (const [flag, literal, className] of ATOMICS.get())
             if (check(flag, literal, className) === true)
-                return true;
+                return escaped ? false : true;
 
         // WHEN ARRAY
         if (ts.isArrayTypeNode(node))
         {
+            if (escaped)
+                return false;
+                
             const elemType: ts.Type | null = checker.getTypeArguments(type as ts.TypeReference)[0] || null;
             const elemSchema: IMetadata | null = explore(checker, dict, counter, elemType);
             
@@ -109,7 +117,7 @@ export namespace MetadataFactory
         // WHEN TUPLE
         else if (ts.isTupleTypeNode(node))
         {
-            if (node.elements.length === 0)
+            if (escaped || node.elements.length === 0)
                 return false;
 
             const elemSchema: IMetadata | null = explore
@@ -151,7 +159,7 @@ export namespace MetadataFactory
             const key: string = emplace(checker, dict, counter, type, schema.nullable);
             schema.objects.add(`external#/${key}`);
         }
-        return true;
+        return !escaped;
     }
 
     function emplace
