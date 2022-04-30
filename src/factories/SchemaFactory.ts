@@ -4,7 +4,10 @@ export namespace SchemaFactory
 {
     export function application(app: IMetadata.IApplication | null)
     {
-        return [schema(app), external(app?.storage || null)];
+        return [
+            schema(app?.metadata || null), 
+            components(app?.storage || null)
+        ];
     }
 
     /* -----------------------------------------------------------
@@ -58,15 +61,15 @@ export namespace SchemaFactory
     }
 
     /* -----------------------------------------------------------
-        STORAGE
+        COMPONENTS
     ----------------------------------------------------------- */
-    export function external(storage: IMetadata.IStorage | null)
+    export function components(storage: IMetadata.IStorage | null)
     {
-        const external: Record<string, any> = {};
+        const schemas: Record<string, any> = {};
         for (const [key, value] of Object.entries(storage || []))
-            external[key] = generate_object(value);
+            schemas[key] = generate_object(value);
 
-        return { external };
+        return { components: { schemas } };
     }
 
     function generate_object(obj: IMetadata.IObject)

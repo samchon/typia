@@ -1,7 +1,6 @@
 import crypto from "crypto";
 import ts from "typescript";
 import { HashMap } from "tstl/container/HashMap";
-import { IPointer } from "tstl/functional/IPointer";
 import { Pair } from "tstl/utility/Pair";
 import { Singleton } from "tstl/thread/Singleton";
 
@@ -10,33 +9,68 @@ import { TypeFactory } from "./TypeFactry";
 
 export namespace MetadataFactory
 {
+    export class Collection
+    {
+        private readonly dict_: HashMap<Pair<ts.Type, boolean>, [string, IMetadata.IObject]>;
+        private counter_: number;
+
+        public constructor
+            (
+                public readonly inline: boolean
+            )
+        {
+            this.dict_ = new HashMap();
+            this.counter_ = 0;
+        }
+
+        public emplace(type: ts.Type, nullable: boolean): [string, IMetadata.IObject | null]
+        {
+            const key: Pair<ts.Type, boolean> = new Pair(type, nullable);
+            const it = this.dict_.find(key);
+            
+            if (it.equals(this.dict_.end()) === false)
+                return [it.second[0], null];
+            
+            const id: string = `o${this.counter_++}`;
+            const obj: IMetadata.IObject = {
+                nullable,
+                properties: {}
+            };
+            this.dict_.emplace(key, [id, obj]);
+
+            return [id, obj];
+        }
+
+        public storage(): IMetadata.IStorage
+        {
+            const storage: IMetadata.IStorage = {};
+            for (const it of this.dict_)
+                storage[it.second[0]] = it.second[1];
+            return storage;
+        }
+    }
+
     export function generate
         (
             checker: ts.TypeChecker, 
-            type: ts.Type | null
+            type: ts.Type | null,
+            collection: Collection = new Collection(true),
         ): IMetadata.IApplication | null
     {
         // CONSTRUCT SCHEMA WITH OBJECTS
-        const dict: HashMap<Pair<ts.Type, boolean>, [string, IMetadata.IObject]> = new HashMap();
-        const counter: IPointer<number> = { value: 0 };
-        const entity: IMetadata | null = explore(checker, dict, counter, type);
+        const metadata: IMetadata | null = explore(collection, checker, type);
+        if (metadata === null)
+            return null;
 
-        // SERIALIZE STORAGE
-        const storage: IMetadata.IStorage = {};
-        for (const it of dict)
-            storage[it.second[0]] = it.second[1];
-
-        // RETURNS
-        return entity 
-            ? { ...entity, storage } 
-            : null;
+        // RETURNS WITH STORAGE
+        const storage: IMetadata.IStorage = collection.storage();
+        return { metadata, storage } 
     }
 
     function explore
         (
+            collection: Collection,
             checker: ts.TypeChecker, 
-            dict: HashMap<Pair<ts.Type, boolean>, [string, IMetadata.IObject]>,
-            counter: IPointer<number>,
             type: ts.Type | null,
         ): IMetadata | null
     {
@@ -50,16 +84,15 @@ export namespace MetadataFactory
             nullable: false,
             required: true,
         };
-        if (iterate(checker, dict, counter, schema, type) === false)
+        if (iterate(collection, checker, schema, type) === false)
             return null;
         return schema;
     }
 
     function iterate
         (
-            checker: ts.TypeChecker, 
-            dict: HashMap<Pair<ts.Type, boolean>, [string, IMetadata.IObject]>, 
-            counter: IPointer<number>,
+            collection: Collection,
+            checker: ts.TypeChecker,  
             schema: IMetadata, 
             type: ts.Type,
             parentEscaped: boolean = false
@@ -71,7 +104,7 @@ export namespace MetadataFactory
         
         const escaped: boolean = partialEscaped || parentEscaped;;
         if (type.isUnion())
-            return type.types.every(t => iterate(checker, dict, counter, schema, t, escaped));
+            return type.types.every(t => iterate(collection, checker, schema, t, escaped));
 
         const node: ts.TypeNode | undefined = checker.typeToTypeNode(type, undefined, undefined);
         if (!node)
@@ -108,7 +141,7 @@ export namespace MetadataFactory
                 return false;
                 
             const elemType: ts.Type | null = checker.getTypeArguments(type as ts.TypeReference)[0] || null;
-            const elemSchema: IMetadata | null = explore(checker, dict, counter, elemType);
+            const elemSchema: IMetadata | null = explore(collection, checker, elemType);
             
             const key: string = get_uid(elemSchema);
             schema.arraies.set(key, elemSchema);
@@ -122,16 +155,15 @@ export namespace MetadataFactory
 
             const elemSchema: IMetadata | null = explore
             (
+                collection,
                 checker, 
-                dict, 
-                counter,
                 checker.getTypeFromTypeNode(node.elements[0]!)
             );
             if (elemSchema === null)
                 return false;
             
             for (const elem of node.elements.slice(1))
-                if (iterate(checker, dict, counter, elemSchema, checker.getTypeFromTypeNode(elem)) === false)
+                if (iterate(collection, checker, elemSchema, checker.getTypeFromTypeNode(elem)) === false)
                     return false;
         }
 
@@ -140,7 +172,7 @@ export namespace MetadataFactory
         {
             if (type.isIntersection())
             {
-                const fakeDict: HashMap<Pair<ts.Type, boolean>, [string, IMetadata.IObject]> = new HashMap();
+                const fakeCollection = new Collection(true);
                 const fakeSchema: IMetadata = {
                     atomics: new Set(),
                     arraies: new Map(),
@@ -148,42 +180,40 @@ export namespace MetadataFactory
                     nullable: false,
                     required: true,
                 };
-                const fakeCounter: IPointer<number> = { value: 0 };
 
-                if (type.types.every(t => iterate(checker, fakeDict, fakeCounter, fakeSchema, t)) === false)
+                if (type.types.every(t => iterate(fakeCollection, checker, fakeSchema, t)) === false)
                     return false;
                 else if (fakeSchema.atomics.size || fakeSchema.arraies.size || !fakeSchema.objects.size)
                     return false;
             }
 
-            const key: string = emplace(checker, dict, counter, type, schema.nullable);
-            schema.objects.add(`external#/${key}`);
+            const key: string = emplace
+            (
+                collection, 
+                checker, 
+                type, 
+                schema.nullable
+            );
+            schema.objects.add(collection.inline 
+                ? `components#/schemas/${key}`
+                : `#/components/schemas/${key}`
+            );
         }
         return !escaped;
     }
 
     function emplace
         (
+            collection: Collection,
             checker: ts.TypeChecker,
-            dict: HashMap<Pair<ts.Type, boolean>, [string, IMetadata.IObject]>,
-            counter: IPointer<number>,
             type: ts.Type,
             nullable: boolean
         ): string
     {
         // CHECK MEMORY
-        const key: Pair<ts.Type, boolean> = new Pair(type, nullable);
-        const it: HashMap.Iterator<Pair<ts.Type, boolean>, [string, IMetadata.IObject]> = dict.find(key);
-        if (it.equals(dict.end()) === false)
-            return it.second[0];
-
-        // PRE-ENROLLMENT FOR THE RECURSIVE STRUCTURE
-        const id: string = `o${counter.value++}`;
-        const object: IMetadata.IObject = {
-            properties: {},
-            nullable
-        };
-        dict.set(key, [id, object]);
+        const [id, object] = collection.emplace(type, nullable);
+        if (object === null)
+            return id;
         
         // PREPARE ASSETS
         const isClass: boolean = type.isClass();
@@ -214,7 +244,7 @@ export namespace MetadataFactory
                 ? checker.getTypeFromTypeNode(node.type) 
                 : null;
 
-            const child = type ? explore(checker, dict, counter, type) : null;
+            const child = type ? explore(collection, checker, type) : null;
             if (child && node.questionToken)
                 child.required = false;
 
