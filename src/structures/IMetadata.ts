@@ -15,8 +15,8 @@ export namespace IMetadata
     }
 
     export interface IApplication
-        extends IMetadata
     {
+        metadata: IMetadata;
         storage: IStorage;
     }
     export type IStorage = Record<string, IMetadata.IObject>;
