@@ -58,13 +58,18 @@ export namespace MetadataFactory
         ): IMetadata.IApplication | null
     {
         // CONSTRUCT SCHEMA WITH OBJECTS
-        const metadata: IMetadata | null = explore(collection, checker, type);
+        const metadata: IMetadata | null = explore
+        (
+            collection, 
+            checker, 
+            type
+        );
         if (metadata === null)
             return null;
 
         // RETURNS WITH STORAGE
         const storage: IMetadata.IStorage = collection.storage();
-        return { metadata, storage } 
+        return { metadata, storage };
     }
 
     function explore
@@ -102,14 +107,14 @@ export namespace MetadataFactory
         if (partialEscaped === true)
             type = converted;
         
-        const escaped: boolean = partialEscaped || parentEscaped;;
+        const escaped: boolean = partialEscaped || parentEscaped;
         if (type.isUnion())
             return type.types.every(t => iterate(collection, checker, schema, t, escaped));
 
         const node: ts.TypeNode | undefined = checker.typeToTypeNode(type, undefined, undefined);
         if (!node)
             return false;
-        
+
         const filter = (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
         const check = (flag: ts.TypeFlags, literal: ts.TypeFlags, className: string) =>
         {
@@ -121,19 +126,19 @@ export namespace MetadataFactory
             return false
         };
         
-        // UNKNOWN OR NULL
+        // UNKNOWN, NULL OR UNDEFINED
         if (filter(ts.TypeFlags.Unknown) || filter(ts.TypeFlags.Never) || filter(ts.TypeFlags.Any))
             return false;
         else if (filter(ts.TypeFlags.Null))
             return escaped ? false : schema.nullable = true;
-        else if (filter(ts.TypeFlags.Undefined))
+        else if (filter(ts.TypeFlags.Undefined) || filter(ts.TypeFlags.Void) || filter(ts.TypeFlags.VoidLike))
             return escaped ? false : !(schema.required = false);
 
         // ATOMIC VALUE TYPES
         for (const [flag, literal, className] of ATOMICS.get())
             if (check(flag, literal, className) === true)
                 return escaped ? false : true;
-
+        
         // WHEN ARRAY
         if (ts.isArrayTypeNode(node))
         {
@@ -157,7 +162,7 @@ export namespace MetadataFactory
             (
                 collection,
                 checker, 
-                checker.getTypeFromTypeNode(node.elements[0]!)
+                checker.getTypeFromTypeNode(node.elements[0]!),
             );
             if (elemSchema === null)
                 return false;
@@ -168,7 +173,7 @@ export namespace MetadataFactory
         }
 
         // WHEN OBJECT, MAYBE
-        else if (type.isClassOrInterface() || ts.isTypeLiteralNode(node) || type.isIntersection())
+        else if (filter(ts.TypeFlags.Object))
         {
             if (type.isIntersection())
             {
@@ -180,7 +185,6 @@ export namespace MetadataFactory
                     nullable: false,
                     required: true,
                 };
-
                 if (type.types.every(t => iterate(fakeCollection, checker, fakeSchema, t)) === false)
                     return false;
                 else if (fakeSchema.atomics.size || fakeSchema.arraies.size || !fakeSchema.objects.size)
@@ -190,7 +194,7 @@ export namespace MetadataFactory
             const key: string = emplace
             (
                 collection, 
-                checker, 
+                checker,
                 type, 
                 schema.nullable
             );
@@ -206,22 +210,22 @@ export namespace MetadataFactory
         (
             collection: Collection,
             checker: ts.TypeChecker,
-            type: ts.Type,
+            parent: ts.Type,
             nullable: boolean
         ): string
     {
         // CHECK MEMORY
-        const [id, object] = collection.emplace(type, nullable);
+        const [id, object] = collection.emplace(parent, nullable);
         if (object === null)
             return id;
-        
+
         // PREPARE ASSETS
-        const isClass: boolean = type.isClass();
+        const isClass: boolean = parent.isClass();
         const pred: (node: ts.Declaration) => boolean = isClass
             ? node => (ts.isParameter(node) || ts.isPropertyDeclaration(node))
             : node => (ts.isPropertySignature(node) || ts.isTypeLiteralNode(node));
 
-        for (const prop of type.getProperties())
+        for (const prop of parent.getApparentProperties())
         {
             // CHECK NODE IS A FORMAL PROPERTY
             const node: ts.PropertyDeclaration | undefined = (prop.getDeclarations() || [])[0] as ts.PropertyDeclaration | undefined;
@@ -233,18 +237,22 @@ export namespace MetadataFactory
             // CHECK NOT PRIVATE OR PROTECTED MEMBER
             if (isClass)
             {
-                const kind = node.getChildren()[0]?.getChildren()[0]?.kind;
+                const kind: ts.SyntaxKind | undefined = node.getChildren()[0]?.getChildren()[0]?.kind;
                 if (kind === ts.SyntaxKind.PrivateKeyword || kind === ts.SyntaxKind.ProtectedKeyword)
                     continue;
             }
 
-            // DETERMINE PROPERTY TYPE BY ADDITIONAL EXPLORATION
+            // GET EXACT TYPE
             const key: string = node.name.getText();
-            const type: ts.Type | null = node.type 
-                ? checker.getTypeFromTypeNode(node.type) 
-                : null;
-
-            const child = type ? explore(collection, checker, type) : null;
+            const type: ts.Type = checker.getTypeOfSymbolAtLocation(prop, node);
+            
+            // CHILD METADATA BY ADDITIONAL EXPLORATION
+            const child = explore
+            (
+                collection, 
+                checker, 
+                type,
+            );
             if (child && node.questionToken)
                 child.required = false;
 

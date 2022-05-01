@@ -61,7 +61,7 @@ export namespace FunctionFactory
             const top: ts.Expression = expression.arguments[0]!
             type = project.checker.getTypeAtLocation(top);
         }
-
+        
         const app: IMetadata.IApplication | null = MetadataFactory.generate(project.checker, type);
         const tuple = SchemaFactory.application(app);
         const literal = ExpressionFactory.generate(tuple);
