@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "2.0.9-dev.20220503-3",
+  "version": "2.0.9",
   "description": "Faster JSON stringify with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -33,15 +33,15 @@
     "@types/uuid": "^8.3.4",
     "cli": "^1.0.1",
     "rimraf": "^3.0.2",
+    "suppress-warnings": "^1.0.2",
     "ts-node": "^10.7.0",
     "ttypescript": "^1.5.13",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.4"
   },
   "dependencies": {
     "fast-json-stringify": "^3.1.0",
     "nested-error-stacks": "^2.1.1",
-    "suppress-warnings": "^1.0.2",
-    "tstl": "^2.5.3",
+    "tstl": "^2.5.6",
     "uuid": "^8.3.2"
   }
 }
