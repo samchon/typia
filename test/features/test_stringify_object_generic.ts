@@ -1,6 +1,6 @@
 import TSON from "../../src";
 
-export function test_stringify_object_generic_alias(): void
+export function test_stringify_object_generic(): void
 {
     const something: ISomething<string> = {
         value: "value",
@@ -8,7 +8,11 @@ export function test_stringify_object_generic_alias(): void
             child_value: "child_value",
             child_next: "child_next"
         },
-        elements: ["one", "two", "three"],
+        elements: [
+            { child_value: "one", child_next: "one" }, 
+            { child_value: "two", child_next: "two" },
+            { child_value: "three", child_next: "three" },
+        ],
     };
     const json: string = TSON.stringify<ISomething<string>>(something);
     const expected: string = JSON.stringify(something);
@@ -21,10 +25,10 @@ interface ISomething<T>
 {
     value: T;
     child: IChild<T>;
-    elements: T[];
+    elements: IChild<T>[];
 }
-interface IChild<U>
+interface IChild<V, N = V>
 {
-    child_value: U;
-    child_next: U;
+    child_value: V;
+    child_next: N;
 }

@@ -6,13 +6,14 @@ import { Singleton } from "tstl/thread/Singleton";
 
 import { IMetadata } from "../structures/IMetadata";
 import { TypeFactory } from "./TypeFactry";
+import { MapUtil } from "../utils/MapUtil";
 
 export namespace MetadataFactory
 {
     export class Collection
     {
         private readonly dict_: HashMap<Pair<ts.Type, boolean>, [string, IMetadata.IObject]>;
-        private counter_: number;
+        private readonly names_: Map<string, Map<ts.Type, string>>;
 
         public constructor
             (
@@ -20,10 +21,23 @@ export namespace MetadataFactory
             )
         {
             this.dict_ = new HashMap();
-            this.counter_ = 0;
+            this.names_ = new Map();
         }
 
-        public emplace(type: ts.Type, nullable: boolean): [string, IMetadata.IObject | null]
+        public storage(): IMetadata.IStorage
+        {
+            const storage: IMetadata.IStorage = {};
+            for (const it of this.dict_)
+                storage[it.second[0]] = it.second[1];
+            return storage;
+        }
+
+        public emplace
+            (
+                checker: ts.TypeChecker,
+                type: ts.Type, 
+                nullable: boolean
+            ): [string, IMetadata.IObject | null]
         {
             const key: Pair<ts.Type, boolean> = new Pair(type, nullable);
             const it = this.dict_.find(key);
@@ -31,7 +45,7 @@ export namespace MetadataFactory
             if (it.equals(this.dict_.end()) === false)
                 return [it.second[0], null];
             
-            const id: string = `o${this.counter_++}`;
+            const id: string = this.get_name(checker, type, nullable);
             const obj: IMetadata.IObject = {
                 nullable,
                 properties: {}
@@ -41,12 +55,33 @@ export namespace MetadataFactory
             return [id, obj];
         }
 
-        public storage(): IMetadata.IStorage
+        private get_name
+            (
+                checker: ts.TypeChecker,
+                type: ts.Type, 
+                nullable: boolean
+            ): string
         {
-            const storage: IMetadata.IStorage = {};
-            for (const it of this.dict_)
-                storage[it.second[0]] = it.second[1];
-            return storage;
+            const name: string = `${TypeFactory.full_name(checker, type)}.${nullable ? "Nullable" : "NonNullable"}`
+                .split("&").join("-and-")
+                .split("|").join("-or-")
+                .split("<").join("-lt-")
+                .split(">").join("-gt-")
+                .split(",").join("-comma-")
+                .split("'").join("")
+                .split('"').join("")
+                .split(" ").join("");
+            const duplicates: Map<ts.Type, string> = MapUtil.take(this.names_, name, () => new Map());
+            const oldbie = duplicates.get(type);
+
+            if (oldbie)
+                return oldbie;
+            
+            const emended: string = duplicates.size
+                ? `${name}.o${duplicates.size}`
+                : name;
+            duplicates.set(type, emended);
+            return emended;
         }
     }
 
@@ -221,7 +256,7 @@ export namespace MetadataFactory
         ): string
     {
         // CHECK MEMORY
-        const [id, object] = collection.emplace(parent, nullable);
+        const [id, object] = collection.emplace(checker, parent, nullable);
         if (object === null)
             return id;
 
