@@ -6,7 +6,9 @@ export namespace SchemaFactory
     {
         return [
             schema(app?.metadata || null), 
-            components(app?.storage || null)
+            {
+                components: components(app?.storage || null)
+            }
         ];
     }
 
@@ -69,7 +71,7 @@ export namespace SchemaFactory
         for (const [key, value] of Object.entries(storage || []))
             schemas[key] = generate_object(value);
 
-        return { components: { schemas } };
+        return { schemas };
     }
 
     function generate_object(obj: IMetadata.IObject)

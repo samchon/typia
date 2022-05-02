@@ -103,14 +103,17 @@ export namespace MetadataFactory
             parentEscaped: boolean = false
         ): boolean
     {
+        // ESCAPE toJSON() METHOD
         const [converted, partialEscaped] = TypeFactory.escape(checker, type);
         if (partialEscaped === true)
             type = converted;
         
+        // WHEN UNION TYPE
         const escaped: boolean = partialEscaped || parentEscaped;
         if (type.isUnion())
             return type.types.every(t => iterate(collection, checker, schema, t, escaped));
 
+        // NODE AND ATOMIC TYPE CHECKER
         const node: ts.TypeNode | undefined = checker.typeToTypeNode(type, undefined, undefined);
         if (!node)
             return false;
@@ -138,22 +141,9 @@ export namespace MetadataFactory
         for (const [flag, literal, className] of ATOMICS.get())
             if (check(flag, literal, className) === true)
                 return escaped ? false : true;
-        
-        // WHEN ARRAY
-        if (ts.isArrayTypeNode(node))
-        {
-            if (escaped)
-                return false;
-                
-            const elemType: ts.Type | null = checker.getTypeArguments(type as ts.TypeReference)[0] || null;
-            const elemSchema: IMetadata | null = explore(collection, checker, elemType);
-            
-            const key: string = get_uid(elemSchema);
-            schema.arraies.set(key, elemSchema);
-        }
 
         // WHEN TUPLE
-        else if (ts.isTupleTypeNode(node))
+        if (ts.isTupleTypeNode(node))
         {
             if (escaped || node.elements.length === 0)
                 return false;
@@ -170,6 +160,22 @@ export namespace MetadataFactory
             for (const elem of node.elements.slice(1))
                 if (iterate(collection, checker, elemSchema, checker.getTypeFromTypeNode(elem)) === false)
                     return false;
+        }
+
+        // WHEN ARRAY
+        else if (ts.isArrayTypeNode(node) || !!type.getNumberIndexType())
+        {
+            if (escaped)
+                return false;
+                
+            const elemType: ts.Type | null 
+                = type.getNumberIndexType()
+                || checker.getTypeArguments(type as ts.TypeReference)[0] 
+                || null;
+            const elemSchema: IMetadata | null = explore(collection, checker, elemType);
+            
+            const key: string = get_uid(elemSchema);
+            schema.arraies.set(key, elemSchema);
         }
 
         // WHEN OBJECT, MAYBE
