@@ -1,54 +1,14 @@
 import crypto from "crypto";
 import ts from "typescript";
-import { HashMap } from "tstl/container/HashMap";
-import { Pair } from "tstl/utility/Pair";
 import { Singleton } from "tstl/thread/Singleton";
 
 import { IMetadata } from "../structures/IMetadata";
+import { MetadataCollection } from "../storages/MetadataCollection";
 import { TypeFactory } from "./TypeFactry";
 
 export namespace MetadataFactory
 {
-    export class Collection
-    {
-        private readonly dict_: HashMap<Pair<ts.Type, boolean>, [string, IMetadata.IObject]>;
-        private counter_: number;
-
-        public constructor
-            (
-                public readonly inline: boolean
-            )
-        {
-            this.dict_ = new HashMap();
-            this.counter_ = 0;
-        }
-
-        public emplace(type: ts.Type, nullable: boolean): [string, IMetadata.IObject | null]
-        {
-            const key: Pair<ts.Type, boolean> = new Pair(type, nullable);
-            const it = this.dict_.find(key);
-            
-            if (it.equals(this.dict_.end()) === false)
-                return [it.second[0], null];
-            
-            const id: string = `o${this.counter_++}`;
-            const obj: IMetadata.IObject = {
-                nullable,
-                properties: {}
-            };
-            this.dict_.emplace(key, [id, obj]);
-
-            return [id, obj];
-        }
-
-        public storage(): IMetadata.IStorage
-        {
-            const storage: IMetadata.IStorage = {};
-            for (const it of this.dict_)
-                storage[it.second[0]] = it.second[1];
-            return storage;
-        }
-    }
+    export import Collection = MetadataCollection;
 
     export function generate
         (
@@ -103,14 +63,17 @@ export namespace MetadataFactory
             parentEscaped: boolean = false
         ): boolean
     {
+        // ESCAPE toJSON() METHOD
         const [converted, partialEscaped] = TypeFactory.escape(checker, type);
         if (partialEscaped === true)
             type = converted;
         
+        // WHEN UNION TYPE
         const escaped: boolean = partialEscaped || parentEscaped;
         if (type.isUnion())
             return type.types.every(t => iterate(collection, checker, schema, t, escaped));
 
+        // NODE AND ATOMIC TYPE CHECKER
         const node: ts.TypeNode | undefined = checker.typeToTypeNode(type, undefined, undefined);
         if (!node)
             return false;
@@ -138,22 +101,9 @@ export namespace MetadataFactory
         for (const [flag, literal, className] of ATOMICS.get())
             if (check(flag, literal, className) === true)
                 return escaped ? false : true;
-        
-        // WHEN ARRAY
-        if (ts.isArrayTypeNode(node))
-        {
-            if (escaped)
-                return false;
-                
-            const elemType: ts.Type | null = checker.getTypeArguments(type as ts.TypeReference)[0] || null;
-            const elemSchema: IMetadata | null = explore(collection, checker, elemType);
-            
-            const key: string = get_uid(elemSchema);
-            schema.arraies.set(key, elemSchema);
-        }
 
         // WHEN TUPLE
-        else if (ts.isTupleTypeNode(node))
+        if (ts.isTupleTypeNode(node))
         {
             if (escaped || node.elements.length === 0)
                 return false;
@@ -170,6 +120,22 @@ export namespace MetadataFactory
             for (const elem of node.elements.slice(1))
                 if (iterate(collection, checker, elemSchema, checker.getTypeFromTypeNode(elem)) === false)
                     return false;
+        }
+
+        // WHEN ARRAY
+        else if (ts.isArrayTypeNode(node) || !!type.getNumberIndexType())
+        {
+            if (escaped)
+                return false;
+                
+            const elemType: ts.Type | null 
+                = type.getNumberIndexType()
+                || checker.getTypeArguments(type as ts.TypeReference)[0] 
+                || null;
+            const elemSchema: IMetadata | null = explore(collection, checker, elemType);
+            
+            const key: string = get_uid(elemSchema);
+            schema.arraies.set(key, elemSchema);
         }
 
         // WHEN OBJECT, MAYBE
@@ -215,7 +181,7 @@ export namespace MetadataFactory
         ): string
     {
         // CHECK MEMORY
-        const [id, object] = collection.emplace(parent, nullable);
+        const [id, object] = collection.emplace(checker, parent, nullable);
         if (object === null)
             return id;
 
