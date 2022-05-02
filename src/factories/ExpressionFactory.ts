@@ -22,7 +22,7 @@ export namespace ExpressionFactory
             .entries(obj)
             .map(([key, value]) => ts.factory.createPropertyAssignment
             (
-                key,
+                generate_string(key),
                 generate(value)
             ));
         return ts.factory.createObjectLiteralExpression(properties, true);
