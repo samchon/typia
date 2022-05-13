@@ -7,7 +7,7 @@ runner.register({
     compiler: "ttypescript"
 });
 
-const program = require("./features/test_stringify_array_generic_alias.ts");
+const program = require("./issues/fast-json-stringify-top-level-one-of.ts");
 for (const value of Object.values(program))
     if (typeof value === "function")
         value();
