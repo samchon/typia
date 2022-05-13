@@ -34,7 +34,7 @@ export namespace SchemaFactory
             return unions[0];
         else
             return {
-                anyOf: unions
+                oneOf: unions
             };
     }
 

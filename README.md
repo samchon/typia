@@ -67,7 +67,7 @@ const stringify = fast({
                         nullable: false,
                     },
                     gender: {
-                        anyOf: [
+                        oneOf: [
                             { type: "string" },
                             { type: "number" }
                         ],
