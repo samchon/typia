@@ -18,7 +18,8 @@
     "faster",
     "json",
     "stringify",
-    "typescript"
+    "typescript",
+    "ajv"
   ],
   "author": "Jeongho Nam",
   "license": "MIT",
