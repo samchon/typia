@@ -12,11 +12,11 @@ TSON.stringify<T>(input);
 ```
 
 ## Introduction
-The `typescript-json` is a wrapper library for the [fast-json-stringify](https://github.com/fastify/fast-json-stringify), who can generate JSON string 2x faster than the native `JSON.stringify()` function. Also, the `typescript-json` doesn't need any extra schema defition. It just requires only line: `TSON.stringify<T>(input)`.
+`typescript-json` is a wrapper library of [fast-json-stringify](https://github.com/fastify/fast-json-stringify), which can generate JSON string 2x faster than the native `JSON.stringify()` function. Also, `typescript-json` doesn't need any JSON schema definition. It just requires only one line: `TSON.stringify<T>(input)`.
 
-If you choose other similar libraries like [fast-json-stringify](https://github.com/fastify/fast-json-stringify) or [slow-json-stringify](https://github.com/lucagez/slow-json-stringify), you've define the complicate data schema that is different from the TypeScript type system. Beside, the `typescript-json` requires only one line with your own TypeScript type definition. You don't need any extra data schema definition.
+If you choose other similar libraries like [ajv](https://github.com/ajv-validator/ajv) or [fast-json-stringify](https://github.com/fastify/fast-json-stringify), you've to define a complicated JSON schema that is different from the TypeScript type system. Besides, `typescript-json` requires only one line with your own TypeScript type definition. You don't need any extra JSON schema definition.
 
-Look at the below code and feel how the `typescript-json` is powerful.
+Look at the below code and feel how `typescript-json` is powerful.
 
 ```typescript
 import TSON from "typescript-json";
@@ -38,7 +38,7 @@ const company: ICompany;
 // TSON requires only one line
 //----
 // Reusable stringfy function
-const stringify = TSON.createStringifier<ICompany>()(company);
+const stringify = TSON.createStringifier<ICompany>();
 stringify(company);
 
 // Direct stringify function call
@@ -48,9 +48,9 @@ stringify(company);
 TSON.stringify<ICompany>(company);
 
 //----
-// "fast-json-stringfy" requires complicate schema
+// "fast-json-stringfy" requires complicated JSON schema
 //----
-const stringify = fast({
+fast({
     type: "object",
     properties: {
         name: {
@@ -78,14 +78,13 @@ const stringify = fast({
             nullable: false
         }
     }
-});
-stringify(company);
+})(company);
 ```
 
 
 
 
-## Installation
+## Setup
 ### NPM Package
 At first, install this `typescript-json` by the `npm install` command. 
 
@@ -115,7 +114,7 @@ After the installation, you've to configure the `tsconfig.json` file like below.
 }
 ```
 
-After the `tsconfig.json` definition, you can compile the `typescript-json` utilized code by using the `ttypescript`. If you want to run your TypeScript file through the `ts-node`, use `-C ttypescript` argument like below:
+After the `tsconfig.json` definition, you can compile `typescript-json` utilized code by using the `ttypescript`. If you want to run your TypeScript file through the `ts-node`, use `-C ttypescript` argument like below:
 
 ```bash
 # COMPILE
@@ -161,9 +160,9 @@ export function createStringifier<T>(): (input: T) => string;
 
 `typescript-json` provides only two functions, `stringify()` and `createStringifier()`. 
 
-The first `stringify()` is a function who returns the JSON string directly. Also, the type you'd put into the generic argument would be stored in the global memory and reused whenever calling the `stringify()` function with same type.
+The first `stringify()` is a function who returns the JSON string directly. Also, the type you'd put into the generic argument would be stored in the global memory and reused whenever calling the `stringify()` function with the same type.
 
-The second `createStringifier()` is a function who returns another function that can generate the JSON string. The `createStringifier()` is not enough convenient like `stringify()`, however it doesn't consume the global memory. Also, returned function from the `createStringifier()` is always reusable until you forget the function variable.
+The second `createStringifier()` is a function who returns another function that can generate the JSON string. The `createStringifier()` is not enough convenient like `stringify()`, however it doesn't consume the global memory. Also, the returned function from the `createStringifier()` is always reusable until you forget the function variable.
 
 Method | Strength | Weakness
 -------|----------|------------
@@ -174,44 +173,91 @@ Method | Strength | Weakness
 When you put a class type into this `typescript-json`, only `public` members would be converted to JSON string. The `private` or `protected` members would be all ignored.
 
 ### `toJSON()`
-The [fast-json-stringify](https://github.com/fastify/fast-json-stringify) is not supporting the `toJSON()` method. If such unsupported situation keeps for a long time, I promise you that I'll fix the problem even by developing the JSON conversion logic by myself.
+[fast-json-stringify](https://github.com/fastify/fast-json-stringify) is not supporting the `toJSON()` method. If such unsupported situation keeps for a long time, I promise you that I'll fix the problem even by developing the JSON conversion logic by myself.
 
 
 
 
 ## Appendix
-### [Nestia](https://github.com/samchon/nestia)
+### Nestia
+> My another library using this `typescript-json`.
+
 https://github.com/samchon/nestia
 
-The [nestia](https://github.com/samchon/nestia) is, another library what I've developed and who is using this `typescript-json`, automatic SDK generator for the NestJS backend server. With the [nestia](https://github.com/samchon/nestia), you can reduce lots of costs and time for developing the backend server.
+Automatic `SDK` and `Swagger` generator for the `NestJS`, evolved than ever.
 
-When you're developing a backend server using the `NestJS`, you don't need any extra dedication, for delivering the Rest API to the client developers, like writing the `swagger` comments. You just run the [nestia](https://github.com/samchon/nestia) up, then [nestia](https://github.com/samchon/nestia) would generate the SDK automatically, by analyzing your controller classes in the compliation and runtime level.
+`nestia` is an evolved `SDK` and `Swagger` generator, which analyzes your `NestJS` server code in the compilation level. With `nestia` and compilation level analyzer, you don't need to write any swagger or class-validator decorators.
 
-With the automatically generated SDK through the [nestia](https://github.com/samchon/nestia), client developer also does not need any extra work, like reading `swagger` and writing the duplicated interaction code. Client developer only needs to import the SDK and calls matched function with the `await` symbol.
+Reading below table and example code, feel how the "compilation level" makes `nestia` stronger.
+
+Components | `nestia`::SDK | `nestia`::swagger | `@nestjs/swagger`
+-----------|---|---|---
+Pure DTO interface | ✔ | ✔ | ❌
+Description comments | ✔ | ✔ | ❌
+Simple structure | ✔ | ✔ | ✔
+Generic type | ✔ | ✔ | ❌
+Union type | ✔ | ✔ | ▲
+Intersection type | ✔ | ✔ | ▲
+Conditional type | ✔ | ▲ | ❌
+Auto completion | ✔ | ❌ | ❌
+Type hints | ✔ | ❌ | ❌
+2x faster `JSON.stringify()` | ✔ | ❌ | ❌
+Ensure type safety | ✅ | ❌ | ❌
 
 ```typescript
-import api from "@samchon/bbs-api";
-import { IBbsArticle } from "@samchon/bbs-api/lib/structures/bbs/IBbsArticle";
-import { IPage } from "@samchon/bbs-api/lib/structures/common/IPage";
+// IMPORT SDK LIBRARY GENERATED BY NESTIA
+import api from "@samchon/shopping-api";
+import { IPage } from "@samchon/shopping-api/lib/structures/IPage";
+import { ISale } from "@samchon/shopping-api/lib/structures/ISale";
+import { ISaleArticleComment } from "@samchon/shopping-api/lib/structures/ISaleArticleComment";
+import { ISaleQuestion } from "@samchon/shopping-api/lib/structures/ISaleQuestion";
 
-export async function test_article_read(connection: api.IConnection): Promise<void>
+export async function trace_sale_question_and_comment
+    (connection: api.IConnection): Promise<void>
 {
-    // LIST UP ARTICLE SUMMARIES
-    const index: IPage<IBbsArticle.ISummary> = await api.functional.bbs.articles.index
+    // LIST UP SALE SUMMARIES
+    const index: IPage<ISale.ISummary> = await api.functional.shoppings.sales.index
     (
         connection,
-        "free",
+        "general",
         { limit: 100, page: 1 }
     );
 
-    // READ AN ARTICLE DETAILY
-    const article: IBbsArticle = await api.functional.bbs.articles.at
+    // PICK A SALE
+    const sale: ISale = await api.functional.shoppings.sales.at
     (
-        connection,
-        "free",
+        connection, 
         index.data[0].id
     );
-    console.log(article.title, aritlce.body, article.files);
+    console.log("sale", sale);
+
+    // WRITE A QUESTION
+    const question: ISaleQuestion = await api.functional.shoppings.sales.questions.store
+    (
+        connection,
+        "general",
+        sale.id,
+        {
+            title: "How to use this product?",
+            body: "The description is not fully enough. Can you introduce me more?",
+            files: []
+        }
+    );
+    console.log("question", question);
+
+    // WRITE A COMMENT
+    const comment: ISaleArticleComment = await api.functional.shoppings.sales.comments.store
+    (
+        connection,
+        "general",
+        sale.id,
+        question.id,
+        {
+            body: "p.s) Can you send me a detailed catalogue?",
+            anonymous: false
+        }
+    );
+    console.log("comment", comment);
 }
 ```
 
@@ -220,4 +266,15 @@ https://www.archisketch.com/
 
 I have special thanks to the Archidraw, where I'm working for.
 
-The Archidraw is a great IT company developing 3D interior editor and lots of solutions based on the 3D assets. Also, the Archidraw is the first company who had adopted `safe-typeorm` on their commercial backend project, even `safe-typeorm` was in the alpha level.
+The Archidraw is a great IT company developing 3D interior editor and lots of solutions based on the 3D assets. Also, the Archidraw is the first company who had adopted `typescript-json` on their commercial backend project, even `typescript-json` was in the alpha level.
+
+> 저희 회사 "아키드로우" 에서, 삼촌과 함께 일할 프론트 개발자 분들을, 최고의 대우로 모십니다.
+>
+> "아키드로우" 는 3D (인테리어) 에디터 및 이에 관한 파생 솔루션들을 만드는 회사입니다. 다만 저희 회사의 주력 제품이 3D 에디터라 하여, 반드시 3D 내지 랜더링에 능숙해야 하는 것은 아니니, 일반적인 프론트 개발자 분들도 망설임없이 지원해주십시오.
+>
+> 그리고 저희 회사는 분위기가 다들 친하고 즐겁게 지내는 분위기입니다. 더하여 위 [nestia](https://github.com/samchon/nestia) 나 [typescript-json](https://github.com/samchon/typescript-json) 및 [payments](https://github.com/archidraw/payments) 등, 제법 합리적(?)이고 재미난 프로젝트들을 다양하게 체험해보실 수 있습니다.
+>
+> - 회사소개서: [archidraw.pdf](https://github.com/archidraw/payments/files/7696710/archidraw.pdf)
+> - 기술 스택: React + TypeScript
+> - 이력서: 자유 양식
+> - 지원처: samchon@archisketch.com
