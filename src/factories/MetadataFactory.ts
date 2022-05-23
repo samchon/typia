@@ -209,7 +209,7 @@ export namespace MetadataFactory
             }
 
             // GET EXACT TYPE
-            const key: string = node.name.getText();
+            const key: string = prop.name;
             const type: ts.Type = checker.getTypeOfSymbolAtLocation(prop, node);
             
             // CHILD METADATA BY ADDITIONAL EXPLORATION
