@@ -67,8 +67,8 @@ export namespace FunctionFactory
             project.checker, 
             type
         );
-        const tuple = SchemaFactory.application(app);
-        const literal = ExpressionFactory.generate(tuple);
+        const application = SchemaFactory.application(app);
+        const literal = ExpressionFactory.generate(application);
 
         const script: string = project.printer.printNode
         (
@@ -112,8 +112,8 @@ export namespace FunctionFactory
         }
 
         const app: IMetadata.IApplication | null = MetadataFactory.generate(project.checker, type);
-        const tuple = SchemaFactory.application(app);
-        const literal = ExpressionFactory.generate(tuple);
+        const application = SchemaFactory.application(app);
+        const literal = ExpressionFactory.generate(application);
 
         return ts.factory.createArrowFunction
         (

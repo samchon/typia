@@ -1,8 +1,9 @@
 import crypto from "crypto";
-import faster from "fast-json-stringify";
 import { v4 } from "uuid";
 
+import { IJsonApplication } from "./structures/IJsonApplication";
 import { JsonMemory } from "./storages/JsonMemory";
+import { StringifyFactory } from "./factories/StringifyFactory";
 
 if (!crypto.randomUUID)
     crypto.randomUUID = () => v4();
@@ -38,7 +39,7 @@ export function stringify<T>(input: T): string;
 export function stringify<T>
     (
         input: T,
-        param: [string, () => [object, object]]
+        param: [string, () => IJsonApplication]
     ): string;
 
 /**
@@ -47,16 +48,13 @@ export function stringify<T>
 export function stringify<T>
     (
         input: T, 
-        param?: [string, () => [object, object]]
+        param?: [string, () => IJsonApplication]
     ): string
 {
     if (!param)
         halt("stringify");
 
-    const [key, closure] = param;
-    if (typeof key !== "string" || typeof closure !== "function")
-        throw new Error("Error on TSON.stringify(): the hidden parameter must only be specified by the transformer.");
-
+    const [key, closure]: [string, () => IJsonApplication] = param;
     return JsonMemory.stringify(key, closure)(input);
 }
 
@@ -119,28 +117,19 @@ export function createStringifier<T>(): (input: T) => string;
  * @internal
  */
 export function createStringifier<T>
-    (
-        plan: () => [object, object]
-    ): (input: T) => string;
+    (plan: () => IJsonApplication): (input: T) => string;
 
 /**
  * @internal
  */
 export function createStringifier<T>
-    (
-        plan?: () => [object, object]
-    ): (input: T) => string
+    (closure?: () => IJsonApplication): (input: T) => string
 {
-    if (!plan)
+    if (!closure)
         halt("createStringifier");
-    else if (typeof plan !== "function")
-        throw new Error("Error on TSON.stringify(): the hidden parameter must only be specified by the transformer.");
     
-    const [schema, storage] = plan();
-    if (typeof schema !== "object" || typeof storage !== "object")
-        throw new Error("Error on TSON.stringify(): the hidden parameter must only be specified by the transformer.");
-
-    return faster(schema as any, { schema: storage as any });
+    const application: IJsonApplication = closure();
+    return StringifyFactory.generate(application);
 }
 
 /**

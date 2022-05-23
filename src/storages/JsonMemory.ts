@@ -1,22 +1,21 @@
-import faster from "fast-json-stringify";
+import { IJsonApplication } from "../structures/IJsonApplication";
+import { MapUtil } from "../utils/MapUtil";
+import { StringifyFactory } from "../factories/StringifyFactory";
 
 export namespace JsonMemory
 {
     export function stringify
         (
             key: string, 
-            closure: () => [object, object]
+            closure: () => IJsonApplication
         ): (input: any) => string
     {
-        return dict.get(key) ?? insert(key, closure);
-    }
-
-    function insert(key: string, closure: () => [object, object]): (input: any) => string
-    {
-        const [schema, storage] = closure();
-        const value = faster(schema as any, { schema: storage as any });
-        dict.set(key, value);
-        return value;
+        return MapUtil.take
+        (
+            dict, 
+            key, 
+            () => StringifyFactory.generate(closure())
+        );
     }
 
     const dict: Map<string, (input: any) => string> = new Map();

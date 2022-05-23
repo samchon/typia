@@ -12,6 +12,5 @@ export namespace IProject
 {
     export interface IOptions
     {
-
     }
 }

@@ -20,6 +20,7 @@ export namespace ExpressionFactory
     {
         const properties = Object
             .entries(obj)
+            .filter(tuple => tuple[1] !== undefined)
             .map(([key, value]) => ts.factory.createPropertyAssignment
             (
                 generate_string(key),
