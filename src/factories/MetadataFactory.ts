@@ -3,8 +3,9 @@ import ts from "typescript";
 import { Singleton } from "tstl/thread/Singleton";
 
 import { IMetadata } from "../structures/IMetadata";
-import { MetadataCollection } from "../storages/MetadataCollection";
+import { MetadataCollection } from "./MetadataCollection";
 import { TypeFactory } from "./TypeFactry";
+import { CommentFactory } from "./CommentFactory";
 
 export namespace MetadataFactory
 {
@@ -221,7 +222,11 @@ export namespace MetadataFactory
             );
             if (child && node.questionToken)
                 child.required = false;
-
+            if (child)
+                child.description = CommentFactory.generate
+                (
+                    prop.getDocumentationComment(checker)
+                ) || undefined;
             object.properties[key] = child;
         }
         return id;

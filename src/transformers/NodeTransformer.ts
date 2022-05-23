@@ -22,9 +22,9 @@ export namespace NodeTransformer
         if (func === null)
             return expression;
         
-        const noe: ts.TypeNode | null = (expression.typeArguments || [])[0] || null;
-        const type: ts.Type | null = noe 
-            ? project.checker.getTypeFromTypeNode(noe) 
+        const node: ts.TypeNode | null = (expression.typeArguments || [])[0] || null;
+        const type: ts.Type | null = node 
+            ? project.checker.getTypeFromTypeNode(node) 
             : null;
         
         return ts.factory.updateCallExpression
