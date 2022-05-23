@@ -2,9 +2,10 @@ import ts from "typescript";
 import { HashMap } from "tstl/container/HashMap";
 import { Pair } from "tstl/utility/Pair";
 
-import { TypeFactory } from "../factories/TypeFactry";
+import { TypeFactory } from "./TypeFactry";
 import { IMetadata } from "../structures/IMetadata";
 import { MapUtil } from "../utils/MapUtil";
+import { CommentFactory } from "./CommentFactory";
 
 export class MetadataCollection
 {
@@ -41,14 +42,18 @@ export class MetadataCollection
         if (it.equals(this.dict_.end()) === false)
             return [it.second[0], null];
         
-        const id: string = this.get_name(checker, type, nullable);
+        const $id: string = this.get_name(checker, type, nullable);
         const obj: IMetadata.IObject = {
+            $id,
             nullable,
-            properties: {}
+            properties: {},
+            description: type.symbol 
+                && CommentFactory.generate(type.symbol.getDocumentationComment(checker)) 
+                || undefined
         };
-        this.dict_.emplace(key, [id, obj]);
+        this.dict_.emplace(key, [$id, obj]);
 
-        return [id, obj];
+        return [$id, obj];
     }
 
     private get_name
@@ -80,6 +85,4 @@ export class MetadataCollection
         return emended;
     }
 }
-export namespace MetadataCollection
-{
-}
+export namespace MetadataCollection {}

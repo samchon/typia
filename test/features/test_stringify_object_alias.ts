@@ -20,13 +20,39 @@ export function test_stringify_object_alias(): void
         throw new Error("Bug on TSON.createStringifier(): failed to understand the object alias type.");
 }
 
+/**
+ * Member information.
+ */
 interface IMember
 {
+    /**
+     * Primary Key.
+     */
     id: string | null;
+
+    /**
+     * Email address.
+     */
     email: String;
+
+    /**
+     * Real name.
+     */
     name: string;
+
+    /**
+     * Sex of the member.
+     */
     sex: "male" | "female" | 1 | 2 | null;
+
+    /**
+     * Age, but omittable.
+     */
     age: number | null;
+
+    /**
+     * Is dead or alive.
+     */
     dead: boolean | null;
 }
 type Alias = IMember;
