@@ -34,18 +34,19 @@ export class MetadataCollection
             checker: ts.TypeChecker,
             type: ts.Type, 
             nullable: boolean
-        ): [string, IMetadata.IObject | null]
+        ): [string, IMetadata.IObject, boolean]
     {
         const key: Pair<ts.Type, boolean> = new Pair(type, nullable);
         const it = this.dict_.find(key);
         
         if (it.equals(this.dict_.end()) === false)
-            return [it.second[0], null];
+            return [it.second[0], it.second[1], false];
         
         const $id: string = this.get_name(checker, type, nullable);
         const obj: IMetadata.IObject = {
             $id,
             nullable,
+            recursive: false,
             properties: {},
             description: type.symbol 
                 && CommentFactory.generate(type.symbol.getDocumentationComment(checker)) 
@@ -53,7 +54,7 @@ export class MetadataCollection
         };
         this.dict_.emplace(key, [$id, obj]);
 
-        return [$id, obj];
+        return [$id, obj, true];
     }
 
     private get_name
