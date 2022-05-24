@@ -1,11 +1,11 @@
 import crypto from "crypto";
-import faster from "fast-json-stringify";
 import { v4 } from "uuid";
-
-import { IJsonApplication } from "../structures/IJsonApplication";
 
 if (!crypto.randomUUID)
     crypto.randomUUID = () => v4();
+
+import faster from "fast-json-stringify";
+import { IJsonApplication } from "../structures/IJsonApplication";
 
 export namespace StringifyFactory
 {

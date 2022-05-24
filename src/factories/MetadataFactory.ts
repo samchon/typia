@@ -3,7 +3,7 @@ import ts from "typescript";
 import { Singleton } from "tstl/thread/Singleton";
 
 import { IMetadata } from "../structures/IMetadata";
-import { MetadataCollection } from "./MetadataCollection";
+import { MetadataCollection } from "../storages/MetadataCollection";
 import { TypeFactory } from "./TypeFactry";
 import { CommentFactory } from "./CommentFactory";
 

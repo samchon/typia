@@ -2,10 +2,10 @@ import ts from "typescript";
 import { HashMap } from "tstl/container/HashMap";
 import { Pair } from "tstl/utility/Pair";
 
-import { TypeFactory } from "./TypeFactry";
+import { TypeFactory } from "../factories/TypeFactry";
 import { IMetadata } from "../structures/IMetadata";
 import { MapUtil } from "../utils/MapUtil";
-import { CommentFactory } from "./CommentFactory";
+import { CommentFactory } from "../factories/CommentFactory";
 
 export class MetadataCollection
 {
