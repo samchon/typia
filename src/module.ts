@@ -1,6 +1,3 @@
-import crypto from "crypto";
-import { v4 } from "uuid";
-
 import { IJsonApplication } from "./structures/IJsonApplication";
 import { JsonMemory } from "./storages/JsonMemory";
 import { StringifyFactory } from "./factories/StringifyFactory";
@@ -8,9 +5,6 @@ import { StringifyFactory } from "./factories/StringifyFactory";
 export * from "./structures/IJsonApplication";
 export * from "./structures/IJsonComponents";
 export * from "./structures/IJsonSchema";
-
-if (!crypto.randomUUID)
-    crypto.randomUUID = () => v4();
 
 /* -----------------------------------------------------------
     STRINGIFY
