@@ -6,7 +6,12 @@ export function test_stringify_object(): void
     const stringify = TSON.createStringifier<IMember>();
     const test = (member: IMember) =>
     {
-        const json: string = stringify(member);
+        const json: string = stringify({
+            ...member,
+            ...{
+                asdfasdf: "xczvafds",
+            }
+        });
         const expected: string = JSON.stringify(member);
 
         if (json !== expected)
