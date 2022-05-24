@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Faster JSON stringify with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -19,7 +19,11 @@
     "json",
     "stringify",
     "typescript",
-    "ajv"
+    "transform",
+    "ajv",
+    "schema",
+    "jsonschema",
+    "generator"
   ],
   "author": "Jeongho Nam",
   "license": "MIT",
