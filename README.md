@@ -8,7 +8,8 @@
 
 ```typescript
 import TSON from "typescript-json";
-TSON.stringify<T>(input);
+
+const json: string = TSON.stringify<T>(input);
 ```
 
 ## Introduction
@@ -171,7 +172,7 @@ Method | Strength | Weakness
 -------|----------|------------
 `stringify()` | Convenient to use | Use global memory
 `createStringifier()` | Save global memory | Inconvenient to manage
-`createApplication()` | Reusable JSON Schema | Inconvenient to manage
+`createApplication()` | Reusable JSON Schema | Surplus feature, maybe?
 
 ### `public`
 When you put a class type into this `typescript-json`, only `public` members would be converted to JSON string. The `private` or `protected` members would be all ignored.
