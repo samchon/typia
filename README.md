@@ -8,8 +8,7 @@
 
 ```typescript
 import TSON from "typescript-json";
-
-const json: string = TSON.stringify<T>(input);
+TSON.stringify<T>(input);
 ```
 
 ## Introduction
