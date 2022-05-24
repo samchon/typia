@@ -6,10 +6,9 @@ export function test_stringify_object_union(): void
 {
     type Union = IStore | IBrand | ICompany | IDepartment | IEmployee;
     
-    const stringify = TSON.createStringifier<Union>();
     const test = (input: Union) =>
     {
-        const json: string = stringify(input);
+        const json: string = TSON.stringify(input);
         const expected: string = JSON.stringify(input);
 
         if (json !== expected)

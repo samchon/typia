@@ -156,18 +156,22 @@ module.exports = {
 ```typescript
 export function stringify<T>(input: T): string;
 export function createStringifier<T>(): (input: T) => string;
+export function createApplication<T>(): (input: T) => IJsonApplication;
 ```
 
-`typescript-json` provides only two functions, `stringify()` and `createStringifier()`. 
+`typescript-json` provides only three functions, `stringify()`, `createStringifier()` and `createApplication()`.
 
 The first `stringify()` is a function who returns the JSON string directly. Also, the type you'd put into the generic argument would be stored in the global memory and reused whenever calling the `stringify()` function with the same type.
 
 The second `createStringifier()` is a function who returns another function that can generate the JSON string. The `createStringifier()` is not enough convenient like `stringify()`, however it doesn't consume the global memory. Also, the returned function from the `createStringifier()` is always reusable until you forget the function variable.
 
+The last `createApplication()` is just a function who generates JSON schema following the type `T`. If you need to utilize the JSON schema for other purpose, this function would be useful.
+
 Method | Strength | Weakness
 -------|----------|------------
 `stringify()` | Convenient to use | Use global memory
 `createStringifier()` | Save global memory | Inconvenient to manage
+`createApplication()` | Reusable JSON Schema | Inconvenient to manage
 
 ### `public`
 When you put a class type into this `typescript-json`, only `public` members would be converted to JSON string. The `private` or `protected` members would be all ignored.

@@ -28,8 +28,20 @@ export namespace MetadataFactory
         if (metadata === null)
             return null;
 
-        // RETURNS WITH STORAGE
+        // FIND RECURSIVE OBJECTS
         const storage: IMetadata.IStorage = collection.storage();
+        for (const object of Object.values(storage))
+            object.recursive = Object
+                .values(object.properties)
+                .filter(prop => !!prop)
+                .some(prop => 
+                    prop!.objects.has(object.$id) || 
+                    [...prop!.arraies.values()]
+                        .filter(prop => !!prop)
+                        .some(prop => prop!.objects.has(object.$id))
+                );
+        
+        // RETURNS
         return { metadata, storage };
     }
 
@@ -46,7 +58,7 @@ export namespace MetadataFactory
         const schema: IMetadata = {
             atomics: new Set(),
             arraies: new Map(),
-            objects: new Set(),
+            objects: new Map(),
             nullable: false,
             required: true,
         };
@@ -148,7 +160,7 @@ export namespace MetadataFactory
                 const fakeSchema: IMetadata = {
                     atomics: new Set(),
                     arraies: new Map(),
-                    objects: new Set(),
+                    objects: new Map(),
                     nullable: false,
                     required: true,
                 };
@@ -158,17 +170,14 @@ export namespace MetadataFactory
                     return false;
             }
 
-            const key: string = emplace
+            const [key, object] = emplace
             (
                 collection, 
                 checker,
                 type, 
                 schema.nullable
             );
-            schema.objects.add(collection.inline 
-                ? `components#/schemas/${key}`
-                : `#/components/schemas/${key}`
-            );
+            schema.objects.set(key, object);
         }
         return !escaped;
     }
@@ -179,12 +188,12 @@ export namespace MetadataFactory
             checker: ts.TypeChecker,
             parent: ts.Type,
             nullable: boolean
-        ): string
+        ): [string, IMetadata.IObject]
     {
         // CHECK MEMORY
-        const [id, object] = collection.emplace(checker, parent, nullable);
-        if (object === null)
-            return id;
+        const [id, object, newbie] = collection.emplace(checker, parent, nullable);
+        if (newbie === false)
+            return [id, object];
 
         // PREPARE ASSETS
         const isClass: boolean = parent.isClass();
@@ -214,7 +223,7 @@ export namespace MetadataFactory
             const type: ts.Type = checker.getTypeOfSymbolAtLocation(prop, node);
             
             // CHILD METADATA BY ADDITIONAL EXPLORATION
-            const child = explore
+            const child: IMetadata | null = explore
             (
                 collection, 
                 checker, 
@@ -229,7 +238,7 @@ export namespace MetadataFactory
                 ) || undefined;
             object.properties[key] = child;
         }
-        return id;
+        return [id, object];
     }
 
     function get_uid(schema: IMetadata | null): string

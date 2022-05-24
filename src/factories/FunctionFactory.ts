@@ -67,7 +67,7 @@ export namespace FunctionFactory
             project.checker, 
             type
         );
-        const application = SchemaFactory.application(app);
+        const application = SchemaFactory.application(app, SchemaFactory.JSON_PREFIX);
         const literal = ExpressionFactory.generate(application);
 
         const script: string = project.printer.printNode
@@ -96,34 +96,32 @@ export namespace FunctionFactory
         ]);
     }
 
-    function argue_stringifier
-        (
-            project: IProject,
-            expression: ts.CallExpression, 
-            type: ts.Type | null
-        ): ts.ArrowFunction
+    function argue_application(method: string, prefix: string)
     {
-        if (type === null)
+        return function(project: IProject, expression: ts.CallExpression, type: ts.Type | null)
         {
-            const file: ts.SourceFile = expression.getSourceFile();
-            const { line, character } = file.getLineAndCharacterOfPosition(expression.pos);
+            if (type === null)
+            {
+                const file: ts.SourceFile = expression.getSourceFile();
+                const { line, character } = file.getLineAndCharacterOfPosition(expression.pos);
 
-            throw new Error(`Error on TSON.createStringifier(): the generic argument must be specified - ${file.fileName}:${line + 1}:${character + 1}.`);
+                throw new Error(`Error on TSON.${method}(): the generic argument must be specified - ${file.fileName}:${line + 1}:${character + 1}.`);
+            }
+
+            const app: IMetadata.IApplication | null = MetadataFactory.generate(project.checker, type);
+            const application = SchemaFactory.application(app, prefix);
+            const literal = ExpressionFactory.generate(application);
+
+            return ts.factory.createArrowFunction
+            (
+                undefined,
+                undefined,
+                [],
+                undefined,
+                undefined,
+                literal
+            );
         }
-
-        const app: IMetadata.IApplication | null = MetadataFactory.generate(project.checker, type);
-        const application = SchemaFactory.application(app);
-        const literal = ExpressionFactory.generate(application);
-
-        return ts.factory.createArrowFunction
-        (
-            undefined,
-            undefined,
-            [],
-            undefined,
-            undefined,
-            literal
-        );
     }
 
     interface IGenerator
@@ -141,7 +139,11 @@ export namespace FunctionFactory
         },
         createStringifier: {
             count: 0,
-            argument: () => argue_stringifier,
+            argument: () => argue_application("createStringifier", SchemaFactory.JSON_PREFIX),
+        },
+        createApplication: {
+            count: 0,
+            argument: () => argue_application("createApplication", SchemaFactory.SWAGGER_PREFIX)
         }
-    }
+    };
 }
