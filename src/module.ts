@@ -5,9 +5,16 @@ import { IJsonApplication } from "./structures/IJsonApplication";
 import { JsonMemory } from "./storages/JsonMemory";
 import { StringifyFactory } from "./factories/StringifyFactory";
 
+export * from "./structures/IJsonApplication";
+export * from "./structures/IJsonComponents";
+export * from "./structures/IJsonSchema";
+
 if (!crypto.randomUUID)
     crypto.randomUUID = () => v4();
 
+/* -----------------------------------------------------------
+    STRINGIFY
+----------------------------------------------------------- */
 /**
  * 2x faster `JSON.stringify()` function.
  * 
@@ -58,6 +65,9 @@ export function stringify<T>
     return JsonMemory.stringify(key, closure)(input);
 }
 
+/* -----------------------------------------------------------
+    CREATE-STRINGIFIER
+----------------------------------------------------------- */
 /**
  * > You must configure the generic argument `T`.
  * 
@@ -130,6 +140,44 @@ export function createStringifier<T>
     
     const application: IJsonApplication = closure();
     return StringifyFactory.generate(application);
+}
+
+/* -----------------------------------------------------------
+    CREATE-APPLICATION
+----------------------------------------------------------- */
+/**
+ * > You must configure the generic argument `T`.
+ * 
+ * JSON Schema Application.
+ * 
+ * Creates a JSON schema application which contains both main JSON schema and components. 
+ * Note that, all of the object types are stored in the {@link IJsonApplication.components} 
+ * property for the `$ref` referencing.
+ * 
+ * @template T Target type
+ * @return JSON schema application
+ * @author Samchon
+ */
+export function createApplication(): never;
+
+/**
+ * JSON Schema Application.
+ * 
+ * Creates a JSON schema application which contains both main JSON schema and components. 
+ * Note that, all of the object types are stored in the {@link IJsonApplication.components} 
+ * property for the `$ref` referencing.
+ * 
+ * @template T Target type
+ * @return JSON schema application
+ * @author Samchon
+ */
+export function createApplication<T>(): IJsonApplication;
+
+export function createApplication(closure?: () => IJsonApplication): IJsonApplication
+{
+    if (!closure)
+        halt("createApplication");
+    return closure();
 }
 
 /**
