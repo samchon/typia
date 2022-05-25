@@ -2,11 +2,12 @@ import crypto from "crypto";
 import path from "path";
 import ts from "typescript";
 
-import { SchemaFactory } from "../factories/SchemaFactory";
 import { IMetadata } from "../structures/IMetadata";
 import { IProject } from "../structures/IProject";
+
 import { ExpressionFactory } from "./ExpressionFactory";
 import { MetadataFactory } from "./MetadataFactory";
+import { SchemaFactory } from "../factories/SchemaFactory";
 
 export namespace FunctionFactory
 {
@@ -67,7 +68,7 @@ export namespace FunctionFactory
             project.checker, 
             type
         );
-        const application = SchemaFactory.application(app, SchemaFactory.JSON_PREFIX);
+        const application = SchemaFactory.application(app, SchemaFactory.JSON_PREFIX, true);
         const literal = ExpressionFactory.generate(application);
 
         const script: string = project.printer.printNode
@@ -96,7 +97,7 @@ export namespace FunctionFactory
         ]);
     }
 
-    function argue_application(method: string, prefix: string)
+    function argue_application(method: string, prefix: string, forAjv: boolean)
     {
         return function(project: IProject, expression: ts.CallExpression, type: ts.Type | null)
         {
@@ -109,7 +110,7 @@ export namespace FunctionFactory
             }
 
             const app: IMetadata.IApplication | null = MetadataFactory.generate(project.checker, type);
-            const application = SchemaFactory.application(app, prefix);
+            const application = SchemaFactory.application(app, prefix, forAjv);
             const literal = ExpressionFactory.generate(application);
 
             return ts.factory.createArrowFunction
@@ -139,11 +140,11 @@ export namespace FunctionFactory
         },
         createStringifier: {
             count: 0,
-            argument: () => argue_application("createStringifier", SchemaFactory.JSON_PREFIX),
+            argument: () => argue_application("createStringifier", SchemaFactory.JSON_PREFIX, true),
         },
         createApplication: {
             count: 0,
-            argument: () => argue_application("createApplication", SchemaFactory.SWAGGER_PREFIX)
+            argument: () => argue_application("createApplication", SchemaFactory.SWAGGER_PREFIX, false)
         }
     };
 }
