@@ -13,7 +13,6 @@ export namespace IJsonComponents
         $id?: string;
         $recursiveAnchor?: boolean,
         properties: Record<string, IJsonSchema>;
-        required: string[];
+        required?: string[];
     }
-
 }

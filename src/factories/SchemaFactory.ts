@@ -180,7 +180,7 @@ export namespace SchemaFactory
             type: "object",
             properties,
             nullable: obj.nullable,
-            required,
+            required: required.length ? required : undefined,
             description: obj.description
         };
     }
