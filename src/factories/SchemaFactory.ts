@@ -1,7 +1,7 @@
+import { IMetadata } from "../structures/IMetadata";
+import { IJsonApplication } from "../structures/IJsonApplication";
 import { IJsonComponents } from "../structures/IJsonComponents";
 import { IJsonSchema } from "../structures/IJsonSchema";
-import { IJsonApplication } from "../structures/IJsonApplication";
-import { IMetadata } from "../structures/IMetadata";
 
 export namespace SchemaFactory
 {
@@ -11,15 +11,13 @@ export namespace SchemaFactory
     export function application
         (
             app: IMetadata.IApplication | null,
-            prefix: string = SWAGGER_PREFIX
+            prefix: string = SWAGGER_PREFIX,
+            forAjv: boolean = false
         ): IJsonApplication
     {
         return {
-            schema: {
-                // $id: "$main",
-                ...schema(app?.metadata || null, prefix)
-            }, 
-            components: components(app?.storage || null, prefix)
+            schema: generate_schema(app?.metadata || null, prefix, forAjv), 
+            components: components(app?.storage || null, prefix, forAjv)
         };
     }
 
@@ -29,7 +27,18 @@ export namespace SchemaFactory
     export function schema
         (
             meta: IMetadata | null,
-            prefix: string = SWAGGER_PREFIX
+            prefix: string = SWAGGER_PREFIX,
+            forAjv: boolean = false
+        ): IJsonSchema
+    {
+        return generate_schema(meta, prefix, forAjv);   
+    }
+
+    function generate_schema
+        (
+            meta: IMetadata | null,
+            prefix: string,
+            forAjv: boolean
         ): IJsonSchema
     {
         if (meta === null)
@@ -40,13 +49,23 @@ export namespace SchemaFactory
             oneOf.push(generate_atomic(type as "boolean", meta.nullable, meta.description));
         for (const [address, {recursive}] of meta.objects.entries())
         {
-            const generator = recursive 
+            const generator = forAjv && recursive 
                 ? generate_recursive_pointer 
                 : generate_pointer;
             oneOf.push(generator(`${prefix}/${address}`, meta.description));
         }
         for (const schema of meta.arraies.values())
-            oneOf.push(generate_array(prefix, schema, meta.nullable, meta.description));
+            oneOf.push
+            (
+                generate_array
+                (
+                    prefix, 
+                    forAjv, 
+                    schema, 
+                    meta.nullable, 
+                    meta.description
+                )
+            );
 
         if (oneOf.length === 0)
             return {};
@@ -97,6 +116,7 @@ export namespace SchemaFactory
     function generate_array
         (
             prefix: string,
+            forAjv: boolean,
             metadata: IMetadata | null, 
             nullable: boolean,
             description: string | undefined
@@ -104,7 +124,7 @@ export namespace SchemaFactory
     {
         return {
             type: "array",
-            items: schema(metadata, prefix),
+            items: generate_schema(metadata, prefix, forAjv),
             nullable,
             description
         };
@@ -116,30 +136,47 @@ export namespace SchemaFactory
     export function components
         (
             storage: IMetadata.IStorage | null,
-            prefix: string = SWAGGER_PREFIX
+            prefix: string = SWAGGER_PREFIX,
+            forAjv: boolean = false,
+        ): IJsonComponents
+    {
+        return generate_components(storage, prefix, forAjv);
+    }
+
+    function generate_components
+        (
+            storage: IMetadata.IStorage | null,
+            prefix: string,
+            forAjv: boolean,
         ): IJsonComponents
     {
         const schemas: Record<string, any> = {};
         for (const [key, value] of Object.entries(storage || []))
-            schemas[key] = generate_object(prefix, value);
+            schemas[key] = generate_object(prefix, forAjv, value);
 
         return { schemas };
     }
 
-    function generate_object(prefix: string, obj: IMetadata.IObject): IJsonComponents.IObject
+    function generate_object
+        (
+            prefix: string,
+            forAjv: boolean, 
+            obj: IMetadata.IObject
+        ): IJsonComponents.IObject
     {
         const properties: Record<string, any> = {};
         const required: string[] = [];
 
         for (const [key, value] of Object.entries(obj.properties || []))
         {
-            properties[key] = schema(value, prefix);
+            properties[key] = generate_schema(value, prefix, forAjv);
             if (value?.required === true)
                 required.push(key);
         }
+
         return {
-            $id: obj.$id,
-            $recursiveAnchor: obj.recursive || undefined,
+            $id: forAjv ? obj.$id : undefined,
+            $recursiveAnchor: (forAjv && obj.recursive) || undefined,
             type: "object",
             properties,
             nullable: obj.nullable,

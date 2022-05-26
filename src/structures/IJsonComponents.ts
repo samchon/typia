@@ -10,7 +10,7 @@ export namespace IJsonComponents
 
     export interface IObject extends IJsonSchema.IAtomic<"object">
     {
-        $id: string;
+        $id?: string;
         $recursiveAnchor?: boolean,
         properties: Record<string, IJsonSchema>;
         required: string[];
