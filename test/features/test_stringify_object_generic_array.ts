@@ -1,8 +1,7 @@
 import TSON from "../../src";
 import { RandomGenerator } from "../internal/RandomGenerator";
 
-export function test_stringify_object_generic_array(): void
-{
+export function test_stringify_object_generic_array(): void {
     const count: number = RandomGenerator.number(10, 20);
     const page: IPage<IPerson> = {
         pagination: {
@@ -14,31 +13,29 @@ export function test_stringify_object_generic_array(): void
         data: RandomGenerator.array(() => ({
             name: RandomGenerator.string(),
             age: RandomGenerator.number(),
-        }))
+        })),
     };
 
     const json: string = TSON.stringify(page);
     const expected: string = JSON.stringify(page);
 
-    if (json!== expected)
-        throw new Error("Bug on TSON.stringify(): failed to understand the generic array membered object type.");
+    if (json !== expected)
+        throw new Error(
+            "Bug on TSON.stringify(): failed to understand the generic array membered object type.",
+        );
 }
 
-interface IPerson
-{
+interface IPerson {
     name: string;
     age: number;
 }
 
-interface IPage<T extends object>
-{
+interface IPage<T extends object> {
     pagination: IPage.IPagination;
     data: T[];
 }
-namespace IPage
-{
-    export interface IPagination
-    {
+namespace IPage {
+    export interface IPagination {
         page: number;
         limit: number;
         total_count: number;

@@ -2,17 +2,17 @@ import TSON from "../../src";
 
 import { RandomGenerator } from "../internal/RandomGenerator";
 
-export function test_stringify_object_union(): void
-{
+export function test_stringify_object_union(): void {
     type Union = IStore | IBrand | ICompany | IDepartment | IEmployee;
-    
-    const test = (input: Union) =>
-    {
+
+    const test = (input: Union) => {
         const json: string = TSON.stringify(input);
         const expected: string = JSON.stringify(input);
 
         if (json !== expected)
-            throw new Error("Bug on TSON.createStringifier(): failed to understand the union object type.");
+            throw new Error(
+                "Bug on TSON.createStringifier(): failed to understand the union object type.",
+            );
     };
 
     test({ type: "store", name: RandomGenerator.string() });
@@ -24,8 +24,8 @@ export function test_stringify_object_union(): void
         employees: RandomGenerator.array(() => ({
             type: "employee",
             name: RandomGenerator.string(),
-        }))
-    })
+        })),
+    });
     test({
         type: "company",
         name: RandomGenerator.string(),
@@ -34,36 +34,31 @@ export function test_stringify_object_union(): void
             name: RandomGenerator.string(),
             employees: RandomGenerator.array(() => ({
                 type: "employee",
-                name: RandomGenerator.string()
-            }))
-        }))
+                name: RandomGenerator.string(),
+            })),
+        })),
     });
 }
 
-interface IStore
-{
+interface IStore {
     type: "store";
     name: string;
 }
-interface IBrand
-{
+interface IBrand {
     type: "brand";
     name: string;
 }
-interface ICompany
-{
+interface ICompany {
     type: "company";
     name: string;
     departments: IDepartment[];
 }
-interface IDepartment
-{
+interface IDepartment {
     type: "department";
     name: string;
     employees: IEmployee[];
 }
-interface IEmployee
-{
+interface IEmployee {
     type: "employee";
     name: string;
 }

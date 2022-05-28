@@ -1,3 +1,4 @@
+.vscode/
 bin/
 node_modules/
 src/
@@ -5,5 +6,8 @@ test/
 
 *.*ignore
 *.js.map
+.eslintrc.cjs
+.prettierignore
 package-lock.json
+prettier.config.js
 tsconfig.json

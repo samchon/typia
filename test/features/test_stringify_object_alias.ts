@@ -1,8 +1,7 @@
 import TSON from "../../src";
 import { Primitive } from "../internal/Primitive";
 
-export function test_stringify_object_alias(): void
-{
+export function test_stringify_object_alias(): void {
     const member: Alias = {
         id: "some-id",
         email: "someone@someone.com",
@@ -12,19 +11,20 @@ export function test_stringify_object_alias(): void
         dead: null,
     };
     const stringify: (input: Alias) => string = TSON.createStringifier<Alias>();
-    
+
     const json: string = stringify(member);
     const parsed: Alias = JSON.parse(json);
 
     if (Primitive.equal_to(member, parsed) === false)
-        throw new Error("Bug on TSON.createStringifier(): failed to understand the object alias type.");
+        throw new Error(
+            "Bug on TSON.createStringifier(): failed to understand the object alias type.",
+        );
 }
 
 /**
  * Member information.
  */
-interface IMember
-{
+interface IMember {
     /**
      * Primary Key.
      */
