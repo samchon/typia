@@ -4,8 +4,7 @@ import TSON from "../../src";
 
 import { RandomGenerator } from "../internal/RandomGenerator";
 
-export function test_stringify_object_generic_union(): void
-{
+export function test_stringify_object_generic_union(): void {
     const question: ISaleQuestion = {
         id: v4(),
         writer: "robot",
@@ -19,7 +18,7 @@ export function test_stringify_object_generic_union(): void
                 extension: RandomGenerator.string(),
                 url: RandomGenerator.string(),
             })),
-            created_at: new Date().toString()
+            created_at: new Date().toString(),
         })),
         answer: null,
         created_at: new Date().toString(),
@@ -30,63 +29,54 @@ export function test_stringify_object_generic_union(): void
     const expected: string = JSON.stringify(question);
 
     if (json !== expected)
-        throw new Error("Bug on TSON.stringify(): failed to understand the generic union object type.");
+        throw new Error(
+            "Bug on TSON.stringify(): failed to understand the generic union object type.",
+        );
 }
 
 type ISaleEntireArticle = ISaleQuestion | ISaleReview;
 type ISaleQuestion = ISaleInquiry<ISaleQuestion.IContent>;
-namespace ISaleQuestion
-{
+namespace ISaleQuestion {
     export type IContent = ISaleInquiry.IContent;
 }
 type ISaleReview = ISaleInquiry<ISaleReview.IContent>;
-namespace ISaleReview
-{
-    export interface IContent extends ISaleInquiry.IContent
-    {
+namespace ISaleReview {
+    export interface IContent extends ISaleInquiry.IContent {
         score: number;
     }
 }
 
-interface ISaleInquiry<Content extends ISaleInquiry.IContent> 
-    extends ISaleArticle<Content>
-{
+interface ISaleInquiry<Content extends ISaleInquiry.IContent>
+    extends ISaleArticle<Content> {
     writer: string;
     answer: ISaleAnswer | null;
 }
-namespace ISaleInquiry
-{
+namespace ISaleInquiry {
     export type IContent = ISaleArticle.IContent;
 }
-type ISaleAnswer = ISaleArticle<ISaleAnswer.IContent>
-namespace ISaleAnswer
-{
+type ISaleAnswer = ISaleArticle<ISaleAnswer.IContent>;
+namespace ISaleAnswer {
     export type IContent = ISaleArticle.IContent;
 }
-interface ISaleArticle<Content extends ISaleArticle.IContent>
-{
+interface ISaleArticle<Content extends ISaleArticle.IContent> {
     id: string;
     hit: number;
     contents: Content[];
     created_at: string;
 }
-namespace ISaleArticle
-{
-    export interface IContent extends IUpdate
-    {
+namespace ISaleArticle {
+    export interface IContent extends IUpdate {
         id: string;
         created_at: string;
     }
-    export interface IUpdate
-    {
+    export interface IUpdate {
         title: string;
         body: string;
         files: Omit<IAttachmentFile, "id">[];
     }
 }
 
-interface IAttachmentFile
-{
+interface IAttachmentFile {
     id: string;
     name: string;
     extension: string | null;

@@ -1,12 +1,10 @@
 import TSON from "../../src";
 
-export function test_stringify_object_optional(): void
-{
+export function test_stringify_object_optional(): void {
     TSON.createStringifier<IParent>();
 }
 
-interface IParent extends IChild
-{
+interface IParent extends IChild {
     first: IChild;
     second: IChild | null;
     third: IChild | null | undefined;
@@ -14,7 +12,6 @@ interface IParent extends IChild
     fifth: IChild | undefined;
     seventh?: IChild;
 }
-interface IChild
-{
+interface IChild {
     name: string;
 }
