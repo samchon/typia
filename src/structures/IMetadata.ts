@@ -1,16 +1,13 @@
-export interface IMetadata
-{
+export interface IMetadata {
     atomics: Set<string>;
-    arraies: Map<string, IMetadata|null>;
+    arraies: Map<string, IMetadata | null>;
     objects: Map<string, IMetadata.IObject>;
     nullable: boolean;
     required: boolean;
     description?: string;
 }
-export namespace IMetadata
-{
-    export interface IObject
-    {
+export namespace IMetadata {
+    export interface IObject {
         $id: string;
         recursive: boolean;
         properties: Record<string, IMetadata | null>;
@@ -18,8 +15,7 @@ export namespace IMetadata
         description?: string;
     }
 
-    export interface IApplication
-    {
+    export interface IApplication {
         metadata: IMetadata;
         storage: IStorage;
     }
