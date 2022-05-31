@@ -2,6 +2,7 @@
 .github/
 .vscode/
 bin/
+benchmark/
 node_modules/
 src/
 test/

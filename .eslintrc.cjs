@@ -8,12 +8,22 @@ module.exports = {
     ],
     parser: "@typescript-eslint/parser",
     parserOptions: {
-        project: ["tsconfig.json", "tsconfig.test.json"]
+        project: [
+            "tsconfig.json",  
+            "test/tsconfig.json"
+        ]
     },
-    ignorePatterns: ["bin", "lib/**/*.d.ts", "node_modules"],
+    ignorePatterns: [
+        "bin", 
+        "lib/**/*.d.ts", 
+        "node_modules"
+    ],
     overrides: [
         {
-            files: ["src/**/*.ts", "test/**/*.ts"],
+            files: [
+                "src/**/*.ts", 
+                "test/**/*.ts", 
+            ],
             rules: {
                 "@typescript-eslint/ban-types": "off",
                 "@typescript-eslint/consistent-type-definitions": "off",

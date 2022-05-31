@@ -12,3 +12,4 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npm run test -- --exclude=to_json
+      - run: npm run benchmark
