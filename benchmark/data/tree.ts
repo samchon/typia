@@ -8,5 +8,9 @@ const generate: (level: number) => ICategory = (level) => ({
     code: RandomGenerator.string(),
     name: RandomGenerator.string(),
     sequence: RandomGenerator.number(),
+    created_at: {
+        time: Date.now(),
+        zone: new Date().getTimezoneOffset(),
+    },
     children: ++level !== 5 ? RandomGenerator.array(() => generate(level)) : [],
 });

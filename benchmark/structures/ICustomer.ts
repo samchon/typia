@@ -1,5 +1,6 @@
 import { IChannel } from "./IChannel";
 import { IMember } from "./IMember";
+import { ITimestamp } from "./ITimestamp";
 
 export interface ICustomer {
     id: number;
@@ -7,6 +8,6 @@ export interface ICustomer {
     member: IMember | null;
     href: string;
     referrer: string;
-    ip: string;
-    created_at: string;
+    ip: [number, number, number, number];
+    created_at: ITimestamp;
 }
