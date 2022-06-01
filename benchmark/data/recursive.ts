@@ -8,5 +8,9 @@ const generate: (level: number) => ICategory.IInvert = (level) => ({
     code: RandomGenerator.string(),
     name: RandomGenerator.string(),
     sequence: RandomGenerator.number(),
+    created_at: {
+        time: Date.now(),
+        zone: new Date().getTimezoneOffset(),
+    },
     parent: level++ !== 10 ? generate(level) : null,
 });

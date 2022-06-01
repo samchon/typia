@@ -1,3 +1,5 @@
+import { ITimestamp } from "./ITimestamp";
+
 export interface ICategory extends ICategory.IBase {
     children: ICategory[];
 }
@@ -10,5 +12,6 @@ export namespace ICategory {
         code: string;
         name: string;
         sequence: number;
+        created_at: ITimestamp;
     }
 }

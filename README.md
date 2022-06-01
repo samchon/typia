@@ -11,6 +11,15 @@ import TSON from "typescript-json";
 TSON.stringify<T>(input);
 ```
 
+ Type | JSON.stringify() | TSON.stringify() v2 | TSON.stringify() v3
+------|-----------------:|--------------------:|--------------------:
+geometry | 6395.340026520174 | 33909.464252380065 | 57891.20898403229
+hierarchical | 2489.3538233660433 | 6671.955785344981 | 8853.113553113553
+recursive | 1074.872376630743 | 1099.8695733184275 | 6426.118721461187
+tree | 1776.0939571888616 | 1775.8426966292136 | 4174.912635644657
+
+
+
 ## Introduction
 `typescript-json` is a wrapper library of [fast-json-stringify](https://github.com/fastify/fast-json-stringify), which can generate JSON string 2x faster than the native `JSON.stringify()` function. Also, `typescript-json` doesn't need any JSON schema definition. It just requires only one line: `TSON.stringify<T>(input)`.
 

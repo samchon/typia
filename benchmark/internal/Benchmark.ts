@@ -4,33 +4,28 @@ export namespace Benchmark {
     export interface IOutput {
         name: string;
         json: number;
-        memoize: number;
-        closure: number;
-        manual: number;
+        v2: number;
+        v3: number;
     }
 
     export function prepare<T>(
         getter: () => T,
-        stringify: (input: T) => string,
-        createStringifer: (input: T) => string,
-        handWriting: (input: T) => string,
+        v2: (input: T) => string,
+        v3: (input: T) => string,
     ) {
         const data: T = getter();
-        stringify(data);
 
         const suite: benchmark.Suite = new benchmark.Suite();
+        suite.add("v3", () => v3(data));
+        suite.add("v2", () => v2(data));
         suite.add("json", () => JSON.stringify(data));
-        suite.add("memoize", () => stringify(data));
-        suite.add("closure", () => createStringifer(data));
-        suite.add("manual", () => handWriting(data));
 
         return () => {
             const output: IOutput = {
                 name: getter.name,
                 json: 0,
-                memoize: 0,
-                closure: 0,
-                manual: 0,
+                v2: 0,
+                v3: 0,
             };
 
             suite.run();
