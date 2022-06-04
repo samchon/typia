@@ -60,27 +60,31 @@ function string(str: string): string {
 }
 
 const closures: Array<() => Benchmark.IOutput> = [
-    Benchmark.prepare(geometry, TSON.createStringifier<IBox3D>(), (input) => {
-        function point(input: IPoint3D): string {
-            return `{
+    Benchmark.prepare(
+        geometry,
+        (input) => TSON.createStringifier<IBox3D>()(input),
+        (input) => {
+            function point(input: IPoint3D): string {
+                return `{
                     "x": ${input.x},
                     "y": ${input.y},
                     "z": ${input.z}
                 }`;
-        }
-        function box(input: IBox3D): string {
-            return `{
+            }
+            function box(input: IBox3D): string {
+                return `{
                     "scale": ${point(input.scale)},
                     "position": ${point(input.position)},
                     "rotate": ${point(input.rotate)},
                     "pivot": ${point(input.pivot)}
                 }`;
-        }
-        return box(input);
-    }),
+            }
+            return box(input);
+        },
+    ),
     Benchmark.prepare(
         hierarchical,
-        TSON.createStringifier<ICustomer>(),
+        (input) => TSON.createStringifier<ICustomer>()(input),
         (input) => {
             function channel(input: IChannel): string {
                 return `{
@@ -131,7 +135,7 @@ const closures: Array<() => Benchmark.IOutput> = [
     ),
     Benchmark.prepare(
         recursive,
-        TSON.createStringifier<ICategory.IInvert>(),
+        (input) => TSON.createStringifier<ICategory.IInvert>()(input),
         (input) => {
             function base(input: ICategory.IInvert): string {
                 return `{
@@ -170,7 +174,7 @@ const closures: Array<() => Benchmark.IOutput> = [
     ),
     Benchmark.prepare(
         tree,
-        TSON.createStringifier<ICategory>(),
+        (input) => TSON.createStringifier<ICategory>()(input),
         (input: ICategory): string => {
             function head(input: ICategory): string {
                 return `{
