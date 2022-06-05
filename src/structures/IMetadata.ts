@@ -1,6 +1,7 @@
 export interface IMetadata {
     atomics: Set<string>;
     arraies: Map<string, IMetadata | null>;
+    tuples: Map<string, Array<IMetadata | null>>;
     objects: Map<string, IMetadata.IObject>;
     nullable: boolean;
     required: boolean;

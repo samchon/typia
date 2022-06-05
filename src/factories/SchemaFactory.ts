@@ -1,7 +1,7 @@
-import { IMetadata } from "../structures/IMetadata";
 import { IJsonApplication } from "../structures/IJsonApplication";
 import { IJsonComponents } from "../structures/IJsonComponents";
 import { IJsonSchema } from "../structures/IJsonSchema";
+import { IMetadata } from "../structures/IMetadata";
 
 export namespace SchemaFactory {
     export const JSON_PREFIX = "components#/schemas";
@@ -35,6 +35,14 @@ export namespace SchemaFactory {
         forAjv: boolean,
     ): IJsonSchema {
         if (meta === null) return {};
+        else if (
+            meta.nullable === true &&
+            meta.arraies.size === 0 &&
+            meta.atomics.size === 0 &&
+            meta.objects.size === 0 &&
+            meta.tuples.size === 0
+        )
+            return { type: "null" };
 
         const oneOf: IJsonSchema[] = [];
         for (const type of meta.atomics)
@@ -58,6 +66,16 @@ export namespace SchemaFactory {
                     prefix,
                     forAjv,
                     schema,
+                    meta.nullable,
+                    meta.description,
+                ),
+            );
+        for (const items of meta.tuples.values())
+            oneOf.push(
+                generate_tuple(
+                    prefix,
+                    forAjv,
+                    items,
                     meta.nullable,
                     meta.description,
                 ),
@@ -110,6 +128,23 @@ export namespace SchemaFactory {
         return {
             type: "array",
             items: generate_schema(metadata, prefix, forAjv),
+            nullable,
+            description,
+        };
+    }
+
+    function generate_tuple(
+        prefix: string,
+        forAjv: boolean,
+        items: Array<IMetadata | null>,
+        nullable: boolean,
+        description: string | undefined,
+    ): IJsonSchema.ITuple {
+        return {
+            type: "array",
+            items: items.map((schema) =>
+                generate_schema(schema, prefix, forAjv),
+            ),
             nullable,
             description,
         };
