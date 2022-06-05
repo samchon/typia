@@ -1,6 +1,6 @@
 import TSON from "../../src";
 
-export function test_stringify_atomic_literal() {
+export function test_stringify_constant_atomic() {
     test((input) => TSON.stringify<true>(input), true as const);
     test((input) => TSON.stringify<1>(input), 1 as const);
     test((input) => TSON.stringify<"hello">(input), "hello" as const);

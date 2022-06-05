@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "Faster JSON stringify with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -35,12 +35,14 @@
   },
   "homepage": "https://github.com/samchon/typescript-json#readme",
   "devDependencies": {
+    "@types/benchmark": "^2.1.1",
     "@types/cli": "^0.11.20",
     "@types/nested-error-stacks": "^2.1.0",
     "@types/node": "^17.0.24",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.26.0",
     "@typescript-eslint/parser": "^5.26.0",
+    "benchmark": "^2.1.4",
     "cli": "^1.0.1",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
