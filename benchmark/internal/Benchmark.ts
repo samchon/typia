@@ -16,9 +16,9 @@ export namespace Benchmark {
         const data: T = getter();
 
         const suite: benchmark.Suite = new benchmark.Suite();
-        suite.add("v3", () => v3(data));
-        suite.add("v2", () => v2(data));
         suite.add("json", () => JSON.stringify(data));
+        suite.add("v2", () => v2(data));
+        suite.add("v3", () => v3(data));
 
         return () => {
             const output: IOutput = {
