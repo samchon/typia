@@ -2,6 +2,7 @@
 .github/
 .vscode/
 bin/
+benchmark/
 node_modules/
 src/
 test/
@@ -13,3 +14,4 @@ test/
 package-lock.json
 prettier.config.js
 tsconfig.json
+tsconfig.test.json
