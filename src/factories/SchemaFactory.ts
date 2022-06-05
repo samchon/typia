@@ -2,6 +2,7 @@ import { IJsonApplication } from "../structures/IJsonApplication";
 import { IJsonComponents } from "../structures/IJsonComponents";
 import { IJsonSchema } from "../structures/IJsonSchema";
 import { IMetadata } from "../structures/IMetadata";
+import { MapUtil } from "../utils/MapUtil";
 
 export namespace SchemaFactory {
     export const JSON_PREFIX = "components#/schemas";
@@ -35,16 +36,18 @@ export namespace SchemaFactory {
         forAjv: boolean,
     ): IJsonSchema {
         if (meta === null) return {};
-        else if (
-            meta.nullable === true &&
-            meta.arraies.size === 0 &&
-            meta.atomics.size === 0 &&
-            meta.objects.size === 0 &&
-            meta.tuples.size === 0
-        )
+        else if (meta.nullable && IMetadata.empty(meta))
             return { type: "null" };
 
         const oneOf: IJsonSchema[] = [];
+        if (meta.constants.size)
+            oneOf.push(
+                ...generate_constants(
+                    meta.constants,
+                    meta.nullable,
+                    meta.description,
+                ),
+            );
         for (const type of meta.atomics)
             oneOf.push(
                 generate_atomic(
@@ -71,19 +74,52 @@ export namespace SchemaFactory {
                 ),
             );
         for (const items of meta.tuples.values())
-            oneOf.push(
-                generate_tuple(
-                    prefix,
-                    forAjv,
-                    items,
-                    meta.nullable,
-                    meta.description,
-                ),
-            );
+            if (forAjv === true)
+                oneOf.push(
+                    generate_tuple(
+                        prefix,
+                        forAjv,
+                        items,
+                        meta.nullable,
+                        meta.description,
+                    ),
+                );
+            else {
+                const merged: IMetadata | null = items.reduce(
+                    (x, y) => IMetadata.merge(x, y),
+                    IMetadata.create(),
+                );
+                oneOf.push(
+                    generate_array(
+                        prefix,
+                        forAjv,
+                        merged,
+                        merged?.nullable || false,
+                        items[0]?.description,
+                    ),
+                );
+            }
 
         if (oneOf.length === 0) return {};
         else if (oneOf.length === 1) return oneOf[0]!;
         else return { oneOf };
+    }
+
+    function generate_constants(
+        values: Set<string | number | boolean>,
+        nullable: boolean,
+        description: string | undefined,
+    ) {
+        const dict: Map<string, Set<string | number | boolean>> = new Map();
+        for (const v of values)
+            MapUtil.take(dict, typeof v, () => new Set()).add(v);
+
+        return [...dict].map(([key, values]) => ({
+            type: key,
+            enum: [...values],
+            nullable,
+            description,
+        }));
     }
 
     function generate_atomic(
