@@ -17,6 +17,9 @@ export namespace IJsonSchema {
     export interface IArray extends IAtomic<"array"> {
         items: IJsonSchema;
     }
+    export interface ITuple extends IAtomic<"array"> {
+        items: IJsonSchema[];
+    }
     export interface IPointer {
         $ref: string;
         description?: string;

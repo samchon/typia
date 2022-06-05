@@ -46,6 +46,7 @@ export namespace MetadataFactory {
         const schema: IMetadata = {
             atomics: new Set(),
             arraies: new Map(),
+            tuples: new Map(),
             objects: new Map(),
             nullable: false,
             required: true,
@@ -119,41 +120,41 @@ export namespace MetadataFactory {
                 return escaped ? false : true;
 
         // WHEN TUPLE
-        if (ts.isTupleTypeNode(node)) {
-            if (escaped || node.elements.length === 0) return false;
+        if ((checker as any).isTupleType(type)) {
+            if (escaped) return false;
 
-            const elemSchema: IMetadata | null = explore(
-                collection,
-                checker,
-                checker.getTypeFromTypeNode(node.elements[0]!),
-            );
-            if (elemSchema === null) return false;
+            const children: Array<IMetadata | null> = [];
+            for (const elem of checker.getTypeArguments(
+                type as ts.TypeReference,
+            )) {
+                const schema: IMetadata | null = explore(
+                    collection,
+                    checker,
+                    elem,
+                );
+                children.push(schema);
+            }
 
-            for (const elem of node.elements.slice(1))
-                if (
-                    iterate(
-                        collection,
-                        checker,
-                        elemSchema,
-                        checker.getTypeFromTypeNode(elem),
-                    ) === false
-                )
-                    return false;
+            const key: string = children
+                .map((child) => get_uid(child))
+                .reduce((x, y) => x + y, "");
+            schema.tuples.set(key, children);
         }
 
         // WHEN ARRAY
-        else if (ts.isArrayTypeNode(node) || !!type.getNumberIndexType()) {
+        else if (
+            (checker as any).isArrayType(type) ||
+            (checker as any).isArrayLikeType(type)
+        ) {
             if (escaped) return false;
 
-            const elemType: ts.Type | null =
-                type.getNumberIndexType() ||
-                checker.getTypeArguments(type as ts.TypeReference)[0] ||
-                null;
+            const elemType: ts.Type | null = type.getNumberIndexType() || null;
             const elemSchema: IMetadata | null = explore(
                 collection,
                 checker,
                 elemType,
             );
+            if (elemSchema === null) return false;
 
             const key: string = get_uid(elemSchema);
             schema.arraies.set(key, elemSchema);
@@ -166,6 +167,7 @@ export namespace MetadataFactory {
                 const fakeSchema: IMetadata = {
                     atomics: new Set(),
                     arraies: new Map(),
+                    tuples: new Map(),
                     objects: new Map(),
                     nullable: false,
                     required: true,
@@ -275,6 +277,10 @@ export namespace MetadataFactory {
             arraies: [...schema.arraies].map(([key, value]) => [
                 key,
                 to_primitive(value),
+            ]),
+            tuples: [...schema.tuples].map(([key, array]) => [
+                key,
+                array.map((value) => to_primitive(value)),
             ]),
             objects: Array.from(schema.objects),
             nullable: schema.nullable,
