@@ -59,25 +59,11 @@ export class MetadataCollection {
         type: ts.Type,
         nullable: boolean,
     ): string {
-        const name: string = `${TypeFactory.full_name(checker, type)}${
-            nullable ? ".Nullable" : ""
-        }`
-            .split("&")
-            .join("-and-")
-            .split("|")
-            .join("-or-")
-            .split("<")
-            .join("-lt-")
-            .split(">")
-            .join("-gt-")
-            .split(",")
-            .join("-comma-")
-            .split("'")
-            .join("")
-            .split('"')
-            .join("")
-            .split(" ")
-            .join("");
+        const name: string = replace(
+            `${TypeFactory.full_name(checker, type)}${
+                nullable ? ".Nullable" : ""
+            }`,
+        );
         const duplicates: Map<ts.Type, string> = MapUtil.take(
             this.names_,
             name,
@@ -95,3 +81,23 @@ export class MetadataCollection {
     }
 }
 export namespace MetadataCollection {}
+
+function replace(str: string): string {
+    for (const [before, after] of REPLACERS)
+        str = str.split(before).join(after);
+    return str;
+}
+const REPLACERS: [string, string][] = [
+    ["$", "-dollar-"],
+    ["&", "-and-"],
+    ["|", "-or-"],
+    ["{", "-blt-"],
+    ["}", "-bgt-"],
+    ["<", "-lt-"],
+    [">", "-gt-"],
+    [",", "-comma-"],
+    ["`", ""],
+    ["'", ""],
+    ['"', ""],
+    [" ", ""],
+];
