@@ -1,25 +1,34 @@
 # TypeScript-JSON
+Runtime type checker, and 10x faster `JSON.stringify()` function, with only one line.
+
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typescript-json/blob/master/LICENSE)
 [![npm version](https://badge.fury.io/js/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
 [![Downloads](https://img.shields.io/npm/dm/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
 [![Build Status](https://github.com/samchon/typescript-json/workflows/build/badge.svg)](https://github.com/samchon/typescript-json/actions?query=workflow%3Abuild)
+[![Guide Documents](https://img.shields.io/badge/wiki-documentation-forestgreen)](https://github.com/samchon/typescript-json/wiki)
 
-2x faster `JSON.stringify()` function with only one line.
+  - Github: https://github.com/samchon/typescript-json
+  - NPM: https://www.npmjs.com/package/typescript-json
+  - Guide Documents: https://github.com/samchon/typescript-json/wiki
 
 ```typescript
 import TSON from "typescript-json";
-TSON.stringify<T>(input);
+
+TSON.stringify<T>(input); // 10x faster
+TSON.assert<T>(input); // runtime type check
 ```
 
+`typescript-json` can check instance type in the runtime. Unlike other similar library `ajv` which requires complite JSON schema definition, `typescript-json` requires only one line, too: `TSON.assert<T>(input)` or `TSON.is<T>(input)`.
 
+Also, `typescript-json` is a library which can boost up JSON string conversion speed about 10x times. Unlike other similar libraries like `ajv` or `fast-json-stringify` which requires complicate JSON schema definition,`typescript-json` requires only one line: `TSON.stringify<T>(input)`. 
 
+Furthermore, as `typescript-json` does not require any optimizer plan construction in the runtime, `typescript-json` is about 10,000x times faster than `ajv` and `fast-json-stringify` if compare only one JSON string conversion.
 
-## Introduction
-`typescript-json` is a wrapper library of [fast-json-stringify](https://github.com/fastify/fast-json-stringify), which can generate JSON string 2x faster than the native `JSON.stringify()` function. Also, `typescript-json` doesn't need any JSON schema definition. It just requires only one line: `TSON.stringify<T>(input)`.
+Look at the below graph, code and feel how `typescrip-json` and only one line is powerful.
 
-If you choose other similar libraries like [ajv](https://github.com/ajv-validator/ajv) or [fast-json-stringify](https://github.com/fastify/fast-json-stringify), you've to define a complicated JSON schema that is different from the TypeScript type system. Besides, `typescript-json` requires only one line with your own TypeScript type definition. You don't need any extra JSON schema definition.
-
-Look at the below code and feel how `typescript-json` is powerful.
+Only JSON string conversion time | Include optimizer planning time
+---------------------------------|------------------------------------
+![only-json-string-conversion](https://user-images.githubusercontent.com/13158709/172457566-d23100c2-808a-4544-a914-de92d8ec12b0.png) | ![include-optimizer-construction](https://user-images.githubusercontent.com/13158709/172457381-d8ccbb92-43a1-4c96-aae1-cdac7d2e03cd.png)
 
 ```typescript
 import TSON from "typescript-json";
@@ -157,30 +166,52 @@ module.exports = {
 ## Features
 ### Functions
 ```typescript
+export function assert<T>(input: T): void;
+export function is<T>(input: T): boolean;
 export function stringify<T>(input: T): string;
-export function createStringifier<T>(): (input: T) => string;
-export function createApplication<T>(): (input: T) => IJsonApplication;
 ```
 
-`typescript-json` provides only three functions, `stringify()`, `createStringifier()` and `createApplication()`.
+`typescript-json` provides three functions, `assert()`, `is()` and `stringify()`.
 
-The first `stringify()` is a function who returns the JSON string directly. Also, the type you'd put into the generic argument would be stored in the global memory and reused whenever calling the `stringify()` function with the same type.
+The first `assert()` is a function which checks instance type in the runtime. If the input type is not matched with the generic argument `T`, the function `assert()` throws a `TypeGuardError`. The second `is()` function also checks instance type in runtime and returns a `boolean` value whether input value is matched with the generic argument `T` or not. 
+
+The last, `stringify()` is a function returning a JSON string of the input value. For reference, its JSON string conversion speed is about 10x times faster than the native `JSON.stringify()` function. Comparing with other similar libraries like `ajv` or `fast-json-stringify`, `typescript-json` is about 10,000x times faster because it does not require any optimizer plan construction in the runtime, considering only when only one JSON string conversion.
+
+Only JSON string conversion time | Include optimizer planning time
+---------------------------------|------------------------------------
+![only-json-string-conversion](https://user-images.githubusercontent.com/13158709/172457566-d23100c2-808a-4544-a914-de92d8ec12b0.png) | ![include-optimizer-construction](https://user-images.githubusercontent.com/13158709/172457381-d8ccbb92-43a1-4c96-aae1-cdac7d2e03cd.png)
+
+<!-- The first `stringify()` is a function who returns the JSON string directly. Also, the type you'd put into the generic argument would be stored in the global memory and reused whenever calling the `stringify()` function with the same type.
 
 The second `createStringifier()` is a function who returns another function that can generate the JSON string. The `createStringifier()` is not enough convenient like `stringify()`, however it doesn't consume the global memory. Also, the returned function from the `createStringifier()` is always reusable until you forget the function variable.
 
-The last `createApplication()` is just a function who generates JSON schema following the type `T`. If you need to utilize the JSON schema for other purpose, this function would be useful.
+The last `createApplication()` is just a function who generates JSON schema following the type `T`. If you need to utilize the JSON schema for other purpose, this function would be useful. -->
+
+### Generators
+```typescript
+export function createAssert<T>(): (input: T) => void;
+export function createIs<T>(): (input: T) => boolean;
+export function createStringify<T>(): (input: T) => string;
+```
+
+`typescript-json` providers three generators, `createAsset()`, `createIs()` and `createStringify()`. 
+
+Different between three functions and three generators are whether using global memory or not. For an example, when you call the `stringify()` function with a generic argument `T`, `typescript-json` would store an optimizer plan for the type `T` in the global memory. The optimizer plan stored in the global memory would be reused whenever same type `T` being placed into the `stringify()` function. 
+
+Otherwise, you call the `createStringifier()` generator, optimizer plan of the type `T` does not consume the global memory. The optimizer plan would be stored in the returned function. Therefore, `stringify()` function is convenient to use but consumes global memory, and `createStringifier()` is cumbersome to manage but does not consume any global memory.
 
 Method | Strength | Weakness
 -------|----------|------------
 `stringify()` | Convenient to use | Use global memory
-`createStringifier()` | Save global memory | Inconvenient to manage
+`createStringiy()` | Save global memory | Inconvenient to manage
 `createApplication()` | Reusable JSON Schema | Surplus feature, maybe?
 
-### `public`
-When you put a class type into this `typescript-json`, only `public` members would be converted to JSON string. The `private` or `protected` members would be all ignored.
+### Miscellaneous
+```typescript
+export function createApplication<T>(): JsonApplication<T>;
+```
 
-### `toJSON()`
-[fast-json-stringify](https://github.com/fastify/fast-json-stringify) is not supporting the `toJSON()` method. If such unsupported situation keeps for a long time, I promise you that I'll fix the problem even by developing the JSON conversion logic by myself.
+JSON schema application generator.
 
 
 
