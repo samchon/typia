@@ -14,17 +14,17 @@ Runtime type checker, and 10x faster `JSON.stringify()` function, with only one 
 ```typescript
 import TSON from "typescript-json";
 
-TSON.stringify<T>(input); // 10x faster
-TSON.assert<T>(input); // runtime type check
+TSON.assert<T>(input); // runtime type checker
+TSON.stringify<T>(input); // 10x faster JSON.stringify()
 ```
 
-`typescript-json` can check instance type in the runtime. Unlike other similar library `ajv` which requires complite JSON schema definition, `typescript-json` requires only one line, too: `TSON.assert<T>(input)` or `TSON.is<T>(input)`.
+`typescript-json` can check instance type in the runtime. Unlike other similar library `ajv` which requires complicate JSON schema definition, `typescript-json` requires only one line: `TSON.assert<T>(input)` or `TSON.is<T>(input)`.
 
-Also, `typescript-json` is a library which can boost up JSON string conversion speed about 10x times. Unlike other similar libraries like `ajv` or `fast-json-stringify` which requires complicate JSON schema definition,`typescript-json` requires only one line: `TSON.stringify<T>(input)`. 
+Also, `typescript-json` is a library which can boost up JSON string conversion speed about 10x times faster. Unlike other similar libraries like `ajv` or `fast-json-stringify` which requires complicate JSON schema definition,`typescript-json` requires only one line, too: `TSON.stringify<T>(input)`. 
 
-Furthermore, as `typescript-json` does not require any optimizer plan construction in the runtime, `typescript-json` is about 10,000x times faster than `ajv` and `fast-json-stringify` if compare only one JSON string conversion.
+Furthermore, `typescript-json` does not require any optimizer plan construction in the runtime. Therefore, `typescript-json` is about 10,000x times faster than `ajv` and `fast-json-stringify`, if compare only one-time JSON string conversion or validation.
 
-Look at the below graph, code and feel how `typescrip-json` and only one line is powerful.
+Look at the below graph, code and feel how `typescrip-json` is powerful.
 
 Only JSON string conversion time | Include optimizer planning time
 ---------------------------------|------------------------------------
@@ -100,7 +100,7 @@ fast({
 ### NPM Package
 At first, install this `typescript-json` by the `npm install` command. 
 
-Also, you need additional `devDependencies` to compile the TypeScript code with transformation. Therefore, install those all libraries `typescript`, `ttypescript` and `ts-node`. Inform that, the `ttypescript` is not mis-writing. Therefore, do not forget to install the `ttypescript`.
+Also, you need additional `devDependencies` to compile the TypeScript code with transformation. Therefore, install those all libraries `typescript`, `ttypescript` and `ts-node`. Inform that, `ttypescript` is not mis-writing. Therefore, do not forget to install the `ttypescript`.
 
 ```bash
 npm install --save typescript-json
@@ -126,7 +126,7 @@ After the installation, you've to configure the `tsconfig.json` file like below.
 }
 ```
 
-After the `tsconfig.json` definition, you can compile `typescript-json` utilized code by using the `ttypescript`. If you want to run your TypeScript file through the `ts-node`, use `-C ttypescript` argument like below:
+After the `tsconfig.json` definition, you can compile `typescript-json` utilized code by using `ttypescript`. If you want to run your TypeScript file through `ts-node`, use `-C ttypescript` argument like below:
 
 ```bash
 # COMPILE
@@ -137,7 +137,7 @@ npx ts-node -C ttypescript
 ```
 
 ### webpack
-If you're using a `webpack` with the `ts-loader`, configure the `webpack.config.js` file like below:
+If you're using a `webpack` with `ts-loader`, configure the `webpack.config.js` file like below:
 
 ```javascript
 const transform = require('typescript-json/lib/transform').default
@@ -173,19 +173,22 @@ export function stringify<T>(input: T): string;
 
 `typescript-json` provides three functions, `assert()`, `is()` and `stringify()`.
 
-The first `assert()` is a function which checks instance type in the runtime. If the input type is not matched with the generic argument `T`, the function `assert()` throws a `TypeGuardError`. The second `is()` function also checks instance type in runtime and returns a `boolean` value whether input value is matched with the generic argument `T` or not. 
+The first `assert()` is a function which checks instance type in the runtime. If the input type is not matched with the generic argument `T`, the function `assert()` throws a `TypeGuardError`. The second `is()` function also checks instance type in runtime, but returns a `boolean` value whether input value is matched with the generic argument `T` or not. 
 
-The last, `stringify()` is a function returning a JSON string of the input value. For reference, its JSON string conversion speed is about 10x times faster than the native `JSON.stringify()` function. Comparing with other similar libraries like `ajv` or `fast-json-stringify`, `typescript-json` is about 10,000x times faster because it does not require any optimizer plan construction in the runtime, considering only when only one JSON string conversion.
+The last, `stringify()` is a function returning a JSON string of the input value. As I've introduced in the preface, `stringify()` is about 10x times faster than the native`JSON.stringify()` function. 
+
+Furthermore, `typescript-json` does not require any optimizer plan construction in the runtime. Therefore, all of those functions are about 10,000x times faster than `ajv` and `fast-json-stringify`, if compare only one-time JSON string conversion or validation.
+
+Function      | Returns
+--------------|--------------
+`assert()`    | returns `void` or throws `TypeGuardError`
+`is()`        | `boolean` which means type being matched or not
+`stringify()` | JSON `string`, 10x faster than the native `JSON.stringify()`
 
 Only JSON string conversion time | Include optimizer planning time
 ---------------------------------|------------------------------------
 ![only-json-string-conversion](https://user-images.githubusercontent.com/13158709/172457566-d23100c2-808a-4544-a914-de92d8ec12b0.png) | ![include-optimizer-construction](https://user-images.githubusercontent.com/13158709/172457381-d8ccbb92-43a1-4c96-aae1-cdac7d2e03cd.png)
 
-<!-- The first `stringify()` is a function who returns the JSON string directly. Also, the type you'd put into the generic argument would be stored in the global memory and reused whenever calling the `stringify()` function with the same type.
-
-The second `createStringifier()` is a function who returns another function that can generate the JSON string. The `createStringifier()` is not enough convenient like `stringify()`, however it doesn't consume the global memory. Also, the returned function from the `createStringifier()` is always reusable until you forget the function variable.
-
-The last `createApplication()` is just a function who generates JSON schema following the type `T`. If you need to utilize the JSON schema for other purpose, this function would be useful. -->
 
 ### Generators
 ```typescript
@@ -206,7 +209,7 @@ Method | Strength | Weakness
 `createStringiy()` | Save global memory | Inconvenient to manage
 `createApplication()` | Reusable JSON Schema | Surplus feature, maybe?
 
-### Miscellaneous
+### JSON Schema
 ```typescript
 export function createApplication<T>(): JsonApplication<T>;
 ```
@@ -216,9 +219,11 @@ JSON schema application generator.
 
 
 
+
+
 ## Appendix
 ### Nestia
-> My another library using this `typescript-json`.
+> My other library using this `typescript-json`.
 
 https://github.com/samchon/nestia
 
@@ -296,6 +301,28 @@ export async function trace_sale_question_and_comment
         }
     );
     console.log("comment", comment);
+}
+```
+
+### Nestia-Helper
+> My another library, using this `typescript-json`, too.
+
+https://github.com/samchon/nestia-helper
+
+Boost up `JSON.stringify()` function, of the API responses, 10x times faster.
+
+`nestia-helper` is a helper library of `NestJS`, which can boost up the `JSON.stringify()` function 10x times faster about the API responses. Just by installing and utilizing this `nestia-helper`, your NestJS developed backend server will convert JSON string 10x times faster.
+
+```typescript
+import helper from "nestia-helper";
+import * as nest from "@nestjs/common";
+
+@nest.Controller("bbs/articles")
+export class BbsArticlesController
+{
+    // JSON.stringify for IPage<IBbsArticle.ISummary> would be 2 times faster 
+    @helper.TypedRoute.Get()
+    public get(): Promise<IPage<IBbsArticle.ISummary>>;
 }
 ```
 

@@ -10,7 +10,8 @@ module.exports = {
     parserOptions: {
         project: [
             "tsconfig.json",  
-            "test/tsconfig.json"
+            "tsconfig.benchmark.json",
+            "tsconfig.test.json"
         ]
     },
     ignorePatterns: [
@@ -21,6 +22,7 @@ module.exports = {
     overrides: [
         {
             files: [
+                "benchmark/**/*.ts",
                 "src/**/*.ts", 
                 "test/**/*.ts", 
             ],

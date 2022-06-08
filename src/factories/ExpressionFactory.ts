@@ -4,8 +4,10 @@ export namespace ExpressionFactory {
     export function generate(input: any) {
         if (input instanceof Array) return generate_array(input);
         else if (typeof input === "object") return generate_object(input);
-        else if (typeof input === "boolean") return generate_boolean(input);
         else if (typeof input === "string") return generate_string(input);
+        else if (typeof input === "boolean") return generate_value(input);
+        else if (typeof input === "number") return generate_value(input);
+        else if (typeof input === "bigint") return generate_value(input);
         else throw new Error("Unknown type.");
     }
 
@@ -28,7 +30,7 @@ export namespace ExpressionFactory {
         );
     }
 
-    function generate_boolean(value: boolean): ts.Identifier {
+    function generate_value(value: number | boolean | bigint): ts.Identifier {
         return ts.factory.createIdentifier(value.toString());
     }
 

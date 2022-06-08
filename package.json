@@ -1,13 +1,13 @@
 {
   "name": "typescript-json",
-  "version": "3.0.0-dev.20220601",
+  "version": "3.0.0-dev.20220608",
   "description": "Faster JSON stringify with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
     "benchmark": "node benchmark/index.js",
     "build": "rimraf lib && ttsc",
-    "build:test": "rimraf bin && ttsc -p test/tsconfig.json",
+    "build:test": "rimraf bin && ttsc -p tsconfig.test.json",
     "dev": "npm run build -- --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",

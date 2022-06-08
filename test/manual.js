@@ -7,7 +7,7 @@ runner.register({
     compiler: "ttypescript"
 });
 
-const program = require("./features/test_stringify_object_union_double.ts");
+const program = require("./features/test_stringify_constant_composite_union.ts");
 for (const value of Object.values(program))
     if (typeof value === "function")
         value();
