@@ -49,7 +49,7 @@ Note that, the special functions starting from the prefix `test_` must be `expor
 When you detect an error, then throw exception such below:
 
 ```typescript
-import TSON from "../../src";
+import TSON from "../../../src";
 import { RandomGenerator } from "../internal/RandomGenerator";
 
 export function test_stringify_object_recursive(): void

@@ -144,23 +144,5 @@ export namespace FunctionFactory {
             count: 1,
             argument: () => argue_stringify,
         },
-        createStringifier: {
-            count: 0,
-            argument: () =>
-                argue_application(
-                    "createStringifier",
-                    SchemaFactory.JSON_PREFIX,
-                    true,
-                ),
-        },
-        createApplication: {
-            count: 0,
-            argument: () =>
-                argue_application(
-                    "createApplication",
-                    SchemaFactory.SWAGGER_PREFIX,
-                    false,
-                ),
-        },
     };
 }
