@@ -1,4 +1,5 @@
 export interface IMetadata {
+    jsons: Map<string, IMetadata>;
     constants: Set<string | number | boolean>;
     atomics: Set<string>;
     arraies: Map<string, IMetadata | null>;
@@ -28,6 +29,7 @@ export namespace IMetadata {
      */
     export function create(): IMetadata {
         return {
+            jsons: new Map(),
             constants: new Set(),
             atomics: new Set(),
             arraies: new Map(),
@@ -58,6 +60,7 @@ export namespace IMetadata {
         if (x === null || y === null) return null;
 
         return {
+            jsons: new Map([...x.jsons, ...y.jsons]),
             constants: new Set([...x.constants, ...y.constants]),
             atomics: new Set([...x.atomics, ...y.atomics]),
             arraies: new Map([...x.arraies, ...y.arraies]),
