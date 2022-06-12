@@ -1,14 +1,14 @@
 import ts from "typescript";
 
-import { ExpressionFactory } from "../factories/ExpressionFactory";
-import { MetadataCollection } from "../factories/MetadataCollection";
-import { MetadataFactory } from "../factories/MetadataFactory";
-import { SchemaFactory } from "../factories/SchemaFactory";
+import { LiteralExpressionFactory } from "../../factories/LiteralExpressionFactory";
+import { MetadataCollection } from "../../factories/MetadataCollection";
+import { MetadataFactory } from "../../factories/MetadataFactory";
+import { ApplicationFactory } from "../../factories/ApplicationFactory";
 
-import { IJsonApplication } from "../module";
-import { IMetadata } from "../structures/IMetadata";
+import { IJsonApplication } from "../../module";
+import { IMetadata } from "../../structures/IMetadata";
 
-export namespace ApplicationFunctionTransformer {
+export namespace ApplicationTransformer {
     export function transform(
         checker: ts.TypeChecker,
         expression: ts.CallExpression,
@@ -53,23 +53,24 @@ export namespace ApplicationFunctionTransformer {
         // GENERATORS
         //----
         // METADATA
-        const collection: MetadataCollection = new MetadataCollection();
+        const collection: MetadataCollection = new MetadataCollection({
+            replace: MetadataCollection.replace,
+        });
         const metadatas: Array<IMetadata | null> = types.map((type) =>
-            MetadataFactory.generate(checker, type, collection),
+            MetadataFactory.generate(collection, checker, type, {
+                escape: true,
+                accumulate: false,
+            }),
         );
 
         // APPLICATION
-        const app: IJsonApplication = SchemaFactory.application(
-            metadatas,
-            collection.storage(),
-            {
-                purpose,
-                prefix,
-            },
-        );
+        const app: IJsonApplication = ApplicationFactory.generate(metadatas, {
+            purpose,
+            prefix,
+        });
 
         // RETURNS WITH LITERAL EXPRESSION
-        return ExpressionFactory.generate(app);
+        return LiteralExpressionFactory.generate(app);
     }
 
     function get_parameter<T extends string>(

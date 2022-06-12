@@ -4,13 +4,8 @@ export namespace TypeFactory {
     export function escape(
         checker: ts.TypeChecker,
         type: ts.Type,
-    ): [ts.Type, boolean] {
-        const converted: ts.Type | null = get_return_type(
-            checker,
-            type,
-            "toJSON",
-        );
-        return [converted || type, !!converted];
+    ): ts.Type | null {
+        return get_return_type(checker, type, "toJSON");
     }
 
     export function is_function(node: ts.Node): boolean {

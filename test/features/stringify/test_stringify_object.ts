@@ -19,7 +19,7 @@ export function test_stringify_object(): void {
 
     for (const id of [RandomGenerator.string(), null])
         for (const sex of ["male", "female", 1, 2, null] as const)
-            for (const age of [RandomGenerator.number(), null])
+            for (const age of [RandomGenerator.integer(), null])
                 for (const dead of [true, false, null])
                     test(prepare(id, sex, age, dead));
 }

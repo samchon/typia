@@ -4,7 +4,7 @@ import { RandomGenerator } from "../../internal/RandomGenerator";
 export function test_stringify_class_method(): void {
     const animal: Animal = new Animal(
         RandomGenerator.string(),
-        RandomGenerator.number(),
+        RandomGenerator.integer(),
     );
     const json: string = TSON.stringify<Animal>(animal);
     const expected: string = JSON.stringify(animal);

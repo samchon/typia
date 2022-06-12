@@ -1,4 +1,4 @@
-import { IPointer } from "tstl/functional/IPointer";
+import { IPointer } from "../../../src/structures/IPointer";
 import TSON from "../../../src";
 
 export function test_stringify_tuple_null(): void {

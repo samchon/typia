@@ -1,23 +1,31 @@
 import crypto from "crypto";
 import ts from "typescript";
-import { Singleton } from "tstl/thread/Singleton";
 
 import { IMetadata } from "../structures/IMetadata";
 import { MetadataCollection } from "./MetadataCollection";
 import { CommentFactory } from "./CommentFactory";
-import { TypeFactory } from "./TypeFactry";
+import { TypeFactory } from "./TypeFactory";
+import { MapUtil } from "../utils/MapUtil";
 
 export namespace MetadataFactory {
-    export import Collection = MetadataCollection;
+    export interface IOptions {
+        escape: boolean;
+        accumulate: boolean;
+    }
 
     export function generate(
+        collection: MetadataCollection,
         checker: ts.TypeChecker,
         type: ts.Type | null,
-        collection: Collection,
+        options: IOptions,
     ): IMetadata | null {
         // CONSTRUCT SCHEMA WITH OBJECTS
-        const metadata: IMetadata | null = explore(collection, checker, type);
-        if (metadata === null) return null;
+        const metadata: IMetadata | null = explore(
+            collection,
+            checker,
+            options,
+            type,
+        );
 
         // FIND RECURSIVE OBJECTS
         const storage: IMetadata.IStorage = collection.storage();
@@ -37,35 +45,57 @@ export namespace MetadataFactory {
     }
 
     function explore(
-        collection: Collection,
+        collection: MetadataCollection,
         checker: ts.TypeChecker,
+        options: IOptions,
         type: ts.Type | null,
     ): IMetadata | null {
         if (type === null) return null;
 
         const meta: IMetadata = IMetadata.create();
-        return iterate(collection, checker, meta, type, false) === false
-            ? null
-            : meta;
+        return iterate(collection, checker, options, meta, type, false)
+            ? meta
+            : null;
     }
 
     function iterate(
-        collection: Collection,
+        collection: MetadataCollection,
         checker: ts.TypeChecker,
+        options: IOptions,
         meta: IMetadata,
         type: ts.Type,
-        parentEscaped: boolean,
+        escaped: boolean,
     ): boolean {
-        // ESCAPE toJSON() METHOD
-        const [converted, partialEscaped] = TypeFactory.escape(checker, type);
-        if (partialEscaped === true) type = converted;
-
         // WHEN UNION TYPE
-        const escaped: boolean = partialEscaped || parentEscaped;
         if (type.isUnion())
             return type.types.every((t) =>
-                iterate(collection, checker, meta, t, escaped),
+                iterate(collection, checker, options, meta, t, escaped),
             );
+
+        // ESCAPE toJSON() METHOD
+        if (options.escape === true) {
+            const resolved: ts.Type | null = TypeFactory.escape(checker, type);
+            if (resolved !== null) {
+                if (options.accumulate === false)
+                    return iterate(
+                        collection,
+                        checker,
+                        options,
+                        meta,
+                        resolved,
+                        true,
+                    );
+                else {
+                    const child: IMetadata | null = explore(
+                        collection,
+                        checker,
+                        options,
+                        resolved,
+                    );
+                    meta.jsons.set(get_uid(child), child);
+                }
+            }
+        }
 
         // NODE AND ATOMIC TYPE CHECKER
         const node: ts.TypeNode | undefined = checker.typeToTypeNode(
@@ -110,21 +140,27 @@ export namespace MetadataFactory {
 
         // CONSTANT TYPE
         if (type.isLiteral()) {
-            meta.constants.add(
+            const value: string | number | bigint =
                 typeof type.value === "object"
-                    ? `${type.value.negative ? "-" : ""}${
-                          type.value.base10Value
-                      }`
-                    : type.value,
+                    ? BigInt(
+                          `${type.value.negative ? "-" : ""}${
+                              type.value.base10Value
+                          }`,
+                      )
+                    : type.value;
+            MapUtil.take(meta.constants, typeof value, () => new Set()).add(
+                value,
             );
             return !escaped;
         } else if (filter(ts.TypeFlags.BooleanLiteral)) {
-            meta.constants.add(checker.typeToString(type) === "true");
+            MapUtil.take(meta.constants, "boolean", () => new Set()).add(
+                checker.typeToString(type) === "true",
+            );
             return !escaped;
         }
 
         // ATOMIC VALUE TYPES
-        for (const [flag, literal, className] of ATOMICS.get())
+        for (const [flag, literal, className] of ATOMICS)
             if (check(flag, literal, className) === true) return !escaped;
 
         // WHEN TUPLE
@@ -138,6 +174,7 @@ export namespace MetadataFactory {
                 const child: IMetadata | null = explore(
                     collection,
                     checker,
+                    options,
                     elem,
                 );
                 children.push(child);
@@ -160,6 +197,7 @@ export namespace MetadataFactory {
             const elemSchema: IMetadata | null = explore(
                 collection,
                 checker,
+                options,
                 elemType,
             );
             if (elemSchema === null) return false;
@@ -171,12 +209,19 @@ export namespace MetadataFactory {
         // WHEN OBJECT, MAYBE
         else if (filter(ts.TypeFlags.Object)) {
             if (type.isIntersection()) {
-                const fakeCollection = new Collection();
+                const fakeCollection = new MetadataCollection();
                 const fakeSchema: IMetadata = IMetadata.create();
 
                 if (
                     type.types.every((t) =>
-                        iterate(fakeCollection, checker, fakeSchema, t, false),
+                        iterate(
+                            fakeCollection,
+                            checker,
+                            options,
+                            fakeSchema,
+                            t,
+                            false,
+                        ),
                     ) === false
                 )
                     return false;
@@ -188,29 +233,20 @@ export namespace MetadataFactory {
                     return false;
             }
 
-            const [key, object] = emplace(
-                collection,
-                checker,
-                type,
-                meta.nullable,
-            );
-            meta.objects.set(key, object);
+            const [key, object] = emplace(collection, checker, options, type);
+            meta.objects.set(key, [object, meta.nullable]);
         }
         return !escaped;
     }
 
     function emplace(
-        collection: Collection,
+        collection: MetadataCollection,
         checker: ts.TypeChecker,
+        options: IOptions,
         parent: ts.Type,
-        nullable: boolean,
     ): [string, IMetadata.IObject] {
         // CHECK MEMORY
-        const [id, object, newbie] = collection.emplace(
-            checker,
-            parent,
-            nullable,
-        );
+        const [id, object, newbie] = collection.emplace(checker, parent);
         if (newbie === false) return [id, object];
 
         // PREPARE ASSETS
@@ -251,7 +287,12 @@ export namespace MetadataFactory {
             const type: ts.Type = checker.getTypeOfSymbolAtLocation(prop, node);
 
             // CHILD METADATA BY ADDITIONAL EXPLORATION
-            const child: IMetadata | null = explore(collection, checker, type);
+            const child: IMetadata | null = explore(
+                collection,
+                checker,
+                options,
+                type,
+            );
             if (child && node.questionToken) child.required = false;
             if (child)
                 child.description =
@@ -291,10 +332,9 @@ export namespace MetadataFactory {
     }
 }
 
-const ATOMICS: Singleton<[ts.TypeFlags, ts.TypeFlags, string][]> =
-    new Singleton(() => [
-        [ts.TypeFlags.BooleanLike, ts.TypeFlags.BooleanLiteral, "Boolean"],
-        [ts.TypeFlags.NumberLike, ts.TypeFlags.NumberLiteral, "Number"],
-        [ts.TypeFlags.BigIntLike, ts.TypeFlags.BigIntLiteral, "BigInt"],
-        [ts.TypeFlags.StringLike, ts.TypeFlags.StringLiteral, "String"],
-    ]);
+const ATOMICS: [ts.TypeFlags, ts.TypeFlags, string][] = [
+    [ts.TypeFlags.BooleanLike, ts.TypeFlags.BooleanLiteral, "Boolean"],
+    [ts.TypeFlags.NumberLike, ts.TypeFlags.NumberLiteral, "Number"],
+    [ts.TypeFlags.BigIntLike, ts.TypeFlags.BigIntLiteral, "BigInt"],
+    [ts.TypeFlags.StringLike, ts.TypeFlags.StringLiteral, "String"],
+];

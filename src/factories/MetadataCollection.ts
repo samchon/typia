@@ -1,45 +1,38 @@
 import ts from "typescript";
-import { HashMap } from "tstl/container/HashMap";
-import { Pair } from "tstl/utility/Pair";
 
-import { TypeFactory } from "./TypeFactry";
+import { TypeFactory } from "./TypeFactory";
 import { IMetadata } from "../structures/IMetadata";
 import { MapUtil } from "../utils/MapUtil";
 import { CommentFactory } from "./CommentFactory";
 
 export class MetadataCollection {
-    private readonly dict_: HashMap<
-        Pair<ts.Type, boolean>,
-        [string, IMetadata.IObject]
-    >;
+    private readonly dict_: Map<ts.Type, [string, IMetadata.IObject]>;
     private readonly names_: Map<string, Map<ts.Type, string>>;
 
-    public constructor() {
-        this.dict_ = new HashMap();
+    public constructor(
+        private readonly options?: Partial<MetadataCollection.IOptions>,
+    ) {
+        this.dict_ = new Map();
         this.names_ = new Map();
     }
 
     public storage(): IMetadata.IStorage {
         const storage: IMetadata.IStorage = {};
-        for (const it of this.dict_) storage[it.second[0]] = it.second[1];
+        for (const [key, value] of this.dict_.values()) 
+            storage[key] = value;
         return storage;
     }
 
     public emplace(
         checker: ts.TypeChecker,
         type: ts.Type,
-        nullable: boolean,
     ): [string, IMetadata.IObject, boolean] {
-        const key: Pair<ts.Type, boolean> = new Pair(type, nullable);
-        const it = this.dict_.find(key);
+        const oldbie = this.dict_.get(type);
+        if (oldbie !== undefined) return [oldbie[0], oldbie[1], false];
 
-        if (it.equals(this.dict_.end()) === false)
-            return [it.second[0], it.second[1], false];
-
-        const $id: string = this.get_name(checker, type, nullable);
+        const $id: string = this.get_name(checker, type);
         const obj: IMetadata.IObject = {
             $id,
-            nullable,
             recursive: false,
             properties: {},
             description:
@@ -49,53 +42,51 @@ export class MetadataCollection {
                     )) ||
                 undefined,
         };
-        this.dict_.emplace(key, [$id, obj]);
-
+        this.dict_.set(type, [$id, obj]);
         return [$id, obj, true];
     }
 
-    private get_name(
-        checker: ts.TypeChecker,
-        type: ts.Type,
-        nullable: boolean,
-    ): string {
-        const name: string = replace(
-            `${TypeFactory.full_name(checker, type)}${
-                nullable ? ".Nullable" : ""
-            }`,
-        );
+    private get_name(checker: ts.TypeChecker, type: ts.Type): string {
+        const name: string = (() => {
+            const str: string = TypeFactory.full_name(checker, type);
+            return this.options?.replace ? this.options.replace(str) : str;
+        })();
+
         const duplicates: Map<ts.Type, string> = MapUtil.take(
             this.names_,
             name,
             () => new Map(),
         );
-        const oldbie = duplicates.get(type);
+        const oldbie: string | undefined = duplicates.get(type);
+        if (oldbie !== undefined) return oldbie;
 
-        if (oldbie) return oldbie;
-
-        const emended: string = duplicates.size
+        const addicted: string = duplicates.size
             ? `${name}.o${duplicates.size}`
             : name;
-        duplicates.set(type, emended);
-        return emended;
+        duplicates.set(type, addicted);
+        return addicted;
     }
 }
-export namespace MetadataCollection {}
+export namespace MetadataCollection {
+    export interface IOptions {
+        replace(str: string): string;
+    }
 
-function replace(str: string): string {
-    for (const [before, after] of REPLACERS)
-        str = str.split(before).join(after);
-    return str;
+    export function replace(str: string): string {
+        for (const [before, after] of REPLACERS)
+            str = str.split(before).join(after);
+        return str;
+    }
 }
 const REPLACERS: [string, string][] = [
-    ["$", "-dollar-"],
-    ["&", "-and-"],
-    ["|", "-or-"],
-    ["{", "-blt-"],
-    ["}", "-bgt-"],
-    ["<", "-lt-"],
-    [">", "-gt-"],
-    [",", "-comma-"],
+    ["$", "_dollar_"],
+    ["&", "_and_"],
+    ["|", "_or_"],
+    ["{", "_blt_"],
+    ["}", "_bgt_"],
+    ["<", "_lt_"],
+    [">", "_gt_"],
+    [",", "_comma_"],
     ["`", ""],
     ["'", ""],
     ['"', ""],

@@ -8,7 +8,7 @@ export function test_stringify_array(): void {
         email: RandomGenerator.string(),
         hobbies: RandomGenerator.array(() => ({
             name: RandomGenerator.string(),
-            rank: RandomGenerator.number(1, 3),
+            rank: RandomGenerator.integer(1, 3),
         })),
     };
     const json: string = TSON.stringify<IPerson>(person);

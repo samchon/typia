@@ -15,8 +15,8 @@ export function test_stringify_complicate(): void {
 
     // CONSTRUCT BUILDINGS
     const buildings: IBuilding[] = [
-        prepare_building(RandomGenerator.number()),
-        prepare_building(RandomGenerator.array(RandomGenerator.number)),
+        prepare_building(RandomGenerator.integer()),
+        prepare_building(RandomGenerator.array(RandomGenerator.integer)),
         prepare_building(RandomGenerator.string()),
         prepare_building(RandomGenerator.array(RandomGenerator.string)),
         prepare_building(prepare_address()),
@@ -38,7 +38,7 @@ function prepare_building(address: IBuilding["address"]): IBuilding {
         type: "building",
         name: RandomGenerator.string(),
         address,
-        possessions: RandomGenerator.number(1, 1000),
+        possessions: RandomGenerator.integer(1, 1000),
     };
 }
 function prepare_address(): IAddress {

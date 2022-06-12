@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-export namespace ExpressionFactory {
+export namespace LiteralExpressionFactory {
     export function generate(input: any) {
         if (input instanceof Array) return generate_array(input);
         else if (typeof input === "object") return generate_object(input);

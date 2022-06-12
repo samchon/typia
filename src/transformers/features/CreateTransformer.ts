@@ -1,13 +1,13 @@
 import ts from "typescript";
 
-export namespace CreateFunctionTransformer {
+export namespace CreateTransformer {
     export function transform(
         _checker: ts.TypeChecker,
         expression: ts.CallExpression,
     ): ts.CallExpression {
         // GET PARAMETER
         const param: ts.Expression | undefined = expression.arguments[0];
-        if (param === undefined) throw new Error(ErrorMessages.NO_INPUT_vALUE);
+        if (param === undefined) throw new Error(ErrorMessages.NO_INPUT_VALUE);
 
         // CONVERT TO JSON-STRING
         const json: string = to_json_string(param);
@@ -33,6 +33,6 @@ export namespace CreateFunctionTransformer {
 }
 
 const enum ErrorMessages {
-    NO_INPUT_vALUE = "Error on TSON.application(): no input value.",
+    NO_INPUT_VALUE = "Error on TSON.application(): no input value.",
     NO_CONSTANT_vALUE = "Error on TSON.application(): input value must be constant.",
 }
