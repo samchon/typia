@@ -5,17 +5,37 @@ import { IMetadata } from "../structures/IMetadata";
 import { MapUtil } from "../utils/MapUtil";
 
 export namespace SchemaFactory {
-    export const JSON_PREFIX = "components#/schemas";
+    export const AJV_PREFIX = "components#/schemas";
     export const SWAGGER_PREFIX = "#/components/schemas";
 
+    export interface IOptions {
+        purpose: "swagger" | "ajv";
+        prefix: string;
+    }
+    export namespace IOptions {
+        export function complement(options?: Partial<IOptions>): IOptions {
+            const purpose: "swagger" | "ajv" = options?.purpose ?? "swagger";
+            return {
+                purpose,
+                prefix:
+                    options?.prefix ?? purpose === "swagger"
+                        ? SWAGGER_PREFIX
+                        : AJV_PREFIX,
+            };
+        }
+    }
+
     export function application(
-        app: IMetadata.IApplication | null,
-        prefix: string = SWAGGER_PREFIX,
-        forAjv: boolean = false,
+        metadatas: Array<IMetadata | null>,
+        storage: IMetadata.IStorage | null,
+        options?: Partial<IOptions>,
     ): IJsonApplication {
+        const complemented: IOptions = IOptions.complement(options);
         return {
-            schema: generate_schema(app?.metadata || null, prefix, forAjv),
-            components: components(app?.storage || null, prefix, forAjv),
+            schemas: metadatas.map((meta) =>
+                generate_schema(complemented, meta),
+            ),
+            components: components(storage, complemented),
         };
     }
 
@@ -24,16 +44,15 @@ export namespace SchemaFactory {
     ----------------------------------------------------------- */
     export function schema(
         meta: IMetadata | null,
-        prefix: string = SWAGGER_PREFIX,
-        forAjv: boolean = false,
+        options?: Partial<IOptions>,
     ): IJsonSchema {
-        return generate_schema(meta, prefix, forAjv);
+        const complemented: IOptions = IOptions.complement(options);
+        return generate_schema(complemented, meta);
     }
 
     function generate_schema(
+        options: IOptions,
         meta: IMetadata | null,
-        prefix: string,
-        forAjv: boolean,
     ): IJsonSchema {
         if (meta === null) return {};
         else if (meta.nullable && IMetadata.empty(meta))
@@ -58,27 +77,27 @@ export namespace SchemaFactory {
             );
         for (const [address, { recursive }] of meta.objects.entries()) {
             const generator =
-                forAjv && recursive
+                options.purpose === "ajv" && recursive
                     ? generate_recursive_pointer
                     : generate_pointer;
-            oneOf.push(generator(`${prefix}/${address}`, meta.description));
+            oneOf.push(
+                generator(`${options.prefix}/${address}`, meta.description),
+            );
         }
         for (const schema of meta.arraies.values())
             oneOf.push(
                 generate_array(
-                    prefix,
-                    forAjv,
+                    options,
                     schema,
                     meta.nullable,
                     meta.description,
                 ),
             );
         for (const items of meta.tuples.values())
-            if (forAjv === true)
+            if (options.purpose === "ajv")
                 oneOf.push(
                     generate_tuple(
-                        prefix,
-                        forAjv,
+                        options,
                         items,
                         meta.nullable,
                         meta.description,
@@ -91,8 +110,7 @@ export namespace SchemaFactory {
                 );
                 oneOf.push(
                     generate_array(
-                        prefix,
-                        forAjv,
+                        options,
                         merged,
                         merged?.nullable || false,
                         items[0]?.description,
@@ -155,32 +173,28 @@ export namespace SchemaFactory {
     }
 
     function generate_array(
-        prefix: string,
-        forAjv: boolean,
+        options: IOptions,
         metadata: IMetadata | null,
         nullable: boolean,
         description: string | undefined,
     ): IJsonSchema.IArray {
         return {
             type: "array",
-            items: generate_schema(metadata, prefix, forAjv),
+            items: generate_schema(options, metadata),
             nullable,
             description,
         };
     }
 
     function generate_tuple(
-        prefix: string,
-        forAjv: boolean,
+        options: IOptions,
         items: Array<IMetadata | null>,
         nullable: boolean,
         description: string | undefined,
     ): IJsonSchema.ITuple {
         return {
             type: "array",
-            items: items.map((schema) =>
-                generate_schema(schema, prefix, forAjv),
-            ),
+            items: items.map((schema) => generate_schema(options, schema)),
             nullable,
             description,
         };
@@ -191,40 +205,39 @@ export namespace SchemaFactory {
     ----------------------------------------------------------- */
     export function components(
         storage: IMetadata.IStorage | null,
-        prefix: string = SWAGGER_PREFIX,
-        forAjv: boolean = false,
+        options?: Partial<IOptions>,
     ): IJsonComponents {
-        return generate_components(storage, prefix, forAjv);
+        const complemented: IOptions = IOptions.complement(options);
+        return generate_components(complemented, storage);
     }
 
     function generate_components(
+        options: IOptions,
         storage: IMetadata.IStorage | null,
-        prefix: string,
-        forAjv: boolean,
     ): IJsonComponents {
         const schemas: Record<string, any> = {};
         for (const [key, value] of Object.entries(storage || []))
-            schemas[key] = generate_object(prefix, forAjv, value);
+            schemas[key] = generate_object(options, value);
 
         return { schemas };
     }
 
     function generate_object(
-        prefix: string,
-        forAjv: boolean,
+        options: IOptions,
         obj: IMetadata.IObject,
     ): IJsonComponents.IObject {
         const properties: Record<string, any> = {};
         const required: string[] = [];
 
         for (const [key, value] of Object.entries(obj.properties || [])) {
-            properties[key] = generate_schema(value, prefix, forAjv);
+            properties[key] = generate_schema(options, value);
             if (value?.required === true) required.push(key);
         }
 
         return {
-            $id: forAjv ? obj.$id : undefined,
-            $recursiveAnchor: (forAjv && obj.recursive) || undefined,
+            $id: options.purpose === "ajv" ? obj.$id : undefined,
+            $recursiveAnchor:
+                (options.purpose === "ajv" && obj.recursive) || undefined,
             type: "object",
             properties,
             nullable: obj.nullable,

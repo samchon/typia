@@ -8,11 +8,11 @@ export * from "./structures/IJsonSchema";
  * Asserts a value type in the runtime.
  *
  * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
- * reason, if the parametric value is not following the type `T`. Otherwise, the
- * value is following the type `T`, just input parameter would be returned.
+ * reason, if the parametric value is not following the type *T*. Otherwise, the
+ * value is following the type *T*, just input parameter would be returned.
  *
  * If what you want is not asserting but just knowing whether the parametric value is
- * following the type `T` or not, you can choose the {@link is} function instead.
+ * following the type *T* or not, you can choose the {@link is} function instead.
  *
  * @template T Type of the input value
  * @param input A value to be asserted
@@ -33,15 +33,15 @@ export function assert(): never {
 /**
  * Tests a value type in the runtime.
  *
- * Tests a parametric value type and returns whether it's following the type `T` or not.
+ * Tests a parametric value type and returns whether it's following the type *T* or not.
  *
  * If what you want is not just knowing whether the parametric value is following the
- * type `T` or not, but throwing an exception with detailed reason, you can choose
+ * type *T* or not, but throwing an exception with detailed reason, you can choose
  * {@link is} function instead.
  *
  * @template T Type of the input value
  * @param input A value to be tested
- * @returns Whether the parametric value is following the type `T` or not
+ * @returns Whether the parametric value is following the type *T* or not
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -57,11 +57,14 @@ export function is(): never {
 /**
  * 10x faster `JSON.stringify()` function.
  *
- * Converts a value to a JSON (JavaSript Object Noation) string.
+ * Converts an input value to a JSON (JavaSript Object Noation) string, about 10x faster
+ * than the native `JSON.stringify()` function. The 10x faster principle is because
+ * it writes an optmized JSON conversion plan, only for the type *T*.
  *
- * For reference, this function `TSON.stringify()` is about 10x times faster than the
- * native `JSON.stringify()` function, by preparing an optimized JSON string conversion
- * plan, only for the type `T`.
+ * For reference, this `TSON.stringify()` does not validate the input value type. It
+ * just believes that the input value is following the type *T*. Therefore, if you
+ * can't ensure the input value type, it would better to call {@link assert} or
+ * {@link is} function before.
  *
  * @template T Type of the input value
  * @param input A value to be converted
@@ -108,16 +111,27 @@ export function create(): never {
 }
 
 /**
- * > You must configure the generic argument `T`.
+ * > You must configure the generic argument *T*.
  *
  * JSON Schema Application.
  *
- * Creates a JSON schema application which contains both main JSON schema and components.
+ * Creates a JSON schema application which contains both main JSON schemas and components.
  * Note that, all of the object types are stored in the {@link IJsonApplication.components}
  * property for the `$ref` referencing.
  *
- * @template T Target type
+ * Also, `TSON.application()` has additional generic arguments, *Purpose*.
+ * As JSON schema definitions used by `swagger` and `ajv` are different a little bit,
+ * you should configure the *Purpose* apprpriately.
+ *
+ * For an example, `ajv` has an extra property "$recursiveRef" that are not exists
+ * in the standard JSON schema definition spec. Otherwise, `swagger` can't identify
+ * the tuple definition.
+ *
+ * @template Types Tuple of target types
+ * @template Purpose Purpose of the JSON schema
+ * @template Prefix Prefix of the JSON components referenced by `$ref` tag
  * @return JSON schema application
+ *
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function application(): never;
@@ -125,15 +139,32 @@ export function application(): never;
 /**
  * JSON Schema Application.
  *
- * Creates a JSON schema application which contains both main JSON schema and components.
+ * Creates a JSON schema application which contains both main JSON schemas and components.
  * Note that, all of the object types are stored in the {@link IJsonApplication.components}
  * property for the `$ref` referencing.
  *
- * @template T Target type
+ * Also, `TSON.application()` has additional generic arguments, *Purpose*.
+ * As JSON schema definitions used by `swagger` and `ajv` are different a little bit,
+ * you should configure the *Purpose* apprpriately.
+ *
+ * For an example, `ajv` has an extra property "$recursiveRef" that are not exists
+ * in the standard JSON schema definition spec. Otherwise, `swagger` can't identify
+ * the tuple definition.
+ *
+ * @template Types Tuple of target types
+ * @template Purpose Purpose of the JSON schema
+ * @template Prefix Prefix of the JSON components referenced by `$ref` tag
  * @return JSON schema application
+ *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function application<T>(): IJsonApplication;
+export function application<
+    Types extends unknown[],
+    Purpose extends "swagger" | "ajv" = "swagger",
+    Prefix extends string = Purpose extends "swagger"
+        ? "#/components/schemas"
+        : "components#/schemas",
+>(): IJsonApplication;
 
 /**
  * @internal

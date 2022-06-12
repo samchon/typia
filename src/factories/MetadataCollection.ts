@@ -2,10 +2,10 @@ import ts from "typescript";
 import { HashMap } from "tstl/container/HashMap";
 import { Pair } from "tstl/utility/Pair";
 
-import { TypeFactory } from "../factories/TypeFactry";
+import { TypeFactory } from "./TypeFactry";
 import { IMetadata } from "../structures/IMetadata";
 import { MapUtil } from "../utils/MapUtil";
-import { CommentFactory } from "../factories/CommentFactory";
+import { CommentFactory } from "./CommentFactory";
 
 export class MetadataCollection {
     private readonly dict_: HashMap<
@@ -14,7 +14,7 @@ export class MetadataCollection {
     >;
     private readonly names_: Map<string, Map<ts.Type, string>>;
 
-    public constructor(public readonly inline: boolean) {
+    public constructor() {
         this.dict_ = new HashMap();
         this.names_ = new Map();
     }

@@ -3,9 +3,9 @@ import ts from "typescript";
 import { Singleton } from "tstl/thread/Singleton";
 
 import { IMetadata } from "../structures/IMetadata";
-import { MetadataCollection } from "../storages/MetadataCollection";
-import { TypeFactory } from "./TypeFactry";
+import { MetadataCollection } from "./MetadataCollection";
 import { CommentFactory } from "./CommentFactory";
+import { TypeFactory } from "./TypeFactry";
 
 export namespace MetadataFactory {
     export import Collection = MetadataCollection;
@@ -13,8 +13,8 @@ export namespace MetadataFactory {
     export function generate(
         checker: ts.TypeChecker,
         type: ts.Type | null,
-        collection: Collection = new Collection(true),
-    ): IMetadata.IApplication | null {
+        collection: Collection,
+    ): IMetadata | null {
         // CONSTRUCT SCHEMA WITH OBJECTS
         const metadata: IMetadata | null = explore(collection, checker, type);
         if (metadata === null) return null;
@@ -33,7 +33,7 @@ export namespace MetadataFactory {
                 );
 
         // RETURNS
-        return { metadata, storage };
+        return metadata;
     }
 
     function explore(
@@ -44,7 +44,9 @@ export namespace MetadataFactory {
         if (type === null) return null;
 
         const meta: IMetadata = IMetadata.create();
-        return iterate(collection, checker, meta, type) === false ? null : meta;
+        return iterate(collection, checker, meta, type, false) === false
+            ? null
+            : meta;
     }
 
     function iterate(
@@ -52,7 +54,7 @@ export namespace MetadataFactory {
         checker: ts.TypeChecker,
         meta: IMetadata,
         type: ts.Type,
-        parentEscaped: boolean = false,
+        parentEscaped: boolean,
     ): boolean {
         // ESCAPE toJSON() METHOD
         const [converted, partialEscaped] = TypeFactory.escape(checker, type);
@@ -169,12 +171,12 @@ export namespace MetadataFactory {
         // WHEN OBJECT, MAYBE
         else if (filter(ts.TypeFlags.Object)) {
             if (type.isIntersection()) {
-                const fakeCollection = new Collection(true);
+                const fakeCollection = new Collection();
                 const fakeSchema: IMetadata = IMetadata.create();
 
                 if (
                     type.types.every((t) =>
-                        iterate(fakeCollection, checker, fakeSchema, t),
+                        iterate(fakeCollection, checker, fakeSchema, t, false),
                     ) === false
                 )
                     return false;

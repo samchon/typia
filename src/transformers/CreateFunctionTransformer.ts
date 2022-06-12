@@ -1,15 +1,13 @@
 import ts from "typescript";
-import { IProject } from "../structures/IProject";
 
 export namespace CreateFunctionTransformer {
     export function transform(
-        _project: IProject,
+        _checker: ts.TypeChecker,
         expression: ts.CallExpression,
     ): ts.CallExpression {
         // GET PARAMETER
         const param: ts.Expression | undefined = expression.arguments[0];
-        if (param === undefined)
-            throw new Error("Error on TSON.create(): no input value.");
+        if (param === undefined) throw new Error(ErrorMessages.NO_INPUT_vALUE);
 
         // CONVERT TO JSON-STRING
         const json: string = to_json_string(param);
@@ -29,9 +27,12 @@ export namespace CreateFunctionTransformer {
 
             return JSON.stringify(obj);
         } catch (exp) {
-            throw new Error(
-                "Error on TSON.create(): input value must be constant.",
-            );
+            throw new Error(ErrorMessages.NO_CONSTANT_vALUE);
         }
     }
+}
+
+const enum ErrorMessages {
+    NO_INPUT_vALUE = "Error on TSON.application(): no input value.",
+    NO_CONSTANT_vALUE = "Error on TSON.application(): input value must be constant.",
 }

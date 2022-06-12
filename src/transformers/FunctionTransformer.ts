@@ -41,10 +41,13 @@ export namespace FunctionTransformer {
 
         // RETURNS WITH TRANSFORMATION
         if (func === null) return expression;
-        return func(project, expression);
+        return func(project.checker, expression);
     }
 }
 
-type Task = (project: IProject, expression: ts.CallExpression) => ts.Expression;
+type Task = (
+    checker: ts.TypeChecker,
+    expression: ts.CallExpression,
+) => ts.Expression;
 const LIB_PATH = path.resolve(path.join(__dirname, "..", "module.d.ts"));
 const SRC_PATH = path.resolve(path.join(__dirname, "..", "module.ts"));
