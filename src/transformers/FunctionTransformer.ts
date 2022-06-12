@@ -1,8 +1,8 @@
 import path from "path";
 import ts from "typescript";
 import { IProject } from "../structures/IProject";
-import { ApplicationFunctionTransformer } from "./ApplicationFunctionTransformer";
-import { CreateFunctionTransformer } from "./CreateFunctionTransformer";
+import { ApplicationTransformer } from "./features/ApplicationTransformer";
+import { CreateTransformer } from "./features/CreateTransformer";
 
 export namespace FunctionTransformer {
     export function transform(
@@ -34,9 +34,9 @@ export namespace FunctionTransformer {
         // FIND TRANSFORMER
         const func: Task | null =
             name === "create"
-                ? CreateFunctionTransformer.transform
+                ? CreateTransformer.transform
                 : name === "application"
-                ? ApplicationFunctionTransformer.transform
+                ? ApplicationTransformer.transform
                 : null;
 
         // RETURNS WITH TRANSFORMATION

@@ -2,9 +2,8 @@ import { IJsonApplication } from "../structures/IJsonApplication";
 import { IJsonComponents } from "../structures/IJsonComponents";
 import { IJsonSchema } from "../structures/IJsonSchema";
 import { IMetadata } from "../structures/IMetadata";
-import { MapUtil } from "../utils/MapUtil";
 
-export namespace SchemaFactory {
+export namespace ApplicationFactory {
     export const AJV_PREFIX = "components#/schemas";
     export const SWAGGER_PREFIX = "#/components/schemas";
 
@@ -25,33 +24,30 @@ export namespace SchemaFactory {
         }
     }
 
-    export function application(
+    export function generate(
         metadatas: Array<IMetadata | null>,
-        storage: IMetadata.IStorage | null,
         options?: Partial<IOptions>,
     ): IJsonApplication {
         const complemented: IOptions = IOptions.complement(options);
+        const components: IJsonComponents = {
+            schemas: {},
+        };
+
         return {
             schemas: metadatas.map((meta) =>
-                generate_schema(complemented, meta),
+                generate_schema(complemented, components, meta),
             ),
-            components: components(storage, complemented),
+            components,
+            ...complemented,
         };
     }
 
     /* -----------------------------------------------------------
         SCHEMA
     ----------------------------------------------------------- */
-    export function schema(
-        meta: IMetadata | null,
-        options?: Partial<IOptions>,
-    ): IJsonSchema {
-        const complemented: IOptions = IOptions.complement(options);
-        return generate_schema(complemented, meta);
-    }
-
     function generate_schema(
         options: IOptions,
+        components: IJsonComponents,
         meta: IMetadata | null,
     ): IJsonSchema {
         if (meta === null) return {};
@@ -75,19 +71,21 @@ export namespace SchemaFactory {
                     meta.description,
                 ),
             );
-        for (const [address, { recursive }] of meta.objects.entries()) {
+        for (const [address, [obj, nullable]] of meta.objects.entries()) {
+            const key: string = address + (nullable ? ".Nullable" : "");
+            generate_object(options, components, key, obj, nullable);
+
             const generator =
-                options.purpose === "ajv" && recursive
+                options.purpose === "ajv" && obj.recursive
                     ? generate_recursive_pointer
                     : generate_pointer;
-            oneOf.push(
-                generator(`${options.prefix}/${address}`, meta.description),
-            );
+            oneOf.push(generator(`${options.prefix}/${key}`, meta.description));
         }
         for (const schema of meta.arraies.values())
             oneOf.push(
                 generate_array(
                     options,
+                    components,
                     schema,
                     meta.nullable,
                     meta.description,
@@ -98,6 +96,7 @@ export namespace SchemaFactory {
                 oneOf.push(
                     generate_tuple(
                         options,
+                        components,
                         items,
                         meta.nullable,
                         meta.description,
@@ -111,6 +110,7 @@ export namespace SchemaFactory {
                 oneOf.push(
                     generate_array(
                         options,
+                        components,
                         merged,
                         merged?.nullable || false,
                         items[0]?.description,
@@ -124,14 +124,10 @@ export namespace SchemaFactory {
     }
 
     function generate_constants(
-        values: Set<string | number | boolean>,
+        dict: Map<string, Set<string | number | bigint | boolean>>,
         nullable: boolean,
         description: string | undefined,
     ) {
-        const dict: Map<string, Set<string | number | boolean>> = new Map();
-        for (const v of values)
-            MapUtil.take(dict, typeof v, () => new Set()).add(v);
-
         return [...dict].map(([key, values]) => ({
             type: key,
             enum: [...values],
@@ -174,13 +170,14 @@ export namespace SchemaFactory {
 
     function generate_array(
         options: IOptions,
+        components: IJsonComponents,
         metadata: IMetadata | null,
         nullable: boolean,
         description: string | undefined,
     ): IJsonSchema.IArray {
         return {
             type: "array",
-            items: generate_schema(options, metadata),
+            items: generate_schema(options, components, metadata),
             nullable,
             description,
         };
@@ -188,13 +185,16 @@ export namespace SchemaFactory {
 
     function generate_tuple(
         options: IOptions,
+        components: IJsonComponents,
         items: Array<IMetadata | null>,
         nullable: boolean,
         description: string | undefined,
     ): IJsonSchema.ITuple {
         return {
             type: "array",
-            items: items.map((schema) => generate_schema(options, schema)),
+            items: items.map((schema) =>
+                generate_schema(options, components, schema),
+            ),
             nullable,
             description,
         };
@@ -203,46 +203,60 @@ export namespace SchemaFactory {
     /* -----------------------------------------------------------
         COMPONENTS
     ----------------------------------------------------------- */
-    export function components(
-        storage: IMetadata.IStorage | null,
-        options?: Partial<IOptions>,
-    ): IJsonComponents {
-        const complemented: IOptions = IOptions.complement(options);
-        return generate_components(complemented, storage);
-    }
+    // export function components(
+    //     storage: IMetadata.IStorage | null,
+    //     options?: Partial<IOptions>,
+    // ): IJsonComponents {
+    //     const complemented: IOptions = IOptions.complement(options);
+    //     return generate_components(complemented, storage);
+    // }
 
-    function generate_components(
-        options: IOptions,
-        storage: IMetadata.IStorage | null,
-    ): IJsonComponents {
-        const schemas: Record<string, any> = {};
-        for (const [key, value] of Object.entries(storage || []))
-            schemas[key] = generate_object(options, value);
+    // function generate_components(
+    //     options: IOptions,
+    //     storage: IMetadata.IStorage | null,
+    //     nullable: boolean
+    // ): IJsonComponents {
+    //     const schemas: Record<string, any> = {};
+    //     for (const [key, obj] of Object.entries(storage || []))
+    //         schemas[key + nullable ? ".Nullable" : ""] = generate_object(
+    //             options,
+    //             obj,
+    //             nullable,
+    //         );
 
-        return { schemas };
-    }
+    //     return { schemas };
+    // }
 
     function generate_object(
         options: IOptions,
+        components: IJsonComponents,
+        key: string,
         obj: IMetadata.IObject,
-    ): IJsonComponents.IObject {
+        nullable: boolean,
+    ): void {
+        // TEMPORARY ASSIGNMENT
+        if (components.schemas[key] !== undefined) return;
+        components.schemas[key] = {} as any;
+
+        // ITERATE PROPERTIES
         const properties: Record<string, any> = {};
         const required: string[] = [];
 
         for (const [key, value] of Object.entries(obj.properties || [])) {
-            properties[key] = generate_schema(options, value);
+            properties[key] = generate_schema(options, components, value);
             if (value?.required === true) required.push(key);
         }
 
-        return {
+        const schema: IJsonComponents.IObject = {
             $id: options.purpose === "ajv" ? obj.$id : undefined,
             $recursiveAnchor:
                 (options.purpose === "ajv" && obj.recursive) || undefined,
             type: "object",
             properties,
-            nullable: obj.nullable,
+            nullable,
             required: required.length ? required : undefined,
             description: obj.description,
         };
+        components.schemas[key] = schema;
     }
 }
