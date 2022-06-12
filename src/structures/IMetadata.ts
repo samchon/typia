@@ -17,11 +17,6 @@ export namespace IMetadata {
         nullable: boolean;
         description?: string;
     }
-
-    export interface IApplication {
-        metadata: IMetadata;
-        storage: IStorage;
-    }
     export type IStorage = Record<string, IMetadata.IObject>;
 
     /**

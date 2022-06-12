@@ -1,7 +1,7 @@
 import TSON from "../../../src";
 
 export function test_application_object(): void {
-    const app = TSON.application<IMember>();
+    const app = TSON.application<[IMember]>();
     app;
 }
 
