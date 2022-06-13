@@ -5,7 +5,7 @@ export function test_stringify_object_intersection(): void {
     const input: IEmail & IName = {
         email: RandomGenerator.string(),
         name: RandomGenerator.string(),
-        vulnerable: RandomGenerator.integer() as any,
+        vulnerable: RandomGenerator.number() as any,
     };
     const json: string = TSON.stringify<IEmail & IName>(input);
     const expected: string = JSON.stringify(input);

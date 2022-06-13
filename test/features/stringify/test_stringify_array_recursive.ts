@@ -1,32 +1,9 @@
 import TSON from "../../../src";
-import { RandomGenerator } from "../../internal/RandomGenerator";
+import { IArrayRecursive } from "../../structures/IArrayRecursive";
+import { _test_stringify } from "./internal/_test_stringify";
 
-export function test_stringify_array_recursive(): void {
-    const categories: ICategory[] = RandomGenerator.array(() => ({
-        code: RandomGenerator.string(),
-        name: RandomGenerator.string(),
-        children: RandomGenerator.array(() => ({
-            code: RandomGenerator.string(),
-            name: RandomGenerator.string(),
-            children: RandomGenerator.array(() => ({
-                code: RandomGenerator.string(),
-                name: RandomGenerator.string(),
-                children: [],
-            })),
-        })),
-    }));
-
-    const json: string = TSON.stringify<ICategory[]>(categories);
-    const expected: string = JSON.stringify(categories);
-
-    if (json !== expected)
-        throw new Error(
-            "Bug on TSON.stringify(): failed to understand the recursive array type.",
-        );
-}
-
-interface ICategory {
-    code: string;
-    name: string;
-    children: ICategory[];
-}
+export const test_stringify_array_recursive = _test_stringify(
+    "recursive array",
+    IArrayRecursive.generate(),
+    (input) => TSON.stringify(input),
+);

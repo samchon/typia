@@ -1,20 +1,9 @@
 import TSON from "../../../src";
+import { IArrayUnion } from "../../structures/IArrayUnion";
+import { _test_stringify } from "./internal/_test_stringify";
 
-export function test_stringify_array_union(): void {
-    const test = (input: Union) => {
-        const json: string = TSON.stringify(input);
-        const expected: string = JSON.stringify(input);
-
-        if (json !== expected)
-            throw new Error(
-                `Bug on TSON.stringify(): failed to understand the union array type.`,
-            );
-    };
-
-    test(true);
-    test([1, 2, 3, 4]);
-    test(["hello", "world"]);
-    test([false, true, "two", 3, 4, "five"]);
-}
-
-type Union = boolean | number[] | string[] | Array<boolean | number | string>;
+export const test_stringify_array_union = _test_stringify(
+    "union arrray",
+    IArrayUnion.generate(),
+    (input) => TSON.stringify(input),
+);

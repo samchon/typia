@@ -5,7 +5,7 @@ export function test_stringify_object_implicit(): void {
     const lecture: ILecture = {
         name: RandomGenerator.string(),
         professor: RandomGenerator.string(),
-        grade: RandomGenerator.integer(),
+        grade: RandomGenerator.number(),
     };
     const json: string = TSON.stringify(lecture);
     const expected: string = JSON.stringify(lecture);

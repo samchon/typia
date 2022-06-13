@@ -1,20 +1,24 @@
 import TSON from "../../../src";
+import { RandomGenerator } from "../../internal/RandomGenerator";
+import { IObjectToJsonArray } from "../../structures/IObjectToJsonArray";
+import { _test_stringify } from "./internal/_test_stringify";
 
 export function test_stringify_to_json_to_array(): void {
-    const something: Something = new Something(10);
-    const json: string = TSON.stringify<Something>(something);
-    const expected: string = JSON.stringify(something);
+    _test_stringify(
+        "toJSON() method returning boolean array type",
+        IObjectToJsonArray.generate(RandomGenerator.boolean),
+        (input) => TSON.stringify(input),
+    )();
 
-    if (json !== expected)
-        throw new Error(
-            "Bug on TSON.stringify(): failed to undertand the Object.toJSON() returning array.",
-        );
-}
+    _test_stringify(
+        "toJSON() method returning number array type",
+        IObjectToJsonArray.generate(RandomGenerator.number),
+        (input) => TSON.stringify(input),
+    )();
 
-class Something {
-    public constructor(public readonly value: number) {}
-
-    public toJSON(): number[] {
-        return new Array(this.value).fill(0).map((_, index) => index + 1);
-    }
+    _test_stringify(
+        "toJSON() method returning string array type",
+        IObjectToJsonArray.generate(RandomGenerator.string),
+        (input) => TSON.stringify(input),
+    )();
 }

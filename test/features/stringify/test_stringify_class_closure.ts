@@ -1,18 +1,9 @@
 import TSON from "../../../src";
+import { ClassGetter } from "../../structures/ClassGetter";
+import { _test_stringify } from "./internal/_test_stringify";
 
-export function test_stringify_class_closure(): void {
-    const something: Something = new Something("1234");
-    const json: string = TSON.stringify<Something>(something);
-    const expected: string = JSON.stringify(something);
-
-    if (json !== expected)
-        throw new Error(
-            "Bug on TSON.stringify(): failed to understand the class closure type.",
-        );
-}
-
-class Something {
-    public constructor(public readonly id: string) {}
-    public readonly type: "something" = "something";
-    public readonly closure: () => string = () => `${this.type}:${this.id}`;
-}
+export const test_stringify_class_closure = _test_stringify(
+    "class closure",
+    ClassGetter.generate(),
+    (input) => TSON.stringify(input),
+);

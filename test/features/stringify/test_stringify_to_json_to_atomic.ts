@@ -1,23 +1,24 @@
 import TSON from "../../../src";
+import { RandomGenerator } from "../../internal/RandomGenerator";
+import { IObjectToJsonAtomic } from "../../structures/IObjectToJsonAtomic";
+import { _test_stringify } from "./internal/_test_stringify";
 
 export function test_stringify_to_json_to_atomic(): void {
-    const operator: Operator = new Operator(2, 3, 4);
-    const json: string = TSON.stringify<Operator>(operator);
+    _test_stringify(
+        "toJSON() returning boolean type",
+        IObjectToJsonAtomic.generate(RandomGenerator.boolean),
+        (input) => TSON.stringify(input),
+    )();
 
-    if (json !== "9")
-        throw new Error(
-            "Bug on TSON.stringify(): failed to understand the atomic value.",
-        );
-}
+    _test_stringify(
+        "toJSON() returning number type",
+        IObjectToJsonAtomic.generate(RandomGenerator.number),
+        (input) => TSON.stringify(input),
+    )();
 
-class Operator {
-    public constructor(
-        public readonly x: number,
-        public readonly y: number,
-        public readonly z: number,
-    ) {}
-
-    public toJSON(): number {
-        return this.x + this.y + this.z;
-    }
+    _test_stringify(
+        "toJSON() returning string type",
+        IObjectToJsonAtomic.generate(RandomGenerator.string),
+        (input) => TSON.stringify(input),
+    )();
 }

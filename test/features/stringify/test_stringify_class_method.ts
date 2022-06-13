@@ -1,28 +1,9 @@
 import TSON from "../../../src";
-import { RandomGenerator } from "../../internal/RandomGenerator";
+import { ClassMethod } from "../../structures/ClassMethod";
+import { _test_stringify } from "./internal/_test_stringify";
 
-export function test_stringify_class_method(): void {
-    const animal: Animal = new Animal(
-        RandomGenerator.string(),
-        RandomGenerator.integer(),
-    );
-    const json: string = TSON.stringify<Animal>(animal);
-    const expected: string = JSON.stringify(animal);
-
-    if (json !== expected)
-        throw new Error(
-            "Bug on TSON.stringify(): failed to understand the class method.",
-        );
-}
-
-class Animal {
-    public constructor(public readonly name: string, age: number) {
-        this.name = name;
-        this.age = age;
-    }
-    public readonly age: number;
-
-    public bark(): string {
-        return RandomGenerator.string();
-    }
-}
+export const test_stringify_class_method = _test_stringify(
+    "class method",
+    ClassMethod.generate(),
+    (input) => TSON.stringify(input),
+);

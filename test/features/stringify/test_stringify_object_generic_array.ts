@@ -2,7 +2,7 @@ import TSON from "../../../src";
 import { RandomGenerator } from "../../internal/RandomGenerator";
 
 export function test_stringify_object_generic_array(): void {
-    const count: number = RandomGenerator.integer(10, 20);
+    const count: number = RandomGenerator.number(10, 20);
     const page: IPage<IPerson> = {
         pagination: {
             page: 1,
@@ -12,7 +12,7 @@ export function test_stringify_object_generic_array(): void {
         },
         data: RandomGenerator.array(() => ({
             name: RandomGenerator.string(),
-            age: RandomGenerator.integer(),
+            age: RandomGenerator.number(),
         })),
     };
 

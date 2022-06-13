@@ -1,4 +1,5 @@
 import ts from "typescript";
+import { IdentifierFactory } from "./IdentifierFactory";
 
 export namespace LiteralExpressionFactory {
     export function generate(input: any) {
@@ -16,7 +17,7 @@ export namespace LiteralExpressionFactory {
             .filter((tuple) => tuple[1] !== undefined)
             .map(([key, value]) =>
                 ts.factory.createPropertyAssignment(
-                    generate_string(key),
+                    IdentifierFactory.generate(key),
                     generate(value),
                 ),
             );

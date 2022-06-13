@@ -1,14 +1,26 @@
 import TSON from "../../../src";
+import { RandomGenerator } from "../../internal/RandomGenerator";
+import { IArrayAtomic } from "../../structures/IArrayAtomic";
+import { _test_stringify } from "./internal/_test_stringify";
 
 export function test_stringify_array_generic_alias(): void {
-    const alias: Alias<number> = [1, 2, 3];
-    const json: string = TSON.stringify<Alias<number>>(alias);
-    const expected: string = JSON.stringify(alias);
+    _test_stringify<Alias<boolean>>(
+        "generic alias",
+        IArrayAtomic.generate(RandomGenerator.boolean),
+        (input) => TSON.stringify<Alias<boolean>>(input),
+    )();
 
-    if (json !== expected)
-        throw new Error(
-            "Bug on TSON.stringify(): failed to understand the generic array alias type.",
-        );
+    _test_stringify<Alias<number>>(
+        "generic alias",
+        IArrayAtomic.generate(RandomGenerator.number),
+        (input) => TSON.stringify<Alias<number>>(input),
+    )();
+
+    _test_stringify<Alias<string>>(
+        "generic alias",
+        IArrayAtomic.generate(RandomGenerator.string),
+        (input) => TSON.stringify<Alias<string>>(input),
+    )();
 }
 
 type Alias<T> = T[];

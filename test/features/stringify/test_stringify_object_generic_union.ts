@@ -1,19 +1,17 @@
-import { v4 } from "uuid";
-
 import TSON from "../../../src";
 
 import { RandomGenerator } from "../../internal/RandomGenerator";
 
 export function test_stringify_object_generic_union(): void {
     const question: ISaleQuestion = {
-        id: v4(),
+        id: "id",
         writer: "robot",
         contents: RandomGenerator.array(() => ({
-            id: v4(),
+            id: "id",
             title: RandomGenerator.string(),
             body: RandomGenerator.string(),
             files: RandomGenerator.array(() => ({
-                id: v4(),
+                id: "id",
                 name: RandomGenerator.string(),
                 extension: RandomGenerator.string(),
                 url: RandomGenerator.string(),

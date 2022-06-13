@@ -1,18 +1,24 @@
 import TSON from "../../../src";
+import { RandomGenerator } from "../../internal/RandomGenerator";
+import { IArrayAtomic } from "../../structures/IArrayAtomic";
+import { _test_stringify } from "./internal/_test_stringify";
 
 export function test_stringify_array_atomic(): void {
-    test((input) => TSON.stringify<boolean[]>(input), [true, false]);
-    test((input) => TSON.stringify<number[]>(input), [1, 2, 3]);
-    test((input) => TSON.stringify<string[]>(input), ["hello", "world"]);
-    test((input) => TSON.stringify<null[]>(input), [null, null]);
-}
+    _test_stringify(
+        "atomic array",
+        IArrayAtomic.generate(RandomGenerator.boolean),
+        (input) => TSON.stringify(input),
+    )();
 
-function test<T>(stringify: (input: T[]) => string, input: T[]) {
-    const json: string = stringify(input);
-    const expected: string = JSON.stringify(input);
+    _test_stringify(
+        "atomic array",
+        IArrayAtomic.generate(RandomGenerator.number),
+        (input) => TSON.stringify(input),
+    )();
 
-    if (json !== expected)
-        throw new Error(
-            "Bug on TSON.stringify(): failed to understand the atomic array type.",
-        );
+    _test_stringify(
+        "atomic array",
+        IArrayAtomic.generate(RandomGenerator.string),
+        (input) => TSON.stringify(input),
+    )();
 }
