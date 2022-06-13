@@ -1,8 +1,12 @@
 import path from "path";
 import ts from "typescript";
+
 import { IProject } from "../structures/IProject";
+
 import { ApplicationTransformer } from "./features/ApplicationTransformer";
 import { CreateTransformer } from "./features/CreateTransformer";
+import { IsTransformer } from "./features/IsTransformer";
+// import { StringifyTransformer } from "./features/StringifyTransformer";
 
 export namespace FunctionTransformer {
     export function transform(
@@ -32,16 +36,11 @@ export namespace FunctionTransformer {
         ).symbol;
 
         // FIND TRANSFORMER
-        const func: Task | null =
-            name === "create"
-                ? CreateTransformer.transform
-                : name === "application"
-                ? ApplicationTransformer.transform
-                : null;
+        const functor: (() => Task) | undefined = FUCTORS[name];
 
         // RETURNS WITH TRANSFORMATION
-        if (func === null) return expression;
-        return func(project.checker, expression);
+        if (functor === undefined) return expression;
+        return functor()(project.checker, expression);
     }
 }
 
@@ -49,5 +48,13 @@ type Task = (
     checker: ts.TypeChecker,
     expression: ts.CallExpression,
 ) => ts.Expression;
+
 const LIB_PATH = path.resolve(path.join(__dirname, "..", "module.d.ts"));
 const SRC_PATH = path.resolve(path.join(__dirname, "..", "module.ts"));
+
+const FUCTORS: Record<string, () => Task> = {
+    application: () => ApplicationTransformer.transform,
+    create: () => CreateTransformer.transform,
+    is: () => IsTransformer.transform,
+    // stringify: () => StringifyTransformer.transform,
+};

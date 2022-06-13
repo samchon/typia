@@ -41,6 +41,8 @@ export namespace IMetadata {
      */
     export function size(meta: IMetadata): number {
         return (
+            (meta.nullable === true ? 1 : 0) +
+            (meta.required === false ? 1 : 0) +
             meta.jsons.size +
             meta.constants.size +
             meta.atomics.size +

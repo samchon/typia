@@ -3,7 +3,7 @@ import ts from "typescript";
 import { LiteralExpressionFactory } from "../../factories/LiteralExpressionFactory";
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { MetadataFactory } from "../../factories/MetadataFactory";
-import { ApplicationFactory } from "../../factories/ApplicationFactory";
+import { ApplicationFactory } from "../../factories/features/ApplicationFactory";
 
 import { IJsonApplication } from "../../module";
 import { IMetadata } from "../../structures/IMetadata";
