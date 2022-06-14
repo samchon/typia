@@ -19,13 +19,12 @@ export namespace IsTransformer {
                 ? checker.getTypeFromTypeNode(expression.typeArguments[0])
                 : checker.getTypeAtLocation(expression.arguments[0]!);
         const collection: MetadataCollection = new MetadataCollection();
-        const meta: IMetadata | null = MetadataFactory.generate(
+        const meta: IMetadata = MetadataFactory.generate(
             collection,
             checker,
             type,
             {
-                escape: false,
-                accumulate: false,
+                resolve: false,
             },
         );
 

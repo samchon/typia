@@ -14,19 +14,34 @@ Runtime type checker, and 10x faster `JSON.stringify()` function, with only one 
 ```typescript
 import TSON from "typescript-json";
 
+//----
+// MAIN FUNCTIONS
+//----
 TSON.assert<T>(input); // runtime type checker throwing exception
 TSON.is<T>(input); // runtime type checker returning boolean
 TSON.stringify<T>(input); // 10x faster JSON.stringify()
-TSON.create<T>(input); // 2x faster only one time object creator
+
+//----
+// APPENDIX FUNCTIONS
+//----
+TSON.application<T>(); // JSON schema application generator
+TSON.create<T>(input); // 2x faster object creator (only one-time construction)
 ```
 
 `typescript-json` is a transformer library providing JSON related functions.
 
-For an example, with `typescript-json`, **type check** in the **runtime** is possible. Boosting up **JSON** string conversion speed about **10x times faster** or creating is also possible. Important thing is, all of those features can be used by **only one line**. Besides, other similar libraries like `ajv` or `fast-json-stringify`, they require complicate JSON schema definition.
+  - Runtime type checker
+  - 10x faster `JSON.stringify()` function
+  - Comparing with `ajv` or `fast-json-stringify`
+    - 10,000x faster 1st operation including optimizer plan construction
+    - Does not require any JSON schema definition
+    - Performed by only one line `TSON.stringify<T>(input)`
+
+<!-- With `typescript-json`, **type check** in the **runtime** is possible. Boosting up **JSON** string conversion speed about **10x times faster** is also possible. Important thing is, all of those features can be used by **only one line**. Besides, other similar libraries like `ajv` or `fast-json-stringify`, they require complicate JSON schema definition.
 
 Furthermore, `typescript-json` does not require any optimizer plan construction in the runtime. Therefore, `typescript-json` is about **10,000x times faster** than `ajv` and `fast-json-stringify`, if compare only one-time JSON string conversion or validation.
 
-Look at the below graph, code and feel how `typescrip-json` is powerful.
+Look at the below graph, code and feel how `typescrip-json` is powerful. -->
 
 Only JSON string conversion time | Include optimization planning time
 ---------------------------------|------------------------------------

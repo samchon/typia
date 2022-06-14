@@ -1,11 +1,12 @@
 import { MapUtil } from "../utils/MapUtil";
 
 export interface IMetadata {
-    jsons: Map<string, IMetadata | null>;
+    any: boolean;
+    resolved: IMetadata | null;
     constants: Map<string, Set<string | number | boolean | bigint>>;
     atomics: Set<string>;
-    arraies: Map<string, IMetadata | null>;
-    tuples: Map<string, Array<IMetadata | null>>;
+    arraies: Map<string, IMetadata>;
+    tuples: Map<string, Array<IMetadata>>;
     objects: Map<string, [IMetadata.IObject, boolean]>;
     nullable: boolean;
     required: boolean;
@@ -15,7 +16,7 @@ export namespace IMetadata {
     export interface IObject {
         $id: string;
         recursive: boolean;
-        properties: Record<string, IMetadata | null>;
+        properties: Record<string, IMetadata>;
         description?: string;
     }
     export type IStorage = Record<string, IMetadata.IObject>;
@@ -25,7 +26,8 @@ export namespace IMetadata {
      */
     export function create(): IMetadata {
         return {
-            jsons: new Map(),
+            any: false,
+            resolved: null,
             constants: new Map(),
             atomics: new Set(),
             arraies: new Map(),
@@ -41,9 +43,7 @@ export namespace IMetadata {
      */
     export function size(meta: IMetadata): number {
         return (
-            (meta.nullable === true ? 1 : 0) +
-            (meta.required === false ? 1 : 0) +
-            meta.jsons.size +
+            (meta.resolved !== null ? 1 : 0) +
             meta.constants.size +
             meta.atomics.size +
             meta.arraies.size +
@@ -62,12 +62,7 @@ export namespace IMetadata {
     /**
      * @internal
      */
-    export function merge(
-        x: IMetadata | null,
-        y: IMetadata | null,
-    ): IMetadata | null {
-        if (x === null || y === null) return null;
-
+    export function merge(x: IMetadata, y: IMetadata): IMetadata {
         // MERGE CONSTANTS
         const constants: Map<
             string,
@@ -81,8 +76,12 @@ export namespace IMetadata {
         }
 
         return {
+            any: x.any || y.any,
             constants,
-            jsons: new Map([...x.jsons, ...y.jsons]),
+            resolved:
+                x.resolved !== null && y.resolved !== null
+                    ? merge(x.resolved, y.resolved)
+                    : x.resolved || y.resolved,
             atomics: new Set([...x.atomics, ...y.atomics]),
             arraies: new Map([...x.arraies, ...y.arraies]),
             tuples: new Map([...x.tuples, ...y.tuples]),

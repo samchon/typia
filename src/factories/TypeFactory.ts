@@ -1,7 +1,7 @@
 import ts from "typescript";
 
 export namespace TypeFactory {
-    export function escape(
+    export function resolve(
         checker: ts.TypeChecker,
         type: ts.Type,
     ): ts.Type | null {

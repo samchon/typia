@@ -25,7 +25,7 @@ export namespace ApplicationFactory {
     }
 
     export function generate(
-        metadatas: Array<IMetadata | null>,
+        metadatas: Array<IMetadata>,
         options?: Partial<IOptions>,
     ): IJsonApplication {
         const complemented: IOptions = IOptions.complement(options);
@@ -48,13 +48,15 @@ export namespace ApplicationFactory {
     function generate_schema(
         options: IOptions,
         components: IJsonComponents,
-        meta: IMetadata | null,
+        meta: IMetadata,
     ): IJsonSchema {
-        if (meta === null) return {};
-        else if (meta.nullable && IMetadata.empty(meta))
-            return { type: "null" };
+        if (meta.nullable && IMetadata.empty(meta)) return { type: "null" };
 
         const oneOf: IJsonSchema[] = [];
+        if (meta.any === true)
+            oneOf.push({
+                nullable: meta.nullable,
+            });
         if (meta.constants.size)
             oneOf.push(
                 ...generate_constants(
@@ -103,7 +105,7 @@ export namespace ApplicationFactory {
                     ),
                 );
             else {
-                const merged: IMetadata | null = items.reduce(
+                const merged: IMetadata = items.reduce(
                     (x, y) => IMetadata.merge(x, y),
                     IMetadata.create(),
                 );
@@ -171,7 +173,7 @@ export namespace ApplicationFactory {
     function generate_array(
         options: IOptions,
         components: IJsonComponents,
-        metadata: IMetadata | null,
+        metadata: IMetadata,
         nullable: boolean,
         description: string | undefined,
     ): IJsonSchema.IArray {
@@ -186,7 +188,7 @@ export namespace ApplicationFactory {
     function generate_tuple(
         options: IOptions,
         components: IJsonComponents,
-        items: Array<IMetadata | null>,
+        items: Array<IMetadata>,
         nullable: boolean,
         description: string | undefined,
     ): IJsonSchema.ITuple {

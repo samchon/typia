@@ -4,6 +4,9 @@ export * from "./structures/IJsonApplication";
 export * from "./structures/IJsonComponents";
 export * from "./structures/IJsonSchema";
 
+import { TypeGuardError } from "./TypeGuardError";
+export { TypeGuardError };
+
 /**
  * Asserts a value type in the runtime.
  *

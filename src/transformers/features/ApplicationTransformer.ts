@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { LiteralExpressionFactory } from "../../factories/LiteralExpressionFactory";
+import { LiteralFactory } from "../../factories/programmatics/LiteralFactory";
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { ApplicationFactory } from "../../factories/features/ApplicationFactory";
@@ -56,10 +56,9 @@ export namespace ApplicationTransformer {
         const collection: MetadataCollection = new MetadataCollection({
             replace: MetadataCollection.replace,
         });
-        const metadatas: Array<IMetadata | null> = types.map((type) =>
+        const metadatas: Array<IMetadata> = types.map((type) =>
             MetadataFactory.generate(collection, checker, type, {
-                escape: true,
-                accumulate: false,
+                resolve: true,
             }),
         );
 
@@ -70,7 +69,7 @@ export namespace ApplicationTransformer {
         });
 
         // RETURNS WITH LITERAL EXPRESSION
-        return LiteralExpressionFactory.generate(app);
+        return LiteralFactory.generate(app);
     }
 
     function get_parameter<T extends string>(

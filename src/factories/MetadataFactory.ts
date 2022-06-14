@@ -9,8 +9,7 @@ import { MapUtil } from "../utils/MapUtil";
 
 export namespace MetadataFactory {
     export interface IOptions {
-        escape: boolean;
-        accumulate: boolean;
+        resolve: boolean;
     }
 
     export function generate(
@@ -18,14 +17,9 @@ export namespace MetadataFactory {
         checker: ts.TypeChecker,
         type: ts.Type | null,
         options: IOptions,
-    ): IMetadata | null {
+    ): IMetadata {
         // CONSTRUCT SCHEMA WITH OBJECTS
-        const metadata: IMetadata | null = explore(
-            collection,
-            checker,
-            options,
-            type,
-        );
+        const metadata: IMetadata = explore(collection, checker, options, type);
 
         // FIND RECURSIVE OBJECTS
         const storage: IMetadata.IStorage = collection.storage();
@@ -49,13 +43,10 @@ export namespace MetadataFactory {
         checker: ts.TypeChecker,
         options: IOptions,
         type: ts.Type | null,
-    ): IMetadata | null {
-        if (type === null) return null;
-
+    ): IMetadata {
         const meta: IMetadata = IMetadata.create();
-        return iterate(collection, checker, options, meta, type, false)
-            ? meta
-            : null;
+        if (type !== null) iterate(collection, checker, options, meta, type);
+        return meta;
     }
 
     function iterate(
@@ -64,38 +55,20 @@ export namespace MetadataFactory {
         options: IOptions,
         meta: IMetadata,
         type: ts.Type,
-        escaped: boolean,
-    ): boolean {
+    ): void {
+        // RESOLVE toJSON() METHOD
+        const resolved: ts.Type | null =
+            options.resolve === true
+                ? TypeFactory.resolve(checker, type)
+                : null;
+        if (resolved !== null)
+            meta.resolved = explore(collection, checker, options, resolved);
+
         // WHEN UNION TYPE
         if (type.isUnion())
-            return type.types.every((t) =>
-                iterate(collection, checker, options, meta, t, escaped),
+            return type.types.forEach((t) =>
+                iterate(collection, checker, options, meta, t),
             );
-
-        // ESCAPE toJSON() METHOD
-        if (options.escape === true) {
-            const resolved: ts.Type | null = TypeFactory.escape(checker, type);
-            if (resolved !== null) {
-                if (options.accumulate === false)
-                    return iterate(
-                        collection,
-                        checker,
-                        options,
-                        meta,
-                        resolved,
-                        true,
-                    );
-                else {
-                    const child: IMetadata | null = explore(
-                        collection,
-                        checker,
-                        options,
-                        resolved,
-                    );
-                    meta.jsons.set(get_uid(child), child);
-                }
-            }
-        }
 
         // NODE AND ATOMIC TYPE CHECKER
         const node: ts.TypeNode | undefined = checker.typeToTypeNode(
@@ -103,7 +76,7 @@ export namespace MetadataFactory {
             undefined,
             undefined,
         );
-        if (!node) return false;
+        if (node === undefined) return;
 
         const filter = (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
         const check = (
@@ -127,16 +100,20 @@ export namespace MetadataFactory {
             filter(ts.TypeFlags.Unknown) ||
             filter(ts.TypeFlags.Never) ||
             filter(ts.TypeFlags.Any)
-        )
-            return false;
-        else if (filter(ts.TypeFlags.Null))
-            return escaped ? false : (meta.nullable = true);
-        else if (
+        ) {
+            meta.any = true;
+            return;
+        } else if (filter(ts.TypeFlags.Null)) {
+            meta.nullable = true;
+            return;
+        } else if (
             filter(ts.TypeFlags.Undefined) ||
             filter(ts.TypeFlags.Void) ||
             filter(ts.TypeFlags.VoidLike)
-        )
-            return escaped ? false : !(meta.required = false);
+        ) {
+            meta.required = false;
+            return;
+        }
 
         // CONSTANT TYPE
         if (type.isLiteral()) {
@@ -151,27 +128,25 @@ export namespace MetadataFactory {
             MapUtil.take(meta.constants, typeof value, () => new Set()).add(
                 value,
             );
-            return !escaped;
+            return;
         } else if (filter(ts.TypeFlags.BooleanLiteral)) {
             MapUtil.take(meta.constants, "boolean", () => new Set()).add(
                 checker.typeToString(type) === "true",
             );
-            return !escaped;
+            return;
         }
 
         // ATOMIC VALUE TYPES
         for (const [flag, literal, className] of ATOMICS)
-            if (check(flag, literal, className) === true) return !escaped;
+            if (check(flag, literal, className) === true) return;
 
         // WHEN TUPLE
         if ((checker as any).isTupleType(type)) {
-            if (escaped) return false;
-
-            const children: Array<IMetadata | null> = [];
+            const children: IMetadata[] = [];
             for (const elem of checker.getTypeArguments(
                 type as ts.TypeReference,
             )) {
-                const child: IMetadata | null = explore(
+                const child: IMetadata = explore(
                     collection,
                     checker,
                     options,
@@ -191,17 +166,13 @@ export namespace MetadataFactory {
             (checker as any).isArrayType(type) ||
             (checker as any).isArrayLikeType(type)
         ) {
-            if (escaped) return false;
-
             const elemType: ts.Type | null = type.getNumberIndexType() || null;
-            const elemSchema: IMetadata | null = explore(
+            const elemSchema: IMetadata = explore(
                 collection,
                 checker,
                 options,
                 elemType,
             );
-            if (elemSchema === null) return false;
-
             const key: string = get_uid(elemSchema);
             meta.arraies.set(key, elemSchema);
         }
@@ -220,23 +191,21 @@ export namespace MetadataFactory {
                             options,
                             fakeSchema,
                             t,
-                            false,
                         ),
                     ) === false
                 )
-                    return false;
+                    return;
                 else if (
                     fakeSchema.atomics.size ||
                     fakeSchema.arraies.size ||
                     !fakeSchema.objects.size
                 )
-                    return false;
+                    return;
             }
 
             const [key, object] = emplace(collection, checker, options, type);
             meta.objects.set(key, [object, meta.nullable]);
         }
-        return !escaped;
     }
 
     function emplace(
@@ -287,35 +256,33 @@ export namespace MetadataFactory {
             const type: ts.Type = checker.getTypeOfSymbolAtLocation(prop, node);
 
             // CHILD METADATA BY ADDITIONAL EXPLORATION
-            const child: IMetadata | null = explore(
+            const child: IMetadata = explore(
                 collection,
                 checker,
                 options,
                 type,
             );
-            if (child && node.questionToken) child.required = false;
-            if (child)
-                child.description =
-                    CommentFactory.generate(
-                        prop.getDocumentationComment(checker),
-                    ) || undefined;
             object.properties[key] = child;
+            child.description =
+                CommentFactory.generate(
+                    prop.getDocumentationComment(checker),
+                ) || undefined;
+            if (node.questionToken) child.required = false;
         }
         return [id, object];
     }
 
-    function get_uid(meta: IMetadata | null): string {
-        if (meta === null) return "null";
-
+    function get_uid(meta: IMetadata): string {
         return crypto
             .createHash("sha256")
             .update(JSON.stringify(to_primitive(meta)))
             .digest("base64");
     }
 
-    function to_primitive(meta: IMetadata | null): any {
-        if (meta === null) return null;
+    function to_primitive(meta: IMetadata): any {
         return {
+            any: meta.any,
+            resolved: meta.resolved ? to_primitive(meta.resolved) : undefined,
             constants: Array.from(meta.constants),
             atomics: Array.from(meta.atomics),
             arraies: [...meta.arraies].map(([key, value]) => [
