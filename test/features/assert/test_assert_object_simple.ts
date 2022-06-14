@@ -1,9 +1,9 @@
 import TSON from "../../../src";
 import { IObjectSimple } from "../../structures/IObjectSimple";
-import { _test_stringify } from "./_test_stringify";
+import { _test_assert } from "./_test_assert";
 
-export const test_stringify_object = _test_stringify(
+export const test_assert_object_simple = _test_assert(
     "simple object",
     IObjectSimple.generate(),
-    (input) => TSON.stringify(input),
+    (input) => TSON.assert(input),
 );

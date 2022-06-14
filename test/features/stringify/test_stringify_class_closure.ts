@@ -1,6 +1,6 @@
 import TSON from "../../../src";
 import { ClassGetter } from "../../structures/ClassGetter";
-import { _test_stringify } from "./internal/_test_stringify";
+import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_class_closure = _test_stringify(
     "class closure",

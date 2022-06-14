@@ -1,9 +1,9 @@
 import TSON from "../../../src";
 import { IArrayHierarchical } from "../../structures/IArrayHierarchical";
-import { _test_stringify } from "./_test_stringify";
+import { _test_is } from "./_test_is";
 
-export const test_stringify_array_hierarchical = _test_stringify(
+export const test_is_array_hierarchical = _test_is(
     "hierarchical array",
     IArrayHierarchical.generate(),
-    (input) => TSON.stringify(input),
+    (input) => TSON.is(input),
 );

@@ -6,11 +6,14 @@ export namespace IArraySimple {
     export interface IPerson {
         name: string;
         email: string;
-        hobbies: string | string[] | Array<IHobby>;
+        hobbies: Array<IHobby> | Array<IContent> | string[];
     }
     export interface IHobby {
         name: string;
         rank: number;
+    }
+    export interface IContent {
+        body: string;
     }
 
     export function generate(): IArraySimple {
@@ -19,9 +22,11 @@ export namespace IArraySimple {
             email: RandomGenerator.string(),
             hobbies:
                 index === 0
-                    ? RandomGenerator.string()
-                    : index === 1
                     ? RandomGenerator.array(RandomGenerator.string)
+                    : index === 1
+                    ? RandomGenerator.array(() => ({
+                          body: RandomGenerator.string(),
+                      }))
                     : RandomGenerator.array(() => ({
                           name: RandomGenerator.string(),
                           rank: RandomGenerator.number(1, 3),

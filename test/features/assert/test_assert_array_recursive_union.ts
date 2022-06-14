@@ -1,9 +1,9 @@
 import TSON from "../../../src";
 import { IArrayRecursiveUnion } from "../../structures/IArrayRecursiveUnion";
-import { _test_stringify } from "./_test_stringify";
+import { _test_assert } from "./_test_assert";
 
-export const test_stringify_array_recursive_union = _test_stringify(
+export const test_assert_array_recursive_union = _test_assert(
     "recursive union array",
     IArrayRecursiveUnion.generate(),
-    (input) => TSON.stringify(input),
+    (input) => TSON.assert(input),
 );

@@ -1,5 +1,5 @@
 import TSON from "../../../src";
-import { _test_stringify } from "./internal/_test_stringify";
+import { _test_stringify } from "./_test_stringify";
 
 export function test_stringify_atomic_alias(): void {
     _test_stringify<Alias<boolean>>("atomic", true, (input) =>

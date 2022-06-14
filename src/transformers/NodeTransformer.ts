@@ -1,12 +1,17 @@
 import ts from "typescript";
+import { ITypeGuardErrorModulo } from "../structures/ITypeGuardErrorModulo";
 
 import { IProject } from "../structures/IProject";
 import { FunctionTransformer } from "./FunctionTransformer";
 
 export namespace NodeTransformer {
-    export function transform(project: IProject, expression: ts.Node): ts.Node {
+    export function transform(
+        project: IProject,
+        expression: ts.Node,
+        imp: ITypeGuardErrorModulo,
+    ): ts.Node {
         if (!ts.isCallExpression(expression)) return expression;
-        return FunctionTransformer.transform(project, expression);
+        return FunctionTransformer.transform(project, expression, imp);
 
         // const func: FunctionFactory.Closure | null = FunctionFactory.generate(
         //     project,
