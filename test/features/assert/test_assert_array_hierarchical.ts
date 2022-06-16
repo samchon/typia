@@ -1,9 +1,9 @@
 import TSON from "../../../src";
-import { IArrayHierarchical } from "../../structures/IArrayHierarchical";
+import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 import { _test_assert } from "./_test_assert";
 
 export const test_assert_array_hierarchical = _test_assert(
     "hierarchical array",
-    IArrayHierarchical.generate(),
+    ArrayHierarchical.generate(),
     (input) => TSON.assert(input),
 );

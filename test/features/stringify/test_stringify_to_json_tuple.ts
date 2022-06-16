@@ -1,5 +1,5 @@
 import TSON from "../../../src";
-import { IObjectToJsonTuple } from "../../structures/IObjectToJsonTuple";
+import { IObjectToJsonTuple } from "../../structures/ToJsonTuple";
 import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_to_json_to_tuple = _test_stringify(

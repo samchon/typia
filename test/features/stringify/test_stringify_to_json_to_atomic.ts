@@ -1,6 +1,6 @@
 import TSON from "../../../src";
 import { RandomGenerator } from "../../internal/RandomGenerator";
-import { IObjectToJsonAtomic } from "../../structures/IObjectToJsonAtomic";
+import { IObjectToJsonAtomic } from "../../structures/ToJsonAtomic";
 import { _test_stringify } from "./_test_stringify";
 
 export function test_stringify_to_json_to_atomic(): void {

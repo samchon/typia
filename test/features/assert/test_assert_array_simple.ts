@@ -1,9 +1,9 @@
 import TSON from "../../../src";
-import { IArraySimple } from "../../structures/IArraySimple";
+import { ArraySimple } from "../../structures/ArraySimple";
 import { _test_assert } from "./_test_assert";
 
 export const test_assert_array_simple = _test_assert(
     "simple array",
-    IArraySimple.generate(),
+    ArraySimple.generate(),
     (input) => TSON.assert(input),
 );

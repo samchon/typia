@@ -1,5 +1,5 @@
 import TSON from "../../../src";
-import { IObjectToJsonAtomicUnion } from "../../structures/IObjectToJsonAtomicUnion";
+import { IObjectToJsonAtomicUnion } from "../../structures/ToJsonAtomicUnion";
 import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_to_json_to_atomic_union = _test_stringify(

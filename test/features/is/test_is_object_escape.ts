@@ -16,4 +16,4 @@ namespace SomeModule {
     }
 }
 
-/^[^0-9][\w]*$/g
+/^[^0-9][\w]*$/g;

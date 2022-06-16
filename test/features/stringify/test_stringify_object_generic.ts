@@ -1,32 +1,9 @@
 import TSON from "../../../src";
-import { Primitive } from "../../internal/Primitive";
+import { ObjectGeneric } from "../../structures/ObjectGeneric";
+import { _test_stringify } from "./_test_stringify";
 
-export function test_stringify_object_generic(): void {
-    const something: ISomething<string> = {
-        value: "value",
-        child: {
-            child_value: "child_value",
-            child_next: "child_next",
-        },
-        elements: [
-            { child_value: "one", child_next: "one" },
-            { child_value: "two", child_next: "two" },
-            { child_value: "three", child_next: "three" },
-        ],
-    };
-    const json: string = TSON.stringify<ISomething<string>>(something);
-    if (Primitive.equal_to(JSON.parse(json), something) === false)
-        throw new Error(
-            "Bug on TSON.stringify(): failed to understand the generic object type.",
-        );
-}
-
-interface ISomething<T> {
-    value: T;
-    child: IChild<T>;
-    elements: IChild<T>[];
-}
-interface IChild<V, N = V> {
-    child_value: V;
-    child_next: N;
-}
+export const test_stringify_object_generic = _test_stringify(
+    "generic object",
+    ObjectGeneric.generate(),
+    (input) => TSON.stringify(input),
+);

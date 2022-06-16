@@ -1,19 +1,9 @@
 import TSON from "../../../src";
-import { Primitive } from "../../internal/Primitive";
+import { ObjectClosure } from "../../structures/ObjectClosure";
+import { _test_stringify } from "./_test_stringify";
 
-export function test_stringify_object_closure(): void {
-    const record: IRecord = {
-        id: "id",
-        closure: () => 9,
-    };
-    const json: string = TSON.stringify<IRecord>(record);
-    if (Primitive.equal_to(JSON.parse(json), record) === false)
-        throw new Error(
-            "Bug on TSON.stringify(): failed to understand the object closure type.",
-        );
-}
-
-interface IRecord {
-    id: string;
-    closure: () => number;
-}
+export const test_stringify_object_closure = _test_stringify(
+    "closured object",
+    ObjectClosure.generate(),
+    (input) => TSON.stringify(input),
+);

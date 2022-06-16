@@ -35,7 +35,7 @@ export namespace StringifyFactory {
                     );
                     const output = ts.factory.createAdd(key, entry.expression);
                     if (entry.meta.required === false)
-                        ts.factory.createConditionalExpression(
+                        return ts.factory.createConditionalExpression(
                             ts.factory.createStrictInequality(
                                 ts.factory.createIdentifier("undefined"),
                                 entry.input,
@@ -43,7 +43,7 @@ export namespace StringifyFactory {
                             undefined,
                             output,
                             undefined,
-                            ts.factory.createNull(),
+                            ts.factory.createIdentifier("undefined"),
                         );
                     return ts.factory.createAdd(key, entry.expression);
                 }),
@@ -75,7 +75,7 @@ export namespace StringifyFactory {
                           undefined,
                           undefined,
                           ts.factory.createStrictInequality(
-                              ts.factory.createNull(),
+                              ts.factory.createIdentifier("undefined"),
                               ts.factory.createIdentifier("elem"),
                           ),
                       ),

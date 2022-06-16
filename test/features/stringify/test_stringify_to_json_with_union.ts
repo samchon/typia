@@ -1,5 +1,5 @@
 import TSON from "../../../src";
-import { IObjectToJsonWithUnion } from "../../structures/IObjectToJsonUnion";
+import { IObjectToJsonWithUnion } from "../../structures/ToJsonUnion";
 import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_to_json_with_union = _test_stringify(
