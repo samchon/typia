@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.0.0-dev.20220617",
+  "version": "3.0.0-dev.20220617-2",
   "description": "Faster JSON stringify with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
