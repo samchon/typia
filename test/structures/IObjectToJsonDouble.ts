@@ -1,25 +1,27 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-
-export type IObjectToJsonDouble = IObjectToJsonDouble.IWapper;
+export type IObjectToJsonDouble = IObjectToJsonDouble.Parent;
 export namespace IObjectToJsonDouble {
-    export type IWapper = IToJson<IObject>;
-    export type IObject = IToJson<IHobby>;
-    export interface IHobby {
+    export class Parent {
+        public toJSON(): Child {
+            return new Child();
+        }
+    }
+    export class Child {
+        public readonly id: number = 1;
+        public readonly flag: boolean = true;
+
+        public toJSON(): IBrand {
+            return {
+                code: "code",
+                name: "name",
+            };
+        }
+    }
+    export interface IBrand {
         code: string;
         name: string;
     }
-    interface IToJson<T> {
-        toJSON(): T;
-    }
 
     export function generate(): IObjectToJsonDouble {
-        return {
-            toJSON: () => ({
-                toJSON: () => ({
-                    code: RandomGenerator.string(),
-                    name: RandomGenerator.string(),
-                }),
-            }),
-        };
+        return new Parent();
     }
 }

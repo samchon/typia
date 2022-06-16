@@ -1,4 +1,5 @@
 import TSON from "../../../src";
+import { Primitive } from "../../internal/Primitive";
 
 import { RandomGenerator } from "../../internal/RandomGenerator";
 
@@ -24,9 +25,7 @@ export function test_stringify_object_generic_union(): void {
     };
 
     const json: string = TSON.stringify<ISaleEntireArticle>(question);
-    const expected: string = JSON.stringify(question);
-
-    if (json !== expected)
+    if (Primitive.equal_to(JSON.parse(json), question) === false)
         throw new Error(
             "Bug on TSON.stringify(): failed to understand the generic union object type.",
         );

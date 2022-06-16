@@ -1,4 +1,5 @@
 import TSON from "../../../src";
+import { Primitive } from "../../internal/Primitive";
 import { RandomGenerator } from "../../internal/RandomGenerator";
 
 export function test_stringify_object_nullable(): void {
@@ -10,9 +11,7 @@ export function test_stringify_object_nullable(): void {
         brand: null,
     };
     const json: string = TSON.stringify<IProduct>(product);
-    const expected: string = JSON.stringify(product);
-
-    if (json !== expected)
+    if (Primitive.equal_to(JSON.parse(json), product) === false)
         throw new Error(
             "Bug on TSON.stringify(): failed to understand the nullable object.",
         );

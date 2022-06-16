@@ -1,4 +1,5 @@
 import TSON from "../../../src";
+import { Primitive } from "../../internal/Primitive";
 import { RandomGenerator } from "../../internal/RandomGenerator";
 
 export function test_stringify_object_generic_array(): void {
@@ -17,9 +18,7 @@ export function test_stringify_object_generic_array(): void {
     };
 
     const json: string = TSON.stringify(page);
-    const expected: string = JSON.stringify(page);
-
-    if (json !== expected)
+    if (Primitive.equal_to(JSON.parse(json), page) === false)
         throw new Error(
             "Bug on TSON.stringify(): failed to understand the generic array membered object type.",
         );

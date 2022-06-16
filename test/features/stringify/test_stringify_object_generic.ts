@@ -1,4 +1,5 @@
 import TSON from "../../../src";
+import { Primitive } from "../../internal/Primitive";
 
 export function test_stringify_object_generic(): void {
     const something: ISomething<string> = {
@@ -14,9 +15,7 @@ export function test_stringify_object_generic(): void {
         ],
     };
     const json: string = TSON.stringify<ISomething<string>>(something);
-    const expected: string = JSON.stringify(something);
-
-    if (json !== expected)
+    if (Primitive.equal_to(JSON.parse(json), something) === false)
         throw new Error(
             "Bug on TSON.stringify(): failed to understand the generic object type.",
         );

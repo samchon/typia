@@ -11,7 +11,6 @@ export namespace TypeFactory {
     export function is_function(node: ts.Node): boolean {
         return get_function(node) !== null;
     }
-
     function get_function(node: ts.Node): ts.SignatureDeclaration | null {
         return ts.isFunctionLike(node)
             ? node
@@ -30,18 +29,19 @@ export namespace TypeFactory {
         // FIND TO-JSON METHOD
         const symbol: ts.Symbol | undefined = type.getProperty(name);
         if (!symbol) return null;
-        else if (!symbol.declarations || !symbol.declarations[0]) return null;
+        else if (!symbol.valueDeclaration) return null;
 
         // GET FUNCTION DECLARATION
-        const declaration: ts.Declaration = symbol.declarations[0];
-        const functor: ts.SignatureDeclaration | null =
-            get_function(declaration);
-
-        if (functor === null) return null;
+        const functor: ts.Type = checker.getTypeOfSymbolAtLocation(
+            symbol,
+            symbol.valueDeclaration,
+        );
 
         // RETURNS THE RETURN-TYPE
-        const signature: ts.Signature | undefined =
-            checker.getSignatureFromDeclaration(functor);
+        const signature: ts.Signature | undefined = checker.getSignaturesOfType(
+            functor,
+            ts.SignatureKind.Call,
+        )[0];
         return signature ? signature.getReturnType() : null;
     }
 

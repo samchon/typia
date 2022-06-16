@@ -16,9 +16,7 @@ export function test_stringify_object_primitive(): void {
         secret: RandomGenerator.boolean(),
     };
     const json: string = TSON.stringify<Input>(article);
-    const expected: string = JSON.stringify(article);
-
-    if (json !== expected)
+    if (Primitive.equal_to(JSON.parse(json), article) === false)
         throw new Error(
             "Bug on TSON.stringify(): failed to understand the primitive object.",
         );

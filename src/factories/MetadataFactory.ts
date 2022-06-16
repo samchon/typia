@@ -10,6 +10,7 @@ import { MapUtil } from "../utils/MapUtil";
 export namespace MetadataFactory {
     export interface IOptions {
         resolve: boolean;
+        constant: boolean;
     }
 
     export function generate(
@@ -19,7 +20,13 @@ export namespace MetadataFactory {
         options: IOptions,
     ): IMetadata {
         // CONSTRUCT SCHEMA WITH OBJECTS
-        const metadata: IMetadata = explore(collection, checker, options, type);
+        const metadata: IMetadata = explore(
+            collection,
+            checker,
+            options,
+            type,
+            false,
+        );
 
         // FIND RECURSIVE OBJECTS
         const storage: IMetadata.IStorage = collection.storage();
@@ -43,9 +50,11 @@ export namespace MetadataFactory {
         checker: ts.TypeChecker,
         options: IOptions,
         type: ts.Type | null,
+        parentResolved: boolean,
     ): IMetadata {
         const meta: IMetadata = IMetadata.create();
-        if (type !== null) iterate(collection, checker, options, meta, type);
+        if (type !== null)
+            iterate(collection, checker, options, meta, type, parentResolved);
         return meta;
     }
 
@@ -55,19 +64,29 @@ export namespace MetadataFactory {
         options: IOptions,
         meta: IMetadata,
         type: ts.Type,
+        parentResolved: boolean,
     ): void {
         // RESOLVE toJSON() METHOD
-        const resolved: ts.Type | null =
-            options.resolve === true
-                ? TypeFactory.resolve(checker, type)
-                : null;
-        if (resolved !== null)
-            meta.resolved = explore(collection, checker, options, resolved);
+        if (parentResolved === false) {
+            const resolved: ts.Type | null =
+                options.resolve === true
+                    ? TypeFactory.resolve(checker, type)
+                    : null;
+            if (resolved !== null) {
+                meta.resolved = explore(
+                    collection,
+                    checker,
+                    options,
+                    resolved,
+                    true,
+                );
+            }
+        }
 
         // WHEN UNION TYPE
         if (type.isUnion())
             return type.types.forEach((t) =>
-                iterate(collection, checker, options, meta, t),
+                iterate(collection, checker, options, meta, t, false),
             );
 
         // NODE AND ATOMIC TYPE CHECKER
@@ -116,7 +135,7 @@ export namespace MetadataFactory {
         }
 
         // CONSTANT TYPE
-        if (type.isLiteral()) {
+        if (options.constant && type.isLiteral()) {
             const value: string | number | bigint =
                 typeof type.value === "object"
                     ? BigInt(
@@ -129,7 +148,7 @@ export namespace MetadataFactory {
                 value,
             );
             return;
-        } else if (filter(ts.TypeFlags.BooleanLiteral)) {
+        } else if (options.constant && filter(ts.TypeFlags.BooleanLiteral)) {
             MapUtil.take(meta.constants, "boolean", () => new Set()).add(
                 checker.typeToString(type) === "true",
             );
@@ -151,6 +170,7 @@ export namespace MetadataFactory {
                     checker,
                     options,
                     elem,
+                    false,
                 );
                 children.push(child);
             }
@@ -172,6 +192,7 @@ export namespace MetadataFactory {
                 checker,
                 options,
                 elemType,
+                false,
             );
             const key: string = get_uid(elemSchema);
             meta.arraies.set(key, elemSchema);
@@ -191,6 +212,7 @@ export namespace MetadataFactory {
                             options,
                             fakeSchema,
                             t,
+                            false,
                         ),
                     ) === false
                 )
@@ -261,6 +283,7 @@ export namespace MetadataFactory {
                 checker,
                 options,
                 type,
+                false,
             );
             object.properties[key] = child;
             child.description =

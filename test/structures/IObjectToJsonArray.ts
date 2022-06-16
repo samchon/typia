@@ -6,9 +6,9 @@ export namespace IObjectToJsonArray {
         toJSON(): T[];
     }
 
-    export function generate<T>(closure: () => T): IObjectToJsonArray<T> {
+    export function generate<T>(array: T[]): IObjectToJsonArray<T> {
         return {
-            toJSON: () => RandomGenerator.array(closure),
+            toJSON: () => array,
         };
     }
 }

@@ -3,14 +3,15 @@ import { TypeGuardError } from "../../../src";
 export function _test_assert<T, U extends T>(
     name: string,
     data: T,
-    asserter: (input: T) => void,
+    assert: (input: T) => void,
     wrong?: U[],
 ): () => void {
     return () => {
         try {
-            asserter(data);
+            assert(data);
         } catch (exp) {
             if (exp instanceof TypeGuardError) console.log(exp.path, exp.value);
+            else console.log(exp);
             throw new Error(
                 `Bug on TSON.assert(): failed to understand the ${name} type.`,
             );
@@ -18,7 +19,7 @@ export function _test_assert<T, U extends T>(
 
         for (const elem of wrong || []) {
             try {
-                asserter(elem);
+                assert(elem);
             } catch {
                 continue;
             }

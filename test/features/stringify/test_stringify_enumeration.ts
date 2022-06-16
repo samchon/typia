@@ -1,5 +1,6 @@
 import { IPointer } from "../../../src/structures/IPointer";
 import TSON from "../../../src";
+import { Primitive } from "../../internal/Primitive";
 
 export function test_stringify_enumeration(): void {
     test(Enumeration.Zero);
@@ -13,9 +14,7 @@ function test(value: Enumeration): void {
         value,
     };
     const json: string = TSON.stringify<IPointer<Enumeration>>(obj);
-    const expected: string = JSON.stringify(obj);
-
-    if (json !== expected)
+    if (Primitive.equal_to(JSON.parse(json), obj) === false)
         throw new Error(
             "Bug on TSON.stringify(): failed to understand the constant enumeration type.",
         );

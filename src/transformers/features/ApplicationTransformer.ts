@@ -59,6 +59,7 @@ export namespace ApplicationTransformer {
         const metadatas: Array<IMetadata> = types.map((type) =>
             MetadataFactory.generate(collection, checker, type, {
                 resolve: true,
+                constant: true,
             }),
         );
 

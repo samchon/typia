@@ -1,4 +1,5 @@
 import TSON from "../../../src";
+import { Primitive } from "../../internal/Primitive";
 
 export function test_stringify_object_literal_property() {
     const property: ILiteralProperty = {
@@ -8,7 +9,7 @@ export function test_stringify_object_literal_property() {
     const json: string = TSON.stringify(property);
     const expected: string = JSON.stringify(property);
 
-    if (json !== expected)
+    if (Primitive.equal_to(JSON.parse(json), JSON.parse(expected)) === false)
         throw new Error(
             "Bug on TSON.stringify(): failed to understand the object literal property.",
         );

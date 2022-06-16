@@ -1,4 +1,5 @@
 import TSON from "../../../src";
+import { Primitive } from "../../internal/Primitive";
 
 import { RandomGenerator } from "../../internal/RandomGenerator";
 
@@ -7,9 +8,7 @@ export function test_stringify_object_union(): void {
 
     const test = (input: Union) => {
         const json: string = TSON.stringify(input);
-        const expected: string = JSON.stringify(input);
-
-        if (json !== expected)
+        if (Primitive.equal_to(JSON.parse(json), input) === false)
             throw new Error(
                 "Bug on TSON.stringify(): failed to understand the union object type.",
             );

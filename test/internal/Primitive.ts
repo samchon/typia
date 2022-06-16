@@ -61,9 +61,7 @@ export namespace Primitive {
      * @return Whether two arguments are equal or not
      */
     export function equal_to<Instance>(x: Instance, y: Instance): boolean {
-        return (
-            JSON.stringify(x) === JSON.stringify(y) || recursive_equal_to(x, y)
-        );
+        return recursive_equal_to(x, y, "$input");
     }
 }
 
@@ -102,24 +100,37 @@ interface IJsonable<T> {
     toJSON(): T;
 }
 
-function object_equal_to<T extends object>(x: T, y: T): boolean {
-    for (const key in x)
-        if (recursive_equal_to(x[key], y[key]) === false) return false;
-    return true;
+function object_equal_to<T extends object>(x: T, y: T, path: string): boolean {
+    return Object.entries(x).every(([key, value]) => {
+        return recursive_equal_to(value, (y as any)[key], `${path}.${key}`);
+    });
 }
 
-function array_equal_to<T>(x: T[], y: T[]): boolean {
-    if (x.length !== y.length) return false;
-
-    return x.every((value, index) => recursive_equal_to(value, y[index]));
+function array_equal_to<T>(x: T[], y: T[], path: string): boolean {
+    if (x.length !== y.length) return trace(false, `${path}.length`);
+    return x.every((value, index) => {
+        return recursive_equal_to(value, y[index], `${path}[${index}]`);
+    });
 }
 
-function recursive_equal_to<T>(x: T, y: T): boolean {
+function recursive_equal_to<T>(x: T, y: T, path: string): boolean {
     const type = typeof x;
-    if (type !== typeof y) return false;
+    if (type !== typeof y) return trace(false, path);
     else if (type === "object")
-        if (x instanceof Array) return array_equal_to(x, y as typeof x);
-        else return object_equal_to((<any>x) as object, (<any>y) as object);
-    else if (type !== "function") return x === y;
-    else return true;
+        if (x === null) return trace(y === null, path);
+        else if (x instanceof Array)
+            return array_equal_to(x, y as typeof x, path);
+        else
+            return object_equal_to(
+                (<any>x) as object,
+                (<any>y) as object,
+                path,
+            );
+    else if (type !== "function") return trace(x === y, path);
+    else return trace(true, path);
+}
+
+function trace(flag: boolean, path: string): boolean {
+    if (flag === false) console.log(path);
+    return flag;
 }

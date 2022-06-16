@@ -1,4 +1,5 @@
 import TSON from "../../../src";
+import { Primitive } from "../../internal/Primitive";
 
 export function test_stringify_constant_atomic() {
     test((input) => TSON.stringify<true>(input), true as const);
@@ -9,9 +10,7 @@ export function test_stringify_constant_atomic() {
 
 function test<T>(stringify: (input: T) => string, input: T) {
     const json: string = stringify(input);
-    const expected: string = JSON.stringify(input);
-
-    if (json !== expected)
+    if (Primitive.equal_to(JSON.parse(json), input) === false)
         throw new Error(
             "Bug on TSON.stringify(): failed to understand the atomic type.",
         );

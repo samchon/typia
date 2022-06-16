@@ -1,4 +1,5 @@
 import TSON from "../../../src";
+import { Primitive } from "../../internal/Primitive";
 
 export function test_stringify_object_closure(): void {
     const record: IRecord = {
@@ -6,9 +7,7 @@ export function test_stringify_object_closure(): void {
         closure: () => 9,
     };
     const json: string = TSON.stringify<IRecord>(record);
-    const expected: string = JSON.stringify(record);
-
-    if (json !== expected)
+    if (Primitive.equal_to(JSON.parse(json), record) === false)
         throw new Error(
             "Bug on TSON.stringify(): failed to understand the object closure type.",
         );

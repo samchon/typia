@@ -18,8 +18,7 @@ export class MetadataCollection {
 
     public storage(): IMetadata.IStorage {
         const storage: IMetadata.IStorage = {};
-        for (const [key, value] of this.dict_.values()) 
-            storage[key] = value;
+        for (const [key, value] of this.dict_.values()) storage[key] = value;
         return storage;
     }
 
@@ -41,6 +40,7 @@ export class MetadataCollection {
                         type.symbol.getDocumentationComment(checker),
                     )) ||
                 undefined,
+            checked: false,
         };
         this.dict_.set(type, [$id, obj]);
         return [$id, obj, true];

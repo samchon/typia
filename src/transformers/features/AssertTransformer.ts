@@ -2,20 +2,20 @@ import ts from "typescript";
 import { AssertFactory } from "../../factories/features/AssertFactory";
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { MetadataFactory } from "../../factories/MetadataFactory";
-import { ITypeGuardErrorModulo } from "../../structures/ITypeGuardErrorModulo";
+import { IModule } from "../../structures/IModule";
 import { IMetadata } from "../../structures/IMetadata";
 
 export namespace AssertTransformer {
     export function transform(
         checker: ts.TypeChecker,
         expression: ts.CallExpression,
-        imp: ITypeGuardErrorModulo,
+        imp: IModule,
     ): ts.Expression {
         if (expression.arguments.length !== 1)
             throw new Error(ErrorMessages.NO_INPUT_VALUE);
 
         // FOR THE IMPORT STATEMENT CONSTRUCTION
-        imp.used ||= true;
+        imp.error.used ||= true;
 
         // GET TYPE INFO
         const type: ts.Type =
@@ -29,6 +29,7 @@ export namespace AssertTransformer {
             type,
             {
                 resolve: false,
+                constant: true,
             },
         );
 

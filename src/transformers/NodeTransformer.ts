@@ -1,5 +1,5 @@
 import ts from "typescript";
-import { ITypeGuardErrorModulo } from "../structures/ITypeGuardErrorModulo";
+import { IModule } from "../structures/IModule";
 
 import { IProject } from "../structures/IProject";
 import { FunctionTransformer } from "./FunctionTransformer";
@@ -8,7 +8,7 @@ export namespace NodeTransformer {
     export function transform(
         project: IProject,
         expression: ts.Node,
-        imp: ITypeGuardErrorModulo,
+        imp: IModule,
     ): ts.Node {
         if (!ts.isCallExpression(expression)) return expression;
         return FunctionTransformer.transform(project, expression, imp);
