@@ -1,66 +1,69 @@
 import ts from "typescript";
 import { IMetadata } from "../../structures/IMetadata";
 import { IdentifierFactory } from "../programmatics/IdentifierFactory";
-import { MetadataCollection } from "../MetadataCollection";
 import { ValueFactory } from "../ValueFactory";
-import { Escaper } from "../../utils/Escaper";
+import { FeatureFactory } from "./FeatureFactory";
 
 export namespace CheckerFactory {
-    export interface Combiner {
-        (trace: boolean, postfix?: string): {
-            (type: "and" | "or"): {
-                (expressions: ts.Expression[]): ts.Expression;
+    export interface IConfig {
+        trace: boolean;
+        functors: {
+            name: string;
+            filter?: (object: IMetadata.IObject) => boolean;
+        };
+        combiner: IConfig.Combiner;
+    }
+    export namespace IConfig {
+        export interface Combiner {
+            (explorer: IExplore): {
+                (type: "and" | "or"): {
+                    (
+                        input: ts.Expression,
+                        expressions: ts.Expression[],
+                    ): ts.Expression;
+                };
             };
+        }
+    }
+    export import IExplore = FeatureFactory.IExplore;
+
+    /* -----------------------------------------------------------
+        GENERATORS
+    ----------------------------------------------------------- */
+    export function generate(config: IConfig) {
+        return FeatureFactory.generate(base_config(config));
+    }
+
+    export function generate_functors(config: IConfig) {
+        return FeatureFactory.generate_functors(base_config(config));
+    }
+
+    function base_config(config: IConfig): FeatureFactory.IConfig {
+        return {
+            trace: config.trace,
+            functors: config.functors,
+            joiner: (entries) =>
+                entries
+                    .map((entry) => entry.expression)
+                    .reduce(
+                        (x, y) => ts.factory.createLogicalAnd(x, y),
+                        ts.factory.createTrue(),
+                    ),
+            visitor: visit(config),
         };
     }
 
-    export function generate(trace: boolean, combiner: Combiner) {
-        const globalTrace: boolean = trace;
-
-        function generate_object(
-            trace: boolean,
-            combiner: Combiner,
-            obj: IMetadata.IObject,
-        ) {
-            const binaries: ts.Expression[] = [];
-            for (const [key, value] of Object.entries(obj.properties)) {
-                const access = ts.factory.createPropertyAccessExpression(
-                    ValueFactory.INPUT(),
-                    key,
-                );
-                const postfix: string =
-                    !Escaper.reserved(key) && Escaper.variable(key)
-                        ? `".${key}"`
-                        : `"[${key.split('"').join('\\"')}]"`;
-                binaries.push(
-                    visit(trace, combiner, access, value, true, postfix),
-                );
-            }
-
-            const output = combiner(false)("and")(binaries);
-            return ts.factory.createArrowFunction(
-                undefined,
-                undefined,
-                PARAMETERS(trace ? false : null)(ValueFactory.INPUT()),
-                undefined,
-                undefined,
-                output,
-            );
-        }
-
-        /* -----------------------------------------------------------
-            VISITORS
-        ----------------------------------------------------------- */
-        function visit(
-            trace: boolean,
-            combiner: Combiner,
+    /* -----------------------------------------------------------
+        VISITORS
+    ----------------------------------------------------------- */
+    export function visit(config: IConfig) {
+        return function (
             input: ts.Expression,
             meta: IMetadata,
-            fromObject: boolean,
-            postfix: string = '""',
+            explore: IExplore,
         ): ts.Expression {
             if (meta.any) return ValueFactory.BOOLEAN(true);
-            trace = trace && IMetadata.size(meta) === 1;
+            explore.tracable = explore.tracable && IMetadata.size(meta) === 1;
 
             const top: ts.Expression[] = [];
             const binaries: ts.Expression[] = [];
@@ -95,28 +98,12 @@ export namespace CheckerFactory {
             // ARRAY OR TUPLE
             if (meta.arraies.size + meta.tuples.size > 0) {
                 const inner: ts.Expression[] = [];
-                for (const tuple of meta.tuples.values())
-                    inner.push(
-                        visit_tuple(
-                            trace,
-                            combiner,
-                            input,
-                            tuple,
-                            fromObject,
-                            postfix,
-                        ),
-                    );
+                for (const [key, tuple] of meta.tuples.entries()) {
+                    if (meta.atomics.has(key)) continue;
+                    inner.push(visit_tuple(config)(input, tuple, explore));
+                }
                 for (const array of meta.arraies.values())
-                    inner.push(
-                        visit_array(
-                            trace,
-                            combiner,
-                            input,
-                            array,
-                            fromObject,
-                            postfix,
-                        ),
-                    );
+                    inner.push(visit_array(config)(input, array, explore));
 
                 // ADD
                 binaries.push(
@@ -128,8 +115,9 @@ export namespace CheckerFactory {
                         ),
                         inner.length === 0
                             ? inner[0]!
-                            : inner.reduce((x, y) =>
-                                  ts.factory.createLogicalOr(x, y),
+                            : inner.reduce(
+                                  (x, y) => ts.factory.createLogicalOr(x, y),
+                                  ts.factory.createFalse(),
                               ),
                     ),
                 );
@@ -148,176 +136,94 @@ export namespace CheckerFactory {
 
                 const inner: ts.Expression[] = [];
                 for (const [obj] of meta.objects.values())
-                    inner.push(
-                        visit_object(trace, input, obj, fromObject, postfix),
-                    );
+                    inner.push(visit_object(config)(input, obj, explore));
 
                 binaries.push(
-                    combiner(false, postfix)("and")([
-                        ...outer,
-                        combiner(false, postfix)("or")(inner),
-                    ]),
+                    config.combiner({ ...explore, tracable: false })("and")(
+                        input,
+                        [
+                            ...outer,
+                            config.combiner({ ...explore, tracable: false })(
+                                "or",
+                            )(input, inner),
+                        ],
+                    ),
                 );
             }
 
             // COMBINE CONDITIONS
             return top.length !== 0
-                ? combiner(trace, postfix)("and")([
+                ? config.combiner(explore)("and")(input, [
                       ...top,
-                      combiner(false, postfix)("or")(binaries),
+                      config.combiner({
+                          ...explore,
+                          tracable: false,
+                      })("or")(input, binaries),
                   ])
-                : combiner(trace, postfix)("or")(binaries);
-        }
+                : config.combiner(explore)("or")(input, binaries);
+        };
+    }
 
-        function visit_tuple(
-            trace: boolean,
-            combiner: Combiner,
+    function visit_tuple(config: IConfig) {
+        return function (
             input: ts.Expression,
             tuple: Array<IMetadata>,
-            fromObject: boolean,
-            postfix: string,
+            explore: IExplore,
         ): ts.Expression {
             const length = ts.factory.createStrictEquality(
                 ts.factory.createPropertyAccessExpression(input, "length"),
                 ts.factory.createNumericLiteral(tuple.length),
             );
             const binaries: ts.Expression[] = tuple.map((meta, index) =>
-                visit(
-                    trace,
-                    combiner,
+                visit(config)(
                     ts.factory.createElementAccessExpression(input, index),
                     meta,
-                    fromObject,
-                    `${postfix}[${index}]`,
+                    {
+                        ...explore,
+                        from: "array",
+                        postfix: `${explore.postfix}[${index}]`,
+                    },
                 ),
             );
             if (binaries.length === 0) return length;
             else
-                return [length, ...binaries].reduce((x, y) =>
-                    ts.factory.createLogicalAnd(x, y),
+                return [length, ...binaries].reduce(
+                    (x, y) => ts.factory.createLogicalAnd(x, y),
+                    ts.factory.createTrue(),
                 );
-        }
+        };
+    }
 
-        function visit_array(
-            trace: boolean,
-            combiner: Combiner,
-            input: ts.Expression,
-            meta: IMetadata,
-            fromObject: boolean,
-            postfix: string,
-        ): ts.Expression {
-            return ts.factory.createCallExpression(
-                ts.factory.createPropertyAccessExpression(input, "every"),
+    function visit_array(config: IConfig) {
+        return FeatureFactory.visit_array(base_config(config), (input, arrow) =>
+            ts.factory.createCallExpression(
+                IdentifierFactory.join(input, "every"),
                 undefined,
-                [
-                    ts.factory.createArrowFunction(
-                        undefined,
-                        undefined,
-                        [
-                            ts.factory.createParameterDeclaration(
-                                undefined,
-                                undefined,
-                                undefined,
-                                ValueFactory.INPUT("elem"),
-                            ),
-                            ...(globalTrace
-                                ? [
-                                      ts.factory.createParameterDeclaration(
-                                          undefined,
-                                          undefined,
-                                          undefined,
-                                          ValueFactory.INPUT("index"),
-                                      ),
-                                  ]
-                                : []),
-                        ],
-                        undefined,
-                        undefined,
-                        visit(
-                            trace,
-                            combiner,
-                            ValueFactory.INPUT("elem"),
-                            meta,
-                            fromObject,
-                            postfix.length
-                                ? postfix.substr(0, postfix.length - 1) +
-                                      INDEX_SYMBOL
-                                : '"' + INDEX_SYMBOL,
-                        ),
-                    ),
-                ],
-            );
-        }
+                [arrow],
+            ),
+        );
+    }
 
-        function visit_object(
-            trace: boolean,
+    function visit_object(config: IConfig) {
+        const func = FeatureFactory.visit_object({
+            trace: config.trace,
+            functors: config.functors,
+            joiner: (entries) =>
+                entries
+                    .map((entry) => entry.expression)
+                    .reduce(
+                        (x, y) => ts.factory.createLogicalAnd(x, y),
+                        ts.factory.createTrue(),
+                    ),
+            visitor: visit(config),
+        });
+        return function (
             input: ts.Expression,
-            { $id }: IMetadata.IObject,
-            fromObject: boolean,
-            postfix: string,
+            obj: IMetadata.IObject,
+            explore: IExplore,
         ) {
-            return ts.factory.createCallExpression(
-                IdentifierFactory.join(
-                    ts.factory.createIdentifier("functors"),
-                    $id,
-                ),
-                undefined,
-                ARGUMENTS(globalTrace, trace, fromObject, postfix)(input),
-            );
-        }
-
-        return function (collection: MetadataCollection, meta: IMetadata) {
-            const variable = (() => {
-                const storage = collection.storage();
-                if (Object.entries(storage).length === 0) return null;
-
-                const functors = ts.factory.createObjectLiteralExpression(
-                    Object.entries(collection.storage()).map(([key, value]) =>
-                        ts.factory.createPropertyAssignment(
-                            IdentifierFactory.generate(key),
-                            generate_object(trace, combiner, value),
-                        ),
-                    ),
-                    true,
-                );
-
-                return ts.factory.createVariableDeclaration(
-                    "functors",
-                    undefined,
-                    undefined,
-                    functors,
-                );
-            })();
-            const output = visit(
-                trace,
-                combiner,
-                ValueFactory.INPUT(),
-                meta,
-                false,
-            );
-
-            return ts.factory.createArrowFunction(
-                undefined,
-                undefined,
-                PARAMETERS(trace ? true : null)(ValueFactory.INPUT()),
-                undefined,
-                undefined,
-                variable === null
-                    ? output
-                    : ts.factory.createBlock(
-                          [
-                              ts.factory.createVariableStatement(
-                                  undefined,
-                                  ts.factory.createVariableDeclarationList(
-                                      [variable],
-                                      ts.NodeFlags.Const,
-                                  ),
-                              ),
-                              ts.factory.createReturnStatement(output),
-                          ],
-                          true,
-                      ),
-            );
+            obj.checked = true;
+            return func(input, obj, explore);
         };
     }
 }
@@ -335,61 +241,3 @@ const create_add =
             : ts.factory.createStrictInequality;
         binaries.push(factory(left, right));
     };
-
-const PARAMETERS = (initialize: null | boolean) => {
-    const tail =
-        initialize === null
-            ? []
-            : [
-                  ts.factory.createParameterDeclaration(
-                      undefined,
-                      undefined,
-                      undefined,
-                      "path",
-                      undefined,
-                      undefined,
-                      initialize
-                          ? ts.factory.createStringLiteral("$input")
-                          : undefined,
-                  ),
-              ];
-    if (initialize === false)
-        tail.push(
-            ts.factory.createParameterDeclaration(
-                undefined,
-                undefined,
-                undefined,
-                "exceptionable",
-            ),
-        );
-
-    return (input: ts.Identifier) => [
-        ts.factory.createParameterDeclaration(
-            undefined,
-            undefined,
-            undefined,
-            input,
-        ),
-        ...tail,
-    ];
-};
-
-const ARGUMENTS = (
-    globalTrace: boolean,
-    trace: boolean,
-    fromObject: boolean,
-    postfix: string,
-) => {
-    const tail: ts.Expression[] =
-        globalTrace === false
-            ? []
-            : [
-                  ts.factory.createIdentifier(`path + ${postfix || ""}`),
-                  fromObject
-                      ? ts.factory.createIdentifier(`${trace} && exceptionable`)
-                      : ts.factory.createIdentifier(`${trace}`),
-              ];
-    return (input: ts.Expression) => [input, ...tail];
-};
-
-const INDEX_SYMBOL = '[" + index + "]"';

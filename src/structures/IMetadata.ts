@@ -18,6 +18,11 @@ export namespace IMetadata {
         recursive: boolean;
         properties: Record<string, IMetadata>;
         description?: string;
+
+        /**
+         * @internal
+         */
+        checked: boolean;
     }
     export type IStorage = Record<string, IMetadata.IObject>;
 
@@ -42,9 +47,13 @@ export namespace IMetadata {
      * @internal
      */
     export function size(meta: IMetadata): number {
+        const constants: number = [...meta.constants.keys()].filter(
+            (key) => meta.atomics.has(key) === false,
+        ).length;
+
         return (
             (meta.resolved !== null ? 1 : 0) +
-            meta.constants.size +
+            constants +
             meta.atomics.size +
             meta.arraies.size +
             meta.tuples.size +
@@ -88,6 +97,16 @@ export namespace IMetadata {
             objects: new Map([...x.objects, ...y.objects]),
             nullable: x.nullable || y.nullable,
             required: x.required && y.required,
+        };
+    }
+
+    /**
+     * @internal
+     */
+    export function separate(input: Partial<IMetadata>): IMetadata {
+        return {
+            ...create(),
+            ...input,
         };
     }
 }

@@ -1,6 +1,6 @@
 import path from "path";
 import ts from "typescript";
-import { ITypeGuardErrorModulo } from "../structures/ITypeGuardErrorModulo";
+import { IModule } from "../structures/IModule";
 
 import { IProject } from "../structures/IProject";
 
@@ -8,13 +8,13 @@ import { ApplicationTransformer } from "./features/ApplicationTransformer";
 import { AssertTransformer } from "./features/AssertTransformer";
 import { CreateTransformer } from "./features/CreateTransformer";
 import { IsTransformer } from "./features/IsTransformer";
-// import { StringifyTransformer } from "./features/StringifyTransformer";
+import { StringifyTransformer } from "./features/StringifyTransformer";
 
 export namespace FunctionTransformer {
     export function transform(
         project: IProject,
         expression: ts.CallExpression,
-        imp: ITypeGuardErrorModulo,
+        imp: IModule,
     ): ts.Expression {
         //----
         // VALIDATIONS
@@ -50,7 +50,7 @@ export namespace FunctionTransformer {
 type Task = (
     checker: ts.TypeChecker,
     expression: ts.CallExpression,
-    imp: ITypeGuardErrorModulo,
+    imp: IModule,
 ) => ts.Expression;
 
 const LIB_PATH = path.resolve(path.join(__dirname, "..", "module.d.ts"));
@@ -59,7 +59,7 @@ const SRC_PATH = path.resolve(path.join(__dirname, "..", "module.ts"));
 const FUCTORS: Record<string, () => Task> = {
     assert: () => AssertTransformer.transform,
     is: () => IsTransformer.transform,
-    // stringify: () => StringifyTransformer.transform,
+    stringify: () => StringifyTransformer.transform,
 
     application: () => ApplicationTransformer.transform,
     create: () => CreateTransformer.transform,

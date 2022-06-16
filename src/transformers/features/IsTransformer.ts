@@ -25,6 +25,7 @@ export namespace IsTransformer {
             type,
             {
                 resolve: false,
+                constant: true,
             },
         );
 

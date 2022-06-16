@@ -3,9 +3,9 @@ import { Escaper } from "../../utils/Escaper";
 
 export namespace IdentifierFactory {
     export function generate(name: string) {
-        return Escaper.reserved(name) || !Escaper.variable(name)
-            ? ts.factory.createStringLiteral(name)
-            : ts.factory.createIdentifier(name);
+        return Escaper.variable(name)
+            ? ts.factory.createIdentifier(name)
+            : ts.factory.createStringLiteral(name);
     }
 
     export function join(prefix: ts.Expression, name: string) {

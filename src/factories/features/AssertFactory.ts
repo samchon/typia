@@ -1,5 +1,5 @@
 import ts from "typescript";
-import { ITypeGuardErrorModulo } from "../../structures/ITypeGuardErrorModulo";
+import { IModule } from "../../structures/IModule";
 import { IMetadata } from "../../structures/IMetadata";
 import { MetadataCollection } from "../MetadataCollection";
 import { StatementFactory } from "../programmatics/StatementFactory";
@@ -11,7 +11,7 @@ export namespace AssertFactory {
     export function generate(
         collection: MetadataCollection,
         meta: IMetadata,
-        imp: ITypeGuardErrorModulo,
+        modulo: IModule,
     ) {
         return ts.factory.createArrowFunction(
             undefined,
@@ -27,22 +27,26 @@ export namespace AssertFactory {
             undefined,
             undefined,
             ts.factory.createCallExpression(
-                CheckerFactory.generate(true, combine(imp))(collection, meta),
+                CheckerFactory.generate({
+                    combiner: combine(modulo),
+                    functors: {
+                        name: "assert",
+                    },
+                    trace: true,
+                })(collection, meta),
                 undefined,
                 [ValueFactory.INPUT()],
             ),
         );
     }
 
-    export function combine(
-        imp: ITypeGuardErrorModulo,
-    ): CheckerFactory.Combiner {
-        return (trace, postfix) => {
-            const combiner = IsFactory.combine;
-            if (trace === false) return combiner;
+    export function combine(modulo: IModule): CheckerFactory.IConfig.Combiner {
+        return (explore: CheckerFactory.IExplore) => {
+            const combiner = IsFactory.CONFIG.combiner(explore);
+            if (explore.tracable === false) return combiner;
 
-            const path = postfix ? `path + ${postfix}` : "path";
-            const wrapper = (output: ts.Expression) =>
+            const path = explore.postfix ? `path + ${explore.postfix}` : "path";
+            const wrapper = (input: ts.Expression, output: ts.Expression) =>
                 ts.factory.createCallExpression(
                     ts.factory.createArrowFunction(
                         undefined,
@@ -64,8 +68,22 @@ export namespace AssertFactory {
                                             ValueFactory.BOOLEAN(true),
                                         ),
                                     ),
-                                    StatementFactory.transpile(
-                                        `throw new ${imp.name}.TypeGuardError(${path}, input)`,
+                                    ts.factory.createThrowStatement(
+                                        ts.factory.createNewExpression(
+                                            ts.factory.createIdentifier(
+                                                `${modulo.error.name}.TypeGuardError`,
+                                            ),
+                                            undefined,
+                                            [
+                                                ts.factory.createStringLiteral(
+                                                    "assert",
+                                                ),
+                                                ts.factory.createStringLiteral(
+                                                    path,
+                                                ),
+                                                input,
+                                            ],
+                                        ),
                                     ),
                                 ),
                                 ts.factory.createReturnStatement(
@@ -80,9 +98,9 @@ export namespace AssertFactory {
                 );
             return (type) => {
                 const typer = combiner(type);
-                return (expressions) => {
-                    const output = typer(expressions);
-                    return wrapper(output);
+                return (input, expressions) => {
+                    const output = typer(input, expressions);
+                    return wrapper(input, output);
                 };
             };
         };
