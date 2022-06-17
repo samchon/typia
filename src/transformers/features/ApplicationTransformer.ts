@@ -58,7 +58,7 @@ export namespace ApplicationTransformer {
             replace: MetadataCollection.replace,
         });
         const metadatas: Array<IMetadata> = types.map((type) =>
-            MetadataFactory.generate(collection, checker, type, {
+            MetadataFactory.generate(checker, collection, type, {
                 resolve: true,
                 constant: true,
             }),
