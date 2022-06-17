@@ -40,7 +40,7 @@ export class MetadataCollection {
                         type.symbol.getDocumentationComment(checker),
                     )) ||
                 undefined,
-            checked: false,
+            validated: false,
         };
         this.dict_.set(type, [$id, obj]);
         return [$id, obj, true];

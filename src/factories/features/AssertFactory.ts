@@ -1,17 +1,16 @@
 import ts from "typescript";
-import { IModule } from "../../structures/IModule";
-import { IMetadata } from "../../structures/IMetadata";
-import { MetadataCollection } from "../MetadataCollection";
+import { IModuleImport } from "../../structures/IModuleImport";
 import { StatementFactory } from "../programmatics/StatementFactory";
 import { ValueFactory } from "../ValueFactory";
 import { CheckerFactory } from "./CheckerFactory";
 import { IsFactory } from "./IsFactory";
+import { IProject } from "../../structures/IProject";
 
 export namespace AssertFactory {
     export function generate(
-        collection: MetadataCollection,
-        meta: IMetadata,
-        modulo: IModule,
+        project: IProject,
+        type: ts.Type,
+        modulo: IModuleImport,
     ) {
         return ts.factory.createArrowFunction(
             undefined,
@@ -26,21 +25,29 @@ export namespace AssertFactory {
             ],
             undefined,
             undefined,
-            ts.factory.createCallExpression(
-                CheckerFactory.generate({
-                    combiner: combine(modulo),
-                    functors: {
-                        name: "assert",
-                    },
-                    trace: true,
-                })(collection, meta),
-                undefined,
-                [ValueFactory.INPUT()],
-            ),
+            ts.factory.createBlock([
+                ts.factory.createExpressionStatement(
+                    ts.factory.createCallExpression(
+                        CheckerFactory.generate({
+                            combiner: combine(modulo),
+                            functors: {
+                                name: "assert",
+                                filter: (obj) => obj.validated,
+                            },
+                            trace: true,
+                        })(project, type),
+                        undefined,
+                        [ValueFactory.INPUT()],
+                    ),
+                ),
+                ts.factory.createReturnStatement(ValueFactory.INPUT()),
+            ]),
         );
     }
 
-    export function combine(modulo: IModule): CheckerFactory.IConfig.Combiner {
+    export function combine(
+        modulo: IModuleImport,
+    ): CheckerFactory.IConfig.Combiner {
         return (explore: CheckerFactory.IExplore) => {
             const combiner = IsFactory.CONFIG.combiner(explore);
             if (explore.tracable === false) return combiner;
@@ -71,7 +78,7 @@ export namespace AssertFactory {
                                     ts.factory.createThrowStatement(
                                         ts.factory.createNewExpression(
                                             ts.factory.createIdentifier(
-                                                `${modulo.error.name}.TypeGuardError`,
+                                                `${modulo.name}.TypeGuardError`,
                                             ),
                                             undefined,
                                             [

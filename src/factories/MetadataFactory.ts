@@ -66,38 +66,9 @@ export namespace MetadataFactory {
         type: ts.Type,
         parentResolved: boolean,
     ): void {
-        // RESOLVE toJSON() METHOD
-        if (parentResolved === false) {
-            const resolved: ts.Type | null =
-                options.resolve === true
-                    ? TypeFactory.resolve(checker, type)
-                    : null;
-            if (resolved !== null) {
-                meta.resolved = explore(
-                    collection,
-                    checker,
-                    options,
-                    resolved,
-                    true,
-                );
-            }
-        }
-
-        // WHEN UNION TYPE
-        if (type.isUnion())
-            return type.types.forEach((t) =>
-                iterate(collection, checker, options, meta, t, false),
-            );
-
-        // NODE AND ATOMIC TYPE CHECKER
-        const node: ts.TypeNode | undefined = checker.typeToTypeNode(
-            type,
-            undefined,
-            undefined,
-        );
-        if (node === undefined) return;
-
-        const filter = (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
+        // PREPARE INTERNAL FUNCTIONS
+        const filter = (flag: ts.TypeFlags, t: ts.Type = type) =>
+            (t.getFlags() & flag) !== 0;
         const check = (
             flag: ts.TypeFlags,
             literal: ts.TypeFlags,
@@ -113,6 +84,63 @@ export namespace MetadataFactory {
             }
             return false;
         };
+
+        // WHEN UNION TYPE
+        if (type.isUnion()) {
+            if (options.resolve === false || parentResolved === true)
+                return type.types.forEach((t) =>
+                    iterate(collection, checker, options, meta, t, false),
+                );
+
+            const normals: ts.Type[] = [];
+            const toJsons: ts.Type[] = [];
+
+            for (const individual of type.types) {
+                if (filter(ts.TypeFlags.Object, individual)) {
+                    const resolved: ts.Type | null = TypeFactory.resolve(
+                        checker,
+                        individual,
+                    );
+                    if (resolved !== null) toJsons.push(resolved);
+                    else normals.push(individual);
+                } else normals.push(individual);
+            }
+            if (toJsons.length !== 0) {
+                meta.resolved = (() => {
+                    const union: IMetadata = IMetadata.create();
+                    toJsons.forEach((t) =>
+                        iterate(collection, checker, options, union, t, true),
+                    );
+                    return union;
+                })();
+            }
+            return normals.forEach((t) =>
+                iterate(collection, checker, options, meta, t, false),
+            );
+        }
+
+        // RESOLVE toJSON() METHOD
+        if (options.resolve === true && parentResolved === false) {
+            const resolved: ts.Type | null = TypeFactory.resolve(checker, type);
+            if (resolved !== null) {
+                meta.resolved = explore(
+                    collection,
+                    checker,
+                    options,
+                    resolved,
+                    true,
+                );
+                return;
+            }
+        }
+
+        // NODE AND ATOMIC TYPE CHECKER
+        const node: ts.TypeNode | undefined = checker.typeToTypeNode(
+            type,
+            undefined,
+            undefined,
+        );
+        if (node === undefined) return;
 
         // UNKNOWN, NULL OR UNDEFINED
         if (
@@ -199,28 +227,24 @@ export namespace MetadataFactory {
         }
 
         // WHEN OBJECT, MAYBE
-        else if (filter(ts.TypeFlags.Object)) {
+        if (filter(ts.TypeFlags.Object) || type.isIntersection()) {
             if (type.isIntersection()) {
                 const fakeCollection = new MetadataCollection();
                 const fakeSchema: IMetadata = IMetadata.create();
 
+                type.types.forEach((t) =>
+                    iterate(
+                        fakeCollection,
+                        checker,
+                        options,
+                        fakeSchema,
+                        t,
+                        parentResolved,
+                    ),
+                );
                 if (
-                    type.types.every((t) =>
-                        iterate(
-                            fakeCollection,
-                            checker,
-                            options,
-                            fakeSchema,
-                            t,
-                            false,
-                        ),
-                    ) === false
-                )
-                    return;
-                else if (
-                    fakeSchema.atomics.size ||
-                    fakeSchema.arraies.size ||
-                    !fakeSchema.objects.size
+                    fakeSchema.objects.size === 0 ||
+                    fakeSchema.objects.size !== IMetadata.size(fakeSchema)
                 )
                     return;
             }
@@ -245,14 +269,17 @@ export namespace MetadataFactory {
         const pred: (node: ts.Declaration) => boolean = isClass
             ? (node) => ts.isParameter(node) || ts.isPropertyDeclaration(node)
             : (node) =>
-                  ts.isPropertySignature(node) || ts.isTypeLiteralNode(node);
+                  ts.isPropertyAssignment(node) ||
+                  ts.isPropertySignature(node) ||
+                  ts.isTypeLiteralNode(node);
 
-        for (const prop of parent.getApparentProperties()) {
+        for (const prop of parent.getProperties()) {
             // CHECK NODE IS A FORMAL PROPERTY
             const node: ts.PropertyDeclaration | undefined =
                 (prop.getDeclarations() || [])[0] as
                     | ts.PropertyDeclaration
                     | undefined;
+
             if (!node || !pred(node)) continue;
             else if (
                 node

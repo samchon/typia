@@ -51,11 +51,9 @@ export namespace TypeFactory {
             type.getSymbol() || type.aliasSymbol;
         if (symbol === undefined)
             return checker.typeToString(type, undefined, undefined);
+
         // UNION OR INTERSECT
-        else if (
-            type.aliasSymbol === undefined &&
-            type.isUnionOrIntersection()
-        ) {
+        if (type.aliasSymbol === undefined && type.isUnionOrIntersection()) {
             const joiner: string = type.isIntersection() ? " & " : " | ";
             return type.types
                 .map((child) => full_name(checker, child))
@@ -65,7 +63,15 @@ export namespace TypeFactory {
         //----
         // SPECIALIZATION
         //----
-        const name: string = get_name(symbol);
+        const name: string = (() => {
+            const str: string = get_name(symbol);
+            // const index: number = str.lastIndexOf("__type");
+            // if (index !== str.length - "__type".length) return str;
+
+            // const node = checker.typeToTypeNode(type, undefined, undefined);
+            // if (node === undefined || !ts.isTypeLiteralNode(node)) return str;
+            return str;
+        })();
 
         // CHECK GENERIC
         const generic: readonly ts.Type[] = checker.getTypeArguments(

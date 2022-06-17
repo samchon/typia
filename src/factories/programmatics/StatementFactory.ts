@@ -45,7 +45,7 @@ export namespace StatementFactory {
             undefined,
             ts.factory.createImportClause(
                 false,
-                ts.factory.createIdentifier(variable),
+                undefined,
                 ts.factory.createNamedImports([
                     ts.factory.createImportSpecifier(
                         false,

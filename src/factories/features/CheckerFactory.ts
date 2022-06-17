@@ -1,5 +1,7 @@
 import ts from "typescript";
 import { IMetadata } from "../../structures/IMetadata";
+import { MetadataCollection } from "../MetadataCollection";
+import { MetadataFactory } from "../MetadataFactory";
 import { IdentifierFactory } from "../programmatics/IdentifierFactory";
 import { ValueFactory } from "../ValueFactory";
 import { FeatureFactory } from "./FeatureFactory";
@@ -40,6 +42,19 @@ export namespace CheckerFactory {
 
     function base_config(config: IConfig): FeatureFactory.IConfig {
         return {
+            initializer: ({ checker }, type) => {
+                const collection: MetadataCollection = new MetadataCollection();
+                const meta: IMetadata = MetadataFactory.generate(
+                    collection,
+                    checker,
+                    type,
+                    {
+                        resolve: false,
+                        constant: true,
+                    },
+                );
+                return [collection, meta];
+            },
             trace: config.trace,
             functors: config.functors,
             joiner: (entries) =>
@@ -205,24 +220,13 @@ export namespace CheckerFactory {
     }
 
     function visit_object(config: IConfig) {
-        const func = FeatureFactory.visit_object({
-            trace: config.trace,
-            functors: config.functors,
-            joiner: (entries) =>
-                entries
-                    .map((entry) => entry.expression)
-                    .reduce(
-                        (x, y) => ts.factory.createLogicalAnd(x, y),
-                        ts.factory.createTrue(),
-                    ),
-            visitor: visit(config),
-        });
+        const func = FeatureFactory.visit_object(base_config(config));
         return function (
             input: ts.Expression,
             obj: IMetadata.IObject,
             explore: IExplore,
         ) {
-            obj.checked = true;
+            obj.validated = true;
             return func(input, obj, explore);
         };
     }
