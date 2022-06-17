@@ -12,6 +12,7 @@ import { IProject } from "../../structures/IProject";
 export namespace ApplicationTransformer {
     export function transform(
         { checker }: IProject,
+        _modulo: ts.LeftHandSideExpression,
         expression: ts.CallExpression,
     ): ts.Expression {
         if (!expression.typeArguments?.length)

@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.0.0-dev.20220621-3",
+  "version": "3.0.0-dev.20220621-4",
   "description": "Faster JSON stringify with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -27,7 +27,12 @@
     "ajv",
     "schema",
     "jsonschema",
-    "generator"
+    "generator",
+    "validator",
+    "runtime",
+    "type",
+    "check",
+    "checker"
   ],
   "author": "Jeongho Nam",
   "license": "MIT",

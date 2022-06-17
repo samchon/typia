@@ -1,6 +1,5 @@
 import path from "path";
 import ts from "typescript";
-import { IModuleImport } from "../structures/IModuleImport";
 
 import { IProject } from "../structures/IProject";
 
@@ -14,7 +13,6 @@ export namespace FunctionTransformer {
     export function transform(
         project: IProject,
         expression: ts.CallExpression,
-        imp: IModuleImport,
     ): ts.Expression {
         //----
         // VALIDATIONS
@@ -25,32 +23,29 @@ export namespace FunctionTransformer {
         if (!signature || !signature.declaration) return expression;
 
         // FILE PATH
-        const file: string = path.resolve(
-            signature.declaration.getSourceFile().fileName,
-        );
+        const declaration: ts.Declaration = signature.declaration;
+        const file: string = path.resolve(declaration.getSourceFile().fileName);
         if (file !== LIB_PATH && file !== SRC_PATH) return expression;
 
         //----
         // TRANSFORMATION
         //----
         // FUNCTION NAME
-        const { name } = project.checker.getTypeAtLocation(
-            signature.declaration,
-        ).symbol;
+        const { name } = project.checker.getTypeAtLocation(declaration).symbol;
 
         // FIND TRANSFORMER
         const functor: (() => Task) | undefined = FUCTORS[name];
 
         // RETURNS WITH TRANSFORMATION
         if (functor === undefined) return expression;
-        return functor()(project, expression, imp);
+        return functor()(project, expression.expression, expression);
     }
 }
 
 type Task = (
     project: IProject,
+    modulo: ts.LeftHandSideExpression,
     expression: ts.CallExpression,
-    imp: IModuleImport,
 ) => ts.Expression;
 
 const LIB_PATH = path.resolve(path.join(__dirname, "..", "module.d.ts"));

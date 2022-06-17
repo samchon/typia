@@ -4,8 +4,9 @@ export * from "./structures/IJsonApplication";
 export * from "./structures/IJsonComponents";
 export * from "./structures/IJsonSchema";
 
-import { TypeGuardError } from "./TypeGuardError";
-export { TypeGuardError };
+import { $string } from "./functional/$string";
+import { TypeGuardError as _TypeGuardError } from "./TypeGuardError";
+export { _TypeGuardError as TypeGuardError };
 
 /**
  * Asserts a value type in the runtime.
@@ -31,6 +32,13 @@ export function assert<T>(input: T): T;
  */
 export function assert(): never {
     halt("assert");
+}
+
+/**
+ * @internal
+ */
+export namespace assert {
+    export const TypeGuardError = _TypeGuardError;
 }
 
 /**
@@ -82,6 +90,14 @@ export function stringify<T>(input: T): string;
  */
 export function stringify(): never {
     halt("stringify");
+}
+
+/**
+ * @internal
+ */
+export namespace stringify {
+    export const string = $string;
+    export const TypeGuardError = _TypeGuardError;
 }
 
 /**
@@ -183,44 +199,4 @@ function halt(name: string): never {
     throw new Error(
         `Error on TSON.${name}(): no transform has been configured. Configure the "tsconfig.json" file following the [README.md#setup](https://github.com/samchon/typescript-json#setup)`,
     );
-}
-
-/**
- * @internal
- */
-export namespace __functional {
-    export function string(str: string): string {
-        if (str.length > 42) return JSON.stringify(str);
-
-        const length = str.length;
-        let result = "";
-        let last = 0;
-        let found = false;
-        let surrogateFound = false;
-        let point = 255;
-
-        // eslint-disable-next-line
-        for (let i = 0; i < length && point >= 32; i++) {
-            point = str.charCodeAt(i);
-            if (0xd800 <= point && point <= 0xdfff) {
-                // The current character is a surrogate.
-                surrogateFound = true;
-                break;
-            }
-            if (point === 34 || point === 92) {
-                result += str.slice(last, i) + "\\";
-                last = i;
-                found = true;
-            }
-        }
-
-        if (!found) {
-            result = str;
-        } else {
-            result += str.slice(last);
-        }
-        return point < 32 || surrogateFound === true
-            ? JSON.stringify(str)
-            : '"' + result + '"';
-    }
 }

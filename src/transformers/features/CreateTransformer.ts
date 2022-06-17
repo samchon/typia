@@ -4,6 +4,7 @@ import { IProject } from "../../structures/IProject";
 export namespace CreateTransformer {
     export function transform(
         _project: IProject,
+        _modulo: ts.LeftHandSideExpression,
         expression: ts.CallExpression,
     ): ts.CallExpression {
         // GET PARAMETER

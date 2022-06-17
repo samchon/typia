@@ -1,16 +1,16 @@
 import ts from "typescript";
-import { IModuleImport } from "../../structures/IModuleImport";
 import { StatementFactory } from "../programmatics/StatementFactory";
 import { ValueFactory } from "../ValueFactory";
 import { CheckerFactory } from "./CheckerFactory";
 import { IsFactory } from "./IsFactory";
 import { IProject } from "../../structures/IProject";
+import { IdentifierFactory } from "../programmatics/IdentifierFactory";
 
 export namespace AssertFactory {
     export function generate(
         project: IProject,
+        modulo: ts.LeftHandSideExpression,
         type: ts.Type,
-        modulo: IModuleImport,
     ) {
         return ts.factory.createArrowFunction(
             undefined,
@@ -46,7 +46,7 @@ export namespace AssertFactory {
     }
 
     export function combine(
-        modulo: IModuleImport,
+        modulo: ts.LeftHandSideExpression,
     ): CheckerFactory.IConfig.Combiner {
         return (explore: CheckerFactory.IExplore) => {
             const combiner = IsFactory.CONFIG.combiner(explore);
@@ -77,8 +77,9 @@ export namespace AssertFactory {
                                     ),
                                     ts.factory.createThrowStatement(
                                         ts.factory.createNewExpression(
-                                            ts.factory.createIdentifier(
-                                                `${modulo.name}.TypeGuardError`,
+                                            IdentifierFactory.join(
+                                                modulo,
+                                                "TypeGuardError",
                                             ),
                                             undefined,
                                             [

@@ -1,7 +1,6 @@
 import ts from "typescript";
 import { IExpressionEntry } from "../../structures/IExpressionEntry";
 import { IMetadata } from "../../structures/IMetadata";
-import { IModuleImport } from "../../structures/IModuleImport";
 import { MetadataCollection } from "../MetadataCollection";
 import { MetadataFactory } from "../MetadataFactory";
 import { IdentifierFactory } from "../programmatics/IdentifierFactory";
@@ -9,7 +8,9 @@ import { FeatureFactory } from "./FeatureFactory";
 import { IsFactory } from "./IsFactory";
 
 export namespace StringifyFactory {
-    const CONFIG = (modulo: IModuleImport): FeatureFactory.IConfig => ({
+    const CONFIG = (
+        modulo: ts.LeftHandSideExpression,
+    ): FeatureFactory.IConfig => ({
         initializer: ({ checker }, type) => {
             const collection: MetadataCollection = new MetadataCollection();
             const meta: IMetadata = MetadataFactory.generate(
@@ -34,7 +35,7 @@ export namespace StringifyFactory {
     /* -----------------------------------------------------------
         GENERATORS
     ----------------------------------------------------------- */
-    export const generate = (modulo: IModuleImport) =>
+    export const generate = (modulo: ts.LeftHandSideExpression) =>
         FeatureFactory.generate(CONFIG(modulo), (collection) => {
             const validators = IsFactory.generate_functors(collection);
             return [
@@ -46,9 +47,7 @@ export namespace StringifyFactory {
                                 "$string",
                                 undefined,
                                 undefined,
-                                ts.factory.createIdentifier(
-                                    `${modulo.name}.__functional.string`,
-                                ),
+                                IdentifierFactory.join(modulo, "string"),
                             ),
                         ],
                         ts.NodeFlags.Const,
@@ -147,7 +146,7 @@ export namespace StringifyFactory {
         VISITORS
     ----------------------------------------------------------- */
     const visit =
-        (modulo: IModuleImport) =>
+        (modulo: ts.LeftHandSideExpression) =>
         (
             input: ts.Expression,
             meta: IMetadata,
@@ -299,9 +298,9 @@ export namespace StringifyFactory {
             );
         };
 
-    const visit_object = (modulo: IModuleImport) =>
+    const visit_object = (modulo: ts.LeftHandSideExpression) =>
         FeatureFactory.visit_object(CONFIG(modulo));
-    const visit_array = (modulo: IModuleImport) =>
+    const visit_array = (modulo: ts.LeftHandSideExpression) =>
         FeatureFactory.visit_array(CONFIG(modulo), (input, arrow) =>
             [
                 ts.factory.createStringLiteral("["),
@@ -322,7 +321,7 @@ export namespace StringifyFactory {
         );
 
     const visit_tuple =
-        (modulo: IModuleImport) =>
+        (modulo: ts.LeftHandSideExpression) =>
         (
             input: ts.Expression,
             tuple: IMetadata[],
@@ -366,7 +365,7 @@ export namespace StringifyFactory {
     }
 
     const visit_to_json =
-        (modulo: IModuleImport) =>
+        (modulo: ts.LeftHandSideExpression) =>
         (
             input: ts.Expression,
             resolved: IMetadata,
@@ -426,7 +425,7 @@ export namespace StringifyFactory {
     }
 
     const iterate =
-        (modulo: IModuleImport) =>
+        (modulo: ts.LeftHandSideExpression) =>
         (input: ts.Expression, unions: IUnion[]): ts.Block => {
             return ts.factory.createBlock(
                 [
@@ -438,9 +437,7 @@ export namespace StringifyFactory {
                     ),
                     ts.factory.createThrowStatement(
                         ts.factory.createNewExpression(
-                            ts.factory.createIdentifier(
-                                `${modulo.name}.TypeGuardError`,
-                            ),
+                            IdentifierFactory.join(modulo, "TypeGuardError"),
                             [],
                             [
                                 ts.factory.createStringLiteral("stringify"),
