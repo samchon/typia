@@ -14,8 +14,8 @@ export namespace MetadataFactory {
     }
 
     export function generate(
-        collection: MetadataCollection,
         checker: ts.TypeChecker,
+        collection: MetadataCollection,
         type: ts.Type | null,
         options: IOptions,
     ): IMetadata {
@@ -284,7 +284,7 @@ export namespace MetadataFactory {
             else if (
                 node
                     .getChildren()
-                    .some((child) => TypeFactory.is_function(child))
+                    .some((child) => TypeFactory.isFunction(child))
             )
                 continue;
 

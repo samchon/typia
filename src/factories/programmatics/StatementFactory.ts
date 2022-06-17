@@ -30,7 +30,7 @@ export namespace StatementFactory {
             undefined,
             ts.factory.createImportClause(
                 false,
-                ts.factory.createIdentifier(variable),
+                undefined,
                 ts.factory.createNamespaceImport(
                     ts.factory.createIdentifier(variable),
                 ),

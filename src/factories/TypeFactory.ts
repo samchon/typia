@@ -8,7 +8,7 @@ export namespace TypeFactory {
         return get_return_type(checker, type, "toJSON");
     }
 
-    export function is_function(node: ts.Node): boolean {
+    export function isFunction(node: ts.Node): boolean {
         return get_function(node) !== null;
     }
     function get_function(node: ts.Node): ts.SignatureDeclaration | null {
@@ -45,7 +45,10 @@ export namespace TypeFactory {
         return signature ? signature.getReturnType() : null;
     }
 
-    export function full_name(checker: ts.TypeChecker, type: ts.Type): string {
+    export function getFullName(
+        checker: ts.TypeChecker,
+        type: ts.Type,
+    ): string {
         // PRIMITIVE
         const symbol: ts.Symbol | undefined =
             type.getSymbol() || type.aliasSymbol;
@@ -56,7 +59,7 @@ export namespace TypeFactory {
         if (type.aliasSymbol === undefined && type.isUnionOrIntersection()) {
             const joiner: string = type.isIntersection() ? " & " : " | ";
             return type.types
-                .map((child) => full_name(checker, child))
+                .map((child) => getFullName(checker, child))
                 .join(joiner);
         }
 
@@ -79,9 +82,9 @@ export namespace TypeFactory {
         );
         return generic.length
             ? name === "Promise"
-                ? full_name(checker, generic[0]!)
+                ? getFullName(checker, generic[0]!)
                 : `${name}<${generic
-                      .map((child) => full_name(checker, child))
+                      .map((child) => getFullName(checker, child))
                       .join(", ")}>`
             : name;
     }

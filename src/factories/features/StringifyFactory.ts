@@ -13,8 +13,8 @@ export namespace StringifyFactory {
         initializer: ({ checker }, type) => {
             const collection: MetadataCollection = new MetadataCollection();
             const meta: IMetadata = MetadataFactory.generate(
-                collection,
                 checker,
+                collection,
                 type,
                 {
                     resolve: true,

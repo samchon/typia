@@ -48,7 +48,7 @@ export class MetadataCollection {
 
     private get_name(checker: ts.TypeChecker, type: ts.Type): string {
         const name: string = (() => {
-            const str: string = TypeFactory.full_name(checker, type);
+            const str: string = TypeFactory.getFullName(checker, type);
             return this.options?.replace ? this.options.replace(str) : str;
         })();
 

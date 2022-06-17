@@ -45,8 +45,8 @@ export namespace CheckerFactory {
             initializer: ({ checker }, type) => {
                 const collection: MetadataCollection = new MetadataCollection();
                 const meta: IMetadata = MetadataFactory.generate(
-                    collection,
                     checker,
+                    collection,
                     type,
                     {
                         resolve: false,

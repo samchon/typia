@@ -12,6 +12,9 @@ export namespace FileTransformer {
         context: ts.TransformationContext,
         file: ts.SourceFile,
     ): ts.SourceFile {
+        // DO NOT TRANSFORM D.TS FILE
+        if (file.isDeclarationFile) return file;
+
         // CONFIGURE IMPORT RESOLVER
         const modulo: IModuleImport = {
             from: __filename.substr(-3) === ".js" ? "lib" : "src",
