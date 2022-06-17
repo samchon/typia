@@ -1,10 +1,12 @@
-export type IObjectToJsonWithUnion = Array<
+export type ToJsonUnion = Array<
     | string
     | number
-    | IObjectToJsonWithUnion.ICitizen
-    | IObjectToJsonWithUnion.IWrapper<boolean>
+    | ToJsonUnion.ICitizen
+    | ToJsonUnion.IWrapper<boolean>
+    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
 >;
-export namespace IObjectToJsonWithUnion {
+export namespace ToJsonUnion {
     export interface IWrapper<T> {
         toJSON(): T;
     }
@@ -13,7 +15,13 @@ export namespace IObjectToJsonWithUnion {
         mobile: string;
         name: string;
     }
-    export function generate(): IObjectToJsonWithUnion {
+    export interface IProduct {
+        manufacturer: string;
+        brand: string;
+        name: string;
+    }
+
+    export function generate(): ToJsonUnion {
         return [
             "string",
             0,
@@ -24,6 +32,20 @@ export namespace IObjectToJsonWithUnion {
             },
             {
                 toJSON: () => true,
+            },
+            {
+                toJSON: () => ({
+                    id: 0,
+                    mobile: "mobile",
+                    name: "name",
+                }),
+            },
+            {
+                toJSON: () => ({
+                    manufacturer: "manufacturer",
+                    brand: "brand",
+                    name: "name",
+                }),
             },
         ];
     }

@@ -4,6 +4,6 @@ import { _test_is } from "./_test_is";
 
 export const test_is_array_hierarchical = _test_is(
     "hierarchical array",
-    ArrayHierarchical.generate(),
+    ArrayHierarchical.generate,
     (input) => TSON.is(input),
 );

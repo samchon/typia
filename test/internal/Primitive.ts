@@ -107,7 +107,8 @@ function object_equal_to<T extends object>(x: T, y: T, path: string): boolean {
 }
 
 function array_equal_to<T>(x: T[], y: T[], path: string): boolean {
-    if (x.length !== y.length) return trace(false, `${path}.length`);
+    if (x.length !== y.length)
+        return trace(x.length, y.length, `${path}.length`);
     return x.every((value, index) => {
         return recursive_equal_to(value, y[index], `${path}[${index}]`);
     });
@@ -115,9 +116,9 @@ function array_equal_to<T>(x: T[], y: T[], path: string): boolean {
 
 function recursive_equal_to<T>(x: T, y: T, path: string): boolean {
     const type = typeof x;
-    if (type !== typeof y) return trace(false, path);
+    if (type !== typeof y) return trace(x, y, path);
     else if (type === "object")
-        if (x === null) return trace(y === null, path);
+        if (x === null) return trace(x, y, path);
         else if (x instanceof Array)
             return array_equal_to(x, y as typeof x, path);
         else
@@ -126,11 +127,11 @@ function recursive_equal_to<T>(x: T, y: T, path: string): boolean {
                 (<any>y) as object,
                 path,
             );
-    else if (type !== "function") return trace(x === y, path);
-    else return trace(true, path);
+    else if (type !== "function") return trace(x, y, path);
+    else return trace(x, y, path);
 }
 
-function trace(flag: boolean, path: string): boolean {
-    if (flag === false) console.log(path);
-    return flag;
+function trace(x: any, y: any, path: string): boolean {
+    if (x !== y) console.log(x, y, path);
+    return x === y;
 }

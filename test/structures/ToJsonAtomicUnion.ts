@@ -1,11 +1,11 @@
 export type IObjectToJsonAtomicUnion = IObjectToJsonAtomicUnion.IToJson[];
 export namespace IObjectToJsonAtomicUnion {
     export interface IToJson {
-        toJSON(): null | boolean | number | string;
+        toJSON(): undefined | null | boolean | number | string;
     }
 
     export function generate(): IObjectToJsonAtomicUnion {
-        return [null, false, true, 1, "string"].map((value) => ({
+        return [undefined, null, false, true, 1, "string"].map((value) => ({
             toJSON: () => value,
         }));
     }

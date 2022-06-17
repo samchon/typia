@@ -5,12 +5,13 @@ import { MetadataCollection } from "../../factories/MetadataCollection";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { ApplicationFactory } from "../../factories/features/ApplicationFactory";
 
-import { IJsonApplication } from "../../module";
+import { IJsonApplication } from "../../structures/IJsonApplication";
 import { IMetadata } from "../../structures/IMetadata";
+import { IProject } from "../../structures/IProject";
 
 export namespace ApplicationTransformer {
     export function transform(
-        checker: ts.TypeChecker,
+        { checker }: IProject,
         expression: ts.CallExpression,
     ): ts.Expression {
         if (!expression.typeArguments?.length)

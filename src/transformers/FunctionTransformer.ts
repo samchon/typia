@@ -1,6 +1,6 @@
 import path from "path";
 import ts from "typescript";
-import { IModule } from "../structures/IModule";
+import { IModuleImport } from "../structures/IModuleImport";
 
 import { IProject } from "../structures/IProject";
 
@@ -14,7 +14,7 @@ export namespace FunctionTransformer {
     export function transform(
         project: IProject,
         expression: ts.CallExpression,
-        imp: IModule,
+        imp: IModuleImport,
     ): ts.Expression {
         //----
         // VALIDATIONS
@@ -43,14 +43,14 @@ export namespace FunctionTransformer {
 
         // RETURNS WITH TRANSFORMATION
         if (functor === undefined) return expression;
-        return functor()(project.checker, expression, imp);
+        return functor()(project, expression, imp);
     }
 }
 
 type Task = (
-    checker: ts.TypeChecker,
+    project: IProject,
     expression: ts.CallExpression,
-    imp: IModule,
+    imp: IModuleImport,
 ) => ts.Expression;
 
 const LIB_PATH = path.resolve(path.join(__dirname, "..", "module.d.ts"));

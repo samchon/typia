@@ -30,10 +30,10 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
 
 `typescript-json` is a transformer library providing JSON related functions.
 
-  - Runtime type checker
+  - Runtime type checkers
   - 10x faster `JSON.stringify()` function
   - Comparing with `ajv` or `fast-json-stringify`
-    - 10,000x faster 1st operation including optimizer plan construction
+    - 10,000x faster 1st operation including optimizer construction time
     - Does not require any JSON schema definition
     - Performed by only one line `TSON.stringify<T>(input)`
 
@@ -175,19 +175,15 @@ module.exports = {
 ## Features
 ### Runtime Type Checkers
 ```typescript
-export function assert<T>(input: T): void;
+export function assert<T>(input: T): T;
 export function is<T>(input: T): boolean;
-export function stringify<T>(input: T): string;
-export function create<T>(input: T): T;
 ```
 
-`typescript-json` provides three functions, `assert()`, `is()` and `stringify()`.
+`typescript-json` provides two runtime type checker functions, `assert()` and `is()`.
 
 The first `assert()` is a function which checks instance type in the runtime. If the input type is not matched with the generic argument `T`, the function `assert()` throws a `TypeGuardError`. The second `is()` function also checks instance type in runtime, but returns a `boolean` value whether input value is matched with the generic argument `T` or not. 
 
-The last, `stringify()` is a function returning a JSON string of the input value. As I've introduced in the preface, `stringify()` is about 10x times faster than the native`JSON.stringify()` function. 
-
-Furthermore, `typescript-json` does not require any optimizer plan construction in the runtime. Therefore, all of those functions are about 10,000x times faster than `ajv` and `fast-json-stringify`, if compare only one-time JSON string conversion or validation.
+For reference, there're two similar libraries who can check types in the runtime. The first is `ajv` and the other is `typescript-is`. 
 
 Function      | Returns
 --------------|--------------
@@ -202,10 +198,10 @@ Only JSON string conversion time | Include optimizer planning time
 
 ### Fastest JSON String Conversion
 ```typescript
-export function createAssert<T>(): (input: T) => void;
-export function createIs<T>(): (input: T) => boolean;
-export function createStringify<T>(): (input: T) => string;
+export function stringify<T>(input: T): string;
 ```
+
+`typescript-json` provides the fastest JSON string conversion function.
 
 `typescript-json` providers three generators, `createAsset()`, `createIs()` and `createStringify()`. 
 
@@ -219,13 +215,18 @@ Method | Strength | Weakness
 `createStringiy()` | Save global memory | Inconvenient to manage
 `createApplication()` | Reusable JSON Schema | Surplus feature, maybe?
 
-### Faster Object Creator
 ### JSON Schema Generation
 ```typescript
-export function createApplication<T>(): JsonApplication<T>;
+export function application<
+    Types extends unknown[],
+    Purpose extends "swagger" | "ajv" = "swagger",
+    Prefix extends string = Purpose extends "swagger"
+        ? "#/components/schemas"
+        : "components#/schemas",
+>(): IJsonApplication;
 ```
 
-JSON schema application generator.
+
 
 
 

@@ -1,8 +1,9 @@
 import ts from "typescript";
+import { IProject } from "../../structures/IProject";
 
 export namespace CreateTransformer {
     export function transform(
-        _checker: ts.TypeChecker,
+        _project: IProject,
         expression: ts.CallExpression,
     ): ts.CallExpression {
         // GET PARAMETER

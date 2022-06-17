@@ -1,41 +1,31 @@
 import ts from "typescript";
 import { AssertFactory } from "../../factories/features/AssertFactory";
-import { MetadataCollection } from "../../factories/MetadataCollection";
-import { MetadataFactory } from "../../factories/MetadataFactory";
-import { IModule } from "../../structures/IModule";
-import { IMetadata } from "../../structures/IMetadata";
+import { IModuleImport } from "../../structures/IModuleImport";
+import { IProject } from "../../structures/IProject";
 
 export namespace AssertTransformer {
     export function transform(
-        checker: ts.TypeChecker,
+        project: IProject,
         expression: ts.CallExpression,
-        imp: IModule,
+        imp: IModuleImport,
     ): ts.Expression {
         if (expression.arguments.length !== 1)
             throw new Error(ErrorMessages.NO_INPUT_VALUE);
 
         // FOR THE IMPORT STATEMENT CONSTRUCTION
-        imp.error.used ||= true;
+        imp.used ||= true;
 
         // GET TYPE INFO
         const type: ts.Type =
             expression.typeArguments && expression.typeArguments[0]
-                ? checker.getTypeFromTypeNode(expression.typeArguments[0])
-                : checker.getTypeAtLocation(expression.arguments[0]!);
-        const collection: MetadataCollection = new MetadataCollection();
-        const meta: IMetadata = MetadataFactory.generate(
-            collection,
-            checker,
-            type,
-            {
-                resolve: false,
-                constant: true,
-            },
-        );
+                ? project.checker.getTypeFromTypeNode(
+                      expression.typeArguments[0],
+                  )
+                : project.checker.getTypeAtLocation(expression.arguments[0]!);
 
         // DO TRANSFORM
         return ts.factory.createCallExpression(
-            AssertFactory.generate(collection, meta, imp),
+            AssertFactory.generate(project, type, imp),
             undefined,
             [expression.arguments[0]!],
         );

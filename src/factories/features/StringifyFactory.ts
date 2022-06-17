@@ -1,13 +1,28 @@
 import ts from "typescript";
 import { IExpressionEntry } from "../../structures/IExpressionEntry";
 import { IMetadata } from "../../structures/IMetadata";
-import { IModule } from "../../structures/IModule";
+import { IModuleImport } from "../../structures/IModuleImport";
+import { MetadataCollection } from "../MetadataCollection";
+import { MetadataFactory } from "../MetadataFactory";
 import { IdentifierFactory } from "../programmatics/IdentifierFactory";
 import { FeatureFactory } from "./FeatureFactory";
 import { IsFactory } from "./IsFactory";
 
 export namespace StringifyFactory {
-    const CONFIG = (modulo: IModule): FeatureFactory.IConfig => ({
+    const CONFIG = (modulo: IModuleImport): FeatureFactory.IConfig => ({
+        initializer: ({ checker }, type) => {
+            const collection: MetadataCollection = new MetadataCollection();
+            const meta: IMetadata = MetadataFactory.generate(
+                collection,
+                checker,
+                type,
+                {
+                    resolve: true,
+                    constant: false,
+                },
+            );
+            return [collection, meta];
+        },
         trace: false,
         functors: {
             name: "stringify",
@@ -19,8 +34,39 @@ export namespace StringifyFactory {
     /* -----------------------------------------------------------
         GENERATORS
     ----------------------------------------------------------- */
-    export const generate = (modulo: IModule) =>
-        FeatureFactory.generate(CONFIG(modulo), IsFactory.generate_functors);
+    export const generate = (modulo: IModuleImport) =>
+        FeatureFactory.generate(CONFIG(modulo), (collection) => {
+            const validators = IsFactory.generate_functors(collection);
+            return [
+                ts.factory.createVariableStatement(
+                    undefined,
+                    ts.factory.createVariableDeclarationList(
+                        [
+                            ts.factory.createVariableDeclaration(
+                                "$string",
+                                undefined,
+                                undefined,
+                                ts.factory.createIdentifier(
+                                    `${modulo.name}.__functional.string`,
+                                ),
+                            ),
+                        ],
+                        ts.NodeFlags.Const,
+                    ),
+                ),
+                ...(validators
+                    ? [
+                          ts.factory.createVariableStatement(
+                              undefined,
+                              ts.factory.createVariableDeclarationList(
+                                  [validators],
+                                  ts.NodeFlags.Const,
+                              ),
+                          ),
+                      ]
+                    : []),
+            ];
+        });
 
     function join_object(entries: IExpressionEntry[]): ts.Expression {
         //----
@@ -101,7 +147,7 @@ export namespace StringifyFactory {
         VISITORS
     ----------------------------------------------------------- */
     const visit =
-        (modulo: IModule) =>
+        (modulo: IModuleImport) =>
         (
             input: ts.Expression,
             meta: IMetadata,
@@ -115,6 +161,30 @@ export namespace StringifyFactory {
                     [input],
                 );
 
+            // ONLY NULL OR UNDEFINED
+            const size: number = IMetadata.size(meta);
+            if (
+                size === 0 &&
+                (meta.required === false || meta.nullable === true)
+            ) {
+                if (meta.required === false && meta.nullable === true)
+                    return explore.from === "array"
+                        ? ts.factory.createNull()
+                        : ts.factory.createConditionalExpression(
+                              ts.factory.createStrictEquality(
+                                  ts.factory.createNull(),
+                                  input,
+                              ),
+                              undefined,
+                              ts.factory.createNull(),
+                              undefined,
+                              ts.factory.createIdentifier("undefined"),
+                          );
+                else if (meta.required === false)
+                    return ts.factory.createIdentifier("undefined");
+                else return ts.factory.createNull();
+            }
+
             //----
             // LIST UP UNION TYPES
             //----
@@ -122,7 +192,7 @@ export namespace StringifyFactory {
 
             // toJSON() METHOD
             if (meta.resolved !== null)
-                if (IMetadata.size(meta) === 1)
+                if (size === 1)
                     return visit_to_json(modulo)(input, meta.resolved, explore);
                 else
                     unions.push({
@@ -146,7 +216,7 @@ export namespace StringifyFactory {
                             IMetadata.separate({ atomics: new Set([type]) }),
                             explore,
                         ),
-                    value: () => visit_atomic(modulo)(input, type),
+                    value: () => visit_atomic(input, type),
                 });
 
             // TUPLES
@@ -229,9 +299,9 @@ export namespace StringifyFactory {
             );
         };
 
-    const visit_object = (modulo: IModule) =>
+    const visit_object = (modulo: IModuleImport) =>
         FeatureFactory.visit_object(CONFIG(modulo));
-    const visit_array = (modulo: IModule) =>
+    const visit_array = (modulo: IModuleImport) =>
         FeatureFactory.visit_array(CONFIG(modulo), (input, arrow) =>
             [
                 ts.factory.createStringLiteral("["),
@@ -252,7 +322,7 @@ export namespace StringifyFactory {
         );
 
     const visit_tuple =
-        (modulo: IModule) =>
+        (modulo: IModuleImport) =>
         (
             input: ts.Expression,
             tuple: IMetadata[],
@@ -280,27 +350,23 @@ export namespace StringifyFactory {
             ].reduce((x, y) => ts.factory.createAdd(x, y));
         };
 
-    const visit_atomic =
-        (modulo: IModule) =>
-        (input: ts.Expression, type: string): ts.Expression => {
-            if (type === "string")
-                return ts.factory.createCallExpression(
-                    ts.factory.createIdentifier(
-                        `${modulo.functional.name}.string`,
-                    ),
-                    undefined,
-                    [input],
-                );
-            else
-                return ts.factory.createCallExpression(
-                    IdentifierFactory.join(input, "toString"),
-                    undefined,
-                    undefined,
-                );
-        };
+    function visit_atomic(input: ts.Expression, type: string): ts.Expression {
+        if (type === "string")
+            return ts.factory.createCallExpression(
+                ts.factory.createIdentifier(`$string`),
+                undefined,
+                [input],
+            );
+        else
+            return ts.factory.createCallExpression(
+                IdentifierFactory.join(input, "toString"),
+                undefined,
+                undefined,
+            );
+    }
 
     const visit_to_json =
-        (modulo: IModule) =>
+        (modulo: IModuleImport) =>
         (
             input: ts.Expression,
             resolved: IMetadata,
@@ -325,8 +391,7 @@ export namespace StringifyFactory {
         meta: IMetadata,
         explore: FeatureFactory.IExplore,
     ): (expression: ts.Expression) => ts.Expression {
-        if (meta.required === true || explore.from === "object")
-            return (expression) => expression;
+        if (meta.required === true) return (expression) => expression;
         return (expression) =>
             ts.factory.createConditionalExpression(
                 ts.factory.createStrictInequality(
@@ -361,7 +426,7 @@ export namespace StringifyFactory {
     }
 
     const iterate =
-        (modulo: IModule) =>
+        (modulo: IModuleImport) =>
         (input: ts.Expression, unions: IUnion[]): ts.Block => {
             return ts.factory.createBlock(
                 [
@@ -374,7 +439,7 @@ export namespace StringifyFactory {
                     ts.factory.createThrowStatement(
                         ts.factory.createNewExpression(
                             ts.factory.createIdentifier(
-                                `${modulo.error.name}.TypeGuardError`,
+                                `${modulo.name}.TypeGuardError`,
                             ),
                             [],
                             [

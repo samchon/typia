@@ -1,5 +1,5 @@
 import ts from "typescript";
-import { IModule } from "../structures/IModule";
+import { IModuleImport } from "../structures/IModuleImport";
 
 import { IProject } from "../structures/IProject";
 import { FunctionTransformer } from "./FunctionTransformer";
@@ -8,7 +8,7 @@ export namespace NodeTransformer {
     export function transform(
         project: IProject,
         expression: ts.Node,
-        imp: IModule,
+        imp: IModuleImport,
     ): ts.Node {
         if (!ts.isCallExpression(expression)) return expression;
         return FunctionTransformer.transform(project, expression, imp);

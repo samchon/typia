@@ -1,7 +1,7 @@
 import path from "path";
 import ts from "typescript";
 import { StatementFactory } from "../factories/programmatics/StatementFactory";
-import { IModule } from "../structures/IModule";
+import { IModuleImport } from "../structures/IModuleImport";
 
 import { IProject } from "../structures/IProject";
 import { NodeTransformer } from "./NodeTransformer";
@@ -12,35 +12,29 @@ export namespace FileTransformer {
         context: ts.TransformationContext,
         file: ts.SourceFile,
     ): ts.SourceFile {
-        const modulo: IModule = {
-            error: {
-                name: `__TypeGuardError_` + Math.random().toString().slice(2),
-                used: false,
-            },
-            functional: {
-                name: "__Functional_" + Math.random().toString().slice(2),
-                used: false,
-            },
+        // CONFIGURE IMPORT RESOLVER
+        const modulo: IModuleImport = {
+            from: __filename.substr(-3) === ".js" ? "lib" : "src",
+            name: `__TSON_` + Math.random().toString().slice(2),
+            used: false,
         };
 
+        // ITERATE NODES
         file = ts.visitEachChild(
             file,
             (node) => iterate_node(project, context, node, modulo),
             context,
         );
 
-        const requires: ts.ImportDeclaration[] = [...Object.entries(modulo)]
-            .filter(([_key, value]) => value.used)
-            .map(([key, value]) =>
-                StatementFactory.require(
-                    value.name,
-                    get_import_path(file, IMPORT_PATHS[key as "error"]),
-                ),
-            );
-
-        if (requires.length)
+        // IMPORT REQUIRED MODULE
+        if (modulo.used === true)
             file = ts.factory.updateSourceFile(file, [
-                ...requires,
+                StatementFactory.require(
+                    modulo.name,
+                    modulo.from === "lib"
+                        ? "typescript-json"
+                        : get_import_path(file),
+                ),
                 ...file.statements,
             ]);
         return file;
@@ -50,7 +44,7 @@ export namespace FileTransformer {
         project: IProject,
         context: ts.TransformationContext,
         node: ts.Node,
-        imp: IModule,
+        imp: IModuleImport,
     ): ts.Node {
         return ts.visitEachChild(
             try_transform_node(project, node, imp),
@@ -62,7 +56,7 @@ export namespace FileTransformer {
     function try_transform_node(
         project: IProject,
         node: ts.Node,
-        imp: IModule,
+        imp: IModuleImport,
     ): ts.Node {
         try {
             return NodeTransformer.transform(project, node, imp);
@@ -82,15 +76,13 @@ export namespace FileTransformer {
         }
     }
 
-    function get_import_path(file: ts.SourceFile, location: string): string {
+    function get_import_path(file: ts.SourceFile): string {
         return path
-            .relative(path.join(file.fileName, ".."), location)
+            .relative(
+                path.join(file.fileName, ".."),
+                path.join(__dirname, "..", "index"),
+            )
             .split(path.sep)
             .join("/");
     }
 }
-
-const IMPORT_PATHS = {
-    error: path.join(__dirname, "..", "TypeGuardError"),
-    functional: path.join(__dirname, "..", "functional", "index"),
-};

@@ -22,7 +22,7 @@ export namespace IMetadata {
         /**
          * @internal
          */
-        checked: boolean;
+        validated: boolean;
     }
     export type IStorage = Record<string, IMetadata.IObject>;
 

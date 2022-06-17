@@ -1,14 +1,18 @@
-export type IObjectToJsonAtomic<T> = IObjectToJsonAtomic.IToJson<T>;
-export namespace IObjectToJsonAtomic {
+export type ToJsonAtomicSimple = [
+    ToJsonAtomicSimple.IToJson<boolean>,
+    ToJsonAtomicSimple.IToJson<number>,
+    ToJsonAtomicSimple.IToJson<string>,
+];
+export namespace ToJsonAtomicSimple {
     export interface IToJson<T> {
-        value: T;
         toJSON(): T;
     }
 
-    export function generate<T>(value: T): IObjectToJsonAtomic<T> {
-        return {
-            value,
-            toJSON: () => value,
-        };
+    export function generate(): ToJsonAtomicSimple {
+        return [
+            { toJSON: () => false },
+            { toJSON: () => 1 },
+            { toJSON: () => "two" },
+        ];
     }
 }

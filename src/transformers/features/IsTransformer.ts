@@ -1,14 +1,11 @@
 import ts from "typescript";
 
 import { IsFactory } from "../../factories/features/IsFactory";
-import { MetadataCollection } from "../../factories/MetadataCollection";
-import { MetadataFactory } from "../../factories/MetadataFactory";
-
-import { IMetadata } from "../../structures/IMetadata";
+import { IProject } from "../../structures/IProject";
 
 export namespace IsTransformer {
     export function transform(
-        checker: ts.TypeChecker,
+        project: IProject,
         expression: ts.CallExpression,
     ): ts.Expression {
         if (expression.arguments.length !== 1)
@@ -16,21 +13,13 @@ export namespace IsTransformer {
 
         const type: ts.Type =
             expression.typeArguments && expression.typeArguments[0]
-                ? checker.getTypeFromTypeNode(expression.typeArguments[0])
-                : checker.getTypeAtLocation(expression.arguments[0]!);
-        const collection: MetadataCollection = new MetadataCollection();
-        const meta: IMetadata = MetadataFactory.generate(
-            collection,
-            checker,
-            type,
-            {
-                resolve: false,
-                constant: true,
-            },
-        );
+                ? project.checker.getTypeFromTypeNode(
+                      expression.typeArguments[0],
+                  )
+                : project.checker.getTypeAtLocation(expression.arguments[0]!);
 
         return ts.factory.createCallExpression(
-            IsFactory.generate(collection, meta),
+            IsFactory.generate(project, type),
             undefined,
             [expression.arguments[0]!],
         );

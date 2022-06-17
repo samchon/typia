@@ -1,6 +1,7 @@
 import ts from "typescript";
 import { IExpressionEntry } from "../../structures/IExpressionEntry";
 import { IMetadata } from "../../structures/IMetadata";
+import { IProject } from "../../structures/IProject";
 import { Escaper } from "../../utils/Escaper";
 import { MetadataCollection } from "../MetadataCollection";
 import { IdentifierFactory } from "../programmatics/IdentifierFactory";
@@ -8,17 +9,21 @@ import { ValueFactory } from "../ValueFactory";
 
 export namespace FeatureFactory {
     export interface IConfig {
+        initializer(
+            project: IProject,
+            type: ts.Type,
+        ): [MetadataCollection, IMetadata];
         trace: boolean;
         functors: {
             name: string;
-            filter?: (object: IMetadata.IObject) => boolean;
+            filter?(object: IMetadata.IObject): boolean;
         };
-        joiner: (entries: IExpressionEntry[]) => ts.Expression;
-        visitor: (
+        joiner(entries: IExpressionEntry[]): ts.Expression;
+        visitor(
             input: ts.Expression,
             meta: IMetadata,
             explore: IExplore,
-        ) => ts.Expression;
+        ): ts.Expression;
     }
 
     export interface IExplore {
@@ -32,14 +37,14 @@ export namespace FeatureFactory {
     ----------------------------------------------------------- */
     export function generate(
         config: IConfig,
-        addition?: (
-            collection: MetadataCollection,
-        ) => ts.VariableDeclaration | null,
+        addition?: (collection: MetadataCollection) => ts.Statement[],
     ) {
         const createFunctors = generate_functors(config);
         const createParameters = PARAMETERS(config.trace ? true : null);
 
-        return function (collection: MetadataCollection, meta: IMetadata) {
+        return function (project: IProject, type: ts.Type) {
+            const [collection, meta] = config.initializer(project, type);
+
             // ITERATE OVER ALL METADATA
             const output: ts.Expression = config.visitor(
                 ValueFactory.INPUT(),
@@ -56,7 +61,7 @@ export namespace FeatureFactory {
                 createFunctors(collection);
 
             // RETURNS THE OPTIMAL ARROW FUNCTION
-            const added = addition ? addition(collection) : null;
+            const added: ts.Statement[] = addition ? addition(collection) : [];
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -67,17 +72,17 @@ export namespace FeatureFactory {
                     ? output
                     : ts.factory.createBlock(
                           [
-                              ...(added !== null
-                                  ? [
-                                        ts.factory.createVariableStatement(
-                                            undefined,
-                                            ts.factory.createVariableDeclarationList(
-                                                [added],
-                                                ts.NodeFlags.Const,
-                                            ),
-                                        ),
-                                    ]
-                                  : []),
+                              ...added,
+                              //   ? [
+                              //         ts.factory.createVariableStatement(
+                              //             undefined,
+                              //             ts.factory.createVariableDeclarationList(
+                              //                 [added],
+                              //                 ts.NodeFlags.Const,
+                              //             ),
+                              //         ),
+                              //     ]
+                              //   : []),
                               ts.factory.createVariableStatement(
                                   undefined,
                                   ts.factory.createVariableDeclarationList(
