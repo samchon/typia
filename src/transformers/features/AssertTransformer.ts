@@ -1,19 +1,15 @@
 import ts from "typescript";
 import { AssertFactory } from "../../factories/features/AssertFactory";
-import { IModuleImport } from "../../structures/IModuleImport";
 import { IProject } from "../../structures/IProject";
 
 export namespace AssertTransformer {
     export function transform(
         project: IProject,
+        modulo: ts.LeftHandSideExpression,
         expression: ts.CallExpression,
-        imp: IModuleImport,
     ): ts.Expression {
         if (expression.arguments.length !== 1)
             throw new Error(ErrorMessages.NO_INPUT_VALUE);
-
-        // FOR THE IMPORT STATEMENT CONSTRUCTION
-        imp.used ||= true;
 
         // GET TYPE INFO
         const type: ts.Type =
@@ -25,7 +21,7 @@ export namespace AssertTransformer {
 
         // DO TRANSFORM
         return ts.factory.createCallExpression(
-            AssertFactory.generate(project, type, imp),
+            AssertFactory.generate(project, modulo, type),
             undefined,
             [expression.arguments[0]!],
         );

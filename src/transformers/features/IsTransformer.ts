@@ -6,6 +6,7 @@ import { IProject } from "../../structures/IProject";
 export namespace IsTransformer {
     export function transform(
         project: IProject,
+        _modulo: ts.LeftHandSideExpression,
         expression: ts.CallExpression,
     ): ts.Expression {
         if (expression.arguments.length !== 1)
