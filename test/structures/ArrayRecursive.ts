@@ -16,7 +16,7 @@ export namespace ArrayRecursive {
     }
 
     export function generate(
-        limit: number = 5,
+        limit: number = 3,
         index: number = 0,
     ): ArrayRecursive {
         return RandomGenerator.array(() => ({

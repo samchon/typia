@@ -1,7 +1,7 @@
-import { IJsonApplication } from "../../structures/IJsonApplication";
-import { IJsonComponents } from "../../structures/IJsonComponents";
-import { IJsonSchema } from "../../structures/IJsonSchema";
-import { IMetadata } from "../../structures/IMetadata";
+import { IJsonApplication } from "../structures/IJsonApplication";
+import { IJsonComponents } from "../structures/IJsonComponents";
+import { IJsonSchema } from "../structures/IJsonSchema";
+import { IMetadata } from "../structures/IMetadata";
 
 export namespace ApplicationFactory {
     export const AJV_PREFIX = "components#/schemas";
@@ -16,10 +16,11 @@ export namespace ApplicationFactory {
             const purpose: "swagger" | "ajv" = options?.purpose ?? "swagger";
             return {
                 purpose,
-                prefix:
-                    options?.prefix ?? purpose === "swagger"
-                        ? SWAGGER_PREFIX
-                        : AJV_PREFIX,
+                prefix: options?.prefix
+                    ? options.prefix
+                    : purpose === "swagger"
+                    ? SWAGGER_PREFIX
+                    : AJV_PREFIX,
             };
         }
     }

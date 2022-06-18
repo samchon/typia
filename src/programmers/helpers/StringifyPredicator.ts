@@ -1,4 +1,4 @@
-export namespace StringPredicator {
+export namespace StringifyPredicator {
     export function require_escape(value: string): boolean {
         return value
             .split("")

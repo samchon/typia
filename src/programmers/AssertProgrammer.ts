@@ -1,10 +1,10 @@
 import ts from "typescript";
-import { StatementFactory } from "../programmatics/StatementFactory";
-import { ValueFactory } from "../ValueFactory";
-import { CheckerFactory } from "./CheckerFactory";
-import { IsFactory } from "./IsFactory";
-import { IProject } from "../../structures/IProject";
-import { IdentifierFactory } from "../programmatics/IdentifierFactory";
+import { StatementFactory } from "../factories/StatementFactory";
+import { ValueFactory } from "../factories/ValueFactory";
+import { CheckerFactory } from "./CheckerProgrammer";
+import { IsFactory } from "./IsProgrammer";
+import { IProject } from "../structures/IProject";
+import { IdentifierFactory } from "../factories/IdentifierFactory";
 
 export namespace AssertFactory {
     export function generate(

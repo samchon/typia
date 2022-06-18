@@ -1,5 +1,5 @@
 import ts from "typescript";
-import { Escaper } from "../../utils/Escaper";
+import { Escaper } from "../utils/Escaper";
 
 export namespace IdentifierFactory {
     export function generate(name: string) {

@@ -1,7 +1,7 @@
 import ts from "typescript";
-import { IdentifierFactory } from "../programmatics/IdentifierFactory";
-import { ValueFactory } from "../ValueFactory";
-import { CheckerFactory } from "./CheckerFactory";
+import { IdentifierFactory } from "../factories/IdentifierFactory";
+import { ValueFactory } from "../factories/ValueFactory";
+import { CheckerFactory } from "./CheckerProgrammer";
 
 export namespace IsFactory {
     export const CONFIG: CheckerFactory.IConfig = {

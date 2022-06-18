@@ -1,14 +1,14 @@
 import ts from "typescript";
-import { IExpressionEntry } from "../../structures/IExpressionEntry";
-import { IMetadata } from "../../structures/IMetadata";
-import { StringPredicator } from "../predicators/StringPredicator";
-import { MetadataCollection } from "../MetadataCollection";
-import { MetadataFactory } from "../MetadataFactory";
-import { IdentifierFactory } from "../programmatics/IdentifierFactory";
-import { FeatureFactory } from "./FeatureFactory";
-import { IsFactory } from "./IsFactory";
+import { IMetadata } from "../structures/IMetadata";
+import { StringifyPredicator } from "./helpers/StringifyPredicator";
+import { MetadataCollection } from "../factories/MetadataCollection";
+import { MetadataFactory } from "../factories/MetadataFactory";
+import { IdentifierFactory } from "../factories/IdentifierFactory";
+import { FeatureFactory } from "./FeatureProgrammer";
+import { IsFactory } from "./IsProgrammer";
+import { StringifyJoiner } from "./helpers/StringifyJoinder";
 
-export namespace StringifyFactory {
+export namespace StringifyProgrammer {
     const CONFIG = (
         modulo: ts.LeftHandSideExpression,
     ): FeatureFactory.IConfig => ({
@@ -29,7 +29,7 @@ export namespace StringifyFactory {
         functors: {
             name: "stringify",
         },
-        joiner: join_object,
+        joiner: StringifyJoiner.object,
         decoder: decode(modulo),
     });
 
@@ -40,18 +40,17 @@ export namespace StringifyFactory {
         FeatureFactory.generate(CONFIG(modulo), (collection) => {
             const validators = IsFactory.generate_functors(collection);
             return [
-                ts.factory.createVariableStatement(
-                    undefined,
-                    ts.factory.createVariableDeclarationList(
-                        [
+                ...["string", "tail"].map((functor) =>
+                    ts.factory.createVariableStatement(
+                        undefined,
+                        ts.factory.createVariableDeclarationList([
                             ts.factory.createVariableDeclaration(
-                                "$string",
+                                `$${functor}`,
                                 undefined,
                                 undefined,
-                                IdentifierFactory.join(modulo, "string"),
+                                IdentifierFactory.join(modulo, functor),
                             ),
-                        ],
-                        ts.NodeFlags.Const,
+                        ]),
                     ),
                 ),
                 ...(validators
@@ -67,81 +66,6 @@ export namespace StringifyFactory {
                     : []),
             ];
         });
-
-    function join_object(entries: IExpressionEntry[]): ts.Expression {
-        //----
-        // JOIN PROPERTIES
-        //----
-        // ELEMENTS AS ARRAY
-        const array: ts.ArrayLiteralExpression =
-            ts.factory.createArrayLiteralExpression(
-                entries.map((entry) => {
-                    const key = ts.factory.createStringLiteral(
-                        JSON.stringify(entry.key) + ":",
-                    );
-                    const output = ts.factory.createAdd(key, entry.expression);
-                    if (entry.meta.required === false)
-                        return ts.factory.createConditionalExpression(
-                            ts.factory.createStrictInequality(
-                                ts.factory.createIdentifier("undefined"),
-                                entry.input,
-                            ),
-                            undefined,
-                            output,
-                            undefined,
-                            ts.factory.createIdentifier("undefined"),
-                        );
-                    return ts.factory.createAdd(key, entry.expression);
-                }),
-                true,
-            );
-
-        // FILTER ELEMENTS (NOT UNDEFINED)
-        const required: boolean = entries.every((entry) => entry.meta.required);
-        const filtered = required
-            ? array
-            : ts.factory.createCallExpression(
-                  ts.factory.createPropertyAccessExpression(
-                      array,
-                      ts.factory.createIdentifier("filter"),
-                  ),
-                  [],
-                  [
-                      ts.factory.createArrowFunction(
-                          undefined,
-                          undefined,
-                          [
-                              ts.factory.createParameterDeclaration(
-                                  undefined,
-                                  undefined,
-                                  undefined,
-                                  ts.factory.createIdentifier("elem"),
-                              ),
-                          ],
-                          undefined,
-                          undefined,
-                          ts.factory.createStrictInequality(
-                              ts.factory.createIdentifier("undefined"),
-                              ts.factory.createIdentifier("elem"),
-                          ),
-                      ),
-                  ],
-              );
-
-        // CONCAT ITEMS
-        return [
-            ts.factory.createStringLiteral("{"),
-            ts.factory.createCallExpression(
-                ts.factory.createPropertyAccessExpression(
-                    filtered,
-                    ts.factory.createIdentifier("join"),
-                ),
-                [],
-                [ts.factory.createStringLiteral(",")],
-            ) as ts.Expression,
-            ts.factory.createStringLiteral("}"),
-        ].reduce((x, y) => ts.factory.createAdd(x, y));
-    }
 
     /* -----------------------------------------------------------
         VISITORS
@@ -220,7 +144,7 @@ export namespace StringifyFactory {
                                 }),
                                 explore,
                             ),
-                        value: () => decode_atomic(input, type),
+                        value: () => decode_atomic(input, type, explore),
                     });
                 else
                     unions.push({
@@ -234,9 +158,11 @@ export namespace StringifyFactory {
                                 explore,
                             ),
                         value: () =>
-                            decode_constant_string(input, [
-                                ...values,
-                            ] as string[]),
+                            decode_constant_string(
+                                input,
+                                [...values] as string[],
+                                explore,
+                            ),
                     });
             for (const type of meta.atomics)
                 unions.push({
@@ -247,7 +173,7 @@ export namespace StringifyFactory {
                             IMetadata.separate({ atomics: new Set([type]) }),
                             explore,
                         ),
-                    value: () => decode_atomic(input, type),
+                    value: () => decode_atomic(input, type, explore),
                 });
 
             // TUPLES
@@ -382,32 +308,38 @@ export namespace StringifyFactory {
             ].reduce((x, y) => ts.factory.createAdd(x, y));
         };
 
-    function decode_atomic(input: ts.Expression, type: string): ts.Expression {
+    function decode_atomic(
+        input: ts.Expression,
+        type: string,
+        explore: FeatureFactory.IExplore,
+    ): ts.Expression {
         if (type === "string")
             return ts.factory.createCallExpression(
                 ts.factory.createIdentifier(`$string`),
                 undefined,
                 [input],
             );
-        else
-            return ts.factory.createCallExpression(
-                IdentifierFactory.join(input, "toString"),
-                undefined,
-                undefined,
-            );
+        return explore.from !== "top"
+            ? input
+            : ts.factory.createCallExpression(
+                  IdentifierFactory.join(input, "toString"),
+                  undefined,
+                  undefined,
+              );
     }
 
     function decode_constant_string(
         input: ts.Expression,
         values: string[],
+        explore: FeatureFactory.IExplore,
     ): ts.Expression {
-        if (values.every((v) => !StringPredicator.require_escape(v)))
+        if (values.every((v) => !StringifyPredicator.require_escape(v)))
             return [
                 ts.factory.createStringLiteral('"'),
                 input,
                 ts.factory.createStringLiteral('"'),
             ].reduce((x, y) => ts.factory.createAdd(x, y));
-        else return decode_atomic(input, "string");
+        else return decode_atomic(input, "string", explore);
     }
 
     const visit_to_json =

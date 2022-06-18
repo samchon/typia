@@ -1,11 +1,10 @@
 import ts from "typescript";
-import { IExpressionEntry } from "../../structures/IExpressionEntry";
-import { IMetadata } from "../../structures/IMetadata";
-import { IProject } from "../../structures/IProject";
-import { Escaper } from "../../utils/Escaper";
-import { MetadataCollection } from "../MetadataCollection";
-import { IdentifierFactory } from "../programmatics/IdentifierFactory";
-import { ValueFactory } from "../ValueFactory";
+import { IExpressionEntry } from "../structures/IExpressionEntry";
+import { IMetadata } from "../structures/IMetadata";
+import { IProject } from "../structures/IProject";
+import { Escaper } from "../utils/Escaper";
+import { MetadataCollection } from "../factories/MetadataCollection";
+import { ValueFactory } from "../factories/ValueFactory";
 
 export namespace FeatureFactory {
     export interface IConfig {
@@ -16,7 +15,7 @@ export namespace FeatureFactory {
         trace: boolean;
         functors: {
             name: string;
-            filter?(object: IMetadata.IObject): boolean;
+            // filter?(object: IMetadata.IObject): boolean;
         };
         joiner(entries: IExpressionEntry[]): ts.Expression;
         decoder(
@@ -73,16 +72,6 @@ export namespace FeatureFactory {
                     : ts.factory.createBlock(
                           [
                               ...added,
-                              //   ? [
-                              //         ts.factory.createVariableStatement(
-                              //             undefined,
-                              //             ts.factory.createVariableDeclarationList(
-                              //                 [added],
-                              //                 ts.NodeFlags.Const,
-                              //             ),
-                              //         ),
-                              //     ]
-                              //   : []),
                               ts.factory.createVariableStatement(
                                   undefined,
                                   ts.factory.createVariableDeclarationList(
@@ -100,19 +89,6 @@ export namespace FeatureFactory {
 
     export function generate_functors(config: IConfig) {
         const createObject = generate_object(config);
-        const iterator = config.functors.filter
-            ? (storage: IMetadata.IStorage) => {
-                  for (const [_key, value] of Object.entries(storage))
-                      if (config.functors.filter!(value) === true)
-                          createObject(value);
-              }
-            : () => {};
-        const filter = config.functors.filter
-            ? (storage: IMetadata.IStorage) =>
-                  Object.entries(storage).filter(([_key, value]) =>
-                      config.functors.filter!(value),
-                  )
-            : (storage: IMetadata.IStorage) => Object.entries(storage);
 
         return function (
             collection: MetadataCollection,
@@ -121,21 +97,13 @@ export namespace FeatureFactory {
             const storage = collection.storage();
             if (Object.entries(storage).length === 0) return null;
 
-            // FOR 1ST FILTERING
-            iterator(storage);
-
             // ASSIGN FUNCTIONS
             return ts.factory.createVariableDeclaration(
                 config.functors.name,
                 undefined,
                 undefined,
-                ts.factory.createObjectLiteralExpression(
-                    filter(storage).map(([key, value]) =>
-                        ts.factory.createPropertyAssignment(
-                            IdentifierFactory.generate(key),
-                            createObject(value),
-                        ),
-                    ),
+                ts.factory.createArrayLiteralExpression(
+                    Object.values(storage).map((value) => createObject(value)),
                     true,
                 ),
             );
@@ -244,9 +212,9 @@ export namespace FeatureFactory {
         ): ts.Expression {
             const createArguments = ARGUMENTS(config.trace, explore);
             return ts.factory.createCallExpression(
-                IdentifierFactory.join(
+                ts.factory.createElementAccessExpression(
                     ts.factory.createIdentifier(config.functors.name),
-                    obj.$id,
+                    obj.index,
                 ),
                 undefined,
                 createArguments(input),

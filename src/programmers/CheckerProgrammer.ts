@@ -1,10 +1,10 @@
 import ts from "typescript";
-import { IMetadata } from "../../structures/IMetadata";
-import { MetadataCollection } from "../MetadataCollection";
-import { MetadataFactory } from "../MetadataFactory";
-import { IdentifierFactory } from "../programmatics/IdentifierFactory";
-import { ValueFactory } from "../ValueFactory";
-import { FeatureFactory } from "./FeatureFactory";
+import { IMetadata } from "../structures/IMetadata";
+import { MetadataCollection } from "../factories/MetadataCollection";
+import { MetadataFactory } from "../factories/MetadataFactory";
+import { IdentifierFactory } from "../factories/IdentifierFactory";
+import { ValueFactory } from "../factories/ValueFactory";
+import { FeatureFactory } from "./FeatureProgrammer";
 
 export namespace CheckerFactory {
     export interface IConfig {

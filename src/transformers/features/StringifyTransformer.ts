@@ -1,5 +1,5 @@
 import ts from "typescript";
-import { StringifyFactory } from "../../factories/features/StringifyFactory";
+import { StringifyProgrammer } from "../../programmers/StringifyProgrammer";
 import { IProject } from "../../structures/IProject";
 
 export namespace StringifyTransformer {
@@ -19,7 +19,7 @@ export namespace StringifyTransformer {
                 : project.checker.getTypeAtLocation(expression.arguments[0]!);
 
         return ts.factory.createCallExpression(
-            StringifyFactory.generate(modulo)(project, type),
+            StringifyProgrammer.generate(modulo)(project, type),
             undefined,
             [expression.arguments[0]!],
         );

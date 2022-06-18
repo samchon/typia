@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { IsFactory } from "../../factories/features/IsFactory";
+import { IsFactory } from "../../programmers/IsProgrammer";
 import { IProject } from "../../structures/IProject";
 
 export namespace IsTransformer {

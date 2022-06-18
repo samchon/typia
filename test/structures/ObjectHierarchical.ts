@@ -1,10 +1,6 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
 
-export type ObjectHierarchical = [
-    ObjectHierarchical.ICustomer,
-    ObjectHierarchical.ICustomer,
-    ObjectHierarchical.ICustomer,
-];
+export type ObjectHierarchical = ObjectHierarchical.ICustomer;
 export namespace ObjectHierarchical {
     export interface ICustomer {
         id: number;
@@ -50,18 +46,10 @@ export namespace ObjectHierarchical {
         zone: number;
     }
 
-    export function generate(): ObjectHierarchical {
-        return [
-            generate_customer(false, false),
-            generate_customer(true, false),
-            generate_customer(true, true),
-        ];
-    }
-
-    function generate_customer(
-        authorized: boolean,
-        employeed: boolean,
-    ): ICustomer {
+    export function generate(
+        authorized: boolean = true,
+        employeed: boolean = true,
+    ): ObjectHierarchical {
         const account: IAccount | null = authorized ? generate_account() : null;
         const enterprise: IEnterprise | null = employeed
             ? {

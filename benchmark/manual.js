@@ -7,7 +7,7 @@ runner.register({
     compiler: "ttypescript"
 });
 
-const program = require("./features/stringify/test_stringify_object_simple.ts");
+const program = require("./manual/object.ts");
 for (const value of Object.values(program))
     if (typeof value === "function")
         value();
