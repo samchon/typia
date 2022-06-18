@@ -8,7 +8,6 @@ src/
 test/
 
 *.*ignore
-*.js.map
 .eslintrc.cjs
 .prettierignore
 package-lock.json

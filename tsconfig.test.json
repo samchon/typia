@@ -106,5 +106,5 @@
         }
       ]
     },
-    "include": ["test"]
+    "include": ["test", "benchmark"]
   }

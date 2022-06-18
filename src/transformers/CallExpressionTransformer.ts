@@ -9,7 +9,7 @@ import { CreateTransformer } from "./features/CreateTransformer";
 import { IsTransformer } from "./features/IsTransformer";
 import { StringifyTransformer } from "./features/StringifyTransformer";
 
-export namespace FunctionTransformer {
+export namespace CallExpressionTransformer {
     export function transform(
         project: IProject,
         expression: ts.CallExpression,
@@ -17,13 +17,12 @@ export namespace FunctionTransformer {
         //----
         // VALIDATIONS
         //----
-        // SIGNATURE
-        const signature: ts.Signature | undefined =
-            project.checker.getResolvedSignature(expression);
-        if (!signature || !signature.declaration) return expression;
+        // SIGNATURE DECLARATION
+        const declaration: ts.Declaration | undefined =
+            project.checker.getResolvedSignature(expression)?.declaration;
+        if (!declaration) return expression;
 
         // FILE PATH
-        const declaration: ts.Declaration = signature.declaration;
         const file: string = path.resolve(declaration.getSourceFile().fileName);
         if (file !== LIB_PATH && file !== SRC_PATH) return expression;
 
@@ -34,10 +33,10 @@ export namespace FunctionTransformer {
         const { name } = project.checker.getTypeAtLocation(declaration).symbol;
 
         // FIND TRANSFORMER
-        const functor: (() => Task) | undefined = FUCTORS[name];
+        const functor: (() => Task) | undefined = FUNCTORS[name];
+        if (functor === undefined) return expression;
 
         // RETURNS WITH TRANSFORMATION
-        if (functor === undefined) return expression;
         return functor()(project, expression.expression, expression);
     }
 }
@@ -51,7 +50,7 @@ type Task = (
 const LIB_PATH = path.resolve(path.join(__dirname, "..", "module.d.ts"));
 const SRC_PATH = path.resolve(path.join(__dirname, "..", "module.ts"));
 
-const FUCTORS: Record<string, () => Task> = {
+const FUNCTORS: Record<string, () => Task> = {
     assert: () => AssertTransformer.transform,
     is: () => IsTransformer.transform,
     stringify: () => StringifyTransformer.transform,
