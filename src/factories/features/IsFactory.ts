@@ -28,8 +28,8 @@ export namespace IsFactory {
     export const generate = CheckerFactory.generate(CONFIG);
     export const generate_functors = CheckerFactory.generate_functors(CONFIG);
 
-    export const visit = CheckerFactory.visit(CONFIG);
-    export function visit_to_json(input: ts.Expression): ts.Expression {
+    export const express = CheckerFactory.decode(CONFIG);
+    export function express_to_json(input: ts.Expression): ts.Expression {
         return ts.factory.createLogicalAnd(
             ts.factory.createStrictEquality(
                 ValueFactory.TYPEOF(input),

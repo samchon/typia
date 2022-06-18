@@ -1,6 +1,7 @@
 import ts from "typescript";
 import { IExpressionEntry } from "../../structures/IExpressionEntry";
 import { IMetadata } from "../../structures/IMetadata";
+import { StringPredicator } from "../predicators/StringPredicator";
 import { MetadataCollection } from "../MetadataCollection";
 import { MetadataFactory } from "../MetadataFactory";
 import { IdentifierFactory } from "../programmatics/IdentifierFactory";
@@ -19,7 +20,7 @@ export namespace StringifyFactory {
                 type,
                 {
                     resolve: true,
-                    constant: false,
+                    constant: true,
                 },
             );
             return [collection, meta];
@@ -29,7 +30,7 @@ export namespace StringifyFactory {
             name: "stringify",
         },
         joiner: join_object,
-        visitor: visit(modulo),
+        decoder: decode(modulo),
     });
 
     /* -----------------------------------------------------------
@@ -145,7 +146,7 @@ export namespace StringifyFactory {
     /* -----------------------------------------------------------
         VISITORS
     ----------------------------------------------------------- */
-    const visit =
+    const decode =
         (modulo: ts.LeftHandSideExpression) =>
         (
             input: ts.Expression,
@@ -196,7 +197,7 @@ export namespace StringifyFactory {
                 else
                     unions.push({
                         type: "resolved",
-                        is: () => IsFactory.visit_to_json(input),
+                        is: () => IsFactory.express_to_json(input),
                         value: () =>
                             visit_to_json(modulo)(
                                 input,
@@ -205,17 +206,48 @@ export namespace StringifyFactory {
                             ),
                     });
 
-            // ATOMICS
+            // ATOMICS AND CONSTANTS
+            for (const [type, values] of meta.constants)
+                if (meta.atomics.has(type)) continue;
+                else if (type !== "string")
+                    unions.push({
+                        type: "atomic",
+                        is: () =>
+                            IsFactory.express(
+                                input,
+                                IMetadata.separate({
+                                    atomics: new Set([type]),
+                                }),
+                                explore,
+                            ),
+                        value: () => decode_atomic(input, type),
+                    });
+                else
+                    unions.push({
+                        type: "const string",
+                        is: () =>
+                            IsFactory.express(
+                                input,
+                                IMetadata.separate({
+                                    atomics: new Set([type]),
+                                }),
+                                explore,
+                            ),
+                        value: () =>
+                            decode_constant_string(input, [
+                                ...values,
+                            ] as string[]),
+                    });
             for (const type of meta.atomics)
                 unions.push({
                     type: "atomic",
                     is: () =>
-                        IsFactory.visit(
+                        IsFactory.express(
                             input,
                             IMetadata.separate({ atomics: new Set([type]) }),
                             explore,
                         ),
-                    value: () => visit_atomic(input, type),
+                    value: () => decode_atomic(input, type),
                 });
 
             // TUPLES
@@ -223,12 +255,13 @@ export namespace StringifyFactory {
                 unions.push({
                     type: "tuple",
                     is: () =>
-                        IsFactory.visit(
+                        IsFactory.express(
                             input,
                             IMetadata.separate({ tuples: new Map([tuple]) }),
                             explore,
                         ),
-                    value: () => visit_tuple(modulo)(input, tuple[1], explore),
+                    value: () =>
+                        express_tuple(modulo)(input, tuple[1], explore),
                 });
 
             // ARRIES
@@ -236,14 +269,14 @@ export namespace StringifyFactory {
                 unions.push({
                     type: "array",
                     is: () =>
-                        IsFactory.visit(
+                        IsFactory.express(
                             input,
                             IMetadata.separate({
                                 arraies: new Map([[key, value]]),
                             }),
                             explore,
                         ),
-                    value: () => visit_array(modulo)(input, value, explore),
+                    value: () => decode_array(modulo)(input, value, explore),
                 });
 
             // OBJECTS
@@ -251,14 +284,14 @@ export namespace StringifyFactory {
                 unions.push({
                     type: "object",
                     is: () =>
-                        IsFactory.visit(
+                        IsFactory.express(
                             input,
                             IMetadata.separate({
                                 objects: new Map([[key, [value, nullable]]]),
                             }),
                             explore,
                         ),
-                    value: () => visit_object(modulo)(input, value, explore),
+                    value: () => decode_object(modulo)(input, value, explore),
                 });
 
             //----
@@ -298,10 +331,10 @@ export namespace StringifyFactory {
             );
         };
 
-    const visit_object = (modulo: ts.LeftHandSideExpression) =>
-        FeatureFactory.visit_object(CONFIG(modulo));
-    const visit_array = (modulo: ts.LeftHandSideExpression) =>
-        FeatureFactory.visit_array(CONFIG(modulo), (input, arrow) =>
+    const decode_object = (modulo: ts.LeftHandSideExpression) =>
+        FeatureFactory.decode_object(CONFIG(modulo));
+    const decode_array = (modulo: ts.LeftHandSideExpression) =>
+        FeatureFactory.decode_array(CONFIG(modulo), (input, arrow) =>
             [
                 ts.factory.createStringLiteral("["),
                 ts.factory.createCallExpression(
@@ -320,7 +353,7 @@ export namespace StringifyFactory {
             ].reduce((x, y) => ts.factory.createAdd(x, y)),
         );
 
-    const visit_tuple =
+    const express_tuple =
         (modulo: ts.LeftHandSideExpression) =>
         (
             input: ts.Expression,
@@ -329,7 +362,7 @@ export namespace StringifyFactory {
         ): ts.Expression => {
             const children: ts.Expression[] = [];
             tuple.forEach((elem, index) => {
-                const child = visit(modulo)(
+                const child = decode(modulo)(
                     ts.factory.createElementAccessExpression(input, index),
                     elem,
                     {
@@ -349,7 +382,7 @@ export namespace StringifyFactory {
             ].reduce((x, y) => ts.factory.createAdd(x, y));
         };
 
-    function visit_atomic(input: ts.Expression, type: string): ts.Expression {
+    function decode_atomic(input: ts.Expression, type: string): ts.Expression {
         if (type === "string")
             return ts.factory.createCallExpression(
                 ts.factory.createIdentifier(`$string`),
@@ -364,6 +397,19 @@ export namespace StringifyFactory {
             );
     }
 
+    function decode_constant_string(
+        input: ts.Expression,
+        values: string[],
+    ): ts.Expression {
+        if (values.every((v) => !StringPredicator.require_escape(v)))
+            return [
+                ts.factory.createStringLiteral('"'),
+                input,
+                ts.factory.createStringLiteral('"'),
+            ].reduce((x, y) => ts.factory.createAdd(x, y));
+        else return decode_atomic(input, "string");
+    }
+
     const visit_to_json =
         (modulo: ts.LeftHandSideExpression) =>
         (
@@ -371,7 +417,7 @@ export namespace StringifyFactory {
             resolved: IMetadata,
             explore: FeatureFactory.IExplore,
         ): ts.Expression => {
-            return visit(modulo)(
+            return decode(modulo)(
                 ts.factory.createCallExpression(
                     IdentifierFactory.join(input, "toJSON"),
                     undefined,

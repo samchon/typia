@@ -19,7 +19,7 @@ export namespace FeatureFactory {
             filter?(object: IMetadata.IObject): boolean;
         };
         joiner(entries: IExpressionEntry[]): ts.Expression;
-        visitor(
+        decoder(
             input: ts.Expression,
             meta: IMetadata,
             explore: IExplore,
@@ -46,7 +46,7 @@ export namespace FeatureFactory {
             const [collection, meta] = config.initializer(project, type);
 
             // ITERATE OVER ALL METADATA
-            const output: ts.Expression = config.visitor(
+            const output: ts.Expression = config.decoder(
                 ValueFactory.INPUT(),
                 meta,
                 {
@@ -165,7 +165,7 @@ export namespace FeatureFactory {
                     input: access,
                     key,
                     meta: value,
-                    expression: config.visitor(access, value, {
+                    expression: config.decoder(access, value, {
                         tracable: config.trace,
                         from: "object",
                         postfix,
@@ -188,7 +188,7 @@ export namespace FeatureFactory {
     /* -----------------------------------------------------------
         VISITORS
     ----------------------------------------------------------- */
-    export function visit_array(
+    export function decode_array(
         config: IConfig,
         combiner: (
             input: ts.Expression,
@@ -221,7 +221,7 @@ export namespace FeatureFactory {
                 ],
                 undefined,
                 undefined,
-                config.visitor(ValueFactory.INPUT("elem"), meta, {
+                config.decoder(ValueFactory.INPUT("elem"), meta, {
                     tracable: explore.tracable,
                     from: "array",
                     postfix: explore.postfix.length
@@ -236,7 +236,7 @@ export namespace FeatureFactory {
         };
     }
 
-    export function visit_object(config: IConfig) {
+    export function decode_object(config: IConfig) {
         return function (
             input: ts.Expression,
             obj: IMetadata.IObject,

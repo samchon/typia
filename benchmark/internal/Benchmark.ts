@@ -1,31 +1,32 @@
 import benchmark from "benchmark";
 
-export namespace Benchmark {
+export namespace BenchmarkGenerator {
     export interface IOutput {
         name: string;
         json: number;
-        v2: number;
-        v3: number;
+        ajv: number;
+        tson: number;
     }
 
     export function prepare<T>(
+        name: string,
         getter: () => T,
         v2: (input: T) => string,
         v3: (input: T) => string,
-    ) {
+    ): () => IOutput {
         const data: T = getter();
 
         const suite: benchmark.Suite = new benchmark.Suite();
         suite.add("json", () => JSON.stringify(data));
-        suite.add("v2", () => v2(data));
-        suite.add("v3", () => v3(data));
+        suite.add("ajv", () => v2(data));
+        suite.add("tson", () => v3(data));
 
         return () => {
             const output: IOutput = {
-                name: getter.name,
+                name,
                 json: 0,
-                v2: 0,
-                v3: 0,
+                ajv: 0,
+                tson: 0,
             };
 
             suite.run();

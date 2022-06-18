@@ -64,14 +64,14 @@ export namespace CheckerFactory {
                         (x, y) => ts.factory.createLogicalAnd(x, y),
                         ts.factory.createTrue(),
                     ),
-            visitor: visit(config),
+            decoder: decode(config),
         };
     }
 
     /* -----------------------------------------------------------
-        VISITORS
+        DECODERS
     ----------------------------------------------------------- */
-    export function visit(config: IConfig) {
+    export function decode(config: IConfig) {
         return function (
             input: ts.Expression,
             meta: IMetadata,
@@ -115,10 +115,10 @@ export namespace CheckerFactory {
                 const inner: ts.Expression[] = [];
                 for (const [key, tuple] of meta.tuples.entries()) {
                     if (meta.atomics.has(key)) continue;
-                    inner.push(visit_tuple(config)(input, tuple, explore));
+                    inner.push(decode_tuple(config)(input, tuple, explore));
                 }
                 for (const array of meta.arraies.values())
-                    inner.push(visit_array(config)(input, array, explore));
+                    inner.push(decode_array(config)(input, array, explore));
 
                 // ADD
                 binaries.push(
@@ -151,7 +151,7 @@ export namespace CheckerFactory {
 
                 const inner: ts.Expression[] = [];
                 for (const [obj] of meta.objects.values())
-                    inner.push(visit_object(config)(input, obj, explore));
+                    inner.push(decode_object(config)(input, obj, explore));
 
                 binaries.push(
                     config.combiner({ ...explore, tracable: false })("and")(
@@ -179,7 +179,7 @@ export namespace CheckerFactory {
         };
     }
 
-    function visit_tuple(config: IConfig) {
+    function decode_tuple(config: IConfig) {
         return function (
             input: ts.Expression,
             tuple: Array<IMetadata>,
@@ -190,7 +190,7 @@ export namespace CheckerFactory {
                 ts.factory.createNumericLiteral(tuple.length),
             );
             const binaries: ts.Expression[] = tuple.map((meta, index) =>
-                visit(config)(
+                decode(config)(
                     ts.factory.createElementAccessExpression(input, index),
                     meta,
                     {
@@ -209,18 +209,20 @@ export namespace CheckerFactory {
         };
     }
 
-    function visit_array(config: IConfig) {
-        return FeatureFactory.visit_array(base_config(config), (input, arrow) =>
-            ts.factory.createCallExpression(
-                IdentifierFactory.join(input, "every"),
-                undefined,
-                [arrow],
-            ),
+    function decode_array(config: IConfig) {
+        return FeatureFactory.decode_array(
+            base_config(config),
+            (input, arrow) =>
+                ts.factory.createCallExpression(
+                    IdentifierFactory.join(input, "every"),
+                    undefined,
+                    [arrow],
+                ),
         );
     }
 
-    function visit_object(config: IConfig) {
-        const func = FeatureFactory.visit_object(base_config(config));
+    function decode_object(config: IConfig) {
+        const func = FeatureFactory.decode_object(base_config(config));
         return function (
             input: ts.Expression,
             obj: IMetadata.IObject,

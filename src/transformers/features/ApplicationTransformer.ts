@@ -93,7 +93,7 @@ export namespace ApplicationTransformer {
 
         // GET VALUE AND VALIDATE IT
         const value = type.value;
-        if (typeof value !== "string" || predicator(value))
+        if (typeof value !== "string" || predicator(value) === false)
             throw new Error(
                 `Error on TSON.application(): invalid value on generic argument "${name}".`,
             );
