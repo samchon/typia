@@ -1,4 +1,5 @@
 import { benchmark_stringify_optimizer } from "./features/benchmark_stringify_optimizer";
+import { fast_simple } from "./functional/fast_simple";
 import { BenchmarkGenerator } from "./internal/Benchmark";
 
 function measure(functor: () => Array<() => BenchmarkGenerator.IOutput>): void {
@@ -22,6 +23,7 @@ function measure(functor: () => Array<() => BenchmarkGenerator.IOutput>): void {
 }
 
 function main(): void {
+    console.log(fast_simple().toString());
     measure(benchmark_stringify_optimizer);
 }
 main();
