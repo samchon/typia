@@ -3,7 +3,7 @@ import ts from "typescript";
 
 import { IMetadata } from "../structures/IMetadata";
 import { MetadataCollection } from "./MetadataCollection";
-import { CommentFactory } from "./CommentFactory";
+import { CommentFactory } from "./CommentAnalyzer";
 import { TypeFactory } from "./TypeFactory";
 import { MapUtil } from "../utils/MapUtil";
 

@@ -1,5 +1,5 @@
 import ts from "typescript";
-import { AssertFactory } from "../../factories/features/AssertFactory";
+import { AssertFactory } from "../../programmers/AssertProgrammer";
 import { IProject } from "../../structures/IProject";
 
 export namespace AssertTransformer {

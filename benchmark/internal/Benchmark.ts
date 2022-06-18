@@ -6,20 +6,26 @@ export namespace BenchmarkGenerator {
         json: number;
         ajv: number;
         tson: number;
+        ideal: number;
+    }
+    export interface IParameters<T> {
+        ideal: (input: T) => string;
+        tson: (input: T) => string;
+        ajv: (input: T) => string;
     }
 
     export function prepare<T>(
         name: string,
-        getter: () => T,
-        v2: (input: T) => string,
-        v3: (input: T) => string,
+        generator: () => T,
+        parameters: IParameters<T>,
     ): () => IOutput {
-        const data: T = getter();
+        const data: T = generator();
 
         const suite: benchmark.Suite = new benchmark.Suite();
         suite.add("json", () => JSON.stringify(data));
-        suite.add("ajv", () => v2(data));
-        suite.add("tson", () => v3(data));
+        suite.add("ajv", () => parameters.ajv(data));
+        suite.add("tson", () => parameters.tson(data));
+        suite.add("ideal", () => parameters.ideal(data));
 
         return () => {
             const output: IOutput = {
@@ -27,6 +33,7 @@ export namespace BenchmarkGenerator {
                 json: 0,
                 ajv: 0,
                 tson: 0,
+                ideal: 0,
             };
 
             suite.run();

@@ -1,9 +1,9 @@
 import ts from "typescript";
 
-import { LiteralFactory } from "../../factories/programmatics/LiteralFactory";
+import { LiteralFactory } from "../../factories/LiteralFactory";
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { MetadataFactory } from "../../factories/MetadataFactory";
-import { ApplicationFactory } from "../../factories/features/ApplicationFactory";
+import { ApplicationFactory } from "../../programmers/ApplicationProgrammer";
 
 import { IJsonApplication } from "../../structures/IJsonApplication";
 import { IMetadata } from "../../structures/IMetadata";

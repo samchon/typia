@@ -3,17 +3,19 @@ import ts from "typescript";
 import { TypeFactory } from "./TypeFactory";
 import { IMetadata } from "../structures/IMetadata";
 import { MapUtil } from "../utils/MapUtil";
-import { CommentFactory } from "./CommentFactory";
+import { CommentFactory } from "./CommentAnalyzer";
 
 export class MetadataCollection {
     private readonly dict_: Map<ts.Type, [string, IMetadata.IObject]>;
     private readonly names_: Map<string, Map<ts.Type, string>>;
+    private index_: number;
 
     public constructor(
         private readonly options?: Partial<MetadataCollection.IOptions>,
     ) {
         this.dict_ = new Map();
         this.names_ = new Map();
+        this.index_ = 0;
     }
 
     public storage(): IMetadata.IStorage {
@@ -41,6 +43,7 @@ export class MetadataCollection {
                     )) ||
                 undefined,
             validated: false,
+            index: this.index_++,
         };
         this.dict_.set(type, [$id, obj]);
         return [$id, obj, true];
@@ -86,6 +89,8 @@ const REPLACERS: [string, string][] = [
     ["}", "_bgt_"],
     ["<", "_lt_"],
     [">", "_gt_"],
+    ["[", "_alt_"],
+    ["]", "_agt_"],
     [",", "_comma_"],
     ["`", ""],
     ["'", ""],

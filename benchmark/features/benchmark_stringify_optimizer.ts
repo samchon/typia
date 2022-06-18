@@ -13,30 +13,34 @@ import { tson_simple } from "../functional/tson_simple";
 import { tson_hierarchical } from "../functional/tson_hierarchical";
 import { tson_recursive } from "../functional/tson_recursive";
 import { tson_tree } from "../functional/tson_tree";
+import { manual_simple } from "../functional/manual_simple";
+import { manual_hierarchical } from "../functional/manual_hierarchical";
+import { manual_recursive } from "../functional/manual_recursive";
+import { manual_tree } from "../functional/manual_tree";
 
 export const benchmark_stringify_optimizer = () => [
-    BenchmarkGenerator.prepare(
-        "simple",
-        () => ObjectSimple.generate(),
-        fast_simple as any,
-        tson_simple,
-    ),
+    BenchmarkGenerator.prepare("simple", () => ObjectSimple.generate(), {
+        ideal: manual_simple,
+        ajv: fast_simple as any,
+        tson: tson_simple,
+    }),
     BenchmarkGenerator.prepare(
         "hierarchical",
         () => ObjectHierarchical.generate(),
-        fast_hierarchical as any,
-        tson_hierarchical,
+        {
+            ideal: manual_hierarchical,
+            tson: tson_hierarchical,
+            ajv: (input) => fast_hierarchical()(input),
+        },
     ),
-    BenchmarkGenerator.prepare(
-        "recursive",
-        () => ObjectRecursive.generate(),
-        fast_recursive as any,
-        tson_recursive,
-    ),
-    BenchmarkGenerator.prepare(
-        "tree",
-        () => ArrayRecursive.generate(),
-        fast_tree as any,
-        tson_tree,
-    ),
+    BenchmarkGenerator.prepare("recursive", () => ObjectRecursive.generate(), {
+        ideal: manual_recursive,
+        tson: tson_recursive,
+        ajv: (input) => fast_recursive()(input),
+    }),
+    BenchmarkGenerator.prepare("tree", () => ArrayRecursive.generate(), {
+        ideal: manual_tree,
+        tson: tson_tree,
+        ajv: (input) => fast_tree()(input),
+    }),
 ];

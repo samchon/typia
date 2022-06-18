@@ -1,3 +1,6 @@
+/**
+ * @internal
+ */
 export function $string(str: string): string {
     if (str.length > 42) return JSON.stringify(str);
 
