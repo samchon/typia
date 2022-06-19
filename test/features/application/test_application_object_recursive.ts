@@ -16,30 +16,89 @@ export const test_application_object_recursive = _test_application(
                 "ObjectRecursive.IDepartment": {
                     type: "object",
                     properties: {
+                        parent: {
+                            $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
+                        },
+                        id: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        code: {
+                            type: "string",
+                            nullable: false,
+                        },
                         name: {
                             type: "string",
                             nullable: false,
                         },
-                        parent: {
-                            $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
+                        sequence: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        created_at: {
+                            $ref: "#/components/schemas/ObjectRecursive.ITimestamp",
                         },
                     },
                     nullable: false,
-                    required: ["name", "parent"],
+                    required: [
+                        "parent",
+                        "id",
+                        "code",
+                        "name",
+                        "sequence",
+                        "created_at",
+                    ],
                 },
                 "ObjectRecursive.IDepartment.Nullable": {
                     type: "object",
                     properties: {
+                        parent: {
+                            $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
+                        },
+                        id: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        code: {
+                            type: "string",
+                            nullable: false,
+                        },
                         name: {
                             type: "string",
                             nullable: false,
                         },
-                        parent: {
-                            $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
+                        sequence: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        created_at: {
+                            $ref: "#/components/schemas/ObjectRecursive.ITimestamp",
                         },
                     },
                     nullable: true,
-                    required: ["name", "parent"],
+                    required: [
+                        "parent",
+                        "id",
+                        "code",
+                        "name",
+                        "sequence",
+                        "created_at",
+                    ],
+                },
+                "ObjectRecursive.ITimestamp": {
+                    type: "object",
+                    properties: {
+                        time: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        zone: {
+                            type: "number",
+                            nullable: false,
+                        },
+                    },
+                    nullable: false,
+                    required: ["time", "zone"],
                 },
             },
         },
