@@ -31,7 +31,7 @@ export namespace StringifyJoiner {
                         undefined,
                         TemplateFactory.generate(base),
                         undefined,
-                        ts.factory.createIdentifier("undefined"),
+                        ts.factory.createStringLiteral(""),
                     ),
                 );
         });
@@ -110,4 +110,4 @@ export namespace StringifyJoiner {
     // }
 }
 
-const SPACES = 8;
+const SPACES = 0;
