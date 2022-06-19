@@ -24,8 +24,8 @@ export namespace BenchmarkGenerator {
         const suite: benchmark.Suite = new benchmark.Suite();
         suite.add("json", () => JSON.stringify(data));
         suite.add("ajv", () => parameters.ajv(data));
-        suite.add("tson", () => parameters.tson(data));
         suite.add("ideal", () => parameters.ideal(data));
+        suite.add("tson", () => parameters.tson(data));
 
         return () => {
             const output: IOutput = {

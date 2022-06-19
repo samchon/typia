@@ -11,7 +11,7 @@
       // "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
   
       /* Language and Environment */
-      "target": "ES5",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+      "target": "ES2015",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
       "lib": [
         "DOM",
         "ES2015"
