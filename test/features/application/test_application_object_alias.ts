@@ -8,35 +8,15 @@ export const test_application_object_alias = _test_application(
     {
         schemas: [
             {
-                oneOf: [
-                    {
-                        $ref: "#/components/schemas/Array_lt_ObjectAlias.IMember_gt_",
-                    },
-                    {
-                        type: "array",
-                        items: {
-                            $ref: "#/components/schemas/ObjectAlias.IMember",
-                        },
-                        nullable: false,
-                    },
-                ],
+                type: "array",
+                items: {
+                    $ref: "#/components/schemas/ObjectAlias.IMember",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                "Array_lt_ObjectAlias.IMember_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
                 "ObjectAlias.IMember": {
                     type: "object",
                     properties: {

@@ -8,35 +8,15 @@ export const test_application_object_undefined = _test_application(
     {
         schemas: [
             {
-                oneOf: [
-                    {
-                        $ref: "#/components/schemas/Array_lt_ObjectUndefied.ILecture_gt_",
-                    },
-                    {
-                        type: "array",
-                        items: {
-                            $ref: "#/components/schemas/ObjectUndefied.ILecture",
-                        },
-                        nullable: false,
-                    },
-                ],
+                type: "array",
+                items: {
+                    $ref: "#/components/schemas/ObjectUndefied.ILecture",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                "Array_lt_ObjectUndefied.ILecture_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
                 "ObjectUndefied.ILecture": {
                     type: "object",
                     properties: {

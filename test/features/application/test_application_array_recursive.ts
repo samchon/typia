@@ -8,51 +8,20 @@ export const test_application_array_recursive = _test_application(
     {
         schemas: [
             {
-                oneOf: [
-                    {
-                        $ref: "#/components/schemas/Array_lt_ArrayRecursive.ICategory_gt_.o1",
-                    },
-                    {
-                        type: "array",
-                        items: {
-                            $ref: "#/components/schemas/ArrayRecursive.ICategory",
-                        },
-                        nullable: false,
-                    },
-                ],
+                $ref: "#/components/schemas/ArrayRecursive.ICategory",
             },
         ],
         components: {
             schemas: {
-                "Array_lt_ArrayRecursive.ICategory_gt_.o1": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
                 "ArrayRecursive.ICategory": {
                     type: "object",
                     properties: {
                         children: {
-                            oneOf: [
-                                {
-                                    $ref: "#/components/schemas/Array_lt_ArrayRecursive.ICategory_gt_",
-                                },
-                                {
-                                    type: "array",
-                                    items: {
-                                        $ref: "#/components/schemas/ArrayRecursive.ICategory",
-                                    },
-                                    nullable: false,
-                                },
-                            ],
+                            type: "array",
+                            items: {
+                                $ref: "#/components/schemas/ArrayRecursive.ICategory",
+                            },
+                            nullable: false,
                         },
                         id: {
                             type: "number",
@@ -83,19 +52,6 @@ export const test_application_array_recursive = _test_application(
                         "sequence",
                         "created_at",
                     ],
-                },
-                "Array_lt_ArrayRecursive.ICategory_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
                 },
                 "ArrayRecursive.ITimestamp": {
                     type: "object",

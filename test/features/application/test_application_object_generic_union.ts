@@ -40,18 +40,11 @@ export const test_application_object_generic_union = _test_application(
                                 nullable: false,
                             },
                             contents: {
-                                oneOf: [
-                                    {
-                                        $ref: "#/components/schemas/Array_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
-                                    },
-                                    {
-                                        type: "array",
-                                        items: {
-                                            $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
-                                        },
-                                        nullable: false,
-                                    },
-                                ],
+                                type: "array",
+                                items: {
+                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+                                },
+                                nullable: false,
                             },
                             created_at: {
                                 type: "string",
@@ -81,18 +74,11 @@ export const test_application_object_generic_union = _test_application(
                                 nullable: false,
                             },
                             contents: {
-                                oneOf: [
-                                    {
-                                        $ref: "#/components/schemas/Array_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
-                                    },
-                                    {
-                                        type: "array",
-                                        items: {
-                                            $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
-                                        },
-                                        nullable: false,
-                                    },
-                                ],
+                                type: "array",
+                                items: {
+                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+                                },
+                                nullable: false,
                             },
                             created_at: {
                                 type: "string",
@@ -102,19 +88,6 @@ export const test_application_object_generic_union = _test_application(
                         nullable: true,
                         required: ["id", "hit", "contents", "created_at"],
                     },
-                "Array_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
                 "ObjectGenericUnion.ISaleArticle.IContent": {
                     type: "object",
                     properties: {
@@ -135,35 +108,15 @@ export const test_application_object_generic_union = _test_application(
                             nullable: false,
                         },
                         files: {
-                            oneOf: [
-                                {
-                                    $ref: "#/components/schemas/Array_lt___type_gt_",
-                                },
-                                {
-                                    type: "array",
-                                    items: {
-                                        $ref: "#/components/schemas/__type",
-                                    },
-                                    nullable: false,
-                                },
-                            ],
+                            type: "array",
+                            items: {
+                                $ref: "#/components/schemas/__type",
+                            },
+                            nullable: false,
                         },
                     },
                     nullable: false,
                     required: ["id", "created_at", "title", "body", "files"],
-                },
-                Array_lt___type_gt_: {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
                 },
                 __type: {
                     type: "object",
@@ -172,17 +125,17 @@ export const test_application_object_generic_union = _test_application(
                             type: "string",
                             nullable: false,
                         },
-                        extension: {
-                            type: "string",
-                            nullable: true,
-                        },
                         url: {
                             type: "string",
                             nullable: false,
                         },
+                        extension: {
+                            type: "string",
+                            nullable: true,
+                        },
                     },
                     nullable: false,
-                    required: ["name", "extension", "url"],
+                    required: ["name", "url", "extension"],
                 },
                 "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_":
                     {
@@ -204,18 +157,11 @@ export const test_application_object_generic_union = _test_application(
                                 nullable: false,
                             },
                             contents: {
-                                oneOf: [
-                                    {
-                                        $ref: "#/components/schemas/Array_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
-                                    },
-                                    {
-                                        type: "array",
-                                        items: {
-                                            $ref: "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
-                                        },
-                                        nullable: false,
-                                    },
-                                ],
+                                type: "array",
+                                items: {
+                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
+                                },
+                                nullable: false,
                             },
                             created_at: {
                                 type: "string",
@@ -232,19 +178,6 @@ export const test_application_object_generic_union = _test_application(
                             "created_at",
                         ],
                     },
-                "Array_lt_ObjectGenericUnion.ISaleReview.IContent_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
                 "ObjectGenericUnion.ISaleReview.IContent": {
                     type: "object",
                     properties: {
@@ -269,18 +202,11 @@ export const test_application_object_generic_union = _test_application(
                             nullable: false,
                         },
                         files: {
-                            oneOf: [
-                                {
-                                    $ref: "#/components/schemas/Array_lt___type_gt_",
-                                },
-                                {
-                                    type: "array",
-                                    items: {
-                                        $ref: "#/components/schemas/__type",
-                                    },
-                                    nullable: false,
-                                },
-                            ],
+                            type: "array",
+                            items: {
+                                $ref: "#/components/schemas/__type",
+                            },
+                            nullable: false,
                         },
                     },
                     nullable: false,

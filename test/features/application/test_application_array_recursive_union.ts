@@ -8,83 +8,56 @@ export const test_application_array_recursive_union = _test_application(
     {
         schemas: [
             {
-                oneOf: [
-                    {
-                        $ref: "#/components/schemas/Array_lt_ArrayRecursiveUnion.IBucket_gt_.o1",
-                    },
-                    {
-                        type: "array",
-                        items: {
-                            oneOf: [
-                                {
-                                    $ref: "#/components/schemas/ArrayRecursiveUnion.IDirectory",
-                                },
-                                {
-                                    $ref: "#/components/schemas/ArrayRecursiveUnion.IImageFile",
-                                },
-                                {
-                                    $ref: "#/components/schemas/ArrayRecursiveUnion.ITextFile",
-                                },
-                                {
-                                    $ref: "#/components/schemas/ArrayRecursiveUnion.IZipFile",
-                                },
-                                {
-                                    $ref: "#/components/schemas/ArrayRecursiveUnion.IShortcut",
-                                },
-                            ],
+                type: "array",
+                items: {
+                    oneOf: [
+                        {
+                            $ref: "#/components/schemas/ArrayRecursiveUnion.IDirectory",
                         },
-                        nullable: false,
-                    },
-                ],
+                        {
+                            $ref: "#/components/schemas/ArrayRecursiveUnion.IImageFile",
+                        },
+                        {
+                            $ref: "#/components/schemas/ArrayRecursiveUnion.ITextFile",
+                        },
+                        {
+                            $ref: "#/components/schemas/ArrayRecursiveUnion.IZipFile",
+                        },
+                        {
+                            $ref: "#/components/schemas/ArrayRecursiveUnion.IShortcut",
+                        },
+                    ],
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                "Array_lt_ArrayRecursiveUnion.IBucket_gt_.o1": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
                 "ArrayRecursiveUnion.IDirectory": {
                     type: "object",
                     properties: {
                         children: {
-                            oneOf: [
-                                {
-                                    $ref: "#/components/schemas/Array_lt_ArrayRecursiveUnion.IBucket_gt_",
-                                },
-                                {
-                                    type: "array",
-                                    items: {
-                                        oneOf: [
-                                            {
-                                                $ref: "#/components/schemas/ArrayRecursiveUnion.IDirectory",
-                                            },
-                                            {
-                                                $ref: "#/components/schemas/ArrayRecursiveUnion.IImageFile",
-                                            },
-                                            {
-                                                $ref: "#/components/schemas/ArrayRecursiveUnion.ITextFile",
-                                            },
-                                            {
-                                                $ref: "#/components/schemas/ArrayRecursiveUnion.IZipFile",
-                                            },
-                                            {
-                                                $ref: "#/components/schemas/ArrayRecursiveUnion.IShortcut",
-                                            },
-                                        ],
+                            type: "array",
+                            items: {
+                                oneOf: [
+                                    {
+                                        $ref: "#/components/schemas/ArrayRecursiveUnion.IDirectory",
                                     },
-                                    nullable: false,
-                                },
-                            ],
+                                    {
+                                        $ref: "#/components/schemas/ArrayRecursiveUnion.IImageFile",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/ArrayRecursiveUnion.ITextFile",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/ArrayRecursiveUnion.IZipFile",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/ArrayRecursiveUnion.IShortcut",
+                                    },
+                                ],
+                            },
+                            nullable: false,
                         },
                         id: {
                             type: "string",
@@ -106,19 +79,6 @@ export const test_application_array_recursive_union = _test_application(
                     },
                     nullable: false,
                     required: ["children", "id", "type", "name", "path"],
-                },
-                "Array_lt_ArrayRecursiveUnion.IBucket_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
                 },
                 "ArrayRecursiveUnion.IImageFile": {
                     type: "object",

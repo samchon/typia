@@ -1,10 +1,10 @@
 import ajv from "fast-json-stringify";
 import TSON from "../../src";
-import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
+import { ObjectSimple } from "../../test/structures/ObjectSimple";
 
-export const generate_ajv_hierarchical = () => {
+export const convert_ajv_simple = () => {
     const app: TSON.IJsonApplication = TSON.application<
-        [ObjectHierarchical],
+        [ObjectSimple],
         "ajv"
     >();
     return ajv(app.schemas[0] as any, {

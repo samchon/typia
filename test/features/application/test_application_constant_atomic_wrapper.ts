@@ -8,38 +8,25 @@ export const test_application_constant_atomic_wrapper = _test_application(
     {
         schemas: [
             {
-                oneOf: [
-                    {
-                        $ref: "#/components/schemas/ConstantAtomicWrapper_lt_IPointer_lt_boolean_gt__comma_IPointer_lt_number_gt__comma_IPointer_lt_string_gt__gt_",
-                    },
-                    {
-                        type: "array",
-                        items: {
-                            oneOf: [
-                                {
-                                    $ref: "#/components/schemas/IPointer_lt_boolean_gt_",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IPointer_lt_number_gt_",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IPointer_lt_string_gt_",
-                                },
-                            ],
+                type: "array",
+                items: {
+                    oneOf: [
+                        {
+                            $ref: "#/components/schemas/IPointer_lt_boolean_gt_",
                         },
-                        nullable: false,
-                    },
-                ],
+                        {
+                            $ref: "#/components/schemas/IPointer_lt_number_gt_",
+                        },
+                        {
+                            $ref: "#/components/schemas/IPointer_lt_string_gt_",
+                        },
+                    ],
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                ConstantAtomicWrapper_lt_IPointer_lt_boolean_gt__comma_IPointer_lt_number_gt__comma_IPointer_lt_string_gt__gt_:
-                    {
-                        type: "object",
-                        properties: {},
-                        nullable: false,
-                    },
                 IPointer_lt_boolean_gt_: {
                     type: "object",
                     properties: {

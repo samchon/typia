@@ -8,50 +8,29 @@ export const test_application_atomic_union = _test_application(
     {
         schemas: [
             {
-                oneOf: [
-                    {
-                        $ref: "#/components/schemas/Array_lt_AtomicUnion.Union_gt_",
-                    },
-                    {
-                        type: "array",
-                        items: {
-                            oneOf: [
-                                {
-                                    type: "boolean",
-                                    enum: [false, true],
-                                    nullable: true,
-                                },
-                                {
-                                    type: "string",
-                                    nullable: true,
-                                },
-                                {
-                                    type: "number",
-                                    nullable: true,
-                                },
-                            ],
+                type: "array",
+                items: {
+                    oneOf: [
+                        {
+                            type: "boolean",
+                            enum: [false, true],
+                            nullable: true,
                         },
-                        nullable: false,
-                    },
-                ],
+                        {
+                            type: "string",
+                            nullable: true,
+                        },
+                        {
+                            type: "number",
+                            nullable: true,
+                        },
+                    ],
+                },
+                nullable: false,
             },
         ],
         components: {
-            schemas: {
-                "Array_lt_AtomicUnion.Union_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
-            },
+            schemas: {},
         },
         purpose: "swagger",
         prefix: "#/components/schemas",

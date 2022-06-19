@@ -34,18 +34,11 @@ export const test_application_object_primitive = _test_application(
                             nullable: false,
                         },
                         files: {
-                            oneOf: [
-                                {
-                                    $ref: "#/components/schemas/Array_lt___type_gt_",
-                                },
-                                {
-                                    type: "array",
-                                    items: {
-                                        $ref: "#/components/schemas/__type.o1",
-                                    },
-                                    nullable: false,
-                                },
-                            ],
+                            type: "array",
+                            items: {
+                                $ref: "#/components/schemas/__type.o1",
+                            },
+                            nullable: false,
                         },
                         secret: {
                             type: "boolean",
@@ -67,19 +60,6 @@ export const test_application_object_primitive = _test_application(
                         "secret",
                         "created_at",
                     ],
-                },
-                Array_lt___type_gt_: {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
                 },
                 "__type.o1": {
                     type: "object",

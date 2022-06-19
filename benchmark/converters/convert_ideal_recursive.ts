@@ -1,7 +1,7 @@
 import { $string } from "../../src/functional/$string";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
 
-export function generate_ideal_recursive(obj: ObjectRecursive): string {
+export function convert_ideal_recursive(obj: ObjectRecursive): string {
     function department(elem: ObjectRecursive.IDepartment): string {
         return `{
             "parent": ${elem.parent ? department(elem.parent) : "null"},

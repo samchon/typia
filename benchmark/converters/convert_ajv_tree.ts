@@ -1,10 +1,10 @@
 import ajv from "fast-json-stringify";
 import TSON from "../../src";
-import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
+import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 
-export const generate_ajv_recursive = () => {
+export const convert_ajv_tree = () => {
     const app: TSON.IJsonApplication = TSON.application<
-        [ObjectRecursive],
+        [ArrayRecursive],
         "ajv"
     >();
     return ajv(app.schemas[0] as any, {

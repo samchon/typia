@@ -6,7 +6,7 @@ import { Escaper } from "../utils/Escaper";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { ValueFactory } from "../factories/ValueFactory";
 
-export namespace FeatureFactory {
+export namespace FeatureProgrammer {
     export interface IConfig {
         initializer(
             project: IProject,
@@ -17,7 +17,10 @@ export namespace FeatureFactory {
             name: string;
             // filter?(object: IMetadata.IObject): boolean;
         };
-        joiner(entries: IExpressionEntry[]): ts.Expression;
+        joiner(
+            entries: IExpressionEntry[],
+            parent: IMetadata.IObject,
+        ): ts.ConciseBody;
         decoder(
             input: ts.Expression,
             meta: IMetadata,
@@ -61,28 +64,31 @@ export namespace FeatureFactory {
 
             // RETURNS THE OPTIMAL ARROW FUNCTION
             const added: ts.Statement[] = addition ? addition(collection) : [];
+
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
                 createParameters(ValueFactory.INPUT()),
                 undefined,
                 undefined,
-                functors === null
-                    ? output
-                    : ts.factory.createBlock(
-                          [
-                              ...added,
-                              ts.factory.createVariableStatement(
-                                  undefined,
-                                  ts.factory.createVariableDeclarationList(
-                                      [functors],
-                                      ts.NodeFlags.Const,
+                ts.factory.createBlock(
+                    [
+                        ...added,
+                        ...(functors !== null
+                            ? [
+                                  ts.factory.createVariableStatement(
+                                      undefined,
+                                      ts.factory.createVariableDeclarationList(
+                                          [functors],
+                                          ts.NodeFlags.Const,
+                                      ),
                                   ),
-                              ),
-                              ts.factory.createReturnStatement(output),
-                          ],
-                          true,
-                      ),
+                              ]
+                            : []),
+                        ts.factory.createReturnStatement(output),
+                    ],
+                    true,
+                ),
             );
         };
     }
@@ -141,14 +147,13 @@ export namespace FeatureFactory {
                 });
             }
 
-            const output: ts.Expression = config.joiner(entries);
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
                 createParameters(ValueFactory.INPUT()),
                 undefined,
                 undefined,
-                output,
+                config.joiner(entries, obj),
             );
         };
     }
@@ -224,7 +229,7 @@ export namespace FeatureFactory {
 }
 
 const INDEX_SYMBOL = '[" + index + "]"';
-const ARGUMENTS = (trace: boolean, explore: FeatureFactory.IExplore) => {
+const ARGUMENTS = (trace: boolean, explore: FeatureProgrammer.IExplore) => {
     const tail: ts.Expression[] =
         trace === false
             ? []

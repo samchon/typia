@@ -8,42 +8,29 @@ export const test_application_atomic_alias = _test_application(
     {
         schemas: [
             {
-                oneOf: [
-                    {
-                        $ref: "#/components/schemas/AtomicAlias_lt_boolean_comma_number_comma_string_gt_",
-                    },
-                    {
-                        type: "array",
-                        items: {
-                            oneOf: [
-                                {
-                                    type: "boolean",
-                                    enum: [false, true],
-                                    nullable: false,
-                                },
-                                {
-                                    type: "number",
-                                    nullable: false,
-                                },
-                                {
-                                    type: "string",
-                                    nullable: false,
-                                },
-                            ],
+                type: "array",
+                items: {
+                    oneOf: [
+                        {
+                            type: "boolean",
+                            enum: [false, true],
+                            nullable: false,
                         },
-                        nullable: false,
-                    },
-                ],
+                        {
+                            type: "number",
+                            nullable: false,
+                        },
+                        {
+                            type: "string",
+                            nullable: false,
+                        },
+                    ],
+                },
+                nullable: false,
             },
         ],
         components: {
-            schemas: {
-                AtomicAlias_lt_boolean_comma_number_comma_string_gt_: {
-                    type: "object",
-                    properties: {},
-                    nullable: false,
-                },
-            },
+            schemas: {},
         },
         purpose: "swagger",
         prefix: "#/components/schemas",

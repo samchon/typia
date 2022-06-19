@@ -8,35 +8,15 @@ export const test_application_array_simple = _test_application(
     {
         schemas: [
             {
-                oneOf: [
-                    {
-                        $ref: "#/components/schemas/Array_lt_ArraySimple.IPerson_gt_",
-                    },
-                    {
-                        type: "array",
-                        items: {
-                            $ref: "#/components/schemas/ArraySimple.IPerson",
-                        },
-                        nullable: false,
-                    },
-                ],
+                type: "array",
+                items: {
+                    $ref: "#/components/schemas/ArraySimple.IPerson",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                "Array_lt_ArraySimple.IPerson_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
                 "ArraySimple.IPerson": {
                     type: "object",
                     properties: {
@@ -50,15 +30,6 @@ export const test_application_array_simple = _test_application(
                         },
                         hobbies: {
                             oneOf: [
-                                {
-                                    $ref: "#/components/schemas/Array_lt_string_gt_",
-                                },
-                                {
-                                    $ref: "#/components/schemas/Array_lt_ArraySimple.IHobby_gt_",
-                                },
-                                {
-                                    $ref: "#/components/schemas/Array_lt_ArraySimple.IContent_gt_",
-                                },
                                 {
                                     type: "array",
                                     items: {
@@ -86,45 +57,6 @@ export const test_application_array_simple = _test_application(
                     },
                     nullable: false,
                     required: ["name", "email", "hobbies"],
-                },
-                Array_lt_string_gt_: {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
-                "Array_lt_ArraySimple.IHobby_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
-                "Array_lt_ArraySimple.IContent_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
                 },
                 "ArraySimple.IHobby": {
                     type: "object",

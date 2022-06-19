@@ -10,18 +10,6 @@ export const test_application_array_union = _test_application(
             {
                 oneOf: [
                     {
-                        $ref: "#/components/schemas/Array_lt_string_gt_",
-                    },
-                    {
-                        $ref: "#/components/schemas/Array_lt_string_or_number_or_boolean_gt_",
-                    },
-                    {
-                        $ref: "#/components/schemas/Array_lt_boolean_gt_",
-                    },
-                    {
-                        $ref: "#/components/schemas/Array_lt_number_gt_",
-                    },
-                    {
                         type: "array",
                         items: {
                             type: "string",
@@ -71,60 +59,7 @@ export const test_application_array_union = _test_application(
             },
         ],
         components: {
-            schemas: {
-                Array_lt_string_gt_: {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
-                Array_lt_string_or_number_or_boolean_gt_: {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
-                Array_lt_boolean_gt_: {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
-                Array_lt_number_gt_: {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
-            },
+            schemas: {},
         },
         purpose: "swagger",
         prefix: "#/components/schemas",

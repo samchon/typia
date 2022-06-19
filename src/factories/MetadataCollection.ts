@@ -3,7 +3,7 @@ import ts from "typescript";
 import { TypeFactory } from "./TypeFactory";
 import { IMetadata } from "../structures/IMetadata";
 import { MapUtil } from "../utils/MapUtil";
-import { CommentFactory } from "./CommentAnalyzer";
+import { CommentFactory } from "./CommentFactory";
 
 export class MetadataCollection {
     private readonly dict_: Map<ts.Type, [string, IMetadata.IObject]>;

@@ -31,7 +31,7 @@ function measure(functor: () => Array<() => BenchmarkGenerator.IOutput>): void {
 }
 
 function main(): void {
-    measure(benchmark_stringify_optimizer);
     measure(benchmark_stringify_repeat);
+    measure(benchmark_stringify_optimizer);
 }
 main();

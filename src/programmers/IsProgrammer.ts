@@ -1,10 +1,10 @@
 import ts from "typescript";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { ValueFactory } from "../factories/ValueFactory";
-import { CheckerFactory } from "./CheckerProgrammer";
+import { CheckerProgrammer } from "./CheckerProgrammer";
 
-export namespace IsFactory {
-    export const CONFIG: CheckerFactory.IConfig = {
+export namespace IsProgrammer {
+    export const CONFIG: CheckerProgrammer.IConfig = {
         combiner: () => (type: "and" | "or") => {
             const initial: ts.TrueLiteral | ts.FalseLiteral =
                 type === "and"
@@ -25,10 +25,11 @@ export namespace IsFactory {
         trace: false,
     };
 
-    export const generate = CheckerFactory.generate(CONFIG);
-    export const generate_functors = CheckerFactory.generate_functors(CONFIG);
+    export const generate = CheckerProgrammer.generate(CONFIG);
+    export const generate_functors =
+        CheckerProgrammer.generate_functors(CONFIG);
 
-    export const express = CheckerFactory.decode(CONFIG);
+    export const express = CheckerProgrammer.decode(CONFIG);
     export function express_to_json(input: ts.Expression): ts.Expression {
         return ts.factory.createLogicalAnd(
             ts.factory.createStrictEquality(

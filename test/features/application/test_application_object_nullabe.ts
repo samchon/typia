@@ -8,28 +8,15 @@ export const test_application_object_nullable = _test_application(
     {
         schemas: [
             {
-                oneOf: [
-                    {
-                        $ref: "#/components/schemas/ObjectNullable_lt_ObjectNullable.IProduct_comma_ObjectNullable.IProduct_gt_",
-                    },
-                    {
-                        type: "array",
-                        items: {
-                            $ref: "#/components/schemas/ObjectNullable.IProduct",
-                        },
-                        nullable: false,
-                    },
-                ],
+                type: "array",
+                items: {
+                    $ref: "#/components/schemas/ObjectNullable.IProduct",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                "ObjectNullable_lt_ObjectNullable.IProduct_comma_ObjectNullable.IProduct_gt_":
-                    {
-                        type: "object",
-                        properties: {},
-                        nullable: false,
-                    },
                 "ObjectNullable.IProduct": {
                     type: "object",
                     properties: {

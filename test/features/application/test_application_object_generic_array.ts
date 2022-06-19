@@ -20,18 +20,11 @@ export const test_application_object_generic_array = _test_application(
                             $ref: "#/components/schemas/ObjectGenericArray.IPagination",
                         },
                         data: {
-                            oneOf: [
-                                {
-                                    $ref: "#/components/schemas/Array_lt_ObjectGenericArray.IPerson_gt_",
-                                },
-                                {
-                                    type: "array",
-                                    items: {
-                                        $ref: "#/components/schemas/ObjectGenericArray.IPerson",
-                                    },
-                                    nullable: false,
-                                },
-                            ],
+                            type: "array",
+                            items: {
+                                $ref: "#/components/schemas/ObjectGenericArray.IPerson",
+                            },
+                            nullable: false,
                         },
                     },
                     nullable: false,
@@ -59,19 +52,6 @@ export const test_application_object_generic_array = _test_application(
                     },
                     nullable: false,
                     required: ["page", "limit", "total_count", "total_pages"],
-                },
-                "Array_lt_ObjectGenericArray.IPerson_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
                 },
                 "ObjectGenericArray.IPerson": {
                     type: "object",
