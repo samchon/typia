@@ -259,25 +259,9 @@ export namespace StringifyProgrammer {
 
     const decode_object = (modulo: ts.LeftHandSideExpression) =>
         FeatureFactory.decode_object(CONFIG(modulo));
+
     const decode_array = (modulo: ts.LeftHandSideExpression) =>
-        FeatureFactory.decode_array(CONFIG(modulo), (input, arrow) =>
-            [
-                ts.factory.createStringLiteral("["),
-                ts.factory.createCallExpression(
-                    ts.factory.createPropertyAccessExpression(
-                        ts.factory.createCallExpression(
-                            IdentifierFactory.join(input, "map"),
-                            undefined,
-                            [arrow],
-                        ),
-                        ts.factory.createIdentifier("join"),
-                    ),
-                    undefined,
-                    [ts.factory.createStringLiteral(",")],
-                ) as ts.Expression,
-                ts.factory.createStringLiteral("]"),
-            ].reduce((x, y) => ts.factory.createAdd(x, y)),
-        );
+        FeatureFactory.decode_array(CONFIG(modulo), StringifyJoiner.array);
 
     const express_tuple =
         (modulo: ts.LeftHandSideExpression) =>
@@ -286,26 +270,17 @@ export namespace StringifyProgrammer {
             tuple: IMetadata[],
             explore: FeatureFactory.IExplore,
         ): ts.Expression => {
-            const children: ts.Expression[] = [];
-            tuple.forEach((elem, index) => {
-                const child = decode(modulo)(
+            const children: ts.Expression[] = tuple.map((elem, index) =>
+                decode(modulo)(
                     ts.factory.createElementAccessExpression(input, index),
                     elem,
                     {
                         ...explore,
                         from: "array",
                     },
-                );
-                children.push(child);
-                if (index !== tuple.length - 1)
-                    children.push(ts.factory.createStringLiteral(","));
-            });
-
-            return [
-                ts.factory.createStringLiteral("["),
-                ...children,
-                ts.factory.createStringLiteral("]"),
-            ].reduce((x, y) => ts.factory.createAdd(x, y));
+                ),
+            );
+            return StringifyJoiner.tuple(children);
         };
 
     function decode_atomic(
@@ -404,8 +379,8 @@ export namespace StringifyProgrammer {
 
     const iterate =
         (modulo: ts.LeftHandSideExpression) =>
-        (input: ts.Expression, unions: IUnion[]): ts.Block => {
-            return ts.factory.createBlock(
+        (input: ts.Expression, unions: IUnion[]) =>
+            ts.factory.createBlock(
                 [
                     ...unions.map((u) =>
                         ts.factory.createIfStatement(
@@ -427,7 +402,6 @@ export namespace StringifyProgrammer {
                 ],
                 true,
             );
-        };
 }
 
 interface IUnion {

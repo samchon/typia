@@ -5,42 +5,42 @@ import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 
-import { fast_simple } from "../functional/fast_simple";
-import { fast_hierarchical } from "../functional/fast_hierarchical";
-import { fast_recursive } from "../functional/fast_recursive";
-import { fast_tree } from "../functional/fast_tree";
-import { tson_simple } from "../functional/tson_simple";
-import { tson_hierarchical } from "../functional/tson_hierarchical";
-import { tson_recursive } from "../functional/tson_recursive";
-import { tson_tree } from "../functional/tson_tree";
-import { manual_simple } from "../functional/manual_simple";
-import { manual_hierarchical } from "../functional/manual_hierarchical";
-import { manual_recursive } from "../functional/manual_recursive";
-import { manual_tree } from "../functional/manual_tree";
+import { generate_ajv_simple } from "../generators/generate_ajv_simple";
+import { generate_ajv_hierarchical } from "../generators/generate_ajv_hierarchical";
+import { generate_ajv_recursive } from "../generators/generate_ajv_recursive";
+import { generate_ajv_tree } from "../generators/generate_ajv_tree";
+import { generate_tson_simple } from "../generators/generate_tson_simple";
+import { generate_tson_hierarchical } from "../generators/generate_tson_hierarchical";
+import { generate_tson_recursive } from "../generators/generate_tson_recursive";
+import { generate_tson_tree } from "../generators/generate_tson_tree";
+import { generate_ideal_simple } from "../generators/generate_ideal_simple";
+import { generate_ideal_hierarchical } from "../generators/generate_ideal_hierarchical";
+import { generate_ideal_recursive } from "../generators/generate_ideal_recursive";
+import { generate_ideal_tree } from "../generators/generate_ideal_tree";
 
 export const benchmark_stringify_optimizer = () => [
     BenchmarkGenerator.prepare("simple", () => ObjectSimple.generate(), {
-        ideal: manual_simple,
-        ajv: fast_simple as any,
-        tson: tson_simple,
+        ideal: generate_ideal_simple,
+        ajv: generate_ajv_simple as any,
+        tson: generate_tson_simple,
     }),
     BenchmarkGenerator.prepare(
         "hierarchical",
         () => ObjectHierarchical.generate(),
         {
-            ideal: manual_hierarchical,
-            tson: tson_hierarchical,
-            ajv: (input) => fast_hierarchical()(input),
+            ideal: generate_ideal_hierarchical,
+            tson: generate_tson_hierarchical,
+            ajv: (input) => generate_ajv_hierarchical()(input),
         },
     ),
     BenchmarkGenerator.prepare("recursive", () => ObjectRecursive.generate(), {
-        ideal: manual_recursive,
-        tson: tson_recursive,
-        ajv: (input) => fast_recursive()(input),
+        ideal: generate_ideal_recursive,
+        tson: generate_tson_recursive,
+        ajv: (input) => generate_ajv_recursive()(input),
     }),
     BenchmarkGenerator.prepare("tree", () => ArrayRecursive.generate(), {
-        ideal: manual_tree,
-        tson: tson_tree,
-        ajv: (input) => fast_tree()(input),
+        ideal: generate_ideal_tree,
+        tson: generate_tson_tree,
+        ajv: (input) => generate_ajv_tree()(input),
     }),
 ];

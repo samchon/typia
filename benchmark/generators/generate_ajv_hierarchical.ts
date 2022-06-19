@@ -1,15 +1,16 @@
 import ajv from "fast-json-stringify";
 import TSON from "../../src";
-import { ObjectSimple } from "../../test/structures/ObjectSimple";
+import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 
-export const fast_simple = () => {
+export const generate_ajv_hierarchical = () => {
     const app: TSON.IJsonApplication = TSON.application<
-        [ObjectSimple],
+        [ObjectHierarchical],
         "ajv"
     >();
     return ajv(app.schemas[0] as any, {
+        // mode: "standalone",
         schema: {
             components: app.components,
         } as any,
-    });
+    }) as any;
 };

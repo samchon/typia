@@ -1,5 +1,6 @@
 import { BenchmarkGenerator } from "./internal/Benchmark";
 
+import { benchmark_stringify_optimizer } from "./features/benchmark_stringify_optimizer";
 import { benchmark_stringify_repeat } from "./features/benchmark_stringify_repeat";
 
 function measure(functor: () => Array<() => BenchmarkGenerator.IOutput>): void {
@@ -13,7 +14,7 @@ function measure(functor: () => Array<() => BenchmarkGenerator.IOutput>): void {
             "JSON.stringify",
         ].join(" | "),
     );
-    console.log(new Array(4).fill("------------").join("|"));
+    console.log(new Array(5).fill("------------").join("|"));
     for (const comp of functor()) {
         const result = comp();
         console.log(
@@ -30,7 +31,7 @@ function measure(functor: () => Array<() => BenchmarkGenerator.IOutput>): void {
 }
 
 function main(): void {
-    // measure(benchmark_stringify_optimizer);
+    measure(benchmark_stringify_optimizer);
     measure(benchmark_stringify_repeat);
 }
 main();

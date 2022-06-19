@@ -1,7 +1,7 @@
 import { $string } from "../../src/functional/$string";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 
-export function manual_tree(obj: ArrayRecursive): string {
+export function generate_ideal_tree(obj: ArrayRecursive): string {
     function category(elem: ArrayRecursive.ICategory): string {
         return `{
             "children": [${elem.children
