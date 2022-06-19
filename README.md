@@ -2,7 +2,7 @@
 Runtime type checker, and 10x faster `JSON.stringify()` function, with only one line.
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typescript-json/blob/master/LICENSE)
-[![npm version](https://badge.fury.io/js/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
+[![npm version](https://img.shields.io/npm/v/typescript-json/next.svg)](https://www.npmjs.com/package/typescript-json)
 [![Downloads](https://img.shields.io/npm/dm/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
 [![Build Status](https://github.com/samchon/typescript-json/workflows/build/badge.svg)](https://github.com/samchon/typescript-json/actions?query=workflow%3Abuild)
 [![Guide Documents](https://img.shields.io/badge/wiki-documentation-forestgreen)](https://github.com/samchon/typescript-json/wiki)
