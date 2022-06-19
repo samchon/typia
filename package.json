@@ -1,10 +1,11 @@
 {
   "name": "typescript-json",
-  "version": "2.1.6",
+  "version": "3.0.0-dev.20220622",
   "description": "Faster JSON stringify with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
+    "benchmark": "node benchmark/index.js",
     "build": "rimraf lib && ttsc",
     "build:test": "rimraf bin && ttsc -p tsconfig.test.json",
     "dev": "npm run build -- --watch",
@@ -26,7 +27,12 @@
     "ajv",
     "schema",
     "jsonschema",
-    "generator"
+    "generator",
+    "validator",
+    "runtime",
+    "type",
+    "check",
+    "checker"
   ],
   "author": "Jeongho Nam",
   "license": "MIT",
@@ -44,17 +50,12 @@
     "@typescript-eslint/parser": "^5.26.0",
     "benchmark": "^2.1.4",
     "cli": "^1.0.1",
+    "fast-json-stringify": "^4.2.0",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.7.0",
     "ttypescript": "^1.5.13",
     "typescript": "^4.6.4"
-  },
-  "dependencies": {
-    "fast-json-stringify": "^3.2.0",
-    "nested-error-stacks": "^2.1.1",
-    "tstl": "^2.5.6",
-    "uuid": "^8.3.2"
   }
 }

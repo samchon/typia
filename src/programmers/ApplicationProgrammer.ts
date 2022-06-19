@@ -2,44 +2,62 @@ import { IJsonApplication } from "../structures/IJsonApplication";
 import { IJsonComponents } from "../structures/IJsonComponents";
 import { IJsonSchema } from "../structures/IJsonSchema";
 import { IMetadata } from "../structures/IMetadata";
-import { MapUtil } from "../utils/MapUtil";
 
-export namespace SchemaFactory {
-    export const JSON_PREFIX = "components#/schemas";
+export namespace ApplicationFactory {
+    export const AJV_PREFIX = "components#/schemas";
     export const SWAGGER_PREFIX = "#/components/schemas";
 
-    export function application(
-        app: IMetadata.IApplication | null,
-        prefix: string = SWAGGER_PREFIX,
-        forAjv: boolean = false,
+    export interface IOptions {
+        purpose: "swagger" | "ajv";
+        prefix: string;
+    }
+    export namespace IOptions {
+        export function complement(options?: Partial<IOptions>): IOptions {
+            const purpose: "swagger" | "ajv" = options?.purpose ?? "swagger";
+            return {
+                purpose,
+                prefix: options?.prefix
+                    ? options.prefix
+                    : purpose === "swagger"
+                    ? SWAGGER_PREFIX
+                    : AJV_PREFIX,
+            };
+        }
+    }
+
+    export function generate(
+        metadatas: Array<IMetadata>,
+        options?: Partial<IOptions>,
     ): IJsonApplication {
+        const complemented: IOptions = IOptions.complement(options);
+        const components: IJsonComponents = {
+            schemas: {},
+        };
+
         return {
-            schema: generate_schema(app?.metadata || null, prefix, forAjv),
-            components: components(app?.storage || null, prefix, forAjv),
+            schemas: metadatas.map((meta) =>
+                generate_schema(complemented, components, meta),
+            ),
+            components,
+            ...complemented,
         };
     }
 
     /* -----------------------------------------------------------
         SCHEMA
     ----------------------------------------------------------- */
-    export function schema(
-        meta: IMetadata | null,
-        prefix: string = SWAGGER_PREFIX,
-        forAjv: boolean = false,
-    ): IJsonSchema {
-        return generate_schema(meta, prefix, forAjv);
-    }
-
     function generate_schema(
-        meta: IMetadata | null,
-        prefix: string,
-        forAjv: boolean,
+        options: IOptions,
+        components: IJsonComponents,
+        meta: IMetadata,
     ): IJsonSchema {
-        if (meta === null) return {};
-        else if (meta.nullable && IMetadata.empty(meta))
-            return { type: "null" };
+        if (meta.nullable && IMetadata.empty(meta)) return { type: "null" };
 
         const oneOf: IJsonSchema[] = [];
+        if (meta.any === true)
+            oneOf.push({
+                nullable: meta.nullable,
+            });
         if (meta.constants.size)
             oneOf.push(
                 ...generate_constants(
@@ -56,43 +74,46 @@ export namespace SchemaFactory {
                     meta.description,
                 ),
             );
-        for (const [address, { recursive }] of meta.objects.entries()) {
+        for (const [address, [obj, nullable]] of meta.objects.entries()) {
+            const key: string = address + (nullable ? ".Nullable" : "");
+            generate_object(options, components, key, obj, nullable);
+
             const generator =
-                forAjv && recursive
+                options.purpose === "ajv" && obj.recursive
                     ? generate_recursive_pointer
                     : generate_pointer;
-            oneOf.push(generator(`${prefix}/${address}`, meta.description));
+            oneOf.push(generator(`${options.prefix}/${key}`, meta.description));
         }
         for (const schema of meta.arraies.values())
             oneOf.push(
                 generate_array(
-                    prefix,
-                    forAjv,
+                    options,
+                    components,
                     schema,
                     meta.nullable,
                     meta.description,
                 ),
             );
         for (const items of meta.tuples.values())
-            if (forAjv === true)
+            if (options.purpose === "ajv")
                 oneOf.push(
                     generate_tuple(
-                        prefix,
-                        forAjv,
+                        options,
+                        components,
                         items,
                         meta.nullable,
                         meta.description,
                     ),
                 );
             else {
-                const merged: IMetadata | null = items.reduce(
+                const merged: IMetadata = items.reduce(
                     (x, y) => IMetadata.merge(x, y),
                     IMetadata.create(),
                 );
                 oneOf.push(
                     generate_array(
-                        prefix,
-                        forAjv,
+                        options,
+                        components,
                         merged,
                         merged?.nullable || false,
                         items[0]?.description,
@@ -106,14 +127,10 @@ export namespace SchemaFactory {
     }
 
     function generate_constants(
-        values: Set<string | number | boolean>,
+        dict: Map<string, Set<string | number | bigint | boolean>>,
         nullable: boolean,
         description: string | undefined,
     ) {
-        const dict: Map<string, Set<string | number | boolean>> = new Map();
-        for (const v of values)
-            MapUtil.take(dict, typeof v, () => new Set()).add(v);
-
         return [...dict].map(([key, values]) => ({
             type: key,
             enum: [...values],
@@ -155,31 +172,31 @@ export namespace SchemaFactory {
     }
 
     function generate_array(
-        prefix: string,
-        forAjv: boolean,
-        metadata: IMetadata | null,
+        options: IOptions,
+        components: IJsonComponents,
+        metadata: IMetadata,
         nullable: boolean,
         description: string | undefined,
     ): IJsonSchema.IArray {
         return {
             type: "array",
-            items: generate_schema(metadata, prefix, forAjv),
+            items: generate_schema(options, components, metadata),
             nullable,
             description,
         };
     }
 
     function generate_tuple(
-        prefix: string,
-        forAjv: boolean,
-        items: Array<IMetadata | null>,
+        options: IOptions,
+        components: IJsonComponents,
+        items: Array<IMetadata>,
         nullable: boolean,
         description: string | undefined,
     ): IJsonSchema.ITuple {
         return {
             type: "array",
             items: items.map((schema) =>
-                generate_schema(schema, prefix, forAjv),
+                generate_schema(options, components, schema),
             ),
             nullable,
             description,
@@ -189,47 +206,60 @@ export namespace SchemaFactory {
     /* -----------------------------------------------------------
         COMPONENTS
     ----------------------------------------------------------- */
-    export function components(
-        storage: IMetadata.IStorage | null,
-        prefix: string = SWAGGER_PREFIX,
-        forAjv: boolean = false,
-    ): IJsonComponents {
-        return generate_components(storage, prefix, forAjv);
-    }
+    // export function components(
+    //     storage: IMetadata.IStorage | null,
+    //     options?: Partial<IOptions>,
+    // ): IJsonComponents {
+    //     const complemented: IOptions = IOptions.complement(options);
+    //     return generate_components(complemented, storage);
+    // }
 
-    function generate_components(
-        storage: IMetadata.IStorage | null,
-        prefix: string,
-        forAjv: boolean,
-    ): IJsonComponents {
-        const schemas: Record<string, any> = {};
-        for (const [key, value] of Object.entries(storage || []))
-            schemas[key] = generate_object(prefix, forAjv, value);
+    // function generate_components(
+    //     options: IOptions,
+    //     storage: IMetadata.IStorage | null,
+    //     nullable: boolean
+    // ): IJsonComponents {
+    //     const schemas: Record<string, any> = {};
+    //     for (const [key, obj] of Object.entries(storage || []))
+    //         schemas[key + nullable ? ".Nullable" : ""] = generate_object(
+    //             options,
+    //             obj,
+    //             nullable,
+    //         );
 
-        return { schemas };
-    }
+    //     return { schemas };
+    // }
 
     function generate_object(
-        prefix: string,
-        forAjv: boolean,
+        options: IOptions,
+        components: IJsonComponents,
+        key: string,
         obj: IMetadata.IObject,
-    ): IJsonComponents.IObject {
+        nullable: boolean,
+    ): void {
+        // TEMPORARY ASSIGNMENT
+        if (components.schemas[key] !== undefined) return;
+        components.schemas[key] = {} as any;
+
+        // ITERATE PROPERTIES
         const properties: Record<string, any> = {};
         const required: string[] = [];
 
         for (const [key, value] of Object.entries(obj.properties || [])) {
-            properties[key] = generate_schema(value, prefix, forAjv);
+            properties[key] = generate_schema(options, components, value);
             if (value?.required === true) required.push(key);
         }
 
-        return {
-            $id: forAjv ? obj.$id : undefined,
-            $recursiveAnchor: (forAjv && obj.recursive) || undefined,
+        const schema: IJsonComponents.IObject = {
+            $id: options.purpose === "ajv" ? obj.$id : undefined,
+            $recursiveAnchor:
+                (options.purpose === "ajv" && obj.recursive) || undefined,
             type: "object",
             properties,
-            nullable: obj.nullable,
+            nullable,
             required: required.length ? required : undefined,
             description: obj.description,
         };
+        components.schemas[key] = schema;
     }
 }

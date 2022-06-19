@@ -1,8 +1,10 @@
 import ts from "typescript";
+import { IdentifierFactory } from "./IdentifierFactory";
 
-export namespace ExpressionFactory {
+export namespace LiteralFactory {
     export function generate(input: any) {
-        if (input instanceof Array) return generate_array(input);
+        if (input === null) return ts.factory.createNull();
+        else if (input instanceof Array) return generate_array(input);
         else if (typeof input === "object") return generate_object(input);
         else if (typeof input === "string") return generate_string(input);
         else if (typeof input === "boolean") return generate_value(input);
@@ -16,7 +18,7 @@ export namespace ExpressionFactory {
             .filter((tuple) => tuple[1] !== undefined)
             .map(([key, value]) =>
                 ts.factory.createPropertyAssignment(
-                    generate_string(key),
+                    IdentifierFactory.generate(key),
                     generate(value),
                 ),
             );

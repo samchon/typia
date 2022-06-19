@@ -1,22 +1,16 @@
 import ts from "typescript";
 
 export namespace TypeFactory {
-    export function escape(
+    export function resolve(
         checker: ts.TypeChecker,
         type: ts.Type,
-    ): [ts.Type, boolean] {
-        const converted: ts.Type | null = get_return_type(
-            checker,
-            type,
-            "toJSON",
-        );
-        return [converted || type, !!converted];
+    ): ts.Type | null {
+        return get_return_type(checker, type, "toJSON");
     }
 
-    export function is_function(node: ts.Node): boolean {
+    export function isFunction(node: ts.Node): boolean {
         return get_function(node) !== null;
     }
-
     function get_function(node: ts.Node): ts.SignatureDeclaration | null {
         return ts.isFunctionLike(node)
             ? node
@@ -35,42 +29,52 @@ export namespace TypeFactory {
         // FIND TO-JSON METHOD
         const symbol: ts.Symbol | undefined = type.getProperty(name);
         if (!symbol) return null;
-        else if (!symbol.declarations || !symbol.declarations[0]) return null;
+        else if (!symbol.valueDeclaration) return null;
 
         // GET FUNCTION DECLARATION
-        const declaration: ts.Declaration = symbol.declarations[0];
-        const functor: ts.SignatureDeclaration | null =
-            get_function(declaration);
-
-        if (functor === null) return null;
+        const functor: ts.Type = checker.getTypeOfSymbolAtLocation(
+            symbol,
+            symbol.valueDeclaration,
+        );
 
         // RETURNS THE RETURN-TYPE
-        const signature: ts.Signature | undefined =
-            checker.getSignatureFromDeclaration(functor);
+        const signature: ts.Signature | undefined = checker.getSignaturesOfType(
+            functor,
+            ts.SignatureKind.Call,
+        )[0];
         return signature ? signature.getReturnType() : null;
     }
 
-    export function full_name(checker: ts.TypeChecker, type: ts.Type): string {
+    export function getFullName(
+        checker: ts.TypeChecker,
+        type: ts.Type,
+    ): string {
         // PRIMITIVE
         const symbol: ts.Symbol | undefined =
             type.getSymbol() || type.aliasSymbol;
         if (symbol === undefined)
             return checker.typeToString(type, undefined, undefined);
+
         // UNION OR INTERSECT
-        else if (
-            type.aliasSymbol === undefined &&
-            type.isUnionOrIntersection()
-        ) {
+        if (type.aliasSymbol === undefined && type.isUnionOrIntersection()) {
             const joiner: string = type.isIntersection() ? " & " : " | ";
             return type.types
-                .map((child) => full_name(checker, child))
+                .map((child) => getFullName(checker, child))
                 .join(joiner);
         }
 
         //----
         // SPECIALIZATION
         //----
-        const name: string = get_name(symbol);
+        const name: string = (() => {
+            const str: string = get_name(symbol);
+            // const index: number = str.lastIndexOf("__type");
+            // if (index !== str.length - "__type".length) return str;
+
+            // const node = checker.typeToTypeNode(type, undefined, undefined);
+            // if (node === undefined || !ts.isTypeLiteralNode(node)) return str;
+            return str;
+        })();
 
         // CHECK GENERIC
         const generic: readonly ts.Type[] = checker.getTypeArguments(
@@ -78,9 +82,9 @@ export namespace TypeFactory {
         );
         return generic.length
             ? name === "Promise"
-                ? full_name(checker, generic[0]!)
+                ? getFullName(checker, generic[0]!)
                 : `${name}<${generic
-                      .map((child) => full_name(checker, child))
+                      .map((child) => getFullName(checker, child))
                       .join(", ")}>`
             : name;
     }
