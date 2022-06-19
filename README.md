@@ -1,4 +1,6 @@
 # TypeScript-JSON
+> v3 update is coming soon.
+
 Runtime type checker, and 10x faster `JSON.stringify()` function, with only one line.
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typescript-json/blob/master/LICENSE)
