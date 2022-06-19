@@ -1,85 +1,47 @@
 # TypeScript-JSON
+> v3 update is coming soon.
+
+Runtime type checker, and 10x faster `JSON.stringify()` function, with only one line.
+
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typescript-json/blob/master/LICENSE)
-[![npm version](https://badge.fury.io/js/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
+[![npm version](https://img.shields.io/npm/v/typescript-json/next.svg)](https://www.npmjs.com/package/typescript-json)
 [![Downloads](https://img.shields.io/npm/dm/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
 [![Build Status](https://github.com/samchon/typescript-json/workflows/build/badge.svg)](https://github.com/samchon/typescript-json/actions?query=workflow%3Abuild)
+[![Guide Documents](https://img.shields.io/badge/wiki-documentation-forestgreen)](https://github.com/samchon/typescript-json/wiki)
 
-2x faster `JSON.stringify()` function with only one line.
-
-```typescript
-import TSON from "typescript-json";
-TSON.stringify<T>(input);
-```
-
-## Introduction
-`typescript-json` is a wrapper library of [fast-json-stringify](https://github.com/fastify/fast-json-stringify), which can generate JSON string 2x faster than the native `JSON.stringify()` function. Also, `typescript-json` doesn't need any JSON schema definition. It just requires only one line: `TSON.stringify<T>(input)`.
-
-If you choose other similar libraries like [ajv](https://github.com/ajv-validator/ajv) or [fast-json-stringify](https://github.com/fastify/fast-json-stringify), you've to define a complicated JSON schema that is different from the TypeScript type system. Besides, `typescript-json` requires only one line with your own TypeScript type definition. You don't need any extra JSON schema definition.
-
-Look at the below code and feel how `typescript-json` is powerful.
+  - Github: https://github.com/samchon/typescript-json
+  - NPM: https://www.npmjs.com/package/typescript-json
+  - Guide Documents: https://github.com/samchon/typescript-json/wiki
 
 ```typescript
 import TSON from "typescript-json";
-import fast from "fast-json-stringify";
-
-interface ICompany
-{
-    name: string;
-    employees: IEmployee[];
-}
-interface IEmployee
-{
-    name: string;
-    gender: string | number | null;
-}
-const company: ICompany;
 
 //----
-// TSON requires only one line
+// MAIN FUNCTIONS
 //----
-// Reusable stringfy function
-const stringify = TSON.createStringifier<ICompany>();
-stringify(company);
-
-// Direct stringify function call
-// 
-// The type would be stored in the global memory
-// It would be reused whenever the same type has come
-TSON.stringify<ICompany>(company);
+TSON.assert<T>(input); // runtime type checker throwing exception
+TSON.is<T>(input); // runtime type checker returning boolean
+TSON.stringify<T>(input); // 10x faster JSON.stringify()
 
 //----
-// "fast-json-stringfy" requires complicated JSON schema
+// APPENDIX FUNCTIONS
 //----
-fast({
-    type: "object",
-    properties: {
-        name: {
-            type: "string",
-            nullable: false,
-        },
-        employees: {
-            type: "array",
-            items: {
-                type: "object",
-                properties: {
-                    name: {
-                        type: "string",
-                        nullable: false,
-                    },
-                    gender: {
-                        oneOf: [
-                            { type: "string" },
-                            { type: "number" }
-                        ],
-                        nullable: true
-                    }
-                }
-            },
-            nullable: false
-        }
-    }
-})(company);
+TSON.application<[T, U, V], "swagger">(); // JSON schema application generator
+TSON.create<T>(input); // 2x faster object creator (only one-time construction)
 ```
+
+`typescript-json` is a transformer library providing JSON related functions.
+
+  - Runtime type checkers
+  - 10x faster `JSON.stringify()` function
+  - Comparing with `ajv` or `fast-json-stringify`
+    - 10,000x faster 1st operation including optimizer construction time
+    - Does not require any JSON schema definition
+    - Performed by only one line like `TSON.stringify<T>(input)`
+
+Only JSON string conversion time | Include optimizater construction time
+---------------------------------|----------------------------------------
+![only-json-string-conversion-time](https://user-images.githubusercontent.com/13158709/172457566-d23100c2-808a-4544-a914-de92d8ec12b0.png) | ![include-optimization-planning-time](https://user-images.githubusercontent.com/13158709/172457381-d8ccbb92-43a1-4c96-aae1-cdac7d2e03cd.png)
 
 
 
@@ -88,7 +50,7 @@ fast({
 ### NPM Package
 At first, install this `typescript-json` by the `npm install` command. 
 
-Also, you need additional `devDependencies` to compile the TypeScript code with transformation. Therefore, install those all libraries `typescript`, `ttypescript` and `ts-node`. Inform that, the `ttypescript` is not mis-writing. Therefore, do not forget to install the `ttypescript`.
+Also, you need additional `devDependencies` to compile the TypeScript code with transformation. Therefore, install those all libraries `typescript`, `ttypescript` and `ts-node`. Inform that, `ttypescript` is not mis-writing. Therefore, do not forget to install the `ttypescript`.
 
 ```bash
 npm install --save typescript-json
@@ -114,7 +76,7 @@ After the installation, you've to configure the `tsconfig.json` file like below.
 }
 ```
 
-After the `tsconfig.json` definition, you can compile `typescript-json` utilized code by using the `ttypescript`. If you want to run your TypeScript file through the `ts-node`, use `-C ttypescript` argument like below:
+After the `tsconfig.json` definition, you can compile `typescript-json` utilized code by using `ttypescript`. If you want to run your TypeScript file through `ts-node`, use `-C ttypescript` argument like below:
 
 ```bash
 # COMPILE
@@ -125,7 +87,7 @@ npx ts-node -C ttypescript
 ```
 
 ### webpack
-If you're using a `webpack` with the `ts-loader`, configure the `webpack.config.js` file like below:
+If you're using a `webpack` with `ts-loader`, configure the `webpack.config.js` file like below:
 
 ```javascript
 const transform = require('typescript-json/lib/transform').default
@@ -152,43 +114,73 @@ module.exports = {
 
 
 ## Features
-### Functions
+### Runtime Type Checkers
 ```typescript
-export function stringify<T>(input: T): string;
-export function createStringifier<T>(): (input: T) => string;
-export function createApplication<T>(): (input: T) => IJsonApplication;
+export function assert<T>(input: T): T;
+export function is<T>(input: T): boolean;
 ```
 
-`typescript-json` provides only three functions, `stringify()`, `createStringifier()` and `createApplication()`.
+`typescript-json` provides two runtime type checker functions, `assert()` and `is()`.
 
-The first `stringify()` is a function who returns the JSON string directly. Also, the type you'd put into the generic argument would be stored in the global memory and reused whenever calling the `stringify()` function with the same type.
+The first `assert()` is a function throwing `TypeGuardError` when an `input` value is different with the generic argument `T`. The other function `is()` returns a `boolean` value meaning whether matched or not.
 
-The second `createStringifier()` is a function who returns another function that can generate the JSON string. The `createStringifier()` is not enough convenient like `stringify()`, however it doesn't consume the global memory. Also, the returned function from the `createStringifier()` is always reusable until you forget the function variable.
+Comparing those `assert()` and `is()` functions with other similar library `ajv`, `assert()` and `is()` functions are much easier to use and even much faster. Furthermore, `typescript-json` can check complicate structured data that `ajv` cannot validate.
 
-The last `createApplication()` is just a function who generates JSON schema following the type `T`. If you need to utilize the JSON schema for other purpose, this function would be useful.
+> Complicate structure that `ajv` cannot validate: [recursive union structure](https://github.com/samchon/typescript-json/blob/2237573005197a4e138c3c5c92806d5a972c48a3/test/structures/ArrayRecursiveUnion.ts#L6-L43)
 
-Method | Strength | Weakness
--------|----------|------------
-`stringify()` | Convenient to use | Use global memory
-`createStringifier()` | Save global memory | Inconvenient to manage
-`createApplication()` | Reusable JSON Schema | Surplus feature, maybe?
+Component            | `typescript-json` | `ajv`
+---------------------|-------------------|-------------------------
+Requires             | Only one line     | JSON schema definition
+Construction Time    | Compile-time      | Run-time
+Complicate Structure | Possible          | Not possible
 
-### `public`
-When you put a class type into this `typescript-json`, only `public` members would be converted to JSON string. The `private` or `protected` members would be all ignored.
 
-### `toJSON()`
-[fast-json-stringify](https://github.com/fastify/fast-json-stringify) is not supporting the `toJSON()` method. If such unsupported situation keeps for a long time, I promise you that I'll fix the problem even by developing the JSON conversion logic by myself.
+### Fastest JSON String Conversion
+```typescript
+export function stringify<T>(input: T): string;
+```
+
+Super-fast JSON string conversion function.
+
+If you call `TSON.stringify()` function instead of the native `JSON.stringify()`, the JSON conversion time would be 10x times faster. Also, you can perform such super-fast JSON string conversion very easily, by only one line, `TSON.stringify<T>(input)`.
+
+On the other side, other similary library like `fast-json-stringify` requires complicate JSON schema definition. Furthermore, `typescript-json` can convert complicate structured data that `fast-json-stringify` cannot convert.
+
+Comparing performance, `typescript-json` is about 5x times faster when comparing only JSON string conversion time. If compare optimizer construction time with only one call, `typescript-json` is even 10,000x times faster.
+
+> Complicate structure that `fast-json-stringify` cannot convert: [recursive union structure](https://github.com/samchon/typescript-json/blob/2237573005197a4e138c3c5c92806d5a972c48a3/test/structures/ArrayRecursiveUnion.ts#L6-L43)
+
+Only JSON string conversion time | Include optimizer construction time
+---------------------------------|------------------------------------
+![only-json-string-conversion](https://user-images.githubusercontent.com/13158709/172457566-d23100c2-808a-4544-a914-de92d8ec12b0.png) | ![include-optimizer-construction](https://user-images.githubusercontent.com/13158709/172457381-d8ccbb92-43a1-4c96-aae1-cdac7d2e03cd.png)
+
+### JSON Schema Generation
+```typescript
+export function application<
+    Types extends unknown[],
+    Purpose extends "swagger" | "ajv" = "swagger",
+    Prefix extends string = Purpose extends "swagger"
+        ? "#/components/schemas"
+        : "components#/schemas",
+>(): IJsonApplication;
+```
+
+`typescript-json` even supports JSON schema application generation.
+
+When you need to share your TypeScript types to other language, this `application()` function would be useful. It generates JSON schema definition by analyzing your `Types`. Therefore, with `typescript-json` and its `application()` function, you don't need to write JSON schema definition manually.
+
+By the way, the reason why you're using this `application()` is for generating a swagger documents, I recommend you to use my another library [nestia](https://github.com/samchon/nestia). It will automate the swagger documents generation, by analyzing your entire backend server code.
 
 
 
 
 ## Appendix
 ### Nestia
-> My another library using this `typescript-json`.
+> My other library using this `typescript-json`.
 
 https://github.com/samchon/nestia
 
-Automatic `SDK` and `Swagger` generator for the `NestJS`, evolved than ever.
+Automatic `SDK` and `Swagger` generator for `NestJS`, evolved than ever.
 
 `nestia` is an evolved `SDK` and `Swagger` generator, which analyzes your `NestJS` server code in the compilation level. With `nestia` and compilation level analyzer, you don't need to write any swagger or class-validator decorators.
 
@@ -205,7 +197,7 @@ Intersection type | ✔ | ✔ | ▲
 Conditional type | ✔ | ▲ | ❌
 Auto completion | ✔ | ❌ | ❌
 Type hints | ✔ | ❌ | ❌
-2x faster `JSON.stringify()` | ✔ | ❌ | ❌
+10x faster `JSON.stringify()` | ✔ | ❌ | ❌
 Ensure type safety | ✅ | ❌ | ❌
 
 ```typescript
@@ -262,6 +254,28 @@ export async function trace_sale_question_and_comment
         }
     );
     console.log("comment", comment);
+}
+```
+
+### Nestia-Helper
+> My another library, using this `typescript-json`, too.
+
+https://github.com/samchon/nestia-helper
+
+Boost up `JSON.stringify()` function, of the API responses, 10x times faster.
+
+`nestia-helper` is a helper library of `NestJS`, which can boost up the `JSON.stringify()` function 10x times faster about the API responses. Just by installing and utilizing this `nestia-helper`, your NestJS developed backend server will convert JSON string 10x times faster.
+
+```typescript
+import helper from "nestia-helper";
+import * as nest from "@nestjs/common";
+
+@nest.Controller("bbs/articles")
+export class BbsArticlesController
+{
+    // JSON.stringify() would be 10x times faster 
+    @helper.TypedRoute.Get()
+    public get(): Promise<IPage<IBbsArticle.ISummary>>;
 }
 ```
 

@@ -1,4 +1,3 @@
-import NestedError from "nested-error-stacks";
 import ts from "typescript";
 
 import { IProject } from "../structures/IProject";
@@ -10,6 +9,10 @@ export namespace FileTransformer {
         context: ts.TransformationContext,
         file: ts.SourceFile,
     ): ts.SourceFile {
+        // DO NOT TRANSFORM D.TS FILE
+        if (file.isDeclarationFile) return file;
+
+        // ITERATE NODES
         return ts.visitEachChild(
             file,
             (node) => iterate_node(project, context, node),
@@ -34,7 +37,7 @@ export namespace FileTransformer {
             return NodeTransformer.transform(project, node);
         } catch (exp) {
             if (
-                exp instanceof Error &&
+                !(exp instanceof Error) ||
                 exp.message.indexOf("Error on TSON") !== -1
             )
                 throw exp;
@@ -43,13 +46,8 @@ export namespace FileTransformer {
             const { line, character } = file.getLineAndCharacterOfPosition(
                 node.pos,
             );
-
-            throw new NestedError(
-                `Error on TSON.tranformer(): failed to transform - ${
-                    file.fileName
-                }:${line + 1}:${character + 1}`,
-                exp as Error,
-            );
+            exp.message += ` - ${line + 1}:${character + 1}`;
+            throw exp;
         }
     }
 }

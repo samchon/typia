@@ -10,6 +10,7 @@ module.exports = {
     parserOptions: {
         project: [
             "tsconfig.json",  
+            "tsconfig.benchmark.json",
             "tsconfig.test.json"
         ]
     },
@@ -21,6 +22,7 @@ module.exports = {
     overrides: [
         {
             files: [
+                "benchmark/**/*.ts",
                 "src/**/*.ts", 
                 "test/**/*.ts", 
             ],
