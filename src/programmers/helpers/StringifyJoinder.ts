@@ -13,6 +13,7 @@ export namespace StringifyJoiner {
         entries.forEach((entry, index) => {
             // BASE ELEMENTS
             const base: ts.Expression[] = [
+                ts.factory.createStringLiteral(" ".repeat(SPACES)),
                 ts.factory.createStringLiteral(`${JSON.stringify(entry.key)}:`),
                 entry.expression,
             ];
@@ -46,6 +47,7 @@ export namespace StringifyJoiner {
                   ),
               ];
         return TemplateFactory.generate([
+            // ts.factory.createStringLiteral(" ".repeat(SPACES * 4)),
             ts.factory.createStringLiteral("{"),
             ...filtered,
             ts.factory.createStringLiteral("}"),
@@ -107,3 +109,5 @@ export namespace StringifyJoiner {
     //     return elements.reduce((x, y) => ts.factory.createAdd(x, y));
     // }
 }
+
+const SPACES = 8;

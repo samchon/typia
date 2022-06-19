@@ -12,9 +12,9 @@ export function manual_simple(obj: ObjectSimple): string {
         },
         point: function (elem: ObjectSimple.IPoint3D): string {
             return `{
-            "x": ${elem.x},
-            "y": ${elem.y},
-            "z": ${elem.z} 
+                "x": ${elem.x},
+                "y": ${elem.y},
+                "z": ${elem.z} 
             }`;
         },
     };
