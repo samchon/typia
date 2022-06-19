@@ -4,14 +4,15 @@ import { StringifyPredicator } from "./helpers/StringifyPredicator";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
-import { FeatureFactory } from "./FeatureProgrammer";
-import { IsFactory } from "./IsProgrammer";
+import { FeatureProgrammer } from "./FeatureProgrammer";
+import { IsProgrammer } from "./IsProgrammer";
 import { StringifyJoiner } from "./helpers/StringifyJoinder";
+import { StatementFactory } from "../factories/StatementFactory";
 
 export namespace StringifyProgrammer {
     const CONFIG = (
         modulo: ts.LeftHandSideExpression,
-    ): FeatureFactory.IConfig => ({
+    ): FeatureProgrammer.IConfig => ({
         initializer: ({ checker }, type) => {
             const collection: MetadataCollection = new MetadataCollection();
             const meta: IMetadata = MetadataFactory.generate(
@@ -37,22 +38,18 @@ export namespace StringifyProgrammer {
         GENERATORS
     ----------------------------------------------------------- */
     export const generate = (modulo: ts.LeftHandSideExpression) =>
-        FeatureFactory.generate(CONFIG(modulo), (collection) => {
-            const validators = IsFactory.generate_functors(collection);
-            return [
-                ...["string", "tail"].map((functor) =>
-                    ts.factory.createVariableStatement(
-                        undefined,
-                        ts.factory.createVariableDeclarationList([
-                            ts.factory.createVariableDeclaration(
-                                `$${functor}`,
-                                undefined,
-                                undefined,
-                                IdentifierFactory.join(modulo, functor),
-                            ),
-                        ]),
-                    ),
+        FeatureProgrammer.generate(CONFIG(modulo), (collection) => {
+            const functors = ["string", "tail"].map((name) =>
+                StatementFactory.variable(
+                    ts.NodeFlags.Const,
+                    "$" + name,
+                    IdentifierFactory.join(modulo, name),
                 ),
+            );
+            const validators = IsProgrammer.generate_functors(collection);
+
+            return [
+                ...functors,
                 ...(validators
                     ? [
                           ts.factory.createVariableStatement(
@@ -75,7 +72,7 @@ export namespace StringifyProgrammer {
         (
             input: ts.Expression,
             meta: IMetadata,
-            explore: FeatureFactory.IExplore,
+            explore: FeatureProgrammer.IExplore,
         ): ts.Expression => {
             // ANY TYPE
             if (meta.any === true)
@@ -121,7 +118,7 @@ export namespace StringifyProgrammer {
                 else
                     unions.push({
                         type: "resolved",
-                        is: () => IsFactory.express_to_json(input),
+                        is: () => IsProgrammer.express_to_json(input),
                         value: () =>
                             visit_to_json(modulo)(
                                 input,
@@ -137,7 +134,7 @@ export namespace StringifyProgrammer {
                     unions.push({
                         type: "atomic",
                         is: () =>
-                            IsFactory.express(
+                            IsProgrammer.express(
                                 input,
                                 IMetadata.separate({
                                     atomics: new Set([type]),
@@ -150,7 +147,7 @@ export namespace StringifyProgrammer {
                     unions.push({
                         type: "const string",
                         is: () =>
-                            IsFactory.express(
+                            IsProgrammer.express(
                                 input,
                                 IMetadata.separate({
                                     atomics: new Set([type]),
@@ -168,7 +165,7 @@ export namespace StringifyProgrammer {
                 unions.push({
                     type: "atomic",
                     is: () =>
-                        IsFactory.express(
+                        IsProgrammer.express(
                             input,
                             IMetadata.separate({ atomics: new Set([type]) }),
                             explore,
@@ -181,7 +178,7 @@ export namespace StringifyProgrammer {
                 unions.push({
                     type: "tuple",
                     is: () =>
-                        IsFactory.express(
+                        IsProgrammer.express(
                             input,
                             IMetadata.separate({ tuples: new Map([tuple]) }),
                             explore,
@@ -195,7 +192,7 @@ export namespace StringifyProgrammer {
                 unions.push({
                     type: "array",
                     is: () =>
-                        IsFactory.express(
+                        IsProgrammer.express(
                             input,
                             IMetadata.separate({
                                 arraies: new Map([[key, value]]),
@@ -210,7 +207,7 @@ export namespace StringifyProgrammer {
                 unions.push({
                     type: "object",
                     is: () =>
-                        IsFactory.express(
+                        IsProgrammer.express(
                             input,
                             IMetadata.separate({
                                 objects: new Map([[key, [value, nullable]]]),
@@ -258,17 +255,17 @@ export namespace StringifyProgrammer {
         };
 
     const decode_object = (modulo: ts.LeftHandSideExpression) =>
-        FeatureFactory.decode_object(CONFIG(modulo));
+        FeatureProgrammer.decode_object(CONFIG(modulo));
 
     const decode_array = (modulo: ts.LeftHandSideExpression) =>
-        FeatureFactory.decode_array(CONFIG(modulo), StringifyJoiner.array);
+        FeatureProgrammer.decode_array(CONFIG(modulo), StringifyJoiner.array);
 
     const express_tuple =
         (modulo: ts.LeftHandSideExpression) =>
         (
             input: ts.Expression,
             tuple: IMetadata[],
-            explore: FeatureFactory.IExplore,
+            explore: FeatureProgrammer.IExplore,
         ): ts.Expression => {
             const children: ts.Expression[] = tuple.map((elem, index) =>
                 decode(modulo)(
@@ -286,7 +283,7 @@ export namespace StringifyProgrammer {
     function decode_atomic(
         input: ts.Expression,
         type: string,
-        explore: FeatureFactory.IExplore,
+        explore: FeatureProgrammer.IExplore,
     ): ts.Expression {
         if (type === "string")
             return ts.factory.createCallExpression(
@@ -306,7 +303,7 @@ export namespace StringifyProgrammer {
     function decode_constant_string(
         input: ts.Expression,
         values: string[],
-        explore: FeatureFactory.IExplore,
+        explore: FeatureProgrammer.IExplore,
     ): ts.Expression {
         if (values.every((v) => !StringifyPredicator.require_escape(v)))
             return [
@@ -322,7 +319,7 @@ export namespace StringifyProgrammer {
         (
             input: ts.Expression,
             resolved: IMetadata,
-            explore: FeatureFactory.IExplore,
+            explore: FeatureProgrammer.IExplore,
         ): ts.Expression => {
             return decode(modulo)(
                 ts.factory.createCallExpression(
@@ -341,7 +338,7 @@ export namespace StringifyProgrammer {
     function wrap_required(
         input: ts.Expression,
         meta: IMetadata,
-        explore: FeatureFactory.IExplore,
+        explore: FeatureProgrammer.IExplore,
     ): (expression: ts.Expression) => ts.Expression {
         if (meta.required === true) return (expression) => expression;
         return (expression) =>

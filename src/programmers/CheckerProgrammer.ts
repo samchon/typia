@@ -4,9 +4,9 @@ import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { ValueFactory } from "../factories/ValueFactory";
-import { FeatureFactory } from "./FeatureProgrammer";
+import { FeatureProgrammer } from "./FeatureProgrammer";
 
-export namespace CheckerFactory {
+export namespace CheckerProgrammer {
     export interface IConfig {
         trace: boolean;
         functors: {
@@ -27,20 +27,20 @@ export namespace CheckerFactory {
             };
         }
     }
-    export import IExplore = FeatureFactory.IExplore;
+    export import IExplore = FeatureProgrammer.IExplore;
 
     /* -----------------------------------------------------------
         GENERATORS
     ----------------------------------------------------------- */
     export function generate(config: IConfig) {
-        return FeatureFactory.generate(base_config(config));
+        return FeatureProgrammer.generate(base_config(config));
     }
 
     export function generate_functors(config: IConfig) {
-        return FeatureFactory.generate_functors(base_config(config));
+        return FeatureProgrammer.generate_functors(base_config(config));
     }
 
-    function base_config(config: IConfig): FeatureFactory.IConfig {
+    function base_config(config: IConfig): FeatureProgrammer.IConfig {
         return {
             initializer: ({ checker }, type) => {
                 const collection: MetadataCollection = new MetadataCollection();
@@ -210,7 +210,7 @@ export namespace CheckerFactory {
     }
 
     function decode_array(config: IConfig) {
-        return FeatureFactory.decode_array(
+        return FeatureProgrammer.decode_array(
             base_config(config),
             (input, arrow) =>
                 ts.factory.createCallExpression(
@@ -222,7 +222,7 @@ export namespace CheckerFactory {
     }
 
     function decode_object(config: IConfig) {
-        const func = FeatureFactory.decode_object(base_config(config));
+        const func = FeatureProgrammer.decode_object(base_config(config));
         return function (
             input: ts.Expression,
             obj: IMetadata.IObject,

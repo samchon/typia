@@ -3,7 +3,7 @@ import { IJsonComponents } from "../structures/IJsonComponents";
 import { IJsonSchema } from "../structures/IJsonSchema";
 import { IMetadata } from "../structures/IMetadata";
 
-export namespace ApplicationFactory {
+export namespace ApplicationProgrammer {
     export const AJV_PREFIX = "components#/schemas";
     export const SWAGGER_PREFIX = "#/components/schemas";
 

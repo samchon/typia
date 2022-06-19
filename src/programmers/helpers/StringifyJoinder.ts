@@ -2,13 +2,33 @@ import ts from "typescript";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { TemplateFactory } from "../../factories/TemplateFactory";
 import { IExpressionEntry } from "../../structures/IExpressionEntry";
+// import { IMetadata } from "../../structures/IMetadata";
+// import { StringifyTreeJoiner } from "./StringifyTreeJoiner";
 
 export namespace StringifyJoiner {
-    export function object(entries: IExpressionEntry[]): ts.Expression {
+    export function object(
+        entries: IExpressionEntry[],
+        // _parent: IMetadata.IObject,
+        // recursive: IExpressionEntry | null = null,
+    ): ts.ConciseBody {
+        // CHECK AND SORT ENTRIES
         if (entries.length === 0) return ts.factory.createStringLiteral("{}");
         entries.sort(
             (x, y) => Number(x.meta.required) - Number(y.meta.required),
         );
+
+        // // CHECK WHETHER RECURSIVE STRUCTURED ARRAY OR NOT
+        // if (recursive === null) {
+        //     const tree = entries.find((elem) =>
+        //         StringifyTreeJoiner.predicate(parent, elem),
+        //     );
+        //     if (tree !== undefined && entries.length > 1)
+        //         return StringifyTreeJoiner.join(
+        //             parent,
+        //             tree,
+        //             entries.filter((elem) => elem !== tree),
+        //         );
+        // }
 
         const expressions: ts.Expression[] = [];
         entries.forEach((entry, index) => {
@@ -18,10 +38,11 @@ export namespace StringifyJoiner {
                 ts.factory.createStringLiteral(`${JSON.stringify(entry.key)}:`),
                 entry.expression,
             ];
-            if (index !== entries.length - 1)
+            if (index !== entries.length - 1 /* || recursive !== null*/)
                 base.push(ts.factory.createStringLiteral(","));
 
-            if (entry.meta.required) expressions.push(...base);
+            if (entry.meta.required /* || recursive !== null*/)
+                expressions.push(...base);
             else
                 expressions.push(
                     ts.factory.createConditionalExpression(
@@ -36,6 +57,14 @@ export namespace StringifyJoiner {
                     ),
                 );
         });
+        // if (recursive !== null)
+        //     return TemplateFactory.generate([
+        //         ts.factory.createStringLiteral("{"),
+        //         ...expressions,
+        //         ts.factory.createStringLiteral(
+        //             `${JSON.stringify(recursive.key)}:[`,
+        //         ),
+        //     ]);
 
         const last: IExpressionEntry = entries[entries.length - 1]!;
         const filtered: ts.Expression[] = last.meta.required
