@@ -1,7 +1,7 @@
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { $string } from "../../src/functional/$string";
 
-export function manual_hierarchical(obj: ObjectHierarchical): string {
+export function generate_ideal_hierarchical(obj: ObjectHierarchical): string {
     function customer(elem: ObjectHierarchical.ICustomer): string {
         return `{
             "id": ${elem.id},

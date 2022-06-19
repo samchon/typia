@@ -227,7 +227,7 @@ export namespace MetadataFactory {
         }
 
         // WHEN OBJECT, MAYBE
-        if (filter(ts.TypeFlags.Object) || type.isIntersection()) {
+        else if (filter(ts.TypeFlags.Object) || type.isIntersection()) {
             if (type.isIntersection()) {
                 const fakeCollection = new MetadataCollection();
                 const fakeSchema: IMetadata = IMetadata.create();
