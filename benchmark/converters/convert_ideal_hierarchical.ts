@@ -6,10 +6,10 @@ export function convert_ideal_hierarchical(obj: ObjectHierarchical): string {
         return `{
             "id": ${elem.id},
             "channel": ${channel(elem.channel)},
-            "member": ${elem.member ? member(elem.member) : "null"},
-            "account": ${elem.account ? account(elem.account) : "null"},
-            "href": "${$string(elem.href)}",
-            "referrer": "${$string(elem.referrer)}",
+            "member": ${elem.member ? member(elem.member) : null},
+            "account": ${elem.account ? account(elem.account) : null},
+            "href": ${$string(elem.href)},
+            "referrer": ${$string(elem.referrer)},
             "ip": [${(elem.ip[0], elem.ip[1], elem.ip[2], elem.ip[3])},
             "created_at": ${timestamp(elem.created_at)}
         }`;
@@ -19,10 +19,10 @@ export function convert_ideal_hierarchical(obj: ObjectHierarchical): string {
             "id": ${elem.id},
             "account": ${account(elem.account)},
             "enterprise": ${
-                elem.enterprise ? enterprise(elem.enterprise) : "null"
+                elem.enterprise ? enterprise(elem.enterprise) : null
             },
             "emails": [${elem.emails
-                .map((str) => `"${$string(str)}"`)
+                .map((str) => $string(str))
                 .join(", ")}],
             "created_at": ${timestamp(elem.created_at)},
             "authorized": ${elem.authorized}
@@ -32,7 +32,7 @@ export function convert_ideal_hierarchical(obj: ObjectHierarchical): string {
         return `{
             "id": ${elem.id},
             "account": ${account(elem.account)},
-            "name": "${$string(elem.name)}",
+            "name": ${$string(elem.name)},
             "grade": ${elem.grade},
             "created_at": ${timestamp(elem.created_at)}
         }`;
@@ -40,15 +40,15 @@ export function convert_ideal_hierarchical(obj: ObjectHierarchical): string {
     function account(elem: ObjectHierarchical.IAccount): string {
         return `{
             "id": ${elem.id},
-            "code": "${$string(elem.code)}",
+            "code": ${$string(elem.code)},
             "created_at": ${timestamp(elem.created_at)}
         }`;
     }
     function channel(elem: ObjectHierarchical.IChannel): string {
         return `{
             "id": ${elem.id},
-            "code": "${$string(elem.code)}",
-            "name": "${$string(elem.name)}",
+            "code": ${$string(elem.code)},
+            "name": ${$string(elem.name)},
             "sequence": ${elem.sequence},
             "exclusive": ${elem.exclusive},
             "priority": ${elem.priority},

@@ -67,7 +67,7 @@ export namespace assert {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function is<T>(input: T): boolean;
+export function is<T>(input: T): input is T;
 
 /**
  * @internal
