@@ -198,10 +198,7 @@ export namespace FeatureProgrammer {
                     tracable: explore.tracable,
                     from: "array",
                     postfix: explore.postfix.length
-                        ? explore.postfix.substr(
-                              0,
-                              explore.postfix.length - 1,
-                          ) + INDEX_SYMBOL
+                        ? explore.postfix.slice(0, -1) + INDEX_SYMBOL
                         : '"' + INDEX_SYMBOL,
                 }),
             );

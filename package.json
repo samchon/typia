@@ -12,7 +12,8 @@
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "prettier": "prettier ./**/*.ts --write",
-    "test": "node test"
+    "test": "node test",
+    "test:manual": "node test/manual"
   },
   "repository": {
     "type": "git",

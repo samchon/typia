@@ -58,12 +58,11 @@ export namespace CheckerProgrammer {
             trace: config.trace,
             functors: config.functors,
             joiner: (entries) =>
-                entries
-                    .map((entry) => entry.expression)
-                    .reduce(
-                        (x, y) => ts.factory.createLogicalAnd(x, y),
-                        ts.factory.createTrue(),
-                    ),
+                entries.length
+                    ? entries
+                          .map((entry) => entry.expression)
+                          .reduce((x, y) => ts.factory.createLogicalAnd(x, y))
+                    : ts.factory.createTrue(),
             decoder: decode(config),
         };
     }
@@ -88,15 +87,19 @@ export namespace CheckerProgrammer {
                     ? ts.factory.createStringLiteral(value)
                     : ts.factory.createIdentifier(value.toString());
 
+            const size: number = IMetadata.size(meta);
+
             // NULLBLE AND UNDEFINDABLE
-            (meta.nullable ? add : create_add(top)(input))(
-                meta.nullable,
-                ValueFactory.NULL(),
-            );
-            (meta.required ? create_add(top)(input) : add)(
-                !meta.required,
-                ValueFactory.UNDEFINED(),
-            );
+            if (meta.nullable === true || meta.objects.size || size === 0)
+                (meta.nullable ? add : create_add(top)(input))(
+                    meta.nullable,
+                    ValueFactory.NULL(),
+                );
+            if (meta.required === false || meta.objects.size || size === 0)
+                (meta.required ? create_add(top)(input) : add)(
+                    !meta.required,
+                    ValueFactory.UNDEFINED(),
+                );
 
             // CONSTANT VALUES
             for (const values of meta.constants.values())
@@ -106,8 +109,8 @@ export namespace CheckerProgrammer {
             for (const type of meta.atomics)
                 add(
                     true,
-                    ValueFactory.TYPEOF(input),
                     ts.factory.createStringLiteral(type),
+                    ValueFactory.TYPEOF(input),
                 );
 
             // ARRAY OR TUPLE
@@ -130,9 +133,8 @@ export namespace CheckerProgrammer {
                         ),
                         inner.length === 0
                             ? inner[0]!
-                            : inner.reduce(
-                                  (x, y) => ts.factory.createLogicalOr(x, y),
-                                  ts.factory.createFalse(),
+                            : inner.reduce((x, y) =>
+                                  ts.factory.createLogicalOr(x, y),
                               ),
                     ),
                 );
@@ -145,8 +147,8 @@ export namespace CheckerProgrammer {
                     create_add(outer)(input)(false, ValueFactory.NULL());
                 create_add(outer)(input)(
                     true,
-                    ValueFactory.TYPEOF(input),
                     ts.factory.createStringLiteral("object"),
+                    ValueFactory.TYPEOF(input),
                 );
 
                 const inner: ts.Expression[] = [];
@@ -196,15 +198,16 @@ export namespace CheckerProgrammer {
                     {
                         ...explore,
                         from: "array",
-                        postfix: `${explore.postfix}[${index}]`,
+                        postfix: explore.postfix.length
+                            ? `${explore.postfix.slice(0, -1)}[${index}]"`
+                            : `"[${index}]"`,
                     },
                 ),
             );
             if (binaries.length === 0) return length;
             else
-                return [length, ...binaries].reduce(
-                    (x, y) => ts.factory.createLogicalAnd(x, y),
-                    ts.factory.createTrue(),
+                return [length, ...binaries].reduce((x, y) =>
+                    ts.factory.createLogicalAnd(x, y),
                 );
         };
     }
