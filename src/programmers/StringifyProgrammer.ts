@@ -102,7 +102,9 @@ export namespace StringifyProgrammer {
                               ts.factory.createIdentifier("undefined"),
                           );
                 else if (meta.required === false)
-                    return ts.factory.createIdentifier("undefined");
+                    return explore.from === "array"
+                        ? ts.factory.createNull()
+                        : ts.factory.createIdentifier("undefined");
                 else return ts.factory.createNull();
             }
 

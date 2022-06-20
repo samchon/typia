@@ -90,7 +90,7 @@ export namespace AssertProgrammer {
                                                 ts.factory.createStringLiteral(
                                                     "assert",
                                                 ),
-                                                ts.factory.createStringLiteral(
+                                                ts.factory.createIdentifier(
                                                     path,
                                                 ),
                                                 input,

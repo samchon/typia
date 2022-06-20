@@ -15,9 +15,9 @@ export namespace IsProgrammer {
                     ? ts.factory.createLogicalAnd
                     : ts.factory.createLogicalOr;
             return (_input: ts.Expression, expressions: ts.Expression[]) =>
-                expressions.length === 1
-                    ? expressions[0]!
-                    : expressions.reduce((x, y) => binder(x, y), initial);
+                expressions.length
+                    ? expressions.reduce((x, y) => binder(x, y))
+                    : initial;
         },
         functors: {
             name: "is",
@@ -33,12 +33,12 @@ export namespace IsProgrammer {
     export function express_to_json(input: ts.Expression): ts.Expression {
         return ts.factory.createLogicalAnd(
             ts.factory.createStrictEquality(
-                ValueFactory.TYPEOF(input),
                 ts.factory.createStringLiteral("object"),
+                ValueFactory.TYPEOF(input),
             ),
             ts.factory.createStrictEquality(
-                ValueFactory.TYPEOF(IdentifierFactory.join(input, "toJSON")),
                 ts.factory.createStringLiteral("function"),
+                ValueFactory.TYPEOF(IdentifierFactory.join(input, "toJSON")),
             ),
         );
     }
