@@ -18,6 +18,7 @@ export const test_application_array_hierarchical = _test_application(
         components: {
             schemas: {
                 "ArrayHierarchical.ICompany": {
+                    $id: "ArrayHierarchical.ICompany",
                     type: "object",
                     properties: {
                         name: {
@@ -33,9 +34,13 @@ export const test_application_array_hierarchical = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["name", "departments"],
+                    required: [
+                        "ArrayHierarchical.ICompany",
+                        "ArrayHierarchical.ICompany",
+                    ],
                 },
                 "ArrayHierarchical.IDepartment": {
+                    $id: "ArrayHierarchical.IDepartment",
                     type: "object",
                     properties: {
                         name: {
@@ -51,9 +56,13 @@ export const test_application_array_hierarchical = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["name", "employees"],
+                    required: [
+                        "ArrayHierarchical.IDepartment",
+                        "ArrayHierarchical.IDepartment",
+                    ],
                 },
                 "ArrayHierarchical.IEmployee": {
+                    $id: "ArrayHierarchical.IEmployee",
                     type: "object",
                     properties: {
                         name: {
@@ -62,7 +71,7 @@ export const test_application_array_hierarchical = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["name"],
+                    required: ["ArrayHierarchical.IEmployee"],
                 },
             },
         },

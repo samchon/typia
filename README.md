@@ -1,7 +1,7 @@
 # TypeScript-JSON
 > v3 update is coming soon.
 
-Runtime type checker, and 5x faster `JSON.stringify()` function, with only one line.
+Runtime type checker, and 10x faster `JSON.stringify()` function, with only one line.
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typescript-json/blob/master/LICENSE)
 [![npm version](https://img.shields.io/npm/v/typescript-json/next.svg)](https://www.npmjs.com/package/typescript-json)
@@ -21,7 +21,7 @@ import TSON from "typescript-json";
 //----
 TSON.assert<T>(input); // runtime type checker throwing exception
 TSON.is<T>(input); // runtime type checker returning boolean
-TSON.stringify<T>(input); // 5x faster JSON.stringify()
+TSON.stringify<T>(input); // 10x faster JSON.stringify()
 
 //----
 // APPENDIX FUNCTIONS
@@ -33,7 +33,7 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
 `typescript-json` is a transformer library providing JSON related functions.
 
   - Runtime type checkers
-  - 5x faster `JSON.stringify()` function
+  - 10x faster `JSON.stringify()` function
   - Comparing with `ajv` or `fast-json-stringify`
     - 1,000x faster 1st operation including optimizer construction time
     - Does not require any JSON schema definition
@@ -142,7 +142,7 @@ export function stringify<T>(input: T): string;
 
 Super-fast JSON string conversion function.
 
-If you call `TSON.stringify()` function instead of the native `JSON.stringify()`, the JSON conversion time would be 5x times faster. Also, you can perform such super-fast JSON string conversion very easily, by only one line: `TSON.stringify<T>(input)`.
+If you call `TSON.stringify()` function instead of the native `JSON.stringify()`, the JSON conversion time would be 10x times faster. Also, you can perform such super-fast JSON string conversion very easily, by only one line: `TSON.stringify<T>(input)`.
 
 On the other side, other similary library like `fast-json-stringify` requires complicate JSON schema definition. Furthermore, `typescript-json` can convert complicate structured data that `fast-json-stringify` cannot convert.
 
@@ -197,7 +197,7 @@ Intersection type | ✔ | ✔ | ▲
 Conditional type | ✔ | ▲ | ❌
 Auto completion | ✔ | ❌ | ❌
 Type hints | ✔ | ❌ | ❌
-5x faster `JSON.stringify()` | ✔ | ❌ | ❌
+10x faster `JSON.stringify()` | ✔ | ❌ | ❌
 Ensure type safety | ✅ | ❌ | ❌
 
 ```typescript
@@ -262,9 +262,9 @@ export async function trace_sale_question_and_comment
 
 https://github.com/samchon/nestia-helper
 
-Boost up `JSON.stringify()` function, of the API responses, 5x times faster.
+Boost up `JSON.stringify()` function, of the API responses, 10x times faster.
 
-`nestia-helper` is a helper library of `NestJS`, which can boost up the `JSON.stringify()` function 5x times faster about the API responses. Just by installing and utilizing this `nestia-helper`, your NestJS developed backend server will convert JSON string 5x times faster.
+`nestia-helper` is a helper library of `NestJS`, which can boost up the `JSON.stringify()` function 10x times faster about the API responses. Just by installing and utilizing this `nestia-helper`, your NestJS developed backend server will convert JSON string 10x times faster.
 
 ```typescript
 import helper from "nestia-helper";
@@ -273,7 +273,7 @@ import * as nest from "@nestjs/common";
 @nest.Controller("bbs/articles")
 export class BbsArticlesController
 {
-    // JSON.stringify() would be 5x times faster 
+    // JSON.stringify() would be 10x times faster 
     @helper.TypedRoute.Get()
     public get(): Promise<IPage<IBbsArticle.ISummary>>;
 }

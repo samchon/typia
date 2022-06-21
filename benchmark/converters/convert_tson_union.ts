@@ -1,5 +1,5 @@
 import TSON from "../../src";
-import { ArrayRecursiveUnion } from "../../test/structures/ArrayRecursiveUnion";
+import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 
-export const convert_tson_union = (input: ArrayRecursiveUnion) =>
+export const convert_tson_union = (input: ObjectUnionExplicit) =>
     TSON.stringify(input);

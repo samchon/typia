@@ -14,6 +14,7 @@ export const test_application_object_closure = _test_application(
         components: {
             schemas: {
                 "ObjectClosure.IRecord": {
+                    $id: "ObjectClosure.IRecord",
                     type: "object",
                     properties: {
                         id: {
@@ -22,7 +23,7 @@ export const test_application_object_closure = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["id"],
+                    required: ["ObjectClosure.IRecord"],
                 },
             },
         },

@@ -14,6 +14,7 @@ export const test_application_object_generic_array = _test_application(
         components: {
             schemas: {
                 "ObjectGenericArray.IPage_lt_ObjectGenericArray.IPerson_gt_": {
+                    $id: "ObjectGenericArray.IPage_lt_ObjectGenericArray.IPerson_gt_",
                     type: "object",
                     properties: {
                         pagination: {
@@ -28,9 +29,13 @@ export const test_application_object_generic_array = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["pagination", "data"],
+                    required: [
+                        "ObjectGenericArray.IPage_lt_ObjectGenericArray.IPerson_gt_",
+                        "ObjectGenericArray.IPage_lt_ObjectGenericArray.IPerson_gt_",
+                    ],
                 },
                 "ObjectGenericArray.IPagination": {
+                    $id: "ObjectGenericArray.IPagination",
                     type: "object",
                     properties: {
                         page: {
@@ -51,9 +56,15 @@ export const test_application_object_generic_array = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["page", "limit", "total_count", "total_pages"],
+                    required: [
+                        "ObjectGenericArray.IPagination",
+                        "ObjectGenericArray.IPagination",
+                        "ObjectGenericArray.IPagination",
+                        "ObjectGenericArray.IPagination",
+                    ],
                 },
                 "ObjectGenericArray.IPerson": {
+                    $id: "ObjectGenericArray.IPerson",
                     type: "object",
                     properties: {
                         name: {
@@ -66,7 +77,10 @@ export const test_application_object_generic_array = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["name", "age"],
+                    required: [
+                        "ObjectGenericArray.IPerson",
+                        "ObjectGenericArray.IPerson",
+                    ],
                 },
             },
         },

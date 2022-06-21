@@ -3,10 +3,10 @@ import ts from "typescript";
 import { LiteralFactory } from "../../factories/LiteralFactory";
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { MetadataFactory } from "../../factories/MetadataFactory";
+import { Metadata } from "../../metadata/Metadata";
 import { ApplicationProgrammer } from "../../programmers/ApplicationProgrammer";
 
 import { IJsonApplication } from "../../structures/IJsonApplication";
-import { IMetadata } from "../../structures/IMetadata";
 import { IProject } from "../../structures/IProject";
 
 export namespace ApplicationTransformer {
@@ -58,7 +58,7 @@ export namespace ApplicationTransformer {
         const collection: MetadataCollection = new MetadataCollection({
             replace: MetadataCollection.replace,
         });
-        const metadatas: Array<IMetadata> = types.map((type) =>
+        const metadatas: Array<Metadata> = types.map((type) =>
             MetadataFactory.generate(checker, collection, type, {
                 resolve: true,
                 constant: true,

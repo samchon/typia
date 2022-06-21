@@ -1,10 +1,10 @@
 import { BenchmarkGenerator } from "../internal/Benchmark";
 
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
-import { ArrayRecursiveUnion } from "../../test/structures/ArrayRecursiveUnion";
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
 import { ObjectSimple } from "../../test/structures/ObjectSimple";
+import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 
 import { convert_ajv_simple } from "../converters/convert_ajv_simple";
 import { convert_ajv_recursive } from "../converters/convert_ajv_recursive";
@@ -20,7 +20,7 @@ import { convert_ideal_recursive } from "../converters/convert_ideal_recursive";
 import { convert_ideal_tree } from "../converters/convert_ideal_tree";
 import { convert_ideal_union } from "../converters/convert_ideal_union";
 import { convert_tson_union } from "../converters/convert_tson_union";
-import { convert_ajv_union } from "../converters/convert_ajv_union";
+// import { convert_ajv_union } from "../converters/convert_ajv_union";
 
 export const benchmark_stringify_repeat = () => [
     BenchmarkGenerator.prepare("simple", () => ObjectSimple.generate(), {
@@ -47,9 +47,10 @@ export const benchmark_stringify_repeat = () => [
         tson: convert_tson_tree,
         ajv: convert_ajv_tree(),
     }),
-    BenchmarkGenerator.prepare("union", () => ArrayRecursiveUnion.generate(), {
+    BenchmarkGenerator.prepare("union", () => ObjectUnionExplicit.generate(), {
         ideal: convert_ideal_union,
         tson: convert_tson_union,
-        ajv: convert_ajv_union(),
+        ajv: null,
+        // ajv: convert_ajv_union(),
     }),
 ];

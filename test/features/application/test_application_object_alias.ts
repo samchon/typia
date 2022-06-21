@@ -18,11 +18,11 @@ export const test_application_object_alias = _test_application(
         components: {
             schemas: {
                 "ObjectAlias.IMember": {
+                    $id: "ObjectAlias.IMember",
                     type: "object",
                     properties: {
                         id: {
-                            type: "string",
-                            nullable: true,
+                            type: "null",
                         },
                         email: {
                             type: "string",
@@ -47,8 +47,7 @@ export const test_application_object_alias = _test_application(
                             ],
                         },
                         age: {
-                            type: "number",
-                            nullable: true,
+                            type: "null",
                         },
                         dead: {
                             type: "boolean",
@@ -57,7 +56,14 @@ export const test_application_object_alias = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["id", "email", "name", "sex", "age", "dead"],
+                    required: [
+                        "ObjectAlias.IMember",
+                        "ObjectAlias.IMember",
+                        "ObjectAlias.IMember",
+                        "ObjectAlias.IMember",
+                        "ObjectAlias.IMember",
+                        "ObjectAlias.IMember",
+                    ],
                 },
             },
         },

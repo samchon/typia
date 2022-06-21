@@ -22,7 +22,9 @@ function measure(functor: () => Array<() => BenchmarkGenerator.IOutput>): void {
                 result.name,
                 (result.ideal / result.json) * 100,
                 (result.tson / result.json) * 100,
-                (result.ajv / result.json) * 100,
+                result.ajv !== null
+                    ? (result.ajv / result.json) * 100
+                    : "Failed",
                 (result.json / result.json) * 100,
             ].join(" | "),
         );

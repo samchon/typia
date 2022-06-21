@@ -14,6 +14,7 @@ export const test_application_class_getter = _test_application(
         components: {
             schemas: {
                 "ClassGetter.Person": {
+                    $id: "ClassGetter.Person",
                     type: "object",
                     properties: {
                         id: {
@@ -31,7 +32,11 @@ export const test_application_class_getter = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["id", "name", "dead"],
+                    required: [
+                        "ClassGetter.Person",
+                        "ClassGetter.Person",
+                        "ClassGetter.Person",
+                    ],
                 },
             },
         },

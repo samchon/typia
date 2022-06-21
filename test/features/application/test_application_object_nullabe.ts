@@ -18,6 +18,7 @@ export const test_application_object_nullable = _test_application(
         components: {
             schemas: {
                 "ObjectNullable.IProduct": {
+                    $id: "ObjectNullable.IProduct",
                     type: "object",
                     properties: {
                         name: {
@@ -32,9 +33,14 @@ export const test_application_object_nullable = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["name", "manufacturer", "brand"],
+                    required: [
+                        "ObjectNullable.IProduct",
+                        "ObjectNullable.IProduct",
+                        "ObjectNullable.IProduct",
+                    ],
                 },
                 "ObjectNullable.IManufacturer": {
+                    $id: "ObjectNullable.IManufacturer",
                     type: "object",
                     properties: {
                         name: {
@@ -43,9 +49,10 @@ export const test_application_object_nullable = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["name"],
+                    required: ["ObjectNullable.IManufacturer"],
                 },
                 "ObjectNullable.IBrand.Nullable": {
+                    $id: "ObjectNullable.IBrand.Nullable",
                     type: "object",
                     properties: {
                         name: {
@@ -54,7 +61,7 @@ export const test_application_object_nullable = _test_application(
                         },
                     },
                     nullable: true,
-                    required: ["name"],
+                    required: ["ObjectNullable.IBrand.Nullable"],
                 },
             },
         },

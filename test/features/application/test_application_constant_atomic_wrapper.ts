@@ -28,6 +28,7 @@ export const test_application_constant_atomic_wrapper = _test_application(
         components: {
             schemas: {
                 IPointer_lt_boolean_gt_: {
+                    $id: "IPointer_lt_boolean_gt_",
                     type: "object",
                     properties: {
                         value: {
@@ -37,9 +38,10 @@ export const test_application_constant_atomic_wrapper = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["value"],
+                    required: ["IPointer_lt_boolean_gt_"],
                 },
                 IPointer_lt_number_gt_: {
+                    $id: "IPointer_lt_number_gt_",
                     type: "object",
                     properties: {
                         value: {
@@ -48,9 +50,10 @@ export const test_application_constant_atomic_wrapper = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["value"],
+                    required: ["IPointer_lt_number_gt_"],
                 },
                 IPointer_lt_string_gt_: {
+                    $id: "IPointer_lt_string_gt_",
                     type: "object",
                     properties: {
                         value: {
@@ -59,7 +62,7 @@ export const test_application_constant_atomic_wrapper = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["value"],
+                    required: ["IPointer_lt_string_gt_"],
                 },
             },
         },

@@ -34,6 +34,7 @@ export const test_application_array_recursive_union = _test_application(
         components: {
             schemas: {
                 "ArrayRecursiveUnion.IDirectory": {
+                    $id: "ArrayRecursiveUnion.IDirectory",
                     type: "object",
                     properties: {
                         children: {
@@ -78,9 +79,16 @@ export const test_application_array_recursive_union = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["children", "id", "type", "name", "path"],
+                    required: [
+                        "ArrayRecursiveUnion.IDirectory",
+                        "ArrayRecursiveUnion.IDirectory",
+                        "ArrayRecursiveUnion.IDirectory",
+                        "ArrayRecursiveUnion.IDirectory",
+                        "ArrayRecursiveUnion.IDirectory",
+                    ],
                 },
                 "ArrayRecursiveUnion.IImageFile": {
+                    $id: "ArrayRecursiveUnion.IImageFile",
                     type: "object",
                     properties: {
                         width: {
@@ -124,18 +132,19 @@ export const test_application_array_recursive_union = _test_application(
                     },
                     nullable: false,
                     required: [
-                        "width",
-                        "height",
-                        "url",
-                        "extension",
-                        "size",
-                        "id",
-                        "type",
-                        "name",
-                        "path",
+                        "ArrayRecursiveUnion.IImageFile",
+                        "ArrayRecursiveUnion.IImageFile",
+                        "ArrayRecursiveUnion.IImageFile",
+                        "ArrayRecursiveUnion.IImageFile",
+                        "ArrayRecursiveUnion.IImageFile",
+                        "ArrayRecursiveUnion.IImageFile",
+                        "ArrayRecursiveUnion.IImageFile",
+                        "ArrayRecursiveUnion.IImageFile",
+                        "ArrayRecursiveUnion.IImageFile",
                     ],
                 },
                 "ArrayRecursiveUnion.ITextFile": {
+                    $id: "ArrayRecursiveUnion.ITextFile",
                     type: "object",
                     properties: {
                         content: {
@@ -171,16 +180,17 @@ export const test_application_array_recursive_union = _test_application(
                     },
                     nullable: false,
                     required: [
-                        "content",
-                        "extension",
-                        "size",
-                        "id",
-                        "type",
-                        "name",
-                        "path",
+                        "ArrayRecursiveUnion.ITextFile",
+                        "ArrayRecursiveUnion.ITextFile",
+                        "ArrayRecursiveUnion.ITextFile",
+                        "ArrayRecursiveUnion.ITextFile",
+                        "ArrayRecursiveUnion.ITextFile",
+                        "ArrayRecursiveUnion.ITextFile",
+                        "ArrayRecursiveUnion.ITextFile",
                     ],
                 },
                 "ArrayRecursiveUnion.IZipFile": {
+                    $id: "ArrayRecursiveUnion.IZipFile",
                     type: "object",
                     properties: {
                         count: {
@@ -216,16 +226,17 @@ export const test_application_array_recursive_union = _test_application(
                     },
                     nullable: false,
                     required: [
-                        "count",
-                        "extension",
-                        "size",
-                        "id",
-                        "type",
-                        "name",
-                        "path",
+                        "ArrayRecursiveUnion.IZipFile",
+                        "ArrayRecursiveUnion.IZipFile",
+                        "ArrayRecursiveUnion.IZipFile",
+                        "ArrayRecursiveUnion.IZipFile",
+                        "ArrayRecursiveUnion.IZipFile",
+                        "ArrayRecursiveUnion.IZipFile",
+                        "ArrayRecursiveUnion.IZipFile",
                     ],
                 },
                 "ArrayRecursiveUnion.IShortcut": {
+                    $id: "ArrayRecursiveUnion.IShortcut",
                     type: "object",
                     properties: {
                         target: {
@@ -272,12 +283,12 @@ export const test_application_array_recursive_union = _test_application(
                     },
                     nullable: false,
                     required: [
-                        "target",
-                        "extension",
-                        "id",
-                        "type",
-                        "name",
-                        "path",
+                        "ArrayRecursiveUnion.IShortcut",
+                        "ArrayRecursiveUnion.IShortcut",
+                        "ArrayRecursiveUnion.IShortcut",
+                        "ArrayRecursiveUnion.IShortcut",
+                        "ArrayRecursiveUnion.IShortcut",
+                        "ArrayRecursiveUnion.IShortcut",
                     ],
                 },
             },

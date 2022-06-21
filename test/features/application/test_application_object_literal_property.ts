@@ -14,6 +14,7 @@ export const test_application_object_literal_property = _test_application(
         components: {
             schemas: {
                 "ObjectLiteralProperty.ISomething": {
+                    $id: "ObjectLiteralProperty.ISomething",
                     type: "object",
                     properties: {
                         "something-interesting-do-you-want?": {
@@ -27,8 +28,8 @@ export const test_application_object_literal_property = _test_application(
                     },
                     nullable: false,
                     required: [
-                        "something-interesting-do-you-want?",
-                        "or-something-crazy-do-you-want?",
+                        "ObjectLiteralProperty.ISomething",
+                        "ObjectLiteralProperty.ISomething",
                     ],
                 },
             },

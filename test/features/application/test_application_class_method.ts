@@ -14,6 +14,7 @@ export const test_application_class_method = _test_application(
         components: {
             schemas: {
                 "ClassMethod.Animal": {
+                    $id: "ClassMethod.Animal",
                     type: "object",
                     properties: {
                         name: {
@@ -26,7 +27,7 @@ export const test_application_class_method = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["name", "age"],
+                    required: ["ClassMethod.Animal", "ClassMethod.Animal"],
                 },
             },
         },

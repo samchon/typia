@@ -8,16 +8,31 @@ export const test_application_object_recursive = _test_application(
     {
         schemas: [
             {
-                $ref: "#/components/schemas/ObjectRecursive.IDepartment",
+                oneOf: [
+                    {
+                        $ref: "#/components/schemas/ObjectRecursive.IDepartment",
+                    },
+                    {
+                        $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
+                    },
+                ],
             },
         ],
         components: {
             schemas: {
                 "ObjectRecursive.IDepartment": {
+                    $id: "ObjectRecursive.IDepartment",
                     type: "object",
                     properties: {
                         parent: {
-                            $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
+                            oneOf: [
+                                {
+                                    $ref: "#/components/schemas/ObjectRecursive.IDepartment",
+                                },
+                                {
+                                    $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
+                                },
+                            ],
                         },
                         id: {
                             type: "number",
@@ -41,19 +56,27 @@ export const test_application_object_recursive = _test_application(
                     },
                     nullable: false,
                     required: [
-                        "parent",
-                        "id",
-                        "code",
-                        "name",
-                        "sequence",
-                        "created_at",
+                        "ObjectRecursive.IDepartment",
+                        "ObjectRecursive.IDepartment",
+                        "ObjectRecursive.IDepartment",
+                        "ObjectRecursive.IDepartment",
+                        "ObjectRecursive.IDepartment",
+                        "ObjectRecursive.IDepartment",
                     ],
                 },
                 "ObjectRecursive.IDepartment.Nullable": {
+                    $id: "ObjectRecursive.IDepartment.Nullable",
                     type: "object",
                     properties: {
                         parent: {
-                            $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
+                            oneOf: [
+                                {
+                                    $ref: "#/components/schemas/ObjectRecursive.IDepartment",
+                                },
+                                {
+                                    $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
+                                },
+                            ],
                         },
                         id: {
                             type: "number",
@@ -77,15 +100,16 @@ export const test_application_object_recursive = _test_application(
                     },
                     nullable: true,
                     required: [
-                        "parent",
-                        "id",
-                        "code",
-                        "name",
-                        "sequence",
-                        "created_at",
+                        "ObjectRecursive.IDepartment.Nullable",
+                        "ObjectRecursive.IDepartment.Nullable",
+                        "ObjectRecursive.IDepartment.Nullable",
+                        "ObjectRecursive.IDepartment.Nullable",
+                        "ObjectRecursive.IDepartment.Nullable",
+                        "ObjectRecursive.IDepartment.Nullable",
                     ],
                 },
                 "ObjectRecursive.ITimestamp": {
+                    $id: "ObjectRecursive.ITimestamp",
                     type: "object",
                     properties: {
                         time: {
@@ -98,7 +122,10 @@ export const test_application_object_recursive = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["time", "zone"],
+                    required: [
+                        "ObjectRecursive.ITimestamp",
+                        "ObjectRecursive.ITimestamp",
+                    ],
                 },
             },
         },

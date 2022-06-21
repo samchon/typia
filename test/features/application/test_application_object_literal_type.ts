@@ -14,6 +14,7 @@ export const test_application_object_literal_type = _test_application(
         components: {
             schemas: {
                 __object: {
+                    $id: "__object",
                     type: "object",
                     properties: {
                         id: {
@@ -30,7 +31,7 @@ export const test_application_object_literal_type = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["id", "name", "age"],
+                    required: ["__object", "__object", "__object"],
                 },
             },
         },

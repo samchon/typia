@@ -22,6 +22,7 @@ export const test_application_object_generic_union = _test_application(
             schemas: {
                 "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_":
                     {
+                        $id: "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
                         type: "object",
                         properties: {
                             writer: {
@@ -53,16 +54,17 @@ export const test_application_object_generic_union = _test_application(
                         },
                         nullable: false,
                         required: [
-                            "writer",
-                            "answer",
-                            "id",
-                            "hit",
-                            "contents",
-                            "created_at",
+                            "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
+                            "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
+                            "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
+                            "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
+                            "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
+                            "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
                         ],
                     },
                 "ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable":
                     {
+                        $id: "ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
                         type: "object",
                         properties: {
                             id: {
@@ -86,9 +88,15 @@ export const test_application_object_generic_union = _test_application(
                             },
                         },
                         nullable: true,
-                        required: ["id", "hit", "contents", "created_at"],
+                        required: [
+                            "ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
+                            "ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
+                            "ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
+                            "ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
+                        ],
                     },
                 "ObjectGenericUnion.ISaleArticle.IContent": {
+                    $id: "ObjectGenericUnion.ISaleArticle.IContent",
                     type: "object",
                     properties: {
                         id: {
@@ -116,9 +124,16 @@ export const test_application_object_generic_union = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["id", "created_at", "title", "body", "files"],
+                    required: [
+                        "ObjectGenericUnion.ISaleArticle.IContent",
+                        "ObjectGenericUnion.ISaleArticle.IContent",
+                        "ObjectGenericUnion.ISaleArticle.IContent",
+                        "ObjectGenericUnion.ISaleArticle.IContent",
+                        "ObjectGenericUnion.ISaleArticle.IContent",
+                    ],
                 },
                 __type: {
+                    $id: "__type",
                     type: "object",
                     properties: {
                         name: {
@@ -130,15 +145,15 @@ export const test_application_object_generic_union = _test_application(
                             nullable: false,
                         },
                         extension: {
-                            type: "string",
-                            nullable: true,
+                            type: "null",
                         },
                     },
                     nullable: false,
-                    required: ["name", "url", "extension"],
+                    required: ["__type", "__type", "__type"],
                 },
                 "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_":
                     {
+                        $id: "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
                         type: "object",
                         properties: {
                             writer: {
@@ -170,15 +185,16 @@ export const test_application_object_generic_union = _test_application(
                         },
                         nullable: false,
                         required: [
-                            "writer",
-                            "answer",
-                            "id",
-                            "hit",
-                            "contents",
-                            "created_at",
+                            "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
+                            "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
+                            "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
+                            "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
+                            "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
+                            "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
                         ],
                     },
                 "ObjectGenericUnion.ISaleReview.IContent": {
+                    $id: "ObjectGenericUnion.ISaleReview.IContent",
                     type: "object",
                     properties: {
                         score: {
@@ -211,12 +227,12 @@ export const test_application_object_generic_union = _test_application(
                     },
                     nullable: false,
                     required: [
-                        "score",
-                        "id",
-                        "created_at",
-                        "title",
-                        "body",
-                        "files",
+                        "ObjectGenericUnion.ISaleReview.IContent",
+                        "ObjectGenericUnion.ISaleReview.IContent",
+                        "ObjectGenericUnion.ISaleReview.IContent",
+                        "ObjectGenericUnion.ISaleReview.IContent",
+                        "ObjectGenericUnion.ISaleReview.IContent",
+                        "ObjectGenericUnion.ISaleReview.IContent",
                     ],
                 },
             },

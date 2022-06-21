@@ -14,6 +14,7 @@ export const test_application_object_primitive = _test_application(
         components: {
             schemas: {
                 __type: {
+                    $id: "__type",
                     type: "object",
                     properties: {
                         id: {
@@ -52,16 +53,17 @@ export const test_application_object_primitive = _test_application(
                     },
                     nullable: false,
                     required: [
-                        "id",
-                        "extension",
-                        "title",
-                        "body",
-                        "files",
-                        "secret",
-                        "created_at",
+                        "__type",
+                        "__type",
+                        "__type",
+                        "__type",
+                        "__type",
+                        "__type",
+                        "__type",
                     ],
                 },
                 "__type.o1": {
+                    $id: "__type.o1",
                     type: "object",
                     properties: {
                         id: {
@@ -86,7 +88,13 @@ export const test_application_object_primitive = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["id", "name", "extension", "url", "created_at"],
+                    required: [
+                        "__type.o1",
+                        "__type.o1",
+                        "__type.o1",
+                        "__type.o1",
+                        "__type.o1",
+                    ],
                 },
             },
         },

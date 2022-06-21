@@ -7,7 +7,7 @@ runner.register({
     compiler: "ttypescript"
 });
 
-const program = require("./features/stringify/test_stringify_tuple_hierarchical.ts");
+const program = require("./features/application/test_application_constant_atomic_union.ts");
 for (const value of Object.values(program))
     if (typeof value === "function")
         value();

@@ -34,6 +34,7 @@ export const test_application_object_union = _test_application(
         components: {
             schemas: {
                 "ObjectUnion.IStore": {
+                    $id: "ObjectUnion.IStore",
                     type: "object",
                     properties: {
                         type: {
@@ -47,9 +48,10 @@ export const test_application_object_union = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["type", "name"],
+                    required: ["ObjectUnion.IStore", "ObjectUnion.IStore"],
                 },
                 "ObjectUnion.IBrand": {
+                    $id: "ObjectUnion.IBrand",
                     type: "object",
                     properties: {
                         type: {
@@ -63,9 +65,10 @@ export const test_application_object_union = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["type", "name"],
+                    required: ["ObjectUnion.IBrand", "ObjectUnion.IBrand"],
                 },
                 "ObjectUnion.ICompany": {
+                    $id: "ObjectUnion.ICompany",
                     type: "object",
                     properties: {
                         type: {
@@ -86,9 +89,14 @@ export const test_application_object_union = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["type", "name", "departments"],
+                    required: [
+                        "ObjectUnion.ICompany",
+                        "ObjectUnion.ICompany",
+                        "ObjectUnion.ICompany",
+                    ],
                 },
                 "ObjectUnion.IDepartment": {
+                    $id: "ObjectUnion.IDepartment",
                     type: "object",
                     properties: {
                         type: {
@@ -109,9 +117,14 @@ export const test_application_object_union = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["type", "name", "employees"],
+                    required: [
+                        "ObjectUnion.IDepartment",
+                        "ObjectUnion.IDepartment",
+                        "ObjectUnion.IDepartment",
+                    ],
                 },
                 "ObjectUnion.IEmployee": {
+                    $id: "ObjectUnion.IEmployee",
                     type: "object",
                     properties: {
                         type: {
@@ -125,7 +138,10 @@ export const test_application_object_union = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["type", "name"],
+                    required: [
+                        "ObjectUnion.IEmployee",
+                        "ObjectUnion.IEmployee",
+                    ],
                 },
             },
         },

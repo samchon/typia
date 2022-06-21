@@ -18,6 +18,7 @@ export const test_application_object_undefined = _test_application(
         components: {
             schemas: {
                 "ObjectUndefied.ILecture": {
+                    $id: "ObjectUndefied.ILecture",
                     type: "object",
                     properties: {
                         name: {
@@ -46,9 +47,10 @@ export const test_application_object_undefined = _test_application(
                         nothing: {},
                     },
                     nullable: false,
-                    required: ["name"],
+                    required: ["ObjectUndefied.ILecture"],
                 },
                 "ObjectUndefied.IClassroom": {
+                    $id: "ObjectUndefied.IClassroom",
                     type: "object",
                     properties: {
                         id: {
@@ -61,7 +63,10 @@ export const test_application_object_undefined = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["id", "name"],
+                    required: [
+                        "ObjectUndefied.IClassroom",
+                        "ObjectUndefied.IClassroom",
+                    ],
                 },
             },
         },

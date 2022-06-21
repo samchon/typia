@@ -18,6 +18,7 @@ export const test_application_array_simple = _test_application(
         components: {
             schemas: {
                 "ArraySimple.IPerson": {
+                    $id: "ArraySimple.IPerson",
                     type: "object",
                     properties: {
                         name: {
@@ -56,9 +57,14 @@ export const test_application_array_simple = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["name", "email", "hobbies"],
+                    required: [
+                        "ArraySimple.IPerson",
+                        "ArraySimple.IPerson",
+                        "ArraySimple.IPerson",
+                    ],
                 },
                 "ArraySimple.IHobby": {
+                    $id: "ArraySimple.IHobby",
                     type: "object",
                     properties: {
                         name: {
@@ -71,9 +77,10 @@ export const test_application_array_simple = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["name", "rank"],
+                    required: ["ArraySimple.IHobby", "ArraySimple.IHobby"],
                 },
                 "ArraySimple.IContent": {
+                    $id: "ArraySimple.IContent",
                     type: "object",
                     properties: {
                         body: {
@@ -82,7 +89,7 @@ export const test_application_array_simple = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["body"],
+                    required: ["ArraySimple.IContent"],
                 },
             },
         },

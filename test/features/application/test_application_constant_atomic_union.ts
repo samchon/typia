@@ -2,7 +2,7 @@ import TSON from "../../../src";
 import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 import { _test_application } from "./_test_application";
 
-export const test_application_constant_atomic = _test_application(
+export const test_application_constant_atomic_union = _test_application(
     "constant atomic",
     TSON.application<[ConstantAtomicUnion]>(),
     {
@@ -37,6 +37,7 @@ export const test_application_constant_atomic = _test_application(
         components: {
             schemas: {
                 __type: {
+                    $id: "__type",
                     type: "object",
                     properties: {
                         key: {
@@ -46,7 +47,7 @@ export const test_application_constant_atomic = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["key"],
+                    required: ["__type"],
                 },
             },
         },

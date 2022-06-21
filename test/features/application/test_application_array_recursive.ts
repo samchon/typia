@@ -14,6 +14,7 @@ export const test_application_array_recursive = _test_application(
         components: {
             schemas: {
                 "ArrayRecursive.ICategory": {
+                    $id: "ArrayRecursive.ICategory",
                     type: "object",
                     properties: {
                         children: {
@@ -45,15 +46,16 @@ export const test_application_array_recursive = _test_application(
                     },
                     nullable: false,
                     required: [
-                        "children",
-                        "id",
-                        "code",
-                        "name",
-                        "sequence",
-                        "created_at",
+                        "ArrayRecursive.ICategory",
+                        "ArrayRecursive.ICategory",
+                        "ArrayRecursive.ICategory",
+                        "ArrayRecursive.ICategory",
+                        "ArrayRecursive.ICategory",
+                        "ArrayRecursive.ICategory",
                     ],
                 },
                 "ArrayRecursive.ITimestamp": {
+                    $id: "ArrayRecursive.ITimestamp",
                     type: "object",
                     properties: {
                         time: {
@@ -66,7 +68,10 @@ export const test_application_array_recursive = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["time", "zone"],
+                    required: [
+                        "ArrayRecursive.ITimestamp",
+                        "ArrayRecursive.ITimestamp",
+                    ],
                 },
             },
         },

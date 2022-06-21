@@ -17,10 +17,9 @@ import { convert_ideal_simple } from "../converters/convert_ideal_simple";
 import { convert_ideal_hierarchical } from "../converters/convert_ideal_hierarchical";
 import { convert_ideal_recursive } from "../converters/convert_ideal_recursive";
 import { convert_ideal_tree } from "../converters/convert_ideal_tree";
-import { ArrayRecursiveUnion } from "../../test/structures/ArrayRecursiveUnion";
-import { convert_ajv_union } from "../converters/convert_ajv_union";
 import { convert_ideal_union } from "../converters/convert_ideal_union";
 import { convert_tson_union } from "../converters/convert_tson_union";
+import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 
 export const benchmark_stringify_optimizer = () => [
     BenchmarkGenerator.prepare("simple", () => ObjectSimple.generate(), {
@@ -47,9 +46,9 @@ export const benchmark_stringify_optimizer = () => [
         tson: convert_tson_tree,
         ajv: (input) => convert_ajv_tree()(input),
     }),
-    BenchmarkGenerator.prepare("union", () => ArrayRecursiveUnion.generate(), {
+    BenchmarkGenerator.prepare("union", () => ObjectUnionExplicit.generate(), {
         ideal: convert_ideal_union,
         tson: convert_tson_union,
-        ajv: (input) => convert_ajv_union()(input),
+        ajv: null,
     }),
 ];

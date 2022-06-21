@@ -1,5 +1,4 @@
 import ts from "typescript";
-import { IMetadata } from "../structures/IMetadata";
 import { StringifyPredicator } from "./helpers/StringifyPredicator";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
@@ -8,6 +7,8 @@ import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { StringifyJoiner } from "./helpers/StringifyJoinder";
 import { StatementFactory } from "../factories/StatementFactory";
+import { Metadata } from "../metadata/Metadata";
+import { ArrayUtil } from "../utils/ArrayUtil";
 
 export namespace StringifyProgrammer {
     const CONFIG = (
@@ -15,7 +16,7 @@ export namespace StringifyProgrammer {
     ): FeatureProgrammer.IConfig => ({
         initializer: ({ checker }, type) => {
             const collection: MetadataCollection = new MetadataCollection();
-            const meta: IMetadata = MetadataFactory.generate(
+            const meta: Metadata = MetadataFactory.generate(
                 checker,
                 collection,
                 type,
@@ -71,7 +72,7 @@ export namespace StringifyProgrammer {
         (modulo: ts.LeftHandSideExpression) =>
         (
             input: ts.Expression,
-            meta: IMetadata,
+            meta: Metadata,
             explore: FeatureProgrammer.IExplore,
         ): ts.Expression => {
             // ANY TYPE
@@ -83,7 +84,7 @@ export namespace StringifyProgrammer {
                 );
 
             // ONLY NULL OR UNDEFINED
-            const size: number = IMetadata.size(meta);
+            const size: number = meta.size();
             if (
                 size === 0 &&
                 (meta.required === false || meta.nullable === true)
@@ -130,20 +131,29 @@ export namespace StringifyProgrammer {
                     });
 
             // ATOMICS AND CONSTANTS
-            for (const [type, values] of meta.constants)
-                if (meta.atomics.has(type)) continue;
-                else if (type !== "string")
+            for (const constant of meta.constants)
+                if (
+                    ArrayUtil.has(
+                        meta.atomics,
+                        (type) => type === constant.type,
+                    )
+                )
+                    continue;
+                else if (constant.type !== "string")
                     unions.push({
                         type: "atomic",
                         is: () =>
                             IsProgrammer.express(
                                 input,
-                                IMetadata.separate({
-                                    atomics: new Set([type]),
-                                }),
+                                (() => {
+                                    const partial = Metadata.initialize();
+                                    partial.atomics.push(constant.type);
+                                    return partial;
+                                })(),
                                 explore,
                             ),
-                        value: () => decode_atomic(input, type, explore),
+                        value: () =>
+                            decode_atomic(input, constant.type, explore),
                     });
                 else
                     unions.push({
@@ -151,15 +161,17 @@ export namespace StringifyProgrammer {
                         is: () =>
                             IsProgrammer.express(
                                 input,
-                                IMetadata.separate({
-                                    atomics: new Set([type]),
-                                }),
+                                (() => {
+                                    const partial = Metadata.initialize();
+                                    partial.atomics.push("string");
+                                    return partial;
+                                })(),
                                 explore,
                             ),
                         value: () =>
                             decode_constant_string(
                                 input,
-                                [...values] as string[],
+                                [...constant.values] as string[],
                                 explore,
                             ),
                     });
@@ -169,7 +181,11 @@ export namespace StringifyProgrammer {
                     is: () =>
                         IsProgrammer.express(
                             input,
-                            IMetadata.separate({ atomics: new Set([type]) }),
+                            (() => {
+                                const partial = Metadata.initialize();
+                                partial.atomics.push(type);
+                                return partial;
+                            })(),
                             explore,
                         ),
                     value: () => decode_atomic(input, type, explore),
@@ -182,41 +198,48 @@ export namespace StringifyProgrammer {
                     is: () =>
                         IsProgrammer.express(
                             input,
-                            IMetadata.separate({ tuples: new Map([tuple]) }),
+                            (() => {
+                                const partial = Metadata.initialize();
+                                partial.tuples.push(tuple);
+                                return partial;
+                            })(),
                             explore,
                         ),
-                    value: () =>
-                        express_tuple(modulo)(input, tuple[1], explore),
+                    value: () => express_tuple(modulo)(input, tuple, explore),
                 });
 
             // ARRIES
-            for (const [key, value] of meta.arraies)
+            for (const array of meta.arrays)
                 unions.push({
                     type: "array",
                     is: () =>
                         IsProgrammer.express(
                             input,
-                            IMetadata.separate({
-                                arraies: new Map([[key, value]]),
-                            }),
+                            (() => {
+                                const partial = Metadata.initialize();
+                                partial.arrays.push(array);
+                                return partial;
+                            })(),
                             explore,
                         ),
-                    value: () => decode_array(modulo)(input, value, explore),
+                    value: () => decode_array(modulo)(input, array, explore),
                 });
 
             // OBJECTS
-            for (const [key, [value, nullable]] of meta.objects)
+            for (const obj of meta.objects)
                 unions.push({
                     type: "object",
                     is: () =>
                         IsProgrammer.express(
                             input,
-                            IMetadata.separate({
-                                objects: new Map([[key, [value, nullable]]]),
-                            }),
+                            (() => {
+                                const partial = Metadata.initialize();
+                                partial.objects.push(obj);
+                                return partial;
+                            })(),
                             explore,
                         ),
-                    value: () => decode_object(modulo)(input, value, explore),
+                    value: () => decode_object(modulo)(input, obj, explore),
                 });
 
             //----
@@ -266,7 +289,7 @@ export namespace StringifyProgrammer {
         (modulo: ts.LeftHandSideExpression) =>
         (
             input: ts.Expression,
-            tuple: IMetadata[],
+            tuple: Metadata[],
             explore: FeatureProgrammer.IExplore,
         ): ts.Expression => {
             const children: ts.Expression[] = tuple.map((elem, index) =>
@@ -320,7 +343,7 @@ export namespace StringifyProgrammer {
         (modulo: ts.LeftHandSideExpression) =>
         (
             input: ts.Expression,
-            resolved: IMetadata,
+            resolved: Metadata,
             explore: FeatureProgrammer.IExplore,
         ): ts.Expression => {
             return decode(modulo)(
@@ -339,7 +362,7 @@ export namespace StringifyProgrammer {
     ----------------------------------------------------------- */
     function wrap_required(
         input: ts.Expression,
-        meta: IMetadata,
+        meta: Metadata,
         explore: FeatureProgrammer.IExplore,
     ): (expression: ts.Expression) => ts.Expression {
         if (meta.required === true) return (expression) => expression;
@@ -360,7 +383,7 @@ export namespace StringifyProgrammer {
 
     function wrap_nullable(
         input: ts.Expression,
-        meta: IMetadata,
+        meta: Metadata,
     ): (expression: ts.Expression) => ts.Expression {
         if (meta.nullable === false) return (expression) => expression;
         return (expression) =>
