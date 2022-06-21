@@ -21,9 +21,7 @@ export function convert_ideal_hierarchical(obj: ObjectHierarchical): string {
             "enterprise": ${
                 elem.enterprise ? enterprise(elem.enterprise) : null
             },
-            "emails": [${elem.emails
-                .map((str) => $string(str))
-                .join(", ")}],
+            "emails": [${elem.emails.map((str) => $string(str)).join(", ")}],
             "created_at": ${timestamp(elem.created_at)},
             "authorized": ${elem.authorized}
         }`;

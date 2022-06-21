@@ -1,7 +1,10 @@
+import { Metadata } from "../metadata/Metadata";
+import { MetadataConstant } from "../metadata/MetadataConstant";
+import { MetadataObject } from "../metadata/MetadataObject";
 import { IJsonApplication } from "../structures/IJsonApplication";
 import { IJsonComponents } from "../structures/IJsonComponents";
 import { IJsonSchema } from "../structures/IJsonSchema";
-import { IMetadata } from "../structures/IMetadata";
+import { ArrayUtil } from "../utils/ArrayUtil";
 
 export namespace ApplicationProgrammer {
     export const AJV_PREFIX = "components#/schemas";
@@ -26,7 +29,7 @@ export namespace ApplicationProgrammer {
     }
 
     export function generate(
-        metadatas: Array<IMetadata>,
+        metadatas: Array<Metadata>,
         options?: Partial<IOptions>,
     ): IJsonApplication {
         const complemented: IOptions = IOptions.complement(options);
@@ -36,7 +39,7 @@ export namespace ApplicationProgrammer {
 
         return {
             schemas: metadatas.map((meta) =>
-                generate_schema(complemented, components, meta),
+                generate_schema(complemented, components, meta, undefined),
             ),
             components,
             ...complemented,
@@ -49,49 +52,43 @@ export namespace ApplicationProgrammer {
     function generate_schema(
         options: IOptions,
         components: IJsonComponents,
-        meta: IMetadata,
+        meta: Metadata,
+        description: string | undefined,
     ): IJsonSchema {
-        if (meta.nullable && IMetadata.empty(meta)) return { type: "null" };
+        if (meta.nullable && meta.empty()) {
+            return { type: "null" };
+        }
 
         const oneOf: IJsonSchema[] = [];
         if (meta.any === true)
             oneOf.push({
                 nullable: meta.nullable,
             });
-        if (meta.constants.size)
-            oneOf.push(
-                ...generate_constants(
-                    meta.constants,
-                    meta.nullable,
-                    meta.description,
-                ),
-            );
+        for (const constant of meta.constants)
+            oneOf.push(generate_constant(constant, meta.nullable, description));
         for (const type of meta.atomics)
             oneOf.push(
-                generate_atomic(
-                    type as "boolean",
-                    meta.nullable,
-                    meta.description,
-                ),
+                generate_atomic(type as "boolean", meta.nullable, description),
             );
-        for (const [address, [obj, nullable]] of meta.objects.entries()) {
-            const key: string = address + (nullable ? ".Nullable" : "");
-            generate_object(options, components, key, obj, nullable);
+        for (const obj of meta.objects)
+            for (const nullable of obj.nullables) {
+                const key: string = obj.name + (nullable ? ".Nullable" : "");
+                generate_object(options, components, key, obj, nullable);
 
-            const generator =
-                options.purpose === "ajv" && obj.recursive
-                    ? generate_recursive_pointer
-                    : generate_pointer;
-            oneOf.push(generator(`${options.prefix}/${key}`, meta.description));
-        }
-        for (const schema of meta.arraies.values())
+                const generator =
+                    options.purpose === "ajv" && obj.recursive
+                        ? generate_recursive_pointer
+                        : generate_pointer;
+                oneOf.push(generator(`${options.prefix}/${key}`, description));
+            }
+        for (const schema of meta.arrays.values())
             oneOf.push(
                 generate_array(
                     options,
                     components,
                     schema,
                     meta.nullable,
-                    meta.description,
+                    description,
                 ),
             );
         for (const items of meta.tuples.values())
@@ -102,13 +99,12 @@ export namespace ApplicationProgrammer {
                         components,
                         items,
                         meta.nullable,
-                        meta.description,
+                        description,
                     ),
                 );
             else {
-                const merged: IMetadata = items.reduce(
-                    (x, y) => IMetadata.merge(x, y),
-                    IMetadata.create(),
+                const merged: Metadata = items.reduce((x, y) =>
+                    merge_metadata(x, y),
                 );
                 oneOf.push(
                     generate_array(
@@ -116,7 +112,7 @@ export namespace ApplicationProgrammer {
                         components,
                         merged,
                         merged?.nullable || false,
-                        items[0]?.description,
+                        description,
                     ),
                 );
             }
@@ -126,17 +122,17 @@ export namespace ApplicationProgrammer {
         else return { oneOf };
     }
 
-    function generate_constants(
-        dict: Map<string, Set<string | number | bigint | boolean>>,
+    function generate_constant(
+        constant: MetadataConstant,
         nullable: boolean,
         description: string | undefined,
     ) {
-        return [...dict].map(([key, values]) => ({
-            type: key,
-            enum: [...values],
+        return {
+            type: constant.type,
+            enum: constant.values,
             nullable,
             description,
-        }));
+        };
     }
 
     function generate_atomic(
@@ -174,13 +170,13 @@ export namespace ApplicationProgrammer {
     function generate_array(
         options: IOptions,
         components: IJsonComponents,
-        metadata: IMetadata,
+        metadata: Metadata,
         nullable: boolean,
         description: string | undefined,
     ): IJsonSchema.IArray {
         return {
             type: "array",
-            items: generate_schema(options, components, metadata),
+            items: generate_schema(options, components, metadata, description),
             nullable,
             description,
         };
@@ -189,14 +185,14 @@ export namespace ApplicationProgrammer {
     function generate_tuple(
         options: IOptions,
         components: IJsonComponents,
-        items: Array<IMetadata>,
+        items: Array<Metadata>,
         nullable: boolean,
         description: string | undefined,
     ): IJsonSchema.ITuple {
         return {
             type: "array",
             items: items.map((schema) =>
-                generate_schema(options, components, schema),
+                generate_schema(options, components, schema, description),
             ),
             nullable,
             description,
@@ -206,35 +202,11 @@ export namespace ApplicationProgrammer {
     /* -----------------------------------------------------------
         COMPONENTS
     ----------------------------------------------------------- */
-    // export function components(
-    //     storage: IMetadata.IStorage | null,
-    //     options?: Partial<IOptions>,
-    // ): IJsonComponents {
-    //     const complemented: IOptions = IOptions.complement(options);
-    //     return generate_components(complemented, storage);
-    // }
-
-    // function generate_components(
-    //     options: IOptions,
-    //     storage: IMetadata.IStorage | null,
-    //     nullable: boolean
-    // ): IJsonComponents {
-    //     const schemas: Record<string, any> = {};
-    //     for (const [key, obj] of Object.entries(storage || []))
-    //         schemas[key + nullable ? ".Nullable" : ""] = generate_object(
-    //             options,
-    //             obj,
-    //             nullable,
-    //         );
-
-    //     return { schemas };
-    // }
-
     function generate_object(
         options: IOptions,
         components: IJsonComponents,
         key: string,
-        obj: IMetadata.IObject,
+        obj: MetadataObject,
         nullable: boolean,
     ): void {
         // TEMPORARY ASSIGNMENT
@@ -245,13 +217,18 @@ export namespace ApplicationProgrammer {
         const properties: Record<string, any> = {};
         const required: string[] = [];
 
-        for (const [key, value] of Object.entries(obj.properties || [])) {
-            properties[key] = generate_schema(options, components, value);
-            if (value?.required === true) required.push(key);
+        for (const property of obj.properties) {
+            properties[property.name] = generate_schema(
+                options,
+                components,
+                property.metadata,
+                property.description,
+            );
+            if (property.metadata.required === true) required.push(key);
         }
 
         const schema: IJsonComponents.IObject = {
-            $id: options.purpose === "ajv" ? obj.$id : undefined,
+            $id: key,
             $recursiveAnchor:
                 (options.purpose === "ajv" && obj.recursive) || undefined,
             type: "object",
@@ -262,4 +239,39 @@ export namespace ApplicationProgrammer {
         };
         components.schemas[key] = schema;
     }
+}
+
+function merge_metadata(x: Metadata, y: Metadata): Metadata {
+    const output: Metadata = Metadata.create({
+        any: x.any || y.any,
+        nullable: x.nullable || y.nullable,
+        required: x.required && y.required,
+
+        resolved:
+            x.resolved !== null && y.resolved !== null
+                ? merge_metadata(x.resolved, y.resolved)
+                : x.resolved || y.resolved,
+        atomics: [...new Set([...x.atomics, ...y.atomics])],
+        constants: [...x.constants],
+        arrays: x.arrays.slice(),
+        tuples: x.tuples.slice(),
+        objects: x.objects.slice(),
+    });
+    for (const constant of y.constants) {
+        const target: MetadataConstant = ArrayUtil.take(
+            output.constants,
+            (elem) => elem.type === constant.type,
+            () => ({
+                type: constant.type,
+                values: [],
+            }),
+        );
+        for (const value of constant.values)
+            ArrayUtil.add(target.values, value);
+    }
+    for (const array of y.arrays)
+        ArrayUtil.set(output.arrays, array, (elem) => elem.getName());
+    for (const obj of y.objects)
+        ArrayUtil.set(output.objects, obj, (elem) => elem.name);
+    return output;
 }

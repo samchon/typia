@@ -1,17 +1,18 @@
 import ts from "typescript";
-import { IMetadata } from "../structures/IMetadata";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 import { FeatureProgrammer } from "./FeatureProgrammer";
+import { MetadataObject } from "../metadata/MetadataObject";
+import { Metadata } from "../metadata/Metadata";
 
 export namespace CheckerProgrammer {
     export interface IConfig {
         trace: boolean;
         functors: {
             name: string;
-            filter?: (object: IMetadata.IObject) => boolean;
+            filter?: (object: MetadataObject) => boolean;
         };
         combiner: IConfig.Combiner;
     }
@@ -44,7 +45,7 @@ export namespace CheckerProgrammer {
         return {
             initializer: ({ checker }, type) => {
                 const collection: MetadataCollection = new MetadataCollection();
-                const meta: IMetadata = MetadataFactory.generate(
+                const meta: Metadata = MetadataFactory.generate(
                     checker,
                     collection,
                     type,
@@ -73,37 +74,40 @@ export namespace CheckerProgrammer {
     export function decode(config: IConfig) {
         return function (
             input: ts.Expression,
-            meta: IMetadata,
+            meta: Metadata,
             explore: IExplore,
         ): ts.Expression {
             if (meta.any) return ValueFactory.BOOLEAN(true);
-            explore.tracable = explore.tracable && IMetadata.size(meta) === 1;
+            explore.tracable = explore.tracable && meta.size() === 1;
 
             const top: ts.Expression[] = [];
             const binaries: ts.Expression[] = [];
             const add = create_add(binaries)(input);
-            const constant = (value: number | string | bigint | boolean) =>
+            const getConstantValue = (
+                value: number | string | bigint | boolean,
+            ) =>
                 typeof value === "string"
                     ? ts.factory.createStringLiteral(value)
                     : ts.factory.createIdentifier(value.toString());
 
-            const size: number = IMetadata.size(meta);
+            const size: number = meta.size();
 
             // NULLBLE AND UNDEFINDABLE
-            if (meta.nullable === true || meta.objects.size || size === 0)
+            if (meta.nullable === true || meta.objects.length || size === 0)
                 (meta.nullable ? add : create_add(top)(input))(
                     meta.nullable,
                     ValueFactory.NULL(),
                 );
-            if (meta.required === false || meta.objects.size || size === 0)
+            if (meta.required === false || meta.objects.length || size === 0)
                 (meta.required ? create_add(top)(input) : add)(
                     !meta.required,
                     ValueFactory.UNDEFINED(),
                 );
 
             // CONSTANT VALUES
-            for (const values of meta.constants.values())
-                for (const val of values) add(true, constant(val));
+            for (const constant of meta.constants)
+                for (const val of constant.values)
+                    add(true, getConstantValue(val));
 
             // ATOMIC VALUES
             for (const type of meta.atomics)
@@ -114,13 +118,11 @@ export namespace CheckerProgrammer {
                 );
 
             // ARRAY OR TUPLE
-            if (meta.arraies.size + meta.tuples.size > 0) {
+            if (meta.arrays.length + meta.tuples.length > 0) {
                 const inner: ts.Expression[] = [];
-                for (const [key, tuple] of meta.tuples.entries()) {
-                    if (meta.atomics.has(key)) continue;
+                for (const tuple of meta.tuples)
                     inner.push(decode_tuple(config)(input, tuple, explore));
-                }
-                for (const array of meta.arraies.values())
+                for (const array of meta.arrays)
                     inner.push(decode_array(config)(input, array, explore));
 
                 // ADD
@@ -141,7 +143,7 @@ export namespace CheckerProgrammer {
             }
 
             // OBJECT
-            if (meta.objects.size > 0) {
+            if (meta.objects.length > 0) {
                 const outer: ts.Expression[] = [];
                 if (meta.nullable === false)
                     create_add(outer)(input)(false, ValueFactory.NULL());
@@ -152,7 +154,7 @@ export namespace CheckerProgrammer {
                 );
 
                 const inner: ts.Expression[] = [];
-                for (const [obj] of meta.objects.values())
+                for (const obj of meta.objects)
                     inner.push(decode_object(config)(input, obj, explore));
 
                 binaries.push(
@@ -184,7 +186,7 @@ export namespace CheckerProgrammer {
     function decode_tuple(config: IConfig) {
         return function (
             input: ts.Expression,
-            tuple: Array<IMetadata>,
+            tuple: Array<Metadata>,
             explore: IExplore,
         ): ts.Expression {
             const length = ts.factory.createStrictEquality(
@@ -228,7 +230,7 @@ export namespace CheckerProgrammer {
         const func = FeatureProgrammer.decode_object(base_config(config));
         return function (
             input: ts.Expression,
-            obj: IMetadata.IObject,
+            obj: MetadataObject,
             explore: IExplore,
         ) {
             obj.validated = true;

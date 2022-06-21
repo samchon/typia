@@ -4,14 +4,14 @@ export namespace BenchmarkGenerator {
     export interface IOutput {
         name: string;
         json: number;
-        ajv: number;
+        ajv: number | null;
         tson: number;
         ideal: number;
     }
     export interface IParameters<T> {
         ideal: (input: T) => string;
         tson: (input: T) => string;
-        ajv: (input: T) => string;
+        ajv: null | ((input: T) => string);
     }
 
     export function prepare<T>(
@@ -23,7 +23,8 @@ export namespace BenchmarkGenerator {
 
         const suite: benchmark.Suite = new benchmark.Suite();
         suite.add("json", () => JSON.stringify(data));
-        suite.add("ajv", () => parameters.ajv(data));
+        if (parameters.ajv !== null)
+            suite.add("ajv", () => parameters.ajv!(data));
         suite.add("ideal", () => parameters.ideal(data));
         suite.add("tson", () => parameters.tson(data));
 
@@ -31,7 +32,7 @@ export namespace BenchmarkGenerator {
             const output: IOutput = {
                 name,
                 json: 0,
-                ajv: 0,
+                ajv: null,
                 tson: 0,
                 ideal: 0,
             };

@@ -2,44 +2,27 @@ import ts from "typescript";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { TemplateFactory } from "../../factories/TemplateFactory";
 import { IExpressionEntry } from "../../structures/IExpressionEntry";
-// import { IMetadata } from "../../structures/IMetadata";
-// import { StringifyTreeJoiner } from "./StringifyTreeJoiner";
 
 export namespace StringifyJoiner {
-    export function object(
-        entries: IExpressionEntry[],
-        // _parent: IMetadata.IObject,
-        // recursive: IExpressionEntry | null = null,
-    ): ts.ConciseBody {
+    export function object(entries: IExpressionEntry[]): ts.ConciseBody {
         // CHECK AND SORT ENTRIES
         if (entries.length === 0) return ts.factory.createStringLiteral("{}");
         entries.sort(
             (x, y) => Number(x.meta.required) - Number(y.meta.required),
         );
 
-        // // CHECK WHETHER RECURSIVE STRUCTURED ARRAY OR NOT
-        // if (recursive === null) {
-        //     const tree = entries.find((elem) =>
-        //         StringifyTreeJoiner.predicate(parent, elem),
-        //     );
-        //     if (tree !== undefined && entries.length > 1)
-        //         return StringifyTreeJoiner.join(
-        //             parent,
-        //             tree,
-        //             entries.filter((elem) => elem !== tree),
-        //         );
-        // }
-
+        // GATHER PROPERTY EXNRESSIONS
         const expressions: ts.Expression[] = [];
         entries.forEach((entry, index) => {
             // BASE ELEMENTS
             const base: ts.Expression[] = [
-                ts.factory.createStringLiteral(" ".repeat(SPACES)),
                 ts.factory.createStringLiteral(`${JSON.stringify(entry.key)}:`),
                 entry.expression,
             ];
             if (index !== entries.length - 1 /* || recursive !== null*/)
-                base.push(ts.factory.createStringLiteral(","));
+                base.push(
+                    ts.factory.createStringLiteral(`,${" ".repeat(SPACES)}`),
+                );
 
             if (entry.meta.required /* || recursive !== null*/)
                 expressions.push(...base);
@@ -78,9 +61,9 @@ export namespace StringifyJoiner {
               ];
         return TemplateFactory.generate([
             // ts.factory.createStringLiteral(" ".repeat(SPACES * 4)),
-            ts.factory.createStringLiteral("{"),
+            ts.factory.createStringLiteral(`{${" ".repeat(SPACES)}`),
             ...filtered,
-            ts.factory.createStringLiteral("}"),
+            ts.factory.createStringLiteral(`${" ".repeat(SPACES)}}`),
         ]);
     }
 
@@ -89,7 +72,7 @@ export namespace StringifyJoiner {
         arrow: ts.ArrowFunction,
     ): ts.TemplateExpression {
         return TemplateFactory.generate([
-            ts.factory.createStringLiteral("["),
+            ts.factory.createStringLiteral(`[${" ".repeat(SPACES)}`),
             ts.factory.createCallExpression(
                 ts.factory.createPropertyAccessExpression(
                     ts.factory.createCallExpression(
@@ -100,22 +83,26 @@ export namespace StringifyJoiner {
                     ts.factory.createIdentifier("join"),
                 ),
                 undefined,
-                [ts.factory.createStringLiteral(",")],
+                [ts.factory.createStringLiteral(`,${" ".repeat(SPACES)}`)],
             ),
-            ts.factory.createStringLiteral("]"),
+            ts.factory.createStringLiteral(`${" ".repeat(SPACES)}]`),
         ]);
     }
 
     export function tuple(children: ts.Expression[]): ts.Expression {
         if (children.length === 0) return ts.factory.createStringLiteral("[]");
 
-        const elements: ts.Expression[] = [ts.factory.createStringLiteral("[")];
+        const elements: ts.Expression[] = [
+            ts.factory.createStringLiteral(`[${" ".repeat(SPACES)}`),
+        ];
         children.forEach((child, i) => {
             elements.push(child);
             if (i !== children.length - 1)
-                elements.push(ts.factory.createStringLiteral(","));
+                elements.push(
+                    ts.factory.createStringLiteral(`,${" ".repeat(SPACES)}`),
+                );
         });
-        elements.push(ts.factory.createStringLiteral("]"));
+        elements.push(ts.factory.createStringLiteral(`${" ".repeat(SPACES)}]`));
         return TemplateFactory.generate(elements);
     }
 }

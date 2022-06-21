@@ -1,82 +1,69 @@
-import { ArrayRecursiveUnion } from "../../test/structures/ArrayRecursiveUnion";
-import { $string } from "../../src/functional/$string";
+import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 
-export function convert_ideal_union(obj: ArrayRecursiveUnion): string {
-    function directory(elem: ArrayRecursiveUnion.IDirectory): string {
+export function convert_ideal_union(obj: ObjectUnionExplicit): string {
+    function point(elem: ObjectUnionExplicit.IPoint, type?: string): string {
         return `{
-            "id": ${$string(elem.id)},
-            "type": "directory,
-            "name": ${$string(elem.name)},
-            "path": ${$string(elem.path)},
-            "children": [${elem.children
-                .map((child) => bucket(child))
-                .join(", ")}]
+            ${type ? `"type": "${type}",` : ""}
+            "x": ${elem.x}, 
+            "y": ${elem.y}
         }`;
     }
-    function imageFile(elem: ArrayRecursiveUnion.IImageFile): string {
+    function line(elem: ObjectUnionExplicit.ILine, type?: string): string {
         return `{
-            "id": ${$string(elem.id)},
-            "type": "file,
-            "name": ${$string(elem.name)},
-            "path": ${$string(elem.path)},
-            "extension": "${elem.extension}",
-            "size": ${elem.size},
-            "width": ${elem.width},
-            "height": ${elem.height},
-            "url": ${elem.url}"
+            ${type ? `"type": "${type}",` : ""}
+            "p1": ${point(elem.p1)},
+            "p2": ${point(elem.p2)}
         }`;
     }
-    function textFile(elem: ArrayRecursiveUnion.ITextFile): string {
+    function triangle(
+        elem: ObjectUnionExplicit.ITriangle,
+        type?: string,
+    ): string {
         return `{
-            "id": ${$string(elem.id)},
-            "type": "file,
-            "name": ${$string(elem.name)},
-            "path": ${$string(elem.path)},
-            "extension": "${elem.extension}",
-            "size": ${elem.size},
-            "content": ${$string(elem.content)}
+            ${type ? `"type": "${type}",` : ""}
+            "p1": ${point(elem.p1)},
+            "p2": ${point(elem.p2)},
+            "p3": ${point(elem.p3)}
         }`;
     }
-    function zipFile(elem: ArrayRecursiveUnion.IZipFile): string {
+    function rentagle(
+        elem: ObjectUnionExplicit.IRectangle,
+        type?: string,
+    ): string {
         return `{
-            "id": ${$string(elem.id)},
-            "type": "file,
-            "name": ${$string(elem.name)},
-            "path": ${$string(elem.path)},
-            "extension": "${elem.extension}",
-            "size": ${elem.size},
-            "count": ${elem.count}
+            ${type ? `"type": "${type}",` : ""}
+            "p1": ${point(elem.p1)},
+            "p2": ${point(elem.p2)},
+            "p3": ${point(elem.p3)},
+            "p4": ${point(elem.p4)}
         }`;
     }
-    function shortcut(elem: ArrayRecursiveUnion.IShortcut): string {
+    function circle(elem: ObjectUnionExplicit.ICircle, type?: string): string {
         return `{
-            "id": ${$string(elem.id)},
-            "type": "directory,
-            "name": ${$string(elem.name)},
-            "path": ${$string(elem.path)},
-            "extension": "lnk,
-            "target": ${bucket(elem.target)}
+            ${type ? `"type": "${type}",` : ""}
+            "centroid": ${point(elem.centroid)},
+            "radius": ${elem.radius}
         }`;
     }
-    function bucket(elem: ArrayRecursiveUnion.IBucket): string {
-        if (elem.type === "directory") return directory(elem);
-        else if (elem.type === "file") return file(elem);
-        else return shortcut(elem);
+    function polygon(
+        elem: ObjectUnionExplicit.IPolygon,
+        type?: string,
+    ): string {
+        return `{
+            ${type ? `"type": "${type}",` : ""}
+            "points": [${elem.points.map((p) => point(p)).join(", ")}]
+        }`;
     }
-    function file(elem: ArrayRecursiveUnion.IFile): string {
-        if (
-            elem.extension === "jpg" ||
-            elem.extension === "png" ||
-            elem.extension === "gif"
-        )
-            return imageFile(elem);
-        else if (
-            elem.extension === "txt" ||
-            elem.extension === "md" ||
-            elem.extension === "ts"
-        )
-            return textFile(elem);
-        else return zipFile(elem as ArrayRecursiveUnion.IZipFile);
-    }
-    return `[${obj.map((elem) => bucket(elem)).join(", ")}]`;
+    return `[${obj
+        .map((elem) => {
+            if (elem.type === "point") return point(elem);
+            if (elem.type === "line") return line(elem);
+            if (elem.type === "triangle") return triangle(elem);
+            if (elem.type === "rectangle") return rentagle(elem);
+            if (elem.type === "circle") return circle(elem);
+            if (elem.type === "polyline" || elem.type === "polygon")
+                return polygon(elem);
+            throw new Error(`Unknown type`);
+        })
+        .join(", ")}]`;
 }

@@ -2,12 +2,12 @@
 // import { IdentifierFactory } from "../../factories/IdentifierFactory";
 // import { StatementFactory } from "../../factories/StatementFactory";
 // import { IExpressionEntry } from "../../structures/IExpressionEntry";
-// import { IMetadata } from "../../structures/IMetadata";
+// import { IRawMetadata } from "../../structures/IRawMetadata";
 // import { StringifyJoiner } from "./StringifyJoinder";
 
 // export namespace StringifyTreeJoiner {
 //     export function join(
-//         parent: IMetadata.IObject,
+//         parent: IRawMetadata.IRawObject,
 //         recursive: IExpressionEntry,
 //         entries: IExpressionEntry[],
 //     ): ts.Block {
@@ -142,22 +142,22 @@
 //     }
 
 //     export function predicate(
-//         parent: IMetadata.IObject,
+//         parent: IRawMetadata.IRawObject,
 //         entry: IExpressionEntry,
 //     ): boolean {
 //         if (
 //             entry.meta.required === false ||
 //             entry.meta.nullable === true ||
-//             IMetadata.size(entry.meta) !== 1 ||
+//             IRawMetadata.size(entry.meta) !== 1 ||
 //             entry.meta.arraies.size !== 1
 //         )
 //             return false;
 
-//         const elem: IMetadata = entry.meta.arraies.values().next().value;
+//         const elem: IRawMetadata = entry.meta.arraies.values().next().value;
 //         return (
 //             elem.required === true &&
 //             elem.nullable === false &&
-//             IMetadata.size(elem) === 1 &&
+//             IRawMetadata.size(elem) === 1 &&
 //             elem.objects.size === 1 &&
 //             elem.objects.values().next().value[0].$id === parent.$id
 //         );

@@ -1,29 +1,29 @@
 import ts from "typescript";
 import { IExpressionEntry } from "../structures/IExpressionEntry";
-import { IMetadata } from "../structures/IMetadata";
 import { IProject } from "../structures/IProject";
 import { Escaper } from "../utils/Escaper";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { ValueFactory } from "../factories/ValueFactory";
+import { Metadata } from "../metadata/Metadata";
+import { MetadataObject } from "../metadata/MetadataObject";
 
 export namespace FeatureProgrammer {
     export interface IConfig {
         initializer(
             project: IProject,
             type: ts.Type,
-        ): [MetadataCollection, IMetadata];
+        ): [MetadataCollection, Metadata];
         trace: boolean;
         functors: {
             name: string;
-            // filter?(object: IMetadata.IObject): boolean;
         };
         joiner(
             entries: IExpressionEntry[],
-            parent: IMetadata.IObject,
+            parent: MetadataObject,
         ): ts.ConciseBody;
         decoder(
             input: ts.Expression,
-            meta: IMetadata,
+            meta: Metadata,
             explore: IExplore,
         ): ts.Expression;
     }
@@ -100,8 +100,8 @@ export namespace FeatureProgrammer {
             collection: MetadataCollection,
         ): ts.VariableDeclaration | null {
             // GET OBJECTS
-            const storage = collection.storage();
-            if (Object.entries(storage).length === 0) return null;
+            const storage: Map<string, MetadataObject> = collection.storage();
+            if (storage.size === 0) return null;
 
             // ASSIGN FUNCTIONS
             return ts.factory.createVariableDeclaration(
@@ -109,7 +109,7 @@ export namespace FeatureProgrammer {
                 undefined,
                 undefined,
                 ts.factory.createArrayLiteralExpression(
-                    Object.values(storage).map((value) => createObject(value)),
+                    [...storage.values()].map((value) => createObject(value)),
                     true,
                 ),
             );
@@ -119,27 +119,27 @@ export namespace FeatureProgrammer {
     function generate_object(config: IConfig) {
         const createParameters = PARAMETERS(config.trace ? false : null);
 
-        return function (obj: IMetadata.IObject) {
+        return function (obj: MetadataObject) {
             const entries: IExpressionEntry[] = [];
-            for (const [key, value] of Object.entries(obj.properties)) {
-                const access = Escaper.variable(key)
+            for (const prop of obj.properties) {
+                const access = Escaper.variable(prop.name)
                     ? ts.factory.createPropertyAccessExpression(
                           ValueFactory.INPUT(),
-                          ts.factory.createIdentifier(key),
+                          ts.factory.createIdentifier(prop.name),
                       )
                     : ts.factory.createElementAccessExpression(
                           ValueFactory.INPUT(),
-                          ts.factory.createStringLiteral(key),
+                          ts.factory.createStringLiteral(prop.name),
                       );
 
-                const postfix: string = Escaper.variable(key)
-                    ? `".${key}"`
-                    : `"[${key.split('"').join('\\"')}]"`;
+                const postfix: string = Escaper.variable(prop.name)
+                    ? `".${prop.name}"`
+                    : `"[${prop.name.split('"').join('\\"')}]"`;
                 entries.push({
                     input: access,
-                    key,
-                    meta: value,
-                    expression: config.decoder(access, value, {
+                    key: prop.name,
+                    meta: prop.metadata,
+                    expression: config.decoder(access, prop.metadata, {
                         tracable: config.trace,
                         from: "object",
                         postfix,
@@ -179,7 +179,7 @@ export namespace FeatureProgrammer {
               ]
             : [];
 
-        return (input: ts.Expression, meta: IMetadata, explore: IExplore) => {
+        return (input: ts.Expression, meta: Metadata, explore: IExplore) => {
             const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -209,7 +209,7 @@ export namespace FeatureProgrammer {
     export function decode_object(config: IConfig) {
         return function (
             input: ts.Expression,
-            obj: IMetadata.IObject,
+            obj: MetadataObject,
             explore: IExplore,
         ): ts.Expression {
             const createArguments = ARGUMENTS(config.trace, explore);
