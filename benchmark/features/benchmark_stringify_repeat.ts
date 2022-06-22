@@ -34,7 +34,8 @@ export const benchmark_stringify_repeat = () => [
         {
             ideal: convert_ideal_hierarchical,
             tson: convert_tson_hierarchical,
-            ajv: convert_ajv_hierarchical(),
+            ajv: null,
+            // ajv: convert_ajv_hierarchical(),
         },
     ),
     BenchmarkGenerator.prepare("recursive", () => ObjectRecursive.generate(), {

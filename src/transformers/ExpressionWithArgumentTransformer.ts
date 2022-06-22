@@ -1,8 +1,8 @@
 // import path from "path";
 // import ts from "typescript";
-// import { AssertFactory } from "../factories/features/AssertFactory";
-// import { IsFactory } from "../factories/features/IsFactory";
-// import { StringifyFactory } from "../factories/features/StringifyFactory";
+// import { AssertProgrammer } from "../programmers/AssertProgrammer";
+// import { IsProgrammer } from "../programmers/IsProgrammer";
+// import { StringifyProgrammer } from "../programmers/StringifyProgrammer";
 // import { IProject } from "../structures/IProject";
 
 // export namespace ExpressionWithArgumentTransformer {
@@ -59,8 +59,8 @@
 // const SRC_PATH = path.resolve(path.join(__dirname, "..", "module.ts"));
 
 // const FUNCTORS: Record<string, () => Task> = {
-//     assert: () => AssertFactory.generate,
-//     is: () => (project, _modulo, type) => IsFactory.generate(project, type),
+//     assert: () => AssertProgrammer.generate,
+//     is: () => (project, _modulo, type) => IsProgrammer.generate(project, type),
 //     stringify: () => (project, modulo, type) =>
-//         StringifyFactory.generate(modulo)(project, type),
+//         StringifyProgrammer.generate(modulo)(project, type),
 // };

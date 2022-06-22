@@ -33,7 +33,8 @@ export const benchmark_stringify_optimizer = () => [
         {
             ideal: convert_ideal_hierarchical,
             tson: convert_tson_hierarchical,
-            ajv: (input) => convert_ajv_hierarchical()(input),
+            ajv: null,
+            // ajv: (input) => convert_ajv_hierarchical()(input),
         },
     ),
     BenchmarkGenerator.prepare("recursive", () => ObjectRecursive.generate(), {

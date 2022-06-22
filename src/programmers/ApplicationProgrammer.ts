@@ -56,14 +56,11 @@ export namespace ApplicationProgrammer {
         description: string | undefined,
     ): IJsonSchema {
         if (meta.nullable && meta.empty()) {
-            return { type: "null" };
+            return { $type: "null", type: "null", description: description };
         }
 
         const oneOf: IJsonSchema[] = [];
-        if (meta.any === true)
-            oneOf.push({
-                nullable: meta.nullable,
-            });
+        if (meta.any === true) return { $type: "unknown" };
         for (const constant of meta.constants)
             oneOf.push(generate_constant(constant, meta.nullable, description));
         for (const type of meta.atomics)
@@ -117,29 +114,32 @@ export namespace ApplicationProgrammer {
                 );
             }
 
-        if (oneOf.length === 0) return {};
+        if (oneOf.length === 0) return { $type: "unknown" };
         else if (oneOf.length === 1) return oneOf[0]!;
-        else return { oneOf };
+        else
+            return {
+                $type: "oneOf",
+                oneOf,
+            };
     }
 
     function generate_constant(
         constant: MetadataConstant,
         nullable: boolean,
         description: string | undefined,
-    ) {
+    ): IJsonSchema.IEnumeration {
         return {
-            type: constant.type,
             enum: constant.values,
             nullable,
             description,
         };
     }
 
-    function generate_atomic(
-        type: "boolean" | "number" | "bigint" | "string",
+    function generate_atomic<Type extends string>(
+        type: Type,
         nullable: boolean,
         description: string | undefined,
-    ) {
+    ): IJsonSchema.IAtomic<Type> {
         return {
             type,
             nullable,
@@ -150,7 +150,7 @@ export namespace ApplicationProgrammer {
     function generate_pointer(
         $ref: string,
         description: string | undefined,
-    ): IJsonSchema.IPointer {
+    ): IJsonSchema.IReference {
         return {
             $ref,
             description,
@@ -224,7 +224,8 @@ export namespace ApplicationProgrammer {
                 property.metadata,
                 property.description,
             );
-            if (property.metadata.required === true) required.push(key);
+            if (property.metadata.required === true)
+                required.push(property.name);
         }
 
         const schema: IJsonComponents.IObject = {

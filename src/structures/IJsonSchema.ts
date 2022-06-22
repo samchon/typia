@@ -1,5 +1,4 @@
 export type IJsonSchema =
-    | IJsonSchema.IUnkown
     | IJsonSchema.IEnumeration
     | IJsonSchema.IAtomic<"boolean">
     | IJsonSchema.IAtomic<"number">
@@ -7,18 +6,14 @@ export type IJsonSchema =
     | IJsonSchema.IAtomic<"string">
     | IJsonSchema.IArray
     | IJsonSchema.ITuple
-    | IJsonSchema.IPointer
+    | IJsonSchema.IReference
     | IJsonSchema.IRecursivePointer
-    | IJsonSchema.IOneOf;
+    | IJsonSchema.IOneOf
+    | IJsonSchema.IUnkown;
 
 export namespace IJsonSchema {
-    export interface IConst {
-        const: string | number | boolean;
-        nullable?: boolean;
-        description?: string;
-    }
     export interface IEnumeration {
-        enum: Array<string | number | boolean>;
+        enum: Array<string | number | boolean | bigint>;
         nullable?: boolean;
         description?: string;
     }
@@ -31,10 +26,13 @@ export namespace IJsonSchema {
     export interface IArray extends IAtomic<"array"> {
         items: IJsonSchema;
     }
-    export interface ITuple extends IAtomic<"array"> {
+    export interface ITuple {
+        type: "array";
+        nullable: boolean;
         items: IJsonSchema[];
+        description?: string;
     }
-    export interface IPointer {
+    export interface IReference {
         $ref: string;
         description?: string;
     }
