@@ -7,7 +7,6 @@ export const test_application_object_literal_type = _test_application(
     TSON.application<[typeof ObjectLiteralType]>(),
 {schemas: [
         {
-            $type: "reference",
             $ref: "#/components/schemas/__object"
         }
     ],
@@ -15,21 +14,17 @@ export const test_application_object_literal_type = _test_application(
         schemas: {
             __object: {
                 $id: "__object",
-                $type: "object",
                 type: "object",
                 properties: {
                     id: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     age: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     }

@@ -8,12 +8,9 @@ export const test_application_atomic_alias = _test_application(
 {schemas: [
         {
             type: "array",
-            $type: "array",
             items: {
-                $type: "oneOf",
                 oneOf: [
                     {
-                        $type: "enum",
                         "enum": [
                             false,
                             true
@@ -21,12 +18,10 @@ export const test_application_atomic_alias = _test_application(
                         nullable: false
                     },
                     {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }

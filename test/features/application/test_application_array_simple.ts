@@ -8,9 +8,7 @@ export const test_application_array_simple = _test_application(
 {schemas: [
         {
             type: "array",
-            $type: "array",
             items: {
-                $type: "reference",
                 $ref: "#/components/schemas/ArraySimple.IPerson"
             },
             nullable: false
@@ -20,27 +18,21 @@ export const test_application_array_simple = _test_application(
         schemas: {
             "ArraySimple.IPerson": {
                 $id: "ArraySimple.IPerson",
-                $type: "object",
                 type: "object",
                 properties: {
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     email: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     hobbies: {
-                        $type: "oneOf",
                         oneOf: [
                             {
                                 type: "array",
-                                $type: "array",
                                 items: {
-                                    $type: "string",
                                     type: "string",
                                     nullable: false
                                 },
@@ -48,18 +40,14 @@ export const test_application_array_simple = _test_application(
                             },
                             {
                                 type: "array",
-                                $type: "array",
                                 items: {
-                                    $type: "reference",
                                     $ref: "#/components/schemas/ArraySimple.IHobby"
                                 },
                                 nullable: false
                             },
                             {
                                 type: "array",
-                                $type: "array",
                                 items: {
-                                    $type: "reference",
                                     $ref: "#/components/schemas/ArraySimple.IContent"
                                 },
                                 nullable: false
@@ -76,16 +64,13 @@ export const test_application_array_simple = _test_application(
             },
             "ArraySimple.IHobby": {
                 $id: "ArraySimple.IHobby",
-                $type: "object",
                 type: "object",
                 properties: {
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     rank: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     }
@@ -98,11 +83,9 @@ export const test_application_array_simple = _test_application(
             },
             "ArraySimple.IContent": {
                 $id: "ArraySimple.IContent",
-                $type: "object",
                 type: "object",
                 properties: {
                     body: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }

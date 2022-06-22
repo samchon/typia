@@ -4,7 +4,7 @@ const runner = require("ts-node");
 SuppressWarnings([() => true]);
 runner.register({
     project: __dirname + "/../tsconfig.test.json",
-    compiler: "ttypescript"
+    compiler: "ttypescript",
 });
 
 require("./index.ts");

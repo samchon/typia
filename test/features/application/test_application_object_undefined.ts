@@ -8,9 +8,7 @@ export const test_application_object_undefined = _test_application(
 {schemas: [
         {
             type: "array",
-            $type: "array",
             items: {
-                $type: "reference",
                 $ref: "#/components/schemas/ObjectUndefied.ILecture"
             },
             nullable: false
@@ -20,41 +18,32 @@ export const test_application_object_undefined = _test_application(
         schemas: {
             "ObjectUndefied.ILecture": {
                 $id: "ObjectUndefied.ILecture",
-                $type: "object",
                 type: "object",
                 properties: {
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     professor: {
-                        $type: "oneOf",
                         oneOf: [
                             {
-                                $type: "string",
                                 type: "string",
                                 nullable: false
                             },
                             {
-                                $type: "number",
                                 type: "number",
                                 nullable: false
                             }
                         ]
                     },
                     classroom: {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectUndefied.IClassroom"
                     },
                     grade: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
-                    nothing: {
-                        $type: "unknown"
-                    }
+                    nothing: {}
                 },
                 nullable: false,
                 required: [
@@ -63,16 +52,13 @@ export const test_application_object_undefined = _test_application(
             },
             "ObjectUndefied.IClassroom": {
                 $id: "ObjectUndefied.IClassroom",
-                $type: "object",
                 type: "object",
                 properties: {
                     id: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }

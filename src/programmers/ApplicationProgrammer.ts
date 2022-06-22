@@ -36,7 +36,6 @@ export namespace ApplicationProgrammer {
         const components: IJsonComponents = {
             schemas: {},
         };
-
         return {
             schemas: metadatas.map((meta) =>
                 generate_schema(complemented, components, meta, undefined),
@@ -56,28 +55,27 @@ export namespace ApplicationProgrammer {
         description: string | undefined,
     ): IJsonSchema {
         if (meta.nullable && meta.empty()) {
-            return { $type: "null", type: "null", description: description };
+            return { type: "null", description: description };
         }
 
         const oneOf: IJsonSchema[] = [];
-        if (meta.any === true) return { $type: "unknown" };
+        if (meta.any === true) return {};
         for (const constant of meta.constants)
             oneOf.push(generate_constant(constant, meta.nullable, description));
         for (const type of meta.atomics)
             oneOf.push(
                 generate_atomic(type as "boolean", meta.nullable, description),
             );
-        for (const obj of meta.objects)
-            for (const nullable of obj.nullables) {
-                const key: string = obj.name + (nullable ? ".Nullable" : "");
-                generate_object(options, components, key, obj, nullable);
+        for (const obj of meta.objects) {
+            const key: string = obj.name + (meta.nullable ? ".Nullable" : "");
+            generate_object(options, components, key, obj, meta.nullable);
 
-                const generator =
-                    options.purpose === "ajv" && obj.recursive
-                        ? generate_recursive_pointer
-                        : generate_pointer;
-                oneOf.push(generator(`${options.prefix}/${key}`, description));
-            }
+            const generator =
+                options.purpose === "ajv" && obj.recursive
+                    ? generate_recursive_pointer
+                    : generate_pointer;
+            oneOf.push(generator(`${options.prefix}/${key}`, description));
+        }
         for (const schema of meta.arrays.values())
             oneOf.push(
                 generate_array(
@@ -114,13 +112,9 @@ export namespace ApplicationProgrammer {
                 );
             }
 
-        if (oneOf.length === 0) return { $type: "unknown" };
+        if (oneOf.length === 0) return {};
         else if (oneOf.length === 1) return oneOf[0]!;
-        else
-            return {
-                $type: "oneOf",
-                oneOf,
-            };
+        return { oneOf };
     }
 
     function generate_constant(

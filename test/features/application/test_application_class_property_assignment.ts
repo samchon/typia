@@ -7,7 +7,6 @@ export const test_application_class_property_assignment = _test_application(
     TSON.application<[ClassPropertyAssignment]>(),
 {schemas: [
         {
-            $type: "reference",
             $ref: "#/components/schemas/ClassPropertyAssignment"
         }
     ],
@@ -15,35 +14,29 @@ export const test_application_class_property_assignment = _test_application(
         schemas: {
             ClassPropertyAssignment: {
                 $id: "ClassPropertyAssignment",
-                $type: "object",
                 type: "object",
                 properties: {
                     id: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     note: {
-                        $type: "enum",
                         "enum": [
                             "assignment"
                         ],
                         nullable: false
                     },
                     editable: {
-                        $type: "enum",
                         "enum": [
                             false
                         ],
                         nullable: false
                     },
                     incremental: {
-                        $type: "enum",
                         "enum": [
                             false,
                             true

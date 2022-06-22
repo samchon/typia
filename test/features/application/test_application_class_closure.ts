@@ -7,7 +7,6 @@ export const test_application_class_closure = _test_application(
     TSON.application<[ClassGetter]>(),
 {schemas: [
         {
-            $type: "reference",
             $ref: "#/components/schemas/ClassGetter.Person"
         }
     ],
@@ -15,21 +14,17 @@ export const test_application_class_closure = _test_application(
         schemas: {
             "ClassGetter.Person": {
                 $id: "ClassGetter.Person",
-                $type: "object",
                 type: "object",
                 properties: {
                     id: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     dead: {
-                        $type: "enum",
                         "enum": [
                             false,
                             true

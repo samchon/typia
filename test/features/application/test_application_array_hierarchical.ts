@@ -8,9 +8,7 @@ export const test_application_array_hierarchical = _test_application(
 {schemas: [
         {
             type: "array",
-            $type: "array",
             items: {
-                $type: "reference",
                 $ref: "#/components/schemas/ArrayHierarchical.ICompany"
             },
             nullable: false
@@ -20,19 +18,15 @@ export const test_application_array_hierarchical = _test_application(
         schemas: {
             "ArrayHierarchical.ICompany": {
                 $id: "ArrayHierarchical.ICompany",
-                $type: "object",
                 type: "object",
                 properties: {
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     departments: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/ArrayHierarchical.IDepartment"
                         },
                         nullable: false
@@ -46,19 +40,15 @@ export const test_application_array_hierarchical = _test_application(
             },
             "ArrayHierarchical.IDepartment": {
                 $id: "ArrayHierarchical.IDepartment",
-                $type: "object",
                 type: "object",
                 properties: {
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     employees: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/ArrayHierarchical.IEmployee"
                         },
                         nullable: false
@@ -72,11 +62,9 @@ export const test_application_array_hierarchical = _test_application(
             },
             "ArrayHierarchical.IEmployee": {
                 $id: "ArrayHierarchical.IEmployee",
-                $type: "object",
                 type: "object",
                 properties: {
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }

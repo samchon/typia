@@ -7,7 +7,6 @@ export const test_application_object_generic_array = _test_application(
     TSON.application<[ObjectGenericArray]>(),
 {schemas: [
         {
-            $type: "reference",
             $ref: "#/components/schemas/ObjectGenericArray.IPage_lt_ObjectGenericArray.IPerson_gt_"
         }
     ],
@@ -15,18 +14,14 @@ export const test_application_object_generic_array = _test_application(
         schemas: {
             "ObjectGenericArray.IPage_lt_ObjectGenericArray.IPerson_gt_": {
                 $id: "ObjectGenericArray.IPage_lt_ObjectGenericArray.IPerson_gt_",
-                $type: "object",
                 type: "object",
                 properties: {
                     pagination: {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectGenericArray.IPagination"
                     },
                     data: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/ObjectGenericArray.IPerson"
                         },
                         nullable: false
@@ -40,26 +35,21 @@ export const test_application_object_generic_array = _test_application(
             },
             "ObjectGenericArray.IPagination": {
                 $id: "ObjectGenericArray.IPagination",
-                $type: "object",
                 type: "object",
                 properties: {
                     page: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     limit: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     total_count: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     total_pages: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     }
@@ -74,16 +64,13 @@ export const test_application_object_generic_array = _test_application(
             },
             "ObjectGenericArray.IPerson": {
                 $id: "ObjectGenericArray.IPerson",
-                $type: "object",
                 type: "object",
                 properties: {
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     age: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     }

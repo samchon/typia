@@ -8,12 +8,9 @@ export const test_application_atomic_union = _test_application(
 {schemas: [
         {
             type: "array",
-            $type: "array",
             items: {
-                $type: "oneOf",
                 oneOf: [
                     {
-                        $type: "enum",
                         "enum": [
                             false,
                             true
@@ -21,12 +18,10 @@ export const test_application_atomic_union = _test_application(
                         nullable: true
                     },
                     {
-                        $type: "string",
                         type: "string",
                         nullable: true
                     },
                     {
-                        $type: "number",
                         type: "number",
                         nullable: true
                     }

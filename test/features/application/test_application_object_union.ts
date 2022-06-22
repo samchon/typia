@@ -8,28 +8,21 @@ export const test_application_object_union = _test_application(
 {schemas: [
         {
             type: "array",
-            $type: "array",
             items: {
-                $type: "oneOf",
                 oneOf: [
                     {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectUnion.IStore"
                     },
                     {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectUnion.IBrand"
                     },
                     {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectUnion.ICompany"
                     },
                     {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectUnion.IDepartment"
                     },
                     {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectUnion.IEmployee"
                     }
                 ]
@@ -41,18 +34,15 @@ export const test_application_object_union = _test_application(
         schemas: {
             "ObjectUnion.IStore": {
                 $id: "ObjectUnion.IStore",
-                $type: "object",
                 type: "object",
                 properties: {
                     type: {
-                        $type: "enum",
                         "enum": [
                             "store"
                         ],
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }
@@ -65,18 +55,15 @@ export const test_application_object_union = _test_application(
             },
             "ObjectUnion.IBrand": {
                 $id: "ObjectUnion.IBrand",
-                $type: "object",
                 type: "object",
                 properties: {
                     type: {
-                        $type: "enum",
                         "enum": [
                             "brand"
                         ],
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }
@@ -89,26 +76,21 @@ export const test_application_object_union = _test_application(
             },
             "ObjectUnion.ICompany": {
                 $id: "ObjectUnion.ICompany",
-                $type: "object",
                 type: "object",
                 properties: {
                     type: {
-                        $type: "enum",
                         "enum": [
                             "company"
                         ],
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     departments: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/ObjectUnion.IDepartment"
                         },
                         nullable: false
@@ -123,26 +105,21 @@ export const test_application_object_union = _test_application(
             },
             "ObjectUnion.IDepartment": {
                 $id: "ObjectUnion.IDepartment",
-                $type: "object",
                 type: "object",
                 properties: {
                     type: {
-                        $type: "enum",
                         "enum": [
                             "department"
                         ],
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     employees: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/ObjectUnion.IEmployee"
                         },
                         nullable: false
@@ -157,18 +134,15 @@ export const test_application_object_union = _test_application(
             },
             "ObjectUnion.IEmployee": {
                 $id: "ObjectUnion.IEmployee",
-                $type: "object",
                 type: "object",
                 properties: {
                     type: {
-                        $type: "enum",
                         "enum": [
                             "employee"
                         ],
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }

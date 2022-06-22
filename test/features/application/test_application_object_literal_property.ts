@@ -7,7 +7,6 @@ export const test_application_object_literal_property = _test_application(
     TSON.application<[ObjectLiteralProperty]>(),
 {schemas: [
         {
-            $type: "reference",
             $ref: "#/components/schemas/ObjectLiteralProperty.ISomething"
         }
     ],
@@ -15,16 +14,13 @@ export const test_application_object_literal_property = _test_application(
         schemas: {
             "ObjectLiteralProperty.ISomething": {
                 $id: "ObjectLiteralProperty.ISomething",
-                $type: "object",
                 type: "object",
                 properties: {
                     "something-interesting-do-you-want?": {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     "or-something-crazy-do-you-want?": {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }

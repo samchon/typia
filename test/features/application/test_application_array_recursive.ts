@@ -7,7 +7,6 @@ export const test_application_array_recursive = _test_application(
     TSON.application<[ArrayRecursive]>(),
 {schemas: [
         {
-            $type: "reference",
             $ref: "#/components/schemas/ArrayRecursive.ICategory"
         }
     ],
@@ -15,40 +14,32 @@ export const test_application_array_recursive = _test_application(
         schemas: {
             "ArrayRecursive.ICategory": {
                 $id: "ArrayRecursive.ICategory",
-                $type: "object",
                 type: "object",
                 properties: {
                     children: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/ArrayRecursive.ICategory"
                         },
                         nullable: false
                     },
                     id: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     code: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     sequence: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     created_at: {
-                        $type: "reference",
                         $ref: "#/components/schemas/ArrayRecursive.ITimestamp"
                     }
                 },
@@ -64,16 +55,13 @@ export const test_application_array_recursive = _test_application(
             },
             "ArrayRecursive.ITimestamp": {
                 $id: "ArrayRecursive.ITimestamp",
-                $type: "object",
                 type: "object",
                 properties: {
                     time: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     zone: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     }

@@ -8,20 +8,15 @@ export const test_application_constant_atomic_wrapper = _test_application(
 {schemas: [
         {
             type: "array",
-            $type: "array",
             items: {
-                $type: "oneOf",
                 oneOf: [
                     {
-                        $type: "reference",
                         $ref: "#/components/schemas/IPointer_lt_boolean_gt_"
                     },
                     {
-                        $type: "reference",
                         $ref: "#/components/schemas/IPointer_lt_number_gt_"
                     },
                     {
-                        $type: "reference",
                         $ref: "#/components/schemas/IPointer_lt_string_gt_"
                     }
                 ]
@@ -33,11 +28,9 @@ export const test_application_constant_atomic_wrapper = _test_application(
         schemas: {
             IPointer_lt_boolean_gt_: {
                 $id: "IPointer_lt_boolean_gt_",
-                $type: "object",
                 type: "object",
                 properties: {
                     value: {
-                        $type: "enum",
                         "enum": [
                             false,
                             true
@@ -52,11 +45,9 @@ export const test_application_constant_atomic_wrapper = _test_application(
             },
             IPointer_lt_number_gt_: {
                 $id: "IPointer_lt_number_gt_",
-                $type: "object",
                 type: "object",
                 properties: {
                     value: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     }
@@ -68,11 +59,9 @@ export const test_application_constant_atomic_wrapper = _test_application(
             },
             IPointer_lt_string_gt_: {
                 $id: "IPointer_lt_string_gt_",
-                $type: "object",
                 type: "object",
                 properties: {
                     value: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }

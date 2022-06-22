@@ -7,7 +7,6 @@ export const test_application_object = _test_application(
     TSON.application<[ObjectSimple]>(),
 {schemas: [
         {
-            $type: "reference",
             $ref: "#/components/schemas/ObjectSimple.IBox3D"
         }
     ],
@@ -15,23 +14,18 @@ export const test_application_object = _test_application(
         schemas: {
             "ObjectSimple.IBox3D": {
                 $id: "ObjectSimple.IBox3D",
-                $type: "object",
                 type: "object",
                 properties: {
                     scale: {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectSimple.IPoint3D"
                     },
                     position: {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectSimple.IPoint3D"
                     },
                     rotate: {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectSimple.IPoint3D"
                     },
                     pivot: {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectSimple.IPoint3D"
                     }
                 },
@@ -45,21 +39,17 @@ export const test_application_object = _test_application(
             },
             "ObjectSimple.IPoint3D": {
                 $id: "ObjectSimple.IPoint3D",
-                $type: "object",
                 type: "object",
                 properties: {
                     x: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     y: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     z: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     }

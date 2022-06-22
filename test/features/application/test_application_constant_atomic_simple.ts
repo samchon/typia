@@ -8,12 +8,9 @@ export const test_application_constant_atomic_simple = _test_application(
 {schemas: [
         {
             type: "array",
-            $type: "array",
             items: {
-                $type: "oneOf",
                 oneOf: [
                     {
-                        $type: "enum",
                         "enum": [
                             false,
                             true
@@ -21,14 +18,12 @@ export const test_application_constant_atomic_simple = _test_application(
                         nullable: false
                     },
                     {
-                        $type: "enum",
                         "enum": [
                             2
                         ],
                         nullable: false
                     },
                     {
-                        $type: "enum",
                         "enum": [
                             "three"
                         ],

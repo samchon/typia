@@ -7,14 +7,11 @@ export const test_application_object_generic_union = _test_application(
     TSON.application<[ObjectGenericUnion]>(),
 {schemas: [
         {
-            $type: "oneOf",
             oneOf: [
                 {
-                    $type: "reference",
                     $ref: "#/components/schemas/ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_"
                 },
                 {
-                    $type: "reference",
                     $ref: "#/components/schemas/ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_"
                 }
             ]
@@ -24,39 +21,31 @@ export const test_application_object_generic_union = _test_application(
         schemas: {
             "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_": {
                 $id: "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
-                $type: "object",
                 type: "object",
                 properties: {
                     writer: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     answer: {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable"
                     },
                     id: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     hit: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     contents: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent"
                         },
                         nullable: false
                     },
                     created_at: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }
@@ -73,30 +62,24 @@ export const test_application_object_generic_union = _test_application(
             },
             "ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable": {
                 $id: "ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
-                $type: "object",
                 type: "object",
                 properties: {
                     id: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     hit: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     contents: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent"
                         },
                         nullable: false
                     },
                     created_at: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }
@@ -111,34 +94,27 @@ export const test_application_object_generic_union = _test_application(
             },
             "ObjectGenericUnion.ISaleArticle.IContent": {
                 $id: "ObjectGenericUnion.ISaleArticle.IContent",
-                $type: "object",
                 type: "object",
                 properties: {
                     id: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     created_at: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     title: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     body: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     files: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/__type"
                         },
                         nullable: false
@@ -155,21 +131,17 @@ export const test_application_object_generic_union = _test_application(
             },
             __type: {
                 $id: "__type",
-                $type: "object",
                 type: "object",
                 properties: {
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     url: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     extension: {
-                        $type: "null",
                         type: "null"
                     }
                 },
@@ -182,39 +154,31 @@ export const test_application_object_generic_union = _test_application(
             },
             "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_": {
                 $id: "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
-                $type: "object",
                 type: "object",
                 properties: {
                     writer: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     answer: {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable"
                     },
                     id: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     hit: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     contents: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent"
                         },
                         nullable: false
                     },
                     created_at: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }
@@ -231,39 +195,31 @@ export const test_application_object_generic_union = _test_application(
             },
             "ObjectGenericUnion.ISaleReview.IContent": {
                 $id: "ObjectGenericUnion.ISaleReview.IContent",
-                $type: "object",
                 type: "object",
                 properties: {
                     score: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     id: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     created_at: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     title: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     body: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     files: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/__type"
                         },
                         nullable: false

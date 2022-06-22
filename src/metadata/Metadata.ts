@@ -165,6 +165,15 @@ export class Metadata {
             (this.objects.length ? 1 : 0)
         );
     }
+
+    /**
+     * @internal
+     */
+    public isUnionBucket(): boolean {
+        const size: number = this.bucket();
+        const emended: number = this.constants.length ? size - 1 : size;
+        return emended > 1;
+    }
 }
 
 function getName(metadata: Metadata): string {

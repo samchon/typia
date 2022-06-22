@@ -7,7 +7,6 @@ export const test_application_object_intersection = _test_application(
     TSON.application<[ObjectIntersection]>(),
 {schemas: [
         {
-            $type: "reference",
             $ref: "#/components/schemas/ObjectIntersection"
         }
     ],
@@ -15,21 +14,17 @@ export const test_application_object_intersection = _test_application(
         schemas: {
             ObjectIntersection: {
                 $id: "ObjectIntersection",
-                $type: "object",
                 type: "object",
                 properties: {
                     email: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     vulnerable: {
-                        $type: "enum",
                         "enum": [
                             false,
                             true

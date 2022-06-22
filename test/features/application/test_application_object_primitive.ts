@@ -7,7 +7,6 @@ export const test_application_object_primitive = _test_application(
     TSON.application<[ObjectPrimitive]>(),
 {schemas: [
         {
-            $type: "reference",
             $ref: "#/components/schemas/__type"
         }
     ],
@@ -15,16 +14,13 @@ export const test_application_object_primitive = _test_application(
         schemas: {
             __type: {
                 $id: "__type",
-                $type: "object",
                 type: "object",
                 properties: {
                     id: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     extension: {
-                        $type: "enum",
                         "enum": [
                             "txt",
                             "md",
@@ -33,26 +29,21 @@ export const test_application_object_primitive = _test_application(
                         nullable: false
                     },
                     title: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     body: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     files: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/__type.o1"
                         },
                         nullable: false
                     },
                     secret: {
-                        $type: "enum",
                         "enum": [
                             false,
                             true
@@ -60,7 +51,6 @@ export const test_application_object_primitive = _test_application(
                         nullable: false
                     },
                     created_at: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }
@@ -78,31 +68,25 @@ export const test_application_object_primitive = _test_application(
             },
             "__type.o1": {
                 $id: "__type.o1",
-                $type: "object",
                 type: "object",
                 properties: {
                     id: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     extension: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     url: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     created_at: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }

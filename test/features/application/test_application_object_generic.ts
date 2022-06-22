@@ -8,20 +8,15 @@ export const test_application_object_generic = _test_application(
 {schemas: [
         {
             type: "array",
-            $type: "array",
             items: {
-                $type: "oneOf",
                 oneOf: [
                     {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectGeneric.ISomething_lt_boolean_gt_"
                     },
                     {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectGeneric.ISomething_lt_number_gt_"
                     },
                     {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectGeneric.ISomething_lt_string_gt_"
                     }
                 ]
@@ -33,11 +28,9 @@ export const test_application_object_generic = _test_application(
         schemas: {
             "ObjectGeneric.ISomething_lt_boolean_gt_": {
                 $id: "ObjectGeneric.ISomething_lt_boolean_gt_",
-                $type: "object",
                 type: "object",
                 properties: {
                     value: {
-                        $type: "enum",
                         "enum": [
                             false,
                             true
@@ -45,14 +38,11 @@ export const test_application_object_generic = _test_application(
                         nullable: false
                     },
                     child: {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma_boolean_gt_"
                     },
                     elements: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma_boolean_gt_"
                         },
                         nullable: false
@@ -67,11 +57,9 @@ export const test_application_object_generic = _test_application(
             },
             "ObjectGeneric.IChild_lt_boolean_comma_boolean_gt_": {
                 $id: "ObjectGeneric.IChild_lt_boolean_comma_boolean_gt_",
-                $type: "object",
                 type: "object",
                 properties: {
                     child_value: {
-                        $type: "enum",
                         "enum": [
                             false,
                             true
@@ -79,7 +67,6 @@ export const test_application_object_generic = _test_application(
                         nullable: false
                     },
                     child_next: {
-                        $type: "enum",
                         "enum": [
                             false,
                             true
@@ -95,23 +82,18 @@ export const test_application_object_generic = _test_application(
             },
             "ObjectGeneric.ISomething_lt_number_gt_": {
                 $id: "ObjectGeneric.ISomething_lt_number_gt_",
-                $type: "object",
                 type: "object",
                 properties: {
                     value: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     child: {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectGeneric.IChild_lt_number_comma_number_gt_"
                     },
                     elements: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/ObjectGeneric.IChild_lt_number_comma_number_gt_"
                         },
                         nullable: false
@@ -126,16 +108,13 @@ export const test_application_object_generic = _test_application(
             },
             "ObjectGeneric.IChild_lt_number_comma_number_gt_": {
                 $id: "ObjectGeneric.IChild_lt_number_comma_number_gt_",
-                $type: "object",
                 type: "object",
                 properties: {
                     child_value: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     child_next: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     }
@@ -148,23 +127,18 @@ export const test_application_object_generic = _test_application(
             },
             "ObjectGeneric.ISomething_lt_string_gt_": {
                 $id: "ObjectGeneric.ISomething_lt_string_gt_",
-                $type: "object",
                 type: "object",
                 properties: {
                     value: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     child: {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectGeneric.IChild_lt_string_comma_string_gt_"
                     },
                     elements: {
                         type: "array",
-                        $type: "array",
                         items: {
-                            $type: "reference",
                             $ref: "#/components/schemas/ObjectGeneric.IChild_lt_string_comma_string_gt_"
                         },
                         nullable: false
@@ -179,16 +153,13 @@ export const test_application_object_generic = _test_application(
             },
             "ObjectGeneric.IChild_lt_string_comma_string_gt_": {
                 $id: "ObjectGeneric.IChild_lt_string_comma_string_gt_",
-                $type: "object",
                 type: "object",
                 properties: {
                     child_value: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     child_next: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }

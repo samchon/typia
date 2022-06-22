@@ -7,61 +7,35 @@ export const test_application_object_recursive = _test_application(
     TSON.application<[ObjectRecursive]>(),
 {schemas: [
         {
-            $type: "oneOf",
-            oneOf: [
-                {
-                    $type: "reference",
-                    $ref: "#/components/schemas/ObjectRecursive.IDepartment"
-                },
-                {
-                    $type: "reference",
-                    $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable"
-                }
-            ]
+            $ref: "#/components/schemas/ObjectRecursive.IDepartment"
         }
     ],
     components: {
         schemas: {
             "ObjectRecursive.IDepartment": {
                 $id: "ObjectRecursive.IDepartment",
-                $type: "object",
                 type: "object",
                 properties: {
                     parent: {
-                        $type: "oneOf",
-                        oneOf: [
-                            {
-                                $type: "reference",
-                                $ref: "#/components/schemas/ObjectRecursive.IDepartment"
-                            },
-                            {
-                                $type: "reference",
-                                $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable"
-                            }
-                        ]
+                        $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable"
                     },
                     id: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     code: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     sequence: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     created_at: {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectRecursive.ITimestamp"
                     }
                 },
@@ -77,44 +51,28 @@ export const test_application_object_recursive = _test_application(
             },
             "ObjectRecursive.IDepartment.Nullable": {
                 $id: "ObjectRecursive.IDepartment.Nullable",
-                $type: "object",
                 type: "object",
                 properties: {
                     parent: {
-                        $type: "oneOf",
-                        oneOf: [
-                            {
-                                $type: "reference",
-                                $ref: "#/components/schemas/ObjectRecursive.IDepartment"
-                            },
-                            {
-                                $type: "reference",
-                                $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable"
-                            }
-                        ]
+                        $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable"
                     },
                     id: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     code: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     sequence: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     created_at: {
-                        $type: "reference",
                         $ref: "#/components/schemas/ObjectRecursive.ITimestamp"
                     }
                 },
@@ -130,16 +88,13 @@ export const test_application_object_recursive = _test_application(
             },
             "ObjectRecursive.ITimestamp": {
                 $id: "ObjectRecursive.ITimestamp",
-                $type: "object",
                 type: "object",
                 properties: {
                     time: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
                     zone: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     }

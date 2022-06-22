@@ -7,7 +7,6 @@ export const test_application_object_closure = _test_application(
     TSON.application<[ObjectClosure]>(),
 {schemas: [
         {
-            $type: "reference",
             $ref: "#/components/schemas/ObjectClosure.IRecord"
         }
     ],
@@ -15,11 +14,9 @@ export const test_application_object_closure = _test_application(
         schemas: {
             "ObjectClosure.IRecord": {
                 $id: "ObjectClosure.IRecord",
-                $type: "object",
                 type: "object",
                 properties: {
                     id: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }

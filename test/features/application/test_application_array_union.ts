@@ -7,13 +7,10 @@ export const test_application_array_union = _test_application(
     TSON.application<[ArrayUnion]>(),
 {schemas: [
         {
-            $type: "oneOf",
             oneOf: [
                 {
                     type: "array",
-                    $type: "array",
                     items: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
@@ -21,9 +18,7 @@ export const test_application_array_union = _test_application(
                 },
                 {
                     type: "array",
-                    $type: "array",
                     items: {
-                        $type: "enum",
                         "enum": [
                             false,
                             true
@@ -34,9 +29,7 @@ export const test_application_array_union = _test_application(
                 },
                 {
                     type: "array",
-                    $type: "array",
                     items: {
-                        $type: "number",
                         type: "number",
                         nullable: false
                     },
@@ -44,12 +37,9 @@ export const test_application_array_union = _test_application(
                 },
                 {
                     type: "array",
-                    $type: "array",
                     items: {
-                        $type: "oneOf",
                         oneOf: [
                             {
-                                $type: "enum",
                                 "enum": [
                                     false,
                                     true
@@ -57,12 +47,10 @@ export const test_application_array_union = _test_application(
                                 nullable: false
                             },
                             {
-                                $type: "string",
                                 type: "string",
                                 nullable: false
                             },
                             {
-                                $type: "number",
                                 type: "number",
                                 nullable: false
                             }

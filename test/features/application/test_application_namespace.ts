@@ -7,7 +7,6 @@ export const test_application_namespace = _test_application(
     TSON.application<[typeof Namespace]>(),
 {schemas: [
         {
-            $type: "reference",
             $ref: "#/components/schemas/Namespace"
         }
     ],
@@ -15,7 +14,6 @@ export const test_application_namespace = _test_application(
         schemas: {
             Namespace: {
                 $id: "Namespace",
-                $type: "object",
                 type: "object",
                 properties: {},
                 nullable: false

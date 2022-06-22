@@ -7,7 +7,6 @@ export const test_application_class_non_public = _test_application(
     TSON.application<[ClassNonPublic]>(),
 {schemas: [
         {
-            $type: "reference",
             $ref: "#/components/schemas/ClassNonPublic.Accessor"
         }
     ],
@@ -15,16 +14,13 @@ export const test_application_class_non_public = _test_application(
         schemas: {
             "ClassNonPublic.Accessor": {
                 $id: "ClassNonPublic.Accessor",
-                $type: "object",
                 type: "object",
                 properties: {
                     implicit: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     shown: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     }

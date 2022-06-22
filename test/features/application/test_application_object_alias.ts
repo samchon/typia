@@ -8,9 +8,7 @@ export const test_application_object_alias = _test_application(
 {schemas: [
         {
             type: "array",
-            $type: "array",
             items: {
-                $type: "reference",
                 $ref: "#/components/schemas/ObjectAlias.IMember"
             },
             nullable: false
@@ -20,28 +18,22 @@ export const test_application_object_alias = _test_application(
         schemas: {
             "ObjectAlias.IMember": {
                 $id: "ObjectAlias.IMember",
-                $type: "object",
                 type: "object",
                 properties: {
                     id: {
-                        $type: "null",
                         type: "null"
                     },
                     email: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     name: {
-                        $type: "string",
                         type: "string",
                         nullable: false
                     },
                     sex: {
-                        $type: "oneOf",
                         oneOf: [
                             {
-                                $type: "enum",
                                 "enum": [
                                     2,
                                     1
@@ -49,7 +41,6 @@ export const test_application_object_alias = _test_application(
                                 nullable: true
                             },
                             {
-                                $type: "enum",
                                 "enum": [
                                     "male",
                                     "female"
@@ -59,11 +50,9 @@ export const test_application_object_alias = _test_application(
                         ]
                     },
                     age: {
-                        $type: "null",
                         type: "null"
                     },
                     dead: {
-                        $type: "enum",
                         "enum": [
                             false,
                             true
