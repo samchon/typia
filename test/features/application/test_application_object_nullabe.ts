@@ -5,67 +5,80 @@ import { _test_application } from "../application/_test_application";
 export const test_application_object_nullable = _test_application(
     "nullable object",
     TSON.application<[ObjectNullable]>(),
-    {
-        schemas: [
-            {
-                type: "array",
-                items: {
-                    $ref: "#/components/schemas/ObjectNullable.IProduct",
+{schemas: [
+        {
+            type: "array",
+            $type: "array",
+            items: {
+                $type: "reference",
+                $ref: "#/components/schemas/ObjectNullable.IProduct"
+            },
+            nullable: false
+        }
+    ],
+    components: {
+        schemas: {
+            "ObjectNullable.IProduct": {
+                $id: "ObjectNullable.IProduct",
+                $type: "object",
+                type: "object",
+                properties: {
+                    name: {
+                        $type: "string",
+                        type: "string",
+                        nullable: false
+                    },
+                    manufacturer: {
+                        $type: "reference",
+                        $ref: "#/components/schemas/ObjectNullable.IManufacturer"
+                    },
+                    brand: {
+                        $type: "reference",
+                        $ref: "#/components/schemas/ObjectNullable.IBrand.Nullable"
+                    }
                 },
                 nullable: false,
+                required: [
+                    "name",
+                    "manufacturer",
+                    "brand"
+                ]
             },
-        ],
-        components: {
-            schemas: {
-                "ObjectNullable.IProduct": {
-                    $id: "ObjectNullable.IProduct",
-                    type: "object",
-                    properties: {
-                        name: {
-                            type: "string",
-                            nullable: false,
-                        },
-                        manufacturer: {
-                            $ref: "#/components/schemas/ObjectNullable.IManufacturer",
-                        },
-                        brand: {
-                            $ref: "#/components/schemas/ObjectNullable.IBrand.Nullable",
-                        },
-                    },
-                    nullable: false,
-                    required: [
-                        "ObjectNullable.IProduct",
-                        "ObjectNullable.IProduct",
-                        "ObjectNullable.IProduct",
-                    ],
+            "ObjectNullable.IManufacturer": {
+                $id: "ObjectNullable.IManufacturer",
+                $type: "object",
+                type: "object",
+                properties: {
+                    name: {
+                        $type: "string",
+                        type: "string",
+                        nullable: false
+                    }
                 },
-                "ObjectNullable.IManufacturer": {
-                    $id: "ObjectNullable.IManufacturer",
-                    type: "object",
-                    properties: {
-                        name: {
-                            type: "string",
-                            nullable: false,
-                        },
-                    },
-                    nullable: false,
-                    required: ["ObjectNullable.IManufacturer"],
-                },
-                "ObjectNullable.IBrand.Nullable": {
-                    $id: "ObjectNullable.IBrand.Nullable",
-                    type: "object",
-                    properties: {
-                        name: {
-                            type: "string",
-                            nullable: false,
-                        },
-                    },
-                    nullable: true,
-                    required: ["ObjectNullable.IBrand.Nullable"],
-                },
+                nullable: false,
+                required: [
+                    "name"
+                ]
             },
-        },
-        purpose: "swagger",
-        prefix: "#/components/schemas",
+            "ObjectNullable.IBrand.Nullable": {
+                $id: "ObjectNullable.IBrand.Nullable",
+                $type: "object",
+                type: "object",
+                properties: {
+                    name: {
+                        $type: "string",
+                        type: "string",
+                        nullable: false
+                    }
+                },
+                nullable: true,
+                required: [
+                    "name"
+                ]
+            }
+        }
     },
+    purpose: "swagger",
+    prefix: "#/components/schemas"
+}
 );

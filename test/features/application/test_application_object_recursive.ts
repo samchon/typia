@@ -5,131 +5,154 @@ import { _test_application } from "../application/_test_application";
 export const test_application_object_recursive = _test_application(
     "recursive object",
     TSON.application<[ObjectRecursive]>(),
-    {
-        schemas: [
-            {
-                oneOf: [
-                    {
-                        $ref: "#/components/schemas/ObjectRecursive.IDepartment",
+{schemas: [
+        {
+            $type: "oneOf",
+            oneOf: [
+                {
+                    $type: "reference",
+                    $ref: "#/components/schemas/ObjectRecursive.IDepartment"
+                },
+                {
+                    $type: "reference",
+                    $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable"
+                }
+            ]
+        }
+    ],
+    components: {
+        schemas: {
+            "ObjectRecursive.IDepartment": {
+                $id: "ObjectRecursive.IDepartment",
+                $type: "object",
+                type: "object",
+                properties: {
+                    parent: {
+                        $type: "oneOf",
+                        oneOf: [
+                            {
+                                $type: "reference",
+                                $ref: "#/components/schemas/ObjectRecursive.IDepartment"
+                            },
+                            {
+                                $type: "reference",
+                                $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable"
+                            }
+                        ]
                     },
-                    {
-                        $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
+                    id: {
+                        $type: "number",
+                        type: "number",
+                        nullable: false
                     },
-                ],
+                    code: {
+                        $type: "string",
+                        type: "string",
+                        nullable: false
+                    },
+                    name: {
+                        $type: "string",
+                        type: "string",
+                        nullable: false
+                    },
+                    sequence: {
+                        $type: "number",
+                        type: "number",
+                        nullable: false
+                    },
+                    created_at: {
+                        $type: "reference",
+                        $ref: "#/components/schemas/ObjectRecursive.ITimestamp"
+                    }
+                },
+                nullable: false,
+                required: [
+                    "parent",
+                    "id",
+                    "code",
+                    "name",
+                    "sequence",
+                    "created_at"
+                ]
             },
-        ],
-        components: {
-            schemas: {
-                "ObjectRecursive.IDepartment": {
-                    $id: "ObjectRecursive.IDepartment",
-                    type: "object",
-                    properties: {
-                        parent: {
-                            oneOf: [
-                                {
-                                    $ref: "#/components/schemas/ObjectRecursive.IDepartment",
-                                },
-                                {
-                                    $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
-                                },
-                            ],
-                        },
-                        id: {
-                            type: "number",
-                            nullable: false,
-                        },
-                        code: {
-                            type: "string",
-                            nullable: false,
-                        },
-                        name: {
-                            type: "string",
-                            nullable: false,
-                        },
-                        sequence: {
-                            type: "number",
-                            nullable: false,
-                        },
-                        created_at: {
-                            $ref: "#/components/schemas/ObjectRecursive.ITimestamp",
-                        },
+            "ObjectRecursive.IDepartment.Nullable": {
+                $id: "ObjectRecursive.IDepartment.Nullable",
+                $type: "object",
+                type: "object",
+                properties: {
+                    parent: {
+                        $type: "oneOf",
+                        oneOf: [
+                            {
+                                $type: "reference",
+                                $ref: "#/components/schemas/ObjectRecursive.IDepartment"
+                            },
+                            {
+                                $type: "reference",
+                                $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable"
+                            }
+                        ]
                     },
-                    nullable: false,
-                    required: [
-                        "ObjectRecursive.IDepartment",
-                        "ObjectRecursive.IDepartment",
-                        "ObjectRecursive.IDepartment",
-                        "ObjectRecursive.IDepartment",
-                        "ObjectRecursive.IDepartment",
-                        "ObjectRecursive.IDepartment",
-                    ],
-                },
-                "ObjectRecursive.IDepartment.Nullable": {
-                    $id: "ObjectRecursive.IDepartment.Nullable",
-                    type: "object",
-                    properties: {
-                        parent: {
-                            oneOf: [
-                                {
-                                    $ref: "#/components/schemas/ObjectRecursive.IDepartment",
-                                },
-                                {
-                                    $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
-                                },
-                            ],
-                        },
-                        id: {
-                            type: "number",
-                            nullable: false,
-                        },
-                        code: {
-                            type: "string",
-                            nullable: false,
-                        },
-                        name: {
-                            type: "string",
-                            nullable: false,
-                        },
-                        sequence: {
-                            type: "number",
-                            nullable: false,
-                        },
-                        created_at: {
-                            $ref: "#/components/schemas/ObjectRecursive.ITimestamp",
-                        },
+                    id: {
+                        $type: "number",
+                        type: "number",
+                        nullable: false
                     },
-                    nullable: true,
-                    required: [
-                        "ObjectRecursive.IDepartment.Nullable",
-                        "ObjectRecursive.IDepartment.Nullable",
-                        "ObjectRecursive.IDepartment.Nullable",
-                        "ObjectRecursive.IDepartment.Nullable",
-                        "ObjectRecursive.IDepartment.Nullable",
-                        "ObjectRecursive.IDepartment.Nullable",
-                    ],
-                },
-                "ObjectRecursive.ITimestamp": {
-                    $id: "ObjectRecursive.ITimestamp",
-                    type: "object",
-                    properties: {
-                        time: {
-                            type: "number",
-                            nullable: false,
-                        },
-                        zone: {
-                            type: "number",
-                            nullable: false,
-                        },
+                    code: {
+                        $type: "string",
+                        type: "string",
+                        nullable: false
                     },
-                    nullable: false,
-                    required: [
-                        "ObjectRecursive.ITimestamp",
-                        "ObjectRecursive.ITimestamp",
-                    ],
+                    name: {
+                        $type: "string",
+                        type: "string",
+                        nullable: false
+                    },
+                    sequence: {
+                        $type: "number",
+                        type: "number",
+                        nullable: false
+                    },
+                    created_at: {
+                        $type: "reference",
+                        $ref: "#/components/schemas/ObjectRecursive.ITimestamp"
+                    }
                 },
+                nullable: true,
+                required: [
+                    "parent",
+                    "id",
+                    "code",
+                    "name",
+                    "sequence",
+                    "created_at"
+                ]
             },
-        },
-        purpose: "swagger",
-        prefix: "#/components/schemas",
+            "ObjectRecursive.ITimestamp": {
+                $id: "ObjectRecursive.ITimestamp",
+                $type: "object",
+                type: "object",
+                properties: {
+                    time: {
+                        $type: "number",
+                        type: "number",
+                        nullable: false
+                    },
+                    zone: {
+                        $type: "number",
+                        type: "number",
+                        nullable: false
+                    }
+                },
+                nullable: false,
+                required: [
+                    "time",
+                    "zone"
+                ]
+            }
+        }
     },
+    purpose: "swagger",
+    prefix: "#/components/schemas"
+}
 );

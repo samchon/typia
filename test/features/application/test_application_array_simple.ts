@@ -5,95 +5,116 @@ import { _test_application } from "./_test_application";
 export const test_application_array_simple = _test_application(
     "simple array",
     TSON.application<[ArraySimple]>(),
-    {
-        schemas: [
-            {
-                type: "array",
-                items: {
-                    $ref: "#/components/schemas/ArraySimple.IPerson",
+{schemas: [
+        {
+            type: "array",
+            $type: "array",
+            items: {
+                $type: "reference",
+                $ref: "#/components/schemas/ArraySimple.IPerson"
+            },
+            nullable: false
+        }
+    ],
+    components: {
+        schemas: {
+            "ArraySimple.IPerson": {
+                $id: "ArraySimple.IPerson",
+                $type: "object",
+                type: "object",
+                properties: {
+                    name: {
+                        $type: "string",
+                        type: "string",
+                        nullable: false
+                    },
+                    email: {
+                        $type: "string",
+                        type: "string",
+                        nullable: false
+                    },
+                    hobbies: {
+                        $type: "oneOf",
+                        oneOf: [
+                            {
+                                type: "array",
+                                $type: "array",
+                                items: {
+                                    $type: "string",
+                                    type: "string",
+                                    nullable: false
+                                },
+                                nullable: false
+                            },
+                            {
+                                type: "array",
+                                $type: "array",
+                                items: {
+                                    $type: "reference",
+                                    $ref: "#/components/schemas/ArraySimple.IHobby"
+                                },
+                                nullable: false
+                            },
+                            {
+                                type: "array",
+                                $type: "array",
+                                items: {
+                                    $type: "reference",
+                                    $ref: "#/components/schemas/ArraySimple.IContent"
+                                },
+                                nullable: false
+                            }
+                        ]
+                    }
                 },
                 nullable: false,
+                required: [
+                    "name",
+                    "email",
+                    "hobbies"
+                ]
             },
-        ],
-        components: {
-            schemas: {
-                "ArraySimple.IPerson": {
-                    $id: "ArraySimple.IPerson",
-                    type: "object",
-                    properties: {
-                        name: {
-                            type: "string",
-                            nullable: false,
-                        },
-                        email: {
-                            type: "string",
-                            nullable: false,
-                        },
-                        hobbies: {
-                            oneOf: [
-                                {
-                                    type: "array",
-                                    items: {
-                                        type: "string",
-                                        nullable: false,
-                                    },
-                                    nullable: false,
-                                },
-                                {
-                                    type: "array",
-                                    items: {
-                                        $ref: "#/components/schemas/ArraySimple.IHobby",
-                                    },
-                                    nullable: false,
-                                },
-                                {
-                                    type: "array",
-                                    items: {
-                                        $ref: "#/components/schemas/ArraySimple.IContent",
-                                    },
-                                    nullable: false,
-                                },
-                            ],
-                        },
+            "ArraySimple.IHobby": {
+                $id: "ArraySimple.IHobby",
+                $type: "object",
+                type: "object",
+                properties: {
+                    name: {
+                        $type: "string",
+                        type: "string",
+                        nullable: false
                     },
-                    nullable: false,
-                    required: [
-                        "ArraySimple.IPerson",
-                        "ArraySimple.IPerson",
-                        "ArraySimple.IPerson",
-                    ],
+                    rank: {
+                        $type: "number",
+                        type: "number",
+                        nullable: false
+                    }
                 },
-                "ArraySimple.IHobby": {
-                    $id: "ArraySimple.IHobby",
-                    type: "object",
-                    properties: {
-                        name: {
-                            type: "string",
-                            nullable: false,
-                        },
-                        rank: {
-                            type: "number",
-                            nullable: false,
-                        },
-                    },
-                    nullable: false,
-                    required: ["ArraySimple.IHobby", "ArraySimple.IHobby"],
-                },
-                "ArraySimple.IContent": {
-                    $id: "ArraySimple.IContent",
-                    type: "object",
-                    properties: {
-                        body: {
-                            type: "string",
-                            nullable: false,
-                        },
-                    },
-                    nullable: false,
-                    required: ["ArraySimple.IContent"],
-                },
+                nullable: false,
+                required: [
+                    "name",
+                    "rank"
+                ]
             },
-        },
-        purpose: "swagger",
-        prefix: "#/components/schemas",
+            "ArraySimple.IContent": {
+                $id: "ArraySimple.IContent",
+                $type: "object",
+                type: "object",
+                properties: {
+                    body: {
+                        $type: "string",
+                        type: "string",
+                        nullable: false
+                    }
+                },
+                nullable: false,
+                required: [
+                    "body"
+                ]
+            }
+        }
     },
+    purpose: "swagger",
+    prefix: "#/components/schemas"
+}
 );

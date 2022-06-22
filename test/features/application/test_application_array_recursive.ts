@@ -5,77 +5,88 @@ import { _test_application } from "./_test_application";
 export const test_application_array_recursive = _test_application(
     "recursive array",
     TSON.application<[ArrayRecursive]>(),
-    {
-        schemas: [
-            {
-                $ref: "#/components/schemas/ArrayRecursive.ICategory",
-            },
-        ],
-        components: {
-            schemas: {
-                "ArrayRecursive.ICategory": {
-                    $id: "ArrayRecursive.ICategory",
-                    type: "object",
-                    properties: {
-                        children: {
-                            type: "array",
-                            items: {
-                                $ref: "#/components/schemas/ArrayRecursive.ICategory",
-                            },
-                            nullable: false,
+{schemas: [
+        {
+            $type: "reference",
+            $ref: "#/components/schemas/ArrayRecursive.ICategory"
+        }
+    ],
+    components: {
+        schemas: {
+            "ArrayRecursive.ICategory": {
+                $id: "ArrayRecursive.ICategory",
+                $type: "object",
+                type: "object",
+                properties: {
+                    children: {
+                        type: "array",
+                        $type: "array",
+                        items: {
+                            $type: "reference",
+                            $ref: "#/components/schemas/ArrayRecursive.ICategory"
                         },
-                        id: {
-                            type: "number",
-                            nullable: false,
-                        },
-                        code: {
-                            type: "string",
-                            nullable: false,
-                        },
-                        name: {
-                            type: "string",
-                            nullable: false,
-                        },
-                        sequence: {
-                            type: "number",
-                            nullable: false,
-                        },
-                        created_at: {
-                            $ref: "#/components/schemas/ArrayRecursive.ITimestamp",
-                        },
+                        nullable: false
                     },
-                    nullable: false,
-                    required: [
-                        "ArrayRecursive.ICategory",
-                        "ArrayRecursive.ICategory",
-                        "ArrayRecursive.ICategory",
-                        "ArrayRecursive.ICategory",
-                        "ArrayRecursive.ICategory",
-                        "ArrayRecursive.ICategory",
-                    ],
-                },
-                "ArrayRecursive.ITimestamp": {
-                    $id: "ArrayRecursive.ITimestamp",
-                    type: "object",
-                    properties: {
-                        time: {
-                            type: "number",
-                            nullable: false,
-                        },
-                        zone: {
-                            type: "number",
-                            nullable: false,
-                        },
+                    id: {
+                        $type: "number",
+                        type: "number",
+                        nullable: false
                     },
-                    nullable: false,
-                    required: [
-                        "ArrayRecursive.ITimestamp",
-                        "ArrayRecursive.ITimestamp",
-                    ],
+                    code: {
+                        $type: "string",
+                        type: "string",
+                        nullable: false
+                    },
+                    name: {
+                        $type: "string",
+                        type: "string",
+                        nullable: false
+                    },
+                    sequence: {
+                        $type: "number",
+                        type: "number",
+                        nullable: false
+                    },
+                    created_at: {
+                        $type: "reference",
+                        $ref: "#/components/schemas/ArrayRecursive.ITimestamp"
+                    }
                 },
+                nullable: false,
+                required: [
+                    "children",
+                    "id",
+                    "code",
+                    "name",
+                    "sequence",
+                    "created_at"
+                ]
             },
-        },
-        purpose: "swagger",
-        prefix: "#/components/schemas",
+            "ArrayRecursive.ITimestamp": {
+                $id: "ArrayRecursive.ITimestamp",
+                $type: "object",
+                type: "object",
+                properties: {
+                    time: {
+                        $type: "number",
+                        type: "number",
+                        nullable: false
+                    },
+                    zone: {
+                        $type: "number",
+                        type: "number",
+                        nullable: false
+                    }
+                },
+                nullable: false,
+                required: [
+                    "time",
+                    "zone"
+                ]
+            }
+        }
     },
+    purpose: "swagger",
+    prefix: "#/components/schemas"
+}
 );

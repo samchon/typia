@@ -5,33 +5,39 @@ import { _test_application } from "./_test_application";
 export const test_application_class_method = _test_application(
     "class method",
     TSON.application<[ClassMethod]>(),
-    {
-        schemas: [
-            {
-                $ref: "#/components/schemas/ClassMethod.Animal",
-            },
-        ],
-        components: {
-            schemas: {
-                "ClassMethod.Animal": {
-                    $id: "ClassMethod.Animal",
-                    type: "object",
-                    properties: {
-                        name: {
-                            type: "string",
-                            nullable: false,
-                        },
-                        age: {
-                            type: "number",
-                            nullable: false,
-                        },
+{schemas: [
+        {
+            $type: "reference",
+            $ref: "#/components/schemas/ClassMethod.Animal"
+        }
+    ],
+    components: {
+        schemas: {
+            "ClassMethod.Animal": {
+                $id: "ClassMethod.Animal",
+                $type: "object",
+                type: "object",
+                properties: {
+                    name: {
+                        $type: "string",
+                        type: "string",
+                        nullable: false
                     },
-                    nullable: false,
-                    required: ["ClassMethod.Animal", "ClassMethod.Animal"],
+                    age: {
+                        $type: "number",
+                        type: "number",
+                        nullable: false
+                    }
                 },
-            },
-        },
-        purpose: "swagger",
-        prefix: "#/components/schemas",
+                nullable: false,
+                required: [
+                    "name",
+                    "age"
+                ]
+            }
+        }
     },
+    purpose: "swagger",
+    prefix: "#/components/schemas"
+}
 );
