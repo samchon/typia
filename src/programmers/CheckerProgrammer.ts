@@ -90,15 +90,14 @@ export namespace CheckerProgrammer {
                     ? ts.factory.createStringLiteral(value)
                     : ts.factory.createIdentifier(value.toString());
 
-            const size: number = meta.size();
-
-            // NULLBLE AND UNDEFINDABLE
-            if (meta.nullable === true || meta.objects.length || size === 0)
+            // CHECK OPTIONAL
+            const checkOptional: boolean = meta.empty() || meta.isUnionBucket();
+            if (checkOptional || meta.nullable || meta.objects.length)
                 (meta.nullable ? add : create_add(top)(input))(
                     meta.nullable,
                     ValueFactory.NULL(),
                 );
-            if (meta.required === false || meta.objects.length || size === 0)
+            if (checkOptional || !meta.required)
                 (meta.required ? create_add(top)(input) : add)(
                     !meta.required,
                     ValueFactory.UNDEFINED(),
@@ -145,8 +144,6 @@ export namespace CheckerProgrammer {
             // OBJECT
             if (meta.objects.length > 0) {
                 const outer: ts.Expression[] = [];
-                if (meta.nullable === false)
-                    create_add(outer)(input)(false, ValueFactory.NULL());
                 create_add(outer)(input)(
                     true,
                     ts.factory.createStringLiteral("object"),
