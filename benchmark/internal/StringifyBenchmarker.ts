@@ -1,16 +1,16 @@
 import benchmark from "benchmark";
 
-export namespace BenchmarkGenerator {
+export namespace StringifyBenchmarker {
     export interface IOutput {
         name: string;
-        json: number;
+        "JSON.stringify()": number;
         ajv: number | null;
-        tson: number;
+        "typescript-json": number;
         ideal: number;
     }
     export interface IParameters<T> {
         ideal: (input: T) => string;
-        tson: (input: T) => string;
+        "typescript-json": (input: T) => string;
         ajv: null | ((input: T) => string);
     }
 
@@ -22,26 +22,24 @@ export namespace BenchmarkGenerator {
         const data: T = generator();
 
         const suite: benchmark.Suite = new benchmark.Suite();
-        suite.add("json", () => JSON.stringify(data));
+        suite.add("JSON.stringify()", () => JSON.stringify(data));
         if (parameters.ajv !== null)
             suite.add("ajv", () => parameters.ajv!(data));
         suite.add("ideal", () => parameters.ideal(data));
-        suite.add("tson", () => parameters.tson(data));
+        suite.add("typescript-json", () => parameters["typescript-json"](data));
 
         return () => {
             const output: IOutput = {
                 name,
-                json: 0,
+                "JSON.stringify()": 0,
                 ajv: null,
-                tson: 0,
+                "typescript-json": 0,
                 ideal: 0,
             };
-
             suite.run();
             suite.map((elem: benchmark) => {
                 (output as any)[elem.name] = elem.count / elem.times.elapsed;
             });
-
             return output;
         };
     }

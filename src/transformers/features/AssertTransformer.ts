@@ -29,5 +29,5 @@ export namespace AssertTransformer {
 }
 
 const enum ErrorMessages {
-    NO_INPUT_VALUE = "Error on TSON.assert(): no input value.",
+    NO_INPUT_VALUE = "Error on TSON.assertType(): no input value.",
 }
