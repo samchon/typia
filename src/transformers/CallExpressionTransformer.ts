@@ -50,7 +50,7 @@ type Task = (
 const LIB_PATH = path.resolve(path.join(__dirname, "..", "module.d.ts"));
 const SRC_PATH = path.resolve(path.join(__dirname, "..", "module.ts"));
 const FUNCTORS: Record<string, () => Task> = {
-    assert: () => AssertTransformer.transform,
+    assertType: () => AssertTransformer.transform,
     is: () => IsTransformer.transform,
     stringify: () => StringifyTransformer.transform,
 

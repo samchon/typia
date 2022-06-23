@@ -31,7 +31,7 @@ export namespace AssertProgrammer {
                         CheckerProgrammer.generate({
                             combiner: combine(modulo),
                             functors: {
-                                name: "assert",
+                                name: "assertType",
                                 filter: (obj) => obj.validated,
                             },
                             trace: true,
@@ -88,7 +88,7 @@ export namespace AssertProgrammer {
                                             undefined,
                                             [
                                                 ts.factory.createStringLiteral(
-                                                    "assert",
+                                                    "assertType",
                                                 ),
                                                 ts.factory.createIdentifier(
                                                     path,

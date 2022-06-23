@@ -5,5 +5,5 @@ import { _test_assert } from "./_test_assert";
 export const test_assert_object_undefined = _test_assert(
     "undefined object",
     ObjectUndefied.generate,
-    (input) => TSON.assert(input),
+    (input) => TSON.assertType(input),
 );

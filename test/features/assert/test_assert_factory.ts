@@ -5,5 +5,5 @@
 // export const test_assert_factory = _test_assert(
 //     "factory",
 //     ArrayRecursiveUnion.generate,
-//     TSON.assert<ArrayRecursiveUnion>,
+//     TSON.assertType<ArrayRecursiveUnion>,
 // );

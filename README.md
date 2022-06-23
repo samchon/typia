@@ -19,7 +19,7 @@ import TSON from "typescript-json";
 //----
 // MAIN FUNCTIONS
 //----
-TSON.assert<T>(input); // runtime type checker throwing exception
+TSON.assertType<T>(input); // runtime type checker throwing exception
 TSON.is<T>(input); // runtime type checker returning boolean
 TSON.stringify<T>(input); // 10x faster JSON.stringify()
 
@@ -32,12 +32,14 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
 
 `typescript-json` is a transformer library providing JSON related functions.
 
-  - Runtime type checkers
-  - 10x faster `JSON.stringify()` function
-  - Comparing with `ajv` or `fast-json-stringify`
-    - 10,000x faster 1st operation including optimizer construction time
+  - Powerful Runtime type checkers:
+    - Performed by only one line, `TSON.is(input)`
+    - Supports complicate union type
+    - 100x times faster than simliar library when the union type comes
+  - 10x faster `JSON.stringify()` function:
+    - Performed by only one line: `TSON.stringify<T>(input)`
     - Does not require any JSON schema definition
-    - Performed by only one line like `TSON.stringify<T>(input)`
+    - 10,000x faster optimizer construction time than similar libaries
 
 Only JSON string conversion time | Include optimizater construction time
 ---------------------------------|----------------------------------------
@@ -116,15 +118,15 @@ module.exports = {
 ## Features
 ### Runtime Type Checkers
 ```typescript
-export function assert<T>(input: T): T;
+export function assertType<T>(input: T): T;
 export function is<T>(input: T): boolean;
 ```
 
-`typescript-json` provides two runtime type checker functions, `assert()` and `is()`.
+`typescript-json` provides two runtime type checker functions, `assertType()` and `is()`.
 
-The first `assert()` is a function throwing `TypeGuardError` when an `input` value is different with the generic argument `T`. The other function `is()` returns a `boolean` value meaning whether matched or not.
+The first `assertType()` is a function throwing `TypeGuardError` when an `input` value is different with the generic argument `T`. The other function `is()` returns a `boolean` value meaning whether matched or not.
 
-Comparing those `assert()` and `is()` functions with other similar library `ajv`, `assert()` and `is()` functions are much easier to use and even much faster. Furthermore, `typescript-json` can check complicate structured data that `ajv` cannot validate.
+Comparing those `assertType()` and `is()` functions with other similar library `ajv`, `assertType()` and `is()` functions are much easier to use and even much faster. Furthermore, `typescript-json` can check complicate structured data that `ajv` cannot validate.
 
 > Complicate structure that `ajv` cannot validate: [recursive union structure](https://github.com/samchon/typescript-json/blob/2237573005197a4e138c3c5c92806d5a972c48a3/test/structures/ArrayRecursiveUnion.ts#L6-L43)
 

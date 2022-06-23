@@ -1,10 +1,11 @@
-import { BenchmarkGenerator } from "../internal/Benchmark";
+import { StringifyBenchmarker } from "../internal/StringifyBenchmarker";
 
 import { ObjectSimple } from "../../test/structures/ObjectSimple";
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
 import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
+import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnion } from "../../test/structures/ArrayRecursiveUnion";
 
@@ -34,58 +35,57 @@ import { convert_tson_object_union_explicit } from "../converters/convert_tson_o
 import { convert_tson_array_hierarchical } from "../converters/convert_tson_array_hierarchical";
 import { convert_tson_array_recursive } from "../converters/convert_tson_array_recursive";
 import { convert_tson_array_recursive_union } from "../converters/convert_tson_array_recursive_union";
-import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 
-export const benchmark_stringify_optimizer = () => [
+const stringify = () => [
     //----
     // OBJECT
     //----
     // NORMAL STRUCTURES
-    BenchmarkGenerator.prepare(
+    StringifyBenchmarker.prepare(
         "object (simple)",
         () => ObjectSimple.generate(),
         {
             ideal: convert_ideal_object_simple,
-            tson: convert_tson_object_simple,
-            ajv: (input) => convert_ajv_object_simple()(input),
+            "typescript-json": convert_tson_object_simple,
+            ajv: convert_ajv_object_simple(),
         },
     ),
-    BenchmarkGenerator.prepare(
+    StringifyBenchmarker.prepare(
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
         {
             ideal: convert_ideal_object_hierarchical,
-            tson: convert_tson_object_hierarchical,
-            ajv: (input) => convert_ajv_object_hierarchical()(input),
+            "typescript-json": convert_tson_object_hierarchical,
+            ajv: convert_ajv_object_hierarchical(),
         },
     ),
-    BenchmarkGenerator.prepare(
+    StringifyBenchmarker.prepare(
         "object (recursive)",
         () => ObjectRecursive.generate(),
         {
             ideal: convert_ideal_object_recursive,
-            tson: convert_tson_object_recursive,
-            ajv: (input) => convert_ajv_object_recursive()(input),
+            "typescript-json": convert_tson_object_recursive,
+            ajv: convert_ajv_object_recursive(),
         },
     ),
 
     // SPECIAL UNION TYPES
-    BenchmarkGenerator.prepare(
+    StringifyBenchmarker.prepare(
         "object (union, implicit)",
         () => ObjectUnionImplicit.generate(),
         {
             ideal: convert_ideal_object_union_implicit,
-            tson: convert_tson_object_union_implicit,
-            ajv: (input) => convert_ajv_object_union_implicit()(input),
+            "typescript-json": convert_tson_object_union_implicit,
+            ajv: convert_ajv_object_union_implicit(),
         },
     ),
-    BenchmarkGenerator.prepare(
+    StringifyBenchmarker.prepare(
         "object (union, explicit)",
         () => ObjectUnionExplicit.generate(),
         {
             ideal: convert_ideal_object_union_explicit,
-            tson: convert_tson_object_union_explicit,
-            ajv: (input) => convert_ajv_object_union_explicit()(input),
+            "typescript-json": convert_tson_object_union_explicit,
+            ajv: convert_ajv_object_union_explicit(),
         },
     ),
 
@@ -93,32 +93,33 @@ export const benchmark_stringify_optimizer = () => [
     // ARRAY
     //----
     // NORMAL STRUCTURES
-    BenchmarkGenerator.prepare(
+    StringifyBenchmarker.prepare(
         "array (hierarchical)",
         () => ArrayHierarchical.generate(),
         {
             ideal: convert_ideal_array_hierarchical,
-            tson: convert_tson_array_hierarchical,
-            ajv: (input) => convert_ajv_array_hierarchical()(input),
+            "typescript-json": convert_tson_array_hierarchical,
+            ajv: convert_ajv_array_hierarchical(),
         },
     ),
-    BenchmarkGenerator.prepare(
+    StringifyBenchmarker.prepare(
         "array (recursive)",
         () => ArrayRecursive.generate(),
         {
             ideal: convert_ideal_array_recursive,
-            tson: convert_tson_array_recursive,
-            ajv: (input) => convert_ajv_array_recursive()(input),
+            "typescript-json": convert_tson_array_recursive,
+            ajv: convert_ajv_array_recursive(),
         },
     ),
     // SPECIAL UNION STRUCTURES
-    BenchmarkGenerator.prepare(
+    StringifyBenchmarker.prepare(
         "array (recursive, union)",
         () => ArrayRecursiveUnion.generate(),
         {
             ideal: convert_ideal_array_recursive_union,
-            tson: convert_tson_array_recursive_union,
-            ajv: (input) => convert_ajv_array_recursive_union()(input),
+            "typescript-json": convert_tson_array_recursive_union,
+            ajv: convert_ajv_array_recursive_union(),
         },
     ),
 ];
+export { stringify as benchmark_stringify };
