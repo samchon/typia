@@ -1,7 +1,10 @@
 import { BenchmarkGenerator } from "./internal/Benchmark";
+import { NumberUtil } from "../test/internal/NumberUtil";
 
 import { benchmark_stringify_optimizer } from "./features/benchmark_stringify_optimizer";
 import { benchmark_stringify_repeat } from "./features/benchmark_stringify_repeat";
+
+const round = NumberUtil.elaborate(4)(Math.round);
 
 function measure(functor: () => Array<() => BenchmarkGenerator.IOutput>): void {
     console.log(`## ${functor.name}`);
@@ -20,12 +23,12 @@ function measure(functor: () => Array<() => BenchmarkGenerator.IOutput>): void {
         console.log(
             [
                 result.name,
-                (result.ideal / result.json) * 100,
-                (result.tson / result.json) * 100,
+                round((result.ideal / result.json) * 100),
+                round((result.tson / result.json) * 100),
                 result.ajv !== null
-                    ? (result.ajv / result.json) * 100
+                    ? round((result.ajv / result.json) * 100)
                     : "Failed",
-                (result.json / result.json) * 100,
+                round((result.json / result.json) * 100),
             ].join(" | "),
         );
     }

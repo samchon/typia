@@ -5,7 +5,6 @@ import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
 import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
-import { ArraySimple } from "../../test/structures/ArraySimple";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnion } from "../../test/structures/ArrayRecursiveUnion";
 
@@ -114,7 +113,7 @@ export const benchmark_stringify_optimizer = () => [
     ),
     // SPECIAL UNION STRUCTURES
     BenchmarkGenerator.prepare(
-        "array (recursive)",
+        "array (recursive, union)",
         () => ArrayRecursiveUnion.generate(),
         {
             ideal: convert_ideal_array_recursive_union,

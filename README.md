@@ -35,7 +35,7 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
   - Runtime type checkers
   - 10x faster `JSON.stringify()` function
   - Comparing with `ajv` or `fast-json-stringify`
-    - 1,000x faster 1st operation including optimizer construction time
+    - 10,000x faster 1st operation including optimizer construction time
     - Does not require any JSON schema definition
     - Performed by only one line like `TSON.stringify<T>(input)`
 
@@ -146,7 +146,7 @@ If you call `TSON.stringify()` function instead of the native `JSON.stringify()`
 
 On the other side, other similary library like `fast-json-stringify` requires complicate JSON schema definition. Furthermore, `typescript-json` can convert complicate structured data that `fast-json-stringify` cannot convert.
 
-Comparing performance, `typescript-json` is about 2x times faster when comparing only JSON string conversion time. If compare optimizer construction time with only one call, `typescript-json` is even 1,000x times faster.
+Comparing performance, `typescript-json` is about 2x times faster when comparing only JSON string conversion time. If compare optimizer construction time with only one call, `typescript-json` is even 10,000x times faster.
 
 > Complicate structure that `fast-json-stringify` cannot convert: [recursive union structure](https://github.com/samchon/typescript-json/blob/2237573005197a4e138c3c5c92806d5a972c48a3/test/structures/ArrayRecursiveUnion.ts#L6-L43)
 

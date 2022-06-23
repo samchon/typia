@@ -52,7 +52,7 @@
     "@typescript-eslint/parser": "^5.26.0",
     "benchmark": "^2.1.4",
     "cli": "^1.0.1",
-    "fast-json-stringify": "^4.2.0",
+    "fast-json-stringify": "^5.0.0",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "suppress-warnings": "^1.0.2",

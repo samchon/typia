@@ -7,11 +7,7 @@ export function convert_ideal_array_hierarchical(
     function company(elem: ArrayHierarchical.ICompany): string {
         return `{
             "id": ${elem.id},
-            "serial": [
-                ${elem.serial[0]}, 
-                ${elem.serial[1]}, 
-                ${elem.serial[2]}
-            ],
+            "serial": ${elem.serial},
             "name": ${$string(elem.name)},
             "established_at": ${timestamp(elem.established_at)},
             "departments": [${elem.departments

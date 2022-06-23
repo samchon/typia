@@ -10,6 +10,7 @@ import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { IsProgrammer } from "./IsProgrammer";
 import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { UnionPredicator } from "./helpers/UnionPredicator";
+import { IPointer } from "../structures/IPointer";
 
 export namespace FeatureProgrammer {
     export interface IConfig {
@@ -267,7 +268,9 @@ export namespace FeatureProgrammer {
             );
 
             // DO SPECIALIZE
-            const statements: ts.IfStatement[] = specList.map((spec) => {
+            const condition: IPointer<ts.IfStatement | null> = { value: null };
+
+            specList.reverse().forEach((spec) => {
                 const accessor: ts.Expression = IdentifierFactory.join(
                     input,
                     spec.property.name,
@@ -281,12 +284,14 @@ export namespace FeatureProgrammer {
                           ),
                       })
                     : ExpressionFactory.isRequired(accessor);
-                return ts.factory.createIfStatement(
+                const statement: ts.IfStatement = ts.factory.createIfStatement(
                     pred,
                     ts.factory.createReturnStatement(
                         objector(input, spec.object, explore),
                     ),
+                    condition.value ? condition.value : undefined,
                 );
+                condition.value = statement;
             });
 
             // RETURNS WITH CONDITIONS
@@ -299,7 +304,7 @@ export namespace FeatureProgrammer {
                     undefined,
                     ts.factory.createBlock(
                         [
-                            ...statements,
+                            condition.value!,
                             remained.length
                                 ? ts.factory.createReturnStatement(
                                       explore_objects(
