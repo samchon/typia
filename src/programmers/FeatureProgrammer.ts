@@ -6,6 +6,10 @@ import { MetadataCollection } from "../factories/MetadataCollection";
 import { ValueFactory } from "../factories/ValueFactory";
 import { Metadata } from "../metadata/Metadata";
 import { MetadataObject } from "../metadata/MetadataObject";
+import { IdentifierFactory } from "../factories/IdentifierFactory";
+import { IsProgrammer } from "./IsProgrammer";
+import { ExpressionFactory } from "../factories/ExpressionFactory";
+import { UnionPredicator } from "./helpers/UnionPredicator";
 
 export namespace FeatureProgrammer {
     export interface IConfig {
@@ -132,9 +136,6 @@ export namespace FeatureProgrammer {
                           ts.factory.createStringLiteral(prop.name),
                       );
 
-                const postfix: string = Escaper.variable(prop.name)
-                    ? `".${prop.name}"`
-                    : `"[${prop.name.split('"').join('\\"')}]"`;
                 entries.push({
                     input: access,
                     key: prop.name,
@@ -142,7 +143,7 @@ export namespace FeatureProgrammer {
                     expression: config.decoder(access, prop.metadata, {
                         tracable: config.trace,
                         from: "object",
-                        postfix,
+                        postfix: IdentifierFactory.postfix(prop.name),
                     }),
                 });
             }
@@ -159,7 +160,7 @@ export namespace FeatureProgrammer {
     }
 
     /* -----------------------------------------------------------
-        VISITORS
+        DECODERS
     ----------------------------------------------------------- */
     export function decode_array(
         config: IConfig,
@@ -220,6 +221,101 @@ export namespace FeatureProgrammer {
                 ),
                 undefined,
                 createArguments(input),
+            );
+        };
+    }
+
+    /* -----------------------------------------------------------
+        EXPLORERS
+    ----------------------------------------------------------- */
+    export function explore_objects(
+        config: IConfig,
+        combiner: (
+            explorer: IExplore,
+        ) => (
+            type: "and" | "or",
+        ) => (
+            input: ts.Expression,
+            expressions: ts.Expression[],
+        ) => ts.Expression,
+        objector: (
+            input: ts.Expression,
+            obj: MetadataObject,
+            explore: IExplore,
+        ) => ts.Expression = decode_object(config),
+        failure: (input: ts.Expression) => ts.Statement,
+    ) {
+        return function (
+            input: ts.Expression,
+            targets: MetadataObject[],
+            explore: IExplore,
+        ): ts.Expression {
+            // BREAKER
+            if (targets.length === 1)
+                return objector(input, targets[0]!, explore);
+
+            // POSSIBLE TO SPECIALIZE?
+            const specList: UnionPredicator.ISpecialized[] =
+                UnionPredicator.object(targets);
+            if (specList.length === 0)
+                return combiner({ ...explore, tracable: false })("or")(
+                    input,
+                    targets.map((obj) => objector(input, obj, explore)),
+                );
+            const remained: MetadataObject[] = targets.filter(
+                (t) => specList.find((s) => s.object === t) === undefined,
+            );
+
+            // DO SPECIALIZE
+            const statements: ts.IfStatement[] = specList.map((spec) => {
+                const accessor: ts.Expression = IdentifierFactory.join(
+                    input,
+                    spec.property.name,
+                );
+                const pred: ts.Expression = spec.neighbour
+                    ? IsProgrammer.express()(accessor, spec.property.metadata, {
+                          tracable: true,
+                          from: "object",
+                          postfix: IdentifierFactory.postfix(
+                              spec.property.name,
+                          ),
+                      })
+                    : ExpressionFactory.isRequired(accessor);
+                return ts.factory.createIfStatement(
+                    pred,
+                    ts.factory.createReturnStatement(
+                        objector(input, spec.object, explore),
+                    ),
+                );
+            });
+
+            // RETURNS WITH CONDITIONS
+            return ts.factory.createCallExpression(
+                ts.factory.createArrowFunction(
+                    undefined,
+                    undefined,
+                    [],
+                    undefined,
+                    undefined,
+                    ts.factory.createBlock(
+                        [
+                            ...statements,
+                            remained.length
+                                ? ts.factory.createReturnStatement(
+                                      explore_objects(
+                                          config,
+                                          combiner,
+                                          objector,
+                                          failure,
+                                      )(input, remained, explore),
+                                  )
+                                : failure(input),
+                        ],
+                        true,
+                    ),
+                ),
+                undefined,
+                undefined,
             );
         };
     }

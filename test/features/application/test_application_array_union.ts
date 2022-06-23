@@ -34,29 +34,6 @@ export const test_application_array_union = _test_application(
                         nullable: false
                     },
                     nullable: false
-                },
-                {
-                    type: "array",
-                    items: {
-                        oneOf: [
-                            {
-                                "enum": [
-                                    false,
-                                    true
-                                ],
-                                nullable: false
-                            },
-                            {
-                                type: "string",
-                                nullable: false
-                            },
-                            {
-                                type: "number",
-                                nullable: false
-                            }
-                        ]
-                    },
-                    nullable: false
                 }
             ]
         }

@@ -1,6 +1,8 @@
 import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 
-export function convert_ideal_union(obj: ObjectUnionExplicit): string {
+export function convert_ideal_object_union_explicit(
+    obj: ObjectUnionExplicit,
+): string {
     function point(elem: ObjectUnionExplicit.IPoint, type?: string): string {
         return `{
             ${type ? `"type": "${type}",` : ""}
@@ -45,13 +47,23 @@ export function convert_ideal_union(obj: ObjectUnionExplicit): string {
             "radius": ${elem.radius}
         }`;
     }
+    function polyline(
+        elem: ObjectUnionExplicit.IPolyline,
+        type?: string,
+    ): string {
+        return `{
+            ${type ? `"type": "${type}",` : ""}
+            "points": [${elem.points.map((p) => point(p)).join(", ")}]
+        }`;
+    }
     function polygon(
         elem: ObjectUnionExplicit.IPolygon,
         type?: string,
     ): string {
         return `{
             ${type ? `"type": "${type}",` : ""}
-            "points": [${elem.points.map((p) => point(p)).join(", ")}]
+            "outer": ${polyline(elem.outer)},
+            "inner": [${elem.inner.map((p) => polyline(p)).join(", ")}]
         }`;
     }
     return `[${obj
@@ -61,8 +73,8 @@ export function convert_ideal_union(obj: ObjectUnionExplicit): string {
             if (elem.type === "triangle") return triangle(elem);
             if (elem.type === "rectangle") return rentagle(elem);
             if (elem.type === "circle") return circle(elem);
-            if (elem.type === "polyline" || elem.type === "polygon")
-                return polygon(elem);
+            if (elem.type === "polyline") return polyline(elem);
+            if (elem.type === "polygon") return polygon(elem);
             throw new Error(`Unknown type`);
         })
         .join(", ")}]`;

@@ -1,27 +1,15 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
 
-export type ObjectUnionExplicit = Array<
-    | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>
-    | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>
-    | ObjectUnionExplicit.Discriminator<
-          "triangle",
-          ObjectUnionExplicit.ITriangle
-      >
-    | ObjectUnionExplicit.Discriminator<
-          "rectangle",
-          ObjectUnionExplicit.IRectangle
-      >
-    | ObjectUnionExplicit.Discriminator<
-          "polyline",
-          ObjectUnionExplicit.IPolyline
-      >
-    | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>
-    | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>
+export type ObjectUnionImplicit = Array<
+    | ObjectUnionImplicit.IPoint
+    | ObjectUnionImplicit.ILine
+    | ObjectUnionImplicit.ITriangle
+    | ObjectUnionImplicit.IRectangle
+    | ObjectUnionImplicit.IPolyline
+    | ObjectUnionImplicit.IPolygon
+    | ObjectUnionImplicit.ICircle
 >;
-export namespace ObjectUnionExplicit {
-    export type Discriminator<Type extends string, T extends object> = {
-        type: Type;
-    } & T;
+export namespace ObjectUnionImplicit {
     export interface IPoint {
         x: number;
         y: number;
@@ -53,36 +41,30 @@ export namespace ObjectUnionExplicit {
         radius: number;
     }
 
-    export function generate(): ObjectUnionExplicit {
+    export function generate(): ObjectUnionImplicit {
         return [
             {
-                type: "point",
                 ...point(),
             },
             {
-                type: "line",
                 p1: point(),
                 p2: point(),
             },
             {
-                type: "triangle",
                 p1: point(),
                 p2: point(),
                 p3: point(),
             },
             {
-                type: "rectangle",
                 p1: point(),
                 p2: point(),
                 p3: point(),
                 p4: point(),
             },
             {
-                type: "polyline",
                 points: RandomGenerator.array(() => point(), 10),
             },
             {
-                type: "polygon",
                 outer: {
                     points: RandomGenerator.array(() => point(), 10),
                 },
@@ -96,7 +78,6 @@ export namespace ObjectUnionExplicit {
                 ],
             },
             {
-                type: "circle",
                 centroid: point(),
                 radius: RandomGenerator.number(),
             },

@@ -7,6 +7,6 @@ runner.register({
     compiler: "ttypescript",
 });
 
-const program = require("./features/application/test_application_object_nullable.ts");
+const program = require("./features/is/test_is_object_union.ts");
 for (const value of Object.values(program))
     if (typeof value === "function") value();

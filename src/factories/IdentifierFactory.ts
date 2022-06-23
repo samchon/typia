@@ -14,4 +14,10 @@ export namespace IdentifierFactory {
             ? ts.factory.createElementAccessExpression(prefix, postfix)
             : ts.factory.createPropertyAccessExpression(prefix, postfix);
     }
+
+    export function postfix(str: string): string {
+        return Escaper.variable(str)
+            ? `".${str}"`
+            : `"[${str.split('"').join('\\"')}]"`;
+    }
 }

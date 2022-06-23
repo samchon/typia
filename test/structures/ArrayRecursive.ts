@@ -6,7 +6,6 @@ export namespace ArrayRecursive {
         children: ICategory[];
         id: number;
         code: string;
-        name: string;
         sequence: number;
         created_at: ITimestamp;
     }
@@ -22,7 +21,6 @@ export namespace ArrayRecursive {
         return {
             id: RandomGenerator.number(),
             code: RandomGenerator.string(),
-            name: RandomGenerator.string(),
             sequence: RandomGenerator.number(),
             created_at: {
                 time: RandomGenerator.number(),

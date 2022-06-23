@@ -165,6 +165,9 @@ export class Metadata {
             (this.objects.length ? 1 : 0)
         );
     }
+    public isConstant(): boolean {
+        return this.bucket() === (this.constants.length ? 1 : 0);
+    }
 
     /**
      * @internal
@@ -173,6 +176,38 @@ export class Metadata {
         const size: number = this.bucket();
         const emended: number = this.constants.length ? size - 1 : size;
         return emended > 1;
+    }
+}
+export namespace Metadata {
+    export function intersects(x: Metadata, y: Metadata): boolean {
+        // CHECK ANY & OPTIONAL
+        if (x.any || y.any) return true;
+        if (x.required === false && false === y.required) return true;
+        if (x.nullable === true && true === y.nullable) return true;
+
+        // NO DEEP ITERATION
+        if (x.objects.length && y.objects.length) return true;
+        if (x.arrays.length && y.arrays.length) return true;
+
+        // COMPARE ATOMICS
+        for (const atomic of x.atomics)
+            if (y.atomics.includes(atomic)) return true;
+
+        // CHECK CONSTANT VALUES
+        for (const constant of x.constants) {
+            const opposite: MetadataConstant | undefined = y.constants.find(
+                (elem) => elem.type === constant.type,
+            );
+            if (opposite === undefined) continue;
+
+            const values: Set<any> = new Set([
+                ...constant.values,
+                ...opposite.values,
+            ]);
+            if (values.size !== constant.values.length + opposite.values.length)
+                return true;
+        }
+        return false;
     }
 }
 
