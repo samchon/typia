@@ -31,10 +31,6 @@ export const test_application_array_recursive = _test_application(
                         type: "string",
                         nullable: false
                     },
-                    name: {
-                        type: "string",
-                        nullable: false
-                    },
                     sequence: {
                         type: "number",
                         nullable: false
@@ -48,7 +44,6 @@ export const test_application_array_recursive = _test_application(
                     "children",
                     "id",
                     "code",
-                    "name",
                     "sequence",
                     "created_at"
                 ]

@@ -4,7 +4,7 @@ export type ArrayHierarchical = ArrayHierarchical.ICompany[];
 export namespace ArrayHierarchical {
     export interface ICompany {
         id: number;
-        serial: [number, number, number];
+        serial: number;
         name: string;
         established_at: ITimestamp;
         departments: IDepartment[];
@@ -31,11 +31,7 @@ export namespace ArrayHierarchical {
     export function generate(): ArrayHierarchical {
         return RandomGenerator.array(() => ({
             id: RandomGenerator.number(),
-            serial: [
-                RandomGenerator.number(),
-                RandomGenerator.number(),
-                RandomGenerator.number(),
-            ],
+            serial: RandomGenerator.number(),
             name: RandomGenerator.string(),
             established_at: {
                 time: RandomGenerator.number(),

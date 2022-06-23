@@ -19,9 +19,9 @@ export type ObjectUnionExplicit = Array<
     | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>
 >;
 export namespace ObjectUnionExplicit {
-    export type Discriminator<Type extends string, T extends object> = {
+    export type Discriminator<Type extends string, T extends object> = T & {
         type: Type;
-    } & T;
+    };
     export interface IPoint {
         x: number;
         y: number;

@@ -66,18 +66,8 @@ export function convert_ideal_array_recursive_union(
         else return shortcut(elem);
     }
     function file(elem: ArrayRecursiveUnion.IFile): string {
-        if (
-            elem.extension === "jpg" ||
-            elem.extension === "png" ||
-            elem.extension === "gif"
-        )
-            return imageFile(elem);
-        else if (
-            elem.extension === "txt" ||
-            elem.extension === "md" ||
-            elem.extension === "ts"
-        )
-            return textFile(elem);
+        if (elem.extension === "jpg") return imageFile(elem);
+        else if (elem.extension === "txt") return textFile(elem);
         else return zipFile(elem as ArrayRecursiveUnion.IZipFile);
     }
     return `[${obj.map((elem) => bucket(elem)).join(", ")}]`;

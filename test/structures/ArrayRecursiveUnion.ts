@@ -2,43 +2,58 @@ import { RandomGenerator } from "../internal/RandomGenerator";
 
 export type ArrayRecursiveUnion = ArrayRecursiveUnion.IBucket[];
 export namespace ArrayRecursiveUnion {
-    export type IBucket = IDirectory | IFile | IShortcut;
-    export namespace IBucket {
-        export interface IBase<Type extends string> {
-            id: string;
-            type: Type;
-            name: string;
-            path: string;
-        }
-    }
-
-    export interface IDirectory extends IBucket.IBase<"directory"> {
-        children: IBucket[];
-    }
-
+    export type IBucket =
+        | IDirectory
+        | IImageFile
+        | ITextFile
+        | IZipFile
+        | IShortcut;
     export type IFile = IImageFile | ITextFile | IZipFile;
-    export namespace IFile {
-        export interface IBase<Extension extends string>
-            extends IBucket.IBase<"file"> {
-            extension: Extension;
-            size: number;
-        }
+
+    export interface IDirectory {
+        id: string;
+        name: string;
+        path: string;
+        children: IBucket[];
+        type: "directory";
     }
 
-    export interface IImageFile extends IFile.IBase<"jpg" | "png" | "gif"> {
+    export interface IImageFile {
+        id: string;
+        name: string;
+        path: string;
         width: number;
         height: number;
         url: string;
+        size: number;
+        type: "file";
+        extension: "jpg";
     }
-    export interface ITextFile extends IFile.IBase<"txt" | "md" | "ts"> {
+    export interface ITextFile {
+        id: string;
+        name: string;
+        path: string;
+        size: number;
         content: string;
+        type: "file";
+        extension: "txt";
     }
-    export interface IZipFile extends IFile.IBase<"zip"> {
+    export interface IZipFile {
+        id: string;
+        name: string;
+        path: string;
+        size: number;
         count: number;
+        type: "file";
+        extension: "zip";
     }
 
-    export interface IShortcut extends IBucket.IBase<"shortcut"> {
+    export interface IShortcut {
+        id: string;
+        name: string;
+        path: string;
         target: IBucket;
+        type: "shortcut";
         extension: "lnk";
     }
 
@@ -64,28 +79,28 @@ export namespace ArrayRecursiveUnion {
 
     function generate_directory(limit: number, level: number): IDirectory {
         return {
-            ...generate_bucket("directory"),
             children: generate(limit, level + 1),
+            ...generate_bucket("directory"),
         };
     }
     function generate_image_file(): IImageFile {
         return {
-            ...generate_file(RandomGenerator.pick(["jpg", "png", "gif"])),
             width: RandomGenerator.number(),
             height: RandomGenerator.number(),
             url: RandomGenerator.string(),
+            ...generate_file("jpg"),
         };
     }
     function generate_text_file(): ITextFile {
         return {
-            ...generate_file(RandomGenerator.pick(["txt", "md", "ts"])),
             content: RandomGenerator.string(),
+            ...generate_file("txt"),
         };
     }
     function generate_zip_file(): IZipFile {
         return {
-            ...generate_file("zip"),
             count: RandomGenerator.number(),
+            ...generate_file("zip"),
         };
     }
     function generate_shortcut(target: IBucket): IShortcut {
@@ -96,23 +111,19 @@ export namespace ArrayRecursiveUnion {
         };
     }
 
-    function generate_bucket<Type extends string>(
-        type: Type,
-    ): IBucket.IBase<Type> {
+    function generate_bucket<Type extends string>(type: Type) {
         return {
             id: RandomGenerator.string(),
-            type,
             name: RandomGenerator.string(),
             path: RandomGenerator.string(),
+            type,
         };
     }
-    function generate_file<Extension extends string>(
-        extension: Extension,
-    ): IFile.IBase<Extension> {
+    function generate_file<Extension extends string>(extension: Extension) {
         return {
-            ...generate_bucket("file"),
             extension,
             size: RandomGenerator.number(),
+            ...generate_bucket("file"),
         };
     }
 }

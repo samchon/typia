@@ -1,8 +1,10 @@
 import ajv from "fast-json-stringify";
 import TSON from "../../src";
+import { Primitive } from "../../test/internal/Primitive";
 import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 
-export const convert_ajv_array_hierarchical = () => {
+const convert = () => {
+    if (success === false) return null;
     try {
         const app: TSON.IJsonApplication = TSON.application<
             [ArrayHierarchical],
@@ -17,4 +19,21 @@ export const convert_ajv_array_hierarchical = () => {
     } catch {
         return null;
     }
+};
+
+const success = (() => {
+    try {
+        const data: ArrayHierarchical = ArrayHierarchical.generate();
+        const json: string = convert()(data);
+        const restored = JSON.parse(json);
+
+        return Primitive.equal_to(data, restored);
+    } catch {
+        return false;
+    }
+})();
+
+export const convert_ajv_array_hierarchical = () => {
+    const func = convert();
+    return success ? func : null;
 };

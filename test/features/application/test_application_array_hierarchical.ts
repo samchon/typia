@@ -20,9 +20,20 @@ export const test_application_array_hierarchical = _test_application(
                 $id: "ArrayHierarchical.ICompany",
                 type: "object",
                 properties: {
+                    id: {
+                        type: "number",
+                        nullable: false
+                    },
+                    serial: {
+                        type: "number",
+                        nullable: false
+                    },
                     name: {
                         type: "string",
                         nullable: false
+                    },
+                    established_at: {
+                        $ref: "#/components/schemas/ArrayHierarchical.ITimestamp"
                     },
                     departments: {
                         type: "array",
@@ -34,17 +45,50 @@ export const test_application_array_hierarchical = _test_application(
                 },
                 nullable: false,
                 required: [
+                    "id",
+                    "serial",
                     "name",
+                    "established_at",
                     "departments"
+                ]
+            },
+            "ArrayHierarchical.ITimestamp": {
+                $id: "ArrayHierarchical.ITimestamp",
+                type: "object",
+                properties: {
+                    time: {
+                        type: "number",
+                        nullable: false
+                    },
+                    zone: {
+                        type: "number",
+                        nullable: false
+                    }
+                },
+                nullable: false,
+                required: [
+                    "time",
+                    "zone"
                 ]
             },
             "ArrayHierarchical.IDepartment": {
                 $id: "ArrayHierarchical.IDepartment",
                 type: "object",
                 properties: {
-                    name: {
+                    id: {
+                        type: "number",
+                        nullable: false
+                    },
+                    code: {
                         type: "string",
                         nullable: false
+                    },
+                    sales: {
+                        type: "number",
+                        nullable: false
+                    },
+                    created_at: {
+                        $ref: "#/components/schemas/ArrayHierarchical.ITimestamp"
                     },
                     employees: {
                         type: "array",
@@ -56,7 +100,10 @@ export const test_application_array_hierarchical = _test_application(
                 },
                 nullable: false,
                 required: [
-                    "name",
+                    "id",
+                    "code",
+                    "sales",
+                    "created_at",
                     "employees"
                 ]
             },
@@ -64,14 +111,33 @@ export const test_application_array_hierarchical = _test_application(
                 $id: "ArrayHierarchical.IEmployee",
                 type: "object",
                 properties: {
+                    id: {
+                        type: "number",
+                        nullable: false
+                    },
                     name: {
                         type: "string",
                         nullable: false
+                    },
+                    age: {
+                        type: "number",
+                        nullable: false
+                    },
+                    grade: {
+                        type: "number",
+                        nullable: false
+                    },
+                    employeed_at: {
+                        $ref: "#/components/schemas/ArrayHierarchical.ITimestamp"
                     }
                 },
                 nullable: false,
                 required: [
-                    "name"
+                    "id",
+                    "name",
+                    "age",
+                    "grade",
+                    "employeed_at"
                 ]
             }
         }

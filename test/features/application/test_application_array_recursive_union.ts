@@ -36,6 +36,18 @@ export const test_application_array_recursive_union = _test_application(
                 $id: "ArrayRecursiveUnion.IDirectory",
                 type: "object",
                 properties: {
+                    id: {
+                        type: "string",
+                        nullable: false
+                    },
+                    name: {
+                        type: "string",
+                        nullable: false
+                    },
+                    path: {
+                        type: "string",
+                        nullable: false
+                    },
                     children: {
                         type: "array",
                         items: {
@@ -59,14 +71,28 @@ export const test_application_array_recursive_union = _test_application(
                         },
                         nullable: false
                     },
-                    id: {
-                        type: "string",
-                        nullable: false
-                    },
                     type: {
                         "enum": [
                             "directory"
                         ],
+                        nullable: false
+                    }
+                },
+                nullable: false,
+                required: [
+                    "id",
+                    "name",
+                    "path",
+                    "children",
+                    "type"
+                ]
+            },
+            "ArrayRecursiveUnion.IImageFile": {
+                $id: "ArrayRecursiveUnion.IImageFile",
+                type: "object",
+                properties: {
+                    id: {
+                        type: "string",
                         nullable: false
                     },
                     name: {
@@ -76,21 +102,7 @@ export const test_application_array_recursive_union = _test_application(
                     path: {
                         type: "string",
                         nullable: false
-                    }
-                },
-                nullable: false,
-                required: [
-                    "children",
-                    "id",
-                    "type",
-                    "name",
-                    "path"
-                ]
-            },
-            "ArrayRecursiveUnion.IImageFile": {
-                $id: "ArrayRecursiveUnion.IImageFile",
-                type: "object",
-                properties: {
+                    },
                     width: {
                         type: "number",
                         nullable: false
@@ -103,20 +115,8 @@ export const test_application_array_recursive_union = _test_application(
                         type: "string",
                         nullable: false
                     },
-                    extension: {
-                        "enum": [
-                            "jpg",
-                            "png",
-                            "gif"
-                        ],
-                        nullable: false
-                    },
                     size: {
                         type: "number",
-                        nullable: false
-                    },
-                    id: {
-                        type: "string",
                         nullable: false
                     },
                     type: {
@@ -125,56 +125,32 @@ export const test_application_array_recursive_union = _test_application(
                         ],
                         nullable: false
                     },
-                    name: {
-                        type: "string",
-                        nullable: false
-                    },
-                    path: {
-                        type: "string",
+                    extension: {
+                        "enum": [
+                            "jpg"
+                        ],
                         nullable: false
                     }
                 },
                 nullable: false,
                 required: [
+                    "id",
+                    "name",
+                    "path",
                     "width",
                     "height",
                     "url",
-                    "extension",
                     "size",
-                    "id",
                     "type",
-                    "name",
-                    "path"
+                    "extension"
                 ]
             },
             "ArrayRecursiveUnion.ITextFile": {
                 $id: "ArrayRecursiveUnion.ITextFile",
                 type: "object",
                 properties: {
-                    content: {
-                        type: "string",
-                        nullable: false
-                    },
-                    extension: {
-                        "enum": [
-                            "txt",
-                            "md",
-                            "ts"
-                        ],
-                        nullable: false
-                    },
-                    size: {
-                        type: "number",
-                        nullable: false
-                    },
                     id: {
                         type: "string",
-                        nullable: false
-                    },
-                    type: {
-                        "enum": [
-                            "file"
-                        ],
                         nullable: false
                     },
                     name: {
@@ -184,25 +160,67 @@ export const test_application_array_recursive_union = _test_application(
                     path: {
                         type: "string",
                         nullable: false
+                    },
+                    size: {
+                        type: "number",
+                        nullable: false
+                    },
+                    content: {
+                        type: "string",
+                        nullable: false
+                    },
+                    type: {
+                        "enum": [
+                            "file"
+                        ],
+                        nullable: false
+                    },
+                    extension: {
+                        "enum": [
+                            "txt"
+                        ],
+                        nullable: false
                     }
                 },
                 nullable: false,
                 required: [
-                    "content",
-                    "extension",
-                    "size",
                     "id",
-                    "type",
                     "name",
-                    "path"
+                    "path",
+                    "size",
+                    "content",
+                    "type",
+                    "extension"
                 ]
             },
             "ArrayRecursiveUnion.IZipFile": {
                 $id: "ArrayRecursiveUnion.IZipFile",
                 type: "object",
                 properties: {
+                    id: {
+                        type: "string",
+                        nullable: false
+                    },
+                    name: {
+                        type: "string",
+                        nullable: false
+                    },
+                    path: {
+                        type: "string",
+                        nullable: false
+                    },
+                    size: {
+                        type: "number",
+                        nullable: false
+                    },
                     count: {
                         type: "number",
+                        nullable: false
+                    },
+                    type: {
+                        "enum": [
+                            "file"
+                        ],
                         nullable: false
                     },
                     extension: {
@@ -210,19 +228,25 @@ export const test_application_array_recursive_union = _test_application(
                             "zip"
                         ],
                         nullable: false
-                    },
-                    size: {
-                        type: "number",
-                        nullable: false
-                    },
+                    }
+                },
+                nullable: false,
+                required: [
+                    "id",
+                    "name",
+                    "path",
+                    "size",
+                    "count",
+                    "type",
+                    "extension"
+                ]
+            },
+            "ArrayRecursiveUnion.IShortcut": {
+                $id: "ArrayRecursiveUnion.IShortcut",
+                type: "object",
+                properties: {
                     id: {
                         type: "string",
-                        nullable: false
-                    },
-                    type: {
-                        "enum": [
-                            "file"
-                        ],
                         nullable: false
                     },
                     name: {
@@ -232,23 +256,7 @@ export const test_application_array_recursive_union = _test_application(
                     path: {
                         type: "string",
                         nullable: false
-                    }
-                },
-                nullable: false,
-                required: [
-                    "count",
-                    "extension",
-                    "size",
-                    "id",
-                    "type",
-                    "name",
-                    "path"
-                ]
-            },
-            "ArrayRecursiveUnion.IShortcut": {
-                $id: "ArrayRecursiveUnion.IShortcut",
-                type: "object",
-                properties: {
+                    },
                     target: {
                         oneOf: [
                             {
@@ -268,39 +276,27 @@ export const test_application_array_recursive_union = _test_application(
                             }
                         ]
                     },
-                    extension: {
-                        "enum": [
-                            "lnk"
-                        ],
-                        nullable: false
-                    },
-                    id: {
-                        type: "string",
-                        nullable: false
-                    },
                     type: {
                         "enum": [
                             "shortcut"
                         ],
                         nullable: false
                     },
-                    name: {
-                        type: "string",
-                        nullable: false
-                    },
-                    path: {
-                        type: "string",
+                    extension: {
+                        "enum": [
+                            "lnk"
+                        ],
                         nullable: false
                     }
                 },
                 nullable: false,
                 required: [
-                    "target",
-                    "extension",
                     "id",
-                    "type",
                     "name",
-                    "path"
+                    "path",
+                    "target",
+                    "type",
+                    "extension"
                 ]
             }
         }

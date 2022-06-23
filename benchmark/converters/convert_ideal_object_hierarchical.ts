@@ -1,7 +1,9 @@
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { $string } from "../../src/functional/$string";
 
-export function convert_ideal_object_hierarchical(obj: ObjectHierarchical): string {
+export function convert_ideal_object_hierarchical(
+    obj: ObjectHierarchical,
+): string {
     function customer(elem: ObjectHierarchical.ICustomer): string {
         return `{
             "id": ${elem.id},

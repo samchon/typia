@@ -113,7 +113,7 @@ export const benchmark_stringify_repeat = () => [
     ),
     // SPECIAL UNION STRUCTURES
     BenchmarkGenerator.prepare(
-        "array (recursive)",
+        "array (recursive, union)",
         () => ArrayRecursiveUnion.generate(),
         {
             ideal: convert_ideal_array_recursive_union,
