@@ -6,6 +6,7 @@ import { ValueFactory } from "../factories/ValueFactory";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { MetadataObject } from "../metadata/MetadataObject";
 import { Metadata } from "../metadata/Metadata";
+import { ExpressionFactory } from "../factories/ExpressionFactory";
 
 export namespace CheckerProgrammer {
     export interface IConfig {
@@ -127,12 +128,8 @@ export namespace CheckerProgrammer {
                 // ADD
                 binaries.push(
                     ts.factory.createLogicalAnd(
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("Array.isArray"),
-                            undefined,
-                            [input],
-                        ),
-                        inner.length === 0
+                        ExpressionFactory.isArray(input),
+                        inner.length === 1
                             ? inner[0]!
                             : inner.reduce((x, y) =>
                                   ts.factory.createLogicalOr(x, y),
@@ -142,30 +139,13 @@ export namespace CheckerProgrammer {
             }
 
             // OBJECT
-            if (meta.objects.length > 0) {
-                const outer: ts.Expression[] = [];
-                create_add(outer)(input)(
-                    true,
-                    ts.factory.createStringLiteral("object"),
-                    ValueFactory.TYPEOF(input),
-                );
-
-                const inner: ts.Expression[] = [];
-                for (const obj of meta.objects)
-                    inner.push(decode_object(config)(input, obj, explore));
-
+            if (meta.objects.length > 0)
                 binaries.push(
-                    config.combiner({ ...explore, tracable: false })("and")(
-                        input,
-                        [
-                            ...outer,
-                            config.combiner({ ...explore, tracable: false })(
-                                "or",
-                            )(input, inner),
-                        ],
+                    ts.factory.createLogicalAnd(
+                        ExpressionFactory.isObject(input, true),
+                        explore_objects(config)(input, meta.objects, explore),
                     ),
                 );
-            }
 
             // COMBINE CONDITIONS
             return top.length !== 0
@@ -234,6 +214,14 @@ export namespace CheckerProgrammer {
             return func(input, obj, explore);
         };
     }
+
+    const explore_objects = (config: IConfig) =>
+        FeatureProgrammer.explore_objects(
+            base_config(config),
+            config.combiner,
+            decode_object(config),
+            () => ts.factory.createReturnStatement(ts.factory.createFalse()),
+        );
 }
 
 const create_add =

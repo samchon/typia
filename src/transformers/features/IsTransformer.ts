@@ -20,7 +20,7 @@ export namespace IsTransformer {
                 : project.checker.getTypeAtLocation(expression.arguments[0]!);
 
         return ts.factory.createCallExpression(
-            IsProgrammer.generate(project, type),
+            IsProgrammer.generate()(project, type),
             undefined,
             [expression.arguments[0]!],
         );

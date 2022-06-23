@@ -1,6 +1,6 @@
 import { ObjectSimple } from "../../test/structures/ObjectSimple";
 
-export function convert_ideal_simple(obj: ObjectSimple): string {
+export function convert_ideal_object_simple(obj: ObjectSimple): string {
     const stringify = {
         box: function (elem: ObjectSimple.IBox3D): string {
             return `{

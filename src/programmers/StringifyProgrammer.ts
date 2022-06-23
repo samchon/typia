@@ -9,6 +9,7 @@ import { StringifyJoiner } from "./helpers/StringifyJoinder";
 import { StatementFactory } from "../factories/StatementFactory";
 import { Metadata } from "../metadata/Metadata";
 import { ArrayUtil } from "../utils/ArrayUtil";
+import { ExpressionFactory } from "../factories/ExpressionFactory";
 
 export namespace StringifyProgrammer {
     const CONFIG = (
@@ -47,7 +48,7 @@ export namespace StringifyProgrammer {
                     IdentifierFactory.join(modulo, name),
                 ),
             );
-            const validators = IsProgrammer.generate_functors(collection);
+            const validators = IsProgrammer.generate_functors()(collection);
 
             return [
                 ...functors,
@@ -143,7 +144,7 @@ export namespace StringifyProgrammer {
                     unions.push({
                         type: "atomic",
                         is: () =>
-                            IsProgrammer.express(
+                            IsProgrammer.express()(
                                 input,
                                 (() => {
                                     const partial = Metadata.initialize();
@@ -159,7 +160,7 @@ export namespace StringifyProgrammer {
                     unions.push({
                         type: "const string",
                         is: () =>
-                            IsProgrammer.express(
+                            IsProgrammer.express()(
                                 input,
                                 (() => {
                                     const partial = Metadata.initialize();
@@ -179,7 +180,7 @@ export namespace StringifyProgrammer {
                 unions.push({
                     type: "atomic",
                     is: () =>
-                        IsProgrammer.express(
+                        IsProgrammer.express()(
                             input,
                             (() => {
                                 const partial = Metadata.initialize();
@@ -196,7 +197,7 @@ export namespace StringifyProgrammer {
                 unions.push({
                     type: "tuple",
                     is: () =>
-                        IsProgrammer.express(
+                        IsProgrammer.express()(
                             input,
                             (() => {
                                 const partial = Metadata.initialize();
@@ -213,7 +214,7 @@ export namespace StringifyProgrammer {
                 unions.push({
                     type: "array",
                     is: () =>
-                        IsProgrammer.express(
+                        IsProgrammer.express()(
                             input,
                             (() => {
                                 const partial = Metadata.initialize();
@@ -226,20 +227,12 @@ export namespace StringifyProgrammer {
                 });
 
             // OBJECTS
-            for (const obj of meta.objects)
+            if (meta.objects.length)
                 unions.push({
                     type: "object",
-                    is: () =>
-                        IsProgrammer.express(
-                            input,
-                            (() => {
-                                const partial = Metadata.initialize();
-                                partial.objects.push(obj);
-                                return partial;
-                            })(),
-                            explore,
-                        ),
-                    value: () => decode_object(modulo)(input, obj, explore),
+                    is: () => ExpressionFactory.isObject(input, true),
+                    value: () =>
+                        explore_objects(modulo)(input, meta.objects, explore),
                 });
 
             //----
@@ -278,6 +271,25 @@ export namespace StringifyProgrammer {
                 ),
             );
         };
+
+    const explore_objects = (modulo: ts.LeftHandSideExpression) =>
+        FeatureProgrammer.explore_objects(
+            CONFIG(modulo),
+            IsProgrammer.CONFIG.combiner,
+            decode_object(modulo),
+            (input) =>
+                ts.factory.createThrowStatement(
+                    ts.factory.createNewExpression(
+                        IdentifierFactory.join(modulo, "TypeGuardError"),
+                        [],
+                        [
+                            ts.factory.createStringLiteral("stringify"),
+                            ts.factory.createStringLiteral("unknown"),
+                            input,
+                        ],
+                    ),
+                ),
+        );
 
     const decode_object = (modulo: ts.LeftHandSideExpression) =>
         FeatureProgrammer.decode_object(CONFIG(modulo));

@@ -33,4 +33,13 @@ export namespace ArrayUtil {
         array.push(elem);
         return elem;
     }
+
+    export function repeat<T>(
+        count: number,
+        closure: (index: number, count: number) => T,
+    ): T[] {
+        return new Array(count)
+            .fill("")
+            .map((_, index) => closure(index, count));
+    }
 }

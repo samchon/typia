@@ -1,7 +1,7 @@
 import { $string } from "../../src/functional/$string";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 
-export function convert_ideal_tree(obj: ArrayRecursive): string {
+export function convert_ideal_array_recursive(obj: ArrayRecursive): string {
     function timestamp(elem: ArrayRecursive.ITimestamp): string {
         return `{
             "time": ${elem.time},
@@ -12,7 +12,6 @@ export function convert_ideal_tree(obj: ArrayRecursive): string {
         return `{
             "id": ${elem.id},
             "code": ${$string(elem.code)},
-            "name": ${$string(elem.name)},
             "sequence": ${elem.sequence},
             "created_at": ${timestamp(elem.created_at)},
             "children": [${elem.children
@@ -26,7 +25,6 @@ export function convert_ideal_tree(obj: ArrayRecursive): string {
     //         return `{
     //             "id": ${input.id},
     //             "code": ${$string(input.code)},
-    //             "name": ${$string(input.name)},
     //             "sequence": ${input.sequence},
     //             "created_at": ${timestamp(input.created_at)},
     //             "children":[`;
