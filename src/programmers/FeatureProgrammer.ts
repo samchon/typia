@@ -256,7 +256,7 @@ export namespace FeatureProgrammer {
                 return objector(input, targets[0]!, explore);
 
             // POSSIBLE TO SPECIALIZE?
-            const specList: UnionPredicator.ISpecialized[] =
+            const specList: UnionPredicator.ISpecializedObject[] =
                 UnionPredicator.object(targets);
             if (specList.length === 0)
                 return combiner({ ...explore, tracable: false })("or")(

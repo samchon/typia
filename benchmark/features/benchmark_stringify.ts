@@ -47,7 +47,7 @@ const stringify = () => [
         {
             ideal: convert_ideal_object_simple,
             "typescript-json": convert_tson_object_simple,
-            ajv: convert_ajv_object_simple(),
+            "fast-json-stringify": convert_ajv_object_simple(),
         },
     ),
     StringifyBenchmarker.prepare(
@@ -56,7 +56,7 @@ const stringify = () => [
         {
             ideal: convert_ideal_object_hierarchical,
             "typescript-json": convert_tson_object_hierarchical,
-            ajv: convert_ajv_object_hierarchical(),
+            "fast-json-stringify": convert_ajv_object_hierarchical(),
         },
     ),
     StringifyBenchmarker.prepare(
@@ -65,7 +65,7 @@ const stringify = () => [
         {
             ideal: convert_ideal_object_recursive,
             "typescript-json": convert_tson_object_recursive,
-            ajv: convert_ajv_object_recursive(),
+            "fast-json-stringify": convert_ajv_object_recursive(),
         },
     ),
 
@@ -76,7 +76,7 @@ const stringify = () => [
         {
             ideal: convert_ideal_object_union_implicit,
             "typescript-json": convert_tson_object_union_implicit,
-            ajv: convert_ajv_object_union_implicit(),
+            "fast-json-stringify": convert_ajv_object_union_implicit(),
         },
     ),
     StringifyBenchmarker.prepare(
@@ -85,7 +85,7 @@ const stringify = () => [
         {
             ideal: convert_ideal_object_union_explicit,
             "typescript-json": convert_tson_object_union_explicit,
-            ajv: convert_ajv_object_union_explicit(),
+            "fast-json-stringify": convert_ajv_object_union_explicit(),
         },
     ),
 
@@ -99,7 +99,7 @@ const stringify = () => [
         {
             ideal: convert_ideal_array_hierarchical,
             "typescript-json": convert_tson_array_hierarchical,
-            ajv: convert_ajv_array_hierarchical(),
+            "fast-json-stringify": convert_ajv_array_hierarchical(),
         },
     ),
     StringifyBenchmarker.prepare(
@@ -108,7 +108,7 @@ const stringify = () => [
         {
             ideal: convert_ideal_array_recursive,
             "typescript-json": convert_tson_array_recursive,
-            ajv: convert_ajv_array_recursive(),
+            "fast-json-stringify": convert_ajv_array_recursive(),
         },
     ),
     // SPECIAL UNION STRUCTURES
@@ -118,7 +118,7 @@ const stringify = () => [
         {
             ideal: convert_ideal_array_recursive_union,
             "typescript-json": convert_tson_array_recursive_union,
-            ajv: convert_ajv_array_recursive_union(),
+            "fast-json-stringify": convert_ajv_array_recursive_union(),
         },
     ),
 ];
