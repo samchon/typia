@@ -86,7 +86,7 @@ export namespace ApplicationProgrammer {
                     description,
                 ),
             );
-        for (const items of meta.tuples.values())
+        for (const items of meta.tuples)
             if (options.purpose === "ajv")
                 oneOf.push(
                     generate_tuple(
