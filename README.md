@@ -32,6 +32,7 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
 
   - Powerful Runtime type checkers:
     - Performed by only one line, `TSON.is(input)`
+    - Does not require any JSON schema definition
     - Supports complicate union type
   - 10x faster `JSON.stringify()` function:
     - Performed by only one line: `TSON.stringify<T>(input)`
