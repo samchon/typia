@@ -7,7 +7,6 @@ import { FeatureProgrammer } from "./FeatureProgrammer";
 import { MetadataObject } from "../metadata/MetadataObject";
 import { Metadata } from "../metadata/Metadata";
 import { ExpressionFactory } from "../factories/ExpressionFactory";
-import { IsProgrammer } from "./IsProgrammer";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 
 export namespace CheckerProgrammer {
@@ -119,13 +118,11 @@ export namespace CheckerProgrammer {
                     ValueFactory.TYPEOF(input),
                 );
 
-            // ARRAY OR TUPLE
-            if (meta.arrays.length + meta.tuples.length > 0) {
+            // TUPLE
+            if (meta.tuples.length > 0) {
                 const inner: ts.Expression[] = [];
                 for (const tuple of meta.tuples)
                     inner.push(decode_tuple(config)(input, tuple, explore));
-                for (const array of meta.arrays)
-                    inner.push(decode_array(config)(input, array, explore));
 
                 // ADD
                 binaries.push(
@@ -139,6 +136,15 @@ export namespace CheckerProgrammer {
                     ),
                 );
             }
+
+            // ARRAY
+            if (meta.arrays.length > 0)
+                binaries.push(
+                    ts.factory.createLogicalAnd(
+                        ExpressionFactory.isArray(input),
+                        explore_array(config)(input, meta.arrays, explore),
+                    ),
+                );
 
             // OBJECT
             if (meta.objects.length > 0)
@@ -217,12 +223,20 @@ export namespace CheckerProgrammer {
         };
     }
 
+    const explore_array = (config: IConfig) =>
+        UnionExplorer.array(
+            decode(config),
+            decode_array(config),
+            () => ts.factory.createTrue(),
+            () => ts.factory.createReturnStatement(ts.factory.createFalse()),
+        );
+
     const explore_objects = (config: IConfig) =>
         UnionExplorer.object(
             base_config(config),
             decode_object(config),
             (input, targets, explore) =>
-                IsProgrammer.CONFIG.combiner(explore)("or")(
+                config.combiner(explore)("or")(
                     input,
                     targets.map((obj) =>
                         decode_object(config)(input, obj, explore),

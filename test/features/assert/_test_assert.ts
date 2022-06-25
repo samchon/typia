@@ -17,6 +17,7 @@ export function _test_assert<T>(
                 );
         } catch (exp) {
             if (exp instanceof TypeGuardError) {
+                console.log(exp.path, exp.value);
                 throw new Error(
                     `Bug on TSON.assertType(): failed to understand the ${name} type.`,
                 );

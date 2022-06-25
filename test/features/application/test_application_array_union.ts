@@ -7,35 +7,39 @@ export const test_application_array_union = _test_application(
     TSON.application<[ArrayUnion]>(),
 {schemas: [
         {
-            oneOf: [
-                {
-                    type: "array",
-                    items: {
-                        type: "string",
+            type: "array",
+            items: {
+                oneOf: [
+                    {
+                        type: "array",
+                        items: {
+                            type: "string",
+                            nullable: false
+                        },
                         nullable: false
                     },
-                    nullable: false
-                },
-                {
-                    type: "array",
-                    items: {
-                        "enum": [
-                            false,
-                            true
-                        ],
+                    {
+                        type: "array",
+                        items: {
+                            "enum": [
+                                false,
+                                true
+                            ],
+                            nullable: false
+                        },
                         nullable: false
                     },
-                    nullable: false
-                },
-                {
-                    type: "array",
-                    items: {
-                        type: "number",
+                    {
+                        type: "array",
+                        items: {
+                            type: "number",
+                            nullable: false
+                        },
                         nullable: false
-                    },
-                    nullable: false
-                }
-            ]
+                    }
+                ]
+            },
+            nullable: false
         }
     ],
     components: {
