@@ -59,9 +59,40 @@ export namespace MetadataFactory {
         type: ts.Type | null,
         parentResolved: boolean,
     ): Metadata {
+        // CONSTRUCT METADATA
         const meta: Metadata = Metadata.initialize();
         if (type !== null)
             iterate(collection, checker, options, meta, type, parentResolved);
+
+        // SORT INSTANCES
+        if (meta.objects.length > 1)
+            meta.objects.sort((x, y) =>
+                MetadataObject.covers(x, y)
+                    ? -1
+                    : MetadataObject.covers(y, x)
+                    ? 1
+                    : 0,
+            );
+        if (meta.arrays.length > 1)
+            meta.arrays.sort((x, y) =>
+                Metadata.covers(x, y) ? -1 : Metadata.covers(y, x) ? 1 : 0,
+            );
+        if (meta.tuples.length > 1)
+            meta.tuples.sort((x, y) => {
+                const xt = Metadata.initialize();
+                const yt = Metadata.initialize();
+
+                xt.tuples.push(x);
+                yt.tuples.push(y);
+
+                return Metadata.covers(xt, yt)
+                    ? -1
+                    : Metadata.covers(yt, xt)
+                    ? 1
+                    : 0;
+            });
+
+        // RETURNS
         return meta;
     }
 

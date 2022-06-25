@@ -2,7 +2,6 @@
 > typescript-json@3.0.1-dev.20220623 benchmark
 > node benchmark/index.js
 
-{ x: 59, y: 87 } undefined $input[2].p3
 ## assert
  Components | typescript-json | typescript-is 
 ------------|-----------------|---------------

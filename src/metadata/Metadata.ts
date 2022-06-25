@@ -179,21 +179,54 @@ export class Metadata {
     }
 }
 export namespace Metadata {
-    export function intersects(x: Metadata, y: Metadata): boolean {
+    export function intersects(
+        x: Metadata,
+        y: Metadata,
+        deep: boolean,
+    ): boolean {
         // CHECK ANY & OPTIONAL
         if (x.any || y.any) return true;
         if (x.required === false && false === y.required) return true;
         if (x.nullable === true && true === y.nullable) return true;
 
-        // NO DEEP ITERATION
-        if (x.objects.length && y.objects.length) return true;
-        if (x.arrays.length && y.arrays.length) return true;
+        //----
+        // INSTANCES
+        //----
+        // ARRAYS AND OBJECTS
+        if (deep === true) {
+            for (const xa of x.arrays)
+                for (const ya of y.arrays)
+                    if (intersects(xa, ya, deep)) {
+                        return true;
+                    }
+            for (const xo of x.objects)
+                for (const yo of y.objects)
+                    if (MetadataObject.intersects(xo, yo)) {
+                        return true;
+                    }
+        } else {
+            if (x.arrays.length && y.arrays.length) return true;
+            if (x.objects.length && y.objects.length) return true;
+        }
 
-        // COMPARE ATOMICS
+        // TUPLES
+        for (const xt of x.tuples)
+            for (const yt of y.tuples)
+                if (
+                    xt
+                        .slice(0, Math.min(xt.length, yt.length))
+                        .some((xv, i) => intersects(xv, yt[i]!, deep))
+                )
+                    return true;
+
+        //----
+        // VALUES
+        //----
+        // ATOMICS
         for (const atomic of x.atomics)
             if (y.atomics.includes(atomic)) return true;
 
-        // CHECK CONSTANT VALUES
+        // CONSTANTS
         for (const constant of x.constants) {
             const opposite: MetadataConstant | undefined = y.constants.find(
                 (elem) => elem.type === constant.type,
@@ -208,6 +241,62 @@ export namespace Metadata {
                 return true;
         }
         return false;
+    }
+
+    export function covers(x: Metadata, y: Metadata): boolean {
+        // CHECK ANY
+        if (x.any) return true;
+        else if (y.any) return false;
+
+        //----
+        // INSTANCES
+        //----
+        // ARRAYS
+        for (const ya of y.arrays)
+            if (x.arrays.some((xa) => covers(xa, ya) === true) === false)
+                return false;
+
+        // OBJECTS
+        for (const yo of y.objects)
+            if (x.objects.some((xo) => MetadataObject.covers(xo, yo)) === false)
+                return false;
+
+        // TUPLES
+        for (const yt of y.tuples)
+            if (
+                x.tuples.some(
+                    (xt) =>
+                        xt.length >= yt.length &&
+                        xt
+                            .slice(yt.length)
+                            .every((xv, i) => covers(xv, yt[i]!)),
+                ) === false
+            )
+                return false;
+
+        //----
+        // VALUES
+        //----
+        // ATOMICS
+        if (y.atomics.some((atomic) => x.atomics.includes(atomic) === false))
+            return false;
+
+        // CONSTANTS
+        for (const yc of y.constants) {
+            const xc: MetadataConstant | undefined = x.constants.find(
+                (elem) => elem.type === yc.type,
+            );
+            if (xc === undefined) return false;
+            else if (
+                (yc.values as number[]).some(
+                    (yv) => xc.values.includes(yv as never) === false,
+                )
+            )
+                return false;
+        }
+
+        // SUCCESS
+        return true;
     }
 }
 

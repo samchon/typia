@@ -7,10 +7,6 @@ import { ValueFactory } from "../factories/ValueFactory";
 import { Metadata } from "../metadata/Metadata";
 import { MetadataObject } from "../metadata/MetadataObject";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
-import { IsProgrammer } from "./IsProgrammer";
-import { ExpressionFactory } from "../factories/ExpressionFactory";
-import { UnionPredicator } from "./helpers/UnionPredicator";
-import { IPointer } from "../structures/IPointer";
 
 export namespace FeatureProgrammer {
     export interface IConfig {
@@ -35,6 +31,7 @@ export namespace FeatureProgrammer {
 
     export interface IExplore {
         tracable: boolean;
+        source: "top" | "object";
         from: "top" | "array" | "object";
         postfix: string;
     }
@@ -58,6 +55,7 @@ export namespace FeatureProgrammer {
                 meta,
                 {
                     tracable: config.trace,
+                    source: "top",
                     from: "top",
                     postfix: '""',
                 },
@@ -143,6 +141,7 @@ export namespace FeatureProgrammer {
                     meta: prop.metadata,
                     expression: config.decoder(access, prop.metadata, {
                         tracable: config.trace,
+                        source: "object",
                         from: "object",
                         postfix: IdentifierFactory.postfix(prop.name),
                     }),
@@ -198,6 +197,7 @@ export namespace FeatureProgrammer {
                 undefined,
                 config.decoder(ValueFactory.INPUT("elem"), meta, {
                     tracable: explore.tracable,
+                    source: explore.source,
                     from: "array",
                     postfix: explore.postfix.length
                         ? explore.postfix.slice(0, -1) + INDEX_SYMBOL
@@ -225,105 +225,6 @@ export namespace FeatureProgrammer {
             );
         };
     }
-
-    /* -----------------------------------------------------------
-        EXPLORERS
-    ----------------------------------------------------------- */
-    export function explore_objects(
-        config: IConfig,
-        combiner: (
-            explorer: IExplore,
-        ) => (
-            type: "and" | "or",
-        ) => (
-            input: ts.Expression,
-            expressions: ts.Expression[],
-        ) => ts.Expression,
-        objector: (
-            input: ts.Expression,
-            obj: MetadataObject,
-            explore: IExplore,
-        ) => ts.Expression = decode_object(config),
-        failure: (input: ts.Expression) => ts.Statement,
-    ) {
-        return function (
-            input: ts.Expression,
-            targets: MetadataObject[],
-            explore: IExplore,
-        ): ts.Expression {
-            // BREAKER
-            if (targets.length === 1)
-                return objector(input, targets[0]!, explore);
-
-            // POSSIBLE TO SPECIALIZE?
-            const specList: UnionPredicator.ISpecializedObject[] =
-                UnionPredicator.object(targets);
-            if (specList.length === 0)
-                return combiner({ ...explore, tracable: false })("or")(
-                    input,
-                    targets.map((obj) => objector(input, obj, explore)),
-                );
-            const remained: MetadataObject[] = targets.filter(
-                (t) => specList.find((s) => s.object === t) === undefined,
-            );
-
-            // DO SPECIALIZE
-            const condition: IPointer<ts.IfStatement | null> = { value: null };
-
-            specList.reverse().forEach((spec) => {
-                const accessor: ts.Expression = IdentifierFactory.join(
-                    input,
-                    spec.property.name,
-                );
-                const pred: ts.Expression = spec.neighbour
-                    ? IsProgrammer.express()(accessor, spec.property.metadata, {
-                          tracable: true,
-                          from: "object",
-                          postfix: IdentifierFactory.postfix(
-                              spec.property.name,
-                          ),
-                      })
-                    : ExpressionFactory.isRequired(accessor);
-                const statement: ts.IfStatement = ts.factory.createIfStatement(
-                    pred,
-                    ts.factory.createReturnStatement(
-                        objector(input, spec.object, explore),
-                    ),
-                    condition.value ? condition.value : undefined,
-                );
-                condition.value = statement;
-            });
-
-            // RETURNS WITH CONDITIONS
-            return ts.factory.createCallExpression(
-                ts.factory.createArrowFunction(
-                    undefined,
-                    undefined,
-                    [],
-                    undefined,
-                    undefined,
-                    ts.factory.createBlock(
-                        [
-                            condition.value!,
-                            remained.length
-                                ? ts.factory.createReturnStatement(
-                                      explore_objects(
-                                          config,
-                                          combiner,
-                                          objector,
-                                          failure,
-                                      )(input, remained, explore),
-                                  )
-                                : failure(input),
-                        ],
-                        true,
-                    ),
-                ),
-                undefined,
-                undefined,
-            );
-        };
-    }
 }
 
 const INDEX_SYMBOL = '[" + index + "]"';
@@ -333,7 +234,7 @@ const ARGUMENTS = (trace: boolean, explore: FeatureProgrammer.IExplore) => {
             ? []
             : [
                   ts.factory.createIdentifier(`path + ${explore.postfix}`),
-                  explore.from === "object"
+                  explore.source === "object"
                       ? ts.factory.createIdentifier(
                             `${explore.tracable} && exceptionable`,
                         )

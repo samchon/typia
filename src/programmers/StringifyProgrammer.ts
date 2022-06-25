@@ -10,6 +10,7 @@ import { StatementFactory } from "../factories/StatementFactory";
 import { Metadata } from "../metadata/Metadata";
 import { ArrayUtil } from "../utils/ArrayUtil";
 import { ExpressionFactory } from "../factories/ExpressionFactory";
+import { UnionExplorer } from "./helpers/UnionExplorer";
 
 export namespace StringifyProgrammer {
     const CONFIG = (
@@ -48,16 +49,16 @@ export namespace StringifyProgrammer {
                     IdentifierFactory.join(modulo, name),
                 ),
             );
-            const validators = IsProgrammer.generate_functors()(collection);
+            const is = IsProgrammer.generate_functors()(collection);
 
             return [
                 ...functors,
-                ...(validators
+                ...(is
                     ? [
                           ts.factory.createVariableStatement(
                               undefined,
                               ts.factory.createVariableDeclarationList(
-                                  [validators],
+                                  [is],
                                   ts.NodeFlags.Const,
                               ),
                           ),
@@ -122,7 +123,7 @@ export namespace StringifyProgrammer {
                 else
                     unions.push({
                         type: "resolved",
-                        is: () => IsProgrammer.express_to_json(input),
+                        is: () => IsProgrammer.decode_to_json(input),
                         value: () =>
                             visit_to_json(modulo)(
                                 input,
@@ -144,7 +145,7 @@ export namespace StringifyProgrammer {
                     unions.push({
                         type: "atomic",
                         is: () =>
-                            IsProgrammer.express()(
+                            IsProgrammer.decode()(
                                 input,
                                 (() => {
                                     const partial = Metadata.initialize();
@@ -160,7 +161,7 @@ export namespace StringifyProgrammer {
                     unions.push({
                         type: "const string",
                         is: () =>
-                            IsProgrammer.express()(
+                            IsProgrammer.decode()(
                                 input,
                                 (() => {
                                     const partial = Metadata.initialize();
@@ -180,7 +181,7 @@ export namespace StringifyProgrammer {
                 unions.push({
                     type: "atomic",
                     is: () =>
-                        IsProgrammer.express()(
+                        IsProgrammer.decode()(
                             input,
                             (() => {
                                 const partial = Metadata.initialize();
@@ -197,7 +198,7 @@ export namespace StringifyProgrammer {
                 unions.push({
                     type: "tuple",
                     is: () =>
-                        IsProgrammer.express()(
+                        IsProgrammer.decode()(
                             input,
                             (() => {
                                 const partial = Metadata.initialize();
@@ -209,12 +210,12 @@ export namespace StringifyProgrammer {
                     value: () => express_tuple(modulo)(input, tuple, explore),
                 });
 
-            // ARRIES
+            // ARRAYS
             for (const array of meta.arrays)
                 unions.push({
                     type: "array",
                     is: () =>
-                        IsProgrammer.express()(
+                        IsProgrammer.decode()(
                             input,
                             (() => {
                                 const partial = Metadata.initialize();
@@ -273,10 +274,35 @@ export namespace StringifyProgrammer {
         };
 
     const explore_objects = (modulo: ts.LeftHandSideExpression) =>
-        FeatureProgrammer.explore_objects(
+        UnionExplorer.object(
             CONFIG(modulo),
-            IsProgrammer.CONFIG.combiner,
             decode_object(modulo),
+            (input, targets, explore) =>
+                ts.factory.createCallExpression(
+                    ts.factory.createArrowFunction(
+                        undefined,
+                        undefined,
+                        [],
+                        undefined,
+                        undefined,
+                        iterate(modulo)(
+                            input,
+                            targets.map((obj) => ({
+                                type: "object",
+                                is: () =>
+                                    IsProgrammer.decode_object()(
+                                        input,
+                                        obj,
+                                        explore,
+                                    ),
+                                value: () =>
+                                    decode_object(modulo)(input, obj, explore),
+                            })),
+                        ),
+                    ),
+                    undefined,
+                    undefined,
+                ),
             (input) =>
                 ts.factory.createThrowStatement(
                     ts.factory.createNewExpression(

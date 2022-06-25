@@ -7,6 +7,8 @@ import { FeatureProgrammer } from "./FeatureProgrammer";
 import { MetadataObject } from "../metadata/MetadataObject";
 import { Metadata } from "../metadata/Metadata";
 import { ExpressionFactory } from "../factories/ExpressionFactory";
+import { IsProgrammer } from "./IsProgrammer";
+import { UnionExplorer } from "./helpers/UnionExplorer";
 
 export namespace CheckerProgrammer {
     export interface IConfig {
@@ -203,7 +205,7 @@ export namespace CheckerProgrammer {
         );
     }
 
-    function decode_object(config: IConfig) {
+    export function decode_object(config: IConfig) {
         const func = FeatureProgrammer.decode_object(base_config(config));
         return function (
             input: ts.Expression,
@@ -216,10 +218,16 @@ export namespace CheckerProgrammer {
     }
 
     const explore_objects = (config: IConfig) =>
-        FeatureProgrammer.explore_objects(
+        UnionExplorer.object(
             base_config(config),
-            config.combiner,
             decode_object(config),
+            (input, targets, explore) =>
+                IsProgrammer.CONFIG.combiner(explore)("or")(
+                    input,
+                    targets.map((obj) =>
+                        decode_object(config)(input, obj, explore),
+                    ),
+                ),
             () => ts.factory.createReturnStatement(ts.factory.createFalse()),
         );
 }

@@ -79,3 +79,27 @@ export class MetadataObject {
         };
     }
 }
+
+/**
+ * @internal
+ */
+export namespace MetadataObject {
+    export function intersects(x: MetadataObject, y: MetadataObject): boolean {
+        return x.properties.some(
+            (prop) =>
+                y.properties.find((oppo) => prop.name === oppo.name) !==
+                undefined,
+        );
+    }
+
+    export function covers(x: MetadataObject, y: MetadataObject): boolean {
+        return (
+            x.properties.length >= y.properties.length &&
+            x.properties.every(
+                (prop) =>
+                    y.properties.find((oppo) => prop.name === oppo.name) !==
+                    undefined,
+            )
+        );
+    }
+}

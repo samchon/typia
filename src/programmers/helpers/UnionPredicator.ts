@@ -5,16 +5,14 @@ import { ArrayUtil } from "../../utils/ArrayUtil";
 import { MapUtil } from "../../utils/MapUtil";
 
 export namespace UnionPredicator {
-    export interface ISpecializedObject {
+    export interface ISpecialized {
         index: number;
         object: MetadataObject;
         property: MetadataProperty;
         neighbour: boolean;
     }
 
-    export function object(
-        targets: MetadataObject[],
-    ): Array<ISpecializedObject> {
+    export function object(targets: MetadataObject[]): Array<ISpecialized> {
         // PROPERTY MATRIX
         const matrix: Map<string, Array<MetadataProperty | null>> = new Map();
         for (const obj of targets)
@@ -29,7 +27,7 @@ export namespace UnionPredicator {
         });
 
         // EXPLORE SPECIALIZERS
-        const output: ISpecializedObject[] = [];
+        const output: ISpecialized[] = [];
         targets.forEach((obj, i) => {
             const children: ISpecializedProperty[] = [];
             obj.properties.forEach((prop) => {
@@ -47,7 +45,12 @@ export namespace UnionPredicator {
                 const unique: boolean =
                     neighbors.length === 0 ||
                     neighbors.every(
-                        (n) => !Metadata.intersects(prop.metadata, n.metadata),
+                        (n) =>
+                            !Metadata.intersects(
+                                prop.metadata,
+                                n.metadata,
+                                false,
+                            ),
                     );
                 if (unique === true)
                     children.push({
@@ -68,10 +71,6 @@ export namespace UnionPredicator {
             });
         });
         return output;
-    }
-
-    export function array(targets: Metadata[]) {
-        
     }
 }
 
