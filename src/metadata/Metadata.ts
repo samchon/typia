@@ -159,6 +159,7 @@ export class Metadata {
     public bucket(): number {
         return (
             (this.resolved ? 1 : 0) +
+            (this.atomics.length ? 1 : 0) +
             (this.constants.length ? 1 : 0) +
             (this.arrays.length ? 1 : 0) +
             (this.tuples.length ? 1 : 0) +
