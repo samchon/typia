@@ -1,10 +1,8 @@
 # TypeScript-JSON
-> v3 update is coming soon.
-
 Runtime type checker, and 10x faster `JSON.stringify()` function, with only one line.
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typescript-json/blob/master/LICENSE)
-[![npm version](https://img.shields.io/npm/v/typescript-json/next.svg)](https://www.npmjs.com/package/typescript-json)
+[![npm version](https://img.shields.io/npm/v/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
 [![Downloads](https://img.shields.io/npm/dm/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
 [![Build Status](https://github.com/samchon/typescript-json/workflows/build/badge.svg)](https://github.com/samchon/typescript-json/actions?query=workflow%3Abuild)
 [![Guide Documents](https://img.shields.io/badge/wiki-documentation-forestgreen)](https://github.com/samchon/typescript-json/wiki)
@@ -19,7 +17,7 @@ import TSON from "typescript-json";
 //----
 // MAIN FUNCTIONS
 //----
-TSON.assert<T>(input); // runtime type checker throwing exception
+TSON.assertType<T>(input); // runtime type checker throwing exception
 TSON.is<T>(input); // runtime type checker returning boolean
 TSON.stringify<T>(input); // 10x faster JSON.stringify()
 
@@ -32,16 +30,16 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
 
 `typescript-json` is a transformer library providing JSON related functions.
 
-  - Runtime type checkers
-  - 10x faster `JSON.stringify()` function
-  - Comparing with `ajv` or `fast-json-stringify`
-    - 10,000x faster 1st operation including optimizer construction time
+  - Powerful Runtime type checkers:
+    - Performed by only one line, `TSON.is(input)`
+    - Supports complicate union type
+    - 100x times faster than simliar library when the union type comes
+  - 10x faster `JSON.stringify()` function:
+    - Performed by only one line: `TSON.stringify<T>(input)`
     - Does not require any JSON schema definition
-    - Performed by only one line like `TSON.stringify<T>(input)`
+    - 10,000x faster optimizer construction time than similar libaries
 
-Only JSON string conversion time | Include optimizater construction time
----------------------------------|----------------------------------------
-![only-json-string-conversion-time](https://user-images.githubusercontent.com/13158709/172457566-d23100c2-808a-4544-a914-de92d8ec12b0.png) | ![include-optimization-planning-time](https://user-images.githubusercontent.com/13158709/172457381-d8ccbb92-43a1-4c96-aae1-cdac7d2e03cd.png)
+![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/175500037-e2bedc52-b549-4156-bb60-225e9db6feee.png)
 
 
 
@@ -116,24 +114,19 @@ module.exports = {
 ## Features
 ### Runtime Type Checkers
 ```typescript
-export function assert<T>(input: T): T;
+export function assertType<T>(input: T): T;
 export function is<T>(input: T): boolean;
 ```
 
-`typescript-json` provides two runtime type checker functions, `assert()` and `is()`.
+`typescript-json` provides two runtime type checker functions, `assertType()` and `is()`.
 
-The first `assert()` is a function throwing `TypeGuardError` when an `input` value is different with the generic argument `T`. The other function `is()` returns a `boolean` value meaning whether matched or not.
+The first `assertType()` is a function throwing `TypeGuardError` when an `input` value is different with the generic argument `T`. The other function `is()` returns a `boolean` value meaning whether matched or not.
 
-Comparing those `assert()` and `is()` functions with other similar library `ajv`, `assert()` and `is()` functions are much easier to use and even much faster. Furthermore, `typescript-json` can check complicate structured data that `ajv` cannot validate.
+Comparing those `assertType()` and `is()` functions with a similar library `ajv`, `assertType()` and `is()` functions are much easier to use and even much faster. Furthermore, `typescript-json` can check complicate structured data that `ajv` cannot validate.
 
-> Complicate structure that `ajv` cannot validate: [recursive union structure](https://github.com/samchon/typescript-json/blob/2237573005197a4e138c3c5c92806d5a972c48a3/test/structures/ArrayRecursiveUnion.ts#L6-L43)
+Comparing another library `typescript-is`, its features are exactly same. However, `typescript-is` is slower and it doesn't under stand union type. `typescript-is` occurs error when explicit union type comes and makes a wrong deicision when implicit union type comes.
 
-Component            | `typescript-json` | `ajv`
----------------------|-------------------|-------------------------
-Requires             | Only one line     | JSON schema definition
-Construction Time    | Compile-time      | Run-time
-Complicate Structure | Possible          | Not possible
-
+![Runtime Type Checker Benchmark](https://user-images.githubusercontent.com/13158709/175502356-b7eb3f05-5583-473c-b338-99279ea669cf.png)
 
 ### Fastest JSON String Conversion
 ```typescript
@@ -142,17 +135,13 @@ export function stringify<T>(input: T): string;
 
 Super-fast JSON string conversion function.
 
-If you call `TSON.stringify()` function instead of the native `JSON.stringify()`, the JSON conversion time would be 10x times faster. Also, you can perform such super-fast JSON string conversion very easily, by only one line, `TSON.stringify<T>(input)`.
+If you call `TSON.stringify()` function instead of the native `JSON.stringify()`, the JSON conversion time would be 10x times faster. Also, you can perform such super-fast JSON string conversion very easily, by only one line: `TSON.stringify<T>(input)`.
 
 On the other side, other similary library like `fast-json-stringify` requires complicate JSON schema definition. Furthermore, `typescript-json` can convert complicate structured data that `fast-json-stringify` cannot convert.
 
-Comparing performance, `typescript-json` is about 5x times faster when comparing only JSON string conversion time. If compare optimizer construction time with only one call, `typescript-json` is even 10,000x times faster.
+Comparing performance, `typescript-json` is about 2x times faster when comparing only JSON string conversion time. If compare optimizer construction time with only one call, `typescript-json` is even 10,000x times faster.
 
-> Complicate structure that `fast-json-stringify` cannot convert: [recursive union structure](https://github.com/samchon/typescript-json/blob/2237573005197a4e138c3c5c92806d5a972c48a3/test/structures/ArrayRecursiveUnion.ts#L6-L43)
-
-Only JSON string conversion time | Include optimizer construction time
----------------------------------|------------------------------------
-![only-json-string-conversion](https://user-images.githubusercontent.com/13158709/172457566-d23100c2-808a-4544-a914-de92d8ec12b0.png) | ![include-optimizer-construction](https://user-images.githubusercontent.com/13158709/172457381-d8ccbb92-43a1-4c96-aae1-cdac7d2e03cd.png)
+![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/175545281-cd799a82-7888-4686-9c4c-e18c17b0b8b3.png)
 
 ### JSON Schema Generation
 ```typescript

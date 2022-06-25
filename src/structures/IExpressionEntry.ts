@@ -1,9 +1,9 @@
 import ts from "typescript";
-import { IMetadata } from "./IMetadata";
+import { Metadata } from "../metadata/Metadata";
 
 export interface IExpressionEntry {
     input: ts.Expression;
     key: string;
-    meta: IMetadata;
+    meta: Metadata;
     expression: ts.Expression;
 }

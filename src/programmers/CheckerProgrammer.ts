@@ -1,17 +1,20 @@
 import ts from "typescript";
-import { IMetadata } from "../structures/IMetadata";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { ValueFactory } from "../factories/ValueFactory";
-import { FeatureFactory } from "./FeatureProgrammer";
+import { FeatureProgrammer } from "./FeatureProgrammer";
+import { MetadataObject } from "../metadata/MetadataObject";
+import { Metadata } from "../metadata/Metadata";
+import { ExpressionFactory } from "../factories/ExpressionFactory";
+import { UnionExplorer } from "./helpers/UnionExplorer";
 
-export namespace CheckerFactory {
+export namespace CheckerProgrammer {
     export interface IConfig {
         trace: boolean;
         functors: {
             name: string;
-            filter?: (object: IMetadata.IObject) => boolean;
+            filter?: (object: MetadataObject) => boolean;
         };
         combiner: IConfig.Combiner;
     }
@@ -27,24 +30,24 @@ export namespace CheckerFactory {
             };
         }
     }
-    export import IExplore = FeatureFactory.IExplore;
+    export import IExplore = FeatureProgrammer.IExplore;
 
     /* -----------------------------------------------------------
         GENERATORS
     ----------------------------------------------------------- */
     export function generate(config: IConfig) {
-        return FeatureFactory.generate(base_config(config));
+        return FeatureProgrammer.generate(base_config(config));
     }
 
     export function generate_functors(config: IConfig) {
-        return FeatureFactory.generate_functors(base_config(config));
+        return FeatureProgrammer.generate_functors(base_config(config));
     }
 
-    function base_config(config: IConfig): FeatureFactory.IConfig {
+    function base_config(config: IConfig): FeatureProgrammer.IConfig {
         return {
             initializer: ({ checker }, type) => {
                 const collection: MetadataCollection = new MetadataCollection();
-                const meta: IMetadata = MetadataFactory.generate(
+                const meta: Metadata = MetadataFactory.generate(
                     checker,
                     collection,
                     type,
@@ -58,12 +61,11 @@ export namespace CheckerFactory {
             trace: config.trace,
             functors: config.functors,
             joiner: (entries) =>
-                entries
-                    .map((entry) => entry.expression)
-                    .reduce(
-                        (x, y) => ts.factory.createLogicalAnd(x, y),
-                        ts.factory.createTrue(),
-                    ),
+                entries.length
+                    ? entries
+                          .map((entry) => entry.expression)
+                          .reduce((x, y) => ts.factory.createLogicalAnd(x, y))
+                    : ts.factory.createTrue(),
             decoder: decode(config),
         };
     }
@@ -74,97 +76,84 @@ export namespace CheckerFactory {
     export function decode(config: IConfig) {
         return function (
             input: ts.Expression,
-            meta: IMetadata,
+            meta: Metadata,
             explore: IExplore,
         ): ts.Expression {
             if (meta.any) return ValueFactory.BOOLEAN(true);
-            explore.tracable = explore.tracable && IMetadata.size(meta) === 1;
+            explore.tracable = explore.tracable && meta.size() === 1;
 
             const top: ts.Expression[] = [];
             const binaries: ts.Expression[] = [];
             const add = create_add(binaries)(input);
-            const constant = (value: number | string | bigint | boolean) =>
+            const getConstantValue = (
+                value: number | string | bigint | boolean,
+            ) =>
                 typeof value === "string"
                     ? ts.factory.createStringLiteral(value)
                     : ts.factory.createIdentifier(value.toString());
 
-            // NULLBLE AND UNDEFINDABLE
-            (meta.nullable ? add : create_add(top)(input))(
-                meta.nullable,
-                ValueFactory.NULL(),
-            );
-            (meta.required ? create_add(top)(input) : add)(
-                !meta.required,
-                ValueFactory.UNDEFINED(),
-            );
+            // CHECK OPTIONAL
+            const checkOptional: boolean = meta.empty() || meta.isUnionBucket();
+            if (checkOptional || meta.nullable || meta.objects.length)
+                (meta.nullable ? add : create_add(top)(input))(
+                    meta.nullable,
+                    ValueFactory.NULL(),
+                );
+            if (checkOptional || !meta.required)
+                (meta.required ? create_add(top)(input) : add)(
+                    !meta.required,
+                    ValueFactory.UNDEFINED(),
+                );
 
             // CONSTANT VALUES
-            for (const values of meta.constants.values())
-                for (const val of values) add(true, constant(val));
+            for (const constant of meta.constants)
+                for (const val of constant.values)
+                    add(true, getConstantValue(val));
 
             // ATOMIC VALUES
             for (const type of meta.atomics)
                 add(
                     true,
-                    ValueFactory.TYPEOF(input),
                     ts.factory.createStringLiteral(type),
+                    ValueFactory.TYPEOF(input),
                 );
 
-            // ARRAY OR TUPLE
-            if (meta.arraies.size + meta.tuples.size > 0) {
+            // TUPLE
+            if (meta.tuples.length > 0) {
                 const inner: ts.Expression[] = [];
-                for (const [key, tuple] of meta.tuples.entries()) {
-                    if (meta.atomics.has(key)) continue;
+                for (const tuple of meta.tuples)
                     inner.push(decode_tuple(config)(input, tuple, explore));
-                }
-                for (const array of meta.arraies.values())
-                    inner.push(decode_array(config)(input, array, explore));
 
                 // ADD
                 binaries.push(
                     ts.factory.createLogicalAnd(
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("Array.isArray"),
-                            undefined,
-                            [input],
-                        ),
-                        inner.length === 0
+                        ExpressionFactory.isArray(input),
+                        inner.length === 1
                             ? inner[0]!
-                            : inner.reduce(
-                                  (x, y) => ts.factory.createLogicalOr(x, y),
-                                  ts.factory.createFalse(),
+                            : inner.reduce((x, y) =>
+                                  ts.factory.createLogicalOr(x, y),
                               ),
                     ),
                 );
             }
 
-            // OBJECT
-            if (meta.objects.size > 0) {
-                const outer: ts.Expression[] = [];
-                if (meta.nullable === false)
-                    create_add(outer)(input)(false, ValueFactory.NULL());
-                create_add(outer)(input)(
-                    true,
-                    ValueFactory.TYPEOF(input),
-                    ts.factory.createStringLiteral("object"),
-                );
-
-                const inner: ts.Expression[] = [];
-                for (const [obj] of meta.objects.values())
-                    inner.push(decode_object(config)(input, obj, explore));
-
+            // ARRAY
+            if (meta.arrays.length > 0)
                 binaries.push(
-                    config.combiner({ ...explore, tracable: false })("and")(
-                        input,
-                        [
-                            ...outer,
-                            config.combiner({ ...explore, tracable: false })(
-                                "or",
-                            )(input, inner),
-                        ],
+                    ts.factory.createLogicalAnd(
+                        ExpressionFactory.isArray(input),
+                        explore_array(config)(input, meta.arrays, explore),
                     ),
                 );
-            }
+
+            // OBJECT
+            if (meta.objects.length > 0)
+                binaries.push(
+                    ts.factory.createLogicalAnd(
+                        ExpressionFactory.isObject(input, true),
+                        explore_objects(config)(input, meta.objects, explore),
+                    ),
+                );
 
             // COMBINE CONDITIONS
             return top.length !== 0
@@ -182,7 +171,7 @@ export namespace CheckerFactory {
     function decode_tuple(config: IConfig) {
         return function (
             input: ts.Expression,
-            tuple: Array<IMetadata>,
+            tuple: Array<Metadata>,
             explore: IExplore,
         ): ts.Expression {
             const length = ts.factory.createStrictEquality(
@@ -196,21 +185,22 @@ export namespace CheckerFactory {
                     {
                         ...explore,
                         from: "array",
-                        postfix: `${explore.postfix}[${index}]`,
+                        postfix: explore.postfix.length
+                            ? `${explore.postfix.slice(0, -1)}[${index}]"`
+                            : `"[${index}]"`,
                     },
                 ),
             );
             if (binaries.length === 0) return length;
             else
-                return [length, ...binaries].reduce(
-                    (x, y) => ts.factory.createLogicalAnd(x, y),
-                    ts.factory.createTrue(),
+                return [length, ...binaries].reduce((x, y) =>
+                    ts.factory.createLogicalAnd(x, y),
                 );
         };
     }
 
     function decode_array(config: IConfig) {
-        return FeatureFactory.decode_array(
+        return FeatureProgrammer.decode_array(
             base_config(config),
             (input, arrow) =>
                 ts.factory.createCallExpression(
@@ -221,17 +211,39 @@ export namespace CheckerFactory {
         );
     }
 
-    function decode_object(config: IConfig) {
-        const func = FeatureFactory.decode_object(base_config(config));
+    export function decode_object(config: IConfig) {
+        const func = FeatureProgrammer.decode_object(base_config(config));
         return function (
             input: ts.Expression,
-            obj: IMetadata.IObject,
+            obj: MetadataObject,
             explore: IExplore,
         ) {
             obj.validated = true;
             return func(input, obj, explore);
         };
     }
+
+    const explore_array = (config: IConfig) =>
+        UnionExplorer.array(
+            decode(config),
+            decode_array(config),
+            () => ts.factory.createTrue(),
+            () => ts.factory.createReturnStatement(ts.factory.createFalse()),
+        );
+
+    const explore_objects = (config: IConfig) =>
+        UnionExplorer.object(
+            base_config(config),
+            decode_object(config),
+            (input, targets, explore) =>
+                config.combiner(explore)("or")(
+                    input,
+                    targets.map((obj) =>
+                        decode_object(config)(input, obj, explore),
+                    ),
+                ),
+            () => ts.factory.createReturnStatement(ts.factory.createFalse()),
+        );
 }
 
 const create_add =

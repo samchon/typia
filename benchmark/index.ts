@@ -1,28 +1,46 @@
-import { BenchmarkGenerator } from "./internal/Benchmark";
+// import { NumberUtil } from "../test/internal/NumberUtil";
 
-import { benchmark_stringify_repeat } from "./features/benchmark_stringify_repeat";
+import { benchmark_assert } from "./features/benchmark_assert";
+import { benchmark_is } from "./features/benchmark_is";
+import { benchmark_optimizer } from "./features/benchmark_optimizer";
+import { benchmark_stringify } from "./features/benchmark_stringify";
 
-function measure(functor: () => Array<() => BenchmarkGenerator.IOutput>): void {
+type Output = Record<string, number | null> & { name: string };
+
+// const round = NumberUtil.elaborate(4)(Math.round);
+function measure<T extends Output>(functor: () => (() => T)[]): void {
     console.log(`## ${functor.name}`);
-    console.log(
-        [
-            "Component",
-            "ideal",
-            "typescript-json",
-            "fast-json-stringify",
-            "JSON.stringify",
-        ].join(" | "),
-    );
-    console.log(new Array(4).fill("------------").join("|"));
+
+    const parameters: string[] = [];
+
     for (const comp of functor()) {
-        const result = comp();
+        // DO BENCHMARK
+        const output = comp();
+
+        // CONSTRUCT LABEL WITH PROPERTIES
+        const labeled: boolean = parameters.length !== 0;
+        if (labeled === false) {
+            parameters.push(
+                ...Object.keys(output).filter((key) => key !== "name"),
+            );
+            console.log(" Components | " + parameters.join(" | ") + " ");
+            console.log(
+                "-".repeat(12) +
+                    "|" +
+                    parameters
+                        .map((str) => "-".repeat(str.length + 2))
+                        .join("|"),
+            );
+        }
+
+        // REPORT
         console.log(
             [
-                result.name,
-                (result.ideal / result.json) * 100,
-                (result.tson / result.json) * 100,
-                (result.ajv / result.json) * 100,
-                (result.json / result.json) * 100,
+                output.name +
+                    " | " +
+                    parameters
+                        .map((key) => output[key] || "Failed")
+                        .join(" | "),
             ].join(" | "),
         );
     }
@@ -30,7 +48,12 @@ function measure(functor: () => Array<() => BenchmarkGenerator.IOutput>): void {
 }
 
 function main(): void {
-    // measure(benchmark_stringify_optimizer);
-    measure(benchmark_stringify_repeat);
+    const features = [
+        benchmark_assert,
+        benchmark_is,
+        benchmark_stringify,
+        benchmark_optimizer,
+    ];
+    for (const f of features) measure(f as any);
 }
 main();

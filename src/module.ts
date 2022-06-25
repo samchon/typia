@@ -29,26 +29,26 @@ export { _TypeGuardError as TypeGuardError };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assert<T>(input: T): T;
+export function assertType<T>(input: T): T;
 
 /**
  * @internal
  */
-export function assert(): never {
-    halt("assert");
+export function assertType(): never {
+    halt("assertType");
 }
 
 /**
  * @internal
  */
-export namespace assert {
+export namespace assertType {
     export const TypeGuardError = _TypeGuardError;
 }
 
 // /**
 //  * @hidden
 //  */
-// export interface assert<T> {
+// export interface assertType<T> {
 //     (input: T): T;
 // }
 
@@ -67,7 +67,7 @@ export namespace assert {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function is<T>(input: T): boolean;
+export function is<T>(input: T): input is T;
 
 /**
  * @internal
@@ -103,7 +103,7 @@ export function is(): never {
  *
  * For reference, this `TSON.stringify()` does not validate the input value type. It
  * just believes that the input value is following the type *T*. Therefore, if you
- * can't ensure the input value type, it would better to call {@link assert} or
+ * can't ensure the input value type, it would better to call {@link assertType} or
  * {@link is} function before.
  *
  * @template T Type of the input value

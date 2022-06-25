@@ -2,7 +2,7 @@
  * @internal
  */
 export function $string(str: string): string {
-    if (str.length > 42) return JSON.stringify(str);
+    if (str.length > 41) return JSON.stringify(str);
 
     const length = str.length;
     let result = "";
@@ -33,5 +33,5 @@ export function $string(str: string): string {
     }
     return point < 32 || surrogateFound === true
         ? JSON.stringify(str)
-        : '"' + result + '"';
+        : `"${result}"`;
 }

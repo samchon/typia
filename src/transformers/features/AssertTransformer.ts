@@ -1,5 +1,5 @@
 import ts from "typescript";
-import { AssertFactory } from "../../programmers/AssertProgrammer";
+import { AssertProgrammer } from "../../programmers/AssertProgrammer";
 import { IProject } from "../../structures/IProject";
 
 export namespace AssertTransformer {
@@ -21,7 +21,7 @@ export namespace AssertTransformer {
 
         // DO TRANSFORM
         return ts.factory.createCallExpression(
-            AssertFactory.generate(project, modulo, type),
+            AssertProgrammer.generate(project, modulo, type),
             undefined,
             [expression.arguments[0]!],
         );
@@ -29,5 +29,5 @@ export namespace AssertTransformer {
 }
 
 const enum ErrorMessages {
-    NO_INPUT_VALUE = "Error on TSON.assert(): no input value.",
+    NO_INPUT_VALUE = "Error on TSON.assertType(): no input value.",
 }
