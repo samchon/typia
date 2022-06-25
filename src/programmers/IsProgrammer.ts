@@ -29,8 +29,9 @@ export namespace IsProgrammer {
     export const generate_functors = () =>
         CheckerProgrammer.generate_functors(CONFIG);
 
-    export const express = () => CheckerProgrammer.decode(CONFIG);
-    export function express_to_json(input: ts.Expression): ts.Expression {
+    export const decode = () => CheckerProgrammer.decode(CONFIG);
+    export const decode_object = () => CheckerProgrammer.decode_object(CONFIG);
+    export function decode_to_json(input: ts.Expression): ts.Expression {
         return ts.factory.createLogicalAnd(
             ts.factory.createStrictEquality(
                 ts.factory.createStringLiteral("object"),

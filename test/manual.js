@@ -7,6 +7,6 @@ runner.register({
     compiler: "ttypescript",
 });
 
-const program = require("./features/is/test_is_object_union.ts");
+const program = require("./features/stringify/test_stringify_object_union_non_predictable.ts");
 for (const value of Object.values(program))
     if (typeof value === "function") value();
