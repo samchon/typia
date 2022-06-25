@@ -50,9 +50,15 @@ export namespace AssertProgrammer {
     ): CheckerProgrammer.IConfig.Combiner {
         return (explore: CheckerProgrammer.IExplore) => {
             const combiner = IsProgrammer.CONFIG.combiner(explore);
-            if (explore.tracable === false) return combiner;
+            if (explore.tracable === false && explore.from !== "top")
+                return combiner;
 
             const path = explore.postfix ? `path + ${explore.postfix}` : "path";
+            const failure = ts.factory.createStrictEquality(
+                ValueFactory.INPUT("success"),
+                ValueFactory.BOOLEAN(false),
+            );
+
             const wrapper = (input: ts.Expression, output: ts.Expression) =>
                 ts.factory.createCallExpression(
                     ts.factory.createArrowFunction(
@@ -69,16 +75,17 @@ export namespace AssertProgrammer {
                                     output,
                                 ),
                                 ts.factory.createIfStatement(
-                                    ts.factory.createLogicalAnd(
-                                        ts.factory.createStrictEquality(
-                                            ValueFactory.INPUT("success"),
-                                            ValueFactory.BOOLEAN(false),
-                                        ),
-                                        ts.factory.createStrictEquality(
-                                            ValueFactory.INPUT("exceptionable"),
-                                            ValueFactory.BOOLEAN(true),
-                                        ),
-                                    ),
+                                    explore.source === "top"
+                                        ? failure
+                                        : ts.factory.createLogicalAnd(
+                                              failure,
+                                              ts.factory.createStrictEquality(
+                                                  ValueFactory.INPUT(
+                                                      "exceptionable",
+                                                  ),
+                                                  ValueFactory.BOOLEAN(true),
+                                              ),
+                                          ),
                                     ts.factory.createThrowStatement(
                                         ts.factory.createNewExpression(
                                             IdentifierFactory.join(

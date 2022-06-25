@@ -68,7 +68,7 @@ export namespace StringifyProgrammer {
         });
 
     /* -----------------------------------------------------------
-        VISITORS
+        DECODERS
     ----------------------------------------------------------- */
     const decode =
         (modulo: ts.LeftHandSideExpression) =>
@@ -119,13 +119,17 @@ export namespace StringifyProgrammer {
             // toJSON() METHOD
             if (meta.resolved !== null)
                 if (size === 1)
-                    return visit_to_json(modulo)(input, meta.resolved, explore);
+                    return decode_to_json(modulo)(
+                        input,
+                        meta.resolved,
+                        explore,
+                    );
                 else
                     unions.push({
                         type: "resolved",
                         is: () => IsProgrammer.decode_to_json(input),
                         value: () =>
-                            visit_to_json(modulo)(
+                            decode_to_json(modulo)(
                                 input,
                                 meta.resolved!,
                                 explore,
@@ -207,24 +211,27 @@ export namespace StringifyProgrammer {
                             })(),
                             explore,
                         ),
-                    value: () => express_tuple(modulo)(input, tuple, explore),
+                    value: () => decode_tuple(modulo)(input, tuple, explore),
                 });
 
             // ARRAYS
-            for (const array of meta.arrays)
+            if (meta.arrays.length)
                 unions.push({
                     type: "array",
-                    is: () =>
-                        IsProgrammer.decode()(
-                            input,
-                            (() => {
-                                const partial = Metadata.initialize();
-                                partial.arrays.push(array);
-                                return partial;
-                            })(),
-                            explore,
-                        ),
-                    value: () => decode_array(modulo)(input, array, explore),
+                    is: () => ExpressionFactory.isArray(input),
+                    value: () =>
+                        explore_arrays(modulo)(input, meta.arrays, explore),
+                    // is: () =>
+                    //     IsProgrammer.decode()(
+                    //         input,
+                    //         (() => {
+                    //             const partial = Metadata.initialize();
+                    //             partial.arrays.push(array);
+                    //             return partial;
+                    //         })(),
+                    //         explore,
+                    //     ),
+                    // value: () => decode_array(modulo)(input, array, explore),
                 });
 
             // OBJECTS
@@ -272,6 +279,25 @@ export namespace StringifyProgrammer {
                 ),
             );
         };
+
+    const explore_arrays = (modulo: ts.LeftHandSideExpression) =>
+        UnionExplorer.array(
+            IsProgrammer.decode(),
+            decode_array(modulo),
+            () => ts.factory.createStringLiteral("[]"),
+            (input) =>
+                ts.factory.createThrowStatement(
+                    ts.factory.createNewExpression(
+                        IdentifierFactory.join(modulo, "TypeGuardError"),
+                        [],
+                        [
+                            ts.factory.createStringLiteral("stringify"),
+                            ts.factory.createStringLiteral("unknown"),
+                            input,
+                        ],
+                    ),
+                ),
+        );
 
     const explore_objects = (modulo: ts.LeftHandSideExpression) =>
         UnionExplorer.object(
@@ -323,7 +349,7 @@ export namespace StringifyProgrammer {
     const decode_array = (modulo: ts.LeftHandSideExpression) =>
         FeatureProgrammer.decode_array(CONFIG(modulo), StringifyJoiner.array);
 
-    const express_tuple =
+    const decode_tuple =
         (modulo: ts.LeftHandSideExpression) =>
         (
             input: ts.Expression,
@@ -377,7 +403,7 @@ export namespace StringifyProgrammer {
         else return decode_atomic(input, "string", explore);
     }
 
-    const visit_to_json =
+    const decode_to_json =
         (modulo: ts.LeftHandSideExpression) =>
         (
             input: ts.Expression,

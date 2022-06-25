@@ -169,13 +169,14 @@ export namespace FeatureProgrammer {
             arrow: ts.ArrowFunction,
         ) => ts.Expression,
     ) {
+        const rand: string = Math.random().toString().slice(2);
         const tail = config.trace
             ? [
                   ts.factory.createParameterDeclaration(
                       undefined,
                       undefined,
                       undefined,
-                      ValueFactory.INPUT("index"),
+                      ValueFactory.INPUT("index" + rand),
                   ),
               ]
             : [];
@@ -200,8 +201,8 @@ export namespace FeatureProgrammer {
                     source: explore.source,
                     from: "array",
                     postfix: explore.postfix.length
-                        ? explore.postfix.slice(0, -1) + INDEX_SYMBOL
-                        : '"' + INDEX_SYMBOL,
+                        ? explore.postfix.slice(0, -1) + INDEX_SYMBOL(rand)
+                        : '"' + INDEX_SYMBOL(rand),
                 }),
             );
             return combiner(input, arrow);
@@ -227,7 +228,7 @@ export namespace FeatureProgrammer {
     }
 }
 
-const INDEX_SYMBOL = '[" + index + "]"';
+const INDEX_SYMBOL = (rand: string) => `[" + index${rand} + "]"`;
 const ARGUMENTS = (trace: boolean, explore: FeatureProgrammer.IExplore) => {
     const tail: ts.Expression[] =
         trace === false
