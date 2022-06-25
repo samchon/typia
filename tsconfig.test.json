@@ -101,10 +101,9 @@
       // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
       "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
       "plugins": [
-        {
-          "transform": "./src/transform.ts"
-        }
+        { "transform": "./src/transform.ts" },
+        { "transform": "typescript-is/lib/transform-inline/transformer" },
       ]
     },
-    "include": ["test", "benchmark"]
+    "include": ["test", "benchmark", "src"]
   }

@@ -1,12 +1,12 @@
 import ts from "typescript";
 
 import { TypeFactory } from "./TypeFactory";
-import { IMetadata } from "../structures/IMetadata";
 import { MapUtil } from "../utils/MapUtil";
-import { CommentFactory } from "./CommentAnalyzer";
+import { CommentFactory } from "./CommentFactory";
+import { MetadataObject } from "../metadata/MetadataObject";
 
 export class MetadataCollection {
-    private readonly dict_: Map<ts.Type, [string, IMetadata.IObject]>;
+    private readonly dict_: Map<ts.Type, MetadataObject>;
     private readonly names_: Map<string, Map<ts.Type, string>>;
     private index_: number;
 
@@ -18,24 +18,25 @@ export class MetadataCollection {
         this.index_ = 0;
     }
 
-    public storage(): IMetadata.IStorage {
-        const storage: IMetadata.IStorage = {};
-        for (const [key, value] of this.dict_.values()) storage[key] = value;
+    public storage(): Map<string, MetadataObject> {
+        const storage: Map<string, MetadataObject> = new Map();
+        for (const obj of this.dict_.values()) {
+            storage.set(obj.name, obj);
+        }
         return storage;
     }
 
     public emplace(
         checker: ts.TypeChecker,
         type: ts.Type,
-    ): [string, IMetadata.IObject, boolean] {
+    ): [MetadataObject, boolean] {
         const oldbie = this.dict_.get(type);
-        if (oldbie !== undefined) return [oldbie[0], oldbie[1], false];
+        if (oldbie !== undefined) return [oldbie, false];
 
         const $id: string = this.get_name(checker, type);
-        const obj: IMetadata.IObject = {
-            $id,
-            recursive: false,
-            properties: {},
+        const obj: MetadataObject = MetadataObject.create({
+            name: $id,
+            properties: [],
             description:
                 (type.symbol &&
                     CommentFactory.generate(
@@ -44,9 +45,11 @@ export class MetadataCollection {
                 undefined,
             validated: false,
             index: this.index_++,
-        };
-        this.dict_.set(type, [$id, obj]);
-        return [$id, obj, true];
+            recursive: false,
+            nullables: [],
+        });
+        this.dict_.set(type, obj);
+        return [obj, true];
     }
 
     private get_name(checker: ts.TypeChecker, type: ts.Type): string {

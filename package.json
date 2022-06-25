@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.0.0-dev.20220622",
+  "version": "3.0.0",
   "description": "Faster JSON stringify with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -11,15 +11,17 @@
     "dev": "npm run build -- --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
-    "prettier": "prettier ./**/*.ts --write",
-    "test": "node test"
+    "prettier": "prettier  --write ./**/*.{ts,js}",
+    "test": "node test",
+    "test:manual": "node test/manual",
+    "test:application:replace": "npm run build:test && node test/features/application/replace"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/samchon/typescript-json"
   },
   "keywords": [
-    "faster",
+    "fast",
     "json",
     "stringify",
     "typescript",
@@ -50,12 +52,13 @@
     "@typescript-eslint/parser": "^5.26.0",
     "benchmark": "^2.1.4",
     "cli": "^1.0.1",
-    "fast-json-stringify": "^4.2.0",
+    "fast-json-stringify": "^5.0.0",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.7.0",
     "ttypescript": "^1.5.13",
-    "typescript": "^4.6.4"
+    "typescript": "^4.6.4",
+    "typescript-is": "^0.19.0"
   }
 }

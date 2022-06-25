@@ -1,11 +1,14 @@
-import crypto from "crypto";
 import ts from "typescript";
 
-import { IMetadata } from "../structures/IMetadata";
 import { MetadataCollection } from "./MetadataCollection";
-import { CommentFactory } from "./CommentAnalyzer";
+import { CommentFactory } from "./CommentFactory";
 import { TypeFactory } from "./TypeFactory";
-import { MapUtil } from "../utils/MapUtil";
+import { MetadataObject } from "../metadata/MetadataObject";
+import { ArrayUtil } from "../utils/ArrayUtil";
+import { Metadata } from "../metadata/Metadata";
+import { Writable } from "../typings/Writable";
+import { MetadataProperty } from "../metadata/MetadataProperty";
+import { MetadataConstant } from "../metadata/MetadataConstant";
 
 export namespace MetadataFactory {
     export interface IOptions {
@@ -18,9 +21,9 @@ export namespace MetadataFactory {
         collection: MetadataCollection,
         type: ts.Type | null,
         options: IOptions,
-    ): IMetadata {
+    ): Metadata {
         // CONSTRUCT SCHEMA WITH OBJECTS
-        const metadata: IMetadata = explore(
+        const metadata: Metadata = explore(
             collection,
             checker,
             options,
@@ -29,17 +32,21 @@ export namespace MetadataFactory {
         );
 
         // FIND RECURSIVE OBJECTS
-        const storage: IMetadata.IStorage = collection.storage();
-        for (const object of Object.values(storage))
-            object.recursive = Object.values(object.properties)
-                .filter((prop) => !!prop)
-                .some(
-                    (prop) =>
-                        prop!.objects.has(object.$id) ||
-                        [...prop!.arraies.values()]
-                            .filter((prop) => !!prop)
-                            .some((prop) => prop!.objects.has(object.$id)),
-                );
+        const storage: Map<string, MetadataObject> = collection.storage();
+        for (const object of storage.values())
+            object.recursive = object.properties.some(
+                (prop) =>
+                    ArrayUtil.has(
+                        prop.metadata.objects,
+                        (elem) => elem.name === object.name,
+                    ) ||
+                    prop.metadata.arrays.some((meta) =>
+                        ArrayUtil.has(
+                            meta.objects,
+                            (elem) => elem.name === object.name,
+                        ),
+                    ),
+            );
 
         // RETURNS
         return metadata;
@@ -51,10 +58,41 @@ export namespace MetadataFactory {
         options: IOptions,
         type: ts.Type | null,
         parentResolved: boolean,
-    ): IMetadata {
-        const meta: IMetadata = IMetadata.create();
+    ): Metadata {
+        // CONSTRUCT METADATA
+        const meta: Metadata = Metadata.initialize();
         if (type !== null)
             iterate(collection, checker, options, meta, type, parentResolved);
+
+        // SORT INSTANCES
+        if (meta.objects.length > 1)
+            meta.objects.sort((x, y) =>
+                MetadataObject.covers(x, y)
+                    ? -1
+                    : MetadataObject.covers(y, x)
+                    ? 1
+                    : 0,
+            );
+        if (meta.arrays.length > 1)
+            meta.arrays.sort((x, y) =>
+                Metadata.covers(x, y) ? -1 : Metadata.covers(y, x) ? 1 : 0,
+            );
+        if (meta.tuples.length > 1)
+            meta.tuples.sort((x, y) => {
+                const xt = Metadata.initialize();
+                const yt = Metadata.initialize();
+
+                xt.tuples.push(x);
+                yt.tuples.push(y);
+
+                return Metadata.covers(xt, yt)
+                    ? -1
+                    : Metadata.covers(yt, xt)
+                    ? 1
+                    : 0;
+            });
+
+        // RETURNS
         return meta;
     }
 
@@ -62,7 +100,7 @@ export namespace MetadataFactory {
         collection: MetadataCollection,
         checker: ts.TypeChecker,
         options: IOptions,
-        meta: IMetadata,
+        meta: Metadata,
         type: ts.Type,
         parentResolved: boolean,
     ): void {
@@ -79,7 +117,7 @@ export namespace MetadataFactory {
                 filter(literal) ||
                 type.symbol?.escapedName === className
             ) {
-                meta.atomics.add(className.toLowerCase());
+                ArrayUtil.add(meta.atomics, className.toLowerCase());
                 return true;
             }
             return false;
@@ -106,8 +144,8 @@ export namespace MetadataFactory {
                 } else normals.push(individual);
             }
             if (toJsons.length !== 0) {
-                meta.resolved = (() => {
-                    const union: IMetadata = IMetadata.create();
+                Writable(meta).resolved = (() => {
+                    const union: Metadata = Metadata.initialize();
                     toJsons.forEach((t) =>
                         iterate(collection, checker, options, union, t, true),
                     );
@@ -123,7 +161,7 @@ export namespace MetadataFactory {
         if (options.resolve === true && parentResolved === false) {
             const resolved: ts.Type | null = TypeFactory.resolve(checker, type);
             if (resolved !== null) {
-                meta.resolved = explore(
+                Writable(meta).resolved = explore(
                     collection,
                     checker,
                     options,
@@ -148,17 +186,17 @@ export namespace MetadataFactory {
             filter(ts.TypeFlags.Never) ||
             filter(ts.TypeFlags.Any)
         ) {
-            meta.any = true;
+            Writable(meta).any = true;
             return;
         } else if (filter(ts.TypeFlags.Null)) {
-            meta.nullable = true;
+            Writable(meta).nullable = true;
             return;
         } else if (
             filter(ts.TypeFlags.Undefined) ||
             filter(ts.TypeFlags.Void) ||
             filter(ts.TypeFlags.VoidLike)
         ) {
-            meta.required = false;
+            Writable(meta).required = false;
             return;
         }
 
@@ -172,13 +210,34 @@ export namespace MetadataFactory {
                           }`,
                       )
                     : type.value;
-            MapUtil.take(meta.constants, typeof value, () => new Set()).add(
+            const constant: MetadataConstant = ArrayUtil.take(
+                meta.constants,
+                (elem) => elem.type === typeof value,
+                () => ({
+                    type: typeof value as "number",
+                    values: [],
+                }),
+            );
+            ArrayUtil.add(
+                constant.values as Array<any>,
                 value,
+                (a, b) => a === b,
             );
             return;
         } else if (options.constant && filter(ts.TypeFlags.BooleanLiteral)) {
-            MapUtil.take(meta.constants, "boolean", () => new Set()).add(
-                checker.typeToString(type) === "true",
+            const value: boolean = checker.typeToString(type) === "true";
+            const constant: MetadataConstant = ArrayUtil.take(
+                meta.constants,
+                (elem) => elem.type === "boolean",
+                () => ({
+                    type: "boolean",
+                    values: [],
+                }),
+            );
+            ArrayUtil.add(
+                constant.values as boolean[],
+                value,
+                (a, b) => a === b,
             );
             return;
         }
@@ -189,24 +248,12 @@ export namespace MetadataFactory {
 
         // WHEN TUPLE
         if ((checker as any).isTupleType(type)) {
-            const children: IMetadata[] = [];
-            for (const elem of checker.getTypeArguments(
-                type as ts.TypeReference,
-            )) {
-                const child: IMetadata = explore(
-                    collection,
-                    checker,
-                    options,
-                    elem,
-                    false,
+            const children: Metadata[] = checker
+                .getTypeArguments(type as ts.TypeReference)
+                .map((elem) =>
+                    explore(collection, checker, options, elem, false),
                 );
-                children.push(child);
-            }
-
-            const key: string = children
-                .map((child) => get_uid(child))
-                .reduce((x, y) => x + y, "");
-            meta.tuples.set(key, children);
+            ArrayUtil.set(meta.tuples, children, join_tuple_names);
         }
 
         // WHEN ARRAY
@@ -215,22 +262,21 @@ export namespace MetadataFactory {
             (checker as any).isArrayLikeType(type)
         ) {
             const elemType: ts.Type | null = type.getNumberIndexType() || null;
-            const elemSchema: IMetadata = explore(
+            const elemMeta: Metadata = explore(
                 collection,
                 checker,
                 options,
                 elemType,
                 false,
             );
-            const key: string = get_uid(elemSchema);
-            meta.arraies.set(key, elemSchema);
+            ArrayUtil.set(meta.arrays, elemMeta, (elem) => elem.getName());
         }
 
         // WHEN OBJECT, MAYBE
-        if (filter(ts.TypeFlags.Object) || type.isIntersection()) {
+        else if (filter(ts.TypeFlags.Object) || type.isIntersection()) {
             if (type.isIntersection()) {
                 const fakeCollection = new MetadataCollection();
-                const fakeSchema: IMetadata = IMetadata.create();
+                const fakeSchema: Metadata = Metadata.initialize();
 
                 type.types.forEach((t) =>
                     iterate(
@@ -243,14 +289,20 @@ export namespace MetadataFactory {
                     ),
                 );
                 if (
-                    fakeSchema.objects.size === 0 ||
-                    fakeSchema.objects.size !== IMetadata.size(fakeSchema)
+                    fakeSchema.objects.length === 0 ||
+                    fakeSchema.objects.length !== fakeSchema.size()
                 )
                     return;
             }
 
-            const [key, object] = emplace(collection, checker, options, type);
-            meta.objects.set(key, [object, meta.nullable]);
+            const obj: MetadataObject = emplace(
+                collection,
+                checker,
+                options,
+                type,
+                meta.nullable,
+            );
+            ArrayUtil.add(meta.objects, obj, (elem) => elem.name === obj.name);
         }
     }
 
@@ -259,10 +311,12 @@ export namespace MetadataFactory {
         checker: ts.TypeChecker,
         options: IOptions,
         parent: ts.Type,
-    ): [string, IMetadata.IObject] {
-        // CHECK MEMORY
-        const [id, object, newbie] = collection.emplace(checker, parent);
-        if (newbie === false) return [id, object];
+        nullable: boolean,
+    ): MetadataObject {
+        // EMPLACE OBJECT
+        const [obj, newbie] = collection.emplace(checker, parent);
+        ArrayUtil.add(obj.nullables, nullable, (elem) => elem === nullable);
+        if (newbie === false) return obj;
 
         // PREPARE ASSETS
         const isClass: boolean = parent.isClass();
@@ -305,47 +359,27 @@ export namespace MetadataFactory {
             const type: ts.Type = checker.getTypeOfSymbolAtLocation(prop, node);
 
             // CHILD METADATA BY ADDITIONAL EXPLORATION
-            const child: IMetadata = explore(
+            const child: Metadata = explore(
                 collection,
                 checker,
                 options,
                 type,
                 false,
             );
-            object.properties[key] = child;
-            child.description =
-                CommentFactory.generate(
-                    prop.getDocumentationComment(checker),
-                ) || undefined;
-            if (node.questionToken) child.required = false;
+            if (node.questionToken) Writable(child).required = false;
+
+            // ADD TO OBJECT PROPERTY
+            const property = MetadataProperty.create({
+                name: key,
+                metadata: child,
+                description:
+                    CommentFactory.generate(
+                        prop.getDocumentationComment(checker),
+                    ) || undefined,
+            });
+            obj.properties.push(property);
         }
-        return [id, object];
-    }
-
-    function get_uid(meta: IMetadata): string {
-        return crypto
-            .createHash("sha256")
-            .update(JSON.stringify(to_primitive(meta)))
-            .digest("base64");
-    }
-
-    function to_primitive(meta: IMetadata): any {
-        return {
-            any: meta.any,
-            resolved: meta.resolved ? to_primitive(meta.resolved) : undefined,
-            constants: Array.from(meta.constants),
-            atomics: Array.from(meta.atomics),
-            arraies: [...meta.arraies].map(([key, value]) => [
-                key,
-                to_primitive(value),
-            ]),
-            tuples: [...meta.tuples].map(([key, array]) => [
-                key,
-                array.map((value) => to_primitive(value)),
-            ]),
-            objects: Array.from(meta.objects),
-            nullable: meta.nullable,
-        };
+        return obj;
     }
 }
 
@@ -355,3 +389,6 @@ const ATOMICS: [ts.TypeFlags, ts.TypeFlags, string][] = [
     [ts.TypeFlags.BigIntLike, ts.TypeFlags.BigIntLiteral, "BigInt"],
     [ts.TypeFlags.StringLike, ts.TypeFlags.StringLiteral, "String"],
 ];
+function join_tuple_names(metas: Metadata[]): string {
+    return `[${metas.map((m) => m.getName).join(", ")}]`;
+}

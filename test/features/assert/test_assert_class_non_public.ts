@@ -5,5 +5,5 @@ import { _test_assert } from "./_test_assert";
 export const test_assert_class_non_public = _test_assert(
     "non-public class member",
     ClassNonPublic.generate,
-    (input) => TSON.assert(input),
+    (input) => TSON.assertType(input),
 );

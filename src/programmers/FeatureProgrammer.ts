@@ -1,32 +1,37 @@
 import ts from "typescript";
 import { IExpressionEntry } from "../structures/IExpressionEntry";
-import { IMetadata } from "../structures/IMetadata";
 import { IProject } from "../structures/IProject";
 import { Escaper } from "../utils/Escaper";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { ValueFactory } from "../factories/ValueFactory";
+import { Metadata } from "../metadata/Metadata";
+import { MetadataObject } from "../metadata/MetadataObject";
+import { IdentifierFactory } from "../factories/IdentifierFactory";
 
-export namespace FeatureFactory {
+export namespace FeatureProgrammer {
     export interface IConfig {
         initializer(
             project: IProject,
             type: ts.Type,
-        ): [MetadataCollection, IMetadata];
+        ): [MetadataCollection, Metadata];
         trace: boolean;
         functors: {
             name: string;
-            // filter?(object: IMetadata.IObject): boolean;
         };
-        joiner(entries: IExpressionEntry[]): ts.Expression;
+        joiner(
+            entries: IExpressionEntry[],
+            parent: MetadataObject,
+        ): ts.ConciseBody;
         decoder(
             input: ts.Expression,
-            meta: IMetadata,
+            meta: Metadata,
             explore: IExplore,
         ): ts.Expression;
     }
 
     export interface IExplore {
         tracable: boolean;
+        source: "top" | "object";
         from: "top" | "array" | "object";
         postfix: string;
     }
@@ -50,6 +55,7 @@ export namespace FeatureFactory {
                 meta,
                 {
                     tracable: config.trace,
+                    source: "top",
                     from: "top",
                     postfix: '""',
                 },
@@ -61,28 +67,31 @@ export namespace FeatureFactory {
 
             // RETURNS THE OPTIMAL ARROW FUNCTION
             const added: ts.Statement[] = addition ? addition(collection) : [];
+
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
                 createParameters(ValueFactory.INPUT()),
                 undefined,
                 undefined,
-                functors === null
-                    ? output
-                    : ts.factory.createBlock(
-                          [
-                              ...added,
-                              ts.factory.createVariableStatement(
-                                  undefined,
-                                  ts.factory.createVariableDeclarationList(
-                                      [functors],
-                                      ts.NodeFlags.Const,
+                ts.factory.createBlock(
+                    [
+                        ...added,
+                        ...(functors !== null
+                            ? [
+                                  ts.factory.createVariableStatement(
+                                      undefined,
+                                      ts.factory.createVariableDeclarationList(
+                                          [functors],
+                                          ts.NodeFlags.Const,
+                                      ),
                                   ),
-                              ),
-                              ts.factory.createReturnStatement(output),
-                          ],
-                          true,
-                      ),
+                              ]
+                            : []),
+                        ts.factory.createReturnStatement(output),
+                    ],
+                    true,
+                ),
             );
         };
     }
@@ -94,8 +103,8 @@ export namespace FeatureFactory {
             collection: MetadataCollection,
         ): ts.VariableDeclaration | null {
             // GET OBJECTS
-            const storage = collection.storage();
-            if (Object.entries(storage).length === 0) return null;
+            const storage: Map<string, MetadataObject> = collection.storage();
+            if (storage.size === 0) return null;
 
             // ASSIGN FUNCTIONS
             return ts.factory.createVariableDeclaration(
@@ -103,7 +112,7 @@ export namespace FeatureFactory {
                 undefined,
                 undefined,
                 ts.factory.createArrayLiteralExpression(
-                    Object.values(storage).map((value) => createObject(value)),
+                    [...storage.values()].map((value) => createObject(value)),
                     true,
                 ),
             );
@@ -113,48 +122,45 @@ export namespace FeatureFactory {
     function generate_object(config: IConfig) {
         const createParameters = PARAMETERS(config.trace ? false : null);
 
-        return function (obj: IMetadata.IObject) {
+        return function (obj: MetadataObject) {
             const entries: IExpressionEntry[] = [];
-            for (const [key, value] of Object.entries(obj.properties)) {
-                const access = Escaper.variable(key)
+            for (const prop of obj.properties) {
+                const access = Escaper.variable(prop.name)
                     ? ts.factory.createPropertyAccessExpression(
                           ValueFactory.INPUT(),
-                          ts.factory.createIdentifier(key),
+                          ts.factory.createIdentifier(prop.name),
                       )
                     : ts.factory.createElementAccessExpression(
                           ValueFactory.INPUT(),
-                          ts.factory.createStringLiteral(key),
+                          ts.factory.createStringLiteral(prop.name),
                       );
 
-                const postfix: string = Escaper.variable(key)
-                    ? `".${key}"`
-                    : `"[${key.split('"').join('\\"')}]"`;
                 entries.push({
                     input: access,
-                    key,
-                    meta: value,
-                    expression: config.decoder(access, value, {
+                    key: prop.name,
+                    meta: prop.metadata,
+                    expression: config.decoder(access, prop.metadata, {
                         tracable: config.trace,
+                        source: "object",
                         from: "object",
-                        postfix,
+                        postfix: IdentifierFactory.postfix(prop.name),
                     }),
                 });
             }
 
-            const output: ts.Expression = config.joiner(entries);
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
                 createParameters(ValueFactory.INPUT()),
                 undefined,
                 undefined,
-                output,
+                config.joiner(entries, obj),
             );
         };
     }
 
     /* -----------------------------------------------------------
-        VISITORS
+        DECODERS
     ----------------------------------------------------------- */
     export function decode_array(
         config: IConfig,
@@ -163,18 +169,19 @@ export namespace FeatureFactory {
             arrow: ts.ArrowFunction,
         ) => ts.Expression,
     ) {
+        const rand: string = Math.random().toString().slice(2);
         const tail = config.trace
             ? [
                   ts.factory.createParameterDeclaration(
                       undefined,
                       undefined,
                       undefined,
-                      ValueFactory.INPUT("index"),
+                      ValueFactory.INPUT("index" + rand),
                   ),
               ]
             : [];
 
-        return (input: ts.Expression, meta: IMetadata, explore: IExplore) => {
+        return (input: ts.Expression, meta: Metadata, explore: IExplore) => {
             const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -191,13 +198,11 @@ export namespace FeatureFactory {
                 undefined,
                 config.decoder(ValueFactory.INPUT("elem"), meta, {
                     tracable: explore.tracable,
+                    source: explore.source,
                     from: "array",
                     postfix: explore.postfix.length
-                        ? explore.postfix.substr(
-                              0,
-                              explore.postfix.length - 1,
-                          ) + INDEX_SYMBOL
-                        : '"' + INDEX_SYMBOL,
+                        ? explore.postfix.slice(0, -1) + INDEX_SYMBOL(rand)
+                        : '"' + INDEX_SYMBOL(rand),
                 }),
             );
             return combiner(input, arrow);
@@ -207,7 +212,7 @@ export namespace FeatureFactory {
     export function decode_object(config: IConfig) {
         return function (
             input: ts.Expression,
-            obj: IMetadata.IObject,
+            obj: MetadataObject,
             explore: IExplore,
         ): ts.Expression {
             const createArguments = ARGUMENTS(config.trace, explore);
@@ -223,14 +228,14 @@ export namespace FeatureFactory {
     }
 }
 
-const INDEX_SYMBOL = '[" + index + "]"';
-const ARGUMENTS = (trace: boolean, explore: FeatureFactory.IExplore) => {
+const INDEX_SYMBOL = (rand: string) => `[" + index${rand} + "]"`;
+const ARGUMENTS = (trace: boolean, explore: FeatureProgrammer.IExplore) => {
     const tail: ts.Expression[] =
         trace === false
             ? []
             : [
                   ts.factory.createIdentifier(`path + ${explore.postfix}`),
-                  explore.from === "object"
+                  explore.source === "object"
                       ? ts.factory.createIdentifier(
                             `${explore.tracable} && exceptionable`,
                         )

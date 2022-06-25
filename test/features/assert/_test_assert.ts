@@ -13,14 +13,15 @@ export function _test_assert<T>(
 
             if (input !== output)
                 throw new Error(
-                    "Bug on TSON.assert(): failed to return input value.",
+                    "Bug on TSON.assertType(): failed to return input value.",
                 );
         } catch (exp) {
-            if (exp instanceof TypeGuardError)
+            if (exp instanceof TypeGuardError) {
+                console.log(exp.path, exp.value);
                 throw new Error(
-                    `Bug on TSON.assert(): failed to understand the ${name} type.`,
+                    `Bug on TSON.assertType(): failed to understand the ${name} type.`,
                 );
-            else throw exp;
+            } else throw exp;
         }
 
         for (const spoil of spoilers || []) {
@@ -32,7 +33,7 @@ export function _test_assert<T>(
                 continue;
             }
             throw new Error(
-                `Bug on TSON.assert(): failed to detect error on the ${name} type.`,
+                `Bug on TSON.assertType(): failed to detect error on the ${name} type.`,
             );
         }
     };

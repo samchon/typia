@@ -5,55 +5,35 @@ import { _test_application } from "./_test_application";
 export const test_application_atomic_union = _test_application(
     "union atomic",
     TSON.application<[AtomicUnion]>(),
-    {
-        schemas: [
-            {
+{schemas: [
+        {
+            type: "array",
+            items: {
                 oneOf: [
                     {
-                        $ref: "#/components/schemas/Array_lt_AtomicUnion.Union_gt_",
+                        "enum": [
+                            false,
+                            true
+                        ],
+                        nullable: true
                     },
                     {
-                        type: "array",
-                        items: {
-                            oneOf: [
-                                {
-                                    type: "boolean",
-                                    enum: [false, true],
-                                    nullable: true,
-                                },
-                                {
-                                    type: "string",
-                                    nullable: true,
-                                },
-                                {
-                                    type: "number",
-                                    nullable: true,
-                                },
-                            ],
-                        },
-                        nullable: false,
+                        type: "string",
+                        nullable: true
                     },
-                ],
+                    {
+                        type: "number",
+                        nullable: true
+                    }
+                ]
             },
-        ],
-        components: {
-            schemas: {
-                "Array_lt_AtomicUnion.Union_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
-            },
-        },
-        purpose: "swagger",
-        prefix: "#/components/schemas",
+            nullable: false
+        }
+    ],
+    components: {
+        schemas: {}
     },
+    purpose: "swagger",
+    prefix: "#/components/schemas"
+}
 );

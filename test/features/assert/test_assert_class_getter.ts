@@ -5,5 +5,5 @@ import { _test_assert } from "./_test_assert";
 export const test_assert_class_getter = _test_assert(
     "class getter",
     ClassGetter.generate,
-    (input) => TSON.assert(input),
+    (input) => TSON.assertType(input),
 );

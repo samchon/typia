@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { IsFactory } from "../../programmers/IsProgrammer";
+import { IsProgrammer } from "../../programmers/IsProgrammer";
 import { IProject } from "../../structures/IProject";
 
 export namespace IsTransformer {
@@ -20,7 +20,7 @@ export namespace IsTransformer {
                 : project.checker.getTypeAtLocation(expression.arguments[0]!);
 
         return ts.factory.createCallExpression(
-            IsFactory.generate(project, type),
+            IsProgrammer.generate()(project, type),
             undefined,
             [expression.arguments[0]!],
         );

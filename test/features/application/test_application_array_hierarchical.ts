@@ -5,128 +5,144 @@ import { _test_application } from "./_test_application";
 export const test_application_array_hierarchical = _test_application(
     "hierarchical array",
     TSON.application<[ArrayHierarchical]>(),
-    {
-        schemas: [
-            {
-                oneOf: [
-                    {
-                        $ref: "#/components/schemas/Array_lt_ArrayHierarchical.ICompany_gt_",
+{schemas: [
+        {
+            type: "array",
+            items: {
+                $ref: "#/components/schemas/ArrayHierarchical.ICompany"
+            },
+            nullable: false
+        }
+    ],
+    components: {
+        schemas: {
+            "ArrayHierarchical.ICompany": {
+                $id: "ArrayHierarchical.ICompany",
+                type: "object",
+                properties: {
+                    id: {
+                        type: "number",
+                        nullable: false
                     },
-                    {
+                    serial: {
+                        type: "number",
+                        nullable: false
+                    },
+                    name: {
+                        type: "string",
+                        nullable: false
+                    },
+                    established_at: {
+                        $ref: "#/components/schemas/ArrayHierarchical.ITimestamp"
+                    },
+                    departments: {
                         type: "array",
                         items: {
-                            $ref: "#/components/schemas/ArrayHierarchical.ICompany",
+                            $ref: "#/components/schemas/ArrayHierarchical.IDepartment"
                         },
-                        nullable: false,
-                    },
-                ],
+                        nullable: false
+                    }
+                },
+                nullable: false,
+                required: [
+                    "id",
+                    "serial",
+                    "name",
+                    "established_at",
+                    "departments"
+                ]
             },
-        ],
-        components: {
-            schemas: {
-                "Array_lt_ArrayHierarchical.ICompany_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
+            "ArrayHierarchical.ITimestamp": {
+                $id: "ArrayHierarchical.ITimestamp",
+                type: "object",
+                properties: {
+                    time: {
+                        type: "number",
+                        nullable: false
                     },
-                    nullable: false,
-                    required: ["length"],
+                    zone: {
+                        type: "number",
+                        nullable: false
+                    }
                 },
-                "ArrayHierarchical.ICompany": {
-                    type: "object",
-                    properties: {
-                        name: {
-                            type: "string",
-                            nullable: false,
-                        },
-                        departments: {
-                            oneOf: [
-                                {
-                                    $ref: "#/components/schemas/Array_lt_ArrayHierarchical.IDepartment_gt_",
-                                },
-                                {
-                                    type: "array",
-                                    items: {
-                                        $ref: "#/components/schemas/ArrayHierarchical.IDepartment",
-                                    },
-                                    nullable: false,
-                                },
-                            ],
-                        },
-                    },
-                    nullable: false,
-                    required: ["name", "departments"],
-                },
-                "Array_lt_ArrayHierarchical.IDepartment_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
-                "ArrayHierarchical.IDepartment": {
-                    type: "object",
-                    properties: {
-                        name: {
-                            type: "string",
-                            nullable: false,
-                        },
-                        employees: {
-                            oneOf: [
-                                {
-                                    $ref: "#/components/schemas/Array_lt_ArrayHierarchical.IEmployee_gt_",
-                                },
-                                {
-                                    type: "array",
-                                    items: {
-                                        $ref: "#/components/schemas/ArrayHierarchical.IEmployee",
-                                    },
-                                    nullable: false,
-                                },
-                            ],
-                        },
-                    },
-                    nullable: false,
-                    required: ["name", "employees"],
-                },
-                "Array_lt_ArrayHierarchical.IEmployee_gt_": {
-                    type: "object",
-                    properties: {
-                        length: {
-                            type: "number",
-                            nullable: false,
-                            description:
-                                "Gets or sets the length of the array. This is a number one higher than the highest index in the array.",
-                        },
-                    },
-                    nullable: false,
-                    required: ["length"],
-                },
-                "ArrayHierarchical.IEmployee": {
-                    type: "object",
-                    properties: {
-                        name: {
-                            type: "string",
-                            nullable: false,
-                        },
-                    },
-                    nullable: false,
-                    required: ["name"],
-                },
+                nullable: false,
+                required: [
+                    "time",
+                    "zone"
+                ]
             },
-        },
-        purpose: "swagger",
-        prefix: "#/components/schemas",
+            "ArrayHierarchical.IDepartment": {
+                $id: "ArrayHierarchical.IDepartment",
+                type: "object",
+                properties: {
+                    id: {
+                        type: "number",
+                        nullable: false
+                    },
+                    code: {
+                        type: "string",
+                        nullable: false
+                    },
+                    sales: {
+                        type: "number",
+                        nullable: false
+                    },
+                    created_at: {
+                        $ref: "#/components/schemas/ArrayHierarchical.ITimestamp"
+                    },
+                    employees: {
+                        type: "array",
+                        items: {
+                            $ref: "#/components/schemas/ArrayHierarchical.IEmployee"
+                        },
+                        nullable: false
+                    }
+                },
+                nullable: false,
+                required: [
+                    "id",
+                    "code",
+                    "sales",
+                    "created_at",
+                    "employees"
+                ]
+            },
+            "ArrayHierarchical.IEmployee": {
+                $id: "ArrayHierarchical.IEmployee",
+                type: "object",
+                properties: {
+                    id: {
+                        type: "number",
+                        nullable: false
+                    },
+                    name: {
+                        type: "string",
+                        nullable: false
+                    },
+                    age: {
+                        type: "number",
+                        nullable: false
+                    },
+                    grade: {
+                        type: "number",
+                        nullable: false
+                    },
+                    employeed_at: {
+                        $ref: "#/components/schemas/ArrayHierarchical.ITimestamp"
+                    }
+                },
+                nullable: false,
+                required: [
+                    "id",
+                    "name",
+                    "age",
+                    "grade",
+                    "employeed_at"
+                ]
+            }
+        }
     },
+    purpose: "swagger",
+    prefix: "#/components/schemas"
+}
 );

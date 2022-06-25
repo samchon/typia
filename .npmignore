@@ -1,6 +1,7 @@
 .git/
 .github/
 .vscode/
+assets/
 bin/
 benchmark/
 node_modules/

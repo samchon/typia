@@ -1,12 +1,12 @@
 import ts from "typescript";
 import { StatementFactory } from "../factories/StatementFactory";
 import { ValueFactory } from "../factories/ValueFactory";
-import { CheckerFactory } from "./CheckerProgrammer";
-import { IsFactory } from "./IsProgrammer";
+import { CheckerProgrammer } from "./CheckerProgrammer";
+import { IsProgrammer } from "./IsProgrammer";
 import { IProject } from "../structures/IProject";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 
-export namespace AssertFactory {
+export namespace AssertProgrammer {
     export function generate(
         project: IProject,
         modulo: ts.LeftHandSideExpression,
@@ -28,10 +28,10 @@ export namespace AssertFactory {
             ts.factory.createBlock([
                 ts.factory.createExpressionStatement(
                     ts.factory.createCallExpression(
-                        CheckerFactory.generate({
+                        CheckerProgrammer.generate({
                             combiner: combine(modulo),
                             functors: {
-                                name: "assert",
+                                name: "assertType",
                                 filter: (obj) => obj.validated,
                             },
                             trace: true,
@@ -47,12 +47,18 @@ export namespace AssertFactory {
 
     export function combine(
         modulo: ts.LeftHandSideExpression,
-    ): CheckerFactory.IConfig.Combiner {
-        return (explore: CheckerFactory.IExplore) => {
-            const combiner = IsFactory.CONFIG.combiner(explore);
-            if (explore.tracable === false) return combiner;
+    ): CheckerProgrammer.IConfig.Combiner {
+        return (explore: CheckerProgrammer.IExplore) => {
+            const combiner = IsProgrammer.CONFIG.combiner(explore);
+            if (explore.tracable === false && explore.from !== "top")
+                return combiner;
 
             const path = explore.postfix ? `path + ${explore.postfix}` : "path";
+            const failure = ts.factory.createStrictEquality(
+                ValueFactory.INPUT("success"),
+                ValueFactory.BOOLEAN(false),
+            );
+
             const wrapper = (input: ts.Expression, output: ts.Expression) =>
                 ts.factory.createCallExpression(
                     ts.factory.createArrowFunction(
@@ -63,18 +69,23 @@ export namespace AssertFactory {
                         undefined,
                         ts.factory.createBlock(
                             [
-                                StatementFactory.constant("success", output),
+                                StatementFactory.variable(
+                                    ts.NodeFlags.Const,
+                                    "success",
+                                    output,
+                                ),
                                 ts.factory.createIfStatement(
-                                    ts.factory.createLogicalAnd(
-                                        ts.factory.createStrictEquality(
-                                            ValueFactory.INPUT("success"),
-                                            ValueFactory.BOOLEAN(false),
-                                        ),
-                                        ts.factory.createStrictEquality(
-                                            ValueFactory.INPUT("exceptionable"),
-                                            ValueFactory.BOOLEAN(true),
-                                        ),
-                                    ),
+                                    explore.source === "top"
+                                        ? failure
+                                        : ts.factory.createLogicalAnd(
+                                              failure,
+                                              ts.factory.createStrictEquality(
+                                                  ValueFactory.INPUT(
+                                                      "exceptionable",
+                                                  ),
+                                                  ValueFactory.BOOLEAN(true),
+                                              ),
+                                          ),
                                     ts.factory.createThrowStatement(
                                         ts.factory.createNewExpression(
                                             IdentifierFactory.join(
@@ -84,9 +95,9 @@ export namespace AssertFactory {
                                             undefined,
                                             [
                                                 ts.factory.createStringLiteral(
-                                                    "assert",
+                                                    "assertType",
                                                 ),
-                                                ts.factory.createStringLiteral(
+                                                ts.factory.createIdentifier(
                                                     path,
                                                 ),
                                                 input,
