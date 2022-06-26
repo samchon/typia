@@ -17,6 +17,8 @@ export namespace StringifyTransformer {
                       expression.typeArguments[0],
                   )
                 : project.checker.getTypeAtLocation(expression.arguments[0]!);
+        if (type.isTypeParameter())
+            throw new Error(ErrorMessages.GENERIC_ARGUMENT);
 
         return ts.factory.createCallExpression(
             StringifyProgrammer.generate(modulo)(project, type),
@@ -28,4 +30,5 @@ export namespace StringifyTransformer {
 
 const enum ErrorMessages {
     NO_INPUT_VALUE = "Error on TSON.strigify(): no input value.",
+    GENERIC_ARGUMENT = "Error on TSON.is(): non-specified generic argument.",
 }

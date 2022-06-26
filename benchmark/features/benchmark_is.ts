@@ -34,7 +34,6 @@ const is = () => [
         {
             "typescript-json": (input) => TSON.is(input),
             "typescript-is": null,
-            // tis: (input) => Similar.is<typeof input>(input),
         },
     ),
     CheckerBenchmarker.prepare(
@@ -42,7 +41,7 @@ const is = () => [
         () => ObjectUnionImplicit.generate(),
         {
             "typescript-json": (input) => TSON.is(input),
-            "typescript-is": (input) => Similar.is<typeof input>(input),
+            "typescript-is": null,
         },
     ),
     CheckerBenchmarker.prepare("array (simple)", () => ArraySimple.generate(), {
