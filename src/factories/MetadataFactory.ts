@@ -22,12 +22,6 @@ export namespace MetadataFactory {
         type: ts.Type | null,
         options: IOptions,
     ): Metadata {
-        // TYPE PARAMETER BECOMES ERROR
-        if (type !== null && type.isTypeParameter())
-            throw new Error(
-                "Error on TSON.MetadataFactory.generate(): non-specified generic argument.",
-            );
-
         // CONSTRUCT SCHEMA WITH OBJECTS
         const metadata: Metadata = explore(
             collection,
@@ -110,6 +104,11 @@ export namespace MetadataFactory {
         type: ts.Type,
         parentResolved: boolean,
     ): void {
+        if (type.isTypeParameter() === true)
+            throw new Error(
+                "Error on TSON.MetadataFactory.generate(): non-specified generic argument.",
+            );
+
         // PREPARE INTERNAL FUNCTIONS
         const filter = (flag: ts.TypeFlags, t: ts.Type = type) =>
             (t.getFlags() & flag) !== 0;
