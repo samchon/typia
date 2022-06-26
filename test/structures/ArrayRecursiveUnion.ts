@@ -11,7 +11,7 @@ export namespace ArrayRecursiveUnion {
     export type IFile = IImageFile | ITextFile | IZipFile;
 
     export interface IDirectory {
-        id: string;
+        id: number;
         name: string;
         path: string;
         children: IBucket[];
@@ -19,7 +19,7 @@ export namespace ArrayRecursiveUnion {
     }
 
     export interface IImageFile {
-        id: string;
+        id: number;
         name: string;
         path: string;
         width: number;
@@ -30,7 +30,7 @@ export namespace ArrayRecursiveUnion {
         extension: "jpg";
     }
     export interface ITextFile {
-        id: string;
+        id: number;
         name: string;
         path: string;
         size: number;
@@ -39,7 +39,7 @@ export namespace ArrayRecursiveUnion {
         extension: "txt";
     }
     export interface IZipFile {
-        id: string;
+        id: number;
         name: string;
         path: string;
         size: number;
@@ -49,7 +49,7 @@ export namespace ArrayRecursiveUnion {
     }
 
     export interface IShortcut {
-        id: string;
+        id: number;
         name: string;
         path: string;
         target: IBucket;
@@ -113,7 +113,7 @@ export namespace ArrayRecursiveUnion {
 
     function generate_bucket<Type extends string>(type: Type) {
         return {
-            id: RandomGenerator.string(),
+            id: RandomGenerator.number(),
             name: RandomGenerator.string(),
             path: RandomGenerator.string(),
             type,

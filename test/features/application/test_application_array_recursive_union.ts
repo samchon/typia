@@ -38,7 +38,7 @@ export const test_application_array_recursive_union = _test_application(
                     type: "object",
                     properties: {
                         id: {
-                            type: "string",
+                            type: "number",
                             nullable: false,
                         },
                         name: {
@@ -85,7 +85,7 @@ export const test_application_array_recursive_union = _test_application(
                     type: "object",
                     properties: {
                         id: {
-                            type: "string",
+                            type: "number",
                             nullable: false,
                         },
                         name: {
@@ -139,7 +139,7 @@ export const test_application_array_recursive_union = _test_application(
                     type: "object",
                     properties: {
                         id: {
-                            type: "string",
+                            type: "number",
                             nullable: false,
                         },
                         name: {
@@ -183,7 +183,7 @@ export const test_application_array_recursive_union = _test_application(
                     type: "object",
                     properties: {
                         id: {
-                            type: "string",
+                            type: "number",
                             nullable: false,
                         },
                         name: {
@@ -227,7 +227,7 @@ export const test_application_array_recursive_union = _test_application(
                     type: "object",
                     properties: {
                         id: {
-                            type: "string",
+                            type: "number",
                             nullable: false,
                         },
                         name: {
