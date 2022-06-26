@@ -198,7 +198,12 @@ export namespace StringifyProgrammer {
                 });
 
             // TUPLES
-            for (const tuple of meta.tuples)
+            for (const tuple of meta.tuples) {
+                for (const child of tuple)
+                    if (StringifyPredicator.undefindable(meta))
+                        throw new Error(
+                            `Bug on TSON.stringify(): tuple cannot contain undefined value - (${child.getName()}).`,
+                        );
                 unions.push({
                     type: "tuple",
                     is: () =>
@@ -213,26 +218,22 @@ export namespace StringifyProgrammer {
                         ),
                     value: () => decode_tuple(modulo)(input, tuple, explore),
                 });
+            }
 
             // ARRAYS
-            if (meta.arrays.length)
+            if (meta.arrays.length) {
+                for (const child of meta.arrays)
+                    if (StringifyPredicator.undefindable(child))
+                        throw new Error(
+                            `Bug on TSON.stringify(): array cannot contain undefined value (${child.getName()}).`,
+                        );
                 unions.push({
                     type: "array",
                     is: () => ExpressionFactory.isArray(input),
                     value: () =>
                         explore_arrays(modulo)(input, meta.arrays, explore),
-                    // is: () =>
-                    //     IsProgrammer.decode()(
-                    //         input,
-                    //         (() => {
-                    //             const partial = Metadata.initialize();
-                    //             partial.arrays.push(array);
-                    //             return partial;
-                    //         })(),
-                    //         explore,
-                    //     ),
-                    // value: () => decode_array(modulo)(input, array, explore),
                 });
+            }
 
             // OBJECTS
             if (meta.objects.length)
@@ -302,6 +303,7 @@ export namespace StringifyProgrammer {
     const explore_objects = (modulo: ts.LeftHandSideExpression) =>
         UnionExplorer.object(
             CONFIG(modulo),
+            IsProgrammer.decode(),
             decode_object(modulo),
             (input, targets, explore) =>
                 ts.factory.createCallExpression(

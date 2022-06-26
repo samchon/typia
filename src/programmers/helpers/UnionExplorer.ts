@@ -5,7 +5,6 @@ import { StatementFactory } from "../../factories/StatementFactory";
 import { Metadata } from "../../metadata/Metadata";
 import { MetadataObject } from "../../metadata/MetadataObject";
 import { FeatureProgrammer } from "../FeatureProgrammer";
-import { IsProgrammer } from "../IsProgrammer";
 import { UnionPredicator } from "./UnionPredicator";
 
 export namespace UnionExplorer {
@@ -20,6 +19,11 @@ export namespace UnionExplorer {
 
     export function object(
         config: FeatureProgrammer.IConfig,
+        checker: (
+            input: ts.Expression,
+            metadata: Metadata,
+            explore: FeatureProgrammer.IExplore,
+        ) => ts.Expression,
         decoder: Decoder<MetadataObject>,
         combiner: ObjectCombiner,
         failure: (input: ts.Expression) => ts.Statement,
@@ -51,7 +55,7 @@ export namespace UnionExplorer {
                     spec.property.name,
                 );
                 const pred: ts.Expression = spec.neighbour
-                    ? IsProgrammer.decode()(accessor, spec.property.metadata, {
+                    ? checker(accessor, spec.property.metadata, {
                           ...explore,
                           tracable: false,
                           postfix: IdentifierFactory.postfix(
@@ -82,6 +86,7 @@ export namespace UnionExplorer {
                                 ? ts.factory.createReturnStatement(
                                       object(
                                           config,
+                                          checker,
                                           decoder,
                                           combiner,
                                           failure,
