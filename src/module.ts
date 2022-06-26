@@ -8,6 +8,7 @@ import { $number } from "./functional/$number";
 import { $string } from "./functional/$string";
 import { $tail } from "./functional/$last";
 import { TypeGuardError as _TypeGuardError } from "./TypeGuardError";
+import { $numberNullable } from "./functional/$numberNullable";
 export { _TypeGuardError as TypeGuardError };
 
 /* -----------------------------------------------------------
@@ -127,6 +128,7 @@ export function stringify(): never {
  */
 export module stringify {
     export const number = $number;
+    export const numberNullable = $numberNullable;
     export const string = $string;
     export const tail = $tail;
     export const TypeGuardError = _TypeGuardError;
