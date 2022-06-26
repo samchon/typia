@@ -3,8 +3,9 @@ export class TypeGuardError extends Error {
         public readonly method: string,
         public readonly path: string,
         public readonly value: any,
+        message: string = `Error on TSON.${method}(): invalid type - ${path}.`,
     ) {
-        super(`Error on TSON.${method}(): invalid type - ${path}.`);
+        super(message);
 
         // INHERITANCE POLYFILL
         const proto = new.target.prototype;

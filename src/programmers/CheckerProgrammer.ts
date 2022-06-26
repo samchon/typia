@@ -112,11 +112,13 @@ export namespace CheckerProgrammer {
 
             // ATOMIC VALUES
             for (const type of meta.atomics)
-                add(
-                    true,
-                    ts.factory.createStringLiteral(type),
-                    ValueFactory.TYPEOF(input),
-                );
+                if (type === "number") binaries.push(decode_number(input));
+                else
+                    add(
+                        true,
+                        ts.factory.createStringLiteral(type),
+                        ValueFactory.TYPEOF(input),
+                    );
 
             // TUPLE
             if (meta.tuples.length > 0) {
@@ -166,6 +168,27 @@ export namespace CheckerProgrammer {
                   ])
                 : config.combiner(explore)("or")(input, binaries);
         };
+    }
+
+    function decode_number(input: ts.Expression): ts.Expression {
+        return [
+            ts.factory.createStrictEquality(
+                ts.factory.createStringLiteral("number"),
+                ts.factory.createTypeOfExpression(input),
+            ),
+            ts.factory.createCallExpression(
+                ts.factory.createIdentifier("Number.isFinite"),
+                undefined,
+                [input],
+            ),
+            ts.factory.createLogicalNot(
+                ts.factory.createCallExpression(
+                    ts.factory.createIdentifier("Number.isNaN"),
+                    undefined,
+                    [input],
+                ),
+            ),
+        ].reduce((x, y) => ts.factory.createLogicalAnd(x, y));
     }
 
     function decode_tuple(config: IConfig) {
