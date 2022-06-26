@@ -1,3 +1,4 @@
+import { $number } from "../../src/functional/$number";
 import { $string } from "../../src/functional/$string";
 import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 
@@ -6,8 +7,8 @@ export function convert_ideal_array_hierarchical(
 ): string {
     function company(elem: ArrayHierarchical.ICompany): string {
         return `{
-            "id": ${elem.id},
-            "serial": ${elem.serial},
+            "id": ${$number(elem.id)},
+            "serial": ${$number(elem.serial)},
             "name": ${$string(elem.name)},
             "established_at": ${timestamp(elem.established_at)},
             "departments": [${elem.departments
@@ -17,9 +18,9 @@ export function convert_ideal_array_hierarchical(
     }
     function department(elem: ArrayHierarchical.IDepartment): string {
         return `{
-            "id": ${elem.id},
+            "id": ${$number(elem.id)},
             "code": ${$string(elem.code)},
-            "sales": ${elem.sales},
+            "sales": ${$number(elem.sales)},
             "created_at": ${timestamp(elem.created_at)},
             "employees": [${elem.employees
                 .map((elem) => employee(elem))
@@ -28,17 +29,17 @@ export function convert_ideal_array_hierarchical(
     }
     function employee(elem: ArrayHierarchical.IEmployee): string {
         return `{
-            "id": ${elem.id},
+            "id": ${$number(elem.id)},
             "name": ${$string(elem.name)},
-            "age": ${elem.age},
-            "grade": ${elem.grade},
+            "age": ${$number(elem.age)},
+            "grade": ${$number(elem.grade)},
             "employeed_at": ${timestamp(elem.employeed_at)}
         }`;
     }
     function timestamp(elem: ArrayHierarchical.ITimestamp): string {
         return `{
-            "time": ${elem.time},
-            "zone": ${elem.zone}
+            "time": ${$number(elem.time)},
+            "zone": ${$number(elem.zone)}
         }`;
     }
 

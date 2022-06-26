@@ -18,6 +18,8 @@ export namespace IsTransformer {
                       expression.typeArguments[0],
                   )
                 : project.checker.getTypeAtLocation(expression.arguments[0]!);
+        if (type.isTypeParameter())
+            throw new Error(ErrorMessages.GENERIC_ARGUMENT);
 
         return ts.factory.createCallExpression(
             IsProgrammer.generate()(project, type),
@@ -29,4 +31,5 @@ export namespace IsTransformer {
 
 const enum ErrorMessages {
     NO_INPUT_VALUE = "Error on TSON.is(): no input value.",
+    GENERIC_ARGUMENT = "Error on TSON.is(): non-specified generic argument.",
 }

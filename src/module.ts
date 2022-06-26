@@ -4,6 +4,7 @@ export * from "./structures/IJsonApplication";
 export * from "./structures/IJsonComponents";
 export * from "./structures/IJsonSchema";
 
+import { $number } from "./functional/$number";
 import { $string } from "./functional/$string";
 import { $tail } from "./functional/$last";
 import { TypeGuardError as _TypeGuardError } from "./TypeGuardError";
@@ -125,6 +126,7 @@ export function stringify(): never {
  * @internal
  */
 export module stringify {
+    export const number = $number;
     export const string = $string;
     export const tail = $tail;
     export const TypeGuardError = _TypeGuardError;

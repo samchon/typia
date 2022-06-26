@@ -1,3 +1,4 @@
+import { $number } from "../../src/functional/$number";
 import { ObjectSimple } from "../../test/structures/ObjectSimple";
 
 export function convert_ideal_object_simple(obj: ObjectSimple): string {
@@ -12,9 +13,9 @@ export function convert_ideal_object_simple(obj: ObjectSimple): string {
         },
         point: function (elem: ObjectSimple.IPoint3D): string {
             return `{
-                "x": ${elem.x},
-                "y": ${elem.y},
-                "z": ${elem.z} 
+                "x": ${$number(elem.x)},
+                "y": ${$number(elem.y)},
+                "z": ${$number(elem.z)} 
             }`;
         },
     };
