@@ -31,6 +31,8 @@ export namespace ApplicationTransformer {
         const types: ts.Type[] = top.elements.map((child) =>
             checker.getTypeFromTypeNode(child as ts.TypeNode),
         );
+        if (types.some((t) => t.isTypeParameter()))
+            throw new Error(ErrorMessages.GENERIC_ARGUMENT);
 
         // ADDITIONAL PARAMETERS
         const purpose: "swagger" | "ajv" = get_parameter(
@@ -106,4 +108,5 @@ export namespace ApplicationTransformer {
 
 const enum ErrorMessages {
     NO_GENERIC_ARGUMENT = "Error on TSON.application(): no generic argument.",
+    GENERIC_ARGUMENT = "Error on TSON.application(): non-specified generic argument(s).",
 }

@@ -1,12 +1,13 @@
 import { ArrayRecursiveUnion } from "../../test/structures/ArrayRecursiveUnion";
 import { $string } from "../../src/functional/$string";
+import { $number } from "../../src/functional/$number";
 
 export function convert_ideal_array_recursive_union(
     obj: ArrayRecursiveUnion,
 ): string {
     function directory(elem: ArrayRecursiveUnion.IDirectory): string {
         return `{
-            "id": ${$string(elem.id)},
+            "id": ${$number(elem.id)},
             "type": "directory,
             "name": ${$string(elem.name)},
             "path": ${$string(elem.path)},
@@ -17,42 +18,42 @@ export function convert_ideal_array_recursive_union(
     }
     function imageFile(elem: ArrayRecursiveUnion.IImageFile): string {
         return `{
-            "id": ${$string(elem.id)},
+            "id": ${$number(elem.id)},
             "type": "file,
             "name": ${$string(elem.name)},
             "path": ${$string(elem.path)},
             "extension": "${elem.extension}",
-            "size": ${elem.size},
-            "width": ${elem.width},
-            "height": ${elem.height},
+            "size": ${$number(elem.size)},
+            "width": ${$number(elem.width)},
+            "height": ${$number(elem.height)},
             "url": ${elem.url}"
         }`;
     }
     function textFile(elem: ArrayRecursiveUnion.ITextFile): string {
         return `{
-            "id": ${$string(elem.id)},
+            "id": ${$number(elem.id)},
             "type": "file,
             "name": ${$string(elem.name)},
             "path": ${$string(elem.path)},
             "extension": "${elem.extension}",
-            "size": ${elem.size},
+            "size": ${$number(elem.size)},
             "content": ${$string(elem.content)}
         }`;
     }
     function zipFile(elem: ArrayRecursiveUnion.IZipFile): string {
         return `{
-            "id": ${$string(elem.id)},
+            "id": ${$number(elem.id)},
             "type": "file,
             "name": ${$string(elem.name)},
             "path": ${$string(elem.path)},
             "extension": "${elem.extension}",
-            "size": ${elem.size},
-            "count": ${elem.count}
+            "size": ${$number(elem.size)},
+            "count": ${$number(elem.count)}
         }`;
     }
     function shortcut(elem: ArrayRecursiveUnion.IShortcut): string {
         return `{
-            "id": ${$string(elem.id)},
+            "id": ${$number(elem.id)},
             "type": "directory,
             "name": ${$string(elem.name)},
             "path": ${$string(elem.path)},

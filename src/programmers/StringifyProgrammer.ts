@@ -42,7 +42,7 @@ export namespace StringifyProgrammer {
     ----------------------------------------------------------- */
     export const generate = (modulo: ts.LeftHandSideExpression) =>
         FeatureProgrammer.generate(CONFIG(modulo), (collection) => {
-            const functors = ["string", "tail"].map((name) =>
+            const functors = ["number", "string", "tail"].map((name) =>
                 StatementFactory.variable(
                     ts.NodeFlags.Const,
                     "$" + name,
@@ -380,10 +380,19 @@ export namespace StringifyProgrammer {
                 undefined,
                 [input],
             );
+
+        const value: ts.Expression =
+            type === "number"
+                ? ts.factory.createCallExpression(
+                      ts.factory.createIdentifier(`$number`),
+                      undefined,
+                      [input],
+                  )
+                : input;
         return explore.from !== "top"
-            ? input
+            ? value
             : ts.factory.createCallExpression(
-                  IdentifierFactory.join(input, "toString"),
+                  IdentifierFactory.join(value, "toString"),
                   undefined,
                   undefined,
               );

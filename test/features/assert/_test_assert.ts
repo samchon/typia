@@ -16,12 +16,11 @@ export function _test_assert<T>(
                     "Bug on TSON.assertType(): failed to return input value.",
                 );
         } catch (exp) {
-            if (exp instanceof TypeGuardError) {
-                console.log(exp.path, exp.value);
+            if (exp instanceof TypeGuardError)
                 throw new Error(
                     `Bug on TSON.assertType(): failed to understand the ${name} type.`,
                 );
-            } else throw exp;
+            else throw exp;
         }
 
         for (const spoil of spoilers || []) {
