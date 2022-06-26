@@ -42,12 +42,13 @@ export namespace StringifyProgrammer {
     ----------------------------------------------------------- */
     export const generate = (modulo: ts.LeftHandSideExpression) =>
         FeatureProgrammer.generate(CONFIG(modulo), (collection) => {
-            const functors = ["number", "string", "tail"].map((name) =>
-                StatementFactory.variable(
-                    ts.NodeFlags.Const,
-                    "$" + name,
-                    IdentifierFactory.join(modulo, name),
-                ),
+            const functors = ["number", "numberNullable", "string", "tail"].map(
+                (name) =>
+                    StatementFactory.variable(
+                        ts.NodeFlags.Const,
+                        "$" + name,
+                        IdentifierFactory.join(modulo, name),
+                    ),
             );
             const is = IsProgrammer.generate_functors()(collection);
 
@@ -159,7 +160,12 @@ export namespace StringifyProgrammer {
                                 explore,
                             ),
                         value: () =>
-                            decode_atomic(input, constant.type, explore),
+                            decode_atomic(
+                                input,
+                                constant.type,
+                                meta.nullable,
+                                explore,
+                            ),
                     });
                 else
                     unions.push({
@@ -178,6 +184,7 @@ export namespace StringifyProgrammer {
                             decode_constant_string(
                                 input,
                                 [...constant.values] as string[],
+                                meta.nullable,
                                 explore,
                             ),
                     });
@@ -194,7 +201,8 @@ export namespace StringifyProgrammer {
                             })(),
                             explore,
                         ),
-                    value: () => decode_atomic(input, type, explore),
+                    value: () =>
+                        decode_atomic(input, type, meta.nullable, explore),
                 });
 
             // TUPLES
@@ -374,6 +382,7 @@ export namespace StringifyProgrammer {
     function decode_atomic(
         input: ts.Expression,
         type: string,
+        nullable: boolean,
         explore: FeatureProgrammer.IExplore,
     ): ts.Expression {
         if (type === "string")
@@ -386,7 +395,9 @@ export namespace StringifyProgrammer {
         const value: ts.Expression =
             type === "number"
                 ? ts.factory.createCallExpression(
-                      ts.factory.createIdentifier(`$number`),
+                      ts.factory.createIdentifier(
+                          nullable ? `$numberNullable` : `$number`,
+                      ),
                       undefined,
                       [input],
                   )
@@ -403,6 +414,7 @@ export namespace StringifyProgrammer {
     function decode_constant_string(
         input: ts.Expression,
         values: string[],
+        nullable: boolean,
         explore: FeatureProgrammer.IExplore,
     ): ts.Expression {
         if (values.every((v) => !StringifyPredicator.require_escape(v)))
@@ -411,7 +423,7 @@ export namespace StringifyProgrammer {
                 input,
                 ts.factory.createStringLiteral('"'),
             ].reduce((x, y) => ts.factory.createAdd(x, y));
-        else return decode_atomic(input, "string", explore);
+        else return decode_atomic(input, "string", nullable, explore);
     }
 
     const decode_to_json =
