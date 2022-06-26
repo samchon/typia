@@ -1,3 +1,4 @@
+import { $number } from "../../src/functional/$number";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 
 export function convert_ideal_object_union_implicit(
@@ -5,8 +6,8 @@ export function convert_ideal_object_union_implicit(
 ): string {
     function point(elem: ObjectUnionImplicit.IPoint): string {
         return `{
-            "x": ${elem.x}, 
-            "y": ${elem.y}
+            "x": ${$number(elem.x)}, 
+            "y": ${$number(elem.y)}
         }`;
     }
     function line(elem: ObjectUnionImplicit.ILine): string {
@@ -33,7 +34,7 @@ export function convert_ideal_object_union_implicit(
     function circle(elem: ObjectUnionImplicit.ICircle, type?: string): string {
         return `{
             "centroid": ${point(elem.centroid)},
-            "radius": ${elem.radius}
+            "radius": ${$number(elem.radius)}
         }`;
     }
     function polyline(elem: ObjectUnionImplicit.IPolyline): string {

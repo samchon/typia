@@ -18,6 +18,8 @@ export namespace AssertTransformer {
                       expression.typeArguments[0],
                   )
                 : project.checker.getTypeAtLocation(expression.arguments[0]!);
+        if (type.isTypeParameter())
+            throw new Error(ErrorMessages.GENERIC_ARGUMENT);
 
         // DO TRANSFORM
         return ts.factory.createCallExpression(
@@ -30,4 +32,5 @@ export namespace AssertTransformer {
 
 const enum ErrorMessages {
     NO_INPUT_VALUE = "Error on TSON.assertType(): no input value.",
+    GENERIC_ARGUMENT = "Error on TSON.assertType(): non-specified generic argument.",
 }
