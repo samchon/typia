@@ -15,11 +15,9 @@ export function _test_stringify<T>(
 ): () => void {
     return () => {
         const optimized: string = converter(data);
-        if (predicator(optimized, data) === false) {
-            console.log(optimized);
+        if (predicator(optimized, data) === false)
             throw new Error(
                 `Bug on TSON.stringify(): failed to understand the ${name} type.`,
             );
-        }
     };
 }

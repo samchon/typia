@@ -1,5 +1,6 @@
-import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
+import { $number } from "../../src/functional/$number";
 import { $string } from "../../src/functional/$string";
+import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 
 export function convert_ideal_object_hierarchical(
     obj: ObjectHierarchical,
@@ -12,13 +13,18 @@ export function convert_ideal_object_hierarchical(
             "account": ${elem.account ? account(elem.account) : null},
             "href": ${$string(elem.href)},
             "referrer": ${$string(elem.referrer)},
-            "ip": [${(elem.ip[0], elem.ip[1], elem.ip[2], elem.ip[3])},
+            "ip": [${
+                ($number(elem.ip[0]),
+                $number(elem.ip[1]),
+                $number(elem.ip[2]),
+                $number(elem.ip[3]))
+            },
             "created_at": ${timestamp(elem.created_at)}
         }`;
     }
     function member(elem: ObjectHierarchical.IMember): string {
         return `{
-            "id": ${elem.id},
+            "id": ${$number(elem.id)},
             "account": ${account(elem.account)},
             "enterprise": ${
                 elem.enterprise ? enterprise(elem.enterprise) : null
@@ -30,35 +36,35 @@ export function convert_ideal_object_hierarchical(
     }
     function enterprise(elem: ObjectHierarchical.IEnterprise): string {
         return `{
-            "id": ${elem.id},
+            "id": ${$number(elem.id)},
             "account": ${account(elem.account)},
             "name": ${$string(elem.name)},
-            "grade": ${elem.grade},
+            "grade": ${$number(elem.grade)},
             "created_at": ${timestamp(elem.created_at)}
         }`;
     }
     function account(elem: ObjectHierarchical.IAccount): string {
         return `{
-            "id": ${elem.id},
+            "id": ${$number(elem.id)},
             "code": ${$string(elem.code)},
             "created_at": ${timestamp(elem.created_at)}
         }`;
     }
     function channel(elem: ObjectHierarchical.IChannel): string {
         return `{
-            "id": ${elem.id},
+            "id": ${$number(elem.id)},
             "code": ${$string(elem.code)},
             "name": ${$string(elem.name)},
-            "sequence": ${elem.sequence},
+            "sequence": ${$number(elem.sequence)},
             "exclusive": ${elem.exclusive},
-            "priority": ${elem.priority},
+            "priority": ${$number(elem.priority)},
             "created_at": ${timestamp(elem.created_at)}
         }`;
     }
     function timestamp(elem: ObjectHierarchical.ITimestamp): string {
         return `{
-            "time": ${elem.time},
-            "zone": ${elem.zone}
+            "time": ${$number(elem.time)},
+            "zone": ${$number(elem.zone)}
         }`;
     }
 
