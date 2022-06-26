@@ -234,6 +234,7 @@ export namespace CheckerProgrammer {
     const explore_objects = (config: IConfig) =>
         UnionExplorer.object(
             base_config(config),
+            decode(config),
             decode_object(config),
             (input, targets, explore) =>
                 config.combiner(explore)("or")(
