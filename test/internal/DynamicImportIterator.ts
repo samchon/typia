@@ -65,8 +65,6 @@ export namespace DynamicImportIterator {
 
             const external: Module<Arguments> = await import(current);
             await execute(options, command, external, exceptions);
-
-            if (options.counter) ++options.counter.value;
         }
     }
 
@@ -92,6 +90,7 @@ export namespace DynamicImportIterator {
                 };
 
                 try {
+                    if (options.counter) ++options.counter.value;
                     if (options.showElapsedTime === false) {
                         await func();
                         console.log(`  - ${key}`);
