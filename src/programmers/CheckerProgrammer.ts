@@ -144,7 +144,10 @@ export namespace CheckerProgrammer {
                 binaries.push(
                     ts.factory.createLogicalAnd(
                         ExpressionFactory.isArray(input),
-                        explore_array(config)(input, meta.arrays, explore),
+                        explore_array(config)(input, meta.arrays, {
+                            ...explore,
+                            from: "array",
+                        }),
                     ),
                 );
 
@@ -153,7 +156,10 @@ export namespace CheckerProgrammer {
                 binaries.push(
                     ts.factory.createLogicalAnd(
                         ExpressionFactory.isObject(input, true),
-                        explore_objects(config)(input, meta.objects, explore),
+                        explore_objects(config)(input, meta.objects, {
+                            ...explore,
+                            from: "object",
+                        }),
                     ),
                 );
 
