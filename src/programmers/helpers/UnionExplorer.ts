@@ -267,7 +267,7 @@ export namespace UnionExplorer {
                                 undefined,
                                 undefined,
                                 ts.factory.createCallExpression(
-                                    ts.factory.createIdentifier("tuple[1]"),
+                                    ts.factory.createIdentifier("tuple[0]"),
                                     undefined,
                                     [ts.factory.createIdentifier("value")],
                                 ),

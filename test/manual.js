@@ -7,6 +7,6 @@ runner.register({
     compiler: "ttypescript",
 });
 
-const program = require("./temporary/infinity.ts");
+const program = require("./features/assert/test_assert_complicate_union.ts");
 for (const value of Object.values(program))
     if (typeof value === "function") value();
