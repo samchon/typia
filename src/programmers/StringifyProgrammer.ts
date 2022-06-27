@@ -239,7 +239,10 @@ export namespace StringifyProgrammer {
                     type: "array",
                     is: () => ExpressionFactory.isArray(input),
                     value: () =>
-                        explore_arrays(modulo)(input, meta.arrays, explore),
+                        explore_arrays(modulo)(input, meta.arrays, {
+                            ...explore,
+                            from: "array",
+                        }),
                 });
             }
 
@@ -249,7 +252,10 @@ export namespace StringifyProgrammer {
                     type: "object",
                     is: () => ExpressionFactory.isObject(input, true),
                     value: () =>
-                        explore_objects(modulo)(input, meta.objects, explore),
+                        explore_objects(modulo)(input, meta.objects, {
+                            ...explore,
+                            from: "object",
+                        }),
                 });
 
             //----
