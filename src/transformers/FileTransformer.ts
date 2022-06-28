@@ -36,11 +36,7 @@ export namespace FileTransformer {
         try {
             return NodeTransformer.transform(project, node);
         } catch (exp) {
-            if (
-                !(exp instanceof Error) ||
-                exp.message.indexOf("Error on TSON") !== -1
-            )
-                throw exp;
+            if (!(exp instanceof Error)) throw exp;
 
             const file: ts.SourceFile = node.getSourceFile();
             const { line, character } = file.getLineAndCharacterOfPosition(

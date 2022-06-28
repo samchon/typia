@@ -1,5 +1,10 @@
+import { Atomic } from "../typings/Atomic";
+
 export type IJsonSchema =
-    | IJsonSchema.IEnumeration
+    | IJsonSchema.IEnumeration<"boolean">
+    | IJsonSchema.IEnumeration<"number">
+    | IJsonSchema.IEnumeration<"bigint">
+    | IJsonSchema.IEnumeration<"string">
     | IJsonSchema.IAtomic<"boolean">
     | IJsonSchema.IAtomic<"number">
     | IJsonSchema.IAtomic<"bigint">
@@ -7,13 +12,14 @@ export type IJsonSchema =
     | IJsonSchema.IArray
     | IJsonSchema.ITuple
     | IJsonSchema.IReference
-    | IJsonSchema.IRecursivePointer
+    | IJsonSchema.IRecursiveReference
     | IJsonSchema.IOneOf
     | IJsonSchema.IUnkown;
 
 export namespace IJsonSchema {
-    export interface IEnumeration {
-        enum: Array<string | number | boolean | bigint>;
+    export interface IEnumeration<Type extends Atomic.Literal> {
+        type: Atomic.Literal;
+        enum: Array<Atomic.Mapper[Type]>;
         nullable?: boolean;
         description?: string;
     }
@@ -36,7 +42,7 @@ export namespace IJsonSchema {
         $ref: string;
         description?: string;
     }
-    export interface IRecursivePointer {
+    export interface IRecursiveReference {
         $recursiveRef: string;
         description?: string;
     }

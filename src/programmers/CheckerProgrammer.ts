@@ -11,11 +11,8 @@ import { UnionExplorer } from "./helpers/UnionExplorer";
 
 export namespace CheckerProgrammer {
     export interface IConfig {
+        functors: string;
         trace: boolean;
-        functors: {
-            name: string;
-            filter?: (object: MetadataObject) => boolean;
-        };
         combiner: IConfig.Combiner;
     }
     export namespace IConfig {
@@ -35,16 +32,16 @@ export namespace CheckerProgrammer {
     /* -----------------------------------------------------------
         GENERATORS
     ----------------------------------------------------------- */
-    export function generate(config: IConfig) {
-        return FeatureProgrammer.generate(base_config(config));
-    }
+    export const generate = (config: IConfig) =>
+        FeatureProgrammer.generate(CONFIG(config));
 
-    export function generate_functors(config: IConfig) {
-        return FeatureProgrammer.generate_functors(base_config(config));
-    }
+    export const generate_functors = (config: IConfig) =>
+        FeatureProgrammer.generate_functors(CONFIG(config));
 
-    function base_config(config: IConfig): FeatureProgrammer.IConfig {
+    function CONFIG(config: IConfig): FeatureProgrammer.IConfig {
         return {
+            trace: config.trace,
+            functors: config.functors,
             initializer: ({ checker }, type) => {
                 const collection: MetadataCollection = new MetadataCollection();
                 const meta: Metadata = MetadataFactory.generate(
@@ -58,15 +55,28 @@ export namespace CheckerProgrammer {
                 );
                 return [collection, meta];
             },
-            trace: config.trace,
-            functors: config.functors,
-            joiner: (entries) =>
-                entries.length
-                    ? entries
-                          .map((entry) => entry.expression)
-                          .reduce((x, y) => ts.factory.createLogicalAnd(x, y))
-                    : ts.factory.createTrue(),
             decoder: decode(config),
+            objector: {
+                checker: decode(config),
+                decoder: decode_object(config),
+                joiner: (entries) =>
+                    entries.length
+                        ? entries
+                              .map((entry) => entry.expression)
+                              .reduce((x, y) =>
+                                  ts.factory.createLogicalAnd(x, y),
+                              )
+                        : ts.factory.createTrue(),
+                unionizer: (input, targets, explore) =>
+                    config.combiner(explore)("or")(
+                        input,
+                        targets.map((obj) =>
+                            decode_object(config)(input, obj, explore),
+                        ),
+                    ),
+                failure: () =>
+                    ts.factory.createReturnStatement(ts.factory.createFalse()),
+            },
         };
     }
 
@@ -156,7 +166,7 @@ export namespace CheckerProgrammer {
                 binaries.push(
                     ts.factory.createLogicalAnd(
                         ExpressionFactory.isObject(input, true),
-                        explore_objects(config)(input, meta.objects, {
+                        explore_objects(config)(input, meta, {
                             ...explore,
                             from: "object",
                         }),
@@ -230,7 +240,7 @@ export namespace CheckerProgrammer {
 
     function decode_array(config: IConfig) {
         return FeatureProgrammer.decode_array(
-            base_config(config),
+            { trace: config.trace, decoder: decode(config) },
             (input, arrow) =>
                 ts.factory.createCallExpression(
                     IdentifierFactory.join(input, "every"),
@@ -241,7 +251,7 @@ export namespace CheckerProgrammer {
     }
 
     export function decode_object(config: IConfig) {
-        const func = FeatureProgrammer.decode_object(base_config(config));
+        const func = FeatureProgrammer.decode_object(config);
         return function (
             input: ts.Expression,
             obj: MetadataObject,
@@ -260,20 +270,22 @@ export namespace CheckerProgrammer {
             () => ts.factory.createReturnStatement(ts.factory.createFalse()),
         );
 
-    const explore_objects = (config: IConfig) =>
-        UnionExplorer.object(
-            base_config(config),
-            decode(config),
-            decode_object(config),
-            (input, targets, explore) =>
-                config.combiner(explore)("or")(
-                    input,
-                    targets.map((obj) =>
-                        decode_object(config)(input, obj, explore),
-                    ),
+    const explore_objects = (config: IConfig) => {
+        const objector = decode_object(config);
+
+        return (input: ts.Expression, meta: Metadata, explore: IExplore) => {
+            if (meta.objects.length === 1)
+                return objector(input, meta.objects[0]!, explore);
+
+            return ts.factory.createCallExpression(
+                ts.factory.createIdentifier(
+                    `${config.functors}.unions[${meta.union_index!}]`,
                 ),
-            () => ts.factory.createReturnStatement(ts.factory.createFalse()),
-        );
+                undefined,
+                FeatureProgrammer.getArguments(config.trace, explore)(input),
+            );
+        };
+    };
 }
 
 const create_add =

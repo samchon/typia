@@ -30,10 +30,7 @@ export namespace AssertProgrammer {
                     ts.factory.createCallExpression(
                         CheckerProgrammer.generate({
                             combiner: combine(modulo),
-                            functors: {
-                                name: "assertType",
-                                filter: (obj) => obj.validated,
-                            },
+                            functors: "assertType",
                             trace: true,
                         })(project, type),
                         undefined,
