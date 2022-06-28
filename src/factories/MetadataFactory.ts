@@ -32,8 +32,7 @@ export namespace MetadataFactory {
         );
 
         // FIND RECURSIVE OBJECTS
-        const storage: Map<string, MetadataObject> = collection.storage();
-        for (const object of storage.values())
+        for (const object of collection.objects())
             object.recursive = object.properties.some(
                 (prop) =>
                     ArrayUtil.has(
@@ -64,8 +63,8 @@ export namespace MetadataFactory {
         if (type !== null)
             iterate(collection, checker, options, meta, type, parentResolved);
 
-        // SORT INSTANCES
-        if (meta.objects.length > 1)
+        // SORT OBJECTS
+        if (meta.objects.length > 1) {
             meta.objects.sort((x, y) =>
                 MetadataObject.covers(x, y)
                     ? -1
@@ -73,6 +72,11 @@ export namespace MetadataFactory {
                     ? 1
                     : 0,
             );
+            if (parentResolved === false)
+                meta.union_index = collection.getUnionIndex(meta);
+        }
+
+        // SORT ARRAYS AND TUPLES
         if (meta.arrays.length > 1)
             meta.arrays.sort((x, y) =>
                 Metadata.covers(x, y) ? -1 : Metadata.covers(y, x) ? 1 : 0,
@@ -154,6 +158,8 @@ export namespace MetadataFactory {
                     toJsons.forEach((t) =>
                         iterate(collection, checker, options, union, t, true),
                     );
+                    if (union.objects.length > 1)
+                        union.union_index = collection.getUnionIndex(union);
                     return union;
                 })();
             }

@@ -35,6 +35,7 @@ export const test_application_object_alias = _test_application(
                     sex: {
                         oneOf: [
                             {
+                                type: "number",
                                 "enum": [
                                     2,
                                     1
@@ -42,6 +43,7 @@ export const test_application_object_alias = _test_application(
                                 nullable: true
                             },
                             {
+                                type: "string",
                                 "enum": [
                                     "male",
                                     "female"
@@ -55,6 +57,7 @@ export const test_application_object_alias = _test_application(
                         nullable: true
                     },
                     dead: {
+                        type: "boolean",
                         "enum": [
                             false,
                             true

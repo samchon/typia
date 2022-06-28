@@ -1,6 +1,5 @@
-import { IPointer } from "../src/structures/IPointer";
 import { DynamicImportIterator } from "./internal/DynamicImportIterator";
-// import "../src/functional/index";
+import { IPointer } from "./internal/IPointer";
 
 async function main(): Promise<void> {
     // TEST FEATURES

@@ -54,6 +54,7 @@ export const test_application_object_nullable = _test_application(
                 type: "object",
                 properties: {
                     type: {
+                        type: "string",
                         "enum": [
                             "manufacturer"
                         ],
@@ -75,6 +76,7 @@ export const test_application_object_nullable = _test_application(
                 type: "object",
                 properties: {
                     type: {
+                        type: "string",
                         "enum": [
                             "brand"
                         ],
@@ -96,6 +98,7 @@ export const test_application_object_nullable = _test_application(
                 type: "object",
                 properties: {
                     type: {
+                        type: "string",
                         "enum": [
                             "manufacturer"
                         ],

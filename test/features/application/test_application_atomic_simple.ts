@@ -11,6 +11,7 @@ export const test_application_atomic = _test_application(
             items: {
                 oneOf: [
                     {
+                        type: "boolean",
                         "enum": [
                             false,
                             true

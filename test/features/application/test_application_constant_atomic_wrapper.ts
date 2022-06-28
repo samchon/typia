@@ -11,13 +11,13 @@ export const test_application_constant_atomic_wrapper = _test_application(
             items: {
                 oneOf: [
                     {
-                        $ref: "#/components/schemas/IPointer_lt_boolean_gt_"
+                        $ref: "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
                     },
                     {
-                        $ref: "#/components/schemas/IPointer_lt_number_gt_"
+                        $ref: "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_"
                     },
                     {
-                        $ref: "#/components/schemas/IPointer_lt_string_gt_"
+                        $ref: "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_"
                     }
                 ]
             },
@@ -26,11 +26,12 @@ export const test_application_constant_atomic_wrapper = _test_application(
     ],
     components: {
         schemas: {
-            IPointer_lt_boolean_gt_: {
-                $id: "IPointer_lt_boolean_gt_",
+            "ConstantAtomicWrapper.IPointer_lt_boolean_gt_": {
+                $id: "ConstantAtomicWrapper.IPointer_lt_boolean_gt_",
                 type: "object",
                 properties: {
                     value: {
+                        type: "boolean",
                         "enum": [
                             false,
                             true
@@ -43,8 +44,8 @@ export const test_application_constant_atomic_wrapper = _test_application(
                     "value"
                 ]
             },
-            IPointer_lt_number_gt_: {
-                $id: "IPointer_lt_number_gt_",
+            "ConstantAtomicWrapper.IPointer_lt_number_gt_": {
+                $id: "ConstantAtomicWrapper.IPointer_lt_number_gt_",
                 type: "object",
                 properties: {
                     value: {
@@ -57,8 +58,8 @@ export const test_application_constant_atomic_wrapper = _test_application(
                     "value"
                 ]
             },
-            IPointer_lt_string_gt_: {
-                $id: "IPointer_lt_string_gt_",
+            "ConstantAtomicWrapper.IPointer_lt_string_gt_": {
+                $id: "ConstantAtomicWrapper.IPointer_lt_string_gt_",
                 type: "object",
                 properties: {
                     value: {

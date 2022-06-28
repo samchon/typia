@@ -25,6 +25,7 @@ export const test_application_class_closure = _test_application(
                         nullable: false
                     },
                     dead: {
+                        type: "boolean",
                         "enum": [
                             false,
                             true

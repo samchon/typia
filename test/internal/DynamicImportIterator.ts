@@ -4,7 +4,7 @@ if (EXTENSION === "js") require("source-map-support/register");
 import cli from "cli";
 import fs from "fs";
 
-import { IPointer } from "../../src/structures/IPointer";
+import { IPointer } from "./IPointer";
 import { StopWatch } from "./StopWatch";
 
 interface ICommand {

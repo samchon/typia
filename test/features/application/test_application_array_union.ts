@@ -21,6 +21,7 @@ export const test_application_array_union = _test_application(
                     {
                         type: "array",
                         items: {
+                            type: "boolean",
                             "enum": [
                                 false,
                                 true

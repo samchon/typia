@@ -21,6 +21,7 @@ export const test_application_object_primitive = _test_application(
                         nullable: false
                     },
                     extension: {
+                        type: "string",
                         "enum": [
                             "txt",
                             "md",
@@ -44,6 +45,7 @@ export const test_application_object_primitive = _test_application(
                         nullable: false
                     },
                     secret: {
+                        type: "boolean",
                         "enum": [
                             false,
                             true

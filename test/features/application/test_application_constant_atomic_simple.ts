@@ -11,6 +11,7 @@ export const test_application_constant_atomic_simple = _test_application(
             items: {
                 oneOf: [
                     {
+                        type: "boolean",
                         "enum": [
                             false,
                             true
@@ -18,12 +19,14 @@ export const test_application_constant_atomic_simple = _test_application(
                         nullable: false
                     },
                     {
+                        type: "number",
                         "enum": [
                             2
                         ],
                         nullable: false
                     },
                     {
+                        type: "string",
                         "enum": [
                             "three"
                         ],

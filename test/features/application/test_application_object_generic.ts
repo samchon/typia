@@ -31,6 +31,7 @@ export const test_application_object_generic = _test_application(
                 type: "object",
                 properties: {
                     value: {
+                        type: "boolean",
                         "enum": [
                             false,
                             true
@@ -60,6 +61,7 @@ export const test_application_object_generic = _test_application(
                 type: "object",
                 properties: {
                     child_value: {
+                        type: "boolean",
                         "enum": [
                             false,
                             true
@@ -67,6 +69,7 @@ export const test_application_object_generic = _test_application(
                         nullable: false
                     },
                     child_next: {
+                        type: "boolean",
                         "enum": [
                             false,
                             true

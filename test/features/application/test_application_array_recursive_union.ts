@@ -72,6 +72,7 @@ export const test_application_array_recursive_union = _test_application(
                         nullable: false
                     },
                     type: {
+                        type: "string",
                         "enum": [
                             "directory"
                         ],
@@ -120,12 +121,14 @@ export const test_application_array_recursive_union = _test_application(
                         nullable: false
                     },
                     type: {
+                        type: "string",
                         "enum": [
                             "file"
                         ],
                         nullable: false
                     },
                     extension: {
+                        type: "string",
                         "enum": [
                             "jpg"
                         ],
@@ -170,12 +173,14 @@ export const test_application_array_recursive_union = _test_application(
                         nullable: false
                     },
                     type: {
+                        type: "string",
                         "enum": [
                             "file"
                         ],
                         nullable: false
                     },
                     extension: {
+                        type: "string",
                         "enum": [
                             "txt"
                         ],
@@ -218,12 +223,14 @@ export const test_application_array_recursive_union = _test_application(
                         nullable: false
                     },
                     type: {
+                        type: "string",
                         "enum": [
                             "file"
                         ],
                         nullable: false
                     },
                     extension: {
+                        type: "string",
                         "enum": [
                             "zip"
                         ],
@@ -277,12 +284,14 @@ export const test_application_array_recursive_union = _test_application(
                         ]
                     },
                     type: {
+                        type: "string",
                         "enum": [
                             "shortcut"
                         ],
                         nullable: false
                     },
                     extension: {
+                        type: "string",
                         "enum": [
                             "lnk"
                         ],

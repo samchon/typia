@@ -1,8 +1,9 @@
-import { IJsonApplication } from "./structures/IJsonApplication";
+import { IJsonApplication } from "./schemas/IJsonApplication";
 
-export * from "./structures/IJsonApplication";
-export * from "./structures/IJsonComponents";
-export * from "./structures/IJsonSchema";
+export * from "./schemas/JsonTypeChecker";
+export * from "./schemas/IJsonApplication";
+export * from "./schemas/IJsonComponents";
+export * from "./schemas/IJsonSchema";
 
 import { $number } from "./functional/$number";
 import { $string } from "./functional/$string";

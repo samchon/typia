@@ -25,6 +25,7 @@ export const test_application_object_intersection = _test_application(
                         nullable: false
                     },
                     vulnerable: {
+                        type: "boolean",
                         "enum": [
                             false,
                             true

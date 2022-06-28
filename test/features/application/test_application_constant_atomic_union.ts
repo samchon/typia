@@ -11,12 +11,14 @@ export const test_application_constant_atomic_union = _test_application(
             items: {
                 oneOf: [
                     {
+                        type: "boolean",
                         "enum": [
                             false
                         ],
                         nullable: false
                     },
                     {
+                        type: "number",
                         "enum": [
                             2,
                             1
@@ -24,6 +26,7 @@ export const test_application_constant_atomic_union = _test_application(
                         nullable: false
                     },
                     {
+                        type: "string",
                         "enum": [
                             "three",
                             "four"
@@ -45,6 +48,7 @@ export const test_application_constant_atomic_union = _test_application(
                 type: "object",
                 properties: {
                     key: {
+                        type: "string",
                         "enum": [
                             "key"
                         ],
