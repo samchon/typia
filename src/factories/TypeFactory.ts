@@ -66,15 +66,7 @@ export namespace TypeFactory {
         //----
         // SPECIALIZATION
         //----
-        const name: string = (() => {
-            const str: string = get_name(symbol);
-            // const index: number = str.lastIndexOf("__type");
-            // if (index !== str.length - "__type".length) return str;
-
-            // const node = checker.typeToTypeNode(type, undefined, undefined);
-            // if (node === undefined || !ts.isTypeLiteralNode(node)) return str;
-            return str;
-        })();
+        const name: string = get_name(symbol);
 
         // CHECK GENERIC
         const generic: readonly ts.Type[] = checker.getTypeArguments(

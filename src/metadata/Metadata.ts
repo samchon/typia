@@ -1,5 +1,5 @@
-import { IMetadata } from "../structures/IMetadata";
-import { IMetadataObject } from "../structures/IMetadataObject";
+import { IMetadata } from "./IMetadata";
+import { IMetadataObject } from "./IMetadataObject";
 import { Atomic } from "../typings/Atomic";
 import { ClassProperties } from "../typings/ClassProperties";
 import { MetadataConstant } from "./MetadataConstant";
@@ -12,7 +12,7 @@ export class Metadata {
     public readonly nullable: boolean;
 
     public readonly resolved: Metadata | null;
-    public readonly atomics: Atomic.Name[];
+    public readonly atomics: Atomic.Literal[];
     public readonly constants: MetadataConstant[];
 
     public readonly arrays: Metadata[];
@@ -23,6 +23,11 @@ export class Metadata {
      * @internal
      */
     private name_: string | undefined = undefined;
+
+    /**
+     * @internal
+     */
+    public union_index?: number;
 
     /* -----------------------------------------------------------
         CONSTRUCTORS
