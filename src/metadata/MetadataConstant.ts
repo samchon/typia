@@ -1,3 +1,3 @@
-import { IMetadataConstant } from "../structures/IMetadataConstant";
+import { IMetadataConstant } from "./IMetadataConstant";
 
 export import MetadataConstant = IMetadataConstant;

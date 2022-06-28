@@ -1,7 +1,7 @@
 import ts from "typescript";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { TemplateFactory } from "../../factories/TemplateFactory";
-import { IExpressionEntry } from "../../structures/IExpressionEntry";
+import { IExpressionEntry } from "./IExpressionEntry";
 
 export namespace StringifyJoiner {
     export function object(entries: IExpressionEntry[]): ts.ConciseBody {

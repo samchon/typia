@@ -1,9 +1,9 @@
 import { Metadata } from "../metadata/Metadata";
 import { MetadataConstant } from "../metadata/MetadataConstant";
 import { MetadataObject } from "../metadata/MetadataObject";
-import { IJsonApplication } from "../structures/IJsonApplication";
-import { IJsonComponents } from "../structures/IJsonComponents";
-import { IJsonSchema } from "../structures/IJsonSchema";
+import { IJsonApplication } from "../schemas/IJsonApplication";
+import { IJsonComponents } from "../schemas/IJsonComponents";
+import { IJsonSchema } from "../schemas/IJsonSchema";
 import { ArrayUtil } from "../utils/ArrayUtil";
 
 export namespace ApplicationProgrammer {
@@ -121,9 +121,10 @@ export namespace ApplicationProgrammer {
         constant: MetadataConstant,
         nullable: boolean,
         description: string | undefined,
-    ): IJsonSchema.IEnumeration {
+    ): IJsonSchema.IEnumeration<any> {
         return {
-            enum: constant.values,
+            type: constant.type,
+            enum: constant.values as any,
             nullable,
             description,
         };
@@ -154,7 +155,7 @@ export namespace ApplicationProgrammer {
     function generate_recursive_pointer(
         $recursiveRef: string,
         description: string | undefined,
-    ): IJsonSchema.IRecursivePointer {
+    ): IJsonSchema.IRecursiveReference {
         return {
             $recursiveRef,
             description,

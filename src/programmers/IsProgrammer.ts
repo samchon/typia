@@ -19,9 +19,7 @@ export namespace IsProgrammer {
                     ? expressions.reduce((x, y) => binder(x, y))
                     : initial;
         },
-        functors: {
-            name: "is",
-        },
+        functors: "is",
         trace: false,
     };
 

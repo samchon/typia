@@ -13,30 +13,6 @@ import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 
 export namespace StringifyProgrammer {
-    const CONFIG = (
-        modulo: ts.LeftHandSideExpression,
-    ): FeatureProgrammer.IConfig => ({
-        initializer: ({ checker }, type) => {
-            const collection: MetadataCollection = new MetadataCollection();
-            const meta: Metadata = MetadataFactory.generate(
-                checker,
-                collection,
-                type,
-                {
-                    resolve: true,
-                    constant: true,
-                },
-            );
-            return [collection, meta];
-        },
-        trace: false,
-        functors: {
-            name: "stringify",
-        },
-        joiner: StringifyJoiner.object,
-        decoder: decode(modulo),
-    });
-
     /* -----------------------------------------------------------
         GENERATORS
     ----------------------------------------------------------- */
@@ -252,7 +228,7 @@ export namespace StringifyProgrammer {
                     type: "object",
                     is: () => ExpressionFactory.isObject(input, true),
                     value: () =>
-                        explore_objects(modulo)(input, meta.objects, {
+                        explore_objects(input, meta, {
                             ...explore,
                             from: "object",
                         }),
@@ -295,75 +271,13 @@ export namespace StringifyProgrammer {
             );
         };
 
-    const explore_arrays = (modulo: ts.LeftHandSideExpression) =>
-        UnionExplorer.array(
-            IsProgrammer.decode(),
-            decode_array(modulo),
-            () => ts.factory.createStringLiteral("[]"),
-            (input) =>
-                ts.factory.createThrowStatement(
-                    ts.factory.createNewExpression(
-                        IdentifierFactory.join(modulo, "TypeGuardError"),
-                        [],
-                        [
-                            ts.factory.createStringLiteral("stringify"),
-                            ts.factory.createStringLiteral("unknown"),
-                            input,
-                        ],
-                    ),
-                ),
-        );
-
-    const explore_objects = (modulo: ts.LeftHandSideExpression) =>
-        UnionExplorer.object(
-            CONFIG(modulo),
-            IsProgrammer.decode(),
-            decode_object(modulo),
-            (input, targets, explore) =>
-                ts.factory.createCallExpression(
-                    ts.factory.createArrowFunction(
-                        undefined,
-                        undefined,
-                        [],
-                        undefined,
-                        undefined,
-                        iterate(modulo)(
-                            input,
-                            targets.map((obj) => ({
-                                type: "object",
-                                is: () =>
-                                    IsProgrammer.decode_object()(
-                                        input,
-                                        obj,
-                                        explore,
-                                    ),
-                                value: () =>
-                                    decode_object(modulo)(input, obj, explore),
-                            })),
-                        ),
-                    ),
-                    undefined,
-                    undefined,
-                ),
-            (input) =>
-                ts.factory.createThrowStatement(
-                    ts.factory.createNewExpression(
-                        IdentifierFactory.join(modulo, "TypeGuardError"),
-                        [],
-                        [
-                            ts.factory.createStringLiteral("stringify"),
-                            ts.factory.createStringLiteral("unknown"),
-                            input,
-                        ],
-                    ),
-                ),
-        );
-
-    const decode_object = (modulo: ts.LeftHandSideExpression) =>
-        FeatureProgrammer.decode_object(CONFIG(modulo));
-
     const decode_array = (modulo: ts.LeftHandSideExpression) =>
         FeatureProgrammer.decode_array(CONFIG(modulo), StringifyJoiner.array);
+
+    const decode_object = FeatureProgrammer.decode_object({
+        trace: false,
+        functors: "stringify",
+    });
 
     const decode_tuple =
         (modulo: ts.LeftHandSideExpression) =>
@@ -451,6 +365,45 @@ export namespace StringifyProgrammer {
         };
 
     /* -----------------------------------------------------------
+        EXPLORERS
+    ----------------------------------------------------------- */
+    const explore_arrays = (modulo: ts.LeftHandSideExpression) =>
+        UnionExplorer.array(
+            IsProgrammer.decode(),
+            decode_array(modulo),
+            () => ts.factory.createStringLiteral("[]"),
+            (input) =>
+                ts.factory.createThrowStatement(
+                    ts.factory.createNewExpression(
+                        IdentifierFactory.join(modulo, "TypeGuardError"),
+                        [],
+                        [
+                            ts.factory.createStringLiteral("stringify"),
+                            ts.factory.createStringLiteral("unknown"),
+                            input,
+                        ],
+                    ),
+                ),
+        );
+
+    const explore_objects = (
+        input: ts.Expression,
+        meta: Metadata,
+        explore: FeatureProgrammer.IExplore,
+    ) => {
+        if (meta.objects.length === 1)
+            return decode_object(input, meta.objects[0]!, explore);
+
+        return ts.factory.createCallExpression(
+            ts.factory.createIdentifier(
+                `stringify.unions[${meta.union_index!}]`,
+            ),
+            undefined,
+            [input],
+        );
+    };
+
+    /* -----------------------------------------------------------
         RETURN SCRIPTS
     ----------------------------------------------------------- */
     function wrap_required(
@@ -517,6 +470,78 @@ export namespace StringifyProgrammer {
                 ],
                 true,
             );
+
+    /* -----------------------------------------------------------
+        CONFIGURATIONS
+    ----------------------------------------------------------- */
+    const CONFIG = (
+        modulo: ts.LeftHandSideExpression,
+    ): FeatureProgrammer.IConfig => ({
+        functors: "stringify",
+        trace: false,
+        initializer,
+        decoder: decode(modulo),
+        objector: OBJECTOR(modulo),
+    });
+
+    const initializer: FeatureProgrammer.Initializer = ({ checker }, type) => {
+        const collection: MetadataCollection = new MetadataCollection();
+        const meta: Metadata = MetadataFactory.generate(
+            checker,
+            collection,
+            type,
+            {
+                resolve: true,
+                constant: true,
+            },
+        );
+        return [collection, meta];
+    };
+
+    const OBJECTOR = (
+        modulo: ts.LeftHandSideExpression,
+    ): FeatureProgrammer.IConfig.IObjector => ({
+        checker: IsProgrammer.decode(),
+        decoder: decode_object,
+        joiner: StringifyJoiner.object,
+        unionizer: (input, targets, explore) =>
+            ts.factory.createCallExpression(
+                ts.factory.createArrowFunction(
+                    undefined,
+                    undefined,
+                    [],
+                    undefined,
+                    undefined,
+                    iterate(modulo)(
+                        input,
+                        targets.map((obj) => ({
+                            type: "object",
+                            is: () =>
+                                IsProgrammer.decode_object()(
+                                    input,
+                                    obj,
+                                    explore,
+                                ),
+                            value: () => decode_object(input, obj, explore),
+                        })),
+                    ),
+                ),
+                undefined,
+                undefined,
+            ),
+        failure: (input) =>
+            ts.factory.createThrowStatement(
+                ts.factory.createNewExpression(
+                    IdentifierFactory.join(modulo, "TypeGuardError"),
+                    [],
+                    [
+                        ts.factory.createStringLiteral("stringify"),
+                        ts.factory.createStringLiteral("unknown"),
+                        input,
+                    ],
+                ),
+            ),
+    });
 }
 
 interface IUnion {
