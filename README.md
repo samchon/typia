@@ -39,7 +39,7 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
     - Does not require any JSON schema definition
     - 10,000x faster optimizer construction time than similar libaries
 
-![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/175801446-08091ac0-ac47-4e7c-be78-45b10b622d38.png)
+![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/176545095-612f6ce2-b46b-4954-a2b3-eafd8e132a53.png)
 
 
 
@@ -169,7 +169,7 @@ On the other side, other similary library like `fast-json-stringify` requires co
 
 Comparing performance, `typescript-json` is about 10x times faster when comparing only JSON string conversion time. If compare optimizer construction time with only one call, `typescript-json` is even 10,000x times faster.
 
-![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/175801521-aad74095-fe6e-44e4-aa89-d08936ce3f34.png)
+![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/176545277-8bdb6a59-6669-41d0-9c74-f3afe204af30.png)
 
 ### JSON Schema Generation
 ```typescript

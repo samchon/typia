@@ -34,8 +34,8 @@ const optimizer = () => [
         () => ObjectSimple.generate(),
         {
             "typescript-json": () => (input) => TSON.stringify(input),
-            "fast-json-stringify": () =>
-                build(TSON.application<[ObjectSimple], "ajv">()),
+            "fast-json-stringify": () => (input) =>
+                build(TSON.application<[ObjectSimple], "ajv">())(input),
         },
     ),
     OptimizerBenchmarker.prepare(
@@ -43,8 +43,8 @@ const optimizer = () => [
         () => ObjectHierarchical.generate(),
         {
             "typescript-json": () => (input) => TSON.stringify(input),
-            "fast-json-stringify": () =>
-                build(TSON.application<[ObjectHierarchical], "ajv">()),
+            "fast-json-stringify": () => (input) =>
+                build(TSON.application<[ObjectHierarchical], "ajv">())(input),
         },
     ),
     OptimizerBenchmarker.prepare(
@@ -52,8 +52,8 @@ const optimizer = () => [
         () => ObjectRecursive.generate(),
         {
             "typescript-json": () => (input) => TSON.stringify(input),
-            "fast-json-stringify": () =>
-                build(TSON.application<[ObjectRecursive], "ajv">()),
+            "fast-json-stringify": () => (input) =>
+                build(TSON.application<[ObjectRecursive], "ajv">())(input),
         },
     ),
 
@@ -63,8 +63,8 @@ const optimizer = () => [
         () => ObjectUnionImplicit.generate(),
         {
             "typescript-json": () => (input) => TSON.stringify(input),
-            "fast-json-stringify": () =>
-                build(TSON.application<[ObjectUnionImplicit], "ajv">()),
+            "fast-json-stringify": () => (input) =>
+                build(TSON.application<[ObjectUnionImplicit], "ajv">())(input),
         },
     ),
     OptimizerBenchmarker.prepare(
@@ -72,8 +72,8 @@ const optimizer = () => [
         () => ObjectUnionExplicit.generate(),
         {
             "typescript-json": () => (input) => TSON.stringify(input),
-            "fast-json-stringify": () =>
-                build(TSON.application<[ObjectUnionExplicit], "ajv">()),
+            "fast-json-stringify": () => (input) =>
+                build(TSON.application<[ObjectUnionExplicit], "ajv">())(input),
         },
     ),
 
@@ -86,8 +86,8 @@ const optimizer = () => [
         () => ArrayHierarchical.generate(),
         {
             "typescript-json": () => (input) => TSON.stringify(input),
-            "fast-json-stringify": () =>
-                build(TSON.application<[ArrayHierarchical], "ajv">()),
+            "fast-json-stringify": () => (input) =>
+                build(TSON.application<[ArrayHierarchical], "ajv">())(input),
         },
     ),
     OptimizerBenchmarker.prepare(
@@ -95,8 +95,8 @@ const optimizer = () => [
         () => ArrayRecursive.generate(),
         {
             "typescript-json": () => (input) => TSON.stringify(input),
-            "fast-json-stringify": () =>
-                build(TSON.application<[ArrayRecursive], "ajv">()),
+            "fast-json-stringify": () => (input) =>
+                build(TSON.application<[ArrayRecursive], "ajv">())(input),
         },
     ),
     // SPECIAL UNION STRUCTURES
@@ -105,8 +105,8 @@ const optimizer = () => [
         () => ArrayRecursiveUnion.generate(),
         {
             "typescript-json": () => (input) => TSON.stringify(input),
-            "fast-json-stringify": () =>
-                build(TSON.application<[ArrayRecursiveUnion], "ajv">()),
+            "fast-json-stringify": () => (input) =>
+                build(TSON.application<[ArrayRecursiveUnion], "ajv">())(input),
         },
     ),
 ];
