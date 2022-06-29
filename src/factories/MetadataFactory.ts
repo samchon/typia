@@ -32,8 +32,7 @@ export namespace MetadataFactory {
         );
 
         // FIND RECURSIVE OBJECTS
-        const storage: Map<string, MetadataObject> = collection.storage();
-        for (const object of storage.values())
+        for (const object of collection.objects())
             object.recursive = object.properties.some(
                 (prop) =>
                     ArrayUtil.has(
@@ -64,8 +63,8 @@ export namespace MetadataFactory {
         if (type !== null)
             iterate(collection, checker, options, meta, type, parentResolved);
 
-        // SORT INSTANCES
-        if (meta.objects.length > 1)
+        // SORT OBJECTS
+        if (meta.objects.length > 1) {
             meta.objects.sort((x, y) =>
                 MetadataObject.covers(x, y)
                     ? -1
@@ -73,6 +72,11 @@ export namespace MetadataFactory {
                     ? 1
                     : 0,
             );
+            if (parentResolved === false)
+                meta.union_index = collection.getUnionIndex(meta);
+        }
+
+        // SORT ARRAYS AND TUPLES
         if (meta.arrays.length > 1)
             meta.arrays.sort((x, y) =>
                 Metadata.covers(x, y) ? -1 : Metadata.covers(y, x) ? 1 : 0,
@@ -154,6 +158,8 @@ export namespace MetadataFactory {
                     toJsons.forEach((t) =>
                         iterate(collection, checker, options, union, t, true),
                     );
+                    if (union.objects.length > 1)
+                        union.union_index = collection.getUnionIndex(union);
                     return union;
                 })();
             }
@@ -185,7 +191,7 @@ export namespace MetadataFactory {
         );
         if (node === undefined) return;
 
-        // UNKNOWN, NULL OR UNDEFINED
+        // UNKNOWN, NULL, UNDEFINED OR FUNCTION
         if (
             filter(ts.TypeFlags.Unknown) ||
             filter(ts.TypeFlags.Never) ||
@@ -202,6 +208,9 @@ export namespace MetadataFactory {
             filter(ts.TypeFlags.VoidLike)
         ) {
             Writable(meta).required = false;
+            return;
+        } else if (TypeFactory.isFunction(type) === true) {
+            Writable(meta).functional = true;
             return;
         }
 
@@ -340,12 +349,6 @@ export namespace MetadataFactory {
                     | undefined;
 
             if (!node || !pred(node)) continue;
-            else if (
-                node
-                    .getChildren()
-                    .some((child) => TypeFactory.isFunction(child))
-            )
-                continue;
 
             // CHECK NOT PRIVATE OR PROTECTED MEMBER
             if (isClass) {

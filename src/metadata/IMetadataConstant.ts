@@ -7,7 +7,7 @@ export type IMetadataConstant =
     | IMetadataConstant.IBase<"bigint", bigint>;
 export namespace IMetadataConstant {
     export interface IBase<
-        Type extends Atomic.Name,
+        Type extends Atomic.Literal,
         Value extends Atomic.Type,
     > {
         type: Type;

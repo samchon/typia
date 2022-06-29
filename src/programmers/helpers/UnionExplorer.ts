@@ -27,6 +27,7 @@ export namespace UnionExplorer {
         decoder: Decoder<MetadataObject>,
         combiner: ObjectCombiner,
         failure: (input: ts.Expression) => ts.Statement,
+        level: number = 0,
     ) {
         return function (
             input: ts.Expression,
@@ -90,6 +91,7 @@ export namespace UnionExplorer {
                                           decoder,
                                           combiner,
                                           failure,
+                                          level + 1,
                                       )(input, remained, explore),
                                   )
                                 : failure(input),

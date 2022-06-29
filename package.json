@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.0.5",
+  "version": "3.0.7-dev.20220630",
   "description": "Faster JSON stringify with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -53,13 +53,13 @@
     "@typescript-eslint/parser": "^5.26.0",
     "benchmark": "^2.1.4",
     "cli": "^1.0.1",
-    "fast-json-stringify": "^5.0.0",
+    "fast-json-stringify": "^5.0.3",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.7.0",
     "ttypescript": "^1.5.13",
-    "typescript": "^4.6.4",
+    "typescript": "4.6.x",
     "typescript-is": "^0.19.0"
   }
 }

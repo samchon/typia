@@ -1,5 +1,5 @@
 # TypeScript-JSON
-Runtime type checker, and 5x faster `JSON.stringify()` function, with only one line.
+Runtime type checker, and 10x faster `JSON.stringify()` function, with only one line.
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typescript-json/blob/master/LICENSE)
 [![npm version](https://img.shields.io/npm/v/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
@@ -19,7 +19,7 @@ import TSON from "typescript-json";
 //----
 TSON.assertType<T>(input); // runtime type checker throwing exception
 TSON.is<T>(input); // runtime type checker returning boolean
-TSON.stringify<T>(input); // 5x faster JSON.stringify()
+TSON.stringify<T>(input); // 10x faster JSON.stringify()
 
 //----
 // APPENDIX FUNCTIONS
@@ -31,10 +31,10 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
 `typescript-json` is a transformer library providing JSON related functions.
 
   - Powerful Runtime type checkers:
-    - Performed by only one line, `TSON.is(input)`
+    - Performed by only one line, `TSON.assertType<T>(input)`
     - Does not require any JSON schema definition
-    - Supports complicate union type
-  - 5x faster `JSON.stringify()` function:
+    - Only one library which can validate union type
+  - 10x faster `JSON.stringify()` function:
     - Performed by only one line: `TSON.stringify<T>(input)`
     - Does not require any JSON schema definition
     - 10,000x faster optimizer construction time than similar libaries
@@ -62,15 +62,19 @@ npm install --save-dev ts-node
 ### tsconfig.json
 After the installation, you've to configure the `tsconfig.json` file like below. 
 
-Add the new property `transform` and its value `typescript-json/lib/transform` into the `compilerOptions.plugins` array. Also, I recommend you to use the `strict` option, to enforce developers to distinguish whether each property is nullable or undefindable.
+Add the new property `transform` and its value `typescript-json/lib/transform` into the `compilerOptions.plugins` array. When configuring, I recommend you to use the `strict` option, to enforce developers to distinguish whether each property is nullable or undefindable.
 
-```json
+Also, you can configure additional properties like `numeric` and `functional`. The first, `numeric` is an option whether to test `Number.isNaN()` and `Number.isFinite()` to numeric value or not. The second, `functional` is an option whether to test function type or not. Default values of those options are all `true`.
+
+```typescript
 {
   "compilerOptions": {
     "strict": true,
     "plugins": [
       {
-        "transform": "typescript-json/lib/transform"
+        "transform": "typescript-json/lib/transform",
+        // "functional": false, // test function type
+        // "numeric": false, // test `isNaN()` and `isFinite()`
       }
     ]
   }
@@ -91,7 +95,7 @@ npx ts-node -C ttypescript
 If you're using a `webpack` with `ts-loader`, configure the `webpack.config.js` file like below:
 
 ```javascript
-const transform = require('typescript-json/lib/transform').default
+const transform = require("typescript-json/lib/transform").default;
 
 module.exports = {
     // I am hiding the rest of the webpack config
@@ -104,6 +108,12 @@ module.exports = {
                 options: {
                     getCustomTransformers: program => ({
                         before: [transform(program)]
+                        // before: [
+                        //     transform(program, {
+                        //         functional: true,
+                        //         numeric: true
+                        // })
+                        // ]
                     })
                 }
             }
@@ -125,11 +135,26 @@ export function is<T>(input: T): boolean;
 
 The first `assertType()` is a function throwing `TypeGuardError` when an `input` value is different with the generic argument `T`. The other function `is()` returns a `boolean` value meaning whether matched or not.
 
-Comparing those `assertType()` and `is()` functions with a similar library `ajv`, `assertType()` and `is()` functions are much easier to use and even much faster. Furthermore, `typescript-json` can check complicate structured data that `ajv` cannot validate.
+Comparing those `assertType()` and `is()` functions with other similar libraries, `typescript-json` is much easier than other libraries, except only `typescript-is`. For example, `ajv` requires complicate JSON schema definition that is different with the TypeScript type. Besides, `typescript-json` requires only one line.
 
-Comparing another library `typescript-is`, its features are exactly same. However, `typescript-is` is slower and it doesn't under stand union type. `typescript-is` occurs error when explicit union type comes and makes a wrong deicision when implicit union type comes.
+Also, only `typescript-json` can validate union typed structure exactly. All the other simliar validator libraries can check simple object type, however, none of them can validate implicit union type. The fun thing is, `ajv` requires JSON schema definition for validation, but it can't validate the JSON schema type. How contradict it is.
 
-![Runtime Type Checker Benchmark](https://user-images.githubusercontent.com/13158709/175802453-c2907a57-df64-4d09-b6ec-f4ba9c02d47c.png)
+<!-- ![Runtime Type Checker Benchmark](https://user-images.githubusercontent.com/13158709/175802453-c2907a57-df64-4d09-b6ec-f4ba9c02d47c.png) -->
+
+Components               | `typescript-json` | `typescript-is` | `ajv` | `io-ts` | `class-validator`
+-------------------------|-------------------|-----------------|-------|---------|------------------
+**Easy to use**          | ✔                | ✔               | ❌    | ❌     | ❌ 
+Object (simple)          | ✔                | ✔               | ✔     | ✔      | ✔
+Object (hierarchical)    | ✔                | ✔               | ❌    | ✔      | ✔
+Object (recursive)       | ✔                | ✔               | ✔     | ✔      | ✔
+Object (union, implicit) | ✅               | ❌              | ❌    | ❌     | ❌
+Object (union, explicit) | ✅               | ❌              | ❌    | ✔      | ❌
+Array (hierarchical)     | ✔                | ✔               | ❌    | ✔      | ✔
+Array (recursive)        | ✔                | ✔               | ✔     | ✔      | ✔
+Array (recursive, union) | ✔                | ✔               | ❌    | ❌     | ❌
+Array (R+U, implicit)    | ✅               | ❌              | ❌    | ❌     | ❌
+**Ultimate Union Type**  | ✅               | ❌              | ❌    | ❌     | ❌
+
 
 ### Fastest JSON String Conversion
 ```typescript
@@ -138,11 +163,11 @@ export function stringify<T>(input: T): string;
 
 Super-fast JSON string conversion function.
 
-If you call `TSON.stringify()` function instead of the native `JSON.stringify()`, the JSON conversion time would be 5x times faster. Also, you can perform such super-fast JSON string conversion very easily, by only one line: `TSON.stringify<T>(input)`.
+If you call `TSON.stringify()` function instead of the native `JSON.stringify()`, the JSON conversion time would be 10x times faster. Also, you can perform such super-fast JSON string conversion very easily, by only one line: `TSON.stringify<T>(input)`.
 
 On the other side, other similary library like `fast-json-stringify` requires complicate JSON schema definition. Furthermore, `typescript-json` can convert complicate structured data that `fast-json-stringify` cannot convert.
 
-Comparing performance, `typescript-json` is about 5x times faster when comparing only JSON string conversion time. If compare optimizer construction time with only one call, `typescript-json` is even 10,000x times faster.
+Comparing performance, `typescript-json` is about 10x times faster when comparing only JSON string conversion time. If compare optimizer construction time with only one call, `typescript-json` is even 10,000x times faster.
 
 ![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/175801521-aad74095-fe6e-44e4-aa89-d08936ce3f34.png)
 
@@ -189,7 +214,7 @@ Intersection type | ✔ | ✔ | ▲
 Conditional type | ✔ | ▲ | ❌
 Auto completion | ✔ | ❌ | ❌
 Type hints | ✔ | ❌ | ❌
-5x faster `JSON.stringify()` | ✔ | ❌ | ❌
+10x faster `JSON.stringify()` | ✔ | ❌ | ❌
 Ensure type safety | ✅ | ❌ | ❌
 
 ```typescript
@@ -254,9 +279,9 @@ export async function trace_sale_question_and_comment
 
 https://github.com/samchon/nestia-helper
 
-Boost up `JSON.stringify()` function, of the API responses, 5x times faster.
+Boost up `JSON.stringify()` function, of the API responses, 10x times faster.
 
-`nestia-helper` is a helper library of `NestJS`, which can boost up the `JSON.stringify()` function 5x times faster about the API responses. Just by installing and utilizing this `nestia-helper`, your NestJS developed backend server will convert JSON string 5x times faster.
+`nestia-helper` is a helper library of `NestJS`, which can boost up the `JSON.stringify()` function 10x times faster about the API responses. Just by installing and utilizing this `nestia-helper`, your NestJS developed backend server will convert JSON string 10x times faster.
 
 ```typescript
 import helper from "nestia-helper";
@@ -265,7 +290,7 @@ import * as nest from "@nestjs/common";
 @nest.Controller("bbs/articles")
 export class BbsArticlesController
 {
-    // JSON.stringify() would be 5x times faster 
+    // JSON.stringify() would be 10x times faster 
     @helper.TypedRoute.Get()
     public get(): Promise<IPage<IBbsArticle.ISummary>>;
 }

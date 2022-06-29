@@ -1,6 +1,6 @@
 import ts from "typescript";
 import { AssertProgrammer } from "../../programmers/AssertProgrammer";
-import { IProject } from "../../structures/IProject";
+import { IProject } from "../IProject";
 
 export namespace AssertTransformer {
     export function transform(

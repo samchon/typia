@@ -1,5 +1,5 @@
 import ts from "typescript";
-import { IProject } from "../../structures/IProject";
+import { IProject } from "../IProject";
 
 export namespace CreateTransformer {
     export function transform(

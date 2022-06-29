@@ -5,8 +5,9 @@ export interface IMetadata {
     any: boolean;
     required: boolean;
     nullable: boolean;
+    functional: boolean;
 
-    atomics: Atomic.Name[];
+    atomics: Atomic.Literal[];
     constants: IMetadataConstant[];
     resolved: IMetadata | null;
 
