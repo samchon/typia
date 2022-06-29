@@ -1,7 +1,7 @@
 import path from "path";
 import ts from "typescript";
 
-import { IProject } from "../structures/IProject";
+import { IProject } from "./IProject";
 
 import { ApplicationTransformer } from "./features/ApplicationTransformer";
 import { AssertTransformer } from "./features/AssertTransformer";

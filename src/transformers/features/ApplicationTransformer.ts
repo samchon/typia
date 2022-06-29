@@ -7,7 +7,7 @@ import { Metadata } from "../../metadata/Metadata";
 import { ApplicationProgrammer } from "../../programmers/ApplicationProgrammer";
 
 import { IJsonApplication } from "../../schemas/IJsonApplication";
-import { IProject } from "../../structures/IProject";
+import { IProject } from "../IProject";
 
 export namespace ApplicationTransformer {
     export function transform(

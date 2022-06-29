@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { IProject } from "../structures/IProject";
+import { IProject } from "./IProject";
 import { NodeTransformer } from "./NodeTransformer";
 
 export namespace FileTransformer {

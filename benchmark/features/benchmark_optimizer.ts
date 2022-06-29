@@ -1,96 +1,79 @@
-import { StringifyBenchmarker } from "../internal/StringifyBenchmarker";
+import ajv from "fast-json-stringify";
+import TSON from "../../src";
+import { OptimizerBenchmarker } from "../internal/OptimizerBenchmarker";
 
 import { ObjectSimple } from "../../test/structures/ObjectSimple";
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
 import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
+import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnion } from "../../test/structures/ArrayRecursiveUnion";
 
-import { convert_ideal_object_simple } from "../converters/convert_ideal_object_simple";
-import { convert_ideal_object_hierarchical } from "../converters/convert_ideal_object_hierarchical";
-import { convert_ideal_object_recursive } from "../converters/convert_ideal_object_recursive";
-import { convert_ideal_object_union_implicit } from "../converters/convert_ideal_object_union_implicit";
-import { convert_ideal_object_union_explicit } from "../converters/convert_ideal_object_union_explicit";
-import { convert_ideal_array_hierarchical } from "../converters/convert_ideal_array_hierarchical";
-import { convert_ideal_array_recursive } from "../converters/convert_ideal_array_recursive";
-import { convert_ideal_array_recursive_union } from "../converters/convert_ideal_array_recursive_union";
-
-import { convert_ajv_object_simple } from "../converters/convert_ajv_object_simple";
-import { convert_ajv_object_hierarchical } from "../converters/convert_ajv_object_hierarchical";
-import { convert_ajv_object_recursive } from "../converters/convert_ajv_object_recursive";
-import { convert_ajv_object_union_implicit } from "../converters/convert_ajv_object_union_implicit";
-import { convert_ajv_object_union_explicit } from "../converters/convert_ajv_object_union_explicit";
-import { convert_ajv_array_hierarchical } from "../converters/convert_ajv_array_hierarchical";
-import { convert_ajv_array_recursive } from "../converters/convert_ajv_array_recursive";
-import { convert_ajv_array_recursive_union } from "../converters/convert_ajv_array_recursive_union";
-
-import { convert_tson_object_simple } from "../converters/convert_tson_object_simple";
-import { convert_tson_object_hierarchical } from "../converters/convert_tson_object_hierarchical";
-import { convert_tson_object_recursive } from "../converters/convert_tson_object_recursive";
-import { convert_tson_object_union_implicit } from "../converters/convert_tson_object_union_implicit";
-import { convert_tson_object_union_explicit } from "../converters/convert_tson_object_union_explicit";
-import { convert_tson_array_hierarchical } from "../converters/convert_tson_array_hierarchical";
-import { convert_tson_array_recursive } from "../converters/convert_tson_array_recursive";
-import { convert_tson_array_recursive_union } from "../converters/convert_tson_array_recursive_union";
-import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
+function build(app: TSON.IJsonApplication): any {
+    try {
+        return ajv(app.schemas[0] as any, {
+            // mode: "standalone",
+            schema: {
+                components: app.components,
+            } as any,
+        }) as any;
+    } catch {
+        return null;
+    }
+}
 
 const optimizer = () => [
     //----
     // OBJECT
     //----
     // NORMAL STRUCTURES
-    StringifyBenchmarker.prepare(
+    OptimizerBenchmarker.prepare(
         "object (simple)",
         () => ObjectSimple.generate(),
         {
-            ideal: convert_ideal_object_simple,
-            "typescript-json": convert_tson_object_simple,
-            "fast-json-stringify": (input) =>
-                convert_ajv_object_simple()(input),
+            "typescript-json": () => (input) => TSON.stringify(input),
+            "fast-json-stringify": () =>
+                build(TSON.application<[ObjectSimple], "ajv">()),
         },
     ),
-    StringifyBenchmarker.prepare(
+    OptimizerBenchmarker.prepare(
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
         {
-            ideal: convert_ideal_object_hierarchical,
-            "typescript-json": convert_tson_object_hierarchical,
-            "fast-json-stringify": (input) =>
-                convert_ajv_object_hierarchical()(input),
+            "typescript-json": () => (input) => TSON.stringify(input),
+            "fast-json-stringify": () =>
+                build(TSON.application<[ObjectHierarchical], "ajv">()),
         },
     ),
-    StringifyBenchmarker.prepare(
+    OptimizerBenchmarker.prepare(
         "object (recursive)",
         () => ObjectRecursive.generate(),
         {
-            ideal: convert_ideal_object_recursive,
-            "typescript-json": convert_tson_object_recursive,
-            "fast-json-stringify": (input) =>
-                convert_ajv_object_recursive()(input),
+            "typescript-json": () => (input) => TSON.stringify(input),
+            "fast-json-stringify": () =>
+                build(TSON.application<[ObjectRecursive], "ajv">()),
         },
     ),
 
     // SPECIAL UNION TYPES
-    StringifyBenchmarker.prepare(
+    OptimizerBenchmarker.prepare(
         "object (union, implicit)",
         () => ObjectUnionImplicit.generate(),
         {
-            ideal: convert_ideal_object_union_implicit,
-            "typescript-json": convert_tson_object_union_implicit,
-            "fast-json-stringify": (input) =>
-                convert_ajv_object_union_implicit()(input),
+            "typescript-json": () => (input) => TSON.stringify(input),
+            "fast-json-stringify": () =>
+                build(TSON.application<[ObjectUnionImplicit], "ajv">()),
         },
     ),
-    StringifyBenchmarker.prepare(
+    OptimizerBenchmarker.prepare(
         "object (union, explicit)",
         () => ObjectUnionExplicit.generate(),
         {
-            ideal: convert_ideal_object_union_explicit,
-            "typescript-json": convert_tson_object_union_explicit,
-            "fast-json-stringify": (input) =>
-                convert_ajv_object_union_explicit()(input),
+            "typescript-json": () => (input) => TSON.stringify(input),
+            "fast-json-stringify": () =>
+                build(TSON.application<[ObjectUnionExplicit], "ajv">()),
         },
     ),
 
@@ -98,35 +81,32 @@ const optimizer = () => [
     // ARRAY
     //----
     // NORMAL STRUCTURES
-    StringifyBenchmarker.prepare(
+    OptimizerBenchmarker.prepare(
         "array (hierarchical)",
         () => ArrayHierarchical.generate(),
         {
-            ideal: convert_ideal_array_hierarchical,
-            "typescript-json": convert_tson_array_hierarchical,
-            "fast-json-stringify": (input) =>
-                convert_ajv_array_hierarchical()(input),
+            "typescript-json": () => (input) => TSON.stringify(input),
+            "fast-json-stringify": () =>
+                build(TSON.application<[ArrayHierarchical], "ajv">()),
         },
     ),
-    StringifyBenchmarker.prepare(
+    OptimizerBenchmarker.prepare(
         "array (recursive)",
         () => ArrayRecursive.generate(),
         {
-            ideal: convert_ideal_array_recursive,
-            "typescript-json": convert_tson_array_recursive,
-            "fast-json-stringify": (input) =>
-                convert_ajv_array_recursive()(input),
+            "typescript-json": () => (input) => TSON.stringify(input),
+            "fast-json-stringify": () =>
+                build(TSON.application<[ArrayRecursive], "ajv">()),
         },
     ),
     // SPECIAL UNION STRUCTURES
-    StringifyBenchmarker.prepare(
+    OptimizerBenchmarker.prepare(
         "array (recursive, union)",
         () => ArrayRecursiveUnion.generate(),
         {
-            ideal: convert_ideal_array_recursive_union,
-            "typescript-json": convert_tson_array_recursive_union,
-            "fast-json-stringify": (input) =>
-                convert_ajv_array_recursive_union()(input),
+            "typescript-json": () => (input) => TSON.stringify(input),
+            "fast-json-stringify": () =>
+                build(TSON.application<[ArrayRecursiveUnion], "ajv">()),
         },
     ),
 ];

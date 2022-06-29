@@ -11,44 +11,56 @@ import { Metadata } from "../metadata/Metadata";
 import { ArrayUtil } from "../utils/ArrayUtil";
 import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { UnionExplorer } from "./helpers/UnionExplorer";
+import { IProject } from "../transformers/IProject";
 
 export namespace StringifyProgrammer {
     /* -----------------------------------------------------------
         GENERATORS
     ----------------------------------------------------------- */
-    export const generate = (modulo: ts.LeftHandSideExpression) =>
-        FeatureProgrammer.generate(CONFIG(modulo), (collection) => {
-            const functors = ["number", "numberNullable", "string", "tail"].map(
-                (name) =>
+    export const generate = (
+        project: IProject,
+        modulo: ts.LeftHandSideExpression,
+    ) =>
+        FeatureProgrammer.generate(
+            project,
+            CONFIG(project, modulo),
+            (collection) => {
+                const functors = [
+                    "number",
+                    "numberNullable",
+                    "string",
+                    "tail",
+                ].map((name) =>
                     StatementFactory.variable(
                         ts.NodeFlags.Const,
                         "$" + name,
                         IdentifierFactory.join(modulo, name),
                     ),
-            );
-            const is = IsProgrammer.generate_functors()(collection);
+                );
+                const is = IsProgrammer.generate_functors(project)(collection);
 
-            return [
-                ...functors,
-                ...(is
-                    ? [
-                          ts.factory.createVariableStatement(
-                              undefined,
-                              ts.factory.createVariableDeclarationList(
-                                  [is],
-                                  ts.NodeFlags.Const,
+                return [
+                    ...functors,
+                    ...(is
+                        ? [
+                              ts.factory.createVariableStatement(
+                                  undefined,
+                                  ts.factory.createVariableDeclarationList(
+                                      [is],
+                                      ts.NodeFlags.Const,
+                                  ),
                               ),
-                          ),
-                      ]
-                    : []),
-            ];
-        });
+                          ]
+                        : []),
+                ];
+            },
+        );
 
     /* -----------------------------------------------------------
         DECODERS
     ----------------------------------------------------------- */
     const decode =
-        (modulo: ts.LeftHandSideExpression) =>
+        (project: IProject, modulo: ts.LeftHandSideExpression) =>
         (
             input: ts.Expression,
             meta: Metadata,
@@ -96,7 +108,7 @@ export namespace StringifyProgrammer {
             // toJSON() METHOD
             if (meta.resolved !== null)
                 if (size === 1)
-                    return decode_to_json(modulo)(
+                    return decode_to_json(project, modulo)(
                         input,
                         meta.resolved,
                         explore,
@@ -106,7 +118,7 @@ export namespace StringifyProgrammer {
                         type: "resolved",
                         is: () => IsProgrammer.decode_to_json(input),
                         value: () =>
-                            decode_to_json(modulo)(
+                            decode_to_json(project, modulo)(
                                 input,
                                 meta.resolved!,
                                 explore,
@@ -126,7 +138,7 @@ export namespace StringifyProgrammer {
                     unions.push({
                         type: "atomic",
                         is: () =>
-                            IsProgrammer.decode()(
+                            IsProgrammer.decode(project)(
                                 input,
                                 (() => {
                                     const partial = Metadata.initialize();
@@ -136,7 +148,7 @@ export namespace StringifyProgrammer {
                                 explore,
                             ),
                         value: () =>
-                            decode_atomic(
+                            decode_atomic(project)(
                                 input,
                                 constant.type,
                                 meta.nullable,
@@ -147,7 +159,7 @@ export namespace StringifyProgrammer {
                     unions.push({
                         type: "const string",
                         is: () =>
-                            IsProgrammer.decode()(
+                            IsProgrammer.decode(project)(
                                 input,
                                 (() => {
                                     const partial = Metadata.initialize();
@@ -158,6 +170,7 @@ export namespace StringifyProgrammer {
                             ),
                         value: () =>
                             decode_constant_string(
+                                project,
                                 input,
                                 [...constant.values] as string[],
                                 meta.nullable,
@@ -168,7 +181,7 @@ export namespace StringifyProgrammer {
                 unions.push({
                     type: "atomic",
                     is: () =>
-                        IsProgrammer.decode()(
+                        IsProgrammer.decode(project)(
                             input,
                             (() => {
                                 const partial = Metadata.initialize();
@@ -178,7 +191,12 @@ export namespace StringifyProgrammer {
                             explore,
                         ),
                     value: () =>
-                        decode_atomic(input, type, meta.nullable, explore),
+                        decode_atomic(project)(
+                            input,
+                            type,
+                            meta.nullable,
+                            explore,
+                        ),
                 });
 
             // TUPLES
@@ -191,7 +209,7 @@ export namespace StringifyProgrammer {
                 unions.push({
                     type: "tuple",
                     is: () =>
-                        IsProgrammer.decode()(
+                        IsProgrammer.decode(project)(
                             input,
                             (() => {
                                 const partial = Metadata.initialize();
@@ -200,7 +218,8 @@ export namespace StringifyProgrammer {
                             })(),
                             explore,
                         ),
-                    value: () => decode_tuple(modulo)(input, tuple, explore),
+                    value: () =>
+                        decode_tuple(project, modulo)(input, tuple, explore),
                 });
             }
 
@@ -215,7 +234,7 @@ export namespace StringifyProgrammer {
                     type: "array",
                     is: () => ExpressionFactory.isArray(input),
                     value: () =>
-                        explore_arrays(modulo)(input, meta.arrays, {
+                        explore_arrays(project, modulo)(input, meta.arrays, {
                             ...explore,
                             from: "array",
                         }),
@@ -271,8 +290,14 @@ export namespace StringifyProgrammer {
             );
         };
 
-    const decode_array = (modulo: ts.LeftHandSideExpression) =>
-        FeatureProgrammer.decode_array(CONFIG(modulo), StringifyJoiner.array);
+    const decode_array = (
+        project: IProject,
+        modulo: ts.LeftHandSideExpression,
+    ) =>
+        FeatureProgrammer.decode_array(
+            CONFIG(project, modulo),
+            StringifyJoiner.array,
+        );
 
     const decode_object = FeatureProgrammer.decode_object({
         trace: false,
@@ -280,14 +305,14 @@ export namespace StringifyProgrammer {
     });
 
     const decode_tuple =
-        (modulo: ts.LeftHandSideExpression) =>
+        (project: IProject, modulo: ts.LeftHandSideExpression) =>
         (
             input: ts.Expression,
             tuple: Metadata[],
             explore: FeatureProgrammer.IExplore,
         ): ts.Expression => {
             const children: ts.Expression[] = tuple.map((elem, index) =>
-                decode(modulo)(
+                decode(project, modulo)(
                     ts.factory.createElementAccessExpression(input, index),
                     elem,
                     {
@@ -299,39 +324,44 @@ export namespace StringifyProgrammer {
             return StringifyJoiner.tuple(children);
         };
 
-    function decode_atomic(
-        input: ts.Expression,
-        type: string,
-        nullable: boolean,
-        explore: FeatureProgrammer.IExplore,
-    ): ts.Expression {
-        if (type === "string")
-            return ts.factory.createCallExpression(
-                ts.factory.createIdentifier(`$string`),
-                undefined,
-                [input],
-            );
+    const decode_atomic =
+        (project: IProject) =>
+        (
+            input: ts.Expression,
+            type: string,
+            nullable: boolean,
+            explore: FeatureProgrammer.IExplore,
+        ) => {
+            if (type === "string")
+                return ts.factory.createCallExpression(
+                    ts.factory.createIdentifier(`$string`),
+                    undefined,
+                    [input],
+                );
+            else if (
+                type === "number" &&
+                (project.options.numeric === true ||
+                    project.options.numeric === "stringify")
+            )
+                return ts.factory.createCallExpression(
+                    ts.factory.createIdentifier(
+                        nullable ? `$numberNullable` : `$number`,
+                    ),
+                    undefined,
+                    [input],
+                );
 
-        const value: ts.Expression =
-            type === "number"
-                ? ts.factory.createCallExpression(
-                      ts.factory.createIdentifier(
-                          nullable ? `$numberNullable` : `$number`,
-                      ),
+            return explore.from !== "top"
+                ? input
+                : ts.factory.createCallExpression(
+                      IdentifierFactory.join(input, "toString"),
                       undefined,
-                      [input],
-                  )
-                : input;
-        return explore.from !== "top"
-            ? value
-            : ts.factory.createCallExpression(
-                  IdentifierFactory.join(value, "toString"),
-                  undefined,
-                  undefined,
-              );
-    }
+                      undefined,
+                  );
+        };
 
     function decode_constant_string(
+        project: IProject,
         input: ts.Expression,
         values: string[],
         nullable: boolean,
@@ -343,17 +373,17 @@ export namespace StringifyProgrammer {
                 input,
                 ts.factory.createStringLiteral('"'),
             ].reduce((x, y) => ts.factory.createAdd(x, y));
-        else return decode_atomic(input, "string", nullable, explore);
+        else return decode_atomic(project)(input, "string", nullable, explore);
     }
 
     const decode_to_json =
-        (modulo: ts.LeftHandSideExpression) =>
+        (project: IProject, modulo: ts.LeftHandSideExpression) =>
         (
             input: ts.Expression,
             resolved: Metadata,
             explore: FeatureProgrammer.IExplore,
         ): ts.Expression => {
-            return decode(modulo)(
+            return decode(project, modulo)(
                 ts.factory.createCallExpression(
                     IdentifierFactory.join(input, "toJSON"),
                     undefined,
@@ -367,10 +397,13 @@ export namespace StringifyProgrammer {
     /* -----------------------------------------------------------
         EXPLORERS
     ----------------------------------------------------------- */
-    const explore_arrays = (modulo: ts.LeftHandSideExpression) =>
+    const explore_arrays = (
+        project: IProject,
+        modulo: ts.LeftHandSideExpression,
+    ) =>
         UnionExplorer.array(
-            IsProgrammer.decode(),
-            decode_array(modulo),
+            IsProgrammer.decode(project),
+            decode_array(project, modulo),
             () => ts.factory.createStringLiteral("[]"),
             (input) =>
                 ts.factory.createThrowStatement(
@@ -475,13 +508,14 @@ export namespace StringifyProgrammer {
         CONFIGURATIONS
     ----------------------------------------------------------- */
     const CONFIG = (
+        project: IProject,
         modulo: ts.LeftHandSideExpression,
     ): FeatureProgrammer.IConfig => ({
         functors: "stringify",
         trace: false,
         initializer,
-        decoder: decode(modulo),
-        objector: OBJECTOR(modulo),
+        decoder: decode(project, modulo),
+        objector: OBJECTOR(project, modulo),
     });
 
     const initializer: FeatureProgrammer.Initializer = ({ checker }, type) => {
@@ -499,9 +533,10 @@ export namespace StringifyProgrammer {
     };
 
     const OBJECTOR = (
+        project: IProject,
         modulo: ts.LeftHandSideExpression,
     ): FeatureProgrammer.IConfig.IObjector => ({
-        checker: IsProgrammer.decode(),
+        checker: IsProgrammer.decode(project),
         decoder: decode_object,
         joiner: StringifyJoiner.object,
         unionizer: (input, targets, explore) =>

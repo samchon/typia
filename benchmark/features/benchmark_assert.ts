@@ -10,6 +10,7 @@ import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { ArraySimple } from "../../test/structures/ArraySimple";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnion } from "../../test/structures/ArrayRecursiveUnion";
+import { UltimateUnion } from "../../test/structures/UltimateUnion";
 
 const assert = () => [
     CheckerBenchmarker.prepare(
@@ -33,8 +34,7 @@ const assert = () => [
         () => ObjectUnionExplicit.generate(),
         {
             "typescript-json": (input) => TSON.assertType(input),
-            "typescript-is": null,
-            // tis: (input) => Similar.assertType<typeof input>(input),
+            "typescript-is": (input) => null,
         },
     ),
     CheckerBenchmarker.prepare(
@@ -60,6 +60,14 @@ const assert = () => [
     CheckerBenchmarker.prepare(
         "array (recursive, union)",
         () => ArrayRecursiveUnion.generate(),
+        {
+            "typescript-json": (input) => TSON.assertType(input),
+            "typescript-is": (input) => Similar.assertType<typeof input>(input),
+        },
+    ),
+    CheckerBenchmarker.prepare(
+        "ultimate union",
+        () => UltimateUnion.generate(),
         {
             "typescript-json": (input) => TSON.assertType(input),
             "typescript-is": (input) => Similar.assertType<typeof input>(input),
