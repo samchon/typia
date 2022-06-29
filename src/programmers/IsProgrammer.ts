@@ -32,7 +32,7 @@ export namespace IsProgrammer {
         CheckerProgrammer.generate_functors(project, CONFIG());
 
     export const decode = (project: IProject) =>
-        CheckerProgrammer.decode(project, CONFIG());
+        CheckerProgrammer.decode(project, CONFIG(), false);
     export const decode_object = () =>
         CheckerProgrammer.decode_object(CONFIG());
     export function decode_to_json(input: ts.Expression): ts.Expression {
@@ -45,6 +45,12 @@ export namespace IsProgrammer {
                 ts.factory.createStringLiteral("function"),
                 ValueFactory.TYPEOF(IdentifierFactory.join(input, "toJSON")),
             ),
+        );
+    }
+    export function decode_functional(input: ts.Expression) {
+        return ts.factory.createStrictEquality(
+            ts.factory.createStringLiteral("function"),
+            ValueFactory.TYPEOF(input),
         );
     }
 }

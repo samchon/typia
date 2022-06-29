@@ -213,6 +213,14 @@ export namespace ApplicationProgrammer {
         const required: string[] = [];
 
         for (const property of obj.properties) {
+            if (
+                property.metadata.functional === true &&
+                property.metadata.nullable === false &&
+                property.metadata.required === true &&
+                property.metadata.size() === 0
+            )
+                continue;
+
             properties[property.name] = generate_schema(
                 options,
                 components,
@@ -242,6 +250,7 @@ function merge_metadata(x: Metadata, y: Metadata): Metadata {
         any: x.any || y.any,
         nullable: x.nullable || y.nullable,
         required: x.required && y.required,
+        functional: x.functional || y.functional,
 
         resolved:
             x.resolved !== null && y.resolved !== null

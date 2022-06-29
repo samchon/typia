@@ -64,26 +64,17 @@ After the installation, you've to configure the `tsconfig.json` file like below.
 
 Add the new property `transform` and its value `typescript-json/lib/transform` into the `compilerOptions.plugins` array. When configuring, I recommend you to use the `strict` option, to enforce developers to distinguish whether each property is nullable or undefindable.
 
-Also, you can configure additional properties like `numeric` and `functional`. The first, `numeric` is an option whether to test `Number.isNaN()` and `Number.isFinite()` to numeric value or not. The second, `functional` is an option whether to test function type or not. Default values of those options are all `false`.
+Also, you can configure additional properties like `numeric` and `functional`. The first, `numeric` is an option whether to test `Number.isNaN()` and `Number.isFinite()` to numeric value or not. The second, `functional` is an option whether to test function type or not. Default values of those options are all `true`.
 
-> Turning on those options only for a specific case is possible:
->
-> ```typescript
-> export interface ITransformOptions {
->     functional?: boolean | "validator" | "stringify";
->     numeric?: boolean | "validator" | "stringify";
-> }
-> ```
-
-```json
+```typescript
 {
   "compilerOptions": {
     "strict": true,
     "plugins": [
       {
         "transform": "typescript-json/lib/transform",
+        // "functional": false, // test function type
         // "numeric": false, // test `isNaN()` and `isFinite()`
-        // "functional": false // test function type
       }
     ]
   }

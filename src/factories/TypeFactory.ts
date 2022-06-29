@@ -8,10 +8,13 @@ export namespace TypeFactory {
         return get_return_type(checker, type, "toJSON");
     }
 
-    export function isFunction(node: ts.Node): boolean {
-        return get_function(node) !== null;
+    export function isFunction(type: ts.Type): boolean {
+        return getFunction(type) !== null;
     }
-    function get_function(node: ts.Node): ts.SignatureDeclaration | null {
+    function getFunction(type: ts.Type) {
+        const node = type.symbol?.declarations?.[0];
+        if (node === undefined) return null;
+
         return ts.isFunctionLike(node)
             ? node
             : ts.isPropertyAssignment(node) || ts.isPropertyDeclaration(node)
