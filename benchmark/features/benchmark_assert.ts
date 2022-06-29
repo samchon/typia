@@ -34,7 +34,7 @@ const assert = () => [
         () => ObjectUnionExplicit.generate(),
         {
             "typescript-json": (input) => TSON.assertType(input),
-            "typescript-is": (input) => null,
+            "typescript-is": null,
         },
     ),
     CheckerBenchmarker.prepare(
