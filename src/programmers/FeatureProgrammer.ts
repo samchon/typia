@@ -1,6 +1,6 @@
 import ts from "typescript";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
-import { IProject } from "../structures/IProject";
+import { IProject } from "../transformers/IProject";
 import { Escaper } from "../utils/Escaper";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { ValueFactory } from "../factories/ValueFactory";
@@ -50,13 +50,14 @@ export namespace FeatureProgrammer {
         GENERATORS
     ----------------------------------------------------------- */
     export function generate(
+        project: IProject,
         config: IConfig,
         addition?: (collection: MetadataCollection) => ts.Statement[],
     ) {
         const createFunctors = generate_functors(config);
         const createParameters = PARAMETERS(config.trace ? true : null);
 
-        return function (project: IProject, type: ts.Type) {
+        return function (type: ts.Type) {
             const [collection, meta] = config.initializer(project, type);
 
             // ITERATE OVER ALL METADATA

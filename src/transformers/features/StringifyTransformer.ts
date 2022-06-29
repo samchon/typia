@@ -1,6 +1,6 @@
 import ts from "typescript";
 import { StringifyProgrammer } from "../../programmers/StringifyProgrammer";
-import { IProject } from "../../structures/IProject";
+import { IProject } from "../IProject";
 
 export namespace StringifyTransformer {
     export function transform(
@@ -21,7 +21,7 @@ export namespace StringifyTransformer {
             throw new Error(ErrorMessages.GENERIC_ARGUMENT);
 
         return ts.factory.createCallExpression(
-            StringifyProgrammer.generate(modulo)(project, type),
+            StringifyProgrammer.generate(project, modulo)(type),
             undefined,
             [expression.arguments[0]!],
         );

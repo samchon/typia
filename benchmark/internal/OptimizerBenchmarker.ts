@@ -1,6 +1,6 @@
 import benchmark from "benchmark";
 
-export namespace StringifyBenchmarker {
+export namespace OptimizerBenchmarker {
     export interface IOutput {
         name: string;
         "typescript-json": number;
@@ -8,8 +8,8 @@ export namespace StringifyBenchmarker {
         "JSON.stringify()": number;
     }
     export interface IParameters<T> {
-        "typescript-json": (input: T) => string;
-        "fast-json-stringify": null | ((input: T) => string);
+        "typescript-json": () => (input: T) => string;
+        "fast-json-stringify": () => null | ((input: T) => string);
     }
 
     export function prepare<T>(
@@ -21,11 +21,12 @@ export namespace StringifyBenchmarker {
 
         const suite: benchmark.Suite = new benchmark.Suite();
         suite.add("JSON.stringify()", () => JSON.stringify(data));
-        if (parameters["fast-json-stringify"] !== null)
-            suite.add("fast-json-stringify", () =>
-                parameters["fast-json-stringify"]!(data),
-            );
-        suite.add("typescript-json", () => parameters["typescript-json"](data));
+
+        const ajv = parameters["fast-json-stringify"]();
+        if (ajv !== null) suite.add("fast-json-stringify", () => ajv!(data));
+        suite.add("typescript-json", () =>
+            parameters["typescript-json"]()(data),
+        );
 
         return () => {
             const output: IOutput = {

@@ -1,7 +1,7 @@
 import ts from "typescript";
 
 import { IsProgrammer } from "../../programmers/IsProgrammer";
-import { IProject } from "../../structures/IProject";
+import { IProject } from "../IProject";
 
 export namespace IsTransformer {
     export function transform(
@@ -22,7 +22,7 @@ export namespace IsTransformer {
             throw new Error(ErrorMessages.GENERIC_ARGUMENT);
 
         return ts.factory.createCallExpression(
-            IsProgrammer.generate()(project, type),
+            IsProgrammer.generate(project)(type),
             undefined,
             [expression.arguments[0]!],
         );
