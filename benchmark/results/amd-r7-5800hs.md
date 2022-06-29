@@ -2,44 +2,46 @@
 > typescript-json@3.0.2 benchmark
 > node benchmark/index.js
 
-{ x: 4, y: 64 } undefined $input[2].p3
 ## stringify
- Components | typescript-json | fast-json-stringify | JSON.stringify() | ideal 
-------------|-----------------|---------------------|------------------|-------
-object (simple) | 41251.53032832499 | 34672.28915662651 | 4352.649917476618 | 58388.226664221525
-object (hierarchical) | 4928.817243253034 | Failed | 1266.6666666666667 | 5693.122676579926
-object (recursive) | 5147.537948907811 | 938.9799635701274 | 950.3231763619575 | 6271.420774968165
-object (union, implicit) | 2119.142753359971 | Failed | 530.051622418879 | 2214.7725179591084
-object (union, explicit) | 2045.8015267175574 | Failed | 518.0902648265572 | 1923.2312180889862
-array (hierarchical) | 109.54446854663775 | Failed | 28.469750889679712 | 103.31702011963023
-array (recursive) | 260.71821179919385 | 74.12272471383 | 73.41158934227688 | 246.9868347858335
-array (recursive, union) | 408.0427965320051 | Failed | 155.16919050289772 | 466.55850009013886
+ Components | typescript-json | fast-json-stringify | JSON.stringify() 
+------------|-----------------|---------------------|------------------
+object (simple) | 109697.83783783784 | 32173.0979250091 | 4110.231873389768
+object (hierarchical) | 4877.503157135126 | 4708.547322083639 | 1168.6634219393486
+object (recursive) | 5512.32977548767 | 910.4422147900409 | 910.268270120259
+object (union, implicit) | 2149.3634570557647 | 1593.6588921282798 | 472.992700729927
+object (union, explicit) | 2007.513285688107 | 1335.338071806087 | 458.4575260804769
+array (hierarchical) | 251.6316171138506 | 352.18744279699797 | 68.21506949524506
+array (recursive) | 246.9021638616608 | 71.71903881700554 | 72.56108934900206
+array (recursive, union) | 401.98968312453945 | 161.7460604962869 | 175.08856983031885
+ultimate union | 1212.9291453615779 | Failed | 137.31734732109405
 
 
 
 ## assert
  Components | typescript-json | typescript-is 
 ------------|-----------------|---------------
-object (hierarchical) | 20175.44179267626 | 23229.535398230088
-object (recursive) | 22023.38858195212 | 22485.558583106267
-object (union, explicit) | 5118.536052439913 | Failed
-object (union, implicit) | 4444.236876517841 | Failed
-array (simple) | 3221.3218080316947 | 2452.0693314467635
-array (recursive) | 1592.552225249773 | 1516.2112932604734
-array (recursive, union) | 1823.6042916893982 | 235.01461988304092
+object (hierarchical) | 19034.11978221416 | 22015.165357208112
+object (recursive) | 19846.841913106975 | 22100.623167155423
+object (union, explicit) | 4259.388807069219 | 10362326.862636346
+object (union, implicit) | 4263.948100092679 | 2245.5057199927364
+array (simple) | 6389.554641387945 | 4486.881559220389
+array (recursive) | 1904.5301385248972 | 1500.646830530401
+array (recursive, union) | 1936.90036900369 | 229.94350282485877
+ultimate union | 4170.197224251278 | 32.475598935226266
 
 
 
 ## is
  Components | typescript-json | typescript-is 
 ------------|-----------------|---------------
-object (hierarchical) | 102580.87201125176 | 47721.91561331672
-object (recursive) | 85596.00144092219 | 47513.667217024406
-object (union, explicit) | 16855.331841909025 | Failed
-object (union, implicit) | 17854.829704075935 | Failed
-array (simple) | 16826.8156424581 | 31814.498141263943
-array (recursive) | 7305.888670127081 | 4727.03263535182
-array (recursive, union) | 8150.408719346049 | 1095.0848972296694
+object (hierarchical) | 102259.0539541759 | 44246.57283860355
+object (recursive) | 68858.08219178082 | 44450.46829971182
+object (union, explicit) | 12806.001765225066 | Failed
+object (union, implicit) | 15126.428441864684 | 7343.302519485227
+array (simple) | 7072.57184430702 | 15952.40710232473
+array (recursive) | 7222.098214285714 | 4492.433910665451
+array (recursive, union) | 7189.139268562985 | 1078.8292332555216
+ultimate union | 7396.359048305696 | 285.3205952599669
 
 
 

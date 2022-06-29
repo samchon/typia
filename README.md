@@ -1,5 +1,5 @@
 # TypeScript-JSON
-Runtime type checker, and 10x faster `JSON.stringify()` function, with only one line.
+Runtime type checker, and 5x faster `JSON.stringify()` function, with only one line.
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typescript-json/blob/master/LICENSE)
 [![npm version](https://img.shields.io/npm/v/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
@@ -19,7 +19,7 @@ import TSON from "typescript-json";
 //----
 TSON.assertType<T>(input); // runtime type checker throwing exception
 TSON.is<T>(input); // runtime type checker returning boolean
-TSON.stringify<T>(input); // 10x faster JSON.stringify()
+TSON.stringify<T>(input); // 5x faster JSON.stringify()
 
 //----
 // APPENDIX FUNCTIONS
@@ -34,12 +34,12 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
     - Performed by only one line, `TSON.assertType<T>(input)`
     - Does not require any JSON schema definition
     - Only one library which can validate union type
-  - 10x faster `JSON.stringify()` function:
+  - 5x faster `JSON.stringify()` function:
     - Performed by only one line: `TSON.stringify<T>(input)`
     - Does not require any JSON schema definition
     - 10,000x faster optimizer construction time than similar libaries
 
-![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/175801446-08091ac0-ac47-4e7c-be78-45b10b622d38.png)
+![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/176545095-612f6ce2-b46b-4954-a2b3-eafd8e132a53.png)
 
 
 
@@ -163,13 +163,13 @@ export function stringify<T>(input: T): string;
 
 Super-fast JSON string conversion function.
 
-If you call `TSON.stringify()` function instead of the native `JSON.stringify()`, the JSON conversion time would be 10x times faster. Also, you can perform such super-fast JSON string conversion very easily, by only one line: `TSON.stringify<T>(input)`.
+If you call `TSON.stringify()` function instead of the native `JSON.stringify()`, the JSON conversion time would be 5x times faster. Also, you can perform such super-fast JSON string conversion very easily, by only one line: `TSON.stringify<T>(input)`.
 
 On the other side, other similary library like `fast-json-stringify` requires complicate JSON schema definition. Furthermore, `typescript-json` can convert complicate structured data that `fast-json-stringify` cannot convert.
 
-Comparing performance, `typescript-json` is about 10x times faster when comparing only JSON string conversion time. If compare optimizer construction time with only one call, `typescript-json` is even 10,000x times faster.
+Comparing performance, `typescript-json` is about 5x times faster when comparing only JSON string conversion time. If compare optimizer construction time with only one call, `typescript-json` is even 10,000x times faster.
 
-![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/175801521-aad74095-fe6e-44e4-aa89-d08936ce3f34.png)
+![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/176545277-8bdb6a59-6669-41d0-9c74-f3afe204af30.png)
 
 ### JSON Schema Generation
 ```typescript
@@ -214,7 +214,7 @@ Intersection type | ✔ | ✔ | ▲
 Conditional type | ✔ | ▲ | ❌
 Auto completion | ✔ | ❌ | ❌
 Type hints | ✔ | ❌ | ❌
-10x faster `JSON.stringify()` | ✔ | ❌ | ❌
+5x faster `JSON.stringify()` | ✔ | ❌ | ❌
 Ensure type safety | ✅ | ❌ | ❌
 
 ```typescript
@@ -279,9 +279,9 @@ export async function trace_sale_question_and_comment
 
 https://github.com/samchon/nestia-helper
 
-Boost up `JSON.stringify()` function, of the API responses, 10x times faster.
+Boost up `JSON.stringify()` function, of the API responses, 5x times faster.
 
-`nestia-helper` is a helper library of `NestJS`, which can boost up the `JSON.stringify()` function 10x times faster about the API responses. Just by installing and utilizing this `nestia-helper`, your NestJS developed backend server will convert JSON string 10x times faster.
+`nestia-helper` is a helper library of `NestJS`, which can boost up the `JSON.stringify()` function 5x times faster about the API responses. Just by installing and utilizing this `nestia-helper`, your NestJS developed backend server will convert JSON string 5x times faster.
 
 ```typescript
 import helper from "nestia-helper";
@@ -290,7 +290,7 @@ import * as nest from "@nestjs/common";
 @nest.Controller("bbs/articles")
 export class BbsArticlesController
 {
-    // JSON.stringify() would be 10x times faster 
+    // JSON.stringify() would be 5x times faster 
     @helper.TypedRoute.Get()
     public get(): Promise<IPage<IBbsArticle.ISummary>>;
 }
