@@ -6,10 +6,8 @@ export namespace StringifyBenchmarker {
         "typescript-json": number;
         "fast-json-stringify": number | null;
         "JSON.stringify()": number;
-        ideal: number;
     }
     export interface IParameters<T> {
-        ideal: (input: T) => string;
         "typescript-json": (input: T) => string;
         "fast-json-stringify": null | ((input: T) => string);
     }
@@ -27,7 +25,6 @@ export namespace StringifyBenchmarker {
             suite.add("fast-json-stringify", () =>
                 parameters["fast-json-stringify"]!(data),
             );
-        suite.add("ideal", () => parameters.ideal(data));
         suite.add("typescript-json", () => parameters["typescript-json"](data));
 
         return () => {
@@ -36,7 +33,6 @@ export namespace StringifyBenchmarker {
                 "typescript-json": 0,
                 "fast-json-stringify": null,
                 "JSON.stringify()": 0,
-                ideal: 0,
             };
             suite.run();
             suite.map((elem: benchmark) => {

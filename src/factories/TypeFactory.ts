@@ -8,10 +8,13 @@ export namespace TypeFactory {
         return get_return_type(checker, type, "toJSON");
     }
 
-    export function isFunction(node: ts.Node): boolean {
-        return get_function(node) !== null;
+    export function isFunction(type: ts.Type): boolean {
+        return getFunction(type) !== null;
     }
-    function get_function(node: ts.Node): ts.SignatureDeclaration | null {
+    function getFunction(type: ts.Type) {
+        const node = type.symbol?.declarations?.[0];
+        if (node === undefined) return null;
+
         return ts.isFunctionLike(node)
             ? node
             : ts.isPropertyAssignment(node) || ts.isPropertyDeclaration(node)
@@ -66,15 +69,7 @@ export namespace TypeFactory {
         //----
         // SPECIALIZATION
         //----
-        const name: string = (() => {
-            const str: string = get_name(symbol);
-            // const index: number = str.lastIndexOf("__type");
-            // if (index !== str.length - "__type".length) return str;
-
-            // const node = checker.typeToTypeNode(type, undefined, undefined);
-            // if (node === undefined || !ts.isTypeLiteralNode(node)) return str;
-            return str;
-        })();
+        const name: string = get_name(symbol);
 
         // CHECK GENERIC
         const generic: readonly ts.Type[] = checker.getTypeArguments(

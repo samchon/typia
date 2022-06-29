@@ -1,4 +1,4 @@
-import { IMetadataObject } from "../structures/IMetadataObject";
+import { IMetadataObject } from "./IMetadataObject";
 import { ClassProperties } from "../typings/ClassProperties";
 import { MetadataProperty } from "./MetadataProperty";
 

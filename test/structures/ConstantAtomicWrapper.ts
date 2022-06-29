@@ -1,11 +1,12 @@
-import { IPointer } from "../../src/structures/IPointer";
-
 export type ConstantAtomicWrapper = [
-    IPointer<boolean>,
-    IPointer<number>,
-    IPointer<string>,
+    ConstantAtomicWrapper.IPointer<boolean>,
+    ConstantAtomicWrapper.IPointer<number>,
+    ConstantAtomicWrapper.IPointer<string>,
 ];
 export namespace ConstantAtomicWrapper {
+    export interface IPointer<T> {
+        value: T;
+    }
     export function generate(): ConstantAtomicWrapper {
         return [{ value: false }, { value: 1 }, { value: "two" }];
     }

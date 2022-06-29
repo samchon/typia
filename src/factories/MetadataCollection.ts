@@ -4,10 +4,12 @@ import { TypeFactory } from "./TypeFactory";
 import { MapUtil } from "../utils/MapUtil";
 import { CommentFactory } from "./CommentFactory";
 import { MetadataObject } from "../metadata/MetadataObject";
+import { Metadata } from "../metadata/Metadata";
 
 export class MetadataCollection {
     private readonly dict_: Map<ts.Type, MetadataObject>;
     private readonly names_: Map<string, Map<ts.Type, string>>;
+    private readonly unions_: Map<string, MetadataObject[]>;
     private index_: number;
 
     public constructor(
@@ -15,15 +17,15 @@ export class MetadataCollection {
     ) {
         this.dict_ = new Map();
         this.names_ = new Map();
+        this.unions_ = new Map();
         this.index_ = 0;
     }
 
-    public storage(): Map<string, MetadataObject> {
-        const storage: Map<string, MetadataObject> = new Map();
-        for (const obj of this.dict_.values()) {
-            storage.set(obj.name, obj);
-        }
-        return storage;
+    public objects(): MetadataObject[] {
+        return [...this.dict_.values()];
+    }
+    public unions(): MetadataObject[][] {
+        return [...this.unions_.values()];
     }
 
     public emplace(
@@ -50,6 +52,15 @@ export class MetadataCollection {
         });
         this.dict_.set(type, obj);
         return [obj, true];
+    }
+
+    /**
+     * @internal
+     */
+    public getUnionIndex(meta: Metadata): number {
+        const key: string = meta.objects.map((obj) => obj.name).join(" | ");
+        MapUtil.take(this.unions_, key, () => meta.objects);
+        return this.unions_.size - 1;
     }
 
     private get_name(checker: ts.TypeChecker, type: ts.Type): string {

@@ -6,8 +6,8 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 import { Metadata } from "../../metadata/Metadata";
 import { ApplicationProgrammer } from "../../programmers/ApplicationProgrammer";
 
-import { IJsonApplication } from "../../structures/IJsonApplication";
-import { IProject } from "../../structures/IProject";
+import { IJsonApplication } from "../../schemas/IJsonApplication";
+import { IProject } from "../IProject";
 
 export namespace ApplicationTransformer {
     export function transform(

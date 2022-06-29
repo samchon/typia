@@ -1,15 +1,15 @@
 import ts from "typescript";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { TemplateFactory } from "../../factories/TemplateFactory";
-import { IExpressionEntry } from "../../structures/IExpressionEntry";
+import { ValueFactory } from "../../factories/ValueFactory";
+import { Metadata } from "../../metadata/Metadata";
+import { IExpressionEntry } from "./IExpressionEntry";
 
 export namespace StringifyJoiner {
     export function object(entries: IExpressionEntry[]): ts.ConciseBody {
         // CHECK AND SORT ENTRIES
         if (entries.length === 0) return ts.factory.createStringLiteral("{}");
-        entries.sort(
-            (x, y) => Number(x.meta.required) - Number(y.meta.required),
-        );
+        entries.sort((x, y) => sequence(x.meta) - sequence(y.meta));
 
         // GATHER PROPERTY EXNRESSIONS
         const expressions: ts.Expression[] = [];
@@ -24,30 +24,57 @@ export namespace StringifyJoiner {
                     ts.factory.createStringLiteral(`,${" ".repeat(SPACES)}`),
                 );
 
-            if (entry.meta.required /* || recursive !== null*/)
-                expressions.push(...base);
-            else
+            const empty: boolean =
+                (entry.meta.required === false &&
+                    entry.meta.nullable === false &&
+                    entry.meta.size() === 0) ||
+                (entry.meta.functional &&
+                    entry.meta.nullable === false &&
+                    entry.meta.size() === 1);
+
+            if (empty === true)
+                expressions.push(ts.factory.createStringLiteral(""));
+            else if (
+                entry.meta.required === false ||
+                entry.meta.functional === true ||
+                entry.meta.any === true
+            )
                 expressions.push(
                     ts.factory.createConditionalExpression(
-                        ts.factory.createStrictInequality(
-                            entry.input,
-                            ts.factory.createIdentifier("undefined"),
-                        ),
-                        undefined,
-                        TemplateFactory.generate(base),
+                        (() => {
+                            const conditions: ts.BinaryExpression[] = [];
+                            if (entry.meta.required === false || entry.meta.any)
+                                conditions.push(
+                                    ts.factory.createStrictEquality(
+                                        ts.factory.createIdentifier(
+                                            "undefined",
+                                        ),
+                                        entry.input,
+                                    ),
+                                );
+                            if (entry.meta.functional || entry.meta.any)
+                                conditions.push(
+                                    ts.factory.createStrictEquality(
+                                        ts.factory.createStringLiteral(
+                                            "function",
+                                        ),
+                                        ValueFactory.TYPEOF(entry.input),
+                                    ),
+                                );
+                            return conditions.length === 1
+                                ? conditions[0]!
+                                : conditions.reduce((x, y) =>
+                                      ts.factory.createLogicalOr(x, y),
+                                  );
+                        })(),
                         undefined,
                         ts.factory.createStringLiteral(""),
+                        undefined,
+                        TemplateFactory.generate(base),
                     ),
                 );
+            else expressions.push(...base);
         });
-        // if (recursive !== null)
-        //     return TemplateFactory.generate([
-        //         ts.factory.createStringLiteral("{"),
-        //         ...expressions,
-        //         ts.factory.createStringLiteral(
-        //             `${JSON.stringify(recursive.key)}:[`,
-        //         ),
-        //     ]);
 
         const last: IExpressionEntry = entries[entries.length - 1]!;
         const filtered: ts.Expression[] = last.meta.required
@@ -60,7 +87,6 @@ export namespace StringifyJoiner {
                   ),
               ];
         return TemplateFactory.generate([
-            // ts.factory.createStringLiteral(" ".repeat(SPACES * 4)),
             ts.factory.createStringLiteral(`{${" ".repeat(SPACES)}`),
             ...filtered,
             ts.factory.createStringLiteral(`${" ".repeat(SPACES)}}`),
@@ -70,7 +96,7 @@ export namespace StringifyJoiner {
     export function array(
         input: ts.Expression,
         arrow: ts.ArrowFunction,
-    ): ts.TemplateExpression {
+    ): ts.Expression {
         return TemplateFactory.generate([
             ts.factory.createStringLiteral(`[${" ".repeat(SPACES)}`),
             ts.factory.createCallExpression(
@@ -91,6 +117,14 @@ export namespace StringifyJoiner {
 
     export function tuple(children: ts.Expression[]): ts.Expression {
         if (children.length === 0) return ts.factory.createStringLiteral("[]");
+        if (children.every((child) => ts.isStringLiteral(child)))
+            return ts.factory.createStringLiteral(
+                "[" +
+                    children
+                        .map((child) => (child as ts.StringLiteral).text)
+                        .join(",") +
+                    "]",
+            );
 
         const elements: ts.Expression[] = [
             ts.factory.createStringLiteral(`[${" ".repeat(SPACES)}`),
@@ -105,6 +139,10 @@ export namespace StringifyJoiner {
         elements.push(ts.factory.createStringLiteral(`${" ".repeat(SPACES)}]`));
         return TemplateFactory.generate(elements);
     }
+}
+
+function sequence(meta: Metadata): number {
+    return meta.any || !meta.required || meta.functional ? 0 : 1;
 }
 
 const SPACES = 0;

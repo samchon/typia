@@ -1,9 +1,9 @@
 import { Metadata } from "../metadata/Metadata";
 import { MetadataConstant } from "../metadata/MetadataConstant";
 import { MetadataObject } from "../metadata/MetadataObject";
-import { IJsonApplication } from "../structures/IJsonApplication";
-import { IJsonComponents } from "../structures/IJsonComponents";
-import { IJsonSchema } from "../structures/IJsonSchema";
+import { IJsonApplication } from "../schemas/IJsonApplication";
+import { IJsonComponents } from "../schemas/IJsonComponents";
+import { IJsonSchema } from "../schemas/IJsonSchema";
 import { ArrayUtil } from "../utils/ArrayUtil";
 
 export namespace ApplicationProgrammer {
@@ -121,9 +121,10 @@ export namespace ApplicationProgrammer {
         constant: MetadataConstant,
         nullable: boolean,
         description: string | undefined,
-    ): IJsonSchema.IEnumeration {
+    ): IJsonSchema.IEnumeration<any> {
         return {
-            enum: constant.values,
+            type: constant.type,
+            enum: constant.values as any,
             nullable,
             description,
         };
@@ -154,7 +155,7 @@ export namespace ApplicationProgrammer {
     function generate_recursive_pointer(
         $recursiveRef: string,
         description: string | undefined,
-    ): IJsonSchema.IRecursivePointer {
+    ): IJsonSchema.IRecursiveReference {
         return {
             $recursiveRef,
             description,
@@ -212,6 +213,14 @@ export namespace ApplicationProgrammer {
         const required: string[] = [];
 
         for (const property of obj.properties) {
+            if (
+                property.metadata.functional === true &&
+                property.metadata.nullable === false &&
+                property.metadata.required === true &&
+                property.metadata.size() === 0
+            )
+                continue;
+
             properties[property.name] = generate_schema(
                 options,
                 components,
@@ -241,6 +250,7 @@ function merge_metadata(x: Metadata, y: Metadata): Metadata {
         any: x.any || y.any,
         nullable: x.nullable || y.nullable,
         required: x.required && y.required,
+        functional: x.functional || y.functional,
 
         resolved:
             x.resolved !== null && y.resolved !== null

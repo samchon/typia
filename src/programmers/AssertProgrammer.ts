@@ -3,7 +3,7 @@ import { StatementFactory } from "../factories/StatementFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
-import { IProject } from "../structures/IProject";
+import { IProject } from "../transformers/IProject";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 
 export namespace AssertProgrammer {
@@ -28,14 +28,11 @@ export namespace AssertProgrammer {
             ts.factory.createBlock([
                 ts.factory.createExpressionStatement(
                     ts.factory.createCallExpression(
-                        CheckerProgrammer.generate({
-                            combiner: combine(modulo),
-                            functors: {
-                                name: "assertType",
-                                filter: (obj) => obj.validated,
-                            },
+                        CheckerProgrammer.generate(project, {
+                            functors: "assertType",
                             trace: true,
-                        })(project, type),
+                            combiner: combine(modulo),
+                        })(type),
                         undefined,
                         [ValueFactory.INPUT()],
                     ),
@@ -49,9 +46,9 @@ export namespace AssertProgrammer {
         modulo: ts.LeftHandSideExpression,
     ): CheckerProgrammer.IConfig.Combiner {
         return (explore: CheckerProgrammer.IExplore) => {
-            const combiner = IsProgrammer.CONFIG.combiner(explore);
+            const combiner = IsProgrammer.CONFIG().combiner;
             if (explore.tracable === false && explore.from !== "top")
-                return combiner;
+                return combiner(explore);
 
             const path = explore.postfix ? `path + ${explore.postfix}` : "path";
             const failure = ts.factory.createStrictEquality(
@@ -116,7 +113,7 @@ export namespace AssertProgrammer {
                     undefined,
                 );
             return (type) => {
-                const typer = combiner(type);
+                const typer = combiner(explore)(type);
                 return (input, expressions) => {
                     const output = typer(input, expressions);
                     return wrapper(input, output);
