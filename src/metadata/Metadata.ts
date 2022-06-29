@@ -10,6 +10,7 @@ export class Metadata {
     public readonly any: boolean;
     public readonly required: boolean;
     public readonly nullable: boolean;
+    public readonly functional: boolean;
 
     public readonly resolved: Metadata | null;
     public readonly atomics: Atomic.Literal[];
@@ -39,6 +40,7 @@ export class Metadata {
         this.any = props.any;
         this.required = props.required;
         this.nullable = props.nullable;
+        this.functional = props.functional;
 
         this.resolved = props.resolved;
         this.atomics = props.atomics;
@@ -63,6 +65,7 @@ export class Metadata {
             any: false,
             nullable: false,
             required: true,
+            functional: false,
 
             resolved: null,
             constants: [],
@@ -78,6 +81,7 @@ export class Metadata {
             any: this.any,
             required: this.required,
             nullable: this.nullable,
+            functional: this.functional,
 
             atomics: this.atomics.slice(),
             constants: JSON.parse(JSON.stringify(this.constants)),
@@ -118,6 +122,7 @@ export class Metadata {
             any: meta.any,
             required: meta.required,
             nullable: meta.nullable,
+            functional: meta.functional,
 
             resolved: meta.resolved ? this._From(meta.resolved, objects) : null,
             atomics: meta.atomics.slice(),
@@ -152,6 +157,7 @@ export class Metadata {
     public size(): number {
         return (
             (this.resolved ? 1 : 0) +
+            (this.functional ? 1 : 0) +
             this.atomics.length +
             this.constants
                 .map((c) => c.values.length)
@@ -164,6 +170,7 @@ export class Metadata {
     public bucket(): number {
         return (
             (this.resolved ? 1 : 0) +
+            (this.functional ? 1 : 0) +
             (this.atomics.length ? 1 : 0) +
             (this.constants.length ? 1 : 0) +
             (this.arrays.length ? 1 : 0) +
@@ -246,6 +253,10 @@ export namespace Metadata {
             if (values.size !== constant.values.length + opposite.values.length)
                 return true;
         }
+
+        // FUNCTIONAL
+        if (x.functional === true && y.functional === true) return true;
+
         return false;
     }
 
@@ -300,6 +311,9 @@ export namespace Metadata {
             )
                 return false;
         }
+
+        // FUNCTIONAL
+        if (x.functional === false && y.functional) return false;
 
         // SUCCESS
         return true;

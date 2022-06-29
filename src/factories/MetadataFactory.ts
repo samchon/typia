@@ -191,7 +191,7 @@ export namespace MetadataFactory {
         );
         if (node === undefined) return;
 
-        // UNKNOWN, NULL OR UNDEFINED
+        // UNKNOWN, NULL, UNDEFINED OR FUNCTION
         if (
             filter(ts.TypeFlags.Unknown) ||
             filter(ts.TypeFlags.Never) ||
@@ -208,6 +208,9 @@ export namespace MetadataFactory {
             filter(ts.TypeFlags.VoidLike)
         ) {
             Writable(meta).required = false;
+            return;
+        } else if (TypeFactory.isFunction(type) === true) {
+            Writable(meta).functional = true;
             return;
         }
 
@@ -346,12 +349,6 @@ export namespace MetadataFactory {
                     | undefined;
 
             if (!node || !pred(node)) continue;
-            else if (
-                node
-                    .getChildren()
-                    .some((child) => TypeFactory.isFunction(child))
-            )
-                continue;
 
             // CHECK NOT PRIVATE OR PROTECTED MEMBER
             if (isClass) {

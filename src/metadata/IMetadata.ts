@@ -5,6 +5,7 @@ export interface IMetadata {
     any: boolean;
     required: boolean;
     nullable: boolean;
+    functional: boolean;
 
     atomics: Atomic.Literal[];
     constants: IMetadataConstant[];

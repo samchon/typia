@@ -1,9 +1,7 @@
 import ts from "typescript";
 
 export namespace TemplateFactory {
-    export function generate(
-        expressions: ts.Expression[],
-    ): ts.TemplateExpression {
+    export function generate(expressions: ts.Expression[]): ts.Expression {
         const it: IIerator = {
             value: "",
             index: 0,
@@ -21,9 +19,9 @@ export namespace TemplateFactory {
             spans.push(
                 ts.factory.createTemplateSpan(
                     elem,
-                    (broken
-                        ? ts.factory.createTemplateTail
-                        : ts.factory.createTemplateMiddle)(it.value),
+                    broken
+                        ? ts.factory.createTemplateTail(it.value)
+                        : ts.factory.createTemplateMiddle(it.value),
                 ),
             );
             if (broken === true) break;

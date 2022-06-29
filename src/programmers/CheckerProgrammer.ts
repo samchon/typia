@@ -9,6 +9,7 @@ import { Metadata } from "../metadata/Metadata";
 import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 import { IProject } from "../transformers/IProject";
+import { OptionPreditor } from "./helpers/OptionPredicator";
 
 export namespace CheckerProgrammer {
     export interface IConfig {
@@ -87,7 +88,11 @@ export namespace CheckerProgrammer {
     /* -----------------------------------------------------------
         DECODERS
     ----------------------------------------------------------- */
-    export function decode(project: IProject, config: IConfig) {
+    export function decode(
+        project: IProject,
+        config: IConfig,
+        numeric: boolean = true,
+    ) {
         return function (
             input: ts.Expression,
             meta: Metadata,
@@ -106,19 +111,40 @@ export namespace CheckerProgrammer {
                     ? ts.factory.createStringLiteral(value)
                     : ts.factory.createIdentifier(value.toString());
 
+            //----
             // CHECK OPTIONAL
+            //----
             const checkOptional: boolean = meta.empty() || meta.isUnionBucket();
+
+            // NULLABLE
             if (checkOptional || meta.nullable || meta.objects.length)
                 (meta.nullable ? add : create_add(top)(input))(
                     meta.nullable,
                     ValueFactory.NULL(),
                 );
+
+            // UNDEFINDABLE
             if (checkOptional || !meta.required)
                 (meta.required ? create_add(top)(input) : add)(
                     !meta.required,
                     ValueFactory.UNDEFINED(),
                 );
 
+            // FUNCTIONAL
+            if (
+                meta.functional === true &&
+                (OptionPreditor.functional(project.options) ||
+                    meta.size() !== 1)
+            )
+                add(
+                    true,
+                    ts.factory.createStringLiteral("function"),
+                    ValueFactory.TYPEOF(input),
+                );
+
+            //----
+            // VALUES
+            //----
             // CONSTANT VALUES
             for (const constant of meta.constants)
                 for (const val of constant.values)
@@ -127,7 +153,7 @@ export namespace CheckerProgrammer {
             // ATOMIC VALUES
             for (const type of meta.atomics)
                 if (type === "number")
-                    binaries.push(decode_number(project)(input));
+                    binaries.push(decode_number(project, numeric)(input));
                 else
                     add(
                         true,
@@ -135,6 +161,9 @@ export namespace CheckerProgrammer {
                         ValueFactory.TYPEOF(input),
                     );
 
+            //----
+            // INSTANCES
+            //----
             // TUPLE
             if (meta.tuples.length > 0) {
                 const inner: ts.Expression[] = [];
@@ -193,15 +222,14 @@ export namespace CheckerProgrammer {
         };
     }
 
-    function decode_number(project: IProject) {
+    function decode_number(project: IProject, numeric: boolean) {
         return function (input: ts.Expression) {
             const typeOf = ts.factory.createStrictEquality(
                 ts.factory.createStringLiteral("number"),
                 ts.factory.createTypeOfExpression(input),
             );
-            const numeric: boolean =
-                project.options.numeric === true ||
-                project.options.numeric === "checker";
+            numeric =
+                numeric && OptionPreditor.numeric(project.options, "checker");
 
             if (numeric === false) return typeOf;
             return [

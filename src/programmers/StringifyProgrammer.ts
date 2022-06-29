@@ -12,6 +12,8 @@ import { ArrayUtil } from "../utils/ArrayUtil";
 import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 import { IProject } from "../transformers/IProject";
+import { ValueFactory } from "../factories/ValueFactory";
+import { OptionPreditor } from "./helpers/OptionPredicator";
 
 export namespace StringifyProgrammer {
     /* -----------------------------------------------------------
@@ -26,8 +28,9 @@ export namespace StringifyProgrammer {
             CONFIG(project, modulo),
             (collection) => {
                 const functors = [
-                    "number",
-                    "numberNullable",
+                    ...(OptionPreditor.numeric(project.options, "stringify")
+                        ? ["number", "numberNullable"]
+                        : []),
                     "string",
                     "tail",
                 ].map((name) =>
@@ -68,10 +71,22 @@ export namespace StringifyProgrammer {
         ): ts.Expression => {
             // ANY TYPE
             if (meta.any === true)
-                return ts.factory.createCallExpression(
-                    ts.factory.createIdentifier("JSON.stringify"),
-                    undefined,
-                    [input],
+                return wrap_required(
+                    input,
+                    meta,
+                    explore,
+                )(
+                    wrap_functional(
+                        input,
+                        meta,
+                        explore,
+                    )(
+                        ts.factory.createCallExpression(
+                            ts.factory.createIdentifier("JSON.stringify"),
+                            undefined,
+                            [input],
+                        ),
+                    ),
                 );
 
             // ONLY NULL OR UNDEFINED
@@ -82,22 +97,22 @@ export namespace StringifyProgrammer {
             ) {
                 if (meta.required === false && meta.nullable === true)
                     return explore.from === "array"
-                        ? ts.factory.createNull()
+                        ? ts.factory.createStringLiteral("null")
                         : ts.factory.createConditionalExpression(
                               ts.factory.createStrictEquality(
                                   ts.factory.createNull(),
                                   input,
                               ),
                               undefined,
-                              ts.factory.createNull(),
+                              ts.factory.createStringLiteral("null"),
                               undefined,
                               ts.factory.createIdentifier("undefined"),
                           );
                 else if (meta.required === false)
                     return explore.from === "array"
-                        ? ts.factory.createNull()
+                        ? ts.factory.createStringLiteral("null")
                         : ts.factory.createIdentifier("undefined");
-                else return ts.factory.createNull();
+                else return ts.factory.createStringLiteral("null");
             }
 
             //----
@@ -124,6 +139,12 @@ export namespace StringifyProgrammer {
                                 explore,
                             ),
                     });
+            else if (meta.functional === true)
+                unions.push({
+                    type: "functional",
+                    is: () => IsProgrammer.decode_functional(input),
+                    value: () => decode_functional(explore),
+                });
 
             // ATOMICS AND CONSTANTS
             for (const constant of meta.constants)
@@ -340,10 +361,9 @@ export namespace StringifyProgrammer {
                 );
             else if (
                 type === "number" &&
-                (project.options.numeric === true ||
-                    project.options.numeric === "stringify")
+                OptionPreditor.numeric(project.options, "stringify")
             )
-                return ts.factory.createCallExpression(
+                input = ts.factory.createCallExpression(
                     ts.factory.createIdentifier(
                         nullable ? `$numberNullable` : `$number`,
                     ),
@@ -393,6 +413,12 @@ export namespace StringifyProgrammer {
                 explore,
             );
         };
+
+    function decode_functional(explore: FeatureProgrammer.IExplore) {
+        return explore.from === "array"
+            ? ts.factory.createStringLiteral("null")
+            : ts.factory.createIdentifier("undefined");
+    }
 
     /* -----------------------------------------------------------
         EXPLORERS
@@ -444,7 +470,8 @@ export namespace StringifyProgrammer {
         meta: Metadata,
         explore: FeatureProgrammer.IExplore,
     ): (expression: ts.Expression) => ts.Expression {
-        if (meta.required === true) return (expression) => expression;
+        if (meta.required === true && meta.any === false)
+            return (expression) => expression;
         return (expression) =>
             ts.factory.createConditionalExpression(
                 ts.factory.createStrictInequality(
@@ -475,6 +502,25 @@ export namespace StringifyProgrammer {
                 expression,
                 undefined,
                 ts.factory.createStringLiteral("null"),
+            );
+    }
+
+    function wrap_functional(
+        input: ts.Expression,
+        meta: Metadata,
+        explore: FeatureProgrammer.IExplore,
+    ): (expression: ts.Expression) => ts.Expression {
+        if (meta.functional === false) return (expression) => expression;
+        return (expression) =>
+            ts.factory.createConditionalExpression(
+                ts.factory.createStrictInequality(
+                    ts.factory.createStringLiteral("function"),
+                    ValueFactory.TYPEOF(input),
+                ),
+                undefined,
+                expression,
+                undefined,
+                decode_functional(explore),
             );
     }
 
