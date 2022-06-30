@@ -9,7 +9,8 @@ import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
-import { ArrayRecursiveUnion } from "../../test/structures/ArrayRecursiveUnion";
+import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
+import { UltimateUnion } from "../../test/structures/UltimateUnion";
 
 function build(app: TSON.IJsonApplication): any {
     try {
@@ -56,19 +57,9 @@ const optimizer = () => [
                 build(TSON.application<[ObjectRecursive], "ajv">())(input),
         },
     ),
-
     // SPECIAL UNION TYPES
     OptimizerBenchmarker.prepare(
-        "object (union, implicit)",
-        () => ObjectUnionImplicit.generate(),
-        {
-            "typescript-json": () => (input) => TSON.stringify(input),
-            "fast-json-stringify": () => (input) =>
-                build(TSON.application<[ObjectUnionImplicit], "ajv">())(input),
-        },
-    ),
-    OptimizerBenchmarker.prepare(
-        "object (union, explicit)",
+        "object (union)",
         () => ObjectUnionExplicit.generate(),
         {
             "typescript-json": () => (input) => TSON.stringify(input),
@@ -90,6 +81,7 @@ const optimizer = () => [
                 build(TSON.application<[ArrayHierarchical], "ajv">())(input),
         },
     ),
+    // RECURSIVE STRUCTURE
     OptimizerBenchmarker.prepare(
         "array (recursive)",
         () => ArrayRecursive.generate(),
@@ -101,12 +93,27 @@ const optimizer = () => [
     ),
     // SPECIAL UNION STRUCTURES
     OptimizerBenchmarker.prepare(
-        "array (recursive, union)",
-        () => ArrayRecursiveUnion.generate(),
+        "array (union)",
+        () => ArrayRecursiveUnionExplicit.generate(),
         {
             "typescript-json": () => (input) => TSON.stringify(input),
             "fast-json-stringify": () => (input) =>
-                build(TSON.application<[ArrayRecursiveUnion], "ajv">())(input),
+                build(TSON.application<[ArrayRecursiveUnionExplicit], "ajv">())(
+                    input,
+                ),
+        },
+    ),
+
+    //----
+    // ULTIMATE UNION
+    //----
+    OptimizerBenchmarker.prepare(
+        "ultimate union",
+        () => UltimateUnion.generate(),
+        {
+            "typescript-json": () => (input) => TSON.stringify(input),
+            "fast-json-stringify": () => (input) =>
+                build(TSON.application<[UltimateUnion], "ajv">())(input),
         },
     ),
 ];
