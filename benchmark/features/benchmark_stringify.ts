@@ -9,7 +9,7 @@ import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
-import { ArrayRecursiveUnion } from "../../test/structures/ArrayRecursiveUnion";
+import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
 
 function build<T>(app: TSON.IJsonApplication): null | ((input: T) => string) {
@@ -109,12 +109,12 @@ const stringify = () => [
     ),
     // SPECIAL UNION STRUCTURES
     StringifyBenchmarker.prepare(
-        "array (recursive, union)",
-        () => ArrayRecursiveUnion.generate(),
+        "array (union)",
+        () => ArrayRecursiveUnionExplicit.generate(),
         {
             "typescript-json": (input) => TSON.stringify(input),
             "fast-json-stringify": build(
-                TSON.application<[ArrayRecursiveUnion], "ajv">(),
+                TSON.application<[ArrayRecursiveUnionExplicit], "ajv">(),
             ),
         },
     ),

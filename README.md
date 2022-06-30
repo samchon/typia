@@ -37,9 +37,11 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
   - 5x faster `JSON.stringify()` function:
     - Performed by only one line: `TSON.stringify<T>(input)`
     - Does not require any JSON schema definition
-    - 10,000x faster optimizer construction time than similar libaries
+    - 10,000x faster optimizer construction time than similar libraries
 
-![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/176545095-612f6ce2-b46b-4954-a2b3-eafd8e132a53.png)
+![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/176590654-829eb59f-b521-4ba6-916e-a5848acb03d6.png)
+
+> Measured by AMD R7 5800HS, ASUS ROG FLOW X13 (numeric option: `false`)
 
 
 
@@ -141,19 +143,23 @@ Also, only `typescript-json` can validate union typed structure exactly. All the
 
 <!-- ![Runtime Type Checker Benchmark](https://user-images.githubusercontent.com/13158709/175802453-c2907a57-df64-4d09-b6ec-f4ba9c02d47c.png) -->
 
-Components               | `typescript-json` | `typescript-is` | `ajv` | `io-ts` | `class-validator`
+Components               | `TSON` | `T.IS` | `ajv` | `io-ts` | `C.V.`
 -------------------------|-------------------|-----------------|-------|---------|------------------
 **Easy to use**          | ✔                | ✔               | ❌    | ❌     | ❌ 
-Object (simple)          | ✔                | ✔               | ✔     | ✔      | ✔
-Object (hierarchical)    | ✔                | ✔               | ❌    | ✔      | ✔
-Object (recursive)       | ✔                | ✔               | ✔     | ✔      | ✔
-Object (union, implicit) | ✅               | ❌              | ❌    | ❌     | ❌
-Object (union, explicit) | ✅               | ❌              | ❌    | ✔      | ❌
-Array (hierarchical)     | ✔                | ✔               | ❌    | ✔      | ✔
-Array (recursive)        | ✔                | ✔               | ✔     | ✔      | ✔
-Array (recursive, union) | ✔                | ✔               | ❌    | ❌     | ❌
-Array (R+U, implicit)    | ✅               | ❌              | ❌    | ❌     | ❌
-**Ultimate Union Type**  | ✅               | ❌              | ❌    | ❌     | ❌
+[Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔                | ✔               | ✔     | ✔      | ✔
+[Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔                | ✔               | ❌    | ✔      | ✔
+[Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔                | ✔               | ✔     | ✔      | ✔
+[Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅               | ❌              | ❌    | ❌     | ❌
+[Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✅               | ❌              | ❌    | ✔      | ❌
+[Array (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayHierarchical.ts)     | ✔                | ✔               | ❌    | ✔      | ✔
+[Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔                | ✔               | ✔     | ✔      | ✔
+[Array (recursive, union)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔                | ✔               | ❌    | ❌     | ❌
+[Array (R+U, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅               | ❌              | ❌    | ❌     | ❌
+[**Ultimate Union Type**](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts)  | ✅               | ❌              | ❌    | ❌     | ❌
+
+> - TSON: `typescript-json`
+> - T.IS: `typescript-is`
+> - C.V.: `class-validator`
 
 
 ### Fastest JSON String Conversion
