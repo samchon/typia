@@ -15,7 +15,7 @@
     "prettier": "prettier  --write ./**/*.{ts,js}",
     "test": "node test",
     "test:manual": "node test/manual",
-    "test:application:replace": "npm run build:test && node test/features/application/replace"
+    "test:application:replace": "npm run build:test && node test/features/application/replace && npm run prettier"
   },
   "repository": {
     "type": "git",

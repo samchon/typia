@@ -1,7 +1,7 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
 
-export type ArrayRecursiveUnion = ArrayRecursiveUnion.IBucket[];
-export namespace ArrayRecursiveUnion {
+export type ArrayRecursiveUnionExplicit = ArrayRecursiveUnionExplicit.IBucket[];
+export namespace ArrayRecursiveUnionExplicit {
     export type IBucket =
         | IDirectory
         | IImageFile
@@ -60,7 +60,7 @@ export namespace ArrayRecursiveUnion {
     export function generate(
         limit: number = 3,
         level: number = 0,
-    ): ArrayRecursiveUnion {
+    ): ArrayRecursiveUnionExplicit {
         const files = () => [
             generate_image_file(),
             generate_text_file(),
@@ -68,7 +68,7 @@ export namespace ArrayRecursiveUnion {
         ];
         const directory = () => generate_directory(limit, level + 1);
 
-        const output: ArrayRecursiveUnion = [
+        const output: ArrayRecursiveUnionExplicit = [
             ...files(),
             ...files().map((file) => generate_shortcut(file)),
         ];
