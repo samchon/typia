@@ -5,6 +5,7 @@ import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { IProject } from "../transformers/IProject";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
+import { TypeGuardError } from "../TypeGuardError";
 
 export namespace AssertProgrammer {
     export function generate(
@@ -29,7 +30,8 @@ export namespace AssertProgrammer {
                 ts.factory.createExpressionStatement(
                     ts.factory.createCallExpression(
                         CheckerProgrammer.generate(project, {
-                            functors: "assertType",
+                            functors: "$ao",
+                            unioners: "$au",
                             trace: true,
                             combiner: combine(modulo),
                         })(type),
@@ -56,7 +58,11 @@ export namespace AssertProgrammer {
                 ValueFactory.BOOLEAN(false),
             );
 
-            const wrapper = (input: ts.Expression, output: ts.Expression) =>
+            const wrapper = (
+                input: ts.Expression,
+                output: ts.Expression,
+                expected: string,
+            ) =>
                 ts.factory.createCallExpression(
                     ts.factory.createArrowFunction(
                         undefined,
@@ -83,24 +89,12 @@ export namespace AssertProgrammer {
                                                   ValueFactory.BOOLEAN(true),
                                               ),
                                           ),
-                                    ts.factory.createThrowStatement(
-                                        ts.factory.createNewExpression(
-                                            IdentifierFactory.join(
-                                                modulo,
-                                                "TypeGuardError",
-                                            ),
-                                            undefined,
-                                            [
-                                                ts.factory.createStringLiteral(
-                                                    "assertType",
-                                                ),
-                                                ts.factory.createIdentifier(
-                                                    path,
-                                                ),
-                                                input,
-                                            ],
-                                        ),
-                                    ),
+                                    throw_type_guard_error(modulo)({
+                                        method: "assertType",
+                                        path,
+                                        expected,
+                                        value: input,
+                                    }),
                                 ),
                                 ts.factory.createReturnStatement(
                                     ValueFactory.INPUT("success"),
@@ -114,11 +108,49 @@ export namespace AssertProgrammer {
                 );
             return (type) => {
                 const typer = combiner(explore)(type);
-                return (input, expressions) => {
-                    const output = typer(input, expressions);
-                    return wrapper(input, output);
+                return (input, expressions, expected) => {
+                    const output = typer(input, expressions, expected);
+                    return wrapper(input, output, expected);
                 };
             };
         };
     }
+
+    export const throw_type_guard_error =
+        (modulo: ts.LeftHandSideExpression) => (props: TypeGuardError.IProps) =>
+            ts.factory.createThrowStatement(
+                ts.factory.createNewExpression(
+                    IdentifierFactory.join(modulo, "TypeGuardError"),
+                    [],
+                    [
+                        ts.factory.createObjectLiteralExpression(
+                            [
+                                ts.factory.createPropertyAssignment(
+                                    "method",
+                                    ts.factory.createStringLiteral(
+                                        props.method,
+                                    ),
+                                ),
+                                ts.factory.createPropertyAssignment(
+                                    "path",
+                                    ts.factory.createIdentifier(
+                                        props.path || "undefined",
+                                    ),
+                                ),
+                                ts.factory.createPropertyAssignment(
+                                    "expected",
+                                    ts.factory.createStringLiteral(
+                                        props.expected,
+                                    ),
+                                ),
+                                ts.factory.createPropertyAssignment(
+                                    "value",
+                                    props.value,
+                                ),
+                            ],
+                            true,
+                        ),
+                    ],
+                ),
+            );
 }

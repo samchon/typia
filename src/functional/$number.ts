@@ -2,18 +2,18 @@ import { TypeGuardError } from "../TypeGuardError";
 
 export function $number(value: number): number {
     if (!isFinite(value))
-        throw new TypeGuardError(
-            "stringify",
-            "unknown",
+        throw new TypeGuardError({
+            method: "stringify",
+            expected: "number",
             value,
-            `Error on TSON.stringify(): infinite number.`,
-        );
+            message: "Error on TSON.stringify(): infinite number.",
+        });
     else if (isNaN(value))
-        throw new TypeGuardError(
-            "stringify",
-            "unknown",
+        throw new TypeGuardError({
+            method: "stringify",
+            expected: "number",
             value,
-            "Error on TSON.stringify(): not a valid number.",
-        );
+            message: "Error on TSON.stringify(): not a valid number.",
+        });
     return value;
 }
