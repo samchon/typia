@@ -5,12 +5,11 @@ import { OptimizerBenchmarker } from "../internal/OptimizerBenchmarker";
 import { ObjectSimple } from "../../test/structures/ObjectSimple";
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
-import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
-import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
+import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 
 function build(app: TSON.IJsonApplication): any {
     try {
@@ -60,11 +59,11 @@ const optimizer = () => [
     // SPECIAL UNION TYPES
     OptimizerBenchmarker.prepare(
         "object (union)",
-        () => ObjectUnionExplicit.generate(),
+        () => ObjectUnionImplicit.generate(),
         {
             "typescript-json": () => (input) => TSON.stringify(input),
             "fast-json-stringify": () => (input) =>
-                build(TSON.application<[ObjectUnionExplicit], "ajv">())(input),
+                build(TSON.application<[ObjectUnionImplicit], "ajv">())(input),
         },
     ),
 

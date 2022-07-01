@@ -7,7 +7,8 @@ import { CheckerProgrammer } from "./CheckerProgrammer";
 export namespace IsProgrammer {
     export function CONFIG(): CheckerProgrammer.IConfig {
         return {
-            functors: "is",
+            functors: "$io",
+            unioners: "$iu",
             trace: false,
             combiner: () => (type: "and" | "or") => {
                 const initial: ts.TrueLiteral | ts.FalseLiteral =
@@ -30,6 +31,8 @@ export namespace IsProgrammer {
         CheckerProgrammer.generate(project, CONFIG());
     export const generate_functors = (project: IProject) =>
         CheckerProgrammer.generate_functors(project, CONFIG());
+    export const generate_unioners = (project: IProject) =>
+        CheckerProgrammer.generate_unioners(project, CONFIG());
 
     export const decode = (project: IProject) =>
         CheckerProgrammer.decode(project, CONFIG(), false);

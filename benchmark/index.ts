@@ -49,10 +49,10 @@ function measure<T extends Output>(functor: () => (() => T)[]): void {
 
 function main(): void {
     const features = [
-        benchmark_stringify,
-        benchmark_assert,
         benchmark_is,
+        benchmark_assert,
         benchmark_optimizer,
+        benchmark_stringify,
     ];
     for (const f of features) measure(f as any);
 }

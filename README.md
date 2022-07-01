@@ -1,5 +1,5 @@
 # TypeScript-JSON
-Runtime type checker, and 5x faster `JSON.stringify()` function, with only one line.
+Super-fast Runtime type checker and `JSON.stringify()` functions, with only one line.
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typescript-json/blob/master/LICENSE)
 [![npm version](https://img.shields.io/npm/v/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
@@ -39,9 +39,9 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
     - Does not require any JSON schema definition
     - 10,000x faster optimizer construction time than similar libraries
 
-![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/176590654-829eb59f-b521-4ba6-916e-a5848acb03d6.png)
+![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/176856459-54322a6f-b3c2-4b6e-a562-ee3b7cb14de0.png)
 
-> Measured by AMD R7 5800HS, ASUS ROG FLOW X13 (numeric option: `false`)
+> Measured on AMD R7 5800HS, ASUS ROG FLOW X13 (numeric option: `false`)
 
 
 
@@ -135,13 +135,11 @@ export function is<T>(input: T): boolean;
 
 `typescript-json` provides two runtime type checker functions, `assertType()` and `is()`.
 
-The first `assertType()` is a function throwing `TypeGuardError` when an `input` value is different with the generic argument `T`. The other function `is()` returns a `boolean` value meaning whether matched or not.
+The first, `assertType()` is a function throwing `TypeGuardError` when an `input` value is different with its type, generic argument `T`. The other function, `is()` returns a `boolean` value meaning whether matched or not.
 
 Comparing those `assertType()` and `is()` functions with other similar libraries, `typescript-json` is much easier than other libraries, except only `typescript-is`. For example, `ajv` requires complicate JSON schema definition that is different with the TypeScript type. Besides, `typescript-json` requires only one line.
 
 Also, only `typescript-json` can validate union typed structure exactly. All the other simliar validator libraries can check simple object type, however, none of them can validate implicit union type. The fun thing is, `ajv` requires JSON schema definition for validation, but it can't validate the JSON schema type. How contradict it is.
-
-<!-- ![Runtime Type Checker Benchmark](https://user-images.githubusercontent.com/13158709/175802453-c2907a57-df64-4d09-b6ec-f4ba9c02d47c.png) -->
 
 Components               | `TSON` | `T.IS` | `ajv` | `io-ts` | `C.V.`
 -------------------------|-------------------|-----------------|-------|---------|------------------
@@ -150,9 +148,9 @@ Components               | `TSON` | `T.IS` | `ajv` | `io-ts` | `C.V.`
 [Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔                | ✔               | ❌    | ✔      | ✔
 [Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔                | ✔               | ✔     | ✔      | ✔
 [Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅               | ❌              | ❌    | ❌     | ❌
-[Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✅               | ❌              | ❌    | ✔      | ❌
+[Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔               | ❌              | ✔    | ✔      | ❌
 [Array (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayHierarchical.ts)     | ✔                | ✔               | ❌    | ✔      | ✔
-[Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔                | ✔               | ✔     | ✔      | ✔
+[Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔                | ✔               | ❌     | ✔      | ✔
 [Array (recursive, union)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔                | ✔               | ❌    | ❌     | ❌
 [Array (R+U, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅               | ❌              | ❌    | ❌     | ❌
 [**Ultimate Union Type**](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts)  | ✅               | ❌              | ❌    | ❌     | ❌
@@ -161,6 +159,15 @@ Components               | `TSON` | `T.IS` | `ajv` | `io-ts` | `C.V.`
 > - T.IS: `typescript-is`
 > - C.V.: `class-validator`
 
+Furthermore, when union type comes, `typescript-json` is extremely faster than others. 
+
+As you can see from the above table, `ajv` and `typescript-is` are fallen in the most union type cases. Also, they're even showing a huge different from `typescript-json`, in the time benchmark that does not care whether the validation is exact or not.
+
+The extreme different is shown in the "ultimate union" type, when validating [JSON schema](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts).
+
+![Super-fast runtime type checker](https://user-images.githubusercontent.com/13158709/176942347-a4487f38-ffe1-4873-a88a-7afb545dfa83.png)
+
+> Measured on Intel i5-1135g7, Surface Pro 8
 
 ### Fastest JSON String Conversion
 ```typescript
@@ -175,7 +182,9 @@ On the other side, other similary library like `fast-json-stringify` requires co
 
 Comparing performance, `typescript-json` is about 5x times faster when comparing only JSON string conversion time. If compare optimizer construction time with only one call, `typescript-json` is even 10,000x times faster.
 
-![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/176545277-8bdb6a59-6669-41d0-9c74-f3afe204af30.png)
+![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/176858620-cc21ed55-c9c3-42cd-808a-d5848330fc3f.png)
+
+> AMD CPU shows dramatic improvement
 
 ### JSON Schema Generation
 ```typescript

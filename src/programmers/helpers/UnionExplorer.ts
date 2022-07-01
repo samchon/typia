@@ -26,7 +26,10 @@ export namespace UnionExplorer {
         ) => ts.Expression,
         decoder: Decoder<MetadataObject>,
         combiner: ObjectCombiner,
-        failure: (input: ts.Expression) => ts.Statement,
+        failure: (
+            input: ts.Expression,
+            targets: MetadataObject[],
+        ) => ts.Statement,
         level: number = 0,
     ) {
         return function (
@@ -94,7 +97,7 @@ export namespace UnionExplorer {
                                           level + 1,
                                       )(input, remained, explore),
                                   )
-                                : failure(input),
+                                : failure(input, targets),
                         ],
                         true,
                     ),
@@ -113,7 +116,7 @@ export namespace UnionExplorer {
         ) => ts.Expression,
         decoder: Decoder<Metadata>,
         empty: () => ts.Expression,
-        failure: (input: ts.Expression) => ts.Statement,
+        failure: (input: ts.Expression, targets: Metadata[]) => ts.Statement,
     ) {
         return function (
             input: ts.Expression,
@@ -309,7 +312,7 @@ export namespace UnionExplorer {
                 // CONDITIONAL STATEMENTS
                 uniqueStatement,
                 unionStatement,
-                failure(input),
+                failure(input, targets),
             ];
 
             return ts.factory.createCallExpression(

@@ -5,7 +5,6 @@ import { StringifyBenchmarker } from "../internal/StringifyBenchmarker";
 import { ObjectSimple } from "../../test/structures/ObjectSimple";
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
-import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
@@ -29,7 +28,6 @@ const stringify = () => [
     //----
     // OBJECT
     //----
-    // NORMAL STRUCTURES
     StringifyBenchmarker.prepare(
         "object (simple)",
         () => ObjectSimple.generate(),
@@ -60,10 +58,8 @@ const stringify = () => [
             ),
         },
     ),
-
-    // SPECIAL UNION TYPES
     StringifyBenchmarker.prepare(
-        "object (union, implicit)",
+        "object (union)",
         () => ObjectUnionImplicit.generate(),
         {
             "typescript-json": (input) => TSON.stringify(input),
@@ -72,21 +68,10 @@ const stringify = () => [
             ),
         },
     ),
-    StringifyBenchmarker.prepare(
-        "object (union, explicit)",
-        () => ObjectUnionExplicit.generate(),
-        {
-            "typescript-json": (input) => TSON.stringify(input),
-            "fast-json-stringify": build(
-                TSON.application<[ObjectUnionExplicit], "ajv">(),
-            ),
-        },
-    ),
 
     //----
     // ARRAY
     //----
-    // NORMAL STRUCTURES
     StringifyBenchmarker.prepare(
         "array (hierarchical)",
         () => ArrayHierarchical.generate(),
@@ -107,7 +92,6 @@ const stringify = () => [
             ),
         },
     ),
-    // SPECIAL UNION STRUCTURES
     StringifyBenchmarker.prepare(
         "array (union)",
         () => ArrayRecursiveUnionExplicit.generate(),
