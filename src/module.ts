@@ -1,7 +1,6 @@
 export * from "./schemas/IJsonApplication";
 export * from "./schemas/IJsonComponents";
 export * from "./schemas/IJsonSchema";
-export * from "./schemas/JsonTypeChecker";
 export * from "./TypeGuardError";
 
 import { IJsonApplication } from "./schemas/IJsonApplication";

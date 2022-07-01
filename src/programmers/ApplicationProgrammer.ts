@@ -232,7 +232,10 @@ export namespace ApplicationProgrammer {
         }
 
         const schema: IJsonComponents.IObject = {
-            $id: key,
+            $id:
+                options.purpose === "ajv"
+                    ? options.prefix + "/" + key
+                    : undefined,
             $recursiveAnchor:
                 (options.purpose === "ajv" && obj.recursive) || undefined,
             type: "object",
