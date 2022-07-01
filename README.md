@@ -1,5 +1,5 @@
 # TypeScript-JSON
-Runtime type checker, and 5x faster `JSON.stringify()` function, with only one line.
+Super-fast Runtime type checker and `JSON.stringify()` functions, with only one line.
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typescript-json/blob/master/LICENSE)
 [![npm version](https://img.shields.io/npm/v/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
@@ -39,7 +39,7 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
     - Does not require any JSON schema definition
     - 10,000x faster optimizer construction time than similar libraries
 
-![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/176590654-829eb59f-b521-4ba6-916e-a5848acb03d6.png)
+![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/176856459-54322a6f-b3c2-4b6e-a562-ee3b7cb14de0.png)
 
 > Measured by AMD R7 5800HS, ASUS ROG FLOW X13 (numeric option: `false`)
 
@@ -161,6 +161,9 @@ Components               | `TSON` | `T.IS` | `ajv` | `io-ts` | `C.V.`
 > - T.IS: `typescript-is`
 > - C.V.: `class-validator`
 
+![Super-fast runtime type checker](https://user-images.githubusercontent.com/13158709/176882016-63c20f1a-a969-402b-97be-dc24babc8c65.png)
+
+> When union type comes, `typescript-json` is extremely faster
 
 ### Fastest JSON String Conversion
 ```typescript
@@ -175,7 +178,9 @@ On the other side, other similary library like `fast-json-stringify` requires co
 
 Comparing performance, `typescript-json` is about 5x times faster when comparing only JSON string conversion time. If compare optimizer construction time with only one call, `typescript-json` is even 10,000x times faster.
 
-![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/176545277-8bdb6a59-6669-41d0-9c74-f3afe204af30.png)
+![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/176858620-cc21ed55-c9c3-42cd-808a-d5848330fc3f.png)
+
+> AMD CPU shows dramatic improvement
 
 ### JSON Schema Generation
 ```typescript

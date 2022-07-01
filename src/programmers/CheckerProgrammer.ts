@@ -14,16 +14,18 @@ import { OptionPreditor } from "./helpers/OptionPredicator";
 export namespace CheckerProgrammer {
     export interface IConfig {
         functors: string;
+        unioners: string;
         trace: boolean;
         combiner: IConfig.Combiner;
     }
     export namespace IConfig {
         export interface Combiner {
             (explorer: IExplore): {
-                (type: "and" | "or"): {
+                (logic: "and" | "or"): {
                     (
                         input: ts.Expression,
                         expressions: ts.Expression[],
+                        expected: string,
                     ): ts.Expression;
                 };
             };
@@ -40,6 +42,9 @@ export namespace CheckerProgrammer {
     export const generate_functors = (project: IProject, config: IConfig) =>
         FeatureProgrammer.generate_functors(CONFIG(project, config));
 
+    export const generate_unioners = (project: IProject, config: IConfig) =>
+        FeatureProgrammer.generate_unioners(CONFIG(project, config));
+
     function CONFIG(
         project: IProject,
         config: IConfig,
@@ -47,6 +52,7 @@ export namespace CheckerProgrammer {
         return {
             trace: config.trace,
             functors: config.functors,
+            unioners: config.unioners,
             initializer: ({ checker }, type) => {
                 const collection: MetadataCollection = new MetadataCollection();
                 const meta: Metadata = MetadataFactory.generate(
@@ -78,6 +84,7 @@ export namespace CheckerProgrammer {
                         targets.map((obj) =>
                             decode_object(config)(input, obj, explore),
                         ),
+                        `(${targets.map((t) => t.name).join(" | ")})`,
                     ),
                 failure: () =>
                     ts.factory.createReturnStatement(ts.factory.createFalse()),
@@ -211,14 +218,22 @@ export namespace CheckerProgrammer {
 
             // COMBINE CONDITIONS
             return top.length !== 0
-                ? config.combiner(explore)("and")(input, [
-                      ...top,
-                      config.combiner({
-                          ...explore,
-                          tracable: false,
-                      })("or")(input, binaries),
-                  ])
-                : config.combiner(explore)("or")(input, binaries);
+                ? config.combiner(explore)("and")(
+                      input,
+                      [
+                          ...top,
+                          config.combiner({
+                              ...explore,
+                              tracable: false,
+                          })("or")(input, binaries, meta.getName()),
+                      ],
+                      meta.getName(),
+                  )
+                : config.combiner(explore)("or")(
+                      input,
+                      binaries,
+                      meta.getName(),
+                  );
         };
     }
 
@@ -325,7 +340,7 @@ export namespace CheckerProgrammer {
 
             return ts.factory.createCallExpression(
                 ts.factory.createIdentifier(
-                    `${config.functors}.unions[${meta.union_index!}]`,
+                    `${config.unioners}[${meta.union_index!}]`,
                 ),
                 undefined,
                 FeatureProgrammer.getArguments(config.trace, explore)(input),

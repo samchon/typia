@@ -22,11 +22,13 @@ export class JsonTypeChecker {
             else if (this.isRecursiveReference(param))
                 return param.$recursiveRef;
 
-            throw new TypeGuardError(
-                "JsonTypeChecker.getObject",
-                "$input",
-                param,
-            );
+            throw new TypeGuardError({
+                method: "JsonTypeChecker.getObject",
+                path: "$input",
+                expected:
+                    "(string | IJsonSchema.IReference | IJsonSchema.IRecursiveReference)",
+                value: param,
+            });
         })();
         const must: boolean = typeof param === "object";
 
@@ -49,26 +51,38 @@ export class JsonTypeChecker {
         return Object.keys(schema).length === 0;
     }
 
+    public isAtomic(
+        schema: IJsonSchema,
+    ): schema is IJsonSchema.IAtomic<Atomic.Literal>;
     public isAtomic<TypeLiteral extends Atomic.Literal>(
         typeLiteral: TypeLiteral,
         schema: IJsonSchema,
     ): schema is IJsonSchema.IAtomic<TypeLiteral>;
-    public isAtomic<TypeLiteral extends Atomic.Literal>(
-        typeLiteral: TypeLiteral,
-        schema: IJsonSchema.IEnumeration<TypeLiteral>,
-    ): boolean {
-        return schema.type === typeLiteral && schema.enum === undefined;
+    public isAtomic(...args: any[]): boolean {
+        const literal: string | undefined = args[args.length - 2];
+        const schema: IJsonSchema.IEnumeration<any> = args[args.length - 1];
+
+        return (
+            (literal === undefined || schema.type === literal) &&
+            schema.enum === undefined
+        );
     }
 
+    public isEnumeration(
+        schema: IJsonSchema,
+    ): schema is IJsonSchema.IEnumeration<Atomic.Literal>;
     public isEnumeration<TypeLiteral extends Atomic.Literal>(
         typeLiteral: TypeLiteral,
         schema: IJsonSchema,
     ): schema is IJsonSchema.IEnumeration<TypeLiteral>;
-    public isEnumeration<TypeLiteral extends Atomic.Literal>(
-        typeLiteral: TypeLiteral,
-        schema: IJsonSchema.IEnumeration<TypeLiteral>,
-    ): boolean {
-        return schema.type === typeLiteral && schema.enum !== undefined;
+    public isEnumeration(...args: any[]): boolean {
+        const literal: string | undefined = args[args.length - 2];
+        const schema: IJsonSchema.IEnumeration<any> = args[args.length - 1];
+
+        return (
+            (literal === undefined || schema.type === literal) &&
+            schema.enum !== undefined
+        );
     }
 
     public isArray(schema: IJsonSchema): schema is IJsonSchema.IArray;

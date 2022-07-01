@@ -5,9 +5,7 @@ import { CheckerBenchmarker } from "../internal/CheckerBenchmarker";
 
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
-import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
-import { ArraySimple } from "../../test/structures/ArraySimple";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
@@ -30,25 +28,13 @@ const is = () => [
         },
     ),
     CheckerBenchmarker.prepare(
-        "object (union, explicit)",
-        () => ObjectUnionExplicit.generate(),
-        {
-            "typescript-json": (input) => TSON.is(input),
-            "typescript-is": null,
-        },
-    ),
-    CheckerBenchmarker.prepare(
-        "object (union, implicit)",
+        "object (union)",
         () => ObjectUnionImplicit.generate(),
         {
             "typescript-json": (input) => TSON.is(input),
             "typescript-is": (input) => Similar.is<typeof input>(input),
         },
     ),
-    CheckerBenchmarker.prepare("array (simple)", () => ArraySimple.generate(), {
-        "typescript-json": (input) => TSON.is(input),
-        "typescript-is": (input) => Similar.is<typeof input>(input),
-    }),
     CheckerBenchmarker.prepare(
         "array (recursive)",
         () => ArrayRecursive.generate(),
@@ -58,7 +44,7 @@ const is = () => [
         },
     ),
     CheckerBenchmarker.prepare(
-        "array (recursive, union)",
+        "array (union)",
         () => ArrayRecursiveUnionExplicit.generate(),
         {
             "typescript-json": (input) => TSON.is(input),
