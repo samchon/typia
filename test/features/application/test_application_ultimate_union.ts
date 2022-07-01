@@ -115,7 +115,7 @@ export const test_application_ultimate_union = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["type", "enum"],
+                    required: ["type", "enum", "nullable"],
                 },
                 "IJsonSchema.IEnumeration_lt_bigint_gt_": {
                     $id: "IJsonSchema.IEnumeration_lt_bigint_gt_",
@@ -145,7 +145,7 @@ export const test_application_ultimate_union = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["type", "enum"],
+                    required: ["type", "enum", "nullable"],
                 },
                 "IJsonSchema.IEnumeration_lt_number_gt_": {
                     $id: "IJsonSchema.IEnumeration_lt_number_gt_",
@@ -175,7 +175,7 @@ export const test_application_ultimate_union = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["type", "enum"],
+                    required: ["type", "enum", "nullable"],
                 },
                 "IJsonSchema.IEnumeration_lt_boolean_gt_": {
                     $id: "IJsonSchema.IEnumeration_lt_boolean_gt_",
@@ -206,7 +206,7 @@ export const test_application_ultimate_union = _test_application(
                         },
                     },
                     nullable: false,
-                    required: ["type", "enum"],
+                    required: ["type", "enum", "nullable"],
                 },
                 "IJsonSchema.IAtomic_lt_string_gt_": {
                     $id: "IJsonSchema.IAtomic_lt_string_gt_",

@@ -15,6 +15,7 @@ export namespace FeatureProgrammer {
     ----------------------------------------------------------- */
     export interface IConfig {
         functors: string;
+        unioners: string;
         trace: boolean;
         initializer: Initializer;
         decoder: Decoder<Metadata>;
@@ -26,7 +27,10 @@ export namespace FeatureProgrammer {
             decoder: Decoder<MetadataObject>;
             joiner: ObjectJoiner;
             unionizer: Decoder<MetadataObject[]>;
-            failure: (expression: ts.Expression) => ts.Statement;
+            failure: (
+                expression: ts.Expression,
+                targets: MetadataObject[],
+            ) => ts.Statement;
         }
     }
     export interface IExplore {
@@ -54,9 +58,7 @@ export namespace FeatureProgrammer {
         config: IConfig,
         addition?: (collection: MetadataCollection) => ts.Statement[],
     ) {
-        const createFunctors = generate_functors(config);
         const createParameters = PARAMETERS(config.trace ? true : null);
-
         return function (type: ts.Type) {
             const [collection, meta] = config.initializer(project, type);
 
@@ -74,7 +76,9 @@ export namespace FeatureProgrammer {
 
             // CREATE FUNCTIONS
             const functors: ts.VariableDeclaration | null =
-                createFunctors(collection);
+                generate_functors(config)(collection);
+            const unioners: ts.VariableDeclaration | null =
+                generate_unioners(config)(collection);
 
             // RETURNS THE OPTIMAL ARROW FUNCTION
             const added: ts.Statement[] = addition ? addition(collection) : [];
@@ -99,6 +103,17 @@ export namespace FeatureProgrammer {
                                   ),
                               ]
                             : []),
+                        ...(unioners !== null
+                            ? [
+                                  ts.factory.createVariableStatement(
+                                      undefined,
+                                      ts.factory.createVariableDeclarationList(
+                                          [unioners],
+                                          ts.NodeFlags.Const,
+                                      ),
+                                  ),
+                              ]
+                            : []),
                         ts.factory.createReturnStatement(output),
                     ],
                     true,
@@ -113,8 +128,6 @@ export namespace FeatureProgrammer {
         ): ts.VariableDeclaration | null {
             // GET OBJECTS
             const objects: MetadataObject[] = collection.objects();
-            const unions: MetadataObject[][] = collection.unions();
-
             if (objects.length === 0) return null;
 
             // ASSIGN FUNCTIONS
@@ -122,27 +135,25 @@ export namespace FeatureProgrammer {
                 config.functors,
                 undefined,
                 undefined,
-                ts.factory.createObjectLiteralExpression(
-                    [
-                        ts.factory.createPropertyAssignment(
-                            "objects",
-                            ts.factory.createArrayLiteralExpression(
-                                objects.map((obj) =>
-                                    generate_object(config)(obj),
-                                ),
-                                true,
-                            ),
-                        ),
-                        ts.factory.createPropertyAssignment(
-                            "unions",
-                            ts.factory.createArrayLiteralExpression(
-                                unions.map((meta) =>
-                                    generate_union(config)(meta),
-                                ),
-                                true,
-                            ),
-                        ),
-                    ],
+                ts.factory.createArrayLiteralExpression(
+                    objects.map((obj) => generate_object(config)(obj)),
+                    true,
+                ),
+            );
+        };
+    }
+
+    export function generate_unioners(config: IConfig) {
+        return function (collection: MetadataCollection) {
+            const unions: MetadataObject[][] = collection.unions();
+            if (unions.length === 0) return null;
+
+            return ts.factory.createVariableDeclaration(
+                config.unioners,
+                undefined,
+                undefined,
+                ts.factory.createArrayLiteralExpression(
+                    unions.map((meta) => generate_union(config)(meta)),
                     true,
                 ),
             );
@@ -268,10 +279,7 @@ export namespace FeatureProgrammer {
         (input: ts.Expression, obj: MetadataObject, explore: IExplore) =>
             ts.factory.createCallExpression(
                 ts.factory.createElementAccessExpression(
-                    IdentifierFactory.join(
-                        ts.factory.createIdentifier(config.functors),
-                        "objects",
-                    ),
+                    ts.factory.createIdentifier(config.functors),
                     obj.index,
                 ),
                 undefined,

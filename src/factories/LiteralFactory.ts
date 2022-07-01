@@ -2,8 +2,9 @@ import ts from "typescript";
 import { IdentifierFactory } from "./IdentifierFactory";
 
 export namespace LiteralFactory {
-    export function generate(input: any) {
+    export function generate(input: any): ts.Expression {
         if (input === null) return ts.factory.createNull();
+        else if (ts.isIdentifier(input)) return input;
         else if (input instanceof Array) return generate_array(input);
         else if (typeof input === "object") return generate_object(input);
         else if (typeof input === "string") return generate_string(input);

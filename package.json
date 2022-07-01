@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "description": "Runtime type checkers and 5x faster JSON.stringify() function",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -54,8 +54,10 @@
     "benchmark": "^2.1.4",
     "cli": "^1.0.1",
     "fast-json-stringify": "^5.0.3",
+    "io-ts": "^2.2.16",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
+    "sloc": "^0.2.1",
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.7.0",
     "ttypescript": "^1.5.13",

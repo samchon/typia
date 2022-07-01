@@ -14,6 +14,7 @@ import { UnionExplorer } from "./helpers/UnionExplorer";
 import { IProject } from "../transformers/IProject";
 import { ValueFactory } from "../factories/ValueFactory";
 import { OptionPreditor } from "./helpers/OptionPredicator";
+import { AssertProgrammer } from "./AssertProgrammer";
 
 export namespace StringifyProgrammer {
     /* -----------------------------------------------------------
@@ -27,9 +28,9 @@ export namespace StringifyProgrammer {
             project,
             CONFIG(project, modulo),
             (collection) => {
-                const functors = [
+                const utils = [
                     ...(OptionPreditor.numeric(project.options, "stringify")
-                        ? ["number", "numberNullable"]
+                        ? ["number"]
                         : []),
                     "string",
                     "tail",
@@ -40,16 +41,31 @@ export namespace StringifyProgrammer {
                         IdentifierFactory.join(modulo, name),
                     ),
                 );
-                const is = IsProgrammer.generate_functors(project)(collection);
+
+                const isFunctors =
+                    IsProgrammer.generate_functors(project)(collection);
+                const isUnioners =
+                    IsProgrammer.generate_unioners(project)(collection);
 
                 return [
-                    ...functors,
-                    ...(is
+                    ...utils,
+                    ...(isFunctors
                         ? [
                               ts.factory.createVariableStatement(
                                   undefined,
                                   ts.factory.createVariableDeclarationList(
-                                      [is],
+                                      [isFunctors],
+                                      ts.NodeFlags.Const,
+                                  ),
+                              ),
+                          ]
+                        : []),
+                    ...(isUnioners
+                        ? [
+                              ts.factory.createVariableStatement(
+                                  undefined,
+                                  ts.factory.createVariableDeclarationList(
+                                      [isUnioners],
                                       ts.NodeFlags.Const,
                                   ),
                               ),
@@ -172,7 +188,6 @@ export namespace StringifyProgrammer {
                             decode_atomic(project)(
                                 input,
                                 constant.type,
-                                meta.nullable,
                                 explore,
                             ),
                     });
@@ -194,7 +209,6 @@ export namespace StringifyProgrammer {
                                 project,
                                 input,
                                 [...constant.values] as string[],
-                                meta.nullable,
                                 explore,
                             ),
                     });
@@ -211,13 +225,7 @@ export namespace StringifyProgrammer {
                             })(),
                             explore,
                         ),
-                    value: () =>
-                        decode_atomic(project)(
-                            input,
-                            type,
-                            meta.nullable,
-                            explore,
-                        ),
+                    value: () => decode_atomic(project)(input, type, explore),
                 });
 
             // TUPLES
@@ -303,7 +311,7 @@ export namespace StringifyProgrammer {
                         [],
                         undefined,
                         undefined,
-                        iterate(modulo)(input, unions),
+                        iterate(modulo)(input, unions, meta.getName()),
                     ),
                     undefined,
                     undefined,
@@ -320,10 +328,11 @@ export namespace StringifyProgrammer {
             StringifyJoiner.array,
         );
 
-    const decode_object = FeatureProgrammer.decode_object({
-        trace: false,
-        functors: "stringify",
-    });
+    const decode_object = () =>
+        FeatureProgrammer.decode_object({
+            trace: false,
+            functors: FUNCTORS,
+        });
 
     const decode_tuple =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
@@ -350,7 +359,6 @@ export namespace StringifyProgrammer {
         (
             input: ts.Expression,
             type: string,
-            nullable: boolean,
             explore: FeatureProgrammer.IExplore,
         ) => {
             if (type === "string")
@@ -364,9 +372,7 @@ export namespace StringifyProgrammer {
                 OptionPreditor.numeric(project.options, "stringify")
             )
                 input = ts.factory.createCallExpression(
-                    ts.factory.createIdentifier(
-                        nullable ? `$numberNullable` : `$number`,
-                    ),
+                    ts.factory.createIdentifier("$number"),
                     undefined,
                     [input],
                 );
@@ -384,7 +390,6 @@ export namespace StringifyProgrammer {
         project: IProject,
         input: ts.Expression,
         values: string[],
-        nullable: boolean,
         explore: FeatureProgrammer.IExplore,
     ): ts.Expression {
         if (values.every((v) => !StringifyPredicator.require_escape(v)))
@@ -393,7 +398,7 @@ export namespace StringifyProgrammer {
                 input,
                 ts.factory.createStringLiteral('"'),
             ].reduce((x, y) => ts.factory.createAdd(x, y));
-        else return decode_atomic(project)(input, "string", nullable, explore);
+        else return decode_atomic(project)(input, "string", explore);
     }
 
     const decode_to_json =
@@ -431,18 +436,14 @@ export namespace StringifyProgrammer {
             IsProgrammer.decode(project),
             decode_array(project, modulo),
             () => ts.factory.createStringLiteral("[]"),
-            (input) =>
-                ts.factory.createThrowStatement(
-                    ts.factory.createNewExpression(
-                        IdentifierFactory.join(modulo, "TypeGuardError"),
-                        [],
-                        [
-                            ts.factory.createStringLiteral("stringify"),
-                            ts.factory.createStringLiteral("unknown"),
-                            input,
-                        ],
-                    ),
-                ),
+            (input, targets) =>
+                AssertProgrammer.throw_type_guard_error(modulo)({
+                    method: "stringify",
+                    expected: `(${targets
+                        .map((t) => t.getName())
+                        .join(" | ")})`,
+                    value: input,
+                }),
         );
 
     const explore_objects = (
@@ -451,12 +452,10 @@ export namespace StringifyProgrammer {
         explore: FeatureProgrammer.IExplore,
     ) => {
         if (meta.objects.length === 1)
-            return decode_object(input, meta.objects[0]!, explore);
+            return decode_object()(input, meta.objects[0]!, explore);
 
         return ts.factory.createCallExpression(
-            ts.factory.createIdentifier(
-                `stringify.unions[${meta.union_index!}]`,
-            ),
+            ts.factory.createIdentifier(`${UNIONERS}[${meta.union_index!}]`),
             undefined,
             [input],
         );
@@ -526,7 +525,7 @@ export namespace StringifyProgrammer {
 
     const iterate =
         (modulo: ts.LeftHandSideExpression) =>
-        (input: ts.Expression, unions: IUnion[]) =>
+        (input: ts.Expression, unions: IUnion[], expected: string) =>
             ts.factory.createBlock(
                 [
                     ...unions.map((u) =>
@@ -535,17 +534,11 @@ export namespace StringifyProgrammer {
                             ts.factory.createReturnStatement(u.value()),
                         ),
                     ),
-                    ts.factory.createThrowStatement(
-                        ts.factory.createNewExpression(
-                            IdentifierFactory.join(modulo, "TypeGuardError"),
-                            [],
-                            [
-                                ts.factory.createStringLiteral("stringify"),
-                                ts.factory.createStringLiteral("unknown"),
-                                input,
-                            ],
-                        ),
-                    ),
+                    AssertProgrammer.throw_type_guard_error(modulo)({
+                        method: "stringify",
+                        expected,
+                        value: input,
+                    }),
                 ],
                 true,
             );
@@ -553,11 +546,15 @@ export namespace StringifyProgrammer {
     /* -----------------------------------------------------------
         CONFIGURATIONS
     ----------------------------------------------------------- */
+    const FUNCTORS = "$so";
+    const UNIONERS = "$su";
+
     const CONFIG = (
         project: IProject,
         modulo: ts.LeftHandSideExpression,
     ): FeatureProgrammer.IConfig => ({
-        functors: "stringify",
+        functors: FUNCTORS,
+        unioners: UNIONERS,
         trace: false,
         initializer,
         decoder: decode(project, modulo),
@@ -583,7 +580,7 @@ export namespace StringifyProgrammer {
         modulo: ts.LeftHandSideExpression,
     ): FeatureProgrammer.IConfig.IObjector => ({
         checker: IsProgrammer.decode(project),
-        decoder: decode_object,
+        decoder: decode_object(),
         joiner: StringifyJoiner.object,
         unionizer: (input, targets, explore) =>
             ts.factory.createCallExpression(
@@ -603,25 +600,20 @@ export namespace StringifyProgrammer {
                                     obj,
                                     explore,
                                 ),
-                            value: () => decode_object(input, obj, explore),
+                            value: () => decode_object()(input, obj, explore),
                         })),
+                        `(${targets.map((t) => t.name).join(" | ")})`,
                     ),
                 ),
                 undefined,
                 undefined,
             ),
-        failure: (input) =>
-            ts.factory.createThrowStatement(
-                ts.factory.createNewExpression(
-                    IdentifierFactory.join(modulo, "TypeGuardError"),
-                    [],
-                    [
-                        ts.factory.createStringLiteral("stringify"),
-                        ts.factory.createStringLiteral("unknown"),
-                        input,
-                    ],
-                ),
-            ),
+        failure: (input, targets) =>
+            AssertProgrammer.throw_type_guard_error(modulo)({
+                method: "stringify",
+                expected: `(${targets.map((t) => t.name).join(" | ")})`,
+                value: input,
+            }),
     });
 }
 

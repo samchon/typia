@@ -1,19 +1,17 @@
 import TSON from "../../src";
 import * as Similar from "typescript-is";
 
-import { CheckerBenchmarker } from "../internal/CheckerBenchmarker";
+import { AssertBenchmarker } from "../internal/AssertBenchmarker";
 
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
-import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
-import { ArraySimple } from "../../test/structures/ArraySimple";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
-import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
+import { ArrayRecursiveUnionImplicit } from "../../test/structures/ArrayRecursiveUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
 
 const assert = () => [
-    CheckerBenchmarker.prepare(
+    AssertBenchmarker.prepare(
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
         {
@@ -21,7 +19,7 @@ const assert = () => [
             "typescript-is": (input) => Similar.assertType<typeof input>(input),
         },
     ),
-    CheckerBenchmarker.prepare(
+    AssertBenchmarker.prepare(
         "object (recursive)",
         () => ObjectRecursive.generate(),
         {
@@ -29,27 +27,15 @@ const assert = () => [
             "typescript-is": (input) => Similar.assertType<typeof input>(input),
         },
     ),
-    CheckerBenchmarker.prepare(
-        "object (union, explicit)",
-        () => ObjectUnionExplicit.generate(),
-        {
-            "typescript-json": (input) => TSON.assertType(input),
-            "typescript-is": null,
-        },
-    ),
-    CheckerBenchmarker.prepare(
-        "object (union, implicit)",
+    AssertBenchmarker.prepare(
+        "object (union)",
         () => ObjectUnionImplicit.generate(),
         {
             "typescript-json": (input) => TSON.assertType(input),
             "typescript-is": (input) => Similar.assertType<typeof input>(input),
         },
     ),
-    CheckerBenchmarker.prepare("array (simple)", () => ArraySimple.generate(), {
-        "typescript-json": (input) => TSON.assertType(input),
-        "typescript-is": (input) => Similar.assertType<typeof input>(input),
-    }),
-    CheckerBenchmarker.prepare(
+    AssertBenchmarker.prepare(
         "array (recursive)",
         () => ArrayRecursive.generate(),
         {
@@ -57,15 +43,15 @@ const assert = () => [
             "typescript-is": (input) => Similar.assertType<typeof input>(input),
         },
     ),
-    CheckerBenchmarker.prepare(
-        "array (recursive, union)",
-        () => ArrayRecursiveUnionExplicit.generate(),
+    AssertBenchmarker.prepare(
+        "array (union)",
+        () => ArrayRecursiveUnionImplicit.generate(),
         {
             "typescript-json": (input) => TSON.assertType(input),
             "typescript-is": (input) => Similar.assertType<typeof input>(input),
         },
     ),
-    CheckerBenchmarker.prepare(
+    AssertBenchmarker.prepare(
         "ultimate union",
         () => UltimateUnion.generate(),
         {

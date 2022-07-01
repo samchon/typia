@@ -1,16 +1,13 @@
-import { IJsonApplication } from "./schemas/IJsonApplication";
-
-export * from "./schemas/JsonTypeChecker";
 export * from "./schemas/IJsonApplication";
 export * from "./schemas/IJsonComponents";
 export * from "./schemas/IJsonSchema";
+export * from "./TypeGuardError";
 
+import { IJsonApplication } from "./schemas/IJsonApplication";
+import { TypeGuardError as _TypeGuardError } from "./TypeGuardError";
 import { $number } from "./functional/$number";
 import { $string } from "./functional/$string";
 import { $tail } from "./functional/$last";
-import { TypeGuardError as _TypeGuardError } from "./TypeGuardError";
-import { $numberNullable } from "./functional/$numberNullable";
-export { _TypeGuardError as TypeGuardError };
 
 /* -----------------------------------------------------------
     MAIN FUNCTIONS
@@ -129,7 +126,6 @@ export function stringify(): never {
  */
 export module stringify {
     export const number = $number;
-    export const numberNullable = $numberNullable;
     export const string = $string;
     export const tail = $tail;
     export const TypeGuardError = _TypeGuardError;
