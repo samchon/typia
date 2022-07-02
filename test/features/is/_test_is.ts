@@ -16,7 +16,7 @@ export function _test_is<T, U extends T>(
             const elem: T = generator();
             spoil(elem);
 
-            if (validator(elem) === false)
+            if (validator(elem) === true)
                 throw new Error(
                     `Bug on TSON.is(): failed to detect error on the ${name} type.`,
                 );

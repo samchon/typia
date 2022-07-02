@@ -6,4 +6,5 @@ export const test_is_atomic_union = _test_is(
     "union atomic",
     AtomicUnion.generate,
     (input) => TSON.is(input),
+    [(input) => (input[0] = [] as any), (input) => (input[0] = {} as any)],
 );
