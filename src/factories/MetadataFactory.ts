@@ -96,6 +96,27 @@ export namespace MetadataFactory {
                     : 0;
             });
 
+        // EMEND ATOMICS
+        for (const type of meta.atomics) {
+            const index: number = meta.constants.findIndex(
+                (c) => c.type === type,
+            );
+            if (index !== -1) meta.constants.splice(index, 1);
+        }
+        {
+            const index: number = meta.constants.findIndex(
+                (c) => c.type === "boolean",
+            );
+            if (index !== -1 && meta.constants[index]!.values.length === 2) {
+                meta.constants.splice(index, 1);
+                ArrayUtil.take(
+                    meta.atomics,
+                    (type) => type === "boolean",
+                    () => "boolean",
+                );
+            }
+        }
+
         // RETURNS
         return meta;
     }
