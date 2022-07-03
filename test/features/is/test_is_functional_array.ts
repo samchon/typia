@@ -6,4 +6,11 @@ export const test_is_functional_array = _test_is(
     "functional array",
     FunctionalArray.generate,
     (input) => TSON.is(input),
+    [
+        (input) => (input[0] = null!),
+        (input) => (input[0] = undefined!),
+        (input) => (input[0] = "string" as any),
+        (input) => (input[0] = {} as any),
+        (input) => (input[0] = [] as any),
+    ],
 );

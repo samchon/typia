@@ -6,4 +6,8 @@ export const test_is_functional_property_union = _test_is(
     "functional union property",
     FunctionalPropertyUnion.generate,
     (input) => TSON.is(input),
+    [
+        (input) => (input[0].closure = {} as any),
+        (input) => (input[0].closure = [] as any),
+    ],
 );

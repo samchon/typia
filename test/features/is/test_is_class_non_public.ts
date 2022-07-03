@@ -6,4 +6,8 @@ export const test_is_class_non_public = _test_is(
     "non-public class member",
     ClassNonPublic.generate,
     (input) => TSON.is(input),
+    [
+        (input) => ((input as any).implicit = false),
+        (input) => ((input as any).shown = false),
+    ],
 );
