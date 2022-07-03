@@ -6,12 +6,12 @@ export namespace FunctionalObjectUnion {
     export interface IPoint {
         x: number;
         y: number;
-        distance(p: IPoint): number;
+        distance: (p: IPoint) => number;
     }
     export interface ILine {
         p1: IPoint;
         p2: IPoint;
-        length(): number;
+        length: () => number;
     }
     export interface IPolyline {
         points: IPoint[];
@@ -42,7 +42,7 @@ export namespace FunctionalObjectUnion {
             },
         ];
     }
-    function point(): IPoint {
+    export function point(): IPoint {
         return {
             x: RandomGenerator.number(),
             y: RandomGenerator.number(),

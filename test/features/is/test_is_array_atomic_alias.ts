@@ -7,8 +7,8 @@ export const test_is_array_alias = _test_is(
     ArrayAtomicAlias.generate,
     (input) => TSON.is(input),
     [
-        (input) => (input[0]![0]! = "string" as any as boolean),
-        (input) => (input[1]![0]! = "string" as any as number),
+        (input) => (input[0]![0]! = "boolean" as any),
+        (input) => (input[1]![0]! = "number" as any),
         (input) => (input[2]![0]! = false as any as string),
     ],
 );

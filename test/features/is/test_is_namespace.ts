@@ -6,4 +6,5 @@ export const test_is_namespace = _test_is(
     "namespace",
     Namespace.generate,
     (input) => TSON.is(input),
+    // UNABLE TO SPOIL
 );

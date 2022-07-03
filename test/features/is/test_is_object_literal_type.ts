@@ -6,4 +6,5 @@ export const test_is_object_literal_type = _test_is(
     "literal propertized object",
     () => ObjectLiteralType,
     (input) => TSON.is(input),
+    // MUST NOT SPOIL
 );

@@ -6,4 +6,8 @@ export const test_assert_functional_property_union = _test_assert_for_of(
     "functional union property",
     FunctionalPropertyUnion.generate,
     (input) => TSON.assertType(input),
+    // [
+    //     (input) => (input[0].closure = {} as any),
+    //     (input) => (input[0].closure = [] as any),
+    // ],
 );

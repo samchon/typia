@@ -21,7 +21,7 @@ export namespace ObjectPropertyNullable {
             [{ value: false }, { value: true }, { value: null }],
             [{ value: null }, { value: 1 }],
             [{ value: null }, { value: "two" }],
-            generate_member_pointers(),
+            [...generate_member_pointers(), { value: null }],
         ];
     }
 

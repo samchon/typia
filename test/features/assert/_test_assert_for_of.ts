@@ -4,7 +4,7 @@ export function _test_assert_for_of<T>(
     name: string,
     generator: () => T[],
     assert: (input: T) => T,
-    spoilers?: Array<(elem: T) => void>,
+    spoilers?: Array<(elem: T, index: number) => string | void>,
 ): () => void {
     return () => {
         for (const input of generator())
@@ -24,16 +24,24 @@ export function _test_assert_for_of<T>(
 
         for (const spoil of spoilers || []) {
             const data: T[] = generator();
-            for (const elem of data)
+            const path = { value: "" as string | void };
+            data.forEach((elem, index) => {
                 try {
-                    spoil(elem);
+                    path.value = spoil(elem, index);
                     assert(elem);
-                } catch {
-                    continue;
+                } catch (exp) {
+                    if (exp instanceof TypeGuardError)
+                        if (
+                            typeof path.value !== "string" ||
+                            exp.path === path.value
+                        )
+                            return;
+                        else console.log(path.value, exp.path);
                 }
-            throw new Error(
-                `Bug on TSON.assertType(): failed to detect error on the ${name} type.`,
-            );
+                throw new Error(
+                    `Bug on TSON.assertType(): failed to detect error on the ${name} type.`,
+                );
+            });
         }
     };
 }
