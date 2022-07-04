@@ -4,7 +4,7 @@ export * from "./schemas/IJsonSchema";
 export * from "./TypeGuardError";
 
 import { IJsonApplication } from "./schemas/IJsonApplication";
-import { TypeGuardError as _TypeGuardError } from "./TypeGuardError";
+import { TypeGuardError } from "./TypeGuardError";
 import { $number } from "./functional/$number";
 import { $string } from "./functional/$string";
 import { $tail } from "./functional/$last";
@@ -42,7 +42,18 @@ export function assertType(): never {
  * @internal
  */
 export namespace assertType {
-    export const TypeGuardError = _TypeGuardError;
+    export function predicate(
+        matched: boolean,
+        exceptionable: boolean,
+        closure: () => Omit<TypeGuardError.IProps, "method">,
+    ): boolean {
+        if (matched === false && exceptionable === true)
+            throw new TypeGuardError({
+                method: "assertType",
+                ...closure(),
+            });
+        return matched;
+    }
 }
 
 // /**
@@ -128,7 +139,15 @@ export module stringify {
     export const number = $number;
     export const string = $string;
     export const tail = $tail;
-    export const TypeGuardError = _TypeGuardError;
+
+    export function throws(
+        props: Pick<TypeGuardError.IProps, "expected" | "value">,
+    ): void {
+        throw new TypeGuardError({
+            ...props,
+            method: "stringify",
+        });
+    }
 }
 
 // export interface stringify<T> {

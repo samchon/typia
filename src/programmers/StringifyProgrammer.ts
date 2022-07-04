@@ -14,7 +14,6 @@ import { UnionExplorer } from "./helpers/UnionExplorer";
 import { IProject } from "../transformers/IProject";
 import { ValueFactory } from "../factories/ValueFactory";
 import { OptionPreditor } from "./helpers/OptionPredicator";
-import { AssertProgrammer } from "./AssertProgrammer";
 
 export namespace StringifyProgrammer {
     /* -----------------------------------------------------------
@@ -34,6 +33,7 @@ export namespace StringifyProgrammer {
                         : []),
                     "string",
                     "tail",
+                    "throws",
                 ].map((name) =>
                     StatementFactory.variable(
                         ts.NodeFlags.Const,
@@ -311,7 +311,7 @@ export namespace StringifyProgrammer {
                         [],
                         undefined,
                         undefined,
-                        iterate(modulo)(input, unions, meta.getName()),
+                        iterate(input, unions, meta.getName()),
                     ),
                     undefined,
                     undefined,
@@ -437,13 +437,10 @@ export namespace StringifyProgrammer {
             decode_array(project, modulo),
             () => ts.factory.createStringLiteral("[]"),
             (input, targets) =>
-                AssertProgrammer.throw_type_guard_error(modulo)({
-                    method: "stringify",
-                    expected: `(${targets
-                        .map((t) => t.getName())
-                        .join(" | ")})`,
-                    value: input,
-                }),
+                create_throw_error(
+                    input,
+                    `(${targets.map((t) => t.getName()).join(" | ")})`,
+                ),
         );
 
     const explore_objects = (
@@ -523,25 +520,23 @@ export namespace StringifyProgrammer {
             );
     }
 
-    const iterate =
-        (modulo: ts.LeftHandSideExpression) =>
-        (input: ts.Expression, unions: IUnion[], expected: string) =>
-            ts.factory.createBlock(
-                [
-                    ...unions.map((u) =>
-                        ts.factory.createIfStatement(
-                            u.is(),
-                            ts.factory.createReturnStatement(u.value()),
-                        ),
+    const iterate = (
+        input: ts.Expression,
+        unions: IUnion[],
+        expected: string,
+    ) =>
+        ts.factory.createBlock(
+            [
+                ...unions.map((u) =>
+                    ts.factory.createIfStatement(
+                        u.is(),
+                        ts.factory.createReturnStatement(u.value()),
                     ),
-                    AssertProgrammer.throw_type_guard_error(modulo)({
-                        method: "stringify",
-                        expected,
-                        value: input,
-                    }),
-                ],
-                true,
-            );
+                ),
+                create_throw_error(input, expected),
+            ],
+            true,
+        );
 
     /* -----------------------------------------------------------
         CONFIGURATIONS
@@ -558,7 +553,7 @@ export namespace StringifyProgrammer {
         trace: false,
         initializer,
         decoder: decode(project, modulo),
-        objector: OBJECTOR(project, modulo),
+        objector: OBJECTOR(project),
     });
 
     const initializer: FeatureProgrammer.Initializer = ({ checker }, type) => {
@@ -577,7 +572,6 @@ export namespace StringifyProgrammer {
 
     const OBJECTOR = (
         project: IProject,
-        modulo: ts.LeftHandSideExpression,
     ): FeatureProgrammer.IConfig.IObjector => ({
         checker: IsProgrammer.decode(project),
         decoder: decode_object(),
@@ -590,7 +584,7 @@ export namespace StringifyProgrammer {
                     [],
                     undefined,
                     undefined,
-                    iterate(modulo)(
+                    iterate(
                         input,
                         targets.map((obj) => ({
                             type: "object",
@@ -609,12 +603,32 @@ export namespace StringifyProgrammer {
                 undefined,
             ),
         failure: (input, targets) =>
-            AssertProgrammer.throw_type_guard_error(modulo)({
-                method: "stringify",
-                expected: `(${targets.map((t) => t.name).join(" | ")})`,
-                value: input,
-            }),
+            create_throw_error(
+                input,
+                `(${targets.map((t) => t.name).join(" | ")})`,
+            ),
     });
+
+    function create_throw_error(value: ts.Expression, expected: string) {
+        return ts.factory.createExpressionStatement(
+            ts.factory.createCallExpression(
+                ts.factory.createIdentifier("$throws"),
+                [],
+                [
+                    ts.factory.createObjectLiteralExpression(
+                        [
+                            ts.factory.createPropertyAssignment(
+                                "expected",
+                                ts.factory.createStringLiteral(expected),
+                            ),
+                            ts.factory.createPropertyAssignment("value", value),
+                        ],
+                        true,
+                    ),
+                ],
+            ),
+        );
+    }
 }
 
 interface IUnion {
