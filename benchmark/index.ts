@@ -1,21 +1,26 @@
-// import { NumberUtil } from "../test/internal/NumberUtil";
+import os from "os";
 
 import { benchmark_assert } from "./features/benchmark_assert";
 import { benchmark_is } from "./features/benchmark_is";
 import { benchmark_optimizer } from "./features/benchmark_optimizer";
 import { benchmark_stringify } from "./features/benchmark_stringify";
+import { WriteStream } from "./internal/WriteStream";
 
 type Output = Record<string, number | null> & { name: string };
 
 // const round = NumberUtil.elaborate(4)(Math.round);
-function measure<T extends Output>(functor: () => (() => T)[]): void {
-    console.log(`## ${functor.name}`);
+async function measure<T extends Output>(
+    stream: WriteStream,
+    functor: () => (() => T)[],
+): Promise<void> {
+    await stream.write(`## ${functor.name}`);
+    console.log("  - " + functor.name);
 
     const parameters: string[] = [];
-
     for (const comp of functor()) {
         // DO BENCHMARK
         const output = comp();
+        console.log("    - " + output.name);
 
         // CONSTRUCT LABEL WITH PROPERTIES
         const labeled: boolean = parameters.length !== 0;
@@ -23,8 +28,8 @@ function measure<T extends Output>(functor: () => (() => T)[]): void {
             parameters.push(
                 ...Object.keys(output).filter((key) => key !== "name"),
             );
-            console.log(" Components | " + parameters.join(" | ") + " ");
-            console.log(
+            await stream.write(" Components | " + parameters.join(" | ") + " ");
+            await stream.write(
                 "-".repeat(12) +
                     "|" +
                     parameters
@@ -34,7 +39,7 @@ function measure<T extends Output>(functor: () => (() => T)[]): void {
         }
 
         // REPORT
-        console.log(
+        await stream.write(
             [
                 output.name +
                     " | " +
@@ -44,16 +49,20 @@ function measure<T extends Output>(functor: () => (() => T)[]): void {
             ].join(" | "),
         );
     }
-    console.log("\n\n");
+    await stream.write("\n\n");
 }
 
-function main(): void {
-    const features = [
+async function main(): Promise<void> {
+    const cpu: string = os.cpus()[0].model;
+    console.log(`Benchmark ${cpu}`);
+
+    const stream = new WriteStream(`${__dirname}/results/${cpu}.md`);
+    const functors = [
         benchmark_is,
-        benchmark_assert,
-        benchmark_optimizer,
         benchmark_stringify,
+        benchmark_optimizer,
+        benchmark_assert,
     ];
-    for (const f of features) measure(f as any);
+    for (const func of functors) await measure(stream, func as any);
 }
 main();

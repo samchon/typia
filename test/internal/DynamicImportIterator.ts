@@ -15,7 +15,7 @@ interface ICommand {
 export namespace DynamicImportIterator {
     export type Closure<Arguments extends any[]> = (
         ...args: Arguments
-    ) => Promise<void>;
+    ) => Promise<any>;
     type Module<Arguments extends any[]> = {
         [key: string]: Closure<Arguments>;
     };
@@ -23,7 +23,7 @@ export namespace DynamicImportIterator {
     export interface IOptions<Parameters extends any[]> {
         prefix: string;
         parameters: () => Parameters;
-        wrapper?: (name: string, closure: Closure<Parameters>) => Promise<void>;
+        wrapper?: (name: string, output: any) => Promise<any>;
         counter?: IPointer<number>;
         showElapsedTime?: boolean;
     }
@@ -84,9 +84,8 @@ export namespace DynamicImportIterator {
             else if (external[key] instanceof Function) {
                 const closure: Closure<Arguments> = external[key];
                 const func = async () => {
-                    if (options.wrapper !== undefined)
-                        await options.wrapper(key, closure);
-                    else await closure(...options.parameters());
+                    const output = await closure(...options.parameters());
+                    if (options.wrapper) await options.wrapper(key, output);
                 };
 
                 try {

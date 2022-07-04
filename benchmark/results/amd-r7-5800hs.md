@@ -19,24 +19,26 @@ ultimate union | 1289.5822126591358 | Failed | 148.5460270420448
 ## assert
  Components | typescript-json | typescript-is 
 ------------|-----------------|---------------
-object (hierarchical) | 19578.47451411808 | 22471.382289416848
-object (recursive) | 20536.49430651484 | 22763.375620518476
-object (union) | 4617.045031633793 | 2349.670811997074
-array (recursive) | 1703.6632039365772 | 1568.1148748159055
-array (union) | 3019.816513761468 | 234.90548724536612
-ultimate union | 4471.810625225877 | 34.90685476578043
+object (hierarchical) | 20636.97604790419 | 22039.513677811552
+object (recursive) | 21847.037374658157 | 21677.636234961075
+object (union) | 5398.088586656865 | 2279.750223015165
+array (recursive) | 1657.347670250896 | 1600.5846884706743
+array (union) | 2050.1888828926067 | 241.63431318173414
+ultimate union | 4508.623853211009 | 34.60641922180384
 
 
 
 ## is
- Components | typescript-json | typescript-is 
-------------|-----------------|---------------
-object (hierarchical) | 116060.60047890956 | 51863.376910329585
-object (recursive) | 83197.71033981464 | 49495.86016559338
-object (union) | 16247.137924768307 | 7621.77088900766
-array (recursive) | 7592.771982116244 | 4593.337055648613
-array (union) | 7868.288288288289 | 1151.5593653109613
-ultimate union | 11100.32715376227 | 304.26716141001856
+ Components | typescript-json | typescript-is | ajv 
+------------|-----------------|---------------|-----
+object (hierarchical) | 108212.34612599565 | 53282.56476207974 | 85887.80663780664
+object (recursive) | 87932.66369047618 | 47606.46457268079 | Failed
+object (union, explicit) | 15761.78390137781 | Failed | 1261.7144932800582
+object (union, implicit) | 15195.213430969816 | Failed | Failed
+array (recursive) | 7277.839437661858 | 4470.839524517088 | Failed
+array (union, explicit) | 7925.266250459053 | 1117.7651999269672 | Failed
+array (union, implicit) | 7013.804527885147 | 1205.1234453313534 | Failed
+ultimate union | 11709.473292387866 | 296.53333333333336 | Failed
 
 
 
