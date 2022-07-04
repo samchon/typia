@@ -33,7 +33,9 @@ export class JsonTypeChecker {
         const must: boolean = typeof param === "object";
 
         const found: IJsonComponents.IObject | undefined =
-            this.application.components.schemas[`${prefix}/${key}`];
+            this.application.components.schemas[
+                key.indexOf(prefix) === 0 ? key.substr(prefix.length + 1) : key
+            ];
         if (found === undefined && must === true)
             throw new Error(
                 `Error no JsonTypeChecker.getObject(): faild to find the matched object by "${key}".`,
@@ -63,8 +65,9 @@ export class JsonTypeChecker {
         const schema: IJsonSchema.IEnumeration<any> = args[args.length - 1];
 
         return (
-            (literal === undefined || schema.type === literal) &&
-            schema.enum === undefined
+            (literal !== undefined
+                ? literal === schema.type
+                : typeof schema.type === "string") && schema.enum === undefined
         );
     }
 
@@ -80,8 +83,9 @@ export class JsonTypeChecker {
         const schema: IJsonSchema.IEnumeration<any> = args[args.length - 1];
 
         return (
-            (literal === undefined || schema.type === literal) &&
-            schema.enum !== undefined
+            (literal !== undefined
+                ? literal === schema.type
+                : typeof schema.type === "string") && schema.enum !== undefined
         );
     }
 
