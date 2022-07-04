@@ -339,7 +339,7 @@ function getName(metadata: Metadata): string {
     for (const tuple of metadata.tuples)
         elements.push(`[${tuple.map((elem) => elem.getName()).join(", ")}]`);
     for (const array of metadata.arrays)
-        elements.push(`Array<${array.getName()}}>`);
+        elements.push(`Array<${array.getName()}>`);
 
     // OBJECT
     for (const object of metadata.objects)
