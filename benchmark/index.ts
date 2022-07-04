@@ -17,9 +17,12 @@ async function measure<T extends Output>(
     console.log("  - " + functor.name);
 
     const parameters: string[] = [];
+    const outputList: T[] = [];
+
     for (const comp of functor()) {
         // DO BENCHMARK
         const output = comp();
+        outputList.push(output);
         console.log("    - " + output.name);
 
         // CONSTRUCT LABEL WITH PROPERTIES
@@ -49,20 +52,45 @@ async function measure<T extends Output>(
             ].join(" | "),
         );
     }
-    await stream.write("\n\n");
+    await stream.write("\n");
+
+    // DRAW GRAPHS
+    for (const output of outputList) {
+        await stream.write("```mermaid");
+        await stream.write(`pie title ${functor.name} - ${output.name}`);
+
+        for (const [key, value] of Object.entries(output)) {
+            if (key === "name") continue;
+            await stream.write(`  "${key}": ${value || 0}`);
+        }
+        await stream.write("```");
+        await stream.write("\n");
+    }
+
+    // TERMINATE
+    await stream.write("\n\n\n");
 }
 
 async function main(): Promise<void> {
     const cpu: string = os.cpus()[0].model;
+    const memory: number = os.totalmem();
+
     console.log(`Benchmark ${cpu}`);
 
     const stream = new WriteStream(`${__dirname}/results/${cpu}.md`);
     const functors = [
-        benchmark_is,
-        benchmark_stringify,
-        benchmark_optimizer,
         benchmark_assert,
+        benchmark_is,
+        benchmark_optimizer,
+        benchmark_stringify,
     ];
+
+    await stream.write("# Benchmark of `typescript-json`");
+    await stream.write(`> CPU: ${cpu}`);
+    await stream.write(
+        `> Memory: ${Math.round(memory / 1024 / 1024).toLocaleString()} MB`,
+    );
+    await stream.write("\n");
     for (const func of functors) await measure(stream, func as any);
 }
 main();

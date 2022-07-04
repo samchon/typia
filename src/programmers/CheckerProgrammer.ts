@@ -36,8 +36,11 @@ export namespace CheckerProgrammer {
     /* -----------------------------------------------------------
         GENERATORS
     ----------------------------------------------------------- */
-    export const generate = (project: IProject, config: IConfig) =>
-        FeatureProgrammer.generate(project, CONFIG(project, config));
+    export const generate = (
+        project: IProject,
+        config: IConfig,
+        addition?: () => ts.Statement[],
+    ) => FeatureProgrammer.generate(project, CONFIG(project, config), addition);
 
     export const generate_functors = (project: IProject, config: IConfig) =>
         FeatureProgrammer.generate_functors(CONFIG(project, config));
