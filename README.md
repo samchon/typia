@@ -39,7 +39,7 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
     - Does not require any JSON schema definition
     - 10,000x faster optimizer construction time than similar libraries
 
-![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/176856459-54322a6f-b3c2-4b6e-a562-ee3b7cb14de0.png)
+![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/177259933-85a2f19e-01f3-4ac0-a035-a38e0ac38ef5.png)
 
 > Measured on AMD R7 5800HS, ASUS ROG FLOW X13 (numeric option: `false`)
 
@@ -182,7 +182,7 @@ On the other side, other similary library like `fast-json-stringify` requires co
 
 Comparing performance, `typescript-json` is about 5x times faster when comparing only JSON string conversion time. If compare optimizer construction time with only one call, `typescript-json` is even 10,000x times faster.
 
-![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/176858620-cc21ed55-c9c3-42cd-808a-d5848330fc3f.png)
+![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/177259522-791578dc-fa96-4d62-9c96-b22cb9575450.png)
 
 > AMD CPU shows dramatic improvement
 
