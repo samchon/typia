@@ -49,7 +49,7 @@ export namespace assertType {
     ): boolean {
         if (matched === false && exceptionable === true)
             throw new TypeGuardError({
-                method: "assertType",
+                method: "TSON.assertType",
                 ...closure(),
             });
         return matched;
@@ -145,7 +145,7 @@ export module stringify {
     ): void {
         throw new TypeGuardError({
             ...props,
-            method: "stringify",
+            method: "TSON.stringify",
         });
     }
 }

@@ -21,7 +21,7 @@ export const test_assert_array_recursive = _test_assert(
         },
         (input) => {
             input.created_at = [] as any;
-            return "$input.created_at.time";
+            return "$input.created_at";
         },
         (input) => {
             input.children[0].children[0].sequence = "number" as any;

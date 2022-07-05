@@ -6,4 +6,10 @@ export const test_assert_object_recursive = _test_assert(
     "recursive object",
     ObjectRecursive.generate,
     (input) => TSON.assertType(input),
+    [
+        (input) => {
+            input.parent!.parent!.parent!.created_at.time = "zone" as any;
+            return "$input.parent.parent.parent.created_at.time";
+        },
+    ],
 );
