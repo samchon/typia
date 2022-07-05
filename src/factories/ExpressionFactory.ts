@@ -19,19 +19,26 @@ export namespace ExpressionFactory {
     export function isObject(
         input: ts.Expression,
         nullChecked: boolean,
+        checkArray?: boolean,
     ): ts.Expression {
-        const equality = ts.factory.createStrictEquality(
-            ts.factory.createStringLiteral("object"),
-            ts.factory.createTypeOfExpression(input),
-        );
-        return nullChecked === true
-            ? equality
-            : ts.factory.createLogicalAnd(
-                  ts.factory.createStrictInequality(
-                      ts.factory.createNull(),
-                      input,
-                  ),
-                  equality,
-              );
+        const conditions: ts.Expression[] = [
+            ts.factory.createStrictEquality(
+                ts.factory.createStringLiteral("object"),
+                ts.factory.createTypeOfExpression(input),
+            ),
+        ];
+        if (nullChecked === true)
+            conditions.push(
+                ts.factory.createStrictInequality(
+                    ts.factory.createNull(),
+                    input,
+                ),
+            );
+        if (checkArray === true)
+            conditions.push(ts.factory.createLogicalNot(isArray(input)));
+
+        return conditions.length === 1
+            ? conditions[0]!
+            : conditions.reduce((x, y) => ts.factory.createLogicalAnd(x, y));
     }
 }
