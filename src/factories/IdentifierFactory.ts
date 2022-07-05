@@ -18,6 +18,6 @@ export namespace IdentifierFactory {
     export function postfix(str: string): string {
         return Escaper.variable(str)
             ? `".${str}"`
-            : `"[${str.split('"').join('\\"')}]"`;
+            : `"[${JSON.stringify(str).split('"').join('\\"')}]"`;
     }
 }

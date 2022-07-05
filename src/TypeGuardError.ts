@@ -8,7 +8,7 @@ export class TypeGuardError extends Error {
         // MESSAGE CONSTRUCTION
         super(
             props.message ||
-                `Error on TSON.${props.method}(): invalid type${
+                `Error on ${props.method}(): invalid type${
                     props.path ? ` on ${props.path}` : ""
                 }, expect to be ${props.expected}`,
         );

@@ -6,4 +6,14 @@ export const test_assert_object_closure = _test_assert(
     "closured object",
     ObjectClosure.generate,
     (input) => TSON.assertType(input),
+    [
+        (input) => {
+            input.id = null!;
+            return "$input.id";
+        },
+        (input) => {
+            input.open = {} as any;
+            return "$input.open";
+        },
+    ],
 );

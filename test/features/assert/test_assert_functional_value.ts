@@ -6,4 +6,5 @@ export const test_assert_functional_value = _test_assert(
     "functional value",
     FunctionalValue.generate,
     (input) => TSON.assertType(input),
+    // UNABLE TO SPOIL
 );

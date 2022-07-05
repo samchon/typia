@@ -6,4 +6,5 @@ export const test_assert_ultimate_union = _test_assert_for_of(
     "ultimate union",
     UltimateUnion.generate,
     (input) => TSON.assertType(input),
+    // GIVE UP, SOMEDAY LATER
 );

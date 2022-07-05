@@ -23,7 +23,7 @@ export namespace AssertTransformer {
 
         // DO TRANSFORM
         return ts.factory.createCallExpression(
-            AssertProgrammer.generate(project, modulo, type),
+            AssertProgrammer.generate(project, modulo)(type),
             undefined,
             [expression.arguments[0]!],
         );

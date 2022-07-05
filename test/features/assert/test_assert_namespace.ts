@@ -6,4 +6,5 @@ export const test_assert_namespace = _test_assert(
     "namespace",
     Namespace.generate,
     (input) => TSON.assertType(input),
+    // UNABLE TO SPOIL
 );
