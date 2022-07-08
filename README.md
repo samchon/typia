@@ -180,7 +180,7 @@ If you call `TSON.stringify()` function instead of the native `JSON.stringify()`
 
 On the other side, other similary library like `fast-json-stringify` requires complicate JSON schema definition. Furthermore, `typescript-json` can convert complicate structured data that `fast-json-stringify` cannot convert.
 
-Comparing performance, `typescript-json` is about 5x times faster when comparing only JSON string conversion time. If compare optimizer construction time with only one call, `typescript-json` is even 10,000x times faster.
+Comparing performance, `typescript-json` is about 5x times faster when comparing only JSON string conversion time. If compare optimizer construction time, `typescript-json` is even 10,000x times faster.
 
 ![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/177259522-791578dc-fa96-4d62-9c96-b22cb9575450.png)
 

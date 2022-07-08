@@ -19,7 +19,6 @@ export namespace ExpressionFactory {
     export function isObject(
         input: ts.Expression,
         nullChecked: boolean,
-        checkArray?: boolean,
     ): ts.Expression {
         const conditions: ts.Expression[] = [
             ts.factory.createStrictEquality(
@@ -34,8 +33,6 @@ export namespace ExpressionFactory {
                     input,
                 ),
             );
-        if (checkArray === true)
-            conditions.push(ts.factory.createLogicalNot(isArray(input)));
 
         return conditions.length === 1
             ? conditions[0]!
