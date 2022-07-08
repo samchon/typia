@@ -17,7 +17,7 @@ export const test_assert_object_generic_array = _test_assert(
         },
         (input) => {
             input.pagination = [] as any;
-            return "$input.pagination";
+            return "$input.pagination.page";
         },
         (input) => {
             input.data[0].name = null!;

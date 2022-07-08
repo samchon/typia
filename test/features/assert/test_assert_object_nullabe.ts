@@ -21,11 +21,11 @@ export const test_assert_object_nullable = _test_assert_for_of(
         },
         (input) => {
             input.manufacturer = [] as any;
-            return `$input.manufacturer`;
+            return `$input.manufacturer.type`;
         },
         (input) => {
             input.brand = [] as any;
-            return `$input.brand`;
+            return `$input.brand.type`;
         },
         (input) => {
             input.brand = {

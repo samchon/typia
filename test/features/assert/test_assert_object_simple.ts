@@ -13,7 +13,7 @@ export const test_assert_object_simple = _test_assert(
         },
         (input) => {
             input.position = [] as any;
-            return "$input.position";
+            return "$input.position.x";
         },
         (input) => {
             input.rotate = undefined!;
