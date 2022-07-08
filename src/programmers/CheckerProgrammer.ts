@@ -211,11 +211,7 @@ export namespace CheckerProgrammer {
             if (meta.objects.length > 0)
                 binaries.push(
                     ts.factory.createLogicalAnd(
-                        ExpressionFactory.isObject(
-                            input,
-                            true,
-                            meta.arrays.length === 0,
-                        ),
+                        ExpressionFactory.isObject(input, true),
                         explore_objects(config)(input, meta, {
                             ...explore,
                             from: "object",

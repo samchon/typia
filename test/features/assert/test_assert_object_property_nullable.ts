@@ -21,7 +21,7 @@ export const test_assert_object_property_nullable = _test_assert(
         },
         (input) => {
             input[3][0].value = [] as any;
-            return "$input[3][0].value";
+            return "$input[3][0].value.id";
         },
     ],
 );
