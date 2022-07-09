@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.0.11",
+  "version": "3.0.12",
   "description": "Runtime type checkers and 5x faster JSON.stringify() function",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -28,13 +28,13 @@
     "typescript",
     "transform",
     "ajv",
+    "io-ts",
     "schema",
     "jsonschema",
     "generator",
     "validator",
     "runtime",
     "type",
-    "check",
     "checker"
   ],
   "author": "Jeongho Nam",
