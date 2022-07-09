@@ -1,6 +1,6 @@
 import TSON from "../../../src";
 import { ObjectNullable } from "../../structures/ObjectNullable";
-import { _test_assert_for_of } from "../assert/_test_assert_for_of";
+import { _test_assert_for_of } from "./_test_assert_for_of";
 
 export const test_assert_object_nullable = _test_assert_for_of(
     "nullable object",
@@ -43,18 +43,18 @@ export const test_assert_object_nullable = _test_assert_for_of(
         },
         (input) => {
             input.similar = undefined!;
-            return `$input`; // @todo
+            return `$input.similar`;
         },
         (input) => {
             input.similar = {
                 type: "manufacturer",
                 name: undefined!,
             };
-            return `$input`; // @todo
+            return `$input.similar.name`;
         },
         (input) => {
             input.similar = [] as any;
-            return `$input`; // @todo
+            return `$input.similar`;
         },
     ],
 );

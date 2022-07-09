@@ -7,9 +7,9 @@ export const test_is_object_union_non_predictable = _test_is(
     ObjectUnionNonPredictable.generate,
     (input) => TSON.is(input),
     [
-        (input) => (input[0].value.value = [] as any),
-        (input) => (input[1].value.value = {} as any),
-        (input) => (input[2].value.value = null!),
-        (input) => (input[3].value = undefined!),
+        (input) => (input[0].value.value.value.value = [] as any),
+        (input) => (input[1].value.value.value.value = {} as any),
+        (input) => (input[2].value.value.value = null!),
+        (input) => (input[3].value.value.value = undefined!),
     ],
 );

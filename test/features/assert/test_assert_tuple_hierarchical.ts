@@ -13,7 +13,7 @@ export const test_assert_tuple_hierarchical = _test_assert(
         },
         (input) => {
             input[1] = "undefined" as any;
-            return "$input"; // @todo
+            return "$input[1]";
         },
         (input) => {
             input[2] = "number" as any;
@@ -25,7 +25,7 @@ export const test_assert_tuple_hierarchical = _test_assert(
         },
         (input) => {
             input[3][1] = "null" as any;
-            return "$input[3]"; // @todo
+            return "$input[3][1]";
         },
         (input) => {
             input[3][2][0] = "number" as any;

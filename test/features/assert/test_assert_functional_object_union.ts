@@ -10,10 +10,10 @@ export const test_assert_functional_object_union = _test_assert_for_of(
         (input) => {
             if ((input as any).length) {
                 (input as any).length = {} as any;
-                return "$input";
+                return "$input.length";
             }
             (input as any).distance = [] as any;
-            return "$input";
+            return "$input.distance";
         },
     ],
 );

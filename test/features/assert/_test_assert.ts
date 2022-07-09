@@ -40,7 +40,6 @@ export function _test_assert<T>(
                         console.log({
                             input: path.value,
                             expected: exp.path,
-                            value: elem,
                         });
             }
             throw new Error(

@@ -36,7 +36,11 @@ export function _test_assert_for_of<T>(
                             exp.path === path.value
                         )
                             return;
-                        else console.log(path.value, exp.path);
+                        else
+                            console.log({
+                                input: path.value,
+                                expected: exp.path,
+                            });
                 }
                 throw new Error(
                     `Bug on TSON.assertType(): failed to detect error on the ${name} type.`,
