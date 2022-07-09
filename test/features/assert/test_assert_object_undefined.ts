@@ -9,7 +9,7 @@ export const test_assert_object_undefined = _test_assert(
     [
         (input) => {
             input[0].professor = null!;
-            return "$input[0]"; // @todo
+            return "$input[0].professor";
         },
         (input) => {
             input[0].classroom = [] as any;
@@ -17,7 +17,7 @@ export const test_assert_object_undefined = _test_assert(
         },
         (input) => {
             input[0].nothing = "undefined" as any;
-            return "$input[0]"; // @todo
+            return "$input[0].nothing";
         },
     ],
 );

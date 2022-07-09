@@ -158,10 +158,7 @@ export namespace UnionExplorer {
                                         {
                                             ...explore,
                                             tracable: false,
-                                            postfix:
-                                                IdentifierFactory.postfix(
-                                                    "[0]",
-                                                ),
+                                            postfix: `"[0]"`,
                                         },
                                     ),
                                 ),
@@ -183,7 +180,7 @@ export namespace UnionExplorer {
                                         meta,
                                         {
                                             ...explore,
-                                            tracable: true,
+                                            tracable: false,
                                         },
                                     ),
                                 ),

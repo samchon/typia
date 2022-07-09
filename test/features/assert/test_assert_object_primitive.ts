@@ -13,7 +13,7 @@ export const test_assert_object_primitive = _test_assert(
         },
         (input) => {
             input.extension = "jpg" as "md";
-            return "$input"; // @todo
+            return "$input.extension";
         },
         (input) => {
             input.files = {} as any;

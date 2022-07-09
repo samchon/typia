@@ -7,6 +7,6 @@ runner.register({
     compiler: "ttypescript",
 });
 
-const program = require("./features/assert/test_assert_array_atomic_simple.ts");
+const program = require("./features/assert/test_assert_functional_array_union.ts");
 for (const value of Object.values(program))
     if (typeof value === "function") value();

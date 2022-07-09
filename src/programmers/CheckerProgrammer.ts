@@ -109,7 +109,7 @@ export namespace CheckerProgrammer {
             explore: IExplore,
         ): ts.Expression {
             if (meta.any) return ValueFactory.BOOLEAN(true);
-            explore.tracable = explore.tracable && meta.size() === 1;
+            // explore.tracable = explore.tracable && meta.size() === 1;
 
             const top: ts.Expression[] = [];
             const binaries: ts.Expression[] = [];
@@ -227,7 +227,7 @@ export namespace CheckerProgrammer {
                           ...top,
                           config.combiner({
                               ...explore,
-                              tracable: false,
+                              //   tracable: false,
                           })("or")(input, binaries, meta.getName()),
                       ],
                       meta.getName(),
@@ -287,7 +287,7 @@ export namespace CheckerProgrammer {
                         from: "array",
                         postfix: explore.postfix.length
                             ? `${explore.postfix.slice(0, -1)}[${index}]"`
-                            : `"[${index}]"`,
+                            : `[${index}]`,
                     },
                 ),
             );

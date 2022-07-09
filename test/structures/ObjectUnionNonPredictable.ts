@@ -1,4 +1,5 @@
-export type ObjectUnionNonPredictable = ObjectUnionNonPredictable.IUnion[];
+export type ObjectUnionNonPredictable =
+    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>[];
 export namespace ObjectUnionNonPredictable {
     export type IUnion =
         | IWrapper<boolean>
@@ -13,10 +14,10 @@ export namespace ObjectUnionNonPredictable {
 
     export function generate(): ObjectUnionNonPredictable {
         return [
-            { value: { value: false } },
-            { value: { value: true } },
-            { value: { value: 2 } },
-            { value: { value: "three" } },
+            { value: { value: { value: { value: false } } } },
+            { value: { value: { value: { value: true } } } },
+            { value: { value: { value: { value: 2 } } } },
+            { value: { value: { value: { value: "three" } } } },
         ];
     }
 }

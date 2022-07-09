@@ -21,7 +21,7 @@ export const test_assert_object_alias = _test_assert_for_of(
         },
         (input) => {
             input.sex = 3 as 2;
-            return "$input"; // @todo
+            return "$input.sex";
         },
         (input) => {
             input.age = "old" as any;

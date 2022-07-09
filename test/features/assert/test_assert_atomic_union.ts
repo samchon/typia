@@ -9,15 +9,15 @@ export const test_assert_atomic_union = _test_assert(
     [
         (input) => {
             input[0] = [] as any;
-            return "$input";
+            return "$input[0]";
         },
         (input) => {
             input[1] = {} as any;
-            return "$input";
+            return "$input[1]";
         },
         (input) => {
             input[2] = undefined!;
-            return "$input";
+            return "$input[2]";
         },
     ],
 );

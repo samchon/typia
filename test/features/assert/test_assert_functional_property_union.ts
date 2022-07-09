@@ -9,11 +9,11 @@ export const test_assert_functional_property_union = _test_assert_for_of(
     [
         (input) => {
             input.closure = {} as any;
-            return "$input";
+            return "$input.closure";
         },
         (input) => {
             input.closure = [] as any;
-            return "$input";
+            return "$input.closure";
         },
     ],
 );
