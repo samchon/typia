@@ -32,11 +32,11 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
 
   - Powerful Runtime type checkers:
     - Performed by only one line, `TSON.assertType<T>(input)`
-    - Does not require any JSON schema definition
     - Only one library which can validate union type
+    - Maximum 100x faster than other libraries
   - 5x faster `JSON.stringify()` function:
     - Performed by only one line: `TSON.stringify<T>(input)`
-    - Does not require any JSON schema definition
+    - Only one library which can stringify union type
     - 10,000x faster optimizer construction time than similar libraries
 
 ![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/177259933-85a2f19e-01f3-4ac0-a035-a38e0ac38ef5.png)
@@ -50,7 +50,7 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
 ### NPM Package
 At first, install this `typescript-json` by the `npm install` command. 
 
-Also, you need additional `devDependencies` to compile the TypeScript code with transformation. Therefore, install those all libraries `typescript`, `ttypescript` and `ts-node`. Inform that, `ttypescript` is not mis-writing. Therefore, do not forget to install the `ttypescript`.
+Also, you need additional `devDependencies` to compile the TypeScript code with transformation. Therefore, install those all libraries `typescript`, `ttypescript` and `ts-node`. Inform that, `ttypescript` is not mis-writing. Do not forget to install the `ttypescript`.
 
 ```bash
 npm install --save typescript-json
@@ -62,9 +62,9 @@ npm install --save-dev ts-node
 ```
 
 ### tsconfig.json
-After the installation, you've to configure the `tsconfig.json` file like below. 
+After the installation, you've to configure `tsconfig.json` file like below. 
 
-Add the new property `transform` and its value `typescript-json/lib/transform` into the `compilerOptions.plugins` array. When configuring, I recommend you to use the `strict` option, to enforce developers to distinguish whether each property is nullable or undefindable.
+Add a property `transform` and its value as `typescript-json/lib/transform` into `compilerOptions.plugins` array. When configuring, I recommend you to use the `strict` option, to enforce developers to distinguish whether each property is nullable or undefindable.
 
 Also, you can configure additional properties like `numeric` and `functional`. The first, `numeric` is an option whether to test `Number.isNaN()` and `Number.isFinite()` to numeric value or not. The second, `functional` is an option whether to test function type or not. Default values of those options are all `true`.
 
@@ -75,8 +75,8 @@ Also, you can configure additional properties like `numeric` and `functional`. T
     "plugins": [
       {
         "transform": "typescript-json/lib/transform",
-        // "functional": false, // test function type
-        // "numeric": false, // test `isNaN()` and `isFinite()`
+        // "functional": true, // test function type
+        // "numeric": true, // test `isNaN()` and `isFinite()`
       }
     ]
   }
@@ -94,7 +94,7 @@ npx ts-node -C ttypescript
 ```
 
 ### webpack
-If you're using a `webpack` with `ts-loader`, configure the `webpack.config.js` file like below:
+If you're using `webpack` with `ts-loader`, configure the `webpack.config.js` file like below:
 
 ```javascript
 const transform = require("typescript-json/lib/transform").default;
@@ -137,9 +137,9 @@ export function is<T>(input: T): boolean;
 
 The first, `assertType()` is a function throwing `TypeGuardError` when an `input` value is different with its type, generic argument `T`. The other function, `is()` returns a `boolean` value meaning whether matched or not.
 
-Comparing those `assertType()` and `is()` functions with other similar libraries, `typescript-json` is much easier than other libraries, except only `typescript-is`. For example, `ajv` requires complicate JSON schema definition that is different with the TypeScript type. Besides, `typescript-json` requires only one line.
+Comparing those type checker functions with other similar libraries, `typescript-json` is much easier than others, except only `typescript-is`. For example, `ajv` requires complicate JSON schema definition that is different with the TypeScript type. Besides, `typescript-json` requires only one line.
 
-Also, only `typescript-json` can validate union typed structure exactly. All the other simliar validator libraries can check simple object type, however, none of them can validate implicit union type. The fun thing is, `ajv` requires JSON schema definition for validation, but it can't validate the JSON schema type. How contradict it is.
+Also, only `typescript-json` can validate union typed structure exactly. All the other libraries can check simple object type, however, none of them can validate complicate union type. The fun thing is, `ajv` requires JSON schema definition for validation, but it can't validate the JSON schema type. How contradict it is.
 
 Components               | `TSON` | `T.IS` | `ajv` | `io-ts` | `C.V.`
 -------------------------|-------------------|-----------------|-------|---------|------------------
@@ -169,7 +169,7 @@ The extreme different is shown in the "ultimate union" type, when validating [JS
 
 > Measured on Intel i5-1135g7, Surface Pro 8
 
-### Fastest JSON String Conversion
+### Fastest JSON String Converter
 ```typescript
 export function stringify<T>(input: T): string;
 ```
@@ -208,8 +208,6 @@ By the way, the reason why you're using this `application()` is for generating a
 
 ## Appendix
 ### Nestia
-> My other library using this `typescript-json`.
-
 https://github.com/samchon/nestia
 
 Automatic `SDK` and `Swagger` generator for `NestJS`, evolved than ever.
@@ -290,13 +288,11 @@ export async function trace_sale_question_and_comment
 ```
 
 ### Nestia-Helper
-> My another library, using this `typescript-json`, too.
-
 https://github.com/samchon/nestia-helper
 
-Boost up `JSON.stringify()` function, of the API responses, 5x times faster.
+Helper library of `NestJS`, using this `typescript-json`.
 
-`nestia-helper` is a helper library of `NestJS`, which can boost up the `JSON.stringify()` function 5x times faster about the API responses. Just by installing and utilizing this `nestia-helper`, your NestJS developed backend server will convert JSON string 5x times faster.
+`nestia-helper` is a helper library of `NestJS`, which boosts up the `JSON.stringify()` speed 5x times faster about the API responses. Also, `nestia-helper` supports automatic valiation of request body, too. 
 
 ```typescript
 import helper from "nestia-helper";
@@ -305,13 +301,16 @@ import * as nest from "@nestjs/common";
 @nest.Controller("bbs/articles")
 export class BbsArticlesController
 {
-    // JSON.stringify() would be 5x times faster 
+    // TSON.stringify() for response body
     @helper.TypedRoute.Get()
-    public get(): Promise<IPage<IBbsArticle.ISummary>>;
+    public store(
+        // TSON.assertType() for request body
+        @helper.TypedBody() input: IBbsArticle.IStore
+    ): Promise<IBbsArticle>;
 }
 ```
 
-### Archidraw
+<!-- ### Archidraw
 https://www.archisketch.com/
 
 I have special thanks to the Archidraw, where I'm working for.
@@ -327,4 +326,4 @@ The Archidraw is a great IT company developing 3D interior editor and lots of so
 > - 회사소개서: [archidraw.pdf](https://github.com/archidraw/payments/files/7696710/archidraw.pdf)
 > - 기술 스택: React + TypeScript
 > - 이력서: 자유 양식
-> - 지원처: samchon@archisketch.com
+> - 지원처: samchon@archisketch.com -->
