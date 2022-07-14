@@ -24,27 +24,20 @@ export namespace AssertProgrammer {
                 undefined,
                 undefined,
                 ts.factory.createBlock([
+                    StatementFactory.variable(
+                        ts.NodeFlags.Const,
+                        "$pred",
+                        IdentifierFactory.join(modulo, "predicate"),
+                    ),
                     ts.factory.createExpressionStatement(
                         ts.factory.createCallExpression(
-                            CheckerProgrammer.generate(
-                                project,
-                                {
-                                    functors: "$ao",
-                                    unioners: "$au",
-                                    trace: true,
-                                    combiner: combine(),
-                                },
-                                () => [
-                                    StatementFactory.variable(
-                                        ts.NodeFlags.Const,
-                                        "$pred",
-                                        IdentifierFactory.join(
-                                            modulo,
-                                            "predicate",
-                                        ),
-                                    ),
-                                ],
-                            )(type),
+                            CheckerProgrammer.generate(project, {
+                                functors: "$ao",
+                                unioners: "$au",
+                                trace: true,
+                                combiner: combine(),
+                                joiner: CheckerProgrammer.DEFAULT_JOINER(),
+                            })(type),
                             undefined,
                             [ValueFactory.INPUT()],
                         ),
@@ -60,8 +53,9 @@ function combine(): CheckerProgrammer.IConfig.Combiner {
         if (explore.tracable === false && explore.from !== "top")
             return combiner(explore);
 
-        const path = explore.postfix ? `path + ${explore.postfix}` : "path";
-
+        const path: string = explore.postfix
+            ? `path + ${explore.postfix}`
+            : "path";
         return (logic) => (input, expressions, expected) =>
             ts.factory.createCallExpression(
                 ts.factory.createIdentifier("$pred"),

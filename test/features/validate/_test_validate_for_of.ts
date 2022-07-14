@@ -1,4 +1,3 @@
-import { TypeGuardError } from "../../../src";
 import { IValidation } from "../../../src/IValidation";
 
 export function _test_validate_for_of<T>(
@@ -9,10 +8,12 @@ export function _test_validate_for_of<T>(
 ): () => void {
     return () => {
         for (const input of generator())
-            if (validator(input).success === false)
+            if (validator(input).success === false) {
+                console.log(validator(input));
                 throw new Error(
                     `Bug on TSON.validate(): failed to understand the ${name} type.`,
                 );
+            }
 
         for (const spoil of spoilers || [])
             generator().forEach((elem, index) => {

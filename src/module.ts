@@ -101,10 +101,25 @@ export namespace validate {
             exceptionable: boolean,
             closure: () => IValidation.IError,
         ) => {
-            if (matched === false) {
+            (() => {
+                // CHECK SUCCESS
+                if (matched === true || exceptionable === false) return;
                 res.success &&= false;
-                if (exceptionable === true) res.errors.push(closure());
-            }
+
+                // TRACE ERROR
+                const error = closure();
+                if (res.errors.length) {
+                    const last = res.errors[res.errors.length - 1]!.path;
+                    if (
+                        last.length > error.path.length &&
+                        last.substring(0, error.path.length) === error.path
+                    )
+                        return;
+                }
+                res.errors.push(error);
+                return;
+            })();
+            return matched;
         };
 }
 

@@ -12,20 +12,8 @@ export namespace ValidateProgrammer {
             functors: "$vo",
             unioners: "$vu",
             trace: true,
-            combiner: () => (type: "and" | "or") => {
-                const initial: ts.TrueLiteral | ts.FalseLiteral =
-                    type === "and"
-                        ? ts.factory.createTrue()
-                        : ts.factory.createFalse();
-                const binder =
-                    type === "and"
-                        ? ts.factory.createLogicalAnd
-                        : ts.factory.createLogicalOr;
-                return (_input: ts.Expression, expressions: ts.Expression[]) =>
-                    expressions.length
-                        ? expressions.reduce((x, y) => binder(x, y))
-                        : initial;
-            },
+            combiner: combine(),
+            joiner: join(),
         };
     }
 
@@ -46,69 +34,75 @@ export namespace ValidateProgrammer {
                 undefined,
                 undefined,
                 ts.factory.createBlock([
+                    StatementFactory.variable(
+                        ts.NodeFlags.Const,
+                        "$out",
+                        create_output(),
+                    ),
+                    StatementFactory.variable(
+                        ts.NodeFlags.Const,
+                        "$pred",
+                        ts.factory.createCallExpression(
+                            IdentifierFactory.join(modulo, "predicate"),
+                            [],
+                            [ts.factory.createIdentifier("$out")],
+                        ),
+                    ),
                     ts.factory.createExpressionStatement(
                         ts.factory.createCallExpression(
-                            CheckerProgrammer.generate(
-                                project,
-                                {
-                                    functors: "$vo",
-                                    unioners: "$vu",
-                                    trace: true,
-                                    combiner: combine(),
-                                },
-                                () => [
-                                    StatementFactory.variable(
-                                        ts.NodeFlags.Const,
-                                        "$out",
-                                        create_output(),
-                                    ),
-                                    StatementFactory.variable(
-                                        ts.NodeFlags.Const,
-                                        "$pred",
-                                        ts.factory.createCallExpression(
-                                            IdentifierFactory.join(
-                                                modulo,
-                                                "predicate",
-                                            ),
-                                            [],
-                                            [
-                                                ts.factory.createIdentifier(
-                                                    "$out",
-                                                ),
-                                            ],
-                                        ),
-                                    ),
-                                ],
-                            )(type),
+                            CheckerProgrammer.generate(project, CONFIG())(type),
                             undefined,
                             [ValueFactory.INPUT()],
                         ),
+                    ),
+                    ts.factory.createReturnStatement(
+                        ts.factory.createIdentifier("$out"),
                     ),
                 ]),
             );
 }
 
-function combine(): CheckerProgrammer.IConfig.Combiner {
-    return (explore: CheckerProgrammer.IExplore) => {
-        const combiner = IsProgrammer.CONFIG().combiner;
-        if (explore.tracable === false && explore.from !== "top")
-            return combiner(explore);
+const combine: () => CheckerProgrammer.IConfig.Combiner = () => (explore) => {
+    const combiner = IsProgrammer.CONFIG().combiner;
+    if (explore.tracable === false && explore.from !== "top")
+        return combiner(explore);
 
-        const path = explore.postfix ? `path + ${explore.postfix}` : "path";
-        return (logic) => (input, expressions, expected) =>
+    const path: string = explore.postfix ? `path + ${explore.postfix}` : "path";
+    return (logic) => (input, expressions, expected) =>
+        ts.factory.createCallExpression(
+            ts.factory.createIdentifier("$pred"),
+            [],
+            [
+                combiner(explore)(logic)(input, expressions, expected),
+                explore.source === "top"
+                    ? ts.factory.createTrue()
+                    : ts.factory.createIdentifier("exceptionable"),
+                create_report_function(path, expected, input),
+            ],
+        );
+};
+
+const join: () => CheckerProgrammer.IConfig.IJoiner = () => ({
+    object: (entries) =>
+        create_array_every(
+            ts.factory.createArrayLiteralExpression(
+                entries.map((entry) => entry.expression),
+                true,
+            ),
+        ),
+    array: (input, arrow) =>
+        create_array_every(
             ts.factory.createCallExpression(
-                ts.factory.createIdentifier("$pred"),
-                [],
-                [
-                    combiner(explore)(logic)(input, expressions, expected),
-                    explore.source === "top"
-                        ? ts.factory.createTrue()
-                        : ts.factory.createIdentifier("exceptionable"),
-                    create_report_function(path, expected, input),
-                ],
-            );
-    };
-}
+                IdentifierFactory.join(input, "map"),
+                undefined,
+                [arrow],
+            ),
+        ),
+    tuple: (binaries) =>
+        create_array_every(
+            ts.factory.createArrayLiteralExpression(binaries, true),
+        ),
+});
 
 function create_output() {
     return ts.factory.createObjectLiteralExpression(
@@ -151,5 +145,32 @@ function create_report_function(
             ],
             true,
         ),
+    );
+}
+
+function create_array_every(array: ts.Expression): ts.Expression {
+    return ts.factory.createCallExpression(
+        IdentifierFactory.join(array, "every"),
+        undefined,
+        [
+            ts.factory.createArrowFunction(
+                undefined,
+                undefined,
+                [
+                    ts.factory.createParameterDeclaration(
+                        undefined,
+                        undefined,
+                        undefined,
+                        "flag",
+                    ),
+                ],
+                undefined,
+                undefined,
+                ts.factory.createStrictEquality(
+                    ts.factory.createTrue(),
+                    ts.factory.createIdentifier("flag"),
+                ),
+            ),
+        ],
     );
 }
