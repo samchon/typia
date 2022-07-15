@@ -10,6 +10,7 @@ import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 import { IProject } from "../transformers/IProject";
 import { OptionPreditor } from "./helpers/OptionPredicator";
+import { IExpressionEntry } from "./helpers/IExpressionEntry";
 
 export namespace CheckerProgrammer {
     export interface IConfig {
@@ -17,6 +18,7 @@ export namespace CheckerProgrammer {
         unioners: string;
         trace: boolean;
         combiner: IConfig.Combiner;
+        joiner: IConfig.IJoiner;
     }
     export namespace IConfig {
         export interface Combiner {
@@ -29,6 +31,11 @@ export namespace CheckerProgrammer {
                     ): ts.Expression;
                 };
             };
+        }
+        export interface IJoiner {
+            object(entries: IExpressionEntry[]): ts.Expression;
+            array(input: ts.Expression, arrow: ts.ArrowFunction): ts.Expression;
+            tuple(binaries: ts.Expression[]): ts.Expression;
         }
     }
     export import IExplore = FeatureProgrammer.IExplore;
@@ -47,6 +54,23 @@ export namespace CheckerProgrammer {
 
     export const generate_unioners = (project: IProject, config: IConfig) =>
         FeatureProgrammer.generate_unioners(CONFIG(project, config));
+
+    export const DEFAULT_JOINER: () => IConfig.IJoiner = () => ({
+        object: (entries) =>
+            entries.length
+                ? entries
+                      .map((entry) => entry.expression)
+                      .reduce((x, y) => ts.factory.createLogicalAnd(x, y))
+                : ts.factory.createTrue(),
+        array: (input, arrow) =>
+            ts.factory.createCallExpression(
+                IdentifierFactory.join(input, "every"),
+                undefined,
+                [arrow],
+            ),
+        tuple: (binaries) =>
+            binaries.reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
+    });
 
     function CONFIG(
         project: IProject,
@@ -73,14 +97,7 @@ export namespace CheckerProgrammer {
             objector: {
                 checker: decode(project, config),
                 decoder: decode_object(config),
-                joiner: (entries) =>
-                    entries.length
-                        ? entries
-                              .map((entry) => entry.expression)
-                              .reduce((x, y) =>
-                                  ts.factory.createLogicalAnd(x, y),
-                              )
-                        : ts.factory.createTrue(),
+                joiner: config.joiner.object,
                 unionizer: (input, targets, explore) =>
                     config.combiner(explore)("or")(
                         input,
@@ -225,10 +242,11 @@ export namespace CheckerProgrammer {
                       input,
                       [
                           ...top,
-                          config.combiner({
-                              ...explore,
-                              //   tracable: false,
-                          })("or")(input, binaries, meta.getName()),
+                          config.combiner(explore)("or")(
+                              input,
+                              binaries,
+                              meta.getName(),
+                          ),
                       ],
                       meta.getName(),
                   )
@@ -274,7 +292,7 @@ export namespace CheckerProgrammer {
             tuple: Array<Metadata>,
             explore: IExplore,
         ): ts.Expression {
-            const length = ts.factory.createStrictEquality(
+            const length: ts.BinaryExpression = ts.factory.createStrictEquality(
                 ts.factory.createPropertyAccessExpression(input, "length"),
                 ts.factory.createNumericLiteral(tuple.length),
             );
@@ -293,8 +311,9 @@ export namespace CheckerProgrammer {
             );
             if (binaries.length === 0) return length;
             else
-                return [length, ...binaries].reduce((x, y) =>
-                    ts.factory.createLogicalAnd(x, y),
+                return ts.factory.createLogicalAnd(
+                    length,
+                    config.joiner.tuple(binaries),
                 );
         };
     }
@@ -305,12 +324,7 @@ export namespace CheckerProgrammer {
                 trace: config.trace,
                 decoder: decode(project, config),
             },
-            (input, arrow) =>
-                ts.factory.createCallExpression(
-                    IdentifierFactory.join(input, "every"),
-                    undefined,
-                    [arrow],
-                ),
+            config.joiner.array,
         );
     }
 

@@ -24,6 +24,7 @@ export namespace IsProgrammer {
                         ? expressions.reduce((x, y) => binder(x, y))
                         : initial;
             },
+            joiner: CheckerProgrammer.DEFAULT_JOINER(),
         };
     }
 

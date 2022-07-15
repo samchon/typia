@@ -33,6 +33,7 @@ export namespace AssertProgrammer {
                                     unioners: "$au",
                                     trace: true,
                                     combiner: combine(),
+                                    joiner: CheckerProgrammer.DEFAULT_JOINER(),
                                 },
                                 () => [
                                     StatementFactory.variable(
@@ -60,8 +61,9 @@ function combine(): CheckerProgrammer.IConfig.Combiner {
         if (explore.tracable === false && explore.from !== "top")
             return combiner(explore);
 
-        const path = explore.postfix ? `path + ${explore.postfix}` : "path";
-
+        const path: string = explore.postfix
+            ? `path + ${explore.postfix}`
+            : "path";
         return (logic) => (input, expressions, expected) =>
             ts.factory.createCallExpression(
                 ts.factory.createIdentifier("$pred"),

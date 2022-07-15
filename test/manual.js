@@ -7,6 +7,6 @@ runner.register({
     compiler: "ttypescript",
 });
 
-const program = require("./features/assert/test_assert_functional_array_union.ts");
+const program = require("./features/validate/test_validate_array_hierarchical.ts");
 for (const value of Object.values(program))
     if (typeof value === "function") value();

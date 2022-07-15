@@ -14,16 +14,15 @@ Super-fast Runtime type checker and `JSON.stringify()` functions, with only one 
 ```typescript
 import TSON from "typescript-json";
 
-//----
-// MAIN FUNCTIONS
-//----
-TSON.assertType<T>(input); // runtime type checker throwing exception
-TSON.is<T>(input); // runtime type checker returning boolean
+// RUNTIME TYPE CHECKERS
+TSON.assertType<T>(input); // throws exception
+TSON.is<T>(input); // returns boolean value
+TSON.validate<T>(input); // archives all type errors
+
+// STRINGIFY
 TSON.stringify<T>(input); // 5x faster JSON.stringify()
 
-//----
 // APPENDIX FUNCTIONS
-//----
 TSON.application<[T, U, V], "swagger">(); // JSON schema application generator
 TSON.create<T>(input); // 2x faster object creator (only one-time construction)
 ```
@@ -131,11 +130,24 @@ module.exports = {
 ```typescript
 export function assertType<T>(input: T): T;
 export function is<T>(input: T): boolean;
+export function validate<T>(input: T): IValidation;
+
+export interface IValidation {
+    success: boolean;
+    errors: IValidation.IError[];
+}
+export namespace IValidation {
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
 ```
 
-`typescript-json` provides two runtime type checker functions, `assertType()` and `is()`.
+`typescript-json` provides three runtime type checker functions.
 
-The first, `assertType()` is a function throwing `TypeGuardError` when an `input` value is different with its type, generic argument `T`. The other function, `is()` returns a `boolean` value meaning whether matched or not.
+The first, `assertType()` is a function throwing `TypeGuardError` when an `input` value is different with its type, generic argument `T`. The second function, `is()` returns a `boolean` value meaning whether matched or not. The last `validate()` function archives all type errors into an `IValidation.errors` array.
 
 Comparing those type checker functions with other similar libraries, `typescript-json` is much easier than others, except only `typescript-is`. For example, `ajv` requires complicate JSON schema definition that is different with the TypeScript type. Besides, `typescript-json` requires only one line.
 

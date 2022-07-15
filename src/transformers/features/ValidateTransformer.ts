@@ -1,12 +1,11 @@
 import ts from "typescript";
-
-import { IsProgrammer } from "../../programmers/IsProgrammer";
+import { ValidateProgrammer } from "../../programmers/ValidateProgrammer";
 import { IProject } from "../IProject";
 
-export namespace IsTransformer {
+export namespace ValidateTransformer {
     export function transform(
         project: IProject,
-        _modulo: ts.LeftHandSideExpression,
+        modulo: ts.LeftHandSideExpression,
         expression: ts.CallExpression,
     ): ts.Expression {
         if (expression.arguments.length !== 1)
@@ -24,7 +23,7 @@ export namespace IsTransformer {
 
         // DO TRANSFORM
         return ts.factory.createCallExpression(
-            IsProgrammer.generate(project)(type),
+            ValidateProgrammer.generate(project, modulo)(type),
             undefined,
             [expression.arguments[0]!],
         );
@@ -32,6 +31,6 @@ export namespace IsTransformer {
 }
 
 const enum ErrorMessages {
-    NO_INPUT_VALUE = "Error on TSON.is(): no input value.",
-    GENERIC_ARGUMENT = "Error on TSON.is(): non-specified generic argument.",
+    NO_INPUT_VALUE = "Error on TSON.validate(): no input value.",
+    GENERIC_ARGUMENT = "Error on TSON.validate(): non-specified generic argument.",
 }

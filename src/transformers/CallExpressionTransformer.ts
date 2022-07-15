@@ -8,6 +8,7 @@ import { AssertTransformer } from "./features/AssertTransformer";
 import { CreateTransformer } from "./features/CreateTransformer";
 import { IsTransformer } from "./features/IsTransformer";
 import { StringifyTransformer } from "./features/StringifyTransformer";
+import { ValidateTransformer } from "./features/ValidateTransformer";
 
 export namespace CallExpressionTransformer {
     export function transform(
@@ -52,6 +53,8 @@ const SRC_PATH = path.resolve(path.join(__dirname, "..", "module.ts"));
 const FUNCTORS: Record<string, () => Task> = {
     assertType: () => AssertTransformer.transform,
     is: () => IsTransformer.transform,
+    validate: () => ValidateTransformer.transform,
+
     stringify: () => StringifyTransformer.transform,
 
     application: () => ApplicationTransformer.transform,
