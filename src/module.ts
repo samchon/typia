@@ -17,11 +17,12 @@ import { IValidation } from "./IValidation";
  * Asserts a value type in the runtime.
  *
  * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
- * reason, if the parametric value is not following the type *T*. Otherwise, the
- * value is following the type *T*, just input parameter would be returned.
+ * reason, if the parametric value is not following the type `T`. Otherwise, the
+ * value is following the type `T`, just input parameter would be returned.
  *
  * If what you want is not asserting but just knowing whether the parametric value is
- * following the type *T* or not, you can choose the {@link is} function instead.
+ * following the type `T` or not, you can choose the {@link is} function instead.
+ * Otherwise you want to know all the errors, {@link validate} is the way to go.
  *
  * @template T Type of the input value
  * @param input A value to be asserted
@@ -60,15 +61,19 @@ export namespace assertType {
 /**
  * Tests a value type in the runtime.
  *
- * Tests a parametric value type and returns whether it's following the type *T* or not.
+ * Tests a parametric value type and returns whether it's following the type `T` or not.
+ * If the parametric value is matched with the type `T`, `true` value would be returned.
+ * Otherwise, the parametric value is not following the type `T`, `false` value would be
+ * returned.
  *
  * If what you want is not just knowing whether the parametric value is following the
- * type *T* or not, but throwing an exception with detailed reason, you can choose
- * {@link is} function instead.
+ * type `T` or not, but throwing an exception with detailed reason, you can choose
+ * {@link is} function instead. Also, if you want to know all the errors with detailed
+ * reasons, {@link validate} function would be useful.
  *
  * @template T Type of the input value
  * @param input A value to be tested
- * @returns Whether the parametric value is following the type *T* or not
+ * @returns Whether the parametric value is following the type `T` or not
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -81,6 +86,24 @@ export function is(): never {
     halt("is");
 }
 
+/**
+ * Validate a value type in the runtime.
+ *
+ * Validates a parametric value type and archives all the type errors into an
+ * {@link IValidation.errors} array, if the parametric value is not following the
+ * type `T`. Of course, if the parametric value is following the type `T`, the
+ * {@link IValidation.errors} array would be empty and {@link IValidation.success}
+ * would have the `true` value.
+ *
+ * If what you want is not finding all the error, but asserting the parametric value
+ * type with exception throwing, you can choose {@link assertType} function instead.
+ * Otherwise, you just want to know whether the parametric value is matched with the
+ * type `T`, {@link is} function is the way to go.
+ *
+ * @template Type of the input value
+ * @param input A value to be validated
+ * @returns
+ */
 export function validate<T>(input: T): IValidation;
 
 /**
@@ -101,24 +124,24 @@ export namespace validate {
             exceptionable: boolean,
             closure: () => IValidation.IError,
         ) => {
-            (() => {
-                // CHECK SUCCESS
-                if (matched === true || exceptionable === false) return;
-                res.success &&= false;
+            // CHECK FAILURE
+            if (matched === false && exceptionable === true)
+                (() => {
+                    res.success &&= false;
 
-                // TRACE ERROR
-                const error = closure();
-                if (res.errors.length) {
-                    const last = res.errors[res.errors.length - 1]!.path;
-                    if (
-                        last.length > error.path.length &&
-                        last.substring(0, error.path.length) === error.path
-                    )
-                        return;
-                }
-                res.errors.push(error);
-                return;
-            })();
+                    // TRACE ERROR
+                    const error = closure();
+                    if (res.errors.length) {
+                        const last = res.errors[res.errors.length - 1]!.path;
+                        if (
+                            last.length >= error.path.length &&
+                            last.substring(0, error.path.length) === error.path
+                        )
+                            return;
+                    }
+                    res.errors.push(error);
+                    return;
+                })();
             return matched;
         };
 }
@@ -131,7 +154,7 @@ export namespace validate {
  *
  * Converts an input value to a JSON (JavaSript Object Noation) string, about 5x faster
  * than the native `JSON.stringify()` function. The 5x faster principle is because
- * it writes an optmized JSON conversion plan, only for the type *T*.
+ * it writes an optmized JSON conversion plan, only for the type `T`.
  *
  * If you want to create a stringify function which is reusable, just assign this function
  * to a (constant) variable like below, with the generic argument `T`. Then the variable
@@ -145,7 +168,7 @@ export namespace validate {
  * ```
  *
  * For reference, this `TSON.stringify()` does not validate the input value type. It
- * just believes that the input value is following the type *T*. Therefore, if you
+ * just believes that the input value is following the type `T`. Therefore, if you
  * can't ensure the input value type, it would better to call {@link assertType} or
  * {@link is} function before.
  *
@@ -215,7 +238,7 @@ export function create(): never {
 }
 
 /**
- * > You must configure the generic argument *T*.
+ * > You must configure the generic argument `T`.
  *
  * JSON Schema Application.
  *

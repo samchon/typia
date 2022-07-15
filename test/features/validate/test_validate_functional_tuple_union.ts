@@ -6,5 +6,5 @@ export const test_validate_functional_object_union = _test_validate_for_of(
     "functional union tuple",
     FunctionalTupleUnion.generate,
     (input) => TSON.validate(input),
-    // UNABLE TO SPIL
+    // UNABLE TO SPOIL
 );

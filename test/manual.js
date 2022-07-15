@@ -7,6 +7,6 @@ runner.register({
     compiler: "ttypescript",
 });
 
-const program = require("./features/validate/test_validate_object_simple.ts");
+const program = require("./features/validate/test_validate_array_hierarchical.ts");
 for (const value of Object.values(program))
     if (typeof value === "function") value();

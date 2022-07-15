@@ -15,18 +15,34 @@ export function _test_validate_for_of<T>(
                 );
             }
 
+        const wrong: ISpoiled[] = [];
         for (const spoil of spoilers || [])
             generator().forEach((elem, index) => {
-                const paths: string[] = spoil(elem, index);
+                const expected: string[] = spoil(elem, index);
                 const { errors } = validator(elem);
 
+                expected.sort();
+                errors.sort((x, y) => (x.path < y.path ? -1 : 1));
+
                 if (
-                    errors.length !== paths.length ||
-                    errors.every((e, i) => e.path !== paths[i]) === false
+                    errors.length !== expected.length ||
+                    errors.every((e, i) => e.path === expected[i]) === false
                 )
-                    throw new Error(
-                        `Bug on TSON.validate(): failed to detect error on the ${name} type.`,
-                    );
+                    wrong.push({
+                        expected,
+                        solution: errors.map((e) => e.path),
+                    });
             });
+        if (wrong.length !== 0) {
+            console.log(wrong);
+            throw new Error(
+                `Bug on TSON.validate(): failed to detect error on the ${name} type.`,
+            );
+        }
     };
+}
+
+interface ISpoiled {
+    expected: string[];
+    solution: string[];
 }
