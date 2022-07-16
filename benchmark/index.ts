@@ -90,6 +90,7 @@ async function main(): Promise<void> {
     await stream.write(
         `> Memory: ${Math.round(memory / 1024 / 1024).toLocaleString()} MB`,
     );
+    await stream.write(`> NodeJS version: ${process.version}`);
     await stream.write("\n");
     for (const func of functors) await measure(stream, func as any);
 }
