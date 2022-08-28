@@ -20,7 +20,7 @@ export namespace ClassNonPublic {
         return new Accessor(
             RandomGenerator.string(),
             RandomGenerator.string(),
-            RandomGenerator.number(),
+            RandomGenerator.integer(),
             RandomGenerator.boolean(),
         );
     }

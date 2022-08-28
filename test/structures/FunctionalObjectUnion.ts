@@ -29,24 +29,24 @@ export namespace FunctionalObjectUnion {
             {
                 p1: point(),
                 p2: point(),
-                length: () => RandomGenerator.number(),
+                length: () => RandomGenerator.integer(),
             },
             {
                 points: RandomGenerator.array(point),
-                length: () => RandomGenerator.number(),
+                length: () => RandomGenerator.integer(),
             },
             {
                 points: RandomGenerator.array(point),
-                length: () => RandomGenerator.number(),
-                area: () => RandomGenerator.number(),
+                length: () => RandomGenerator.integer(),
+                area: () => RandomGenerator.integer(),
             },
         ];
     }
     export function point(): IPoint {
         return {
-            x: RandomGenerator.number(),
-            y: RandomGenerator.number(),
-            distance: () => RandomGenerator.number(),
+            x: RandomGenerator.integer(),
+            y: RandomGenerator.integer(),
+            distance: () => RandomGenerator.integer(),
         };
     }
 }

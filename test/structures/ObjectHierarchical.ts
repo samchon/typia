@@ -53,28 +53,28 @@ export namespace ObjectHierarchical {
         const account: IAccount | null = authorized ? generate_account() : null;
         const enterprise: IEnterprise | null = employeed
             ? {
-                  id: RandomGenerator.number(),
+                  id: RandomGenerator.integer(),
                   account: generate_account(),
                   name: RandomGenerator.string(),
-                  grade: RandomGenerator.number(),
+                  grade: RandomGenerator.integer(),
                   created_at: generate_timestamp(),
               }
             : null;
         return {
-            id: RandomGenerator.number(),
+            id: RandomGenerator.integer(),
             channel: {
-                id: RandomGenerator.number(),
+                id: RandomGenerator.integer(),
                 code: RandomGenerator.string(),
                 name: RandomGenerator.string(),
-                sequence: RandomGenerator.number(),
+                sequence: RandomGenerator.integer(),
                 exclusive: RandomGenerator.boolean(),
-                priority: RandomGenerator.number(),
+                priority: RandomGenerator.integer(),
                 created_at: generate_timestamp(),
             },
             account,
             member: account
                 ? {
-                      id: RandomGenerator.number(),
+                      id: RandomGenerator.integer(),
                       account,
                       emails: [
                           "samchon.github@gmail.com",
@@ -98,7 +98,7 @@ export namespace ObjectHierarchical {
     });
 
     const generate_account: () => IAccount = () => ({
-        id: RandomGenerator.number(),
+        id: RandomGenerator.integer(),
         code: RandomGenerator.string(),
         created_at: generate_timestamp(),
     });

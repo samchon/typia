@@ -10,7 +10,7 @@ export namespace ArrayAtomicAlias {
     export function generate(): ArrayAtomicAlias {
         return [
             RandomGenerator.array(RandomGenerator.boolean),
-            RandomGenerator.array(RandomGenerator.number),
+            RandomGenerator.array(RandomGenerator.integer),
             RandomGenerator.array(RandomGenerator.string),
         ];
     }

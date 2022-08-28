@@ -19,7 +19,7 @@ export namespace ObjectGeneric {
     export function generate(): ObjectGeneric {
         return [
             individual(RandomGenerator.boolean),
-            individual(RandomGenerator.number),
+            individual(RandomGenerator.integer),
             individual(RandomGenerator.string),
         ];
     }

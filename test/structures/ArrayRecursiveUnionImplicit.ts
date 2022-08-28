@@ -76,8 +76,8 @@ export namespace ArrayRecursiveUnionImplicit {
     }
     function generate_image_file(): IImageFile {
         return {
-            width: RandomGenerator.number(),
-            height: RandomGenerator.number(),
+            width: RandomGenerator.integer(),
+            height: RandomGenerator.integer(),
             url: RandomGenerator.string(),
             ...generate_file(),
         };
@@ -90,7 +90,7 @@ export namespace ArrayRecursiveUnionImplicit {
     }
     function generate_zip_file(): IZipFile {
         return {
-            count: RandomGenerator.number(),
+            count: RandomGenerator.integer(),
             ...generate_file(),
         };
     }
@@ -103,7 +103,7 @@ export namespace ArrayRecursiveUnionImplicit {
 
     function generate_bucket() {
         return {
-            id: RandomGenerator.number(),
+            id: RandomGenerator.integer(),
             name: RandomGenerator.string(),
             path: RandomGenerator.string(),
         };
@@ -111,7 +111,7 @@ export namespace ArrayRecursiveUnionImplicit {
     function generate_file() {
         return {
             ...generate_bucket(),
-            size: RandomGenerator.number(),
+            size: RandomGenerator.integer(),
         };
     }
 }

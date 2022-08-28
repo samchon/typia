@@ -19,12 +19,12 @@ export namespace ArrayRecursive {
         index: number = 0,
     ): ArrayRecursive {
         return {
-            id: RandomGenerator.number(),
+            id: RandomGenerator.integer(),
             code: RandomGenerator.string(),
-            sequence: RandomGenerator.number(),
+            sequence: RandomGenerator.integer(),
             created_at: {
-                time: RandomGenerator.number(),
-                zone: RandomGenerator.number(),
+                time: RandomGenerator.integer(),
+                zone: RandomGenerator.integer(),
             },
             children:
                 index < limit
