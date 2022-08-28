@@ -62,6 +62,7 @@
     "ts-node": "^10.7.0",
     "ttypescript": "^1.5.13",
     "typescript": "4.6.x",
-    "typescript-is": "^0.19.0"
+    "typescript-is": "^0.19.0",
+    "uuid": "^8.3.2"
   }
 }

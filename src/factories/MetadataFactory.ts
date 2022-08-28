@@ -9,6 +9,7 @@ import { Metadata } from "../metadata/Metadata";
 import { Writable } from "../typings/Writable";
 import { MetadataProperty } from "../metadata/MetadataProperty";
 import { MetadataConstant } from "../metadata/MetadataConstant";
+import { MetadataTagFactory } from "./MetadataTagFactory";
 
 export namespace MetadataFactory {
     export interface IOptions {
@@ -131,7 +132,7 @@ export namespace MetadataFactory {
     ): void {
         if (type.isTypeParameter() === true)
             throw new Error(
-                "Error on TSON.MetadataFactory.generate(): non-specified generic argument.",
+                `Error on TSON.MetadataFactory.generate(): non-specified generic argument on ${meta.getName()}.`,
             );
 
         // PREPARE INTERNAL FUNCTIONS
@@ -407,6 +408,15 @@ export namespace MetadataFactory {
                     ) || undefined,
             });
             obj.properties.push(property);
+
+            // ASSIGN TAGS
+            property.tags.push(
+                ...MetadataTagFactory.generate(
+                    () => `${obj.name}.${key}`,
+                    child,
+                    prop.getJsDocTags(),
+                ),
+            );
         }
         return obj;
     }
