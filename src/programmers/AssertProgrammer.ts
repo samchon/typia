@@ -1,15 +1,17 @@
 import ts from "typescript";
-import { StatementFactory } from "../factories/StatementFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { IProject } from "../transformers/IProject";
-import { IdentifierFactory } from "../factories/IdentifierFactory";
+import { FunctionImporter } from "./helpers/FunctionImporeter";
 
 export namespace AssertProgrammer {
-    export const generate =
-        (project: IProject, modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type) =>
+    export function generate(
+        project: IProject,
+        modulo: ts.LeftHandSideExpression,
+    ) {
+        const importer = new FunctionImporter();
+        return (type: ts.Type) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -32,19 +34,11 @@ export namespace AssertProgrammer {
                                     functors: "$ao",
                                     unioners: "$au",
                                     trace: true,
-                                    combiner: combine(),
+                                    combiner: combine(importer),
                                     joiner: CheckerProgrammer.DEFAULT_JOINER(),
                                 },
-                                () => [
-                                    StatementFactory.variable(
-                                        ts.NodeFlags.Const,
-                                        "$pred",
-                                        IdentifierFactory.join(
-                                            modulo,
-                                            "predicate",
-                                        ),
-                                    ),
-                                ],
+                                modulo,
+                                importer,
                             )(type),
                             undefined,
                             [ValueFactory.INPUT()],
@@ -53,9 +47,12 @@ export namespace AssertProgrammer {
                     ts.factory.createReturnStatement(ValueFactory.INPUT()),
                 ]),
             );
+    }
 }
 
-function combine(): CheckerProgrammer.IConfig.Combiner {
+function combine(
+    importer: FunctionImporter,
+): CheckerProgrammer.IConfig.Combiner {
     return (explore: CheckerProgrammer.IExplore) => {
         const combiner = IsProgrammer.CONFIG().combiner;
         if (explore.tracable === false && explore.from !== "top")
@@ -66,7 +63,7 @@ function combine(): CheckerProgrammer.IConfig.Combiner {
             : "path";
         return (logic) => (input, expressions, expected) =>
             ts.factory.createCallExpression(
-                ts.factory.createIdentifier("$pred"),
+                importer.use("predicate"),
                 [],
                 [
                     combiner(explore)(logic)(input, expressions, expected),

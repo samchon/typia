@@ -1,11 +1,12 @@
-const EXTENSION = __filename.substr(-2);
-if (EXTENSION === "js") require("source-map-support/register");
-
+import chalk from "chalk";
 import cli from "cli";
 import fs from "fs";
-
 import { IPointer } from "./IPointer";
+
 import { StopWatch } from "./StopWatch";
+
+const EXTENSION = __filename.substr(-2);
+if (EXTENSION === "js") require("source-map-support/register");
 
 interface ICommand {
     include?: string;
@@ -13,17 +14,20 @@ interface ICommand {
 }
 
 export namespace DynamicImportIterator {
-    export type Closure<Arguments extends any[]> = (
+    export type Closure<Arguments extends any[], Ret = any> = (
         ...args: Arguments
-    ) => Promise<any>;
+    ) => Promise<Ret>;
     type Module<Arguments extends any[]> = {
         [key: string]: Closure<Arguments>;
     };
 
-    export interface IOptions<Parameters extends any[]> {
+    export interface IOptions<Parameters extends any[], Ret = any> {
         prefix: string;
-        parameters: () => Parameters;
-        wrapper?: (name: string, output: any) => Promise<any>;
+        parameters: (name: string) => Parameters;
+        wrapper?: (
+            name: string,
+            closure: Closure<Parameters, Ret>,
+        ) => Promise<any>;
         counter?: IPointer<number>;
         showElapsedTime?: boolean;
     }
@@ -81,29 +85,34 @@ export namespace DynamicImportIterator {
                 continue;
             else if (key.substr(0, options.prefix.length) !== options.prefix)
                 continue;
-            else if (external[key] instanceof Function) {
-                const closure: Closure<Arguments> = external[key];
-                const func = async () => {
-                    const output = await closure(...options.parameters());
-                    if (options.wrapper) await options.wrapper(key, output);
-                };
+            else if (!(external[key] instanceof Function)) continue;
 
-                try {
-                    if (options.counter) ++options.counter.value;
-                    if (options.showElapsedTime === false) {
-                        await func();
-                        console.log(`  - ${key}`);
-                    } else {
-                        const time: number = await StopWatch.measure(func);
-                        console.log(`  - ${key}: ${time.toLocaleString()} ms`);
-                    }
-                } catch (exp) {
-                    if (!(exp instanceof Error)) return;
-
-                    console.log(`  - ${key} -> ${exp.name}`);
-                    if (exceptions !== undefined) exceptions.push(exp);
-                    else throw exp;
+            const closure: Closure<Arguments> = external[key];
+            const func = async () => {
+                if (options.wrapper !== undefined)
+                    await options.wrapper(key, closure);
+                else await closure(...options.parameters(key));
+            };
+            const label: string = chalk.greenBright(key);
+            try {
+                if (options.counter) ++options.counter.value;
+                if (options.showElapsedTime === false) {
+                    await func();
+                    console.log(`  - ${label}`);
+                } else {
+                    const time: number = await StopWatch.measure(func);
+                    console.log(
+                        `  - ${label}: ${chalk.yellowBright(
+                            time.toLocaleString(),
+                        )} ms`,
+                    );
                 }
+            } catch (exp) {
+                if (!(exp instanceof Error)) return;
+
+                console.log(`  - ${label} -> ${chalk.redBright(exp.name)}`);
+                if (exceptions !== undefined) exceptions.push(exp);
+                else throw exp;
             }
         }
     }

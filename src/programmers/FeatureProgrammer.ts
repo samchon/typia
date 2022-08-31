@@ -8,6 +8,7 @@ import { Metadata } from "../metadata/Metadata";
 import { MetadataObject } from "../metadata/MetadataObject";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { UnionExplorer } from "./helpers/UnionExplorer";
+import { IMetadataTag } from "../metadata/IMetadataTag";
 
 export namespace FeatureProgrammer {
     /* -----------------------------------------------------------
@@ -44,7 +45,12 @@ export namespace FeatureProgrammer {
         (project: IProject, type: ts.Type): [MetadataCollection, Metadata];
     }
     export interface Decoder<T> {
-        (input: ts.Expression, target: T, explore: IExplore): ts.Expression;
+        (
+            input: ts.Expression,
+            target: T,
+            explore: IExplore,
+            tags: IMetadataTag[],
+        ): ts.Expression;
     }
     export interface ObjectJoiner {
         (entries: IExpressionEntry[], parent: MetadataObject): ts.ConciseBody;
@@ -53,13 +59,13 @@ export namespace FeatureProgrammer {
     /* -----------------------------------------------------------
         GENERATORS
     ----------------------------------------------------------- */
-    export function generate(
-        project: IProject,
-        config: IConfig,
-        addition?: (collection: MetadataCollection) => ts.Statement[],
-    ) {
-        const createParameters = PARAMETERS(config.trace ? true : null);
-        return function (type: ts.Type) {
+    export const generate =
+        (
+            project: IProject,
+            config: IConfig,
+            addition?: (collection: MetadataCollection) => ts.Statement[],
+        ) =>
+        (type: ts.Type) => {
             const [collection, meta] = config.initializer(project, type);
 
             // ITERATE OVER ALL METADATA
@@ -72,6 +78,7 @@ export namespace FeatureProgrammer {
                     from: "top",
                     postfix: '""',
                 },
+                [],
             );
 
             // CREATE FUNCTIONS
@@ -86,7 +93,7 @@ export namespace FeatureProgrammer {
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                createParameters(ValueFactory.INPUT()),
+                PARAMETERS(config.trace ? true : null)(ValueFactory.INPUT()),
                 undefined,
                 undefined,
                 ts.factory.createBlock(
@@ -120,7 +127,6 @@ export namespace FeatureProgrammer {
                 ),
             );
         };
-    }
 
     export function generate_functors(config: IConfig) {
         return function (
@@ -178,12 +184,17 @@ export namespace FeatureProgrammer {
                     input: access,
                     key: prop.name,
                     meta: prop.metadata,
-                    expression: config.decoder(access, prop.metadata, {
-                        tracable: config.trace,
-                        source: "object",
-                        from: "object",
-                        postfix: IdentifierFactory.postfix(prop.name),
-                    }),
+                    expression: config.decoder(
+                        access,
+                        prop.metadata,
+                        {
+                            tracable: config.trace,
+                            source: "object",
+                            from: "object",
+                            postfix: IdentifierFactory.postfix(prop.name),
+                        },
+                        prop.tags,
+                    ),
                 });
             }
 
@@ -215,12 +226,17 @@ export namespace FeatureProgrammer {
                 PARAMETERS(config.trace ? false : null)(ValueFactory.INPUT()),
                 undefined,
                 undefined,
-                explorer(input, meta, {
-                    tracable: config.trace,
-                    source: "object",
-                    from: "object",
-                    postfix: "",
-                }),
+                explorer(
+                    input,
+                    meta,
+                    {
+                        tracable: config.trace,
+                        source: "object",
+                        from: "object",
+                        postfix: "",
+                    },
+                    [],
+                ),
             );
     }
 
@@ -246,7 +262,12 @@ export namespace FeatureProgrammer {
               ]
             : [];
 
-        return (input: ts.Expression, meta: Metadata, explore: IExplore) => {
+        return (
+            input: ts.Expression,
+            meta: Metadata,
+            explore: IExplore,
+            tags: IMetadataTag[],
+        ) => {
             const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -261,14 +282,19 @@ export namespace FeatureProgrammer {
                 ],
                 undefined,
                 undefined,
-                config.decoder(ValueFactory.INPUT("elem"), meta, {
-                    tracable: explore.tracable,
-                    source: explore.source,
-                    from: "array",
-                    postfix: explore.postfix.length
-                        ? explore.postfix.slice(0, -1) + INDEX_SYMBOL(rand)
-                        : '"' + INDEX_SYMBOL(rand),
-                }),
+                config.decoder(
+                    ValueFactory.INPUT("elem"),
+                    meta,
+                    {
+                        tracable: explore.tracable,
+                        source: explore.source,
+                        from: "array",
+                        postfix: explore.postfix.length
+                            ? explore.postfix.slice(0, -1) + INDEX_SYMBOL(rand)
+                            : '"' + INDEX_SYMBOL(rand),
+                    },
+                    tags,
+                ),
             );
             return combiner(input, arrow);
         };
@@ -283,10 +309,10 @@ export namespace FeatureProgrammer {
                     obj.index,
                 ),
                 undefined,
-                getArguments(config.trace, explore)(input),
+                get_object_arguments(config.trace, explore)(input),
             );
 
-    export const getArguments = (
+    export const get_object_arguments = (
         trace: boolean,
         explore: FeatureProgrammer.IExplore,
     ) => {
@@ -303,7 +329,9 @@ export namespace FeatureProgrammer {
                           ? ts.factory.createIdentifier(
                                 `${explore.tracable} && exceptionable`,
                             )
-                          : ts.factory.createIdentifier(`${explore.tracable}`),
+                          : explore.tracable
+                          ? ts.factory.createTrue()
+                          : ts.factory.createFalse(),
                   ];
         return (input: ts.Expression) => [input, ...tail];
     };

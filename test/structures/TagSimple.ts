@@ -45,7 +45,7 @@ export interface TagSimple {
     /**
      * Regex pattern.
      *
-     * @pattern ^[a-zA-Z0-9]*$
+     * @pattern /^[a-zA-Z0-9]*$/i
      */
     regex: string;
 }
@@ -53,9 +53,9 @@ export namespace TagSimple {
     export function generate(): TagSimple {
         return {
             uuid: v4(),
-            numeric: RandomGenerator.integer(1, 3),
-            email: `${RandomGenerator.string()}@samchon.org`,
-            ipv4: `127.0.0.1/8`,
+            numeric: RandomGenerator.integer(3, 10),
+            email: `samchon@samchon.org`,
+            ipv4: `127.0.0.1`,
             ipv6: "0:0:0:0:0:0:0:1",
             short: RandomGenerator.string(RandomGenerator.integer(2, 5)),
             regex: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",

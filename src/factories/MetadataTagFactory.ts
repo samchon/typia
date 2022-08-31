@@ -141,4 +141,4 @@ function parse_number(identifier: () => string, str: string): number {
 const LABEL = "Error on TSON.MetadataTagFactory.generate()";
 const LEFT_PARENTHESIS = ["[", "("] as const;
 const RIGHT_PARENTHESIS = ["]", ")"] as const;
-const FORMATS = new Set(["uuid", "email", "url", "ipv4", "ipv6"]);
+const FORMATS = new Set(["uuid", "email", "url", "mobile", "ipv4", "ipv6"]);
