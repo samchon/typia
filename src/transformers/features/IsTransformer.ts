@@ -6,7 +6,7 @@ import { IProject } from "../IProject";
 export namespace IsTransformer {
     export function transform(
         project: IProject,
-        _modulo: ts.LeftHandSideExpression,
+        modulo: ts.LeftHandSideExpression,
         expression: ts.CallExpression,
     ): ts.Expression {
         if (expression.arguments.length !== 1)
@@ -24,7 +24,7 @@ export namespace IsTransformer {
 
         // DO TRANSFORM
         return ts.factory.createCallExpression(
-            IsProgrammer.generate(project)(type),
+            IsProgrammer.generate(project, modulo)(type),
             undefined,
             [expression.arguments[0]!],
         );

@@ -3,6 +3,7 @@ import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 import { IProject } from "../transformers/IProject";
 import { CheckerProgrammer } from "./CheckerProgrammer";
+import { FunctionImporter } from "./helpers/FunctionImporeter";
 
 export namespace IsProgrammer {
     export function CONFIG(): CheckerProgrammer.IConfig {
@@ -28,15 +29,25 @@ export namespace IsProgrammer {
         };
     }
 
-    export const generate = (project: IProject) =>
-        CheckerProgrammer.generate(project, CONFIG());
-    export const generate_functors = (project: IProject) =>
-        CheckerProgrammer.generate_functors(project, CONFIG());
-    export const generate_unioners = (project: IProject) =>
-        CheckerProgrammer.generate_unioners(project, CONFIG());
+    export function generate(
+        project: IProject,
+        modulo: ts.LeftHandSideExpression,
+    ) {
+        const importer: FunctionImporter = new FunctionImporter();
+        return CheckerProgrammer.generate(project, CONFIG(), modulo, importer);
+    }
 
-    export const decode = (project: IProject) =>
-        CheckerProgrammer.decode(project, CONFIG(), false);
+    export const generate_functors = (
+        project: IProject,
+        importer: FunctionImporter,
+    ) => CheckerProgrammer.generate_functors(project, CONFIG(), importer);
+    export const generate_unioners = (
+        project: IProject,
+        importer: FunctionImporter,
+    ) => CheckerProgrammer.generate_unioners(project, CONFIG(), importer);
+
+    export const decode = (project: IProject, importer: FunctionImporter) =>
+        CheckerProgrammer.decode(project, CONFIG(), importer, false);
     export const decode_object = () =>
         CheckerProgrammer.decode_object(CONFIG());
     export function decode_to_json(input: ts.Expression): ts.Expression {

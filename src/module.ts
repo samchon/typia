@@ -7,8 +7,13 @@ import { IJsonApplication } from "./schemas/IJsonApplication";
 import { TypeGuardError } from "./TypeGuardError";
 import { $number } from "./functional/$number";
 import { $string } from "./functional/$string";
-import { $tail } from "./functional/$last";
+import { $tail } from "./functional/$tail";
 import { IValidation } from "./IValidation";
+import { $is_uuid } from "./functional/$is_uuid";
+import { $is_email } from "./functional/$is_email";
+import { $is_url } from "./functional/$is_url";
+import { $is_ipv4 } from "./functional/$is_ipv4";
+import { $is_ipv6 } from "./functional/$is_ipv6";
 
 /* -----------------------------------------------------------
     VALIDATORS
@@ -44,6 +49,12 @@ export function assertType(): never {
  * @internal
  */
 export namespace assertType {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+
     export function predicate(
         matched: boolean,
         exceptionable: boolean,
@@ -87,6 +98,17 @@ export function is(): never {
 }
 
 /**
+ * @internal
+ */
+export namespace is {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+}
+
+/**
  * Validate a value type in the runtime.
  *
  * Validates a parametric value type and archives all the type errors into an
@@ -117,6 +139,12 @@ export function validate(): never {
  * @internal
  */
 export namespace validate {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+
     export const predicate =
         (res: IValidation) =>
         (

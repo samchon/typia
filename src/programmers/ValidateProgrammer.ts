@@ -4,22 +4,16 @@ import { StatementFactory } from "../factories/StatementFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 import { IProject } from "../transformers/IProject";
 import { CheckerProgrammer } from "./CheckerProgrammer";
+import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { IsProgrammer } from "./IsProgrammer";
 
 export namespace ValidateProgrammer {
-    export function CONFIG(): CheckerProgrammer.IConfig {
-        return {
-            functors: "$vo",
-            unioners: "$vu",
-            trace: true,
-            combiner: combine(),
-            joiner: join(),
-        };
-    }
-
-    export const generate =
-        (project: IProject, modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type) =>
+    export function generate(
+        project: IProject,
+        modulo: ts.LeftHandSideExpression,
+    ) {
+        const importer = new FunctionImporter();
+        return (type: ts.Type) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -50,7 +44,18 @@ export namespace ValidateProgrammer {
                     ),
                     ts.factory.createExpressionStatement(
                         ts.factory.createCallExpression(
-                            CheckerProgrammer.generate(project, CONFIG())(type),
+                            CheckerProgrammer.generate(
+                                project,
+                                {
+                                    functors: "$vo",
+                                    unioners: "$vu",
+                                    trace: true,
+                                    combiner: combine(),
+                                    joiner: join(),
+                                },
+                                modulo,
+                                importer,
+                            )(type),
                             undefined,
                             [ValueFactory.INPUT()],
                         ),
@@ -60,6 +65,7 @@ export namespace ValidateProgrammer {
                     ),
                 ]),
             );
+    }
 }
 
 const combine: () => CheckerProgrammer.IConfig.Combiner = () => (explore) => {
