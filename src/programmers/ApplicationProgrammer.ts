@@ -4,6 +4,7 @@ import { MetadataObject } from "../metadata/MetadataObject";
 import { IJsonApplication } from "../schemas/IJsonApplication";
 import { IJsonComponents } from "../schemas/IJsonComponents";
 import { IJsonSchema } from "../schemas/IJsonSchema";
+
 import { ArrayUtil } from "../utils/ArrayUtil";
 
 export namespace ApplicationProgrammer {

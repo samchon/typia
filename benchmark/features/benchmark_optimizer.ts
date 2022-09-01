@@ -1,15 +1,15 @@
 import ajv from "fast-json-stringify";
-import TSON from "../../src";
-import { OptimizerBenchmarker } from "../internal/OptimizerBenchmarker";
 
-import { ObjectSimple } from "../../test/structures/ObjectSimple";
-import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
-import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
+import TSON from "../../src";
 import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
-import { UltimateUnion } from "../../test/structures/UltimateUnion";
+import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
+import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
+import { ObjectSimple } from "../../test/structures/ObjectSimple";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
+import { UltimateUnion } from "../../test/structures/UltimateUnion";
+import { OptimizerBenchmarker } from "../internal/OptimizerBenchmarker";
 
 function build(app: TSON.IJsonApplication): any {
     try {

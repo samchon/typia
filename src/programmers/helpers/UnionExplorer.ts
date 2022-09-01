@@ -1,10 +1,13 @@
 import ts from "typescript";
+
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
+
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 import { Metadata } from "../../metadata/Metadata";
 import { MetadataObject } from "../../metadata/MetadataObject";
+
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { UnionPredicator } from "./UnionPredicator";
 

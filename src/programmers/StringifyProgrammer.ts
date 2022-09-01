@@ -1,19 +1,24 @@
 import ts from "typescript";
-import { StringifyPredicator } from "./helpers/StringifyPredicator";
+
+import { ExpressionFactory } from "../factories/ExpressionFactory";
+import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
-import { IdentifierFactory } from "../factories/IdentifierFactory";
+import { ValueFactory } from "../factories/ValueFactory";
+
+import { Metadata } from "../metadata/Metadata";
+
+import { IProject } from "../transformers/IProject";
+
+import { ArrayUtil } from "../utils/ArrayUtil";
+
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
-import { StringifyJoiner } from "./helpers/StringifyJoinder";
-import { Metadata } from "../metadata/Metadata";
-import { ArrayUtil } from "../utils/ArrayUtil";
-import { ExpressionFactory } from "../factories/ExpressionFactory";
-import { UnionExplorer } from "./helpers/UnionExplorer";
-import { IProject } from "../transformers/IProject";
-import { ValueFactory } from "../factories/ValueFactory";
-import { OptionPreditor } from "./helpers/OptionPredicator";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { OptionPreditor } from "./helpers/OptionPredicator";
+import { StringifyJoiner } from "./helpers/StringifyJoinder";
+import { StringifyPredicator } from "./helpers/StringifyPredicator";
+import { UnionExplorer } from "./helpers/UnionExplorer";
 
 export namespace StringifyProgrammer {
     /* -----------------------------------------------------------

@@ -1,8 +1,9 @@
-import { IMetadataProperty } from "./IMetadataProperty";
 import { ClassProperties } from "../typings/ClassProperties";
+
+import { IMetadataProperty } from "./IMetadataProperty";
+import { IMetadataTag } from "./IMetadataTag";
 import { Metadata } from "./Metadata";
 import { MetadataObject } from "./MetadataObject";
-import { IMetadataTag } from "./IMetadataTag";
 
 export class MetadataProperty {
     public readonly name: string;

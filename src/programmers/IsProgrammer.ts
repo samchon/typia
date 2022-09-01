@@ -1,7 +1,10 @@
 import ts from "typescript";
+
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { ValueFactory } from "../factories/ValueFactory";
+
 import { IProject } from "../transformers/IProject";
+
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 

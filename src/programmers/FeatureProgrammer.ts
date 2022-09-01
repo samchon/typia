@@ -1,14 +1,19 @@
 import ts from "typescript";
-import { IExpressionEntry } from "./helpers/IExpressionEntry";
-import { IProject } from "../transformers/IProject";
-import { Escaper } from "../utils/Escaper";
+
+import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { ValueFactory } from "../factories/ValueFactory";
+
+import { IMetadataTag } from "../metadata/IMetadataTag";
 import { Metadata } from "../metadata/Metadata";
 import { MetadataObject } from "../metadata/MetadataObject";
-import { IdentifierFactory } from "../factories/IdentifierFactory";
+
+import { IProject } from "../transformers/IProject";
+
+import { Escaper } from "../utils/Escaper";
+
+import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { UnionExplorer } from "./helpers/UnionExplorer";
-import { IMetadataTag } from "../metadata/IMetadataTag";
 
 export namespace FeatureProgrammer {
     /* -----------------------------------------------------------

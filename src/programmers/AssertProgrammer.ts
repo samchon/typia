@@ -1,8 +1,11 @@
 import ts from "typescript";
+
 import { ValueFactory } from "../factories/ValueFactory";
+
+import { IProject } from "../transformers/IProject";
+
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
-import { IProject } from "../transformers/IProject";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 
 export namespace AssertProgrammer {
