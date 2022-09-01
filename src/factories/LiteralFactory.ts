@@ -1,4 +1,5 @@
 import ts from "typescript";
+
 import { IdentifierFactory } from "./IdentifierFactory";
 
 export namespace LiteralFactory {

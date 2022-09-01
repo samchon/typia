@@ -1,19 +1,21 @@
+import { $is_email } from "./functional/$is_email";
+import { $is_ipv4 } from "./functional/$is_ipv4";
+import { $is_ipv6 } from "./functional/$is_ipv6";
+import { $is_url } from "./functional/$is_url";
+import { $is_uuid } from "./functional/$is_uuid";
+import { $number } from "./functional/$number";
+import { $string } from "./functional/$string";
+import { $tail } from "./functional/$tail";
+
+import { IJsonApplication } from "./schemas/IJsonApplication";
+
+import { IValidation } from "./IValidation";
+import { TypeGuardError } from "./TypeGuardError";
+
 export * from "./schemas/IJsonApplication";
 export * from "./schemas/IJsonComponents";
 export * from "./schemas/IJsonSchema";
 export * from "./TypeGuardError";
-
-import { IJsonApplication } from "./schemas/IJsonApplication";
-import { TypeGuardError } from "./TypeGuardError";
-import { $number } from "./functional/$number";
-import { $string } from "./functional/$string";
-import { $tail } from "./functional/$tail";
-import { IValidation } from "./IValidation";
-import { $is_uuid } from "./functional/$is_uuid";
-import { $is_email } from "./functional/$is_email";
-import { $is_url } from "./functional/$is_url";
-import { $is_ipv4 } from "./functional/$is_ipv4";
-import { $is_ipv6 } from "./functional/$is_ipv6";
 
 /* -----------------------------------------------------------
     VALIDATORS
@@ -218,7 +220,7 @@ export function stringify(): never {
 /**
  * @internal
  */
-export module stringify {
+export namespace stringify {
     export const number = $number;
     export const string = $string;
     export const tail = $tail;

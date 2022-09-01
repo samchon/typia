@@ -1,4 +1,5 @@
 import { Atomic } from "../typings/Atomic";
+
 import { IMetadataConstant } from "./IMetadataConstant";
 
 export interface IMetadata {

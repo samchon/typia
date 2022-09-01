@@ -1,15 +1,18 @@
 import ts from "typescript";
 
-import { MetadataCollection } from "./MetadataCollection";
-import { CommentFactory } from "./CommentFactory";
-import { TypeFactory } from "./TypeFactory";
-import { MetadataObject } from "../metadata/MetadataObject";
-import { ArrayUtil } from "../utils/ArrayUtil";
 import { Metadata } from "../metadata/Metadata";
-import { Writable } from "../typings/Writable";
-import { MetadataProperty } from "../metadata/MetadataProperty";
 import { MetadataConstant } from "../metadata/MetadataConstant";
+import { MetadataObject } from "../metadata/MetadataObject";
+import { MetadataProperty } from "../metadata/MetadataProperty";
+
+import { Writable } from "../typings/Writable";
+
+import { ArrayUtil } from "../utils/ArrayUtil";
+
+import { CommentFactory } from "./CommentFactory";
+import { MetadataCollection } from "./MetadataCollection";
 import { MetadataTagFactory } from "./MetadataTagFactory";
+import { TypeFactory } from "./TypeFactory";
 
 export namespace MetadataFactory {
     export interface IOptions {

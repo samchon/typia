@@ -1,11 +1,14 @@
 import ts from "typescript";
+
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
 import { ValueFactory } from "../factories/ValueFactory";
+
 import { IProject } from "../transformers/IProject";
+
 import { CheckerProgrammer } from "./CheckerProgrammer";
-import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { IsProgrammer } from "./IsProgrammer";
+import { FunctionImporter } from "./helpers/FunctionImporeter";
 
 export namespace ValidateProgrammer {
     export function generate(

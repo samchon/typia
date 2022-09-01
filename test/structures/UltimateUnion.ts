@@ -1,8 +1,7 @@
 import TSON, { IJsonApplication } from "../../src";
-
+import { ArrayRecursiveUnionExplicit } from "./ArrayRecursiveUnionExplicit";
 import { ObjectUnionExplicit } from "./ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "./ObjectUnionImplicit";
-import { ArrayRecursiveUnionExplicit } from "./ArrayRecursiveUnionExplicit";
 
 export type UltimateUnion = IJsonApplication[];
 export namespace UltimateUnion {

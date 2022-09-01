@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import cli from "cli";
 import fs from "fs";
-import { IPointer } from "./IPointer";
 
+import { IPointer } from "./IPointer";
 import { StopWatch } from "./StopWatch";
 
 const EXTENSION = __filename.substr(-2);

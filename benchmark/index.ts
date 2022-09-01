@@ -94,4 +94,7 @@ async function main(): Promise<void> {
     await stream.write("\n");
     for (const func of functors) await measure(stream, func as any);
 }
-main();
+main().catch((exp) => {
+    console.log(exp);
+    process.exit(1);
+});

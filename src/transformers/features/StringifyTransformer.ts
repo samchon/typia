@@ -1,5 +1,7 @@
 import ts from "typescript";
+
 import { StringifyProgrammer } from "../../programmers/StringifyProgrammer";
+
 import { IProject } from "../IProject";
 
 export namespace StringifyTransformer {

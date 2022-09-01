@@ -1,18 +1,24 @@
 import ts from "typescript";
+
+import { ExpressionFactory } from "../factories/ExpressionFactory";
+import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
-import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { ValueFactory } from "../factories/ValueFactory";
-import { FeatureProgrammer } from "./FeatureProgrammer";
-import { MetadataObject } from "../metadata/MetadataObject";
-import { Metadata } from "../metadata/Metadata";
-import { ExpressionFactory } from "../factories/ExpressionFactory";
-import { UnionExplorer } from "./helpers/UnionExplorer";
-import { IProject } from "../transformers/IProject";
-import { OptionPreditor } from "./helpers/OptionPredicator";
-import { IExpressionEntry } from "./helpers/IExpressionEntry";
+
 import { IMetadataTag } from "../metadata/IMetadataTag";
+import { Metadata } from "../metadata/Metadata";
+import { MetadataObject } from "../metadata/MetadataObject";
+
+import { IProject } from "../transformers/IProject";
+
+import { FeatureProgrammer } from "./FeatureProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { IExpressionEntry } from "./helpers/IExpressionEntry";
+import { OptionPreditor } from "./helpers/OptionPredicator";
+import { UnionExplorer } from "./helpers/UnionExplorer";
+import { check_number } from "./internal/check_number";
+import { check_string } from "./internal/check_string";
 
 export namespace CheckerProgrammer {
     export interface IConfig {
@@ -204,9 +210,9 @@ export namespace CheckerProgrammer {
             // ATOMIC VALUES
             for (const type of meta.atomics)
                 if (type === "number")
-                    binaries.push(decode_number(project, numeric)(input, tags));
+                    binaries.push(check_number(project, numeric)(input, tags));
                 else if (type === "string")
-                    binaries.push(decode_string(importer)(input, tags));
+                    binaries.push(check_string(importer)(input, tags));
                 else
                     add(
                         true,
@@ -290,122 +296,6 @@ export namespace CheckerProgrammer {
                       input,
                       binaries,
                       meta.getName(),
-                  );
-        };
-    }
-
-    function decode_number(project: IProject, numeric: boolean) {
-        return function (input: ts.Expression, tagList: IMetadataTag[]) {
-            // TYPEOF
-            const conditions: ts.Expression[] = [
-                ts.factory.createStrictEquality(
-                    ts.factory.createStringLiteral("number"),
-                    ts.factory.createTypeOfExpression(input),
-                ),
-            ];
-
-            // TAG (RANGE)
-            const tag: IMetadataTag.IRange | undefined = tagList.find(
-                (tag) => tag.kind === "range",
-            ) as IMetadataTag.IRange | undefined;
-            if (tag !== undefined) {
-                if (tag.minimum !== undefined)
-                    conditions.push(
-                        (tag.minimum.include
-                            ? ts.factory.createLessThanEquals
-                            : ts.factory.createLessThan)(
-                            ts.factory.createNumericLiteral(tag.minimum.value),
-                            input,
-                        ),
-                    );
-                if (tag.maximum !== undefined)
-                    conditions.push(
-                        (tag.maximum.include
-                            ? ts.factory.createLessThanEquals
-                            : ts.factory.createLessThan)(
-                            input,
-                            ts.factory.createNumericLiteral(tag.maximum.value),
-                        ),
-                    );
-            }
-
-            // NUMERIC VALIDATION
-            if (
-                numeric &&
-                OptionPreditor.numeric(project.options, "checker") === false &&
-                (tag === undefined ||
-                    tag.minimum === undefined ||
-                    tag.maximum === undefined)
-            )
-                conditions.push(
-                    ts.factory.createCallExpression(
-                        ts.factory.createIdentifier("Number.isFinite"),
-                        undefined,
-                        [input],
-                    ),
-                    ts.factory.createLogicalNot(
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("Number.isNaN"),
-                            undefined,
-                            [input],
-                        ),
-                    ),
-                );
-
-            // COMBINATION
-            return conditions.length === 1
-                ? conditions[0]!
-                : conditions.reduce((x, y) =>
-                      ts.factory.createLogicalAnd(x, y),
-                  );
-        };
-    }
-
-    function decode_string(importer: FunctionImporter) {
-        return function (input: ts.Expression, tagList: IMetadataTag[]) {
-            // TYPEOF
-            const conditions: ts.Expression[] = [
-                ts.factory.createStrictEquality(
-                    ts.factory.createStringLiteral("string"),
-                    ts.factory.createTypeOfExpression(input),
-                ),
-            ];
-
-            // TAG
-            const matched: IMetadataTag[] = tagList.filter(
-                (tag) => tag.kind === "format" || tag.kind === "pattern",
-            );
-            for (const tag of matched)
-                if (tag.kind === "format")
-                    conditions.push(
-                        ts.factory.createStrictEquality(
-                            ts.factory.createTrue(),
-                            ts.factory.createCallExpression(
-                                importer.use(`is_${tag.value}`),
-                                undefined,
-                                [input],
-                            ),
-                        ),
-                    );
-                else if (tag.kind === "pattern")
-                    conditions.push(
-                        ts.factory.createStrictEquality(
-                            ts.factory.createTrue(),
-                            ts.factory.createCallExpression(
-                                ts.factory.createIdentifier(
-                                    `RegExp(${tag.value}).test`,
-                                ),
-                                undefined,
-                                [input],
-                            ),
-                        ),
-                    );
-
-            // COMBINATION
-            return conditions.length === 1
-                ? conditions[0]!
-                : conditions.reduce((x, y) =>
-                      ts.factory.createLogicalAnd(x, y),
                   );
         };
     }
