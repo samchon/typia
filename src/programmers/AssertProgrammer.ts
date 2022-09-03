@@ -37,6 +37,7 @@ export namespace AssertProgrammer {
                                     functors: "$ao",
                                     unioners: "$au",
                                     trace: true,
+                                    numeric: true,
                                     combiner: combine(importer),
                                     joiner: CheckerProgrammer.DEFAULT_JOINER(),
                                 },
@@ -57,7 +58,7 @@ function combine(
     importer: FunctionImporter,
 ): CheckerProgrammer.IConfig.Combiner {
     return (explore: CheckerProgrammer.IExplore) => {
-        const combiner = IsProgrammer.CONFIG().combiner;
+        const combiner = IsProgrammer.CONFIG(true).combiner;
         if (explore.tracable === false && explore.from !== "top")
             return combiner(explore);
 

@@ -186,18 +186,12 @@ function parse_range<Kind extends string>(
     text: string,
 ): Omit<IMetadataTag.IRange, "kind"> & { kind: Kind } {
     if (text.indexOf(",") === -1)
-        if (
-            LEFT_PARENTHESIS.some((str) => text.indexOf(str) !== -1) !==
-            undefined
-        )
+        if (LEFT_PARENTHESIS.some((str) => text.indexOf(str) !== -1))
             return {
                 kind,
                 minimum: parse_side("left")(kind)(identifier)(text),
             };
-        else if (
-            RIGHT_PARENTHESIS.some((str) => text.indexOf(str) !== -1) !==
-            undefined
-        )
+        else if (RIGHT_PARENTHESIS.some((str) => text.indexOf(str) !== -1))
             return {
                 kind,
                 maximum: parse_side("right")(kind)(identifier)(text),

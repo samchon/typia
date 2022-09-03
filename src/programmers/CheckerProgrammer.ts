@@ -25,6 +25,7 @@ export namespace CheckerProgrammer {
         functors: string;
         unioners: string;
         trace: boolean;
+        numeric: boolean;
         combiner: IConfig.Combiner;
         joiner: IConfig.IJoiner;
     }
@@ -80,7 +81,10 @@ export namespace CheckerProgrammer {
         project: IProject,
         config: IConfig,
         importer: FunctionImporter,
-    ) => FeatureProgrammer.generate_unioners(CONFIG(project, config, importer));
+    ) =>
+        FeatureProgrammer.generate_unioners(
+            CONFIG(project, { ...config, numeric: false }, importer),
+        );
 
     export const DEFAULT_JOINER: () => IConfig.IJoiner = () => ({
         object: (entries) =>
@@ -104,7 +108,7 @@ export namespace CheckerProgrammer {
         config: IConfig,
         importer: FunctionImporter,
     ): FeatureProgrammer.IConfig {
-        return {
+        const output: FeatureProgrammer.IConfig = {
             trace: config.trace,
             functors: config.functors,
             unioners: config.unioners,
@@ -138,6 +142,13 @@ export namespace CheckerProgrammer {
                     ts.factory.createReturnStatement(ts.factory.createFalse()),
             },
         };
+        if (config.numeric === true)
+            output.generator = {
+                unioners: FeatureProgrammer.generate_unioners(
+                    CONFIG(project, { ...config, numeric: false }, importer),
+                ),
+            };
+        return output;
     }
 
     /* -----------------------------------------------------------
@@ -147,7 +158,6 @@ export namespace CheckerProgrammer {
         project: IProject,
         config: IConfig,
         importer: FunctionImporter,
-        numeric: boolean = true,
     ) {
         return function (
             input: ts.Expression,
@@ -210,7 +220,9 @@ export namespace CheckerProgrammer {
             // ATOMIC VALUES
             for (const type of meta.atomics)
                 if (type === "number")
-                    binaries.push(check_number(project, numeric)(input, tags));
+                    binaries.push(
+                        check_number(project, config.numeric)(input, tags),
+                    );
                 else if (type === "string")
                     binaries.push(check_string(importer)(input, tags));
                 else

@@ -53,6 +53,7 @@ export namespace ValidateProgrammer {
                                     functors: "$vo",
                                     unioners: "$vu",
                                     trace: true,
+                                    numeric: true,
                                     combiner: combine(),
                                     joiner: join(),
                                 },
@@ -72,7 +73,7 @@ export namespace ValidateProgrammer {
 }
 
 const combine: () => CheckerProgrammer.IConfig.Combiner = () => (explore) => {
-    const combiner = IsProgrammer.CONFIG().combiner;
+    const combiner = IsProgrammer.CONFIG(true).combiner;
     if (explore.tracable === false && explore.from !== "top")
         return combiner(explore);
 
