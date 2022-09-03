@@ -7,6 +7,6 @@ runner.register({
     compiler: "ttypescript",
 });
 
-const program = require("./features/is/test_is_tag_simple.ts");
+const program = require("./features/stringify/test_stringify_tag_pattern.ts");
 for (const value of Object.values(program))
     if (typeof value === "function") value();

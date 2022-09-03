@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_tag_type = _test_stringify(
     "type tag",
-    TagType.generate,
+    TagType.generate(),
     (input) => TSON.stringify(input),
 );

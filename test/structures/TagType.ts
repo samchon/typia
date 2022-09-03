@@ -1,10 +1,14 @@
 export interface TagType {
     /**
+     * Integer value.
+     *
      * @type int
      */
     int: number;
 
     /**
+     * Unsigned integer value.
+     *
      * @type uint
      */
     uint: number;
