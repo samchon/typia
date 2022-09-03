@@ -9,11 +9,12 @@ import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 
 export namespace IsProgrammer {
-    export function CONFIG(): CheckerProgrammer.IConfig {
+    export function CONFIG(numeric: boolean): CheckerProgrammer.IConfig {
         return {
             functors: "$io",
             unioners: "$iu",
             trace: false,
+            numeric,
             combiner: () => (type: "and" | "or") => {
                 const initial: ts.TrueLiteral | ts.FalseLiteral =
                     type === "and"
@@ -32,27 +33,41 @@ export namespace IsProgrammer {
         };
     }
 
+    /* -----------------------------------------------------------
+        GENERATORS
+    ----------------------------------------------------------- */
     export function generate(
         project: IProject,
         modulo: ts.LeftHandSideExpression,
     ) {
         const importer: FunctionImporter = new FunctionImporter();
-        return CheckerProgrammer.generate(project, CONFIG(), modulo, importer);
+        return CheckerProgrammer.generate(
+            project,
+            CONFIG(true),
+            modulo,
+            importer,
+        );
     }
 
     export const generate_functors = (
         project: IProject,
         importer: FunctionImporter,
-    ) => CheckerProgrammer.generate_functors(project, CONFIG(), importer);
+    ) => CheckerProgrammer.generate_functors(project, CONFIG(false), importer);
+
     export const generate_unioners = (
         project: IProject,
         importer: FunctionImporter,
-    ) => CheckerProgrammer.generate_unioners(project, CONFIG(), importer);
+    ) => CheckerProgrammer.generate_unioners(project, CONFIG(false), importer);
 
+    /* -----------------------------------------------------------
+        DECODERS
+    ----------------------------------------------------------- */
     export const decode = (project: IProject, importer: FunctionImporter) =>
-        CheckerProgrammer.decode(project, CONFIG(), importer, false);
+        CheckerProgrammer.decode(project, CONFIG(false), importer);
+
     export const decode_object = () =>
-        CheckerProgrammer.decode_object(CONFIG());
+        CheckerProgrammer.decode_object(CONFIG(false));
+
     export function decode_to_json(input: ts.Expression): ts.Expression {
         return ts.factory.createLogicalAnd(
             ts.factory.createStrictEquality(
@@ -65,6 +80,7 @@ export namespace IsProgrammer {
             ),
         );
     }
+
     export function decode_functional(input: ts.Expression) {
         return ts.factory.createStrictEquality(
             ts.factory.createStringLiteral("function"),

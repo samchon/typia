@@ -1,5 +1,5 @@
 export namespace RandomGenerator {
-    const CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const CHARACTERS = "abcdefghijklmnopqrstuvwxyz";
 
     export function string(length: number = integer(3, 10)): string {
         return [...new Array(length)]

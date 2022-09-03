@@ -26,6 +26,7 @@ export namespace FeatureProgrammer {
         initializer: Initializer;
         decoder: Decoder<Metadata>;
         objector: IConfig.IObjector;
+        generator?: Partial<IConfig.IGenerator>;
     }
     export namespace IConfig {
         export interface IObjector {
@@ -37,6 +38,10 @@ export namespace FeatureProgrammer {
                 expression: ts.Expression,
                 targets: MetadataObject[],
             ) => ts.Statement;
+        }
+        export interface IGenerator {
+            functors(col: MetadataCollection): ts.VariableDeclaration | null;
+            unioners(col: MetadataCollection): ts.VariableDeclaration | null;
         }
     }
     export interface IExplore {
@@ -88,9 +93,13 @@ export namespace FeatureProgrammer {
 
             // CREATE FUNCTIONS
             const functors: ts.VariableDeclaration | null =
-                generate_functors(config)(collection);
+                config.generator?.functors !== undefined
+                    ? config.generator.functors(collection)
+                    : generate_functors(config)(collection);
             const unioners: ts.VariableDeclaration | null =
-                generate_unioners(config)(collection);
+                config.generator?.unioners !== undefined
+                    ? config.generator.unioners(collection)
+                    : generate_unioners(config)(collection);
 
             // RETURNS THE OPTIMAL ARROW FUNCTION
             const added: ts.Statement[] = addition ? addition(collection) : [];

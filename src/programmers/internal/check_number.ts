@@ -30,9 +30,11 @@ export function check_number(project: IProject, numeric: boolean) {
                     ),
                 );
                 if (tag.value === "uint")
-                    ts.factory.createLessThanEquals(
-                        ts.factory.createNumericLiteral(0),
-                        input,
+                    conditions.push(
+                        ts.factory.createLessThanEquals(
+                            ts.factory.createNumericLiteral(0),
+                            input,
+                        ),
                     );
             } else if (tag.kind === "range") {
                 if (tag.minimum !== undefined)
