@@ -1,5 +1,7 @@
 import ts from "typescript";
+
 import { ValidateProgrammer } from "../../programmers/ValidateProgrammer";
+
 import { IProject } from "../IProject";
 
 export namespace ValidateTransformer {

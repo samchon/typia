@@ -30,29 +30,29 @@ export namespace ArrayHierarchical {
 
     export function generate(): ArrayHierarchical {
         return RandomGenerator.array(() => ({
-            id: RandomGenerator.number(),
-            serial: RandomGenerator.number(),
+            id: RandomGenerator.integer(),
+            serial: RandomGenerator.integer(),
             name: RandomGenerator.string(),
             established_at: {
-                time: RandomGenerator.number(),
-                zone: RandomGenerator.number(),
+                time: RandomGenerator.integer(),
+                zone: RandomGenerator.integer(),
             },
             departments: RandomGenerator.array(() => ({
-                id: RandomGenerator.number(),
+                id: RandomGenerator.integer(),
                 code: RandomGenerator.string(),
-                sales: RandomGenerator.number(),
+                sales: RandomGenerator.integer(),
                 created_at: {
-                    time: RandomGenerator.number(),
-                    zone: RandomGenerator.number(),
+                    time: RandomGenerator.integer(),
+                    zone: RandomGenerator.integer(),
                 },
                 employees: RandomGenerator.array(() => ({
-                    id: RandomGenerator.number(),
+                    id: RandomGenerator.integer(),
                     name: RandomGenerator.string(),
-                    age: RandomGenerator.number(),
-                    grade: RandomGenerator.number(),
+                    age: RandomGenerator.integer(),
+                    grade: RandomGenerator.integer(),
                     employeed_at: {
-                        time: RandomGenerator.number(),
-                        zone: RandomGenerator.number(),
+                        time: RandomGenerator.integer(),
+                        zone: RandomGenerator.integer(),
                     },
                 })),
             })),

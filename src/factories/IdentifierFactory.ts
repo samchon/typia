@@ -1,4 +1,5 @@
 import ts from "typescript";
+
 import { Escaper } from "../utils/Escaper";
 
 export namespace IdentifierFactory {

@@ -18,7 +18,6 @@ export const test_application_ultimate_union = _test_application(
         components: {
             schemas: {
                 IJsonApplication: {
-                    $id: "IJsonApplication",
                     type: "object",
                     properties: {
                         schemas: {
@@ -38,22 +37,22 @@ export const test_application_ultimate_union = _test_application(
                                         $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_string_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IBoolean",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_bigint_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.INumber",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_number_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IBigInt",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_boolean_gt_",
-                                    },
-                                    {
-                                        $ref: "#/components/schemas/IJsonSchema.ITuple",
+                                        $ref: "#/components/schemas/IJsonSchema.IString",
                                     },
                                     {
                                         $ref: "#/components/schemas/IJsonSchema.IArray",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IJsonSchema.ITuple",
                                     },
                                     {
                                         $ref: "#/components/schemas/IJsonSchema.IReference",
@@ -88,7 +87,6 @@ export const test_application_ultimate_union = _test_application(
                     required: ["schemas", "components", "purpose", "prefix"],
                 },
                 "IJsonSchema.IEnumeration_lt_string_gt_": {
-                    $id: "IJsonSchema.IEnumeration_lt_string_gt_",
                     type: "object",
                     properties: {
                         type: {
@@ -106,7 +104,6 @@ export const test_application_ultimate_union = _test_application(
                         },
                         nullable: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: false,
                         },
                         description: {
@@ -118,7 +115,6 @@ export const test_application_ultimate_union = _test_application(
                     required: ["type", "enum", "nullable"],
                 },
                 "IJsonSchema.IEnumeration_lt_bigint_gt_": {
-                    $id: "IJsonSchema.IEnumeration_lt_bigint_gt_",
                     type: "object",
                     properties: {
                         type: {
@@ -136,7 +132,6 @@ export const test_application_ultimate_union = _test_application(
                         },
                         nullable: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: false,
                         },
                         description: {
@@ -148,7 +143,6 @@ export const test_application_ultimate_union = _test_application(
                     required: ["type", "enum", "nullable"],
                 },
                 "IJsonSchema.IEnumeration_lt_number_gt_": {
-                    $id: "IJsonSchema.IEnumeration_lt_number_gt_",
                     type: "object",
                     properties: {
                         type: {
@@ -166,7 +160,6 @@ export const test_application_ultimate_union = _test_application(
                         },
                         nullable: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: false,
                         },
                         description: {
@@ -178,7 +171,6 @@ export const test_application_ultimate_union = _test_application(
                     required: ["type", "enum", "nullable"],
                 },
                 "IJsonSchema.IEnumeration_lt_boolean_gt_": {
-                    $id: "IJsonSchema.IEnumeration_lt_boolean_gt_",
                     type: "object",
                     properties: {
                         type: {
@@ -190,14 +182,12 @@ export const test_application_ultimate_union = _test_application(
                             type: "array",
                             items: {
                                 type: "boolean",
-                                enum: [false, true],
                                 nullable: false,
                             },
                             nullable: false,
                         },
                         nullable: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: false,
                         },
                         description: {
@@ -208,74 +198,7 @@ export const test_application_ultimate_union = _test_application(
                     nullable: false,
                     required: ["type", "enum", "nullable"],
                 },
-                "IJsonSchema.IAtomic_lt_string_gt_": {
-                    $id: "IJsonSchema.IAtomic_lt_string_gt_",
-                    type: "object",
-                    properties: {
-                        type: {
-                            type: "string",
-                            enum: ["string"],
-                            nullable: false,
-                        },
-                        nullable: {
-                            type: "boolean",
-                            enum: [false, true],
-                            nullable: false,
-                        },
-                        description: {
-                            type: "string",
-                            nullable: false,
-                        },
-                    },
-                    nullable: false,
-                    required: ["type", "nullable"],
-                },
-                "IJsonSchema.IAtomic_lt_bigint_gt_": {
-                    $id: "IJsonSchema.IAtomic_lt_bigint_gt_",
-                    type: "object",
-                    properties: {
-                        type: {
-                            type: "string",
-                            enum: ["bigint"],
-                            nullable: false,
-                        },
-                        nullable: {
-                            type: "boolean",
-                            enum: [false, true],
-                            nullable: false,
-                        },
-                        description: {
-                            type: "string",
-                            nullable: false,
-                        },
-                    },
-                    nullable: false,
-                    required: ["type", "nullable"],
-                },
-                "IJsonSchema.IAtomic_lt_number_gt_": {
-                    $id: "IJsonSchema.IAtomic_lt_number_gt_",
-                    type: "object",
-                    properties: {
-                        type: {
-                            type: "string",
-                            enum: ["number"],
-                            nullable: false,
-                        },
-                        nullable: {
-                            type: "boolean",
-                            enum: [false, true],
-                            nullable: false,
-                        },
-                        description: {
-                            type: "string",
-                            nullable: false,
-                        },
-                    },
-                    nullable: false,
-                    required: ["type", "nullable"],
-                },
-                "IJsonSchema.IAtomic_lt_boolean_gt_": {
-                    $id: "IJsonSchema.IAtomic_lt_boolean_gt_",
+                "IJsonSchema.IBoolean": {
                     type: "object",
                     properties: {
                         type: {
@@ -285,7 +208,6 @@ export const test_application_ultimate_union = _test_application(
                         },
                         nullable: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: false,
                         },
                         description: {
@@ -296,8 +218,173 @@ export const test_application_ultimate_union = _test_application(
                     nullable: false,
                     required: ["type", "nullable"],
                 },
+                "IJsonSchema.INumber": {
+                    type: "object",
+                    properties: {
+                        minimum: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        maximum: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        exclusiveMinimum: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        exclusiveMaximum: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        type: {
+                            type: "string",
+                            enum: ["number", "integer"],
+                            nullable: false,
+                        },
+                        nullable: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        description: {
+                            type: "string",
+                            nullable: false,
+                        },
+                    },
+                    nullable: false,
+                    required: ["type", "nullable"],
+                },
+                "IJsonSchema.IBigInt": {
+                    type: "object",
+                    properties: {
+                        type: {
+                            type: "string",
+                            enum: ["bigint"],
+                            nullable: false,
+                        },
+                        nullable: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        description: {
+                            type: "string",
+                            nullable: false,
+                        },
+                    },
+                    nullable: false,
+                    required: ["type", "nullable"],
+                },
+                "IJsonSchema.IString": {
+                    type: "object",
+                    properties: {
+                        minLength: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        maxLength: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        pattern: {
+                            type: "string",
+                            nullable: false,
+                        },
+                        format: {
+                            type: "string",
+                            nullable: false,
+                        },
+                        type: {
+                            type: "string",
+                            enum: ["string"],
+                            nullable: false,
+                        },
+                        nullable: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        description: {
+                            type: "string",
+                            nullable: false,
+                        },
+                    },
+                    nullable: false,
+                    required: ["type", "nullable"],
+                },
+                "IJsonSchema.IArray": {
+                    type: "object",
+                    properties: {
+                        items: {
+                            oneOf: [
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IBoolean",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.INumber",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IBigInt",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IString",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IArray",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.ITuple",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IReference",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IRecursiveReference",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IOneOf",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IUnkown",
+                                },
+                            ],
+                        },
+                        minItems: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        maxItems: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        type: {
+                            type: "string",
+                            enum: ["array"],
+                            nullable: false,
+                        },
+                        nullable: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        description: {
+                            type: "string",
+                            nullable: false,
+                        },
+                    },
+                    nullable: false,
+                    required: ["items", "type", "nullable"],
+                },
                 "IJsonSchema.ITuple": {
-                    $id: "IJsonSchema.ITuple",
                     type: "object",
                     properties: {
                         type: {
@@ -307,7 +394,6 @@ export const test_application_ultimate_union = _test_application(
                         },
                         nullable: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: false,
                         },
                         items: {
@@ -327,16 +413,16 @@ export const test_application_ultimate_union = _test_application(
                                         $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_string_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IBoolean",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_bigint_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.INumber",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_number_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IBigInt",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_boolean_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IString",
                                     },
                                     {
                                         $ref: "#/components/schemas/IJsonSchema.IArray",
@@ -368,76 +454,7 @@ export const test_application_ultimate_union = _test_application(
                     nullable: false,
                     required: ["type", "nullable", "items"],
                 },
-                "IJsonSchema.IArray": {
-                    $id: "IJsonSchema.IArray",
-                    type: "object",
-                    properties: {
-                        items: {
-                            oneOf: [
-                                {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_string_gt_",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_bigint_gt_",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_number_gt_",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_boolean_gt_",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IJsonSchema.IArray",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IJsonSchema.ITuple",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IJsonSchema.IReference",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IJsonSchema.IRecursiveReference",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IJsonSchema.IOneOf",
-                                },
-                                {
-                                    $ref: "#/components/schemas/IJsonSchema.IUnkown",
-                                },
-                            ],
-                        },
-                        type: {
-                            type: "string",
-                            enum: ["array"],
-                            nullable: false,
-                        },
-                        nullable: {
-                            type: "boolean",
-                            enum: [false, true],
-                            nullable: false,
-                        },
-                        description: {
-                            type: "string",
-                            nullable: false,
-                        },
-                    },
-                    nullable: false,
-                    required: ["items", "type", "nullable"],
-                },
                 "IJsonSchema.IReference": {
-                    $id: "IJsonSchema.IReference",
                     type: "object",
                     properties: {
                         $ref: {
@@ -453,7 +470,6 @@ export const test_application_ultimate_union = _test_application(
                     required: ["$ref"],
                 },
                 "IJsonSchema.IRecursiveReference": {
-                    $id: "IJsonSchema.IRecursiveReference",
                     type: "object",
                     properties: {
                         $recursiveRef: {
@@ -469,7 +485,6 @@ export const test_application_ultimate_union = _test_application(
                     required: ["$recursiveRef"],
                 },
                 "IJsonSchema.IOneOf": {
-                    $id: "IJsonSchema.IOneOf",
                     type: "object",
                     properties: {
                         oneOf: {
@@ -489,16 +504,16 @@ export const test_application_ultimate_union = _test_application(
                                         $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_string_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IBoolean",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_bigint_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.INumber",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_number_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IBigInt",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IAtomic_lt_boolean_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IString",
                                     },
                                     {
                                         $ref: "#/components/schemas/IJsonSchema.IArray",
@@ -531,13 +546,11 @@ export const test_application_ultimate_union = _test_application(
                     required: ["oneOf"],
                 },
                 "IJsonSchema.IUnkown": {
-                    $id: "IJsonSchema.IUnkown",
                     type: "object",
                     properties: {},
                     nullable: false,
                 },
                 IJsonComponents: {
-                    $id: "IJsonComponents",
                     type: "object",
                     properties: {
                         schemas: {
@@ -548,7 +561,6 @@ export const test_application_ultimate_union = _test_application(
                     required: ["schemas"],
                 },
                 __type: {
-                    $id: "__type",
                     type: "object",
                     properties: {},
                     nullable: false,

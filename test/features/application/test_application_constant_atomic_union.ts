@@ -37,7 +37,6 @@ export const test_application_constant_atomic_union = _test_application(
         components: {
             schemas: {
                 __type: {
-                    $id: "__type",
                     type: "object",
                     properties: {
                         key: {

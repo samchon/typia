@@ -14,7 +14,6 @@ export const test_application_namespace = _test_application(
         components: {
             schemas: {
                 Namespace: {
-                    $id: "Namespace",
                     type: "object",
                     properties: {},
                     nullable: false,

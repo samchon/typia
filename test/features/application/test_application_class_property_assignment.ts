@@ -14,7 +14,6 @@ export const test_application_class_property_assignment = _test_application(
         components: {
             schemas: {
                 ClassPropertyAssignment: {
-                    $id: "ClassPropertyAssignment",
                     type: "object",
                     properties: {
                         id: {
@@ -37,7 +36,6 @@ export const test_application_class_property_assignment = _test_application(
                         },
                         incremental: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: false,
                         },
                     },

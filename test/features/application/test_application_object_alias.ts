@@ -18,7 +18,6 @@ export const test_application_object_alias = _test_application(
         components: {
             schemas: {
                 "ObjectAlias.IMember": {
-                    $id: "ObjectAlias.IMember",
                     type: "object",
                     properties: {
                         id: {
@@ -53,7 +52,6 @@ export const test_application_object_alias = _test_application(
                         },
                         dead: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: true,
                         },
                     },

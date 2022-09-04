@@ -40,7 +40,6 @@ export const test_application_object_union_implicit = _test_application(
         components: {
             schemas: {
                 "ObjectUnionImplicit.IPoint": {
-                    $id: "ObjectUnionImplicit.IPoint",
                     type: "object",
                     properties: {
                         x: {
@@ -56,7 +55,6 @@ export const test_application_object_union_implicit = _test_application(
                     required: ["x", "y"],
                 },
                 "ObjectUnionImplicit.ILine": {
-                    $id: "ObjectUnionImplicit.ILine",
                     type: "object",
                     properties: {
                         p1: {
@@ -70,7 +68,6 @@ export const test_application_object_union_implicit = _test_application(
                     required: ["p1", "p2"],
                 },
                 "ObjectUnionImplicit.ITriangle": {
-                    $id: "ObjectUnionImplicit.ITriangle",
                     type: "object",
                     properties: {
                         p1: {
@@ -87,7 +84,6 @@ export const test_application_object_union_implicit = _test_application(
                     required: ["p1", "p2", "p3"],
                 },
                 "ObjectUnionImplicit.IRectangle": {
-                    $id: "ObjectUnionImplicit.IRectangle",
                     type: "object",
                     properties: {
                         p1: {
@@ -107,7 +103,6 @@ export const test_application_object_union_implicit = _test_application(
                     required: ["p1", "p2", "p3", "p4"],
                 },
                 "ObjectUnionImplicit.IPolyline": {
-                    $id: "ObjectUnionImplicit.IPolyline",
                     type: "object",
                     properties: {
                         points: {
@@ -122,7 +117,6 @@ export const test_application_object_union_implicit = _test_application(
                     required: ["points"],
                 },
                 "ObjectUnionImplicit.IPolygon": {
-                    $id: "ObjectUnionImplicit.IPolygon",
                     type: "object",
                     properties: {
                         outer: {
@@ -140,7 +134,6 @@ export const test_application_object_union_implicit = _test_application(
                     required: ["outer", "inner"],
                 },
                 "ObjectUnionImplicit.ICircle": {
-                    $id: "ObjectUnionImplicit.ICircle",
                     type: "object",
                     properties: {
                         centroid: {

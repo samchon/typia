@@ -1,13 +1,13 @@
 export namespace RandomGenerator {
-    const CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const CHARACTERS = "abcdefghijklmnopqrstuvwxyz";
 
-    export function string(length: number = number(3, 10)): string {
+    export function string(length: number = integer(3, 10)): string {
         return [...new Array(length)]
-            .map(() => CHARACTERS[number(0, CHARACTERS.length - 1)])
+            .map(() => CHARACTERS[integer(0, CHARACTERS.length - 1)])
             .join("");
     }
 
-    export function number(min: number = 0, max: number = 100): number {
+    export function integer(min: number = 0, max: number = 100): number {
         const rand: number = Math.random() * (max - min + 1);
         return Math.floor(rand) + min;
     }
@@ -18,12 +18,12 @@ export namespace RandomGenerator {
 
     export function array<T>(
         closure: (index: number) => T,
-        count: number = number(3, 10),
+        count: number = integer(3, 10),
     ): T[] {
         return [...new Array(count)].map((_e, index) => closure(index));
     }
 
     export function pick<T>(array: T[]): T {
-        return array[number(0, array.length - 1)]!;
+        return array[integer(0, array.length - 1)]!;
     }
 }

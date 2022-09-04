@@ -98,14 +98,14 @@ export namespace ObjectUnionExplicit {
             {
                 type: "circle",
                 centroid: point(),
-                radius: RandomGenerator.number(),
+                radius: RandomGenerator.integer(),
             },
         ];
     }
     function point(): IPoint {
         return {
-            x: RandomGenerator.number(),
-            y: RandomGenerator.number(),
+            x: RandomGenerator.integer(),
+            y: RandomGenerator.integer(),
         };
     }
 }

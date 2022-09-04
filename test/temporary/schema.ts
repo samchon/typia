@@ -1,5 +1,6 @@
-import TSON from "../../src";
 import { IJsonSchema } from "../../src/schemas/IJsonSchema";
+
+import TSON from "../../src";
 
 const assertType = (input: IJsonSchema) => TSON.assertType(input);
 const is = (input: IJsonSchema) => TSON.is(input);

@@ -1,17 +1,16 @@
-import TSON from "../../src";
-import * as Similar from "typescript-is";
 import Ajv from "ajv";
+import * as Similar from "typescript-is";
 
-import { IsBenchmarker } from "../internal/IsBenchmarker";
-
-import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
-import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
-import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
+import TSON from "../../src";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
 import { ArrayRecursiveUnionImplicit } from "../../test/structures/ArrayRecursiveUnionImplicit";
-import { UltimateUnion } from "../../test/structures/UltimateUnion";
+import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
+import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
+import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
+import { UltimateUnion } from "../../test/structures/UltimateUnion";
+import { IsBenchmarker } from "../internal/IsBenchmarker";
 
 function byAjv<T>(
     data: T,

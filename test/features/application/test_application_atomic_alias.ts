@@ -13,7 +13,6 @@ export const test_application_atomic_alias = _test_application(
                     oneOf: [
                         {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: false,
                         },
                         {

@@ -1,7 +1,8 @@
 import ts from "typescript";
 
-import { IProject } from "./IProject";
 import { CallExpressionTransformer } from "./CallExpressionTransformer";
+import { IProject } from "./IProject";
+
 // import { ExpressionWithArgumentTransformer } from "./ExpressionWithArgumentTransformer";
 
 export namespace NodeTransformer {

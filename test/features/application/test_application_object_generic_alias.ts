@@ -14,7 +14,6 @@ export const test_application_object_generic_alias = _test_application(
         components: {
             schemas: {
                 "ObjectGenericAlias.ISomething_lt_string_gt_": {
-                    $id: "ObjectGenericAlias.ISomething_lt_string_gt_",
                     type: "object",
                     properties: {
                         value: {

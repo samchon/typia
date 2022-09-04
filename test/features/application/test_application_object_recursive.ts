@@ -14,7 +14,6 @@ export const test_application_object_recursive = _test_application(
         components: {
             schemas: {
                 "ObjectRecursive.IDepartment": {
-                    $id: "ObjectRecursive.IDepartment",
                     type: "object",
                     properties: {
                         parent: {
@@ -51,7 +50,6 @@ export const test_application_object_recursive = _test_application(
                     ],
                 },
                 "ObjectRecursive.IDepartment.Nullable": {
-                    $id: "ObjectRecursive.IDepartment.Nullable",
                     type: "object",
                     properties: {
                         parent: {
@@ -88,7 +86,6 @@ export const test_application_object_recursive = _test_application(
                     ],
                 },
                 "ObjectRecursive.ITimestamp": {
-                    $id: "ObjectRecursive.ITimestamp",
                     type: "object",
                     properties: {
                         time: {

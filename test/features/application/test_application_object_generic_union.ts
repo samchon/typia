@@ -22,7 +22,6 @@ export const test_application_object_generic_union = _test_application(
             schemas: {
                 "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_":
                     {
-                        $id: "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
                         type: "object",
                         properties: {
                             writer: {
@@ -64,7 +63,6 @@ export const test_application_object_generic_union = _test_application(
                     },
                 "ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable":
                     {
-                        $id: "ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
                         type: "object",
                         properties: {
                             id: {
@@ -91,7 +89,6 @@ export const test_application_object_generic_union = _test_application(
                         required: ["id", "hit", "contents", "created_at"],
                     },
                 "ObjectGenericUnion.ISaleArticle.IContent": {
-                    $id: "ObjectGenericUnion.ISaleArticle.IContent",
                     type: "object",
                     properties: {
                         id: {
@@ -122,7 +119,6 @@ export const test_application_object_generic_union = _test_application(
                     required: ["id", "created_at", "title", "body", "files"],
                 },
                 __type: {
-                    $id: "__type",
                     type: "object",
                     properties: {
                         name: {
@@ -142,7 +138,6 @@ export const test_application_object_generic_union = _test_application(
                     required: ["name", "url", "extension"],
                 },
                 "ObjectGenericUnion.ISaleReview.IContent": {
-                    $id: "ObjectGenericUnion.ISaleReview.IContent",
                     type: "object",
                     properties: {
                         score: {
@@ -185,7 +180,6 @@ export const test_application_object_generic_union = _test_application(
                 },
                 "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_":
                     {
-                        $id: "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
                         type: "object",
                         properties: {
                             writer: {

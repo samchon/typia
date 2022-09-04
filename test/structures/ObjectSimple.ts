@@ -24,9 +24,9 @@ export namespace ObjectSimple {
     }
     function generate_point(): IPoint3D {
         return {
-            x: RandomGenerator.number(),
-            y: RandomGenerator.number(),
-            z: RandomGenerator.number(),
+            x: RandomGenerator.integer(),
+            y: RandomGenerator.integer(),
+            z: RandomGenerator.integer(),
         };
     }
 }

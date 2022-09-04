@@ -125,12 +125,13 @@ module.exports = {
 
 
 
+
 ## Features
 ### Runtime Type Checkers
 ```typescript
-export function assertType<T>(input: T): T;
-export function is<T>(input: T): boolean;
-export function validate<T>(input: T): IValidation;
+export function assertType<T>(input: T): T; // throws `TypeGuardError`
+export function is<T>(input: T): boolean; // true or false
+export function validate<T>(input: T): IValidation; // detailed reasons
 
 export interface IValidation {
     success: boolean;
@@ -143,7 +144,16 @@ export namespace IValidation {
         value: any;
     }
 }
+
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
 ```
+
+> You can enhance type constraint more by using [**Comment Tags**](#comment-tags).
 
 `typescript-json` provides three runtime type checker functions.
 
@@ -156,6 +166,7 @@ Also, only `typescript-json` can validate union typed structure exactly. All the
 Components               | `TSON` | `T.IS` | `ajv` | `io-ts` | `C.V.`
 -------------------------|-------------------|-----------------|-------|---------|------------------
 **Easy to use**          | ✔                | ✔               | ❌    | ❌     | ❌ 
+[Additional Tags](#comment-tags)        | ✔                | ❌              | ✔     | ✔      | ✔
 [Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔                | ✔               | ✔     | ✔      | ✔
 [Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔                | ✔               | ❌    | ✔      | ✔
 [Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔                | ✔               | ✔     | ✔      | ✔
@@ -209,11 +220,161 @@ export function application<
 >(): IJsonApplication;
 ```
 
+> You can enhance JSON schema more by using [**Comment Tags**](#comment-tags).
+
 `typescript-json` even supports JSON schema application generation.
 
 When you need to share your TypeScript types to other language, this `application()` function would be useful. It generates JSON schema definition by analyzing your `Types`. Therefore, with `typescript-json` and its `application()` function, you don't need to write JSON schema definition manually.
 
 By the way, the reason why you're using this `application()` is for generating a swagger documents, I recommend you to use my another library [nestia](https://github.com/samchon/nestia). It will automate the swagger documents generation, by analyzing your entire backend server code.
+
+### Comment Tags
+You can enhance [Runtime Type Checkers](#runtime-type-checkers) and [JSON Schema Generator](#json-schema-generation) by writing comment tags.
+
+Below table shows list of supported comment tags. You can utilize those tags by writing in comments like below example structure `TagExample`. Look at them and utilize those comment tags to make your TypeScript program to be safer and more convenient.
+
+Also, don't worry about taking a mistake on using those comment tags. In that case, compile error would be occured. By the compile level error detection, `typescript-json` is much stronger than any other runtime validator libraries using decorator functions, which can't catch any mistake on the compilation level.
+
+Tag Kind | Target Type
+------------|-----------------
+`@type {"int"\|"uint"}` | number
+`@range (number, number]` | number
+`@minimum {number}` | number
+`@maximum {number}` | number
+`@length {number} \| [number, number)` | string
+`@minLength {number}` | string
+`@maxLength {number}` | string
+`@format {"email"\|"uuid"\|"url"\|"ipv4"\|"ipv6"}` | string
+`@pattern {string}` | string
+
+```typescript
+export interface TagExample {
+    /* -----------------------------------------------------------
+        ARRAYS
+    ----------------------------------------------------------- */
+    /**
+     * You can limit array length like below.
+     * 
+     * @minItems 3
+     * @maxItems 10
+     * 
+     * Also, you can use `@items` tag instead.
+     * 
+     * @items (5, 10] --> 5 < length <= 10
+     * @items [7      --> 7 <= length
+     * @items 12)     --> length < 12
+     * 
+     * Furthermore, you can use additional tags for each item.
+     * 
+     * @type uint
+     * @format uuid
+     */
+    array: Array<string|number>;
+
+    /**
+     * If two-dimensional array comes, length limit would work for 
+     * both 1st and 2nd level arraies. Also using additional tags 
+     * for each item (string) would still work.
+     * 
+     * @items (5, 10)
+     * @format url
+     */
+    matrix: string[][];
+
+    /* -----------------------------------------------------------
+        NUMBERS
+    ----------------------------------------------------------- */
+    /**
+     * Type of number.
+     * 
+     * It must be one of integer or unsigned integer.
+     * 
+     * @type int
+     * @type uint
+     */
+    type: number;
+
+    /**
+     * You can limit range of numeric value like below.
+     * 
+     * @minimum 5
+     * @maximum 10
+     * 
+     * Also, you can use `@range` tag instead.
+     * 
+     * @range (5, 10] --> 5 < x <= 10
+     * @range [7      --> 7 <= x
+     * @range 12)     --> x < 12
+     */
+    range: number;
+
+    /* -----------------------------------------------------------
+        STRINGS
+    ----------------------------------------------------------- */
+    /**
+     * You can limit string length like below.
+     * 
+     * @minLength 3
+     * @maxLength 10
+     * 
+     * Also, you can use `@length` tag instead.
+     * 
+     * @length 10      --> length = 10
+     * @length [3, 7]  --> 3 <= length && length <= 7
+     * @length (5, 10) --> 5 < length && length < 10
+     * @length [4      --> 4 < length
+     * @length 7)      --> length < 7
+     */
+    length: string;
+
+    /**
+     * Mobile number composed by only numbers.
+     * 
+     * Note that, `typescript-json` does not support flag of regex,
+     * because JSON schema definition does not suppor it either.
+     * Therefore, write regex pattern without `/` characters and flag.
+     * 
+     * @pattern ^0[0-9]{7,16} 
+     *     -> RegExp(/[0-9]{7,16}/).test("01012345678")
+     */
+    mobile: string;
+
+    /**
+     * E-mail address.
+     * 
+     * @format email
+     */
+    email: string;
+
+    /**
+     * UUID value.
+     * 
+     * @format uuid
+     */
+    uuid: string;
+
+    /**
+     * URL address.
+     * 
+     * @format url
+     */
+    url: string;
+
+    /**
+     * IPv4 address.
+     * 
+     * @format ipv4
+     */
+    ipv4: string;
+
+    /**
+     * IPv6 address.
+     * 
+     * @format ipv6
+     */
+    ipv6: string;
+}
+```
 
 
 
@@ -304,7 +465,7 @@ https://github.com/samchon/nestia-helper
 
 Helper library of `NestJS`, using this `typescript-json`.
 
-`nestia-helper` is a helper library of `NestJS`, which boosts up the `JSON.stringify()` speed 5x times faster about the API responses. Also, `nestia-helper` supports automatic valiation of request body, too. 
+`nestia-helper` is a helper library of `NestJS`, which boosts up the `JSON.stringify()` speed 5x times faster about the API responses, automatically. Also, `nestia-helper` supports automatic valiation of request body, too. 
 
 ```typescript
 import helper from "nestia-helper";
@@ -313,10 +474,10 @@ import * as nest from "@nestjs/common";
 @nest.Controller("bbs/articles")
 export class BbsArticlesController
 {
-    // TSON.stringify() for response body
+    // automatic TSON.stringify() for response body
     @helper.TypedRoute.Get()
     public store(
-        // TSON.assertType() for request body
+        // automatic TSON.assertType() for request body
         @helper.TypedBody() input: IBbsArticle.IStore
     ): Promise<IBbsArticle>;
 }

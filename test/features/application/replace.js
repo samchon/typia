@@ -1,3 +1,4 @@
+const cp = require("child_process");
 const fs = require("fs");
 
 function getSchema(content) {
@@ -17,6 +18,9 @@ function replace(file, schema) {
 }
 
 function main() {
+    cp.execSync("npx rimraf bin");
+    cp.execSync("npx ttsc -p tsconfig.test.json");
+    
     for (const file of fs.readdirSync(__dirname)) {
         if (file.substr(-3) !== ".ts" || file === "_test_application.ts")
             continue;

@@ -28,7 +28,7 @@ export namespace ArraySimple {
                       }))
                     : RandomGenerator.array(() => ({
                           name: RandomGenerator.string(),
-                          rank: RandomGenerator.number(1, 3),
+                          rank: RandomGenerator.integer(1, 3),
                       })),
         }));
     }

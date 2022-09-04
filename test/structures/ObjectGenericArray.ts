@@ -19,7 +19,7 @@ export namespace ObjectGenericArray {
     }
 
     export function generate(): ObjectGenericArray {
-        const count: number = RandomGenerator.number(10, 20);
+        const count: number = RandomGenerator.integer(10, 20);
         return {
             pagination: {
                 page: 1,
@@ -29,7 +29,7 @@ export namespace ObjectGenericArray {
             },
             data: RandomGenerator.array(() => ({
                 name: RandomGenerator.string(),
-                age: RandomGenerator.number(),
+                age: RandomGenerator.integer(),
             })),
         };
     }

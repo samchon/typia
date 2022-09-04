@@ -1,14 +1,18 @@
 import ts from "typescript";
 
-import { MetadataCollection } from "./MetadataCollection";
-import { CommentFactory } from "./CommentFactory";
-import { TypeFactory } from "./TypeFactory";
-import { MetadataObject } from "../metadata/MetadataObject";
-import { ArrayUtil } from "../utils/ArrayUtil";
 import { Metadata } from "../metadata/Metadata";
-import { Writable } from "../typings/Writable";
-import { MetadataProperty } from "../metadata/MetadataProperty";
 import { MetadataConstant } from "../metadata/MetadataConstant";
+import { MetadataObject } from "../metadata/MetadataObject";
+import { MetadataProperty } from "../metadata/MetadataProperty";
+
+import { Writable } from "../typings/Writable";
+
+import { ArrayUtil } from "../utils/ArrayUtil";
+
+import { CommentFactory } from "./CommentFactory";
+import { MetadataCollection } from "./MetadataCollection";
+import { MetadataTagFactory } from "./MetadataTagFactory";
+import { TypeFactory } from "./TypeFactory";
 
 export namespace MetadataFactory {
     export interface IOptions {
@@ -131,7 +135,7 @@ export namespace MetadataFactory {
     ): void {
         if (type.isTypeParameter() === true)
             throw new Error(
-                "Error on TSON.MetadataFactory.generate(): non-specified generic argument.",
+                `Error on TSON.MetadataFactory.generate(): non-specified generic argument on ${meta.getName()}.`,
             );
 
         // PREPARE INTERNAL FUNCTIONS
@@ -407,6 +411,15 @@ export namespace MetadataFactory {
                     ) || undefined,
             });
             obj.properties.push(property);
+
+            // ASSIGN TAGS
+            property.tags.push(
+                ...MetadataTagFactory.generate(
+                    () => `${obj.name}.${key}`,
+                    child,
+                    prop.getJsDocTags(),
+                ),
+            );
         }
         return obj;
     }

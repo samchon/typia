@@ -29,15 +29,15 @@ export namespace ObjectUnionDouble {
     export function generate(): ObjectUnionDouble {
         return [
             {
-                value: { x: RandomGenerator.number() },
+                value: { x: RandomGenerator.integer() },
                 child: {
                     value: { y: RandomGenerator.boolean() },
                 },
             },
             {
-                value: { x: RandomGenerator.number() },
+                value: { x: RandomGenerator.integer() },
                 child: {
-                    value: { y: RandomGenerator.number() },
+                    value: { y: RandomGenerator.integer() },
                 },
             },
             {
@@ -51,7 +51,7 @@ export namespace ObjectUnionDouble {
                 child: {
                     value: {
                         y: RandomGenerator.array(() =>
-                            RandomGenerator.number(),
+                            RandomGenerator.integer(),
                         ),
                     },
                 },

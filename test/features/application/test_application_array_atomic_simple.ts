@@ -15,7 +15,6 @@ export const test_application_array_atomic_simple = _test_application(
                             type: "array",
                             items: {
                                 type: "boolean",
-                                enum: [false, true],
                                 nullable: false,
                             },
                             nullable: false,

@@ -14,6 +14,6 @@ export namespace ClassMethod {
     }
 
     export function generate(): ClassMethod {
-        return new Animal(RandomGenerator.string(), RandomGenerator.number());
+        return new Animal(RandomGenerator.string(), RandomGenerator.integer());
     }
 }

@@ -14,7 +14,6 @@ export const test_application_class_non_public = _test_application(
         components: {
             schemas: {
                 "ClassNonPublic.Accessor": {
-                    $id: "ClassNonPublic.Accessor",
                     type: "object",
                     properties: {
                         implicit: {

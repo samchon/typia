@@ -14,7 +14,6 @@ export const test_application_object_generic_array = _test_application(
         components: {
             schemas: {
                 "ObjectGenericArray.IPage_lt_ObjectGenericArray.IPerson_gt_": {
-                    $id: "ObjectGenericArray.IPage_lt_ObjectGenericArray.IPerson_gt_",
                     type: "object",
                     properties: {
                         pagination: {
@@ -32,7 +31,6 @@ export const test_application_object_generic_array = _test_application(
                     required: ["pagination", "data"],
                 },
                 "ObjectGenericArray.IPagination": {
-                    $id: "ObjectGenericArray.IPagination",
                     type: "object",
                     properties: {
                         page: {
@@ -56,7 +54,6 @@ export const test_application_object_generic_array = _test_application(
                     required: ["page", "limit", "total_count", "total_pages"],
                 },
                 "ObjectGenericArray.IPerson": {
-                    $id: "ObjectGenericArray.IPerson",
                     type: "object",
                     properties: {
                         name: {

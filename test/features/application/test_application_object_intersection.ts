@@ -14,7 +14,6 @@ export const test_application_object_intersection = _test_application(
         components: {
             schemas: {
                 ObjectIntersection: {
-                    $id: "ObjectIntersection",
                     type: "object",
                     properties: {
                         email: {
@@ -27,7 +26,6 @@ export const test_application_object_intersection = _test_application(
                         },
                         vulnerable: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: false,
                         },
                     },

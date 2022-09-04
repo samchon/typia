@@ -20,13 +20,13 @@ export namespace ObjectRecursive {
         index: number = 0,
     ): ObjectRecursive {
         return {
-            id: RandomGenerator.number(),
+            id: RandomGenerator.integer(),
             name: RandomGenerator.string(),
             code: RandomGenerator.string(),
-            sequence: RandomGenerator.number(),
+            sequence: RandomGenerator.integer(),
             created_at: {
-                time: RandomGenerator.number(),
-                zone: RandomGenerator.number(),
+                time: RandomGenerator.integer(),
+                zone: RandomGenerator.integer(),
             },
             parent: index < limit ? generate(limit, index + 1) : null,
         };

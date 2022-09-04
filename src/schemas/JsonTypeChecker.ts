@@ -1,6 +1,6 @@
-import { TypeGuardError } from "../TypeGuardError";
-
 import { Atomic } from "../typings/Atomic";
+
+import { TypeGuardError } from "../TypeGuardError";
 import { IJsonApplication } from "./IJsonApplication";
 import { IJsonComponents } from "./IJsonComponents";
 import { IJsonSchema } from "./IJsonSchema";

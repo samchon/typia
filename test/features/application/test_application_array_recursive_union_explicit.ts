@@ -35,7 +35,6 @@ export const test_application_array_recursive_union_explicit =
             components: {
                 schemas: {
                     "ArrayRecursiveUnionExplicit.IImageFile": {
-                        $id: "ArrayRecursiveUnionExplicit.IImageFile",
                         type: "object",
                         properties: {
                             id: {
@@ -91,7 +90,6 @@ export const test_application_array_recursive_union_explicit =
                         ],
                     },
                     "ArrayRecursiveUnionExplicit.ITextFile": {
-                        $id: "ArrayRecursiveUnionExplicit.ITextFile",
                         type: "object",
                         properties: {
                             id: {
@@ -137,7 +135,6 @@ export const test_application_array_recursive_union_explicit =
                         ],
                     },
                     "ArrayRecursiveUnionExplicit.IZipFile": {
-                        $id: "ArrayRecursiveUnionExplicit.IZipFile",
                         type: "object",
                         properties: {
                             id: {
@@ -183,7 +180,6 @@ export const test_application_array_recursive_union_explicit =
                         ],
                     },
                     "ArrayRecursiveUnionExplicit.IDirectory": {
-                        $id: "ArrayRecursiveUnionExplicit.IDirectory",
                         type: "object",
                         properties: {
                             id: {
@@ -231,7 +227,6 @@ export const test_application_array_recursive_union_explicit =
                         required: ["id", "name", "path", "children", "type"],
                     },
                     "ArrayRecursiveUnionExplicit.IShortcut": {
-                        $id: "ArrayRecursiveUnionExplicit.IShortcut",
                         type: "object",
                         properties: {
                             id: {
