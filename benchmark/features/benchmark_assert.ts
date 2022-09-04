@@ -1,14 +1,13 @@
-import TSON from "../../src";
 import * as Similar from "typescript-is";
 
-import { AssertBenchmarker } from "../internal/AssertBenchmarker";
-
+import TSON from "../../src";
+import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
+import { ArrayRecursiveUnionImplicit } from "../../test/structures/ArrayRecursiveUnionImplicit";
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
-import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
-import { ArrayRecursiveUnionImplicit } from "../../test/structures/ArrayRecursiveUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
+import { AssertBenchmarker } from "../internal/AssertBenchmarker";
 
 const assert = () => [
     AssertBenchmarker.prepare(

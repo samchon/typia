@@ -1,4 +1,5 @@
 import ts from "typescript";
+
 import { Metadata } from "../../metadata/Metadata";
 
 export interface IExpressionEntry {

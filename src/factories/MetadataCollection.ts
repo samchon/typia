@@ -1,10 +1,12 @@
 import ts from "typescript";
 
-import { TypeFactory } from "./TypeFactory";
-import { MapUtil } from "../utils/MapUtil";
-import { CommentFactory } from "./CommentFactory";
-import { MetadataObject } from "../metadata/MetadataObject";
 import { Metadata } from "../metadata/Metadata";
+import { MetadataObject } from "../metadata/MetadataObject";
+
+import { MapUtil } from "../utils/MapUtil";
+
+import { CommentFactory } from "./CommentFactory";
+import { TypeFactory } from "./TypeFactory";
 
 export class MetadataCollection {
     private readonly dict_: Map<ts.Type, MetadataObject>;

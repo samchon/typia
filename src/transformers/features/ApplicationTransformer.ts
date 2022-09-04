@@ -3,10 +3,12 @@ import ts from "typescript";
 import { LiteralFactory } from "../../factories/LiteralFactory";
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { MetadataFactory } from "../../factories/MetadataFactory";
+
 import { Metadata } from "../../metadata/Metadata";
+import { IJsonApplication } from "../../schemas/IJsonApplication";
+
 import { ApplicationProgrammer } from "../../programmers/ApplicationProgrammer";
 
-import { IJsonApplication } from "../../schemas/IJsonApplication";
 import { IProject } from "../IProject";
 
 export namespace ApplicationTransformer {

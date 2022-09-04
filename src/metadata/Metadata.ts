@@ -1,7 +1,8 @@
-import { IMetadata } from "./IMetadata";
-import { IMetadataObject } from "./IMetadataObject";
 import { Atomic } from "../typings/Atomic";
 import { ClassProperties } from "../typings/ClassProperties";
+
+import { IMetadata } from "./IMetadata";
+import { IMetadataObject } from "./IMetadataObject";
 import { MetadataConstant } from "./MetadataConstant";
 import { MetadataObject } from "./MetadataObject";
 import { MetadataProperty } from "./MetadataProperty";

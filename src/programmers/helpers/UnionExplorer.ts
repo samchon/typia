@@ -1,9 +1,13 @@
 import ts from "typescript";
+
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
+
+import { IMetadataTag } from "../../metadata/IMetadataTag";
 import { Metadata } from "../../metadata/Metadata";
 import { MetadataObject } from "../../metadata/MetadataObject";
+
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { UnionPredicator } from "./UnionPredicator";
 
@@ -13,6 +17,7 @@ export namespace UnionExplorer {
             input: ts.Expression,
             target: T,
             explore: FeatureProgrammer.IExplore,
+            tags: IMetadataTag[],
         ): ts.Expression;
     }
     export type ObjectCombiner = Decoder<MetadataObject[]>;
@@ -23,6 +28,7 @@ export namespace UnionExplorer {
             input: ts.Expression,
             metadata: Metadata,
             explore: FeatureProgrammer.IExplore,
+            tags: IMetadataTag[],
         ) => ts.Expression,
         decoder: Decoder<MetadataObject>,
         combiner: ObjectCombiner,
@@ -36,18 +42,24 @@ export namespace UnionExplorer {
             input: ts.Expression,
             targets: MetadataObject[],
             explore: FeatureProgrammer.IExplore,
+            tags: IMetadataTag[],
         ): ts.Expression {
             // BREAKER
             if (targets.length === 1)
-                return decoder(input, targets[0]!, explore);
+                return decoder(input, targets[0]!, explore, tags);
 
             // POSSIBLE TO SPECIALIZE?
             const specList = UnionPredicator.object(targets);
             if (specList.length === 0)
-                return combiner(input, targets, {
-                    ...explore,
-                    tracable: false,
-                });
+                return combiner(
+                    input,
+                    targets,
+                    {
+                        ...explore,
+                        tracable: false,
+                    },
+                    tags,
+                );
             const remained: MetadataObject[] = targets.filter(
                 (t) => specList.find((s) => s.object === t) === undefined,
             );
@@ -59,18 +71,23 @@ export namespace UnionExplorer {
                     spec.property.name,
                 );
                 const pred: ts.Expression = spec.neighbour
-                    ? checker(accessor, spec.property.metadata, {
-                          ...explore,
-                          tracable: false,
-                          postfix: IdentifierFactory.postfix(
-                              spec.property.name,
-                          ),
-                      })
+                    ? checker(
+                          accessor,
+                          spec.property.metadata,
+                          {
+                              ...explore,
+                              tracable: false,
+                              postfix: IdentifierFactory.postfix(
+                                  spec.property.name,
+                              ),
+                          },
+                          tags,
+                      )
                     : ExpressionFactory.isRequired(accessor);
                 return ts.factory.createIfStatement(
                     pred,
                     ts.factory.createReturnStatement(
-                        decoder(input, spec.object, explore),
+                        decoder(input, spec.object, explore, tags),
                     ),
                 );
             });
@@ -95,7 +112,7 @@ export namespace UnionExplorer {
                                           combiner,
                                           failure,
                                           level + 1,
-                                      )(input, remained, explore),
+                                      )(input, remained, explore, tags),
                                   )
                                 : failure(input, targets),
                         ],
@@ -113,6 +130,7 @@ export namespace UnionExplorer {
             input: ts.Expression,
             metadata: Metadata,
             explore: FeatureProgrammer.IExplore,
+            tags: IMetadataTag[],
         ) => ts.Expression,
         decoder: Decoder<Metadata>,
         empty: () => ts.Expression,
@@ -122,9 +140,10 @@ export namespace UnionExplorer {
             input: ts.Expression,
             targets: Metadata[],
             explore: FeatureProgrammer.IExplore,
+            tags: IMetadataTag[],
         ): ts.Expression {
             if (targets.length === 1)
-                return decoder(input, targets[0]!, explore);
+                return decoder(input, targets[0]!, explore, tags);
 
             const top = ts.factory.createElementAccessExpression(input, 0);
 
@@ -160,6 +179,7 @@ export namespace UnionExplorer {
                                             tracable: false,
                                             postfix: `"[0]"`,
                                         },
+                                        tags,
                                     ),
                                 ),
                                 ts.factory.createArrowFunction(
@@ -182,6 +202,7 @@ export namespace UnionExplorer {
                                             ...explore,
                                             tracable: false,
                                         },
+                                        tags,
                                     ),
                                 ),
                             ]),

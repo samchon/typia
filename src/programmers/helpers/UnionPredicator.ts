@@ -1,6 +1,7 @@
 import { Metadata } from "../../metadata/Metadata";
 import { MetadataObject } from "../../metadata/MetadataObject";
 import { MetadataProperty } from "../../metadata/MetadataProperty";
+
 import { ArrayUtil } from "../../utils/ArrayUtil";
 import { MapUtil } from "../../utils/MapUtil";
 

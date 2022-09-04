@@ -1,25 +1,23 @@
 import ts from "typescript";
+
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
 import { ValueFactory } from "../factories/ValueFactory";
+
 import { IProject } from "../transformers/IProject";
+
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
+import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { check_array } from "./internal/check_array";
 
 export namespace ValidateProgrammer {
-    export function CONFIG(): CheckerProgrammer.IConfig {
-        return {
-            functors: "$vo",
-            unioners: "$vu",
-            trace: true,
-            combiner: combine(),
-            joiner: join(),
-        };
-    }
-
-    export const generate =
-        (project: IProject, modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type) =>
+    export function generate(
+        project: IProject,
+        modulo: ts.LeftHandSideExpression,
+    ) {
+        const importer = new FunctionImporter();
+        return (type: ts.Type) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -50,7 +48,19 @@ export namespace ValidateProgrammer {
                     ),
                     ts.factory.createExpressionStatement(
                         ts.factory.createCallExpression(
-                            CheckerProgrammer.generate(project, CONFIG())(type),
+                            CheckerProgrammer.generate(
+                                project,
+                                {
+                                    functors: "$vo",
+                                    unioners: "$vu",
+                                    trace: true,
+                                    numeric: true,
+                                    combiner: combine(),
+                                    joiner: join(),
+                                },
+                                modulo,
+                                importer,
+                            )(type),
                             undefined,
                             [ValueFactory.INPUT()],
                         ),
@@ -60,10 +70,11 @@ export namespace ValidateProgrammer {
                     ),
                 ]),
             );
+    }
 }
 
 const combine: () => CheckerProgrammer.IConfig.Combiner = () => (explore) => {
-    const combiner = IsProgrammer.CONFIG().combiner;
+    const combiner = IsProgrammer.CONFIG(true).combiner;
     if (explore.tracable === false && explore.from !== "top")
         return combiner(explore);
 
@@ -90,12 +101,17 @@ const join: () => CheckerProgrammer.IConfig.IJoiner = () => ({
                 true,
             ),
         ),
-    array: (input, arrow) =>
-        create_array_every(
-            ts.factory.createCallExpression(
-                IdentifierFactory.join(input, "map"),
-                undefined,
-                [arrow],
+    array: (input, arrow, tags) =>
+        check_array(
+            input,
+            arrow,
+            tags,
+            create_array_every(
+                ts.factory.createCallExpression(
+                    IdentifierFactory.join(input, "map"),
+                    undefined,
+                    [arrow],
+                ),
             ),
         ),
     tuple: (binaries) =>

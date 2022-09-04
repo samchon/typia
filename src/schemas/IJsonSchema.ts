@@ -5,10 +5,10 @@ export type IJsonSchema =
     | IJsonSchema.IEnumeration<"number">
     | IJsonSchema.IEnumeration<"bigint">
     | IJsonSchema.IEnumeration<"string">
-    | IJsonSchema.IAtomic<"boolean">
-    | IJsonSchema.IAtomic<"number">
-    | IJsonSchema.IAtomic<"bigint">
-    | IJsonSchema.IAtomic<"string">
+    | IJsonSchema.IBoolean
+    | IJsonSchema.INumber
+    | IJsonSchema.IBigInt
+    | IJsonSchema.IString
     | IJsonSchema.IArray
     | IJsonSchema.ITuple
     | IJsonSchema.IReference
@@ -23,14 +23,31 @@ export namespace IJsonSchema {
         nullable: boolean;
         description?: string;
     }
+
     export interface IAtomic<Type extends string> {
         type: Type;
         nullable: boolean;
         description?: string;
     }
+    export interface IString extends IAtomic<"string"> {
+        minLength?: number;
+        maxLength?: number;
+        pattern?: string;
+        format?: string;
+    }
+    export interface INumber extends IAtomic<"number" | "integer"> {
+        minimum?: number;
+        maximum?: number;
+        exclusiveMinimum?: number;
+        exclusiveMaximum?: number;
+    }
+    export interface IBoolean extends IAtomic<"boolean"> {}
+    export interface IBigInt extends IAtomic<"bigint"> {}
 
     export interface IArray extends IAtomic<"array"> {
         items: IJsonSchema;
+        minItems?: number;
+        maxItems?: number;
     }
     export interface ITuple {
         type: "array";

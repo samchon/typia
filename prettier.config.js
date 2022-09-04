@@ -4,4 +4,18 @@ module.exports = {
     semi: true,
     tabWidth: 4,
     trailingComma: "all",
+    importOrder: [
+        "<THIRD_PARTY_MODULES>",
+        "(.*)factories/(.*)$",
+        "(.*)functional/(.*)$",
+        "(.*)(metadata|schemas)/(.*)$",
+        "(.*)programmers/(.*)$",
+        "(.*)transformers/(.*)$",
+        "(.*)typings/(.*)$",
+        "(.*)utils/(.*)$",
+        "^[./]",
+    ],
+    importOrderSeparation: true,
+    importOrderSortSpecifiers: true,
+    importOrderParserPlugins: ["decorators-legacy", "typescript"],
 };
