@@ -166,7 +166,7 @@ Also, only `typescript-json` can validate union typed structure exactly. All the
 Components               | `TSON` | `T.IS` | `ajv` | `io-ts` | `C.V.`
 -------------------------|-------------------|-----------------|-------|---------|------------------
 **Easy to use**          | ✔                | ✔               | ❌    | ❌     | ❌ 
-[Additional Tags](#comment-tags)        | ✔                | ❌              | ✔     | ✔      | ✔
+[Additional Tags](https://github.com/samchon/typescript-json/#comment-tags)        | ✔                | ❌              | ✔     | ✔      | ✔
 [Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔                | ✔               | ✔     | ✔      | ✔
 [Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔                | ✔               | ❌    | ✔      | ✔
 [Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔                | ✔               | ✔     | ✔      | ✔
