@@ -1,6 +1,4 @@
-import { TypeGuardError } from "../../../src";
-
-export function _test_is<T, U extends T>(
+export function _test_is<T>(
     name: string,
     generator: () => T,
     validator: (input: T) => boolean,

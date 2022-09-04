@@ -59,5 +59,21 @@ export const test_assert_tag_length = _test_assert(
             input[12].greater_equal_less_equal = "12345678";
             return "$input[12].greater_equal_less_equal";
         },
+        (input) => {
+            input[13].minimum = "12";
+            return "$input[13].minimum";
+        },
+        (input) => {
+            input[14].maximum = "12345678";
+            return "$input[14].maximum";
+        },
+        (input) => {
+            input[15].minimum_and_maximum = "12";
+            return "$input[15].minimum_and_maximum";
+        },
+        (input) => {
+            input[15].minimum_and_maximum = "12345678";
+            return "$input[15].minimum_and_maximum";
+        },
     ],
 );

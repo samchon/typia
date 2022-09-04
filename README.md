@@ -153,7 +153,7 @@ export class TypeGuardError extends Error {
 }
 ```
 
-> You can enhance type constraint more by using [Comment Tags](#supported-tags).
+> You can enhance type constraint more by using [**Comment Tags**](#comment-tags).
 
 `typescript-json` provides three runtime type checker functions.
 
@@ -166,7 +166,7 @@ Also, only `typescript-json` can validate union typed structure exactly. All the
 Components               | `TSON` | `T.IS` | `ajv` | `io-ts` | `C.V.`
 -------------------------|-------------------|-----------------|-------|---------|------------------
 **Easy to use**          | ✔                | ✔               | ❌    | ❌     | ❌ 
-[Additional Tags](#supported-tags)        | ✔                | ❌              | ✔     | ✔      | ✔
+[Additional Tags](#comment-tags)        | ✔                | ❌              | ✔     | ✔      | ✔
 [Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔                | ✔               | ✔     | ✔      | ✔
 [Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔                | ✔               | ❌    | ✔      | ✔
 [Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔                | ✔               | ✔     | ✔      | ✔
@@ -220,7 +220,7 @@ export function application<
 >(): IJsonApplication;
 ```
 
-> You can enhance JSON schema more by using [Comment Tags](#supported-tags).
+> You can enhance JSON schema more by using [**Comment Tags**](#comment-tags).
 
 `typescript-json` even supports JSON schema application generation.
 
@@ -228,10 +228,10 @@ When you need to share your TypeScript types to other language, this `applicatio
 
 By the way, the reason why you're using this `application()` is for generating a swagger documents, I recommend you to use my another library [nestia](https://github.com/samchon/nestia). It will automate the swagger documents generation, by analyzing your entire backend server code.
 
-### Supported Tags
+### Comment Tags
 You can enhance [Runtime Type Checkers](#runtime-type-checkers) and [JSON Schema Generator](#json-schema-generation) by writing comment tags.
 
-Below table shows list of supported tags. You can utilize those tags by writing in comments like below example structure `TagExample`. Look at them and utilize those comment tags to make your TypeScript program to be safer and more convenient.
+Below table shows list of supported comment tags. You can utilize those tags by writing in comments like below example structure `TagExample`. Look at them and utilize those comment tags to make your TypeScript program to be safer and more convenient.
 
 Also, don't worry about taking a mistake on using those comment tags. In that case, compile error would be occured. By the compile level error detection, `typescript-json` is much stronger than any other runtime validator libraries using decorator functions, which can't catch any mistake on the compilation level.
 
@@ -260,9 +260,9 @@ export interface TagExample {
      * 
      * Also, you can use `@items` tag instead.
      * 
-     * @items (5, 10)
-     * @items [7
-     * @items 12)
+     * @items (5, 10] --> 5 < length <= 10
+     * @items [7      --> 7 <= length
+     * @items 12)     --> length < 12
      * 
      * Furthermore, you can use additional tags for each item.
      * 
@@ -279,7 +279,7 @@ export interface TagExample {
      * @items (5, 10)
      * @format url
      */
-    array: string[][];
+    matrix: string[][];
 
     /* -----------------------------------------------------------
         NUMBERS
@@ -319,18 +319,23 @@ export interface TagExample {
      * 
      * Also, you can use `@length` tag instead.
      * 
-     * @length 10 // fixed length
-     * @length [3, 7] // 3 <= length && length <= 7
-     * @length (5, 10) // 5 < length && length < 10
-     * @length [4 // 4 < length
-     * @length 7) // length < 7
+     * @length 10      --> length = 10
+     * @length [3, 7]  --> 3 <= length && length <= 7
+     * @length (5, 10) --> 5 < length && length < 10
+     * @length [4      --> 4 < length
+     * @length 7)      --> length < 7
      */
     length: string;
 
     /**
      * Mobile number composed by only numbers.
      * 
-     * @pattern /[0-9]{7,16}/g
+     * Note that, `typescript-json` does not support flag of regex,
+     * because JSON schema definition does not suppor it either.
+     * Therefore, write regex pattern without `/` characters and flag.
+     * 
+     * @pattern ^0[0-9]{7,16} 
+     *     -> RegExp(/[0-9]{7,16}/).test("01012345678")
      */
     mobile: string;
 

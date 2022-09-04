@@ -1,12 +1,39 @@
 export type IMetadataTag =
+    | IMetadataTag.IItems
+    | IMetadataTag.IMinItems
+    | IMetadataTag.IMaxItems
     | IMetadataTag.IFormat
     | IMetadataTag.IPattern
     | IMetadataTag.ILength
+    | IMetadataTag.IMinLength
+    | IMetadataTag.IMaxLength
     | IMetadataTag.IType
     | IMetadataTag.IRange
     | IMetadataTag.IMinimum
     | IMetadataTag.IMaximum;
 export namespace IMetadataTag {
+    /* -----------------------------------------------------------
+        ARRAY   
+    ----------------------------------------------------------- */
+    export interface IItems {
+        kind: "items";
+        minimum?: ISign;
+        maximum?: ISign;
+    }
+
+    export interface IMinItems {
+        kind: "minItems";
+        value: number;
+    }
+
+    export interface IMaxItems {
+        kind: "maxItems";
+        value: number;
+    }
+
+    /* -----------------------------------------------------------
+        LITERAL
+    ----------------------------------------------------------- */
     export interface IFormat {
         kind: "format";
         value: "uuid" | "email" | "url" | "ipv4" | "ipv6";
@@ -21,6 +48,16 @@ export namespace IMetadataTag {
         kind: "length";
         minimum?: ISign;
         maximum?: ISign;
+    }
+
+    export interface IMinLength {
+        kind: "minLength";
+        value: number;
+    }
+
+    export interface IMaxLength {
+        kind: "maxLength";
+        value: number;
     }
 
     /* -----------------------------------------------------------

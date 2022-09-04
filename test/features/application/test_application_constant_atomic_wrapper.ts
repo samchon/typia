@@ -28,12 +28,10 @@ export const test_application_constant_atomic_wrapper = _test_application(
         components: {
             schemas: {
                 "ConstantAtomicWrapper.IPointer_lt_boolean_gt_": {
-                    $id: "ConstantAtomicWrapper.IPointer_lt_boolean_gt_",
                     type: "object",
                     properties: {
                         value: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: false,
                         },
                     },
@@ -41,7 +39,6 @@ export const test_application_constant_atomic_wrapper = _test_application(
                     required: ["value"],
                 },
                 "ConstantAtomicWrapper.IPointer_lt_number_gt_": {
-                    $id: "ConstantAtomicWrapper.IPointer_lt_number_gt_",
                     type: "object",
                     properties: {
                         value: {
@@ -53,7 +50,6 @@ export const test_application_constant_atomic_wrapper = _test_application(
                     required: ["value"],
                 },
                 "ConstantAtomicWrapper.IPointer_lt_string_gt_": {
-                    $id: "ConstantAtomicWrapper.IPointer_lt_string_gt_",
                     type: "object",
                     properties: {
                         value: {

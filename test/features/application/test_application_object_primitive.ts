@@ -14,7 +14,6 @@ export const test_application_object_primitive = _test_application(
         components: {
             schemas: {
                 __type: {
-                    $id: "__type",
                     type: "object",
                     properties: {
                         id: {
@@ -43,7 +42,6 @@ export const test_application_object_primitive = _test_application(
                         },
                         secret: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: false,
                         },
                         created_at: {
@@ -63,7 +61,6 @@ export const test_application_object_primitive = _test_application(
                     ],
                 },
                 "__type.o1": {
-                    $id: "__type.o1",
                     type: "object",
                     properties: {
                         id: {

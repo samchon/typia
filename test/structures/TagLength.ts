@@ -45,6 +45,22 @@ export interface TagLength {
      * @length [3, 7]
      */
     greater_equal_less_equal: string;
+
+    /**
+     * @minLength 3
+     */
+    minimum: string;
+
+    /**
+     * @maxLength 7
+     */
+    maximum: string;
+
+    /**
+     * @minLength 3
+     * @maxLength 7
+     */
+    minimum_and_maximum: string;
 }
 export namespace TagLength {
     // prettier-ignore
@@ -58,7 +74,8 @@ export namespace TagLength {
         for (const greater_less of [MINIMUM + 1, MAXIMUM - 1])
         for (const greater_equal_less of [MINIMUM, MAXIMUM - 1])
         for (const greater_less_equal of [MINIMUM + 1, MAXIMUM])
-        for (const greater_equal_less_equal of [MINIMUM, MAXIMUM]) {
+        for (const greater_equal_less_equal of [MINIMUM, MAXIMUM]) 
+        for (const minimum_and_maximum of [MINIMUM, MAXIMUM]) {
             const numeric = {
                 fixed: FIXED,
                 greater,
@@ -69,6 +86,9 @@ export namespace TagLength {
                 greater_less_equal,
                 greater_equal_less,
                 greater_equal_less_equal,
+                minimum: MINIMUM,
+                maximum: MAXIMUM,
+                minimum_and_maximum
             };
             const obj: TagLength = {} as any;
             for (const [key, value] of Object.entries(numeric))

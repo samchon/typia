@@ -14,7 +14,6 @@ export const test_application_class_closure = _test_application(
         components: {
             schemas: {
                 "ClassGetter.Person": {
-                    $id: "ClassGetter.Person",
                     type: "object",
                     properties: {
                         id: {
@@ -27,7 +26,6 @@ export const test_application_class_closure = _test_application(
                         },
                         dead: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: true,
                         },
                     },

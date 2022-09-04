@@ -28,12 +28,10 @@ export const test_application_object_generic = _test_application(
         components: {
             schemas: {
                 "ObjectGeneric.ISomething_lt_boolean_gt_": {
-                    $id: "ObjectGeneric.ISomething_lt_boolean_gt_",
                     type: "object",
                     properties: {
                         value: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: false,
                         },
                         child: {
@@ -51,17 +49,14 @@ export const test_application_object_generic = _test_application(
                     required: ["value", "child", "elements"],
                 },
                 "ObjectGeneric.IChild_lt_boolean_comma_boolean_gt_": {
-                    $id: "ObjectGeneric.IChild_lt_boolean_comma_boolean_gt_",
                     type: "object",
                     properties: {
                         child_value: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: false,
                         },
                         child_next: {
                             type: "boolean",
-                            enum: [false, true],
                             nullable: false,
                         },
                     },
@@ -69,7 +64,6 @@ export const test_application_object_generic = _test_application(
                     required: ["child_value", "child_next"],
                 },
                 "ObjectGeneric.ISomething_lt_number_gt_": {
-                    $id: "ObjectGeneric.ISomething_lt_number_gt_",
                     type: "object",
                     properties: {
                         value: {
@@ -91,7 +85,6 @@ export const test_application_object_generic = _test_application(
                     required: ["value", "child", "elements"],
                 },
                 "ObjectGeneric.IChild_lt_number_comma_number_gt_": {
-                    $id: "ObjectGeneric.IChild_lt_number_comma_number_gt_",
                     type: "object",
                     properties: {
                         child_value: {
@@ -107,7 +100,6 @@ export const test_application_object_generic = _test_application(
                     required: ["child_value", "child_next"],
                 },
                 "ObjectGeneric.ISomething_lt_string_gt_": {
-                    $id: "ObjectGeneric.ISomething_lt_string_gt_",
                     type: "object",
                     properties: {
                         value: {
@@ -129,7 +121,6 @@ export const test_application_object_generic = _test_application(
                     required: ["value", "child", "elements"],
                 },
                 "ObjectGeneric.IChild_lt_string_comma_string_gt_": {
-                    $id: "ObjectGeneric.IChild_lt_string_comma_string_gt_",
                     type: "object",
                     properties: {
                         child_value: {

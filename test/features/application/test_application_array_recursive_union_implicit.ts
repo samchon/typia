@@ -35,7 +35,6 @@ export const test_application_array_recursive_union_implicit =
             components: {
                 schemas: {
                     "ArrayRecursiveUnionImplicit.IImageFile": {
-                        $id: "ArrayRecursiveUnionImplicit.IImageFile",
                         type: "object",
                         properties: {
                             id: {
@@ -79,7 +78,6 @@ export const test_application_array_recursive_union_implicit =
                         ],
                     },
                     "ArrayRecursiveUnionImplicit.ITextFile": {
-                        $id: "ArrayRecursiveUnionImplicit.ITextFile",
                         type: "object",
                         properties: {
                             id: {
@@ -107,7 +105,6 @@ export const test_application_array_recursive_union_implicit =
                         required: ["id", "name", "path", "size", "content"],
                     },
                     "ArrayRecursiveUnionImplicit.IZipFile": {
-                        $id: "ArrayRecursiveUnionImplicit.IZipFile",
                         type: "object",
                         properties: {
                             id: {
@@ -135,7 +132,6 @@ export const test_application_array_recursive_union_implicit =
                         required: ["id", "name", "path", "size", "count"],
                     },
                     "ArrayRecursiveUnionImplicit.IDirectory": {
-                        $id: "ArrayRecursiveUnionImplicit.IDirectory",
                         type: "object",
                         properties: {
                             id: {
@@ -178,7 +174,6 @@ export const test_application_array_recursive_union_implicit =
                         required: ["id", "name", "path", "children"],
                     },
                     "ArrayRecursiveUnionImplicit.IShortcut": {
-                        $id: "ArrayRecursiveUnionImplicit.IShortcut",
                         type: "object",
                         properties: {
                             id: {

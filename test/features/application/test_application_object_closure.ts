@@ -14,7 +14,6 @@ export const test_application_object_closure = _test_application(
         components: {
             schemas: {
                 "ObjectClosure.IRecord": {
-                    $id: "ObjectClosure.IRecord",
                     type: "object",
                     properties: {
                         id: {

@@ -14,7 +14,6 @@ export const test_application_object = _test_application(
         components: {
             schemas: {
                 "ObjectSimple.IBox3D": {
-                    $id: "ObjectSimple.IBox3D",
                     type: "object",
                     properties: {
                         scale: {
@@ -34,7 +33,6 @@ export const test_application_object = _test_application(
                     required: ["scale", "position", "rotate", "pivot"],
                 },
                 "ObjectSimple.IPoint3D": {
-                    $id: "ObjectSimple.IPoint3D",
                     type: "object",
                     properties: {
                         x: {

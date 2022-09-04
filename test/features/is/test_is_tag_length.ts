@@ -20,5 +20,9 @@ export const test_is_tag_length = _test_is(
         (input) => (input[10].greater_less_equal = "12345678"),
         (input) => (input[11].greater_equal_less_equal = "12"),
         (input) => (input[12].greater_equal_less_equal = "12345678"),
+        (input) => (input[13].minimum = "12"),
+        (input) => (input[14].maximum = "12345678"),
+        (input) => (input[15].minimum_and_maximum = "12"),
+        (input) => (input[15].minimum_and_maximum = "12345678"),
     ],
 );

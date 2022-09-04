@@ -1,7 +1,6 @@
 import ts from "typescript";
 
 import { ExpressionFactory } from "../factories/ExpressionFactory";
-import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
 import { ValueFactory } from "../factories/ValueFactory";
@@ -17,6 +16,7 @@ import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPreditor } from "./helpers/OptionPredicator";
 import { UnionExplorer } from "./helpers/UnionExplorer";
+import { check_array } from "./internal/check_array";
 import { check_number } from "./internal/check_number";
 import { check_string } from "./internal/check_string";
 
@@ -43,7 +43,11 @@ export namespace CheckerProgrammer {
         }
         export interface IJoiner {
             object(entries: IExpressionEntry[]): ts.Expression;
-            array(input: ts.Expression, arrow: ts.ArrowFunction): ts.Expression;
+            array(
+                input: ts.Expression,
+                arrow: ts.ArrowFunction,
+                tags: IMetadataTag[],
+            ): ts.Expression;
             tuple(binaries: ts.Expression[]): ts.Expression;
         }
     }
@@ -93,12 +97,7 @@ export namespace CheckerProgrammer {
                       .map((entry) => entry.expression)
                       .reduce((x, y) => ts.factory.createLogicalAnd(x, y))
                 : ts.factory.createTrue(),
-        array: (input, arrow) =>
-            ts.factory.createCallExpression(
-                IdentifierFactory.join(input, "every"),
-                undefined,
-                [arrow],
-            ),
+        array: check_array,
         tuple: (binaries) =>
             binaries.reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
     });
