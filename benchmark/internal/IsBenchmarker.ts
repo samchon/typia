@@ -38,7 +38,7 @@ export namespace IsBenchmarker {
             };
             suite.run();
             suite.map((elem: benchmark) => {
-                (output as any)[elem.name] = elem.count / elem.times.elapsed;
+                (output as any)[elem.name as string] = elem.count / elem.times.elapsed;
             });
             return output;
         };
