@@ -246,6 +246,9 @@ Tag Kind | Target Type
 `@maxLength {number}` | string
 `@format {"email"\|"uuid"\|"url"\|"ipv4"\|"ipv6"}` | string
 `@pattern {string}` | string
+`@items {number} \| [number, number)` | array
+`@minItems {number}` | array
+`@maxItems {number}` | array
 
 ```typescript
 export interface TagExample {
