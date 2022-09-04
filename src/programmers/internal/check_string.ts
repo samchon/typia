@@ -5,6 +5,7 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 
 import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { check_length } from "./check_length";
 
 export function check_string(importer: FunctionImporter) {
     return function (input: ts.Expression, tagList: IMetadataTag[]) {
@@ -35,15 +36,29 @@ export function check_string(importer: FunctionImporter) {
                         ts.factory.createTrue(),
                         ts.factory.createCallExpression(
                             ts.factory.createIdentifier(
-                                `RegExp(${tag.value}).test`,
+                                `RegExp(/${tag.value}/).test`,
                             ),
                             undefined,
                             [input],
                         ),
                     ),
                 );
+            else if (tag.kind === "minLength")
+                conditions.push(
+                    ts.factory.createLessThanEquals(
+                        ts.factory.createNumericLiteral(tag.value),
+                        IdentifierFactory.join(input, "length"),
+                    ),
+                );
+            else if (tag.kind === "maxLength")
+                conditions.push(
+                    ts.factory.createGreaterThanEquals(
+                        ts.factory.createNumericLiteral(tag.value),
+                        IdentifierFactory.join(input, "length"),
+                    ),
+                );
             else if (tag.kind === "length")
-                check_string_length(
+                check_length(
                     conditions,
                     IdentifierFactory.join(input, "length"),
                     tag,
@@ -54,44 +69,4 @@ export function check_string(importer: FunctionImporter) {
             ? conditions[0]!
             : conditions.reduce((x, y) => ts.factory.createLogicalAnd(x, y));
     };
-}
-
-function check_string_length(
-    conditions: ts.Expression[],
-    length: ts.Expression,
-    tag: IMetadataTag.ILength,
-) {
-    if (
-        tag.minimum !== undefined &&
-        tag.maximum !== undefined &&
-        tag.minimum.value === tag.maximum.value &&
-        tag.minimum.include === true &&
-        tag.maximum.include === true
-    ) {
-        conditions.push(
-            ts.factory.createStrictEquality(
-                ts.factory.createNumericLiteral(tag.minimum.value),
-                length,
-            ),
-        );
-    } else {
-        if (tag.minimum !== undefined)
-            conditions.push(
-                (tag.minimum.include
-                    ? ts.factory.createLessThanEquals
-                    : ts.factory.createLessThan)(
-                    ts.factory.createNumericLiteral(tag.minimum.value),
-                    length,
-                ),
-            );
-        if (tag.maximum !== undefined)
-            conditions.push(
-                (tag.maximum.include
-                    ? ts.factory.createLessThanEquals
-                    : ts.factory.createLessThan)(
-                    length,
-                    ts.factory.createNumericLiteral(tag.maximum.value),
-                ),
-            );
-    }
 }

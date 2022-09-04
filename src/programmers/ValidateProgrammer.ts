@@ -9,6 +9,7 @@ import { IProject } from "../transformers/IProject";
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { check_array } from "./internal/check_array";
 
 export namespace ValidateProgrammer {
     export function generate(
@@ -100,12 +101,17 @@ const join: () => CheckerProgrammer.IConfig.IJoiner = () => ({
                 true,
             ),
         ),
-    array: (input, arrow) =>
-        create_array_every(
-            ts.factory.createCallExpression(
-                IdentifierFactory.join(input, "map"),
-                undefined,
-                [arrow],
+    array: (input, arrow, tags) =>
+        check_array(
+            input,
+            arrow,
+            tags,
+            create_array_every(
+                ts.factory.createCallExpression(
+                    IdentifierFactory.join(input, "map"),
+                    undefined,
+                    [arrow],
+                ),
             ),
         ),
     tuple: (binaries) =>

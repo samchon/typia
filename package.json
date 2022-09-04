@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.2.0-dev.20220803",
+  "version": "3.2.0",
   "description": "Runtime type checkers and 5x faster JSON.stringify() function",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -12,7 +12,7 @@
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "issue": "node test/issue",
-    "prettier": "prettier  --write ./src/**/*.ts",
+    "prettier": "prettier  --write ./**/*.ts",
     "test": "node test",
     "test:manual": "node test/manual",
     "test:application:replace": "npm run build:test && node test/features/application/replace && npm run prettier"

@@ -262,6 +262,7 @@ export namespace FeatureProgrammer {
         combiner: (
             input: ts.Expression,
             arrow: ts.ArrowFunction,
+            tags: IMetadataTag[],
         ) => ts.Expression,
     ) {
         const rand: string = Math.random().toString().slice(2);
@@ -310,7 +311,7 @@ export namespace FeatureProgrammer {
                     tags,
                 ),
             );
-            return combiner(input, arrow);
+            return combiner(input, arrow, tags);
         };
     }
 
