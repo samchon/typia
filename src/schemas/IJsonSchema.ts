@@ -1,3 +1,6 @@
+import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
+import { IMetadataTag } from "../metadata/IMetadataTag";
+
 import { Atomic } from "../typings/Atomic";
 
 export type IJsonSchema =
@@ -17,17 +20,14 @@ export type IJsonSchema =
     | IJsonSchema.IUnkown;
 
 export namespace IJsonSchema {
-    export interface IEnumeration<Type extends Atomic.Literal> {
-        type: Atomic.Literal;
+    export interface IEnumeration<Type extends Atomic.Literal>
+        extends IAtomic<Type> {
         enum: Array<Atomic.Mapper[Type]>;
-        nullable: boolean;
-        description?: string;
     }
 
-    export interface IAtomic<Type extends string> {
+    export interface IAtomic<Type extends string> extends IBase {
         type: Type;
         nullable: boolean;
-        description?: string;
     }
     export interface IString extends IAtomic<"string"> {
         minLength?: number;
@@ -49,24 +49,30 @@ export namespace IJsonSchema {
         minItems?: number;
         maxItems?: number;
     }
-    export interface ITuple {
-        type: "array";
-        nullable: boolean;
+    export interface ITuple extends IAtomic<"array"> {
         items: IJsonSchema[];
-        description?: string;
     }
-    export interface IReference {
+    export interface IReference extends IBase {
         $ref: string;
-        description?: string;
     }
-    export interface IRecursiveReference {
+    export interface IRecursiveReference extends IBase {
         $recursiveRef: string;
-        description?: string;
     }
 
-    export interface IOneOf {
+    export interface IOneOf extends IBase {
         oneOf: IJsonSchema[];
-        description?: string;
     }
     export interface IUnkown {}
+
+    interface IBase {
+        description?: string;
+        metaTags?: IMetadataTag[];
+        jsDocTags?: IJsDocTagInfo[];
+    }
+
+    // interface IBase {
+    //     description: string | undefined;
+    //     metaTags: IMetadataTag[] | undefined;
+    //     jsDocTags: IJsDocTagInfo[] | undefined;
+    // }
 }
