@@ -43,6 +43,7 @@ export const test_application_object_nullable = _test_application(
                     },
                     nullable: false,
                     required: ["name", "manufacturer", "brand", "similar"],
+                    jsDocTags: [],
                 },
                 "ObjectNullable.IManufacturer": {
                     type: "object",
@@ -59,6 +60,7 @@ export const test_application_object_nullable = _test_application(
                     },
                     nullable: false,
                     required: ["type", "name"],
+                    jsDocTags: [],
                 },
                 "ObjectNullable.IBrand.Nullable": {
                     type: "object",
@@ -75,6 +77,7 @@ export const test_application_object_nullable = _test_application(
                     },
                     nullable: true,
                     required: ["type", "name"],
+                    jsDocTags: [],
                 },
                 "ObjectNullable.IManufacturer.Nullable": {
                     type: "object",
@@ -91,6 +94,7 @@ export const test_application_object_nullable = _test_application(
                     },
                     nullable: true,
                     required: ["type", "name"],
+                    jsDocTags: [],
                 },
             },
         },

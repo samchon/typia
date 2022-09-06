@@ -48,6 +48,7 @@ export const test_application_object_recursive = _test_application(
                         "sequence",
                         "created_at",
                     ],
+                    jsDocTags: [],
                 },
                 "ObjectRecursive.IDepartment.Nullable": {
                     type: "object",
@@ -84,6 +85,7 @@ export const test_application_object_recursive = _test_application(
                         "sequence",
                         "created_at",
                     ],
+                    jsDocTags: [],
                 },
                 "ObjectRecursive.ITimestamp": {
                     type: "object",
@@ -99,6 +101,7 @@ export const test_application_object_recursive = _test_application(
                     },
                     nullable: false,
                     required: ["time", "zone"],
+                    jsDocTags: [],
                 },
             },
         },

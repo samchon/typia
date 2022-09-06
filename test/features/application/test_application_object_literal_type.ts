@@ -31,6 +31,7 @@ export const test_application_object_literal_type = _test_application(
                     },
                     nullable: false,
                     required: ["id", "name", "age"],
+                    jsDocTags: [],
                 },
             },
         },

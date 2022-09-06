@@ -21,19 +21,131 @@ export const test_application_tag_atomic_union = _test_application(
                                 {
                                     type: "string",
                                     nullable: false,
+                                    metaTags: [
+                                        {
+                                            kind: "minimum",
+                                            value: 3,
+                                        },
+                                        {
+                                            kind: "length",
+                                            minimum: {
+                                                include: true,
+                                                value: 3,
+                                            },
+                                            maximum: {
+                                                include: true,
+                                                value: 7,
+                                            },
+                                        },
+                                    ],
+                                    jsDocTags: [
+                                        {
+                                            name: "minimum",
+                                            text: [
+                                                {
+                                                    text: "3",
+                                                    kind: "text",
+                                                },
+                                            ],
+                                        },
+                                        {
+                                            name: "length",
+                                            text: [
+                                                {
+                                                    text: "[3, 7]",
+                                                    kind: "text",
+                                                },
+                                            ],
+                                        },
+                                    ],
                                     minLength: 3,
                                     maxLength: 7,
                                 },
                                 {
                                     type: "number",
                                     nullable: false,
+                                    metaTags: [
+                                        {
+                                            kind: "minimum",
+                                            value: 3,
+                                        },
+                                        {
+                                            kind: "length",
+                                            minimum: {
+                                                include: true,
+                                                value: 3,
+                                            },
+                                            maximum: {
+                                                include: true,
+                                                value: 7,
+                                            },
+                                        },
+                                    ],
+                                    jsDocTags: [
+                                        {
+                                            name: "minimum",
+                                            text: [
+                                                {
+                                                    text: "3",
+                                                    kind: "text",
+                                                },
+                                            ],
+                                        },
+                                        {
+                                            name: "length",
+                                            text: [
+                                                {
+                                                    text: "[3, 7]",
+                                                    kind: "text",
+                                                },
+                                            ],
+                                        },
+                                    ],
                                     minimum: 3,
+                                },
+                            ],
+                            metaTags: [
+                                {
+                                    kind: "minimum",
+                                    value: 3,
+                                },
+                                {
+                                    kind: "length",
+                                    minimum: {
+                                        include: true,
+                                        value: 3,
+                                    },
+                                    maximum: {
+                                        include: true,
+                                        value: 7,
+                                    },
+                                },
+                            ],
+                            jsDocTags: [
+                                {
+                                    name: "minimum",
+                                    text: [
+                                        {
+                                            text: "3",
+                                            kind: "text",
+                                        },
+                                    ],
+                                },
+                                {
+                                    name: "length",
+                                    text: [
+                                        {
+                                            text: "[3, 7]",
+                                            kind: "text",
+                                        },
+                                    ],
                                 },
                             ],
                         },
                     },
                     nullable: false,
                     required: ["value"],
+                    jsDocTags: [],
                 },
             },
         },

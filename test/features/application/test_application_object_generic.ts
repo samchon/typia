@@ -47,6 +47,7 @@ export const test_application_object_generic = _test_application(
                     },
                     nullable: false,
                     required: ["value", "child", "elements"],
+                    jsDocTags: [],
                 },
                 "ObjectGeneric.IChild_lt_boolean_comma_boolean_gt_": {
                     type: "object",
@@ -62,6 +63,7 @@ export const test_application_object_generic = _test_application(
                     },
                     nullable: false,
                     required: ["child_value", "child_next"],
+                    jsDocTags: [],
                 },
                 "ObjectGeneric.ISomething_lt_number_gt_": {
                     type: "object",
@@ -83,6 +85,7 @@ export const test_application_object_generic = _test_application(
                     },
                     nullable: false,
                     required: ["value", "child", "elements"],
+                    jsDocTags: [],
                 },
                 "ObjectGeneric.IChild_lt_number_comma_number_gt_": {
                     type: "object",
@@ -98,6 +101,7 @@ export const test_application_object_generic = _test_application(
                     },
                     nullable: false,
                     required: ["child_value", "child_next"],
+                    jsDocTags: [],
                 },
                 "ObjectGeneric.ISomething_lt_string_gt_": {
                     type: "object",
@@ -119,6 +123,7 @@ export const test_application_object_generic = _test_application(
                     },
                     nullable: false,
                     required: ["value", "child", "elements"],
+                    jsDocTags: [],
                 },
                 "ObjectGeneric.IChild_lt_string_comma_string_gt_": {
                     type: "object",
@@ -134,6 +139,7 @@ export const test_application_object_generic = _test_application(
                     },
                     nullable: false,
                     required: ["child_value", "child_next"],
+                    jsDocTags: [],
                 },
             },
         },

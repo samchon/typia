@@ -60,6 +60,7 @@ export const test_application_object_generic_union = _test_application(
                             "contents",
                             "created_at",
                         ],
+                        jsDocTags: [],
                     },
                 "ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable":
                     {
@@ -87,6 +88,7 @@ export const test_application_object_generic_union = _test_application(
                         },
                         nullable: true,
                         required: ["id", "hit", "contents", "created_at"],
+                        jsDocTags: [],
                     },
                 "ObjectGenericUnion.ISaleArticle.IContent": {
                     type: "object",
@@ -117,6 +119,7 @@ export const test_application_object_generic_union = _test_application(
                     },
                     nullable: false,
                     required: ["id", "created_at", "title", "body", "files"],
+                    jsDocTags: [],
                 },
                 __type: {
                     type: "object",
@@ -136,6 +139,7 @@ export const test_application_object_generic_union = _test_application(
                     },
                     nullable: false,
                     required: ["name", "url", "extension"],
+                    jsDocTags: [],
                 },
                 "ObjectGenericUnion.ISaleReview.IContent": {
                     type: "object",
@@ -177,6 +181,7 @@ export const test_application_object_generic_union = _test_application(
                         "body",
                         "files",
                     ],
+                    jsDocTags: [],
                 },
                 "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_":
                     {
@@ -218,6 +223,7 @@ export const test_application_object_generic_union = _test_application(
                             "contents",
                             "created_at",
                         ],
+                        jsDocTags: [],
                     },
             },
         },

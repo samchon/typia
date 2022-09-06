@@ -53,6 +53,7 @@ export const test_application_object_union_implicit = _test_application(
                     },
                     nullable: false,
                     required: ["x", "y"],
+                    jsDocTags: [],
                 },
                 "ObjectUnionImplicit.ILine": {
                     type: "object",
@@ -66,6 +67,7 @@ export const test_application_object_union_implicit = _test_application(
                     },
                     nullable: false,
                     required: ["p1", "p2"],
+                    jsDocTags: [],
                 },
                 "ObjectUnionImplicit.ITriangle": {
                     type: "object",
@@ -82,6 +84,7 @@ export const test_application_object_union_implicit = _test_application(
                     },
                     nullable: false,
                     required: ["p1", "p2", "p3"],
+                    jsDocTags: [],
                 },
                 "ObjectUnionImplicit.IRectangle": {
                     type: "object",
@@ -101,6 +104,7 @@ export const test_application_object_union_implicit = _test_application(
                     },
                     nullable: false,
                     required: ["p1", "p2", "p3", "p4"],
+                    jsDocTags: [],
                 },
                 "ObjectUnionImplicit.IPolyline": {
                     type: "object",
@@ -115,6 +119,7 @@ export const test_application_object_union_implicit = _test_application(
                     },
                     nullable: false,
                     required: ["points"],
+                    jsDocTags: [],
                 },
                 "ObjectUnionImplicit.IPolygon": {
                     type: "object",
@@ -132,6 +137,7 @@ export const test_application_object_union_implicit = _test_application(
                     },
                     nullable: false,
                     required: ["outer", "inner"],
+                    jsDocTags: [],
                 },
                 "ObjectUnionImplicit.ICircle": {
                     type: "object",
@@ -146,6 +152,7 @@ export const test_application_object_union_implicit = _test_application(
                     },
                     nullable: false,
                     required: ["centroid", "radius"],
+                    jsDocTags: [],
                 },
             },
         },

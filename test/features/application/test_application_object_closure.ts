@@ -24,6 +24,7 @@ export const test_application_object_closure = _test_application(
                     },
                     nullable: false,
                     required: ["id", "open"],
+                    jsDocTags: [],
                 },
             },
         },

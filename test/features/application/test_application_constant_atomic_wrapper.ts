@@ -37,6 +37,7 @@ export const test_application_constant_atomic_wrapper = _test_application(
                     },
                     nullable: false,
                     required: ["value"],
+                    jsDocTags: [],
                 },
                 "ConstantAtomicWrapper.IPointer_lt_number_gt_": {
                     type: "object",
@@ -48,6 +49,7 @@ export const test_application_constant_atomic_wrapper = _test_application(
                     },
                     nullable: false,
                     required: ["value"],
+                    jsDocTags: [],
                 },
                 "ConstantAtomicWrapper.IPointer_lt_string_gt_": {
                     type: "object",
@@ -59,6 +61,7 @@ export const test_application_constant_atomic_wrapper = _test_application(
                     },
                     nullable: false,
                     required: ["value"],
+                    jsDocTags: [],
                 },
             },
         },

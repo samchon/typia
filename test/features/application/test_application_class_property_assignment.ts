@@ -41,6 +41,7 @@ export const test_application_class_property_assignment = _test_application(
                     },
                     nullable: false,
                     required: ["id", "name", "note", "editable", "incremental"],
+                    jsDocTags: [],
                 },
             },
         },
