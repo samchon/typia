@@ -26,12 +26,37 @@ export const test_application_tag_object_union = _test_application(
                         value: {
                             type: "string",
                             nullable: false,
+                            metaTags: [
+                                {
+                                    kind: "length",
+                                    minimum: {
+                                        include: true,
+                                        value: 3,
+                                    },
+                                    maximum: {
+                                        include: true,
+                                        value: 7,
+                                    },
+                                },
+                            ],
+                            jsDocTags: [
+                                {
+                                    name: "length",
+                                    text: [
+                                        {
+                                            text: "[3, 7]",
+                                            kind: "text",
+                                        },
+                                    ],
+                                },
+                            ],
                             minLength: 3,
                             maxLength: 7,
                         },
                     },
                     nullable: false,
                     required: ["value"],
+                    jsDocTags: [],
                 },
                 "TagObjectUnion.Numeric": {
                     type: "object",
@@ -39,11 +64,29 @@ export const test_application_tag_object_union = _test_application(
                         value: {
                             type: "number",
                             nullable: false,
+                            metaTags: [
+                                {
+                                    kind: "minimum",
+                                    value: 3,
+                                },
+                            ],
+                            jsDocTags: [
+                                {
+                                    name: "minimum",
+                                    text: [
+                                        {
+                                            text: "3",
+                                            kind: "text",
+                                        },
+                                    ],
+                                },
+                            ],
                             minimum: 3,
                         },
                     },
                     nullable: false,
                     required: ["value"],
+                    jsDocTags: [],
                 },
             },
         },

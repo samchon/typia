@@ -4,7 +4,7 @@ import { Primitive } from "../../internal/Primitive";
 export function _test_application(
     name: string,
     generated: IJsonApplication,
-    expected: IJsonApplication,
+    expected: any,
 ) {
     return function () {
         sort(generated);

@@ -47,6 +47,7 @@ export const test_application_constant_atomic_union = _test_application(
                     },
                     nullable: false,
                     required: ["key"],
+                    jsDocTags: [],
                 },
             },
         },

@@ -57,6 +57,7 @@ export const test_application_array_simple = _test_application(
                     },
                     nullable: false,
                     required: ["name", "email", "hobbies"],
+                    jsDocTags: [],
                 },
                 "ArraySimple.IHobby": {
                     type: "object",
@@ -72,6 +73,7 @@ export const test_application_array_simple = _test_application(
                     },
                     nullable: false,
                     required: ["name", "rank"],
+                    jsDocTags: [],
                 },
                 "ArraySimple.IContent": {
                     type: "object",
@@ -83,6 +85,7 @@ export const test_application_array_simple = _test_application(
                     },
                     nullable: false,
                     required: ["body"],
+                    jsDocTags: [],
                 },
             },
         },

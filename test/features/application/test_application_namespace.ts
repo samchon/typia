@@ -17,6 +17,7 @@ export const test_application_namespace = _test_application(
                     type: "object",
                     properties: {},
                     nullable: false,
+                    jsDocTags: [],
                 },
             },
         },

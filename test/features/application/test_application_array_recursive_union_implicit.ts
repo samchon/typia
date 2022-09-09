@@ -76,6 +76,7 @@ export const test_application_array_recursive_union_implicit =
                             "url",
                             "size",
                         ],
+                        jsDocTags: [],
                     },
                     "ArrayRecursiveUnionImplicit.ITextFile": {
                         type: "object",
@@ -103,6 +104,7 @@ export const test_application_array_recursive_union_implicit =
                         },
                         nullable: false,
                         required: ["id", "name", "path", "size", "content"],
+                        jsDocTags: [],
                     },
                     "ArrayRecursiveUnionImplicit.IZipFile": {
                         type: "object",
@@ -130,6 +132,7 @@ export const test_application_array_recursive_union_implicit =
                         },
                         nullable: false,
                         required: ["id", "name", "path", "size", "count"],
+                        jsDocTags: [],
                     },
                     "ArrayRecursiveUnionImplicit.IDirectory": {
                         type: "object",
@@ -172,6 +175,7 @@ export const test_application_array_recursive_union_implicit =
                         },
                         nullable: false,
                         required: ["id", "name", "path", "children"],
+                        jsDocTags: [],
                     },
                     "ArrayRecursiveUnionImplicit.IShortcut": {
                         type: "object",
@@ -210,6 +214,7 @@ export const test_application_array_recursive_union_implicit =
                         },
                         nullable: false,
                         required: ["id", "name", "path", "target"],
+                        jsDocTags: [],
                     },
                 },
             },

@@ -1,5 +1,6 @@
 import { ClassProperties } from "../typings/ClassProperties";
 
+import { IJsDocTagInfo } from "./IJsDocTagInfo";
 import { IMetadataProperty } from "./IMetadataProperty";
 import { IMetadataTag } from "./IMetadataTag";
 import { Metadata } from "./Metadata";
@@ -10,6 +11,7 @@ export class MetadataProperty {
     public readonly metadata: Metadata;
     public readonly description: string | undefined;
     public readonly tags: IMetadataTag[];
+    public readonly jsDocTags: IJsDocTagInfo[];
 
     /* -----------------------------------------------------------
         CONSTRUCTORS
@@ -18,19 +20,20 @@ export class MetadataProperty {
      * @hidden
      */
     private constructor(
-        props: Omit<ClassProperties<MetadataProperty>, "tags">,
+        props: Omit<ClassProperties<MetadataProperty>, "tags" | "jsDocTags">,
     ) {
         this.name = props.name;
         this.metadata = props.metadata;
         this.description = props.description;
         this.tags = [];
+        this.jsDocTags = [];
     }
 
     /**
      * @internal
      */
     public static create(
-        props: Omit<ClassProperties<MetadataProperty>, "tags">,
+        props: Omit<ClassProperties<MetadataProperty>, "tags" | "jsDocTags">,
     ): MetadataProperty {
         return new MetadataProperty(props);
     }
@@ -42,11 +45,14 @@ export class MetadataProperty {
         property: IMetadataProperty,
         objects: Map<string, MetadataObject>,
     ) {
-        return this.create({
+        const obj = this.create({
             name: property.name,
             metadata: Metadata._From(property.metadata, objects),
             description: property.description,
         });
+        obj.tags.push(...property.tags.slice());
+        obj.jsDocTags.push(...property.jsDocTags.slice());
+        return obj;
     }
 
     public toJSON(): IMetadataProperty {
@@ -55,6 +61,7 @@ export class MetadataProperty {
             metadata: this.metadata.toJSON(),
             description: this.description,
             tags: this.tags,
+            jsDocTags: this.jsDocTags,
         };
     }
 }

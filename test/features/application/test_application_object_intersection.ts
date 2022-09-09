@@ -31,6 +31,7 @@ export const test_application_object_intersection = _test_application(
                     },
                     nullable: false,
                     required: ["email", "name", "vulnerable"],
+                    jsDocTags: [],
                 },
             },
         },

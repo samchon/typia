@@ -59,6 +59,7 @@ export const test_application_object_primitive = _test_application(
                         "secret",
                         "created_at",
                     ],
+                    jsDocTags: [],
                 },
                 "__type.o1": {
                     type: "object",
@@ -86,6 +87,7 @@ export const test_application_object_primitive = _test_application(
                     },
                     nullable: false,
                     required: ["id", "name", "extension", "url", "created_at"],
+                    jsDocTags: [],
                 },
             },
         },
