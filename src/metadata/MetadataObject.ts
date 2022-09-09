@@ -1,5 +1,6 @@
 import { ClassProperties } from "../typings/ClassProperties";
 
+import { IJsDocTagInfo } from "./IJsDocTagInfo";
 import { IMetadataObject } from "./IMetadataObject";
 import { MetadataProperty } from "./MetadataProperty";
 
@@ -7,6 +8,7 @@ export class MetadataObject {
     public readonly name: string;
     public readonly properties: Array<MetadataProperty>;
     public readonly description: string | undefined;
+    public readonly jsDocTags: IJsDocTagInfo[];
 
     /**
      * @internal
@@ -38,6 +40,7 @@ export class MetadataObject {
         this.name = props.name;
         this.properties = props.properties;
         this.description = props.description;
+        this.jsDocTags = props.jsDocTags;
 
         this.index = props.index;
         this.validated = props.validated;
@@ -59,6 +62,7 @@ export class MetadataObject {
             name: obj.name,
             properties: [],
             description: obj.description,
+            jsDocTags: obj.jsDocTags,
 
             index: obj.index,
             validated: obj.validated,
@@ -72,6 +76,7 @@ export class MetadataObject {
             name: this.name,
             properties: this.properties.map((property) => property.toJSON()),
             description: this.description,
+            jsDocTags: this.jsDocTags,
 
             index: this.index,
             validated: this.validated,

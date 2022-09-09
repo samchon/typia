@@ -1,3 +1,4 @@
+import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
 import { IMetadataTag } from "../metadata/IMetadataTag";
 import { Metadata } from "../metadata/Metadata";
 import { MetadataConstant } from "../metadata/MetadataConstant";
@@ -40,7 +41,11 @@ export namespace ApplicationProgrammer {
         };
         return {
             schemas: metadatas.map((meta) =>
-                generate_schema(complemented, components, meta, undefined, []),
+                generate_schema(complemented, components, meta, {
+                    description: undefined,
+                    metaTags: undefined,
+                    jsDocTags: undefined,
+                }),
             ),
             components,
             ...complemented,
@@ -54,27 +59,26 @@ export namespace ApplicationProgrammer {
         options: IOptions,
         components: IJsonComponents,
         meta: Metadata,
-        description: string | undefined,
-        tags: IMetadataTag[],
+        attribute: IAttribute,
     ): IJsonSchema {
         if (meta.nullable && meta.empty()) {
-            return { type: "null", description: description };
+            return { type: "null", ...attribute };
         }
 
         const oneOf: IJsonSchema[] = [];
         if (meta.any === true) return {};
         for (const constant of meta.constants)
-            oneOf.push(generate_constant(constant, meta.nullable, description));
+            oneOf.push(generate_constant(constant, meta.nullable, attribute));
         for (const type of meta.atomics)
             oneOf.push(
                 type === "string"
-                    ? generate_string(meta.nullable, description, tags)
+                    ? generate_string(meta.nullable, attribute)
                     : type === "number"
-                    ? generate_number(meta.nullable, description, tags)
+                    ? generate_number(meta.nullable, attribute)
                     : generate_atomic(
                           type as "boolean",
                           meta.nullable,
-                          description,
+                          attribute,
                       ),
             );
         for (const obj of meta.objects) {
@@ -85,7 +89,7 @@ export namespace ApplicationProgrammer {
                 options.purpose === "ajv" && obj.recursive
                     ? generate_recursive_pointer
                     : generate_pointer;
-            oneOf.push(generator(`${options.prefix}/${key}`, description));
+            oneOf.push(generator(`${options.prefix}/${key}`, attribute));
         }
         for (const schema of meta.arrays.values())
             oneOf.push(
@@ -94,8 +98,7 @@ export namespace ApplicationProgrammer {
                     components,
                     schema,
                     meta.nullable,
-                    description,
-                    tags,
+                    attribute,
                 ),
             );
         for (const items of meta.tuples)
@@ -106,8 +109,7 @@ export namespace ApplicationProgrammer {
                         components,
                         items,
                         meta.nullable,
-                        description,
-                        tags,
+                        attribute,
                     ),
                 );
             else {
@@ -120,53 +122,51 @@ export namespace ApplicationProgrammer {
                         components,
                         merged,
                         merged?.nullable || false,
-                        description,
-                        tags,
+                        attribute,
                     ),
                 );
             }
 
-        if (oneOf.length === 0) return {};
+        if (oneOf.length === 0) return { ...attribute };
         else if (oneOf.length === 1) return oneOf[0]!;
-        return { oneOf };
+        return { oneOf, ...attribute };
     }
 
     function generate_constant(
         constant: MetadataConstant,
         nullable: boolean,
-        description: string | undefined,
+        attribute: IAttribute,
     ): IJsonSchema.IEnumeration<any> {
         return {
             type: constant.type,
             enum: constant.values as any,
             nullable,
-            description,
+            ...attribute,
         };
     }
 
     function generate_atomic<Type extends string>(
         type: Type,
         nullable: boolean,
-        description: string | undefined,
+        attribute: IAttribute,
     ): IJsonSchema.IAtomic<Type> {
         return {
             type,
             nullable,
-            description,
+            ...attribute,
         };
     }
 
     function generate_number(
         nullable: boolean,
-        description: string | undefined,
-        tagList: IMetadataTag[],
+        attribute: IAttribute,
     ): IJsonSchema.INumber {
         const output: IJsonSchema.INumber = generate_atomic(
             "number",
             nullable,
-            description,
+            attribute,
         );
-        for (const tag of tagList)
+        for (const tag of attribute.metaTags || [])
             if (
                 tag.kind === "type" &&
                 (tag.value === "int" || tag.value === "uint")
@@ -186,7 +186,9 @@ export namespace ApplicationProgrammer {
             }
         if (
             output.type === "integer" &&
-            tagList.find((tag) => tag.kind === "type" && tag.value === "uint")
+            (attribute.metaTags || []).find(
+                (tag) => tag.kind === "type" && tag.value === "uint",
+            )
         )
             if (output.minimum === undefined || output.minimum < 0)
                 output.minimum = 0;
@@ -202,15 +204,14 @@ export namespace ApplicationProgrammer {
 
     function generate_string(
         nullable: boolean,
-        description: string | undefined,
-        tagList: IMetadataTag[],
+        attribute: IAttribute,
     ): IJsonSchema.IString {
         const output: IJsonSchema.IString = generate_atomic(
             "string",
             nullable,
-            description,
+            attribute,
         );
-        for (const tag of tagList)
+        for (const tag of attribute.metaTags || [])
             if (tag.kind === "minLength") output.minLength = tag.value;
             else if (tag.kind === "maxLength") output.maxLength = tag.value;
             else if (tag.kind === "length") {
@@ -228,21 +229,21 @@ export namespace ApplicationProgrammer {
 
     function generate_pointer(
         $ref: string,
-        description: string | undefined,
+        attribute: IAttribute,
     ): IJsonSchema.IReference {
         return {
             $ref,
-            description,
+            ...attribute,
         };
     }
 
     function generate_recursive_pointer(
         $recursiveRef: string,
-        description: string | undefined,
+        attribute: IAttribute,
     ): IJsonSchema.IRecursiveReference {
         return {
             $recursiveRef,
-            description,
+            ...attribute,
         };
     }
 
@@ -251,22 +252,15 @@ export namespace ApplicationProgrammer {
         components: IJsonComponents,
         metadata: Metadata,
         nullable: boolean,
-        description: string | undefined,
-        tagList: IMetadataTag[],
+        attribute: IAttribute,
     ): IJsonSchema.IArray {
         const output: IJsonSchema.IArray = {
             type: "array",
-            items: generate_schema(
-                options,
-                components,
-                metadata,
-                description,
-                tagList,
-            ),
+            items: generate_schema(options, components, metadata, attribute),
             nullable,
-            description,
+            ...attribute,
         };
-        for (const tag of tagList)
+        for (const tag of attribute.metaTags || [])
             if (tag.kind === "minItems") output.minItems = tag.value;
             else if (tag.kind === "maxItems") output.maxItems = tag.value;
             else if (tag.kind === "items") {
@@ -287,16 +281,15 @@ export namespace ApplicationProgrammer {
         components: IJsonComponents,
         items: Array<Metadata>,
         nullable: boolean,
-        description: string | undefined,
-        tags: IMetadataTag[],
+        attribute: IAttribute,
     ): IJsonSchema.ITuple {
         return {
             type: "array",
             items: items.map((schema) =>
-                generate_schema(options, components, schema, description, tags),
+                generate_schema(options, components, schema, attribute),
             ),
             nullable,
-            description,
+            ...attribute,
         };
     }
 
@@ -331,8 +324,13 @@ export namespace ApplicationProgrammer {
                 options,
                 components,
                 property.metadata,
-                property.description,
-                property.tags,
+                {
+                    description: property.description,
+                    metaTags: property.tags.length ? property.tags : undefined,
+                    jsDocTags: property.jsDocTags.length
+                        ? property.jsDocTags
+                        : undefined,
+                },
             );
             if (property.metadata.required === true)
                 required.push(property.name);
@@ -350,6 +348,7 @@ export namespace ApplicationProgrammer {
             nullable,
             required: required.length ? required : undefined,
             description: obj.description,
+            jsDocTags: obj.jsDocTags,
         };
         components.schemas[key] = schema;
     }
@@ -389,4 +388,10 @@ function merge_metadata(x: Metadata, y: Metadata): Metadata {
     for (const obj of y.objects)
         ArrayUtil.set(output.objects, obj, (elem) => elem.name);
     return output;
+}
+
+interface IAttribute {
+    description: string | undefined;
+    metaTags: IMetadataTag[] | undefined;
+    jsDocTags: IJsDocTagInfo[] | undefined;
 }

@@ -420,6 +420,7 @@ export namespace MetadataFactory {
                     prop.getJsDocTags(),
                 ),
             );
+            property.jsDocTags.push(...prop.getJsDocTags());
         }
         return obj;
     }
