@@ -29,6 +29,7 @@ export const test_application_object_generic_array = _test_application(
                     },
                     nullable: false,
                     required: ["pagination", "data"],
+                    jsDocTags: [],
                 },
                 "ObjectGenericArray.IPagination": {
                     type: "object",
@@ -52,6 +53,7 @@ export const test_application_object_generic_array = _test_application(
                     },
                     nullable: false,
                     required: ["page", "limit", "total_count", "total_pages"],
+                    jsDocTags: [],
                 },
                 "ObjectGenericArray.IPerson": {
                     type: "object",
@@ -67,6 +69,7 @@ export const test_application_object_generic_array = _test_application(
                     },
                     nullable: false,
                     required: ["name", "age"],
+                    jsDocTags: [],
                 },
             },
         },

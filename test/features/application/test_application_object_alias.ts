@@ -57,6 +57,7 @@ export const test_application_object_alias = _test_application(
                     },
                     nullable: false,
                     required: ["id", "email", "name", "sex", "age", "dead"],
+                    jsDocTags: [],
                 },
             },
         },

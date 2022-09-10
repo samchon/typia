@@ -30,6 +30,7 @@ export const test_application_object_literal_property = _test_application(
                         "something-interesting-do-you-want?",
                         "or-something-crazy-do-you-want?",
                     ],
+                    jsDocTags: [],
                 },
             },
         },

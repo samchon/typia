@@ -1,3 +1,4 @@
+import { IJsDocTagInfo } from "./IJsDocTagInfo";
 import { IMetadata } from "./IMetadata";
 import { IMetadataTag } from "./IMetadataTag";
 
@@ -6,4 +7,5 @@ export interface IMetadataProperty {
     metadata: IMetadata;
     description?: string;
     tags: IMetadataTag[];
+    jsDocTags: IJsDocTagInfo[];
 }

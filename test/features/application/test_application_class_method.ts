@@ -27,6 +27,7 @@ export const test_application_class_method = _test_application(
                     },
                     nullable: false,
                     required: ["name", "age"],
+                    jsDocTags: [],
                 },
             },
         },

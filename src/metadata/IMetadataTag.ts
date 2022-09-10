@@ -1,16 +1,24 @@
 export type IMetadataTag =
+    // ARRAY
     | IMetadataTag.IItems
     | IMetadataTag.IMinItems
     | IMetadataTag.IMaxItems
+    // STRING
     | IMetadataTag.IFormat
     | IMetadataTag.IPattern
     | IMetadataTag.ILength
     | IMetadataTag.IMinLength
     | IMetadataTag.IMaxLength
+    // NUMBER
     | IMetadataTag.IType
     | IMetadataTag.IRange
     | IMetadataTag.IMinimum
-    | IMetadataTag.IMaximum;
+    | IMetadataTag.IMaximum
+    | IMetadataTag.IExclusiveMinimum
+    | IMetadataTag.IExclusiveMaximum
+    | IMetadataTag.IMultipleOf
+    | IMetadataTag.IStep;
+
 export namespace IMetadataTag {
     /* -----------------------------------------------------------
         ARRAY   
@@ -32,7 +40,7 @@ export namespace IMetadataTag {
     }
 
     /* -----------------------------------------------------------
-        LITERAL
+        STRING
     ----------------------------------------------------------- */
     export interface IFormat {
         kind: "format";
@@ -61,7 +69,7 @@ export namespace IMetadataTag {
     }
 
     /* -----------------------------------------------------------
-        NUMERIC
+        NUMBER
     ----------------------------------------------------------- */
     export interface IType {
         kind: "type";
@@ -81,6 +89,26 @@ export namespace IMetadataTag {
 
     export interface IMaximum {
         kind: "maximum";
+        value: number;
+    }
+
+    export interface IExclusiveMinimum {
+        kind: "exclusiveMinimum";
+        value: number;
+    }
+
+    export interface IExclusiveMaximum {
+        kind: "exclusiveMaximum";
+        value: number;
+    }
+
+    export interface IMultipleOf {
+        kind: "multipleOf";
+        value: number;
+    }
+
+    export interface IStep {
+        kind: "step";
         value: number;
     }
 

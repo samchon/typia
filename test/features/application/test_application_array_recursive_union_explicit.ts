@@ -88,6 +88,7 @@ export const test_application_array_recursive_union_explicit =
                             "type",
                             "extension",
                         ],
+                        jsDocTags: [],
                     },
                     "ArrayRecursiveUnionExplicit.ITextFile": {
                         type: "object",
@@ -133,6 +134,7 @@ export const test_application_array_recursive_union_explicit =
                             "type",
                             "extension",
                         ],
+                        jsDocTags: [],
                     },
                     "ArrayRecursiveUnionExplicit.IZipFile": {
                         type: "object",
@@ -178,6 +180,7 @@ export const test_application_array_recursive_union_explicit =
                             "type",
                             "extension",
                         ],
+                        jsDocTags: [],
                     },
                     "ArrayRecursiveUnionExplicit.IDirectory": {
                         type: "object",
@@ -225,6 +228,7 @@ export const test_application_array_recursive_union_explicit =
                         },
                         nullable: false,
                         required: ["id", "name", "path", "children", "type"],
+                        jsDocTags: [],
                     },
                     "ArrayRecursiveUnionExplicit.IShortcut": {
                         type: "object",
@@ -280,6 +284,7 @@ export const test_application_array_recursive_union_explicit =
                             "type",
                             "extension",
                         ],
+                        jsDocTags: [],
                     },
                 },
             },

@@ -31,6 +31,7 @@ export const test_application_object = _test_application(
                     },
                     nullable: false,
                     required: ["scale", "position", "rotate", "pivot"],
+                    jsDocTags: [],
                 },
                 "ObjectSimple.IPoint3D": {
                     type: "object",
@@ -50,6 +51,7 @@ export const test_application_object = _test_application(
                     },
                     nullable: false,
                     required: ["x", "y", "z"],
+                    jsDocTags: [],
                 },
             },
         },

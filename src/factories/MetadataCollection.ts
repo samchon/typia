@@ -47,6 +47,7 @@ export class MetadataCollection {
                         type.symbol.getDocumentationComment(checker),
                     )) ||
                 undefined,
+            jsDocTags: type.symbol?.getJsDocTags() || [],
             validated: false,
             index: this.index_++,
             recursive: false,

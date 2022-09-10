@@ -51,6 +51,7 @@ export const test_application_array_hierarchical = _test_application(
                         "established_at",
                         "departments",
                     ],
+                    jsDocTags: [],
                 },
                 "ArrayHierarchical.ITimestamp": {
                     type: "object",
@@ -66,6 +67,7 @@ export const test_application_array_hierarchical = _test_application(
                     },
                     nullable: false,
                     required: ["time", "zone"],
+                    jsDocTags: [],
                 },
                 "ArrayHierarchical.IDepartment": {
                     type: "object",
@@ -101,6 +103,7 @@ export const test_application_array_hierarchical = _test_application(
                         "created_at",
                         "employees",
                     ],
+                    jsDocTags: [],
                 },
                 "ArrayHierarchical.IEmployee": {
                     type: "object",
@@ -127,6 +130,7 @@ export const test_application_array_hierarchical = _test_application(
                     },
                     nullable: false,
                     required: ["id", "name", "age", "grade", "employeed_at"],
+                    jsDocTags: [],
                 },
             },
         },

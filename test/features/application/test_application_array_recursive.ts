@@ -47,6 +47,7 @@ export const test_application_array_recursive = _test_application(
                         "sequence",
                         "created_at",
                     ],
+                    jsDocTags: [],
                 },
                 "ArrayRecursive.ITimestamp": {
                     type: "object",
@@ -62,6 +63,7 @@ export const test_application_array_recursive = _test_application(
                     },
                     nullable: false,
                     required: ["time", "zone"],
+                    jsDocTags: [],
                 },
             },
         },

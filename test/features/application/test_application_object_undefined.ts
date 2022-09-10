@@ -47,6 +47,7 @@ export const test_application_object_undefined = _test_application(
                     },
                     nullable: false,
                     required: ["name"],
+                    jsDocTags: [],
                 },
                 "ObjectUndefied.IClassroom": {
                     type: "object",
@@ -62,6 +63,7 @@ export const test_application_object_undefined = _test_application(
                     },
                     nullable: false,
                     required: ["id", "name"],
+                    jsDocTags: [],
                 },
             },
         },

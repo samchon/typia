@@ -23,6 +23,7 @@ export const test_application_object_generic_alias = _test_application(
                     },
                     nullable: false,
                     required: ["value"],
+                    jsDocTags: [],
                 },
             },
         },
