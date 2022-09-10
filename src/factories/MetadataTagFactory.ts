@@ -52,49 +52,21 @@ const PARSER: Record<
         ARRAY
     ----------------------------------------------------------- */
     items: (identifier, metadata, text, output) => {
-        if (has_array(metadata) === false)
-            throw new Error(WRONG_TYPE("items", "array", identifier));
-        else if (output.some((tag) => tag.kind === "items"))
-            throw new Error(
-                `${LABEL}: duplicate items tags on "${identifier()}".`,
-            );
-        else if (output.some((tag) => tag.kind === "minItems"))
-            throw new Error(
-                `${LABEL}: both items and minItems tags on "${identifier()}".`,
-            );
-        else if (output.some((tag) => tag.kind === "maxItems"))
-            throw new Error(
-                `${LABEL}: both items and maxItems tags on "${identifier()}".`,
-            );
+        validate(identifier, metadata, output, "items", "array", [
+            "minItems",
+            "maxItems",
+        ]);
         return parse_range("items", identifier, text, true);
     },
     minItems: (identifier, metadata, text, output) => {
-        if (has_array(metadata) === false)
-            throw new Error(WRONG_TYPE("minItems", "array", identifier));
-        else if (output.some((tag) => tag.kind === "items"))
-            throw new Error(
-                `${LABEL}: both items and minItems tags on "${identifier()}".`,
-            );
-        else if (output.some((tag) => tag.kind === "minItems"))
-            throw new Error(
-                `${LABEL}: duplicate minItems tags on "${identifier()}".`,
-            );
+        validate(identifier, metadata, output, "minItems", "array", ["items"]);
         return {
             kind: "minItems",
             value: parse_number(identifier, text),
         };
     },
     maxItems: (identifier, metadata, text, output) => {
-        if (has_array(metadata) === false)
-            throw new Error(WRONG_TYPE("maxItems", "array", identifier));
-        else if (output.some((tag) => tag.kind === "items"))
-            throw new Error(
-                `${LABEL}: both items and maxItems tags on "${identifier()}".`,
-            );
-        else if (output.some((tag) => tag.kind === "maxItems"))
-            throw new Error(
-                `${LABEL}: duplicate maxItems tags on "${identifier()}".`,
-            );
+        validate(identifier, metadata, output, "maxItems", "array", ["items"]);
         return {
             kind: "maxItems",
             value: parse_number(identifier, text),
@@ -105,62 +77,91 @@ const PARSER: Record<
         NUMBER
     ----------------------------------------------------------- */
     type: (identifier, metadata, text, output) => {
-        if (has_atomic(metadata, "number") === false)
-            throw new Error(WRONG_TYPE("type", "number", identifier));
-        else if (output.some((tag) => tag.kind === "type"))
-            throw new Error(
-                `${LABEL}: duplicate type tags on "${identifier()}".`,
-            );
-        else if (text !== "int" && text !== "uint")
+        validate(identifier, metadata, output, "type", "number", []);
+        if (text !== "int" && text !== "uint")
             throw new Error(`${LABEL}: invalid type tag on "${identifier()}".`);
         return { kind: "type", value: text };
     },
     range: (identifier, metadata, text, output) => {
-        if (has_atomic(metadata, "number") === false)
-            throw new Error(WRONG_TYPE("range", "number", identifier));
-        else if (output.some((tag) => tag.kind === "range"))
-            throw new Error(
-                `${LABEL}: duplicated range tags on "${identifier()}".`,
-            );
-        else if (output.some((tag) => tag.kind === "minimum"))
-            throw new Error(
-                `${LABEL}: both minimum and range tags on "${identifier()}".`,
-            );
-        else if (output.some((tag) => tag.kind === "maximum"))
-            throw new Error(
-                `${LABEL}: both maximum and range tags on "${identifier()}".`,
-            );
+        validate(identifier, metadata, output, "range", "number", [
+            "exclusiveMinimum",
+            "minimum",
+            "maximum",
+            "exclusiveMaximum",
+        ]);
         return parse_range("range", identifier, text, false);
     },
     minimum: (identifier, metadata, text, output) => {
-        if (has_atomic(metadata, "number") === false)
-            throw new Error(WRONG_TYPE("minimum", "number", identifier));
-        else if (output.some((tag) => tag.kind === "minimum"))
-            throw new Error(
-                `${LABEL}: duplicated minimum tags on "${identifier()}".`,
-            );
-        else if (output.some((tag) => tag.kind === "range"))
-            throw new Error(
-                `${LABEL}: both minimum and range tags on "${identifier()}".`,
-            );
+        validate(identifier, metadata, output, "minimum", "number", [
+            "range",
+            "exclusiveMaximum",
+            "exclusiveMinimum",
+        ]);
         return {
             kind: "minimum",
             value: parse_number(identifier, text),
         };
     },
     maximum: (identifier, metadata, text, output) => {
-        if (has_atomic(metadata, "number") === false)
-            throw new Error(WRONG_TYPE("maximum", "number", identifier));
-        else if (output.some((tag) => tag.kind === "maximum"))
-            throw new Error(
-                `${LABEL}: duplicated maximum tags on "${identifier()}".`,
-            );
-        else if (output.some((tag) => tag.kind === "range"))
-            throw new Error(
-                `${LABEL}: both maximum and range tags on "${identifier()}".`,
-            );
+        validate(identifier, metadata, output, "maximum", "number", [
+            "range",
+            "exclusiveMinimum",
+            "exclusiveMaximum",
+        ]);
         return {
             kind: "maximum",
+            value: parse_number(identifier, text),
+        };
+    },
+    exclusiveMinimum: (identifier, metadata, text, output) => {
+        validate(identifier, metadata, output, "exclusiveMinimum", "number", [
+            "range",
+            "minimum",
+            "maximum",
+        ]);
+        return {
+            kind: "exclusiveMinimum",
+            value: parse_number(identifier, text),
+        };
+    },
+    exclusiveMaximum: (identifier, metadata, text, output) => {
+        validate(identifier, metadata, output, "exclusiveMaximum", "number", [
+            "range",
+            "minimum",
+            "maximum",
+        ]);
+        return {
+            kind: "exclusiveMaximum",
+            value: parse_number(identifier, text),
+        };
+    },
+    multipleOf: (identifier, metadata, text, output) => {
+        validate(identifier, metadata, output, "multipleOf", "number", [
+            "step",
+        ]);
+        return {
+            kind: "multipleOf",
+            value: parse_number(identifier, text),
+        };
+    },
+    step: (identifier, metadata, text, output) => {
+        validate(identifier, metadata, output, "step", "number", [
+            "multipleOf",
+        ]);
+
+        const minimum: boolean = output.some(
+            (tag) =>
+                tag.kind === "minimum" ||
+                tag.kind === "exclusiveMinimum" ||
+                (tag.kind === "range" && tag.minimum !== undefined),
+        );
+        if (minimum === undefined)
+            throw new Error(
+                `${LABEL}: step requires minimum tag on "${identifier()}".`,
+            );
+
+        return {
+            kind: "step",
             value: parse_number(identifier, text),
         };
     },
@@ -169,19 +170,10 @@ const PARSER: Record<
         STRING
     ----------------------------------------------------------- */
     format: (identifier, metadata, value, output) => {
-        if (has_atomic(metadata, "string") === false)
-            throw new Error(WRONG_TYPE("format", "string", identifier));
-        else if (FORMATS.has(value) === false)
+        validate(identifier, metadata, output, "format", "string", ["pattern"]);
+        if (FORMATS.has(value) === false)
             throw new Error(
                 `${LABEL}: invalid format category on "${identifier()}".`,
-            );
-        else if (output.some((tag) => tag.kind === "format"))
-            throw new Error(
-                `${LABEL}: duplicated formats on "${identifier()}".`,
-            );
-        else if (output.some((tag) => tag.kind === "pattern"))
-            throw new Error(
-                `${LABEL}: both format and pattern tags on "${identifier()}".`,
             );
         return {
             kind: "format",
@@ -189,57 +181,32 @@ const PARSER: Record<
         };
     },
     pattern: (identifier, metadata, value, output) => {
-        if (has_atomic(metadata, "string") === false)
-            throw new Error(WRONG_TYPE("pattern", "string", identifier));
-        else if (output.some((tag) => tag.kind === "pattern"))
-            throw new Error(
-                `${LABEL}: duplicated patterns on "${identifier()}".`,
-            );
-        else if (output.some((tag) => tag.kind === "format"))
-            throw new Error(
-                `${LABEL}: both format and pattern tags on "${identifier()}".`,
-            );
+        validate(identifier, metadata, output, "pattern", "string", ["format"]);
         return {
             kind: "pattern",
             value,
         };
     },
     length: (identifier, metadata, text, output) => {
-        if (has_atomic(metadata, "string") === false)
-            throw new Error(WRONG_TYPE("length", "string", identifier));
-        else if (output.some((tag) => tag.kind === "length"))
-            throw new Error(
-                `${LABEL}: duplicated length tags on "${identifier()}".`,
-            );
+        validate(identifier, metadata, output, "length", "string", [
+            "minLength",
+            "maxLength",
+        ]);
         return parse_range("length", identifier, text, true);
     },
     minLength: (identifier, metadata, text, output) => {
-        if (has_atomic(metadata, "string") === false)
-            throw new Error(WRONG_TYPE("minLength", "string", identifier));
-        else if (output.some((tag) => tag.kind === "minLength"))
-            throw new Error(
-                `${LABEL}: duplicated minLength tags on "${identifier()}".`,
-            );
-        else if (output.some((tag) => tag.kind === "length"))
-            throw new Error(
-                `${LABEL}: both minLength and length tags on "${identifier()}".`,
-            );
+        validate(identifier, metadata, output, "minLength", "string", [
+            "length",
+        ]);
         return {
             kind: "minLength",
             value: parse_number(identifier, text),
         };
     },
     maxLength: (identifier, metadata, text, output) => {
-        if (has_atomic(metadata, "string") === false)
-            throw new Error(WRONG_TYPE("maxLength", "string", identifier));
-        else if (output.some((tag) => tag.kind === "maxLength"))
-            throw new Error(
-                `${LABEL}: duplicated maxLength tags on "${identifier()}".`,
-            );
-        else if (output.some((tag) => tag.kind === "length"))
-            throw new Error(
-                `${LABEL}: both maxLength and length tags on "${identifier()}".`,
-            );
+        validate(identifier, metadata, output, "maxLength", "string", [
+            "length",
+        ]);
         return {
             kind: "maxLength",
             value: parse_number(identifier, text),
@@ -321,6 +288,46 @@ function parse_number(identifier: () => string, str: string): number {
     return value;
 }
 
+const LABEL = "Error on TSON.MetadataTagFactory.generate()";
+const LEFT_PARENTHESIS = ["[", "("] as const;
+const RIGHT_PARENTHESIS = ["]", ")"] as const;
+const FORMATS = new Set(["uuid", "email", "url", "mobile", "ipv4", "ipv6"]);
+
+const WRONG_TYPE = (
+    tag: string,
+    type: "string" | "number" | "array",
+    identifier: () => string,
+) => `${LABEL}: ${tag} requires ${type} type, but no "${identifier()}".`;
+
+function validate(
+    identifier: () => string,
+    metadata: Metadata,
+    output: IMetadataTag[],
+    kind: IMetadataTag["kind"],
+    type: "array" | "string" | "number",
+    neighbors: IMetadataTag["kind"][],
+): void {
+    // TYPE CHECKING
+    if (type === "array") {
+        if (has_array(metadata) === false)
+            throw new Error(WRONG_TYPE(kind, "array", identifier));
+    } else if (has_atomic(metadata, type) === false)
+        throw new Error(WRONG_TYPE(kind, type, identifier));
+
+    // DUPLICATED TAG
+    if (output.some((tag) => tag.kind === kind))
+        throw new Error(
+            `${LABEL}: duplicated ${kind} tags on "${identifier()}".`,
+        );
+
+    // NEIGHBOR TAG
+    for (const name of neighbors)
+        if (output.some((tag) => tag.kind === name))
+            throw new Error(
+                `${LABEL}: ${kind} and ${name} tags on "${identifier()}".`,
+            );
+}
+
 function has_atomic(metadata: Metadata, type: "string" | "number"): boolean {
     return (
         metadata.atomics.find((atom) => atom === type) !== undefined ||
@@ -337,14 +344,3 @@ function has_array(metadata: Metadata): boolean {
         metadata.tuples.some((tuple) => tuple.some((child) => has_array(child)))
     );
 }
-
-const LABEL = "Error on TSON.MetadataTagFactory.generate()";
-const LEFT_PARENTHESIS = ["[", "("] as const;
-const RIGHT_PARENTHESIS = ["]", ")"] as const;
-const FORMATS = new Set(["uuid", "email", "url", "mobile", "ipv4", "ipv6"]);
-
-const WRONG_TYPE = (
-    tag: string,
-    type: "string" | "number" | "array",
-    identifier: () => string,
-) => `${LABEL}: ${tag} requires ${type} type, but no "${identifier()}".`;
