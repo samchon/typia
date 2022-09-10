@@ -119,6 +119,18 @@ export const test_application_ultimate_union = _test_application(
                                         $ref: "#/components/schemas/IMetadataTag.IItems",
                                     },
                                     {
+                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                    },
+                                    {
                                         $ref: "#/components/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
@@ -200,6 +212,74 @@ export const test_application_ultimate_union = _test_application(
                     },
                     nullable: false,
                     required: ["include", "value"],
+                    jsDocTags: [],
+                },
+                "IMetadataTag.IStep": {
+                    type: "object",
+                    properties: {
+                        kind: {
+                            type: "string",
+                            enum: ["step"],
+                            nullable: false,
+                        },
+                        value: {
+                            type: "number",
+                            nullable: false,
+                        },
+                    },
+                    nullable: false,
+                    required: ["kind", "value"],
+                    jsDocTags: [],
+                },
+                "IMetadataTag.IMultipleOf": {
+                    type: "object",
+                    properties: {
+                        kind: {
+                            type: "string",
+                            enum: ["multipleOf"],
+                            nullable: false,
+                        },
+                        value: {
+                            type: "number",
+                            nullable: false,
+                        },
+                    },
+                    nullable: false,
+                    required: ["kind", "value"],
+                    jsDocTags: [],
+                },
+                "IMetadataTag.IExclusiveMaximum": {
+                    type: "object",
+                    properties: {
+                        kind: {
+                            type: "string",
+                            enum: ["exclusiveMaximum"],
+                            nullable: false,
+                        },
+                        value: {
+                            type: "number",
+                            nullable: false,
+                        },
+                    },
+                    nullable: false,
+                    required: ["kind", "value"],
+                    jsDocTags: [],
+                },
+                "IMetadataTag.IExclusiveMinimum": {
+                    type: "object",
+                    properties: {
+                        kind: {
+                            type: "string",
+                            enum: ["exclusiveMinimum"],
+                            nullable: false,
+                        },
+                        value: {
+                            type: "number",
+                            nullable: false,
+                        },
+                    },
+                    nullable: false,
+                    required: ["kind", "value"],
                     jsDocTags: [],
                 },
                 "IMetadataTag.IMaximum": {
@@ -462,6 +542,18 @@ export const test_application_ultimate_union = _test_application(
                                         $ref: "#/components/schemas/IMetadataTag.IItems",
                                     },
                                     {
+                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                    },
+                                    {
                                         $ref: "#/components/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
@@ -540,6 +632,18 @@ export const test_application_ultimate_union = _test_application(
                                 oneOf: [
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IItems",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IMaximum",
@@ -622,6 +726,18 @@ export const test_application_ultimate_union = _test_application(
                                         $ref: "#/components/schemas/IMetadataTag.IItems",
                                     },
                                     {
+                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                    },
+                                    {
                                         $ref: "#/components/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
@@ -692,6 +808,18 @@ export const test_application_ultimate_union = _test_application(
                                 oneOf: [
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IItems",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IMaximum",
@@ -782,6 +910,18 @@ export const test_application_ultimate_union = _test_application(
                                         $ref: "#/components/schemas/IMetadataTag.IItems",
                                     },
                                     {
+                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                    },
+                                    {
                                         $ref: "#/components/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
@@ -852,6 +992,18 @@ export const test_application_ultimate_union = _test_application(
                                 oneOf: [
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IItems",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IMaximum",
@@ -940,6 +1092,18 @@ export const test_application_ultimate_union = _test_application(
                                 oneOf: [
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IItems",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IMaximum",
@@ -1068,6 +1232,18 @@ export const test_application_ultimate_union = _test_application(
                                         $ref: "#/components/schemas/IMetadataTag.IItems",
                                     },
                                     {
+                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                    },
+                                    {
                                         $ref: "#/components/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
@@ -1190,6 +1366,18 @@ export const test_application_ultimate_union = _test_application(
                                         $ref: "#/components/schemas/IMetadataTag.IItems",
                                     },
                                     {
+                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                    },
+                                    {
                                         $ref: "#/components/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
@@ -1257,6 +1445,18 @@ export const test_application_ultimate_union = _test_application(
                                         $ref: "#/components/schemas/IMetadataTag.IItems",
                                     },
                                     {
+                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                    },
+                                    {
                                         $ref: "#/components/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
@@ -1322,6 +1522,18 @@ export const test_application_ultimate_union = _test_application(
                                 oneOf: [
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IItems",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IMaximum",
@@ -1435,6 +1647,18 @@ export const test_application_ultimate_union = _test_application(
                                 oneOf: [
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IItems",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IMaximum",
