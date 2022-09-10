@@ -241,6 +241,10 @@ Tag Kind | Target Type
 `@range (number, number]` | number
 `@minimum {number}` | number
 `@maximum {number}` | number
+`@exclusiveMinimum {number}` | number
+`@exclusiveMaximum {number}` | number
+`@multipleOf {number}` | number
+`@step {number}` | number
 `@length {number} \| [number, number)` | string
 `@minLength {number}` | string
 `@maxLength {number}` | string
@@ -310,6 +314,26 @@ export interface TagExample {
      * @range 12)     --> x < 12
      */
     range: number;
+
+    /**
+     * Step tag requires minmum or exclusiveMinimum tag.
+     * 
+     * 3, 13, 23, 33, ...
+     * 
+     * @step 10
+     * @exclusiveMinimum 3
+     * @range [3
+     */
+    step: number;
+
+    /**
+     * Value must be multiple of the given number.
+     * 
+     * -5, 0, 5, 10, 15, ...
+     * 
+     * @multipleOf 5
+     */
+    multipleOf: number;
 
     /* -----------------------------------------------------------
         STRINGS

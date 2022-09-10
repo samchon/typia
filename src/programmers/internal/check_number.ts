@@ -36,6 +36,45 @@ export function check_number(project: IProject, numeric: boolean) {
                             input,
                         ),
                     );
+            } else if (tag.kind === "multipleOf")
+                conditions.push(
+                    ts.factory.createStrictEquality(
+                        ts.factory.createNumericLiteral(0),
+                        ts.factory.createModulo(
+                            input,
+                            ts.factory.createNumericLiteral(tag.value),
+                        ),
+                    ),
+                );
+            else if (tag.kind === "step") {
+                const modulo = () =>
+                    ts.factory.createModulo(
+                        input,
+                        ts.factory.createNumericLiteral(tag.value),
+                    );
+                const minimum = (() => {
+                    for (const tag of tagList)
+                        if (tag.kind === "minimum") return tag.value;
+                        else if (tag.kind === "exclusiveMinimum")
+                            return tag.value;
+                        else if (
+                            tag.kind === "range" &&
+                            tag.minimum !== undefined
+                        )
+                            return tag.minimum.value;
+                    return undefined;
+                })();
+                conditions.push(
+                    ts.factory.createStrictEquality(
+                        ts.factory.createNumericLiteral(0),
+                        minimum !== undefined
+                            ? ts.factory.createSubtract(
+                                  modulo(),
+                                  ts.factory.createNumericLiteral(minimum),
+                              )
+                            : modulo(),
+                    ),
+                );
             } else if (tag.kind === "range") {
                 if (tag.minimum !== undefined)
                     conditions.push(
@@ -69,15 +108,41 @@ export function check_number(project: IProject, numeric: boolean) {
                         input,
                     ),
                 );
+            else if (tag.kind === "exclusiveMinimum")
+                conditions.push(
+                    ts.factory.createLessThan(
+                        ts.factory.createNumericLiteral(tag.value),
+                        input,
+                    ),
+                );
+            else if (tag.kind === "exclusiveMaximum")
+                conditions.push(
+                    ts.factory.createGreaterThan(
+                        ts.factory.createNumericLiteral(tag.value),
+                        input,
+                    ),
+                );
 
         // NUMERIC VALIDATION
         const finite: boolean =
-            tagList.find(
+            !!tagList.find(
                 (tag) =>
                     tag.kind === "range" &&
                     tag.minimum !== undefined &&
                     tag.maximum !== undefined,
-            ) !== undefined;
+            ) ||
+            (!!tagList.find(
+                (tag) =>
+                    tag.kind === "minimum" || tag.kind === "exclusiveMinimum",
+            ) &&
+                !!tagList.find(
+                    (tag) =>
+                        tag.kind === "maximum" ||
+                        tag.kind === "exclusiveMaximum",
+                )) ||
+            !!tagList.find(
+                (tag) => tag.kind === "step" || tag.kind === "multipleOf",
+            );
         const valid: boolean =
             finite || tagList.find((tag) => tag.kind === "type") !== undefined;
 
