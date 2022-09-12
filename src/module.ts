@@ -41,6 +41,26 @@ export * from "./TypeGuardError";
 export function assertType<T>(input: T): T;
 
 /**
+ * Asserts a value type in the runtime.
+ *
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
+ * reason, if the parametric value is not following the type `T`. Otherwise, the
+ * value is following the type `T`, just input parameter would be returned.
+ *
+ * If what you want is not asserting but just knowing whether the parametric value is
+ * following the type `T` or not, you can choose the {@link is} function instead.
+ * Otherwise you want to know all the errors, {@link validate} is the way to go.
+ *
+ * @template T Type of the input value
+ * @param input A value to be asserted
+ * @returns Parametric input value casted as `T`
+ * @throws A {@link TypeGuardError} instance with detailed reason
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertType<T>(input: unknown): T;
+
+/**
  * @internal
  */
 export function assertType(): never {
@@ -93,6 +113,27 @@ export namespace assertType {
 export function is<T>(input: T): input is T;
 
 /**
+ * Tests a value type in the runtime.
+ *
+ * Tests a parametric value type and returns whether it's following the type `T` or not.
+ * If the parametric value is matched with the type `T`, `true` value would be returned.
+ * Otherwise, the parametric value is not following the type `T`, `false` value would be
+ * returned.
+ *
+ * If what you want is not just knowing whether the parametric value is following the
+ * type `T` or not, but throwing an exception with detailed reason, you can choose
+ * {@link is} function instead. Also, if you want to know all the errors with detailed
+ * reasons, {@link validate} function would be useful.
+ *
+ * @template T Type of the input value
+ * @param input A value to be tested
+ * @returns Whether the parametric value is following the type `T` or not
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function is<T>(input: unknown): input is T;
+
+/**
  * @internal
  */
 export function is(): never {
@@ -126,9 +167,29 @@ export namespace is {
  *
  * @template Type of the input value
  * @param input A value to be validated
- * @returns
+ * @returns Validation result
  */
 export function validate<T>(input: T): IValidation;
+
+/**
+ * Validate a value type in the runtime.
+ *
+ * Validates a parametric value type and archives all the type errors into an
+ * {@link IValidation.errors} array, if the parametric value is not following the
+ * type `T`. Of course, if the parametric value is following the type `T`, the
+ * {@link IValidation.errors} array would be empty and {@link IValidation.success}
+ * would have the `true` value.
+ *
+ * If what you want is not finding all the error, but asserting the parametric value
+ * type with exception throwing, you can choose {@link assertType} function instead.
+ * Otherwise, you just want to know whether the parametric value is matched with the
+ * type `T`, {@link is} function is the way to go.
+ *
+ * @template Type of the input value
+ * @param input A value to be validated
+ * @returns Validation result
+ */
+export function validate<T>(input: unknown): IValidation;
 
 /**
  * @internal
