@@ -95,7 +95,7 @@ export namespace StringifyJoiner {
                 ? expressions
                 : [
                       ts.factory.createCallExpression(
-                          importer.use("$tail"),
+                          importer.use("tail"),
                           undefined,
                           [TemplateFactory.generate(expressions)],
                       ),
