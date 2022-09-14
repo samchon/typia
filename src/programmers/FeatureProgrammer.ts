@@ -12,6 +12,7 @@ import { IProject } from "../transformers/IProject";
 
 import { Escaper } from "../utils/Escaper";
 
+import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 
@@ -259,13 +260,14 @@ export namespace FeatureProgrammer {
     ----------------------------------------------------------- */
     export function decode_array(
         config: Pick<IConfig, "trace" | "decoder">,
+        importer: FunctionImporter,
         combiner: (
             input: ts.Expression,
             arrow: ts.ArrowFunction,
             tags: IMetadataTag[],
         ) => ts.Expression,
     ) {
-        const rand: string = Math.random().toString().slice(2);
+        const rand: string = importer.increment().toString();
         const tail = config.trace
             ? [
                   ts.factory.createParameterDeclaration(
