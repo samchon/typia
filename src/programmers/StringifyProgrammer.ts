@@ -342,6 +342,7 @@ export namespace StringifyProgrammer {
     const decode_array = (project: IProject, importer: FunctionImporter) =>
         FeatureProgrammer.decode_array(
             CONFIG(project, importer),
+            importer,
             StringifyJoiner.array,
         );
 
