@@ -3,6 +3,7 @@ import ts from "typescript";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
+import { check_everything } from "./check_everything";
 
 export const check_properties =
     (assert: boolean) =>
@@ -23,22 +24,7 @@ export const check_properties =
             [check_property(wrapper)(entries)],
         );
         return (halter || ((elem) => elem))(
-            assert
-                ? criteria
-                : ts.factory.createCallExpression(
-                      IdentifierFactory.join(criteria, "every"),
-                      undefined,
-                      [
-                          ts.factory.createArrowFunction(
-                              undefined,
-                              undefined,
-                              [IdentifierFactory.parameter("flag")],
-                              undefined,
-                              undefined,
-                              ts.factory.createIdentifier("flag"),
-                          ),
-                      ],
-                  ),
+            assert ? criteria : check_everything(criteria),
         );
     };
 

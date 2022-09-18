@@ -19,10 +19,10 @@ export * from "./schemas/IJsonSchema";
 export * from "./TypeGuardError";
 
 /* -----------------------------------------------------------
-    VALIDATORS
+    BASIC VALIDATORS
 ----------------------------------------------------------- */
 /**
- * Asserts a value type in the runtime.
+ * Asserts a value type.
  *
  * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
  * reason, if the parametric value is not following the type `T`. Otherwise, the
@@ -31,6 +31,9 @@ export * from "./TypeGuardError";
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link is} function instead.
  * Otherwise you want to know all the errors, {@link validate} is the way to go.
+ *
+ * On the other and, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link assertEquals} function instead.
  *
  * @template T Type of the input value
  * @param input A value to be asserted
@@ -42,7 +45,7 @@ export * from "./TypeGuardError";
 export function assertType<T>(input: T): T;
 
 /**
- * Asserts a value type in the runtime.
+ * Asserts a value type.
  *
  * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
  * reason, if the parametric value is not following the type `T`. Otherwise, the
@@ -51,6 +54,9 @@ export function assertType<T>(input: T): T;
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link is} function instead.
  * Otherwise you want to know all the errors, {@link validate} is the way to go.
+ *
+ * On the other and, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link assertEquals} function instead.
  *
  * @template T Type of the input value
  * @param input A value to be asserted
@@ -93,7 +99,7 @@ export namespace assertType {
 }
 
 /**
- * Tests a value type in the runtime.
+ * Tests a value type.
  *
  * Tests a parametric value type and returns whether it's following the type `T` or not.
  * If the parametric value is matched with the type `T`, `true` value would be returned.
@@ -102,8 +108,11 @@ export namespace assertType {
  *
  * If what you want is not just knowing whether the parametric value is following the
  * type `T` or not, but throwing an exception with detailed reason, you can choose
- * {@link is} function instead. Also, if you want to know all the errors with detailed
- * reasons, {@link validate} function would be useful.
+ * {@link assertType} function instead. Also, if you want to know all the errors with
+ * detailed reasons, {@link validate} function would be useful.
+ *
+ * On the other and, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link equals} function instead.
  *
  * @template T Type of the input value
  * @param input A value to be tested
@@ -114,7 +123,7 @@ export namespace assertType {
 export function is<T>(input: T): input is T;
 
 /**
- * Tests a value type in the runtime.
+ * Tests a value type.
  *
  * Tests a parametric value type and returns whether it's following the type `T` or not.
  * If the parametric value is matched with the type `T`, `true` value would be returned.
@@ -123,8 +132,11 @@ export function is<T>(input: T): input is T;
  *
  * If what you want is not just knowing whether the parametric value is following the
  * type `T` or not, but throwing an exception with detailed reason, you can choose
- * {@link is} function instead. Also, if you want to know all the errors with detailed
- * reasons, {@link validate} function would be useful.
+ * {@link assertType} function instead. Also, if you want to know all the errors with
+ * detailed reasons, {@link validate} function would be useful.
+ *
+ * On the other and, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link equals} function instead.
  *
  * @template T Type of the input value
  * @param input A value to be tested
@@ -153,7 +165,7 @@ export namespace is {
 }
 
 /**
- * Validate a value type in the runtime.
+ * Validates a value type.
  *
  * Validates a parametric value type and archives all the type errors into an
  * {@link IValidation.errors} array, if the parametric value is not following the
@@ -165,6 +177,9 @@ export namespace is {
  * type with exception throwing, you can choose {@link assertType} function instead.
  * Otherwise, you just want to know whether the parametric value is matched with the
  * type `T`, {@link is} function is the way to go.
+ *
+ * On the other and, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link validateEquals} function instead.
  *
  * @template Type of the input value
  * @param input A value to be validated
@@ -173,7 +188,7 @@ export namespace is {
 export function validate<T>(input: T): IValidation;
 
 /**
- * Validate a value type in the runtime.
+ * Validates a value type.
  *
  * Validates a parametric value type and archives all the type errors into an
  * {@link IValidation.errors} array, if the parametric value is not following the
@@ -185,6 +200,9 @@ export function validate<T>(input: T): IValidation;
  * type with exception throwing, you can choose {@link assertType} function instead.
  * Otherwise, you just want to know whether the parametric value is matched with the
  * type `T`, {@link is} function is the way to go.
+ *
+ * On the other and, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link validateEquals} function instead.
  *
  * @template Type of the input value
  * @param input A value to be validated
@@ -241,8 +259,59 @@ export namespace validate {
 /* -----------------------------------------------------------
     STRICT VALIDATORS
 ----------------------------------------------------------- */
+/**
+ * Asserts equality between a value and its type.
+ *
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
+ * reason, if the parametric value is not following the type `T` or some superfluous
+ * property that is not listed on the type `T` has been found. Otherwise, the value is
+ * following the type `T` without any superfluous property, just input parameter would
+ * be returned.
+ *
+ * If what you want is not asserting but just knowing whether the parametric value is
+ * following the type `T` or not, you can choose the {@link equals} function instead.
+ * Otherwise you want to know all the errors, {@link validateEquals} is the way to go.
+ *
+ * On the other hand, if you want to allow superfluous property that is not enrolled
+ * to the type `T`, you can use {@link assertType} function instead.
+ *
+ * @template T Type of the input value
+ * @param input A value to be asserted
+ * @returns Parametric input value
+ * @throws A {@link TypeGuardError} instance with detailed reason
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export function assertEquals<T>(input: T): T;
+
+/**
+ * Asserts equality between a value and its type.
+ *
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
+ * reason, if the parametric value is not following the type `T` or some superfluous
+ * property that is not listed on the type `T` has been found. Otherwise, the value is
+ * following the type `T` without any superfluous property, just input parameter would
+ * be returned.
+ *
+ * If what you want is not asserting but just knowing whether the parametric value is
+ * following the type `T` or not, you can choose the {@link equals} function instead.
+ * Otherwise you want to know all the errors, {@link validateEquals} is the way to go.
+ *
+ * On the other hand, if you want to allow superfluous property that is not enrolled
+ * to the type `T`, you can use {@link assertType} function instead.
+ *
+ * @template T Type of the input value
+ * @param input A value to be asserted
+ * @returns Parametric input value casted as `T`
+ * @throws A {@link TypeGuardError} instance with detailed reason
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export function assertEquals<T>(input: unknown): T;
+
+/**
+ * @internal
+ */
 export function assertEquals<T>(): never {
     halt("assertEquals");
 }
@@ -272,8 +341,59 @@ export namespace assertEquals {
     }
 }
 
+/**
+ * Tests equality between a value and its type.
+ *
+ * Tests a parametric value type and returns whether it's equivalent to the type `T`
+ * or not. If the parametric value is matched with the type `T` and there's not any
+ * superfluous property that is not listed on the type `T`, `true` value would be
+ * returned. Otherwise, the parametric value is not following the type `T` or some
+ * superfluous property exists, `false` value would be returned.
+ *
+ * If what you want is not just knowing whether the parametric value is following the
+ * type `T` or not, but throwing an exception with detailed reason, you can choose
+ * {@link assertEquals} function instead. Also, if you want to know all the errors with
+ * detailed reasons, {@link validateEquals} function would be useful.
+ *
+ * On the other hand, if you want to allow superfluous property that is not enrolled
+ * to the type `T`, you can use {@link is} function instead.
+ *
+ * @template T Type of the input value
+ * @param input A value to be tested
+ * @returns Whether the parametric value is equivalent to the type `T` or not
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export function equals<T>(input: T): input is T;
+
+/**
+ * Tests equality between a value and its type.
+ *
+ * Tests a parametric value type and returns whether it's equivalent to the type `T`
+ * or not. If the parametric value is matched with the type `T` and there's not any
+ * superfluous property that is not listed on the type `T`, `true` value would be
+ * returned. Otherwise, the parametric value is not following the type `T` or some
+ * superfluous property exists, `false` value would be returned.
+ *
+ * If what you want is not just knowing whether the parametric value is following the
+ * type `T` or not, but throwing an exception with detailed reason, you can choose
+ * {@link assertEquals} function instead. Also, if you want to know all the errors with
+ * detailed reasons, {@link validateEquals} function would be useful.
+ *
+ * On the other hand, if you want to allow superfluous property that is not enrolled
+ * to the type `T`, you can use {@link is} function instead.
+ *
+ * @template T Type of the input value
+ * @param input A value to be tested
+ * @returns Whether the parametric value is equivalent to the type `T` or not
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export function equals<T>(input: unknown): input is T;
+
+/**
+ * @internal
+ */
 export function equals(): never {
     halt("equals");
 }
@@ -289,53 +409,103 @@ export namespace equals {
     export const is_ipv6 = $is_ipv6;
 }
 
-// export function validateEquals<T>(input: T): IValidation;
-// export function validateEquals<T>(input: unknown): IValidation;
-// export function validateEquals(): never {
-//     halt("validateEquals");
-// }
+/**
+ * Validates equaility between a value and itstype.
+ *
+ * Validates a parametric value type and archives all the type errors into an
+ * {@link IValidation.errors} array, if the parametric value is not following the
+ * type `T` or some superfluous property that is not listed on the type `T` has been
+ * found. Of course, if the parametric value is following the type `T` and no
+ * superfluous property exists, the {@link IValidation.errors} array would be empty
+ * and {@link IValidation.success} would have the `true` value.
+ *
+ * If what you want is not finding all the error, but asserting the parametric value
+ * type with exception throwing, you can choose {@link assertType} function instead.
+ * Otherwise, you just want to know whether the parametric value is matched with the
+ * type `T`, {@link is} function is the way to go.
+ *
+ * On the other and, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link validateEquals} function instead.
+ *
+ * @template Type of the input value
+ * @param input A value to be validated
+ * @returns Validation result
+ */
+export function validateEquals<T>(input: T): IValidation;
 
-// /**
-//  * @internal
-//  */
-// export namespace validateEquals {
-//     export const is_uuid = $is_uuid;
-//     export const is_email = $is_email;
-//     export const is_url = $is_url;
-//     export const is_ipv4 = $is_ipv4;
-//     export const is_ipv6 = $is_ipv6;
+/**
+ * Validates equaility between a value and itstype.
+ *
+ * Validates a parametric value type and archives all the type errors into an
+ * {@link IValidation.errors} array, if the parametric value is not following the
+ * type `T` or some superfluous property that is not listed on the type `T` has been
+ * found. Of course, if the parametric value is following the type `T` and no
+ * superfluous property exists, the {@link IValidation.errors} array would be empty
+ * and {@link IValidation.success} would have the `true` value.
+ *
+ * If what you want is not finding all the error, but asserting the parametric value
+ * type with exception throwing, you can choose {@link assertType} function instead.
+ * Otherwise, you just want to know whether the parametric value is matched with the
+ * type `T`, {@link is} function is the way to go.
+ *
+ * On the other and, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link validateEquals} function instead.
+ *
+ * @template Type of the input value
+ * @param input A value to be validated
+ * @returns Validation result
+ */
+export function validateEquals<T>(input: unknown): IValidation;
 
-//     export const predicate =
-//         (res: IValidation) =>
-//         (
-//             matched: boolean,
-//             exceptionable: boolean,
-//             closure: () => IValidation.IError,
-//         ) => {
-//             // CHECK FAILURE
-//             if (matched === false && exceptionable === true)
-//                 (() => {
-//                     res.success &&= false;
+/**
+ * @internal
+ */
+export function validateEquals(): never {
+    halt("validateEquals");
+}
 
-//                     // TRACE ERROR
-//                     const error = closure();
-//                     if (res.errors.length) {
-//                         const last = res.errors[res.errors.length - 1]!.path;
-//                         if (
-//                             last.length >= error.path.length &&
-//                             last.substring(0, error.path.length) === error.path
-//                         )
-//                             return;
-//                     }
-//                     res.errors.push(error);
-//                     return;
-//                 })();
-//             return matched;
-//         };
-// }
+/**
+ * @internal
+ */
+export namespace validateEquals {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+    export const join = $join;
+
+    export const predicate =
+        (res: IValidation) =>
+        (
+            matched: boolean,
+            exceptionable: boolean,
+            closure: () => IValidation.IError,
+        ) => {
+            // CHECK FAILURE
+            if (matched === false && exceptionable === true)
+                (() => {
+                    res.success &&= false;
+
+                    // TRACE ERROR
+                    const error = closure();
+                    if (res.errors.length) {
+                        const last = res.errors[res.errors.length - 1]!.path;
+                        if (
+                            last.length >= error.path.length &&
+                            last.substring(0, error.path.length) === error.path
+                        )
+                            return;
+                    }
+                    res.errors.push(error);
+                    return;
+                })();
+            return matched;
+        };
+}
 
 /* -----------------------------------------------------------
-    STRINGIFY
+    APPENDIX FUNCTIONS
 ----------------------------------------------------------- */
 /**
  * 5x faster `JSON.stringify()` function.
@@ -393,9 +563,6 @@ export namespace stringify {
     }
 }
 
-/* -----------------------------------------------------------
-    APPENDIX FUNCTIONS
------------------------------------------------------------ */
 /**
  * 2x faster constant object creator.
  *

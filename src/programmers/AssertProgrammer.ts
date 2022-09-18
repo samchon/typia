@@ -45,7 +45,7 @@ export namespace AssertProgrammer {
                                     joiner: CheckerProgrammer.DEFAULT_JOINER(
                                         equals
                                             ? assert_object(importer)
-                                            : check_object(false),
+                                            : check_object(false)(true),
                                     ),
                                 },
                                 modulo,

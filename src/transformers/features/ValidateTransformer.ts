@@ -34,7 +34,7 @@ export namespace ValidateTransformer {
 
             // DO TRANSFORM
             return ts.factory.createCallExpression(
-                ValidateProgrammer.generate(project, modulo)(type),
+                ValidateProgrammer.generate(project, modulo, equals)(type),
                 undefined,
                 [expression.arguments[0]!],
             );
