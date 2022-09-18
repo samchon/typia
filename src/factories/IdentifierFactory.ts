@@ -21,4 +21,13 @@ export namespace IdentifierFactory {
             ? `".${str}"`
             : `"[${JSON.stringify(str).split('"').join('\\"')}]"`;
     }
+
+    export function parameter(name: string | ts.BindingName) {
+        return ts.factory.createParameterDeclaration(
+            undefined,
+            undefined,
+            undefined,
+            name,
+        );
+    }
 }
