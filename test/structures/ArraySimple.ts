@@ -5,7 +5,7 @@ export namespace ArraySimple {
     export interface IPerson {
         name: string;
         email: string;
-        hobbies: Array<IHobby> | Array<IContent> | string[];
+        hobbies: IHobby[] | IContent[] | string[];
     }
     export interface IHobby {
         name: string;

@@ -11,7 +11,7 @@ export namespace ObjectGenericUnion {
                 title: RandomGenerator.string(),
                 body: RandomGenerator.string(),
                 files: RandomGenerator.array(() => ({
-                    id: "id",
+                    // id: "id",
                     name: RandomGenerator.string(),
                     extension: RandomGenerator.string(),
                     url: RandomGenerator.string(),

@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.2.5",
+  "version": "3.2.6",
   "description": "Runtime type checkers and 5x faster JSON.stringify() function",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -9,6 +9,7 @@
     "build": "rimraf lib && ttsc --removeComments --declaration false && ttsc --emitDeclarationOnly",
     "build:test": "rimraf bin && ttsc -p tsconfig.test.json && prettier --write ./bin/**/*.js",
     "dev": "npm run build -- --watch",
+    "dev:test": "rimraf bin && ttsc -p tsconfig.test.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "issue": "node test/issue",
@@ -32,10 +33,14 @@
     "schema",
     "jsonschema",
     "generator",
-    "validator",
+    "assert",
+    "is",
+    "validate",
+    "equal",
     "runtime",
     "type",
-    "checker"
+    "checker",
+    "validator"
   ],
   "author": "Jeongho Nam",
   "license": "MIT",

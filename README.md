@@ -1,5 +1,5 @@
 # TypeScript-JSON
-Super-fast Runtime type checker and `JSON.stringify()` functions, with only one line.
+Super-fast Runtime validators and `JSON.stringify()` functions, with only one line.
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typescript-json/blob/master/LICENSE)
 [![npm version](https://img.shields.io/npm/v/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
@@ -14,15 +14,23 @@ Super-fast Runtime type checker and `JSON.stringify()` functions, with only one 
 ```typescript
 import TSON from "typescript-json";
 
-// RUNTIME TYPE CHECKERS
+//----
+// RUNTIME VALIDATORS
+//----
+// ALLOW SUPERFLUOUS PROPERTIES
 TSON.assertType<T>(input); // throws exception
 TSON.is<T>(input); // returns boolean value
-TSON.validate<T>(input); // archives all type errors
+TSON.validate<T>(input); // archives all errors
 
-// STRINGIFY
-TSON.stringify<T>(input); // 5x faster JSON.stringify()
+// DO NOT ALLOW SUPERFLUOUS PROPERTIES
+TSON.equals<T>(input); // returns boolean value
+TSON.assertEquals<T>(input); // throws exception
+TSON.validateEquals<T>(input); // archives all errors
 
+//----
 // APPENDIX FUNCTIONS
+//----
+TSON.stringify<T>(input); // 5x faster JSON.stringify()
 TSON.application<[T, U, V], "swagger">(); // JSON schema application generator
 TSON.create<T>(input); // 2x faster object creator (only one-time construction)
 ```
@@ -127,11 +135,17 @@ module.exports = {
 
 
 ## Features
-### Runtime Type Checkers
+### Runtime Validators
 ```typescript
-export function assertType<T>(input: T): T; // throws `TypeGuardError`
+// ALLOW SUPERFLUOUS PROPERTIES
 export function is<T>(input: T): boolean; // true or false
+export function assertType<T>(input: T): T; // throws `TypeGuardError`
 export function validate<T>(input: T): IValidation; // detailed reasons
+
+// DO NOT ALLOW SUPERFLUOUS PROPERTIES
+export function equals<T>(input: T): boolean;
+export function assertEquals<T>(input: T): T;
+export function validateEquals<T>(input: T): IValidation;
 
 export interface IValidation {
     success: boolean;
@@ -155,9 +169,33 @@ export class TypeGuardError extends Error {
 
 > You can enhance type constraint more by using [**Comment Tags**](#comment-tags).
 
-`typescript-json` provides three runtime type checker functions.
+`typescript-json` provides three basic validator functions.
 
 The first, `assertType()` is a function throwing `TypeGuardError` when an `input` value is different with its type, generic argument `T`. The second function, `is()` returns a `boolean` value meaning whether matched or not. The last `validate()` function archives all type errors into an `IValidation.errors` array.
+
+If you want much strict validators that do not allow superfluous properties, you can use below functions instead. `assertEquals()` function throws `TypeGuardError`, `equals()` function returns `boolean` value, and `validateEquals()` function archives all type errors into an `IValidation.errors` array.
+
+Basic | Strict
+------|--------
+`assertType` | `assertEquals`
+`is` | `equals`
+`validate` | `validateEquals`
+
+```typescript
+interface IPerson {
+    name: string;
+    age: number;
+}
+
+const person = {
+    name: "Jeongho Nam",
+    age: 34,
+    account: "samchon", // superfluous property
+};
+
+TSON.is<IPerson>(person); // -> true, allow superfluous property
+TSON.equals<IPerson>(person); // -> false, do not allow
+```
 
 Comparing those type checker functions with other similar libraries, `typescript-json` is much easier than others, except only `typescript-is`. For example, `ajv` requires complicate JSON schema definition that is different with the TypeScript type. Besides, `typescript-json` requires only one line.
 
@@ -229,7 +267,7 @@ When you need to share your TypeScript types to other language, this `applicatio
 By the way, the reason why you're using this `application()` is for generating a swagger documents, I recommend you to use my another library [nestia](https://github.com/samchon/nestia). It will automate the swagger documents generation, by analyzing your entire backend server code.
 
 ### Comment Tags
-You can enhance [Runtime Type Checkers](#runtime-type-checkers) and [JSON Schema Generator](#json-schema-generation) by writing comment tags.
+You can enhance [Runtime Validators](#runtime-validators) and [JSON Schema Generator](#json-schema-generation) by writing comment tags.
 
 Below table shows list of supported comment tags. You can utilize those tags by writing in comments like below example structure `TagExample`. Look at them and utilize those comment tags to make your TypeScript program to be safer and more convenient.
 

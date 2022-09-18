@@ -200,7 +200,7 @@ export namespace UnionExplorer {
                                         meta,
                                         {
                                             ...explore,
-                                            tracable: false,
+                                            tracable: true,
                                         },
                                         tags,
                                     ),
@@ -255,7 +255,7 @@ export namespace UnionExplorer {
                 ),
                 ts.factory.createReturnStatement(
                     ts.factory.createCallExpression(
-                        ts.factory.createIdentifier("filtered[0][1]"),
+                        ts.factory.createIdentifier(`filtered[0][1]`),
                         undefined,
                         [input],
                     ),
@@ -299,7 +299,7 @@ export namespace UnionExplorer {
                     ),
                     ts.factory.createReturnStatement(
                         ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("tuple[1]"),
+                            ts.factory.createIdentifier(`tuple[1]`),
                             undefined,
                             [input],
                         ),

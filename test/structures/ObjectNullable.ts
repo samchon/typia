@@ -22,7 +22,7 @@ export namespace ObjectNullable {
     }
 
     export function generate(): ObjectNullable {
-        const product: Omit<IProduct, "similar"> = {
+        const product: () => Omit<IProduct, "similar"> = () => ({
             name: RandomGenerator.string(),
             manufacturer: {
                 type: "manufacturer",
@@ -32,11 +32,11 @@ export namespace ObjectNullable {
                 type: "brand",
                 name: RandomGenerator.string(),
             },
-        };
+        });
         return [
-            { ...product, similar: null },
+            { ...product(), similar: null },
             {
-                ...product,
+                ...product(),
                 brand: null,
                 similar: {
                     type: "manufacturer",
@@ -44,7 +44,7 @@ export namespace ObjectNullable {
                 },
             },
             {
-                ...product,
+                ...product(),
                 similar: {
                     type: "brand",
                     name: RandomGenerator.string(),
