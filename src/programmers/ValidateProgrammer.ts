@@ -15,6 +15,7 @@ export namespace ValidateProgrammer {
     export function generate(
         project: IProject,
         modulo: ts.LeftHandSideExpression,
+        equals: boolean = false,
     ) {
         const importer = new FunctionImporter();
         return (type: ts.Type) =>
@@ -55,8 +56,9 @@ export namespace ValidateProgrammer {
                                     unioners: "$vu",
                                     trace: true,
                                     numeric: true,
-                                    combiner: combine(),
-                                    joiner: join(),
+                                    equals,
+                                    combiner: combine(equals),
+                                    joiner: join(equals),
                                 },
                                 modulo,
                                 importer,
@@ -73,27 +75,32 @@ export namespace ValidateProgrammer {
     }
 }
 
-const combine: () => CheckerProgrammer.IConfig.Combiner = () => (explore) => {
-    const combiner = IsProgrammer.CONFIG(true).combiner;
-    if (explore.tracable === false && explore.from !== "top")
-        return combiner(explore);
+const combine: (equals: boolean) => CheckerProgrammer.IConfig.Combiner =
+    () => (explore) => {
+        const combiner = IsProgrammer.CONFIG({
+            numeric: true,
+        }).combiner;
+        if (explore.tracable === false && explore.from !== "top")
+            return combiner(explore);
 
-    const path: string = explore.postfix ? `path + ${explore.postfix}` : "path";
-    return (logic) => (input, expressions, expected) =>
-        ts.factory.createCallExpression(
-            ts.factory.createIdentifier("$pred"),
-            [],
-            [
-                combiner(explore)(logic)(input, expressions, expected),
-                explore.source === "top"
-                    ? ts.factory.createTrue()
-                    : ts.factory.createIdentifier("exceptionable"),
-                create_report_function(path, expected, input),
-            ],
-        );
-};
+        const path: string = explore.postfix
+            ? `path + ${explore.postfix}`
+            : "path";
+        return (logic) => (input, expressions, expected) =>
+            ts.factory.createCallExpression(
+                ts.factory.createIdentifier("$pred"),
+                [],
+                [
+                    combiner(explore)(logic)(input, expressions, expected),
+                    explore.source === "top"
+                        ? ts.factory.createTrue()
+                        : ts.factory.createIdentifier("exceptionable"),
+                    create_report_function(path, expected, input),
+                ],
+            );
+    };
 
-const join: () => CheckerProgrammer.IConfig.IJoiner = () => ({
+const join: (equals: boolean) => CheckerProgrammer.IConfig.IJoiner = () => ({
     object: (entries) =>
         create_array_every(
             ts.factory.createArrayLiteralExpression(

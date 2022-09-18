@@ -3,6 +3,7 @@ import { $is_ipv4 } from "./functional/$is_ipv4";
 import { $is_ipv6 } from "./functional/$is_ipv6";
 import { $is_url } from "./functional/$is_url";
 import { $is_uuid } from "./functional/$is_uuid";
+import { $join } from "./functional/$join";
 import { $number } from "./functional/$number";
 import { $string } from "./functional/$string";
 import { $tail } from "./functional/$tail";
@@ -236,6 +237,102 @@ export namespace validate {
             return matched;
         };
 }
+
+/* -----------------------------------------------------------
+    STRICT VALIDATORS
+----------------------------------------------------------- */
+export function assertEquals<T>(input: T): T;
+export function assertEquals<T>(input: unknown): T;
+export function assertEquals<T>(): never {
+    halt("assertEquals");
+}
+
+/**
+ * @internal
+ */
+export namespace assertEquals {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+    export const join = $join;
+
+    export function predicate(
+        matched: boolean,
+        exceptionable: boolean,
+        closure: () => Omit<TypeGuardError.IProps, "method">,
+    ): boolean {
+        if (matched === false && exceptionable === true)
+            throw new TypeGuardError({
+                method: "TSON.assertEquals",
+                ...closure(),
+            });
+        return matched;
+    }
+}
+
+export function equals<T>(input: T): input is T;
+export function equals<T>(input: unknown): input is T;
+export function equals(): never {
+    halt("equals");
+}
+
+/**
+ * @internal
+ */
+export namespace equals {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+}
+
+// export function validateEquals<T>(input: T): IValidation;
+// export function validateEquals<T>(input: unknown): IValidation;
+// export function validateEquals(): never {
+//     halt("validateEquals");
+// }
+
+// /**
+//  * @internal
+//  */
+// export namespace validateEquals {
+//     export const is_uuid = $is_uuid;
+//     export const is_email = $is_email;
+//     export const is_url = $is_url;
+//     export const is_ipv4 = $is_ipv4;
+//     export const is_ipv6 = $is_ipv6;
+
+//     export const predicate =
+//         (res: IValidation) =>
+//         (
+//             matched: boolean,
+//             exceptionable: boolean,
+//             closure: () => IValidation.IError,
+//         ) => {
+//             // CHECK FAILURE
+//             if (matched === false && exceptionable === true)
+//                 (() => {
+//                     res.success &&= false;
+
+//                     // TRACE ERROR
+//                     const error = closure();
+//                     if (res.errors.length) {
+//                         const last = res.errors[res.errors.length - 1]!.path;
+//                         if (
+//                             last.length >= error.path.length &&
+//                             last.substring(0, error.path.length) === error.path
+//                         )
+//                             return;
+//                     }
+//                     res.errors.push(error);
+//                     return;
+//                 })();
+//             return matched;
+//         };
+// }
 
 /* -----------------------------------------------------------
     STRINGIFY

@@ -20,6 +20,7 @@ import { OptionPreditor } from "./helpers/OptionPredicator";
 import { StringifyJoiner } from "./helpers/StringifyJoinder";
 import { StringifyPredicator } from "./helpers/StringifyPredicator";
 import { UnionExplorer } from "./helpers/UnionExplorer";
+import { decode_union_object } from "./internal/decode_union_object";
 
 export namespace StringifyProgrammer {
     /* -----------------------------------------------------------
@@ -612,33 +613,9 @@ export namespace StringifyProgrammer {
         checker: IsProgrammer.decode(project, importer),
         decoder: decode_object(),
         joiner: StringifyJoiner.object(importer),
-        unionizer: (input, targets, explore) =>
-            ts.factory.createCallExpression(
-                ts.factory.createArrowFunction(
-                    undefined,
-                    undefined,
-                    [],
-                    undefined,
-                    undefined,
-                    iterate(
-                        importer,
-                        input,
-                        targets.map((obj) => ({
-                            type: "object",
-                            is: () =>
-                                IsProgrammer.decode_object()(
-                                    input,
-                                    obj,
-                                    explore,
-                                ),
-                            value: () => decode_object()(input, obj, explore),
-                        })),
-                        `(${targets.map((t) => t.name).join(" | ")})`,
-                    ),
-                ),
-                undefined,
-                undefined,
-            ),
+        unionizer: decode_union_object(IsProgrammer.decode_object())(
+            decode_object(),
+        )((value, expected) => create_throw_error(importer, value, expected)),
         failure: (input, targets) =>
             create_throw_error(
                 importer,

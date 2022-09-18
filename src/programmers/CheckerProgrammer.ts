@@ -19,12 +19,14 @@ import { UnionExplorer } from "./helpers/UnionExplorer";
 import { check_array } from "./internal/check_array";
 import { check_number } from "./internal/check_number";
 import { check_string } from "./internal/check_string";
+import { decode_union_object } from "./internal/decode_union_object";
 
 export namespace CheckerProgrammer {
     export interface IConfig {
         functors: string;
         unioners: string;
         trace: boolean;
+        equals: boolean;
         numeric: boolean;
         combiner: IConfig.Combiner;
         joiner: IConfig.IJoiner;
@@ -90,13 +92,10 @@ export namespace CheckerProgrammer {
             CONFIG(project, { ...config, numeric: false }, importer),
         );
 
-    export const DEFAULT_JOINER: () => IConfig.IJoiner = () => ({
-        object: (entries) =>
-            entries.length
-                ? entries
-                      .map((entry) => entry.expression)
-                      .reduce((x, y) => ts.factory.createLogicalAnd(x, y))
-                : ts.factory.createTrue(),
+    export const DEFAULT_JOINER: (
+        object: (entries: IExpressionEntry[]) => ts.Expression,
+    ) => IConfig.IJoiner = (object) => ({
+        object,
         array: check_array,
         tuple: (binaries) =>
             binaries.reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
@@ -129,14 +128,26 @@ export namespace CheckerProgrammer {
                 checker: decode(project, config, importer),
                 decoder: decode_object(config),
                 joiner: config.joiner.object,
-                unionizer: (input, targets, explore) =>
-                    config.combiner(explore)("or")(
-                        input,
-                        targets.map((obj) =>
-                            decode_object(config)(input, obj, explore),
-                        ),
-                        `(${targets.map((t) => t.name).join(" | ")})`,
-                    ),
+                unionizer: config.equals
+                    ? decode_union_object(decode_object(config))(
+                          (input, obj, explore) =>
+                              decode_object(config)(input, obj, {
+                                  ...explore,
+                                  tracable: true,
+                              }),
+                      )(() =>
+                          ts.factory.createReturnStatement(
+                              ts.factory.createFalse(),
+                          ),
+                      )
+                    : (input, targets, explore) =>
+                          config.combiner(explore)("or")(
+                              input,
+                              targets.map((obj) =>
+                                  decode_object(config)(input, obj, explore),
+                              ),
+                              `(${targets.map((t) => t.name).join(" | ")})`,
+                          ),
                 failure: () =>
                     ts.factory.createReturnStatement(ts.factory.createFalse()),
             },
@@ -165,7 +176,6 @@ export namespace CheckerProgrammer {
             tags: IMetadataTag[],
         ): ts.Expression {
             if (meta.any) return ValueFactory.BOOLEAN(true);
-            // explore.tracable = explore.tracable && meta.size() === 1;
 
             const top: ts.Expression[] = [];
             const binaries: ts.Expression[] = [];

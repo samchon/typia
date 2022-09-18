@@ -7,14 +7,19 @@ import { IProject } from "../transformers/IProject";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { IExpressionEntry } from "./helpers/IExpressionEntry";
+import { check_object } from "./internal/check_object";
 
 export namespace IsProgrammer {
-    export function CONFIG(numeric: boolean): CheckerProgrammer.IConfig {
+    export function CONFIG(
+        options?: Partial<CONFIG.IOptions>,
+    ): CheckerProgrammer.IConfig {
         return {
             functors: "$io",
             unioners: "$iu",
             trace: false,
-            numeric,
+            equals: !!options?.object,
+            numeric: !!options?.numeric,
             combiner: () => (type: "and" | "or") => {
                 const initial: ts.TrueLiteral | ts.FalseLiteral =
                     type === "and"
@@ -29,8 +34,16 @@ export namespace IsProgrammer {
                         ? expressions.reduce((x, y) => binder(x, y))
                         : initial;
             },
-            joiner: CheckerProgrammer.DEFAULT_JOINER(),
+            joiner: CheckerProgrammer.DEFAULT_JOINER(
+                options?.object || check_object(false),
+            ),
         };
+    }
+    export namespace CONFIG {
+        export interface IOptions {
+            numeric: boolean;
+            object: (entries: IExpressionEntry[]) => ts.Expression;
+        }
     }
 
     /* -----------------------------------------------------------
@@ -39,11 +52,30 @@ export namespace IsProgrammer {
     export function generate(
         project: IProject,
         modulo: ts.LeftHandSideExpression,
+        equals: boolean = false,
     ) {
         const importer: FunctionImporter = new FunctionImporter();
+        const object = equals
+            ? check_object(equals)(true)((expr) =>
+                  ts.factory.createLogicalOr(
+                      ts.factory.createStrictEquality(
+                          ts.factory.createFalse(),
+                          ts.factory.createIdentifier("exceptionable"),
+                      ),
+                      expr,
+                  ),
+              )()
+            : check_object(false);
+
         return CheckerProgrammer.generate(
             project,
-            CONFIG(true),
+            {
+                ...CONFIG({
+                    object,
+                    numeric: true,
+                }),
+                trace: equals,
+            },
             modulo,
             importer,
         );
@@ -52,21 +84,21 @@ export namespace IsProgrammer {
     export const generate_functors = (
         project: IProject,
         importer: FunctionImporter,
-    ) => CheckerProgrammer.generate_functors(project, CONFIG(false), importer);
+    ) => CheckerProgrammer.generate_functors(project, CONFIG(), importer);
 
     export const generate_unioners = (
         project: IProject,
         importer: FunctionImporter,
-    ) => CheckerProgrammer.generate_unioners(project, CONFIG(false), importer);
+    ) => CheckerProgrammer.generate_unioners(project, CONFIG(), importer);
 
     /* -----------------------------------------------------------
         DECODERS
     ----------------------------------------------------------- */
     export const decode = (project: IProject, importer: FunctionImporter) =>
-        CheckerProgrammer.decode(project, CONFIG(false), importer);
+        CheckerProgrammer.decode(project, CONFIG(), importer);
 
     export const decode_object = () =>
-        CheckerProgrammer.decode_object(CONFIG(false));
+        CheckerProgrammer.decode_object(CONFIG());
 
     export function decode_to_json(input: ts.Expression): ts.Expression {
         return ts.factory.createLogicalAnd(

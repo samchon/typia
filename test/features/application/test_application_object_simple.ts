@@ -2,7 +2,7 @@ import TSON from "../../../src";
 import { ObjectSimple } from "../../structures/ObjectSimple";
 import { _test_application } from "./_test_application";
 
-export const test_application_object = _test_application(
+export const test_application_object_simple = _test_application(
     "simple object",
     TSON.application<[ObjectSimple]>(),
     {
