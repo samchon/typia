@@ -5,6 +5,7 @@ import { StatementFactory } from "../../factories/StatementFactory";
 
 export class FunctionImporter {
     private readonly used_: Set<string> = new Set();
+    private sequence_: number = 0;
 
     public empty(): boolean {
         return this.used_.size === 0;
@@ -23,5 +24,9 @@ export class FunctionImporter {
                 IdentifierFactory.join(modulo, name),
             ),
         );
+    }
+
+    public increment(): number {
+        return ++this.sequence_;
     }
 }

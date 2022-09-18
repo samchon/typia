@@ -369,6 +369,7 @@ export namespace CheckerProgrammer {
                 trace: config.trace,
                 decoder: decode(project, config, importer),
             },
+            importer,
             config.joiner.array,
         );
     }
