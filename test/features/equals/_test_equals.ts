@@ -22,14 +22,16 @@ export function _test_equals<T extends object>(
     };
 }
 
-function spoil(elem: any): void {
-    if (Array.isArray(elem)) spoil_array(elem);
-    else if (typeof elem === "object" && elem !== null) spoil_object(elem);
+function spoil(input: any): void {
+    if (Array.isArray(input)) spoil_array(input);
+    else if (typeof input === "object" && input !== null) spoil_object(input);
 }
+
 function spoil_object(obj: any): void {
     obj.non_regular_type = "vulnerable";
     for (const value of Object.values(obj)) spoil(value);
 }
+
 function spoil_array(array: any): void {
     for (const child of array) spoil(child);
 }

@@ -50,7 +50,7 @@ export const test_validate_array_simple = _test_validate(
                     body: "something",
                 } as any,
             ];
-            return ["$input[0].hobbies"];
+            return ["$input[0].hobbies[1].name", "$input[0].hobbies[1].rank"];
         },
         (input) => {
             input[1] = null!;

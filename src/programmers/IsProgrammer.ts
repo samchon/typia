@@ -35,7 +35,7 @@ export namespace IsProgrammer {
                         : initial;
             },
             joiner: CheckerProgrammer.DEFAULT_JOINER(
-                options?.object || check_object(false),
+                options?.object || check_object(false)(true),
             ),
         };
     }
@@ -65,7 +65,7 @@ export namespace IsProgrammer {
                       expr,
                   ),
               )()
-            : check_object(false);
+            : check_object(false)(true);
 
         return CheckerProgrammer.generate(
             project,

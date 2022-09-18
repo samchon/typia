@@ -10,6 +10,8 @@ import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { check_array } from "./internal/check_array";
+import { check_everything } from "./internal/check_everything";
+import { check_object } from "./internal/check_object";
 
 export namespace ValidateProgrammer {
     export function generate(
@@ -57,8 +59,8 @@ export namespace ValidateProgrammer {
                                     trace: true,
                                     numeric: true,
                                     equals,
-                                    combiner: combine(equals),
-                                    joiner: join(equals),
+                                    combiner: combine(equals)(importer),
+                                    joiner: join(equals)(importer),
                                 },
                                 modulo,
                                 importer,
@@ -75,9 +77,14 @@ export namespace ValidateProgrammer {
     }
 }
 
-const combine: (equals: boolean) => CheckerProgrammer.IConfig.Combiner =
-    () => (explore) => {
+const combine: (
+    equals: boolean,
+) => (importer: FunctionImporter) => CheckerProgrammer.IConfig.Combiner =
+    (equals) => (importer) => (explore) => {
         const combiner = IsProgrammer.CONFIG({
+            object: equals
+                ? validate_object(importer)
+                : check_object(false)(false),
             numeric: true,
         }).combiner;
         if (explore.tracable === false && explore.from !== "top")
@@ -95,37 +102,70 @@ const combine: (equals: boolean) => CheckerProgrammer.IConfig.Combiner =
                     explore.source === "top"
                         ? ts.factory.createTrue()
                         : ts.factory.createIdentifier("exceptionable"),
-                    create_report_function(path, expected, input),
+                    create_report_function(
+                        ts.factory.createIdentifier(path),
+                        expected,
+                        input,
+                    ),
                 ],
             );
     };
 
-const join: (equals: boolean) => CheckerProgrammer.IConfig.IJoiner = () => ({
-    object: (entries) =>
-        create_array_every(
-            ts.factory.createArrayLiteralExpression(
-                entries.map((entry) => entry.expression),
-                true,
+const validate_object = (importer: FunctionImporter) =>
+    check_object(true)(false)((expr) =>
+        ts.factory.createLogicalOr(
+            ts.factory.createStrictEquality(
+                ts.factory.createFalse(),
+                ts.factory.createIdentifier("exceptionable"),
             ),
+            expr,
         ),
-    array: (input, arrow, tags) =>
-        check_array(
-            input,
-            arrow,
-            tags,
-            create_array_every(
-                ts.factory.createCallExpression(
-                    IdentifierFactory.join(input, "map"),
-                    undefined,
-                    [arrow],
+    )((expr) =>
+        ts.factory.createCallExpression(
+            ts.factory.createIdentifier("$pred"),
+            undefined,
+            [
+                expr,
+                ts.factory.createIdentifier("exceptionable"),
+                create_report_function(
+                    ts.factory.createAdd(
+                        ts.factory.createIdentifier("path"),
+                        ts.factory.createCallExpression(
+                            importer.use("join"),
+                            undefined,
+                            [ts.factory.createIdentifier("key")],
+                        ),
+                    ),
+                    "undefined",
+                    ts.factory.createIdentifier("value"),
+                ),
+            ],
+        ),
+    );
+
+const join: (
+    equals: boolean,
+) => (importer: FunctionImporter) => CheckerProgrammer.IConfig.IJoiner =
+    (equals: boolean) => (importer: FunctionImporter) => ({
+        object: equals ? validate_object(importer) : check_object(false)(false),
+        array: (input, arrow, tags) =>
+            check_array(
+                input,
+                arrow,
+                tags,
+                check_everything(
+                    ts.factory.createCallExpression(
+                        IdentifierFactory.join(input, "map"),
+                        undefined,
+                        [arrow],
+                    ),
                 ),
             ),
-        ),
-    tuple: (binaries) =>
-        create_array_every(
-            ts.factory.createArrayLiteralExpression(binaries, true),
-        ),
-});
+        tuple: (binaries) =>
+            check_everything(
+                ts.factory.createArrayLiteralExpression(binaries, true),
+            ),
+    });
 
 function create_output() {
     return ts.factory.createObjectLiteralExpression(
@@ -144,7 +184,7 @@ function create_output() {
 }
 
 function create_report_function(
-    path: string,
+    path: ts.Expression,
     expected: string,
     value: ts.Expression,
 ): ts.ArrowFunction {
@@ -156,10 +196,7 @@ function create_report_function(
         undefined,
         ts.factory.createObjectLiteralExpression(
             [
-                ts.factory.createPropertyAssignment(
-                    "path",
-                    ts.factory.createIdentifier(path),
-                ),
+                ts.factory.createPropertyAssignment("path", path),
                 ts.factory.createPropertyAssignment(
                     "expected",
                     ts.factory.createStringLiteral(expected),
@@ -168,32 +205,5 @@ function create_report_function(
             ],
             true,
         ),
-    );
-}
-
-function create_array_every(array: ts.Expression): ts.Expression {
-    return ts.factory.createCallExpression(
-        IdentifierFactory.join(array, "every"),
-        undefined,
-        [
-            ts.factory.createArrowFunction(
-                undefined,
-                undefined,
-                [
-                    ts.factory.createParameterDeclaration(
-                        undefined,
-                        undefined,
-                        undefined,
-                        "flag",
-                    ),
-                ],
-                undefined,
-                undefined,
-                ts.factory.createStrictEquality(
-                    ts.factory.createTrue(),
-                    ts.factory.createIdentifier("flag"),
-                ),
-            ),
-        ],
     );
 }
