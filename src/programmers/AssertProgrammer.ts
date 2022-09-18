@@ -7,11 +7,13 @@ import { IProject } from "../transformers/IProject";
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { check_object } from "./internal/check_object";
 
 export namespace AssertProgrammer {
     export function generate(
         project: IProject,
         modulo: ts.LeftHandSideExpression,
+        equals: boolean = false,
     ) {
         const importer = new FunctionImporter();
         return (type: ts.Type) =>
@@ -38,8 +40,13 @@ export namespace AssertProgrammer {
                                     unioners: "$au",
                                     trace: true,
                                     numeric: true,
-                                    combiner: combine(importer),
-                                    joiner: CheckerProgrammer.DEFAULT_JOINER(),
+                                    equals,
+                                    combiner: combine(equals)(importer),
+                                    joiner: CheckerProgrammer.DEFAULT_JOINER(
+                                        equals
+                                            ? assert_object(importer)
+                                            : check_object(false)(true),
+                                    ),
                                 },
                                 modulo,
                                 importer,
@@ -54,34 +61,69 @@ export namespace AssertProgrammer {
     }
 }
 
-function combine(
-    importer: FunctionImporter,
-): CheckerProgrammer.IConfig.Combiner {
-    return (explore: CheckerProgrammer.IExplore) => {
-        const combiner = IsProgrammer.CONFIG(true).combiner;
-        if (explore.tracable === false && explore.from !== "top")
-            return combiner(explore);
+const combine =
+    (equals: boolean) =>
+    (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner => {
+        return (explore: CheckerProgrammer.IExplore) => {
+            const combiner = IsProgrammer.CONFIG({
+                object: equals ? assert_object(importer) : undefined,
+                numeric: true,
+            }).combiner;
+            if (explore.tracable === false && explore.from !== "top")
+                return combiner(explore);
 
-        const path: string = explore.postfix
-            ? `path + ${explore.postfix}`
-            : "path";
-        return (logic) => (input, expressions, expected) =>
-            ts.factory.createCallExpression(
-                importer.use("predicate"),
-                [],
-                [
-                    combiner(explore)(logic)(input, expressions, expected),
-                    explore.source === "top"
-                        ? ts.factory.createTrue()
-                        : ts.factory.createIdentifier("exceptionable"),
-                    create_throw_function(path, expected, input),
-                ],
-            );
+            const path: string = explore.postfix
+                ? `path + ${explore.postfix}`
+                : "path";
+            return (logic) => (input, expressions, expected) =>
+                ts.factory.createCallExpression(
+                    importer.use("predicate"),
+                    [],
+                    [
+                        combiner(explore)(logic)(input, expressions, expected),
+                        explore.source === "top"
+                            ? ts.factory.createTrue()
+                            : ts.factory.createIdentifier("exceptionable"),
+                        create_throw_function(
+                            ts.factory.createIdentifier(path),
+                            expected,
+                            input,
+                        ),
+                    ],
+                );
+        };
     };
-}
+
+const assert_object = (importer: FunctionImporter) =>
+    check_object(true)(true)((expr) =>
+        ts.factory.createLogicalOr(
+            ts.factory.createStrictEquality(
+                ts.factory.createFalse(),
+                ts.factory.createIdentifier("exceptionable"),
+            ),
+            expr,
+        ),
+    )((expr) =>
+        ts.factory.createCallExpression(importer.use("predicate"), undefined, [
+            expr,
+            ts.factory.createIdentifier("exceptionable"),
+            create_throw_function(
+                ts.factory.createAdd(
+                    ts.factory.createIdentifier("path"),
+                    ts.factory.createCallExpression(
+                        importer.use("join"),
+                        undefined,
+                        [ts.factory.createIdentifier("key")],
+                    ),
+                ),
+                "undefined",
+                ts.factory.createIdentifier("value"),
+            ),
+        ]),
+    );
 
 function create_throw_function(
-    path: string,
+    path: ts.Expression,
     expected: string,
     value: ts.Expression,
 ): ts.ArrowFunction {
@@ -93,10 +135,7 @@ function create_throw_function(
         undefined,
         ts.factory.createObjectLiteralExpression(
             [
-                ts.factory.createPropertyAssignment(
-                    "path",
-                    ts.factory.createIdentifier(path),
-                ),
+                ts.factory.createPropertyAssignment("path", path),
                 ts.factory.createPropertyAssignment(
                     "expected",
                     ts.factory.createStringLiteral(expected),

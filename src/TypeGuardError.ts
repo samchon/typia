@@ -22,6 +22,7 @@ export class TypeGuardError extends Error {
         this.method = props.method;
         this.path = props.path;
         this.expected = props.expected;
+        this.value = props.value;
     }
 }
 export namespace TypeGuardError {
