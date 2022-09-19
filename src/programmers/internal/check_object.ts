@@ -15,7 +15,7 @@ export function check_object(
 ) => (
     halter: (expr: ts.CallExpression) => ts.Expression,
 ) => (
-    wrapper?: (expr: ts.CallExpression) => ts.Expression,
+    wrapper?: (expr: ts.Expression) => ts.Expression,
 ) => (entries: IExpressionEntry[]) => ts.Expression;
 
 export function check_object(equals: true | false) {
@@ -37,7 +37,7 @@ export function check_object(equals: true | false) {
         };
 }
 
-type Wrapper = (expr: ts.CallExpression) => ts.Expression;
+type Wrapper = (expr: ts.Expression) => ts.Expression;
 const reduce = (assert: boolean) => (expressions: ts.Expression[]) =>
     assert
         ? expressions.reduce((x, y) => ts.factory.createLogicalAnd(x, y))
