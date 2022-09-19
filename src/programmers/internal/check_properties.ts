@@ -8,13 +8,12 @@ import { check_everything } from "./check_everything";
 export const check_properties =
     (assert: boolean) =>
     (halter: (exp: ts.CallExpression) => ts.Expression) =>
-    (wrapper?: (exp: ts.CallExpression) => ts.Expression) =>
+    (wrapper?: (exp: ts.Expression) => ts.Expression) =>
     (entries: IExpressionEntry[]): ts.Expression => {
-        const func = wrapper ? "entries" : "keys";
         const criteria = ts.factory.createCallExpression(
             IdentifierFactory.join(
                 ts.factory.createCallExpression(
-                    ts.factory.createIdentifier(`Object.${func}`),
+                    ts.factory.createIdentifier("Object.entries"),
                     undefined,
                     [ts.factory.createIdentifier("input")],
                 ),
@@ -29,55 +28,59 @@ export const check_properties =
     };
 
 const check_property =
-    (wrapper?: (exp: ts.CallExpression) => ts.Expression) =>
+    (wrapper?: (exp: ts.Expression) => ts.Expression) =>
     (entries: IExpressionEntry[]) =>
         ts.factory.createArrowFunction(
             undefined,
             undefined,
             [
-                wrapper === undefined
-                    ? IdentifierFactory.parameter("key")
-                    : IdentifierFactory.parameter(
-                          ts.factory.createArrayBindingPattern([
-                              ts.factory.createBindingElement(
-                                  undefined,
-                                  undefined,
-                                  "key",
-                              ),
-                              ts.factory.createBindingElement(
-                                  undefined,
-                                  undefined,
-                                  "value",
-                              ),
-                          ]),
-                      ),
+                IdentifierFactory.parameter(
+                    ts.factory.createArrayBindingPattern([
+                        ts.factory.createBindingElement(
+                            undefined,
+                            undefined,
+                            "key",
+                        ),
+                        ts.factory.createBindingElement(
+                            undefined,
+                            undefined,
+                            "value",
+                        ),
+                    ]),
+                ),
             ],
             undefined,
             undefined,
             (wrapper || ((elem) => elem))(
-                ts.factory.createCallExpression(
-                    IdentifierFactory.join(
-                        ts.factory.createArrayLiteralExpression(
-                            entries.map((entry) =>
-                                ts.factory.createStringLiteral(entry.key),
-                            ),
-                        ),
-                        "some",
+                ts.factory.createLogicalOr(
+                    ts.factory.createStrictEquality(
+                        ts.factory.createIdentifier("undefined"),
+                        ts.factory.createIdentifier("value"),
                     ),
-                    undefined,
-                    [
-                        ts.factory.createArrowFunction(
-                            undefined,
-                            undefined,
-                            [IdentifierFactory.parameter("prop")],
-                            undefined,
-                            undefined,
-                            ts.factory.createStrictEquality(
-                                ts.factory.createIdentifier("key"),
-                                ts.factory.createIdentifier("prop"),
+                    ts.factory.createCallExpression(
+                        IdentifierFactory.join(
+                            ts.factory.createArrayLiteralExpression(
+                                entries.map((entry) =>
+                                    ts.factory.createStringLiteral(entry.key),
+                                ),
                             ),
+                            "some",
                         ),
-                    ],
+                        undefined,
+                        [
+                            ts.factory.createArrowFunction(
+                                undefined,
+                                undefined,
+                                [IdentifierFactory.parameter("prop")],
+                                undefined,
+                                undefined,
+                                ts.factory.createStrictEquality(
+                                    ts.factory.createIdentifier("key"),
+                                    ts.factory.createIdentifier("prop"),
+                                ),
+                            ),
+                        ],
+                    ),
                 ),
             ),
         );
