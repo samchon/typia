@@ -17,13 +17,17 @@ export namespace UnionPredicator {
         // PROPERTY MATRIX
         const matrix: Map<string, Array<MetadataProperty | null>> = new Map();
         for (const obj of targets)
-            for (const prop of obj.properties)
-                MapUtil.take(matrix, prop.name, () =>
-                    ArrayUtil.repeat(targets.length, () => null),
-                );
+            for (const prop of obj.properties) {
+                const key: string | null = prop.key.getSoleLiteral();
+                if (key !== null)
+                    MapUtil.take(matrix, key, () =>
+                        ArrayUtil.repeat(targets.length, () => null),
+                    );
+            }
         targets.forEach((obj, i) => {
             for (const prop of obj.properties) {
-                matrix.get(prop.name)![i] = prop;
+                const key: string | null = prop.key.getSoleLiteral();
+                if (key !== null) matrix.get(key)![i] = prop;
             }
         });
 
@@ -33,11 +37,13 @@ export namespace UnionPredicator {
             const children: ISpecializedProperty[] = [];
             obj.properties.forEach((prop) => {
                 // MUST BE REQUIRED
-                if (prop.metadata.required === false) return;
+                if (prop.value.required === false) return;
+                const key: string | null = prop.key.getSoleLiteral();
+                if (key === null) return;
 
                 // FIND NEIGHBORHOOD PROPERTIES
                 const neighbors: MetadataProperty[] = matrix
-                    .get(prop.name)!
+                    .get(key)!
                     .filter(
                         (oppo, k) => i !== k && oppo !== null,
                     ) as MetadataProperty[];
@@ -46,12 +52,7 @@ export namespace UnionPredicator {
                 const unique: boolean =
                     neighbors.length === 0 ||
                     neighbors.every(
-                        (n) =>
-                            !Metadata.intersects(
-                                prop.metadata,
-                                n.metadata,
-                                false,
-                            ),
+                        (n) => !Metadata.intersects(prop.value, n.value, false),
                     );
                 if (unique === true)
                     children.push({
@@ -62,9 +63,8 @@ export namespace UnionPredicator {
             if (children.length === 0) return;
 
             const top: ISpecializedProperty =
-                children.find((child) =>
-                    child.property.metadata.isConstant(),
-                ) || children[0]!;
+                children.find((child) => child.property.value.isConstant()) ||
+                children[0]!;
             output.push({
                 index: i,
                 object: obj,

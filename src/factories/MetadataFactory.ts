@@ -13,6 +13,7 @@ import { CommentFactory } from "./CommentFactory";
 import { MetadataCollection } from "./MetadataCollection";
 import { MetadataTagFactory } from "./MetadataTagFactory";
 import { TypeFactory } from "./TypeFactory";
+import { MetadataHelper } from "./internal/MetadataHelper";
 
 export namespace MetadataFactory {
     export interface IOptions {
@@ -40,10 +41,10 @@ export namespace MetadataFactory {
             object.recursive = object.properties.some(
                 (prop) =>
                     ArrayUtil.has(
-                        prop.metadata.objects,
+                        prop.value.objects,
                         (elem) => elem.name === object.name,
                     ) ||
-                    prop.metadata.arrays.some((meta) =>
+                    prop.value.arrays.some((meta) =>
                         ArrayUtil.has(
                             meta.objects,
                             (elem) => elem.name === object.name,
@@ -403,8 +404,8 @@ export namespace MetadataFactory {
 
             // ADD TO OBJECT PROPERTY
             const property = MetadataProperty.create({
-                name: key,
-                metadata: child,
+                key: MetadataHelper.literal_to_metadata(key),
+                value: child,
                 description:
                     CommentFactory.generate(
                         prop.getDocumentationComment(checker),

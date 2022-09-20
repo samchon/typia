@@ -21,11 +21,12 @@ export namespace StringifyJoiner {
             // GATHER PROPERTY EXNRESSIONS
             const expressions: ts.Expression[] = [];
             entries.forEach((entry, index) => {
+                const key: string | null = entry.key.getSoleLiteral();
+                if (key === null) return;
+
                 // BASE ELEMENTS
                 const base: ts.Expression[] = [
-                    ts.factory.createStringLiteral(
-                        `${JSON.stringify(entry.key)}:`,
-                    ),
+                    ts.factory.createStringLiteral(`${JSON.stringify(key)}:`),
                     entry.expression,
                 ];
                 if (index !== entries.length - 1 /* || recursive !== null*/)

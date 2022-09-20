@@ -60,9 +60,16 @@ const check_property =
                     ts.factory.createCallExpression(
                         IdentifierFactory.join(
                             ts.factory.createArrayLiteralExpression(
-                                entries.map((entry) =>
-                                    ts.factory.createStringLiteral(entry.key),
-                                ),
+                                entries
+                                    .filter(
+                                        (entry) =>
+                                            entry.key.getSoleLiteral() !== null,
+                                    )
+                                    .map((entry) =>
+                                        ts.factory.createStringLiteral(
+                                            entry.key.getSoleLiteral()!,
+                                        ),
+                                    ),
                             ),
                             "some",
                         ),
