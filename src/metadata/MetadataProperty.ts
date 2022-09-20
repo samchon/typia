@@ -7,8 +7,8 @@ import { Metadata } from "./Metadata";
 import { MetadataObject } from "./MetadataObject";
 
 export class MetadataProperty {
-    public readonly name: string;
-    public readonly metadata: Metadata;
+    public readonly key: Metadata;
+    public readonly value: Metadata;
     public readonly description: string | undefined;
     public readonly tags: IMetadataTag[];
     public readonly jsDocTags: IJsDocTagInfo[];
@@ -22,8 +22,8 @@ export class MetadataProperty {
     private constructor(
         props: Omit<ClassProperties<MetadataProperty>, "tags" | "jsDocTags">,
     ) {
-        this.name = props.name;
-        this.metadata = props.metadata;
+        this.key = props.key;
+        this.value = props.value;
         this.description = props.description;
         this.tags = [];
         this.jsDocTags = [];
@@ -46,8 +46,8 @@ export class MetadataProperty {
         objects: Map<string, MetadataObject>,
     ) {
         const obj = this.create({
-            name: property.name,
-            metadata: Metadata._From(property.metadata, objects),
+            key: Metadata._From(property.key, objects),
+            value: Metadata._From(property.value, objects),
             description: property.description,
         });
         obj.tags.push(...property.tags.slice());
@@ -57,8 +57,8 @@ export class MetadataProperty {
 
     public toJSON(): IMetadataProperty {
         return {
-            name: this.name,
-            metadata: this.metadata.toJSON(),
+            key: this.key.toJSON(),
+            value: this.value.toJSON(),
             description: this.description,
             tags: this.tags,
             jsDocTags: this.jsDocTags,

@@ -191,6 +191,20 @@ export class Metadata {
         const emended: number = this.constants.length ? size - 1 : size;
         return emended > 1;
     }
+
+    /**
+     * @internal
+     */
+    public getSoleLiteral(): string | null {
+        if (
+            this.size() === 1 &&
+            this.constants.length === 1 &&
+            this.constants[0]!.type === "string" &&
+            this.constants[0]!.values.length === 1
+        )
+            return this.constants[0]!.values[0] as string;
+        else return null;
+    }
 }
 export namespace Metadata {
     export function intersects(
