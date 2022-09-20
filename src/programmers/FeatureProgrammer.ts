@@ -184,29 +184,34 @@ export namespace FeatureProgrammer {
     function generate_object(config: IConfig) {
         return function (obj: MetadataObject) {
             const entries: IExpressionEntry[] = [];
+
+            // REGULAR PROPERTY
             for (const prop of obj.properties) {
-                const access = Escaper.variable(prop.name)
+                const key: string | null = prop.key.getSoleLiteral();
+                if (key === null) continue;
+
+                const access = Escaper.variable(key)
                     ? ts.factory.createPropertyAccessExpression(
                           ValueFactory.INPUT(),
-                          ts.factory.createIdentifier(prop.name),
+                          ts.factory.createIdentifier(key),
                       )
                     : ts.factory.createElementAccessExpression(
                           ValueFactory.INPUT(),
-                          ts.factory.createStringLiteral(prop.name),
+                          ts.factory.createStringLiteral(key),
                       );
 
                 entries.push({
                     input: access,
-                    key: prop.name,
-                    meta: prop.metadata,
+                    key: prop.key,
+                    meta: prop.value,
                     expression: config.decoder(
                         access,
-                        prop.metadata,
+                        prop.value,
                         {
                             tracable: config.trace,
                             source: "object",
                             from: "object",
-                            postfix: IdentifierFactory.postfix(prop.name),
+                            postfix: IdentifierFactory.postfix(key),
                         },
                         prop.tags,
                     ),

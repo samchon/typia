@@ -3,8 +3,8 @@ import { IMetadata } from "./IMetadata";
 import { IMetadataTag } from "./IMetadataTag";
 
 export interface IMetadataProperty {
-    name: string;
-    metadata: IMetadata;
+    key: IMetadata;
+    value: IMetadata;
     description?: string;
     tags: IMetadataTag[];
     jsDocTags: IJsDocTagInfo[];

@@ -1,9 +1,9 @@
 export namespace RandomGenerator {
-    const CHARACTERS = "abcdefghijklmnopqrstuvwxyz";
+    const ALPHABETS = "abcdefghijklmnopqrstuvwxyz";
 
     export function string(length: number = integer(3, 10)): string {
         return [...new Array(length)]
-            .map(() => CHARACTERS[integer(0, CHARACTERS.length - 1)])
+            .map(() => ALPHABETS[integer(0, ALPHABETS.length - 1)])
             .join("");
     }
 
