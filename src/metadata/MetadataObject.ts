@@ -93,7 +93,7 @@ export namespace MetadataObject {
     export function intersects(x: MetadataObject, y: MetadataObject): boolean {
         return x.properties.some(
             (prop) =>
-                y.properties.find((oppo) => prop.name === oppo.name) !==
+                y.properties.find((oppo) => prop.key === oppo.key) !==
                 undefined,
         );
     }
@@ -103,7 +103,7 @@ export namespace MetadataObject {
             x.properties.length >= y.properties.length &&
             x.properties.every(
                 (prop) =>
-                    y.properties.find((oppo) => prop.name === oppo.name) !==
+                    y.properties.find((oppo) => prop.key === oppo.key) !==
                     undefined,
             )
         );

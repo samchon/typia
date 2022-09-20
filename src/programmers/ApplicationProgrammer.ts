@@ -313,17 +313,20 @@ export namespace ApplicationProgrammer {
 
         for (const property of obj.properties) {
             if (
-                property.metadata.functional === true &&
-                property.metadata.nullable === false &&
-                property.metadata.required === true &&
-                property.metadata.size() === 0
+                property.value.functional === true &&
+                property.value.nullable === false &&
+                property.value.required === true &&
+                property.value.size() === 0
             )
                 continue;
 
-            properties[property.name] = generate_schema(
+            const key: string | null = property.key.getSoleLiteral();
+            if (key === null) continue;
+
+            properties[key] = generate_schema(
                 options,
                 components,
-                property.metadata,
+                property.value,
                 {
                     description: property.description,
                     metaTags: property.tags.length ? property.tags : undefined,
@@ -332,8 +335,7 @@ export namespace ApplicationProgrammer {
                         : undefined,
                 },
             );
-            if (property.metadata.required === true)
-                required.push(property.name);
+            if (property.value.required === true) required.push(key);
         }
 
         const schema: IJsonComponents.IObject = {

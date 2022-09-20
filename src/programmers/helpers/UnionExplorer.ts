@@ -65,32 +65,33 @@ export namespace UnionExplorer {
             );
 
             // DO SPECIALIZE
-            const conditions: ts.IfStatement[] = specList.map((spec) => {
-                const accessor: ts.Expression = IdentifierFactory.join(
-                    input,
-                    spec.property.name,
-                );
-                const pred: ts.Expression = spec.neighbour
-                    ? checker(
-                          accessor,
-                          spec.property.metadata,
-                          {
-                              ...explore,
-                              tracable: false,
-                              postfix: IdentifierFactory.postfix(
-                                  spec.property.name,
-                              ),
-                          },
-                          tags,
-                      )
-                    : ExpressionFactory.isRequired(accessor);
-                return ts.factory.createIfStatement(
-                    pred,
-                    ts.factory.createReturnStatement(
-                        decoder(input, spec.object, explore, tags),
-                    ),
-                );
-            });
+            const conditions: ts.IfStatement[] = specList
+                .filter((spec) => spec.property.key.getSoleLiteral() !== null)
+                .map((spec) => {
+                    const key: string = spec.property.key.getSoleLiteral()!;
+                    const accessor: ts.Expression = IdentifierFactory.join(
+                        input,
+                        key,
+                    );
+                    const pred: ts.Expression = spec.neighbour
+                        ? checker(
+                              accessor,
+                              spec.property.value,
+                              {
+                                  ...explore,
+                                  tracable: false,
+                                  postfix: IdentifierFactory.postfix(key),
+                              },
+                              tags,
+                          )
+                        : ExpressionFactory.isRequired(accessor);
+                    return ts.factory.createIfStatement(
+                        pred,
+                        ts.factory.createReturnStatement(
+                            decoder(input, spec.object, explore, tags),
+                        ),
+                    );
+                });
 
             // RETURNS WITH CONDITIONS
             return ts.factory.createCallExpression(
