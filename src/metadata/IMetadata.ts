@@ -10,6 +10,7 @@ export interface IMetadata {
 
     atomics: Atomic.Literal[];
     constants: IMetadataConstant[];
+    templates: IMetadata[][];
     resolved: IMetadata | null;
 
     arrays: IMetadata[];
