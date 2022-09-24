@@ -10,6 +10,7 @@ import { iterate_metadata_coalesce } from "./iterate_metadata_coalesce";
 import { iterate_metadata_constant } from "./iterate_metadata_constant";
 import { iterate_metadata_object } from "./iterate_metadata_object";
 import { iterate_metadata_resolve } from "./iterate_metadata_resolve";
+import { iterate_metadata_template } from "./iterate_metadata_template";
 import { iterate_metadata_tuple } from "./iterate_metadata_tuple";
 import { iterate_metadata_union } from "./iterate_metadata_union";
 
@@ -48,6 +49,10 @@ export const iterate_metadata =
 
         iterate_metadata_coalesce(meta, type) ||
             iterate_metadata_constant(checker)(options)(meta, type) ||
+            iterate_metadata_template(checker)(options)(collection)(
+                meta,
+                type,
+            ) ||
             iterate_metadata_atomic(meta, type) ||
             iterate_metadata_tuple(checker)(options)(collection)(meta, type) ||
             iterate_metadata_array(checker)(options)(collection)(meta, type) ||
