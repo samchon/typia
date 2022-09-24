@@ -17,6 +17,7 @@ export * from "./schemas/IJsonApplication";
 export * from "./schemas/IJsonComponents";
 export * from "./schemas/IJsonSchema";
 export * from "./TypeGuardError";
+export * from "./IValidation";
 
 /* -----------------------------------------------------------
     BASIC VALIDATORS

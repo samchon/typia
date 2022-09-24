@@ -3,23 +3,23 @@ import { IMetadataTag } from "../metadata/IMetadataTag";
 
 import { Atomic } from "../typings/Atomic";
 
-export type IJsonSchema =
-    | IJsonSchema.IEnumeration<"boolean">
-    | IJsonSchema.IEnumeration<"number">
-    | IJsonSchema.IEnumeration<"bigint">
-    | IJsonSchema.IEnumeration<"string">
-    | IJsonSchema.IBoolean
-    | IJsonSchema.INumber
-    | IJsonSchema.IBigInt
-    | IJsonSchema.IString
-    | IJsonSchema.IArray
-    | IJsonSchema.ITuple
-    | IJsonSchema.IReference
-    | IJsonSchema.IRecursiveReference
-    | IJsonSchema.IOneOf
-    | IJsonSchema.IUnkown;
-
+export type IJsonSchema = IJsonSchema.NotUnknown | IJsonSchema.IUnkown;
 export namespace IJsonSchema {
+    export type NotUnknown =
+        | IEnumeration<"boolean">
+        | IEnumeration<"number">
+        | IEnumeration<"bigint">
+        | IEnumeration<"string">
+        | IBoolean
+        | INumber
+        | IBigInt
+        | IString
+        | IArray
+        | ITuple
+        | IOneOf
+        | IReference
+        | IRecursiveReference;
+
     export interface IEnumeration<Type extends Atomic.Literal>
         extends IAtomic<Type> {
         enum: Array<Atomic.Mapper[Type]>;
