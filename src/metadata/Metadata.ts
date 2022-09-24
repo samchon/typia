@@ -16,6 +16,7 @@ export class Metadata {
     public readonly resolved: Metadata | null;
     public readonly atomics: Atomic.Literal[];
     public readonly constants: MetadataConstant[];
+    public readonly templates: Metadata[][];
 
     public readonly arrays: Metadata[];
     public readonly tuples: Metadata[][];
@@ -46,6 +47,8 @@ export class Metadata {
         this.resolved = props.resolved;
         this.atomics = props.atomics;
         this.constants = props.constants;
+        this.templates = props.templates;
+
         this.arrays = props.arrays;
         this.tuples = props.tuples;
         this.objects = props.objects;
@@ -71,6 +74,7 @@ export class Metadata {
             resolved: null,
             constants: [],
             atomics: [],
+            templates: [],
             arrays: [],
             tuples: [],
             objects: [],
@@ -86,8 +90,11 @@ export class Metadata {
 
             atomics: this.atomics.slice(),
             constants: JSON.parse(JSON.stringify(this.constants)),
-
+            templates: this.templates.map((tpl) =>
+                tpl.map((meta) => meta.toJSON()),
+            ),
             resolved: this.resolved ? this.resolved.toJSON() : null,
+
             arrays: this.arrays.map((meta) => meta.toJSON()),
             tuples: this.tuples.map((meta) =>
                 meta.map((meta) => meta.toJSON()),
@@ -125,9 +132,12 @@ export class Metadata {
             nullable: meta.nullable,
             functional: meta.functional,
 
-            resolved: meta.resolved ? this._From(meta.resolved, objects) : null,
-            atomics: meta.atomics.slice(),
             constants: JSON.parse(JSON.stringify(meta.constants)),
+            atomics: meta.atomics.slice(),
+            templates: meta.templates.map((tpl) =>
+                tpl.map((meta) => this._From(meta, objects)),
+            ),
+            resolved: meta.resolved ? this._From(meta.resolved, objects) : null,
 
             arrays: meta.arrays.map((meta) => this._From(meta, objects)),
             tuples: meta.tuples.map((tuple) =>
