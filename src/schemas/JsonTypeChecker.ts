@@ -8,6 +8,9 @@ import { IJsonSchema } from "./IJsonSchema";
 export class JsonTypeChecker {
     public constructor(public readonly application: IJsonApplication) {}
 
+    /* -----------------------------------------------------------
+        GETTERS
+    ----------------------------------------------------------- */
     public getObject(key: string): IJsonComponents.IObject | undefined;
     public getObject(schema: IJsonSchema.IReference): IJsonComponents.IObject;
     public getObject(
@@ -43,14 +46,17 @@ export class JsonTypeChecker {
         return found;
     }
 
+    /* -----------------------------------------------------------
+        SPECIALIZERS
+    ----------------------------------------------------------- */
     public isOneOf(schema: IJsonSchema): schema is IJsonSchema.IOneOf;
     public isOneOf(schema: IJsonSchema.IOneOf): boolean {
         return Array.isArray(schema.oneOf);
     }
 
-    public isUnknown(schema: IJsonSchema): schema is IJsonSchema.IUnkown;
-    public isUnknown(schema: IJsonSchema.IUnkown): boolean {
-        return Object.keys(schema).length === 0;
+    public isNotUnknown(schema: IJsonSchema): schema is IJsonSchema.NotUnknown;
+    public isNotUnknown(schema: IJsonSchema.IUnkown): boolean {
+        return Object.keys(schema).length !== 0;
     }
 
     public isAtomic(
@@ -111,5 +117,61 @@ export class JsonTypeChecker {
         schema: IJsonSchema.IRecursiveReference,
     ): schema is IJsonSchema.IRecursiveReference {
         return schema.$recursiveRef !== undefined;
+    }
+
+    /* -----------------------------------------------------------
+        PREDICATORS
+    ----------------------------------------------------------- */
+    public intersects(x: IJsonSchema, y: IJsonSchema): boolean {
+        // WHEN ANY TYPE
+        if (!this.isNotUnknown(x) || !this.isNotUnknown(y)) return true;
+
+        // ITERATE UNION TYPES
+        if (this.isOneOf(x)) return x.oneOf.some((x) => this.intersects(x, y));
+        else if (this.isOneOf(y))
+            return y.oneOf.some((y) => this.intersects(x, y));
+
+        // OBJECT TYPE
+        if (
+            (this.isReference(x) || this.isRecursiveReference(x)) !==
+            (this.isRecursiveReference(y) || this.isRecursiveReference(y))
+        )
+            return false;
+        else if (
+            this.isReference(x) ||
+            this.isRecursiveReference(x) ||
+            this.isReference(y) ||
+            this.isRecursiveReference(y)
+        )
+            return this._Intersects_of_objects(
+                this.getObject(x as any)!,
+                this.getObject(y as any)!,
+            );
+        else if (x.nullable === true && y.nullable === true) return true;
+        else if (x.type !== y.type) return false;
+
+        // ARRAY OR TUPLE TYPE
+        if (this.isArray(x) !== this.isArray(y)) return false;
+        else if (this.isArray(x) && this.isArray(y))
+            return this.intersects(x.items, y.items);
+        else if (this.isTuple(x) !== this.isTuple(y)) return false;
+        else if (this.isTuple(x) && this.isTuple(y))
+            return x.items.some((a) =>
+                y.items.some((b) => this.intersects(a, b)),
+            );
+
+        // ATOMIC OR LITERAL TYPE
+        if (!this.isEnumeration(x) || !this.isEnumeration(y)) return true;
+        return x.enum.some((a) => y.enum.some((b) => a === b));
+    }
+
+    private _Intersects_of_objects(
+        x: IJsonComponents.IObject,
+        y: IJsonComponents.IObject,
+    ): boolean {
+        if (x.nullable === true && true === y.nullable) return true;
+        return Object.keys(x).some((xk) =>
+            Object.keys(y).some((yk) => xk === yk),
+        );
     }
 }
