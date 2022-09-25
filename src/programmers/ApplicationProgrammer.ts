@@ -9,6 +9,8 @@ import { IJsonSchema } from "../schemas/IJsonSchema";
 
 import { ArrayUtil } from "../utils/ArrayUtil";
 
+import { template_to_pattern } from "./internal/template_to_pattern";
+
 export namespace ApplicationProgrammer {
     export const AJV_PREFIX = "components#/schemas";
     export const SWAGGER_PREFIX = "#/components/schemas";
@@ -67,8 +69,19 @@ export namespace ApplicationProgrammer {
 
         const oneOf: IJsonSchema[] = [];
         if (meta.any === true) return {};
-        for (const constant of meta.constants)
+        if (meta.templates.length)
+            oneOf.push(
+                generate_templates(
+                    meta.templates,
+                    meta.constants.find((c) => c.type === "string"),
+                    meta.nullable,
+                    attribute,
+                ),
+            );
+        for (const constant of meta.constants) {
+            if (constant.type === "string" && meta.templates.length) continue;
             oneOf.push(generate_constant(constant, meta.nullable, attribute));
+        }
         for (const type of meta.atomics)
             oneOf.push(
                 type === "string"
@@ -199,6 +212,25 @@ export namespace ApplicationProgrammer {
                 delete output.exclusiveMinimum;
                 output.maximum = 0;
             }
+        return output;
+    }
+
+    function generate_templates(
+        templates: Metadata[][],
+        constant: MetadataConstant | undefined,
+        nullable: boolean,
+        attribute: IAttribute,
+    ): IJsonSchema.IString {
+        const output: IJsonSchema.IString = generate_atomic(
+            "string",
+            nullable,
+            attribute,
+        );
+        const patterns = templates.map((tpl) => template_to_pattern(tpl));
+        if (constant) patterns.push(...(constant.values as string[]));
+
+        output.pattern =
+            "/" + patterns.map((str) => `(${str})`).join("|") + "/";
         return output;
     }
 
