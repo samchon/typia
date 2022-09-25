@@ -169,6 +169,7 @@ export class Metadata {
         return (
             (this.resolved ? 1 : 0) +
             (this.functional ? 1 : 0) +
+            this.templates.length +
             this.atomics.length +
             this.constants
                 .map((c) => c.values.length)
@@ -182,6 +183,7 @@ export class Metadata {
         return (
             (this.resolved ? 1 : 0) +
             (this.functional ? 1 : 0) +
+            (this.templates.length ? 1 : 0) +
             (this.atomics.length ? 1 : 0) +
             (this.constants.length ? 1 : 0) +
             (this.arrays.length ? 1 : 0) +
@@ -355,10 +357,26 @@ function getName(metadata: Metadata): string {
     if (metadata.required === false) elements.push("undefined");
 
     // ATOMIC
-    for (const type of metadata.atomics) elements.push(type);
+    for (const type of metadata.atomics) {
+        elements.push(type);
+    }
     for (const constant of metadata.constants)
         for (const value of constant.values)
             elements.push(JSON.stringify(value));
+    for (const template of metadata.templates)
+        elements.push(
+            "`" +
+                template
+                    .map((child) =>
+                        child.isConstant() && child.size() === 1
+                            ? child.constants[0]!.values[0]!
+                            : `$\{${child.getName()}\}`,
+                    )
+                    .join("")
+                    .split("`")
+                    .join("\\`") +
+                "`",
+        );
 
     // ARRAY
     for (const tuple of metadata.tuples)
