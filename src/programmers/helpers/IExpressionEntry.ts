@@ -4,7 +4,7 @@ import { Metadata } from "../../metadata/Metadata";
 
 export interface IExpressionEntry {
     input: ts.Expression;
-    key: string;
+    key: Metadata;
     meta: Metadata;
     expression: ts.Expression;
 }

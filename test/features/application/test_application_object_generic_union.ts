@@ -10,17 +10,17 @@ export const test_application_object_generic_union = _test_application(
             {
                 oneOf: [
                     {
-                        $ref: "#/components/schemas/ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
+                        $ref: "#/components/schemas/ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
                     },
                     {
-                        $ref: "#/components/schemas/ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
+                        $ref: "#/components/schemas/ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
                     },
                 ],
             },
         ],
         components: {
             schemas: {
-                "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_":
+                "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_":
                     {
                         type: "object",
                         properties: {
@@ -42,7 +42,7 @@ export const test_application_object_generic_union = _test_application(
                             contents: {
                                 type: "array",
                                 items: {
-                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
+                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
                                 },
                                 nullable: false,
                             },
@@ -141,6 +141,48 @@ export const test_application_object_generic_union = _test_application(
                     required: ["name", "url", "extension"],
                     jsDocTags: [],
                 },
+                "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_":
+                    {
+                        type: "object",
+                        properties: {
+                            writer: {
+                                type: "string",
+                                nullable: false,
+                            },
+                            answer: {
+                                $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
+                            },
+                            id: {
+                                type: "string",
+                                nullable: false,
+                            },
+                            hit: {
+                                type: "number",
+                                nullable: false,
+                            },
+                            contents: {
+                                type: "array",
+                                items: {
+                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
+                                },
+                                nullable: false,
+                            },
+                            created_at: {
+                                type: "string",
+                                nullable: false,
+                            },
+                        },
+                        nullable: false,
+                        required: [
+                            "writer",
+                            "answer",
+                            "id",
+                            "hit",
+                            "contents",
+                            "created_at",
+                        ],
+                        jsDocTags: [],
+                    },
                 "ObjectGenericUnion.ISaleReview.IContent": {
                     type: "object",
                     properties: {
@@ -183,48 +225,6 @@ export const test_application_object_generic_union = _test_application(
                     ],
                     jsDocTags: [],
                 },
-                "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_":
-                    {
-                        type: "object",
-                        properties: {
-                            writer: {
-                                type: "string",
-                                nullable: false,
-                            },
-                            answer: {
-                                $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
-                            },
-                            id: {
-                                type: "string",
-                                nullable: false,
-                            },
-                            hit: {
-                                type: "number",
-                                nullable: false,
-                            },
-                            contents: {
-                                type: "array",
-                                items: {
-                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
-                                },
-                                nullable: false,
-                            },
-                            created_at: {
-                                type: "string",
-                                nullable: false,
-                            },
-                        },
-                        nullable: false,
-                        required: [
-                            "writer",
-                            "answer",
-                            "id",
-                            "hit",
-                            "contents",
-                            "created_at",
-                        ],
-                        jsDocTags: [],
-                    },
             },
         },
         purpose: "swagger",

@@ -205,6 +205,7 @@ Components               | `TSON` | `T.IS` | `ajv` | `io-ts` | `C.V.`
 -------------------------|-------------------|-----------------|-------|---------|------------------
 **Easy to use**          | ✔                | ✔               | ❌    | ❌     | ❌ 
 [Additional Tags](https://github.com/samchon/typescript-json/#comment-tags)        | ✔                | ❌              | ✔     | ✔      | ✔
+[Template Literal Types](https://github.com/samchon/typescript-json/blob/master/test/structures/TemplateUnion.ts) | ✅               | ❌              | ❌    | ❌     | ❌
 [Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔                | ✔               | ✔     | ✔      | ✔
 [Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔                | ✔               | ❌    | ✔      | ✔
 [Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔                | ✔               | ✔     | ✔      | ✔

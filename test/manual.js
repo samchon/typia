@@ -7,6 +7,6 @@ runner.register({
     compiler: "ttypescript",
 });
 
-const program = require("./features/is/test_is_tag_tuple.ts");
+const program = require("./features/is/test_is_template_atomic.ts");
 for (const value of Object.values(program))
     if (typeof value === "function") value();
