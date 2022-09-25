@@ -33,10 +33,10 @@ export const test_application_object_nullable = _test_application(
                         similar: {
                             oneOf: [
                                 {
-                                    $ref: "#/components/schemas/ObjectNullable.IBrand.Nullable",
+                                    $ref: "#/components/schemas/ObjectNullable.IManufacturer.Nullable",
                                 },
                                 {
-                                    $ref: "#/components/schemas/ObjectNullable.IManufacturer.Nullable",
+                                    $ref: "#/components/schemas/ObjectNullable.IBrand.Nullable",
                                 },
                             ],
                         },

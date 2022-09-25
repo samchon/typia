@@ -163,7 +163,34 @@ export namespace StringifyProgrammer {
                     value: () => decode_functional(explore),
                 });
 
-            // ATOMICS AND CONSTANTS
+            // TEMPLATES
+            if (
+                meta.templates.length ||
+                ArrayUtil.has(meta.constants, (c) => c.type === "string")
+            )
+                if (!ArrayUtil.has(meta.atomics, (type) => type === "string")) {
+                    const partial = Metadata.initialize();
+                    partial.atomics.push("string"),
+                        unions.push({
+                            type: "template literal",
+                            is: () =>
+                                IsProgrammer.decode(project, importer)(
+                                    input,
+                                    partial,
+                                    explore,
+                                    [],
+                                ),
+                            value: () =>
+                                decode_atomic(project, importer)(
+                                    input,
+                                    "string",
+                                    explore,
+                                    tags,
+                                ),
+                        });
+                }
+
+            // CONSTANTS
             for (const constant of meta.constants)
                 if (
                     ArrayUtil.has(
@@ -194,7 +221,7 @@ export namespace StringifyProgrammer {
                                 tags,
                             ),
                     });
-                else
+                else if (meta.templates.length === 0)
                     unions.push({
                         type: "const string",
                         is: () =>

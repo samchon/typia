@@ -10,16 +10,46 @@ export const test_application_tag_object_union = _test_application(
             {
                 oneOf: [
                     {
-                        $ref: "#/components/schemas/TagObjectUnion.Literal",
+                        $ref: "#/components/schemas/TagObjectUnion.Numeric",
                     },
                     {
-                        $ref: "#/components/schemas/TagObjectUnion.Numeric",
+                        $ref: "#/components/schemas/TagObjectUnion.Literal",
                     },
                 ],
             },
         ],
         components: {
             schemas: {
+                "TagObjectUnion.Numeric": {
+                    type: "object",
+                    properties: {
+                        value: {
+                            type: "number",
+                            nullable: false,
+                            metaTags: [
+                                {
+                                    kind: "minimum",
+                                    value: 3,
+                                },
+                            ],
+                            jsDocTags: [
+                                {
+                                    name: "minimum",
+                                    text: [
+                                        {
+                                            text: "3",
+                                            kind: "text",
+                                        },
+                                    ],
+                                },
+                            ],
+                            minimum: 3,
+                        },
+                    },
+                    nullable: false,
+                    required: ["value"],
+                    jsDocTags: [],
+                },
                 "TagObjectUnion.Literal": {
                     type: "object",
                     properties: {
@@ -52,36 +82,6 @@ export const test_application_tag_object_union = _test_application(
                             ],
                             minLength: 3,
                             maxLength: 7,
-                        },
-                    },
-                    nullable: false,
-                    required: ["value"],
-                    jsDocTags: [],
-                },
-                "TagObjectUnion.Numeric": {
-                    type: "object",
-                    properties: {
-                        value: {
-                            type: "number",
-                            nullable: false,
-                            metaTags: [
-                                {
-                                    kind: "minimum",
-                                    value: 3,
-                                },
-                            ],
-                            jsDocTags: [
-                                {
-                                    name: "minimum",
-                                    text: [
-                                        {
-                                            text: "3",
-                                            kind: "text",
-                                        },
-                                    ],
-                                },
-                            ],
-                            minimum: 3,
                         },
                     },
                     nullable: false,

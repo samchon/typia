@@ -257,10 +257,10 @@ export const test_application_array_recursive_union_explicit =
                                         $ref: "#/components/schemas/ArrayRecursiveUnionExplicit.IZipFile",
                                     },
                                     {
-                                        $ref: "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut",
+                                        $ref: "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory",
                                     },
                                     {
-                                        $ref: "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory",
+                                        $ref: "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut",
                                     },
                                 ],
                             },
