@@ -16,6 +16,7 @@ export class Metadata {
     public readonly resolved: Metadata | null;
     public readonly atomics: Atomic.Literal[];
     public readonly constants: MetadataConstant[];
+    public readonly templates: Metadata[][];
 
     public readonly arrays: Metadata[];
     public readonly tuples: Metadata[][];
@@ -46,6 +47,8 @@ export class Metadata {
         this.resolved = props.resolved;
         this.atomics = props.atomics;
         this.constants = props.constants;
+        this.templates = props.templates;
+
         this.arrays = props.arrays;
         this.tuples = props.tuples;
         this.objects = props.objects;
@@ -71,6 +74,7 @@ export class Metadata {
             resolved: null,
             constants: [],
             atomics: [],
+            templates: [],
             arrays: [],
             tuples: [],
             objects: [],
@@ -86,8 +90,11 @@ export class Metadata {
 
             atomics: this.atomics.slice(),
             constants: JSON.parse(JSON.stringify(this.constants)),
-
+            templates: this.templates.map((tpl) =>
+                tpl.map((meta) => meta.toJSON()),
+            ),
             resolved: this.resolved ? this.resolved.toJSON() : null,
+
             arrays: this.arrays.map((meta) => meta.toJSON()),
             tuples: this.tuples.map((meta) =>
                 meta.map((meta) => meta.toJSON()),
@@ -125,9 +132,12 @@ export class Metadata {
             nullable: meta.nullable,
             functional: meta.functional,
 
-            resolved: meta.resolved ? this._From(meta.resolved, objects) : null,
-            atomics: meta.atomics.slice(),
             constants: JSON.parse(JSON.stringify(meta.constants)),
+            atomics: meta.atomics.slice(),
+            templates: meta.templates.map((tpl) =>
+                tpl.map((meta) => this._From(meta, objects)),
+            ),
+            resolved: meta.resolved ? this._From(meta.resolved, objects) : null,
 
             arrays: meta.arrays.map((meta) => this._From(meta, objects)),
             tuples: meta.tuples.map((tuple) =>
@@ -159,6 +169,7 @@ export class Metadata {
         return (
             (this.resolved ? 1 : 0) +
             (this.functional ? 1 : 0) +
+            this.templates.length +
             this.atomics.length +
             this.constants
                 .map((c) => c.values.length)
@@ -172,6 +183,7 @@ export class Metadata {
         return (
             (this.resolved ? 1 : 0) +
             (this.functional ? 1 : 0) +
+            (this.templates.length ? 1 : 0) +
             (this.atomics.length ? 1 : 0) +
             (this.constants.length ? 1 : 0) +
             (this.arrays.length ? 1 : 0) +
@@ -190,6 +202,20 @@ export class Metadata {
         const size: number = this.bucket();
         const emended: number = this.constants.length ? size - 1 : size;
         return emended > 1;
+    }
+
+    /**
+     * @internal
+     */
+    public getSoleLiteral(): string | null {
+        if (
+            this.size() === 1 &&
+            this.constants.length === 1 &&
+            this.constants[0]!.type === "string" &&
+            this.constants[0]!.values.length === 1
+        )
+            return this.constants[0]!.values[0] as string;
+        else return null;
     }
 }
 export namespace Metadata {
@@ -331,10 +357,26 @@ function getName(metadata: Metadata): string {
     if (metadata.required === false) elements.push("undefined");
 
     // ATOMIC
-    for (const type of metadata.atomics) elements.push(type);
+    for (const type of metadata.atomics) {
+        elements.push(type);
+    }
     for (const constant of metadata.constants)
         for (const value of constant.values)
             elements.push(JSON.stringify(value));
+    for (const template of metadata.templates)
+        elements.push(
+            "`" +
+                template
+                    .map((child) =>
+                        child.isConstant() && child.size() === 1
+                            ? child.constants[0]!.values[0]!
+                            : `$\{${child.getName()}\}`,
+                    )
+                    .join("")
+                    .split("`")
+                    .join("\\`") +
+                "`",
+        );
 
     // ARRAY
     for (const tuple of metadata.tuples)

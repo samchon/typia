@@ -42,4 +42,8 @@ export namespace ArrayUtil {
             .fill("")
             .map((_, index) => closure(index, count));
     }
+
+    export function flat<T>(matrix: T[][]): T[] {
+        return ([] as T[]).concat(...matrix);
+    }
 }
