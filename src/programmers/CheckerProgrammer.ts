@@ -19,6 +19,7 @@ import { UnionExplorer } from "./helpers/UnionExplorer";
 import { check_array } from "./internal/check_array";
 import { check_number } from "./internal/check_number";
 import { check_string } from "./internal/check_string";
+import { check_template } from "./internal/check_template";
 import { decode_union_object } from "./internal/decode_union_object";
 
 export namespace CheckerProgrammer {
@@ -240,6 +241,12 @@ export namespace CheckerProgrammer {
                         ts.factory.createStringLiteral(type),
                         ValueFactory.TYPEOF(input),
                     );
+
+            // TEMPLATE LITERAL VALUES
+            if (meta.templates.length)
+                binaries.push(
+                    check_template(importer)(input, meta.templates, tags),
+                );
 
             //----
             // INSTANCES

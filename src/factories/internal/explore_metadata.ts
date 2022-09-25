@@ -63,6 +63,8 @@ export const explore_metadata =
             );
             if (index !== -1) meta.constants.splice(index, 1);
         }
+
+        // EMEND BOOLEAN
         {
             const index: number = meta.constants.findIndex(
                 (c) => c.type === "boolean",
@@ -76,6 +78,13 @@ export const explore_metadata =
                 );
             }
         }
+
+        // EMEND TEMPLATE
+        if (
+            meta.templates.length &&
+            meta.atomics.find((type) => type === "string") !== undefined
+        )
+            meta.templates.splice(0, meta.templates.length);
 
         // RETURNS
         return meta;
