@@ -46,7 +46,7 @@ const PARSER: Record<
         metadata: Metadata,
         text: string,
         output: IMetadataTag[],
-    ) => IMetadataTag
+    ) => IMetadataTag | null
 > = {
     /* -----------------------------------------------------------
         ARRAY
@@ -171,10 +171,11 @@ const PARSER: Record<
     ----------------------------------------------------------- */
     format: (identifier, metadata, value, output) => {
         validate(identifier, metadata, output, "format", "string", ["pattern"]);
-        if (FORMATS.has(value) === false)
-            throw new Error(
-                `${LABEL}: invalid format category on "${identifier()}".`,
-            );
+
+        // Ignore arbritary @format values in the internal metadata,
+        // these are currently only supported on the TSON.application() API.
+        if (FORMATS.has(value) === false) return null;
+
         return {
             kind: "format",
             value: value as "uuid",

@@ -243,6 +243,13 @@ export namespace ApplicationProgrammer {
             nullable,
             attribute,
         );
+        const formatJsdocTag = attribute.jsDocTags?.find(
+            (tag) => tag.name === "format",
+        );
+
+        if (formatJsdocTag?.text?.length)
+            output.format = formatJsdocTag?.text.map((t) => t.text).join(" ");
+
         for (const tag of attribute.metaTags || [])
             if (tag.kind === "minLength") output.minLength = tag.value;
             else if (tag.kind === "maxLength") output.maxLength = tag.value;

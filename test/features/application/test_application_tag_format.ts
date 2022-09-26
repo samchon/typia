@@ -130,9 +130,33 @@ export const test_application_tag_format = _test_application(
                             ],
                             format: "ipv6",
                         },
+                        custom: {
+                            type: "string",
+                            nullable: false,
+                            description: "A custom format string.",
+                            jsDocTags: [
+                                {
+                                    name: "format",
+                                    text: [
+                                        {
+                                            text: "my-custom-format",
+                                            kind: "text",
+                                        },
+                                    ],
+                                },
+                            ],
+                            format: "my-custom-format",
+                        },
                     },
                     nullable: false,
-                    required: ["uuid", "email", "url", "ipv4", "ipv6"],
+                    required: [
+                        "uuid",
+                        "email",
+                        "url",
+                        "ipv4",
+                        "ipv6",
+                        "custom",
+                    ],
                     jsDocTags: [],
                 },
             },
