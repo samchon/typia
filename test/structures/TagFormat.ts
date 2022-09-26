@@ -33,6 +33,13 @@ export interface TagFormat {
      * @format ipv6
      */
     ipv6: string;
+
+    /**
+     * A custom format string.
+     *
+     * @format my-custom-format
+     */
+    custom: string;
 }
 export namespace TagFormat {
     export function generate(): TagFormat {
@@ -42,6 +49,7 @@ export namespace TagFormat {
             url: "https://github.com/samchon/typescript-json",
             ipv4: "127.0.0.1",
             ipv6: "0:0:0:0:0:0:0:1",
+            custom: "2016-02-06",
         };
     }
 }
