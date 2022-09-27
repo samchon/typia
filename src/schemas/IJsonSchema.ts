@@ -20,14 +20,17 @@ export namespace IJsonSchema {
         | IReference
         | IRecursiveReference;
 
-    export interface IEnumeration<Type extends Atomic.Literal>
-        extends IAtomic<Type> {
-        enum: Array<Atomic.Mapper[Type]>;
+    /* -----------------------------------------------------------
+        ATOMICS
+    ----------------------------------------------------------- */
+    export interface IEnumeration<Literal extends Atomic.Literal>
+        extends ISignificant<Literal> {
+        enum: Array<Atomic.Mapper[Literal]>;
     }
-
-    export interface IAtomic<Type extends string> extends IBase {
-        type: Type;
+    export interface IAtomic<Literal extends Atomic.Literal> extends IBase {
+        type: Literal;
         nullable: boolean;
+        default?: Atomic.Mapper[Literal];
     }
     export interface IString extends IAtomic<"string"> {
         minLength?: number;
@@ -44,12 +47,15 @@ export namespace IJsonSchema {
     export interface IBoolean extends IAtomic<"boolean"> {}
     export interface IBigInt extends IAtomic<"bigint"> {}
 
-    export interface IArray extends IAtomic<"array"> {
+    /* -----------------------------------------------------------
+        OBJECTS
+    ----------------------------------------------------------- */
+    export interface IArray extends ISignificant<"array"> {
         items: IJsonSchema;
         minItems?: number;
         maxItems?: number;
     }
-    export interface ITuple extends IAtomic<"array"> {
+    export interface ITuple extends ISignificant<"array"> {
         items: IJsonSchema[];
     }
     export interface IReference extends IBase {
@@ -59,20 +65,26 @@ export namespace IJsonSchema {
         $recursiveRef: string;
     }
 
+    /* -----------------------------------------------------------
+        MISCELLANEOUS
+    ----------------------------------------------------------- */
     export interface IOneOf extends IBase {
         oneOf: IJsonSchema[];
     }
     export interface IUnkown {}
 
+    export interface ISignificant<Literal extends string> {
+        type: Literal;
+        nullable: boolean;
+    }
     interface IBase {
         description?: string;
         metaTags?: IMetadataTag[];
         jsDocTags?: IJsDocTagInfo[];
     }
 
-    // interface IBase {
-    //     description: string | undefined;
-    //     metaTags: IMetadataTag[] | undefined;
-    //     jsDocTags: IJsDocTagInfo[] | undefined;
-    // }
+    /**
+     * @internal
+     */
+    export type IAttribute = IBase;
 }

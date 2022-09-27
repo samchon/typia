@@ -7,6 +7,9 @@ import { IMetadataTag } from "../../metadata/IMetadataTag";
 import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { check_length } from "./check_length";
 
+/**
+ * @internal
+ */
 export const check_string_tags =
     (importer: FunctionImporter) =>
     (input: ts.Expression, tagList: IMetadataTag[]) => {

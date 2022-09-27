@@ -4,6 +4,9 @@ import { MetadataObject } from "../../metadata/MetadataObject";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 
+/**
+ * @internal
+ */
 export const decode_union_object =
     (
         checker: (

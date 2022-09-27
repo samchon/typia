@@ -7,8 +7,11 @@ import { IJsonApplication } from "../schemas/IJsonApplication";
 import { IJsonComponents } from "../schemas/IJsonComponents";
 import { IJsonSchema } from "../schemas/IJsonSchema";
 
+import { Atomic } from "../typings/Atomic";
+
 import { ArrayUtil } from "../utils/ArrayUtil";
 
+import { application_schema } from "./internal/application_schema";
 import { template_to_pattern } from "./internal/template_to_pattern";
 
 export namespace ApplicationProgrammer {
@@ -19,6 +22,10 @@ export namespace ApplicationProgrammer {
         purpose: "swagger" | "ajv";
         prefix: string;
     }
+
+    /**
+     * @internal
+     */
     export namespace IOptions {
         export function complement(options?: Partial<IOptions>): IOptions {
             const purpose: "swagger" | "ajv" = options?.purpose ?? "swagger";
@@ -41,9 +48,11 @@ export namespace ApplicationProgrammer {
         const components: IJsonComponents = {
             schemas: {},
         };
+        const schema = application_schema(complemented)(components);
+
         return {
             schemas: metadatas.map((meta) =>
-                generate_schema(complemented, components, meta, {
+                schema(meta, {
                     description: undefined,
                     metaTags: undefined,
                     jsDocTags: undefined,
@@ -52,6 +61,18 @@ export namespace ApplicationProgrammer {
             components,
             ...complemented,
         };
+
+        // return {
+        //     schemas: metadatas.map((meta) =>
+        //         generate_schema(complemented, components, meta, {
+        //             description: undefined,
+        //             metaTags: undefined,
+        //             jsDocTags: undefined,
+        //         }),
+        //     ),
+        //     components,
+        //     ...complemented,
+        // };
     }
 
     /* -----------------------------------------------------------
@@ -67,10 +88,10 @@ export namespace ApplicationProgrammer {
             return { type: "null", ...attribute };
         }
 
-        const oneOf: IJsonSchema[] = [];
+        const union: IJsonSchema[] = [];
         if (meta.any === true) return {};
         if (meta.templates.length)
-            oneOf.push(
+            union.push(
                 generate_templates(
                     meta.templates,
                     meta.constants.find((c) => c.type === "string"),
@@ -80,10 +101,10 @@ export namespace ApplicationProgrammer {
             );
         for (const constant of meta.constants) {
             if (constant.type === "string" && meta.templates.length) continue;
-            oneOf.push(generate_constant(constant, meta.nullable, attribute));
+            union.push(generate_constant(constant, meta.nullable, attribute));
         }
         for (const type of meta.atomics)
-            oneOf.push(
+            union.push(
                 type === "string"
                     ? generate_string(meta.nullable, attribute)
                     : type === "number"
@@ -102,10 +123,10 @@ export namespace ApplicationProgrammer {
                 options.purpose === "ajv" && obj.recursive
                     ? generate_recursive_pointer
                     : generate_pointer;
-            oneOf.push(generator(`${options.prefix}/${key}`, attribute));
+            union.push(generator(`${options.prefix}/${key}`, attribute));
         }
         for (const schema of meta.arrays.values())
-            oneOf.push(
+            union.push(
                 generate_array(
                     options,
                     components,
@@ -116,7 +137,7 @@ export namespace ApplicationProgrammer {
             );
         for (const items of meta.tuples)
             if (options.purpose === "ajv")
-                oneOf.push(
+                union.push(
                     generate_tuple(
                         options,
                         components,
@@ -129,7 +150,7 @@ export namespace ApplicationProgrammer {
                 const merged: Metadata = items.reduce((x, y) =>
                     merge_metadata(x, y),
                 );
-                oneOf.push(
+                union.push(
                     generate_array(
                         options,
                         components,
@@ -140,9 +161,12 @@ export namespace ApplicationProgrammer {
                 );
             }
 
-        if (oneOf.length === 0) return { ...attribute };
-        else if (oneOf.length === 1) return oneOf[0]!;
-        return { oneOf, ...attribute };
+        // ASSIGN DEFAULT TAG
+
+        // RETURNS
+        if (union.length === 0) return { ...attribute };
+        else if (union.length === 1) return union[0]!;
+        return { oneOf: union, ...attribute };
     }
 
     function generate_constant(
@@ -158,11 +182,11 @@ export namespace ApplicationProgrammer {
         };
     }
 
-    function generate_atomic<Type extends string>(
-        type: Type,
+    function generate_atomic<Literal extends Atomic.Literal>(
+        type: Literal,
         nullable: boolean,
         attribute: IAttribute,
-    ): IJsonSchema.IAtomic<Type> {
+    ): IJsonSchema.IAtomic<Literal> {
         return {
             type,
             nullable,
