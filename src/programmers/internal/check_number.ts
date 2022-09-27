@@ -6,6 +6,9 @@ import { IProject } from "../../transformers/IProject";
 
 import { OptionPreditor } from "../helpers/OptionPredicator";
 
+/**
+ * @internal
+ */
 export function check_number(project: IProject, numeric: boolean) {
     return function (input: ts.Expression, tagList: IMetadataTag[]) {
         // TYPEOF
