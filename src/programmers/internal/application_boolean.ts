@@ -1,6 +1,9 @@
 import { IJsonSchema } from "../../module";
 import { application_default } from "./application_default";
 
+/**
+ * @internal
+ */
 export const application_boolean = (
     nullable: boolean,
     attribute: IJsonSchema.IAttribute,

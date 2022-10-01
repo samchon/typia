@@ -1,5 +1,8 @@
 import { IJsonSchema } from "../../module";
 
+/**
+ * @internal
+ */
 export const application_default =
     (attribute: IJsonSchema.IAttribute) =>
     (pred: (value: string) => boolean) =>

@@ -29,9 +29,7 @@ export const application_templates = (
     output.pattern = "/" + patterns.map((str) => `(${str})`).join("|") + "/";
 
     // DEFAULT VALUE
-    output.default = application_default_string(meta, attribute)(output)(
-        (str) => RegExp(output.pattern!).test(str),
-    );
+    output.default = application_default_string(meta, attribute)(output);
 
     // RETURNS
     return output;
