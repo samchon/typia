@@ -6,6 +6,9 @@ import { IMetadataTag } from "../../metadata/IMetadataTag";
 
 import { check_length } from "./check_length";
 
+/**
+ * @internal
+ */
 export function check_array(
     input: ts.Expression,
     arrow: ts.ArrowFunction,

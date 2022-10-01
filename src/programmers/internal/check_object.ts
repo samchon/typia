@@ -4,10 +4,16 @@ import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { check_everything } from "./check_everything";
 import { check_properties } from "./check_properties";
 
+/**
+ * @internal
+ */
 export function check_object(
     equals: false,
 ): (assert: boolean) => (entries: IExpressionEntry[]) => ts.Expression;
 
+/**
+ * @internal
+ */
 export function check_object(
     equals: true,
 ): (
@@ -18,6 +24,9 @@ export function check_object(
     wrapper?: (expr: ts.Expression) => ts.Expression,
 ) => (entries: IExpressionEntry[]) => ts.Expression;
 
+/**
+ * @internal
+ */
 export function check_object(equals: true | false) {
     if (equals === false)
         return (assert: boolean) => (entries: IExpressionEntry[]) => {

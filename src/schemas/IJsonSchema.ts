@@ -20,14 +20,18 @@ export namespace IJsonSchema {
         | IReference
         | IRecursiveReference;
 
-    export interface IEnumeration<Type extends Atomic.Literal>
-        extends IAtomic<Type> {
-        enum: Array<Atomic.Mapper[Type]>;
+    /* -----------------------------------------------------------
+        ATOMICS
+    ----------------------------------------------------------- */
+    export interface IEnumeration<Literal extends Atomic.Literal>
+        extends IAtomic<Literal> {
+        enum: Array<Atomic.Mapper[Literal]>;
     }
-
-    export interface IAtomic<Type extends string> extends IBase {
-        type: Type;
+    export interface IAtomic<Literal extends Atomic.Literal>
+        extends IAttribute {
+        type: Literal;
         nullable: boolean;
+        default?: Atomic.Mapper[Literal];
     }
     export interface IString extends IAtomic<"string"> {
         minLength?: number;
@@ -44,35 +48,39 @@ export namespace IJsonSchema {
     export interface IBoolean extends IAtomic<"boolean"> {}
     export interface IBigInt extends IAtomic<"bigint"> {}
 
-    export interface IArray extends IAtomic<"array"> {
+    /* -----------------------------------------------------------
+        OBJECTS
+    ----------------------------------------------------------- */
+    export interface IArray extends ISignificant<"array"> {
         items: IJsonSchema;
         minItems?: number;
         maxItems?: number;
     }
-    export interface ITuple extends IAtomic<"array"> {
+    export interface ITuple extends ISignificant<"array"> {
         items: IJsonSchema[];
     }
-    export interface IReference extends IBase {
+    export interface IReference extends IAttribute {
         $ref: string;
     }
-    export interface IRecursiveReference extends IBase {
+    export interface IRecursiveReference extends IAttribute {
         $recursiveRef: string;
     }
 
-    export interface IOneOf extends IBase {
+    /* -----------------------------------------------------------
+        MISCELLANEOUS
+    ----------------------------------------------------------- */
+    export interface IOneOf extends IAttribute {
         oneOf: IJsonSchema[];
     }
     export interface IUnkown {}
 
-    interface IBase {
+    export interface ISignificant<Literal extends string> {
+        type: Literal;
+        nullable: boolean;
+    }
+    export interface IAttribute {
         description?: string;
         metaTags?: IMetadataTag[];
         jsDocTags?: IJsDocTagInfo[];
     }
-
-    // interface IBase {
-    //     description: string | undefined;
-    //     metaTags: IMetadataTag[] | undefined;
-    //     jsDocTags: IJsDocTagInfo[] | undefined;
-    // }
 }
