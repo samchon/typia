@@ -24,7 +24,7 @@ export namespace IJsonSchema {
         ATOMICS
     ----------------------------------------------------------- */
     export interface IEnumeration<Literal extends Atomic.Literal>
-        extends ISignificant<Literal> {
+        extends IAtomic<Literal> {
         enum: Array<Atomic.Mapper[Literal]>;
     }
     export interface IAtomic<Literal extends Atomic.Literal> extends IBase {
