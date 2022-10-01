@@ -7,6 +7,7 @@ import { ArrayUtil } from "../../utils/ArrayUtil";
 
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
 import { application_array } from "./application_array";
+import { application_boolean } from "./application_boolean";
 import { application_constant } from "./application_constant";
 import { application_number } from "./application_number";
 import { application_object } from "./application_object";
@@ -33,14 +34,7 @@ export const application_schema =
 
         // ATOMIC TYPES
         if (meta.templates.length) {
-            union.push(
-                application_templates(
-                    meta.templates,
-                    meta.constants.find((c) => c.type === "string"),
-                    meta.nullable,
-                    attribute,
-                ),
-            );
+            union.push(application_templates(meta, attribute));
         }
         for (const constant of meta.constants) {
             if (constant.type === "string" && meta.templates.length) continue;
@@ -51,14 +45,10 @@ export const application_schema =
         for (const type of meta.atomics) {
             union.push(
                 type === "string"
-                    ? application_string(meta.nullable, attribute)
+                    ? application_string(meta, attribute)
                     : type === "number"
                     ? application_number(meta.nullable, attribute)
-                    : {
-                          type: "boolean",
-                          nullable: meta.nullable,
-                          ...attribute,
-                      },
+                    : application_boolean(meta.nullable, attribute),
             );
         }
 

@@ -1,15 +1,18 @@
+import { Metadata } from "../../metadata/Metadata";
 import { IJsonSchema } from "../../schemas/IJsonSchema";
+
+import { application_default_string } from "./application_default_string";
 
 /**
  * @internal
  */
 export const application_string = (
-    nullable: boolean,
+    meta: Metadata,
     attribute: IJsonSchema.IAttribute,
 ): IJsonSchema.IString => {
     const output: IJsonSchema.IString = {
         type: "string",
-        nullable,
+        nullable: meta.nullable,
         ...attribute,
     };
 
@@ -38,5 +41,9 @@ export const application_string = (
         else if (tag.kind === "pattern") output.pattern = tag.value;
     }
 
+    // DEFAULT CONFIGURATION
+    output.default = application_default_string(meta, attribute)(output)();
+
+    // RETURNS
     return output;
 };

@@ -1,4 +1,5 @@
 import { IJsonSchema } from "../../module";
+import { application_default } from "./application_default";
 
 /**
  * @internal
@@ -50,5 +51,22 @@ export const application_number = (
             delete output.exclusiveMinimum;
             output.maximum = 0;
         }
+
+    // DEFAULT CONFIGURATION
+    output.default = application_default(attribute)((str) => {
+        const value: number = Number(str);
+        const conditions: boolean[] = [!Number.isNaN(value)];
+        if (output.minimum !== undefined)
+            conditions.push(value >= output.minimum);
+        if (output.maximum !== undefined)
+            conditions.push(value <= output.maximum);
+        if (output.exclusiveMinimum !== undefined)
+            conditions.push(value > output.exclusiveMinimum);
+        if (output.exclusiveMaximum !== undefined)
+            conditions.push(value < output.exclusiveMaximum);
+        return conditions.every((cond) => cond);
+    })((str) => Number(str));
+
+    // RETURNS
     return output;
 };
