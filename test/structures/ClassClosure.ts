@@ -4,7 +4,7 @@ export type ClassClosure = ClassClosure.Something;
 export namespace ClassClosure {
     export class Something {
         public constructor(public readonly id: string) {}
-        public readonly type: "something" = "something";
+        public readonly type: "something" = "something" as const;
         public readonly closure: () => string = () => `${this.type}:${this.id}`;
     }
 
