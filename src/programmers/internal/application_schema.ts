@@ -105,6 +105,9 @@ export const application_schema =
         return { oneOf: union, ...attribute };
     };
 
+/**
+ * @internal
+ */
 const reference = (
     $ref: string,
     attribute: IJsonSchema.IAttribute,
@@ -113,6 +116,9 @@ const reference = (
     ...attribute,
 });
 
+/**
+ * @internal
+ */
 const recursive = (
     $recursiveRef: string,
     attribute: IJsonSchema.IAttribute,
@@ -121,6 +127,9 @@ const recursive = (
     ...attribute,
 });
 
+/**
+ * @internal
+ */
 function merge_metadata(x: Metadata, y: Metadata): Metadata {
     const output: Metadata = Metadata.create({
         any: x.any || y.any,

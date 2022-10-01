@@ -27,7 +27,8 @@ export namespace IJsonSchema {
         extends IAtomic<Literal> {
         enum: Array<Atomic.Mapper[Literal]>;
     }
-    export interface IAtomic<Literal extends Atomic.Literal> extends IBase {
+    export interface IAtomic<Literal extends Atomic.Literal>
+        extends IAttribute {
         type: Literal;
         nullable: boolean;
         default?: Atomic.Mapper[Literal];
@@ -58,17 +59,17 @@ export namespace IJsonSchema {
     export interface ITuple extends ISignificant<"array"> {
         items: IJsonSchema[];
     }
-    export interface IReference extends IBase {
+    export interface IReference extends IAttribute {
         $ref: string;
     }
-    export interface IRecursiveReference extends IBase {
+    export interface IRecursiveReference extends IAttribute {
         $recursiveRef: string;
     }
 
     /* -----------------------------------------------------------
         MISCELLANEOUS
     ----------------------------------------------------------- */
-    export interface IOneOf extends IBase {
+    export interface IOneOf extends IAttribute {
         oneOf: IJsonSchema[];
     }
     export interface IUnkown {}
@@ -77,14 +78,9 @@ export namespace IJsonSchema {
         type: Literal;
         nullable: boolean;
     }
-    interface IBase {
+    export interface IAttribute {
         description?: string;
         metaTags?: IMetadataTag[];
         jsDocTags?: IJsDocTagInfo[];
     }
-
-    /**
-     * @internal
-     */
-    export type IAttribute = IBase;
 }

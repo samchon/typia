@@ -3,13 +3,14 @@ import { Metadata } from "../../metadata/Metadata";
 import { IJsonSchema } from "../../module";
 import { application_default } from "./application_default";
 
+/**
+ * @internal
+ */
 export const application_default_string =
     (meta: Metadata, attribute: IJsonSchema.IAttribute) =>
     (schema: IJsonSchema.IString) =>
-    (special?: (str: string) => boolean) =>
         application_default(attribute)((str) => {
             const conditions: boolean[] = [];
-            if (special) conditions.push(special(str));
 
             // OTHER ATOMIC TYPES
             if (meta.atomics.find((t) => t === "number" || t === "bigint"))
@@ -26,6 +27,10 @@ export const application_default_string =
             if (schema.maxLength !== undefined)
                 conditions.push(str.length <= schema.maxLength);
             if (schema.pattern !== undefined)
-                conditions.push(RegExp(schema.pattern).test(str));
+                conditions.push(
+                    new RegExp(
+                        schema.pattern.substring(1, schema.pattern.length - 1),
+                    ).test(str),
+                );
             return conditions.every((c) => c);
         })((str) => str);
