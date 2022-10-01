@@ -2,6 +2,9 @@ import { Metadata } from "../../metadata/Metadata";
 
 import { ArrayUtil } from "../../utils/ArrayUtil";
 
+/**
+ * @internal
+ */
 export const template_to_pattern = (template: Metadata[]) =>
     template
         .map((meta) => {

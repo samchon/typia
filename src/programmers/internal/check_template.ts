@@ -7,6 +7,9 @@ import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { check_string_tags } from "./check_string_tags";
 import { template_to_pattern } from "./template_to_pattern";
 
+/**
+ * @internal
+ */
 export const check_template =
     (importer: FunctionImporter) =>
     (

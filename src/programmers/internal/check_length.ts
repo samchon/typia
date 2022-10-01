@@ -2,6 +2,9 @@ import ts from "typescript";
 
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 
+/**
+ * @internal
+ */
 export function check_length(
     conditions: ts.Expression[],
     length: ts.Expression,

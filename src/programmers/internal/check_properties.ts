@@ -5,6 +5,9 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { check_everything } from "./check_everything";
 
+/**
+ * @internal
+ */
 export const check_properties =
     (assert: boolean) =>
     (halter: (exp: ts.CallExpression) => ts.Expression) =>
