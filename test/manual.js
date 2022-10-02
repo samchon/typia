@@ -7,6 +7,6 @@ runner.register({
     compiler: "ttypescript",
 });
 
-const program = require("./features/application/test_application_tag_format.ts");
+const program = require("./features/application/test_application_dynamic_composite.ts");
 for (const value of Object.values(program))
     if (typeof value === "function") value();
