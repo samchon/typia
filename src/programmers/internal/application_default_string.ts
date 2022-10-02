@@ -27,10 +27,6 @@ export const application_default_string =
             if (schema.maxLength !== undefined)
                 conditions.push(str.length <= schema.maxLength);
             if (schema.pattern !== undefined)
-                conditions.push(
-                    new RegExp(
-                        schema.pattern.substring(1, schema.pattern.length - 1),
-                    ).test(str),
-                );
+                conditions.push(new RegExp(schema.pattern).test(str));
             return conditions.every((c) => c);
         })((str) => str);
