@@ -25,8 +25,7 @@ export const application_templates = (
         (c) => c.type === "string",
     );
     if (constant) patterns.push(...(constant.values as string[]));
-
-    output.pattern = "/" + patterns.map((str) => `(${str})`).join("|") + "/";
+    output.pattern = patterns.map((str) => `(${str})`).join("|");
 
     // DEFAULT VALUE
     output.default = application_default_string(meta, attribute)(output);
