@@ -19,21 +19,19 @@ export class MetadataProperty {
     /**
      * @hidden
      */
-    private constructor(
-        props: Omit<ClassProperties<MetadataProperty>, "tags" | "jsDocTags">,
-    ) {
+    private constructor(props: ClassProperties<MetadataProperty>) {
         this.key = props.key;
         this.value = props.value;
         this.description = props.description;
-        this.tags = [];
-        this.jsDocTags = [];
+        this.tags = props.tags;
+        this.jsDocTags = props.jsDocTags;
     }
 
     /**
      * @internal
      */
     public static create(
-        props: Omit<ClassProperties<MetadataProperty>, "tags" | "jsDocTags">,
+        props: ClassProperties<MetadataProperty>,
     ): MetadataProperty {
         return new MetadataProperty(props);
     }
@@ -45,14 +43,13 @@ export class MetadataProperty {
         property: IMetadataProperty,
         objects: Map<string, MetadataObject>,
     ) {
-        const obj = this.create({
+        return this.create({
             key: Metadata._From(property.key, objects),
             value: Metadata._From(property.value, objects),
             description: property.description,
+            tags: property.tags.slice(),
+            jsDocTags: property.jsDocTags.slice(),
         });
-        obj.tags.push(...property.tags.slice());
-        obj.jsDocTags.push(...property.jsDocTags.slice());
-        return obj;
     }
 
     public toJSON(): IMetadataProperty {
