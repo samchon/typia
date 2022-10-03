@@ -94,7 +94,7 @@ export const test_application_tag_format = _test_application(
                                     ],
                                 },
                             ],
-                            pattern: "(prefix_(.*))",
+                            pattern: "^(prefix_(.*))",
                             default: "prefix_A",
                         },
                         boolean_and_number_and_string: {
@@ -474,7 +474,7 @@ export const test_application_tag_format = _test_application(
                                     ],
                                 },
                             ],
-                            pattern: "(prefix_(.*))",
+                            pattern: "^(prefix_(.*))",
                         },
                         boolean_and_number_and_template: {
                             oneOf: [
@@ -510,7 +510,8 @@ export const test_application_tag_format = _test_application(
                                             ],
                                         },
                                     ],
-                                    pattern: "(prefix_(.*))",
+                                    pattern:
+                                        "^(-?\\d+\\.?\\d*|true|false|(prefix_(.*)))",
                                     default: "prefix_B",
                                 },
                                 {

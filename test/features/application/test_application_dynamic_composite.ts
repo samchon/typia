@@ -26,19 +26,19 @@ export const test_application_dynamic_composite = _test_application(
                         },
                     },
                     patternProperties: {
-                        "-?\\d+\\.?\\d*": {
+                        "^-?\\d+\\.?\\d*$": {
                             type: "number",
                             nullable: false,
                         },
-                        "(prefix_(.*))": {
+                        "^(prefix_(.*))": {
                             type: "string",
                             nullable: false,
                         },
-                        "((.*)_postfix)": {
+                        "((.*)_postfix)$": {
                             type: "string",
                             nullable: false,
                         },
-                        "(value_-?\\d+\\.?\\d*)": {
+                        "^(value_-?\\d+\\.?\\d*)$": {
                             oneOf: [
                                 {
                                     type: "string",
@@ -54,7 +54,7 @@ export const test_application_dynamic_composite = _test_application(
                                 },
                             ],
                         },
-                        "(between_(.*)_and_-?\\d+\\.?\\d*)": {
+                        "^(between_(.*)_and_-?\\d+\\.?\\d*)$": {
                             type: "boolean",
                             nullable: false,
                         },
