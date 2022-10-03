@@ -1,44 +1,48 @@
 import TSON from "../../../src";
-import { TemplateUnion } from "../../structures/TemplateUnion";
+import { DynamicComposite } from "../../structures/DynamicComposite";
 import { _test_application } from "./_test_application";
 
-export const test_application_template_union = _test_application(
-    "pattern tag",
-    TSON.application<[TemplateUnion]>(),
+export const test_application_dynamic_composite = _test_application(
+    "dynamic composite",
+    TSON.application<[DynamicComposite]>(),
     {
         schemas: [
             {
-                $ref: "#/components/schemas/TemplateUnion",
+                $ref: "#/components/schemas/DynamicComposite",
             },
         ],
         components: {
             schemas: {
-                TemplateUnion: {
+                DynamicComposite: {
                     type: "object",
                     properties: {
-                        prefix: {
+                        id: {
                             type: "string",
                             nullable: false,
-                            pattern: "(prefix_(.*))|(prefix_-?\\d+\\.?\\d*)",
                         },
-                        postfix: {
+                        name: {
                             type: "string",
                             nullable: false,
-                            pattern: "((.*)_postfix)|(-?\\d+\\.?\\d*_postfix)",
                         },
-                        middle: {
+                    },
+                    patternProperties: {
+                        "-?\\d+\\.?\\d*": {
+                            type: "number",
+                            nullable: false,
+                        },
+                        "(prefix_(.*))": {
                             type: "string",
                             nullable: false,
-                            pattern:
-                                "(the_-?\\d+\\.?\\d*_value)|(the_false_value)|(the_true_value)",
                         },
-                        mixed: {
+                        "((.*)_postfix)": {
+                            type: "string",
+                            nullable: false,
+                        },
+                        "(value_-?\\d+\\.?\\d*)": {
                             oneOf: [
                                 {
                                     type: "string",
                                     nullable: false,
-                                    pattern:
-                                        "(the_-?\\d+\\.?\\d*_value)|(the_A_value)|(the_B_value)",
                                 },
                                 {
                                     type: "number",
@@ -48,26 +52,15 @@ export const test_application_template_union = _test_application(
                                     type: "boolean",
                                     nullable: false,
                                 },
-                                {
-                                    $ref: "#/components/schemas/__type",
-                                },
                             ],
                         },
-                    },
-                    nullable: false,
-                    required: ["prefix", "postfix", "middle", "mixed"],
-                    jsDocTags: [],
-                },
-                __type: {
-                    type: "object",
-                    properties: {
-                        name: {
-                            type: "string",
+                        "(between_(.*)_and_-?\\d+\\.?\\d*)": {
+                            type: "boolean",
                             nullable: false,
                         },
                     },
                     nullable: false,
-                    required: ["name"],
+                    required: ["id", "name"],
                     jsDocTags: [],
                 },
             },

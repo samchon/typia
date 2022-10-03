@@ -28,7 +28,7 @@ function spoil(input: any): void {
 }
 
 function spoil_object(obj: any): void {
-    obj.non_regular_type = "vulnerable";
+    obj.__non_regular_type__ = "vulnerable";
     for (const value of Object.values(obj)) spoil(value);
 }
 

@@ -1627,6 +1627,115 @@ export const test_application_ultimate_union = _test_application(
                 __type: {
                     type: "object",
                     properties: {},
+                    patternProperties: {
+                        "(.*)": {
+                            $ref: "#/components/schemas/IJsonComponents.IObject",
+                        },
+                    },
+                    nullable: false,
+                    jsDocTags: [],
+                },
+                "IJsonComponents.IObject": {
+                    type: "object",
+                    properties: {
+                        $id: {
+                            type: "string",
+                            nullable: false,
+                        },
+                        type: {
+                            type: "string",
+                            enum: ["object"],
+                            nullable: false,
+                        },
+                        nullable: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        properties: {
+                            $ref: "#/components/schemas/__type.o1",
+                        },
+                        patternProperties: {
+                            $ref: "#/components/schemas/__type.o1",
+                        },
+                        required: {
+                            type: "array",
+                            items: {
+                                type: "string",
+                                nullable: false,
+                            },
+                            nullable: false,
+                        },
+                        description: {
+                            type: "string",
+                            nullable: false,
+                        },
+                        jsDocTags: {
+                            type: "array",
+                            items: {
+                                $ref: "#/components/schemas/IJsDocTagInfo",
+                            },
+                            nullable: false,
+                        },
+                        $recursiveAnchor: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                    },
+                    nullable: false,
+                    required: ["type", "nullable", "properties"],
+                    jsDocTags: [],
+                },
+                "__type.o1": {
+                    type: "object",
+                    properties: {},
+                    patternProperties: {
+                        "(.*)": {
+                            oneOf: [
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IBoolean",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.INumber",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IBigInt",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IString",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IArray",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.ITuple",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IOneOf",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IReference",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IRecursiveReference",
+                                },
+                                {
+                                    $ref: "#/components/schemas/IJsonSchema.IUnkown",
+                                },
+                            ],
+                        },
+                    },
                     nullable: false,
                     jsDocTags: [],
                 },
