@@ -57,18 +57,19 @@ const check_dynamic_property =
         // GATHER CONDITIONS
         if (equals === true)
             add(is_regular_property(regular), ts.factory.createTrue());
-        for (const entry of dynamic) {
+        for (const entry of dynamic)
             add(
                 ts.factory.createCallExpression(
                     ts.factory.createIdentifier(
-                        `RegExp(/^${metadata_to_pattern(entry.key)}$/).test`,
+                        `RegExp(/${metadata_to_pattern(true)(
+                            entry.key,
+                        )}/).test`,
                     ),
                     undefined,
                     [key],
                 ),
                 entry.expression,
             );
-        }
 
         //----
         // FUNCTION BODY
