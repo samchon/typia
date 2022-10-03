@@ -43,9 +43,7 @@ export namespace AssertProgrammer {
                                     equals,
                                     combiner: combine(equals)(importer),
                                     joiner: CheckerProgrammer.DEFAULT_JOINER(
-                                        equals
-                                            ? assert_object(importer)
-                                            : check_object(false)(true),
+                                        assert_object(equals)(importer),
                                     ),
                                 },
                                 modulo,
@@ -66,7 +64,7 @@ const combine =
     (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner => {
         return (explore: CheckerProgrammer.IExplore) => {
             const combiner = IsProgrammer.CONFIG({
-                object: equals ? assert_object(importer) : undefined,
+                object: assert_object(equals)(importer),
                 numeric: true,
             }).combiner;
             if (explore.tracable === false && explore.from !== "top")
@@ -94,8 +92,8 @@ const combine =
         };
     };
 
-const assert_object = (importer: FunctionImporter) =>
-    check_object(true)(true)((expr) =>
+const assert_object = (equals: boolean) => (importer: FunctionImporter) =>
+    check_object(equals)(true)((expr) =>
         ts.factory.createLogicalOr(
             ts.factory.createStrictEquality(
                 ts.factory.createFalse(),

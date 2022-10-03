@@ -14,13 +14,16 @@ export namespace StringifyJoiner {
         (importer: FunctionImporter) =>
         (entries: IExpressionEntry[]): ts.ConciseBody => {
             // CHECK AND SORT ENTRIES
-            if (entries.length === 0)
+            const regular: IExpressionEntry[] = entries.filter((entry) =>
+                entry.key.isSoleLiteral(),
+            );
+            if (regular.length === 0)
                 return ts.factory.createStringLiteral("{}");
-            entries.sort((x, y) => sequence(x.meta) - sequence(y.meta));
+            regular.sort((x, y) => sequence(x.meta) - sequence(y.meta));
 
             // GATHER PROPERTY EXNRESSIONS
             const expressions: ts.Expression[] = [];
-            entries.forEach((entry, index) => {
+            regular.forEach((entry, index) => {
                 const key: string | null = entry.key.getSoleLiteral();
                 if (key === null) return;
 
@@ -29,7 +32,7 @@ export namespace StringifyJoiner {
                     ts.factory.createStringLiteral(`${JSON.stringify(key)}:`),
                     entry.expression,
                 ];
-                if (index !== entries.length - 1 /* || recursive !== null*/)
+                if (index !== regular.length - 1 /* || recursive !== null*/)
                     base.push(
                         ts.factory.createStringLiteral(
                             `,${" ".repeat(SPACES)}`,
@@ -91,7 +94,7 @@ export namespace StringifyJoiner {
                 else expressions.push(...base);
             });
 
-            const last: IExpressionEntry = entries[entries.length - 1]!;
+            const last: IExpressionEntry = regular[regular.length - 1]!;
             const filtered: ts.Expression[] = last.meta.required
                 ? expressions
                 : [

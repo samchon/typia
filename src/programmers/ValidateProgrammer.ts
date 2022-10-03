@@ -82,9 +82,7 @@ const combine: (
 ) => (importer: FunctionImporter) => CheckerProgrammer.IConfig.Combiner =
     (equals) => (importer) => (explore) => {
         const combiner = IsProgrammer.CONFIG({
-            object: equals
-                ? validate_object(importer)
-                : check_object(false)(false),
+            object: validate_object(equals)(importer),
             numeric: true,
         }).combiner;
         if (explore.tracable === false && explore.from !== "top")
@@ -111,8 +109,8 @@ const combine: (
             );
     };
 
-const validate_object = (importer: FunctionImporter) =>
-    check_object(true)(false)((expr) =>
+const validate_object = (equals: boolean) => (importer: FunctionImporter) =>
+    check_object(equals)(false)((expr) =>
         ts.factory.createLogicalOr(
             ts.factory.createStrictEquality(
                 ts.factory.createFalse(),
@@ -146,8 +144,8 @@ const validate_object = (importer: FunctionImporter) =>
 const join: (
     equals: boolean,
 ) => (importer: FunctionImporter) => CheckerProgrammer.IConfig.IJoiner =
-    (equals: boolean) => (importer: FunctionImporter) => ({
-        object: equals ? validate_object(importer) : check_object(false)(false),
+    (equals) => (importer) => ({
+        object: validate_object(equals)(importer),
         array: (input, arrow, tags) =>
             check_array(
                 input,

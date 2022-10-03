@@ -204,13 +204,14 @@ Also, only `typescript-json` can validate union typed structure exactly. All the
 Components               | `TSON` | `T.IS` | `ajv` | `io-ts` | `C.V.`
 -------------------------|-------------------|-----------------|-------|---------|------------------
 **Easy to use**          | ✔                | ✔               | ❌    | ❌     | ❌ 
-[Additional Tags](https://github.com/samchon/typescript-json/#comment-tags)        | ✔                | ❌              | ✔     | ✔      | ✔
-[Template Literal Types](https://github.com/samchon/typescript-json/blob/master/test/structures/TemplateUnion.ts) | ✅               | ❌              | ❌    | ❌     | ❌
 [Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔                | ✔               | ✔     | ✔      | ✔
 [Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔                | ✔               | ❌    | ✔      | ✔
 [Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔                | ✔               | ✔     | ✔      | ✔
 [Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅               | ❌              | ❌    | ❌     | ❌
 [Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔               | ❌              | ✔    | ✔      | ❌
+[Object (additional tags)](https://github.com/samchon/typescript-json/#comment-tags)        | ✔                | ❌              | ✔     | ✔      | ✔
+[Object (template literal types)](https://github.com/samchon/typescript-json/blob/master/test/structures/TemplateUnion.ts) | ✅               | ❌              | ❌    | ❌     | ❌
+[Object (dynamic properties)](https://github.com/samchon/typescript-json/blob/master/test/structures/DynamicTemplate.ts) | ✔                | ❌              | ✔    | ❌     | ❌
 [Array (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayHierarchical.ts)     | ✔                | ✔               | ❌    | ✔      | ✔
 [Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔                | ✔               | ❌     | ✔      | ✔
 [Array (recursive, union)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔                | ✔               | ❌    | ❌     | ❌
