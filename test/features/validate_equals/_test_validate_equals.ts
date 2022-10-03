@@ -6,6 +6,7 @@ export function _test_validate_equals<T>(
     name: string,
     generator: () => T,
     assert: (input: T) => IValidation,
+    doSpoil: boolean = true,
 ): () => void {
     return () => {
         const input: T = generator();
@@ -16,6 +17,8 @@ export function _test_validate_equals<T>(
             throw new Error(
                 `Bug on TSON.validateEquals(): failed to understand the ${name} type.`,
             );
+
+        if (doSpoil === false) return;
 
         // EXPECTED
         const expected: string[] = (() => {

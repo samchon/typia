@@ -69,12 +69,13 @@ export namespace CheckerProgrammer {
         return FeatureProgrammer.generate(
             project,
             CONFIG(project, config, importer),
-            importer.empty() || addition
-                ? () => [
-                      ...importer.declare(modulo),
-                      ...(addition ? addition() : []),
-                  ]
-                : undefined,
+            () =>
+                !importer.empty() || addition
+                    ? [
+                          ...importer.declare(modulo),
+                          ...(addition ? addition() : []),
+                      ]
+                    : undefined,
         );
     }
 

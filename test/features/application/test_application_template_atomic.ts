@@ -39,7 +39,7 @@ export const test_application_template_atomic = _test_application(
                         middle_numeric: {
                             type: "string",
                             nullable: false,
-                            pattern: "(the_\\d+(\\.\\d+)?_value)",
+                            pattern: "(the_-?\\d+\\.?\\d*_value)",
                         },
                         middle_boolean: {
                             type: "string",
@@ -50,7 +50,7 @@ export const test_application_template_atomic = _test_application(
                             type: "string",
                             nullable: false,
                             pattern:
-                                "(\\d+(\\.\\d+)?\\.\\d+(\\.\\d+)?\\.\\d+(\\.\\d+)?\\.\\d+(\\.\\d+)?)",
+                                "(-?\\d+\\.?\\d*\\.-?\\d+\\.?\\d*\\.-?\\d+\\.?\\d*\\.-?\\d+\\.?\\d*)",
                         },
                         email: {
                             type: "string",
