@@ -34,6 +34,42 @@ export const emplace_metadata_object =
                   ts.isPropertySignature(node) ||
                   ts.isTypeLiteralNode(node);
 
+        const insert =
+            (key: Metadata) =>
+            (value: Metadata) =>
+            (identifier: () => string) =>
+            (
+                symbol: ts.Symbol | undefined,
+                filter?: (doc: ts.JSDocTagInfo) => boolean,
+            ): MetadataProperty => {
+                // COMMENTS AND TAGS
+                const description: string | undefined =
+                    CommentFactory.generate(
+                        symbol?.getDocumentationComment(checker) || [],
+                    ) || undefined;
+                const jsDocTags: ts.JSDocTagInfo[] = (
+                    symbol?.getJsDocTags() || []
+                ).filter(filter || (() => true));
+
+                // THE PROPERTY
+                const property = MetadataProperty.create({
+                    key,
+                    value,
+                    description,
+                    jsDocTags,
+                    tags: MetadataTagFactory.generate(
+                        () => identifier(),
+                        value,
+                        jsDocTags,
+                    ),
+                });
+                obj.properties.push(property);
+                return property;
+            };
+
+        //----
+        // REGULAR PROPERTIES
+        //----
         for (const prop of parent.getProperties()) {
             // CHECK NODE IS A FORMAL PROPERTY
             const node: ts.PropertyDeclaration | undefined =
@@ -56,35 +92,36 @@ export const emplace_metadata_object =
             }
 
             // GET EXACT TYPE
-            const key: string = prop.name;
             const type: ts.Type = checker.getTypeOfSymbolAtLocation(prop, node);
-
-            // CHILD METADATA BY ADDITIONAL EXPLORATION
-            const child: Metadata = explore_metadata(checker)(options)(
+            const key: Metadata = MetadataHelper.literal_to_metadata(prop.name);
+            const value: Metadata = explore_metadata(checker)(options)(
                 collection,
             )(type, false);
-            if (node.questionToken) Writable(child).required = false;
 
-            // ADD TO OBJECT PROPERTY
-            const property = MetadataProperty.create({
-                key: MetadataHelper.literal_to_metadata(key),
-                value: child,
-                description:
-                    CommentFactory.generate(
-                        prop.getDocumentationComment(checker),
-                    ) || undefined,
-            });
-            obj.properties.push(property);
-
-            // ASSIGN TAGS
-            property.tags.push(
-                ...MetadataTagFactory.generate(
-                    () => `${obj.name}.${key}`,
-                    child,
-                    prop.getJsDocTags(),
-                ),
-            );
-            property.jsDocTags.push(...prop.getJsDocTags());
+            // INSERT WITH REQUIRED CONFIGURATION
+            if (node.questionToken) Writable(value).required = false;
+            insert(key)(value)(() => `${obj.name}.${prop.name}`)(prop);
         }
+
+        //----
+        // DYNAMIC PROPERTIES
+        //----
+        for (const index of checker.getIndexInfosOfType(parent)) {
+            // GET EXACT TYPE
+            const analyzer = (type: ts.Type) =>
+                explore_metadata(checker)(options)(collection)(type, false);
+            const key: Metadata = analyzer(index.keyType);
+            const value: Metadata = analyzer(index.type);
+
+            // INSERT WITH REQUIRED CONFIGURATION
+            insert(key)(value)(() => `${obj.name}[${key.getName()}]`)(
+                index.declaration?.parent
+                    ? checker.getSymbolAtLocation(index.declaration.parent)
+                    : undefined,
+                (doc) => doc.name !== "default",
+            );
+            Writable(value).required = false;
+        }
+
         return obj;
     };

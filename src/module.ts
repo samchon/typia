@@ -84,6 +84,7 @@ export namespace assertType {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+    export const join = $join;
 
     export function predicate(
         matched: boolean,
@@ -227,6 +228,7 @@ export namespace validate {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+    export const join = $join;
 
     export const predicate =
         (res: IValidation) =>
@@ -408,6 +410,7 @@ export namespace equals {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+    export const join = $join;
 }
 
 /**

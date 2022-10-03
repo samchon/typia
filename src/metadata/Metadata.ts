@@ -217,6 +217,13 @@ export class Metadata {
             return this.constants[0]!.values[0] as string;
         else return null;
     }
+
+    /**
+     * @internal
+     */
+    public isSoleLiteral(): boolean {
+        return this.getSoleLiteral() !== null;
+    }
 }
 export namespace Metadata {
     export function intersects(

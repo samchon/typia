@@ -74,7 +74,9 @@ export namespace FeatureProgrammer {
         (
             project: IProject,
             config: IConfig,
-            addition?: (collection: MetadataCollection) => ts.Statement[],
+            addition: (
+                collection: MetadataCollection,
+            ) => ts.Statement[] | undefined,
         ) =>
         (type: ts.Type) => {
             const [collection, meta] = config.initializer(project, type);
@@ -103,7 +105,7 @@ export namespace FeatureProgrammer {
                     : generate_unioners(config)(collection);
 
             // RETURNS THE OPTIMAL ARROW FUNCTION
-            const added: ts.Statement[] = addition ? addition(collection) : [];
+            const added: ts.Statement[] | undefined = addition(collection);
 
             return ts.factory.createArrowFunction(
                 undefined,
@@ -113,7 +115,7 @@ export namespace FeatureProgrammer {
                 undefined,
                 ts.factory.createBlock(
                     [
-                        ...added,
+                        ...(added || []),
                         ...(functors !== null
                             ? [
                                   ts.factory.createVariableStatement(
@@ -188,30 +190,34 @@ export namespace FeatureProgrammer {
             // REGULAR PROPERTY
             for (const prop of obj.properties) {
                 const key: string | null = prop.key.getSoleLiteral();
-                if (key === null) continue;
-
-                const access = Escaper.variable(key)
-                    ? ts.factory.createPropertyAccessExpression(
-                          ValueFactory.INPUT(),
-                          ts.factory.createIdentifier(key),
-                      )
-                    : ts.factory.createElementAccessExpression(
-                          ValueFactory.INPUT(),
-                          ts.factory.createStringLiteral(key),
-                      );
+                const input: ts.Expression =
+                    key === null
+                        ? ts.factory.createIdentifier("value")
+                        : Escaper.variable(key)
+                        ? ts.factory.createPropertyAccessExpression(
+                              ValueFactory.INPUT(),
+                              ts.factory.createIdentifier(key),
+                          )
+                        : ts.factory.createElementAccessExpression(
+                              ValueFactory.INPUT(),
+                              ts.factory.createStringLiteral(key),
+                          );
 
                 entries.push({
-                    input: access,
+                    input,
                     key: prop.key,
                     meta: prop.value,
                     expression: config.decoder(
-                        access,
+                        input,
                         prop.value,
                         {
                             tracable: config.trace,
                             source: "object",
                             from: "object",
-                            postfix: IdentifierFactory.postfix(key),
+                            postfix:
+                                key !== null
+                                    ? IdentifierFactory.postfix(key)
+                                    : `$join(key)`,
                         },
                         prop.tags,
                     ),
