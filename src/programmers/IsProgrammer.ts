@@ -35,7 +35,7 @@ export namespace IsProgrammer {
                         : initial;
             },
             joiner: CheckerProgrammer.DEFAULT_JOINER(
-                options?.object || check_object(false)(true),
+                options?.object || check_object(false)(true)()(),
             ),
         };
     }
@@ -55,23 +55,13 @@ export namespace IsProgrammer {
         equals: boolean = false,
     ) {
         const importer: FunctionImporter = new FunctionImporter();
-        const object = equals
-            ? check_object(equals)(true)((expr) =>
-                  ts.factory.createLogicalOr(
-                      ts.factory.createStrictEquality(
-                          ts.factory.createFalse(),
-                          ts.factory.createIdentifier("exceptionable"),
-                      ),
-                      expr,
-                  ),
-              )()
-            : check_object(false)(true);
+        if (equals === true) importer.use("join");
 
         return CheckerProgrammer.generate(
             project,
             {
                 ...CONFIG({
-                    object,
+                    object: check_object(equals)(true)()(),
                     numeric: true,
                 }),
                 trace: equals,
