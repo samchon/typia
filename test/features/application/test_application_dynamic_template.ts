@@ -25,11 +25,11 @@ export const test_application_dynamic_template = _test_application(
                             type: "string",
                             nullable: false,
                         },
-                        "(value_\\d+(\\.\\d+)?)": {
+                        "(value_-?\\d+\\.?\\d*)": {
                             type: "number",
                             nullable: false,
                         },
-                        "(between_(.*)_and_\\d+(\\.\\d+)?)": {
+                        "(between_(.*)_and_-?\\d+\\.?\\d*)": {
                             type: "boolean",
                             nullable: false,
                         },

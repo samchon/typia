@@ -6,6 +6,7 @@ export function _test_assert_equals<T>(
     name: string,
     generator: () => T,
     assert: (input: T) => T,
+    spoil: boolean = true,
 ): () => void {
     return () => {
         const input: T = generator();
@@ -29,6 +30,9 @@ export function _test_assert_equals<T>(
         const accessors: IAccessor[] = [];
         trace(accessors, "$input", input);
 
+        if (spoil === false) return;
+
+        // SPOIL PROPERTIES
         for (const { path, value } of accessors) {
             const variable: boolean = Math.random() < 0.5;
             const key: string = variable

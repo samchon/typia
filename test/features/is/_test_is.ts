@@ -10,14 +10,14 @@ export function _test_is<T>(
                 `Bug on TSON.is(): failed to understand the ${name} type.`,
             );
 
-        for (const spoil of spoilers || []) {
+        (spoilers || []).forEach((spoil, i) => {
             const elem: T = generator();
             spoil(elem);
 
             if (validator(elem) === true)
                 throw new Error(
-                    `Bug on TSON.is(): failed to detect error on the ${name} type.`,
+                    `Bug on TSON.is(): failed to detect error on the ${name} (${i}) type.`,
                 );
-        }
+        });
     };
 }

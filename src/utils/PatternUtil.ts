@@ -5,7 +5,7 @@ export namespace PatternUtil {
             .replace(/-/g, "\\x2d");
     }
 
-    export const NUMBER = "\\d+(\\.\\d+)?";
+    export const NUMBER = "-?\\d+\\.?\\d*";
     export const BOOLEAN = "true|false";
     export const STRING = "(.*)";
 }
