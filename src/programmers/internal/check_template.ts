@@ -32,7 +32,7 @@ export const check_template =
                 ts.factory.createTrue(),
                 ts.factory.createCallExpression(
                     ts.factory.createIdentifier(
-                        `RegExp(/^${template_to_pattern(tpl)}$/).test`,
+                        `RegExp(/${template_to_pattern(true)(tpl)}/).test`,
                     ),
                     undefined,
                     [input],
