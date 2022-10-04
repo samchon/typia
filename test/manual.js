@@ -7,6 +7,6 @@ runner.register({
     compiler: "ttypescript",
 });
 
-const program = require("./features/equals/test_equals_dynamic_tree.ts");
+const program = require("./features/stringify/test_stringify_dynamic_composite.ts");
 for (const value of Object.values(program))
     if (typeof value === "function") value();
