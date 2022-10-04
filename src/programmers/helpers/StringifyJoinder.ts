@@ -2,10 +2,9 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { TemplateFactory } from "../../factories/TemplateFactory";
-import { ValueFactory } from "../../factories/ValueFactory";
 
-import { Metadata } from "../../metadata/Metadata";
-
+import { stringify_dynamic_properties } from "../internal/stringify_dynamic_properties";
+import { stringify_regular_properties } from "../internal/stringify_regular_properties";
 import { FunctionImporter } from "./FunctionImporeter";
 import { IExpressionEntry } from "./IExpressionEntry";
 
@@ -17,97 +16,45 @@ export namespace StringifyJoiner {
             const regular: IExpressionEntry[] = entries.filter((entry) =>
                 entry.key.isSoleLiteral(),
             );
-            if (regular.length === 0)
+            const dynamic: IExpressionEntry[] = entries.filter(
+                (entry) => !entry.key.isSoleLiteral(),
+            );
+            if (regular.length === 0 && dynamic.length === 0)
                 return ts.factory.createStringLiteral("{}");
-            regular.sort((x, y) => sequence(x.meta) - sequence(y.meta));
 
-            // GATHER PROPERTY EXNRESSIONS
-            const expressions: ts.Expression[] = [];
-            regular.forEach((entry, index) => {
-                const key: string | null = entry.key.getSoleLiteral();
-                if (key === null) return;
+            // PROPERTIES
+            const expressions: ts.Expression[] = [
+                ...stringify_regular_properties(regular, dynamic),
+                ...(dynamic.length
+                    ? [
+                          stringify_dynamic_properties(
+                              dynamic,
+                              regular.map((r) => r.key.getSoleLiteral()!),
+                          ),
+                      ]
+                    : []),
+            ];
 
-                // BASE ELEMENTS
-                const base: ts.Expression[] = [
-                    ts.factory.createStringLiteral(`${JSON.stringify(key)}:`),
-                    entry.expression,
-                ];
-                if (index !== regular.length - 1 /* || recursive !== null*/)
-                    base.push(
-                        ts.factory.createStringLiteral(
-                            `,${" ".repeat(SPACES)}`,
-                        ),
-                    );
+            // POP LAST COMMA, IF REQUIRED
+            const filtered: ts.Expression[] =
+                (regular.length &&
+                    regular[regular.length - 1]!.meta.required &&
+                    dynamic.length === 0) ||
+                (regular.length === 0 && dynamic.length)
+                    ? expressions
+                    : [
+                          ts.factory.createCallExpression(
+                              importer.use("tail"),
+                              undefined,
+                              [TemplateFactory.generate(expressions)],
+                          ),
+                      ];
 
-                const empty: boolean =
-                    (entry.meta.required === false &&
-                        entry.meta.nullable === false &&
-                        entry.meta.size() === 0) ||
-                    (entry.meta.functional &&
-                        entry.meta.nullable === false &&
-                        entry.meta.size() === 1);
-
-                if (empty === true)
-                    expressions.push(ts.factory.createStringLiteral(""));
-                else if (
-                    entry.meta.required === false ||
-                    entry.meta.functional === true ||
-                    entry.meta.any === true
-                )
-                    expressions.push(
-                        ts.factory.createConditionalExpression(
-                            (() => {
-                                const conditions: ts.BinaryExpression[] = [];
-                                if (
-                                    entry.meta.required === false ||
-                                    entry.meta.any
-                                )
-                                    conditions.push(
-                                        ts.factory.createStrictEquality(
-                                            ts.factory.createIdentifier(
-                                                "undefined",
-                                            ),
-                                            entry.input,
-                                        ),
-                                    );
-                                if (entry.meta.functional || entry.meta.any)
-                                    conditions.push(
-                                        ts.factory.createStrictEquality(
-                                            ts.factory.createStringLiteral(
-                                                "function",
-                                            ),
-                                            ValueFactory.TYPEOF(entry.input),
-                                        ),
-                                    );
-                                return conditions.length === 1
-                                    ? conditions[0]!
-                                    : conditions.reduce((x, y) =>
-                                          ts.factory.createLogicalOr(x, y),
-                                      );
-                            })(),
-                            undefined,
-                            ts.factory.createStringLiteral(""),
-                            undefined,
-                            TemplateFactory.generate(base),
-                        ),
-                    );
-                else expressions.push(...base);
-            });
-
-            const last: IExpressionEntry = regular[regular.length - 1]!;
-            const filtered: ts.Expression[] = last.meta.required
-                ? expressions
-                : [
-                      ts.factory.createCallExpression(
-                          importer.use("tail"),
-                          undefined,
-                          [TemplateFactory.generate(expressions)],
-                      ),
-                  ];
+            // RETURNS WITH OBJECT BRACKET
             return TemplateFactory.generate([
-                ts.factory.createStringLiteral(`{${" ".repeat(SPACES)}`),
+                ts.factory.createStringLiteral(`{`),
                 ...filtered,
-                ts.factory.createStringLiteral(`${" ".repeat(SPACES)}}`),
+                ts.factory.createStringLiteral(`}`),
             ]);
         };
 
@@ -116,7 +63,7 @@ export namespace StringifyJoiner {
         arrow: ts.ArrowFunction,
     ): ts.Expression {
         return TemplateFactory.generate([
-            ts.factory.createStringLiteral(`[${" ".repeat(SPACES)}`),
+            ts.factory.createStringLiteral(`[`),
             ts.factory.createCallExpression(
                 ts.factory.createPropertyAccessExpression(
                     ts.factory.createCallExpression(
@@ -127,9 +74,9 @@ export namespace StringifyJoiner {
                     ts.factory.createIdentifier("join"),
                 ),
                 undefined,
-                [ts.factory.createStringLiteral(`,${" ".repeat(SPACES)}`)],
+                [ts.factory.createStringLiteral(`,`)],
             ),
-            ts.factory.createStringLiteral(`${" ".repeat(SPACES)}]`),
+            ts.factory.createStringLiteral(`]`),
         ]);
     }
 
@@ -144,23 +91,13 @@ export namespace StringifyJoiner {
                     "]",
             );
 
-        const elements: ts.Expression[] = [
-            ts.factory.createStringLiteral(`[${" ".repeat(SPACES)}`),
-        ];
+        const elements: ts.Expression[] = [ts.factory.createStringLiteral(`[`)];
         children.forEach((child, i) => {
             elements.push(child);
             if (i !== children.length - 1)
-                elements.push(
-                    ts.factory.createStringLiteral(`,${" ".repeat(SPACES)}`),
-                );
+                elements.push(ts.factory.createStringLiteral(`,`));
         });
-        elements.push(ts.factory.createStringLiteral(`${" ".repeat(SPACES)}]`));
+        elements.push(ts.factory.createStringLiteral(`]`));
         return TemplateFactory.generate(elements);
     }
 }
-
-function sequence(meta: Metadata): number {
-    return meta.any || !meta.required || meta.functional ? 0 : 1;
-}
-
-const SPACES = 0;

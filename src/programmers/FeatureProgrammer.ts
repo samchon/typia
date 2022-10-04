@@ -187,7 +187,6 @@ export namespace FeatureProgrammer {
         return function (obj: MetadataObject) {
             const entries: IExpressionEntry[] = [];
 
-            // REGULAR PROPERTY
             for (const prop of obj.properties) {
                 const key: string | null = prop.key.getSoleLiteral();
                 const input: ts.Expression =
