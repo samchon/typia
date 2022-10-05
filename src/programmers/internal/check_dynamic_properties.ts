@@ -43,7 +43,18 @@ const check_dynamic_property =
         // IF CONDITIONS
         //----
         // PREPARE ASSETS
-        const statements: ts.IfStatement[] = [];
+        const key = ts.factory.createIdentifier("key");
+        const value = ts.factory.createIdentifier("value");
+
+        const statements: ts.IfStatement[] = [
+            ts.factory.createIfStatement(
+                ts.factory.createStrictEquality(
+                    ts.factory.createIdentifier("undefined"),
+                    value,
+                ),
+                ts.factory.createReturnStatement(ts.factory.createTrue()),
+            ),
+        ];
         const add = (exp: ts.Expression, output: ts.Expression) =>
             statements.push(
                 ts.factory.createIfStatement(
@@ -51,24 +62,23 @@ const check_dynamic_property =
                     ts.factory.createReturnStatement(output),
                 ),
             );
-        const key = ts.factory.createIdentifier("key");
-        const value = ts.factory.createIdentifier("value");
 
         // GATHER CONDITIONS
         if (equals === true)
             add(is_regular_property(regular), ts.factory.createTrue());
-        for (const entry of dynamic) {
+        for (const entry of dynamic)
             add(
                 ts.factory.createCallExpression(
                     ts.factory.createIdentifier(
-                        `RegExp(/^${metadata_to_pattern(entry.key)}$/).test`,
+                        `RegExp(/${metadata_to_pattern(true)(
+                            entry.key,
+                        )}/).test`,
                     ),
                     undefined,
                     [key],
                 ),
                 entry.expression,
             );
-        }
 
         //----
         // FUNCTION BODY
@@ -79,10 +89,7 @@ const check_dynamic_property =
                 ...statements,
                 ts.factory.createReturnStatement(
                     equals === true
-                        ? ts.factory.createStrictEquality(
-                              ts.factory.createIdentifier("undefined"),
-                              value,
-                          )
+                        ? ts.factory.createFalse()
                         : ts.factory.createTrue(),
                 ),
             ],

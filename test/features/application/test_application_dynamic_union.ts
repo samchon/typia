@@ -17,19 +17,19 @@ export const test_application_dynamic_union = _test_application(
                     type: "object",
                     properties: {},
                     patternProperties: {
-                        "-?\\d+\\.?\\d*": {
+                        "^-?\\d+\\.?\\d*$": {
                             type: "string",
                             nullable: false,
                         },
-                        "(prefix_(.*))": {
+                        "^(prefix_(.*))": {
                             type: "string",
                             nullable: false,
                         },
-                        "((.*)_postfix)": {
+                        "((.*)_postfix)$": {
                             type: "string",
                             nullable: false,
                         },
-                        "(value_between_-?\\d+\\.?\\d*_and_-?\\d+\\.?\\d*)": {
+                        "^(value_between_-?\\d+\\.?\\d*_and_-?\\d+\\.?\\d*)$": {
                             type: "number",
                             nullable: false,
                         },

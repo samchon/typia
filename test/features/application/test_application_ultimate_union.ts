@@ -4,13 +4,13 @@ import { _test_application } from "./_test_application";
 
 export const test_application_ultimate_union = _test_application(
     "ultimate union",
-    TSON.application<[UltimateUnion]>(),
+    TSON.application<[UltimateUnion], "ajv">(),
     {
         schemas: [
             {
                 type: "array",
                 items: {
-                    $ref: "#/components/schemas/IJsonApplication",
+                    $ref: "components#/schemas/IJsonApplication",
                 },
                 nullable: false,
             },
@@ -18,6 +18,7 @@ export const test_application_ultimate_union = _test_application(
         components: {
             schemas: {
                 IJsonApplication: {
+                    $id: "components#/schemas/IJsonApplication",
                     type: "object",
                     properties: {
                         schemas: {
@@ -25,53 +26,56 @@ export const test_application_ultimate_union = _test_application(
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
+                                        $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
+                                        $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
+                                        $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
+                                        $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IBoolean",
+                                        $ref: "components#/schemas/IJsonSchema.IBoolean",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.INumber",
+                                        $ref: "components#/schemas/IJsonSchema.INumber",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IBigInt",
+                                        $ref: "components#/schemas/IJsonSchema.IBigInt",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IString",
+                                        $ref: "components#/schemas/IJsonSchema.IString",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IArray",
+                                        $recursiveRef:
+                                            "components#/schemas/IJsonSchema.IArray",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.ITuple",
+                                        $recursiveRef:
+                                            "components#/schemas/IJsonSchema.ITuple",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IOneOf",
+                                        $recursiveRef:
+                                            "components#/schemas/IJsonSchema.IOneOf",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IReference",
+                                        $ref: "components#/schemas/IJsonSchema.IReference",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IRecursiveReference",
+                                        $ref: "components#/schemas/IJsonSchema.IRecursiveReference",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IUnkown",
+                                        $ref: "components#/schemas/IJsonSchema.IUnkown",
                                     },
                                 ],
                             },
                             nullable: false,
                         },
                         components: {
-                            $ref: "#/components/schemas/IJsonComponents",
+                            $ref: "components#/schemas/IJsonComponents",
                         },
                         purpose: {
                             type: "string",
@@ -88,6 +92,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IJsonSchema.IEnumeration_lt_boolean_gt_": {
+                    $id: "components#/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
                     type: "object",
                     properties: {
                         enum: {
@@ -120,52 +125,52 @@ export const test_application_ultimate_union = _test_application(
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IItems",
+                                        $ref: "components#/schemas/IMetadataTag.IItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMinItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                        $ref: "components#/schemas/IMetadataTag.IFormat",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                        $ref: "components#/schemas/IMetadataTag.IPattern",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.ILength",
+                                        $ref: "components#/schemas/IMetadataTag.ILength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMinLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.IType",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IRange",
+                                        $ref: "components#/schemas/IMetadataTag.IRange",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                        $ref: "components#/schemas/IMetadataTag.IMultipleOf",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                        $ref: "components#/schemas/IMetadataTag.IStep",
                                     },
                                 ],
                             },
@@ -174,7 +179,7 @@ export const test_application_ultimate_union = _test_application(
                         jsDocTags: {
                             type: "array",
                             items: {
-                                $ref: "#/components/schemas/IJsDocTagInfo",
+                                $ref: "components#/schemas/IJsDocTagInfo",
                             },
                             nullable: false,
                         },
@@ -184,6 +189,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IItems": {
+                    $id: "components#/schemas/IMetadataTag.IItems",
                     type: "object",
                     properties: {
                         kind: {
@@ -192,10 +198,10 @@ export const test_application_ultimate_union = _test_application(
                             nullable: false,
                         },
                         minimum: {
-                            $ref: "#/components/schemas/IMetadataTag.ISign",
+                            $ref: "components#/schemas/IMetadataTag.ISign",
                         },
                         maximum: {
-                            $ref: "#/components/schemas/IMetadataTag.ISign",
+                            $ref: "components#/schemas/IMetadataTag.ISign",
                         },
                     },
                     nullable: false,
@@ -203,6 +209,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.ISign": {
+                    $id: "components#/schemas/IMetadataTag.ISign",
                     type: "object",
                     properties: {
                         include: {
@@ -219,6 +226,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IMinItems": {
+                    $id: "components#/schemas/IMetadataTag.IMinItems",
                     type: "object",
                     properties: {
                         kind: {
@@ -236,6 +244,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IMaxItems": {
+                    $id: "components#/schemas/IMetadataTag.IMaxItems",
                     type: "object",
                     properties: {
                         kind: {
@@ -253,6 +262,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IFormat": {
+                    $id: "components#/schemas/IMetadataTag.IFormat",
                     type: "object",
                     properties: {
                         kind: {
@@ -271,6 +281,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IPattern": {
+                    $id: "components#/schemas/IMetadataTag.IPattern",
                     type: "object",
                     properties: {
                         kind: {
@@ -288,6 +299,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.ILength": {
+                    $id: "components#/schemas/IMetadataTag.ILength",
                     type: "object",
                     properties: {
                         kind: {
@@ -296,10 +308,10 @@ export const test_application_ultimate_union = _test_application(
                             nullable: false,
                         },
                         minimum: {
-                            $ref: "#/components/schemas/IMetadataTag.ISign",
+                            $ref: "components#/schemas/IMetadataTag.ISign",
                         },
                         maximum: {
-                            $ref: "#/components/schemas/IMetadataTag.ISign",
+                            $ref: "components#/schemas/IMetadataTag.ISign",
                         },
                     },
                     nullable: false,
@@ -307,6 +319,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IMinLength": {
+                    $id: "components#/schemas/IMetadataTag.IMinLength",
                     type: "object",
                     properties: {
                         kind: {
@@ -324,6 +337,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IMaxLength": {
+                    $id: "components#/schemas/IMetadataTag.IMaxLength",
                     type: "object",
                     properties: {
                         kind: {
@@ -341,6 +355,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IType": {
+                    $id: "components#/schemas/IMetadataTag.IType",
                     type: "object",
                     properties: {
                         kind: {
@@ -359,6 +374,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IRange": {
+                    $id: "components#/schemas/IMetadataTag.IRange",
                     type: "object",
                     properties: {
                         kind: {
@@ -367,10 +383,10 @@ export const test_application_ultimate_union = _test_application(
                             nullable: false,
                         },
                         minimum: {
-                            $ref: "#/components/schemas/IMetadataTag.ISign",
+                            $ref: "components#/schemas/IMetadataTag.ISign",
                         },
                         maximum: {
-                            $ref: "#/components/schemas/IMetadataTag.ISign",
+                            $ref: "components#/schemas/IMetadataTag.ISign",
                         },
                     },
                     nullable: false,
@@ -378,6 +394,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IMinimum": {
+                    $id: "components#/schemas/IMetadataTag.IMinimum",
                     type: "object",
                     properties: {
                         kind: {
@@ -395,6 +412,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IMaximum": {
+                    $id: "components#/schemas/IMetadataTag.IMaximum",
                     type: "object",
                     properties: {
                         kind: {
@@ -412,6 +430,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IExclusiveMinimum": {
+                    $id: "components#/schemas/IMetadataTag.IExclusiveMinimum",
                     type: "object",
                     properties: {
                         kind: {
@@ -429,6 +448,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IExclusiveMaximum": {
+                    $id: "components#/schemas/IMetadataTag.IExclusiveMaximum",
                     type: "object",
                     properties: {
                         kind: {
@@ -446,6 +466,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IMultipleOf": {
+                    $id: "components#/schemas/IMetadataTag.IMultipleOf",
                     type: "object",
                     properties: {
                         kind: {
@@ -463,6 +484,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IMetadataTag.IStep": {
+                    $id: "components#/schemas/IMetadataTag.IStep",
                     type: "object",
                     properties: {
                         kind: {
@@ -480,6 +502,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 IJsDocTagInfo: {
+                    $id: "components#/schemas/IJsDocTagInfo",
                     type: "object",
                     properties: {
                         name: {
@@ -489,7 +512,7 @@ export const test_application_ultimate_union = _test_application(
                         text: {
                             type: "array",
                             items: {
-                                $ref: "#/components/schemas/IJsDocTagInfo.IText",
+                                $ref: "components#/schemas/IJsDocTagInfo.IText",
                             },
                             nullable: false,
                         },
@@ -499,6 +522,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IJsDocTagInfo.IText": {
+                    $id: "components#/schemas/IJsDocTagInfo.IText",
                     type: "object",
                     properties: {
                         text: {
@@ -515,6 +539,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IJsonSchema.IEnumeration_lt_number_gt_": {
+                    $id: "components#/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
                     type: "object",
                     properties: {
                         enum: {
@@ -547,52 +572,52 @@ export const test_application_ultimate_union = _test_application(
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IItems",
+                                        $ref: "components#/schemas/IMetadataTag.IItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMinItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                        $ref: "components#/schemas/IMetadataTag.IFormat",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                        $ref: "components#/schemas/IMetadataTag.IPattern",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.ILength",
+                                        $ref: "components#/schemas/IMetadataTag.ILength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMinLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.IType",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IRange",
+                                        $ref: "components#/schemas/IMetadataTag.IRange",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                        $ref: "components#/schemas/IMetadataTag.IMultipleOf",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                        $ref: "components#/schemas/IMetadataTag.IStep",
                                     },
                                 ],
                             },
@@ -601,7 +626,7 @@ export const test_application_ultimate_union = _test_application(
                         jsDocTags: {
                             type: "array",
                             items: {
-                                $ref: "#/components/schemas/IJsDocTagInfo",
+                                $ref: "components#/schemas/IJsDocTagInfo",
                             },
                             nullable: false,
                         },
@@ -611,6 +636,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IJsonSchema.IEnumeration_lt_bigint_gt_": {
+                    $id: "components#/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
                     type: "object",
                     properties: {
                         enum: {
@@ -643,52 +669,52 @@ export const test_application_ultimate_union = _test_application(
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IItems",
+                                        $ref: "components#/schemas/IMetadataTag.IItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMinItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                        $ref: "components#/schemas/IMetadataTag.IFormat",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                        $ref: "components#/schemas/IMetadataTag.IPattern",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.ILength",
+                                        $ref: "components#/schemas/IMetadataTag.ILength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMinLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.IType",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IRange",
+                                        $ref: "components#/schemas/IMetadataTag.IRange",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                        $ref: "components#/schemas/IMetadataTag.IMultipleOf",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                        $ref: "components#/schemas/IMetadataTag.IStep",
                                     },
                                 ],
                             },
@@ -697,7 +723,7 @@ export const test_application_ultimate_union = _test_application(
                         jsDocTags: {
                             type: "array",
                             items: {
-                                $ref: "#/components/schemas/IJsDocTagInfo",
+                                $ref: "components#/schemas/IJsDocTagInfo",
                             },
                             nullable: false,
                         },
@@ -707,6 +733,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IJsonSchema.IEnumeration_lt_string_gt_": {
+                    $id: "components#/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
                     type: "object",
                     properties: {
                         enum: {
@@ -739,52 +766,52 @@ export const test_application_ultimate_union = _test_application(
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IItems",
+                                        $ref: "components#/schemas/IMetadataTag.IItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMinItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                        $ref: "components#/schemas/IMetadataTag.IFormat",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                        $ref: "components#/schemas/IMetadataTag.IPattern",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.ILength",
+                                        $ref: "components#/schemas/IMetadataTag.ILength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMinLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.IType",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IRange",
+                                        $ref: "components#/schemas/IMetadataTag.IRange",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                        $ref: "components#/schemas/IMetadataTag.IMultipleOf",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                        $ref: "components#/schemas/IMetadataTag.IStep",
                                     },
                                 ],
                             },
@@ -793,7 +820,7 @@ export const test_application_ultimate_union = _test_application(
                         jsDocTags: {
                             type: "array",
                             items: {
-                                $ref: "#/components/schemas/IJsDocTagInfo",
+                                $ref: "components#/schemas/IJsDocTagInfo",
                             },
                             nullable: false,
                         },
@@ -803,6 +830,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IJsonSchema.IBoolean": {
+                    $id: "components#/schemas/IJsonSchema.IBoolean",
                     type: "object",
                     properties: {
                         type: {
@@ -827,52 +855,52 @@ export const test_application_ultimate_union = _test_application(
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IItems",
+                                        $ref: "components#/schemas/IMetadataTag.IItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMinItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                        $ref: "components#/schemas/IMetadataTag.IFormat",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                        $ref: "components#/schemas/IMetadataTag.IPattern",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.ILength",
+                                        $ref: "components#/schemas/IMetadataTag.ILength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMinLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.IType",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IRange",
+                                        $ref: "components#/schemas/IMetadataTag.IRange",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                        $ref: "components#/schemas/IMetadataTag.IMultipleOf",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                        $ref: "components#/schemas/IMetadataTag.IStep",
                                     },
                                 ],
                             },
@@ -881,7 +909,7 @@ export const test_application_ultimate_union = _test_application(
                         jsDocTags: {
                             type: "array",
                             items: {
-                                $ref: "#/components/schemas/IJsDocTagInfo",
+                                $ref: "components#/schemas/IJsDocTagInfo",
                             },
                             nullable: false,
                         },
@@ -891,6 +919,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IJsonSchema.INumber": {
+                    $id: "components#/schemas/IJsonSchema.INumber",
                     type: "object",
                     properties: {
                         minimum: {
@@ -931,52 +960,52 @@ export const test_application_ultimate_union = _test_application(
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IItems",
+                                        $ref: "components#/schemas/IMetadataTag.IItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMinItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                        $ref: "components#/schemas/IMetadataTag.IFormat",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                        $ref: "components#/schemas/IMetadataTag.IPattern",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.ILength",
+                                        $ref: "components#/schemas/IMetadataTag.ILength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMinLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.IType",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IRange",
+                                        $ref: "components#/schemas/IMetadataTag.IRange",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                        $ref: "components#/schemas/IMetadataTag.IMultipleOf",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                        $ref: "components#/schemas/IMetadataTag.IStep",
                                     },
                                 ],
                             },
@@ -985,7 +1014,7 @@ export const test_application_ultimate_union = _test_application(
                         jsDocTags: {
                             type: "array",
                             items: {
-                                $ref: "#/components/schemas/IJsDocTagInfo",
+                                $ref: "components#/schemas/IJsDocTagInfo",
                             },
                             nullable: false,
                         },
@@ -995,6 +1024,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IJsonSchema.IBigInt": {
+                    $id: "components#/schemas/IJsonSchema.IBigInt",
                     type: "object",
                     properties: {
                         type: {
@@ -1019,52 +1049,52 @@ export const test_application_ultimate_union = _test_application(
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IItems",
+                                        $ref: "components#/schemas/IMetadataTag.IItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMinItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                        $ref: "components#/schemas/IMetadataTag.IFormat",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                        $ref: "components#/schemas/IMetadataTag.IPattern",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.ILength",
+                                        $ref: "components#/schemas/IMetadataTag.ILength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMinLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.IType",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IRange",
+                                        $ref: "components#/schemas/IMetadataTag.IRange",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                        $ref: "components#/schemas/IMetadataTag.IMultipleOf",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                        $ref: "components#/schemas/IMetadataTag.IStep",
                                     },
                                 ],
                             },
@@ -1073,7 +1103,7 @@ export const test_application_ultimate_union = _test_application(
                         jsDocTags: {
                             type: "array",
                             items: {
-                                $ref: "#/components/schemas/IJsDocTagInfo",
+                                $ref: "components#/schemas/IJsDocTagInfo",
                             },
                             nullable: false,
                         },
@@ -1083,6 +1113,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IJsonSchema.IString": {
+                    $id: "components#/schemas/IJsonSchema.IString",
                     type: "object",
                     properties: {
                         minLength: {
@@ -1123,52 +1154,52 @@ export const test_application_ultimate_union = _test_application(
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IItems",
+                                        $ref: "components#/schemas/IMetadataTag.IItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMinItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                        $ref: "components#/schemas/IMetadataTag.IFormat",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                        $ref: "components#/schemas/IMetadataTag.IPattern",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.ILength",
+                                        $ref: "components#/schemas/IMetadataTag.ILength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMinLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.IType",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IRange",
+                                        $ref: "components#/schemas/IMetadataTag.IRange",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                        $ref: "components#/schemas/IMetadataTag.IMultipleOf",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                        $ref: "components#/schemas/IMetadataTag.IStep",
                                     },
                                 ],
                             },
@@ -1177,7 +1208,7 @@ export const test_application_ultimate_union = _test_application(
                         jsDocTags: {
                             type: "array",
                             items: {
-                                $ref: "#/components/schemas/IJsDocTagInfo",
+                                $ref: "components#/schemas/IJsDocTagInfo",
                             },
                             nullable: false,
                         },
@@ -1187,51 +1218,56 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IJsonSchema.IArray": {
+                    $id: "components#/schemas/IJsonSchema.IArray",
+                    $recursiveAnchor: true,
                     type: "object",
                     properties: {
                         items: {
                             oneOf: [
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
+                                    $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
+                                    $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
+                                    $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
+                                    $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IBoolean",
+                                    $ref: "components#/schemas/IJsonSchema.IBoolean",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.INumber",
+                                    $ref: "components#/schemas/IJsonSchema.INumber",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IBigInt",
+                                    $ref: "components#/schemas/IJsonSchema.IBigInt",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IString",
+                                    $ref: "components#/schemas/IJsonSchema.IString",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IArray",
+                                    $recursiveRef:
+                                        "components#/schemas/IJsonSchema.IArray",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.ITuple",
+                                    $recursiveRef:
+                                        "components#/schemas/IJsonSchema.ITuple",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IOneOf",
+                                    $recursiveRef:
+                                        "components#/schemas/IJsonSchema.IOneOf",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IReference",
+                                    $ref: "components#/schemas/IJsonSchema.IReference",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IRecursiveReference",
+                                    $ref: "components#/schemas/IJsonSchema.IRecursiveReference",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IUnkown",
+                                    $ref: "components#/schemas/IJsonSchema.IUnkown",
                                 },
                             ],
                         },
@@ -1258,6 +1294,8 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IJsonSchema.ITuple": {
+                    $id: "components#/schemas/IJsonSchema.ITuple",
+                    $recursiveAnchor: true,
                     type: "object",
                     properties: {
                         items: {
@@ -1265,46 +1303,49 @@ export const test_application_ultimate_union = _test_application(
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
+                                        $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
+                                        $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
+                                        $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
+                                        $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IBoolean",
+                                        $ref: "components#/schemas/IJsonSchema.IBoolean",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.INumber",
+                                        $ref: "components#/schemas/IJsonSchema.INumber",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IBigInt",
+                                        $ref: "components#/schemas/IJsonSchema.IBigInt",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IString",
+                                        $ref: "components#/schemas/IJsonSchema.IString",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.ITuple",
+                                        $recursiveRef:
+                                            "components#/schemas/IJsonSchema.ITuple",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IArray",
+                                        $recursiveRef:
+                                            "components#/schemas/IJsonSchema.IArray",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IOneOf",
+                                        $recursiveRef:
+                                            "components#/schemas/IJsonSchema.IOneOf",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IReference",
+                                        $ref: "components#/schemas/IJsonSchema.IReference",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IRecursiveReference",
+                                        $ref: "components#/schemas/IJsonSchema.IRecursiveReference",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IUnkown",
+                                        $ref: "components#/schemas/IJsonSchema.IUnkown",
                                     },
                                 ],
                             },
@@ -1325,6 +1366,8 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IJsonSchema.IOneOf": {
+                    $id: "components#/schemas/IJsonSchema.IOneOf",
+                    $recursiveAnchor: true,
                     type: "object",
                     properties: {
                         oneOf: {
@@ -1332,46 +1375,49 @@ export const test_application_ultimate_union = _test_application(
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
+                                        $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
+                                        $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
+                                        $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
+                                        $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IBoolean",
+                                        $ref: "components#/schemas/IJsonSchema.IBoolean",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.INumber",
+                                        $ref: "components#/schemas/IJsonSchema.INumber",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IBigInt",
+                                        $ref: "components#/schemas/IJsonSchema.IBigInt",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IString",
+                                        $ref: "components#/schemas/IJsonSchema.IString",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IUnkown",
+                                        $ref: "components#/schemas/IJsonSchema.IUnkown",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IOneOf",
+                                        $recursiveRef:
+                                            "components#/schemas/IJsonSchema.IOneOf",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.ITuple",
+                                        $recursiveRef:
+                                            "components#/schemas/IJsonSchema.ITuple",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IArray",
+                                        $recursiveRef:
+                                            "components#/schemas/IJsonSchema.IArray",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IReference",
+                                        $ref: "components#/schemas/IJsonSchema.IReference",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IRecursiveReference",
+                                        $ref: "components#/schemas/IJsonSchema.IRecursiveReference",
                                     },
                                 ],
                             },
@@ -1386,52 +1432,52 @@ export const test_application_ultimate_union = _test_application(
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IItems",
+                                        $ref: "components#/schemas/IMetadataTag.IItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMinItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                        $ref: "components#/schemas/IMetadataTag.IFormat",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                        $ref: "components#/schemas/IMetadataTag.IPattern",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.ILength",
+                                        $ref: "components#/schemas/IMetadataTag.ILength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMinLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.IType",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IRange",
+                                        $ref: "components#/schemas/IMetadataTag.IRange",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                        $ref: "components#/schemas/IMetadataTag.IMultipleOf",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                        $ref: "components#/schemas/IMetadataTag.IStep",
                                     },
                                 ],
                             },
@@ -1440,7 +1486,7 @@ export const test_application_ultimate_union = _test_application(
                         jsDocTags: {
                             type: "array",
                             items: {
-                                $ref: "#/components/schemas/IJsDocTagInfo",
+                                $ref: "components#/schemas/IJsDocTagInfo",
                             },
                             nullable: false,
                         },
@@ -1450,12 +1496,14 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IJsonSchema.IUnkown": {
+                    $id: "components#/schemas/IJsonSchema.IUnkown",
                     type: "object",
                     properties: {},
                     nullable: false,
                     jsDocTags: [],
                 },
                 "IJsonSchema.IReference": {
+                    $id: "components#/schemas/IJsonSchema.IReference",
                     type: "object",
                     properties: {
                         $ref: {
@@ -1471,52 +1519,52 @@ export const test_application_ultimate_union = _test_application(
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IItems",
+                                        $ref: "components#/schemas/IMetadataTag.IItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMinItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                        $ref: "components#/schemas/IMetadataTag.IFormat",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                        $ref: "components#/schemas/IMetadataTag.IPattern",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.ILength",
+                                        $ref: "components#/schemas/IMetadataTag.ILength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMinLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.IType",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IRange",
+                                        $ref: "components#/schemas/IMetadataTag.IRange",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                        $ref: "components#/schemas/IMetadataTag.IMultipleOf",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                        $ref: "components#/schemas/IMetadataTag.IStep",
                                     },
                                 ],
                             },
@@ -1525,7 +1573,7 @@ export const test_application_ultimate_union = _test_application(
                         jsDocTags: {
                             type: "array",
                             items: {
-                                $ref: "#/components/schemas/IJsDocTagInfo",
+                                $ref: "components#/schemas/IJsDocTagInfo",
                             },
                             nullable: false,
                         },
@@ -1535,6 +1583,7 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "IJsonSchema.IRecursiveReference": {
+                    $id: "components#/schemas/IJsonSchema.IRecursiveReference",
                     type: "object",
                     properties: {
                         $recursiveRef: {
@@ -1550,52 +1599,52 @@ export const test_application_ultimate_union = _test_application(
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IItems",
+                                        $ref: "components#/schemas/IMetadataTag.IItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMinItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxItems",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                        $ref: "components#/schemas/IMetadataTag.IFormat",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                        $ref: "components#/schemas/IMetadataTag.IPattern",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.ILength",
+                                        $ref: "components#/schemas/IMetadataTag.ILength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMinLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                        $ref: "components#/schemas/IMetadataTag.IMaxLength",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.IType",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IRange",
+                                        $ref: "components#/schemas/IMetadataTag.IRange",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMinimum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMaximum",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                        $ref: "components#/schemas/IMetadataTag.IMultipleOf",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.IStep",
+                                        $ref: "components#/schemas/IMetadataTag.IStep",
                                     },
                                 ],
                             },
@@ -1604,7 +1653,7 @@ export const test_application_ultimate_union = _test_application(
                         jsDocTags: {
                             type: "array",
                             items: {
-                                $ref: "#/components/schemas/IJsDocTagInfo",
+                                $ref: "components#/schemas/IJsDocTagInfo",
                             },
                             nullable: false,
                         },
@@ -1614,10 +1663,11 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 IJsonComponents: {
+                    $id: "components#/schemas/IJsonComponents",
                     type: "object",
                     properties: {
                         schemas: {
-                            $ref: "#/components/schemas/__type",
+                            $ref: "components#/schemas/__type",
                         },
                     },
                     nullable: false,
@@ -1625,17 +1675,19 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 __type: {
+                    $id: "components#/schemas/__type",
                     type: "object",
                     properties: {},
                     patternProperties: {
                         "(.*)": {
-                            $ref: "#/components/schemas/IJsonComponents.IObject",
+                            $ref: "components#/schemas/IJsonComponents.IObject",
                         },
                     },
                     nullable: false,
                     jsDocTags: [],
                 },
                 "IJsonComponents.IObject": {
+                    $id: "components#/schemas/IJsonComponents.IObject",
                     type: "object",
                     properties: {
                         $id: {
@@ -1652,10 +1704,10 @@ export const test_application_ultimate_union = _test_application(
                             nullable: false,
                         },
                         properties: {
-                            $ref: "#/components/schemas/__type.o1",
+                            $ref: "components#/schemas/__type.o1",
                         },
                         patternProperties: {
-                            $ref: "#/components/schemas/__type.o1",
+                            $ref: "components#/schemas/__type.o1",
                         },
                         required: {
                             type: "array",
@@ -1672,7 +1724,7 @@ export const test_application_ultimate_union = _test_application(
                         jsDocTags: {
                             type: "array",
                             items: {
-                                $ref: "#/components/schemas/IJsDocTagInfo",
+                                $ref: "components#/schemas/IJsDocTagInfo",
                             },
                             nullable: false,
                         },
@@ -1686,52 +1738,56 @@ export const test_application_ultimate_union = _test_application(
                     jsDocTags: [],
                 },
                 "__type.o1": {
+                    $id: "components#/schemas/__type.o1",
                     type: "object",
                     properties: {},
                     patternProperties: {
                         "(.*)": {
                             oneOf: [
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
+                                    $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
+                                    $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
+                                    $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
+                                    $ref: "components#/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IBoolean",
+                                    $ref: "components#/schemas/IJsonSchema.IBoolean",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.INumber",
+                                    $ref: "components#/schemas/IJsonSchema.INumber",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IBigInt",
+                                    $ref: "components#/schemas/IJsonSchema.IBigInt",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IString",
+                                    $ref: "components#/schemas/IJsonSchema.IString",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IArray",
+                                    $recursiveRef:
+                                        "components#/schemas/IJsonSchema.IArray",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.ITuple",
+                                    $recursiveRef:
+                                        "components#/schemas/IJsonSchema.ITuple",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IOneOf",
+                                    $recursiveRef:
+                                        "components#/schemas/IJsonSchema.IOneOf",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IReference",
+                                    $ref: "components#/schemas/IJsonSchema.IReference",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IRecursiveReference",
+                                    $ref: "components#/schemas/IJsonSchema.IRecursiveReference",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IUnkown",
+                                    $ref: "components#/schemas/IJsonSchema.IUnkown",
                                 },
                             ],
                         },
@@ -1741,7 +1797,7 @@ export const test_application_ultimate_union = _test_application(
                 },
             },
         },
-        purpose: "swagger",
-        prefix: "#/components/schemas",
+        purpose: "ajv",
+        prefix: "components#/schemas",
     },
 );

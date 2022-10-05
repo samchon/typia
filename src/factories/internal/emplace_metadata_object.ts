@@ -120,7 +120,6 @@ export const emplace_metadata_object =
                     : undefined,
                 (doc) => doc.name !== "default",
             );
-            Writable(value).required = false;
         }
 
         return obj;

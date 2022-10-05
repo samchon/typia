@@ -44,7 +44,7 @@ export const application_object =
                 properties[key] = value();
                 if (property.value.required === true) required.push(key);
             } else {
-                const pattern: string = metadata_to_pattern(property.key);
+                const pattern: string = metadata_to_pattern(true)(property.key);
                 patternProperties[pattern] = value();
             }
         }

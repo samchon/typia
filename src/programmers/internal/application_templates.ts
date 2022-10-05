@@ -1,9 +1,8 @@
 import { Metadata } from "../../metadata/Metadata";
-import { MetadataConstant } from "../../metadata/MetadataConstant";
 import { IJsonSchema } from "../../schemas/IJsonSchema";
 
 import { application_default_string } from "./application_default_string";
-import { template_to_pattern } from "./template_to_pattern";
+import { metadata_to_pattern } from "./metadata_to_pattern";
 
 /**
  * @internal
@@ -18,14 +17,7 @@ export const application_templates = (
         nullable: meta.nullable,
         ...attribute,
     };
-    const patterns = meta.templates.map((tpl) => template_to_pattern(tpl));
-
-    // CONSIDER CONSTANT STRING
-    const constant: MetadataConstant | undefined = meta.constants.find(
-        (c) => c.type === "string",
-    );
-    if (constant) patterns.push(...(constant.values as string[]));
-    output.pattern = patterns.map((str) => `(${str})`).join("|");
+    output.pattern = metadata_to_pattern(true)(meta);
 
     // DEFAULT VALUE
     output.default = application_default_string(meta, attribute)(output);
