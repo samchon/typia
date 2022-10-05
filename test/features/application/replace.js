@@ -10,10 +10,13 @@ function getSchema(content) {
 
 function replace(file, schema) {
     const content = fs.readFileSync(file, "utf8");
-    const first = content.indexOf("]>(),");
+    const symbol = content.indexOf("]>(),") !== -1
+        ? "]>(),"
+        : `], "ajv">(),`;
+    const first = content.indexOf(symbol);
 
     const newContent =
-        content.substring(0, first) + "]>(),\n" + schema + "\n" + ");";
+        content.substring(0, first) + symbol + schema + "\n" + ");";
     fs.writeFileSync(file, newContent, "utf8");
 }
 
