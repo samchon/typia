@@ -8,6 +8,7 @@ export default function transform(
     program: ts.Program,
     options?: ITransformOptions,
 ): ts.TransformerFactory<ts.SourceFile> {
+    program.getSourceFiles().map(file => file.fileName);
     const project: IProject = {
         program,
         compilerOptions: program.getCompilerOptions(),

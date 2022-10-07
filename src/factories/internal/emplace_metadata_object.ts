@@ -30,6 +30,7 @@ export const emplace_metadata_object =
         const pred: (node: ts.Declaration) => boolean = isClass
             ? (node) => ts.isParameter(node) || ts.isPropertyDeclaration(node)
             : (node) =>
+                  ts.isPropertyDeclaration(node) ||
                   ts.isPropertyAssignment(node) ||
                   ts.isPropertySignature(node) ||
                   ts.isTypeLiteralNode(node);
