@@ -1,14 +1,23 @@
+import fs from "fs";
 import os from "os";
 
-import { benchmark_assert } from "./features/benchmark_assert";
 import { benchmark_is } from "./features/benchmark_is";
 import { benchmark_optimizer } from "./features/benchmark_optimizer";
 import { benchmark_stringify } from "./features/benchmark_stringify";
+import { benchmark_validate } from "./features/benchmark_validate";
 import { WriteStream } from "./internal/WriteStream";
 
 type Output = Record<string, number | null> & { name: string };
 
-// const round = NumberUtil.elaborate(4)(Math.round);
+async function get_package_version(): Promise<string> {
+    const content: string = await fs.promises.readFile(
+        __dirname + "/../package.json",
+        "utf8",
+    );
+    const data: { version: string } = JSON.parse(content);
+    return data.version;
+}
+
 async function measure<T extends Output>(
     stream: WriteStream,
     functor: () => (() => T)[],
@@ -79,7 +88,7 @@ async function main(): Promise<void> {
 
     const stream = new WriteStream(`${__dirname}/results/${cpu}.md`);
     const functors = [
-        benchmark_assert,
+        benchmark_validate,
         benchmark_is,
         benchmark_optimizer,
         benchmark_stringify,
@@ -91,6 +100,9 @@ async function main(): Promise<void> {
         `> Memory: ${Math.round(memory / 1024 / 1024).toLocaleString()} MB`,
     );
     await stream.write(`> NodeJS version: ${process.version}`);
+    await stream.write(
+        `> TypeScript-JSON version: ${await get_package_version()}`,
+    );
     await stream.write("\n");
     for (const func of functors) await measure(stream, func as any);
 }

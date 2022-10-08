@@ -40,15 +40,15 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
   - Powerful Runtime type checkers:
     - Performed by only one line, `TSON.assertType<T>(input)`
     - Only one library which can validate union type
-    - Maximum 100x faster than other libraries
+    - Maximum 1,000x faster than other libraries
   - 5x faster `JSON.stringify()` function:
     - Performed by only one line: `TSON.stringify<T>(input)`
     - Only one library which can stringify union type
     - 10,000x faster optimizer construction time than similar libraries
 
-![JSON String Conversion Benchmark](https://user-images.githubusercontent.com/13158709/177259933-85a2f19e-01f3-4ac0-a035-a38e0ac38ef5.png)
+![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/194713658-62fb0716-c24e-41f9-be0d-01edeabb1dd6.png)
 
-> Measured on AMD R7 5800HS, ASUS ROG FLOW X13 (numeric option: `false`)
+> Measured on Intel i5-1135g7, Surface Pro 8 (numeric option: `false`)
 
 
 
@@ -100,8 +100,30 @@ npx ttsc
 npx ts-node -C ttypescript
 ```
 
+### vite
+Just open `vite.config.ts` file and assign `typescript: ttsc` property like below.
+
+For reference, don't forget configuring [`tsconfig.json`](#tsconfigjson) file of above.
+
+```typescript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import typescript from "@rollup/plugin-typescript";
+import ttsc from "ttypescript";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    typescript({
+      typescript: ttsc,
+    })
+  ]
+});
+```
+
 ### webpack
-If you're using `webpack` with `ts-loader`, configure the `webpack.config.js` file like below:
+If you're using `webpack` with `ts-loader`, configure the `webpack.config.js` file like below.
 
 ```javascript
 const transform = require("typescript-json/lib/transform").default;
@@ -197,29 +219,28 @@ TSON.is<IPerson>(person); // -> true, allow superfluous property
 TSON.equals<IPerson>(person); // -> false, do not allow
 ```
 
-Comparing those type checker functions with other similar libraries, `typescript-json` is much easier than others, except only `typescript-is`. For example, `ajv` requires complicate JSON schema definition that is different with the TypeScript type. Besides, `typescript-json` requires only one line.
+Comparing those type checker functions with other similar libraries, `typescript-json` is much easier than others. For example, `ajv` requires complicate JSON schema definition that is different with the TypeScript type. Besides, `typescript-json` requires only one line.
 
 Also, only `typescript-json` can validate union typed structure exactly. All the other libraries can check simple object type, however, none of them can validate complicate union type. The fun thing is, `ajv` requires JSON schema definition for validation, but it can't validate the JSON schema type. How contradict it is.
 
-Components               | `TSON` | `T.IS` | `ajv` | `io-ts` | `C.V.`
+Components               | `TSON` | `ajv` | `io-ts` | `zod` | `C.V.`
 -------------------------|-------------------|-----------------|-------|---------|------------------
 **Easy to use**          | ✔                | ✔               | ❌    | ❌     | ❌ 
-[Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔                | ✔               | ✔     | ✔      | ✔
-[Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔                | ✔               | ❌    | ✔      | ✔
-[Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔                | ✔               | ✔     | ✔      | ✔
-[Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅               | ❌              | ❌    | ❌     | ❌
-[Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔               | ❌              | ✔    | ✔      | ❌
-[Object (additional tags)](https://github.com/samchon/typescript-json/#comment-tags)        | ✔                | ❌              | ✔     | ✔      | ✔
-[Object (template literal types)](https://github.com/samchon/typescript-json/blob/master/test/structures/TemplateUnion.ts) | ✅               | ❌              | ❌    | ❌     | ❌
-[Object (dynamic properties)](https://github.com/samchon/typescript-json/blob/master/test/structures/DynamicTemplate.ts) | ✔                | ❌              | ✔    | ❌     | ❌
-[Array (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayHierarchical.ts)     | ✔                | ✔               | ❌    | ✔      | ✔
-[Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔                | ✔               | ❌     | ✔      | ✔
-[Array (recursive, union)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔                | ✔               | ❌    | ❌     | ❌
-[Array (R+U, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅               | ❌              | ❌    | ❌     | ❌
-[**Ultimate Union Type**](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts)  | ✅               | ❌              | ❌    | ❌     | ❌
+[Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ❌ | ✔ | ✔ | ✔
+[Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔
+[Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌
+[Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ❌
+[Object (additional tags)](https://github.com/samchon/typescript-json/#comment-tags)        | ✔ | ❌ | ✔ | ✔ | ✔
+[Object (template literal types)](https://github.com/samchon/typescript-json/blob/master/test/structures/TemplateUnion.ts) | ✔ | ✔ | ❌ | ❌ | ❌
+[Object (dynamic properties)](https://github.com/samchon/typescript-json/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ❌ | ❌ | ❌
+[Array (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔
+[Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ❌ | ✔ | ✔ | ✔
+[Array (recursive, union)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ❌ | ✔ | ✔ | ❌
+[Array (R+U, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌
+[**Ultimate Union Type**](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌
 
 > - TSON: `typescript-json`
-> - T.IS: `typescript-is`
 > - C.V.: `class-validator`
 
 Furthermore, when union type comes, `typescript-json` is extremely faster than others. 
@@ -228,7 +249,7 @@ As you can see from the above table, `ajv` and `typescript-is` are fallen in the
 
 The extreme different is shown in the "ultimate union" type, when validating [JSON schema](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts).
 
-![Super-fast runtime type checker](https://user-images.githubusercontent.com/13158709/176942347-a4487f38-ffe1-4873-a88a-7afb545dfa83.png)
+![Super-fast runtime validator](https://user-images.githubusercontent.com/13158709/194713627-59c12e51-06e8-44ba-9df5-cfd69aaf971a.png)
 
 > Measured on Intel i5-1135g7, Surface Pro 8
 
@@ -549,21 +570,3 @@ export class BbsArticlesController
     ): Promise<IBbsArticle>;
 }
 ```
-
-<!-- ### Archidraw
-https://www.archisketch.com/
-
-I have special thanks to the Archidraw, where I'm working for.
-
-The Archidraw is a great IT company developing 3D interior editor and lots of solutions based on the 3D assets. Also, the Archidraw is the first company who had adopted `typescript-json` on their commercial backend project, even `typescript-json` was in the alpha level.
-
-> 저희 회사 "아키드로우" 에서, 삼촌과 함께 일할 프론트 개발자 분들을, 최고의 대우로 모십니다.
->
-> "아키드로우" 는 3D (인테리어) 에디터 및 이에 관한 파생 솔루션들을 만드는 회사입니다. 다만 저희 회사의 주력 제품이 3D 에디터라 하여, 반드시 3D 내지 랜더링에 능숙해야 하는 것은 아니니, 일반적인 프론트 개발자 분들도 망설임없이 지원해주십시오.
->
-> 그리고 저희 회사는 분위기가 다들 친하고 즐겁게 지내는 분위기입니다. 더하여 위 [nestia](https://github.com/samchon/nestia) 나 [typescript-json](https://github.com/samchon/typescript-json) 및 [payments](https://github.com/archidraw/payments) 등, 제법 합리적(?)이고 재미난 프로젝트들을 다양하게 체험해보실 수 있습니다.
->
-> - 회사소개서: [archidraw.pdf](https://github.com/archidraw/payments/files/7696710/archidraw.pdf)
-> - 기술 스택: React + TypeScript
-> - 이력서: 자유 양식
-> - 지원처: samchon@archisketch.com -->
