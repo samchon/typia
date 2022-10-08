@@ -62,7 +62,7 @@ export namespace IsProgrammer {
             {
                 ...CONFIG({
                     object: check_object(equals)(true)()(),
-                    numeric: true,
+                    numeric: !!project.options.numeric,
                 }),
                 trace: equals,
             },
