@@ -100,8 +100,30 @@ npx ttsc
 npx ts-node -C ttypescript
 ```
 
+### vite
+Just open `vite.config.ts` file and assign `typescript: ttsc` property like below.
+
+For reference, don't forget configuring [`tsconfig.json`](#tsconfigjson) file of above.
+
+```typescript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import typescript from "@rollup/plugin-typescript";
+import ttsc from "ttypescript";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    typescript({
+      typescript: ttsc,
+    })
+  ]
+});
+```
+
 ### webpack
-If you're using `webpack` with `ts-loader`, configure the `webpack.config.js` file like below:
+If you're using `webpack` with `ts-loader`, configure the `webpack.config.js` file like below.
 
 ```javascript
 const transform = require("typescript-json/lib/transform").default;
