@@ -57,7 +57,7 @@ export namespace ValidateProgrammer {
                                     functors: "$vo",
                                     unioners: "$vu",
                                     trace: true,
-                                    numeric: true,
+                                    numeric: !!project.options.numeric,
                                     equals,
                                     combiner: combine(equals)(importer),
                                     joiner: join(equals)(importer),

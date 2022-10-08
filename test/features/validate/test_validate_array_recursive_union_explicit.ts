@@ -27,8 +27,8 @@ export const test_validate_array_recursive_union_explicit = _test_validate(
         },
         (input) => {
             // text
-            input[1].type = "shortcut";
-            return ["$input[1].type"];
+            input[1].type = "directory";
+            return ["$input[1].children"];
         },
         (input) => {
             // zip
@@ -43,12 +43,12 @@ export const test_validate_array_recursive_union_explicit = _test_validate(
         (input) => {
             // shortcut
             input[4].type = "text" as "file";
-            return ["$input[4]"];
+            return ["$input[4].type"];
         },
         (input) => {
             // shortcut
-            input[5].type = "file";
-            return ["$input[5]"];
+            input[5].type = "directory";
+            return ["$input[5].children"];
         },
         (input) => {
             // directory
@@ -77,17 +77,16 @@ export const test_validate_array_recursive_union_explicit = _test_validate(
         (input) => {
             // shortcut
             (input[3] as ArrayRecursiveUnionExplicit.IFile).extension = "txt";
-            return ["$input[3].type", "$input[3].content", "$input[3].size"];
+            return ["$input[3].content", "$input[3].size"];
         },
         (input) => {
             // shortcut
             (input[4] as ArrayRecursiveUnionExplicit.IFile).extension = "zip";
-            return ["$input[4].type", "$input[4].size", "$input[4].count"];
+            return ["$input[4].size", "$input[4].count"];
         },
         (input) => {
             (input[5] as ArrayRecursiveUnionExplicit.IFile).extension = "jpg";
             return [
-                "$input[5].type",
                 "$input[5].width",
                 "$input[5].height",
                 "$input[5].url",
@@ -118,11 +117,11 @@ export const test_validate_array_recursive_union_explicit = _test_validate(
         (input) => {
             (input[4] as ArrayRecursiveUnionExplicit.IShortcut).extension =
                 null as any as "lnk";
-            return ["$input[4].extension"];
+            return ["$input[4]"];
         },
         (input) => {
             input[5].type = [] as any;
-            return ["$input[5]"];
+            return ["$input[5].type"];
         },
         (input) => {
             (
