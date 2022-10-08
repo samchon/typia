@@ -1,7 +1,7 @@
 import Ajv from "ajv";
-import * as Similar from "typescript-is";
 
 import TSON from "../../src";
+// PURE TYPESCRIPT TYPES
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
 import { ArrayRecursiveUnionImplicit } from "../../test/structures/ArrayRecursiveUnionImplicit";
@@ -10,11 +10,51 @@ import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
 import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
+// BENCHMARK PROGRAM
 import { IsBenchmarker } from "../internal/IsBenchmarker";
+// IO-TS TYPES
+import { IoTsArrayRecursive } from "../structures/io-ts/IoTsArrayRecursive";
+import { IoTsArrayRecursiveUnionExplicit } from "../structures/io-ts/IoTsArrayRecursiveUnionExplicit";
+import { IoTsArrayRecursiveUnionImplicit } from "../structures/io-ts/IoTsArrayRecursiveUnionImplicit";
+import { IoTsObjectHierarchical } from "../structures/io-ts/IoTsObjectHierarchical";
+import { IoTsObjectRecursive } from "../structures/io-ts/IoTsObjectRecursive";
+import { IoTsObjectUnionExplicit } from "../structures/io-ts/IoTsObjectUnionExplicit";
+import { IoTsObjectUnionImplicit } from "../structures/io-ts/IoTsObjectUnionImplicit";
+import { IoTsUltimateUnion } from "../structures/io-ts/IoTsUltimateUnion";
+// ZOD TYPES
+import { ZodArrayRecursive } from "../structures/zod/ZodArrayRecursive";
+import { ZodArrayRecursiveUnionExplicit } from "../structures/zod/ZodArrayRecursiveUnionExplicit";
+import { ZodArrayRecursiveUnionImplicit } from "../structures/zod/ZodArrayRecursiveUnionImplicit";
+import { ZodObjectHierarchical } from "../structures/zod/ZodObjectHierarchical";
+import { ZodObjectRecursive } from "../structures/zod/ZodObjectRecursive";
+import { ZodObjectUnionExplicit } from "../structures/zod/ZodObjectUnionExplicit";
+import { ZodObjectUnionImplicit } from "../structures/zod/ZodObjectUnionImplicit";
+import { ZodUltimateUnion } from "../structures/zod/ZodUltimateUnion";
+
+function defaultSpoiler(data: any) {
+    if (Array.isArray(data)) data.push({ fsaddsfasdf: "ASDfasdfsd" } as any);
+    else if (typeof data === "object")
+        (data as any)[Object.keys(data)[0]!] = { sdafasdf: "ASfsadf" };
+}
+
+function wrap<T>(
+    data: T,
+    functor: (input: T) => boolean,
+    spoiler?: (data: T) => void,
+): null | ((input: T) => boolean) {
+    try {
+        if (functor(data) === false) return null;
+        (spoiler || defaultSpoiler)(data);
+        return functor(data) === true ? null : functor;
+    } catch {
+        return null;
+    }
+}
 
 function byAjv<T>(
     data: T,
     app: TSON.IJsonApplication,
+    spoiler?: (data: T) => void,
 ): null | ((input: T) => any) {
     try {
         (app.schemas[0] as any).$id = "main";
@@ -22,13 +62,7 @@ function byAjv<T>(
             schemas: [app.schemas[0], ...Object.values(app.components.schemas)],
         });
         const functor = ajv.getSchema("main") || null;
-        if (functor === null || functor(data) === false) return null;
-
-        if (Array.isArray(data))
-            data.push({ fsaddsfasdf: "ASDfasdfsd" } as any);
-        else if (typeof data === "object")
-            (data as any)[Object.keys(data)[0]!] = { sdafasdf: "ASfsadf" };
-        return functor(data) === true ? null : functor;
+        return functor !== null ? wrap(data, <any>functor, spoiler) : null;
     } catch {
         return null;
     }
@@ -40,7 +74,13 @@ const is = () => [
         () => ObjectHierarchical.generate(),
         {
             "typescript-json": (input) => TSON.is(input),
-            "typescript-is": (input) => Similar.is<typeof input>(input),
+            "io-ts": wrap(ObjectHierarchical.generate(), (input) =>
+                IoTsObjectHierarchical.is(input),
+            ),
+            zod: wrap(
+                ObjectHierarchical.generate(),
+                (input) => ZodObjectHierarchical.safeParse(input).success,
+            ),
             ajv: byAjv(
                 ObjectHierarchical.generate(),
                 TSON.application<[ObjectHierarchical], "ajv">(),
@@ -52,7 +92,13 @@ const is = () => [
         () => ObjectRecursive.generate(),
         {
             "typescript-json": (input) => TSON.is(input),
-            "typescript-is": (input) => Similar.is<typeof input>(input),
+            "io-ts": wrap(ObjectRecursive.generate(), (input) =>
+                IoTsObjectRecursive.is(input),
+            ),
+            zod: wrap(
+                ObjectRecursive.generate(),
+                (input) => ZodObjectRecursive.safeParse(input).success,
+            ),
             ajv: byAjv(
                 ObjectRecursive.generate(),
                 TSON.application<[ObjectRecursive], "ajv">(),
@@ -64,8 +110,13 @@ const is = () => [
         () => ObjectUnionExplicit.generate(),
         {
             "typescript-json": (input) => TSON.is(input),
-            // "typescript-is": (input) => Similar.is<typeof input>(input),
-            "typescript-is": null,
+            "io-ts": wrap(ObjectUnionExplicit.generate(), (input) =>
+                IoTsObjectUnionExplicit.is(input),
+            ),
+            zod: wrap(
+                ObjectUnionExplicit.generate(),
+                (input) => ZodObjectUnionExplicit.safeParse(input).success,
+            ),
             ajv: byAjv(
                 ObjectUnionExplicit.generate(),
                 TSON.application<[ObjectUnionExplicit], "ajv">(),
@@ -77,8 +128,13 @@ const is = () => [
         () => ObjectUnionExplicit.generate(),
         {
             "typescript-json": (input) => TSON.is(input),
-            // "typescript-is": (input) => Similar.is<typeof input>(input),
-            "typescript-is": null,
+            "io-ts": wrap(ObjectUnionImplicit.generate(), (input) =>
+                IoTsObjectUnionImplicit.is(input),
+            ),
+            zod: wrap(
+                ObjectUnionImplicit.generate(),
+                (input) => ZodObjectUnionImplicit.safeParse(input).success,
+            ),
             ajv: byAjv(
                 ObjectUnionImplicit.generate(),
                 TSON.application<[ObjectUnionImplicit], "ajv">(),
@@ -90,7 +146,13 @@ const is = () => [
         () => ArrayRecursive.generate(),
         {
             "typescript-json": (input) => TSON.is(input),
-            "typescript-is": (input) => Similar.is<typeof input>(input),
+            "io-ts": wrap(ArrayRecursive.generate(), (input) =>
+                IoTsArrayRecursive.is(input),
+            ),
+            zod: wrap(
+                ArrayRecursive.generate(),
+                (input) => ZodArrayRecursive.safeParse(input).success,
+            ),
             ajv: byAjv(
                 ArrayRecursive.generate(),
                 TSON.application<[ArrayRecursive], "ajv">(),
@@ -102,7 +164,14 @@ const is = () => [
         () => ArrayRecursiveUnionExplicit.generate(),
         {
             "typescript-json": (input) => TSON.is(input),
-            "typescript-is": (input) => Similar.is<typeof input>(input),
+            "io-ts": wrap(ArrayRecursiveUnionExplicit.generate(), (input) =>
+                IoTsArrayRecursiveUnionExplicit.is(input),
+            ),
+            zod: wrap(
+                ArrayRecursiveUnionExplicit.generate(),
+                (input) =>
+                    ZodArrayRecursiveUnionExplicit.safeParse(input).success,
+            ),
             ajv: byAjv(
                 ArrayRecursiveUnionExplicit.generate(),
                 TSON.application<[ArrayRecursiveUnionExplicit], "ajv">(),
@@ -114,7 +183,14 @@ const is = () => [
         () => ArrayRecursiveUnionImplicit.generate(),
         {
             "typescript-json": (input) => TSON.is(input),
-            "typescript-is": (input) => Similar.is<typeof input>(input),
+            "io-ts": wrap(ArrayRecursiveUnionImplicit.generate(), (input) =>
+                IoTsArrayRecursiveUnionImplicit.is(input),
+            ),
+            zod: wrap(
+                ArrayRecursiveUnionImplicit.generate(),
+                (input) =>
+                    ZodArrayRecursiveUnionImplicit.safeParse(input).success,
+            ),
             ajv: byAjv(
                 ArrayRecursiveUnionImplicit.generate(),
                 TSON.application<[ArrayRecursiveUnionImplicit], "ajv">(),
@@ -123,7 +199,13 @@ const is = () => [
     ),
     IsBenchmarker.prepare("ultimate union", () => UltimateUnion.generate(), {
         "typescript-json": (input) => TSON.is(input),
-        "typescript-is": (input) => Similar.is<typeof input>(input),
+        "io-ts": wrap(UltimateUnion.generate(), (input) =>
+            IoTsUltimateUnion.is(input),
+        ),
+        zod: wrap(
+            UltimateUnion.generate(),
+            (input) => ZodUltimateUnion.safeParse(input).success,
+        ),
         ajv: byAjv(
             UltimateUnion.generate(),
             TSON.application<[UltimateUnion], "ajv">(),

@@ -39,7 +39,7 @@ export namespace AssertProgrammer {
                                     functors: "$ao",
                                     unioners: "$au",
                                     trace: true,
-                                    numeric: true,
+                                    numeric: !!project.options.numeric,
                                     equals,
                                     combiner: combine(equals)(importer),
                                     joiner: CheckerProgrammer.DEFAULT_JOINER(
