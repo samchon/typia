@@ -53,7 +53,7 @@ export namespace ArrayRecursiveUnionExplicit {
         name: string;
         path: string;
         target: IBucket;
-        type: "shortcut";
+        type: "file";
         extension: "lnk";
     }
 
@@ -105,7 +105,7 @@ export namespace ArrayRecursiveUnionExplicit {
     }
     function generate_shortcut(target: IBucket): IShortcut {
         return {
-            ...generate_bucket("shortcut"),
+            ...generate_bucket("file"),
             extension: "lnk",
             target,
         };

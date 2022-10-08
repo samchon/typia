@@ -266,7 +266,7 @@ export const test_application_array_recursive_union_explicit =
                             },
                             type: {
                                 type: "string",
-                                enum: ["shortcut"],
+                                enum: ["file"],
                                 nullable: false,
                             },
                             extension: {

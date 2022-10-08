@@ -21,11 +21,11 @@ export const test_assert_array_recursive_union_explicit = _test_assert(
         // WRONG TYPES
         //----
         (input) => (input[0].type = "directory") && true,
-        (input) => (input[1].type = "shortcut") && true,
+        (input) => (input[1].type = "directory") && true,
         (input) => (input[2].type = "text" as "file") && true,
         (input) => (input[3].type = "directory") && true,
         (input) => (input[4].type = "text" as "file") && true,
-        (input) => (input[5].type = "file") && true,
+        (input) => (input[5].type = "directory") && true,
         (input) => (input[6].type = "file") && true,
 
         //----
