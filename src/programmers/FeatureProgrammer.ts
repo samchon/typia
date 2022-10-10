@@ -316,9 +316,7 @@ export namespace FeatureProgrammer {
                         tracable: explore.tracable,
                         source: explore.source,
                         from: "array",
-                        postfix: explore.postfix.length
-                            ? explore.postfix.slice(0, -1) + INDEX_SYMBOL(rand)
-                            : '"' + INDEX_SYMBOL(rand),
+                        postfix: INDEX_SYMBOL(explore.postfix)(rand),
                     },
                     tags,
                 ),
@@ -364,7 +362,13 @@ export namespace FeatureProgrammer {
     };
 }
 
-const INDEX_SYMBOL = (rand: string) => `[" + index${rand} + "]"`;
+const INDEX_SYMBOL = (prev: string) => (rand: string) => {
+    const tail: string = `"[" + index${rand} + "]"`;
+    if (prev === "") return tail;
+    else if (prev[prev.length - 1] === `"`)
+        return prev.substring(0, prev.length - 1) + tail.substring(1);
+    return prev + ` + ${tail}`;
+};
 const PARAMETERS = (initialize: null | boolean) => {
     const tail =
         initialize === null
