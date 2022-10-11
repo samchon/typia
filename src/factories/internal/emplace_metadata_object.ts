@@ -28,7 +28,16 @@ export const emplace_metadata_object =
         // PREPARE ASSETS
         const isClass: boolean = parent.isClass();
         const pred: (node: ts.Declaration) => boolean = isClass
-            ? (node) => ts.isParameter(node) || ts.isPropertyDeclaration(node)
+            ? (node) => {
+                  const kind: ts.SyntaxKind | undefined = node
+                      .getChildren()[0]
+                      ?.getChildren()[0]?.kind;
+                  return (
+                      kind !== ts.SyntaxKind.PrivateKeyword &&
+                      kind !== ts.SyntaxKind.ProtectedKeyword &&
+                      (ts.isParameter(node) || ts.isPropertyDeclaration(node))
+                  );
+              }
             : (node) =>
                   ts.isPropertyDeclaration(node) ||
                   ts.isPropertyAssignment(node) ||
@@ -71,36 +80,32 @@ export const emplace_metadata_object =
         //----
         // REGULAR PROPERTIES
         //----
-        for (const prop of parent.getProperties()) {
+        for (const prop of parent.getApparentProperties()) {
             // CHECK NODE IS A FORMAL PROPERTY
-            const node: ts.PropertyDeclaration | undefined =
-                (prop.getDeclarations() || [])[0] as
+            const [node, type] = (() => {
+                const node = (prop.getDeclarations() || [])[0] as
                     | ts.PropertyDeclaration
                     | undefined;
-
-            if (!node || !pred(node)) continue;
-
-            // CHECK NOT PRIVATE OR PROTECTED MEMBER
-            if (isClass) {
-                const kind: ts.SyntaxKind | undefined = node
-                    .getChildren()[0]
-                    ?.getChildren()[0]?.kind;
-                if (
-                    kind === ts.SyntaxKind.PrivateKeyword ||
-                    kind === ts.SyntaxKind.ProtectedKeyword
-                )
-                    continue;
-            }
+                const type: ts.Type | undefined = node
+                    ? checker.getTypeOfSymbolAtLocation(prop, node)
+                    : "getTypeOfPropertyOfType" in checker
+                    ? (checker as any).getTypeOfPropertyOfType(
+                          parent,
+                          prop.name,
+                      )
+                    : undefined;
+                return [node, type];
+            })();
+            if ((node && pred(node) === false) || type === undefined) continue;
 
             // GET EXACT TYPE
-            const type: ts.Type = checker.getTypeOfSymbolAtLocation(prop, node);
             const key: Metadata = MetadataHelper.literal_to_metadata(prop.name);
             const value: Metadata = explore_metadata(checker)(options)(
                 collection,
             )(type, false);
 
             // INSERT WITH REQUIRED CONFIGURATION
-            if (node.questionToken) Writable(value).required = false;
+            if (node?.questionToken) Writable(value).required = false;
             insert(key)(value)(() => `${obj.name}.${prop.name}`)(prop);
         }
 
