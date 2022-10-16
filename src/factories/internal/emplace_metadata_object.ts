@@ -81,6 +81,14 @@ export const emplace_metadata_object =
         // REGULAR PROPERTIES
         //----
         for (const prop of parent.getApparentProperties()) {
+            // CHECK INTERNAL TAG
+            if (
+                (prop.getJsDocTags(checker) || []).find(
+                    (tag) => tag.name === "internal",
+                ) !== undefined
+            )
+                continue;
+
             // CHECK NODE IS A FORMAL PROPERTY
             const [node, type] = (() => {
                 const node = (prop.getDeclarations() || [])[0] as
