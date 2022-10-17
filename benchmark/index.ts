@@ -81,7 +81,7 @@ async function measure<T extends Output>(
 }
 
 async function main(): Promise<void> {
-    const cpu: string = os.cpus()[0].model;
+    const cpu: string = os.cpus()[0].model.trim();
     const memory: number = os.totalmem();
 
     console.log(`Benchmark ${cpu}`);

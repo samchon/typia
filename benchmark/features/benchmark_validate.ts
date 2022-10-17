@@ -1,3 +1,7 @@
+import * as tr from "class-transformer";
+import * as cv from "class-validator";
+import "reflect-metadata";
+
 import TSON from "../../src";
 // PURE TYPESCRIPT TYPES
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
@@ -10,6 +14,10 @@ import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
 // BENCHMARK PROGRAM
 import { ValidateBenchmarker } from "../internal/ValidateBenchmarker";
+// CLASS-VALIDATOR
+import { CvArrayRecursive } from "../structures/class-validator/CvArrayRecursive";
+import { CvObjectHierarchical } from "../structures/class-validator/CvObjectHierarchical";
+import { CvObjectRecursive } from "../structures/class-validator/CvObjectRecursive";
 // IO-TS TYPES
 import { IoTsArrayRecursive } from "../structures/io-ts/IoTsArrayRecursive";
 import { IoTsArrayRecursiveUnionExplicit } from "../structures/io-ts/IoTsArrayRecursiveUnionExplicit";
@@ -18,7 +26,6 @@ import { IoTsObjectHierarchical } from "../structures/io-ts/IoTsObjectHierarchic
 import { IoTsObjectRecursive } from "../structures/io-ts/IoTsObjectRecursive";
 import { IoTsObjectUnionExplicit } from "../structures/io-ts/IoTsObjectUnionExplicit";
 import { IoTsObjectUnionImplicit } from "../structures/io-ts/IoTsObjectUnionImplicit";
-import { IoTsUltimateUnion } from "../structures/io-ts/IoTsUltimateUnion";
 // ZOD TYPES
 import { ZodArrayRecursive } from "../structures/zod/ZodArrayRecursive";
 import { ZodArrayRecursiveUnionExplicit } from "../structures/zod/ZodArrayRecursiveUnionExplicit";
@@ -27,7 +34,6 @@ import { ZodObjectHierarchical } from "../structures/zod/ZodObjectHierarchical";
 import { ZodObjectRecursive } from "../structures/zod/ZodObjectRecursive";
 import { ZodObjectUnionExplicit } from "../structures/zod/ZodObjectUnionExplicit";
 import { ZodObjectUnionImplicit } from "../structures/zod/ZodObjectUnionImplicit";
-import { ZodUltimateUnion } from "../structures/zod/ZodUltimateUnion";
 
 const valiadate = () => [
     ValidateBenchmarker.prepare(
@@ -36,6 +42,10 @@ const valiadate = () => [
         {
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": (input) => IoTsObjectHierarchical.decode(input),
+            "class-validator": (input) => {
+                const cla = tr.plainToInstance(CvObjectHierarchical, input);
+                return cv.validateSync(cla);
+            },
             zod: (input) => ZodObjectHierarchical.safeParse(input),
         },
     ),
@@ -45,6 +55,10 @@ const valiadate = () => [
         {
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": (input) => IoTsObjectRecursive.decode(input),
+            "class-validator": (input) => {
+                const cla = tr.plainToInstance(CvObjectRecursive, input);
+                return cv.validateSync(cla);
+            },
             zod: (input) => ZodObjectRecursive.safeParse(input),
         },
     ),
@@ -54,6 +68,7 @@ const valiadate = () => [
         {
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": (input) => IoTsObjectUnionExplicit.decode(input),
+            "class-validator": null,
             zod: (input) => ZodObjectUnionExplicit.safeParse(input),
         },
     ),
@@ -63,6 +78,7 @@ const valiadate = () => [
         {
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": (input) => IoTsObjectUnionImplicit.decode(input),
+            "class-validator": null,
             zod: (input) => ZodObjectUnionImplicit.safeParse(input),
         },
     ),
@@ -72,6 +88,10 @@ const valiadate = () => [
         {
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": (input) => IoTsArrayRecursive.decode(input),
+            "class-validator": (input) => {
+                const cla = tr.plainToInstance(CvArrayRecursive, input);
+                return cv.validateSync(cla);
+            },
             zod: (input) => ZodArrayRecursive.safeParse(input),
         },
     ),
@@ -81,6 +101,7 @@ const valiadate = () => [
         {
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": (input) => IoTsArrayRecursiveUnionExplicit.decode(input),
+            "class-validator": null,
             zod: (input) => ZodArrayRecursiveUnionExplicit.safeParse(input),
         },
     ),
@@ -90,6 +111,7 @@ const valiadate = () => [
         {
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": (input) => IoTsArrayRecursiveUnionImplicit.decode(input),
+            "class-validator": null,
             zod: (input) => ZodArrayRecursiveUnionImplicit.safeParse(input),
         },
     ),
@@ -99,6 +121,7 @@ const valiadate = () => [
         {
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": null,
+            "class-validator": null,
             zod: null,
         },
     ),
