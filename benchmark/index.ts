@@ -88,8 +88,8 @@ async function main(): Promise<void> {
 
     const stream = new WriteStream(`${__dirname}/results/${cpu}.md`);
     const functors = [
-        benchmark_validate,
         benchmark_is,
+        benchmark_validate,
         benchmark_optimizer,
         benchmark_stringify,
     ];

@@ -6,7 +6,7 @@ export namespace IsBenchmarker {
         "typescript-json": number;
         "io-ts": number | null;
         zod: number | null;
-        "class-validatr": number | null;
+        "class-validator": number | null;
         ajv: number | null;
     }
     export interface IParameters<T> {
@@ -42,7 +42,7 @@ export namespace IsBenchmarker {
                 name,
                 "typescript-json": 0,
                 "io-ts": null,
-                "class-validatr": null,
+                "class-validator": null,
                 zod: null,
                 ajv: null,
             };
