@@ -18,7 +18,8 @@ export namespace IJsonSchema {
         | ITuple
         | IOneOf
         | IReference
-        | IRecursiveReference;
+        | IRecursiveReference
+        | INullOnly;
 
     /* -----------------------------------------------------------
         ATOMICS
@@ -65,6 +66,9 @@ export namespace IJsonSchema {
     export interface IRecursiveReference extends IAttribute {
         $recursiveRef: string;
     }
+    export interface INullOnly extends IAttribute {
+        type: "null";
+    }
 
     /* -----------------------------------------------------------
         MISCELLANEOUS
@@ -80,7 +84,7 @@ export namespace IJsonSchema {
     }
     export interface IAttribute {
         description?: string;
-        metaTags?: IMetadataTag[];
-        jsDocTags?: IJsDocTagInfo[];
+        "x-tson-metaTags"?: IMetadataTag[];
+        "x-tson-jsDocTags"?: IJsDocTagInfo[];
     }
 }

@@ -1,6 +1,7 @@
 import { Metadata } from "../metadata/Metadata";
 import { IJsonApplication } from "../schemas/IJsonApplication";
 import { IJsonComponents } from "../schemas/IJsonComponents";
+import { IJsonSchema } from "../schemas/IJsonSchema";
 
 import { application_schema } from "./internal/application_schema";
 
@@ -21,11 +22,9 @@ export namespace ApplicationProgrammer {
             const purpose: "swagger" | "ajv" = options?.purpose ?? "swagger";
             return {
                 purpose,
-                prefix: options?.prefix
-                    ? options.prefix
-                    : purpose === "swagger"
-                    ? SWAGGER_PREFIX
-                    : AJV_PREFIX,
+                prefix:
+                    options?.prefix ||
+                    (purpose === "swagger" ? SWAGGER_PREFIX : AJV_PREFIX),
             };
         }
     }
@@ -38,16 +37,17 @@ export namespace ApplicationProgrammer {
         const components: IJsonComponents = {
             schemas: {},
         };
-        const generator = application_schema(fullOptions)(components);
+        const generator = application_schema(fullOptions)(components)(true);
 
         return {
-            schemas: metadatas.map((meta) =>
-                generator(meta, {
-                    description: undefined,
-                    metaTags: undefined,
-                    jsDocTags: undefined,
-                }),
-            ),
+            schemas: metadatas.map((meta) => {
+                const schema: IJsonSchema | null = generator(meta, {});
+                if (schema === null)
+                    throw new Error(
+                        "Error on TSON.application(): never type on argument.",
+                    );
+                return schema;
+            }),
             components,
             ...fullOptions,
         };

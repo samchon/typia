@@ -17,8 +17,8 @@ export const application_tuple =
         attribute: IJsonSchema.IAttribute,
     ): IJsonSchema.ITuple => ({
         type: "array",
-        items: items.map((schema) =>
-            application_schema(options)(components)(schema, attribute),
+        items: items.map((meta) =>
+            application_schema(options)(components)(false)(meta, attribute),
         ),
         nullable,
         ...attribute,
