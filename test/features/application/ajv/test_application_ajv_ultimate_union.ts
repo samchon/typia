@@ -68,6 +68,9 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                                         $ref: "components#/schemas/IJsonSchema.IRecursiveReference",
                                     },
                                     {
+                                        $ref: "components#/schemas/IJsonSchema.INullOnly",
+                                    },
+                                    {
                                         $ref: "components#/schemas/IJsonSchema.IUnkown",
                                     },
                                 ],
@@ -1267,6 +1270,9 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                                     $ref: "components#/schemas/IJsonSchema.IRecursiveReference",
                                 },
                                 {
+                                    $ref: "components#/schemas/IJsonSchema.INullOnly",
+                                },
+                                {
                                     $ref: "components#/schemas/IJsonSchema.IUnkown",
                                 },
                             ],
@@ -1345,6 +1351,9 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                                         $ref: "components#/schemas/IJsonSchema.IRecursiveReference",
                                     },
                                     {
+                                        $ref: "components#/schemas/IJsonSchema.INullOnly",
+                                    },
+                                    {
                                         $ref: "components#/schemas/IJsonSchema.IUnkown",
                                     },
                                 ],
@@ -1399,9 +1408,6 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                                         $ref: "components#/schemas/IJsonSchema.IString",
                                     },
                                     {
-                                        $ref: "components#/schemas/IJsonSchema.IUnkown",
-                                    },
-                                    {
                                         $recursiveRef:
                                             "components#/schemas/IJsonSchema.IOneOf",
                                     },
@@ -1418,6 +1424,12 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                                     },
                                     {
                                         $ref: "components#/schemas/IJsonSchema.IRecursiveReference",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IJsonSchema.INullOnly",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IJsonSchema.IUnkown",
                                     },
                                 ],
                             },
@@ -1493,13 +1505,6 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                     },
                     nullable: false,
                     required: ["oneOf"],
-                    "x-tson_jsDocTags": [],
-                },
-                "IJsonSchema.IUnkown": {
-                    $id: "components#/schemas/IJsonSchema.IUnkown",
-                    type: "object",
-                    properties: {},
-                    nullable: false,
                     "x-tson_jsDocTags": [],
                 },
                 "IJsonSchema.IReference": {
@@ -1662,6 +1667,94 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                     required: ["$recursiveRef"],
                     "x-tson_jsDocTags": [],
                 },
+                "IJsonSchema.INullOnly": {
+                    $id: "components#/schemas/IJsonSchema.INullOnly",
+                    type: "object",
+                    properties: {
+                        type: {
+                            type: "string",
+                            enum: ["null"],
+                            nullable: false,
+                        },
+                        description: {
+                            type: "string",
+                            nullable: false,
+                        },
+                        "x-tson-metaTags": {
+                            type: "array",
+                            items: {
+                                oneOf: [
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IItems",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IMinItems",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IMaxItems",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IFormat",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IPattern",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.ILength",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IMinLength",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IMaxLength",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IType",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IRange",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IMinimum",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IMaximum",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMinimum",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IExclusiveMaximum",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IMultipleOf",
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IStep",
+                                    },
+                                ],
+                            },
+                            nullable: false,
+                        },
+                        "x-tson-jsDocTags": {
+                            type: "array",
+                            items: {
+                                $ref: "components#/schemas/IJsDocTagInfo",
+                            },
+                            nullable: false,
+                        },
+                    },
+                    nullable: false,
+                    required: ["type"],
+                    "x-tson_jsDocTags": [],
+                },
+                "IJsonSchema.IUnkown": {
+                    $id: "components#/schemas/IJsonSchema.IUnkown",
+                    type: "object",
+                    properties: {},
+                    nullable: false,
+                    "x-tson_jsDocTags": [],
+                },
                 IJsonComponents: {
                     $id: "components#/schemas/IJsonComponents",
                     type: "object",
@@ -1752,6 +1845,9 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                                     $ref: "components#/schemas/IJsonSchema.IRecursiveReference",
                                 },
                                 {
+                                    $ref: "components#/schemas/IJsonSchema.INullOnly",
+                                },
+                                {
                                     $ref: "components#/schemas/IJsonSchema.IUnkown",
                                 },
                             ],
@@ -1831,6 +1927,9 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                             },
                             {
                                 $ref: "components#/schemas/IJsonSchema.IRecursiveReference",
+                            },
+                            {
+                                $ref: "components#/schemas/IJsonSchema.INullOnly",
                             },
                             {
                                 $ref: "components#/schemas/IJsonSchema.IUnkown",
