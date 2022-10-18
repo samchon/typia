@@ -19,13 +19,16 @@ export const application_array =
         // SCHEMA
         const output: IJsonSchema.IArray = {
             type: "array",
-            items: application_schema(options)(components)(metadata, attribute),
+            items: application_schema(options)(components)(false)(
+                metadata,
+                attribute,
+            ),
             nullable,
             ...attribute,
         };
 
         // RANGE
-        for (const tag of attribute.metaTags || [])
+        for (const tag of attribute["x-tson-metaTags"] || [])
             if (tag.kind === "minItems") output.minItems = tag.value;
             else if (tag.kind === "maxItems") output.maxItems = tag.value;
             else if (tag.kind === "items") {

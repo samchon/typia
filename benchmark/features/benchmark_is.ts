@@ -1,4 +1,7 @@
 import Ajv from "ajv";
+import * as tr from "class-transformer";
+import * as cv from "class-validator";
+import "reflect-metadata";
 
 import TSON from "../../src";
 // PURE TYPESCRIPT TYPES
@@ -12,6 +15,10 @@ import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
 // BENCHMARK PROGRAM
 import { IsBenchmarker } from "../internal/IsBenchmarker";
+// CLASS-VALIDATOR
+import { CvArrayRecursive } from "../structures/class-validator/CvArrayRecursive";
+import { CvObjectHierarchical } from "../structures/class-validator/CvObjectHierarchical";
+import { CvObjectRecursive } from "../structures/class-validator/CvObjectRecursive";
 // IO-TS TYPES
 import { IoTsArrayRecursive } from "../structures/io-ts/IoTsArrayRecursive";
 import { IoTsArrayRecursiveUnionExplicit } from "../structures/io-ts/IoTsArrayRecursiveUnionExplicit";
@@ -77,6 +84,10 @@ const is = () => [
             "io-ts": wrap(ObjectHierarchical.generate(), (input) =>
                 IoTsObjectHierarchical.is(input),
             ),
+            "class-validator": (input) => {
+                const cla = tr.plainToInstance(CvObjectHierarchical, input);
+                return cv.validateSync(cla).length === 0;
+            },
             zod: wrap(
                 ObjectHierarchical.generate(),
                 (input) => ZodObjectHierarchical.safeParse(input).success,
@@ -95,6 +106,10 @@ const is = () => [
             "io-ts": wrap(ObjectRecursive.generate(), (input) =>
                 IoTsObjectRecursive.is(input),
             ),
+            "class-validator": (input) => {
+                const cla = tr.plainToInstance(CvObjectRecursive, input);
+                return cv.validateSync(cla).length === 0;
+            },
             zod: wrap(
                 ObjectRecursive.generate(),
                 (input) => ZodObjectRecursive.safeParse(input).success,
@@ -113,6 +128,7 @@ const is = () => [
             "io-ts": wrap(ObjectUnionExplicit.generate(), (input) =>
                 IoTsObjectUnionExplicit.is(input),
             ),
+            "class-validator": null,
             zod: wrap(
                 ObjectUnionExplicit.generate(),
                 (input) => ZodObjectUnionExplicit.safeParse(input).success,
@@ -131,6 +147,7 @@ const is = () => [
             "io-ts": wrap(ObjectUnionImplicit.generate(), (input) =>
                 IoTsObjectUnionImplicit.is(input),
             ),
+            "class-validator": null,
             zod: wrap(
                 ObjectUnionImplicit.generate(),
                 (input) => ZodObjectUnionImplicit.safeParse(input).success,
@@ -149,6 +166,10 @@ const is = () => [
             "io-ts": wrap(ArrayRecursive.generate(), (input) =>
                 IoTsArrayRecursive.is(input),
             ),
+            "class-validator": (input) => {
+                const cla = tr.plainToInstance(CvArrayRecursive, input);
+                return cv.validateSync(cla).length === 0;
+            },
             zod: wrap(
                 ArrayRecursive.generate(),
                 (input) => ZodArrayRecursive.safeParse(input).success,
@@ -167,6 +188,7 @@ const is = () => [
             "io-ts": wrap(ArrayRecursiveUnionExplicit.generate(), (input) =>
                 IoTsArrayRecursiveUnionExplicit.is(input),
             ),
+            "class-validator": null,
             zod: wrap(
                 ArrayRecursiveUnionExplicit.generate(),
                 (input) =>
@@ -186,6 +208,7 @@ const is = () => [
             "io-ts": wrap(ArrayRecursiveUnionImplicit.generate(), (input) =>
                 IoTsArrayRecursiveUnionImplicit.is(input),
             ),
+            "class-validator": null,
             zod: wrap(
                 ArrayRecursiveUnionImplicit.generate(),
                 (input) =>
@@ -202,6 +225,7 @@ const is = () => [
         "io-ts": wrap(UltimateUnion.generate(), (input) =>
             IoTsUltimateUnion.is(input),
         ),
+        "class-validator": null,
         zod: wrap(
             UltimateUnion.generate(),
             (input) => ZodUltimateUnion.safeParse(input).success,

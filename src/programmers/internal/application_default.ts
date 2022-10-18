@@ -7,7 +7,7 @@ export const application_default =
     (attribute: IJsonSchema.IAttribute) =>
     (pred: (value: string) => boolean) =>
     <T>(caster: (str: string) => T): T | undefined => {
-        const defaults = (attribute.jsDocTags || []).filter(
+        const defaults = (attribute["x-tson-jsDocTags"] || []).filter(
             (tag) => tag.name === "default",
         );
         for (const def of defaults)

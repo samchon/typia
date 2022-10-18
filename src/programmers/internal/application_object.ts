@@ -1,6 +1,9 @@
 import { MetadataObject } from "../../metadata/MetadataObject";
 import { IJsonComponents } from "../../schemas/IJsonComponents";
 
+import { PatternUtil } from "../../utils/PatternUtil";
+
+import { IJsonSchema } from "../../module";
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
 import { application_schema } from "./application_schema";
 import { metadata_to_pattern } from "./metadata_to_pattern";
@@ -19,6 +22,7 @@ export const application_object =
         // ITERATE PROPERTIES
         const properties: Record<string, any> = {};
         const patternProperties: Record<string, any> = {};
+        const additionalProperties: IJsonSchema[] = [];
         const required: string[] = [];
 
         for (const property of obj.properties) {
@@ -31,21 +35,30 @@ export const application_object =
                 continue;
 
             const key: string | null = property.key.getSoleLiteral();
-            const value = () =>
-                application_schema(options)(components)(property.value, {
-                    description: property.description,
-                    metaTags: property.tags.length ? property.tags : undefined,
-                    jsDocTags: property.jsDocTags.length
-                        ? property.jsDocTags
-                        : undefined,
-                });
+            const value: IJsonSchema | null = application_schema(options)(
+                components,
+            )(true)(property.value, {
+                description: property.description,
+                "x-tson-metaTags": property.tags.length
+                    ? property.tags
+                    : undefined,
+                "x-tson-jsDocTags": property.jsDocTags.length
+                    ? property.jsDocTags
+                    : undefined,
+            });
 
-            if (key !== null) {
-                properties[key] = value();
+            if (value === null) continue;
+            else if (key !== null) {
+                properties[key] = value;
                 if (property.value.required === true) required.push(key);
             } else {
                 const pattern: string = metadata_to_pattern(true)(property.key);
-                patternProperties[pattern] = value();
+                if (
+                    options.purpose === "swagger" ||
+                    pattern === PatternUtil.STRING
+                )
+                    additionalProperties.push(value);
+                else patternProperties[pattern] = value;
             }
         }
 
@@ -61,10 +74,15 @@ export const application_object =
             patternProperties: Object.keys(patternProperties).length
                 ? patternProperties
                 : undefined,
+            additionalProperties: additionalProperties.length
+                ? additionalProperties.length === 1
+                    ? additionalProperties[0]
+                    : { oneOf: additionalProperties }
+                : undefined,
             nullable,
             required: required.length ? required : undefined,
             description: obj.description,
-            jsDocTags: obj.jsDocTags,
+            "x-tson_jsDocTags": obj.jsDocTags,
         };
         components.schemas[key] = schema;
     };

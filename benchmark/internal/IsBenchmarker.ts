@@ -6,11 +6,13 @@ export namespace IsBenchmarker {
         "typescript-json": number;
         "io-ts": number | null;
         zod: number | null;
+        "class-validator": number | null;
         ajv: number | null;
     }
     export interface IParameters<T> {
         "typescript-json": (input: T) => any;
         "io-ts": null | ((input: T) => any);
+        "class-validator": null | ((input: T) => any);
         zod: null | ((input: T) => any);
         ajv: null | ((input: T) => any);
     }
@@ -29,6 +31,10 @@ export namespace IsBenchmarker {
             suite.add("io-ts", () => parameters["io-ts"]!(data));
         if (parameters.zod !== null)
             suite.add("zod", () => parameters.zod!(data));
+        if (parameters["class-validator"] !== null)
+            suite.add("class-validator", () =>
+                parameters["class-validator"]!(data),
+            );
         suite.add("typescript-json", () => parameters["typescript-json"](data));
 
         return () => {
@@ -36,6 +42,7 @@ export namespace IsBenchmarker {
                 name,
                 "typescript-json": 0,
                 "io-ts": null,
+                "class-validator": null,
                 zod: null,
                 ajv: null,
             };

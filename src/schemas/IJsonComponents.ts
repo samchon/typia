@@ -13,10 +13,11 @@ export namespace IJsonComponents {
 
         properties: Record<string, IJsonSchema>;
         patternProperties?: Record<string, IJsonSchema>;
+        additionalProperties?: IJsonSchema;
 
         required?: string[];
         description?: string;
-        jsDocTags?: IJsDocTagInfo[];
+        "x-tson_jsDocTags"?: IJsDocTagInfo[];
 
         $recursiveAnchor?: boolean;
     }
