@@ -13,7 +13,7 @@ export const application_number = (
         nullable,
         ...attribute,
     };
-    for (const tag of attribute.metaTags || []) {
+    for (const tag of attribute["x-tson-metaTags"] || []) {
         // CHECK TYPE
         if (
             tag.kind === "type" &&
@@ -38,7 +38,7 @@ export const application_number = (
     // WHEN UNSIGNED INT
     if (
         output.type === "integer" &&
-        (attribute.metaTags || []).find(
+        (attribute["x-tson-metaTags"] || []).find(
             (tag) => tag.kind === "type" && tag.value === "uint",
         )
     )

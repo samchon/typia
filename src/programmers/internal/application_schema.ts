@@ -21,7 +21,11 @@ import { application_tuple } from "./application_tuple";
 export const application_schema =
     (options: ApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
-    (meta: Metadata, attribute: IJsonSchema.IAttribute): IJsonSchema => {
+    <BlockNever extends boolean>(blockNever: BlockNever) =>
+    (
+        meta: Metadata,
+        attribute: IJsonSchema.IAttribute,
+    ): BlockNever extends true ? IJsonSchema | null : IJsonSchema => {
         // VULNERABLE CASE
         if (meta.any === true) return {};
         else if (meta.nullable && meta.empty())
@@ -100,7 +104,8 @@ export const application_schema =
         //----
         // RETURNS
         //----
-        if (union.length === 0) return { ...attribute };
+        if (union.length === 0)
+            return blockNever === true ? null! : { ...attribute };
         else if (union.length === 1) return union[0]!;
         return { oneOf: union, ...attribute };
     };

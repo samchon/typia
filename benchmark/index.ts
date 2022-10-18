@@ -81,15 +81,15 @@ async function measure<T extends Output>(
 }
 
 async function main(): Promise<void> {
-    const cpu: string = os.cpus()[0].model;
+    const cpu: string = os.cpus()[0].model.trim();
     const memory: number = os.totalmem();
 
     console.log(`Benchmark ${cpu}`);
 
     const stream = new WriteStream(`${__dirname}/results/${cpu}.md`);
     const functors = [
-        benchmark_validate,
         benchmark_is,
+        benchmark_validate,
         benchmark_optimizer,
         benchmark_stringify,
     ];
