@@ -1,6 +1,7 @@
 import fs from "fs";
 import os from "os";
 
+import { benchmark_assert } from "./features/benchmark_assert";
 import { benchmark_is } from "./features/benchmark_is";
 import { benchmark_optimizer } from "./features/benchmark_optimizer";
 import { benchmark_stringify } from "./features/benchmark_stringify";
@@ -89,6 +90,7 @@ async function main(): Promise<void> {
     const stream = new WriteStream(`${__dirname}/results/${cpu}.md`);
     const functors = [
         benchmark_is,
+        benchmark_assert,
         benchmark_validate,
         benchmark_optimizer,
         benchmark_stringify,
