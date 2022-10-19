@@ -16,8 +16,12 @@ import { UltimateUnion } from "../../test/structures/UltimateUnion";
 import { ValidateBenchmarker } from "../internal/ValidateBenchmarker";
 // CLASS-VALIDATOR
 import { CvArrayRecursive } from "../structures/class-validator/CvArrayRecursive";
+import { CvArrayRecursiveUnionExplicit } from "../structures/class-validator/CvArrayRecursiveUnionExplicit";
+import { CvArrayRecursiveUnionImplicit } from "../structures/class-validator/CvArrayRecursiveUnionImplicit";
 import { CvObjectHierarchical } from "../structures/class-validator/CvObjectHierarchical";
 import { CvObjectRecursive } from "../structures/class-validator/CvObjectRecursive";
+import { CvObjectUnionExplicit } from "../structures/class-validator/CvObjectUnionExplicit";
+import { CvObjectUnionImplicit } from "../structures/class-validator/CvObjectUnionImplicit";
 // IO-TS TYPES
 import { IoTsArrayRecursive } from "../structures/io-ts/IoTsArrayRecursive";
 import { IoTsArrayRecursiveUnionExplicit } from "../structures/io-ts/IoTsArrayRecursiveUnionExplicit";
@@ -68,7 +72,12 @@ const valiadate = () => [
         {
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": (input) => IoTsObjectUnionExplicit.decode(input),
-            "class-validator": null,
+            "class-validator": (input) => {
+                const classes = input.map((elem) =>
+                    tr.plainToClass(CvObjectUnionExplicit, elem),
+                );
+                return classes.map((clas) => cv.validateSync(clas));
+            },
             zod: (input) => ZodObjectUnionExplicit.safeParse(input),
         },
     ),
@@ -78,7 +87,12 @@ const valiadate = () => [
         {
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": (input) => IoTsObjectUnionImplicit.decode(input),
-            "class-validator": null,
+            "class-validator": (input) => {
+                const classes = input.map((elem) =>
+                    tr.plainToClass(CvObjectUnionImplicit, elem),
+                );
+                return classes.map((clas) => cv.validateSync(clas));
+            },
             zod: (input) => ZodObjectUnionImplicit.safeParse(input),
         },
     ),
@@ -101,7 +115,12 @@ const valiadate = () => [
         {
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": (input) => IoTsArrayRecursiveUnionExplicit.decode(input),
-            "class-validator": null,
+            "class-validator": (input) => {
+                const classes = input.map((elem) =>
+                    tr.plainToClass(CvArrayRecursiveUnionExplicit, elem),
+                );
+                return classes.map((clas) => cv.validateSync(clas));
+            },
             zod: (input) => ZodArrayRecursiveUnionExplicit.safeParse(input),
         },
     ),
@@ -111,7 +130,12 @@ const valiadate = () => [
         {
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": (input) => IoTsArrayRecursiveUnionImplicit.decode(input),
-            "class-validator": null,
+            "class-validator": (input) => {
+                const classes = input.map((elem) =>
+                    tr.plainToClass(CvArrayRecursiveUnionImplicit, elem),
+                );
+                return classes.map((clas) => cv.validateSync(clas));
+            },
             zod: (input) => ZodArrayRecursiveUnionImplicit.safeParse(input),
         },
     ),
