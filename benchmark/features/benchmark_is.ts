@@ -17,8 +17,12 @@ import { UltimateUnion } from "../../test/structures/UltimateUnion";
 import { IsBenchmarker } from "../internal/IsBenchmarker";
 // CLASS-VALIDATOR
 import { CvArrayRecursive } from "../structures/class-validator/CvArrayRecursive";
+import { CvArrayRecursiveUnionExplicit } from "../structures/class-validator/CvArrayRecursiveUnionExplicit";
+import { CvArrayRecursiveUnionImplicit } from "../structures/class-validator/CvArrayRecursiveUnionImplicit";
 import { CvObjectHierarchical } from "../structures/class-validator/CvObjectHierarchical";
 import { CvObjectRecursive } from "../structures/class-validator/CvObjectRecursive";
+import { CvObjectUnionExplicit } from "../structures/class-validator/CvObjectUnionExplicit";
+import { CvObjectUnionImplicit } from "../structures/class-validator/CvObjectUnionImplicit";
 // IO-TS TYPES
 import { IoTsArrayRecursive } from "../structures/io-ts/IoTsArrayRecursive";
 import { IoTsArrayRecursiveUnionExplicit } from "../structures/io-ts/IoTsArrayRecursiveUnionExplicit";
@@ -128,7 +132,14 @@ const is = () => [
             "io-ts": wrap(ObjectUnionExplicit.generate(), (input) =>
                 IoTsObjectUnionExplicit.is(input),
             ),
-            "class-validator": null,
+            "class-validator": (input) => {
+                const classes = input.map((elem) =>
+                    tr.plainToClass(CvObjectUnionExplicit, elem),
+                );
+                return classes.every(
+                    (clas) => cv.validateSync(clas).length === 0,
+                );
+            },
             zod: wrap(
                 ObjectUnionExplicit.generate(),
                 (input) => ZodObjectUnionExplicit.safeParse(input).success,
@@ -147,7 +158,14 @@ const is = () => [
             "io-ts": wrap(ObjectUnionImplicit.generate(), (input) =>
                 IoTsObjectUnionImplicit.is(input),
             ),
-            "class-validator": null,
+            "class-validator": (input) => {
+                const classes = input.map((elem) =>
+                    tr.plainToClass(CvObjectUnionImplicit, elem),
+                );
+                return classes.every(
+                    (clas) => cv.validateSync(clas).length === 0,
+                );
+            },
             zod: wrap(
                 ObjectUnionImplicit.generate(),
                 (input) => ZodObjectUnionImplicit.safeParse(input).success,
@@ -188,7 +206,14 @@ const is = () => [
             "io-ts": wrap(ArrayRecursiveUnionExplicit.generate(), (input) =>
                 IoTsArrayRecursiveUnionExplicit.is(input),
             ),
-            "class-validator": null,
+            "class-validator": (input) => {
+                const classes = input.map((elem) =>
+                    tr.plainToClass(CvArrayRecursiveUnionExplicit, elem),
+                );
+                return classes.every(
+                    (clas) => cv.validateSync(clas).length === 0,
+                );
+            },
             zod: wrap(
                 ArrayRecursiveUnionExplicit.generate(),
                 (input) =>
@@ -208,7 +233,14 @@ const is = () => [
             "io-ts": wrap(ArrayRecursiveUnionImplicit.generate(), (input) =>
                 IoTsArrayRecursiveUnionImplicit.is(input),
             ),
-            "class-validator": null,
+            "class-validator": (input) => {
+                const classes = input.map((elem) =>
+                    tr.plainToClass(CvArrayRecursiveUnionImplicit, elem),
+                );
+                return classes.every(
+                    (clas) => cv.validateSync(clas).length === 0,
+                );
+            },
             zod: wrap(
                 ArrayRecursiveUnionImplicit.generate(),
                 (input) =>
