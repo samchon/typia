@@ -13,7 +13,7 @@ import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
 // BENCHMARK PROGRAM
-import { ValidateBenchmarker } from "../internal/ValidateBenchmarker";
+import { AssertBenchmarker } from "../internal/AssertBenchmarker";
 // CLASS-VALIDATOR
 import { CvArrayRecursive } from "../structures/class-validator/CvArrayRecursive";
 import { CvArrayRecursiveUnionExplicit } from "../structures/class-validator/CvArrayRecursiveUnionExplicit";
@@ -39,12 +39,12 @@ import { ZodObjectRecursive } from "../structures/zod/ZodObjectRecursive";
 import { ZodObjectUnionExplicit } from "../structures/zod/ZodObjectUnionExplicit";
 import { ZodObjectUnionImplicit } from "../structures/zod/ZodObjectUnionImplicit";
 
-const valiadate = () => [
-    ValidateBenchmarker.prepare(
+const assert = () => [
+    AssertBenchmarker.prepare(
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
+            "typescript-json": (input) => TSON.assertType(input),
             "io-ts": (input) => IoTsObjectHierarchical.decode(input),
             "class-validator": (input) => {
                 const cla = tr.plainToInstance(CvObjectHierarchical, input);
@@ -53,11 +53,11 @@ const valiadate = () => [
             zod: (input) => ZodObjectHierarchical.safeParse(input),
         },
     ),
-    ValidateBenchmarker.prepare(
+    AssertBenchmarker.prepare(
         "object (recursive)",
         () => ObjectRecursive.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
+            "typescript-json": (input) => TSON.assertType(input),
             "io-ts": (input) => IoTsObjectRecursive.decode(input),
             "class-validator": (input) => {
                 const cla = tr.plainToInstance(CvObjectRecursive, input);
@@ -66,11 +66,11 @@ const valiadate = () => [
             zod: (input) => ZodObjectRecursive.safeParse(input),
         },
     ),
-    ValidateBenchmarker.prepare(
+    AssertBenchmarker.prepare(
         "object (union, explicit)",
         () => ObjectUnionExplicit.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
+            "typescript-json": (input) => TSON.assertType(input),
             "io-ts": (input) => IoTsObjectUnionExplicit.decode(input),
             "class-validator": (input) => {
                 const classes = input.map((elem) =>
@@ -81,11 +81,11 @@ const valiadate = () => [
             zod: (input) => ZodObjectUnionExplicit.safeParse(input),
         },
     ),
-    ValidateBenchmarker.prepare(
+    AssertBenchmarker.prepare(
         "object (union, implicit)",
         () => ObjectUnionImplicit.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
+            "typescript-json": (input) => TSON.assertType(input),
             "io-ts": (input) => IoTsObjectUnionImplicit.decode(input),
             "class-validator": (input) => {
                 const classes = input.map((elem) =>
@@ -96,11 +96,11 @@ const valiadate = () => [
             zod: (input) => ZodObjectUnionImplicit.safeParse(input),
         },
     ),
-    ValidateBenchmarker.prepare(
+    AssertBenchmarker.prepare(
         "array (recursive)",
         () => ArrayRecursive.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
+            "typescript-json": (input) => TSON.assertType(input),
             "io-ts": (input) => IoTsArrayRecursive.decode(input),
             "class-validator": (input) => {
                 const cla = tr.plainToInstance(CvArrayRecursive, input);
@@ -109,11 +109,11 @@ const valiadate = () => [
             zod: (input) => ZodArrayRecursive.safeParse(input),
         },
     ),
-    ValidateBenchmarker.prepare(
+    AssertBenchmarker.prepare(
         "array (union, explicit)",
         () => ArrayRecursiveUnionExplicit.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
+            "typescript-json": (input) => TSON.assertType(input),
             "io-ts": (input) => IoTsArrayRecursiveUnionExplicit.decode(input),
             "class-validator": (input) => {
                 const classes = input.map((elem) =>
@@ -124,11 +124,11 @@ const valiadate = () => [
             zod: (input) => ZodArrayRecursiveUnionExplicit.safeParse(input),
         },
     ),
-    ValidateBenchmarker.prepare(
+    AssertBenchmarker.prepare(
         "array (union, implicit)",
         () => ArrayRecursiveUnionImplicit.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
+            "typescript-json": (input) => TSON.assertType(input),
             "io-ts": (input) => IoTsArrayRecursiveUnionImplicit.decode(input),
             "class-validator": (input) => {
                 const classes = input.map((elem) =>
@@ -139,15 +139,15 @@ const valiadate = () => [
             zod: (input) => ZodArrayRecursiveUnionImplicit.safeParse(input),
         },
     ),
-    ValidateBenchmarker.prepare(
+    AssertBenchmarker.prepare(
         "ultimate union",
         () => UltimateUnion.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
+            "typescript-json": (input) => TSON.assertType(input),
             "io-ts": null,
             "class-validator": null,
             zod: null,
         },
     ),
 ];
-export { valiadate as benchmark_validate };
+export { assert as benchmark_assert };
