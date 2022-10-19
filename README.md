@@ -40,15 +40,15 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
   - Powerful Runtime type checkers:
     - Performed by only one line, `TSON.assertType<T>(input)`
     - Only one library which can validate union type
-    - Maximum 1,000x faster than other libraries
+    - Maximum 2,000x faster than other libraries
   - 5x faster `JSON.stringify()` function:
     - Performed by only one line: `TSON.stringify<T>(input)`
     - Only one library which can stringify union type
     - 10,000x faster optimizer construction time than similar libraries
 
-![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/194713658-62fb0716-c24e-41f9-be0d-01edeabb1dd6.png)
+![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/196679891-d06ef698-603b-49f8-98c8-d140b813a06d.png)
 
-> Measured on Intel i5-1135g7, Surface Pro 8 (numeric option: `false`)
+> Measured on AMD R9 5900HX, ASUS Rog Strix G15 (numeric option: `false`)
 
 
 
@@ -249,7 +249,7 @@ As you can see from the above table, `ajv` and `typescript-is` are fallen in the
 
 The extreme different is shown in the "ultimate union" type, when validating [JSON schema](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts).
 
-![Super-fast runtime validator](https://user-images.githubusercontent.com/13158709/194713627-59c12e51-06e8-44ba-9df5-cfd69aaf971a.png)
+![Super-fast runtime validator](https://user-images.githubusercontent.com/13158709/196680107-f4e77835-3380-4dde-9fa3-d9d419c046e2.png)
 
 > Measured on Intel i5-1135g7, Surface Pro 8
 
