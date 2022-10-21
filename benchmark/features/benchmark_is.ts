@@ -463,6 +463,12 @@ const is = () => [
                     (input[0].schemas[0] = {
                         type: "wrong", // CAN AVOID UNKOWN TYPE?
                     }),
+                (input) =>
+                    (input[0].schemas[0] = {
+                        type: "number",
+                        nullable: false,
+                        enum: ["1", "2", "3", "4"],
+                    }),
             ],
         ),
         ajv: null,

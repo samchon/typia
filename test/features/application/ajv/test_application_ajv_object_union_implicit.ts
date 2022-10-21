@@ -66,6 +66,14 @@ export const test_application_ajv_object_union_implicit = _test_application_ajv(
                         p2: {
                             $ref: "components#/schemas/ObjectUnionImplicit.IPoint",
                         },
+                        width: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        distance: {
+                            type: "number",
+                            nullable: false,
+                        },
                     },
                     nullable: false,
                     required: ["p1", "p2"],
@@ -83,6 +91,18 @@ export const test_application_ajv_object_union_implicit = _test_application_ajv(
                         },
                         p3: {
                             $ref: "components#/schemas/ObjectUnionImplicit.IPoint",
+                        },
+                        width: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        height: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        area: {
+                            type: "number",
+                            nullable: false,
                         },
                     },
                     nullable: false,
@@ -105,6 +125,18 @@ export const test_application_ajv_object_union_implicit = _test_application_ajv(
                         p4: {
                             $ref: "components#/schemas/ObjectUnionImplicit.IPoint",
                         },
+                        width: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        height: {
+                            type: "number",
+                            nullable: false,
+                        },
+                        area: {
+                            type: "number",
+                            nullable: false,
+                        },
                     },
                     nullable: false,
                     required: ["p1", "p2", "p3", "p4"],
@@ -119,6 +151,10 @@ export const test_application_ajv_object_union_implicit = _test_application_ajv(
                             items: {
                                 $ref: "components#/schemas/ObjectUnionImplicit.IPoint",
                             },
+                            nullable: false,
+                        },
+                        length: {
+                            type: "number",
                             nullable: false,
                         },
                     },
@@ -140,9 +176,13 @@ export const test_application_ajv_object_union_implicit = _test_application_ajv(
                             },
                             nullable: false,
                         },
+                        area: {
+                            type: "number",
+                            nullable: false,
+                        },
                     },
                     nullable: false,
-                    required: ["outer", "inner"],
+                    required: ["outer"],
                     "x-tson_jsDocTags": [],
                 },
                 "ObjectUnionImplicit.ICircle": {
@@ -156,9 +196,13 @@ export const test_application_ajv_object_union_implicit = _test_application_ajv(
                             type: "number",
                             nullable: false,
                         },
+                        area: {
+                            type: "number",
+                            nullable: false,
+                        },
                     },
                     nullable: false,
-                    required: ["centroid", "radius"],
+                    required: ["radius"],
                     "x-tson_jsDocTags": [],
                 },
             },

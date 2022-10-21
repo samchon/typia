@@ -17,28 +17,39 @@ export namespace ObjectUnionImplicit {
     export interface ILine {
         p1: IPoint;
         p2: IPoint;
+        width?: number;
+        distance?: number;
     }
     export interface ITriangle {
         p1: IPoint;
         p2: IPoint;
         p3: IPoint;
+        width?: number;
+        height?: number;
+        area?: number;
     }
     export interface IRectangle {
         p1: IPoint;
         p2: IPoint;
         p3: IPoint;
         p4: IPoint;
+        width?: number;
+        height?: number;
+        area?: number;
     }
     export interface IPolyline {
         points: IPoint[];
+        length?: number;
     }
     export interface IPolygon {
         outer: IPolyline;
-        inner: IPolyline[];
+        inner?: IPolyline[];
+        area?: number;
     }
     export interface ICircle {
-        centroid: IPoint;
+        centroid?: IPoint;
         radius: number;
+        area?: number;
     }
 
     export function generate(): ObjectUnionImplicit {

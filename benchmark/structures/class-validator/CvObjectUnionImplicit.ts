@@ -55,6 +55,26 @@ export class CvObjectUnionImplicit {
     @cv.IsOptional()
     @cv.IsNumber()
     radius?: number;
+
+    @cv.IsOptional()
+    @cv.IsNumber()
+    distance?: number;
+
+    @cv.IsOptional()
+    @cv.IsNumber()
+    width?: number;
+
+    @cv.IsOptional()
+    @cv.IsNumber()
+    height?: number;
+
+    @cv.IsOptional()
+    @cv.IsNumber()
+    area?: number;
+
+    @cv.IsOptional()
+    @cv.IsNumber()
+    length?: number;
 }
 export namespace CvObjectUnionImplicit {
     export class Point {

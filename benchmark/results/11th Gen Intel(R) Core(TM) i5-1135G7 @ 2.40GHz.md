@@ -6,95 +6,103 @@
 
 
 ## is
- Components | typescript-json | io-ts | class-validator | zod | ajv 
-------------|-----------------|-------|-----------------|-----|-----
-object (hierarchical) | 107745.86137893397 | 8428.597549826292 | 63.163577469857835 | 397.9276495182694 | 75593.20155181969
-object (recursive) | 68240.71349760942 | 4308.773903262093 | 39.65485588397283 | 71.8595721338453 | Failed
-object (union, explicit) | 13912.822375590265 | 3233.235077376566 | 16.473569876900797 | 34.20256991685563 | 1097.1593993124661
-object (union, implicit) | 14172.846237731734 | 3212.3212321232127 | 17.045454545454543 | 51.97233127687418 | Failed
-array (recursive) | 6980.918727915194 | 450.06509205876887 | 3.5754610462928116 | 8.961911874533234 | Failed
-array (union, explicit) | 3796.7836257309937 | 389.99055712936735 | 7.553426676492262 | 2.80688622754491 | Failed
-array (union, implicit) | 3677.155329210622 | 448.6016628873772 | 9.33009889904833 | 3.5694157430020663 | Failed
-ultimate union | 626.9251676028266 | Failed | Failed | Failed | Failed
+ Components | typescript-json | typebox | ajv | io-ts | class-validator | zod 
+------------|-----------------|---------|-----|-------|-----------------|-----
+object (hierarchical) | 108210.18756895918 | 184181.2811519291 | 74299.2341356674 | 9138.838143953233 | 62.60177311380495 | 401.32304299889745
+object (recursive) | 66304.31602048282 | 84578.3940547399 | Failed | 4415.937272064187 | 40.39463886820551 | 71.25581395348837
+object (union, explicit) | 15859.748072946042 | 11516.663631396832 | 1117.5094475436385 | 3193.8794209272496 | 16.305354826755604 | 32.13003213003213
+object (union, implicit) | 11555.311355311356 | 76721.90013091452 | 4082.611100866679 | Failed | 16.37852593266606 | 45.85798816568047
+array (recursive) | 6734.898727370497 | 6862.402380066939 | Failed | 466.87580734452854 | 3.3815517565282733 | 9.095971783924263
+array (union, explicit) | 3723.4714737037725 | 1976.873265494912 | Failed | 391.80962921970115 | 7.663551401869159 | 2.822732404968009
+array (union, implicit) | 3689.2798839107563 | 2275.968710205567 | Failed | 460.33519553072625 | 8.64397622906537 | 3.549411544928078
+ultimate union | 548.9229645856152 | 252.66582324236398 | Failed | Failed | Failed | 0.3459609064175748
 
 
 ```mermaid
 pie title is - object (hierarchical)
-  "typescript-json": 107745.86137893397
-  "io-ts": 8428.597549826292
-  "class-validator": 63.163577469857835
-  "zod": 397.9276495182694
-  "ajv": 75593.20155181969
+  "typescript-json": 108210.18756895918
+  "typebox": 184181.2811519291
+  "ajv": 74299.2341356674
+  "io-ts": 9138.838143953233
+  "class-validator": 62.60177311380495
+  "zod": 401.32304299889745
 ```
 
 
 ```mermaid
 pie title is - object (recursive)
-  "typescript-json": 68240.71349760942
-  "io-ts": 4308.773903262093
-  "class-validator": 39.65485588397283
-  "zod": 71.8595721338453
+  "typescript-json": 66304.31602048282
+  "typebox": 84578.3940547399
   "ajv": 0
+  "io-ts": 4415.937272064187
+  "class-validator": 40.39463886820551
+  "zod": 71.25581395348837
 ```
 
 
 ```mermaid
 pie title is - object (union, explicit)
-  "typescript-json": 13912.822375590265
-  "io-ts": 3233.235077376566
-  "class-validator": 16.473569876900797
-  "zod": 34.20256991685563
-  "ajv": 1097.1593993124661
+  "typescript-json": 15859.748072946042
+  "typebox": 11516.663631396832
+  "ajv": 1117.5094475436385
+  "io-ts": 3193.8794209272496
+  "class-validator": 16.305354826755604
+  "zod": 32.13003213003213
 ```
 
 
 ```mermaid
 pie title is - object (union, implicit)
-  "typescript-json": 14172.846237731734
-  "io-ts": 3212.3212321232127
-  "class-validator": 17.045454545454543
-  "zod": 51.97233127687418
-  "ajv": 0
+  "typescript-json": 11555.311355311356
+  "typebox": 76721.90013091452
+  "ajv": 4082.611100866679
+  "io-ts": 0
+  "class-validator": 16.37852593266606
+  "zod": 45.85798816568047
 ```
 
 
 ```mermaid
 pie title is - array (recursive)
-  "typescript-json": 6980.918727915194
-  "io-ts": 450.06509205876887
-  "class-validator": 3.5754610462928116
-  "zod": 8.961911874533234
+  "typescript-json": 6734.898727370497
+  "typebox": 6862.402380066939
   "ajv": 0
+  "io-ts": 466.87580734452854
+  "class-validator": 3.3815517565282733
+  "zod": 9.095971783924263
 ```
 
 
 ```mermaid
 pie title is - array (union, explicit)
-  "typescript-json": 3796.7836257309937
-  "io-ts": 389.99055712936735
-  "class-validator": 7.553426676492262
-  "zod": 2.80688622754491
+  "typescript-json": 3723.4714737037725
+  "typebox": 1976.873265494912
   "ajv": 0
+  "io-ts": 391.80962921970115
+  "class-validator": 7.663551401869159
+  "zod": 2.822732404968009
 ```
 
 
 ```mermaid
 pie title is - array (union, implicit)
-  "typescript-json": 3677.155329210622
-  "io-ts": 448.6016628873772
-  "class-validator": 9.33009889904833
-  "zod": 3.5694157430020663
+  "typescript-json": 3689.2798839107563
+  "typebox": 2275.968710205567
   "ajv": 0
+  "io-ts": 460.33519553072625
+  "class-validator": 8.64397622906537
+  "zod": 3.549411544928078
 ```
 
 
 ```mermaid
 pie title is - ultimate union
-  "typescript-json": 626.9251676028266
+  "typescript-json": 548.9229645856152
+  "typebox": 252.66582324236398
+  "ajv": 0
   "io-ts": 0
   "class-validator": 0
-  "zod": 0
-  "ajv": 0
+  "zod": 0.3459609064175748
 ```
 
 
@@ -103,87 +111,95 @@ pie title is - ultimate union
 
 
 ## assert
- Components | typescript-json | class-validator | io-ts | zod 
-------------|-----------------|-----------------|-------|-----
-object (hierarchical) | 19591.43327841845 | 64.64088397790056 | 3607.6825050063717 | 407.8201737816396
-object (recursive) | 29092.92778503452 | 40.84249084249084 | 1518.6848724398133 | 73.6150234741784
-object (union, explicit) | 4357.40878629933 | 17.024426350851222 | 1120.6558545713776 | 34.03777819337946
-object (union, implicit) | 3955.8432346160666 | 17.266715650257165 | 746.3677130044842 | 51.424343322234556
-array (recursive) | 1399.0221887927794 | 3.762935089369708 | 158.32106038291604 | 9.297912713472487
-array (union, explicit) | 1979.3908444282329 | 7.547864506627393 | 75.03660322108345 | 2.8084628346751543
-array (union, implicit) | 1737.8818364733859 | 9.279881217520416 | 94.04332129963899 | 3.6018957345971563
-ultimate union | 249.2340962335556 | Failed | Failed | Failed
+ Components | typescript-json | typebox | io-ts | zod | class-validator 
+------------|-----------------|---------|-------|-----|-----------------
+object (hierarchical) | 22107.07669507225 | 821.2906784335356 | 3357.6873024725787 | 395.8333333333333 | 63.68140943292347
+object (recursive) | 28218.86582653818 | 335.99854624750134 | 1673.6744186046512 | 73.63687464867904 | 39.48576675849403
+object (union, explicit) | 4403.040415276233 | 149.78786201807785 | 1087.713004484305 | 33.771106941838646 | 16.299314687905166
+object (union, implicit) | 4578.986039676708 | Failed | 502.2956841138659 | 45.82311898925137 | 16.577638607478356
+array (recursive) | 1496.1313455368936 | 34.68208092485549 | 151.48830616583982 | 9.292622795372655 | 3.3764772087788404
+array (union, explicit) | 1874.1958541815582 | 19.872515935508062 | 78.3478421929987 | 2.810567734682406 | 7.113440658929241
+array (union, implicit) | 1695.8734775495363 | 26.750142287990894 | 92.49183895538629 | 3.5747883349012226 | 8.654023200147302
+ultimate union | 230.2132273220094 | Failed | Failed | Failed | Failed
 
 
 ```mermaid
 pie title assert - object (hierarchical)
-  "typescript-json": 19591.43327841845
-  "class-validator": 64.64088397790056
-  "io-ts": 3607.6825050063717
-  "zod": 407.8201737816396
+  "typescript-json": 22107.07669507225
+  "typebox": 821.2906784335356
+  "io-ts": 3357.6873024725787
+  "zod": 395.8333333333333
+  "class-validator": 63.68140943292347
 ```
 
 
 ```mermaid
 pie title assert - object (recursive)
-  "typescript-json": 29092.92778503452
-  "class-validator": 40.84249084249084
-  "io-ts": 1518.6848724398133
-  "zod": 73.6150234741784
+  "typescript-json": 28218.86582653818
+  "typebox": 335.99854624750134
+  "io-ts": 1673.6744186046512
+  "zod": 73.63687464867904
+  "class-validator": 39.48576675849403
 ```
 
 
 ```mermaid
 pie title assert - object (union, explicit)
-  "typescript-json": 4357.40878629933
-  "class-validator": 17.024426350851222
-  "io-ts": 1120.6558545713776
-  "zod": 34.03777819337946
+  "typescript-json": 4403.040415276233
+  "typebox": 149.78786201807785
+  "io-ts": 1087.713004484305
+  "zod": 33.771106941838646
+  "class-validator": 16.299314687905166
 ```
 
 
 ```mermaid
 pie title assert - object (union, implicit)
-  "typescript-json": 3955.8432346160666
-  "class-validator": 17.266715650257165
-  "io-ts": 746.3677130044842
-  "zod": 51.424343322234556
+  "typescript-json": 4578.986039676708
+  "typebox": 0
+  "io-ts": 502.2956841138659
+  "zod": 45.82311898925137
+  "class-validator": 16.577638607478356
 ```
 
 
 ```mermaid
 pie title assert - array (recursive)
-  "typescript-json": 1399.0221887927794
-  "class-validator": 3.762935089369708
-  "io-ts": 158.32106038291604
-  "zod": 9.297912713472487
+  "typescript-json": 1496.1313455368936
+  "typebox": 34.68208092485549
+  "io-ts": 151.48830616583982
+  "zod": 9.292622795372655
+  "class-validator": 3.3764772087788404
 ```
 
 
 ```mermaid
 pie title assert - array (union, explicit)
-  "typescript-json": 1979.3908444282329
-  "class-validator": 7.547864506627393
-  "io-ts": 75.03660322108345
-  "zod": 2.8084628346751543
+  "typescript-json": 1874.1958541815582
+  "typebox": 19.872515935508062
+  "io-ts": 78.3478421929987
+  "zod": 2.810567734682406
+  "class-validator": 7.113440658929241
 ```
 
 
 ```mermaid
 pie title assert - array (union, implicit)
-  "typescript-json": 1737.8818364733859
-  "class-validator": 9.279881217520416
-  "io-ts": 94.04332129963899
-  "zod": 3.6018957345971563
+  "typescript-json": 1695.8734775495363
+  "typebox": 26.750142287990894
+  "io-ts": 92.49183895538629
+  "zod": 3.5747883349012226
+  "class-validator": 8.654023200147302
 ```
 
 
 ```mermaid
 pie title assert - ultimate union
-  "typescript-json": 249.2340962335556
-  "class-validator": 0
+  "typescript-json": 230.2132273220094
+  "typebox": 0
   "io-ts": 0
   "zod": 0
+  "class-validator": 0
 ```
 
 
@@ -192,87 +208,95 @@ pie title assert - ultimate union
 
 
 ## valiadate
- Components | typescript-json | class-validator | io-ts | zod 
-------------|-----------------|-----------------|-------|-----
-object (hierarchical) | 15380.094614264919 | 63.89600878798975 | 3383.6095764272563 | 396.24395686128673
-object (recursive) | 15268.875611080935 | 40.90992478444323 | 1423.3494964565461 | 70.84764142418217
-object (union, explicit) | 3364.9674620390456 | 16.65141811527905 | 1075.3275109170304 | 34.353294537263
-object (union, implicit) | 3900.314989809153 | 17.014270032930845 | 735.8146323663565 | 52.462728816757874
-array (recursive) | 923.9068710959681 | 3.750234389649353 | 157.24815724815724 | 9.313818665652917
-array (union, explicit) | 1632.2639780018333 | 7.546475243879993 | 73.90983000739098 | 2.810567734682406
-array (union, implicit) | 1463.3093525179856 | 9.1424392027793 | 98.27456864216055 | 3.5795026375282593
-ultimate union | 142.42370158843477 | Failed | Failed | Failed
+ Components | typescript-json | typebox | io-ts | zod | class-validator 
+------------|-----------------|---------|-------|-----|-----------------
+object (hierarchical) | 14552.436440677968 | 842.1348314606741 | 3338.0703066566944 | 379.6714208340856 | 61.41473222445622
+object (recursive) | 15484.938638899219 | 318.94484412470024 | 1475.2971768202078 | 71.50943396226415 | 39.26701570680628
+object (union, explicit) | 3425.086473693792 | 154.6021546021546 | 1103.6870671907168 | 33.19426809359695 | 16.29026286560533
+object (union, implicit) | 3369.7373155811442 | Failed | 453.75722543352606 | 45.13953923955797 | 16.286644951140065
+array (recursive) | 958.1621217781098 | 36.51844843897824 | 160.45899172310007 | 9.283819628647215 | 3.3588356036573987
+array (union, explicit) | 1588.027547236447 | 20.7782395164337 | 76.1199696279423 | 2.628614344723996 | 7.295276308590188
+array (union, implicit) | 1422.712358731316 | 26.755218216318788 | 102.05593628449712 | 3.7735849056603774 | 8.786689100766498
+ultimate union | 118.20288821536816 | Failed | Failed | Failed | Failed
 
 
 ```mermaid
 pie title valiadate - object (hierarchical)
-  "typescript-json": 15380.094614264919
-  "class-validator": 63.89600878798975
-  "io-ts": 3383.6095764272563
-  "zod": 396.24395686128673
+  "typescript-json": 14552.436440677968
+  "typebox": 842.1348314606741
+  "io-ts": 3338.0703066566944
+  "zod": 379.6714208340856
+  "class-validator": 61.41473222445622
 ```
 
 
 ```mermaid
 pie title valiadate - object (recursive)
-  "typescript-json": 15268.875611080935
-  "class-validator": 40.90992478444323
-  "io-ts": 1423.3494964565461
-  "zod": 70.84764142418217
+  "typescript-json": 15484.938638899219
+  "typebox": 318.94484412470024
+  "io-ts": 1475.2971768202078
+  "zod": 71.50943396226415
+  "class-validator": 39.26701570680628
 ```
 
 
 ```mermaid
 pie title valiadate - object (union, explicit)
-  "typescript-json": 3364.9674620390456
-  "class-validator": 16.65141811527905
-  "io-ts": 1075.3275109170304
-  "zod": 34.353294537263
+  "typescript-json": 3425.086473693792
+  "typebox": 154.6021546021546
+  "io-ts": 1103.6870671907168
+  "zod": 33.19426809359695
+  "class-validator": 16.29026286560533
 ```
 
 
 ```mermaid
 pie title valiadate - object (union, implicit)
-  "typescript-json": 3900.314989809153
-  "class-validator": 17.014270032930845
-  "io-ts": 735.8146323663565
-  "zod": 52.462728816757874
+  "typescript-json": 3369.7373155811442
+  "typebox": 0
+  "io-ts": 453.75722543352606
+  "zod": 45.13953923955797
+  "class-validator": 16.286644951140065
 ```
 
 
 ```mermaid
 pie title valiadate - array (recursive)
-  "typescript-json": 923.9068710959681
-  "class-validator": 3.750234389649353
-  "io-ts": 157.24815724815724
-  "zod": 9.313818665652917
+  "typescript-json": 958.1621217781098
+  "typebox": 36.51844843897824
+  "io-ts": 160.45899172310007
+  "zod": 9.283819628647215
+  "class-validator": 3.3588356036573987
 ```
 
 
 ```mermaid
 pie title valiadate - array (union, explicit)
-  "typescript-json": 1632.2639780018333
-  "class-validator": 7.546475243879993
-  "io-ts": 73.90983000739098
-  "zod": 2.810567734682406
+  "typescript-json": 1588.027547236447
+  "typebox": 20.7782395164337
+  "io-ts": 76.1199696279423
+  "zod": 2.628614344723996
+  "class-validator": 7.295276308590188
 ```
 
 
 ```mermaid
 pie title valiadate - array (union, implicit)
-  "typescript-json": 1463.3093525179856
-  "class-validator": 9.1424392027793
-  "io-ts": 98.27456864216055
-  "zod": 3.5795026375282593
+  "typescript-json": 1422.712358731316
+  "typebox": 26.755218216318788
+  "io-ts": 102.05593628449712
+  "zod": 3.7735849056603774
+  "class-validator": 8.786689100766498
 ```
 
 
 ```mermaid
 pie title valiadate - ultimate union
-  "typescript-json": 142.42370158843477
-  "class-validator": 0
+  "typescript-json": 118.20288821536816
+  "typebox": 0
   "io-ts": 0
   "zod": 0
+  "class-validator": 0
 ```
 
 
@@ -281,79 +305,70 @@ pie title valiadate - ultimate union
 
 
 ## optimizer
- Components | typescript-json | fast-json-stringify | JSON.stringify() 
-------------|-----------------|---------------------|------------------
-object (simple) | 96501.73199635369 | 30.12808948222984 | 6140.140711161817
-object (hierarchical) | 4497.018263138279 | 11.166945840312675 | 1540.9005628517823
-object (recursive) | 4517.10407239819 | 73.7583395107487 | 1250.0473215975771
-object (union) | 1932.3662737987308 | 1.0877447425670776 | 943.0332461710871
-array (hierarchical) | 82.5198010683367 | 9.331840238895111 | 41.69769173492182
-array (recursive) | 240.26696329254727 | 49.68248038849458 | 134.07202216066483
-array (union) | 283.1890331890332 | 2.3844460748349228 | 275.04725897920605
-ultimate union | 118.64406779661016 | 0.16744809109176154 | 193.0016402405686
-
-
-```mermaid
-pie title optimizer - object (simple)
-  "typescript-json": 96501.73199635369
-  "fast-json-stringify": 30.12808948222984
-  "JSON.stringify()": 6140.140711161817
-```
+ Components | typescript-json | ajv | typebox 
+------------|-----------------|-----|---------
+object (hierarchical) | 82439.29683208204 | 4.333694474539545 | 169.93693062368604
+object (recursive) | 62906.81399631676 | 7.9970919665576155 | 758.5243152599218
+object (union) | 13693.929946818265 | 4.266369875718791 | 140.43406894036113
+array (hierarchical) | 8241.085972850678 | 5.830903790087463 | 868.5968819599109
+array (recursive) | 5528.958254983077 | 8.717074095129808 | 754.8588192152549
+array (union) | 3750.721500721501 | 5.5432372505543235 | 229.0245251705698
+ultimate union | 481.2161453782981 | 0.72846476051721 | 10.447214076246334
 
 
 ```mermaid
 pie title optimizer - object (hierarchical)
-  "typescript-json": 4497.018263138279
-  "fast-json-stringify": 11.166945840312675
-  "JSON.stringify()": 1540.9005628517823
+  "typescript-json": 82439.29683208204
+  "ajv": 4.333694474539545
+  "typebox": 169.93693062368604
 ```
 
 
 ```mermaid
 pie title optimizer - object (recursive)
-  "typescript-json": 4517.10407239819
-  "fast-json-stringify": 73.7583395107487
-  "JSON.stringify()": 1250.0473215975771
+  "typescript-json": 62906.81399631676
+  "ajv": 7.9970919665576155
+  "typebox": 758.5243152599218
 ```
 
 
 ```mermaid
 pie title optimizer - object (union)
-  "typescript-json": 1932.3662737987308
-  "fast-json-stringify": 1.0877447425670776
-  "JSON.stringify()": 943.0332461710871
+  "typescript-json": 13693.929946818265
+  "ajv": 4.266369875718791
+  "typebox": 140.43406894036113
 ```
 
 
 ```mermaid
 pie title optimizer - array (hierarchical)
-  "typescript-json": 82.5198010683367
-  "fast-json-stringify": 9.331840238895111
-  "JSON.stringify()": 41.69769173492182
+  "typescript-json": 8241.085972850678
+  "ajv": 5.830903790087463
+  "typebox": 868.5968819599109
 ```
 
 
 ```mermaid
 pie title optimizer - array (recursive)
-  "typescript-json": 240.26696329254727
-  "fast-json-stringify": 49.68248038849458
-  "JSON.stringify()": 134.07202216066483
+  "typescript-json": 5528.958254983077
+  "ajv": 8.717074095129808
+  "typebox": 754.8588192152549
 ```
 
 
 ```mermaid
 pie title optimizer - array (union)
-  "typescript-json": 283.1890331890332
-  "fast-json-stringify": 2.3844460748349228
-  "JSON.stringify()": 275.04725897920605
+  "typescript-json": 3750.721500721501
+  "ajv": 5.5432372505543235
+  "typebox": 229.0245251705698
 ```
 
 
 ```mermaid
 pie title optimizer - ultimate union
-  "typescript-json": 118.64406779661016
-  "fast-json-stringify": 0.16744809109176154
-  "JSON.stringify()": 193.0016402405686
+  "typescript-json": 481.2161453782981
+  "ajv": 0.72846476051721
+  "typebox": 10.447214076246334
 ```
 
 
@@ -364,77 +379,77 @@ pie title optimizer - ultimate union
 ## stringify
  Components | typescript-json | fast-json-stringify | JSON.stringify() 
 ------------|-----------------|---------------------|------------------
-object (simple) | 96213.79188087219 | 25371.42333088775 | 6108.047270680922
-object (hierarchical) | 4486.336845865333 | 4285.077123211298 | 1519.3769701464862
-object (recursive) | 4958.478141576734 | 1260.0683890577507 | 1256.1827449499717
-object (union) | 1849.8931623931626 | 1321.4806710430344 | 936.6236679753224
-array (hierarchical) | 106.98447893569845 | 134.41734417344173 | 55.721207603429
-array (recursive) | 243.62709395484342 | 133.4324475004646 | 130.9611151870873
-array (union) | 303.1819806936003 | 239.09380265867813 | 270.8761442181954
-ultimate union | 125.04498020870817 | 66.04426002766252 | 195.97069597069597
+object (simple) | 112059.05077262693 | 27211.53146598763 | 6107.156238291494
+object (hierarchical) | 4778.547360539124 | 4505.30627443679 | 1561.2187323678766
+object (recursive) | 5329.095264418648 | 1245.6505295007564 | 1246.3576158940398
+object (union) | 1894.3484521238302 | 1419.5589298626176 | 927.8064992614475
+array (hierarchical) | 96.29219701162147 | 126.77106636838181 | 48.28747894441325
+array (recursive) | 248.56984683520946 | 134.37268002969563 | 135.63132259273135
+array (union) | 315.77991646994735 | 235.3589131632091 | 260.4920405209841
+ultimate union | 115.97569692637597 | 62.46808510638298 | 182.67831149927218
 
 
 ```mermaid
 pie title stringify - object (simple)
-  "typescript-json": 96213.79188087219
-  "fast-json-stringify": 25371.42333088775
-  "JSON.stringify()": 6108.047270680922
+  "typescript-json": 112059.05077262693
+  "fast-json-stringify": 27211.53146598763
+  "JSON.stringify()": 6107.156238291494
 ```
 
 
 ```mermaid
 pie title stringify - object (hierarchical)
-  "typescript-json": 4486.336845865333
-  "fast-json-stringify": 4285.077123211298
-  "JSON.stringify()": 1519.3769701464862
+  "typescript-json": 4778.547360539124
+  "fast-json-stringify": 4505.30627443679
+  "JSON.stringify()": 1561.2187323678766
 ```
 
 
 ```mermaid
 pie title stringify - object (recursive)
-  "typescript-json": 4958.478141576734
-  "fast-json-stringify": 1260.0683890577507
-  "JSON.stringify()": 1256.1827449499717
+  "typescript-json": 5329.095264418648
+  "fast-json-stringify": 1245.6505295007564
+  "JSON.stringify()": 1246.3576158940398
 ```
 
 
 ```mermaid
 pie title stringify - object (union)
-  "typescript-json": 1849.8931623931626
-  "fast-json-stringify": 1321.4806710430344
-  "JSON.stringify()": 936.6236679753224
+  "typescript-json": 1894.3484521238302
+  "fast-json-stringify": 1419.5589298626176
+  "JSON.stringify()": 927.8064992614475
 ```
 
 
 ```mermaid
 pie title stringify - array (hierarchical)
-  "typescript-json": 106.98447893569845
-  "fast-json-stringify": 134.41734417344173
-  "JSON.stringify()": 55.721207603429
+  "typescript-json": 96.29219701162147
+  "fast-json-stringify": 126.77106636838181
+  "JSON.stringify()": 48.28747894441325
 ```
 
 
 ```mermaid
 pie title stringify - array (recursive)
-  "typescript-json": 243.62709395484342
-  "fast-json-stringify": 133.4324475004646
-  "JSON.stringify()": 130.9611151870873
+  "typescript-json": 248.56984683520946
+  "fast-json-stringify": 134.37268002969563
+  "JSON.stringify()": 135.63132259273135
 ```
 
 
 ```mermaid
 pie title stringify - array (union)
-  "typescript-json": 303.1819806936003
-  "fast-json-stringify": 239.09380265867813
-  "JSON.stringify()": 270.8761442181954
+  "typescript-json": 315.77991646994735
+  "fast-json-stringify": 235.3589131632091
+  "JSON.stringify()": 260.4920405209841
 ```
 
 
 ```mermaid
 pie title stringify - ultimate union
-  "typescript-json": 125.04498020870817
-  "fast-json-stringify": 66.04426002766252
-  "JSON.stringify()": 195.97069597069597
+  "typescript-json": 115.97569692637597
+  "fast-json-stringify": 62.46808510638298
+  "JSON.stringify()": 182.67831149927218
 ```
 
 

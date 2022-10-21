@@ -65,6 +65,14 @@ export const test_application_swagger_object_union_implicit =
                             p2: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
                             },
+                            width: {
+                                type: "number",
+                                nullable: false,
+                            },
+                            distance: {
+                                type: "number",
+                                nullable: false,
+                            },
                         },
                         nullable: false,
                         required: ["p1", "p2"],
@@ -81,6 +89,18 @@ export const test_application_swagger_object_union_implicit =
                             },
                             p3: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
+                            },
+                            width: {
+                                type: "number",
+                                nullable: false,
+                            },
+                            height: {
+                                type: "number",
+                                nullable: false,
+                            },
+                            area: {
+                                type: "number",
+                                nullable: false,
                             },
                         },
                         nullable: false,
@@ -102,6 +122,18 @@ export const test_application_swagger_object_union_implicit =
                             p4: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
                             },
+                            width: {
+                                type: "number",
+                                nullable: false,
+                            },
+                            height: {
+                                type: "number",
+                                nullable: false,
+                            },
+                            area: {
+                                type: "number",
+                                nullable: false,
+                            },
                         },
                         nullable: false,
                         required: ["p1", "p2", "p3", "p4"],
@@ -115,6 +147,10 @@ export const test_application_swagger_object_union_implicit =
                                 items: {
                                     $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
                                 },
+                                nullable: false,
+                            },
+                            length: {
+                                type: "number",
                                 nullable: false,
                             },
                         },
@@ -135,9 +171,13 @@ export const test_application_swagger_object_union_implicit =
                                 },
                                 nullable: false,
                             },
+                            area: {
+                                type: "number",
+                                nullable: false,
+                            },
                         },
                         nullable: false,
-                        required: ["outer", "inner"],
+                        required: ["outer"],
                         "x-tson_jsDocTags": [],
                     },
                     "ObjectUnionImplicit.ICircle": {
@@ -150,9 +190,13 @@ export const test_application_swagger_object_union_implicit =
                                 type: "number",
                                 nullable: false,
                             },
+                            area: {
+                                type: "number",
+                                nullable: false,
+                            },
                         },
                         nullable: false,
-                        required: ["centroid", "radius"],
+                        required: ["radius"],
                         "x-tson_jsDocTags": [],
                     },
                 },

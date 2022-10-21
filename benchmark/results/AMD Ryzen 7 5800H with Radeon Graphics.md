@@ -305,15 +305,15 @@ pie title valiadate - ultimate union
 
 
 ## optimizer
- Components | typescript-json | ajv | typebox | JSON.stringify() 
-------------|-----------------|-----|---------|------------------
-object (hierarchical) | 95166.26326568608 | 4.887762490948588 | 220.14338171008916 | 1191.7321361765805
-object (recursive) | 79568.43679880329 | 9.300595238095237 | 878.1844277000359 | 936.5770541461568
-object (union) | 13988.087016574586 | 4.929706043454446 | 271.06895293688433 | 481.4115870919041
-array (hierarchical) | 3491.5130498266108 | 6.487488415199259 | 1054.7066591209204 | 27.148474068526493
-array (recursive) | 5423.8327023616375 | 9.174311926605505 | 835.9563043880763 | 65.5402896398069
-array (union) | 3892.7853881278543 | 6.330292310556692 | 265.6563812306007 | 153.08595935110944
-ultimate union | 640.0927412163367 | 0.9117432530999271 | 21.195652173913047 | 124.83841181902123
+ Components | typescript-json | ajv | typebox 
+------------|-----------------|-----|---------
+object (hierarchical) | 95166.26326568608 | 4.887762490948588 | 220.14338171008916
+object (recursive) | 79568.43679880329 | 9.300595238095237 | 878.1844277000359
+object (union) | 13988.087016574586 | 4.929706043454446 | 271.06895293688433
+array (hierarchical) | 3491.5130498266108 | 6.487488415199259 | 1054.7066591209204
+array (recursive) | 5423.8327023616375 | 9.174311926605505 | 835.9563043880763
+array (union) | 3892.7853881278543 | 6.330292310556692 | 265.6563812306007
+ultimate union | 640.0927412163367 | 0.9117432530999271 | 21.195652173913047
 
 
 ```mermaid
@@ -321,7 +321,6 @@ pie title optimizer - object (hierarchical)
   "typescript-json": 95166.26326568608
   "ajv": 4.887762490948588
   "typebox": 220.14338171008916
-  "JSON.stringify()": 1191.7321361765805
 ```
 
 
@@ -330,7 +329,6 @@ pie title optimizer - object (recursive)
   "typescript-json": 79568.43679880329
   "ajv": 9.300595238095237
   "typebox": 878.1844277000359
-  "JSON.stringify()": 936.5770541461568
 ```
 
 
@@ -339,7 +337,6 @@ pie title optimizer - object (union)
   "typescript-json": 13988.087016574586
   "ajv": 4.929706043454446
   "typebox": 271.06895293688433
-  "JSON.stringify()": 481.4115870919041
 ```
 
 
@@ -348,7 +345,6 @@ pie title optimizer - array (hierarchical)
   "typescript-json": 3491.5130498266108
   "ajv": 6.487488415199259
   "typebox": 1054.7066591209204
-  "JSON.stringify()": 27.148474068526493
 ```
 
 
@@ -357,7 +353,6 @@ pie title optimizer - array (recursive)
   "typescript-json": 5423.8327023616375
   "ajv": 9.174311926605505
   "typebox": 835.9563043880763
-  "JSON.stringify()": 65.5402896398069
 ```
 
 
@@ -366,7 +361,6 @@ pie title optimizer - array (union)
   "typescript-json": 3892.7853881278543
   "ajv": 6.330292310556692
   "typebox": 265.6563812306007
-  "JSON.stringify()": 153.08595935110944
 ```
 
 
@@ -375,7 +369,6 @@ pie title optimizer - ultimate union
   "typescript-json": 640.0927412163367
   "ajv": 0.9117432530999271
   "typebox": 21.195652173913047
-  "JSON.stringify()": 124.83841181902123
 ```
 
 
