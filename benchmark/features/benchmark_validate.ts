@@ -37,6 +37,8 @@ import { TypeBoxArrayRecursiveUnionImplicit } from "../structures/typebox/TypeBo
 import { TypeBoxObjectHierarchical } from "../structures/typebox/TypeBoxObjectHierarchical";
 import { TypeBoxObjectRecursive } from "../structures/typebox/TypeBoxObjectRecursive";
 import { TypeBoxObjectUnionExplicit } from "../structures/typebox/TypeBoxObjectUnionExplicit";
+import { TypeBoxObjectUnionImplicit } from "../structures/typebox/TypeBoxObjectUnionImplicit";
+import { TypeBoxUltimateUnion } from "../structures/typebox/TypeBoxUltimateUnion";
 // ZOD TYPES
 import { ZodArrayRecursive } from "../structures/zod/ZodArrayRecursive";
 import { ZodArrayRecursiveUnionExplicit } from "../structures/zod/ZodArrayRecursiveUnionExplicit";
@@ -45,6 +47,7 @@ import { ZodObjectHierarchical } from "../structures/zod/ZodObjectHierarchical";
 import { ZodObjectRecursive } from "../structures/zod/ZodObjectRecursive";
 import { ZodObjectUnionExplicit } from "../structures/zod/ZodObjectUnionExplicit";
 import { ZodObjectUnionImplicit } from "../structures/zod/ZodObjectUnionImplicit";
+import { ZodUltimateUnion } from "../structures/zod/ZodUltimateUnion";
 
 const valiadate = () => [
     ValidateBenchmarker.prepare(
@@ -104,7 +107,7 @@ const valiadate = () => [
                 return classes.map((clas) => cv.validateSync(clas));
             },
             zod: (input) => ZodObjectUnionImplicit.safeParse(input),
-            typebox: null,
+            typebox: (input) => [...TypeBoxObjectUnionImplicit.Errors(input)],
         },
     ),
     ValidateBenchmarker.prepare(
@@ -164,8 +167,8 @@ const valiadate = () => [
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": null,
             "class-validator": null,
-            zod: null,
-            typebox: null,
+            zod: (input) => ZodUltimateUnion.safeParse(input),
+            typebox: (input) => [...TypeBoxUltimateUnion.Errors(input)],
         },
     ),
 ];
