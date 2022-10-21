@@ -30,6 +30,15 @@ import { IoTsObjectHierarchical } from "../structures/io-ts/IoTsObjectHierarchic
 import { IoTsObjectRecursive } from "../structures/io-ts/IoTsObjectRecursive";
 import { IoTsObjectUnionExplicit } from "../structures/io-ts/IoTsObjectUnionExplicit";
 import { IoTsObjectUnionImplicit } from "../structures/io-ts/IoTsObjectUnionImplicit";
+// TYPEBOX TYPES
+import { TypeBoxArrayRecursive } from "../structures/typebox/TypeBoxArrayRecursive";
+import { TypeBoxArrayRecursiveUnionExplicit } from "../structures/typebox/TypeBoxArrayRecursiveUnionExplicit";
+import { TypeBoxArrayRecursiveUnionImplicit } from "../structures/typebox/TypeBoxArrayRecursiveUnionImplicit";
+import { TypeBoxObjectHierarchical } from "../structures/typebox/TypeBoxObjectHierarchical";
+import { TypeBoxObjectRecursive } from "../structures/typebox/TypeBoxObjectRecursive";
+import { TypeBoxObjectUnionExplicit } from "../structures/typebox/TypeBoxObjectUnionExplicit";
+import { TypeBoxObjectUnionImplicit } from "../structures/typebox/TypeBoxObjectUnionImplicit";
+import { TypeBoxUltimateUnion } from "../structures/typebox/TypeBoxUltimateUnion";
 // ZOD TYPES
 import { ZodArrayRecursive } from "../structures/zod/ZodArrayRecursive";
 import { ZodArrayRecursiveUnionExplicit } from "../structures/zod/ZodArrayRecursiveUnionExplicit";
@@ -51,6 +60,11 @@ const valiadate = () => [
                 return cv.validateSync(cla);
             },
             zod: (input) => ZodObjectHierarchical.safeParse(input),
+            typebox: (input) => {
+                if (!TypeBoxObjectHierarchical.Check(input))
+                    throw Error("invalid");
+                return input;
+            },
         },
     ),
     ValidateBenchmarker.prepare(
@@ -64,6 +78,11 @@ const valiadate = () => [
                 return cv.validateSync(cla);
             },
             zod: (input) => ZodObjectRecursive.safeParse(input),
+            typebox: (input) => {
+                if (!TypeBoxObjectRecursive.Check(input))
+                    throw Error("invalid");
+                return input;
+            },
         },
     ),
     ValidateBenchmarker.prepare(
@@ -79,6 +98,11 @@ const valiadate = () => [
                 return classes.map((clas) => cv.validateSync(clas));
             },
             zod: (input) => ZodObjectUnionExplicit.safeParse(input),
+            typebox: (input) => {
+                if (!TypeBoxObjectUnionExplicit.Check(input))
+                    throw Error("invalid");
+                return input;
+            },
         },
     ),
     ValidateBenchmarker.prepare(
@@ -94,6 +118,11 @@ const valiadate = () => [
                 return classes.map((clas) => cv.validateSync(clas));
             },
             zod: (input) => ZodObjectUnionImplicit.safeParse(input),
+            typebox: (input) => {
+                if (!TypeBoxObjectUnionImplicit.Check(input))
+                    throw Error("invalid");
+                return input;
+            },
         },
     ),
     ValidateBenchmarker.prepare(
@@ -107,6 +136,10 @@ const valiadate = () => [
                 return cv.validateSync(cla);
             },
             zod: (input) => ZodArrayRecursive.safeParse(input),
+            typebox: (input) => {
+                if (!TypeBoxArrayRecursive.Check(input)) throw Error("invalid");
+                return input;
+            },
         },
     ),
     ValidateBenchmarker.prepare(
@@ -122,6 +155,11 @@ const valiadate = () => [
                 return classes.map((clas) => cv.validateSync(clas));
             },
             zod: (input) => ZodArrayRecursiveUnionExplicit.safeParse(input),
+            typebox: (input) => {
+                if (!TypeBoxArrayRecursiveUnionExplicit.Check(input))
+                    throw Error("invalid");
+                return input;
+            },
         },
     ),
     ValidateBenchmarker.prepare(
@@ -137,6 +175,11 @@ const valiadate = () => [
                 return classes.map((clas) => cv.validateSync(clas));
             },
             zod: (input) => ZodArrayRecursiveUnionImplicit.safeParse(input),
+            typebox: (input) => {
+                if (!TypeBoxArrayRecursiveUnionImplicit.Check(input))
+                    throw Error("invalid");
+                return input;
+            },
         },
     ),
     ValidateBenchmarker.prepare(
@@ -147,6 +190,10 @@ const valiadate = () => [
             "io-ts": null,
             "class-validator": null,
             zod: null,
+            typebox: (input) => {
+                if (!TypeBoxUltimateUnion.Check(input)) throw Error("invalid");
+                return input;
+            },
         },
     ),
 ];
