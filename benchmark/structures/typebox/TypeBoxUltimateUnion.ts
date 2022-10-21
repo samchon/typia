@@ -1,107 +1,174 @@
 import { TSchema, Type } from "@sinclair/typebox";
 import { TypeCompiler } from "@sinclair/typebox/compiler";
 
-const Unknown = Type.Object({});
-
-const Atomic = Type.Object({
-    type: Type.Union([
-        Type.Literal("boolean"),
-        Type.Literal("number"),
-        Type.Literal("bigint"),
-        Type.Literal("string"),
-    ]),
-    nullable: Type.Boolean(),
+const Attribute = {
     description: Type.Optional(Type.String()),
-    default: Type.Optional(
-        Type.Union([
-            Type.String(),
-            Type.Number(),
-            Type.Boolean(),
-            // z.bigint(),  // bigint not supported
-        ]),
-    ),
-});
-
-const Constant = Type.Integer([
-    Atomic,
-    Type.Object({
-        constant: Type.Array(
-            Type.Union([
-                Type.Boolean(),
-                Type.Number(),
-                // z.bigint(), // bigint not supported
-                Type.String(),
-            ]),
+    "x-tson-metaTags": Type.Optional(
+        Type.Array(
+            Type.Object({
+                // @todo - must be specified, but too hard
+                kind: Type.String(),
+            }),
         ),
-    }),
-]);
+    ),
+    "x-tson-jsDocTags": Type.Optional(
+        Type.Array(
+            Type.Object({
+                name: Type.String(),
+                text: Type.Optional(
+                    Type.Array(
+                        Type.Object({
+                            text: Type.String(),
+                            kind: Type.String(),
+                        }),
+                    ),
+                ),
+            }),
+        ),
+    ),
+};
+
+const Unknown = Type.Object(
+    {
+        ...Attribute,
+    },
+    { additionalProperties: false },
+);
+const NullOnly = Type.Object(
+    {
+        type: Type.Literal("null"),
+        ...Attribute,
+    },
+    { additionalProperties: false },
+);
+
+const Atomic = (literal: string, type: () => any) => {
+    return Type.Object(
+        {
+            type: Type.Literal(literal),
+            nullable: Type.Boolean(),
+            default: Type.Optional(type()),
+            ...Attribute,
+        },
+        { additionalProperties: false },
+    );
+};
+
+const Constant = (literal: string, type: () => any) =>
+    Type.Intersect(
+        [
+            Atomic(literal, type),
+            Type.Object({
+                enum: Type.Array(type()),
+            }),
+        ],
+        { additionalProperties: false },
+    );
 
 const Array = <T extends TSchema>(schema: T) =>
-    Type.Object({
-        type: Type.Literal("array"),
-        items: schema,
-        nullable: Type.Boolean(),
-        description: Type.Optional(Type.String()),
-    });
+    Type.Object(
+        {
+            type: Type.Literal("array"),
+            items: schema,
+            nullable: Type.Boolean(),
+            ...Attribute,
+        },
+        { additionalProperties: false },
+    );
 
 const Tuple = <T extends TSchema>(schema: T) =>
-    Type.Object({
-        type: Type.Literal("array"),
-        items: Type.Array(schema),
-        nullable: Type.Boolean(),
-        description: Type.Optional(Type.String()),
-    });
+    Type.Object(
+        {
+            type: Type.Literal("array"),
+            items: Type.Array(schema),
+            nullable: Type.Boolean(),
+            ...Attribute,
+        },
+        { additionalProperties: false },
+    );
 
-const Reference = Type.Object({
-    $ref: Type.String(),
-    description: Type.Optional(Type.String()),
-});
+const Reference = Type.Object(
+    {
+        $ref: Type.String(),
+        ...Attribute,
+    },
+    { additionalProperties: false },
+);
 
-const RecursiveReference = Type.Object({
-    $recursiveRef: Type.String(),
-    description: Type.Optional(Type.String()),
-});
+const RecursiveReference = Type.Object(
+    {
+        $recursiveRef: Type.String(),
+        ...Attribute,
+    },
+    { additionalProperties: false },
+);
 
 const OneOf = <T extends TSchema>(schema: T) =>
-    Type.Object({
-        oneOf: Type.Array(schema),
-        description: Type.Optional(Type.String()),
-    });
+    Type.Object(
+        {
+            oneOf: Type.Array(schema),
+            ...Attribute,
+        },
+        { additionalProperties: false },
+    );
 
 const ObjectDef = <T extends TSchema>(schema: T) =>
-    Type.Object({
-        $id: Type.String(),
-        type: Type.Literal("object"),
-        nullable: Type.Boolean(),
-        properties: Type.Record(Type.String(), Schema),
-        patternProperties: Type.Optional(Type.Record(Type.String(), schema)),
-        required: Type.Optional(Type.Array(Type.String())),
-        description: Type.Optional(Type.String()),
-    });
+    Type.Object(
+        {
+            $id: Type.Optional(Type.String()),
+            type: Type.Literal("object"),
+            nullable: Type.Boolean(),
+            properties: Type.Record(Type.String(), schema),
+            patternProperties: Type.Optional(
+                Type.Record(Type.String(), schema),
+            ),
+            additionalProperties: Type.Optional(schema),
+            required: Type.Optional(Type.Array(Type.String())),
+            description: Type.Optional(Type.String()),
+            "x-tson_jsDocTags": Type.Optional(Type.Array(Type.Any())),
+            $recursiveAnchor: Type.Optional(Type.Boolean()),
+        },
+        { additionalProperties: false },
+    );
 
 const Components = <T extends TSchema>(schema: T) =>
-    Type.Object({
-        schemas: Type.Record(Type.String(), ObjectDef(schema)),
-    });
+    Type.Object(
+        {
+            schemas: Type.Record(Type.String(), ObjectDef(schema)),
+        },
+        { additionalProperties: false },
+    );
 
 const Application = <T extends TSchema>(schema: T) =>
-    Type.Object({
-        schemas: Type.Array(schema),
-        components: Components(schema),
-        purpose: Type.Union([Type.Literal("swagger"), Type.Literal("ajv")]),
-        prefix: Type.String(),
-    });
+    Type.Object(
+        {
+            schemas: Type.Array(schema),
+            components: Components(schema),
+            purpose: Type.Union([Type.Literal("swagger"), Type.Literal("ajv")]),
+            prefix: Type.String(),
+        },
+        { additionalProperties: false },
+    );
 
 const Schema = Type.Recursive((schema) =>
     Type.Union([
-        Atomic,
-        Constant,
+        Atomic("boolean", () => Type.Boolean()),
+        Atomic("integer", () => Type.Number()),
+        Atomic("bigint", () => Type.Number()),
+        Atomic("number", () => Type.Number()),
+        Atomic("string", () => Type.String()),
+        Constant("boolean", () => Type.Boolean()),
+        Constant("integer", () => Type.Number()),
+        Constant("bigint", () => Type.Number()),
+        Constant("number", () => Type.Number()),
+        Constant("string", () => Type.String()),
         Array(schema),
         Tuple(schema),
         Reference,
         RecursiveReference,
         OneOf(schema),
         Unknown,
+        NullOnly,
     ]),
 );
 

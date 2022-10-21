@@ -51,6 +51,10 @@ export const test_application_swagger_object_union_implicit =
                                 type: "number",
                                 nullable: false,
                             },
+                            slope: {
+                                type: "number",
+                                nullable: true,
+                            },
                         },
                         nullable: false,
                         required: ["x", "y"],
@@ -64,6 +68,14 @@ export const test_application_swagger_object_union_implicit =
                             },
                             p2: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
+                            },
+                            width: {
+                                type: "number",
+                                nullable: true,
+                            },
+                            distance: {
+                                type: "number",
+                                nullable: true,
                             },
                         },
                         nullable: false,
@@ -81,6 +93,18 @@ export const test_application_swagger_object_union_implicit =
                             },
                             p3: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
+                            },
+                            width: {
+                                type: "number",
+                                nullable: true,
+                            },
+                            height: {
+                                type: "number",
+                                nullable: true,
+                            },
+                            area: {
+                                type: "number",
+                                nullable: true,
                             },
                         },
                         nullable: false,
@@ -102,6 +126,18 @@ export const test_application_swagger_object_union_implicit =
                             p4: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
                             },
+                            width: {
+                                type: "number",
+                                nullable: true,
+                            },
+                            height: {
+                                type: "number",
+                                nullable: true,
+                            },
+                            area: {
+                                type: "number",
+                                nullable: true,
+                            },
                         },
                         nullable: false,
                         required: ["p1", "p2", "p3", "p4"],
@@ -116,6 +152,10 @@ export const test_application_swagger_object_union_implicit =
                                     $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
                                 },
                                 nullable: false,
+                            },
+                            length: {
+                                type: "number",
+                                nullable: true,
                             },
                         },
                         nullable: false,
@@ -135,9 +175,13 @@ export const test_application_swagger_object_union_implicit =
                                 },
                                 nullable: false,
                             },
+                            area: {
+                                type: "number",
+                                nullable: true,
+                            },
                         },
                         nullable: false,
-                        required: ["outer", "inner"],
+                        required: ["outer"],
                         "x-tson_jsDocTags": [],
                     },
                     "ObjectUnionImplicit.ICircle": {
@@ -150,9 +194,13 @@ export const test_application_swagger_object_union_implicit =
                                 type: "number",
                                 nullable: false,
                             },
+                            area: {
+                                type: "number",
+                                nullable: true,
+                            },
                         },
                         nullable: false,
-                        required: ["centroid", "radius"],
+                        required: ["radius"],
                         "x-tson_jsDocTags": [],
                     },
                 },

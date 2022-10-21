@@ -32,7 +32,7 @@ TSON.validateEquals<T>(input); // archives all errors
 //----
 TSON.stringify<T>(input); // 5x faster JSON.stringify()
 TSON.application<[T, U, V], "swagger">(); // JSON schema application generator
-TSON.create<T>(input); // 2x faster object creator (only one-time construction)
+TSON.createObject<T>(input); // 2x faster object creator (only one-time construction)
 ```
 
 `typescript-json` is a transformer library providing JSON related functions.
@@ -41,14 +41,16 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
     - Performed by only one line, `TSON.assertType<T>(input)`
     - Only one library which can validate union type
     - Maximum 2,000x faster than other libraries
+    - 20,000x faster optimizer construction time than similar libraries
   - 5x faster `JSON.stringify()` function:
     - Performed by only one line: `TSON.stringify<T>(input)`
     - Only one library which can stringify union type
-    - 10,000x faster optimizer construction time than similar libraries
 
-![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/196679891-d06ef698-603b-49f8-98c8-d140b813a06d.png)
+![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/197244544-23ac133d-16f5-464d-9012-57c89ecc9ebb.png)
 
-> Measured on AMD R9 5900HX, ASUS Rog Strix G15 (numeric option: `false`)
+![Assert Function Benchmark](https://user-images.githubusercontent.com/13158709/197244710-94c28780-e0bb-47b2-9eb1-6602f5f9cf2b.png)
+
+> Measured on AMD R9 5900HX and Intel i5-1135g7
 
 
 
@@ -223,22 +225,22 @@ Comparing those type checker functions with other similar libraries, `typescript
 
 Also, only `typescript-json` can validate union typed structure exactly. All the other libraries can check simple object type, however, none of them can validate complicate union type. The fun thing is, `ajv` requires JSON schema definition for validation, but it can't validate the JSON schema type. How contradict it is.
 
-Components               | `TSON` | `ajv` | `io-ts` | `zod` | `C.V.`
--------------------------|-------------------|-----------------|-------|---------|------------------
-**Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ 
-[Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ❌ | ✔ | ✔ | ✔
-[Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔
-[Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌
-[Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ❌
-[Object (additional tags)](https://github.com/samchon/typescript-json/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (template literal types)](https://github.com/samchon/typescript-json/blob/master/test/structures/TemplateUnion.ts) | ✔ | ✔ | ❌ | ❌ | ❌
-[Object (dynamic properties)](https://github.com/samchon/typescript-json/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ❌ | ❌ | ❌
-[Array (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔
-[Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ❌ | ✔ | ✔ | ✔
-[Array (recursive, union)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ❌ | ✔ | ✔ | ❌
-[Array (R+U, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌
-[**Ultimate Union Type**](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌
+Components               | `TSON` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
+-------------------------|--------|-----------|-------|---------|-------|------------------
+**Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ 
+[Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ❌ | ✔ | ✔ | ✔
+[Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ✔ | ❌ | ✔ | ✔ | ✔ | ✔
+[Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Object (additional tags)](https://github.com/samchon/typescript-json/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (template literal types)](https://github.com/samchon/typescript-json/blob/master/test/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Object (dynamic properties)](https://github.com/samchon/typescript-json/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Array (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ✔ | ❌ | ✔ | ✔ | ✔
+[Array (recursive, union)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
+[Array (R+U, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ▲ | ❌ | ❌ | ❌ | ❌
+[**Ultimate Union Type**](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ▲ | ❌ | ❌ | ❌ | ❌
 
 > - TSON: `typescript-json`
 > - C.V.: `class-validator`
@@ -249,9 +251,9 @@ As you can see from the above table, `ajv` and `typescript-is` are fallen in the
 
 The extreme different is shown in the "ultimate union" type, when validating [JSON schema](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts).
 
-![Super-fast runtime validator](https://user-images.githubusercontent.com/13158709/196680107-f4e77835-3380-4dde-9fa3-d9d419c046e2.png)
+![Super-fast runtime validator](https://user-images.githubusercontent.com/13158709/197246323-d4b319bc-38ee-492a-97b1-62b1981c082b.png)
 
-> Measured on Intel i5-1135g7, Surface Pro 8
+> Measured on AMD-5800H
 
 ### Fastest JSON String Converter
 ```typescript
