@@ -2,7 +2,7 @@ import TSON from "../../../src";
 import { Primitive } from "../../internal/Primitive";
 
 export function test_create_array(): void {
-    const obj = TSON.create({
+    const obj = TSON.createObject({
         id: 1,
         account: "samchon",
         name: "Jeongho Nam",
