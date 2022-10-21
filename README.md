@@ -46,9 +46,11 @@ TSON.createObject<T>(input); // 2x faster object creator (only one-time construc
     - Performed by only one line: `TSON.stringify<T>(input)`
     - Only one library which can stringify union type
 
-![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/196679891-d06ef698-603b-49f8-98c8-d140b813a06d.png)
+![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/197244544-23ac133d-16f5-464d-9012-57c89ecc9ebb.png)
 
-> Measured on AMD R9 5900HX, ASUS Rog Strix G15 (numeric option: `false`)
+![Assert Function Benchmark](https://user-images.githubusercontent.com/13158709/197244710-94c28780-e0bb-47b2-9eb1-6602f5f9cf2b.png)
+
+> Measured on AMD R9 5900HX and Intel i5-1135g7
 
 
 
@@ -229,7 +231,7 @@ Components               | `TSON` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
 [Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
 [Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ❌ | ✔ | ✔ | ✔
 [Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ✔ | ❌ | ✔ | ✔ | ✔ | ✔
-[Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ▲ | ❌ | ❌ | ❌ | ❌
+[Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
 [Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
 [Object (additional tags)](https://github.com/samchon/typescript-json/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
 [Object (template literal types)](https://github.com/samchon/typescript-json/blob/master/test/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
@@ -249,9 +251,9 @@ As you can see from the above table, `ajv` and `typescript-is` are fallen in the
 
 The extreme different is shown in the "ultimate union" type, when validating [JSON schema](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts).
 
-![Super-fast runtime validator](https://user-images.githubusercontent.com/13158709/196680107-f4e77835-3380-4dde-9fa3-d9d419c046e2.png)
+![Super-fast runtime validator](https://user-images.githubusercontent.com/13158709/197246323-d4b319bc-38ee-492a-97b1-62b1981c082b.png)
 
-> Measured on Intel i5-1135g7, Surface Pro 8
+> Measured on AMD-5800H
 
 ### Fastest JSON String Converter
 ```typescript
