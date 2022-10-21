@@ -415,217 +415,217 @@
 // //---------------------------------------------------
 // // TypeBoxObjectUnionImplicit
 // //---------------------------------------------------
-function TypeBoxObjectUnionImplicit() {
-    return function check(value) {
-        return (
-            Array.isArray(value) &&
-            value.every(
-                (value) =>
-                    (typeof value === "object" &&
-                        value !== null &&
-                        !Array.isArray(value) &&
-                        Object.keys(value).length === 2 &&
-                        typeof value.x === "number" &&
-                        typeof value.y === "number") ||
-                    (typeof value === "object" &&
-                        value !== null &&
-                        !Array.isArray(value) &&
-                        Object.keys(value).every((key) =>
-                            ["p1", "p2", "distance"].includes(key),
-                        ) &&
-                        typeof value.p1 === "object" &&
-                        value.p1 !== null &&
-                        !Array.isArray(value.p1) &&
-                        Object.keys(value.p1).length === 2 &&
-                        typeof value.p1.x === "number" &&
-                        typeof value.p1.y === "number" &&
-                        typeof value.p2 === "object" &&
-                        value.p2 !== null &&
-                        !Array.isArray(value.p2) &&
-                        Object.keys(value.p2).length === 2 &&
-                        typeof value.p2.x === "number" &&
-                        typeof value.p2.y === "number" &&
-                        (value.distance === undefined
-                            ? true
-                            : typeof value.distance === "number")) ||
-                    (typeof value === "object" &&
-                        value !== null &&
-                        !Array.isArray(value) &&
-                        Object.keys(value).every((key) =>
-                            [
-                                "p1",
-                                "p2",
-                                "p3",
-                                "width",
-                                "height",
-                                "area",
-                            ].includes(key),
-                        ) &&
-                        typeof value.p1 === "object" &&
-                        value.p1 !== null &&
-                        !Array.isArray(value.p1) &&
-                        Object.keys(value.p1).length === 2 &&
-                        typeof value.p1.x === "number" &&
-                        typeof value.p1.y === "number" &&
-                        typeof value.p2 === "object" &&
-                        value.p2 !== null &&
-                        !Array.isArray(value.p2) &&
-                        Object.keys(value.p2).length === 2 &&
-                        typeof value.p2.x === "number" &&
-                        typeof value.p2.y === "number" &&
-                        typeof value.p3 === "object" &&
-                        value.p3 !== null &&
-                        !Array.isArray(value.p3) &&
-                        Object.keys(value.p3).length === 2 &&
-                        typeof value.p3.x === "number" &&
-                        typeof value.p3.y === "number" &&
-                        (value.width === undefined
-                            ? true
-                            : typeof value.width === "number") &&
-                        (value.height === undefined
-                            ? true
-                            : typeof value.height === "number") &&
-                        (value.area === undefined
-                            ? true
-                            : typeof value.area === "number")) ||
-                    (typeof value === "object" &&
-                        value !== null &&
-                        !Array.isArray(value) &&
-                        Object.keys(value).every((key) =>
-                            [
-                                "p1",
-                                "p2",
-                                "p3",
-                                "p4",
-                                "width",
-                                "height",
-                                "area",
-                            ].includes(key),
-                        ) &&
-                        typeof value.p1 === "object" &&
-                        value.p1 !== null &&
-                        !Array.isArray(value.p1) &&
-                        Object.keys(value.p1).length === 2 &&
-                        typeof value.p1.x === "number" &&
-                        typeof value.p1.y === "number" &&
-                        typeof value.p2 === "object" &&
-                        value.p2 !== null &&
-                        !Array.isArray(value.p2) &&
-                        Object.keys(value.p2).length === 2 &&
-                        typeof value.p2.x === "number" &&
-                        typeof value.p2.y === "number" &&
-                        typeof value.p3 === "object" &&
-                        value.p3 !== null &&
-                        !Array.isArray(value.p3) &&
-                        Object.keys(value.p3).length === 2 &&
-                        typeof value.p3.x === "number" &&
-                        typeof value.p3.y === "number" &&
-                        typeof value.p4 === "object" &&
-                        value.p4 !== null &&
-                        !Array.isArray(value.p4) &&
-                        Object.keys(value.p4).length === 2 &&
-                        typeof value.p4.x === "number" &&
-                        typeof value.p4.y === "number" &&
-                        (value.width === undefined
-                            ? true
-                            : typeof value.width === "number") &&
-                        (value.height === undefined
-                            ? true
-                            : typeof value.height === "number") &&
-                        (value.area === undefined
-                            ? true
-                            : typeof value.area === "number")) ||
-                    (typeof value === "object" &&
-                        value !== null &&
-                        !Array.isArray(value) &&
-                        Object.keys(value).every((key) =>
-                            ["points", "length"].includes(key),
-                        ) &&
-                        Array.isArray(value.points) &&
-                        value.points.every(
-                            (value) =>
-                                typeof value === "object" &&
-                                value !== null &&
-                                !Array.isArray(value) &&
-                                Object.keys(value).length === 2 &&
-                                typeof value.x === "number" &&
-                                typeof value.y === "number",
-                        ) &&
-                        (value.length === undefined
-                            ? true
-                            : typeof value.length === "number")) ||
-                    (typeof value === "object" &&
-                        value !== null &&
-                        !Array.isArray(value) &&
-                        Object.keys(value).every((key) =>
-                            ["outer", "inner", "area"].includes(key),
-                        ) &&
-                        typeof value.outer === "object" &&
-                        value.outer !== null &&
-                        !Array.isArray(value.outer) &&
-                        Object.keys(value.outer).every((key) =>
-                            ["points", "length"].includes(key),
-                        ) &&
-                        Array.isArray(value.outer.points) &&
-                        value.outer.points.every(
-                            (value) =>
-                                typeof value === "object" &&
-                                value !== null &&
-                                !Array.isArray(value) &&
-                                Object.keys(value).length === 2 &&
-                                typeof value.x === "number" &&
-                                typeof value.y === "number",
-                        ) &&
-                        (value.outer.length === undefined
-                            ? true
-                            : typeof value.outer.length === "number") &&
-                        (value.inner === undefined
-                            ? true
-                            : Array.isArray(value.inner) &&
-                              value.inner.every(
-                                  (value) =>
-                                      typeof value === "object" &&
-                                      value !== null &&
-                                      !Array.isArray(value) &&
-                                      Object.keys(value).every((key) =>
-                                          ["points", "length"].includes(key),
-                                      ) &&
-                                      Array.isArray(value.points) &&
-                                      value.points.every(
-                                          (value) =>
-                                              typeof value === "object" &&
-                                              value !== null &&
-                                              !Array.isArray(value) &&
-                                              Object.keys(value).length === 2 &&
-                                              typeof value.x === "number" &&
-                                              typeof value.y === "number",
-                                      ) &&
-                                      (value.length === undefined
-                                          ? true
-                                          : typeof value.length === "number"),
-                              )) &&
-                        (value.area === undefined
-                            ? true
-                            : typeof value.area === "number")) ||
-                    (typeof value === "object" &&
-                        value !== null &&
-                        !Array.isArray(value) &&
-                        Object.keys(value).every((key) =>
-                            ["centroid", "radius", "area"].includes(key),
-                        ) &&
-                        (value.centroid === undefined
-                            ? true
-                            : typeof value.centroid === "object" &&
-                              value.centroid !== null &&
-                              !Array.isArray(value.centroid) &&
-                              Object.keys(value.centroid).length === 2 &&
-                              typeof value.centroid.x === "number" &&
-                              typeof value.centroid.y === "number") &&
-                        typeof value.radius === "number" &&
-                        (value.area === undefined
-                            ? true
-                            : typeof value.area === "number")),
-            )
-        );
-    };
-}
+// function TypeBoxObjectUnionImplicit() {
+//     return function check(value) {
+//         return (
+//             Array.isArray(value) &&
+//             value.every(
+//                 (value) =>
+//                     (typeof value === "object" &&
+//                         value !== null &&
+//                         !Array.isArray(value) &&
+//                         Object.keys(value).length === 2 &&
+//                         typeof value.x === "number" &&
+//                         typeof value.y === "number") ||
+//                     (typeof value === "object" &&
+//                         value !== null &&
+//                         !Array.isArray(value) &&
+//                         Object.keys(value).every((key) =>
+//                             ["p1", "p2", "distance"].includes(key),
+//                         ) &&
+//                         typeof value.p1 === "object" &&
+//                         value.p1 !== null &&
+//                         !Array.isArray(value.p1) &&
+//                         Object.keys(value.p1).length === 2 &&
+//                         typeof value.p1.x === "number" &&
+//                         typeof value.p1.y === "number" &&
+//                         typeof value.p2 === "object" &&
+//                         value.p2 !== null &&
+//                         !Array.isArray(value.p2) &&
+//                         Object.keys(value.p2).length === 2 &&
+//                         typeof value.p2.x === "number" &&
+//                         typeof value.p2.y === "number" &&
+//                         (value.distance === undefined
+//                             ? true
+//                             : typeof value.distance === "number")) ||
+//                     (typeof value === "object" &&
+//                         value !== null &&
+//                         !Array.isArray(value) &&
+//                         Object.keys(value).every((key) =>
+//                             [
+//                                 "p1",
+//                                 "p2",
+//                                 "p3",
+//                                 "width",
+//                                 "height",
+//                                 "area",
+//                             ].includes(key),
+//                         ) &&
+//                         typeof value.p1 === "object" &&
+//                         value.p1 !== null &&
+//                         !Array.isArray(value.p1) &&
+//                         Object.keys(value.p1).length === 2 &&
+//                         typeof value.p1.x === "number" &&
+//                         typeof value.p1.y === "number" &&
+//                         typeof value.p2 === "object" &&
+//                         value.p2 !== null &&
+//                         !Array.isArray(value.p2) &&
+//                         Object.keys(value.p2).length === 2 &&
+//                         typeof value.p2.x === "number" &&
+//                         typeof value.p2.y === "number" &&
+//                         typeof value.p3 === "object" &&
+//                         value.p3 !== null &&
+//                         !Array.isArray(value.p3) &&
+//                         Object.keys(value.p3).length === 2 &&
+//                         typeof value.p3.x === "number" &&
+//                         typeof value.p3.y === "number" &&
+//                         (value.width === undefined
+//                             ? true
+//                             : typeof value.width === "number") &&
+//                         (value.height === undefined
+//                             ? true
+//                             : typeof value.height === "number") &&
+//                         (value.area === undefined
+//                             ? true
+//                             : typeof value.area === "number")) ||
+//                     (typeof value === "object" &&
+//                         value !== null &&
+//                         !Array.isArray(value) &&
+//                         Object.keys(value).every((key) =>
+//                             [
+//                                 "p1",
+//                                 "p2",
+//                                 "p3",
+//                                 "p4",
+//                                 "width",
+//                                 "height",
+//                                 "area",
+//                             ].includes(key),
+//                         ) &&
+//                         typeof value.p1 === "object" &&
+//                         value.p1 !== null &&
+//                         !Array.isArray(value.p1) &&
+//                         Object.keys(value.p1).length === 2 &&
+//                         typeof value.p1.x === "number" &&
+//                         typeof value.p1.y === "number" &&
+//                         typeof value.p2 === "object" &&
+//                         value.p2 !== null &&
+//                         !Array.isArray(value.p2) &&
+//                         Object.keys(value.p2).length === 2 &&
+//                         typeof value.p2.x === "number" &&
+//                         typeof value.p2.y === "number" &&
+//                         typeof value.p3 === "object" &&
+//                         value.p3 !== null &&
+//                         !Array.isArray(value.p3) &&
+//                         Object.keys(value.p3).length === 2 &&
+//                         typeof value.p3.x === "number" &&
+//                         typeof value.p3.y === "number" &&
+//                         typeof value.p4 === "object" &&
+//                         value.p4 !== null &&
+//                         !Array.isArray(value.p4) &&
+//                         Object.keys(value.p4).length === 2 &&
+//                         typeof value.p4.x === "number" &&
+//                         typeof value.p4.y === "number" &&
+//                         (value.width === undefined
+//                             ? true
+//                             : typeof value.width === "number") &&
+//                         (value.height === undefined
+//                             ? true
+//                             : typeof value.height === "number") &&
+//                         (value.area === undefined
+//                             ? true
+//                             : typeof value.area === "number")) ||
+//                     (typeof value === "object" &&
+//                         value !== null &&
+//                         !Array.isArray(value) &&
+//                         Object.keys(value).every((key) =>
+//                             ["points", "length"].includes(key),
+//                         ) &&
+//                         Array.isArray(value.points) &&
+//                         value.points.every(
+//                             (value) =>
+//                                 typeof value === "object" &&
+//                                 value !== null &&
+//                                 !Array.isArray(value) &&
+//                                 Object.keys(value).length === 2 &&
+//                                 typeof value.x === "number" &&
+//                                 typeof value.y === "number",
+//                         ) &&
+//                         (value.length === undefined
+//                             ? true
+//                             : typeof value.length === "number")) ||
+//                     (typeof value === "object" &&
+//                         value !== null &&
+//                         !Array.isArray(value) &&
+//                         Object.keys(value).every((key) =>
+//                             ["outer", "inner", "area"].includes(key),
+//                         ) &&
+//                         typeof value.outer === "object" &&
+//                         value.outer !== null &&
+//                         !Array.isArray(value.outer) &&
+//                         Object.keys(value.outer).every((key) =>
+//                             ["points", "length"].includes(key),
+//                         ) &&
+//                         Array.isArray(value.outer.points) &&
+//                         value.outer.points.every(
+//                             (value) =>
+//                                 typeof value === "object" &&
+//                                 value !== null &&
+//                                 !Array.isArray(value) &&
+//                                 Object.keys(value).length === 2 &&
+//                                 typeof value.x === "number" &&
+//                                 typeof value.y === "number",
+//                         ) &&
+//                         (value.outer.length === undefined
+//                             ? true
+//                             : typeof value.outer.length === "number") &&
+//                         (value.inner === undefined
+//                             ? true
+//                             : Array.isArray(value.inner) &&
+//                               value.inner.every(
+//                                   (value) =>
+//                                       typeof value === "object" &&
+//                                       value !== null &&
+//                                       !Array.isArray(value) &&
+//                                       Object.keys(value).every((key) =>
+//                                           ["points", "length"].includes(key),
+//                                       ) &&
+//                                       Array.isArray(value.points) &&
+//                                       value.points.every(
+//                                           (value) =>
+//                                               typeof value === "object" &&
+//                                               value !== null &&
+//                                               !Array.isArray(value) &&
+//                                               Object.keys(value).length === 2 &&
+//                                               typeof value.x === "number" &&
+//                                               typeof value.y === "number",
+//                                       ) &&
+//                                       (value.length === undefined
+//                                           ? true
+//                                           : typeof value.length === "number"),
+//                               )) &&
+//                         (value.area === undefined
+//                             ? true
+//                             : typeof value.area === "number")) ||
+//                     (typeof value === "object" &&
+//                         value !== null &&
+//                         !Array.isArray(value) &&
+//                         Object.keys(value).every((key) =>
+//                             ["centroid", "radius", "area"].includes(key),
+//                         ) &&
+//                         (value.centroid === undefined
+//                             ? true
+//                             : typeof value.centroid === "object" &&
+//                               value.centroid !== null &&
+//                               !Array.isArray(value.centroid) &&
+//                               Object.keys(value.centroid).length === 2 &&
+//                               typeof value.centroid.x === "number" &&
+//                               typeof value.centroid.y === "number") &&
+//                         typeof value.radius === "number" &&
+//                         (value.area === undefined
+//                             ? true
+//                             : typeof value.area === "number")),
+//             )
+//         );
+//     };
+// }
