@@ -95,7 +95,7 @@ const Application: z.ZodType<IJsonApplication> = z.lazy(() =>
     z.object({
         schemas: z.array(Schema),
         components: Components,
-        purpose: z.literal("swagger"),
+        purpose: z.union([z.literal("ajv"), z.literal("swagger")]),
         prefix: z.string(),
     }),
 );

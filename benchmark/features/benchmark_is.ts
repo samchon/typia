@@ -32,6 +32,15 @@ import { IoTsObjectRecursive } from "../structures/io-ts/IoTsObjectRecursive";
 import { IoTsObjectUnionExplicit } from "../structures/io-ts/IoTsObjectUnionExplicit";
 import { IoTsObjectUnionImplicit } from "../structures/io-ts/IoTsObjectUnionImplicit";
 import { IoTsUltimateUnion } from "../structures/io-ts/IoTsUltimateUnion";
+// TYPEBOX TYPES
+import { TypeBoxArrayRecursive } from "../structures/typebox/TypeBoxArrayRecursive";
+import { TypeBoxArrayRecursiveUnionExplicit } from "../structures/typebox/TypeBoxArrayRecursiveUnionExplicit";
+import { TypeBoxArrayRecursiveUnionImplicit } from "../structures/typebox/TypeBoxArrayRecursiveUnionImplicit";
+import { TypeBoxObjectHierarchical } from "../structures/typebox/TypeBoxObjectHierarchical";
+import { TypeBoxObjectRecursive } from "../structures/typebox/TypeBoxObjectRecursive";
+import { TypeBoxObjectUnionExplicit } from "../structures/typebox/TypeBoxObjectUnionExplicit";
+import { TypeBoxObjectUnionImplicit } from "../structures/typebox/TypeBoxObjectUnionImplicit";
+import { TypeBoxUltimateUnion } from "../structures/typebox/TypeBoxUltimateUnion";
 // ZOD TYPES
 import { ZodArrayRecursive } from "../structures/zod/ZodArrayRecursive";
 import { ZodArrayRecursiveUnionExplicit } from "../structures/zod/ZodArrayRecursiveUnionExplicit";
@@ -96,6 +105,9 @@ const is = () => [
                 ObjectHierarchical.generate(),
                 (input) => ZodObjectHierarchical.safeParse(input).success,
             ),
+            typebox: wrap(ObjectHierarchical.generate(), (input) =>
+                TypeBoxObjectHierarchical.Check(input),
+            ),
             ajv: byAjv(
                 ObjectHierarchical.generate(),
                 TSON.application<[ObjectHierarchical], "ajv">(),
@@ -117,6 +129,9 @@ const is = () => [
             zod: wrap(
                 ObjectRecursive.generate(),
                 (input) => ZodObjectRecursive.safeParse(input).success,
+            ),
+            typebox: wrap(ObjectRecursive.generate(), (input) =>
+                TypeBoxObjectRecursive.Check(input),
             ),
             ajv: byAjv(
                 ObjectRecursive.generate(),
@@ -144,6 +159,9 @@ const is = () => [
                 ObjectUnionExplicit.generate(),
                 (input) => ZodObjectUnionExplicit.safeParse(input).success,
             ),
+            typebox: wrap(ObjectUnionExplicit.generate(), (input) =>
+                TypeBoxObjectUnionExplicit.Check(input),
+            ),
             ajv: byAjv(
                 ObjectUnionExplicit.generate(),
                 TSON.application<[ObjectUnionExplicit], "ajv">(),
@@ -170,6 +188,9 @@ const is = () => [
                 ObjectUnionImplicit.generate(),
                 (input) => ZodObjectUnionImplicit.safeParse(input).success,
             ),
+            typebox: wrap(ObjectUnionImplicit.generate(), (input) =>
+                TypeBoxObjectUnionImplicit.Check(input),
+            ),
             ajv: byAjv(
                 ObjectUnionImplicit.generate(),
                 TSON.application<[ObjectUnionImplicit], "ajv">(),
@@ -191,6 +212,9 @@ const is = () => [
             zod: wrap(
                 ArrayRecursive.generate(),
                 (input) => ZodArrayRecursive.safeParse(input).success,
+            ),
+            typebox: wrap(ArrayRecursive.generate(), (input) =>
+                TypeBoxArrayRecursive.Check(input),
             ),
             ajv: byAjv(
                 ArrayRecursive.generate(),
@@ -219,6 +243,9 @@ const is = () => [
                 (input) =>
                     ZodArrayRecursiveUnionExplicit.safeParse(input).success,
             ),
+            typebox: wrap(ArrayRecursiveUnionExplicit.generate(), (input) =>
+                TypeBoxArrayRecursiveUnionExplicit.Check(input),
+            ),
             ajv: byAjv(
                 ArrayRecursiveUnionExplicit.generate(),
                 TSON.application<[ArrayRecursiveUnionExplicit], "ajv">(),
@@ -246,6 +273,9 @@ const is = () => [
                 (input) =>
                     ZodArrayRecursiveUnionImplicit.safeParse(input).success,
             ),
+            typebox: wrap(ArrayRecursiveUnionImplicit.generate(), (input) =>
+                TypeBoxArrayRecursiveUnionImplicit.Check(input),
+            ),
             ajv: byAjv(
                 ArrayRecursiveUnionImplicit.generate(),
                 TSON.application<[ArrayRecursiveUnionImplicit], "ajv">(),
@@ -261,6 +291,9 @@ const is = () => [
         zod: wrap(
             UltimateUnion.generate(),
             (input) => ZodUltimateUnion.safeParse(input).success,
+        ),
+        typebox: wrap(UltimateUnion.generate(), (input) =>
+            TypeBoxUltimateUnion.Check(input),
         ),
         ajv: byAjv(
             UltimateUnion.generate(),
