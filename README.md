@@ -32,7 +32,7 @@ TSON.validateEquals<T>(input); // archives all errors
 //----
 TSON.stringify<T>(input); // 5x faster JSON.stringify()
 TSON.application<[T, U, V], "swagger">(); // JSON schema application generator
-TSON.create<T>(input); // 2x faster object creator (only one-time construction)
+TSON.createObject<T>(input); // 2x faster object creator (only one-time construction)
 ```
 
 `typescript-json` is a transformer library providing JSON related functions.
@@ -41,10 +41,10 @@ TSON.create<T>(input); // 2x faster object creator (only one-time construction)
     - Performed by only one line, `TSON.assertType<T>(input)`
     - Only one library which can validate union type
     - Maximum 2,000x faster than other libraries
+    - 20,000x faster optimizer construction time than similar libraries
   - 5x faster `JSON.stringify()` function:
     - Performed by only one line: `TSON.stringify<T>(input)`
     - Only one library which can stringify union type
-    - 10,000x faster optimizer construction time than similar libraries
 
 ![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/196679891-d06ef698-603b-49f8-98c8-d140b813a06d.png)
 
@@ -223,22 +223,22 @@ Comparing those type checker functions with other similar libraries, `typescript
 
 Also, only `typescript-json` can validate union typed structure exactly. All the other libraries can check simple object type, however, none of them can validate complicate union type. The fun thing is, `ajv` requires JSON schema definition for validation, but it can't validate the JSON schema type. How contradict it is.
 
-Components               | `TSON` | `ajv` | `io-ts` | `zod` | `C.V.`
--------------------------|-------------------|-----------------|-------|---------|------------------
-**Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ 
-[Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ❌ | ✔ | ✔ | ✔
-[Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔
-[Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌
-[Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ❌
-[Object (additional tags)](https://github.com/samchon/typescript-json/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (template literal types)](https://github.com/samchon/typescript-json/blob/master/test/structures/TemplateUnion.ts) | ✔ | ✔ | ❌ | ❌ | ❌
-[Object (dynamic properties)](https://github.com/samchon/typescript-json/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ❌ | ❌ | ❌
-[Array (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔
-[Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ❌ | ✔ | ✔ | ✔
-[Array (recursive, union)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ❌ | ✔ | ✔ | ❌
-[Array (R+U, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌
-[**Ultimate Union Type**](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌
+Components               | `TSON` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
+-------------------------|--------|-----------|-------|---------|-------|------------------
+**Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ 
+[Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ❌ | ✔ | ✔ | ✔
+[Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ✔ | ❌ | ✔ | ✔ | ✔ | ✔
+[Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ▲ | ❌ | ❌ | ❌ | ❌
+[Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Object (additional tags)](https://github.com/samchon/typescript-json/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (template literal types)](https://github.com/samchon/typescript-json/blob/master/test/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Object (dynamic properties)](https://github.com/samchon/typescript-json/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Array (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ✔ | ❌ | ✔ | ✔ | ✔
+[Array (recursive, union)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
+[Array (R+U, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ▲ | ❌ | ❌ | ❌ | ❌
+[**Ultimate Union Type**](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ▲ | ❌ | ❌ | ❌ | ❌
 
 > - TSON: `typescript-json`
 > - C.V.: `class-validator`

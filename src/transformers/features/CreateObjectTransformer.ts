@@ -2,7 +2,7 @@ import ts from "typescript";
 
 import { IProject } from "../IProject";
 
-export namespace CreateTransformer {
+export namespace CreateObjectTransformer {
     export function transform(
         _project: IProject,
         _modulo: ts.LeftHandSideExpression,
@@ -36,6 +36,6 @@ export namespace CreateTransformer {
 }
 
 const enum ErrorMessages {
-    NO_INPUT_VALUE = "Error on TSON.application(): no input value.",
-    NO_CONSTANT_vALUE = "Error on TSON.application(): input value must be constant.",
+    NO_INPUT_VALUE = "Error on TSON.createObject(): no input value.",
+    NO_CONSTANT_vALUE = "Error on TSON.createObject(): input value must be constant.",
 }

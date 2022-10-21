@@ -5,30 +5,39 @@ const Point = z.object({
     y: z.number(),
 });
 const Circle = z.object({
-    centroid: Point,
+    centroid: z.union([z.undefined(), Point]),
     radius: z.number(),
 });
 const Line = z.object({
     p1: Point,
     p2: Point,
+    distance: z.union([z.undefined(), z.number()]),
 });
 const Triangle = z.object({
     p1: Point,
     p2: Point,
     p3: Point,
+    width: z.union([z.undefined(), z.number()]),
+    height: z.union([z.undefined(), z.number()]),
+    area: z.union([z.undefined(), z.number()]),
 });
 const Rectangle = z.object({
     p1: Point,
     p2: Point,
     p3: Point,
     p4: Point,
+    width: z.union([z.undefined(), z.number()]),
+    height: z.union([z.undefined(), z.number()]),
+    area: z.union([z.undefined(), z.number()]),
 });
 const Polyline = z.object({
     points: z.array(Point),
+    length: z.union([z.undefined(), z.number()]),
 });
 const Polygon = z.object({
     outer: Polyline,
-    inner: z.array(Polyline),
+    inner: z.union([z.array(Polyline), z.undefined()]),
+    area: z.union([z.undefined(), z.number()]),
 });
 
 const Union = z.union([

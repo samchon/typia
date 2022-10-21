@@ -3,90 +3,152 @@ import { TypeCompiler } from "@sinclair/typebox/compiler";
 
 const Attribute = {
     description: Type.Optional(Type.String()),
-    "x-tson-metaTags": Type.Optional(Type.Array(Type.Any())),
-    "x-tson-jsDocTags": Type.Optional(Type.Array(Type.Any())),
+    "x-tson-metaTags": Type.Optional(
+        Type.Array(
+            Type.Object({
+                // @todo - must be specified, but too hard
+                kind: Type.String(),
+            }),
+        ),
+    ),
+    "x-tson-jsDocTags": Type.Optional(
+        Type.Array(
+            Type.Object({
+                name: Type.String(),
+                text: Type.Optional(
+                    Type.Array(
+                        Type.Object({
+                            text: Type.String(),
+                            kind: Type.String(),
+                        }),
+                    ),
+                ),
+            }),
+        ),
+    ),
 };
 
-const Unknown = Type.Object({});
-const NullOnly = Type.Object({
-    type: Type.Literal("null"),
-    ...Attribute,
-});
-
-const Atomic = (literal: string, type: () => any) =>
-    Type.Object({
-        type: Type.Literal(literal),
-        nullable: Type.Boolean(),
-        default: Type.Optional(type()),
+const Unknown = Type.Object(
+    {
         ...Attribute,
-    });
+    },
+    { additionalProperties: false },
+);
+const NullOnly = Type.Object(
+    {
+        type: Type.Literal("null"),
+        ...Attribute,
+    },
+    { additionalProperties: false },
+);
+
+const Atomic = (literal: string, type: () => any) => {
+    return Type.Object(
+        {
+            type: Type.Literal(literal),
+            nullable: Type.Boolean(),
+            default: Type.Optional(type()),
+            ...Attribute,
+        },
+        { additionalProperties: false },
+    );
+};
 
 const Constant = (literal: string, type: () => any) =>
-    Type.Intersect([
-        Atomic(literal, type),
-        Type.Object({
-            enum: Type.Array(type()),
-        }),
-    ]);
+    Type.Intersect(
+        [
+            Atomic(literal, type),
+            Type.Object({
+                enum: Type.Array(type()),
+            }),
+        ],
+        { additionalProperties: false },
+    );
 
 const Array = <T extends TSchema>(schema: T) =>
-    Type.Object({
-        type: Type.Literal("array"),
-        items: schema,
-        nullable: Type.Boolean(),
-        ...Attribute,
-    });
+    Type.Object(
+        {
+            type: Type.Literal("array"),
+            items: schema,
+            nullable: Type.Boolean(),
+            ...Attribute,
+        },
+        { additionalProperties: false },
+    );
 
 const Tuple = <T extends TSchema>(schema: T) =>
-    Type.Object({
-        type: Type.Literal("array"),
-        items: Type.Array(schema),
-        nullable: Type.Boolean(),
+    Type.Object(
+        {
+            type: Type.Literal("array"),
+            items: Type.Array(schema),
+            nullable: Type.Boolean(),
+            ...Attribute,
+        },
+        { additionalProperties: false },
+    );
+
+const Reference = Type.Object(
+    {
+        $ref: Type.String(),
         ...Attribute,
-    });
+    },
+    { additionalProperties: false },
+);
 
-const Reference = Type.Object({
-    $ref: Type.String(),
-    ...Attribute,
-});
-
-const RecursiveReference = Type.Object({
-    $recursiveRef: Type.String(),
-    ...Attribute,
-});
+const RecursiveReference = Type.Object(
+    {
+        $recursiveRef: Type.String(),
+        ...Attribute,
+    },
+    { additionalProperties: false },
+);
 
 const OneOf = <T extends TSchema>(schema: T) =>
-    Type.Object({
-        oneOf: Type.Array(schema),
-        ...Attribute,
-    });
+    Type.Object(
+        {
+            oneOf: Type.Array(schema),
+            ...Attribute,
+        },
+        { additionalProperties: false },
+    );
 
 const ObjectDef = <T extends TSchema>(schema: T) =>
-    Type.Object({
-        $id: Type.Optional(Type.String()),
-        type: Type.Literal("object"),
-        nullable: Type.Boolean(),
-        properties: Type.Record(Type.String(), schema),
-        patternProperties: Type.Optional(Type.Record(Type.String(), schema)),
-        additionalProperties: Type.Optional(schema),
-        required: Type.Optional(Type.Array(Type.String())),
-        description: Type.Optional(Type.String()),
-        "x-tson_jsDocTags": Type.Optional(Type.Array(Type.Any())),
-        $recursiveAnchor: Type.Optional(Type.Boolean()),
-    });
+    Type.Object(
+        {
+            $id: Type.Optional(Type.String()),
+            type: Type.Literal("object"),
+            nullable: Type.Boolean(),
+            properties: Type.Record(Type.String(), schema),
+            patternProperties: Type.Optional(
+                Type.Record(Type.String(), schema),
+            ),
+            additionalProperties: Type.Optional(schema),
+            required: Type.Optional(Type.Array(Type.String())),
+            description: Type.Optional(Type.String()),
+            "x-tson_jsDocTags": Type.Optional(Type.Array(Type.Any())),
+            $recursiveAnchor: Type.Optional(Type.Boolean()),
+        },
+        { additionalProperties: false },
+    );
 
 const Components = <T extends TSchema>(schema: T) =>
-    Type.Object({
-        schemas: Type.Record(Type.String(), ObjectDef(schema)),
-    });
+    Type.Object(
+        {
+            schemas: Type.Record(Type.String(), ObjectDef(schema)),
+        },
+        { additionalProperties: false },
+    );
 
 const Application = <T extends TSchema>(schema: T) =>
-    Type.Object({
-        schemas: Type.Array(schema),
-        components: Components(schema),
-        purpose: Type.Union([Type.Literal("swagger"), Type.Literal("ajv")]),
-        prefix: Type.String(),
-    });
+    Type.Object(
+        {
+            schemas: Type.Array(schema),
+            components: Components(schema),
+            purpose: Type.Union([Type.Literal("swagger"), Type.Literal("ajv")]),
+            prefix: Type.String(),
+        },
+        { additionalProperties: false },
+    );
 
 const Schema = Type.Recursive((schema) =>
     Type.Union([

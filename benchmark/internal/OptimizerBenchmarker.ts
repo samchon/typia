@@ -19,18 +19,15 @@ export namespace OptimizerBenchmarker {
         parameters: IParameters<T>,
     ): () => IOutput {
         const data: T = generator();
-
-        const suite: benchmark.Suite = new benchmark.Suite();
-        suite.add("JSON.stringify()", () => JSON.stringify(data));
-
         const ajv = parameters["ajv"]();
         const typebox = parameters["typebox"]();
 
+        const suite: benchmark.Suite = new benchmark.Suite();
         suite.add("typescript-json", () =>
             parameters["typescript-json"]()(data),
         );
-        if (ajv !== null) suite.add("ajv", () => ajv!(data));
         if (typebox !== null) suite.add("typebox", () => typebox!(data));
+        if (ajv !== null) suite.add("ajv", () => ajv!(data));
 
         return () => {
             const output: IOutput = {
