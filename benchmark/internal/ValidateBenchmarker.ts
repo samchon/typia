@@ -7,12 +7,14 @@ export namespace ValidateBenchmarker {
         "io-ts": number | null;
         "class-validator": number | null;
         zod: number | null;
+        typebox: number | null;
     }
     export interface IParameters<T> {
         "typescript-json": (input: T) => any;
         "io-ts": null | ((input: T) => any);
         "class-validator": null | ((input: T) => any);
         zod: null | ((input: T) => any);
+        typebox: null | ((input: T) => any);
     }
 
     export function prepare<T>(
@@ -27,6 +29,8 @@ export namespace ValidateBenchmarker {
             suite.add("io-ts", () => parameters["io-ts"]!(data));
         if (parameters["zod"] !== null)
             suite.add("zod", () => parameters["zod"]!(data));
+        if (parameters["typebox"] !== null)
+            suite.add("typebox", () => parameters["typebox"]!(data));
         if (parameters["class-validator"] !== null)
             suite.add("class-validator", () =>
                 parameters["class-validator"]!(data),
@@ -40,6 +44,7 @@ export namespace ValidateBenchmarker {
                 "class-validator": null,
                 "io-ts": null,
                 zod: null,
+                typebox: null,
             };
             suite.run();
             suite.map((elem: benchmark) => {
