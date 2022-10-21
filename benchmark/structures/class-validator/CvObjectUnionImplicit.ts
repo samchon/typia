@@ -11,6 +11,10 @@ export class CvObjectUnionImplicit {
     y?: number;
 
     @cv.IsOptional()
+    @cv.IsNumber()
+    slope?: number;
+
+    @cv.IsOptional()
     @cv.ValidateNested()
     @tr.Type(() => CvObjectUnionImplicit.Point)
     p1?: CvObjectUnionImplicit.Point;

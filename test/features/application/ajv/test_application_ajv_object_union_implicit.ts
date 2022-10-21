@@ -51,6 +51,10 @@ export const test_application_ajv_object_union_implicit = _test_application_ajv(
                             type: "number",
                             nullable: false,
                         },
+                        slope: {
+                            type: "number",
+                            nullable: true,
+                        },
                     },
                     nullable: false,
                     required: ["x", "y"],
@@ -68,11 +72,11 @@ export const test_application_ajv_object_union_implicit = _test_application_ajv(
                         },
                         width: {
                             type: "number",
-                            nullable: false,
+                            nullable: true,
                         },
                         distance: {
                             type: "number",
-                            nullable: false,
+                            nullable: true,
                         },
                     },
                     nullable: false,
@@ -94,15 +98,15 @@ export const test_application_ajv_object_union_implicit = _test_application_ajv(
                         },
                         width: {
                             type: "number",
-                            nullable: false,
+                            nullable: true,
                         },
                         height: {
                             type: "number",
-                            nullable: false,
+                            nullable: true,
                         },
                         area: {
                             type: "number",
-                            nullable: false,
+                            nullable: true,
                         },
                     },
                     nullable: false,
@@ -127,15 +131,15 @@ export const test_application_ajv_object_union_implicit = _test_application_ajv(
                         },
                         width: {
                             type: "number",
-                            nullable: false,
+                            nullable: true,
                         },
                         height: {
                             type: "number",
-                            nullable: false,
+                            nullable: true,
                         },
                         area: {
                             type: "number",
-                            nullable: false,
+                            nullable: true,
                         },
                     },
                     nullable: false,
@@ -155,7 +159,7 @@ export const test_application_ajv_object_union_implicit = _test_application_ajv(
                         },
                         length: {
                             type: "number",
-                            nullable: false,
+                            nullable: true,
                         },
                     },
                     nullable: false,
@@ -178,7 +182,7 @@ export const test_application_ajv_object_union_implicit = _test_application_ajv(
                         },
                         area: {
                             type: "number",
-                            nullable: false,
+                            nullable: true,
                         },
                     },
                     nullable: false,
@@ -198,7 +202,7 @@ export const test_application_ajv_object_union_implicit = _test_application_ajv(
                         },
                         area: {
                             type: "number",
-                            nullable: false,
+                            nullable: true,
                         },
                     },
                     nullable: false,

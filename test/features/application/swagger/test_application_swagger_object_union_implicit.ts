@@ -51,6 +51,10 @@ export const test_application_swagger_object_union_implicit =
                                 type: "number",
                                 nullable: false,
                             },
+                            slope: {
+                                type: "number",
+                                nullable: true,
+                            },
                         },
                         nullable: false,
                         required: ["x", "y"],
@@ -67,11 +71,11 @@ export const test_application_swagger_object_union_implicit =
                             },
                             width: {
                                 type: "number",
-                                nullable: false,
+                                nullable: true,
                             },
                             distance: {
                                 type: "number",
-                                nullable: false,
+                                nullable: true,
                             },
                         },
                         nullable: false,
@@ -92,15 +96,15 @@ export const test_application_swagger_object_union_implicit =
                             },
                             width: {
                                 type: "number",
-                                nullable: false,
+                                nullable: true,
                             },
                             height: {
                                 type: "number",
-                                nullable: false,
+                                nullable: true,
                             },
                             area: {
                                 type: "number",
-                                nullable: false,
+                                nullable: true,
                             },
                         },
                         nullable: false,
@@ -124,15 +128,15 @@ export const test_application_swagger_object_union_implicit =
                             },
                             width: {
                                 type: "number",
-                                nullable: false,
+                                nullable: true,
                             },
                             height: {
                                 type: "number",
-                                nullable: false,
+                                nullable: true,
                             },
                             area: {
                                 type: "number",
-                                nullable: false,
+                                nullable: true,
                             },
                         },
                         nullable: false,
@@ -151,7 +155,7 @@ export const test_application_swagger_object_union_implicit =
                             },
                             length: {
                                 type: "number",
-                                nullable: false,
+                                nullable: true,
                             },
                         },
                         nullable: false,
@@ -173,7 +177,7 @@ export const test_application_swagger_object_union_implicit =
                             },
                             area: {
                                 type: "number",
-                                nullable: false,
+                                nullable: true,
                             },
                         },
                         nullable: false,
@@ -192,7 +196,7 @@ export const test_application_swagger_object_union_implicit =
                             },
                             area: {
                                 type: "number",
-                                nullable: false,
+                                nullable: true,
                             },
                         },
                         nullable: false,
