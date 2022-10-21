@@ -372,10 +372,7 @@ const is = () => [
                         ).children[0].path = [] as any as string),
                 ],
             ),
-            ajv: byAjv(
-                ArrayRecursiveUnionExplicit.generate(),
-                TSON.application<[ArrayRecursiveUnionExplicit], "ajv">(),
-            ),
+            ajv: null,
         },
     ),
     IsBenchmarker.prepare(
@@ -445,10 +442,7 @@ const is = () => [
                         ).children[0].path = [] as any as string),
                 ],
             ),
-            ajv: byAjv(
-                ArrayRecursiveUnionImplicit.generate(),
-                TSON.application<[ArrayRecursiveUnionImplicit], "ajv">(),
-            ),
+            ajv: null,
         },
     ),
     IsBenchmarker.prepare("ultimate union", () => UltimateUnion.generate(), {
@@ -471,10 +465,7 @@ const is = () => [
                     }),
             ],
         ),
-        ajv: byAjv(
-            UltimateUnion.generate(),
-            TSON.application<[UltimateUnion], "ajv">(),
-        ),
+        ajv: null,
     }),
 ];
 export { is as benchmark_is };
