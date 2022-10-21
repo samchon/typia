@@ -47,6 +47,7 @@ import { ZodObjectHierarchical } from "../structures/zod/ZodObjectHierarchical";
 import { ZodObjectRecursive } from "../structures/zod/ZodObjectRecursive";
 import { ZodObjectUnionExplicit } from "../structures/zod/ZodObjectUnionExplicit";
 import { ZodObjectUnionImplicit } from "../structures/zod/ZodObjectUnionImplicit";
+import { ZodUltimateUnion } from "../structures/zod/ZodUltimateUnion";
 
 const assert = () => [
     AssertBenchmarker.prepare(
@@ -60,11 +61,8 @@ const assert = () => [
                 return cv.validateSync(cla);
             },
             zod: (input) => ZodObjectHierarchical.safeParse(input),
-            typebox: (input) => {
-                if (!TypeBoxObjectHierarchical.Check(input))
-                    throw Error("invalid");
-                return input;
-            },
+            typebox: (input) =>
+                TypeBoxObjectHierarchical.Errors(input).next().value,
         },
     ),
     AssertBenchmarker.prepare(
@@ -78,11 +76,8 @@ const assert = () => [
                 return cv.validateSync(cla);
             },
             zod: (input) => ZodObjectRecursive.safeParse(input),
-            typebox: (input) => {
-                if (!TypeBoxObjectRecursive.Check(input))
-                    throw Error("invalid");
-                return input;
-            },
+            typebox: (input) =>
+                TypeBoxObjectRecursive.Errors(input).next().value,
         },
     ),
     AssertBenchmarker.prepare(
@@ -98,11 +93,8 @@ const assert = () => [
                 return classes.map((clas) => cv.validateSync(clas));
             },
             zod: (input) => ZodObjectUnionExplicit.safeParse(input),
-            typebox: (input) => {
-                if (!TypeBoxObjectUnionExplicit.Check(input))
-                    throw Error("invalid");
-                return input;
-            },
+            typebox: (input) =>
+                TypeBoxObjectUnionExplicit.Errors(input).next().value,
         },
     ),
     AssertBenchmarker.prepare(
@@ -118,11 +110,8 @@ const assert = () => [
                 return classes.map((clas) => cv.validateSync(clas));
             },
             zod: (input) => ZodObjectUnionImplicit.safeParse(input),
-            typebox: (input) => {
-                if (!TypeBoxObjectUnionImplicit.Check(input))
-                    throw Error("invalid");
-                return input;
-            },
+            typebox: (input) =>
+                TypeBoxObjectUnionImplicit.Errors(input).next().value,
         },
     ),
     AssertBenchmarker.prepare(
@@ -136,10 +125,8 @@ const assert = () => [
                 return cv.validateSync(cla);
             },
             zod: (input) => ZodArrayRecursive.safeParse(input),
-            typebox: (input) => {
-                if (!TypeBoxArrayRecursive.Check(input)) throw Error("invalid");
-                return input;
-            },
+            typebox: (input) =>
+                TypeBoxArrayRecursive.Errors(input).next().value,
         },
     ),
     AssertBenchmarker.prepare(
@@ -155,11 +142,8 @@ const assert = () => [
                 return classes.map((clas) => cv.validateSync(clas));
             },
             zod: (input) => ZodArrayRecursiveUnionExplicit.safeParse(input),
-            typebox: (input) => {
-                if (!TypeBoxArrayRecursiveUnionExplicit.Check(input))
-                    throw Error("invalid");
-                return input;
-            },
+            typebox: (input) =>
+                TypeBoxArrayRecursiveUnionExplicit.Errors(input).next().value,
         },
     ),
     AssertBenchmarker.prepare(
@@ -175,11 +159,8 @@ const assert = () => [
                 return classes.map((clas) => cv.validateSync(clas));
             },
             zod: (input) => ZodArrayRecursiveUnionImplicit.safeParse(input),
-            typebox: (input) => {
-                if (!TypeBoxArrayRecursiveUnionImplicit.Check(input))
-                    throw Error("invalid");
-                return input;
-            },
+            typebox: (input) =>
+                TypeBoxArrayRecursiveUnionImplicit.Errors(input).next().value,
         },
     ),
     AssertBenchmarker.prepare(
@@ -189,11 +170,8 @@ const assert = () => [
             "typescript-json": (input) => TSON.assertType(input),
             "io-ts": null,
             "class-validator": null,
-            zod: null,
-            typebox: (input) => {
-                if (!TypeBoxUltimateUnion.Check(input)) throw Error("invalid");
-                return input;
-            },
+            zod: (input) => ZodUltimateUnion.safeParse(input),
+            typebox: (input) => TypeBoxUltimateUnion.Errors(input).next().value,
         },
     ),
 ];

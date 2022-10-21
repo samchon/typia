@@ -27,14 +27,14 @@ export namespace IsBenchmarker {
         const data: T = generator();
 
         const suite: benchmark.Suite = new benchmark.Suite();
+        if (parameters.typebox !== null)
+            suite.add("typebox", () => parameters.typebox!(data));
         if (parameters.ajv !== null)
             suite.add("ajv", () => parameters.ajv!(data));
         if (parameters["io-ts"] !== null)
             suite.add("io-ts", () => parameters["io-ts"]!(data));
         if (parameters.zod !== null)
             suite.add("zod", () => parameters.zod!(data));
-        if (parameters.typebox !== null)
-            suite.add("typebox", () => parameters.typebox!(data));
         if (parameters["class-validator"] !== null)
             suite.add("class-validator", () =>
                 parameters["class-validator"]!(data),
@@ -45,11 +45,11 @@ export namespace IsBenchmarker {
             const output: IOutput = {
                 name,
                 "typescript-json": 0,
+                typebox: null,
+                ajv: null,
                 "io-ts": null,
                 "class-validator": null,
                 zod: null,
-                typebox: null,
-                ajv: null,
             };
             suite.run();
             suite.map((elem: benchmark) => {

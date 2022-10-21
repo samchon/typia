@@ -15,6 +15,27 @@ const Schema: z.ZodType<IJsonSchema> = z.lazy(() =>
     ]),
 );
 
+const Attribute = {
+    description: z.union([z.string(), z.undefined()]),
+    "x-tson-metaTags": z.union([
+        z.undefined(),
+        z.array(
+            z.object({
+                kind: z.string(),
+            }),
+        ),
+    ]),
+    "x-tson-jsDocTags": z.union([
+        z.undefined(),
+        z.array(
+            z.object({
+                name: z.string(),
+                text: z.union([z.string(), z.undefined()]),
+            }),
+        ),
+    ]),
+};
+
 const Unknown = z.object({});
 const Atomic = z.object({
     type: z.union([

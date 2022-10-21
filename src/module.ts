@@ -576,10 +576,10 @@ export namespace stringify {
  * - [Faster apps with JSON.parse (Chrome Dev Summit 2019)](https://www.youtube.com/watch?v=ff4fgQxPaO0)
  * - [The cost of parsing JSON](https://v8.dev/blog/cost-of-javascript-2019#json)
  *
- * `TSON.create()` is a transformer function which converts a literal object construction
+ * `TSON.createObject()` is a transformer function which converts a literal object construction
  * to a `JSON.parse()` function call expression with JSON string argument. Therefore, if
- * you construct a literal object via this `TSON.create()`, you can get benefit from both
- * type safe and performance tuning at the same time.
+ * you construct a literal object via this `TSON.createObject()`, you can get benefit from
+ * both type safe and performance tuning at the same time.
  *
  * @template T Type of the input value
  * @param input A value to be converted
@@ -587,13 +587,13 @@ export namespace stringify {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function create<T>(input: T): T;
+export function createObject<T>(input: T): T;
 
 /**
  * @internal
  */
-export function create(): never {
-    halt("create");
+export function createObject(): never {
+    halt("createObject");
 }
 
 /**

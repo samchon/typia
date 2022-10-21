@@ -60,12 +60,16 @@ function defaultSpoiler(data: any) {
 function wrap<T>(
     data: T,
     functor: (input: T) => boolean,
-    spoiler?: (data: T) => void,
+    spoilers?: Array<(data: T) => void>,
 ): null | ((input: T) => boolean) {
     try {
         if (functor(data) === false) return null;
-        (spoiler || defaultSpoiler)(data);
-        return functor(data) === true ? null : functor;
+        for (const spoil of spoilers || [defaultSpoiler]) {
+            const copied = JSON.parse(JSON.stringify(data));
+            spoil(copied);
+            if (functor(copied) === true) return null;
+        }
+        return functor;
     } catch {
         return null;
     }
@@ -74,7 +78,7 @@ function wrap<T>(
 function byAjv<T>(
     data: T,
     app: TSON.IJsonApplication,
-    spoiler?: (data: T) => void,
+    spoilers?: Array<(data: T) => void>,
 ): null | ((input: T) => any) {
     try {
         (app.schemas[0] as any).$id = "main";
@@ -82,7 +86,13 @@ function byAjv<T>(
             schemas: [app.schemas[0], ...Object.values(app.components.schemas)],
         });
         const functor = ajv.getSchema("main") || null;
-        return functor !== null ? wrap(data, <any>functor, spoiler) : null;
+        if (functor === null) return null;
+        for (const spoil of spoilers || [defaultSpoiler]) {
+            const copied = JSON.parse(JSON.stringify(data));
+            spoil(copied);
+            if (functor(copied) === true) return null;
+        }
+        return functor;
     } catch {
         return null;
     }
@@ -159,8 +169,18 @@ const is = () => [
                 ObjectUnionExplicit.generate(),
                 (input) => ZodObjectUnionExplicit.safeParse(input).success,
             ),
-            typebox: wrap(ObjectUnionExplicit.generate(), (input) =>
-                TypeBoxObjectUnionExplicit.Check(input),
+            typebox: wrap(
+                ObjectUnionExplicit.generate(),
+                (input) => TypeBoxObjectUnionExplicit.Check(input),
+                [
+                    (input) => (input[0].type = "line"), // point
+                    (input) => (input[1].type = "circle"), // line
+                    (input) => (input[2].type = "polyline"), // triangle
+                    (input) => (input[3].type = "point"), // rectangle
+                    (input) => (input[4].type = "line"), // polyline
+                    (input) => (input[5].type = "point"), // polygon
+                    (input) => (input[6].type = "polyline"), // circle
+                ],
             ),
             ajv: byAjv(
                 ObjectUnionExplicit.generate(),
@@ -188,8 +208,32 @@ const is = () => [
                 ObjectUnionImplicit.generate(),
                 (input) => ZodObjectUnionImplicit.safeParse(input).success,
             ),
-            typebox: wrap(ObjectUnionImplicit.generate(), (input) =>
-                TypeBoxObjectUnionImplicit.Check(input),
+            typebox: wrap(
+                ObjectUnionImplicit.generate(),
+                (input) => TypeBoxObjectUnionImplicit.Check(input),
+                [
+                    (input) =>
+                        ((input[0] as ObjectUnionImplicit.IPoint).x =
+                            {} as any),
+                    (input) =>
+                        ((input[1] as ObjectUnionImplicit.ILine).p2 =
+                            [] as any),
+                    (input) =>
+                        ((input[2] as ObjectUnionImplicit.ITriangle).p3 =
+                            null!),
+                    (input) =>
+                        ((input[3] as ObjectUnionImplicit.IRectangle).p4 =
+                            null!),
+                    (input) =>
+                        ((input[4] as ObjectUnionImplicit.IPolyline).points =
+                            3 as any),
+                    (input) =>
+                        ((input[5] as ObjectUnionImplicit.IPolygon).outer =
+                            {} as any),
+                    (input) =>
+                        ((input[6] as ObjectUnionImplicit.ICircle).radius =
+                            "string" as any),
+                ],
             ),
             ajv: byAjv(
                 ObjectUnionImplicit.generate(),
@@ -213,8 +257,19 @@ const is = () => [
                 ArrayRecursive.generate(),
                 (input) => ZodArrayRecursive.safeParse(input).success,
             ),
-            typebox: wrap(ArrayRecursive.generate(), (input) =>
-                TypeBoxArrayRecursive.Check(input),
+            typebox: wrap(
+                ArrayRecursive.generate(),
+                (input) => TypeBoxArrayRecursive.Check(input),
+                [
+                    (input) => (input.id = null!),
+                    (input) => (input.code = 3 as any),
+                    (input) => (input.sequence = "number" as any),
+                    (input) => (input.created_at = [] as any),
+                    (input) => (input.children = { length: 0 } as any[]),
+                    (input) =>
+                        (input.children[0].children[0].sequence =
+                            "number" as any),
+                ],
             ),
             ajv: byAjv(
                 ArrayRecursive.generate(),
@@ -243,13 +298,81 @@ const is = () => [
                 (input) =>
                     ZodArrayRecursiveUnionExplicit.safeParse(input).success,
             ),
-            typebox: wrap(ArrayRecursiveUnionExplicit.generate(), (input) =>
-                TypeBoxArrayRecursiveUnionExplicit.Check(input),
-            ),
-            ajv: byAjv(
+            typebox: wrap(
                 ArrayRecursiveUnionExplicit.generate(),
-                TSON.application<[ArrayRecursiveUnionExplicit], "ajv">(),
+                (input) => TypeBoxArrayRecursiveUnionExplicit.Check(input),
+                [
+                    //----
+                    // SEQUENCE OF GENERATED BUCKETS
+                    //----
+                    // 0. IMAGE
+                    // 1. TEXT
+                    // 2. ZIP
+                    // 3~5. SHORTCUTS
+                    // 6. DIRECTORY
+                    // 7. SHORTCUT OF DIRECTORY
+
+                    //----
+                    // WRONG TYPES
+                    //----
+                    (input) => (input[0].type = "directory"),
+                    (input) => (input[1].type = "directory"),
+                    (input) => (input[2].type = "text" as "file"),
+                    (input) => (input[3].type = "directory"),
+                    (input) => (input[4].type = "text" as "file"),
+                    (input) => (input[5].type = "directory"),
+                    (input) => (input[6].type = "file"),
+
+                    //----
+                    // WRONG EXTENSIONS
+                    //---
+                    (input) =>
+                        ((
+                            input[0] as ArrayRecursiveUnionExplicit.IFile
+                        ).extension = "txt"),
+                    (input) =>
+                        ((
+                            input[1] as ArrayRecursiveUnionExplicit.IFile
+                        ).extension = "zip"),
+                    (input) =>
+                        ((
+                            input[2] as ArrayRecursiveUnionExplicit.IFile
+                        ).extension = "jpg"),
+                    (input) =>
+                        ((
+                            input[3] as ArrayRecursiveUnionExplicit.IFile
+                        ).extension = "txt"),
+                    (input) =>
+                        ((
+                            input[4] as ArrayRecursiveUnionExplicit.IFile
+                        ).extension = "zip"),
+                    (input) =>
+                        ((
+                            input[5] as ArrayRecursiveUnionExplicit.IFile
+                        ).extension = "jpg"),
+
+                    //----
+                    // WRONG PROPERTIES
+                    //----
+                    (input) => (input[0].id = "uuid" as any as number),
+                    (input) => (input[1].name = 3 as any as string),
+                    (input) => (input[2].path = {} as any as string),
+                    (input) =>
+                        ((
+                            input[3] as ArrayRecursiveUnionExplicit.IShortcut
+                        ).target = [] as any as ArrayRecursiveUnionExplicit.IBucket),
+                    (input) =>
+                        ((
+                            input[4] as ArrayRecursiveUnionExplicit.IShortcut
+                        ).extension = null as any as "lnk"),
+                    (input) => (input[5].type = [] as any as "directory"),
+                    (input) =>
+                        ((
+                            input[6] as ArrayRecursiveUnionExplicit.IDirectory
+                        ).children[0].path = [] as any as string),
+                ],
             ),
+            ajv: null,
         },
     ),
     IsBenchmarker.prepare(
@@ -273,13 +396,53 @@ const is = () => [
                 (input) =>
                     ZodArrayRecursiveUnionImplicit.safeParse(input).success,
             ),
-            typebox: wrap(ArrayRecursiveUnionImplicit.generate(), (input) =>
-                TypeBoxArrayRecursiveUnionImplicit.Check(input),
-            ),
-            ajv: byAjv(
+            typebox: wrap(
                 ArrayRecursiveUnionImplicit.generate(),
-                TSON.application<[ArrayRecursiveUnionImplicit], "ajv">(),
+                (input) => TypeBoxArrayRecursiveUnionImplicit.Check(input),
+                [
+                    //----
+                    // SEQUENCE OF GENERATED BUCKETS
+                    //----
+                    // 0. IMAGE
+                    // 1. TEXT
+                    // 2. ZIP
+                    // 3~5. SHORTCUTS
+                    // 6. DIRECTORY
+                    // 7. SHORTCUT OF DIRECTORY
+
+                    //----
+                    // ERASE KEY PROPERTIES
+                    //----
+                    (input) => delete (input[0] as any).url,
+                    (input) => delete (input[1] as any).content,
+                    (input) => delete (input[2] as any).count,
+                    (input) => delete (input[3] as any).target,
+                    (input) => delete (input[4] as any).path,
+                    (input) => delete (input[5] as any).id,
+                    (input) => delete (input[6] as any).children,
+
+                    //----
+                    // WRONG PROPERTIES
+                    //----
+                    (input) => (input[0].id = "uuid" as any as number),
+                    (input) => (input[1].name = 3 as any as string),
+                    (input) => (input[2].path = {} as any as string),
+                    (input) =>
+                        ((
+                            input[3] as ArrayRecursiveUnionImplicit.IShortcut
+                        ).target = [] as any as ArrayRecursiveUnionImplicit.IBucket),
+                    (input) =>
+                        ((
+                            input[4] as ArrayRecursiveUnionImplicit.IShortcut
+                        ).name = null as any as "string"),
+                    (input) => (input[5].path = [] as any as "directory"),
+                    (input) =>
+                        ((
+                            input[6] as ArrayRecursiveUnionImplicit.IDirectory
+                        ).children[0].path = [] as any as string),
+                ],
             ),
+            ajv: null,
         },
     ),
     IsBenchmarker.prepare("ultimate union", () => UltimateUnion.generate(), {
@@ -292,13 +455,23 @@ const is = () => [
             UltimateUnion.generate(),
             (input) => ZodUltimateUnion.safeParse(input).success,
         ),
-        typebox: wrap(UltimateUnion.generate(), (input) =>
-            TypeBoxUltimateUnion.Check(input),
-        ),
-        ajv: byAjv(
+        typebox: wrap(
             UltimateUnion.generate(),
-            TSON.application<[UltimateUnion], "ajv">(),
+            (input) => TypeBoxUltimateUnion.Check(input),
+            [
+                (input) =>
+                    (input[0].schemas[0] = {
+                        type: "wrong", // CAN AVOID UNKOWN TYPE?
+                    }),
+                (input) =>
+                    (input[0].schemas[0] = {
+                        type: "number",
+                        nullable: false,
+                        enum: ["1", "2", "3", "4"],
+                    }),
+            ],
         ),
+        ajv: null,
     }),
 ];
 export { is as benchmark_is };

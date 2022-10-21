@@ -4,12 +4,13 @@ export namespace OptimizerBenchmarker {
     export interface IOutput {
         name: string;
         "typescript-json": number;
-        "fast-json-stringify": number | null;
-        "JSON.stringify()": number;
+        ajv: number | null;
+        typebox: number | null;
     }
     export interface IParameters<T> {
-        "typescript-json": () => (input: T) => string;
-        "fast-json-stringify": () => null | ((input: T) => string);
+        "typescript-json": () => (input: T) => boolean;
+        ajv: () => null | ((input: T) => boolean);
+        typebox: () => null | ((input: T) => boolean);
     }
 
     export function prepare<T>(
@@ -18,22 +19,22 @@ export namespace OptimizerBenchmarker {
         parameters: IParameters<T>,
     ): () => IOutput {
         const data: T = generator();
+        const ajv = parameters["ajv"]();
+        const typebox = parameters["typebox"]();
 
         const suite: benchmark.Suite = new benchmark.Suite();
-        suite.add("JSON.stringify()", () => JSON.stringify(data));
-
-        const ajv = parameters["fast-json-stringify"]();
-        if (ajv !== null) suite.add("fast-json-stringify", () => ajv!(data));
         suite.add("typescript-json", () =>
             parameters["typescript-json"]()(data),
         );
+        if (typebox !== null) suite.add("typebox", () => typebox!(data));
+        if (ajv !== null) suite.add("ajv", () => ajv!(data));
 
         return () => {
             const output: IOutput = {
                 name,
                 "typescript-json": 0,
-                "fast-json-stringify": null,
-                "JSON.stringify()": 0,
+                ajv: null,
+                typebox: 0,
             };
             suite.run();
             suite.map((elem: benchmark) => {
