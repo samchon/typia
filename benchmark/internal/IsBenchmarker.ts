@@ -35,7 +35,8 @@ export namespace IsBenchmarker {
                 spoil(fake);
                 return value(fake) === false;
             });
-            if (pass === true) suite.add(key, () => value(data));
+            if (pass === true || key === "zod" || key === "class-validator")
+                suite.add(key, () => value(data));
         }
 
         return () => {

@@ -205,7 +205,7 @@ export namespace ArrayRecursiveUnionImplicit {
         },
         (input) => {
             (input[7] as ISharedDirectory).access = "nothing" as any;
-            return ["$input[7].access"];
+            return ["$input[7].access", "$input[7].children"];
         },
     ];
 }

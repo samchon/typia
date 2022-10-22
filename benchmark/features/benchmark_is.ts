@@ -197,7 +197,7 @@ const is = () => [
             "typescript-json": (input) => TSON.is(input),
             "io-ts": (input) => IoTsUltimateUnion.is(input),
             "class-validator": () => false,
-            zod: () => false,
+            zod: (input) => ZodUltimateUnion.safeParse(input).success,
             typebox: (input) => TypeBoxUltimateUnion.Check(input),
             ajv: (input) => AjvUltimateUnion.Check(input),
         },
