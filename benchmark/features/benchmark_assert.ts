@@ -102,16 +102,10 @@ const assert = () => [
         () => ObjectUnionImplicit.generate(),
         {
             "typescript-json": (input) => TSON.assertType(input),
-            "io-ts": (input) => IoTsObjectUnionImplicit.decode(input),
-            "class-validator": (input) => {
-                const classes = input.map((elem) =>
-                    tr.plainToClass(CvObjectUnionImplicit, elem),
-                );
-                return classes.map((clas) => cv.validateSync(clas));
-            },
-            zod: (input) => ZodObjectUnionImplicit.safeParse(input),
-            typebox: (input) =>
-                TypeBoxObjectUnionImplicit.Errors(input).next().value,
+            "io-ts": null,
+            "class-validator": null,
+            zod: null,
+            typebox: null,
         },
     ),
     AssertBenchmarker.prepare(
@@ -151,16 +145,10 @@ const assert = () => [
         () => ArrayRecursiveUnionImplicit.generate(),
         {
             "typescript-json": (input) => TSON.assertType(input),
-            "io-ts": (input) => IoTsArrayRecursiveUnionImplicit.decode(input),
-            "class-validator": (input) => {
-                const classes = input.map((elem) =>
-                    tr.plainToClass(CvArrayRecursiveUnionImplicit, elem),
-                );
-                return classes.map((clas) => cv.validateSync(clas));
-            },
-            zod: (input) => ZodArrayRecursiveUnionImplicit.safeParse(input),
-            typebox: (input) =>
-                TypeBoxArrayRecursiveUnionImplicit.Errors(input).next().value,
+            "io-ts": null,
+            "class-validator": null,
+            zod: null,
+            typebox: null,
         },
     ),
     AssertBenchmarker.prepare(
@@ -170,8 +158,8 @@ const assert = () => [
             "typescript-json": (input) => TSON.assertType(input),
             "io-ts": null,
             "class-validator": null,
-            zod: (input) => ZodUltimateUnion.safeParse(input),
-            typebox: (input) => TypeBoxUltimateUnion.Errors(input).next().value,
+            zod: null,
+            typebox: null,
         },
     ),
 ];
