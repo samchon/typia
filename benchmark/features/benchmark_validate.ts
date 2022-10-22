@@ -100,8 +100,13 @@ const valiadate = () => [
         {
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": null,
-            "class-validator": null,
-            zod: null,
+            "class-validator": (input) => {
+                const classes = input.map((elem) =>
+                    tr.plainToClass(CvObjectUnionImplicit, elem),
+                );
+                return classes.map((clas) => cv.validateSync(clas));
+            },
+            zod: (input) => ZodObjectUnionImplicit.safeParse(input),
             typebox: null,
         },
     ),
@@ -143,8 +148,13 @@ const valiadate = () => [
         {
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": null,
-            "class-validator": null,
-            zod: null,
+            "class-validator": (input) => {
+                const classes = input.map((elem) =>
+                    tr.plainToClass(CvArrayRecursiveUnionImplicit, elem),
+                );
+                return classes.map((clas) => cv.validateSync(clas));
+            },
+            zod: (input) => ZodArrayRecursiveUnionImplicit.safeParse(input),
             typebox: null,
         },
     ),
@@ -155,7 +165,7 @@ const valiadate = () => [
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": null,
             "class-validator": null,
-            zod: null,
+            zod: (input) => ZodUltimateUnion.safeParse(input),
             typebox: null,
         },
     ),
