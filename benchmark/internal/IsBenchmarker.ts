@@ -8,6 +8,7 @@ export namespace IsBenchmarker {
         zod: number | null;
         typebox: number | null;
         "class-validator": number | null;
+        "ajv-spec": number | null;
         ajv: number | null;
     }
     export interface IParameters<T> {
@@ -16,6 +17,7 @@ export namespace IsBenchmarker {
         "class-validator": null | ((input: T) => any);
         zod: null | ((input: T) => any);
         typebox: null | ((input: T) => any);
+        "ajv-spec": null | ((input: T) => any);
         ajv: null | ((input: T) => any);
     }
 
@@ -31,6 +33,8 @@ export namespace IsBenchmarker {
             suite.add("typebox", () => parameters.typebox!(data));
         if (parameters.ajv !== null)
             suite.add("ajv", () => parameters.ajv!(data));
+        if (parameters["ajv-spec"] !== null)
+            suite.add("ajv-spec", () => parameters["ajv-spec"]!(data));
         if (parameters["io-ts"] !== null)
             suite.add("io-ts", () => parameters["io-ts"]!(data));
         if (parameters.zod !== null)
@@ -47,6 +51,7 @@ export namespace IsBenchmarker {
                 "typescript-json": 0,
                 typebox: null,
                 ajv: null,
+                "ajv-spec": null,
                 "io-ts": null,
                 "class-validator": null,
                 zod: null,

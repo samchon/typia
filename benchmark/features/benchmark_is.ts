@@ -15,6 +15,15 @@ import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
 // BENCHMARK PROGRAM
 import { IsBenchmarker } from "../internal/IsBenchmarker";
+// AJV TYPES
+import { AjvArrayRecursive } from "../structures/ajv/AjvArrayRecursive";
+import { AjvArrayRecursiveUnionExplicit } from "../structures/ajv/AjvArrayRecursiveUnionExplicit";
+import { AjvArrayRecursiveUnionImplicit } from "../structures/ajv/AjvArrayRecursiveUnionImplicit";
+import { AjvObjectHierarchical } from "../structures/ajv/AjvObjectHierarchical";
+import { AjvObjectRecursive } from "../structures/ajv/AjvObjectRecursive";
+import { AjvObjectUnionExplicit } from "../structures/ajv/AjvObjectUnionExplicit";
+import { AjvObjectUnionImplicit } from "../structures/ajv/AjvObjectUnionImplicit";
+import { AjvUltimateUnion } from "../structures/ajv/AjvUltimateUnion";
 // CLASS-VALIDATOR
 import { CvArrayRecursive } from "../structures/class-validator/CvArrayRecursive";
 import { CvArrayRecursiveUnionExplicit } from "../structures/class-validator/CvArrayRecursiveUnionExplicit";
@@ -118,6 +127,9 @@ const is = () => [
             typebox: wrap(ObjectHierarchical.generate(), (input) =>
                 TypeBoxObjectHierarchical.Check(input),
             ),
+            "ajv-spec": wrap(ObjectHierarchical.generate(), (input) =>
+                AjvObjectHierarchical.Check(input),
+            ),
             ajv: byAjv(
                 ObjectHierarchical.generate(),
                 TSON.application<[ObjectHierarchical], "ajv">(),
@@ -142,6 +154,9 @@ const is = () => [
             ),
             typebox: wrap(ObjectRecursive.generate(), (input) =>
                 TypeBoxObjectRecursive.Check(input),
+            ),
+            "ajv-spec": wrap(ObjectRecursive.generate(), (input) =>
+                AjvObjectRecursive.Check(input),
             ),
             ajv: byAjv(
                 ObjectRecursive.generate(),
@@ -172,6 +187,19 @@ const is = () => [
             typebox: wrap(
                 ObjectUnionExplicit.generate(),
                 (input) => TypeBoxObjectUnionExplicit.Check(input),
+                [
+                    (input) => (input[0].type = "line"), // point
+                    (input) => (input[1].type = "circle"), // line
+                    (input) => (input[2].type = "polyline"), // triangle
+                    (input) => (input[3].type = "point"), // rectangle
+                    (input) => (input[4].type = "line"), // polyline
+                    (input) => (input[5].type = "point"), // polygon
+                    (input) => (input[6].type = "polyline"), // circle
+                ],
+            ),
+            "ajv-spec": wrap(
+                ObjectUnionExplicit.generate(),
+                (input) => AjvObjectUnionExplicit.Check(input),
                 [
                     (input) => (input[0].type = "line"), // point
                     (input) => (input[1].type = "circle"), // line
@@ -235,6 +263,33 @@ const is = () => [
                             "string" as any),
                 ],
             ),
+            "ajv-spec": wrap(
+                ObjectUnionImplicit.generate(),
+                (input) => AjvObjectUnionImplicit.Check(input),
+                [
+                    (input) =>
+                        ((input[0] as ObjectUnionImplicit.IPoint).x =
+                            {} as any),
+                    (input) =>
+                        ((input[1] as ObjectUnionImplicit.ILine).p2 =
+                            [] as any),
+                    (input) =>
+                        ((input[2] as ObjectUnionImplicit.ITriangle).p3 =
+                            null!),
+                    (input) =>
+                        ((input[3] as ObjectUnionImplicit.IRectangle).p4 =
+                            null!),
+                    (input) =>
+                        ((input[4] as ObjectUnionImplicit.IPolyline).points =
+                            3 as any),
+                    (input) =>
+                        ((input[5] as ObjectUnionImplicit.IPolygon).outer =
+                            {} as any),
+                    (input) =>
+                        ((input[6] as ObjectUnionImplicit.ICircle).radius =
+                            "string" as any),
+                ],
+            ),
             ajv: byAjv(
                 ObjectUnionImplicit.generate(),
                 TSON.application<[ObjectUnionImplicit], "ajv">(),
@@ -260,6 +315,20 @@ const is = () => [
             typebox: wrap(
                 ArrayRecursive.generate(),
                 (input) => TypeBoxArrayRecursive.Check(input),
+                [
+                    (input) => (input.id = null!),
+                    (input) => (input.code = 3 as any),
+                    (input) => (input.sequence = "number" as any),
+                    (input) => (input.created_at = [] as any),
+                    (input) => (input.children = { length: 0 } as any[]),
+                    (input) =>
+                        (input.children[0].children[0].sequence =
+                            "number" as any),
+                ],
+            ),
+            "ajv-spec": wrap(
+                ArrayRecursive.generate(),
+                (input) => AjvArrayRecursive.Check(input),
                 [
                     (input) => (input.id = null!),
                     (input) => (input.code = 3 as any),
@@ -297,6 +366,80 @@ const is = () => [
                 ArrayRecursiveUnionExplicit.generate(),
                 (input) =>
                     ZodArrayRecursiveUnionExplicit.safeParse(input).success,
+            ),
+            "ajv-spec": wrap(
+                ArrayRecursiveUnionExplicit.generate(),
+                (input) => AjvArrayRecursiveUnionExplicit.Check(input),
+                [
+                    //----
+                    // SEQUENCE OF GENERATED BUCKETS
+                    //----
+                    // 0. IMAGE
+                    // 1. TEXT
+                    // 2. ZIP
+                    // 3~5. SHORTCUTS
+                    // 6. DIRECTORY
+                    // 7. SHORTCUT OF DIRECTORY
+
+                    //----
+                    // WRONG TYPES
+                    //----
+                    (input) => (input[0].type = "directory"),
+                    (input) => (input[1].type = "directory"),
+                    (input) => (input[2].type = "text" as "file"),
+                    (input) => (input[3].type = "directory"),
+                    (input) => (input[4].type = "text" as "file"),
+                    (input) => (input[5].type = "directory"),
+                    (input) => (input[6].type = "file"),
+
+                    //----
+                    // WRONG EXTENSIONS
+                    //---
+                    (input) =>
+                        ((
+                            input[0] as ArrayRecursiveUnionExplicit.IFile
+                        ).extension = "txt"),
+                    (input) =>
+                        ((
+                            input[1] as ArrayRecursiveUnionExplicit.IFile
+                        ).extension = "zip"),
+                    (input) =>
+                        ((
+                            input[2] as ArrayRecursiveUnionExplicit.IFile
+                        ).extension = "jpg"),
+                    (input) =>
+                        ((
+                            input[3] as ArrayRecursiveUnionExplicit.IFile
+                        ).extension = "txt"),
+                    (input) =>
+                        ((
+                            input[4] as ArrayRecursiveUnionExplicit.IFile
+                        ).extension = "zip"),
+                    (input) =>
+                        ((
+                            input[5] as ArrayRecursiveUnionExplicit.IFile
+                        ).extension = "jpg"),
+
+                    //----
+                    // WRONG PROPERTIES
+                    //----
+                    (input) => (input[0].id = "uuid" as any as number),
+                    (input) => (input[1].name = 3 as any as string),
+                    (input) => (input[2].path = {} as any as string),
+                    (input) =>
+                        ((
+                            input[3] as ArrayRecursiveUnionExplicit.IShortcut
+                        ).target = [] as any as ArrayRecursiveUnionExplicit.IBucket),
+                    (input) =>
+                        ((
+                            input[4] as ArrayRecursiveUnionExplicit.IShortcut
+                        ).extension = null as any as "lnk"),
+                    (input) => (input[5].type = [] as any as "directory"),
+                    (input) =>
+                        ((
+                            input[6] as ArrayRecursiveUnionExplicit.IDirectory
+                        ).children[0].path = [] as any as string),
+                ],
             ),
             typebox: wrap(
                 ArrayRecursiveUnionExplicit.generate(),
@@ -442,6 +585,52 @@ const is = () => [
                         ).children[0].path = [] as any as string),
                 ],
             ),
+            "ajv-spec": wrap(
+                ArrayRecursiveUnionImplicit.generate(),
+                (input) => AjvArrayRecursiveUnionImplicit.Check(input),
+                [
+                    //----
+                    // SEQUENCE OF GENERATED BUCKETS
+                    //----
+                    // 0. IMAGE
+                    // 1. TEXT
+                    // 2. ZIP
+                    // 3~5. SHORTCUTS
+                    // 6. DIRECTORY
+                    // 7. SHORTCUT OF DIRECTORY
+
+                    //----
+                    // ERASE KEY PROPERTIES
+                    //----
+                    (input) => delete (input[0] as any).url,
+                    (input) => delete (input[1] as any).content,
+                    (input) => delete (input[2] as any).count,
+                    (input) => delete (input[3] as any).target,
+                    (input) => delete (input[4] as any).path,
+                    (input) => delete (input[5] as any).id,
+                    (input) => delete (input[6] as any).children,
+
+                    //----
+                    // WRONG PROPERTIES
+                    //----
+                    (input) => (input[0].id = "uuid" as any as number),
+                    (input) => (input[1].name = 3 as any as string),
+                    (input) => (input[2].path = {} as any as string),
+                    (input) =>
+                        ((
+                            input[3] as ArrayRecursiveUnionImplicit.IShortcut
+                        ).target = [] as any as ArrayRecursiveUnionImplicit.IBucket),
+                    (input) =>
+                        ((
+                            input[4] as ArrayRecursiveUnionImplicit.IShortcut
+                        ).name = null as any as "string"),
+                    (input) => (input[5].path = [] as any as "directory"),
+                    (input) =>
+                        ((
+                            input[6] as ArrayRecursiveUnionImplicit.IDirectory
+                        ).children[0].path = [] as any as string),
+                ],
+            ),
             ajv: null,
         },
     ),
@@ -458,6 +647,22 @@ const is = () => [
         typebox: wrap(
             UltimateUnion.generate(),
             (input) => TypeBoxUltimateUnion.Check(input),
+            [
+                (input) =>
+                    (input[0].schemas[0] = {
+                        type: "wrong", // CAN AVOID UNKOWN TYPE?
+                    }),
+                (input) =>
+                    (input[0].schemas[0] = {
+                        type: "number",
+                        nullable: false,
+                        enum: ["1", "2", "3", "4"],
+                    }),
+            ],
+        ),
+        "ajv-spec": wrap(
+            UltimateUnion.generate(),
+            (input) => AjvUltimateUnion.Check(input),
             [
                 (input) =>
                     (input[0].schemas[0] = {
