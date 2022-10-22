@@ -145,15 +145,15 @@ export namespace ArrayRecursiveUnionImplicit {
         },
         (input) => {
             delete (input[1] as any).content;
-            return ["$input[1]"];
+            return ["$input[1].children"];
         },
         (input) => {
             delete (input[2] as any).count;
-            return ["$input[2]"];
+            return ["$input[2].children"];
         },
         (input) => {
             delete (input[3] as any).target;
-            return ["$input[3]"];
+            return ["$input[3].children"];
         },
         (input) => {
             delete (input[4] as any).path;
@@ -165,7 +165,7 @@ export namespace ArrayRecursiveUnionImplicit {
         },
         (input) => {
             delete (input[6] as any).children;
-            return ["$input[6]"];
+            return ["$input[6].children"];
         },
 
         //----
@@ -186,7 +186,12 @@ export namespace ArrayRecursiveUnionImplicit {
         (input) => {
             (input[3] as ArrayRecursiveUnionImplicit.IShortcut).target =
                 [] as any;
-            return ["$input[3].target"];
+            return [
+                "$input[3].target.children",
+                "$input[3].target.id",
+                "$input[3].target.name",
+                "$input[3].target.path",
+            ];
         },
         (input) => {
             (input[4] as ArrayRecursiveUnionImplicit.IShortcut).name =
