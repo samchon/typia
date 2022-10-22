@@ -1,5 +1,5 @@
 import { Type } from "@sinclair/typebox";
-import { TypeCompiler } from "@sinclair/typebox/compiler";
+import Ajv from "ajv";
 
 const Point = Type.Object(
     {
@@ -74,7 +74,9 @@ const Union = Type.Union([
     Circle,
 ]);
 
-export const __TypeBoxObjectUnionImplicit = Type.Array(Union);
-export const TypeBoxObjectUnionImplicit = TypeCompiler.Compile(
-    __TypeBoxObjectUnionImplicit,
-);
+export const __AjvObjectUnionImplicit = Type.Array(Union);
+const ajv = new Ajv();
+const validate = ajv.compile(__AjvObjectUnionImplicit);
+export const AjvObjectUnionImplicit = {
+    Check: (input: unknown) => validate(input) as boolean,
+};
