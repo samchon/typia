@@ -1,3 +1,5 @@
+import { Spoiler } from "../internal/Spoiler";
+
 export type ObjectLiteralProperty = ObjectLiteralProperty.ISomething;
 export namespace ObjectLiteralProperty {
     export interface ISomething {
@@ -10,4 +12,14 @@ export namespace ObjectLiteralProperty {
             "or-something-crazy-do-you-want?": "nope",
         };
     }
+    export const SPOILERS: Spoiler<ObjectLiteralProperty>[] = [
+        (input) => {
+            input["something-interesting-do-you-want?"] = {} as any;
+            return [`$input["something-interesting-do-you-want?"]`];
+        },
+        (input) => {
+            input["or-something-crazy-do-you-want?"] = null!;
+            return [`$input["or-something-crazy-do-you-want?"]`];
+        },
+    ];
 }

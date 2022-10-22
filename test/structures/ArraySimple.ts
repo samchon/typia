@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type ArraySimple = ArraySimple.IPerson[];
 export namespace ArraySimple {
@@ -32,4 +33,56 @@ export namespace ArraySimple {
                       })),
         }));
     }
+
+    export const SPOILERS: Spoiler<ArraySimple>[] = [
+        (input) => {
+            input[0].name = false as any;
+            return ["$input[0].name"];
+        },
+        (input) => {
+            input[0].email = ["a", "b"] as any;
+            return ["$input[0].email"];
+        },
+        (input) => {
+            input[0].hobbies = false as any;
+            return ["$input[0].hobbies"];
+        },
+        (input) => {
+            input[0].hobbies = [false, "something", 3] as any;
+            return ["$input[0].hobbies"];
+        },
+        (input) => {
+            input[0].hobbies = [
+                {
+                    name: "name",
+                    rank: "best" as any as number,
+                },
+            ];
+            return ["$input[0].hobbies"];
+        },
+        (input) => {
+            input[0].hobbies = [
+                {
+                    body: 3 as any,
+                },
+            ];
+            return ["$input[0].hobbies"];
+        },
+        (input) => {
+            input[0].hobbies = [
+                {
+                    name: "name",
+                    rank: 3,
+                },
+                {
+                    body: "something",
+                } as any,
+            ];
+            return ["$input[0].hobbies[1].name", "$input[0].hobbies[1].rank"];
+        },
+        (input) => {
+            input[1] = null!;
+            return ["$input[1]"];
+        },
+    ];
 }

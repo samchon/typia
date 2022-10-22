@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type ArrayRecursiveUnionExplicit = ArrayRecursiveUnionExplicit.IBucket[];
 export namespace ArrayRecursiveUnionExplicit {
@@ -126,4 +127,117 @@ export namespace ArrayRecursiveUnionExplicit {
             ...generate_bucket("file"),
         };
     }
+
+    export const SPOILERS: Spoiler<ArrayRecursiveUnionExplicit>[] = [
+        //----
+        // SEQUENCE OF GENERATED BUCKETS
+        //----
+        // 0. IMAGE
+        // 1. TEXT
+        // 2. ZIP
+        // 3~5. SHORTCUTS
+        // 6. DIRECTORY
+        // 7. SHORTCUT OF DIRECTORY
+
+        //----
+        // WRONG TYPES
+        //----
+        (input) => {
+            input[0].type = "directory";
+            return ["$input[0].children"];
+        },
+        (input) => {
+            input[1].type = "directory";
+            return ["$input[1].children"];
+        },
+        (input) => {
+            input[2].type = "text" as "file";
+            return ["$input[2].type"];
+        },
+        (input) => {
+            input[3].type = "directory";
+            return ["$input[3].children"];
+        },
+        (input) => {
+            input[4].type = "text" as "file";
+            return ["$input[4].type"];
+        },
+        (input) => {
+            input[5].type = "directory";
+            return ["$input[5].children"];
+        },
+        (input) => {
+            input[6].type = "file";
+            return ["$input[6]"];
+        },
+
+        //----
+        // WRONG EXTENSIONS
+        //---
+        (input) => {
+            (input[0] as ArrayRecursiveUnionExplicit.IFile).extension = "txt";
+            return ["$input[0].content"];
+        },
+        (input) => {
+            (input[1] as ArrayRecursiveUnionExplicit.IFile).extension = "zip";
+            return ["$input[1].count"];
+        },
+        (input) => {
+            (input[2] as ArrayRecursiveUnionExplicit.IFile).extension = "jpg";
+            return ["$input[2].height", "$input[2].width", "$input[2].url"];
+        },
+        (input) => {
+            (input[3] as ArrayRecursiveUnionExplicit.IFile).extension = "txt";
+            return ["$input[3].content", "$input[3].size"];
+        },
+        (input) => {
+            (input[4] as ArrayRecursiveUnionExplicit.IFile).extension = "zip";
+            return ["$input[4].count", "$input[4].size"];
+        },
+        (input) => {
+            (input[5] as ArrayRecursiveUnionExplicit.IFile).extension = "jpg";
+            return [
+                "$input[5].width",
+                "$input[5].height",
+                "$input[5].size",
+                "$input[5].url",
+            ];
+        },
+
+        //----
+        // WRONG PROPERTIES
+        //----
+        (input) => {
+            input[0].id = "uuid" as any;
+            return ["$input[0].id"];
+        },
+        (input) => {
+            input[1].name = 3 as any;
+            return ["$input[1].name"];
+        },
+        (input) => {
+            input[2].path = {} as any;
+            return ["$input[2].path"];
+        },
+        (input) => {
+            (input[3] as ArrayRecursiveUnionExplicit.IShortcut).target =
+                [] as any;
+            return ["$input[3].target"];
+        },
+        (input) => {
+            (input[4] as ArrayRecursiveUnionExplicit.IShortcut).extension =
+                null as any;
+            return ["$input[4]"];
+        },
+        (input) => {
+            input[5].type = [] as any;
+            return ["$input[5].type"];
+        },
+        (input) => {
+            (
+                input[6] as ArrayRecursiveUnionExplicit.IDirectory
+            ).children[0].path = [] as any;
+            return ["$input[6].children[0].path"];
+        },
+    ];
 }

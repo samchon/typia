@@ -6,14 +6,5 @@ export const test_validate_dynamic_constant = _test_validate(
     "dynamic constant",
     DynamicConstant.generate,
     (input) => TSON.validate(input),
-    [
-        (input) => {
-            input["a"] = "zero" as any;
-            return ["$input.a"];
-        },
-        (input) => {
-            input["b"] = null!;
-            return ["$input.b"];
-        },
-    ],
+    DynamicConstant.SPOILERS,
 );

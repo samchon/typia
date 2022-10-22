@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type FunctionalArrayUnion = FunctionalArrayUnion.Union[];
 export namespace FunctionalArrayUnion {
@@ -11,4 +12,15 @@ export namespace FunctionalArrayUnion {
             RandomGenerator.array(() => null),
         ];
     }
+
+    export const SPOILERS: Spoiler<FunctionalArrayUnion>[] = [
+        (input) => {
+            input[0] = undefined!;
+            return ["$input[0]"];
+        },
+        (input) => {
+            input[0] = {} as any;
+            return ["$input[0]"];
+        },
+    ];
 }

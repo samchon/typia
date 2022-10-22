@@ -6,5 +6,5 @@ export const test_validate_object_generic_union = _test_validate(
     "generic unioned object",
     ObjectGenericUnion.generate,
     (input) => TSON.validate(input),
-    // SKIP
+    ObjectGenericUnion.SPOILERS,
 );

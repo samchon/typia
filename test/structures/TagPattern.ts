@@ -1,5 +1,7 @@
 import { v4 } from "uuid";
 
+import { Spoiler } from "../internal/Spoiler";
+
 export interface TagPattern {
     /**
      * @pattern [0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[4][0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$
@@ -36,4 +38,27 @@ export namespace TagPattern {
             ipv6: "0:0:0:0:0:0:0:1",
         };
     }
+
+    export const SPOILERS: Spoiler<TagPattern>[] = [
+        (input) => {
+            input.uuid = "invalid uuid";
+            return ["$input.uuid"];
+        },
+        (input) => {
+            input.email = "invalid email";
+            return ["$input.email"];
+        },
+        (input) => {
+            input.url = "invalid url";
+            return ["$input.url"];
+        },
+        (input) => {
+            input.ipv4 = "invalid ipv4";
+            return ["$input.ipv4"];
+        },
+        (input) => {
+            input.ipv6 = "invalid ipv6";
+            return ["$input.ipv6"];
+        },
+    ];
 }

@@ -1,3 +1,5 @@
+import { Spoiler } from "../internal/Spoiler";
+
 export type FunctionalPropertyUnion = FunctionalPropertyUnion.IUnion[];
 export namespace FunctionalPropertyUnion {
     export interface IUnion {
@@ -10,4 +12,15 @@ export namespace FunctionalPropertyUnion {
             closure,
         }));
     }
+
+    export const SPOILERS: Spoiler<FunctionalPropertyUnion>[] = [
+        (input) => {
+            input[0].closure = {} as any;
+            return ["$input[0].closure"];
+        },
+        (input) => {
+            input[1].closure = [] as any;
+            return ["$input[1].closure"];
+        },
+    ];
 }

@@ -1,3 +1,5 @@
+import { Spoiler } from "../internal/Spoiler";
+
 export interface TemplateConstant {
     prefix: `prefix_${"A" | "B" | "C"}`;
     postfix: `${1 | 2 | 3}_postfix`;
@@ -17,6 +19,21 @@ export namespace TemplateConstant {
                         });
         return output;
     }
+
+    export const SPOILERS: Spoiler<TemplateConstant[]>[] = [
+        (input) => {
+            input[0].prefix = "prefix_1" as any;
+            return ["$input[0].prefix"];
+        },
+        (input) => {
+            input[0].postfix = "first_postfix" as any;
+            return ["$input[0].postfix"];
+        },
+        (input) => {
+            input[0].combined = "the_first_value_with_label_1" as any;
+            return ["$input[0].combined"];
+        },
+    ];
 }
 
 const ALPHABETS = ["A", "B", "C"] as const;

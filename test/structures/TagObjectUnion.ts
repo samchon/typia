@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type TagObjectUnion = TagObjectUnion.Numeric | TagObjectUnion.Literal;
 export namespace TagObjectUnion {
@@ -14,6 +15,7 @@ export namespace TagObjectUnion {
          */
         value: string;
     }
+
     export function generate(): TagObjectUnion[] {
         const output: TagObjectUnion[] = [];
         for (const value of [3, 7])
@@ -21,4 +23,19 @@ export namespace TagObjectUnion {
         output.push({ value: 3 });
         return output;
     }
+
+    export const SPOILERS: Spoiler<TagObjectUnion[]>[] = [
+        (input) => {
+            input[0].value = "12";
+            return ["$input[0].value"];
+        },
+        (input) => {
+            input[1].value = "12345678";
+            return ["$input[1].value"];
+        },
+        (input) => {
+            input[2].value = 2;
+            return ["$input[2].value"];
+        },
+    ];
 }

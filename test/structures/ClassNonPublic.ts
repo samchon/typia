@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type ClassNonPublic = ClassNonPublic.Accessor;
 export namespace ClassNonPublic {
@@ -24,4 +25,15 @@ export namespace ClassNonPublic {
             RandomGenerator.boolean(),
         );
     }
+
+    export const SPOILERS: Spoiler<ClassNonPublic>[] = [
+        (input) => {
+            (input as any).implicit = false;
+            return ["$input.implicit"];
+        },
+        (input) => {
+            (input as any).shown = false;
+            return ["$input.shown"];
+        },
+    ];
 }

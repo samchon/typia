@@ -33,8 +33,8 @@ export namespace OptimizerBenchmarker {
             const output: IOutput = {
                 name,
                 "typescript-json": 0,
-                ajv: null,
                 typebox: 0,
+                ajv: null,
             };
             suite.run();
             suite.map((elem: benchmark) => {

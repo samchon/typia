@@ -1,3 +1,5 @@
+import { Spoiler } from "../internal/Spoiler";
+
 export interface ObjectInternal {
     id: string;
     name: string;
@@ -14,4 +16,15 @@ export namespace ObjectInternal {
             name: "name",
         } as ObjectInternal;
     }
+
+    export const SPOILERS: Spoiler<ObjectInternal>[] = [
+        (input) => {
+            input.name = false as any;
+            return ["$input.name"];
+        },
+        (input) => {
+            input.id = 1 as any;
+            return ["$input.id"];
+        },
+    ];
 }

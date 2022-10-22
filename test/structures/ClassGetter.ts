@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type ClassGetter = ClassGetter.Person;
 export namespace ClassGetter {
@@ -24,4 +25,19 @@ export namespace ClassGetter {
             Math.random() < 0.5 ? RandomGenerator.boolean() : null,
         );
     }
+
+    export const SPOILERS: Spoiler<ClassGetter>[] = [
+        (input) => {
+            (input as any).id = 3;
+            return ["$input.id"];
+        },
+        (input) => {
+            (input as any).name = null;
+            return ["$input.name"];
+        },
+        (input) => {
+            (input as any).dead = "alive";
+            return ["$input.dead"];
+        },
+    ];
 }

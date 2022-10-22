@@ -6,11 +6,5 @@ export const test_validate_dynamic_array = _test_validate(
     "dynamic array",
     DynamicArray.generate,
     (input) => TSON.validate(input),
-    [
-        (input) => {
-            input["something"] = [0] as any;
-            input["another"] = [false] as any;
-            return [`$input.something[0]`, `$input.another[0]`];
-        },
-    ],
+    DynamicArray.SPOILERS,
 );

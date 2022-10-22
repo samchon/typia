@@ -1,19 +1,10 @@
 import TSON from "../../../src";
 import { FunctionalPropertyUnion } from "../../structures/FunctionalPropertyUnion";
-import { _test_validate_for_of } from "./_test_validate_for_of";
+import { _test_validate } from "./_test_validate";
 
-export const test_validate_functional_property_union = _test_validate_for_of(
+export const test_validate_functional_property_union = _test_validate(
     "functional union property",
     FunctionalPropertyUnion.generate,
     (input) => TSON.validate(input),
-    [
-        (input) => {
-            input.closure = {} as any;
-            return ["$input.closure"];
-        },
-        (input) => {
-            input.closure = [] as any;
-            return ["$input.closure"];
-        },
-    ],
+    FunctionalPropertyUnion.SPOILERS,
 );

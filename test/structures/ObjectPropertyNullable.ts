@@ -1,3 +1,5 @@
+import { Spoiler } from "../internal/Spoiler";
+
 export type ObjectPropertyNullable = [
     ObjectPropertyNullable.IPointer<boolean>[],
     ObjectPropertyNullable.IPointer<number>[],
@@ -40,4 +42,27 @@ export namespace ObjectPropertyNullable {
                         });
         return members.map((value) => ({ value }));
     }
+
+    export const SPOILERS: Spoiler<ObjectPropertyNullable>[] = [
+        (input) => {
+            input[0][0].value = "boolean" as any;
+            return ["$input[0][0].value"];
+        },
+        (input) => {
+            input[1][0].value = "number" as any;
+            return ["$input[1][0].value"];
+        },
+        (input) => {
+            input[2][0].value = {} as any;
+            return ["$input[2][0].value"];
+        },
+        (input) => {
+            input[3][0].value = [] as any;
+            return [
+                "$input[3][0].value.id",
+                "$input[3][0].value.name",
+                "$input[3][0].value.activated",
+            ];
+        },
+    ];
 }

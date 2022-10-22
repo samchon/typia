@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type ArrayRecursive = ArrayRecursive.ICategory;
 export namespace ArrayRecursive {
@@ -32,4 +33,27 @@ export namespace ArrayRecursive {
                     : [],
         };
     }
+
+    export const SPOILERS: Spoiler<ArrayRecursive>[] = [
+        (input) => {
+            input.id = null!;
+            return ["$input.id"];
+        },
+        (input) => {
+            input.code = 3 as any;
+            return ["$input.code"];
+        },
+        (input) => {
+            input.sequence = "number" as any;
+            return ["$input.sequence"];
+        },
+        (input) => {
+            input.created_at = [] as any;
+            return ["$input.created_at.time", "$input.created_at.zone"];
+        },
+        (input) => {
+            input.children[0].children[0].sequence = "number" as any;
+            return ["$input.children[0].children[0].sequence"];
+        },
+    ];
 }

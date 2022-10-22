@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectTuple = [ObjectTuple.ISection, ObjectTuple.ICitizen];
 export namespace ObjectTuple {
@@ -27,4 +28,47 @@ export namespace ObjectTuple {
             },
         ];
     }
+
+    export const SPOILERS: Spoiler<ObjectTuple>[] = [
+        (input) => {
+            input[0].id = false as any;
+            return ["$input[0].id"];
+        },
+        (input) => {
+            input[0].code = undefined!;
+            return ["$input[0].code"];
+        },
+        (input) => {
+            input[0].name = null!;
+            return ["$input[0].name"];
+        },
+        (input) => {
+            input[1].id = {} as any;
+            return ["$input[1].id"];
+        },
+        (input) => {
+            input[1].mobile = null!;
+            return ["$input[1].mobile"];
+        },
+        (input) => {
+            input[1].name = [] as any;
+            return ["$input[1].name"];
+        },
+        (input) => {
+            input[0] = {
+                id: "string",
+                mobile: "string",
+                name: "string",
+            } as any;
+            return ["$input[0].code"];
+        },
+        (input) => {
+            input[1] = {
+                id: "string",
+                code: "string",
+                name: "string",
+            } as any;
+            return ["$input[1].mobile"];
+        },
+    ];
 }

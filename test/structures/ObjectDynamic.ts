@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export interface ObjectDynamic {
     [key: string]: number | string | boolean;
@@ -11,4 +12,19 @@ export namespace ObjectDynamic {
             [RandomGenerator.string()]: RandomGenerator.boolean(),
         };
     }
+
+    export const SPOILERS: Spoiler<ObjectDynamic>[] = [
+        (input) => {
+            input.something = null!;
+            return ["$input.something"];
+        },
+        (input) => {
+            input.something = {} as any;
+            return ["$input.something"];
+        },
+        (input) => {
+            input.something = [] as any;
+            return ["$input.something"];
+        },
+    ];
 }

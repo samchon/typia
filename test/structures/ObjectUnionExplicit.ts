@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectUnionExplicit = Array<
     | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>
@@ -54,6 +55,10 @@ export namespace ObjectUnionExplicit {
     }
 
     export function generate(): ObjectUnionExplicit {
+        const point = (): IPoint => ({
+            x: RandomGenerator.integer(),
+            y: RandomGenerator.integer(),
+        });
         return [
             {
                 type: "point",
@@ -102,10 +107,42 @@ export namespace ObjectUnionExplicit {
             },
         ];
     }
-    function point(): IPoint {
-        return {
-            x: RandomGenerator.integer(),
-            y: RandomGenerator.integer(),
-        };
-    }
+
+    export const SPOILERS: Spoiler<ObjectUnionExplicit>[] = [
+        (input) => {
+            // point
+            input[0].type = "line";
+            return ["$input[0].p1", "$input[0].p2"];
+        },
+        (input) => {
+            // line
+            input[1].type = "circle";
+            return ["$input[1].centroid", "$input[1].radius"];
+        },
+        (input) => {
+            // triangle
+            input[2].type = "polyline";
+            return ["$input[2].points"];
+        },
+        (input) => {
+            // rectangle
+            input[3].type = "point";
+            return ["$input[3].x", "$input[3].y"];
+        },
+        (input) => {
+            // polyline
+            input[4].type = "line";
+            return ["$input[4].p1", "$input[4].p2"];
+        },
+        (input) => {
+            // polygon
+            input[5].type = "point";
+            return ["$input[5].x", "$input[5].y"];
+        },
+        (input) => {
+            // circle
+            input[6].type = "polyline";
+            return ["$input[6].points"];
+        },
+    ];
 }

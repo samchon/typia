@@ -50,9 +50,28 @@ const Directory: t.Type<ArrayRecursiveUnionImplicit.IDirectory> = t.recursion(
         }),
 );
 
+const SharedDirectory: t.Type<ArrayRecursiveUnionImplicit.ISharedDirectory> =
+    t.recursion("SharedDirectory", () =>
+        t.type({
+            id: t.number,
+            name: t.string,
+            path: t.string,
+            children: t.array(Bucket),
+            access: t.union([t.literal("read"), t.literal("write")]),
+        }),
+    );
+
 const Bucket: t.Type<ArrayRecursiveUnionImplicit.IBucket> = t.recursion(
     "Bucket",
-    () => t.union([ImageFile, TextFile, ZipFile, Shortcut, Directory]),
+    () =>
+        t.union([
+            ImageFile,
+            TextFile,
+            ZipFile,
+            Shortcut,
+            Directory,
+            SharedDirectory,
+        ]),
 );
 
 export const IoTsArrayRecursiveUnionImplicit: t.Type<ArrayRecursiveUnionImplicit> =

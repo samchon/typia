@@ -99,15 +99,10 @@ const valiadate = () => [
         () => ObjectUnionImplicit.generate(),
         {
             "typescript-json": (input) => TSON.validate(input),
-            "io-ts": (input) => IoTsObjectUnionImplicit.decode(input),
-            "class-validator": (input) => {
-                const classes = input.map((elem) =>
-                    tr.plainToClass(CvObjectUnionImplicit, elem),
-                );
-                return classes.map((clas) => cv.validateSync(clas));
-            },
-            zod: (input) => ZodObjectUnionImplicit.safeParse(input),
-            typebox: (input) => [...TypeBoxObjectUnionImplicit.Errors(input)],
+            "io-ts": null,
+            "class-validator": null,
+            zod: null,
+            typebox: null,
         },
     ),
     ValidateBenchmarker.prepare(
@@ -147,17 +142,10 @@ const valiadate = () => [
         () => ArrayRecursiveUnionImplicit.generate(),
         {
             "typescript-json": (input) => TSON.validate(input),
-            "io-ts": (input) => IoTsArrayRecursiveUnionImplicit.decode(input),
-            "class-validator": (input) => {
-                const classes = input.map((elem) =>
-                    tr.plainToClass(CvArrayRecursiveUnionImplicit, elem),
-                );
-                return classes.map((clas) => cv.validateSync(clas));
-            },
-            zod: (input) => ZodArrayRecursiveUnionImplicit.safeParse(input),
-            typebox: (input) => [
-                ...TypeBoxArrayRecursiveUnionImplicit.Errors(input),
-            ],
+            "io-ts": null,
+            "class-validator": null,
+            zod: null,
+            typebox: null,
         },
     ),
     ValidateBenchmarker.prepare(
@@ -167,8 +155,8 @@ const valiadate = () => [
             "typescript-json": (input) => TSON.validate(input),
             "io-ts": null,
             "class-validator": null,
-            zod: (input) => ZodUltimateUnion.safeParse(input),
-            typebox: (input) => [...TypeBoxUltimateUnion.Errors(input)],
+            zod: null,
+            typebox: null,
         },
     ),
 ];

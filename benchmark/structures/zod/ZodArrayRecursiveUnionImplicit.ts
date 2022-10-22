@@ -47,8 +47,26 @@ const Directory: z.ZodType<ArrayRecursiveUnionImplicit.IDirectory> = z.lazy(
         }),
 );
 
+const SharedDirectory: z.ZodType<ArrayRecursiveUnionImplicit.ISharedDirectory> =
+    z.lazy(() =>
+        z.object({
+            id: z.number(),
+            name: z.string(),
+            path: z.string(),
+            children: z.array(Bucket),
+            access: z.union([z.literal("read"), z.literal("write")]),
+        }),
+    );
+
 const Bucket: z.ZodType<ArrayRecursiveUnionImplicit.IBucket> = z.lazy(() =>
-    z.union([ImageFile, TextFile, ZipFile, Shortcut, Directory]),
+    z.union([
+        ImageFile,
+        TextFile,
+        ZipFile,
+        Shortcut,
+        Directory,
+        SharedDirectory,
+    ]),
 );
 
 export const ZodArrayRecursiveUnionImplicit = z.lazy(() => z.array(Bucket));

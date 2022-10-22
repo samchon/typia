@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type FunctionalObjectUnion = FunctionalObjectUnion.Union[];
 export namespace FunctionalObjectUnion {
@@ -49,4 +50,15 @@ export namespace FunctionalObjectUnion {
             distance: () => RandomGenerator.integer(),
         };
     }
+
+    export const SPOILERS: Spoiler<FunctionalObjectUnion>[] = [
+        (input) => {
+            if ((input as any)[0]!.length) {
+                (input as any)[0]!.length = {} as any;
+                return ["$input[0].length"];
+            }
+            (input as any)[0]!.distance = [] as any;
+            return ["$input[0].distance"];
+        },
+    ];
 }
