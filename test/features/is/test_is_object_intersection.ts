@@ -6,9 +6,5 @@ export const test_is_object_intersection = _test_is(
     "intersected object",
     ObjectIntersection.generate,
     (input) => TSON.is(input),
-    [
-        (input) => (input.email = null!),
-        (input) => (input.email = undefined!),
-        (input) => (input.vulnerable = {} as any),
-    ],
+    ObjectIntersection.SPOILERS,
 );

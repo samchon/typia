@@ -6,10 +6,5 @@ export const test_is_functional_property = _test_is(
     "functional property",
     FunctionalProperty.generate,
     (input) => TSON.is(input),
-    [
-        (input) => (input.closure = {} as any),
-        (input) => (input.closure = [] as any),
-        (input) => (input.closure = null!),
-        (input) => (input.closure = undefined!),
-    ],
+    FunctionalProperty.SPOILERS,
 );

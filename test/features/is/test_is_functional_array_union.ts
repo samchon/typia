@@ -6,10 +6,5 @@ export const test_is_functional_array_union = _test_is(
     "functional union array",
     FunctionalArrayUnion.generate,
     (input) => TSON.is(input),
-    [
-        (input) => (input[0]![0] = null!),
-        (input) => (input[0]![0] = undefined!),
-        (input) => (input[0]![0] = {} as any),
-        (input) => (input[0]![0] = [] as any),
-    ],
+    FunctionalArrayUnion.SPOILERS,
 );

@@ -23,7 +23,7 @@ export namespace ObjectUnionNonPredictable {
         ];
     }
 
-    export const INDIVIDUAL_SPOILERS: Spoiler<ObjectUnionNonPredictable>[] = [
+    export const SPOILERS: Spoiler<ObjectUnionNonPredictable>[] = [
         (input) => {
             input[0].value.value.value.value = null!;
             return ["$input[0].value.value"];

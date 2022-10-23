@@ -1,8 +1,10 @@
+import { Spoiler } from "../../internal/Spoiler";
+
 export function _test_is<T>(
     name: string,
     generator: () => T,
     validator: (input: T) => boolean,
-    spoilers?: Array<(elem: T) => void>,
+    spoilers?: Spoiler<T>[],
 ): () => void {
     return () => {
         if (validator(generator()) === false)

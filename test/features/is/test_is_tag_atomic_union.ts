@@ -6,9 +6,5 @@ export const test_is_tag_atomic_union = _test_is(
     "atomic union tag",
     TagAtomicUnion.generate,
     (input) => TSON.is(input),
-    [
-        (input) => (input[0].value = "12"),
-        (input) => (input[1].value = "12345678"),
-        (input) => (input[2].value = 2),
-    ],
+    TagAtomicUnion.SPOILERS,
 );

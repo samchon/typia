@@ -6,8 +6,5 @@ export const test_is_dynamic_simple = _test_is(
     "dynamic simple",
     DynamicSimple.generate,
     (input) => TSON.is(input),
-    [
-        (input) => (input["something"] = "one" as any),
-        (input) => (input["wrong"] = null!),
-    ],
+    DynamicSimple.SPOILERS,
 );

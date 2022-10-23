@@ -6,5 +6,5 @@ export const test_validate_object_union_non_predictable = _test_validate(
     "union object",
     ObjectUnionNonPredictable.generate,
     (input) => TSON.validate(input),
-    ObjectUnionNonPredictable.INDIVIDUAL_SPOILERS,
+    ObjectUnionNonPredictable.SPOILERS,
 );

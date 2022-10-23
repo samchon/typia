@@ -6,9 +6,5 @@ export const test_is_constant_atomic_union = _test_is(
     "constant atomic",
     ConstantAtomicUnion.generate,
     (input) => TSON.is(input),
-    [
-        (input) => (input[0] = 3 as 1),
-        (input) => (input[1] = "two" as "three"),
-        (input) => (input[2] = { key: "something" as "key" }),
-    ],
+    ConstantAtomicUnion.SPOILERS,
 );
