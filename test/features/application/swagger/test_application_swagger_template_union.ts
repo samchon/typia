@@ -9,12 +9,16 @@ export const test_application_swagger_template_union =
         {
             schemas: [
                 {
-                    $ref: "#/components/schemas/TemplateUnion",
+                    type: "array",
+                    items: {
+                        $ref: "#/components/schemas/TemplateUnion.Type",
+                    },
+                    nullable: false,
                 },
             ],
             components: {
                 schemas: {
-                    TemplateUnion: {
+                    "TemplateUnion.Type": {
                         type: "object",
                         properties: {
                             prefix: {

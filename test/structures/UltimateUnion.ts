@@ -5,7 +5,7 @@ import { ObjectUnionImplicit } from "./ObjectUnionImplicit";
 
 export type UltimateUnion = IJsonApplication[];
 export namespace UltimateUnion {
-    export function generate(): UltimateUnion {
+    export function generate(): IJsonApplication[] {
         const output = [
             TSON.application<[ObjectUnionExplicit], "ajv">(),
             TSON.application<[ObjectUnionImplicit], "ajv">(),

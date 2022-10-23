@@ -1,3 +1,4 @@
+export type Namespace = typeof Namespace;
 export namespace Namespace {
     export const PATH = "test/structures/Namespace.ts";
     export const note: string = "Be careful";

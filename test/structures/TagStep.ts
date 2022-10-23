@@ -1,33 +1,35 @@
 import { Spoiler } from "../internal/Spoiler";
 
-export interface TagStep {
-    /**
-     * @step 5
-     * @exclusiveMinimum 3
-     */
-    exclusiveMinimum: number;
-
-    /**
-     * @step 5
-     * @minimum 3
-     */
-    minimum: number;
-
-    /**
-     * @step 5
-     * @range (0, 100)
-     */
-    range: number;
-
-    /**
-     * @multipleOf 5
-     */
-    multipleOf: number;
-}
+export type TagStep = TagStep.Type[];
 export namespace TagStep {
+    export interface Type {
+        /**
+         * @step 5
+         * @exclusiveMinimum 3
+         */
+        exclusiveMinimum: number;
+
+        /**
+         * @step 5
+         * @minimum 3
+         */
+        minimum: number;
+
+        /**
+         * @step 5
+         * @range (0, 100)
+         */
+        range: number;
+
+        /**
+         * @multipleOf 5
+         */
+        multipleOf: number;
+    }
+
     // prettier-ignore
-    export function generate(): TagStep[] {
-        const output: TagStep[] = [];
+    export function generate(): Type[] {
+        const output: Type[] = [];
         for (const exclusiveMinimum of [8, 8+5])
         for (const minimum of [3, 3+5])
         for (const range of [5, 95])
@@ -41,7 +43,7 @@ export namespace TagStep {
         return output;
     }
 
-    export const SPOILERS: Spoiler<TagStep[]>[] = [
+    export const SPOILERS: Spoiler<TagStep>[] = [
         (input) => {
             input[0].exclusiveMinimum = 3;
             return ["$input[0].exclusiveMinimum"];

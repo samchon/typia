@@ -8,12 +8,16 @@ export const test_application_swagger_tag_range = _test_application_swagger(
     {
         schemas: [
             {
-                $ref: "#/components/schemas/TagRange",
+                type: "array",
+                items: {
+                    $ref: "#/components/schemas/TagRange.Type",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                TagRange: {
+                "TagRange.Type": {
                     type: "object",
                     properties: {
                         minimum: {

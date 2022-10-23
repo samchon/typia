@@ -3,37 +3,39 @@ import { v4 } from "uuid";
 import { RandomGenerator } from "../internal/RandomGenerator";
 import { Spoiler } from "../internal/Spoiler";
 
-export interface TagArray {
-    /**
-     * @items [3, 7)
-     * @format uuid
-     */
-    items: string[];
-
-    /**
-     * @minItems 3
-     * @minimum 3
-     */
-    minItems: number[];
-
-    /**
-     * @maxItems 7
-     * @maxLength 7
-     * @maximum 7
-     */
-    maxItems: Array<string | number>;
-
-    /**
-     * @minItems 3
-     * @maxItems 7
-     * @format uuid
-     */
-    both: string[];
-}
+export type TagArray = TagArray.Type[];
 export namespace TagArray {
+    export interface Type {
+        /**
+         * @items [3, 7)
+         * @format uuid
+         */
+        items: string[];
+
+        /**
+         * @minItems 3
+         * @minimum 3
+         */
+        minItems: number[];
+
+        /**
+         * @maxItems 7
+         * @maxLength 7
+         * @maximum 7
+         */
+        maxItems: Array<string | number>;
+
+        /**
+         * @minItems 3
+         * @maxItems 7
+         * @format uuid
+         */
+        both: string[];
+    }
+
     // prettier-ignore
-    export function generate(): TagArray[] {
-        const output: TagArray[] = [];
+    export function generate(): Type[] {
+        const output: Type[] = [];
         for (const items of [3, 6])
         for (const minItems of [3, 10])
         for (const maxItems of [1, 7])
@@ -51,7 +53,7 @@ export namespace TagArray {
         return output;
     }
 
-    export const SPOILERS: Spoiler<TagArray[]>[] = [
+    export const SPOILERS: Spoiler<TagArray>[] = [
         (input) => {
             input[0].items = ["0", "1", "2"];
             return [

@@ -9,12 +9,16 @@ export const test_application_swagger_template_constant =
         {
             schemas: [
                 {
-                    $ref: "#/components/schemas/TemplateConstant",
+                    type: "array",
+                    items: {
+                        $ref: "#/components/schemas/TemplateConstant.Type",
+                    },
+                    nullable: false,
                 },
             ],
             components: {
                 schemas: {
-                    TemplateConstant: {
+                    "TemplateConstant.Type": {
                         type: "object",
                         properties: {
                             prefix: {

@@ -8,13 +8,17 @@ export const test_application_ajv_tag_atomic_union = _test_application_ajv(
     {
         schemas: [
             {
-                $ref: "components#/schemas/TagAtomicUnion",
+                type: "array",
+                items: {
+                    $ref: "components#/schemas/TagAtomicUnion.Type",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                TagAtomicUnion: {
-                    $id: "components#/schemas/TagAtomicUnion",
+                "TagAtomicUnion.Type": {
+                    $id: "components#/schemas/TagAtomicUnion.Type",
                     type: "object",
                     properties: {
                         value: {

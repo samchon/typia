@@ -32,5 +32,5 @@ export namespace StringifyTransformer {
 
 const enum ErrorMessages {
     NO_INPUT_VALUE = "Error on TSON.strigify(): no input value.",
-    GENERIC_ARGUMENT = "Error on TSON.is(): non-specified generic argument.",
+    GENERIC_ARGUMENT = "Error on TSON.stringify(): non-specified generic argument.",
 }
