@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectGenericUnion = ObjectGenericUnion.ISaleEntireArticle;
 export namespace ObjectGenericUnion {
@@ -78,4 +79,19 @@ export namespace ObjectGenericUnion {
         extension: string | null;
         url: string;
     }
+
+    export const SPOILERS: Spoiler<ObjectGenericUnion>[] = [
+        (input) => {
+            input.id = null!;
+            return ["$input"];
+        },
+        (input) => {
+            input.hit = undefined!;
+            return ["$input"];
+        },
+        (input) => {
+            input.answer = {} as any;
+            return ["$input"];
+        },
+    ];
 }

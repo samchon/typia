@@ -43,13 +43,23 @@ const Directory = (bucket: TSchema) =>
         children: Type.Array(bucket),
     });
 
-const Bucket = Type.Recursive((Bucket) =>
+const SharedDirectory = (bucket: TSchema) =>
+    Type.Object({
+        id: Type.Number(),
+        name: Type.String(),
+        path: Type.String(),
+        children: Type.Array(bucket),
+        access: Type.Union([Type.Literal("read"), Type.Literal("write")]),
+    });
+
+const Bucket = Type.Recursive((bucket) =>
     Type.Union([
         ImageFile,
         TextFile,
         ZipFile,
-        Shortcut(Bucket),
-        Directory(Bucket),
+        Shortcut(bucket),
+        Directory(bucket),
+        SharedDirectory(bucket),
     ]),
 );
 

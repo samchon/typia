@@ -1,9 +1,11 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type ArrayRecursiveUnionImplicit = ArrayRecursiveUnionImplicit.IBucket[];
 export namespace ArrayRecursiveUnionImplicit {
     export type IBucket =
         | IDirectory
+        | ISharedDirectory
         | IImageFile
         | ITextFile
         | IZipFile
@@ -15,6 +17,10 @@ export namespace ArrayRecursiveUnionImplicit {
         name: string;
         path: string;
         children: IBucket[];
+    }
+
+    export interface ISharedDirectory extends IDirectory {
+        access: "read" | "write";
     }
 
     export interface IImageFile {
@@ -64,7 +70,10 @@ export namespace ArrayRecursiveUnionImplicit {
             ...files().map((file) => generate_shortcut(file)),
         ];
         if (level < limit)
-            output.push(directory(), generate_shortcut(directory()));
+            output.push(directory(), generate_shortcut(directory()), {
+                ...directory(),
+                access: "read",
+            });
         return output;
     }
 
@@ -114,4 +123,94 @@ export namespace ArrayRecursiveUnionImplicit {
             size: RandomGenerator.integer(),
         };
     }
+
+    export const SPOILERS: Spoiler<ArrayRecursiveUnionImplicit>[] = [
+        //----
+        // SEQUENCE OF GENERATED BUCKETS
+        //----
+        // 0. IMAGE
+        // 1. TEXT
+        // 2. ZIP
+        // 3~5. SHORTCUTS
+        // 6. DIRECTORY
+        // 7. SHORTCUT OF DIRECTORY
+        // 8. SHARED DIRECTORY
+
+        //----
+        // ERASE KEY PROPERTIES
+        //----
+        (input) => {
+            delete (input[0] as any).url;
+            return ["$input[0].url"];
+        },
+        (input) => {
+            delete (input[1] as any).content;
+            return ["$input[1].children"];
+        },
+        (input) => {
+            delete (input[2] as any).count;
+            return ["$input[2].children"];
+        },
+        (input) => {
+            delete (input[3] as any).target;
+            return ["$input[3].children"];
+        },
+        (input) => {
+            delete (input[4] as any).path;
+            return ["$input[4].path"];
+        },
+        (input) => {
+            delete (input[5] as any).id;
+            return ["$input[5].id"];
+        },
+        (input) => {
+            delete (input[6] as any).children;
+            return ["$input[6].children"];
+        },
+
+        //----
+        // WRONG PROPERTIES
+        //----
+        (input) => {
+            input[0].id = "uuid" as any as number;
+            return ["$input[0].id"];
+        },
+        (input) => {
+            input[1].name = 3 as any as string;
+            return ["$input[1].name"];
+        },
+        (input) => {
+            input[2].path = {} as any as string;
+            return ["$input[2].path"];
+        },
+        (input) => {
+            (input[3] as ArrayRecursiveUnionImplicit.IShortcut).target =
+                [] as any;
+            return [
+                "$input[3].target.children",
+                "$input[3].target.id",
+                "$input[3].target.name",
+                "$input[3].target.path",
+            ];
+        },
+        (input) => {
+            (input[4] as ArrayRecursiveUnionImplicit.IShortcut).name =
+                null as any as "string";
+            return ["$input[4].name"];
+        },
+        (input) => {
+            input[5].path = [] as any as "directory";
+            return ["$input[5].path"];
+        },
+        (input) => {
+            (
+                input[6] as ArrayRecursiveUnionImplicit.IDirectory
+            ).children[0].path = [] as any as string;
+            return ["$input[6].children[0].path"];
+        },
+        (input) => {
+            (input[7] as ISharedDirectory).access = "nothing" as any;
+            return ["$input[7].access", "$input[7].children"];
+        },
+    ];
 }

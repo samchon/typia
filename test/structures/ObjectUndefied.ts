@@ -1,3 +1,5 @@
+import { Spoiler } from "../internal/Spoiler";
+
 export type ObjectUndefied = ObjectUndefied.ILecture[];
 export namespace ObjectUndefied {
     export interface ILecture {
@@ -35,4 +37,27 @@ export namespace ObjectUndefied {
 
         return output;
     }
+
+    export const SPOILERS: Spoiler<ObjectUndefied>[] = [
+        (input) => {
+            input[0].name = null!;
+            return ["$input[0].name"];
+        },
+        (input) => {
+            input[0].professor = null!;
+            return ["$input[0].professor"];
+        },
+        (input) => {
+            input[0].classroom = [] as any;
+            return ["$input[0].classroom.id", "$input[0].classroom.name"];
+        },
+        (input) => {
+            input[0].grade = null!;
+            return ["$input[0].grade"];
+        },
+        (input) => {
+            input[0].nothing = "undefined" as any;
+            return ["$input[0].nothing"];
+        },
+    ];
 }

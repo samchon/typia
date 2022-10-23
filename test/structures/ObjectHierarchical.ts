@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectHierarchical = ObjectHierarchical.ICustomer;
 export namespace ObjectHierarchical {
@@ -102,4 +103,72 @@ export namespace ObjectHierarchical {
         code: RandomGenerator.string(),
         created_at: generate_timestamp(),
     });
+
+    export const SPOILERS: Spoiler<ObjectHierarchical>[] = [
+        (input) => {
+            input.id = null!;
+            return ["$input.id"];
+        },
+        (input) => {
+            input.channel = {} as any;
+            return [
+                "$input.channel.id",
+                "$input.channel.code",
+                "$input.channel.name",
+                "$input.channel.sequence",
+                "$input.channel.exclusive",
+                "$input.channel.priority",
+                "$input.channel.created_at",
+            ];
+        },
+        (input) => {
+            input.channel.id = undefined!;
+            return ["$input.channel.id"];
+        },
+        (input) => {
+            input.channel.code = 0 as any;
+            return ["$input.channel.code"];
+        },
+        (input) => {
+            input.channel.name = {} as any;
+            return ["$input.channel.name"];
+        },
+        (input) => {
+            input.channel.sequence = {} as any;
+            return ["$input.channel.sequence"];
+        },
+        (input) => {
+            input.member = {} as any;
+            return [
+                "$input.member.id",
+                "$input.member.account",
+                "$input.member.emails",
+                "$input.member.enterprise",
+                "$input.member.created_at",
+                "$input.member.authorized",
+            ];
+        },
+        (input) => {
+            if (input.member !== null) {
+                input.member.id = undefined!;
+                return ["$input.member.id"];
+            } else {
+                input.member = undefined!;
+                return ["$input.member"];
+            }
+        },
+        (input) => {
+            if (input.member !== null) {
+                input.member.account = {} as any;
+                return [
+                    "$input.member.account.id",
+                    "$input.member.account.code",
+                    "$input.member.account.created_at",
+                ];
+            } else {
+                input.member = undefined!;
+                return ["$input.member"];
+            }
+        },
+    ];
 }

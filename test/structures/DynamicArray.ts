@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export interface DynamicArray {
     [key: string]: string[];
@@ -12,4 +13,11 @@ export namespace DynamicArray {
         }
         return output;
     }
+    export const SPOILERS: Spoiler<DynamicArray>[] = [
+        (input) => {
+            input["something"] = [0] as any;
+            input["another"] = [false] as any;
+            return [`$input.something[0]`, `$input.another[0]`];
+        },
+    ];
 }

@@ -46,9 +46,9 @@ TSON.createObject<T>(input); // 2x faster object creator (only one-time construc
     - Performed by only one line: `TSON.stringify<T>(input)`
     - Only one library which can stringify union type
 
-![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/197244544-23ac133d-16f5-464d-9012-57c89ecc9ebb.png)
+![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/197366076-1d5592e7-b717-4ea3-b9d7-949e7fa4fc76.png)
 
-![Assert Function Benchmark](https://user-images.githubusercontent.com/13158709/197244710-94c28780-e0bb-47b2-9eb1-6602f5f9cf2b.png)
+![Assert Function Benchmark](https://user-images.githubusercontent.com/13158709/197366105-2b784668-70dd-44bf-b73d-2e601e54c48f.png)
 
 > Measured on AMD R9 5900HX and Intel i5-1135g7
 
@@ -230,17 +230,17 @@ Components               | `TSON` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
 **Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ 
 [Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
 [Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ❌ | ✔ | ✔ | ✔
-[Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ✔ | ❌ | ✔ | ✔ | ✔ | ✔
+[Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
 [Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
 [Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
 [Object (additional tags)](https://github.com/samchon/typescript-json/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
 [Object (template literal types)](https://github.com/samchon/typescript-json/blob/master/test/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
 [Object (dynamic properties)](https://github.com/samchon/typescript-json/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
 [Array (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ✔ | ❌ | ✔ | ✔ | ✔
+[Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
 [Array (recursive, union)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
-[Array (R+U, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ▲ | ❌ | ❌ | ❌ | ❌
-[**Ultimate Union Type**](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ▲ | ❌ | ❌ | ❌ | ❌
+[Array (R+U, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[**Ultimate Union Type**](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
 
 > - TSON: `typescript-json`
 > - C.V.: `class-validator`
@@ -268,7 +268,7 @@ On the other side, other similary library like `fast-json-stringify` requires co
 
 Comparing performance, `typescript-json` is about 5x times faster when comparing only JSON string conversion time. If compare optimizer construction time, `typescript-json` is even 10,000x times faster.
 
-![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/177259522-791578dc-fa96-4d62-9c96-b22cb9575450.png)
+![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/197366125-064d80ca-f10d-4175-8115-411747137ab3.png)
 
 > AMD CPU shows dramatic improvement
 

@@ -45,4 +45,9 @@ export class CvArrayRecursiveUnionImplicit {
     @cv.ValidateNested()
     @tr.Type(() => CvArrayRecursiveUnionImplicit)
     target?: CvArrayRecursiveUnionImplicit;
+
+    @cv.IsOptional()
+    @cv.IsString()
+    @cv.IsIn(["read", "write"])
+    access?: string;
 }

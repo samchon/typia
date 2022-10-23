@@ -1,6 +1,7 @@
 import { ArrayUtil } from "../../src/utils/ArrayUtil";
 
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export interface DynamicTemplate {
     [key: `prefix_${string}`]: string;
@@ -22,4 +23,23 @@ export namespace DynamicTemplate {
         });
         return output;
     }
+
+    export const SPOILERS: Spoiler<DynamicTemplate>[] = [
+        (input) => {
+            input["prefix_wrong"] = false as any;
+            return [`$input.prefix_wrong`];
+        },
+        (input) => {
+            input["wrong_postfix"] = 1 as any;
+            return [`$input.wrong_postfix`];
+        },
+        (input) => {
+            input["value_2"] = "two" as any;
+            return [`$input.value_2`];
+        },
+        (input) => {
+            input["between_1_and_2"] = "false" as any;
+            return [`$input.between_1_and_2`];
+        },
+    ];
 }

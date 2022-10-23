@@ -1,3 +1,5 @@
+import { Spoiler } from "../internal/Spoiler";
+
 export type ConstantConstEnumeration = ConstantConstEnumeration.Enumeration[];
 export namespace ConstantConstEnumeration {
     export const enum Enumeration {
@@ -16,4 +18,18 @@ export namespace ConstantConstEnumeration {
             Enumeration.Four,
         ];
     }
+    export const SPOILERS: Spoiler<ConstantConstEnumeration>[] = [
+        (input) => {
+            input[0] = 3 as 1;
+            return ["$input[0]"];
+        },
+        (input) => {
+            input[1] = "two" as Enumeration.Three;
+            return ["$input[1]"];
+        },
+        (input) => {
+            input[2] = { key: "something" as "key" } as any;
+            return ["$input[2]"];
+        },
+    ];
 }

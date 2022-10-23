@@ -1,5 +1,6 @@
 import { Primitive } from "../internal/Primitive";
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectPrimitive = Primitive<ObjectPrimitive.IArticle>;
 export namespace ObjectPrimitive {
@@ -37,4 +38,23 @@ export namespace ObjectPrimitive {
             created_at: new Date().toString(),
         };
     }
+
+    export const SPOILERS: Spoiler<ObjectPrimitive>[] = [
+        (input) => {
+            input.id = null!;
+            return ["$input.id"];
+        },
+        (input) => {
+            input.extension = "jpg" as "md";
+            return ["$input.extension"];
+        },
+        (input) => {
+            input.files = {} as any;
+            return ["$input.files"];
+        },
+        (input) => {
+            input.files[0].created_at = new Date() as any;
+            return ["$input.files[0].created_at"];
+        },
+    ];
 }

@@ -16,6 +16,9 @@ export const test_application_swagger_array_recursive_union_implicit =
                                 $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory",
                             },
                             {
+                                $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
+                            },
+                            {
                                 $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile",
                             },
                             {
@@ -57,6 +60,9 @@ export const test_application_swagger_array_recursive_union_implicit =
                                             $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory",
                                         },
                                         {
+                                            $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
+                                        },
+                                        {
                                             $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile",
                                         },
                                         {
@@ -75,6 +81,57 @@ export const test_application_swagger_array_recursive_union_implicit =
                         },
                         nullable: false,
                         required: ["id", "name", "path", "children"],
+                        "x-tson_jsDocTags": [],
+                    },
+                    "ArrayRecursiveUnionImplicit.ISharedDirectory": {
+                        type: "object",
+                        properties: {
+                            access: {
+                                type: "string",
+                                enum: ["read", "write"],
+                                nullable: false,
+                            },
+                            id: {
+                                type: "number",
+                                nullable: false,
+                            },
+                            name: {
+                                type: "string",
+                                nullable: false,
+                            },
+                            path: {
+                                type: "string",
+                                nullable: false,
+                            },
+                            children: {
+                                type: "array",
+                                items: {
+                                    oneOf: [
+                                        {
+                                            $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory",
+                                        },
+                                        {
+                                            $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
+                                        },
+                                        {
+                                            $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile",
+                                        },
+                                        {
+                                            $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.ITextFile",
+                                        },
+                                        {
+                                            $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IZipFile",
+                                        },
+                                        {
+                                            $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut",
+                                        },
+                                    ],
+                                },
+                                nullable: false,
+                            },
+                        },
+                        nullable: false,
+                        required: ["access", "id", "name", "path", "children"],
                         "x-tson_jsDocTags": [],
                     },
                     "ArrayRecursiveUnionImplicit.IImageFile": {
@@ -196,6 +253,9 @@ export const test_application_swagger_array_recursive_union_implicit =
                                 oneOf: [
                                     {
                                         $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory",
+                                    },
+                                    {
+                                        $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
                                     },
                                     {
                                         $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile",

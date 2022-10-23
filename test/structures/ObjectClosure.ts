@@ -1,3 +1,5 @@
+import { Spoiler } from "../internal/Spoiler";
+
 export type ObjectClosure = ObjectClosure.IRecord;
 export namespace ObjectClosure {
     export interface IRecord {
@@ -10,4 +12,15 @@ export namespace ObjectClosure {
             open: () => "detailed story",
         };
     }
+
+    export const SPOILERS: Spoiler<ObjectClosure>[] = [
+        (input) => {
+            input.id = null!;
+            return ["$input.id"];
+        },
+        (input) => {
+            input.open = {} as any;
+            return ["$input.open"];
+        },
+    ];
 }

@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectUnionDouble = ObjectUnionDouble.Union[];
 export namespace ObjectUnionDouble {
@@ -58,4 +59,23 @@ export namespace ObjectUnionDouble {
             },
         ];
     }
+
+    export const SPOILERS: Spoiler<ObjectUnionDouble>[] = [
+        (input) => {
+            input[0].value = "string" as any;
+            return ["$input[0]"];
+        },
+        (input) => {
+            input[1].child.value.y = "string" as any;
+            return ["$input[1]"];
+        },
+        (input) => {
+            input[2].child.value.y = 0 as any;
+            return ["$input[2]"];
+        },
+        (input) => {
+            input[3].child.value.y = false as any;
+            return ["$input[3]"];
+        },
+    ];
 }

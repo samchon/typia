@@ -1,3 +1,5 @@
+import { Spoiler } from "../internal/Spoiler";
+
 export type ConstantAtomicSimple = [
     ConstantAtomicSimple.Value<false>,
     ConstantAtomicSimple.Value<true>,
@@ -9,4 +11,22 @@ export namespace ConstantAtomicSimple {
     export function generate(): ConstantAtomicSimple {
         return [false, true, 2, "three"];
     }
+    export const SPOILERS: Spoiler<ConstantAtomicSimple>[] = [
+        (input) => {
+            input[0] = true as false;
+            return ["$input[0]"];
+        },
+        (input) => {
+            input[1] = false as true;
+            return ["$input[1]"];
+        },
+        (input) => {
+            input[2] = 3 as 2;
+            return ["$input[2]"];
+        },
+        (input) => {
+            input[3] = "two" as "three";
+            return ["$input[3]"];
+        },
+    ];
 }

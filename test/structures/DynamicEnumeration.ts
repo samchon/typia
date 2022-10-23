@@ -1,3 +1,5 @@
+import { Spoiler } from "../internal/Spoiler";
+
 export type DynamicEnumeration = {
     [P in DynamicEnumeration.LanguageCode]?: string;
 };
@@ -23,4 +25,15 @@ export namespace DynamicEnumeration {
             "zh-Hant": "1號線",
         };
     }
+
+    export const SPOILERS: Spoiler<DynamicEnumeration>[] = [
+        (input) => {
+            input["fr"] = null!;
+            return ["$input.fr"];
+        },
+        (input) => {
+            input["ar"] = 0 as any;
+            return ["$input.ar"];
+        },
+    ];
 }

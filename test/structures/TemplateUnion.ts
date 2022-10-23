@@ -1,3 +1,5 @@
+import { Spoiler } from "../internal/Spoiler";
+
 export interface TemplateUnion {
     prefix: `prefix_${string | number | boolean}`;
     postfix: `${string | number | boolean}_postfix`;
@@ -31,6 +33,25 @@ export namespace TemplateUnion {
                             });
         return output;
     }
+
+    export const SPOILERS: Spoiler<TemplateUnion[]>[] = [
+        (input) => {
+            input[0].prefix = "prefix-1" as any;
+            return ["$input[0].prefix"];
+        },
+        (input) => {
+            input[0].postfix = "first-postfix" as any;
+            return ["$input[0].postfix"];
+        },
+        (input) => {
+            input[0].middle = "the_middle_value" as any;
+            return ["$input[0].middle"];
+        },
+        (input) => {
+            input[0].mixed = "the_C_value" as any;
+            return ["$input[0].mixed"];
+        },
+    ];
 }
 
 const CONSTANTS = [false, 1, "two"] as const;

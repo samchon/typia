@@ -1,10 +1,10 @@
 import TSON from "../../../src";
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
-import { _test_validate_for_of } from "./_test_validate_for_of";
+import { _test_validate } from "./_test_validate";
 
-export const test_validate_object_union_implicit = _test_validate_for_of(
+export const test_validate_object_union_implicit = _test_validate(
     "union object",
     ObjectUnionImplicit.generate,
     (input) => TSON.validate(input),
-    // GIVE UP, SOMEDAY LATER
+    ObjectUnionImplicit.SPOILERS,
 );

@@ -1,3 +1,5 @@
+import { Spoiler } from "../internal/Spoiler";
+
 export type ObjectAlias = ObjectAlias.Alias[];
 export namespace ObjectAlias {
     export type Alias = IMember;
@@ -26,4 +28,31 @@ export namespace ObjectAlias {
                         });
         return output;
     }
+
+    export const SPOILERS: Spoiler<ObjectAlias>[] = [
+        (input) => {
+            input[0].id = {} as any;
+            return ["$input[0].id"];
+        },
+        (input) => {
+            input[1].email = { value: "email" } as any;
+            return ["$input[1].email"];
+        },
+        (input) => {
+            input[2].name = null!;
+            return ["$input[2].name"];
+        },
+        (input) => {
+            input[3].sex = 3 as 2;
+            return ["$input[3].sex"];
+        },
+        (input) => {
+            input[4].age = "old" as any;
+            return ["$input[4].age"];
+        },
+        (input) => {
+            input[5].dead = 1 as any;
+            return ["$input[5].dead"];
+        },
+    ];
 }

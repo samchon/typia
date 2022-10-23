@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectSimple = ObjectSimple.IBox3D;
 export namespace ObjectSimple {
@@ -15,18 +16,39 @@ export namespace ObjectSimple {
     }
 
     export function generate(): ObjectSimple {
-        return {
-            scale: generate_point(),
-            position: generate_point(),
-            rotate: generate_point(),
-            pivot: generate_point(),
-        };
-    }
-    function generate_point(): IPoint3D {
-        return {
+        const point = (): IPoint3D => ({
             x: RandomGenerator.integer(),
             y: RandomGenerator.integer(),
             z: RandomGenerator.integer(),
+        });
+        return {
+            scale: point(),
+            position: point(),
+            rotate: point(),
+            pivot: point(),
         };
     }
+
+    export const SPOILERS: Spoiler<ObjectSimple>[] = [
+        (input) => {
+            input.scale.x = "number" as any;
+            return ["$input.scale.x"];
+        },
+        (input) => {
+            input.position = [] as any;
+            return [
+                "$input.position.x",
+                "$input.position.y",
+                "$input.position.z",
+            ];
+        },
+        (input) => {
+            input.rotate = undefined!;
+            return ["$input.rotate"];
+        },
+        (input) => {
+            input.pivot = null!;
+            return ["$input.pivot"];
+        },
+    ];
 }

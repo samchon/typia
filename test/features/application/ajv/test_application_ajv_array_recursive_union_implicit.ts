@@ -17,6 +17,10 @@ export const test_application_ajv_array_recursive_union_implicit =
                                     "components#/schemas/ArrayRecursiveUnionImplicit.IDirectory",
                             },
                             {
+                                $recursiveRef:
+                                    "components#/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
+                            },
+                            {
                                 $ref: "components#/schemas/ArrayRecursiveUnionImplicit.IImageFile",
                             },
                             {
@@ -62,6 +66,10 @@ export const test_application_ajv_array_recursive_union_implicit =
                                                 "components#/schemas/ArrayRecursiveUnionImplicit.IDirectory",
                                         },
                                         {
+                                            $recursiveRef:
+                                                "components#/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
+                                        },
+                                        {
                                             $ref: "components#/schemas/ArrayRecursiveUnionImplicit.IImageFile",
                                         },
                                         {
@@ -81,6 +89,62 @@ export const test_application_ajv_array_recursive_union_implicit =
                         },
                         nullable: false,
                         required: ["id", "name", "path", "children"],
+                        "x-tson_jsDocTags": [],
+                    },
+                    "ArrayRecursiveUnionImplicit.ISharedDirectory": {
+                        $id: "components#/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
+                        $recursiveAnchor: true,
+                        type: "object",
+                        properties: {
+                            access: {
+                                type: "string",
+                                enum: ["read", "write"],
+                                nullable: false,
+                            },
+                            id: {
+                                type: "number",
+                                nullable: false,
+                            },
+                            name: {
+                                type: "string",
+                                nullable: false,
+                            },
+                            path: {
+                                type: "string",
+                                nullable: false,
+                            },
+                            children: {
+                                type: "array",
+                                items: {
+                                    oneOf: [
+                                        {
+                                            $recursiveRef:
+                                                "components#/schemas/ArrayRecursiveUnionImplicit.IDirectory",
+                                        },
+                                        {
+                                            $recursiveRef:
+                                                "components#/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
+                                        },
+                                        {
+                                            $ref: "components#/schemas/ArrayRecursiveUnionImplicit.IImageFile",
+                                        },
+                                        {
+                                            $ref: "components#/schemas/ArrayRecursiveUnionImplicit.ITextFile",
+                                        },
+                                        {
+                                            $ref: "components#/schemas/ArrayRecursiveUnionImplicit.IZipFile",
+                                        },
+                                        {
+                                            $recursiveRef:
+                                                "components#/schemas/ArrayRecursiveUnionImplicit.IShortcut",
+                                        },
+                                    ],
+                                },
+                                nullable: false,
+                            },
+                        },
+                        nullable: false,
+                        required: ["access", "id", "name", "path", "children"],
                         "x-tson_jsDocTags": [],
                     },
                     "ArrayRecursiveUnionImplicit.IImageFile": {
@@ -208,6 +272,10 @@ export const test_application_ajv_array_recursive_union_implicit =
                                     {
                                         $recursiveRef:
                                             "components#/schemas/ArrayRecursiveUnionImplicit.IDirectory",
+                                    },
+                                    {
+                                        $recursiveRef:
+                                            "components#/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
                                     },
                                     {
                                         $ref: "components#/schemas/ArrayRecursiveUnionImplicit.IImageFile",

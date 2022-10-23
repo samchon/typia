@@ -3,6 +3,7 @@ import { v4 } from "uuid";
 import { ArrayUtil } from "../../src/utils/ArrayUtil";
 
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export interface DynamicTree {
     id: string;
@@ -27,4 +28,21 @@ export namespace DynamicTree {
             });
         return tree;
     }
+
+    export const SPOILERS: Spoiler<DynamicTree>[] = [
+        (input) => {
+            const tree = Object.values(input.children)[0]!;
+            const id = tree.id;
+            tree.id = null!;
+            return [`$input.children["${id}"].id`];
+        },
+        (input) => {
+            const top = Object.values(input.children)[0]!;
+            const bottom = Object.values(top.children)[0]!;
+            bottom.sequence = "one" as any;
+            return [
+                `$input.children["${top.id}"].children["${bottom.id}"].sequence`,
+            ];
+        },
+    ];
 }

@@ -1,4 +1,5 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
+import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectRecursive = ObjectRecursive.IDepartment;
 export namespace ObjectRecursive {
@@ -31,4 +32,11 @@ export namespace ObjectRecursive {
             parent: index < limit ? generate(limit, index + 1) : null,
         };
     }
+
+    export const SPOILERS: Spoiler<ObjectRecursive>[] = [
+        (input) => {
+            input.parent!.parent!.parent!.created_at.time = "zone" as any;
+            return ["$input.parent.parent.parent.created_at.time"];
+        },
+    ];
 }
