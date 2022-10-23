@@ -102,7 +102,7 @@ const assert = () => [
         () => ObjectUnionImplicit.generate(),
         {
             "typescript-json": (input) => TSON.assertType(input),
-            "io-ts": (input) => IoTsObjectUnionImplicit.decode(input),
+            "io-ts": null,
             "class-validator": (input) => {
                 const classes = input.map((elem) =>
                     tr.plainToClass(CvObjectUnionImplicit, elem),
@@ -110,8 +110,7 @@ const assert = () => [
                 return classes.map((clas) => cv.validateSync(clas));
             },
             zod: (input) => ZodObjectUnionImplicit.safeParse(input),
-            typebox: (input) =>
-                TypeBoxObjectUnionImplicit.Errors(input).next().value,
+            typebox: null,
         },
     ),
     AssertBenchmarker.prepare(
@@ -151,7 +150,7 @@ const assert = () => [
         () => ArrayRecursiveUnionImplicit.generate(),
         {
             "typescript-json": (input) => TSON.assertType(input),
-            "io-ts": (input) => IoTsArrayRecursiveUnionImplicit.decode(input),
+            "io-ts": null,
             "class-validator": (input) => {
                 const classes = input.map((elem) =>
                     tr.plainToClass(CvArrayRecursiveUnionImplicit, elem),
@@ -159,8 +158,7 @@ const assert = () => [
                 return classes.map((clas) => cv.validateSync(clas));
             },
             zod: (input) => ZodArrayRecursiveUnionImplicit.safeParse(input),
-            typebox: (input) =>
-                TypeBoxArrayRecursiveUnionImplicit.Errors(input).next().value,
+            typebox: null,
         },
     ),
     AssertBenchmarker.prepare(
@@ -171,7 +169,7 @@ const assert = () => [
             "io-ts": null,
             "class-validator": null,
             zod: (input) => ZodUltimateUnion.safeParse(input),
-            typebox: (input) => TypeBoxUltimateUnion.Errors(input).next().value,
+            typebox: null,
         },
     ),
 ];
