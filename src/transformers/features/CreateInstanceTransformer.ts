@@ -2,7 +2,7 @@ import ts from "typescript";
 
 import { IProject } from "../IProject";
 
-export namespace CreateObjectTransformer {
+export namespace CreateInstanceTransformer {
     export function transform(
         _project: IProject,
         _modulo: ts.LeftHandSideExpression,

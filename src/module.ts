@@ -19,7 +19,12 @@ export * from "./schemas/IJsonSchema";
 export * from "./TypeGuardError";
 export * from "./IValidation";
 
-/* -----------------------------------------------------------
+/* ===========================================================
+    SINGLE FUNCTIONS
+        - BASIC VALIDATORS
+        - STRICT VALIDATORS
+        - APPENDIX FUNCTIONS
+==============================================================
     BASIC VALIDATORS
 ----------------------------------------------------------- */
 /**
@@ -512,91 +517,6 @@ export namespace validateEquals {
     APPENDIX FUNCTIONS
 ----------------------------------------------------------- */
 /**
- * 5x faster `JSON.stringify()` function.
- *
- * Converts an input value to a JSON (JavaSript Object Noation) string, about 5x faster
- * than the native `JSON.stringify()` function. The 5x faster principle is because
- * it writes an optmized JSON conversion plan, only for the type `T`.
- *
- * If you want to create a stringify function which is reusable, just assign this function
- * to a (constant) variable like below, with the generic argument `T`. Then the variable
- * would be a stringify fuction reusable.
- *
- * ```typescript
- * const stringify = TSON.stringify<MyType>;
- * stringify(x);
- * stringify(y);
- * stringify(z);
- * ```
- *
- * For reference, this `TSON.stringify()` does not validate the input value type. It
- * just believes that the input value is following the type `T`. Therefore, if you
- * can't ensure the input value type, it would better to call {@link assertType} or
- * {@link is} function before.
- *
- * @template T Type of the input value
- * @param input A value to be converted
- * @return JSON string value
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-export function stringify<T>(input: T): string;
-
-/**
- * @internal
- */
-export function stringify(): never {
-    halt("stringify");
-}
-
-/**
- * @internal
- */
-export namespace stringify {
-    export const number = $number;
-    export const string = $string;
-    export const tail = $tail;
-
-    export function throws(
-        props: Pick<TypeGuardError.IProps, "expected" | "value">,
-    ): void {
-        throw new TypeGuardError({
-            ...props,
-            method: "TSON.stringify",
-        });
-    }
-}
-
-/**
- * 2x faster constant object creator.
- *
- * You know what? `JSON.parse()` is faster than literal object construction, when the
- * object would be constructed only one time.
- *
- * - [Faster apps with JSON.parse (Chrome Dev Summit 2019)](https://www.youtube.com/watch?v=ff4fgQxPaO0)
- * - [The cost of parsing JSON](https://v8.dev/blog/cost-of-javascript-2019#json)
- *
- * `TSON.createObject()` is a transformer function which converts a literal object construction
- * to a `JSON.parse()` function call expression with JSON string argument. Therefore, if
- * you construct a literal object via this `TSON.createObject()`, you can get benefit from
- * both type safe and performance tuning at the same time.
- *
- * @template T Type of the input value
- * @param input A value to be converted
- * @return Same with the parametric value
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-export function createObject<T>(input: T): T;
-
-/**
- * @internal
- */
-export function createObject(): never {
-    halt("createObject");
-}
-
-/**
  * > You must configure the generic argument `T`.
  *
  * JSON Schema Application.
@@ -657,6 +577,358 @@ export function application<
  */
 export function application(): never {
     halt("application");
+}
+
+/**
+ * 5x faster `JSON.stringify()` function.
+ *
+ * Converts an input value to a JSON (JavaSript Object Noation) string, about 5x faster
+ * than the native `JSON.stringify()` function. The 5x faster principle is because
+ * it writes an optmized JSON conversion plan, only for the type `T`.
+ *
+ * If you want to create a stringify function which is reusable, just assign this function
+ * to a (constant) variable like below, with the generic argument `T`. Then the variable
+ * would be a stringify fuction reusable.
+ *
+ * ```typescript
+ * const stringify = TSON.stringify<MyType>;
+ * stringify(x);
+ * stringify(y);
+ * stringify(z);
+ * ```
+ *
+ * For reference, this `TSON.stringify()` does not validate the input value type. It
+ * just believes that the input value is following the type `T`. Therefore, if you
+ * can't ensure the input value type, it would better to call {@link assertType} or
+ * {@link is} function before.
+ *
+ * @template T Type of the input value
+ * @param input A value to be converted
+ * @return JSON string value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function stringify<T>(input: T): string;
+
+/**
+ * @internal
+ */
+export function stringify(): never {
+    halt("stringify");
+}
+
+/**
+ * @internal
+ */
+export namespace stringify {
+    export const number = $number;
+    export const string = $string;
+    export const tail = $tail;
+
+    export function throws(
+        props: Pick<TypeGuardError.IProps, "expected" | "value">,
+    ): void {
+        throw new TypeGuardError({
+            ...props,
+            method: "TSON.stringify",
+        });
+    }
+}
+
+/* ===========================================================
+    FACTORY FUNCTIONS
+        - BASIC VALIDATORS
+        - STRICT VALIDATORS
+        - APPENDIX FUNCTIONS
+==============================================================
+    BASIC VALIDATORS
+----------------------------------------------------------- */
+/**
+ * Creates a reusable {@link assertType} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ */
+export function createAssertType(): never;
+
+/**
+ * Creates a resuable {@link assertType} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `assertType` function
+ */
+export function createAssertType<T>(): (input: unknown) => T;
+
+/**
+ * @internal
+ */
+export function createAssertType<T>(): (input: unknown) => T {
+    halt("createAssertType");
+}
+
+/**
+ * @internal
+ */
+export namespace createAssertType {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+    export const join = $join;
+    export const predicate = assertType.predicate;
+}
+
+/**
+ * Creates a reusable {@link is} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ */
+export function createIs(): never;
+
+/**
+ * Creates a reusable {@link is} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `is` function
+ */
+export function createIs<T>(): (input: unknown) => input is T;
+
+/**
+ * @internal
+ */
+export function createIs<T>(): (input: unknown) => input is T {
+    halt("createIs");
+}
+
+/**
+ * @internal
+ */
+export namespace createIs {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+}
+
+/**
+ * Creates a reusable {@link validate} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ */
+export function createValidate(): never;
+
+/**
+ * Creates a reusable {@link validate} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `validate` function
+ */
+export function createValidate<T>(): (input: unknown) => IValidation;
+
+/**
+ * @internal
+ */
+export function createValidate(): (input: unknown) => IValidation {
+    halt("createValidate");
+}
+
+/**
+ * @internal
+ */
+export namespace createValidate {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+    export const join = $join;
+    export const predicate = validate.predicate;
+}
+
+/* -----------------------------------------------------------
+    STRICT VALIDATORS
+----------------------------------------------------------- */
+/**
+ * Creates a reusable {@link assertEquals} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ */
+export function createAssertEquals(): never;
+
+/**
+ * Creates a reusable {@link assertEquals} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `assertEquals` function
+ */
+export function createAssertEquals<T>(): (input: unknown) => T;
+
+/**
+ * @internal
+ */
+export function createAssertEquals<T>(): (input: unknown) => T {
+    halt("createAssertEquals");
+}
+
+/**
+ * @internal
+ */
+export namespace createAssertEquals {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+    export const join = $join;
+    export const predicate = assertEquals.predicate;
+}
+
+/**
+ * Creates a reusable {@link equals} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ */
+export function createEquals(): never;
+
+/**
+ * Creates a reusable {@link equals} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `equals` function
+ */
+export function createEquals<T>(): (input: unknown) => input is T;
+
+/**
+ * @internal
+ */
+export function createEquals<T>(): (input: unknown) => input is T {
+    halt("createEquals");
+}
+
+/**
+ * @internal
+ */
+export namespace createEquals {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+    export const join = $join;
+}
+
+/**
+ * Creates a reusable {@link validateEquals} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ */
+export function createValidateEquals(): never;
+
+/**
+ * Creates a reusable {@link validateEquals} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `validateEquals` function
+ */
+export function createValidateEquals<T>(): (input: unknown) => IValidation;
+
+/**
+ * @internal
+ */
+export function createValidateEquals(): (input: unknown) => IValidation {
+    halt("createValidateEquals");
+}
+
+/**
+ * @internal
+ */
+export namespace createValidateEquals {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+    export const join = $join;
+    export const predicate = validateEquals.predicate;
+}
+
+/* -----------------------------------------------------------
+    APPENDIX FUNCTIONS
+----------------------------------------------------------- */
+/**
+ * 2x faster constant object creator.
+ *
+ * You know what? `JSON.parse()` is faster than literal object construction, when the
+ * object would be constructed only one time.
+ *
+ * - [Faster apps with JSON.parse (Chrome Dev Summit 2019)](https://www.youtube.com/watch?v=ff4fgQxPaO0)
+ * - [The cost of parsing JSON](https://v8.dev/blog/cost-of-javascript-2019#json)
+ *
+ * `TSON.createObject()` is a transformer function which converts a literal object construction
+ * to a `JSON.parse()` function call expression with JSON string argument. Therefore, if
+ * you construct a literal object via this `TSON.createObject()`, you can get benefit from
+ * both type safe and performance tuning at the same time.
+ *
+ * @template T Type of the input value
+ * @param input A value to be converted
+ * @return Same with the parametric value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createObject<T>(input: T): T;
+
+/**
+ * @internal
+ */
+export function createObject(): never {
+    halt("createObject");
+}
+
+/**
+ * Creates a reusable {@link stringify} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ */
+export function createStringify(): never;
+
+/**
+ * Creates a reusable {@link stringify} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `stringify` function
+ */
+export function createStringify<T>(): (input: T) => string;
+
+/**
+ * @internal
+ */
+export function createStringify<T>(): (input: T) => string {
+    halt("createStringify");
+}
+
+/**
+ * @internal
+ */
+export namespace createStringify {
+    export const number = $number;
+    export const string = $string;
+    export const tail = $tail;
+    export const throws = stringify.throws;
 }
 
 /**
