@@ -14,9 +14,6 @@ Super-fast Runtime validators and `JSON.stringify()` functions, with only one li
 ```typescript
 import TSON from "typescript-json";
 
-//----
-// RUNTIME VALIDATORS
-//----
 // ALLOW SUPERFLUOUS PROPERTIES
 TSON.assertType<T>(input); // throws exception
 TSON.is<T>(input); // returns boolean value
@@ -27,9 +24,7 @@ TSON.equals<T>(input); // returns boolean value
 TSON.assertEquals<T>(input); // throws exception
 TSON.validateEquals<T>(input); // archives all errors
 
-//----
 // APPENDIX FUNCTIONS
-//----
 TSON.stringify<T>(input); // 5x faster JSON.stringify()
 TSON.application<[T, U, V], "swagger">(); // JSON schema application generator
 TSON.createObject<T>(input); // 2x faster object creator (only one-time construction)
@@ -162,15 +157,25 @@ module.exports = {
 ### Runtime Validators
 ```typescript
 // ALLOW SUPERFLUOUS PROPERTIES
-export function is<T>(input: T): boolean; // true or false
-export function assertType<T>(input: T): T; // throws `TypeGuardError`
-export function validate<T>(input: T): IValidation; // detailed reasons
+export function is<T>(input: T | unknown): input is T; // true or false
+export function assertType<T>(input: T | unknown): T; // throws `TypeGuardError`
+export function validate<T>(input: T | unknown): IValidation; // detailed reasons
 
 // DO NOT ALLOW SUPERFLUOUS PROPERTIES
-export function equals<T>(input: T): boolean;
-export function assertEquals<T>(input: T): T;
-export function validateEquals<T>(input: T): IValidation;
+export function equals<T>(input: T | unknown): boolean;
+export function assertEquals<T>(input: T | unknown): T;
+export function validateEquals<T>(input: T | unknown): IValidation;
 
+// REUSABLE FUNCTIONS
+export function createIs<T>(): (input: unknown): input is T;
+export function createAssertType<T>(): (input: unknown) => T;
+export function createValidate<T>(): (input: unknown) => IValidation;
+
+export function createEquals<T>(): (input: unknown) => input is T;
+export function createAssertEquals<T>(): (input: unknown) => T;
+export function createValidateEquals<T>(): (input: unknown) => IValidation;
+
+// DATA STRUCTURES
 export interface IValidation {
     success: boolean;
     errors: IValidation.IError[];
