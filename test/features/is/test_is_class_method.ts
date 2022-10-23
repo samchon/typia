@@ -6,8 +6,5 @@ export const test_is_class_method = _test_is(
     "class method",
     ClassMethod.generate,
     (input) => TSON.is(input),
-    [
-        (input) => ((input as any).name = []),
-        (input) => ((input as any).age = () => 3),
-    ],
+    ClassMethod.SPOILERS,
 );

@@ -6,9 +6,5 @@ export const test_is_object_recursive = _test_is(
     "recursive object",
     ObjectRecursive.generate,
     (input) => TSON.is(input),
-    [
-        (input) => (input.parent = {} as any),
-        (input) => (input.parent!.parent!.parent!.code = [] as any),
-        (input) => (input.created_at.zone = "korea" as any),
-    ],
+    ObjectRecursive.SPOILERS,
 );

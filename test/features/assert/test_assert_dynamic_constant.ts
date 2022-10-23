@@ -6,14 +6,5 @@ export const test_assert_dynamic_constant = _test_assert(
     "dynamic constant",
     DynamicConstant.generate,
     (input) => TSON.assertType(input),
-    [
-        (input) => {
-            input["a"] = "zero" as any;
-            return "$input.a";
-        },
-        (input) => {
-            input["b"] = null!;
-            return "$input.b";
-        },
-    ],
+    DynamicConstant.SPOILERS,
 );

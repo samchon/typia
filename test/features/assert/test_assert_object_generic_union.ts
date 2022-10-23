@@ -6,5 +6,5 @@ export const test_assert_object_generic_union = _test_assert(
     "generic unioned object",
     ObjectGenericUnion.generate,
     (input) => TSON.assertType(input),
-    // SKIP
+    ObjectGenericUnion.SPOILERS,
 );

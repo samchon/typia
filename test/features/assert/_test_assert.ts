@@ -1,10 +1,11 @@
 import { TypeGuardError } from "../../../src";
+import { Spoiler } from "../../internal/Spoiler";
 
 export function _test_assert<T>(
     name: string,
     generator: () => T,
     assert: (input: T) => T,
-    spoilers?: Array<(elem: T) => any>,
+    spoilers?: Spoiler<T>[],
 ): () => void {
     return () => {
         try {
@@ -25,21 +26,18 @@ export function _test_assert<T>(
         }
 
         for (const spoil of spoilers || []) {
-            const path = { value: "" as string | void };
+            const paths = { value: [] as string[] };
             const elem: T = generator();
             try {
-                path.value = spoil(elem);
+                paths.value = spoil(elem);
                 assert(elem);
             } catch (exp) {
                 if (exp instanceof TypeGuardError)
-                    if (
-                        typeof path.value !== "string" ||
-                        exp.path === path.value
-                    )
+                    if (exp.path && paths.value.includes(exp.path) === true)
                         continue;
                     else
                         console.log({
-                            input: path.value,
+                            input: paths.value,
                             expected: exp.path,
                         });
             }

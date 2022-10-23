@@ -9,9 +9,5 @@ export const test_is_tag_matrix = _test_is(
     "matrix tag",
     TagMatrix.generate,
     (input) => TSON.is(input),
-    [
-        (input) => (input.matrix[0] = RandomGenerator.array(() => v4(), 2)),
-        (input) => input.matrix.splice(0, 1),
-        (input) => (input.matrix[0][0] = "invalid uuid"),
-    ],
+    TagMatrix.SPOILERS,
 );

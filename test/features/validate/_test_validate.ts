@@ -1,10 +1,11 @@
 import { IValidation } from "../../../src/IValidation";
+import { Spoiler } from "../../internal/Spoiler";
 
 export function _test_validate<T>(
     name: string,
     generator: () => T,
     validator: (input: T) => IValidation,
-    spoilers?: Array<(elem: T) => string[]>,
+    spoilers?: Spoiler<T>[],
 ): () => void {
     return () => {
         if (validator(generator()).success === false) {
