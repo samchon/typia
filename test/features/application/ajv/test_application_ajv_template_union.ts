@@ -8,13 +8,17 @@ export const test_application_ajv_template_union = _test_application_ajv(
     {
         schemas: [
             {
-                $ref: "components#/schemas/TemplateUnion",
+                type: "array",
+                items: {
+                    $ref: "components#/schemas/TemplateUnion.Type",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                TemplateUnion: {
-                    $id: "components#/schemas/TemplateUnion",
+                "TemplateUnion.Type": {
+                    $id: "components#/schemas/TemplateUnion.Type",
                     type: "object",
                     properties: {
                         prefix: {

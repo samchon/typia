@@ -8,13 +8,17 @@ export const test_application_ajv_tag_array = _test_application_ajv(
     {
         schemas: [
             {
-                $ref: "components#/schemas/TagArray",
+                type: "array",
+                items: {
+                    $ref: "components#/schemas/TagArray.Type",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                TagArray: {
-                    $id: "components#/schemas/TagArray",
+                "TagArray.Type": {
+                    $id: "components#/schemas/TagArray.Type",
                     type: "object",
                     properties: {
                         items: {

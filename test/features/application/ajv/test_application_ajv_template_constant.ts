@@ -8,13 +8,17 @@ export const test_application_ajv_template_constant = _test_application_ajv(
     {
         schemas: [
             {
-                $ref: "components#/schemas/TemplateConstant",
+                type: "array",
+                items: {
+                    $ref: "components#/schemas/TemplateConstant.Type",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                TemplateConstant: {
-                    $id: "components#/schemas/TemplateConstant",
+                "TemplateConstant.Type": {
+                    $id: "components#/schemas/TemplateConstant.Type",
                     type: "object",
                     properties: {
                         prefix: {

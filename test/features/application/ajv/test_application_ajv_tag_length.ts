@@ -8,13 +8,17 @@ export const test_application_ajv_tag_length = _test_application_ajv(
     {
         schemas: [
             {
-                $ref: "components#/schemas/TagLength",
+                type: "array",
+                items: {
+                    $ref: "components#/schemas/TagLength.Type",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                TagLength: {
-                    $id: "components#/schemas/TagLength",
+                "TagLength.Type": {
+                    $id: "components#/schemas/TagLength.Type",
                     type: "object",
                     properties: {
                         fixed: {

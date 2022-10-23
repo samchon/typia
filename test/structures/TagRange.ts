@@ -1,66 +1,68 @@
 import { Spoiler } from "../internal/Spoiler";
 
-export interface TagRange {
-    /**
-     * @minimum 3
-     */
-    minimum: number;
-
-    /**
-     * @maximum 7
-     */
-    maximum: number;
-
-    /**
-     * @minimum 3
-     * @maximum 7
-     */
-    minimum_and_maximum: number;
-
-    /**
-     * @range (3
-     */
-    greater: number;
-
-    /**
-     * @range [3
-     */
-    greater_equal: number;
-
-    /**
-     * @range 7)
-     */
-    less: number;
-
-    /**
-     * @range 7]
-     */
-    less_equal: number;
-
-    /**
-     * @range (3, 7)
-     */
-    greater_less: number;
-
-    /**
-     * @range [3, 7)
-     */
-    greater_equal_less: number;
-
-    /**
-     * @range (3, 7]
-     */
-    greater_less_equal: number;
-
-    /**
-     * @range [3, 7]
-     */
-    greater_equal_less_equal: number;
-}
+export type TagRange = TagRange.Type[];
 export namespace TagRange {
+    export interface Type {
+        /**
+         * @minimum 3
+         */
+        minimum: number;
+
+        /**
+         * @maximum 7
+         */
+        maximum: number;
+
+        /**
+         * @minimum 3
+         * @maximum 7
+         */
+        minimum_and_maximum: number;
+
+        /**
+         * @range (3
+         */
+        greater: number;
+
+        /**
+         * @range [3
+         */
+        greater_equal: number;
+
+        /**
+         * @range 7)
+         */
+        less: number;
+
+        /**
+         * @range 7]
+         */
+        less_equal: number;
+
+        /**
+         * @range (3, 7)
+         */
+        greater_less: number;
+
+        /**
+         * @range [3, 7)
+         */
+        greater_equal_less: number;
+
+        /**
+         * @range (3, 7]
+         */
+        greater_less_equal: number;
+
+        /**
+         * @range [3, 7]
+         */
+        greater_equal_less_equal: number;
+    }
+
     // prettier-ignore
-    export function generate(): TagRange[] {
-        const output: TagRange[] = [];
+    export function generate(): Type[] {
+        const output: Type[] = [];
 
         for (const minimum of [MINIMUM, 10])
         for (const maximum of [0, MAXIMUM])
@@ -92,7 +94,7 @@ export namespace TagRange {
     export const MINIMUM = 3;
     export const MAXIMUM = 7;
 
-    export const SPOILERS: Spoiler<TagRange[]>[] = [
+    export const SPOILERS: Spoiler<TagRange>[] = [
         (input) => {
             input[0].minimum = 2;
             return ["$input[0].minimum"];

@@ -1,13 +1,15 @@
 import { Spoiler } from "../internal/Spoiler";
 
-export interface TemplateConstant {
-    prefix: `prefix_${"A" | "B" | "C"}`;
-    postfix: `${1 | 2 | 3}_postfix`;
-    combined: `the_${1 | 2 | 3}_value_with_label_${"A" | "B" | "C"}`;
-}
+export type TemplateConstant = TemplateConstant.Type[];
 export namespace TemplateConstant {
-    export function generate(): TemplateConstant[] {
-        const output: TemplateConstant[] = [];
+    export interface Type {
+        prefix: `prefix_${"A" | "B" | "C"}`;
+        postfix: `${1 | 2 | 3}_postfix`;
+        combined: `the_${1 | 2 | 3}_value_with_label_${"A" | "B" | "C"}`;
+    }
+
+    export function generate(): Type[] {
+        const output: Type[] = [];
         for (const prefix of ALPHABETS)
             for (const postfix of NUMBERS)
                 for (const c1 of NUMBERS)
@@ -20,7 +22,7 @@ export namespace TemplateConstant {
         return output;
     }
 
-    export const SPOILERS: Spoiler<TemplateConstant[]>[] = [
+    export const SPOILERS: Spoiler<TemplateConstant>[] = [
         (input) => {
             input[0].prefix = "prefix_1" as any;
             return ["$input[0].prefix"];

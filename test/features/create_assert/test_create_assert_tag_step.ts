@@ -1,0 +1,10 @@
+import TSON from "../../../src";
+import { TagStep } from "../../structures/TagStep";
+import { _test_assert } from "./../assert/_test_assert";
+
+export const test_create_assert_tag_step = _test_assert(
+    "step tag",
+    TagStep.generate,
+    TSON.createAssertType<TagStep>(),
+    TagStep.SPOILERS,
+);

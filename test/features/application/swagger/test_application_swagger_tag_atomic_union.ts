@@ -9,12 +9,16 @@ export const test_application_swagger_tag_atomic_union =
         {
             schemas: [
                 {
-                    $ref: "#/components/schemas/TagAtomicUnion",
+                    type: "array",
+                    items: {
+                        $ref: "#/components/schemas/TagAtomicUnion.Type",
+                    },
+                    nullable: false,
                 },
             ],
             components: {
                 schemas: {
-                    TagAtomicUnion: {
+                    "TagAtomicUnion.Type": {
                         type: "object",
                         properties: {
                             value: {

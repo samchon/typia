@@ -9,14 +9,18 @@ export const test_application_swagger_tag_object_union =
         {
             schemas: [
                 {
-                    oneOf: [
-                        {
-                            $ref: "#/components/schemas/TagObjectUnion.Numeric",
-                        },
-                        {
-                            $ref: "#/components/schemas/TagObjectUnion.Literal",
-                        },
-                    ],
+                    type: "array",
+                    items: {
+                        oneOf: [
+                            {
+                                $ref: "#/components/schemas/TagObjectUnion.Numeric",
+                            },
+                            {
+                                $ref: "#/components/schemas/TagObjectUnion.Literal",
+                            },
+                        ],
+                    },
+                    nullable: false,
                 },
             ],
             components: {

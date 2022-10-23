@@ -8,14 +8,18 @@ export const test_application_ajv_tag_object_union = _test_application_ajv(
     {
         schemas: [
             {
-                oneOf: [
-                    {
-                        $ref: "components#/schemas/TagObjectUnion.Numeric",
-                    },
-                    {
-                        $ref: "components#/schemas/TagObjectUnion.Literal",
-                    },
-                ],
+                type: "array",
+                items: {
+                    oneOf: [
+                        {
+                            $ref: "components#/schemas/TagObjectUnion.Numeric",
+                        },
+                        {
+                            $ref: "components#/schemas/TagObjectUnion.Literal",
+                        },
+                    ],
+                },
+                nullable: false,
             },
         ],
         components: {

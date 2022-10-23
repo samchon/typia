@@ -8,12 +8,16 @@ export const test_application_swagger_tag_step = _test_application_swagger(
     {
         schemas: [
             {
-                $ref: "#/components/schemas/TagStep",
+                type: "array",
+                items: {
+                    $ref: "#/components/schemas/TagStep.Type",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                TagStep: {
+                "TagStep.Type": {
                     type: "object",
                     properties: {
                         exclusiveMinimum: {

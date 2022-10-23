@@ -4,7 +4,11 @@ import ts from "typescript";
 import { IProject } from "./IProject";
 import { ApplicationTransformer } from "./features/ApplicationTransformer";
 import { AssertTransformer } from "./features/AssertTransformer";
-import { CreateObjectTransformer } from "./features/CreateObjectTransformer";
+import { CreateAssertTransformer } from "./features/CreateAssertTransformer";
+import { CreateInstanceTransformer } from "./features/CreateInstanceTransformer";
+import { CreateIsTransformer } from "./features/CreateIsTransformer";
+import { CreateStringifyTransformer } from "./features/CreateStringifyTransformer";
+import { CreateValidateTransformer } from "./features/CreateValidateTransformer";
 import { IsTransformer } from "./features/IsTransformer";
 import { StringifyTransformer } from "./features/StringifyTransformer";
 import { ValidateTransformer } from "./features/ValidateTransformer";
@@ -50,15 +54,37 @@ type Task = (
 const LIB_PATH = path.resolve(path.join(__dirname, "..", "module.d.ts"));
 const SRC_PATH = path.resolve(path.join(__dirname, "..", "module.ts"));
 const FUNCTORS: Record<string, () => Task> = {
+    //----
+    // SINGLE FUNCTIONS
+    //----
+    // BASIC VALIDATORS
     assertType: () => AssertTransformer.transform(false),
     is: () => IsTransformer.transform(false),
     validate: () => ValidateTransformer.transform(false),
 
+    // STRICT VALIDATORS
     assertEquals: () => AssertTransformer.transform(true),
     equals: () => IsTransformer.transform(true),
     validateEquals: () => ValidateTransformer.transform(true),
 
+    // APPENDIX FUNCTIONS
     application: () => ApplicationTransformer.transform,
-    createObject: () => CreateObjectTransformer.transform,
     stringify: () => StringifyTransformer.transform,
+
+    //----
+    // FACTORY FUNCTIONS
+    //----
+    // BASIC VALIDATORS
+    createAssertType: () => CreateAssertTransformer.transform(false),
+    createIs: () => CreateIsTransformer.transform(false),
+    createValidate: () => CreateValidateTransformer.transform(false),
+
+    // STRICT VALIDATORS
+    createAssertEquals: () => CreateAssertTransformer.transform(true),
+    createEquals: () => CreateIsTransformer.transform(true),
+    createValidateEquals: () => CreateValidateTransformer.transform(true),
+
+    // APPENDIX FUNCTIONS
+    createObject: () => CreateInstanceTransformer.transform,
+    createStringify: () => CreateStringifyTransformer.transform,
 };

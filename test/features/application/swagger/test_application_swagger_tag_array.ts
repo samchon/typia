@@ -8,12 +8,16 @@ export const test_application_swagger_tag_array = _test_application_swagger(
     {
         schemas: [
             {
-                $ref: "#/components/schemas/TagArray",
+                type: "array",
+                items: {
+                    $ref: "#/components/schemas/TagArray.Type",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                TagArray: {
+                "TagArray.Type": {
                     type: "object",
                     properties: {
                         items: {

@@ -8,13 +8,17 @@ export const test_application_ajv_tag_step = _test_application_ajv(
     {
         schemas: [
             {
-                $ref: "components#/schemas/TagStep",
+                type: "array",
+                items: {
+                    $ref: "components#/schemas/TagStep.Type",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                TagStep: {
-                    $id: "components#/schemas/TagStep",
+                "TagStep.Type": {
+                    $id: "components#/schemas/TagStep.Type",
                     type: "object",
                     properties: {
                         exclusiveMinimum: {

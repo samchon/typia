@@ -8,12 +8,16 @@ export const test_application_swagger_tag_length = _test_application_swagger(
     {
         schemas: [
             {
-                $ref: "#/components/schemas/TagLength",
+                type: "array",
+                items: {
+                    $ref: "#/components/schemas/TagLength.Type",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                TagLength: {
+                "TagLength.Type": {
                     type: "object",
                     properties: {
                         fixed: {

@@ -1,72 +1,74 @@
 import { RandomGenerator } from "../internal/RandomGenerator";
 import { Spoiler } from "../internal/Spoiler";
 
-export interface TagLength {
-    /**
-     * @length 5
-     */
-    fixed: string;
-
-    /**
-     * @length (3
-     */
-    greater: string;
-
-    /**
-     * @length [3
-     */
-    greater_equal: string;
-
-    /**
-     * @length 7)
-     */
-    less: string;
-
-    /**
-     * @length 7]
-     */
-    less_equal: string;
-
-    /**
-     * @length (3, 7)
-     */
-    greater_less: string;
-
-    /**
-     * @length [3, 7)
-     */
-    greater_equal_less: string;
-
-    /**
-     * @length (3, 7]
-     */
-    greater_less_equal: string;
-
-    /**
-     * @length [3, 7]
-     */
-    greater_equal_less_equal: string;
-
-    /**
-     * @minLength 3
-     */
-    minimum: string;
-
-    /**
-     * @maxLength 7
-     */
-    maximum: string;
-
-    /**
-     * @minLength 3
-     * @maxLength 7
-     */
-    minimum_and_maximum: string;
-}
+export type TagLength = TagLength.Type[];
 export namespace TagLength {
+    export interface Type {
+        /**
+         * @length 5
+         */
+        fixed: string;
+
+        /**
+         * @length (3
+         */
+        greater: string;
+
+        /**
+         * @length [3
+         */
+        greater_equal: string;
+
+        /**
+         * @length 7)
+         */
+        less: string;
+
+        /**
+         * @length 7]
+         */
+        less_equal: string;
+
+        /**
+         * @length (3, 7)
+         */
+        greater_less: string;
+
+        /**
+         * @length [3, 7)
+         */
+        greater_equal_less: string;
+
+        /**
+         * @length (3, 7]
+         */
+        greater_less_equal: string;
+
+        /**
+         * @length [3, 7]
+         */
+        greater_equal_less_equal: string;
+
+        /**
+         * @minLength 3
+         */
+        minimum: string;
+
+        /**
+         * @maxLength 7
+         */
+        maximum: string;
+
+        /**
+         * @minLength 3
+         * @maxLength 7
+         */
+        minimum_and_maximum: string;
+    }
+
     // prettier-ignore
-    export function generate(): TagLength[] {
-        const output: TagLength[] = [];
+    export function generate(): Type[] {
+        const output: Type[] = [];
 
         for (const greater of [MINIMUM + 1, 10])
         for (const greater_equal of [MINIMUM, 10])
@@ -91,7 +93,7 @@ export namespace TagLength {
                 maximum: MAXIMUM,
                 minimum_and_maximum
             };
-            const obj: TagLength = {} as any;
+            const obj: Type = {} as any;
             for (const [key, value] of Object.entries(numeric))
                 (obj as any)[key] = RandomGenerator.string(value);
             output.push(obj);
@@ -103,7 +105,7 @@ export namespace TagLength {
     export const MINIMUM = 3;
     export const MAXIMUM = 7;
 
-    export const SPOILERS: Spoiler<TagLength[]>[] = [
+    export const SPOILERS: Spoiler<TagLength>[] = [
         (input) => {
             input[0].fixed = "123456";
             return ["$input[0].fixed"];

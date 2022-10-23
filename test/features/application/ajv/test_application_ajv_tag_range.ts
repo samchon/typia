@@ -8,13 +8,17 @@ export const test_application_ajv_tag_range = _test_application_ajv(
     {
         schemas: [
             {
-                $ref: "components#/schemas/TagRange",
+                type: "array",
+                items: {
+                    $ref: "components#/schemas/TagRange.Type",
+                },
+                nullable: false,
             },
         ],
         components: {
             schemas: {
-                TagRange: {
-                    $id: "components#/schemas/TagRange",
+                "TagRange.Type": {
+                    $id: "components#/schemas/TagRange.Type",
                     type: "object",
                     properties: {
                         minimum: {
