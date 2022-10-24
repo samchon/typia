@@ -1,11 +1,7 @@
 import ts from "typescript";
 
 export namespace StatementFactory {
-    export function variable(
-        flag: ts.NodeFlags,
-        name: string,
-        initializer?: ts.Expression,
-    ) {
+    export function constant(name: string, initializer?: ts.Expression) {
         return ts.factory.createVariableStatement(
             undefined,
             ts.factory.createVariableDeclarationList(
@@ -17,7 +13,7 @@ export namespace StatementFactory {
                         initializer,
                     ),
                 ],
-                flag,
+                ts.NodeFlags.Const,
             ),
         );
     }

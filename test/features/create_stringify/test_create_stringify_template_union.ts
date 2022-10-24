@@ -4,6 +4,6 @@ import { _test_stringify } from "./../stringify/_test_stringify";
 
 export const test_create_stringify_template_union = _test_stringify(
     "template union",
-    TemplateUnion.generate(),
+    TemplateUnion.generate,
     TSON.createStringify<TemplateUnion>(),
 );

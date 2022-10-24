@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_object_alias = _test_stringify(
     "aliased object",
-    ObjectAlias.generate(),
+    ObjectAlias.generate,
     (input) => TSON.stringify(input),
 );

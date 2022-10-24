@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_dynamic_union = _test_stringify(
     "dynamic union",
-    DynamicUnion.generate(),
+    DynamicUnion.generate,
     (input) => TSON.stringify<DynamicUnion>(input),
 );

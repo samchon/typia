@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_object_closure = _test_stringify(
     "closured object",
-    ObjectClosure.generate(),
+    ObjectClosure.generate,
     (input) => TSON.stringify(input),
 );

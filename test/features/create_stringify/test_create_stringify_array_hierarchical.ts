@@ -4,6 +4,6 @@ import { _test_stringify } from "./../stringify/_test_stringify";
 
 export const test_create_stringify_array_hierarchical = _test_stringify(
     "hierarchical array",
-    ArrayHierarchical.generate(),
+    ArrayHierarchical.generate,
     TSON.createStringify<ArrayHierarchical>(),
 );

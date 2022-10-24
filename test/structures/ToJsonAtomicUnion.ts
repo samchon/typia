@@ -1,10 +1,10 @@
-export type IObjectToJsonAtomicUnion = IObjectToJsonAtomicUnion.IToJson[];
-export namespace IObjectToJsonAtomicUnion {
+export type ToJsonAtomicUnion = ToJsonAtomicUnion.IToJson[];
+export namespace ToJsonAtomicUnion {
     export interface IToJson {
         toJSON(): null | boolean | number | string;
     }
 
-    export function generate(): IObjectToJsonAtomicUnion {
+    export function generate(): ToJsonAtomicUnion {
         return [null, false, true, 1, "string"].map((value) => ({
             toJSON: () => value,
         }));

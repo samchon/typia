@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_class_property_assignment = _test_stringify(
     "property assigned class",
-    ClassPropertyAssignment.generate(),
+    ClassPropertyAssignment.generate,
     (input) => TSON.stringify(input),
 );

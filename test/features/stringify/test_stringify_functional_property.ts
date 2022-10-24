@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_functional_property = _test_stringify(
     "functional property",
-    FunctionalProperty.generate(),
+    FunctionalProperty.generate,
     (input) => TSON.stringify(input),
 );

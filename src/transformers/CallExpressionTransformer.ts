@@ -4,6 +4,8 @@ import ts from "typescript";
 import { IProject } from "./IProject";
 import { ApplicationTransformer } from "./features/ApplicationTransformer";
 import { AssertTransformer } from "./features/AssertTransformer";
+import { AssertStringifyTransformer } from "./features/AsssertStringifyTransformer";
+import { CreateAssertStringifyTransformer } from "./features/CreateAssertStringifyTransformer";
 import { CreateAssertTransformer } from "./features/CreateAssertTransformer";
 import { CreateInstanceTransformer } from "./features/CreateInstanceTransformer";
 import { CreateIsTransformer } from "./features/CreateIsTransformer";
@@ -69,6 +71,7 @@ const FUNCTORS: Record<string, () => Task> = {
 
     // APPENDIX FUNCTIONS
     application: () => ApplicationTransformer.transform,
+    assertStringify: () => AssertStringifyTransformer.transform,
     stringify: () => StringifyTransformer.transform,
 
     //----
@@ -85,6 +88,7 @@ const FUNCTORS: Record<string, () => Task> = {
     createValidateEquals: () => CreateValidateTransformer.transform(true),
 
     // APPENDIX FUNCTIONS
+    createAssertStringify: () => CreateAssertStringifyTransformer.transform,
     createObject: () => CreateInstanceTransformer.transform,
     createStringify: () => CreateStringifyTransformer.transform,
 };

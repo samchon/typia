@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_array_atomic_alias = _test_stringify(
     "atomic alias array",
-    ArrayAtomicAlias.generate(),
+    ArrayAtomicAlias.generate,
     (input) => TSON.stringify(input),
 );

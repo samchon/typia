@@ -25,9 +25,9 @@ TSON.assertEquals<T>(input); // throws exception
 TSON.validateEquals<T>(input); // archives all errors
 
 // APPENDIX FUNCTIONS
+TSON.application<[T, U, V], "ajv">(); // JSON schema application generator
+TSON.assertStringify<T>(input); // 3x faster stringify() + assertType()
 TSON.stringify<T>(input); // 5x faster JSON.stringify()
-TSON.application<[T, U, V], "swagger">(); // JSON schema application generator
-TSON.createObject<T>(input); // 2x faster object creator (only one-time construction)
 ```
 
 `typescript-json` is a transformer library providing JSON related functions.
@@ -39,6 +39,7 @@ TSON.createObject<T>(input); // 2x faster object creator (only one-time construc
     - 20,000x faster optimizer construction time than similar libraries
   - 5x faster `JSON.stringify()` function:
     - Performed by only one line: `TSON.stringify<T>(input)`
+    - Guarded by type validation: `TSON.assertStringify<T>(input)`
     - Only one library which can stringify union type
 
 ![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/197366076-1d5592e7-b717-4ea3-b9d7-949e7fa4fc76.png)
@@ -263,19 +264,23 @@ The extreme different is shown in the "ultimate union" type, when validating [JS
 ### Fastest JSON String Converter
 ```typescript
 export function stringify<T>(input: T): string;
+export function assertStringify<T>(input: T): string;
+
+export function createStringify<T>(): (input: T) => string;
+export function createAssertStringify<T>(): (input: T) => string;
 ```
 
 Super-fast JSON string conversion function.
 
-If you call `TSON.stringify()` function instead of the native `JSON.stringify()`, the JSON conversion time would be 5x times faster. Also, you can perform such super-fast JSON string conversion very easily, by only one line: `TSON.stringify<T>(input)`.
+When you call `TSON.stringify()` function instead of the native `JSON.stringify()`, the JSON conversion time would be 5x times faster. Also, you can perform such super-fast JSON string conversion very easily, by only one line: `TSON.stringify<T>(input)`.
 
-On the other side, other similary library like `fast-json-stringify` requires complicate JSON schema definition. Furthermore, `typescript-json` can convert complicate structured data that `fast-json-stringify` cannot convert.
+If you want to validate the input type at the same time, you can choose `TSON.assertStringify<T>(input)` function instead. The function calls `TSON.assertType()` before converting to the JSON string. Of course, its conversion speed would be cut in half, but it would be much safer than the native `JSON.stringify()`.
 
 Comparing performance, `typescript-json` is about 5x times faster when comparing only JSON string conversion time. If compare optimizer construction time, `typescript-json` is even 10,000x times faster.
 
-![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/197366125-064d80ca-f10d-4175-8115-411747137ab3.png)
+![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/197602385-7dfea7a6-48ef-432a-92b1-71d011c0c290.png)
 
-> AMD CPU shows dramatic improvement
+> Measured on Intel it-1135g7, Surface Pro 8
 
 ### JSON Schema Generation
 ```typescript

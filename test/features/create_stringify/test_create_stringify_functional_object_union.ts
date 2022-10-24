@@ -4,6 +4,6 @@ import { _test_stringify } from "./../stringify/_test_stringify";
 
 export const test_create_stringify_functional_object_union = _test_stringify(
     "functional union object",
-    FunctionalObjectUnion.generate(),
+    FunctionalObjectUnion.generate,
     TSON.createStringify<FunctionalObjectUnion>(),
 );

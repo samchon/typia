@@ -1,5 +1,5 @@
-export type IObjectToJsonDouble = IObjectToJsonDouble.Parent;
-export namespace IObjectToJsonDouble {
+export type ToJsonDouble = ToJsonDouble.Parent;
+export namespace ToJsonDouble {
     export class Parent {
         public toJSON(): Child {
             return new Child();
@@ -21,7 +21,7 @@ export namespace IObjectToJsonDouble {
         name: string;
     }
 
-    export function generate(): IObjectToJsonDouble {
+    export function generate(): ToJsonDouble {
         return new Parent();
     }
 }

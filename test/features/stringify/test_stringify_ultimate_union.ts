@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_ultimate_union = _test_stringify(
     "ultimate union",
-    UltimateUnion.generate(),
+    UltimateUnion.generate,
     (input) => TSON.stringify(input),
 );

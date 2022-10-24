@@ -8,7 +8,6 @@ import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
 import { ObjectSimple } from "../../test/structures/ObjectSimple";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
-import { UltimateUnion } from "../../test/structures/UltimateUnion";
 import { StringifyBenchmarker } from "../internal/StringifyBenchmarker";
 
 function build<T>(app: TSON.IJsonApplication): null | ((input: T) => string) {
@@ -32,7 +31,8 @@ const stringify = () => [
         "object (simple)",
         () => ObjectSimple.generate(),
         {
-            "typescript-json": (input) => TSON.stringify(input),
+            "TSON.stringify()": (input) => TSON.stringify(input),
+            "TSON.assertStringify()": (input) => TSON.assertStringify(input),
             "fast-json-stringify": build(
                 TSON.application<[ObjectSimple], "ajv">(),
             ),
@@ -42,7 +42,8 @@ const stringify = () => [
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
         {
-            "typescript-json": (input) => TSON.stringify(input),
+            "TSON.stringify()": (input) => TSON.stringify(input),
+            "TSON.assertStringify()": (input) => TSON.assertStringify(input),
             "fast-json-stringify": build(
                 TSON.application<[ObjectHierarchical], "ajv">(),
             ),
@@ -52,7 +53,8 @@ const stringify = () => [
         "object (recursive)",
         () => ObjectRecursive.generate(),
         {
-            "typescript-json": (input) => TSON.stringify(input),
+            "TSON.stringify()": (input) => TSON.stringify(input),
+            "TSON.assertStringify()": (input) => TSON.assertStringify(input),
             "fast-json-stringify": build(
                 TSON.application<[ObjectRecursive], "ajv">(),
             ),
@@ -62,7 +64,8 @@ const stringify = () => [
         "object (union)",
         () => ObjectUnionImplicit.generate(),
         {
-            "typescript-json": (input) => TSON.stringify(input),
+            "TSON.stringify()": (input) => TSON.stringify(input),
+            "TSON.assertStringify()": (input) => TSON.assertStringify(input),
             "fast-json-stringify": build(
                 TSON.application<[ObjectUnionImplicit], "ajv">(),
             ),
@@ -76,7 +79,8 @@ const stringify = () => [
         "array (hierarchical)",
         () => ArrayHierarchical.generate(),
         {
-            "typescript-json": (input) => TSON.stringify(input),
+            "TSON.stringify()": (input) => TSON.stringify(input),
+            "TSON.assertStringify()": (input) => TSON.assertStringify(input),
             "fast-json-stringify": build(
                 TSON.application<[ArrayHierarchical], "ajv">(),
             ),
@@ -86,7 +90,8 @@ const stringify = () => [
         "array (recursive)",
         () => ArrayRecursive.generate(),
         {
-            "typescript-json": (input) => TSON.stringify(input),
+            "TSON.stringify()": (input) => TSON.stringify(input),
+            "TSON.assertStringify()": (input) => TSON.assertStringify(input),
             "fast-json-stringify": build(
                 TSON.application<[ArrayRecursive], "ajv">(),
             ),
@@ -96,21 +101,10 @@ const stringify = () => [
         "array (union)",
         () => ArrayRecursiveUnionExplicit.generate(),
         {
-            "typescript-json": (input) => TSON.stringify(input),
+            "TSON.stringify()": (input) => TSON.stringify(input),
+            "TSON.assertStringify()": (input) => TSON.assertStringify(input),
             "fast-json-stringify": build(
                 TSON.application<[ArrayRecursiveUnionExplicit], "ajv">(),
-            ),
-        },
-    ),
-
-    // ULTIMATE UNION, JSON SCHEMA
-    StringifyBenchmarker.prepare(
-        "ultimate union",
-        () => UltimateUnion.generate(),
-        {
-            "typescript-json": (input) => TSON.stringify(input),
-            "fast-json-stringify": build(
-                TSON.application<[UltimateUnion], "ajv">(),
             ),
         },
     ),

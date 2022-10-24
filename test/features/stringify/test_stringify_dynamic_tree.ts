@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_dynamic_tree = _test_stringify(
     "dynamic tree",
-    DynamicTree.generate(),
+    DynamicTree.generate,
     (input) => TSON.stringify(input),
 );

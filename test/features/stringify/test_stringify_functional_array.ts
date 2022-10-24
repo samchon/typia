@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_functional_array = _test_stringify(
     "functional array",
-    FunctionalArray.generate(),
+    FunctionalArray.generate,
     (input) => TSON.stringify(input),
 );
