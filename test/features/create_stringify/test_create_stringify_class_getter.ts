@@ -4,6 +4,6 @@ import { _test_stringify } from "./../stringify/_test_stringify";
 
 export const test_create_stringify_class_getter = _test_stringify(
     "class getter",
-    ClassGetter.generate(),
+    ClassGetter.generate,
     TSON.createStringify<ClassGetter>(),
 );

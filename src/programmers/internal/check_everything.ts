@@ -13,14 +13,7 @@ export const check_everything = (array: ts.Expression) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [
-                    ts.factory.createParameterDeclaration(
-                        undefined,
-                        undefined,
-                        undefined,
-                        "flag",
-                    ),
-                ],
+                [IdentifierFactory.parameter("flag")],
                 undefined,
                 undefined,
                 ts.factory.createStrictEquality(

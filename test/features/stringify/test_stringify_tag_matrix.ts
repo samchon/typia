@@ -6,6 +6,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_tag_matrix = _test_stringify(
     "matrix tag",
-    TagMatrix.generate(),
+    TagMatrix.generate,
     (input) => TSON.stringify(input),
 );

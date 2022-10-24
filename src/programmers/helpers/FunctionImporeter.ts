@@ -18,8 +18,7 @@ export class FunctionImporter {
 
     public declare(modulo: ts.LeftHandSideExpression): ts.Statement[] {
         return [...this.used_].map((name) =>
-            StatementFactory.variable(
-                ts.NodeFlags.Const,
+            StatementFactory.constant(
                 "$" + name,
                 IdentifierFactory.join(modulo, name),
             ),

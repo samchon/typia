@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_tag_step = _test_stringify(
     "step tag",
-    TagStep.generate(),
+    TagStep.generate,
     (input) => TSON.stringify(input),
 );

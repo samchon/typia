@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_tag_tuple = _test_stringify(
     "tuple tag",
-    TagTuple.generate(),
+    TagTuple.generate,
     (input) => TSON.stringify(input),
 );

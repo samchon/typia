@@ -3,12 +3,14 @@ import benchmark from "benchmark";
 export namespace StringifyBenchmarker {
     export interface IOutput {
         name: string;
-        "typescript-json": number;
+        "TSON.stringify()": number;
+        "TSON.assertStringify()": number;
         "fast-json-stringify": number | null;
         "JSON.stringify()": number;
     }
     export interface IParameters<T> {
-        "typescript-json": (input: T) => string;
+        "TSON.stringify()": (input: T) => string;
+        "TSON.assertStringify()": (input: T) => string;
         "fast-json-stringify": null | ((input: T) => string);
     }
 
@@ -25,14 +27,20 @@ export namespace StringifyBenchmarker {
             suite.add("fast-json-stringify", () =>
                 parameters["fast-json-stringify"]!(data),
             );
-        suite.add("typescript-json", () => parameters["typescript-json"](data));
+        suite.add("TSON.stringify()", () =>
+            parameters["TSON.stringify()"](data),
+        );
+        suite.add("TSON.assertStringify()", () =>
+            parameters["TSON.assertStringify()"](data),
+        );
 
         return () => {
             const output: IOutput = {
                 name,
-                "typescript-json": 0,
-                "fast-json-stringify": null,
+                "TSON.stringify()": 0,
+                "TSON.assertStringify()": 0,
                 "JSON.stringify()": 0,
+                "fast-json-stringify": null,
             };
             suite.run();
             suite.map((elem: benchmark) => {

@@ -4,6 +4,6 @@ import { _test_stringify } from "./../stringify/_test_stringify";
 
 export const test_create_stringify_atomic = _test_stringify(
     "atomic",
-    AtomicSimple.generate(),
+    AtomicSimple.generate,
     TSON.createStringify<AtomicSimple>(),
 );

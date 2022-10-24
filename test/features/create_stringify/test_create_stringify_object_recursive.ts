@@ -4,6 +4,6 @@ import { _test_stringify } from "./../stringify/_test_stringify";
 
 export const test_create_stringify_object_recursive = _test_stringify(
     "recursive object",
-    ObjectRecursive.generate(),
+    ObjectRecursive.generate,
     TSON.createStringify<ObjectRecursive>(),
 );

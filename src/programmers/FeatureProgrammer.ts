@@ -279,14 +279,7 @@ export namespace FeatureProgrammer {
     ) {
         const rand: string = importer.increment().toString();
         const tail = config.trace
-            ? [
-                  ts.factory.createParameterDeclaration(
-                      undefined,
-                      undefined,
-                      undefined,
-                      ValueFactory.INPUT("index" + rand),
-                  ),
-              ]
+            ? [IdentifierFactory.parameter("index" + rand)]
             : [];
 
         return (
@@ -298,15 +291,7 @@ export namespace FeatureProgrammer {
             const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [
-                    ts.factory.createParameterDeclaration(
-                        undefined,
-                        undefined,
-                        undefined,
-                        ValueFactory.INPUT("elem"),
-                    ),
-                    ...tail,
-                ],
+                [IdentifierFactory.parameter("elem"), ...tail],
                 undefined,
                 undefined,
                 config.decoder(
@@ -374,35 +359,18 @@ const PARAMETERS = (initialize: null | boolean) => {
         initialize === null
             ? []
             : [
-                  ts.factory.createParameterDeclaration(
-                      undefined,
-                      undefined,
-                      undefined,
+                  IdentifierFactory.parameter(
                       "path",
-                      undefined,
-                      undefined,
                       initialize
                           ? ts.factory.createStringLiteral("$input")
                           : undefined,
                   ),
               ];
     if (initialize === false)
-        tail.push(
-            ts.factory.createParameterDeclaration(
-                undefined,
-                undefined,
-                undefined,
-                "exceptionable",
-            ),
-        );
+        tail.push(IdentifierFactory.parameter("exceptionable"));
 
     return (input: ts.Identifier) => [
-        ts.factory.createParameterDeclaration(
-            undefined,
-            undefined,
-            undefined,
-            input,
-        ),
+        IdentifierFactory.parameter(input),
         ...tail,
     ];
 };

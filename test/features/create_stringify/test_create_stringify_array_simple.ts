@@ -4,6 +4,6 @@ import { _test_stringify } from "./../stringify/_test_stringify";
 
 export const test_create_stringify_array_simple = _test_stringify(
     "simple array",
-    ArraySimple.generate(),
+    ArraySimple.generate,
     TSON.createStringify<ArraySimple>(),
 );

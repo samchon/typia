@@ -4,6 +4,6 @@ import { _test_stringify } from "./../stringify/_test_stringify";
 
 export const test_create_stringify_tag_object_union = _test_stringify(
     "object union tag",
-    TagObjectUnion.generate(),
+    TagObjectUnion.generate,
     TSON.createStringify<TagObjectUnion>(),
 );

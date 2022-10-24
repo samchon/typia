@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_dynamic_template = _test_stringify(
     "dynamic template",
-    DynamicTemplate.generate(),
+    DynamicTemplate.generate,
     (input) => TSON.stringify(input),
 );

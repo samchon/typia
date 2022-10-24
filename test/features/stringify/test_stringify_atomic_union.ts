@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_atomic_union = _test_stringify(
     "union atomic",
-    AtomicUnion.generate(),
+    AtomicUnion.generate,
     (input) => TSON.stringify(input),
 );

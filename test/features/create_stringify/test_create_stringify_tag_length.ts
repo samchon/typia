@@ -4,6 +4,6 @@ import { _test_stringify } from "./../stringify/_test_stringify";
 
 export const test_create_stringify_tag_length = _test_stringify(
     "length tag",
-    TagLength.generate(),
+    TagLength.generate,
     TSON.createStringify<TagLength>(),
 );

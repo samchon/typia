@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_object_union_double = _test_stringify(
     "double union object",
-    ObjectUnionDouble.generate(),
+    ObjectUnionDouble.generate,
     (input) => TSON.stringify(input),
 );

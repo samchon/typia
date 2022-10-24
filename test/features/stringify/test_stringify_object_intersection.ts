@@ -4,6 +4,6 @@ import { _test_stringify } from "./_test_stringify";
 
 export const test_stringify_object_intersection = _test_stringify(
     "intersected object",
-    ObjectIntersection.generate(),
+    ObjectIntersection.generate,
     (input) => TSON.stringify(input),
 );

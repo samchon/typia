@@ -1,10 +1,10 @@
-export type IObjectToJsonTuple = [
-    IObjectToJsonTuple.IToJson<string>,
-    IObjectToJsonTuple.IToJson<number>,
-    IObjectToJsonTuple.IToJson<boolean>,
-    IObjectToJsonTuple.IObject,
+export type ToJsonTuple = [
+    ToJsonTuple.IToJson<string>,
+    ToJsonTuple.IToJson<number>,
+    ToJsonTuple.IToJson<boolean>,
+    ToJsonTuple.IObject,
 ];
-export namespace IObjectToJsonTuple {
+export namespace ToJsonTuple {
     export interface IToJson<T> {
         toJSON(): T;
     }
@@ -14,7 +14,7 @@ export namespace IObjectToJsonTuple {
         name: string;
     }
 
-    export function generate(): IObjectToJsonTuple {
+    export function generate(): ToJsonTuple {
         return [
             { toJSON: () => "2" },
             { toJSON: () => 1 },
