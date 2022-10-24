@@ -582,25 +582,14 @@ export function application(): never {
 /**
  * 5x faster `JSON.stringify()` function.
  *
- * Converts an input value to a JSON (JavaSript Object Noation) string, about 5x faster
+ * Converts an input value to a JSON (JavaScript Object Noation) string, about 5x faster
  * than the native `JSON.stringify()` function. The 5x faster principle is because
  * it writes an optmized JSON conversion plan, only for the type `T`.
  *
- * If you want to create a stringify function which is reusable, just assign this function
- * to a (constant) variable like below, with the generic argument `T`. Then the variable
- * would be a stringify fuction reusable.
- *
- * ```typescript
- * const stringify = TSON.stringify<MyType>;
- * stringify(x);
- * stringify(y);
- * stringify(z);
- * ```
- *
  * For reference, this `TSON.stringify()` does not validate the input value type. It
  * just believes that the input value is following the type `T`. Therefore, if you
- * can't ensure the input value type, it would better to call {@link assertType} or
- * {@link is} function before.
+ * can't ensure the input value type, it would better to call {@link assertStringify}
+ * function instead.
  *
  * @template T Type of the input value
  * @param input A value to be converted
@@ -631,6 +620,70 @@ export namespace stringify {
         throw new TypeGuardError({
             ...props,
             method: "TSON.stringify",
+        });
+    }
+}
+
+/**
+ * 3x faster `JSON.stringify()` function with type assertion.
+ *
+ * `TSON.assertStringify()` is a combination function of {@link assertType} and
+ * {@link stringify}. Therefore, it onverts an input value to JSON (JavaScript Object
+ * Notation) string, with type assertion.
+ *
+ * For reference, during type assertion, it is even 3x times faster than the native
+ * `JSON.stringify()` function. Of course, it is much safer than the native function
+ * because of the type assertion.
+ *
+ * @template T Type of the input value
+ * @param input A value to be asserted and converted
+ * @return JSON string value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertStringify<T>(input: T): string;
+
+/**
+ * @internal
+ */
+export function assertStringify(): string {
+    halt("assertStringify");
+}
+
+/**
+ * @internal
+ */
+export namespace assertStringify {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+    export const join = $join;
+
+    export const number = $number;
+    export const string = $string;
+    export const tail = $tail;
+
+    export function predicate(
+        matched: boolean,
+        exceptionable: boolean,
+        closure: () => Omit<TypeGuardError.IProps, "method">,
+    ): boolean {
+        if (matched === false && exceptionable === true)
+            throw new TypeGuardError({
+                method: "TSON.assertStringify",
+                ...closure(),
+            });
+        return matched;
+    }
+
+    export function throws(
+        props: Pick<TypeGuardError.IProps, "expected" | "value">,
+    ): void {
+        throw new TypeGuardError({
+            ...props,
+            method: "TSON.assertStringify",
         });
     }
 }
@@ -929,6 +982,37 @@ export namespace createStringify {
     export const string = $string;
     export const tail = $tail;
     export const throws = stringify.throws;
+}
+
+/**
+ * Creates a reusable {@link assertStringify} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `assertStringify` function
+ */
+export function createAssertStringify<T>(): (input: T) => string;
+
+/**
+ * @internal
+ */
+export function createAssertStringify<T>(): (input: T) => string {
+    halt("createAssertStringify");
+}
+
+export namespace createAssertStringify {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+    export const join = $join;
+
+    export const number = $number;
+    export const string = $string;
+    export const tail = $tail;
+
+    export const predicate = assertStringify.predicate;
+    export const throws = assertStringify.throws;
 }
 
 /**

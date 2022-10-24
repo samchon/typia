@@ -24,24 +24,12 @@ export namespace ValidateProgrammer {
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [
-                    ts.factory.createParameterDeclaration(
-                        undefined,
-                        undefined,
-                        undefined,
-                        ValueFactory.INPUT(),
-                    ),
-                ],
+                [IdentifierFactory.parameter("input")],
                 undefined,
                 undefined,
                 ts.factory.createBlock([
-                    StatementFactory.variable(
-                        ts.NodeFlags.Const,
-                        "$out",
-                        create_output(),
-                    ),
-                    StatementFactory.variable(
-                        ts.NodeFlags.Const,
+                    StatementFactory.constant("$out", create_output()),
+                    StatementFactory.constant(
                         "$pred",
                         ts.factory.createCallExpression(
                             IdentifierFactory.join(modulo, "predicate"),
