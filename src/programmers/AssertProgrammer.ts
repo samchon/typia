@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
 import { IProject } from "../transformers/IProject";
@@ -20,14 +21,7 @@ export namespace AssertProgrammer {
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [
-                    ts.factory.createParameterDeclaration(
-                        undefined,
-                        undefined,
-                        undefined,
-                        ValueFactory.INPUT(),
-                    ),
-                ],
+                [IdentifierFactory.parameter("input")],
                 undefined,
                 undefined,
                 ts.factory.createBlock([

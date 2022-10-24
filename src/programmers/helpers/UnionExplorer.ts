@@ -153,8 +153,7 @@ export namespace UnionExplorer {
             //----
             // TUPLES
             const tupleListVariable: ts.VariableStatement =
-                StatementFactory.variable(
-                    ts.NodeFlags.Const,
+                StatementFactory.constant(
                     "tupleList",
                     ts.factory.createArrayLiteralExpression(
                         targets.map((meta) =>
@@ -162,14 +161,7 @@ export namespace UnionExplorer {
                                 ts.factory.createArrowFunction(
                                     undefined,
                                     undefined,
-                                    [
-                                        ts.factory.createParameterDeclaration(
-                                            undefined,
-                                            undefined,
-                                            undefined,
-                                            "branch",
-                                        ),
-                                    ],
+                                    [IdentifierFactory.parameter("branch")],
                                     undefined,
                                     undefined,
                                     checker(
@@ -186,14 +178,7 @@ export namespace UnionExplorer {
                                 ts.factory.createArrowFunction(
                                     undefined,
                                     undefined,
-                                    [
-                                        ts.factory.createParameterDeclaration(
-                                            undefined,
-                                            undefined,
-                                            undefined,
-                                            "branch",
-                                        ),
-                                    ],
+                                    [IdentifierFactory.parameter("branch")],
                                     undefined,
                                     undefined,
                                     decoder(
@@ -212,8 +197,7 @@ export namespace UnionExplorer {
                 );
 
             // FILTERED TUPLES
-            const filteredVariable = StatementFactory.variable(
-                ts.NodeFlags.Const,
+            const filteredVariable = StatementFactory.constant(
                 "filtered",
                 ts.factory.createCallExpression(
                     ts.factory.createIdentifier("tupleList.filter"),
@@ -222,14 +206,7 @@ export namespace UnionExplorer {
                         ts.factory.createArrowFunction(
                             undefined,
                             undefined,
-                            [
-                                ts.factory.createParameterDeclaration(
-                                    undefined,
-                                    undefined,
-                                    undefined,
-                                    "tuple",
-                                ),
-                            ],
+                            [IdentifierFactory.parameter("tuple")],
                             undefined,
                             undefined,
                             ts.factory.createStrictEquality(
@@ -280,14 +257,7 @@ export namespace UnionExplorer {
                             ts.factory.createArrowFunction(
                                 undefined,
                                 undefined,
-                                [
-                                    ts.factory.createParameterDeclaration(
-                                        undefined,
-                                        undefined,
-                                        undefined,
-                                        "value",
-                                    ),
-                                ],
+                                [IdentifierFactory.parameter("value")],
                                 undefined,
                                 undefined,
                                 ts.factory.createCallExpression(
