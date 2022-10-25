@@ -1,7 +1,6 @@
 import ts from "typescript";
 
-import { AssertProgrammer } from "../../programmers/AssertProgrammer";
-import { StringifyProgrammer } from "../../programmers/StringifyProgrammer";
+import { AssertStringifyProgrammer } from "../../programmers/AssertStringifyProgrammer";
 
 import { IProject } from "../IProject";
 
@@ -26,15 +25,9 @@ export namespace AssertStringifyTransformer {
 
         // DO TRANSFORM
         return ts.factory.createCallExpression(
-            StringifyProgrammer.generate(project, modulo)(type),
+            AssertStringifyProgrammer.generate(project, modulo)(type),
             undefined,
-            [
-                ts.factory.createCallExpression(
-                    AssertProgrammer.generate(project, modulo, false)(type),
-                    undefined,
-                    [expression.arguments[0]!],
-                ),
-            ],
+            [expression.arguments[0]!],
         );
     }
 }

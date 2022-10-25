@@ -14,7 +14,7 @@ export function _test_assert_stringify<T>(
 
         if (predicate(data, optimized) === false) {
             throw new Error(
-                `Bug on TSON.stringify(): failed to understand the ${name} type.`,
+                `Bug on TSON.assertStringify(): failed to understand the ${name} type.`,
             );
         }
 

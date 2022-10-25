@@ -628,12 +628,16 @@ export namespace stringify {
  * 3x faster `JSON.stringify()` function with type assertion.
  *
  * `TSON.assertStringify()` is a combination function of {@link assertType} and
- * {@link stringify}. Therefore, it onverts an input value to JSON (JavaScript Object
+ * {@link stringify}. Therefore, it converts an input value to JSON (JavaScript Object
  * Notation) string, with type assertion.
  *
- * For reference, during type assertion, it is even 3x times faster than the native
- * `JSON.stringify()` function. Of course, it is much safer than the native function
- * because of the type assertion.
+ * In such reason, when `input` value is not matched with the type `T`, it throws an
+ * {@link TypeGuardError}. Otherwis there's no problem on the `input` value, JSON
+ * string would be returned.
+ *
+ * For reference, with type assertion, it is even 3x times faster than the native
+ * `JSON.stringify()` function. So, just enjoy the safe and fast JSON conversion
+ * with confidence.
  *
  * @template T Type of the input value
  * @param input A value to be asserted and converted
@@ -673,6 +677,73 @@ export namespace assertStringify {
         if (matched === false && exceptionable === true)
             throw new TypeGuardError({
                 method: "TSON.assertStringify",
+                ...closure(),
+            });
+        return matched;
+    }
+
+    export function throws(
+        props: Pick<TypeGuardError.IProps, "expected" | "value">,
+    ): void {
+        throw new TypeGuardError({
+            ...props,
+            method: "TSON.assertStringify",
+        });
+    }
+}
+
+/**
+ * 4x faster `JSON.isStringify()` function with type checking.
+ *
+ * `TSON.isStringify()` is a combination function of {@link is} and
+ * {@link stringify}. Therefore, it converts an input value to JSON
+ * (JavaScript Object Notation) string, with type checking.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * `null` value. Otherwis there's no problem on the `input` value, JSON string would
+ * be returned.
+ *
+ * For reference, with type checking, it is even 4x times faster than the native
+ * `JSON.stringify()` function. So, just enjoy the safe and fast JSON conversion
+ * with confidence.
+ *
+ * @template T Type of the input value
+ * @param input A value to be checked and converted
+ * @return JSON string value when exact type, otherwise null
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function isStringify<T>(input: T): string | null;
+
+/**
+ * @internal
+ */
+export function isStringify<T>(): string | null {
+    halt("isStringify");
+}
+
+/**
+ * @internal
+ */
+export namespace isStringify {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+
+    export const number = $number;
+    export const string = $string;
+    export const tail = $tail;
+
+    export function predicate(
+        matched: boolean,
+        exceptionable: boolean,
+        closure: () => Omit<TypeGuardError.IProps, "method">,
+    ): boolean {
+        if (matched === false && exceptionable === true)
+            throw new TypeGuardError({
+                method: "TSON.isStringify",
                 ...closure(),
             });
         return matched;
@@ -1013,6 +1084,37 @@ export namespace createAssertStringify {
 
     export const predicate = assertStringify.predicate;
     export const throws = assertStringify.throws;
+}
+
+/**
+ * Creates a reusable {@link isStringify} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `isStringify` function
+ */
+export function createIsStringify<T>(): (input: T) => string | null;
+
+/**
+ * @internal
+ */
+export function createIsStringify<T>(): (input: T) => string | null {
+    halt("createIsStringify");
+}
+
+/**
+ * @internal
+ */
+export namespace createIsStringify {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+
+    export const number = $number;
+    export const string = $string;
+    export const tail = $tail;
+    export const throws = isStringify.throws;
 }
 
 /**
