@@ -33,6 +33,7 @@ const stringify = () => [
         {
             "TSON.stringify()": (input) => TSON.stringify(input),
             "TSON.assertStringify()": (input) => TSON.assertStringify(input),
+            "TSON.isStringify()": (input) => TSON.isStringify(input)!,
             "fast-json-stringify": build(
                 TSON.application<[ObjectSimple], "ajv">(),
             ),
@@ -44,6 +45,7 @@ const stringify = () => [
         {
             "TSON.stringify()": (input) => TSON.stringify(input),
             "TSON.assertStringify()": (input) => TSON.assertStringify(input),
+            "TSON.isStringify()": (input) => TSON.isStringify(input)!,
             "fast-json-stringify": build(
                 TSON.application<[ObjectHierarchical], "ajv">(),
             ),
@@ -55,6 +57,7 @@ const stringify = () => [
         {
             "TSON.stringify()": (input) => TSON.stringify(input),
             "TSON.assertStringify()": (input) => TSON.assertStringify(input),
+            "TSON.isStringify()": (input) => TSON.isStringify(input)!,
             "fast-json-stringify": build(
                 TSON.application<[ObjectRecursive], "ajv">(),
             ),
@@ -66,6 +69,7 @@ const stringify = () => [
         {
             "TSON.stringify()": (input) => TSON.stringify(input),
             "TSON.assertStringify()": (input) => TSON.assertStringify(input),
+            "TSON.isStringify()": (input) => TSON.isStringify(input)!,
             "fast-json-stringify": build(
                 TSON.application<[ObjectUnionImplicit], "ajv">(),
             ),
@@ -81,6 +85,7 @@ const stringify = () => [
         {
             "TSON.stringify()": (input) => TSON.stringify(input),
             "TSON.assertStringify()": (input) => TSON.assertStringify(input),
+            "TSON.isStringify()": (input) => TSON.isStringify(input)!,
             "fast-json-stringify": build(
                 TSON.application<[ArrayHierarchical], "ajv">(),
             ),
@@ -92,6 +97,7 @@ const stringify = () => [
         {
             "TSON.stringify()": (input) => TSON.stringify(input),
             "TSON.assertStringify()": (input) => TSON.assertStringify(input),
+            "TSON.isStringify()": (input) => TSON.isStringify(input)!,
             "fast-json-stringify": build(
                 TSON.application<[ArrayRecursive], "ajv">(),
             ),
@@ -103,6 +109,7 @@ const stringify = () => [
         {
             "TSON.stringify()": (input) => TSON.stringify(input),
             "TSON.assertStringify()": (input) => TSON.assertStringify(input),
+            "TSON.isStringify()": (input) => TSON.isStringify(input)!,
             "fast-json-stringify": build(
                 TSON.application<[ArrayRecursiveUnionExplicit], "ajv">(),
             ),

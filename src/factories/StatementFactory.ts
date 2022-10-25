@@ -24,37 +24,37 @@ export namespace StatementFactory {
         );
     }
 
-    export function require(variable: string, location: string) {
-        return ts.factory.createImportDeclaration(
-            undefined,
-            undefined,
-            ts.factory.createImportClause(
-                false,
-                undefined,
-                ts.factory.createNamespaceImport(
-                    ts.factory.createIdentifier(variable),
-                ),
-            ),
-            ts.factory.createStringLiteral(location),
-        );
-    }
+    // export function require(variable: string, location: string) {
+    //     return ts.factory.createImportDeclaration(
+    //         undefined,
+    //         undefined,
+    //         ts.factory.createImportClause(
+    //             false,
+    //             undefined,
+    //             ts.factory.createNamespaceImport(
+    //                 ts.factory.createIdentifier(variable),
+    //             ),
+    //         ),
+    //         ts.factory.createStringLiteral(location),
+    //     );
+    // }
 
-    export function importModulo(variable: string, location: string) {
-        return ts.factory.createImportDeclaration(
-            undefined,
-            undefined,
-            ts.factory.createImportClause(
-                false,
-                undefined,
-                ts.factory.createNamedImports([
-                    ts.factory.createImportSpecifier(
-                        false,
-                        undefined,
-                        ts.factory.createIdentifier(variable),
-                    ),
-                ]),
-            ),
-            ts.factory.createStringLiteral(location),
-        );
-    }
+    // export function importModulo(variable: string, location: string) {
+    //     return ts.factory.createImportDeclaration(
+    //         undefined,
+    //         undefined,
+    //         ts.factory.createImportClause(
+    //             false,
+    //             undefined,
+    //             ts.factory.createNamedImports([
+    //                 ts.factory.createImportSpecifier(
+    //                     false,
+    //                     undefined,
+    //                     ts.factory.createIdentifier(variable),
+    //                 ),
+    //             ]),
+    //         ),
+    //         ts.factory.createStringLiteral(location),
+    //     );
+    // }
 }

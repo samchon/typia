@@ -8,9 +8,11 @@ import { AssertStringifyTransformer } from "./features/AsssertStringifyTransform
 import { CreateAssertStringifyTransformer } from "./features/CreateAssertStringifyTransformer";
 import { CreateAssertTransformer } from "./features/CreateAssertTransformer";
 import { CreateInstanceTransformer } from "./features/CreateInstanceTransformer";
+import { CreateIsStringifyTransformer } from "./features/CreateIsStringifyTransformer";
 import { CreateIsTransformer } from "./features/CreateIsTransformer";
 import { CreateStringifyTransformer } from "./features/CreateStringifyTransformer";
 import { CreateValidateTransformer } from "./features/CreateValidateTransformer";
+import { IsStringifyTransformer } from "./features/IsStringifyTransformer";
 import { IsTransformer } from "./features/IsTransformer";
 import { StringifyTransformer } from "./features/StringifyTransformer";
 import { ValidateTransformer } from "./features/ValidateTransformer";
@@ -70,9 +72,10 @@ const FUNCTORS: Record<string, () => Task> = {
     validateEquals: () => ValidateTransformer.transform(true),
 
     // APPENDIX FUNCTIONS
-    application: () => ApplicationTransformer.transform,
-    assertStringify: () => AssertStringifyTransformer.transform,
     stringify: () => StringifyTransformer.transform,
+    assertStringify: () => AssertStringifyTransformer.transform,
+    isStringify: () => IsStringifyTransformer.transform,
+    application: () => ApplicationTransformer.transform,
 
     //----
     // FACTORY FUNCTIONS
@@ -88,7 +91,8 @@ const FUNCTORS: Record<string, () => Task> = {
     createValidateEquals: () => CreateValidateTransformer.transform(true),
 
     // APPENDIX FUNCTIONS
-    createAssertStringify: () => CreateAssertStringifyTransformer.transform,
-    createObject: () => CreateInstanceTransformer.transform,
     createStringify: () => CreateStringifyTransformer.transform,
+    createAssertStringify: () => CreateAssertStringifyTransformer.transform,
+    createIsStringify: () => CreateIsStringifyTransformer.transform,
+    createObject: () => CreateInstanceTransformer.transform,
 };
