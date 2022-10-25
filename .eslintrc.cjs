@@ -1,7 +1,8 @@
 module.exports = {
     root: true,
     plugins: [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "deprecation",
     ],
     extends: [
         "plugin:@typescript-eslint/recommended",
@@ -34,12 +35,12 @@ module.exports = {
                 "@typescript-eslint/no-explicit-any": "off",
                 "@typescript-eslint/no-inferrable-types": "off",
                 "@typescript-eslint/no-namespace": "off",
-                "@typescript-eslint/no-inferrable-types": "off",
                 "@typescript-eslint/no-non-null-assertion": "off",
                 "@typescript-eslint/no-unused-vars": "off",
                 "@typescript-eslint/no-var-requires": "off",
                 "@typescript-eslint/no-floating-promises": "error",
                 "@typescript-eslint/prefer-as-const": "error",
+                "deprecation/deprecation": "error",
             }
         }
     ]

@@ -5,12 +5,14 @@ export namespace StringifyBenchmarker {
         name: string;
         "TSON.stringify()": number;
         "TSON.assertStringify()": number;
+        "TSON.isStringify()": number;
         "fast-json-stringify": number | null;
         "JSON.stringify()": number;
     }
     export interface IParameters<T> {
         "TSON.stringify()": (input: T) => string;
         "TSON.assertStringify()": (input: T) => string;
+        "TSON.isStringify()": (input: T) => string;
         "fast-json-stringify": null | ((input: T) => string);
     }
 
@@ -33,12 +35,16 @@ export namespace StringifyBenchmarker {
         suite.add("TSON.assertStringify()", () =>
             parameters["TSON.assertStringify()"](data),
         );
+        suite.add("TSON.isStringify()", () =>
+            parameters["TSON.isStringify()"](data),
+        );
 
         return () => {
             const output: IOutput = {
                 name,
                 "TSON.stringify()": 0,
                 "TSON.assertStringify()": 0,
+                "TSON.isStringify()": 0,
                 "JSON.stringify()": 0,
                 "fast-json-stringify": null,
             };

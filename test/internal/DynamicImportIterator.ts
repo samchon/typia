@@ -5,7 +5,7 @@ import fs from "fs";
 import { IPointer } from "./IPointer";
 import { StopWatch } from "./StopWatch";
 
-const EXTENSION = __filename.substr(-2);
+const EXTENSION = __filename.substring(__filename.length - 2);
 if (EXTENSION === "js") require("source-map-support/register");
 
 interface ICommand {
@@ -65,7 +65,8 @@ export namespace DynamicImportIterator {
             if (stats.isDirectory() === true) {
                 await iterate(options, command, current, exceptions);
                 continue;
-            } else if (file.substr(-3) !== `.${EXTENSION}`) continue;
+            } else if (file.substring(file.length - 3) !== `.${EXTENSION}`)
+                continue;
 
             const external: Module<Arguments> = await import(current);
             await execute(options, command, external, exceptions);
@@ -83,7 +84,7 @@ export namespace DynamicImportIterator {
                 continue;
             else if (command.include && key.indexOf(command.include) === -1)
                 continue;
-            else if (key.substr(0, options.prefix.length) !== options.prefix)
+            else if (key.substring(0, options.prefix.length) !== options.prefix)
                 continue;
             else if (!(external[key] instanceof Function)) continue;
 

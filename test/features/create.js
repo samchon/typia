@@ -59,3 +59,4 @@ replica("validate_equals", "validateEquals");
 
 replica("stringify");
 replica("assert_stringify", "assertStringify");
+replica("is_stringify", "isStringify");
