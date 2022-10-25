@@ -1,10 +1,10 @@
 import ts from "typescript";
 
-import { AssertStringifyProgrammer } from "../../programmers/AssertStringifyProgrammer";
+import { IsStringifyProgrammer } from "../../programmers/IsStringifyProgrammer";
 
 import { IProject } from "../IProject";
 
-export namespace AssertStringifyTransformer {
+export namespace IsStringifyTransformer {
     export function transform(
         project: IProject,
         modulo: ts.LeftHandSideExpression,
@@ -25,7 +25,7 @@ export namespace AssertStringifyTransformer {
 
         // DO TRANSFORM
         return ts.factory.createCallExpression(
-            AssertStringifyProgrammer.generate(project, modulo)(type),
+            IsStringifyProgrammer.generate(project, modulo)(type),
             undefined,
             [expression.arguments[0]!],
         );
@@ -33,6 +33,6 @@ export namespace AssertStringifyTransformer {
 }
 
 const enum ErrorMessages {
-    NO_INPUT_VALUE = "Error on TSON.assertStringify(): no input value.",
-    GENERIC_ARGUMENT = "Error on TSON.assertStringify(): non-specified generic argument.",
+    NO_INPUT_VALUE = "Error on TSON.isStringify(): no input value.",
+    GENERIC_ARGUMENT = "Error on TSON.isStringify(): non-specified generic argument.",
 }

@@ -26,46 +26,24 @@ export namespace IdentifierFactory {
         name: string | ts.BindingName,
         init?: ts.Expression,
     ) {
-        if (createParameterDeclaration === null) {
-            try {
-                ts.factory.createParameterDeclaration(
-                    undefined,
-                    undefined,
-                    ts.factory.createIdentifier("something"),
-                    undefined,
-                    undefined,
-                    ts.factory.createStringLiteral("initial"),
-                );
-                createParameterDeclaration = (name, init) =>
-                    ts.factory.createParameterDeclaration(
-                        undefined,
-                        undefined,
-                        name,
-                        undefined,
-                        undefined,
-                        init,
-                    );
-            } catch {
-                createParameterDeclaration = (name, init) =>
-                    ts.factory.createParameterDeclaration(
-                        undefined,
-                        undefined,
-                        undefined,
-                        name,
-                        undefined,
-                        undefined,
-                        init,
-                    );
-            }
-        }
-        return createParameterDeclaration(name, init);
+        if (ts.version >= "4.8")
+            return ts.factory.createParameterDeclaration(
+                undefined,
+                undefined,
+                name,
+                undefined,
+                undefined,
+                init,
+            );
+        // eslint-disable-next-line
+        return ts.factory.createParameterDeclaration(
+            undefined,
+            undefined,
+            undefined,
+            name,
+            undefined,
+            undefined,
+            init,
+        );
     }
 }
-
-// eslint-disable-next-line
-let createParameterDeclaration:
-    | null
-    | ((
-          name: string | ts.BindingName,
-          init?: ts.Expression,
-      ) => ts.ParameterDeclaration) = null;
