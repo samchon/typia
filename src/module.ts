@@ -1070,6 +1070,9 @@ export function createAssertStringify<T>(): (input: T) => string {
     halt("createAssertStringify");
 }
 
+/**
+ * @internal
+ */
 export namespace createAssertStringify {
     export const is_uuid = $is_uuid;
     export const is_email = $is_email;
