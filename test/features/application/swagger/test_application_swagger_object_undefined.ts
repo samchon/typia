@@ -1,24 +1,24 @@
 import TSON from "../../../../src";
-import { ObjectUndefied } from "../../../structures/ObjectUndefied";
+import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 import { _test_application_swagger } from "./_test_application_swagger";
 
 export const test_application_swagger_object_undefined =
     _test_application_swagger(
         "undefined object",
-        TSON.application<[ObjectUndefied], "swagger">(),
+        TSON.application<[ObjectUndefined], "swagger">(),
         {
             schemas: [
                 {
                     type: "array",
                     items: {
-                        $ref: "#/components/schemas/ObjectUndefied.ILecture",
+                        $ref: "#/components/schemas/ObjectUndefined.ILecture",
                     },
                     nullable: false,
                 },
             ],
             components: {
                 schemas: {
-                    "ObjectUndefied.ILecture": {
+                    "ObjectUndefined.ILecture": {
                         type: "object",
                         properties: {
                             name: {
@@ -38,7 +38,7 @@ export const test_application_swagger_object_undefined =
                                 ],
                             },
                             classroom: {
-                                $ref: "#/components/schemas/ObjectUndefied.IClassroom",
+                                $ref: "#/components/schemas/ObjectUndefined.IClassroom",
                             },
                             grade: {
                                 type: "number",
@@ -49,7 +49,7 @@ export const test_application_swagger_object_undefined =
                         required: ["name"],
                         "x-tson_jsDocTags": [],
                     },
-                    "ObjectUndefied.IClassroom": {
+                    "ObjectUndefined.IClassroom": {
                         type: "object",
                         properties: {
                             id: {
