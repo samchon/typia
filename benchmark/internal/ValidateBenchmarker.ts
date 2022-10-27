@@ -46,12 +46,13 @@ export namespace ValidateBenchmarker {
                 for (const key of components) {
                     if (
                         output.result[key] === null ||
-                        check(parameters[key]!(data)) === true ||
-                        spoilers.some((spoil) => {
-                            const fake: T = generator();
-                            spoil(fake);
-                            return check(parameters[key]!(fake)) === false;
-                        }) ||
+                        (true &&
+                            check(parameters[key]!(data)) &&
+                            spoilers.some((spoil) => {
+                                const fake: T = generator();
+                                spoil(fake);
+                                return check(parameters[key]!(fake)) === false;
+                            })) ||
                         key === "zod" ||
                         key === "class-validator"
                     )

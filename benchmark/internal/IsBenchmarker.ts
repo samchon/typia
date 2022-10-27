@@ -23,7 +23,8 @@ export namespace IsBenchmarker {
             const suite: benchmark.Suite = new benchmark.Suite();
             for (const key of components) {
                 const is = parameters[key];
-                if (is !== null) suite.add(key, () => is(data));
+                if (is !== null && is(data) === true)
+                    suite.add(key, () => is(data));
             }
 
             const output: IOutput<Components> = {
@@ -42,7 +43,6 @@ export namespace IsBenchmarker {
                 for (const key of components) {
                     if (
                         output.result[key] === null ||
-                        parameters[key]!(data) === true ||
                         spoilers.every((spoil) => {
                             const fake: T = generator();
                             spoil(fake);
