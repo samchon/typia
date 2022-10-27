@@ -3,7 +3,7 @@ import { IMetadataTag } from "../metadata/IMetadataTag";
 
 import { Atomic } from "../typings/Atomic";
 
-export type IJsonSchema = IJsonSchema.NotUnknown | IJsonSchema.IUnkown;
+export type IJsonSchema = IJsonSchema.NotUnknown | IJsonSchema.IUnknown;
 export namespace IJsonSchema {
     export type NotUnknown =
         | IEnumeration<"boolean">
@@ -76,7 +76,7 @@ export namespace IJsonSchema {
     export interface IOneOf extends IAttribute {
         oneOf: IJsonSchema[];
     }
-    export interface IUnkown {}
+    export interface IUnknown {}
 
     export interface ISignificant<Literal extends string> {
         type: Literal;
