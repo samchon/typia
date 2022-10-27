@@ -20,23 +20,14 @@ export namespace ValidateBenchmarker {
             name: string,
             generator: () => T,
             parameters: IParameters<Components, T>,
-            _spoilers: Array<(input: T) => string[]>,
+            spoilers: Array<(input: T) => string[]>,
         ) => {
             const data: T = generator();
 
             const suite: benchmark.Suite = new benchmark.Suite();
             for (const key of components) {
                 const validate = parameters[key];
-                if (validate === null || check(validate(data)) === false)
-                    continue;
-
-                // const pass: boolean = _spoilers.every((spoil) => {
-                //     const fake: T = generator();
-                //     spoil(fake);
-                //     return check(validate(fake)) === false;
-                // });
-                // if (pass === true || key === "zod" || key === "class-validator")
-                suite.add(key, () => validate(data));
+                if (validate !== null) suite.add(key, () => validate(data));
             }
 
             const output: IOutput<Components> = {
@@ -51,6 +42,22 @@ export namespace ValidateBenchmarker {
                     (output.result as any)[elem.name!] =
                         elem.count / elem.times.elapsed;
                 });
+
+                for (const key of components) {
+                    if (
+                        output.result[key] === null ||
+                        check(parameters[key]!(data)) === true ||
+                        spoilers.some((spoil) => {
+                            const fake: T = generator();
+                            spoil(fake);
+                            return check(parameters[key]!(fake)) === false;
+                        }) ||
+                        key === "zod" ||
+                        key === "class-validator"
+                    )
+                        continue;
+                    output.result[key] = null;
+                }
                 return output;
             };
         };

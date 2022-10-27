@@ -23,15 +23,7 @@ export namespace IsBenchmarker {
             const suite: benchmark.Suite = new benchmark.Suite();
             for (const key of components) {
                 const is = parameters[key];
-                if (is === null || is(data) === false) continue;
-
-                const pass: boolean = spoilers.every((spoil) => {
-                    const fake: T = generator();
-                    spoil(fake);
-                    return is(fake) === false;
-                });
-                if (pass === true || key === "zod" || key === "class-validator")
-                    suite.add(key, () => is(data));
+                if (is !== null) suite.add(key, () => is(data));
             }
 
             const output: IOutput<Components> = {
@@ -46,6 +38,22 @@ export namespace IsBenchmarker {
                     (output.result as any)[elem.name!] =
                         elem.count / elem.times.elapsed;
                 });
+
+                for (const key of components) {
+                    if (
+                        output.result[key] === null ||
+                        parameters[key]!(data) === true ||
+                        spoilers.every((spoil) => {
+                            const fake: T = generator();
+                            spoil(fake);
+                            return parameters[key]!(fake) === false;
+                        }) ||
+                        key === "zod" ||
+                        key === "class-validator"
+                    )
+                        continue;
+                    output.result[key] = null;
+                }
                 return output;
             };
         };
