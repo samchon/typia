@@ -71,7 +71,7 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                                         $ref: "components#/schemas/IJsonSchema.INullOnly",
                                     },
                                     {
-                                        $ref: "components#/schemas/IJsonSchema.IUnkown",
+                                        $ref: "components#/schemas/IJsonSchema.IUnknown",
                                     },
                                 ],
                             },
@@ -1273,7 +1273,7 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                                     $ref: "components#/schemas/IJsonSchema.INullOnly",
                                 },
                                 {
-                                    $ref: "components#/schemas/IJsonSchema.IUnkown",
+                                    $ref: "components#/schemas/IJsonSchema.IUnknown",
                                 },
                             ],
                         },
@@ -1354,7 +1354,7 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                                         $ref: "components#/schemas/IJsonSchema.INullOnly",
                                     },
                                     {
-                                        $ref: "components#/schemas/IJsonSchema.IUnkown",
+                                        $ref: "components#/schemas/IJsonSchema.IUnknown",
                                     },
                                 ],
                             },
@@ -1429,7 +1429,7 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                                         $ref: "components#/schemas/IJsonSchema.INullOnly",
                                     },
                                     {
-                                        $ref: "components#/schemas/IJsonSchema.IUnkown",
+                                        $ref: "components#/schemas/IJsonSchema.IUnknown",
                                     },
                                 ],
                             },
@@ -1748,8 +1748,8 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                     required: ["type"],
                     "x-tson_jsDocTags": [],
                 },
-                "IJsonSchema.IUnkown": {
-                    $id: "components#/schemas/IJsonSchema.IUnkown",
+                "IJsonSchema.IUnknown": {
+                    $id: "components#/schemas/IJsonSchema.IUnknown",
                     type: "object",
                     properties: {},
                     nullable: false,
@@ -1848,7 +1848,7 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                                     $ref: "components#/schemas/IJsonSchema.INullOnly",
                                 },
                                 {
-                                    $ref: "components#/schemas/IJsonSchema.IUnkown",
+                                    $ref: "components#/schemas/IJsonSchema.IUnknown",
                                 },
                             ],
                         },
@@ -1932,7 +1932,7 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                                 $ref: "components#/schemas/IJsonSchema.INullOnly",
                             },
                             {
-                                $ref: "components#/schemas/IJsonSchema.IUnkown",
+                                $ref: "components#/schemas/IJsonSchema.IUnknown",
                             },
                         ],
                     },

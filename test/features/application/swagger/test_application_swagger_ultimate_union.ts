@@ -68,7 +68,7 @@ export const test_application_swagger_ultimate_union =
                                             $ref: "#/components/schemas/IJsonSchema.INullOnly",
                                         },
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IUnkown",
+                                            $ref: "#/components/schemas/IJsonSchema.IUnknown",
                                         },
                                     ],
                                 },
@@ -1243,7 +1243,7 @@ export const test_application_swagger_ultimate_union =
                                         $ref: "#/components/schemas/IJsonSchema.INullOnly",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IUnkown",
+                                        $ref: "#/components/schemas/IJsonSchema.IUnknown",
                                     },
                                 ],
                             },
@@ -1319,7 +1319,7 @@ export const test_application_swagger_ultimate_union =
                                             $ref: "#/components/schemas/IJsonSchema.INullOnly",
                                         },
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IUnkown",
+                                            $ref: "#/components/schemas/IJsonSchema.IUnknown",
                                         },
                                     ],
                                 },
@@ -1389,7 +1389,7 @@ export const test_application_swagger_ultimate_union =
                                             $ref: "#/components/schemas/IJsonSchema.INullOnly",
                                         },
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IUnkown",
+                                            $ref: "#/components/schemas/IJsonSchema.IUnknown",
                                         },
                                     ],
                                 },
@@ -1705,7 +1705,7 @@ export const test_application_swagger_ultimate_union =
                         required: ["type"],
                         "x-tson_jsDocTags": [],
                     },
-                    "IJsonSchema.IUnkown": {
+                    "IJsonSchema.IUnknown": {
                         type: "object",
                         properties: {},
                         nullable: false,
@@ -1798,7 +1798,7 @@ export const test_application_swagger_ultimate_union =
                                         $ref: "#/components/schemas/IJsonSchema.INullOnly",
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IUnkown",
+                                        $ref: "#/components/schemas/IJsonSchema.IUnknown",
                                     },
                                 ],
                             },
@@ -1878,7 +1878,7 @@ export const test_application_swagger_ultimate_union =
                                     $ref: "#/components/schemas/IJsonSchema.INullOnly",
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IUnkown",
+                                    $ref: "#/components/schemas/IJsonSchema.IUnknown",
                                 },
                             ],
                         },
