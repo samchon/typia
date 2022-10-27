@@ -1,7 +1,7 @@
 import { Spoiler } from "../internal/Spoiler";
 
-export type ObjectUndefied = ObjectUndefied.ILecture[];
-export namespace ObjectUndefied {
+export type ObjectUndefined = ObjectUndefined.ILecture[];
+export namespace ObjectUndefined {
     export interface ILecture {
         name: string;
         professor?: string | number;
@@ -15,7 +15,7 @@ export namespace ObjectUndefied {
     }
 
     export function generate() {
-        const output: ObjectUndefied = [];
+        const output: ObjectUndefined = [];
         const name: string = "someone";
         const nothing: undefined = undefined;
 
@@ -38,7 +38,7 @@ export namespace ObjectUndefied {
         return output;
     }
 
-    export const SPOILERS: Spoiler<ObjectUndefied>[] = [
+    export const SPOILERS: Spoiler<ObjectUndefined>[] = [
         (input) => {
             input[0].name = null!;
             return ["$input[0].name"];
