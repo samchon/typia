@@ -104,8 +104,7 @@ export const application_schema =
         //----
         // RETURNS
         //----
-        if (union.length === 0)
-            return blockNever === true ? null! : { ...attribute };
+        if (union.length === 0) return blockNever === true ? null! : {};
         else if (union.length === 1) return union[0]!;
         return { oneOf: union, ...attribute };
     };

@@ -3,11 +3,13 @@ import benchmark from "benchmark";
 export namespace StringifyBenchmarker {
     export interface IOutput {
         name: string;
-        "TSON.stringify()": number;
-        "TSON.assertStringify()": number;
-        "TSON.isStringify()": number;
-        "fast-json-stringify": number | null;
-        "JSON.stringify()": number;
+        result: {
+            "TSON.stringify()": number;
+            "TSON.assertStringify()": number;
+            "TSON.isStringify()": number;
+            "fast-json-stringify": number | null;
+            "JSON.stringify()": number;
+        };
     }
     export interface IParameters<T> {
         "TSON.stringify()": (input: T) => string;
@@ -42,15 +44,18 @@ export namespace StringifyBenchmarker {
         return () => {
             const output: IOutput = {
                 name,
-                "TSON.stringify()": 0,
-                "TSON.assertStringify()": 0,
-                "TSON.isStringify()": 0,
-                "JSON.stringify()": 0,
-                "fast-json-stringify": null,
+                result: {
+                    "TSON.stringify()": 0,
+                    "TSON.assertStringify()": 0,
+                    "TSON.isStringify()": 0,
+                    "JSON.stringify()": 0,
+                    "fast-json-stringify": null,
+                },
             };
             suite.run();
             suite.map((elem: benchmark) => {
-                (output as any)[elem.name!] = elem.count / elem.times.elapsed;
+                (output.result as any)[elem.name!] =
+                    elem.count / elem.times.elapsed;
             });
             return output;
         };

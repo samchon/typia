@@ -3,9 +3,11 @@ import benchmark from "benchmark";
 export namespace OptimizerBenchmarker {
     export interface IOutput {
         name: string;
-        "typescript-json": number;
-        ajv: number | null;
-        typebox: number | null;
+        result: {
+            "typescript-json": number;
+            ajv: number | null;
+            typebox: number | null;
+        };
     }
     export interface IParameters<T> {
         "typescript-json": () => (input: T) => boolean;
@@ -29,16 +31,20 @@ export namespace OptimizerBenchmarker {
         if (typebox !== null) suite.add("typebox", () => typebox!(data));
         if (ajv !== null) suite.add("ajv", () => ajv!(data));
 
-        return () => {
-            const output: IOutput = {
-                name,
+        const output: IOutput = {
+            name,
+            result: {
                 "typescript-json": 0,
                 typebox: 0,
                 ajv: null,
-            };
+            },
+        };
+
+        return () => {
             suite.run();
             suite.map((elem: benchmark) => {
-                (output as any)[elem.name!] = elem.count / elem.times.elapsed;
+                (output.result as any)[elem.name!] =
+                    elem.count / elem.times.elapsed;
             });
             return output;
         };
