@@ -16,7 +16,7 @@ import { ArrayUtil } from "../utils/ArrayUtil";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
-import { OptionPreditor } from "./helpers/OptionPredicator";
+import { OptionPredicator } from "./helpers/OptionPredicator";
 import { StringifyJoiner } from "./helpers/StringifyJoinder";
 import { StringifyPredicator } from "./helpers/StringifyPredicator";
 import { UnionExplorer } from "./helpers/UnionExplorer";
@@ -425,7 +425,7 @@ export namespace StringifyProgrammer {
                     );
             else if (
                 type === "number" &&
-                OptionPreditor.numeric(project.options, "stringify")
+                OptionPredicator.numeric(project.options, "stringify")
             )
                 input = ts.factory.createCallExpression(
                     importer.use("number"),
