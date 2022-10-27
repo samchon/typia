@@ -20,7 +20,7 @@ export namespace ValidateBenchmarker {
             name: string,
             generator: () => T,
             parameters: IParameters<Components, T>,
-            spoilers: Array<(input: T) => string[]>,
+            _spoilers: Array<(input: T) => string[]>,
         ) => {
             const data: T = generator();
 
@@ -30,13 +30,13 @@ export namespace ValidateBenchmarker {
                 if (validate === null || check(validate(data)) === false)
                     continue;
 
-                const pass: boolean = spoilers.every((spoil) => {
-                    const fake: T = generator();
-                    spoil(fake);
-                    return check(validate(fake)) === false;
-                });
-                if (pass === true || key === "zod" || key === "class-validator")
-                    suite.add(key, () => validate(data));
+                // const pass: boolean = _spoilers.every((spoil) => {
+                //     const fake: T = generator();
+                //     spoil(fake);
+                //     return check(validate(fake)) === false;
+                // });
+                // if (pass === true || key === "zod" || key === "class-validator")
+                suite.add(key, () => validate(data));
             }
 
             const output: IOutput<Components> = {
