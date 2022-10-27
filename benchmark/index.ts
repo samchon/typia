@@ -91,9 +91,9 @@ async function main(): Promise<void> {
 
     const stream = new WriteStream(`${__dirname}/results/${cpu}.md`);
     const functors = [
-        benchmark_validate,
         benchmark_is,
         benchmark_assert,
+        benchmark_validate,
         benchmark_equals,
         benchmark_assert_equals,
         benchmark_validate_equals,
