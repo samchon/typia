@@ -77,6 +77,15 @@ export namespace ArrayRecursiveUnionImplicit {
         return output;
     }
 
+    export function trail(): ArrayRecursiveUnionImplicit {
+        const data: ArrayRecursiveUnionImplicit = generate();
+        data.push({
+            ...generate_directory(0, 0),
+            children: {} as any,
+        });
+        return data;
+    }
+
     function generate_directory(limit: number, level: number): IDirectory {
         return {
             children: generate(limit, level + 1),

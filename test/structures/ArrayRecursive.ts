@@ -34,6 +34,16 @@ export namespace ArrayRecursive {
         };
     }
 
+    export function trail(): ArrayRecursive {
+        const data: ArrayRecursive = ArrayRecursive.generate();
+        const current: { value: ArrayRecursive } = { value: data };
+        while (current.value.children.length)
+            current.value =
+                current.value.children[current.value.children.length - 1];
+        current.value.created_at.time = null!;
+        return data;
+    }
+
     export const SPOILERS: Spoiler<ArrayRecursive>[] = [
         (input) => {
             input.id = null!;

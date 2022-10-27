@@ -1,56 +1,62 @@
 import benchmark from "benchmark";
+import { output } from "cli";
+
+import TSON from "../../src";
 
 export namespace ValidateBenchmarker {
-    export interface IOutput {
+    export interface IOutput<Components extends "name" | string> {
         name: string;
-        "typescript-json": number;
-        "io-ts": number | null;
-        "class-validator": number | null;
-        zod: number | null;
-        typebox: number | null;
-    }
-    export interface IParameters<T> {
-        "typescript-json": (input: T) => any;
-        "io-ts": null | ((input: T) => any);
-        "class-validator": null | ((input: T) => any);
-        zod: null | ((input: T) => any);
-        typebox: null | ((input: T) => any);
+        result: Record<Components, number | null>;
     }
 
-    export function prepare<T>(
-        name: string,
-        generator: () => T,
-        parameters: IParameters<T>,
-    ): () => IOutput {
-        const data: T = generator();
+    export type IParameters<Components extends string, T> = Record<
+        Components,
+        null | ((input: T) => any[] | TSON.IValidation)
+    >;
 
-        const suite: benchmark.Suite = new benchmark.Suite();
-        if (parameters["typebox"] !== null)
-            suite.add("typebox", () => parameters["typebox"]!(data));
-        if (parameters["io-ts"] !== null)
-            suite.add("io-ts", () => parameters["io-ts"]!(data));
-        if (parameters["zod"] !== null)
-            suite.add("zod", () => parameters["zod"]!(data));
-        if (parameters["class-validator"] !== null)
-            suite.add("class-validator", () =>
-                parameters["class-validator"]!(data),
-            );
-        suite.add("typescript-json", () => parameters["typescript-json"](data));
+    export const prepare =
+        <Components extends string>(components: Components[]) =>
+        <T>(
+            name: string,
+            generator: () => T,
+            parameters: IParameters<Components, T>,
+            spoilers: Array<(input: T) => string[]>,
+        ) => {
+            const data: T = generator();
 
-        return () => {
-            const output: IOutput = {
+            const suite: benchmark.Suite = new benchmark.Suite();
+            for (const key of components) {
+                const validate = parameters[key];
+                if (validate === null || check(validate(data)) === false)
+                    continue;
+
+                const pass: boolean = spoilers.every((spoil) => {
+                    const fake: T = generator();
+                    spoil(fake);
+                    return check(validate(fake)) === false;
+                });
+                if (pass === true || key === "zod" || key === "class-validator")
+                    suite.add(key, () => validate(data));
+            }
+
+            const output: IOutput<Components> = {
                 name,
-                "typescript-json": 0,
-                typebox: null,
-                "io-ts": null,
-                zod: null,
-                "class-validator": null,
+                result: {} as any,
             };
-            suite.run();
-            suite.map((elem: benchmark) => {
-                (output as any)[elem.name!] = elem.count / elem.times.elapsed;
-            });
-            return output;
+            for (const comp of components) output.result[comp] = null;
+
+            return () => {
+                suite.run();
+                suite.map((elem: benchmark) => {
+                    (output.result as any)[elem.name!] =
+                        elem.count / elem.times.elapsed;
+                });
+                return output;
+            };
         };
-    }
+
+    const check = (output: TSON.IValidation | any[]) => {
+        if (Array.isArray(output)) return output.length === 0;
+        return (output as TSON.IValidation).errors.length === 0;
+    };
 }

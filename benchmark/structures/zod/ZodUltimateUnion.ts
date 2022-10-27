@@ -2,17 +2,18 @@ import { z } from "zod";
 
 import { IJsonApplication, IJsonComponents, IJsonSchema } from "../../../src";
 
-const Schema: z.ZodType<IJsonSchema> = z.lazy(() =>
-    z.union([
-        Atomic,
-        Constant,
-        Array,
-        Tuple,
-        Reference,
-        RecursiveReference,
-        OneOf,
-        Unknown,
-    ]),
+const Schema: z.ZodType<IJsonSchema> = z.lazy(
+    () =>
+        z.union([
+            Atomic,
+            Constant,
+            Array,
+            Tuple,
+            Reference,
+            RecursiveReference,
+            OneOf,
+            Unknown,
+        ]) as any,
 );
 
 const Attribute = {

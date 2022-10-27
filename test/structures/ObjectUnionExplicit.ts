@@ -55,10 +55,6 @@ export namespace ObjectUnionExplicit {
     }
 
     export function generate(): ObjectUnionExplicit {
-        const point = (): IPoint => ({
-            x: RandomGenerator.integer(),
-            y: RandomGenerator.integer(),
-        });
         return [
             {
                 type: "point",
@@ -108,6 +104,18 @@ export namespace ObjectUnionExplicit {
         ];
     }
 
+    export function trail(): ObjectUnionExplicit {
+        const data: ObjectUnionExplicit = ObjectUnionExplicit.generate();
+        data.push({
+            type: "rectangle",
+            p1: point(),
+            p2: point(),
+            p3: point(),
+            p4: null!,
+        });
+        return data;
+    }
+
     export const SPOILERS: Spoiler<ObjectUnionExplicit>[] = [
         (input) => {
             // point
@@ -146,3 +154,8 @@ export namespace ObjectUnionExplicit {
         },
     ];
 }
+
+const point = (): ObjectUnionExplicit.IPoint => ({
+    x: RandomGenerator.integer(),
+    y: RandomGenerator.integer(),
+});

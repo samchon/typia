@@ -1,6 +1,11 @@
+import { TSchema } from "@sinclair/typebox";
+import { TypeCheck } from "@sinclair/typebox/compiler";
 import * as tr from "class-transformer";
+import { ClassConstructor } from "class-transformer";
 import * as cv from "class-validator";
+import * as t from "io-ts";
 import "reflect-metadata";
+import { z } from "zod";
 
 import TSON from "../../src";
 // PURE TYPESCRIPT TYPES
@@ -30,6 +35,8 @@ import { IoTsObjectHierarchical } from "../structures/io-ts/IoTsObjectHierarchic
 import { IoTsObjectRecursive } from "../structures/io-ts/IoTsObjectRecursive";
 import { IoTsObjectUnionExplicit } from "../structures/io-ts/IoTsObjectUnionExplicit";
 import { IoTsObjectUnionImplicit } from "../structures/io-ts/IoTsObjectUnionImplicit";
+import { IoTsUltimateUnion } from "../structures/io-ts/IoTsUltimateUnion";
+import { IoTsUtils } from "../structures/io-ts/IoTsUtils";
 // TYPEBOX TYPES
 import { TypeBoxArrayRecursive } from "../structures/typebox/TypeBoxArrayRecursive";
 import { TypeBoxArrayRecursiveUnionExplicit } from "../structures/typebox/TypeBoxArrayRecursiveUnionExplicit";
@@ -49,125 +56,142 @@ import { ZodObjectUnionExplicit } from "../structures/zod/ZodObjectUnionExplicit
 import { ZodObjectUnionImplicit } from "../structures/zod/ZodObjectUnionImplicit";
 import { ZodUltimateUnion } from "../structures/zod/ZodUltimateUnion";
 
-const valiadate = () => [
-    ValidateBenchmarker.prepare(
+/* -----------------------------------------------------------
+    PREPARE ASSETS
+----------------------------------------------------------- */
+const validateTypeBox =
+    <S extends TSchema>(program: TypeCheck<S>) =>
+    <T>(input: T) =>
+        [...program.Errors(input)];
+const validateIoTs =
+    <S extends t.Mixed>(type: S) =>
+    <T>(input: T) =>
+        IoTsUtils.getPaths(type.decode(input));
+const validateZod =
+    <S extends z.ZodTypeAny>(type: S) =>
+    <T>(input: T) => {
+        const res = type.safeParse(input);
+        if (res.success) return [];
+        return res.error.errors;
+    };
+const validateClassValidator =
+    <S extends object>(schema: ClassConstructor<S>) =>
+    <T>(input: T) =>
+        cv.validateSync(tr.plainToInstance(schema, input));
+
+const prepare = ValidateBenchmarker.prepare([
+    "typescript-json",
+    "typebox",
+    "io-ts",
+    "zod",
+    "class-validator",
+]);
+
+/* -----------------------------------------------------------
+    DO BENCHMARK
+----------------------------------------------------------- */
+const validate = () => [
+    prepare(
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
-            "io-ts": (input) => IoTsObjectHierarchical.decode(input),
-            "class-validator": (input) => {
-                const cla = tr.plainToInstance(CvObjectHierarchical, input);
-                return cv.validateSync(cla);
-            },
-            zod: (input) => ZodObjectHierarchical.safeParse(input),
-            typebox: (input) => [...TypeBoxObjectHierarchical.Errors(input)],
+            "typescript-json": TSON.createValidate<ObjectHierarchical>(),
+            typebox: validateTypeBox(TypeBoxObjectHierarchical),
+            "io-ts": validateIoTs(IoTsObjectHierarchical),
+            zod: validateZod(ZodObjectHierarchical),
+            "class-validator": validateClassValidator(CvObjectHierarchical),
         },
+        ObjectHierarchical.SPOILERS,
     ),
-    ValidateBenchmarker.prepare(
+    prepare(
         "object (recursive)",
         () => ObjectRecursive.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
-            "io-ts": (input) => IoTsObjectRecursive.decode(input),
-            "class-validator": (input) => {
-                const cla = tr.plainToInstance(CvObjectRecursive, input);
-                return cv.validateSync(cla);
-            },
-            zod: (input) => ZodObjectRecursive.safeParse(input),
-            typebox: (input) => [...TypeBoxObjectRecursive.Errors(input)],
+            "typescript-json": TSON.createValidate<ObjectRecursive>(),
+            typebox: validateTypeBox(TypeBoxObjectRecursive),
+            "io-ts": validateIoTs(IoTsObjectRecursive),
+            zod: validateZod(ZodObjectRecursive),
+            "class-validator": validateClassValidator(CvObjectRecursive),
         },
+        ObjectRecursive.SPOILERS,
     ),
-    ValidateBenchmarker.prepare(
+    prepare(
         "object (union, explicit)",
         () => ObjectUnionExplicit.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
-            "io-ts": (input) => IoTsObjectUnionExplicit.decode(input),
-            "class-validator": (input) => {
-                const classes = input.map((elem) =>
-                    tr.plainToClass(CvObjectUnionExplicit, elem),
-                );
-                return classes.map((clas) => cv.validateSync(clas));
-            },
-            zod: (input) => ZodObjectUnionExplicit.safeParse(input),
-            typebox: (input) => [...TypeBoxObjectUnionExplicit.Errors(input)],
+            "typescript-json": TSON.createValidate<ObjectUnionExplicit>(),
+            typebox: validateTypeBox(TypeBoxObjectUnionExplicit),
+            "io-ts": validateIoTs(IoTsObjectUnionExplicit),
+            zod: validateZod(ZodObjectUnionExplicit),
+            "class-validator": validateClassValidator(CvObjectUnionExplicit),
         },
+        ObjectUnionExplicit.SPOILERS,
     ),
-    ValidateBenchmarker.prepare(
+    prepare(
         "object (union, implicit)",
         () => ObjectUnionImplicit.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
-            "io-ts": null,
-            "class-validator": (input) => {
-                const classes = input.map((elem) =>
-                    tr.plainToClass(CvObjectUnionImplicit, elem),
-                );
-                return classes.map((clas) => cv.validateSync(clas));
-            },
-            zod: (input) => ZodObjectUnionImplicit.safeParse(input),
-            typebox: null,
+            "typescript-json": TSON.createValidate<ObjectUnionImplicit>(),
+            typebox: validateTypeBox(TypeBoxObjectUnionImplicit),
+            "io-ts": validateIoTs(IoTsObjectUnionImplicit),
+            zod: validateZod(ZodObjectUnionImplicit),
+            "class-validator": validateClassValidator(CvObjectUnionImplicit),
         },
+        ObjectUnionImplicit.SPOILERS,
     ),
-    ValidateBenchmarker.prepare(
+    prepare(
         "array (recursive)",
         () => ArrayRecursive.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
-            "io-ts": (input) => IoTsArrayRecursive.decode(input),
-            "class-validator": (input) => {
-                const cla = tr.plainToInstance(CvArrayRecursive, input);
-                return cv.validateSync(cla);
-            },
-            zod: (input) => ZodArrayRecursive.safeParse(input),
-            typebox: (input) => [...TypeBoxArrayRecursive.Errors(input)],
+            "typescript-json": TSON.createValidate<ArrayRecursive>(),
+            typebox: validateTypeBox(TypeBoxArrayRecursive),
+            "io-ts": validateIoTs(IoTsArrayRecursive),
+            zod: validateZod(ZodArrayRecursive),
+            "class-validator": validateClassValidator(CvArrayRecursive),
         },
+        ArrayRecursive.SPOILERS,
     ),
-    ValidateBenchmarker.prepare(
+    prepare(
         "array (union, explicit)",
         () => ArrayRecursiveUnionExplicit.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
-            "io-ts": (input) => IoTsArrayRecursiveUnionExplicit.decode(input),
-            "class-validator": (input) => {
-                const classes = input.map((elem) =>
-                    tr.plainToClass(CvArrayRecursiveUnionExplicit, elem),
-                );
-                return classes.map((clas) => cv.validateSync(clas));
-            },
-            zod: (input) => ZodArrayRecursiveUnionExplicit.safeParse(input),
-            typebox: (input) => [
-                ...TypeBoxArrayRecursiveUnionExplicit.Errors(input),
-            ],
+            "typescript-json":
+                TSON.createValidate<ArrayRecursiveUnionExplicit>(),
+            typebox: validateTypeBox(TypeBoxArrayRecursiveUnionExplicit),
+            "io-ts": validateIoTs(IoTsArrayRecursiveUnionExplicit),
+            zod: validateZod(ZodArrayRecursiveUnionExplicit),
+            "class-validator": validateClassValidator(
+                CvArrayRecursiveUnionExplicit,
+            ),
         },
+        ArrayRecursiveUnionExplicit.SPOILERS,
     ),
-    ValidateBenchmarker.prepare(
+    prepare(
         "array (union, implicit)",
         () => ArrayRecursiveUnionImplicit.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
-            "io-ts": null,
-            "class-validator": (input) => {
-                const classes = input.map((elem) =>
-                    tr.plainToClass(CvArrayRecursiveUnionImplicit, elem),
-                );
-                return classes.map((clas) => cv.validateSync(clas));
-            },
-            zod: (input) => ZodArrayRecursiveUnionImplicit.safeParse(input),
-            typebox: null,
+            "typescript-json":
+                TSON.createValidate<ArrayRecursiveUnionImplicit>(),
+            typebox: validateTypeBox(TypeBoxArrayRecursiveUnionImplicit),
+            "io-ts": validateIoTs(IoTsArrayRecursiveUnionImplicit),
+            zod: validateZod(ZodArrayRecursiveUnionImplicit),
+            "class-validator": validateClassValidator(
+                CvArrayRecursiveUnionImplicit,
+            ),
         },
+        ArrayRecursiveUnionImplicit.SPOILERS,
     ),
-    ValidateBenchmarker.prepare(
+    prepare(
         "ultimate union",
         () => UltimateUnion.generate(),
         {
-            "typescript-json": (input) => TSON.validate(input),
-            "io-ts": null,
+            "typescript-json": TSON.createValidate<UltimateUnion>(),
+            typebox: validateTypeBox(TypeBoxUltimateUnion),
+            "io-ts": validateIoTs(IoTsUltimateUnion),
+            zod: validateZod(ZodUltimateUnion),
             "class-validator": null,
-            zod: (input) => ZodUltimateUnion.safeParse(input),
-            typebox: null,
         },
+        UltimateUnion.SPOILERS,
     ),
 ];
-export { valiadate as benchmark_validate };
+export { validate as benchmark_validate };
