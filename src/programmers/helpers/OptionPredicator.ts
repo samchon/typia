@@ -1,6 +1,6 @@
 import { ITransformOptions } from "../../transformers/ITransformOptions";
 
-export namespace OptionPreditor {
+export namespace OptionPredicator {
     export function functional(options: ITransformOptions): boolean {
         return options.functional === undefined || options.functional === true;
     }

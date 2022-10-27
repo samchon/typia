@@ -14,7 +14,7 @@ import { IProject } from "../transformers/IProject";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
-import { OptionPreditor } from "./helpers/OptionPredicator";
+import { OptionPredicator } from "./helpers/OptionPredicator";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 import { check_array } from "./internal/check_array";
 import { check_number } from "./internal/check_number";
@@ -211,7 +211,7 @@ export namespace CheckerProgrammer {
             // FUNCTIONAL
             if (
                 meta.functional === true &&
-                (OptionPreditor.functional(project.options) ||
+                (OptionPredicator.functional(project.options) ||
                     meta.size() !== 1)
             )
                 add(

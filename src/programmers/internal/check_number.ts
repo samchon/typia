@@ -4,7 +4,7 @@ import { IMetadataTag } from "../../metadata/IMetadataTag";
 
 import { IProject } from "../../transformers/IProject";
 
-import { OptionPreditor } from "../helpers/OptionPredicator";
+import { OptionPredicator } from "../helpers/OptionPredicator";
 
 /**
  * @internal
@@ -151,7 +151,7 @@ export function check_number(project: IProject, numeric: boolean) {
 
         if (
             numeric &&
-            OptionPreditor.numeric(project.options, "checker") === false
+            OptionPredicator.numeric(project.options, "checker") === false
         ) {
             if (finite === false)
                 conditions.push(
