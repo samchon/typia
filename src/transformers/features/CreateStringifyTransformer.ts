@@ -26,6 +26,6 @@ export namespace CreateStringifyTransformer {
 }
 
 const enum ErrorMessages {
-    NOT_SPECIFIED = "Error on TSON.strigify(): generic argument is not specified.",
+    NOT_SPECIFIED = "Error on TSON.stringify(): generic argument is not specified.",
     GENERIC_ARGUMENT = "Error on TSON.stringify(): non-specified generic argument.",
 }
