@@ -527,7 +527,7 @@ export namespace validateEquals {
  *
  * Also, `TSON.application()` has additional generic arguments, *Purpose*.
  * As JSON schema definitions used by `swagger` and `ajv` are different a little bit,
- * you should configure the *Purpose* apprpriately.
+ * you should configure the *Purpose* appropriately.
  *
  * For an example, `ajv` has an extra property "$recursiveRef" that are not exists
  * in the standard JSON schema definition spec. Otherwise, `swagger` can't identify
@@ -551,7 +551,7 @@ export function application(): never;
  *
  * Also, `TSON.application()` has additional generic arguments, *Purpose*.
  * As JSON schema definitions used by `swagger` and `ajv` are different a little bit,
- * you should configure the *Purpose* apprpriately.
+ * you should configure the *Purpose* appropriately.
  *
  * For an example, `ajv` has an extra property "$recursiveRef" that are not exists
  * in the standard JSON schema definition spec. Otherwise, `swagger` can't identify
@@ -584,7 +584,7 @@ export function application(): never {
  *
  * Converts an input value to a JSON (JavaScript Object Noation) string, about 5x faster
  * than the native `JSON.stringify()` function. The 5x faster principle is because
- * it writes an optmized JSON conversion plan, only for the type `T`.
+ * it writes an optimized JSON conversion plan, only for the type `T`.
  *
  * For reference, this `TSON.stringify()` does not validate the input value type. It
  * just believes that the input value is following the type `T`. Therefore, if you
@@ -632,7 +632,7 @@ export namespace stringify {
  * Notation) string, with type assertion.
  *
  * In such reason, when `input` value is not matched with the type `T`, it throws an
- * {@link TypeGuardError}. Otherwis there's no problem on the `input` value, JSON
+ * {@link TypeGuardError}. Otherwise there's no problem on the `input` value, JSON
  * string would be returned.
  *
  * For reference, with type assertion, it is even 3x times faster than the native
@@ -700,7 +700,7 @@ export namespace assertStringify {
  * (JavaScript Object Notation) string, with type checking.
  *
  * In such reason, when `input` value is not matched with the type `T`, it returns
- * `null` value. Otherwis there's no problem on the `input` value, JSON string would
+ * `null` value. Otherwise there's no problem on the `input` value, JSON string would
  * be returned.
  *
  * For reference, with type checking, it is even 4x times faster than the native
@@ -777,7 +777,7 @@ export namespace isStringify {
 export function createAssertType(): never;
 
 /**
- * Creates a resuable {@link assertType} function.
+ * Creates a reusable {@link assertType} function.
  *
  * @template T Type of the input value
  * @returns A reusable `assertType` function
