@@ -392,7 +392,7 @@ export interface TagExample {
     range: number;
 
     /**
-     * Step tag requires minmum or exclusiveMinimum tag.
+     * Step tag requires minimum or exclusiveMinimum tag.
      * 
      * 3, 13, 23, 33, ...
      * 
