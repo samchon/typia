@@ -527,7 +527,7 @@ export namespace validateEquals {
  *
  * Also, `TSON.application()` has additional generic arguments, *Purpose*.
  * As JSON schema definitions used by `swagger` and `ajv` are different a little bit,
- * you should configure the *Purpose* apprpriately.
+ * you should configure the *Purpose* appropriately.
  *
  * For an example, `ajv` has an extra property "$recursiveRef" that are not exists
  * in the standard JSON schema definition spec. Otherwise, `swagger` can't identify
@@ -551,7 +551,7 @@ export function application(): never;
  *
  * Also, `TSON.application()` has additional generic arguments, *Purpose*.
  * As JSON schema definitions used by `swagger` and `ajv` are different a little bit,
- * you should configure the *Purpose* apprpriately.
+ * you should configure the *Purpose* appropriately.
  *
  * For an example, `ajv` has an extra property "$recursiveRef" that are not exists
  * in the standard JSON schema definition spec. Otherwise, `swagger` can't identify
