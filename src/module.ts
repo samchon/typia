@@ -777,7 +777,7 @@ export namespace isStringify {
 export function createAssertType(): never;
 
 /**
- * Creates a resuable {@link assertType} function.
+ * Creates a reusable {@link assertType} function.
  *
  * @template T Type of the input value
  * @returns A reusable `assertType` function
