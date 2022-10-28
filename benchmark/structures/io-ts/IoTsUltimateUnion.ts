@@ -4,17 +4,19 @@ import { IJsonApplication } from "../../../src/schemas/IJsonApplication";
 import { IJsonComponents } from "../../../src/schemas/IJsonComponents";
 import { IJsonSchema } from "../../../src/schemas/IJsonSchema";
 
-const Schema: t.Type<IJsonSchema> = t.recursion("Schema", () =>
-    t.union([
-        Atomic,
-        Constant,
-        Array,
-        Tuple,
-        Reference,
-        RecursiveReference,
-        OneOf,
-        Unknown,
-    ]),
+const Schema: t.Type<IJsonSchema> = t.recursion(
+    "Schema",
+    () =>
+        t.union([
+            Atomic,
+            Constant,
+            Array,
+            Tuple,
+            Reference,
+            RecursiveReference,
+            OneOf,
+            Unknown,
+        ]) as any,
 );
 
 const Unknown = t.type({});

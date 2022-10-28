@@ -28,127 +28,89 @@ const Attribute = {
     ),
 };
 
-const Unknown = Type.Object(
-    {
-        ...Attribute,
-    },
-    { additionalProperties: false },
-);
-const NullOnly = Type.Object(
-    {
-        type: Type.Literal("null"),
-        ...Attribute,
-    },
-    { additionalProperties: false },
-);
+const Unknown = Type.Object({
+    ...Attribute,
+});
+const NullOnly = Type.Object({
+    type: Type.Literal("null"),
+    ...Attribute,
+});
 
 const Atomic = (literal: string, type: () => any) => {
-    return Type.Object(
-        {
-            type: Type.Literal(literal),
-            nullable: Type.Boolean(),
-            default: Type.Optional(type()),
-            ...Attribute,
-        },
-        { additionalProperties: false },
-    );
+    return Type.Object({
+        type: Type.Literal(literal),
+        nullable: Type.Boolean(),
+        default: Type.Optional(type()),
+        ...Attribute,
+    });
 };
 
 const Constant = (literal: string, type: () => any) =>
-    Type.Intersect(
-        [
-            Atomic(literal, type),
-            Type.Object({
-                enum: Type.Array(type()),
-            }),
-        ],
-        { additionalProperties: false },
-    );
+    Type.Intersect([
+        Atomic(literal, type),
+        Type.Object({
+            enum: Type.Array(type()),
+        }),
+    ]);
 
 const Array = <T extends TSchema>(schema: T) =>
-    Type.Object(
-        {
-            type: Type.Literal("array"),
-            items: schema,
-            nullable: Type.Boolean(),
-            ...Attribute,
-        },
-        { additionalProperties: false },
-    );
+    Type.Object({
+        type: Type.Literal("array"),
+        items: schema,
+        nullable: Type.Boolean(),
+        ...Attribute,
+    });
 
 const Tuple = <T extends TSchema>(schema: T) =>
-    Type.Object(
-        {
-            type: Type.Literal("array"),
-            items: Type.Array(schema),
-            nullable: Type.Boolean(),
-            ...Attribute,
-        },
-        { additionalProperties: false },
-    );
-
-const Reference = Type.Object(
-    {
-        $ref: Type.String(),
+    Type.Object({
+        type: Type.Literal("array"),
+        items: Type.Array(schema),
+        nullable: Type.Boolean(),
         ...Attribute,
-    },
-    { additionalProperties: false },
-);
+    });
 
-const RecursiveReference = Type.Object(
-    {
-        $recursiveRef: Type.String(),
-        ...Attribute,
-    },
-    { additionalProperties: false },
-);
+const Reference = Type.Object({
+    $ref: Type.String(),
+    ...Attribute,
+});
+
+const RecursiveReference = Type.Object({
+    $recursiveRef: Type.String(),
+    ...Attribute,
+});
 
 const OneOf = <T extends TSchema>(schema: T) =>
-    Type.Object(
-        {
-            oneOf: Type.Array(schema),
-            ...Attribute,
-        },
-        { additionalProperties: false },
-    );
+    Type.Object({
+        oneOf: Type.Array(schema),
+        ...Attribute,
+    });
 
 const ObjectDef = <T extends TSchema>(schema: T) =>
-    Type.Object(
-        {
-            $id: Type.Optional(Type.String()),
-            type: Type.Literal("object"),
-            nullable: Type.Boolean(),
-            properties: Type.Record(Type.String(), schema),
-            patternProperties: Type.Optional(
-                Type.Record(Type.String(), schema),
-            ),
-            additionalProperties: Type.Optional(schema),
-            required: Type.Optional(Type.Array(Type.String())),
-            description: Type.Optional(Type.String()),
-            "x-tson_jsDocTags": Type.Optional(Type.Array(Type.Any())),
-            $recursiveAnchor: Type.Optional(Type.Boolean()),
-        },
-        { additionalProperties: false },
-    );
+    Type.Object({
+        $id: Type.Optional(Type.String()),
+        type: Type.Literal("object"),
+        nullable: Type.Boolean(),
+        properties: Type.Record(Type.String(), schema),
+        patternProperties: Type.Optional(Type.Record(Type.String(), schema)),
+        additionalProperties: Type.Optional(schema),
+        required: Type.Optional(Type.Array(Type.String())),
+        description: Type.Optional(Type.String()),
+        "x-tson_jsDocTags": Type.Optional(Type.Array(Type.Any())),
+        $recursiveAnchor: Type.Optional(Type.Boolean()),
+    });
 
 const Components = <T extends TSchema>(schema: T) =>
-    Type.Object(
-        {
-            schemas: Type.Record(Type.String(), ObjectDef(schema)),
-        },
-        { additionalProperties: false },
-    );
+    Type.Object({
+        schemas: Type.Record(Type.String(), ObjectDef(schema)),
+    });
 
 const Application = <T extends TSchema>(schema: T) =>
-    Type.Object(
-        {
-            schemas: Type.Array(schema),
-            components: Components(schema),
-            purpose: Type.Union([Type.Literal("swagger"), Type.Literal("ajv")]),
-            prefix: Type.String(),
-        },
-        { additionalProperties: false },
-    );
+    Type.Object({
+        schemas: Type.Array(schema),
+        components: Components(schema),
+        purpose: Type.Union([Type.Literal("swagger"), Type.Literal("ajv")]),
+        prefix: Type.String(),
+    });
 
 const Schema = Type.Recursive((schema) =>
     Type.Union([
