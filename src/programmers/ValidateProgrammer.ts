@@ -80,21 +80,27 @@ const combine: (
             ? `path + ${explore.postfix}`
             : "path";
         return (logic) => (input, expressions, expected) =>
-            ts.factory.createCallExpression(
-                ts.factory.createIdentifier("$pred"),
-                [],
-                [
-                    combiner(explore)(logic)(input, expressions, expected),
-                    explore.source === "top"
-                        ? ts.factory.createTrue()
-                        : ts.factory.createIdentifier("exceptionable"),
-                    create_report_function(
-                        ts.factory.createIdentifier(path),
-                        expected,
-                        input,
-                    ),
-                ],
-            );
+            expressions.length === 0 && ts.isCallExpression(expressions[0]!)
+                ? expressions[0]
+                : ts.factory.createCallExpression(
+                      ts.factory.createIdentifier("$pred"),
+                      [],
+                      [
+                          combiner(explore)(logic)(
+                              input,
+                              expressions,
+                              expected,
+                          ),
+                          explore.source === "top"
+                              ? ts.factory.createTrue()
+                              : ts.factory.createIdentifier("exceptionable"),
+                          create_report_function(
+                              ts.factory.createIdentifier(path),
+                              expected,
+                              input,
+                          ),
+                      ],
+                  );
     };
 
 const validate_object = (equals: boolean) => (importer: FunctionImporter) =>

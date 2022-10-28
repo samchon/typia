@@ -195,7 +195,11 @@ export namespace CheckerProgrammer {
             const checkOptional: boolean = meta.empty() || meta.isUnionBucket();
 
             // NULLABLE
-            if (checkOptional || meta.nullable || meta.objects.length)
+            if (
+                checkOptional ||
+                meta.nullable
+                // || (meta.objects.length && meta.size() !== meta.objects.length)
+            )
                 (meta.nullable ? add : create_add(top)(input))(
                     meta.nullable,
                     ValueFactory.NULL(),
