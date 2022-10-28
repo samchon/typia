@@ -68,21 +68,29 @@ const combine =
                 ? `path + ${explore.postfix}`
                 : "path";
             return (logic) => (input, expressions, expected) =>
-                ts.factory.createCallExpression(
-                    importer.use("predicate"),
-                    [],
-                    [
-                        combiner(explore)(logic)(input, expressions, expected),
-                        explore.source === "top"
-                            ? ts.factory.createTrue()
-                            : ts.factory.createIdentifier("exceptionable"),
-                        create_throw_function(
-                            ts.factory.createIdentifier(path),
-                            expected,
-                            input,
-                        ),
-                    ],
-                );
+                expressions.length === 0 && ts.isCallExpression(expressions[0]!)
+                    ? expressions[0]
+                    : ts.factory.createCallExpression(
+                          importer.use("predicate"),
+                          [],
+                          [
+                              combiner(explore)(logic)(
+                                  input,
+                                  expressions,
+                                  expected,
+                              ),
+                              explore.source === "top"
+                                  ? ts.factory.createTrue()
+                                  : ts.factory.createIdentifier(
+                                        "exceptionable",
+                                    ),
+                              create_throw_function(
+                                  ts.factory.createIdentifier(path),
+                                  expected,
+                                  input,
+                              ),
+                          ],
+                      );
         };
     };
 
