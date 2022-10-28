@@ -584,7 +584,7 @@ export function application(): never {
  *
  * Converts an input value to a JSON (JavaScript Object Noation) string, about 5x faster
  * than the native `JSON.stringify()` function. The 5x faster principle is because
- * it writes an optmized JSON conversion plan, only for the type `T`.
+ * it writes an optimized JSON conversion plan, only for the type `T`.
  *
  * For reference, this `TSON.stringify()` does not validate the input value type. It
  * just believes that the input value is following the type `T`. Therefore, if you
