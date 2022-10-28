@@ -12,7 +12,7 @@ export namespace ClassNonPublic {
         ) {}
         public static readonly CONSTANT: string = "some constant value";
 
-        public getHiden(): boolean {
+        public getHidden(): boolean {
             return this.hidden;
         }
     }
