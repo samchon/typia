@@ -632,7 +632,7 @@ export namespace stringify {
  * Notation) string, with type assertion.
  *
  * In such reason, when `input` value is not matched with the type `T`, it throws an
- * {@link TypeGuardError}. Otherwis there's no problem on the `input` value, JSON
+ * {@link TypeGuardError}. Otherwise there's no problem on the `input` value, JSON
  * string would be returned.
  *
  * For reference, with type assertion, it is even 3x times faster than the native
@@ -700,7 +700,7 @@ export namespace assertStringify {
  * (JavaScript Object Notation) string, with type checking.
  *
  * In such reason, when `input` value is not matched with the type `T`, it returns
- * `null` value. Otherwis there's no problem on the `input` value, JSON string would
+ * `null` value. Otherwise there's no problem on the `input` value, JSON string would
  * be returned.
  *
  * For reference, with type checking, it is even 4x times faster than the native
