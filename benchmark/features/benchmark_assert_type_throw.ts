@@ -17,7 +17,7 @@ import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
 // BENCHMARK PROGRAM
-import { AssertBenchmarker } from "../internal/AssertBenchmarker";
+import { AssertThrowBenchmarker } from "../internal/AssertThrowBenchmarker";
 // CLASS-VALIDATOR
 import { CvArrayRecursive } from "../structures/class-validator/CvArrayRecursive";
 import { CvArrayRecursiveUnionExplicit } from "../structures/class-validator/CvArrayRecursiveUnionExplicit";
@@ -99,7 +99,7 @@ const assertClassValidator =
         return input;
     };
 
-const prepare = AssertBenchmarker.prepare([
+const prepare = AssertThrowBenchmarker.prepare([
     "typescript-json",
     "typebox",
     "io-ts",
@@ -110,7 +110,7 @@ const prepare = AssertBenchmarker.prepare([
 /* -----------------------------------------------------------
     DO BENCHMARK
 ----------------------------------------------------------- */
-const assertType = () => [
+const assertType_po_throw_pc = () => [
     prepare(
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
@@ -122,6 +122,7 @@ const assertType = () => [
             zod: assertZod(ZodObjectHierarchical),
             typebox: assertTypeBox(__TypeBoxObjectHierarchical),
         },
+        ObjectHierarchical.SPOILERS,
     ),
     prepare(
         "object (recursive)",
@@ -134,6 +135,7 @@ const assertType = () => [
             zod: assertZod(ZodObjectUnionImplicit),
             typebox: assertTypeBox(__TypeBoxObjectUnionImplicit),
         },
+        ObjectUnionImplicit.SPOILERS,
     ),
     prepare(
         "object (union, explicit)",
@@ -146,6 +148,7 @@ const assertType = () => [
             zod: assertZod(ZodObjectUnionExplicit),
             typebox: assertTypeBox(__TypeBoxObjectUnionExplicit),
         },
+        ObjectUnionExplicit.SPOILERS,
     ),
     prepare(
         "object (union, implicit)",
@@ -158,6 +161,7 @@ const assertType = () => [
             zod: assertZod(ZodObjectUnionImplicit),
             typebox: assertTypeBox(__TypeBoxObjectUnionImplicit),
         },
+        ObjectUnionImplicit.SPOILERS,
     ),
     prepare(
         "array (recursive)",
@@ -170,6 +174,7 @@ const assertType = () => [
             zod: assertZod(ZodArrayRecursive),
             typebox: assertTypeBox(__TypeBoxArrayRecursive),
         },
+        ArrayRecursive.SPOILERS,
     ),
     prepare(
         "array (union, explicit)",
@@ -185,6 +190,7 @@ const assertType = () => [
             zod: assertZod(ZodArrayRecursiveUnionExplicit),
             typebox: assertTypeBox(__TypeBoxArrayRecursiveUnionExplicit),
         },
+        ArrayRecursiveUnionExplicit.SPOILERS,
     ),
     prepare(
         "array (union, implicit)",
@@ -200,6 +206,7 @@ const assertType = () => [
             zod: assertZod(ZodArrayRecursiveUnionImplicit),
             typebox: assertTypeBox(__TypeBoxArrayRecursiveUnionImplicit),
         },
+        ArrayRecursiveUnionImplicit.SPOILERS,
     ),
     prepare(
         "ultimate union",
@@ -212,6 +219,7 @@ const assertType = () => [
             zod: assertZod(ZodUltimateUnion),
             typebox: assertTypeBox(__TypeBoxUltimateUnion),
         },
+        UltimateUnion.SPOILERS,
     ),
 ];
-export { assertType as benchmark_assert };
+export { assertType_po_throw_pc as benchmark_assert_type_throw };

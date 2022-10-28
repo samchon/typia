@@ -18,16 +18,7 @@ import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
 // BENCHMARK PROGRAM
-import { IsBenchmarker } from "../internal/IsBenchmarker";
-// AJV TYPES
-import { AjvArrayRecursive } from "../structures/ajv/AjvArrayRecursive";
-import { AjvArrayRecursiveUnionExplicit } from "../structures/ajv/AjvArrayRecursiveUnionExplicit";
-import { AjvArrayRecursiveUnionImplicit } from "../structures/ajv/AjvArrayRecursiveUnionImplicit";
-import { AjvObjectHierarchical } from "../structures/ajv/AjvObjectHierarchical";
-import { AjvObjectRecursive } from "../structures/ajv/AjvObjectRecursive";
-import { AjvObjectUnionExplicit } from "../structures/ajv/AjvObjectUnionExplicit";
-import { AjvObjectUnionImplicit } from "../structures/ajv/AjvObjectUnionImplicit";
-import { AjvUltimateUnion } from "../structures/ajv/AjvUltimateUnion";
+import { AssertIterateBenchmarker } from "../internal/AssertIterateBenchmarker";
 // CLASS-VALIDATOR
 import { CvArrayRecursive } from "../structures/class-validator/CvArrayRecursive";
 import { CvArrayRecursiveUnionExplicit } from "../structures/class-validator/CvArrayRecursiveUnionExplicit";
@@ -45,6 +36,7 @@ import { IoTsObjectRecursive } from "../structures/io-ts/IoTsObjectRecursive";
 import { IoTsObjectUnionExplicit } from "../structures/io-ts/IoTsObjectUnionExplicit";
 import { IoTsObjectUnionImplicit } from "../structures/io-ts/IoTsObjectUnionImplicit";
 import { IoTsUltimateUnion } from "../structures/io-ts/IoTsUltimateUnion";
+import { IoTsUtils } from "../structures/io-ts/IoTsUtils";
 // TYPEBOX TYPES
 import { TypeBoxArrayRecursive } from "../structures/typebox/TypeBoxArrayRecursive";
 import { TypeBoxArrayRecursiveUnionExplicit } from "../structures/typebox/TypeBoxArrayRecursiveUnionExplicit";
@@ -67,33 +59,50 @@ import { ZodUltimateUnion } from "../structures/zod/ZodUltimateUnion";
 /* -----------------------------------------------------------
     PREPARE ASSETS
 ----------------------------------------------------------- */
-const isTypeBox =
+class CustomError extends Error {
+    public constructor(public readonly instance: object) {
+        super();
+
+        const proto = new.target.prototype;
+        if (Object.setPrototypeOf) Object.setPrototypeOf(this, proto);
+        else (this as any).__proto__ = proto;
+    }
+}
+
+const assertTypeBox =
     <S extends TSchema>(program: TypeCheck<S>) =>
-    <T>(input: T) =>
-        program.Check(input);
-const isAjv =
-    <T>(program: { Check: (input: T) => boolean }) =>
-    (input: T) =>
-        program.Check(input);
-const isIoTs =
+    <T>(input: T) => {
+        const value = program.Errors(input).next().value;
+        if (value) throw new CustomError(value);
+        return input;
+    };
+const assertIoTs =
     <S extends t.Mixed>(type: S) =>
-    <T>(input: T) =>
-        type.is(input);
-const isZod =
+    <T>(input: T) => {
+        const validation = type.decode(input);
+        const paths: string[] = IoTsUtils.getPaths(validation);
+
+        if (paths.length) throw new CustomError(paths);
+        return input;
+    };
+const assertZod =
     <S extends z.ZodTypeAny>(type: S) =>
-    <T>(input: T) =>
-        type.safeParse(input).success;
-const isClassValidator =
+    <T>(input: T) => {
+        const res = type.safeParse(input);
+        if (res.success) return input;
+        throw new CustomError(res.error);
+    };
+const assertClassValidator =
     <S extends object>(schema: ClassConstructor<S>) =>
     <T>(input: T) => {
-        const cla = tr.plainToInstance(schema, input);
-        return cv.validateSync(cla).length === 0;
+        const result = cv.validateSync(tr.plainToInstance(schema, input));
+        if (result.length) throw new CustomError(result);
+        return input;
     };
 
-const prepare = IsBenchmarker.prepare([
+const prepare = AssertIterateBenchmarker.prepare([
     "typescript-json",
     "typebox",
-    "ajv",
     "io-ts",
     "zod",
     "class-validator",
@@ -102,17 +111,16 @@ const prepare = IsBenchmarker.prepare([
 /* -----------------------------------------------------------
     DO BENCHMARK
 ----------------------------------------------------------- */
-const is = () => [
+const assertType_po_iterate_pc = () => [
     prepare(
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
         {
-            "typescript-json": TSON.createIs<ObjectHierarchical>(),
-            "io-ts": isIoTs(IoTsObjectHierarchical),
-            "class-validator": isClassValidator(CvObjectHierarchical),
-            zod: isZod(ZodObjectHierarchical),
-            typebox: isTypeBox(TypeBoxObjectHierarchical),
-            ajv: isAjv(AjvObjectHierarchical),
+            "typescript-json": TSON.createAssertType<ObjectHierarchical>(),
+            "io-ts": assertIoTs(IoTsObjectHierarchical),
+            "class-validator": assertClassValidator(CvObjectHierarchical),
+            zod: assertZod(ZodObjectHierarchical),
+            typebox: assertTypeBox(TypeBoxObjectHierarchical),
         },
         ObjectHierarchical.SPOILERS,
     ),
@@ -120,12 +128,11 @@ const is = () => [
         "object (recursive)",
         () => ObjectRecursive.generate(),
         {
-            "typescript-json": TSON.createIs<ObjectRecursive>(),
-            "io-ts": isIoTs(IoTsObjectRecursive),
-            "class-validator": isClassValidator(CvObjectRecursive),
-            zod: isZod(ZodObjectRecursive),
-            typebox: isTypeBox(TypeBoxObjectRecursive),
-            ajv: isAjv(AjvObjectRecursive),
+            "typescript-json": TSON.createAssertType<ObjectRecursive>(),
+            "io-ts": assertIoTs(IoTsObjectRecursive),
+            "class-validator": assertClassValidator(CvObjectRecursive),
+            zod: assertZod(ZodObjectRecursive),
+            typebox: assertTypeBox(TypeBoxObjectRecursive),
         },
         ObjectRecursive.SPOILERS,
     ),
@@ -133,12 +140,11 @@ const is = () => [
         "object (union, explicit)",
         () => ObjectUnionExplicit.generate(),
         {
-            "typescript-json": TSON.createIs<ObjectUnionExplicit>(),
-            "io-ts": isIoTs(IoTsObjectUnionExplicit),
-            "class-validator": isClassValidator(CvObjectUnionExplicit),
-            zod: isZod(ZodObjectUnionExplicit),
-            typebox: isTypeBox(TypeBoxObjectUnionExplicit),
-            ajv: isAjv(AjvObjectUnionExplicit),
+            "typescript-json": TSON.createAssertType<ObjectUnionExplicit>(),
+            "io-ts": assertIoTs(IoTsObjectUnionExplicit),
+            "class-validator": assertClassValidator(CvObjectUnionExplicit),
+            zod: assertZod(ZodObjectUnionExplicit),
+            typebox: assertTypeBox(TypeBoxObjectUnionExplicit),
         },
         ObjectUnionExplicit.SPOILERS,
     ),
@@ -146,12 +152,11 @@ const is = () => [
         "object (union, implicit)",
         () => ObjectUnionImplicit.generate(),
         {
-            "typescript-json": TSON.createIs<ObjectUnionImplicit>(),
-            "io-ts": isIoTs(IoTsObjectUnionImplicit),
-            "class-validator": isClassValidator(CvObjectUnionImplicit),
-            zod: isZod(ZodObjectUnionImplicit),
-            typebox: isTypeBox(TypeBoxObjectUnionImplicit),
-            ajv: isAjv(AjvObjectUnionImplicit),
+            "typescript-json": TSON.createAssertType<ObjectUnionImplicit>(),
+            "io-ts": assertIoTs(IoTsObjectUnionImplicit),
+            "class-validator": assertClassValidator(CvObjectUnionImplicit),
+            zod: assertZod(ZodObjectUnionImplicit),
+            typebox: assertTypeBox(TypeBoxObjectUnionImplicit),
         },
         ObjectUnionImplicit.SPOILERS,
     ),
@@ -159,12 +164,11 @@ const is = () => [
         "array (recursive)",
         () => ArrayRecursive.generate(),
         {
-            "typescript-json": TSON.createIs<ArrayRecursive>(),
-            "io-ts": isIoTs(IoTsArrayRecursive),
-            "class-validator": isClassValidator(CvArrayRecursive),
-            zod: isZod(ZodArrayRecursive),
-            typebox: isTypeBox(TypeBoxArrayRecursive),
-            ajv: isAjv(AjvArrayRecursive),
+            "typescript-json": TSON.createAssertType<ArrayRecursive>(),
+            "io-ts": assertIoTs(IoTsArrayRecursive),
+            "class-validator": assertClassValidator(CvArrayRecursive),
+            zod: assertZod(ZodArrayRecursive),
+            typebox: assertTypeBox(TypeBoxArrayRecursive),
         },
         ArrayRecursive.SPOILERS,
     ),
@@ -172,12 +176,14 @@ const is = () => [
         "array (union, explicit)",
         () => ArrayRecursiveUnionExplicit.generate(),
         {
-            "typescript-json": TSON.createIs<ArrayRecursiveUnionExplicit>(),
-            "io-ts": isIoTs(IoTsArrayRecursiveUnionExplicit),
-            "class-validator": isClassValidator(CvArrayRecursiveUnionExplicit),
-            zod: isZod(ZodArrayRecursiveUnionExplicit),
-            typebox: isTypeBox(TypeBoxArrayRecursiveUnionExplicit),
-            ajv: isAjv(AjvArrayRecursiveUnionExplicit),
+            "typescript-json":
+                TSON.createAssertType<ArrayRecursiveUnionExplicit>(),
+            "io-ts": assertIoTs(IoTsArrayRecursiveUnionExplicit),
+            "class-validator": assertClassValidator(
+                CvArrayRecursiveUnionExplicit,
+            ),
+            zod: assertZod(ZodArrayRecursiveUnionExplicit),
+            typebox: assertTypeBox(TypeBoxArrayRecursiveUnionExplicit),
         },
         ArrayRecursiveUnionExplicit.SPOILERS,
     ),
@@ -185,12 +191,14 @@ const is = () => [
         "array (union, implicit)",
         () => ArrayRecursiveUnionImplicit.generate(),
         {
-            "typescript-json": TSON.createIs<ArrayRecursiveUnionImplicit>(),
-            "io-ts": isIoTs(IoTsArrayRecursiveUnionImplicit),
-            "class-validator": isClassValidator(CvArrayRecursiveUnionImplicit),
-            zod: isZod(ZodArrayRecursiveUnionImplicit),
-            typebox: isTypeBox(TypeBoxArrayRecursiveUnionImplicit),
-            ajv: isAjv(AjvArrayRecursiveUnionImplicit),
+            "typescript-json":
+                TSON.createAssertType<ArrayRecursiveUnionImplicit>(),
+            "io-ts": assertIoTs(IoTsArrayRecursiveUnionImplicit),
+            "class-validator": assertClassValidator(
+                CvArrayRecursiveUnionImplicit,
+            ),
+            zod: assertZod(ZodArrayRecursiveUnionImplicit),
+            typebox: assertTypeBox(TypeBoxArrayRecursiveUnionImplicit),
         },
         ArrayRecursiveUnionImplicit.SPOILERS,
     ),
@@ -198,14 +206,13 @@ const is = () => [
         "ultimate union",
         () => UltimateUnion.generate(),
         {
-            "typescript-json": TSON.createIs<UltimateUnion>(),
-            "io-ts": isIoTs(IoTsUltimateUnion),
+            "typescript-json": TSON.createAssertType<UltimateUnion>(),
+            "io-ts": assertIoTs(IoTsUltimateUnion),
             "class-validator": null,
-            zod: isZod(ZodUltimateUnion),
-            typebox: isTypeBox(TypeBoxUltimateUnion),
-            ajv: isAjv(AjvUltimateUnion),
+            zod: assertZod(ZodUltimateUnion),
+            typebox: assertTypeBox(TypeBoxUltimateUnion),
         },
         UltimateUnion.SPOILERS,
     ),
 ];
-export { is as benchmark_is };
+export { assertType_po_iterate_pc as benchmark_assert_type_iterate };
