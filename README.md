@@ -434,7 +434,7 @@ export interface TagExample {
      * Mobile number composed by only numbers.
      * 
      * Note that, `typescript-json` does not support flag of regex,
-     * because JSON schema definition does not suppor it either.
+     * because JSON schema definition does not support it either.
      * Therefore, write regex pattern without `/` characters and flag.
      * 
      * @pattern ^0[0-9]{7,16} 
