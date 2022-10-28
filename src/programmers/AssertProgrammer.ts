@@ -68,7 +68,7 @@ const combine =
                 ? `path + ${explore.postfix}`
                 : "path";
             return (logic) => (input, expressions, expected) =>
-                expressions.length === 0 && ts.isCallExpression(expressions[0]!)
+                expressions.length === 1 && ts.isCallExpression(expressions[0]!)
                     ? expressions[0]
                     : ts.factory.createCallExpression(
                           importer.use("predicate"),
