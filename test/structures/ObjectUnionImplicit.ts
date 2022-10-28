@@ -55,22 +55,6 @@ export namespace ObjectUnionImplicit {
     }
 
     export function generate(): ObjectUnionImplicit {
-        const point = (): IPoint => ({
-            x: RandomGenerator.integer(),
-            y: RandomGenerator.integer(),
-            slope: scalar(),
-            ...{
-                __cache: undefined,
-            },
-        });
-
-        const scalar = (): number | null | undefined =>
-            Math.random() < 1 / 3
-                ? null
-                : Math.random() < 0.5
-                ? RandomGenerator.integer()
-                : undefined;
-
         return [
             {
                 ...point(),
@@ -123,6 +107,20 @@ export namespace ObjectUnionImplicit {
         ];
     }
 
+    export function trail(): ObjectUnionImplicit {
+        const data: ObjectUnionImplicit = ObjectUnionImplicit.generate();
+        data.push({
+            p1: point(),
+            p2: point(),
+            p3: point(),
+            p4: point(),
+            width: scalar(),
+            height: scalar(),
+            area: "wrong" as any,
+        });
+        return data;
+    }
+
     export const SPOILERS: Spoiler<ObjectUnionImplicit>[] = [
         (input) => {
             // point
@@ -161,3 +159,19 @@ export namespace ObjectUnionImplicit {
         },
     ];
 }
+
+const point = (): ObjectUnionImplicit.IPoint => ({
+    x: RandomGenerator.integer(),
+    y: RandomGenerator.integer(),
+    slope: scalar(),
+    ...{
+        __cache: undefined,
+    },
+});
+
+const scalar = (): number | null | undefined =>
+    Math.random() < 1 / 3
+        ? null
+        : Math.random() < 0.5
+        ? RandomGenerator.integer()
+        : undefined;

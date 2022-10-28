@@ -2,13 +2,19 @@ import fs from "fs";
 import os from "os";
 
 import { benchmark_assert } from "./features/benchmark_assert";
+import { benchmark_assert_equals } from "./features/benchmark_assert_equals";
+import { benchmark_equals } from "./features/benchmark_equals";
 import { benchmark_is } from "./features/benchmark_is";
 import { benchmark_optimizer } from "./features/benchmark_optimizer";
 import { benchmark_stringify } from "./features/benchmark_stringify";
 import { benchmark_validate } from "./features/benchmark_validate";
+import { benchmark_validate_equals } from "./features/benchmark_validate_equals";
 import { WriteStream } from "./internal/WriteStream";
 
-type Output = Record<string, number | null> & { name: string };
+interface Output {
+    name: string;
+    result: Record<string, number | null>;
+}
 
 async function get_package_version(): Promise<string> {
     const content: string = await fs.promises.readFile(
@@ -38,9 +44,7 @@ async function measure<T extends Output>(
         // CONSTRUCT LABEL WITH PROPERTIES
         const labeled: boolean = parameters.length !== 0;
         if (labeled === false) {
-            parameters.push(
-                ...Object.keys(output).filter((key) => key !== "name"),
-            );
+            parameters.push(...Object.keys(output.result));
             await stream.write(" Components | " + parameters.join(" | ") + " ");
             await stream.write(
                 "-".repeat(12) +
@@ -57,7 +61,7 @@ async function measure<T extends Output>(
                 output.name +
                     " | " +
                     parameters
-                        .map((key) => output[key] || "Failed")
+                        .map((key) => output.result[key] || "Failed")
                         .join(" | "),
             ].join(" | "),
         );
@@ -69,10 +73,8 @@ async function measure<T extends Output>(
         await stream.write("```mermaid");
         await stream.write(`pie title ${functor.name} - ${output.name}`);
 
-        for (const [key, value] of Object.entries(output)) {
-            if (key === "name") continue;
+        for (const [key, value] of Object.entries(output.result))
             await stream.write(`  "${key}": ${value || 0}`);
-        }
         await stream.write("```");
         await stream.write("\n");
     }
@@ -89,9 +91,12 @@ async function main(): Promise<void> {
 
     const stream = new WriteStream(`${__dirname}/results/${cpu}.md`);
     const functors = [
-        benchmark_is,
         benchmark_assert,
+        benchmark_is,
         benchmark_validate,
+        benchmark_equals,
+        benchmark_assert_equals,
+        benchmark_validate_equals,
         benchmark_optimizer,
         benchmark_stringify,
     ];

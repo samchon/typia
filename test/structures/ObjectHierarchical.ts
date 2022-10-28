@@ -93,6 +93,12 @@ export namespace ObjectHierarchical {
         };
     }
 
+    export function trail(): ObjectHierarchical {
+        const data: ObjectHierarchical = ObjectHierarchical.generate();
+        data.created_at.time = null!;
+        return data;
+    }
+
     const generate_timestamp: () => ITimestamp = () => ({
         time: Date.now(),
         zone: new Date().getTimezoneOffset(),

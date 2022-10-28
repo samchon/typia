@@ -33,10 +33,34 @@ export namespace ObjectRecursive {
         };
     }
 
+    export function trail(): ObjectRecursive {
+        const data: ObjectRecursive = ObjectRecursive.generate();
+        SPOILERS[1](data);
+        return data;
+    }
+
     export const SPOILERS: Spoiler<ObjectRecursive>[] = [
         (input) => {
             input.parent!.parent!.parent!.created_at.time = "zone" as any;
             return ["$input.parent.parent.parent.created_at.time"];
+        },
+        (input) => {
+            const current: { value: ObjectRecursive } = { value: input };
+            const paths: string[] = ["$input.parent"];
+
+            while (current.value.parent !== null) {
+                current.value = current.value.parent;
+                paths.push("parent");
+            }
+            current.value.parent = {} as any;
+            return [
+                "id",
+                "code",
+                "name",
+                "parent",
+                "sequence",
+                "created_at",
+            ].map((key) => `${paths.join(".")}.${key}`);
         },
     ];
 }
