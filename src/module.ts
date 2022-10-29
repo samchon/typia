@@ -59,7 +59,7 @@ export function assertType<T>(input: T): T;
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link is} function instead.
- * Otherwise you want to know all the errors, {@link validate} is the way to go.
+ * Otherwise, you want to know all the errors, {@link validate} is the way to go.
  *
  * On the other and, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link assertEquals} function instead.
@@ -278,7 +278,7 @@ export namespace validate {
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link equals} function instead.
- * Otherwise you want to know all the errors, {@link validateEquals} is the way to go.
+ * Otherwise, you want to know all the errors, {@link validateEquals} is the way to go.
  *
  * On the other hand, if you want to allow superfluous property that is not enrolled
  * to the type `T`, you can use {@link assertType} function instead.
@@ -303,7 +303,7 @@ export function assertEquals<T>(input: T): T;
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link equals} function instead.
- * Otherwise you want to know all the errors, {@link validateEquals} is the way to go.
+ * Otherwise, you want to know all the errors, {@link validateEquals} is the way to go.
  *
  * On the other hand, if you want to allow superfluous property that is not enrolled
  * to the type `T`, you can use {@link assertType} function instead.
@@ -419,7 +419,7 @@ export namespace equals {
 }
 
 /**
- * Validates equaility between a value and itstype.
+ * Validates equality between a value and its type.
  *
  * Validates a parametric value type and archives all the type errors into an
  * {@link IValidation.errors} array, if the parametric value is not following the
@@ -443,7 +443,7 @@ export namespace equals {
 export function validateEquals<T>(input: T): IValidation;
 
 /**
- * Validates equaility between a value and itstype.
+ * Validates equality between a value and its type.
  *
  * Validates a parametric value type and archives all the type errors into an
  * {@link IValidation.errors} array, if the parametric value is not following the
@@ -582,13 +582,13 @@ export function application(): never {
 /**
  * 5x faster `JSON.stringify()` function.
  *
- * Converts an input value to a JSON (JavaScript Object Noation) string, about 5x faster
+ * Converts an input value to a JSON (JavaScript Object Notation) string, about 5x faster
  * than the native `JSON.stringify()` function. The 5x faster principle is because
  * it writes an optimized JSON conversion plan, only for the type `T`.
  *
  * For reference, this `TSON.stringify()` does not validate the input value type. It
  * just believes that the input value is following the type `T`. Therefore, if you
- * can't ensure the input value type, it would better to call {@link assertStringify}
+ * can't ensure the input value type, it would be better to call {@link assertStringify}
  * function instead.
  *
  * @template T Type of the input value
@@ -632,7 +632,7 @@ export namespace stringify {
  * Notation) string, with type assertion.
  *
  * In such reason, when `input` value is not matched with the type `T`, it throws an
- * {@link TypeGuardError}. Otherwise there's no problem on the `input` value, JSON
+ * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, JSON
  * string would be returned.
  *
  * For reference, with type assertion, it is even 3x times faster than the native
@@ -700,7 +700,7 @@ export namespace assertStringify {
  * (JavaScript Object Notation) string, with type checking.
  *
  * In such reason, when `input` value is not matched with the type `T`, it returns
- * `null` value. Otherwise there's no problem on the `input` value, JSON string would
+ * `null` value. Otherwise, there's no problem on the `input` value, JSON string would
  * be returned.
  *
  * For reference, with type checking, it is even 4x times faster than the native
