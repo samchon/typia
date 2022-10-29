@@ -1,3 +1,5 @@
+import { $every } from "./functional/$every";
+import { $guard } from "./functional/$guard";
 import { $is_email } from "./functional/$is_email";
 import { $is_ipv4 } from "./functional/$is_ipv4";
 import { $is_ipv6 } from "./functional/$is_ipv6";
@@ -5,6 +7,7 @@ import { $is_url } from "./functional/$is_url";
 import { $is_uuid } from "./functional/$is_uuid";
 import { $join } from "./functional/$join";
 import { $number } from "./functional/$number";
+import { $report } from "./functional/$report";
 import { $string } from "./functional/$string";
 import { $tail } from "./functional/$tail";
 
@@ -89,20 +92,10 @@ export namespace assertType {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
-    export const join = $join;
 
-    export function predicate(
-        matched: boolean,
-        exceptionable: boolean,
-        closure: () => Omit<TypeGuardError.IProps, "method">,
-    ): boolean {
-        if (matched === false && exceptionable === true)
-            throw new TypeGuardError({
-                method: "TSON.assertType",
-                ...closure(),
-            });
-        return matched;
-    }
+    export const join = $join;
+    export const every = $every;
+    export const guard = $guard("TSON.assertType");
 }
 
 /**
@@ -233,35 +226,9 @@ export namespace validate {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+
     export const join = $join;
-
-    export const predicate =
-        (res: IValidation) =>
-        (
-            matched: boolean,
-            exceptionable: boolean,
-            closure: () => IValidation.IError,
-        ) => {
-            // CHECK FAILURE
-            if (matched === false && exceptionable === true)
-                (() => {
-                    res.success &&= false;
-
-                    // TRACE ERROR
-                    const error = closure();
-                    if (res.errors.length) {
-                        const last = res.errors[res.errors.length - 1]!.path;
-                        if (
-                            last.length >= error.path.length &&
-                            last.substring(0, error.path.length) === error.path
-                        )
-                            return;
-                    }
-                    res.errors.push(error);
-                    return;
-                })();
-            return matched;
-        };
+    export const report = $report;
 }
 
 /* -----------------------------------------------------------
@@ -333,20 +300,10 @@ export namespace assertEquals {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
-    export const join = $join;
 
-    export function predicate(
-        matched: boolean,
-        exceptionable: boolean,
-        closure: () => Omit<TypeGuardError.IProps, "method">,
-    ): boolean {
-        if (matched === false && exceptionable === true)
-            throw new TypeGuardError({
-                method: "TSON.assertEquals",
-                ...closure(),
-            });
-        return matched;
-    }
+    export const join = $join;
+    export const every = $every;
+    export const guard = $guard("TSON.assertEquals");
 }
 
 /**
@@ -484,33 +441,7 @@ export namespace validateEquals {
     export const is_ipv6 = $is_ipv6;
     export const join = $join;
 
-    export const predicate =
-        (res: IValidation) =>
-        (
-            matched: boolean,
-            exceptionable: boolean,
-            closure: () => IValidation.IError,
-        ) => {
-            // CHECK FAILURE
-            if (matched === false && exceptionable === true)
-                (() => {
-                    res.success &&= false;
-
-                    // TRACE ERROR
-                    const error = closure();
-                    if (res.errors.length) {
-                        const last = res.errors[res.errors.length - 1]!.path;
-                        if (
-                            last.length >= error.path.length &&
-                            last.substring(0, error.path.length) === error.path
-                        )
-                            return;
-                    }
-                    res.errors.push(error);
-                    return;
-                })();
-            return matched;
-        };
+    export const report = validate.report;
 }
 
 /* -----------------------------------------------------------
@@ -663,33 +594,15 @@ export namespace assertStringify {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
-    export const join = $join;
 
     export const number = $number;
     export const string = $string;
     export const tail = $tail;
 
-    export function predicate(
-        matched: boolean,
-        exceptionable: boolean,
-        closure: () => Omit<TypeGuardError.IProps, "method">,
-    ): boolean {
-        if (matched === false && exceptionable === true)
-            throw new TypeGuardError({
-                method: "TSON.assertStringify",
-                ...closure(),
-            });
-        return matched;
-    }
-
-    export function throws(
-        props: Pick<TypeGuardError.IProps, "expected" | "value">,
-    ): void {
-        throw new TypeGuardError({
-            ...props,
-            method: "TSON.assertStringify",
-        });
-    }
+    export const join = $join;
+    export const guard = $guard("TSON.assertStringify");
+    export const every = $every;
+    export const throws = () => {};
 }
 
 /**
@@ -735,19 +648,6 @@ export namespace isStringify {
     export const number = $number;
     export const string = $string;
     export const tail = $tail;
-
-    export function predicate(
-        matched: boolean,
-        exceptionable: boolean,
-        closure: () => Omit<TypeGuardError.IProps, "method">,
-    ): boolean {
-        if (matched === false && exceptionable === true)
-            throw new TypeGuardError({
-                method: "TSON.isStringify",
-                ...closure(),
-            });
-        return matched;
-    }
 
     export function throws(
         props: Pick<TypeGuardError.IProps, "expected" | "value">,
@@ -800,8 +700,10 @@ export namespace createAssertType {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+
     export const join = $join;
-    export const predicate = assertType.predicate;
+    export const every = $every;
+    export const guard = assertType.guard;
 }
 
 /**
@@ -873,7 +775,7 @@ export namespace createValidate {
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
     export const join = $join;
-    export const predicate = validate.predicate;
+    export const report = validate.report;
 }
 
 /* -----------------------------------------------------------
@@ -912,8 +814,10 @@ export namespace createAssertEquals {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+
     export const join = $join;
-    export const predicate = assertEquals.predicate;
+    export const every = assertEquals.every;
+    export const guard = assertEquals.guard;
 }
 
 /**
@@ -986,7 +890,7 @@ export namespace createValidateEquals {
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
     export const join = $join;
-    export const predicate = validateEquals.predicate;
+    export const report = validateEquals.report;
 }
 
 /* -----------------------------------------------------------
@@ -1079,13 +983,14 @@ export namespace createAssertStringify {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
-    export const join = $join;
 
     export const number = $number;
     export const string = $string;
     export const tail = $tail;
+    export const join = $join;
 
-    export const predicate = assertStringify.predicate;
+    export const every = assertStringify.every;
+    export const guard = assertStringify.guard;
     export const throws = assertStringify.throws;
 }
 

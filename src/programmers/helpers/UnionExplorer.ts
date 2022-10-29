@@ -8,6 +8,7 @@ import { IMetadataTag } from "../../metadata/IMetadataTag";
 import { Metadata } from "../../metadata/Metadata";
 import { MetadataObject } from "../../metadata/MetadataObject";
 
+import { CheckerProgrammer } from "../CheckerProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { UnionPredicator } from "./UnionPredicator";
 
@@ -24,18 +25,6 @@ export namespace UnionExplorer {
 
     export function object(
         config: FeatureProgrammer.IConfig,
-        checker: (
-            input: ts.Expression,
-            metadata: Metadata,
-            explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
-        ) => ts.Expression,
-        decoder: Decoder<MetadataObject>,
-        combiner: ObjectCombiner,
-        failure: (
-            input: ts.Expression,
-            targets: MetadataObject[],
-        ) => ts.Statement,
         level: number = 0,
     ) {
         return function (
@@ -46,12 +35,21 @@ export namespace UnionExplorer {
         ): ts.Expression {
             // BREAKER
             if (targets.length === 1)
-                return decoder(input, targets[0]!, explore, tags);
+                return config.objector.decoder(
+                    input,
+                    targets[0]!,
+                    explore,
+                    tags,
+                );
+
+            const expected: string = `(${targets
+                .map((t) => t.name)
+                .join(" | ")})`;
 
             // POSSIBLE TO SPECIALIZE?
             const specList = UnionPredicator.object(targets);
-            if (specList.length === 0)
-                return combiner(
+            if (specList.length === 0) {
+                const condition: ts.Expression = config.objector.unionizer(
                     input,
                     targets,
                     {
@@ -60,6 +58,10 @@ export namespace UnionExplorer {
                     },
                     tags,
                 );
+                return config.objector.full
+                    ? config.objector.full(condition)(input, expected, explore)
+                    : condition;
+            }
             const remained: MetadataObject[] = targets.filter(
                 (t) => specList.find((s) => s.object === t) === undefined,
             );
@@ -74,7 +76,7 @@ export namespace UnionExplorer {
                         key,
                     );
                     const pred: ts.Expression = spec.neighbour
-                        ? checker(
+                        ? config.objector.checker(
                               accessor,
                               spec.property.value,
                               {
@@ -84,11 +86,18 @@ export namespace UnionExplorer {
                               },
                               tags,
                           )
-                        : ExpressionFactory.isRequired(accessor);
+                        : (config.objector.required || ((exp) => exp))(
+                              ExpressionFactory.isRequired(accessor),
+                          );
                     return ts.factory.createIfStatement(
-                        pred,
+                        (config.objector.is || ((exp) => exp))(pred),
                         ts.factory.createReturnStatement(
-                            decoder(input, spec.object, explore, tags),
+                            config.objector.decoder(
+                                input,
+                                spec.object,
+                                explore,
+                                tags,
+                            ),
                         ),
                     );
                 });
@@ -106,16 +115,18 @@ export namespace UnionExplorer {
                             ...conditions,
                             remained.length
                                 ? ts.factory.createReturnStatement(
-                                      object(
-                                          config,
-                                          checker,
-                                          decoder,
-                                          combiner,
-                                          failure,
-                                          level + 1,
-                                      )(input, remained, explore, tags),
+                                      object(config, level + 1)(
+                                          input,
+                                          remained,
+                                          explore,
+                                          tags,
+                                      ),
                                   )
-                                : failure(input, targets),
+                                : config.objector.failure(
+                                      input,
+                                      expected,
+                                      explore,
+                                  ),
                         ],
                         true,
                     ),
@@ -134,8 +145,13 @@ export namespace UnionExplorer {
             tags: IMetadataTag[],
         ) => ts.Expression,
         decoder: Decoder<Metadata>,
-        empty: () => ts.Expression,
-        failure: (input: ts.Expression, targets: Metadata[]) => ts.Statement,
+        empty: ts.Expression,
+        success: ts.Expression,
+        failure: (
+            input: ts.Expression,
+            expected: string,
+            explore: CheckerProgrammer.IExplore,
+        ) => ts.Statement,
     ) {
         return function (
             input: ts.Expression,
@@ -210,7 +226,7 @@ export namespace UnionExplorer {
                             undefined,
                             undefined,
                             ts.factory.createStrictEquality(
-                                ts.factory.createTrue(),
+                                success,
                                 ts.factory.createCallExpression(
                                     ts.factory.createIdentifier("tuple[0]"),
                                     undefined,
@@ -260,10 +276,13 @@ export namespace UnionExplorer {
                                 [IdentifierFactory.parameter("value")],
                                 undefined,
                                 undefined,
-                                ts.factory.createCallExpression(
-                                    ts.factory.createIdentifier("tuple[0]"),
-                                    undefined,
-                                    [ts.factory.createIdentifier("value")],
+                                ts.factory.createStrictEquality(
+                                    success,
+                                    ts.factory.createCallExpression(
+                                        ts.factory.createIdentifier("tuple[0]"),
+                                        undefined,
+                                        [ts.factory.createIdentifier("value")],
+                                    ),
                                 ),
                             ),
                         ],
@@ -292,7 +311,7 @@ export namespace UnionExplorer {
                         ts.factory.createNumericLiteral(0),
                         IdentifierFactory.join(input, "length"),
                     ),
-                    ts.factory.createReturnStatement(empty()),
+                    ts.factory.createReturnStatement(empty),
                 ),
                 // VARIABLES
                 tupleListVariable,
@@ -301,7 +320,13 @@ export namespace UnionExplorer {
                 // CONDITIONAL STATEMENTS
                 uniqueStatement,
                 unionStatement,
-                failure(input, targets),
+                failure(
+                    input,
+                    `(${targets
+                        .map((t) => `Array<${t.getName()}>`)
+                        .join(" | ")})`,
+                    explore,
+                ),
             ];
 
             return ts.factory.createCallExpression(
