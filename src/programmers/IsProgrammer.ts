@@ -11,34 +11,57 @@ import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { check_object } from "./internal/check_object";
 
 export namespace IsProgrammer {
-    export function CONFIG(
+    export const CONFIG = (
         options?: Partial<CONFIG.IOptions>,
-    ): CheckerProgrammer.IConfig {
-        return {
-            functors: "$io",
-            unioners: "$iu",
-            trace: false,
-            equals: !!options?.object,
-            numeric: !!options?.numeric,
-            combiner: () => (type: "and" | "or") => {
-                const initial: ts.TrueLiteral | ts.FalseLiteral =
-                    type === "and"
-                        ? ts.factory.createTrue()
-                        : ts.factory.createFalse();
-                const binder =
-                    type === "and"
-                        ? ts.factory.createLogicalAnd
-                        : ts.factory.createLogicalOr;
-                return (_input: ts.Expression, expressions: ts.Expression[]) =>
-                    expressions.length
-                        ? expressions.reduce((x, y) => binder(x, y))
-                        : initial;
-            },
-            joiner: CheckerProgrammer.DEFAULT_JOINER(
-                options?.object || check_object(false)(true)()(),
-            ),
-        };
-    }
+    ): CheckerProgrammer.IConfig => ({
+        functors: "$io",
+        unioners: "$iu",
+        trace: false,
+        path: false,
+        equals: !!options?.object,
+        numeric: !!options?.numeric,
+        combiner: () => (type: "and" | "or") => {
+            const initial: ts.TrueLiteral | ts.FalseLiteral =
+                type === "and"
+                    ? ts.factory.createTrue()
+                    : ts.factory.createFalse();
+            const binder =
+                type === "and"
+                    ? ts.factory.createLogicalAnd
+                    : ts.factory.createLogicalOr;
+            return (
+                _input: ts.Expression,
+                binaries: CheckerProgrammer.IBinary[],
+            ) =>
+                binaries.length
+                    ? binaries
+                          .map((binary) => binary.expression)
+                          .reduce((x, y) => binder(x, y))
+                    : initial;
+        },
+        joiner: {
+            object:
+                options?.object ||
+                check_object({
+                    equals: !!options?.object,
+                    assert: true,
+                    reduce: ts.factory.createLogicalAnd,
+                    positive: ts.factory.createTrue(),
+                    superfluous: () => ts.factory.createFalse(),
+                }),
+            array: (input, arrow) =>
+                ts.factory.createCallExpression(
+                    IdentifierFactory.join(input, "every"),
+                    undefined,
+                    [arrow],
+                ),
+            failure: () => ts.factory.createFalse(),
+            is: (exp) => exp,
+            required: (exp) => exp,
+        },
+        success: ts.factory.createTrue(),
+    });
+
     export namespace CONFIG {
         export interface IOptions {
             numeric: boolean;
@@ -61,13 +84,19 @@ export namespace IsProgrammer {
             project,
             {
                 ...CONFIG({
-                    object: check_object(equals)(true)()(),
+                    object: check_object({
+                        equals,
+                        assert: true,
+                        reduce: ts.factory.createLogicalAnd,
+                        positive: ts.factory.createTrue(),
+                        superfluous: () => ts.factory.createFalse(),
+                    }),
                     numeric: !!project.options.numeric,
                 }),
                 trace: equals,
             },
-            modulo,
             importer,
+            () => importer.declare(modulo),
         );
     }
 

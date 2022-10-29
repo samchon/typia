@@ -36,10 +36,10 @@ export function check_length(
         if (tag.maximum !== undefined)
             conditions.push(
                 (tag.maximum.include
-                    ? ts.factory.createLessThanEquals
-                    : ts.factory.createLessThan)(
-                    length,
+                    ? ts.factory.createGreaterThanEquals
+                    : ts.factory.createGreaterThan)(
                     ts.factory.createNumericLiteral(tag.maximum.value),
+                    length,
                 ),
             );
     }

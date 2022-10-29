@@ -7,7 +7,7 @@ runner.register({
     compiler: "ttypescript",
 });
 
-const program = require("./features/assert/test_assert_ultimate_union.ts");
+const program = require("./features/assert/test_assert_object_alias.ts");
 for (const value of Object.values(program))
     if (typeof value === "function") 
         value();

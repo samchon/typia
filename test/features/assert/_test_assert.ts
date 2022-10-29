@@ -37,8 +37,8 @@ export function _test_assert<T>(
                         continue;
                     else
                         console.log({
-                            input: paths.value,
                             expected: exp.path,
+                            solution: paths.value,
                         });
             }
             throw new Error(

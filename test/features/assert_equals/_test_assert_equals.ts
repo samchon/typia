@@ -60,16 +60,12 @@ export function _test_assert_equals<T>(
                     delete value[key];
                     continue;
                 } else if (exp instanceof TypeGuardError) {
-                    console.log(
-                        exp.method,
-                        [exp.path === fullPath, exp.path, fullPath],
-                        [
-                            exp.expected === "undefined",
-                            exp.expected,
-                            "undefined",
-                        ],
-                        [exp.value === key, exp.value, key],
-                    );
+                    console.log({
+                        method: exp.method,
+                        path: exp.path,
+                        full: fullPath,
+                        expected: exp.expected,
+                    });
                     throw new Error(
                         `Bug on TSON.assertEquals(): failed to detect surplus property on the ${name} type.`,
                     );

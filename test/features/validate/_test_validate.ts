@@ -8,7 +8,9 @@ export function _test_validate<T>(
     spoilers?: Spoiler<T>[],
 ): () => void {
     return () => {
-        if (validator(generator()).success === false) {
+        const valid = validator(generator());
+        if (valid.success === false) {
+            console.log(valid);
             throw new Error(
                 `Bug on TSON.validate(): failed to understand the ${name} type.`,
             );
