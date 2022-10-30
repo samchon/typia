@@ -309,7 +309,7 @@ You can enhance [Runtime Validators](#runtime-validators) and [JSON Schema Gener
 
 Below table shows list of supported comment tags. You can utilize those tags by writing in comments like below example structure `TagExample`. Look at them and utilize those comment tags to make your TypeScript program to be safer and more convenient.
 
-Also, don't worry about taking a mistake on using those comment tags. In that case, compile error would be occured. By the compile level error detection, `typescript-json` is much stronger than any other runtime validator libraries using decorator functions, which can't catch any mistake on the compilation level.
+Also, don't worry about taking a mistake on using those comment tags. In that case, compile error would be occurred. By the compile level error detection, `typescript-json` is much stronger than any other runtime validator libraries using decorator functions, which can't catch any mistake on the compilation level.
 
 Tag Kind | Target Type
 ------------|-----------------
@@ -392,7 +392,7 @@ export interface TagExample {
     range: number;
 
     /**
-     * Step tag requires minmum or exclusiveMinimum tag.
+     * Step tag requires minimum or exclusiveMinimum tag.
      * 
      * 3, 13, 23, 33, ...
      * 
@@ -434,7 +434,7 @@ export interface TagExample {
      * Mobile number composed by only numbers.
      * 
      * Note that, `typescript-json` does not support flag of regex,
-     * because JSON schema definition does not suppor it either.
+     * because JSON schema definition does not support it either.
      * Therefore, write regex pattern without `/` characters and flag.
      * 
      * @pattern ^0[0-9]{7,16} 
