@@ -3,7 +3,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 import { _test_application_swagger } from "./_test_application_swagger";
 
 export const test_application_swagger_array_union = _test_application_swagger(
-    "union arrray",
+    "union array",
     TSON.application<[ArrayUnion], "swagger">(),
     {
         schemas: [

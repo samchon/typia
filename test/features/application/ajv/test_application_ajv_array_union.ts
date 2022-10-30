@@ -3,7 +3,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 import { _test_application_ajv } from "./_test_application_ajv";
 
 export const test_application_ajv_array_union = _test_application_ajv(
-    "union arrray",
+    "union array",
     TSON.application<[ArrayUnion], "ajv">(),
     {
         schemas: [

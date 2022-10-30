@@ -19,7 +19,7 @@ I always welcome your suggestion. When you publishing a suggestion, then please 
 
   - A description of the problem you're trying to solve.
   - An overview of the suggested solution.
-  - Examples of how the suggestion whould work in various places.
+  - Examples of how the suggestion would work in various places.
     - Code examples showing the expected behavior.
 
 
