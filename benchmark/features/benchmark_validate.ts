@@ -14,6 +14,7 @@ import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiv
 import { ArrayRecursiveUnionImplicit } from "../../test/structures/ArrayRecursiveUnionImplicit";
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
+import { ObjectSimple } from "../../test/structures/ObjectSimple";
 import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
@@ -25,6 +26,7 @@ import { CvArrayRecursiveUnionExplicit } from "../structures/class-validator/CvA
 import { CvArrayRecursiveUnionImplicit } from "../structures/class-validator/CvArrayRecursiveUnionImplicit";
 import { CvObjectHierarchical } from "../structures/class-validator/CvObjectHierarchical";
 import { CvObjectRecursive } from "../structures/class-validator/CvObjectRecursive";
+import { CvObjectSimple } from "../structures/class-validator/CvObjectSimple";
 import { CvObjectUnionExplicit } from "../structures/class-validator/CvObjectUnionExplicit";
 import { CvObjectUnionImplicit } from "../structures/class-validator/CvObjectUnionImplicit";
 // IO-TS TYPES
@@ -33,6 +35,7 @@ import { IoTsArrayRecursiveUnionExplicit } from "../structures/io-ts/IoTsArrayRe
 import { IoTsArrayRecursiveUnionImplicit } from "../structures/io-ts/IoTsArrayRecursiveUnionImplicit";
 import { IoTsObjectHierarchical } from "../structures/io-ts/IoTsObjectHierarchical";
 import { IoTsObjectRecursive } from "../structures/io-ts/IoTsObjectRecursive";
+import { IoTsObjectSimple } from "../structures/io-ts/IoTsObjectSimple";
 import { IoTsObjectUnionExplicit } from "../structures/io-ts/IoTsObjectUnionExplicit";
 import { IoTsObjectUnionImplicit } from "../structures/io-ts/IoTsObjectUnionImplicit";
 import { IoTsUltimateUnion } from "../structures/io-ts/IoTsUltimateUnion";
@@ -43,6 +46,7 @@ import { TypeBoxArrayRecursiveUnionExplicit } from "../structures/typebox/TypeBo
 import { TypeBoxArrayRecursiveUnionImplicit } from "../structures/typebox/TypeBoxArrayRecursiveUnionImplicit";
 import { TypeBoxObjectHierarchical } from "../structures/typebox/TypeBoxObjectHierarchical";
 import { TypeBoxObjectRecursive } from "../structures/typebox/TypeBoxObjectRecursive";
+import { TypeBoxObjectSimple } from "../structures/typebox/TypeBoxObjectSimple";
 import { TypeBoxObjectUnionExplicit } from "../structures/typebox/TypeBoxObjectUnionExplicit";
 import { TypeBoxObjectUnionImplicit } from "../structures/typebox/TypeBoxObjectUnionImplicit";
 import { TypeBoxUltimateUnion } from "../structures/typebox/TypeBoxUltimateUnion";
@@ -52,6 +56,7 @@ import { ZodArrayRecursiveUnionExplicit } from "../structures/zod/ZodArrayRecurs
 import { ZodArrayRecursiveUnionImplicit } from "../structures/zod/ZodArrayRecursiveUnionImplicit";
 import { ZodObjectHierarchical } from "../structures/zod/ZodObjectHierarchical";
 import { ZodObjectRecursive } from "../structures/zod/ZodObjectRecursive";
+import { ZodObjectSimple } from "../structures/zod/ZodObjectSimple";
 import { ZodObjectUnionExplicit } from "../structures/zod/ZodObjectUnionExplicit";
 import { ZodObjectUnionImplicit } from "../structures/zod/ZodObjectUnionImplicit";
 import { ZodUltimateUnion } from "../structures/zod/ZodUltimateUnion";
@@ -91,6 +96,18 @@ const prepare = ValidateBenchmarker.prepare([
     DO BENCHMARK
 ----------------------------------------------------------- */
 const validate = () => [
+    prepare(
+        "object (simple)",
+        () => ObjectSimple.generate(),
+        {
+            "typescript-json": TSON.createValidate<ObjectSimple>(),
+            typebox: validateTypeBox(TypeBoxObjectSimple),
+            "io-ts": validateIoTs(IoTsObjectSimple),
+            zod: validateZod(ZodObjectSimple),
+            "class-validator": validateClassValidator(CvObjectSimple),
+        },
+        ObjectSimple.SPOILERS,
+    ),
     prepare(
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
