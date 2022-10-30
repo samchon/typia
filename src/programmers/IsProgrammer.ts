@@ -56,8 +56,6 @@ export namespace IsProgrammer {
                     [arrow],
                 ),
             failure: () => ts.factory.createFalse(),
-            is: (exp) => exp,
-            required: (exp) => exp,
         },
         success: ts.factory.createTrue(),
     });

@@ -41,6 +41,7 @@ export function _test_assert<T>(
                             solution: paths.value,
                         });
             }
+            console.log(paths.value);
             throw new Error(
                 `Bug on TSON.assertType(): failed to detect error on the ${name} type.`,
             );

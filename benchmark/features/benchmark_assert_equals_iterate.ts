@@ -8,6 +8,7 @@ import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiv
 import { ArrayRecursiveUnionImplicit } from "../../test/structures/ArrayRecursiveUnionImplicit";
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
+import { ObjectSimple } from "../../test/structures/ObjectSimple";
 import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
@@ -19,6 +20,7 @@ import { TypeBoxArrayRecursiveUnionExplicitEquals } from "../structures/typebox/
 import { TypeBoxArrayRecursiveUnionImplicitEquals } from "../structures/typebox/equals/TypeBoxArrayRecursiveUnionImplicitEquals";
 import { TypeBoxObjectHierarchicalEquals } from "../structures/typebox/equals/TypeBoxObjectHierarchicalEquals";
 import { TypeBoxObjectRecursiveEquals } from "../structures/typebox/equals/TypeBoxObjectRecursiveEquals";
+import { TypeBoxObjectSimpleEquals } from "../structures/typebox/equals/TypeBoxObjectSimpleEquals";
 import { TypeBoxObjectUnionExplicitEquals } from "../structures/typebox/equals/TypeBoxObjectUnionExplicitEquals";
 import { TypeBoxObjectUnionImplicitEquals } from "../structures/typebox/equals/TypeBoxObjectUnionImplicitEquals";
 import { TypeBoxUltimateUnionEquals } from "../structures/typebox/equals/TypeBoxUltimateUnionEquals";
@@ -53,6 +55,10 @@ const prepare = AssertIterateBenchmarker.prepare([
     DO BENCHMARK
 ----------------------------------------------------------- */
 const assertEquals_po_iterate_pc = () => [
+    prepare("object (simple)", () => ObjectSimple.generate(), {
+        "typescript-json": TSON.createAssertEquals<ObjectSimple>(),
+        typebox: assertTypeBox(TypeBoxObjectSimpleEquals),
+    }),
     prepare("object (hierarchical)", () => ObjectHierarchical.generate(), {
         "typescript-json": TSON.createAssertEquals<ObjectHierarchical>(),
         typebox: assertTypeBox(TypeBoxObjectHierarchicalEquals),

@@ -5,7 +5,7 @@ import { StatementFactory } from "../factories/StatementFactory";
 
 import { IProject } from "../transformers/IProject";
 
-import { AssertProgrammer } from "./AssertProgrammer";
+import { AssertProgrammerV3 } from "./AssertProgrammer";
 import { StringifyProgrammer } from "./StringifyProgrammer";
 
 export namespace AssertStringifyProgrammer {
@@ -23,7 +23,7 @@ export namespace AssertStringifyProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "assertType",
-                        AssertProgrammer.generate(project, modulo)(type),
+                        AssertProgrammerV3.generate(project, modulo)(type),
                     ),
                     StatementFactory.constant(
                         "stringify",

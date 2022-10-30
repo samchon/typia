@@ -29,6 +29,12 @@ export namespace ObjectSimple {
         };
     }
 
+    export function trail(): ObjectSimple {
+        const data = generate();
+        data.pivot.z = null!;
+        return data;
+    }
+
     export const SPOILERS: Spoiler<ObjectSimple>[] = [
         (input) => {
             input.scale.x = "number" as any;
