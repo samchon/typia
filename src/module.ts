@@ -1,5 +1,5 @@
 import { $every } from "./functional/$every";
-import { $guard } from "./functional/$guard";
+import { $guardV2, $guardV3 } from "./functional/$guard";
 import { $is_email } from "./functional/$is_email";
 import { $is_ipv4 } from "./functional/$is_ipv4";
 import { $is_ipv6 } from "./functional/$is_ipv6";
@@ -95,7 +95,8 @@ export namespace assertType {
 
     export const join = $join;
     export const every = $every;
-    export const guard = $guard("TSON.assertType");
+    export const guardV2 = $guardV2("TSON.assertType");
+    export const guardV3 = $guardV3("TSON.assertType");
 }
 
 /**
@@ -303,7 +304,8 @@ export namespace assertEquals {
 
     export const join = $join;
     export const every = $every;
-    export const guard = $guard("TSON.assertEquals");
+    export const guardV2 = $guardV2("TSON.assertEquals");
+    export const guardV3 = $guardV3("TSON.assertEquals");
 }
 
 /**
@@ -600,7 +602,8 @@ export namespace assertStringify {
     export const tail = $tail;
 
     export const join = $join;
-    export const guard = $guard("TSON.assertStringify");
+    export const guardV2 = $guardV2("TSON.assertStringify");
+    export const guardV3 = $guardV3("TSON.assertStringify");
     export const every = $every;
     export const throws = () => {};
 }
@@ -703,7 +706,8 @@ export namespace createAssertType {
 
     export const join = $join;
     export const every = $every;
-    export const guard = assertType.guard;
+    export const guardV2 = assertType.guardV2;
+    export const guardV3 = assertType.guardV3;
 }
 
 /**
@@ -817,7 +821,8 @@ export namespace createAssertEquals {
 
     export const join = $join;
     export const every = assertEquals.every;
-    export const guard = assertEquals.guard;
+    export const guardV2 = assertEquals.guardV2;
+    export const guardV3 = assertEquals.guardV3;
 }
 
 /**
@@ -990,7 +995,8 @@ export namespace createAssertStringify {
     export const join = $join;
 
     export const every = assertStringify.every;
-    export const guard = assertStringify.guard;
+    export const guardV2 = assertStringify.guardV2;
+    export const guardV3 = assertStringify.guardV3;
     export const throws = assertStringify.throws;
 }
 
