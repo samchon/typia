@@ -45,7 +45,6 @@ export namespace ValidateProgrammer {
                 undefined,
                 ts.factory.createBlock(
                     [
-                        ...importer.declare(modulo),
                         StatementFactory.constant("$out", create_output()),
                         StatementFactory.constant(
                             "$report",
@@ -55,6 +54,7 @@ export namespace ValidateProgrammer {
                                 [ts.factory.createIdentifier("$out")],
                             ),
                         ),
+                        ...importer.declare(modulo),
                         ts.factory.createExpressionStatement(
                             ts.factory.createCallExpression(
                                 program,
@@ -186,17 +186,24 @@ const validate_object = (equals: boolean) => (importer: FunctionImporter) =>
         reduce: ts.factory.createLogicalAnd,
         positive: ts.factory.createTrue(),
         superfluous: (value) =>
-            create_report_props(
-                ts.factory.createAdd(
-                    ts.factory.createIdentifier("path"),
-                    ts.factory.createCallExpression(
-                        importer.use("join"),
-                        undefined,
-                        [ts.factory.createIdentifier("key")],
+            ts.factory.createCallExpression(
+                ts.factory.createIdentifier("$report"),
+                undefined,
+                [
+                    ts.factory.createIdentifier("exceptionable"),
+                    create_report_props(
+                        ts.factory.createAdd(
+                            ts.factory.createIdentifier("path"),
+                            ts.factory.createCallExpression(
+                                importer.use("join"),
+                                undefined,
+                                [ts.factory.createIdentifier("key")],
+                            ),
+                        ),
+                        "undefined",
+                        value,
                     ),
-                ),
-                "undefined",
-                value,
+                ],
             ),
     });
 
@@ -213,14 +220,27 @@ const joiner: (
                     [arrow],
                 ),
             ),
-        failure: (value, expected) =>
-            create_report_props(
-                ts.factory.createIdentifier("path"),
-                expected,
-                value,
+        failure: (value, expected, explore) =>
+            ts.factory.createCallExpression(
+                ts.factory.createIdentifier("$report"),
+                undefined,
+                [
+                    ts.factory.createIdentifier("exceptionable"),
+                    create_report_props(
+                        ts.factory.createIdentifier(
+                            explore?.postfix
+                                ? `path + ${explore.postfix}`
+                                : "path",
+                        ),
+                        expected,
+                        value,
+                    ),
+                ],
             ),
-        is: (exp) => exp,
-        required: (exp) => exp,
+        tuple: (binaries) =>
+            check_everything(
+                ts.factory.createArrayLiteralExpression(binaries, true),
+            ),
     });
 
 function create_output() {

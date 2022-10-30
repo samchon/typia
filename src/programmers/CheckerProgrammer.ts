@@ -49,6 +49,8 @@ export namespace CheckerProgrammer {
         export interface IJoiner {
             object(entries: IExpressionEntry[]): ts.Expression;
             array(input: ts.Expression, arrow: ts.ArrowFunction): ts.Expression;
+            tuple?(exprs: ts.Expression[]): ts.Expression;
+
             failure(
                 value: ts.Expression,
                 expected: string,
@@ -441,10 +443,17 @@ export namespace CheckerProgrammer {
                         expression: length,
                         combined: false,
                     },
-                    ...binaries.map((expression) => ({
-                        expression,
-                        combined: true,
-                    })),
+                    ...(config.joiner.tuple
+                        ? [
+                              {
+                                  expression: config.joiner.tuple(binaries),
+                                  combined: true,
+                              },
+                          ]
+                        : binaries.map((expression) => ({
+                              expression,
+                              combined: true,
+                          }))),
                 ],
                 `[${tuple.map((t) => t.getName()).join(", ")}]`,
             );
