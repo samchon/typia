@@ -14,7 +14,6 @@ import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiv
 import { ArrayRecursiveUnionImplicit } from "../../test/structures/ArrayRecursiveUnionImplicit";
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
-import { ObjectSimple } from "../../test/structures/ObjectSimple";
 import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
@@ -26,7 +25,6 @@ import { AjvArrayRecursiveUnionExplicit } from "../structures/ajv/AjvArrayRecurs
 import { AjvArrayRecursiveUnionImplicit } from "../structures/ajv/AjvArrayRecursiveUnionImplicit";
 import { AjvObjectHierarchical } from "../structures/ajv/AjvObjectHierarchical";
 import { AjvObjectRecursive } from "../structures/ajv/AjvObjectRecursive";
-import { AjvObjectSimple } from "../structures/ajv/AjvObjectSimple";
 import { AjvObjectUnionExplicit } from "../structures/ajv/AjvObjectUnionExplicit";
 import { AjvObjectUnionImplicit } from "../structures/ajv/AjvObjectUnionImplicit";
 import { AjvUltimateUnion } from "../structures/ajv/AjvUltimateUnion";
@@ -36,7 +34,6 @@ import { CvArrayRecursiveUnionExplicit } from "../structures/class-validator/CvA
 import { CvArrayRecursiveUnionImplicit } from "../structures/class-validator/CvArrayRecursiveUnionImplicit";
 import { CvObjectHierarchical } from "../structures/class-validator/CvObjectHierarchical";
 import { CvObjectRecursive } from "../structures/class-validator/CvObjectRecursive";
-import { CvObjectSimple } from "../structures/class-validator/CvObjectSimple";
 import { CvObjectUnionExplicit } from "../structures/class-validator/CvObjectUnionExplicit";
 import { CvObjectUnionImplicit } from "../structures/class-validator/CvObjectUnionImplicit";
 // IO-TS TYPES
@@ -109,19 +106,6 @@ const prepare = IsBenchmarker.prepare([
     DO BENCHMARK
 ----------------------------------------------------------- */
 const is = () => [
-    prepare(
-        "object (simple)",
-        () => ObjectSimple.generate(),
-        {
-            "typescript-json": TSON.createIs<ObjectSimple>(),
-            "io-ts": isIoTs(IoTsObjectSimple),
-            "class-validator": isClassValidator(CvObjectSimple),
-            zod: isZod(ZodObjectSimple),
-            typebox: isTypeBox(TypeBoxObjectSimple),
-            ajv: isAjv(AjvObjectSimple),
-        },
-        ObjectSimple.SPOILERS,
-    ),
     prepare(
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
