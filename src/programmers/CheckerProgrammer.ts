@@ -26,11 +26,13 @@ export namespace CheckerProgrammer {
     export interface IConfig {
         functors: string;
         unioners: string;
+        path: boolean;
         trace: boolean;
         equals: boolean;
         numeric: boolean;
         combiner: IConfig.Combiner;
         joiner: IConfig.IJoiner;
+        success: ts.Expression;
     }
     export namespace IConfig {
         export interface Combiner {
@@ -38,7 +40,7 @@ export namespace CheckerProgrammer {
                 (logic: "and" | "or"): {
                     (
                         input: ts.Expression,
-                        expressions: ts.Expression[],
+                        binaries: IBinary[],
                         expected: string,
                     ): ts.Expression;
                 };
@@ -46,15 +48,31 @@ export namespace CheckerProgrammer {
         }
         export interface IJoiner {
             object(entries: IExpressionEntry[]): ts.Expression;
-            array(
-                input: ts.Expression,
-                arrow: ts.ArrowFunction,
-                tags: IMetadataTag[],
+            array(input: ts.Expression, arrow: ts.ArrowFunction): ts.Expression;
+            tuple?(exprs: ts.Expression[]): ts.Expression;
+
+            failure(
+                value: ts.Expression,
+                expected: string,
+                explore?: FeatureProgrammer.IExplore,
             ): ts.Expression;
-            tuple(binaries: ts.Expression[]): ts.Expression;
+            is?(expression: ts.Expression): ts.Expression;
+            required?(exp: ts.Expression): ts.Expression;
+            full?: (
+                condition: ts.Expression,
+            ) => (
+                input: ts.Expression,
+                expected: string,
+                explore: IExplore,
+            ) => ts.Expression;
         }
     }
     export import IExplore = FeatureProgrammer.IExplore;
+
+    export interface IBinary {
+        expression: ts.Expression;
+        combined: boolean;
+    }
 
     /* -----------------------------------------------------------
         GENERATORS
@@ -62,20 +80,14 @@ export namespace CheckerProgrammer {
     export function generate(
         project: IProject,
         config: IConfig,
-        modulo: ts.LeftHandSideExpression,
         importer: FunctionImporter,
         addition?: () => ts.Statement[],
     ) {
         return FeatureProgrammer.generate(
             project,
             CONFIG(project, config, importer),
-            () =>
-                !importer.empty() || addition
-                    ? [
-                          ...importer.declare(modulo),
-                          ...(addition ? addition() : []),
-                      ]
-                    : undefined,
+            importer,
+            () => (addition ? (addition ? addition() : []) : undefined),
         );
     }
 
@@ -83,7 +95,11 @@ export namespace CheckerProgrammer {
         project: IProject,
         config: IConfig,
         importer: FunctionImporter,
-    ) => FeatureProgrammer.generate_functors(CONFIG(project, config, importer));
+    ) =>
+        FeatureProgrammer.generate_functors(
+            CONFIG(project, config, importer),
+            importer,
+        );
 
     export const generate_unioners = (
         project: IProject,
@@ -94,15 +110,6 @@ export namespace CheckerProgrammer {
             CONFIG(project, { ...config, numeric: false }, importer),
         );
 
-    export const DEFAULT_JOINER: (
-        object: (entries: IExpressionEntry[]) => ts.Expression,
-    ) => IConfig.IJoiner = (object) => ({
-        object,
-        array: check_array,
-        tuple: (binaries) =>
-            binaries.reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-    });
-
     function CONFIG(
         project: IProject,
         config: IConfig,
@@ -110,6 +117,7 @@ export namespace CheckerProgrammer {
     ): FeatureProgrammer.IConfig {
         const output: FeatureProgrammer.IConfig = {
             trace: config.trace,
+            path: config.path,
             functors: config.functors,
             unioners: config.unioners,
             initializer: ({ checker }, type) => {
@@ -137,21 +145,32 @@ export namespace CheckerProgrammer {
                                   ...explore,
                                   tracable: true,
                               }),
-                      )(() =>
-                          ts.factory.createReturnStatement(
-                              ts.factory.createFalse(),
-                          ),
+                      )(config.joiner.is || ((expr) => expr))(
+                          (value, expected) =>
+                              ts.factory.createReturnStatement(
+                                  config.joiner.failure(value, expected),
+                              ),
                       )
                     : (input, targets, explore) =>
                           config.combiner(explore)("or")(
                               input,
-                              targets.map((obj) =>
-                                  decode_object(config)(input, obj, explore),
-                              ),
+                              targets.map((obj) => ({
+                                  expression: decode_object(config)(
+                                      input,
+                                      obj,
+                                      explore,
+                                  ),
+                                  combined: true,
+                              })),
                               `(${targets.map((t) => t.name).join(" | ")})`,
                           ),
-                failure: () =>
-                    ts.factory.createReturnStatement(ts.factory.createFalse()),
+                failure: (value, expected) =>
+                    ts.factory.createReturnStatement(
+                        config.joiner.failure(value, expected),
+                    ),
+                is: config.joiner.is,
+                required: config.joiner.required,
+                full: config.joiner.full,
             },
         };
         if (config.numeric === true)
@@ -177,10 +196,10 @@ export namespace CheckerProgrammer {
             explore: IExplore,
             tags: IMetadataTag[],
         ): ts.Expression {
-            if (meta.any) return ValueFactory.BOOLEAN(true);
+            if (meta.any) return config.success;
 
-            const top: ts.Expression[] = [];
-            const binaries: ts.Expression[] = [];
+            const top: IBinary[] = [];
+            const binaries: IBinary[] = [];
             const add = create_add(binaries)(input);
             const getConstantValue = (
                 value: number | string | bigint | boolean,
@@ -235,11 +254,18 @@ export namespace CheckerProgrammer {
             // ATOMIC VALUES
             for (const type of meta.atomics)
                 if (type === "number")
-                    binaries.push(
-                        check_number(project, config.numeric)(input, tags),
-                    );
+                    binaries.push({
+                        expression: check_number(project, config.numeric)(
+                            input,
+                            tags,
+                        ),
+                        combined: false,
+                    });
                 else if (type === "string")
-                    binaries.push(check_string(importer)(input, tags));
+                    binaries.push({
+                        expression: check_string(importer)(input, tags),
+                        combined: false,
+                    });
                 else
                     add(
                         true,
@@ -249,9 +275,14 @@ export namespace CheckerProgrammer {
 
             // TEMPLATE LITERAL VALUES
             if (meta.templates.length)
-                binaries.push(
-                    check_template(importer)(input, meta.templates, tags),
-                );
+                binaries.push({
+                    expression: check_template(importer)(
+                        input,
+                        meta.templates,
+                        tags,
+                    ),
+                    combined: false,
+                });
 
             //----
             // INSTANCES
@@ -270,46 +301,86 @@ export namespace CheckerProgrammer {
                     );
 
                 // ADD
-                binaries.push(
-                    ts.factory.createLogicalAnd(
-                        ExpressionFactory.isArray(input),
-                        inner.length === 1
-                            ? inner[0]!
-                            : inner.reduce((x, y) =>
-                                  ts.factory.createLogicalOr(x, y),
-                              ),
+                binaries.push({
+                    expression: config.combiner(explore)("and")(
+                        input,
+                        [
+                            {
+                                expression: ExpressionFactory.isArray(input),
+                                combined: false,
+                            },
+                            ...inner.map((expression) => ({
+                                expression,
+                                combined: true,
+                            })),
+                        ],
+                        meta.getName(),
                     ),
-                );
+                    combined: true,
+                });
             }
 
             // ARRAY
             if (meta.arrays.length > 0)
-                binaries.push(
-                    ts.factory.createLogicalAnd(
-                        ExpressionFactory.isArray(input),
-                        explore_array(project, config, importer)(
-                            input,
-                            meta.arrays,
+                binaries.push({
+                    expression: config.combiner(explore)("and")(
+                        input,
+                        [
                             {
-                                ...explore,
-                                from: "array",
+                                expression: check_array(input, tags),
+                                combined: false,
                             },
-                            tags,
-                        ),
+                            {
+                                expression: explore_array(
+                                    project,
+                                    config,
+                                    importer,
+                                )(
+                                    input,
+                                    meta.arrays,
+                                    {
+                                        ...explore,
+                                        from: "array",
+                                    },
+                                    tags,
+                                ),
+                                combined: true,
+                            },
+                        ],
+                        meta.getName(),
                     ),
-                );
+                    combined: true,
+                });
 
             // OBJECT
             if (meta.objects.length > 0)
-                binaries.push(
-                    ts.factory.createLogicalAnd(
-                        ExpressionFactory.isObject(input, true),
-                        explore_objects(config)(input, meta, {
-                            ...explore,
-                            from: "object",
-                        }),
+                binaries.push({
+                    expression: config.combiner(explore)("and")(
+                        input,
+                        [
+                            {
+                                expression: ExpressionFactory.isObject(
+                                    input,
+                                    true,
+                                ),
+                                combined: false,
+                            },
+                            {
+                                expression: explore_objects(config)(
+                                    input,
+                                    meta,
+                                    {
+                                        ...explore,
+                                        from: "object",
+                                    },
+                                ),
+                                combined: true,
+                            },
+                        ],
+                        meta.getName(),
                     ),
-                );
+                    combined: true,
+                });
 
             // COMBINE CONDITIONS
             return top.length !== 0
@@ -317,11 +388,14 @@ export namespace CheckerProgrammer {
                       input,
                       [
                           ...top,
-                          config.combiner(explore)("or")(
-                              input,
-                              binaries,
-                              meta.getName(),
-                          ),
+                          {
+                              expression: config.combiner(explore)("or")(
+                                  input,
+                                  binaries,
+                                  meta.getName(),
+                              ),
+                              combined: true,
+                          },
                       ],
                       meta.getName(),
                   )
@@ -362,12 +436,27 @@ export namespace CheckerProgrammer {
                     tagList,
                 ),
             );
-            if (binaries.length === 0) return length;
-            else
-                return ts.factory.createLogicalAnd(
-                    length,
-                    config.joiner.tuple(binaries),
-                );
+            return config.combiner(explore)("and")(
+                input,
+                [
+                    {
+                        expression: length,
+                        combined: false,
+                    },
+                    ...(config.joiner.tuple
+                        ? [
+                              {
+                                  expression: config.joiner.tuple(binaries),
+                                  combined: true,
+                              },
+                          ]
+                        : binaries.map((expression) => ({
+                              expression,
+                              combined: true,
+                          }))),
+                ],
+                `[${tuple.map((t) => t.getName()).join(", ")}]`,
+            );
         };
     }
 
@@ -379,6 +468,7 @@ export namespace CheckerProgrammer {
         return FeatureProgrammer.decode_array(
             {
                 trace: config.trace,
+                path: config.path,
                 decoder: decode(project, config, importer),
             },
             importer,
@@ -406,8 +496,12 @@ export namespace CheckerProgrammer {
         UnionExplorer.array(
             decode(project, config, importer),
             decode_array(project, config, importer),
-            () => ts.factory.createTrue(),
-            () => ts.factory.createReturnStatement(ts.factory.createFalse()),
+            config.success,
+            config.success,
+            (input, expected, explore) =>
+                ts.factory.createReturnStatement(
+                    config.joiner.failure(input, expected, explore),
+                ),
         );
 
     const explore_objects = (config: IConfig) => {
@@ -422,17 +516,14 @@ export namespace CheckerProgrammer {
                     `${config.unioners}[${meta.union_index!}]`,
                 ),
                 undefined,
-                FeatureProgrammer.get_object_arguments(
-                    config.trace,
-                    explore,
-                )(input),
+                FeatureProgrammer.get_object_arguments(config)(explore)(input),
             );
         };
     };
 }
 
 const create_add =
-    (binaries: ts.Expression[]) =>
+    (binaries: CheckerProgrammer.IBinary[]) =>
     (defaultInput: ts.Expression) =>
     (
         exact: boolean,
@@ -442,5 +533,8 @@ const create_add =
         const factory = exact
             ? ts.factory.createStrictEquality
             : ts.factory.createStrictInequality;
-        binaries.push(factory(left, right));
+        binaries.push({
+            expression: factory(left, right),
+            combined: false,
+        });
     };
