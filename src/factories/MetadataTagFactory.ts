@@ -172,7 +172,7 @@ const PARSER: Record<
     format: (identifier, metadata, value, output) => {
         validate(identifier, metadata, output, "format", "string", ["pattern"]);
 
-        // Ignore arbritary @format values in the internal metadata,
+        // Ignore arbitrary @format values in the internal metadata,
         // these are currently only supported on the TSON.application() API.
         if (FORMATS.has(value) === false) return null;
 
