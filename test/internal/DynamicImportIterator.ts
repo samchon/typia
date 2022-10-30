@@ -67,6 +67,10 @@ export namespace DynamicImportIterator {
                 continue;
             } else if (file.substring(file.length - 3) !== `.${EXTENSION}`)
                 continue;
+            else if (command.exclude && file.indexOf(command.exclude) !== -1)
+                continue;
+            else if (command.include && file.indexOf(command.include) === -1)
+                continue;
 
             const external: Module<Arguments> = await import(current);
             await execute(options, command, external, exceptions);

@@ -12,7 +12,7 @@ import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
 // BENCHMARK PROGRAM
-import { AssertBenchmarker } from "../internal/AssertBenchmarker";
+import { AssertThrowBenchmarker } from "../internal/AssertThrowBenchmarker";
 // TYPEBOX TYPES
 import { __TypeBoxArrayRecursiveEquals } from "../structures/typebox/equals/TypeBoxArrayRecursiveEquals";
 import { __TypeBoxArrayRecursiveUnionExplicitEquals } from "../structures/typebox/equals/TypeBoxArrayRecursiveUnionExplicitEquals";
@@ -46,12 +46,12 @@ const assertTypeBox =
         throw new CustomError(iterator.next().value);
     };
 
-const prepare = AssertBenchmarker.prepare(["typescript-json", "typebox"]);
+const prepare = AssertThrowBenchmarker.prepare(["typescript-json", "typebox"]);
 
 /* -----------------------------------------------------------
     DO BENCHMARK
 ----------------------------------------------------------- */
-const assertEquals = () => [
+const assertEquals_po_throw_pc = () => [
     prepare(
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
@@ -127,4 +127,4 @@ const assertEquals = () => [
         },
     ),
 ];
-export { assertEquals as benchmark_assert_equals };
+export { assertEquals_po_throw_pc as benchmark_assert_equals_throw };

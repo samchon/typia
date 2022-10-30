@@ -12,6 +12,7 @@ import { IProject } from "../transformers/IProject";
 
 import { Escaper } from "../utils/Escaper";
 
+import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { UnionExplorer } from "./helpers/UnionExplorer";
@@ -23,6 +24,7 @@ export namespace FeatureProgrammer {
     export interface IConfig {
         functors: string;
         unioners: string;
+        path: boolean;
         trace: boolean;
         initializer: Initializer;
         decoder: Decoder<Metadata>;
@@ -36,9 +38,19 @@ export namespace FeatureProgrammer {
             joiner: ObjectJoiner;
             unionizer: Decoder<MetadataObject[]>;
             failure: (
-                expression: ts.Expression,
-                targets: MetadataObject[],
+                value: ts.Expression,
+                expected: string,
+                explore?: IExplore,
             ) => ts.Statement;
+            is?: (exp: ts.Expression) => ts.Expression;
+            required?: (exp: ts.Expression) => ts.Expression;
+            full?: (
+                condition: ts.Expression,
+            ) => (
+                input: ts.Expression,
+                expected: string,
+                explore: IExplore,
+            ) => ts.Expression;
         }
         export interface IGenerator {
             functors(col: MetadataCollection): ts.VariableDeclaration | null;
@@ -74,6 +86,7 @@ export namespace FeatureProgrammer {
         (
             project: IProject,
             config: IConfig,
+            importer: FunctionImporter,
             addition: (
                 collection: MetadataCollection,
             ) => ts.Statement[] | undefined,
@@ -86,7 +99,7 @@ export namespace FeatureProgrammer {
                 ValueFactory.INPUT(),
                 meta,
                 {
-                    tracable: config.trace,
+                    tracable: config.path || config.trace,
                     source: "top",
                     from: "top",
                     postfix: '""',
@@ -98,7 +111,7 @@ export namespace FeatureProgrammer {
             const functors: ts.VariableDeclaration | null =
                 config.generator?.functors !== undefined
                     ? config.generator.functors(collection)
-                    : generate_functors(config)(collection);
+                    : generate_functors(config, importer)(collection);
             const unioners: ts.VariableDeclaration | null =
                 config.generator?.unioners !== undefined
                     ? config.generator.unioners(collection)
@@ -110,7 +123,7 @@ export namespace FeatureProgrammer {
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                PARAMETERS(config.trace ? true : null)(ValueFactory.INPUT()),
+                PARAMETERS(config)(ValueFactory.INPUT()),
                 undefined,
                 undefined,
                 ts.factory.createBlock(
@@ -145,7 +158,10 @@ export namespace FeatureProgrammer {
             );
         };
 
-    export function generate_functors(config: IConfig) {
+    export function generate_functors(
+        config: IConfig,
+        importer: FunctionImporter,
+    ) {
         return function (
             collection: MetadataCollection,
         ): ts.VariableDeclaration | null {
@@ -159,7 +175,9 @@ export namespace FeatureProgrammer {
                 undefined,
                 undefined,
                 ts.factory.createArrayLiteralExpression(
-                    objects.map((obj) => generate_object(config)(obj)),
+                    objects.map((obj) =>
+                        generate_object(config, importer)(obj),
+                    ),
                     true,
                 ),
             );
@@ -183,10 +201,10 @@ export namespace FeatureProgrammer {
         };
     }
 
-    function generate_object(config: IConfig) {
+    function generate_object(config: IConfig, importer: FunctionImporter) {
+        importer.use("join");
         return function (obj: MetadataObject) {
             const entries: IExpressionEntry[] = [];
-
             for (const prop of obj.properties) {
                 const key: string | null = prop.key.getSoleLiteral();
                 const input: ts.Expression =
@@ -210,7 +228,7 @@ export namespace FeatureProgrammer {
                         input,
                         prop.value,
                         {
-                            tracable: config.trace,
+                            tracable: config.path || config.trace,
                             source: "object",
                             from: "object",
                             postfix:
@@ -226,7 +244,7 @@ export namespace FeatureProgrammer {
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                PARAMETERS(config.trace ? false : null)(ValueFactory.INPUT()),
+                PARAMETERS(config)(ValueFactory.INPUT()),
                 undefined,
                 undefined,
                 config.objector.joiner(entries, obj),
@@ -235,27 +253,21 @@ export namespace FeatureProgrammer {
     }
 
     function generate_union(config: IConfig) {
-        const explorer = UnionExplorer.object(
-            config,
-            config.objector.checker,
-            config.objector.decoder,
-            config.objector.unionizer,
-            config.objector.failure,
-        );
+        const explorer = UnionExplorer.object(config);
         const input = ValueFactory.INPUT();
 
         return (meta: MetadataObject[]) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                PARAMETERS(config.trace ? false : null)(ValueFactory.INPUT()),
+                PARAMETERS(config)(ValueFactory.INPUT()),
                 undefined,
                 undefined,
                 explorer(
                     input,
                     meta,
                     {
-                        tracable: config.trace,
+                        tracable: config.path || config.trace,
                         source: "object",
                         from: "object",
                         postfix: "",
@@ -269,7 +281,7 @@ export namespace FeatureProgrammer {
         DECODERS
     ----------------------------------------------------------- */
     export function decode_array(
-        config: Pick<IConfig, "trace" | "decoder">,
+        config: Pick<IConfig, "trace" | "path" | "decoder">,
         importer: FunctionImporter,
         combiner: (
             input: ts.Expression,
@@ -278,9 +290,10 @@ export namespace FeatureProgrammer {
         ) => ts.Expression,
     ) {
         const rand: string = importer.increment().toString();
-        const tail = config.trace
-            ? [IdentifierFactory.parameter("index" + rand)]
-            : [];
+        const tail =
+            config.path || config.trace
+                ? [IdentifierFactory.parameter("index" + rand)]
+                : [];
 
         return (
             input: ts.Expression,
@@ -311,7 +324,7 @@ export namespace FeatureProgrammer {
     }
 
     export const decode_object =
-        (config: Pick<IConfig, "trace" | "functors">) =>
+        (config: Pick<IConfig, "trace" | "path" | "functors">) =>
         (input: ts.Expression, obj: MetadataObject, explore: IExplore) =>
             ts.factory.createCallExpression(
                 ts.factory.createElementAccessExpression(
@@ -319,32 +332,49 @@ export namespace FeatureProgrammer {
                     obj.index,
                 ),
                 undefined,
-                get_object_arguments(config.trace, explore)(input),
+                get_object_arguments(config)(explore)(input),
             );
 
-    export const get_object_arguments = (
-        trace: boolean,
-        explore: FeatureProgrammer.IExplore,
-    ) => {
-        const tail: ts.Expression[] =
-            trace === false
-                ? []
-                : [
-                      ts.factory.createIdentifier(
-                          explore.postfix
-                              ? `path + ${explore.postfix}`
-                              : "path",
-                      ),
-                      explore.source === "object"
-                          ? ts.factory.createIdentifier(
-                                `${explore.tracable} && exceptionable`,
-                            )
-                          : explore.tracable
-                          ? ts.factory.createTrue()
-                          : ts.factory.createFalse(),
-                  ];
-        return (input: ts.Expression) => [input, ...tail];
-    };
+    export const get_object_arguments =
+        (config: Pick<IConfig, "path" | "trace">) =>
+        (explore: FeatureProgrammer.IExplore) => {
+            const tail: ts.Expression[] =
+                config.path === false && config.trace === false
+                    ? []
+                    : config.path === true && config.trace === true
+                    ? [
+                          ts.factory.createIdentifier(
+                              explore.postfix
+                                  ? `path + ${explore.postfix}`
+                                  : "path",
+                          ),
+                          explore.source === "object"
+                              ? ts.factory.createIdentifier(
+                                    `${explore.tracable} && exceptionable`,
+                                )
+                              : explore.tracable
+                              ? ts.factory.createTrue()
+                              : ts.factory.createFalse(),
+                      ]
+                    : config.path === true
+                    ? [
+                          ts.factory.createIdentifier(
+                              explore.postfix
+                                  ? `path + ${explore.postfix}`
+                                  : "path",
+                          ),
+                      ]
+                    : [
+                          explore.source === "object"
+                              ? ts.factory.createIdentifier(
+                                    `${explore.tracable} && exceptionable`,
+                                )
+                              : explore.tracable
+                              ? ts.factory.createTrue()
+                              : ts.factory.createFalse(),
+                      ];
+            return (input: ts.Expression) => [input, ...tail];
+        };
 }
 
 const INDEX_SYMBOL = (prev: string) => (rand: string) => {
@@ -354,20 +384,12 @@ const INDEX_SYMBOL = (prev: string) => (rand: string) => {
         return prev.substring(0, prev.length - 1) + tail.substring(1);
     return prev + ` + ${tail}`;
 };
-const PARAMETERS = (initialize: null | boolean) => {
-    const tail =
-        initialize === null
-            ? []
-            : [
-                  IdentifierFactory.parameter(
-                      "path",
-                      initialize
-                          ? ts.factory.createStringLiteral("$input")
-                          : undefined,
-                  ),
-              ];
-    if (initialize === false)
-        tail.push(IdentifierFactory.parameter("exceptionable"));
+const PARAMETERS = (
+    props: Pick<CheckerProgrammer.IConfig, "path" | "trace">,
+) => {
+    const tail: ts.ParameterDeclaration[] = [];
+    if (props.path) tail.push(IdentifierFactory.parameter("path"));
+    if (props.trace) tail.push(IdentifierFactory.parameter("exceptionable"));
 
     return (input: ts.Identifier) => [
         IdentifierFactory.parameter(input),

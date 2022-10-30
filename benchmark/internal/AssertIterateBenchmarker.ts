@@ -1,13 +1,13 @@
 import benchmark from "benchmark";
 
-export namespace IsBenchmarker {
+export namespace AssertIterateBenchmarker {
     export interface IOutput<Components extends "name" | string> {
         name: string;
         result: Record<Components, number | null>;
     }
     export type IParameters<Components extends string, T> = Record<
         Components,
-        null | ((input: T) => boolean)
+        null | ((input: T) => never | T)
     >;
 
     export const prepare =
@@ -16,26 +16,32 @@ export namespace IsBenchmarker {
             name: string,
             generator: () => T,
             parameters: IParameters<Components, T>,
-            spoilers: Array<(input: T) => string[]>,
-        ) => {
+            spoilers?: Array<(input: T) => string[]>,
+        ): (() => IOutput<Components>) => {
+            // GENERATE DATA TO ASSERT
             const data: T = generator();
-
-            const suite: benchmark.Suite = new benchmark.Suite();
-            for (const key of components) {
-                const is = parameters[key];
-                if (is !== null) suite.add(key, () => is(data));
-            }
 
             const output: IOutput<Components> = {
                 name,
                 result: {} as any,
             };
-            for (const comp of components) output.result[comp] = null;
+            const suite: benchmark.Suite = new benchmark.Suite();
+
+            for (const key of components) {
+                const assert = parameters[key];
+                if (assert === null) output.result[key] = null;
+                else
+                    suite.add(key, () => {
+                        try {
+                            assert(data);
+                        } catch {}
+                    });
+            }
 
             return () => {
                 suite.run();
                 suite.map((elem: benchmark) => {
-                    (output.result as any)[elem.name!] =
+                    (output as any).result[elem.name!]! =
                         elem.count / elem.times.elapsed;
                 });
 
@@ -43,11 +49,11 @@ export namespace IsBenchmarker {
                     if (
                         output.result[key] === null ||
                         (true &&
-                            parameters[key]!(data) &&
-                            spoilers.every((spoil) => {
+                            is(generator(), parameters[key]!) &&
+                            (spoilers || []).every((spoil) => {
                                 const fake: T = generator();
                                 spoil(fake);
-                                return parameters[key]!(fake) === false;
+                                return is(fake, parameters[key]!) === false;
                             })) ||
                         key === "zod" ||
                         key === "class-validator"
@@ -58,4 +64,13 @@ export namespace IsBenchmarker {
                 return output;
             };
         };
+
+    const is = <T>(data: T, assert: (input: T) => never | T): boolean => {
+        try {
+            assert(data);
+            return true;
+        } catch {
+            return false;
+        }
+    };
 }
