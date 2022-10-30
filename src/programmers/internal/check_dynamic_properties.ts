@@ -4,40 +4,46 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { check_everything } from "./check_everything";
+import { check_object } from "./check_object";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
 /**
  * @internal
  */
 export const check_dynamic_properties =
-    (equals: boolean) =>
-    (assert: boolean) =>
-    (halter?: (exp: ts.CallExpression) => ts.Expression) =>
-    (wrapper?: (exp: ts.Expression) => ts.Expression) =>
+    (props: check_object.IProps) =>
     (
         regular: IExpressionEntry[],
         dynamic: IExpressionEntry[],
     ): ts.Expression => {
-        const criteria = ts.factory.createCallExpression(
-            IdentifierFactory.join(
-                ts.factory.createCallExpression(
-                    ts.factory.createIdentifier("Object.entries"),
-                    undefined,
-                    [ts.factory.createIdentifier("input")],
-                ),
-                assert ? "every" : "map",
-            ),
-            undefined,
-            [check_dynamic_property(equals)(wrapper)(regular, dynamic)],
-        );
-        return (halter || ((elem) => elem))(
-            assert ? criteria : check_everything(criteria),
+        const criteria = props.entries
+            ? ts.factory.createCallExpression(props.entries, undefined, [
+                  ts.factory.createCallExpression(
+                      ts.factory.createIdentifier("Object.entries"),
+                      undefined,
+                      [ts.factory.createIdentifier("input")],
+                  ),
+                  check_dynamic_property(props)(regular, dynamic),
+              ])
+            : ts.factory.createCallExpression(
+                  IdentifierFactory.join(
+                      ts.factory.createCallExpression(
+                          ts.factory.createIdentifier("Object.entries"),
+                          undefined,
+                          [ts.factory.createIdentifier("input")],
+                      ),
+                      props.assert ? "every" : "map",
+                  ),
+                  undefined,
+                  [check_dynamic_property(props)(regular, dynamic)],
+              );
+        return (props.halt || ((elem) => elem))(
+            props.assert ? criteria : check_everything(criteria),
         );
     };
 
 const check_dynamic_property =
-    (equals: boolean) =>
-    (wrapper?: (exp: ts.Expression) => ts.Expression) =>
+    (props: check_object.IProps) =>
     (regular: IExpressionEntry[], dynamic: IExpressionEntry[]) => {
         //----
         // IF CONDITIONS
@@ -52,7 +58,7 @@ const check_dynamic_property =
                     ts.factory.createIdentifier("undefined"),
                     value,
                 ),
-                ts.factory.createReturnStatement(ts.factory.createTrue()),
+                ts.factory.createReturnStatement(props.positive),
             ),
         ];
         const add = (exp: ts.Expression, output: ts.Expression) =>
@@ -64,8 +70,8 @@ const check_dynamic_property =
             );
 
         // GATHER CONDITIONS
-        if (equals === true)
-            add(is_regular_property(regular), ts.factory.createTrue());
+        if (props.equals === true && regular.length)
+            add(is_regular_property(regular), props.positive);
         for (const entry of dynamic)
             add(
                 ts.factory.createCallExpression(
@@ -88,31 +94,15 @@ const check_dynamic_property =
             [
                 ...statements,
                 ts.factory.createReturnStatement(
-                    equals === true
-                        ? ts.factory.createFalse()
-                        : ts.factory.createTrue(),
+                    props.equals === true
+                        ? props.superfluous(
+                              ts.factory.createIdentifier("value"),
+                          )
+                        : props.positive,
                 ),
             ],
             true,
         );
-
-        // ERROR REPORTER
-        const body: ts.Expression | ts.Block = wrapper
-            ? wrapper(
-                  ts.factory.createCallExpression(
-                      ts.factory.createArrowFunction(
-                          undefined,
-                          undefined,
-                          [],
-                          undefined,
-                          undefined,
-                          block,
-                      ),
-                      undefined,
-                      undefined,
-                  ),
-              )
-            : block;
 
         // RETURNS
         return ts.factory.createArrowFunction(
@@ -136,7 +126,7 @@ const check_dynamic_property =
             ],
             undefined,
             undefined,
-            body,
+            block,
         );
     };
 

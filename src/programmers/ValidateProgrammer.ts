@@ -9,66 +9,96 @@ import { IProject } from "../transformers/IProject";
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
-import { check_array } from "./internal/check_array";
 import { check_everything } from "./internal/check_everything";
 import { check_object } from "./internal/check_object";
 
 export namespace ValidateProgrammer {
-    export function generate(
-        project: IProject,
-        modulo: ts.LeftHandSideExpression,
-        equals: boolean = false,
-    ) {
-        const importer = new FunctionImporter();
-        return (type: ts.Type) =>
-            ts.factory.createArrowFunction(
+    export const generate =
+        (
+            project: IProject,
+            modulo: ts.LeftHandSideExpression,
+            equals: boolean = false,
+        ) =>
+        (type: ts.Type) => {
+            const importer: FunctionImporter = new FunctionImporter();
+            const program: ts.ArrowFunction = CheckerProgrammer.generate(
+                project,
+                {
+                    functors: "$vo",
+                    unioners: "$vu",
+                    path: true,
+                    trace: true,
+                    numeric: !!project.options.numeric,
+                    equals,
+                    combiner: combine(equals)(importer),
+                    joiner: joiner(equals)(importer),
+                    success: ts.factory.createTrue(),
+                },
+                importer,
+            )(type);
+
+            return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
                 [IdentifierFactory.parameter("input")],
                 undefined,
                 undefined,
-                ts.factory.createBlock([
-                    StatementFactory.constant("$out", create_output()),
-                    StatementFactory.constant(
-                        "$pred",
-                        ts.factory.createCallExpression(
-                            IdentifierFactory.join(modulo, "predicate"),
-                            [],
-                            [ts.factory.createIdentifier("$out")],
+                ts.factory.createBlock(
+                    [
+                        StatementFactory.constant("$out", create_output()),
+                        StatementFactory.constant(
+                            "$report",
+                            ts.factory.createCallExpression(
+                                IdentifierFactory.join(modulo, "report"),
+                                [],
+                                [ts.factory.createIdentifier("$out")],
+                            ),
                         ),
-                    ),
-                    ts.factory.createExpressionStatement(
-                        ts.factory.createCallExpression(
-                            CheckerProgrammer.generate(
-                                project,
-                                {
-                                    functors: "$vo",
-                                    unioners: "$vu",
-                                    trace: true,
-                                    numeric: !!project.options.numeric,
-                                    equals,
-                                    combiner: combine(equals)(importer),
-                                    joiner: join(equals)(importer),
-                                },
-                                modulo,
-                                importer,
-                            )(type),
-                            undefined,
-                            [ValueFactory.INPUT()],
+                        ...importer.declare(modulo),
+                        ts.factory.createExpressionStatement(
+                            ts.factory.createCallExpression(
+                                program,
+                                undefined,
+                                [
+                                    ValueFactory.INPUT(),
+                                    ts.factory.createStringLiteral("$input"),
+                                ],
+                            ),
                         ),
-                    ),
-                    ts.factory.createReturnStatement(
-                        ts.factory.createIdentifier("$out"),
-                    ),
-                ]),
+                        ts.factory.createIfStatement(
+                            ts.factory.createStrictInequality(
+                                ts.factory.createNumericLiteral(0),
+                                ts.factory.createIdentifier(
+                                    "$out.errors.length",
+                                ),
+                            ),
+                            ts.factory.createExpressionStatement(
+                                ts.factory.createBinaryExpression(
+                                    ts.factory.createPropertyAccessExpression(
+                                        ts.factory.createIdentifier("$out"),
+                                        ts.factory.createIdentifier("success"),
+                                    ),
+                                    ts.factory.createToken(
+                                        ts.SyntaxKind.EqualsToken,
+                                    ),
+                                    ts.factory.createFalse(),
+                                ),
+                            ),
+                        ),
+                        ts.factory.createReturnStatement(
+                            ts.factory.createIdentifier("$out"),
+                        ),
+                    ],
+                    true,
+                ),
             );
-    }
+        };
 }
 
-const combine: (
-    equals: boolean,
-) => (importer: FunctionImporter) => CheckerProgrammer.IConfig.Combiner =
-    (equals) => (importer) => (explore) => {
+const combine =
+    (equals: boolean) =>
+    (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner =>
+    (explore: CheckerProgrammer.IExplore) => {
         const combiner = IsProgrammer.CONFIG({
             object: validate_object(equals)(importer),
             numeric: true,
@@ -79,79 +109,133 @@ const combine: (
         const path: string = explore.postfix
             ? `path + ${explore.postfix}`
             : "path";
-        return (logic) => (input, expressions, expected) =>
-            expressions.length === 1 && ts.isCallExpression(expressions[0]!)
-                ? expressions[0]
-                : ts.factory.createCallExpression(
-                      ts.factory.createIdentifier("$pred"),
-                      [],
-                      [
-                          combiner(explore)(logic)(
-                              input,
-                              expressions,
-                              expected,
-                          ),
-                          explore.source === "top"
-                              ? ts.factory.createTrue()
-                              : ts.factory.createIdentifier("exceptionable"),
-                          create_report_function(
-                              ts.factory.createIdentifier(path),
-                              expected,
-                              input,
-                          ),
-                      ],
+        return (logic) => (input, binaries, expected) =>
+            logic === "and"
+                ? binaries
+                      .map((binary) =>
+                          binary.combined
+                              ? binary.expression
+                              : ts.factory.createParenthesizedExpression(
+                                    ts.factory.createConditionalExpression(
+                                        binary.expression,
+                                        undefined,
+                                        ts.factory.createTrue(),
+                                        undefined,
+                                        ts.factory.createCallExpression(
+                                            ts.factory.createIdentifier(
+                                                "$report",
+                                            ),
+                                            undefined,
+                                            [
+                                                explore.source === "top"
+                                                    ? ts.factory.createTrue()
+                                                    : ts.factory.createIdentifier(
+                                                          "exceptionable",
+                                                      ),
+                                                create_report_props(
+                                                    ts.factory.createIdentifier(
+                                                        path,
+                                                    ),
+                                                    expected,
+                                                    input,
+                                                ),
+                                            ],
+                                        ),
+                                    ),
+                                ),
+                      )
+                      .reduce(ts.factory.createLogicalAnd)
+                : ts.factory.createConditionalExpression(
+                      binaries
+                          .map((binary) => binary.expression)
+                          .reduce(ts.factory.createLogicalOr),
+                      undefined,
+                      ts.factory.createTrue(),
+                      undefined,
+                      ts.factory.createCallExpression(
+                          ts.factory.createIdentifier("$report"),
+                          undefined,
+                          [
+                              explore.source === "top"
+                                  ? ts.factory.createTrue()
+                                  : ts.factory.createIdentifier(
+                                        "exceptionable",
+                                    ),
+                              create_report_props(
+                                  ts.factory.createIdentifier(path),
+                                  expected,
+                                  input,
+                              ),
+                          ],
+                      ),
                   );
     };
 
 const validate_object = (equals: boolean) => (importer: FunctionImporter) =>
-    check_object(equals)(false)((expr) =>
-        ts.factory.createLogicalOr(
-            ts.factory.createStrictEquality(
-                ts.factory.createFalse(),
-                ts.factory.createIdentifier("exceptionable"),
-            ),
-            expr,
-        ),
-    )((expr) =>
-        ts.factory.createCallExpression(
-            ts.factory.createIdentifier("$pred"),
-            undefined,
-            [
-                expr,
-                ts.factory.createIdentifier("exceptionable"),
-                create_report_function(
-                    ts.factory.createAdd(
-                        ts.factory.createIdentifier("path"),
-                        ts.factory.createCallExpression(
-                            importer.use("join"),
-                            undefined,
-                            [ts.factory.createIdentifier("key")],
-                        ),
-                    ),
-                    "undefined",
-                    ts.factory.createIdentifier("value"),
+    check_object({
+        equals,
+        assert: false,
+        halt: (expr) =>
+            ts.factory.createLogicalOr(
+                ts.factory.createStrictEquality(
+                    ts.factory.createFalse(),
+                    ts.factory.createIdentifier("exceptionable"),
                 ),
-            ],
-        ),
-    );
+                expr,
+            ),
+        reduce: ts.factory.createLogicalAnd,
+        positive: ts.factory.createTrue(),
+        superfluous: (value) =>
+            ts.factory.createCallExpression(
+                ts.factory.createIdentifier("$report"),
+                undefined,
+                [
+                    ts.factory.createIdentifier("exceptionable"),
+                    create_report_props(
+                        ts.factory.createAdd(
+                            ts.factory.createIdentifier("path"),
+                            ts.factory.createCallExpression(
+                                importer.use("join"),
+                                undefined,
+                                [ts.factory.createIdentifier("key")],
+                            ),
+                        ),
+                        "undefined",
+                        value,
+                    ),
+                ],
+            ),
+    });
 
-const join: (
+const joiner: (
     equals: boolean,
 ) => (importer: FunctionImporter) => CheckerProgrammer.IConfig.IJoiner =
     (equals) => (importer) => ({
         object: validate_object(equals)(importer),
-        array: (input, arrow, tags) =>
-            check_array(
-                input,
-                arrow,
-                tags,
-                check_everything(
-                    ts.factory.createCallExpression(
-                        IdentifierFactory.join(input, "map"),
-                        undefined,
-                        [arrow],
-                    ),
+        array: (input, arrow) =>
+            check_everything(
+                ts.factory.createCallExpression(
+                    IdentifierFactory.join(input, "map"),
+                    undefined,
+                    [arrow],
                 ),
+            ),
+        failure: (value, expected, explore) =>
+            ts.factory.createCallExpression(
+                ts.factory.createIdentifier("$report"),
+                undefined,
+                [
+                    ts.factory.createIdentifier("exceptionable"),
+                    create_report_props(
+                        ts.factory.createIdentifier(
+                            explore?.postfix
+                                ? `path + ${explore.postfix}`
+                                : "path",
+                        ),
+                        expected,
+                        value,
+                    ),
+                ],
             ),
         tuple: (binaries) =>
             check_everything(
@@ -175,27 +259,20 @@ function create_output() {
     );
 }
 
-function create_report_function(
+function create_report_props(
     path: ts.Expression,
     expected: string,
     value: ts.Expression,
-): ts.ArrowFunction {
-    return ts.factory.createArrowFunction(
-        undefined,
-        undefined,
-        [],
-        undefined,
-        undefined,
-        ts.factory.createObjectLiteralExpression(
-            [
-                ts.factory.createPropertyAssignment("path", path),
-                ts.factory.createPropertyAssignment(
-                    "expected",
-                    ts.factory.createStringLiteral(expected),
-                ),
-                ts.factory.createPropertyAssignment("value", value),
-            ],
-            true,
-        ),
+): ts.ObjectLiteralExpression {
+    return ts.factory.createObjectLiteralExpression(
+        [
+            ts.factory.createPropertyAssignment("path", path),
+            ts.factory.createPropertyAssignment(
+                "expected",
+                ts.factory.createStringLiteral(expected),
+            ),
+            ts.factory.createPropertyAssignment("value", value),
+        ],
+        true,
     );
 }

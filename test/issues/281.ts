@@ -1,143 +1,390 @@
 import benchmark from "benchmark";
 
-import TSON, { TypeGuardError } from "../../src";
+import { $guard } from "../../src/functional/$guard";
+
+import TSON from "../../src";
+import { ObjectHierarchical } from "../structures/ObjectHierarchical";
 import { ObjectSimple } from "../structures/ObjectSimple";
 
-const right: ObjectSimple = ObjectSimple.generate();
-const wrong: ObjectSimple = (() => {
-    const obj: ObjectSimple = ObjectSimple.generate();
-    obj.pivot.z = null!;
-    return obj;
-})();
+const right: ObjectHierarchical = ObjectHierarchical.generate();
 
-const predicate = (
-    exact: boolean,
-    closure: () => Omit<TSON.TypeGuardError.IProps, "method">,
-) =>
-    exact ? null : new TSON.TypeGuardError({ ...closure(), method: "exact" });
-
-const direct = TSON.createAssertStringify<ObjectSimple>();
-const logic = (input: ObjectSimple) => {
-    const $ao = [
-        (input: ObjectSimple.IPoint3D, path: string) =>
-            predicate("object" === typeof input && null !== input, () => ({
-                path: path,
-                expected: "ObjectSimple.IPoin3D",
-                value: input,
-            })) ||
-            predicate("number" === typeof input.x, () => ({
-                path: path + ".x",
-                expected: "number",
-                value: input.x,
-            })) ||
-            predicate("number" === typeof input.y, () => ({
-                path: path + ".y",
-                expected: "number",
-                value: input.y,
-            })) ||
-            predicate("number" === typeof input.z, () => ({
-                path: path + ".z",
-                expected: "number",
-                value: input.z,
-            })),
-        (input: ObjectSimple.IBox3D, path: string) =>
-            predicate("object" === typeof input && null !== input, () => ({
-                path: path,
-                expected: "ObjectSimple.IBox3D",
-                value: input,
-            })) ||
-            $ao[0](input.pivot, path + ".pivot") ||
-            $ao[0](input.position, path + ".position") ||
-            $ao[0](input.rotate, path + ".rotation") ||
-            $ao[0](input.scale, path + ".scale"),
-    ] as const;
-
-    const error = $ao[1](input, "$input");
-    if (null !== error) throw error;
-    return input;
+const throwable = (method: string) => {
+    const guard = $guard(method);
+    return (
+        exceptionable: boolean,
+        props: Omit<TSON.TypeGuardError.IProps, "method">,
+    ) => {
+        if (exceptionable) throw guard(props);
+        return false;
+    };
 };
-const condition = (input: ObjectSimple) => {
-    const $ao = [
-        (input: ObjectSimple.IPoint3D, path: string) => {
-            if ("object" !== typeof input || null === input)
-                throw new TSON.TypeGuardError({
-                    path: path,
-                    expected: "ObjectSimple.IPoin3D",
-                    value: input,
-                    method: "exact",
-                });
-            if ("number" !== typeof input.x)
-                throw new TSON.TypeGuardError({
-                    path: path + ".x",
-                    expected: "number",
-                    value: input.x,
-                    method: "exact",
-                });
-            if ("number" !== typeof input.y)
-                throw new TSON.TypeGuardError({
-                    path: path + ".y",
-                    expected: "number",
-                    value: input.y,
-                    method: "exact",
-                });
-            if ("number" !== typeof input.z)
-                throw new TSON.TypeGuardError({
-                    path: path + ".z",
-                    expected: "number",
-                    value: input.z,
-                    method: "exact",
-                });
-            return null;
-        },
-        (input: ObjectSimple.IBox3D, path: string) => {
-            if ("object" !== typeof input || null === input)
-                throw new TSON.TypeGuardError({
-                    path: path,
-                    expected: "ObjectSimple.IBox3D",
-                    value: input,
-                    method: "exact",
-                });
-            let error: TypeGuardError | null = null;
-            if (null !== (error = $ao[0](input.pivot, path + ".pivot")))
-                return error;
-            if (null !== (error = $ao[0](input.rotate, path + ".rotation")))
-                return error;
-            if (null !== (error = $ao[0](input.scale, path + ".scale")))
-                return error;
-            if (null !== (error = $ao[0](input.position, path + ".position")))
-                return error;
-            return null;
-        },
-    ] as const;
 
-    const error = $ao[1](input, "$input");
-    if (null !== error) throw error;
-    return input;
+const individual = (input: ObjectHierarchical) => {
+    const $guard = throwable("TSON.assertType()");
+    const $every = <T>(array: T[], closure: (elem: T, i: number) => boolean) => array.every(closure);
+    const $join = TSON.createAssertType.join;
+    const error = ((
+        input: ObjectHierarchical,
+        path: string,
+        exceptionable: boolean,
+    ) => {
+        const $ao = [
+            (input: ObjectHierarchical.ICustomer, path: string, exceptionable: boolean): boolean => {
+                return ("number" === typeof input.id
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".id",
+                          expected: "number",
+                          value: input.id,
+                      })) &&
+                ("object" === typeof input.channel && null !== input.channel
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".channel",
+                          expected: "Resolve<ObjectHierarchical.IChannel>",
+                          value: input.channel,
+                      })) &&
+                $ao[1](
+                    input.channel,
+                    path + ".channel",
+                    true && exceptionable,
+                ) &&
+                ((null === input.member
+                    ? true
+                    : false ||
+                    (("object" === typeof input.member && null !== input.member
+                        ? true
+                        : $guard(exceptionable, {
+                              path: path + ".member",
+                              expected:
+                                  "(Resolve<ObjectHierarchical.IMember> | null)",
+                              value: input.member,
+                          })) &&
+                        $ao[3](
+                            input.member!,
+                            path + ".member",
+                            true && exceptionable,
+                        )))) &&
+                ((null === input.account
+                    ? true
+                    : false ||
+                    (("object" === typeof input.account &&
+                    null !== input.account
+                        ? true
+                        : $guard(exceptionable, {
+                              path: path + ".account",
+                              expected:
+                                  "(Resolve<ObjectHierarchical.IAccount> | null)",
+                              value: input.account,
+                          })) &&
+                        $ao[4](
+                            input.account!,
+                            path + ".account",
+                            true && exceptionable,
+                        )))) &&
+                ("string" === typeof input.href
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".href",
+                          expected: "string",
+                          value: input.href,
+                      })) &&
+                ("string" === typeof input.referrer
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".referrer",
+                          expected: "string",
+                          value: input.referrer,
+                      })) &&
+                (Array.isArray(input.ip)
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".ip",
+                          expected: "[number, number, number, number]",
+                          value: input.ip,
+                      })) &&
+                (input.ip.length === 4
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".ip",
+                          expected: "[number, number, number, number]",
+                          value: input.ip,
+                      })) &&
+                ("number" === typeof input.ip[0]
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".ip[0]",
+                          expected: "number",
+                          value: input.ip[0],
+                      })) &&
+                ("number" === typeof input.ip[1]
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".ip[1]",
+                          expected: "number",
+                          value: input.ip[1],
+                      })) &&
+                ("number" === typeof input.ip[2]
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".ip[2]",
+                          expected: "number",
+                          value: input.ip[2],
+                      })) &&
+                ("number" === typeof input.ip[3]
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".ip[3]",
+                          expected: "number",
+                          value: input.ip[3],
+                      })) &&
+                ("object" === typeof input.created_at &&
+                null !== input.created_at
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".created_at",
+                          expected: "Resolve<ObjectHierarchical.ITimestamp>",
+                          value: input.created_at,
+                      })) &&
+                $ao[2](
+                    input.created_at,
+                    path + ".created_at",
+                    true && exceptionable,
+                )
+            },
+            (input: ObjectHierarchical.IChannel, path: string, exceptionable: boolean): boolean => {
+                return ("number" === typeof input.id
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".id",
+                          expected: "number",
+                          value: input.id,
+                      })) &&
+                ("string" === typeof input.code
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".code",
+                          expected: "string",
+                          value: input.code,
+                      })) &&
+                ("string" === typeof input.name
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".name",
+                          expected: "string",
+                          value: input.name,
+                      })) &&
+                ("number" === typeof input.sequence
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".sequence",
+                          expected: "number",
+                          value: input.sequence,
+                      })) &&
+                ("boolean" === typeof input.exclusive
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".exclusive",
+                          expected: "boolean",
+                          value: input.exclusive,
+                      })) &&
+                ("number" === typeof input.priority
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".priority",
+                          expected: "number",
+                          value: input.priority,
+                      })) &&
+                ("object" === typeof input.created_at &&
+                null !== input.created_at
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".created_at",
+                          expected: "Resolve<ObjectHierarchical.ITimestamp>",
+                          value: input.created_at,
+                      })) &&
+                $ao[2](
+                    input.created_at,
+                    path + ".created_at",
+                    true && exceptionable,
+                )
+            },
+            (input: ObjectHierarchical.ITimestamp, path: string, exceptionable: boolean): boolean => {
+                return ("number" === typeof input.time
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".time",
+                          expected: "number",
+                          value: input.time,
+                      })) &&
+                ("number" === typeof input.zone
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".zone",
+                          expected: "number",
+                          value: input.zone,
+                      }))
+            },
+            (input: ObjectHierarchical.IMember, path: string, exceptionable: boolean): boolean => {
+                return ("number" === typeof input.id
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".id",
+                          expected: "number",
+                          value: input.id,
+                      })) &&
+                ("object" === typeof input.account && null !== input.account
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".account",
+                          expected: "Resolve<ObjectHierarchical.IAccount>",
+                          value: input.account,
+                      })) &&
+                $ao[4](
+                    input.account!,
+                    path + ".account",
+                    true && exceptionable,
+                ) &&
+                ((null === input.enterprise
+                    ? true
+                    : false) ||
+                    (("object" === typeof input.enterprise && null !== input.enterprise
+                        ? true
+                        : $guard(exceptionable, {
+                              path: path + ".enterprise",
+                              expected:
+                                  "(Resolve<ObjectHierarchical.IEnterprise> | null)",
+                              value: input.enterprise,
+                          })) &&
+                        $ao[5](
+                            input.enterprise!,
+                            path + ".enterprise",
+                            true && exceptionable,
+                        ))) &&
+                (Array.isArray(input.emails)
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".emails",
+                          expected: "Array<string>",
+                          value: input.emails,
+                      })) &&
+                $every(input.emails, (elem, index1) =>
+                    "string" === typeof elem
+                        ? true
+                        : $guard(exceptionable, {
+                              path: path + ".emails[" + index1 + "]",
+                              expected: "string",
+                              value: elem,
+                          }),
+                ) &&
+                ("object" === typeof input.created_at &&
+                null !== input.created_at
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".created_at",
+                          expected: "Resolve<ObjectHierarchical.ITimestamp>",
+                          value: input.created_at,
+                      })) &&
+                $ao[2](
+                    input.created_at,
+                    path + ".created_at",
+                    true && exceptionable,
+                ) &&
+                ("boolean" === typeof input.authorized
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".authorized",
+                          expected: "boolean",
+                          value: input.authorized,
+                      }))
+            },
+            (input: ObjectHierarchical.IAccount, path: string, exceptionable: boolean): boolean =>
+                ("number" === typeof input.id
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".id",
+                          expected: "number",
+                          value: input.id,
+                      })) &&
+                ("string" === typeof input.code
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".code",
+                          expected: "string",
+                          value: input.code,
+                      })) &&
+                ("object" === typeof input.created_at &&
+                null !== input.created_at
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".created_at",
+                          expected: "Resolve<ObjectHierarchical.ITimestamp>",
+                          value: input.created_at,
+                      })) &&
+                $ao[2](
+                    input.created_at,
+                    path + ".created_at",
+                    true && exceptionable,
+                ),
+            (input: ObjectHierarchical.IEnterprise, path: string, exceptionable: boolean): boolean =>
+                ("number" === typeof input.id
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".id",
+                          expected: "number",
+                          value: input.id,
+                      })) &&
+                ("object" === typeof input.account && null !== input.account
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".account",
+                          expected: "Resolve<ObjectHierarchical.IAccount>",
+                          value: input.account,
+                      })) &&
+                $ao[4](
+                    input.account,
+                    path + ".account",
+                    true && exceptionable,
+                ) &&
+                ("string" === typeof input.name
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".name",
+                          expected: "string",
+                          value: input.name,
+                      })) &&
+                ("number" === typeof input.grade
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".grade",
+                          expected: "number",
+                          value: input.grade,
+                      })) &&
+                ("object" === typeof input.created_at &&
+                null !== input.created_at
+                    ? true
+                    : $guard(exceptionable, {
+                          path: path + ".created_at",
+                          expected: "Resolve<ObjectHierarchical.ITimestamp>",
+                          value: input.created_at,
+                      })) &&
+                $ao[2](
+                    input.created_at,
+                    path + ".created_at",
+                    true && exceptionable,
+                ),
+        ] as const;
+        return $ao[0](input, path, true);
+    })(input, "$input", true);
+    return error;
 };
+
 
 const suite: benchmark.Suite = new benchmark.Suite();
 
 suite.add("is", () => TSON.is(right));
-suite.add("direct iterate", () => TSON.assertType(right));
-suite.add("direct throw", () => {
-    try {
-        direct(wrong);
-    } catch {}
-});
-
-suite.add("logic iterate", () => logic(right));
-suite.add("logic throw", () => {
-    try {
-        logic(wrong);
-    } catch {}
-});
-
-suite.add("condition iterate", () => condition(right));
-suite.add("condition throw", () => {
-    try {
-        condition(wrong);
-    } catch {}
-});
+suite.add("individual", () => individual(right));
+suite.add("last", () => TSON.assertType(right));
 
 suite.run();
 

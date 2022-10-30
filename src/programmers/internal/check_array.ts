@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
 import { IMetadataTag } from "../../metadata/IMetadataTag";
@@ -11,19 +12,9 @@ import { check_length } from "./check_length";
  */
 export function check_array(
     input: ts.Expression,
-    arrow: ts.ArrowFunction,
     tagList: IMetadataTag[],
-    every?: ts.Expression,
 ): ts.Expression {
-    // INSPECT EVERY ELEMENTS
-    const conditions: ts.Expression[] = [
-        every ||
-            ts.factory.createCallExpression(
-                IdentifierFactory.join(input, "every"),
-                undefined,
-                [arrow],
-            ),
-    ];
+    const conditions: ts.Expression[] = [ExpressionFactory.isArray(input)];
 
     // CHECK TAGS
     for (const tag of tagList)
@@ -49,9 +40,5 @@ export function check_array(
             );
 
     // COMBINATION
-    return conditions.length === 1
-        ? conditions[0]!
-        : conditions
-              .reverse()
-              .reduce((x, y) => ts.factory.createLogicalAnd(x, y));
+    return conditions.reduce((x, y) => ts.factory.createLogicalAnd(x, y));
 }
