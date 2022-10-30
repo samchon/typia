@@ -115,43 +115,33 @@ const combine =
                       .map((binary) =>
                           binary.combined
                               ? binary.expression
-                              : ts.factory.createParenthesizedExpression(
-                                    ts.factory.createConditionalExpression(
-                                        binary.expression,
+                              : ts.factory.createLogicalOr(
+                                    binary.expression,
+                                    ts.factory.createCallExpression(
+                                        ts.factory.createIdentifier("$report"),
                                         undefined,
-                                        ts.factory.createTrue(),
-                                        undefined,
-                                        ts.factory.createCallExpression(
-                                            ts.factory.createIdentifier(
-                                                "$report",
-                                            ),
-                                            undefined,
-                                            [
-                                                explore.source === "top"
-                                                    ? ts.factory.createTrue()
-                                                    : ts.factory.createIdentifier(
-                                                          "exceptionable",
-                                                      ),
-                                                create_report_props(
-                                                    ts.factory.createIdentifier(
-                                                        path,
-                                                    ),
-                                                    expected,
-                                                    input,
+                                        [
+                                            explore.source === "top"
+                                                ? ts.factory.createTrue()
+                                                : ts.factory.createIdentifier(
+                                                      "exceptionable",
+                                                  ),
+                                            create_report_props(
+                                                ts.factory.createIdentifier(
+                                                    path,
                                                 ),
-                                            ],
-                                        ),
+                                                expected,
+                                                input,
+                                            ),
+                                        ],
                                     ),
                                 ),
                       )
                       .reduce(ts.factory.createLogicalAnd)
-                : ts.factory.createConditionalExpression(
+                : ts.factory.createLogicalOr(
                       binaries
                           .map((binary) => binary.expression)
                           .reduce(ts.factory.createLogicalOr),
-                      undefined,
-                      ts.factory.createTrue(),
-                      undefined,
                       ts.factory.createCallExpression(
                           ts.factory.createIdentifier("$report"),
                           undefined,
