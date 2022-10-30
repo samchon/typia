@@ -13,6 +13,7 @@ import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
 import { ArrayRecursiveUnionImplicit } from "../../test/structures/ArrayRecursiveUnionImplicit";
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
+import { ObjectSimple } from "../../test/structures/ObjectSimple";
 import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
@@ -23,6 +24,7 @@ import { CvArrayRecursive } from "../structures/class-validator/CvArrayRecursive
 import { CvArrayRecursiveUnionExplicit } from "../structures/class-validator/CvArrayRecursiveUnionExplicit";
 import { CvArrayRecursiveUnionImplicit } from "../structures/class-validator/CvArrayRecursiveUnionImplicit";
 import { CvObjectHierarchical } from "../structures/class-validator/CvObjectHierarchical";
+import { CvObjectSimple } from "../structures/class-validator/CvObjectSimple";
 import { CvObjectUnionExplicit } from "../structures/class-validator/CvObjectUnionExplicit";
 import { CvObjectUnionImplicit } from "../structures/class-validator/CvObjectUnionImplicit";
 // IO-TS TYPES
@@ -30,6 +32,7 @@ import { IoTsArrayRecursive } from "../structures/io-ts/IoTsArrayRecursive";
 import { IoTsArrayRecursiveUnionExplicit } from "../structures/io-ts/IoTsArrayRecursiveUnionExplicit";
 import { IoTsArrayRecursiveUnionImplicit } from "../structures/io-ts/IoTsArrayRecursiveUnionImplicit";
 import { IoTsObjectHierarchical } from "../structures/io-ts/IoTsObjectHierarchical";
+import { IoTsObjectSimple } from "../structures/io-ts/IoTsObjectSimple";
 import { IoTsObjectUnionExplicit } from "../structures/io-ts/IoTsObjectUnionExplicit";
 import { IoTsObjectUnionImplicit } from "../structures/io-ts/IoTsObjectUnionImplicit";
 import { IoTsUltimateUnion } from "../structures/io-ts/IoTsUltimateUnion";
@@ -39,6 +42,7 @@ import { __TypeBoxArrayRecursive } from "../structures/typebox/TypeBoxArrayRecur
 import { __TypeBoxArrayRecursiveUnionExplicit } from "../structures/typebox/TypeBoxArrayRecursiveUnionExplicit";
 import { __TypeBoxArrayRecursiveUnionImplicit } from "../structures/typebox/TypeBoxArrayRecursiveUnionImplicit";
 import { __TypeBoxObjectHierarchical } from "../structures/typebox/TypeBoxObjectHierarchical";
+import { __TypeBoxObjectSimple } from "../structures/typebox/TypeBoxObjectSimple";
 import { __TypeBoxObjectUnionExplicit } from "../structures/typebox/TypeBoxObjectUnionExplicit";
 import { __TypeBoxObjectUnionImplicit } from "../structures/typebox/TypeBoxObjectUnionImplicit";
 import { __TypeBoxUltimateUnion } from "../structures/typebox/TypeBoxUltimateUnion";
@@ -47,6 +51,7 @@ import { ZodArrayRecursive } from "../structures/zod/ZodArrayRecursive";
 import { ZodArrayRecursiveUnionExplicit } from "../structures/zod/ZodArrayRecursiveUnionExplicit";
 import { ZodArrayRecursiveUnionImplicit } from "../structures/zod/ZodArrayRecursiveUnionImplicit";
 import { ZodObjectHierarchical } from "../structures/zod/ZodObjectHierarchical";
+import { ZodObjectSimple } from "../structures/zod/ZodObjectSimple";
 import { ZodObjectUnionExplicit } from "../structures/zod/ZodObjectUnionExplicit";
 import { ZodObjectUnionImplicit } from "../structures/zod/ZodObjectUnionImplicit";
 import { ZodUltimateUnion } from "../structures/zod/ZodUltimateUnion";
@@ -111,6 +116,19 @@ const prepare = AssertThrowBenchmarker.prepare([
     DO BENCHMARK
 ----------------------------------------------------------- */
 const assertType_po_throw_pc = () => [
+    prepare(
+        "object (simple)",
+        () => ObjectSimple.generate(),
+        () => ObjectSimple.trail(),
+        {
+            "typescript-json": TSON.createAssertType<ObjectSimple[]>(),
+            "io-ts": assertIoTs(IoTsObjectSimple),
+            "class-validator": assertClassValidator(CvObjectSimple),
+            zod: assertZod(ZodObjectSimple),
+            typebox: assertTypeBox(__TypeBoxObjectSimple),
+        },
+        ObjectSimple.SPOILERS,
+    ),
     prepare(
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),

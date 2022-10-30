@@ -37,6 +37,7 @@ const TSON_iterate = () => [
     TsonIterateBenchmarker.prepare(
         "object (union, explicit)",
         () => ObjectUnionExplicit.generate(),
+
         {
             is: (input) => TSON.is(input),
             assert: (input) => TSON.assertType(input),
