@@ -1,12 +1,12 @@
 import { Spoiler } from "../internal/Spoiler";
 
 export type FunctionalTuple = [
-    FunctionalTuple.Funtional,
-    FunctionalTuple.Funtional,
-    FunctionalTuple.Funtional,
+    FunctionalTuple.Functional,
+    FunctionalTuple.Functional,
+    FunctionalTuple.Functional,
 ];
 export namespace FunctionalTuple {
-    export type Funtional = (...args: any[]) => any;
+    export type Functional = (...args: any[]) => any;
     export function generate(): FunctionalTuple {
         return [console.log, console.log, console.log];
     }
