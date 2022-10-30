@@ -34,6 +34,7 @@ export namespace StringifyProgrammer {
         return FeatureProgrammer.generate(
             project,
             CONFIG(project, importer),
+            importer,
             (collection) => {
                 const isFunctors = IsProgrammer.generate_functors(
                     project,
@@ -377,6 +378,7 @@ export namespace StringifyProgrammer {
     const decode_object = () =>
         FeatureProgrammer.decode_object({
             trace: false,
+            path: false,
             functors: FUNCTORS,
         });
 
@@ -497,13 +499,9 @@ export namespace StringifyProgrammer {
         UnionExplorer.array(
             IsProgrammer.decode(project, importer),
             decode_array(project, importer),
-            () => ts.factory.createStringLiteral("[]"),
-            (input, targets) =>
-                create_throw_error(
-                    importer,
-                    input,
-                    `(${targets.map((t) => t.getName()).join(" | ")})`,
-                ),
+            ts.factory.createStringLiteral("[]"),
+            ts.factory.createTrue(),
+            (input, expected) => create_throw_error(importer, input, expected),
         );
 
     const explore_objects = (
@@ -615,6 +613,7 @@ export namespace StringifyProgrammer {
         functors: FUNCTORS,
         unioners: UNIONERS,
         trace: false,
+        path: false,
         initializer,
         decoder: decode(project, importer),
         objector: OBJECTOR(project, importer),
@@ -643,13 +642,13 @@ export namespace StringifyProgrammer {
         joiner: StringifyJoiner.object(importer),
         unionizer: decode_union_object(IsProgrammer.decode_object())(
             decode_object(),
-        )((value, expected) => create_throw_error(importer, value, expected)),
-        failure: (input, targets) =>
-            create_throw_error(
-                importer,
-                input,
-                `(${targets.map((t) => t.name).join(" | ")})`,
-            ),
+        )((exp) => exp)((value, expected) =>
+            create_throw_error(importer, value, expected),
+        ),
+        failure: (input, expected) =>
+            create_throw_error(importer, input, expected),
+        is: (expr) => expr,
+        required: (expr) => expr,
     });
 
     function create_throw_error(

@@ -22,6 +22,7 @@ export const decode_union_object =
             explore: FeatureProgrammer.IExplore,
         ) => ts.Expression,
     ) =>
+    (success: (exp: ts.Expression) => ts.Expression) =>
     (escaper: (value: ts.Expression, expected: string) => ts.Statement) =>
     (
         input: ts.Expression,
@@ -39,7 +40,7 @@ export const decode_union_object =
                     input,
                     targets.map((obj) => ({
                         type: "object",
-                        is: () => checker(input, obj, explore),
+                        is: () => success(checker(input, obj, explore)),
                         value: () => decoder(input, obj, explore),
                     })),
                     `(${targets.map((t) => t.name).join(" | ")})`,
