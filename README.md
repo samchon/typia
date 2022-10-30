@@ -43,11 +43,11 @@ TSON.application<[T, U, V], "ajv">(); // JSON schema application generator
     - Guarded by type validation: `TSON.assertStringify<T>(input)`
     - Only one library which can stringify union type
 
-![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/197366076-1d5592e7-b717-4ea3-b9d7-949e7fa4fc76.png)
+![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/198886897-13fe8c27-3f66-41e6-b7ed-b2cb40381937.png)
 
-![Assert Function Benchmark](https://user-images.githubusercontent.com/13158709/197366105-2b784668-70dd-44bf-b73d-2e601e54c48f.png)
+![Assert Function Benchmark](https://user-images.githubusercontent.com/13158709/198886957-92571095-e2cb-4a84-8706-c121a28d8f48.png)
 
-> Measured on AMD R9 5900HX and Intel i5-1135g7
+> Measured on AMD R7 5800H
 
 
 
@@ -258,9 +258,9 @@ As you can see from the above table, `ajv` and `typescript-is` are fallen in the
 
 The extreme different is shown in the "ultimate union" type, when validating [JSON schema](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts).
 
-![Super-fast runtime validator](https://user-images.githubusercontent.com/13158709/197246323-d4b319bc-38ee-492a-97b1-62b1981c082b.png)
+![Super-fast runtime validator](https://user-images.githubusercontent.com/13158709/198886993-e309c0ae-6b9a-4d6b-adf6-ba3caa688ad0.png)
 
-> Measured on AMD-5800H
+> Measured on AMD R9 5900HX
 
 ### Fastest JSON String Converter
 ```typescript
@@ -281,9 +281,9 @@ If you want to validate the input type at the same time, you can choose `TSON.is
 
 Comparing performance, `typescript-json` is about 5x times faster than the native `JSON.stringify()` function.
 
-![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/197731958-f20157b2-2e31-4e24-a27f-3ae9a8e565bb.png)
+![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/198887389-df94f6e9-6d25-4943-8636-84b5c23c1369.png)
 
-> Measured on Intel AMD-5800H
+> Measured by Intel i5-1135g7, Surface Pro 8
 
 ### JSON Schema Generation
 ```typescript
