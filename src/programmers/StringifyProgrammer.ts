@@ -47,28 +47,8 @@ export namespace StringifyProgrammer {
 
                 return [
                     ...importer.declare(modulo),
-                    ...(isFunctors
-                        ? [
-                              ts.factory.createVariableStatement(
-                                  undefined,
-                                  ts.factory.createVariableDeclarationList(
-                                      [isFunctors],
-                                      ts.NodeFlags.Const,
-                                  ),
-                              ),
-                          ]
-                        : []),
-                    ...(isUnioners
-                        ? [
-                              ts.factory.createVariableStatement(
-                                  undefined,
-                                  ts.factory.createVariableDeclarationList(
-                                      [isUnioners],
-                                      ts.NodeFlags.Const,
-                                  ),
-                              ),
-                          ]
-                        : []),
+                    ...isFunctors,
+                    ...isUnioners,
                 ];
             },
         );
@@ -513,7 +493,7 @@ export namespace StringifyProgrammer {
             return decode_object()(input, meta.objects[0]!, explore);
 
         return ts.factory.createCallExpression(
-            ts.factory.createIdentifier(`${UNIONERS}[${meta.union_index!}]`),
+            ts.factory.createIdentifier(`${UNIONERS}${meta.union_index!}`),
             undefined,
             [input],
         );

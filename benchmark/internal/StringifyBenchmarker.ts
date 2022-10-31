@@ -14,7 +14,7 @@ export namespace StringifyBenchmarker {
     export interface IParameters<T> {
         "TSON.stringify()": (input: T) => string;
         "TSON.assertStringify()": (input: T) => string;
-        "TSON.isStringify()": (input: T) => string;
+        "TSON.isStringify()": (input: T) => string | null;
         "fast-json-stringify": null | ((input: T) => string);
     }
 
