@@ -36,18 +36,17 @@ TSON.application<[T, U, V], "ajv">(); // JSON schema application generator
   - Powerful Runtime type checkers:
     - Performed by only one line, `TSON.assertType<T>(input)`
     - Only one library which can validate union type
-    - Maximum 2,000x faster than other libraries
-    - 20,000x faster optimizer construction time than similar libraries
+    - Maximum 6,000x faster than other libraries
   - 5x faster `JSON.stringify()` function:
     - Performed by only one line: `TSON.stringify<T>(input)`
     - Guarded by type validation: `TSON.assertStringify<T>(input)`
     - Only one library which can stringify union type
 
-![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/198886897-13fe8c27-3f66-41e6-b7ed-b2cb40381937.png)
+![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/198999926-9d0a195c-4f80-45b4-aa53-1330354eeb2a.png)
 
-![Assert Function Benchmark](https://user-images.githubusercontent.com/13158709/198886957-92571095-e2cb-4a84-8706-c121a28d8f48.png)
+![Assert Function Benchmark](https://user-images.githubusercontent.com/13158709/199000041-39839d90-aed0-4e54-8398-159920121ab6.png)
 
-> Measured on AMD R7 5800H
+> Measured on [AMD R9 5900HX](https://github.com/samchon/typescript-json/blob/master/benchmark/results/AMD%20Ryzen%209%205900HX%20with%20Radeon%20Graphics.md#is)
 
 
 
@@ -258,9 +257,9 @@ As you can see from the above table, `ajv` and `typescript-is` are fallen in the
 
 The extreme different is shown in the "ultimate union" type, when validating [JSON schema](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts).
 
-![Super-fast runtime validator](https://user-images.githubusercontent.com/13158709/198886993-e309c0ae-6b9a-4d6b-adf6-ba3caa688ad0.png)
+![Super-fast runtime validator](https://user-images.githubusercontent.com/13158709/199001036-d132bad5-12a2-43d8-a721-bdc998273642.png)
 
-> Measured on AMD R9 5900HX
+> Measured on [Intel i5-1135g7, Surface Pro 8](https://github.com/samchon/typescript-json/blob/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz.md#optimizer)
 
 ### Fastest JSON String Converter
 ```typescript
@@ -281,9 +280,9 @@ If you want to validate the input type at the same time, you can choose `TSON.is
 
 Comparing performance, `typescript-json` is about 5x times faster than the native `JSON.stringify()` function.
 
-![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/198887389-df94f6e9-6d25-4943-8636-84b5c23c1369.png)
+![JSON conversion speed on each CPU](https://user-images.githubusercontent.com/13158709/199001643-43b1f618-1d4e-4e9e-99b3-064166b25b3d.png)
 
-> Measured by Intel i5-1135g7, Surface Pro 8
+> Measured on [Intel i5-1135g7, Surface Pro 8](https://github.com/samchon/typescript-json/blob/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz.md#stringify)
 
 ### JSON Schema Generation
 ```typescript
