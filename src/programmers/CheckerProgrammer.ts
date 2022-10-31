@@ -513,7 +513,7 @@ export namespace CheckerProgrammer {
 
             return ts.factory.createCallExpression(
                 ts.factory.createIdentifier(
-                    `${config.unioners}[${meta.union_index!}]`,
+                    `${config.unioners}${meta.union_index!}`,
                 ),
                 undefined,
                 FeatureProgrammer.get_object_arguments(config)(explore)(input),

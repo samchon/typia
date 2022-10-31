@@ -1,7 +1,6 @@
 import fs from "fs";
 import os from "os";
 
-import { benchmark_TSON_iterate } from "./features/benchmark_TSON_iterate";
 import { benchmark_assert_equals_iterate } from "./features/benchmark_assert_equals_iterate";
 import { benchmark_assert_equals_throw } from "./features/benchmark_assert_equals_throw";
 import { benchmark_assert_type_iterate } from "./features/benchmark_assert_type_iterate";
@@ -102,7 +101,6 @@ async function main(): Promise<void> {
 
     const stream = new WriteStream(`${__dirname}/results/${cpu}.md`);
     const functors = [
-        benchmark_TSON_iterate,
         benchmark_is,
         benchmark_assert_type_iterate,
         benchmark_assert_type_throw,
