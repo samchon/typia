@@ -46,4 +46,27 @@ export namespace IdentifierFactory {
             init,
         );
     }
+
+    // export function property(
+    //     name: string | ts.PropertyName,
+    //     value: ts.Expression,
+    // ): ts.PropertyDeclaration {
+    //     if (ts.version >= "4.8")
+    //         return ts.factory.createPropertyDeclaration(
+    //             undefined,
+    //             name,
+    //             undefined,
+    //             undefined,
+    //             value,
+    //         );
+    //     // eslint-disable-next-line
+    //     return ts.factory.createPropertyDeclaration(
+    //         undefined,
+    //         undefined,
+    //         name,
+    //         undefined,
+    //         undefined,
+    //         value,
+    //     );
+    // }
 }

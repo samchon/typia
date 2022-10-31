@@ -31,9 +31,10 @@ const stringify = () => [
         "object (simple)",
         () => ObjectSimple.generate(),
         {
-            "TSON.stringify()": (input) => TSON.stringify(input),
-            "TSON.assertStringify()": (input) => TSON.assertStringify(input),
-            "TSON.isStringify()": (input) => TSON.isStringify(input)!,
+            "TSON.stringify()": TSON.createStringify<ObjectSimple>(),
+            "TSON.assertStringify()":
+                TSON.createAssertStringify<ObjectSimple>(),
+            "TSON.isStringify()": TSON.createIsStringify<ObjectSimple>(),
             "fast-json-stringify": build(
                 TSON.application<[ObjectSimple], "ajv">(),
             ),
@@ -43,9 +44,10 @@ const stringify = () => [
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
         {
-            "TSON.stringify()": (input) => TSON.stringify(input),
-            "TSON.assertStringify()": (input) => TSON.assertStringify(input),
-            "TSON.isStringify()": (input) => TSON.isStringify(input)!,
+            "TSON.stringify()": TSON.createStringify<ObjectHierarchical>(),
+            "TSON.assertStringify()":
+                TSON.createAssertStringify<ObjectHierarchical>(),
+            "TSON.isStringify()": TSON.createIsStringify<ObjectHierarchical>(),
             "fast-json-stringify": build(
                 TSON.application<[ObjectHierarchical], "ajv">(),
             ),
@@ -55,9 +57,10 @@ const stringify = () => [
         "object (recursive)",
         () => ObjectRecursive.generate(),
         {
-            "TSON.stringify()": (input) => TSON.stringify(input),
-            "TSON.assertStringify()": (input) => TSON.assertStringify(input),
-            "TSON.isStringify()": (input) => TSON.isStringify(input)!,
+            "TSON.stringify()": TSON.createStringify<ObjectRecursive>(),
+            "TSON.assertStringify()":
+                TSON.createAssertStringify<ObjectRecursive>(),
+            "TSON.isStringify()": TSON.createIsStringify<ObjectRecursive>(),
             "fast-json-stringify": build(
                 TSON.application<[ObjectRecursive], "ajv">(),
             ),
@@ -67,9 +70,10 @@ const stringify = () => [
         "object (union)",
         () => ObjectUnionImplicit.generate(),
         {
-            "TSON.stringify()": (input) => TSON.stringify(input),
-            "TSON.assertStringify()": (input) => TSON.assertStringify(input),
-            "TSON.isStringify()": (input) => TSON.isStringify(input)!,
+            "TSON.stringify()": TSON.createStringify<ObjectUnionImplicit>(),
+            "TSON.assertStringify()":
+                TSON.createAssertStringify<ObjectUnionImplicit>(),
+            "TSON.isStringify()": TSON.createIsStringify<ObjectUnionImplicit>(),
             "fast-json-stringify": build(
                 TSON.application<[ObjectUnionImplicit], "ajv">(),
             ),
@@ -83,9 +87,10 @@ const stringify = () => [
         "array (hierarchical)",
         () => ArrayHierarchical.generate(),
         {
-            "TSON.stringify()": (input) => TSON.stringify(input),
-            "TSON.assertStringify()": (input) => TSON.assertStringify(input),
-            "TSON.isStringify()": (input) => TSON.isStringify(input)!,
+            "TSON.stringify()": TSON.createStringify<ArrayHierarchical>(),
+            "TSON.assertStringify()":
+                TSON.createAssertStringify<ArrayHierarchical>(),
+            "TSON.isStringify()": TSON.createIsStringify<ArrayHierarchical>(),
             "fast-json-stringify": build(
                 TSON.application<[ArrayHierarchical], "ajv">(),
             ),
@@ -95,9 +100,10 @@ const stringify = () => [
         "array (recursive)",
         () => ArrayRecursive.generate(),
         {
-            "TSON.stringify()": (input) => TSON.stringify(input),
-            "TSON.assertStringify()": (input) => TSON.assertStringify(input),
-            "TSON.isStringify()": (input) => TSON.isStringify(input)!,
+            "TSON.stringify()": TSON.createStringify<ArrayRecursive>(),
+            "TSON.assertStringify()":
+                TSON.createAssertStringify<ArrayRecursive>(),
+            "TSON.isStringify()": TSON.createIsStringify<ArrayRecursive>(),
             "fast-json-stringify": build(
                 TSON.application<[ArrayRecursive], "ajv">(),
             ),
@@ -107,9 +113,12 @@ const stringify = () => [
         "array (union)",
         () => ArrayRecursiveUnionExplicit.generate(),
         {
-            "TSON.stringify()": (input) => TSON.stringify(input),
-            "TSON.assertStringify()": (input) => TSON.assertStringify(input),
-            "TSON.isStringify()": (input) => TSON.isStringify(input)!,
+            "TSON.stringify()":
+                TSON.createStringify<ArrayRecursiveUnionExplicit>(),
+            "TSON.assertStringify()":
+                TSON.createAssertStringify<ArrayRecursiveUnionExplicit>(),
+            "TSON.isStringify()":
+                TSON.createIsStringify<ArrayRecursiveUnionExplicit>(),
             "fast-json-stringify": build(
                 TSON.application<[ArrayRecursiveUnionExplicit], "ajv">(),
             ),
