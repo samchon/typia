@@ -67,7 +67,8 @@ import { ZodUltimateUnion } from "../structures/zod/ZodUltimateUnion";
 const validateTypeBox =
     <S extends TSchema>(program: TypeCheck<S>) =>
     <T>(input: T) =>
-        [...program.Errors(input)];
+        program.Check(input) ? [] : [...program.Errors(input)];
+
 const validateIoTs =
     <S extends t.Mixed>(type: S) =>
     <T>(input: T) =>

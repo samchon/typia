@@ -41,9 +41,8 @@ class CustomError extends Error {
 const assertTypeBox =
     <S extends TSchema>(program: TypeCheck<S>) =>
     <T>(input: T) => {
-        const value = program.Errors(input).next().value;
-        if (value) throw new CustomError(value);
-        return input;
+        if (program.Check(input)) return input;
+        throw new CustomError([...program.Errors(input)]); // iterate implies all errors
     };
 
 const prepare = AssertIterateBenchmarker.prepare([

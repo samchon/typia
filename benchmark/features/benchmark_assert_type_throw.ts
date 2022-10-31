@@ -37,15 +37,15 @@ import { IoTsObjectUnionExplicit } from "../structures/io-ts/IoTsObjectUnionExpl
 import { IoTsObjectUnionImplicit } from "../structures/io-ts/IoTsObjectUnionImplicit";
 import { IoTsUltimateUnion } from "../structures/io-ts/IoTsUltimateUnion";
 import { IoTsUtils } from "../structures/io-ts/IoTsUtils";
-// TYPEBOX TYPES
-import { __TypeBoxArrayRecursive } from "../structures/typebox/TypeBoxArrayRecursive";
-import { __TypeBoxArrayRecursiveUnionExplicit } from "../structures/typebox/TypeBoxArrayRecursiveUnionExplicit";
-import { __TypeBoxArrayRecursiveUnionImplicit } from "../structures/typebox/TypeBoxArrayRecursiveUnionImplicit";
-import { __TypeBoxObjectHierarchical } from "../structures/typebox/TypeBoxObjectHierarchical";
-import { __TypeBoxObjectSimple } from "../structures/typebox/TypeBoxObjectSimple";
-import { __TypeBoxObjectUnionExplicit } from "../structures/typebox/TypeBoxObjectUnionExplicit";
-import { __TypeBoxObjectUnionImplicit } from "../structures/typebox/TypeBoxObjectUnionImplicit";
-import { __TypeBoxUltimateUnion } from "../structures/typebox/TypeBoxUltimateUnion";
+// TYPEBOX TYPES (Equals?)
+import { __TypeBoxArrayRecursiveEquals } from "../structures/typebox/equals/TypeBoxArrayRecursiveEquals";
+import { __TypeBoxArrayRecursiveUnionExplicitEquals } from "../structures/typebox/equals/TypeBoxArrayRecursiveUnionExplicitEquals";
+import { __TypeBoxArrayRecursiveUnionImplicitEquals } from "../structures/typebox/equals/TypeBoxArrayRecursiveUnionImplicitEquals";
+import { __TypeBoxObjectHierarchicalEquals } from "../structures/typebox/equals/TypeBoxObjectHierarchicalEquals";
+import { __TypeBoxObjectSimpleEquals } from "../structures/typebox/equals/TypeBoxObjectSimpleEquals";
+import { __TypeBoxObjectUnionExplicitEquals } from "../structures/typebox/equals/TypeBoxObjectUnionExplicitEquals";
+import { __TypeBoxObjectUnionImplicitEquals } from "../structures/typebox/equals/TypeBoxObjectUnionImplicitEquals";
+import { __TypeBoxUltimateUnionEquals } from "../structures/typebox/equals/TypeBoxUltimateUnionEquals";
 // ZOD TYPES
 import { ZodArrayRecursive } from "../structures/zod/ZodArrayRecursive";
 import { ZodArrayRecursiveUnionExplicit } from "../structures/zod/ZodArrayRecursiveUnionExplicit";
@@ -69,15 +69,13 @@ class CustomError extends Error {
     }
 }
 
-const assertTypeBox =
-    <S extends TSchema>(schema: S) =>
-    <T>(input: T[]) => {
-        const program = TypeCompiler.Compile(Type.Array(schema));
+const assertTypeBox = <S extends TSchema>(schema: S) => {
+    const program = TypeCompiler.Compile(Type.Array(schema)); // only compile once
+    return <T>(input: T[]) => {
         if (program.Check(input)) return input;
-
-        const iterator = program.Errors(input);
-        throw new CustomError(iterator.next().value);
+        throw new CustomError(program.Errors(input).next().value); // throw implies first error
     };
+};
 const assertIoTs =
     <S extends t.Mixed>(type: S) =>
     <T>(input: T[]) => {
@@ -125,7 +123,7 @@ const assertType_po_throw_pc = () => [
             "io-ts": assertIoTs(IoTsObjectSimple),
             "class-validator": assertClassValidator(CvObjectSimple),
             zod: assertZod(ZodObjectSimple),
-            typebox: assertTypeBox(__TypeBoxObjectSimple),
+            typebox: assertTypeBox(__TypeBoxObjectSimpleEquals),
         },
         ObjectSimple.SPOILERS,
     ),
@@ -138,7 +136,7 @@ const assertType_po_throw_pc = () => [
             "io-ts": assertIoTs(IoTsObjectHierarchical),
             "class-validator": assertClassValidator(CvObjectHierarchical),
             zod: assertZod(ZodObjectHierarchical),
-            typebox: assertTypeBox(__TypeBoxObjectHierarchical),
+            typebox: assertTypeBox(__TypeBoxObjectHierarchicalEquals),
         },
         ObjectHierarchical.SPOILERS,
     ),
@@ -151,7 +149,7 @@ const assertType_po_throw_pc = () => [
             "io-ts": assertIoTs(IoTsObjectUnionImplicit),
             "class-validator": assertClassValidator(CvObjectUnionImplicit),
             zod: assertZod(ZodObjectUnionImplicit),
-            typebox: assertTypeBox(__TypeBoxObjectUnionImplicit),
+            typebox: assertTypeBox(__TypeBoxObjectUnionImplicitEquals),
         },
         ObjectUnionImplicit.SPOILERS,
     ),
@@ -164,7 +162,7 @@ const assertType_po_throw_pc = () => [
             "io-ts": assertIoTs(IoTsObjectUnionExplicit),
             "class-validator": assertClassValidator(CvObjectUnionExplicit),
             zod: assertZod(ZodObjectUnionExplicit),
-            typebox: assertTypeBox(__TypeBoxObjectUnionExplicit),
+            typebox: assertTypeBox(__TypeBoxObjectUnionExplicitEquals),
         },
         ObjectUnionExplicit.SPOILERS,
     ),
@@ -177,7 +175,7 @@ const assertType_po_throw_pc = () => [
             "io-ts": assertIoTs(IoTsObjectUnionImplicit),
             "class-validator": assertClassValidator(CvObjectUnionImplicit),
             zod: assertZod(ZodObjectUnionImplicit),
-            typebox: assertTypeBox(__TypeBoxObjectUnionImplicit),
+            typebox: assertTypeBox(__TypeBoxObjectUnionImplicitEquals),
         },
         ObjectUnionImplicit.SPOILERS,
     ),
@@ -190,7 +188,7 @@ const assertType_po_throw_pc = () => [
             "io-ts": assertIoTs(IoTsArrayRecursive),
             "class-validator": assertClassValidator(CvArrayRecursive),
             zod: assertZod(ZodArrayRecursive),
-            typebox: assertTypeBox(__TypeBoxArrayRecursive),
+            typebox: assertTypeBox(__TypeBoxArrayRecursiveEquals),
         },
         ArrayRecursive.SPOILERS,
     ),
@@ -206,7 +204,7 @@ const assertType_po_throw_pc = () => [
                 CvArrayRecursiveUnionExplicit,
             ),
             zod: assertZod(ZodArrayRecursiveUnionExplicit),
-            typebox: assertTypeBox(__TypeBoxArrayRecursiveUnionExplicit),
+            typebox: assertTypeBox(__TypeBoxArrayRecursiveUnionExplicitEquals),
         },
         ArrayRecursiveUnionExplicit.SPOILERS,
     ),
@@ -222,7 +220,7 @@ const assertType_po_throw_pc = () => [
                 CvArrayRecursiveUnionImplicit,
             ),
             zod: assertZod(ZodArrayRecursiveUnionImplicit),
-            typebox: assertTypeBox(__TypeBoxArrayRecursiveUnionImplicit),
+            typebox: assertTypeBox(__TypeBoxArrayRecursiveUnionImplicitEquals),
         },
         ArrayRecursiveUnionImplicit.SPOILERS,
     ),
@@ -235,7 +233,7 @@ const assertType_po_throw_pc = () => [
             "io-ts": assertIoTs(IoTsUltimateUnion),
             "class-validator": null,
             zod: assertZod(ZodUltimateUnion),
-            typebox: assertTypeBox(__TypeBoxUltimateUnion),
+            typebox: assertTypeBox(__TypeBoxUltimateUnionEquals),
         },
         UltimateUnion.SPOILERS,
     ),

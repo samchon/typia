@@ -31,7 +31,7 @@ import { TypeBoxUltimateUnionEquals } from "../structures/typebox/equals/TypeBox
 const validateTypeBox =
     <S extends TSchema>(program: TypeCheck<S>) =>
     <T>(input: T) =>
-        [...program.Errors(input)];
+        program.Check(input) ? [] : [...program.Errors(input)];
 
 const prepare = ValidateBenchmarker.prepare(["typescript-json", "typebox"]);
 
