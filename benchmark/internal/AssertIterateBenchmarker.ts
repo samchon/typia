@@ -19,25 +19,33 @@ export namespace AssertIterateBenchmarker {
             spoilers?: Array<(input: T) => string[]>,
         ): (() => IOutput<Components>) => {
             // GENERATE DATA TO ASSERT
-            const data: T = generator();
+            const x: T = generator();
+            const y: T = generator();
+            const z: T = generator();
+
+            const suite: benchmark.Suite = new benchmark.Suite();
+            for (const key of components) {
+                const assert = parameters[key];
+                if (assert === null) continue;
+                else
+                    suite.add(key, () => {
+                        assert(x);
+                        assert(y);
+                        assert(z);
+                    });
+            }
 
             const output: IOutput<Components> = {
                 name,
                 result: {} as any,
             };
-            const suite: benchmark.Suite = new benchmark.Suite();
-
-            for (const key of components) {
-                const assert = parameters[key];
-                if (assert === null) output.result[key] = null;
-                else suite.add(key, () => assert(data));
-            }
+            for (const comp of components) output.result[comp] = null;
 
             return () => {
                 suite.run();
                 suite.map((elem: benchmark) => {
                     (output as any).result[elem.name!]! =
-                        elem.count / elem.times.elapsed;
+                        (elem.count / elem.times.elapsed) * 3;
                 });
 
                 for (const key of components) {
