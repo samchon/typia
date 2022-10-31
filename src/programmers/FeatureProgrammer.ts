@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
+import { StatementFactory } from "../factories/StatementFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
 import { IMetadataTag } from "../metadata/IMetadataTag";
@@ -53,8 +54,8 @@ export namespace FeatureProgrammer {
             ) => ts.Expression;
         }
         export interface IGenerator {
-            functors(col: MetadataCollection): ts.VariableDeclaration | null;
-            unioners(col: MetadataCollection): ts.VariableDeclaration | null;
+            functors(col: MetadataCollection): ts.VariableStatement[];
+            unioners(col: MetadataCollection): ts.VariableStatement[];
         }
     }
     export interface IExplore {
@@ -107,17 +108,15 @@ export namespace FeatureProgrammer {
                 [],
             );
 
-            // CREATE FUNCTIONS
-            const functors: ts.VariableDeclaration | null =
+            // RETURNS THE OPTIMAL ARROW FUNCTION
+            const functors: ts.VariableStatement[] =
                 config.generator?.functors !== undefined
                     ? config.generator.functors(collection)
                     : generate_functors(config, importer)(collection);
-            const unioners: ts.VariableDeclaration | null =
+            const unioners: ts.VariableStatement[] =
                 config.generator?.unioners !== undefined
                     ? config.generator.unioners(collection)
                     : generate_unioners(config)(collection);
-
-            // RETURNS THE OPTIMAL ARROW FUNCTION
             const added: ts.Statement[] | undefined = addition(collection);
 
             return ts.factory.createArrowFunction(
@@ -129,28 +128,8 @@ export namespace FeatureProgrammer {
                 ts.factory.createBlock(
                     [
                         ...(added || []),
-                        ...(functors !== null
-                            ? [
-                                  ts.factory.createVariableStatement(
-                                      undefined,
-                                      ts.factory.createVariableDeclarationList(
-                                          [functors],
-                                          ts.NodeFlags.Const,
-                                      ),
-                                  ),
-                              ]
-                            : []),
-                        ...(unioners !== null
-                            ? [
-                                  ts.factory.createVariableStatement(
-                                      undefined,
-                                      ts.factory.createVariableDeclarationList(
-                                          [unioners],
-                                          ts.NodeFlags.Const,
-                                      ),
-                                  ),
-                              ]
-                            : []),
+                        ...functors,
+                        ...unioners,
                         ts.factory.createReturnStatement(output),
                     ],
                     true,
@@ -158,48 +137,28 @@ export namespace FeatureProgrammer {
             );
         };
 
-    export function generate_functors(
-        config: IConfig,
-        importer: FunctionImporter,
-    ) {
-        return function (
-            collection: MetadataCollection,
-        ): ts.VariableDeclaration | null {
-            // GET OBJECTS
-            const objects: MetadataObject[] = collection.objects();
-            if (objects.length === 0) return null;
-
-            // ASSIGN FUNCTIONS
-            return ts.factory.createVariableDeclaration(
-                config.functors,
-                undefined,
-                undefined,
-                ts.factory.createArrayLiteralExpression(
-                    objects.map((obj) =>
+    export const generate_functors =
+        (config: IConfig, importer: FunctionImporter) =>
+        (collection: MetadataCollection) =>
+            collection
+                .objects()
+                .map((obj, i) =>
+                    StatementFactory.constant(
+                        `${config.functors}${i}`,
                         generate_object(config, importer)(obj),
                     ),
-                    true,
-                ),
-            );
-        };
-    }
+                );
 
-    export function generate_unioners(config: IConfig) {
-        return function (collection: MetadataCollection) {
-            const unions: MetadataObject[][] = collection.unions();
-            if (unions.length === 0) return null;
-
-            return ts.factory.createVariableDeclaration(
-                config.unioners,
-                undefined,
-                undefined,
-                ts.factory.createArrayLiteralExpression(
-                    unions.map((meta) => generate_union(config)(meta)),
-                    true,
-                ),
-            );
-        };
-    }
+    export const generate_unioners =
+        (config: IConfig) => (collection: MetadataCollection) =>
+            collection
+                .unions()
+                .map((union, i) =>
+                    StatementFactory.constant(
+                        `${config.unioners}${i}`,
+                        generate_union(config)(union),
+                    ),
+                );
 
     function generate_object(config: IConfig, importer: FunctionImporter) {
         importer.use("join");
@@ -327,10 +286,7 @@ export namespace FeatureProgrammer {
         (config: Pick<IConfig, "trace" | "path" | "functors">) =>
         (input: ts.Expression, obj: MetadataObject, explore: IExplore) =>
             ts.factory.createCallExpression(
-                ts.factory.createElementAccessExpression(
-                    ts.factory.createIdentifier(config.functors),
-                    obj.index,
-                ),
+                ts.factory.createIdentifier(`${config.functors}${obj.index}`),
                 undefined,
                 get_object_arguments(config)(explore)(input),
             );

@@ -30,12 +30,7 @@ export namespace AssertIterateBenchmarker {
             for (const key of components) {
                 const assert = parameters[key];
                 if (assert === null) output.result[key] = null;
-                else
-                    suite.add(key, () => {
-                        try {
-                            assert(data);
-                        } catch {}
-                    });
+                else suite.add(key, () => assert(data));
             }
 
             return () => {
