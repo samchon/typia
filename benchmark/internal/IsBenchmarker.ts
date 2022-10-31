@@ -18,12 +18,19 @@ export namespace IsBenchmarker {
             parameters: IParameters<Components, T>,
             spoilers: Array<(input: T) => string[]>,
         ) => {
-            const data: T = generator();
+            const x: T = generator();
+            const y: T = generator();
+            const z: T = generator();
 
             const suite: benchmark.Suite = new benchmark.Suite();
-            for (const key of components) {
+            for (const key of components.slice().reverse()) {
                 const is = parameters[key];
-                if (is !== null) suite.add(key, () => is(data));
+                if (is !== null)
+                    suite.add(key, () => {
+                        is(x);
+                        is(y);
+                        is(z);
+                    });
             }
 
             const output: IOutput<Components> = {
@@ -36,18 +43,19 @@ export namespace IsBenchmarker {
                 suite.run();
                 suite.map((elem: benchmark) => {
                     (output.result as any)[elem.name!] =
-                        elem.count / elem.times.elapsed;
+                        (elem.count / elem.times.elapsed) * 3;
                 });
 
                 for (const key of components) {
+                    const is = parameters[key]!;
                     if (
                         output.result[key] === null ||
                         (true &&
-                            parameters[key]!(data) &&
+                            is(generator()) &&
                             spoilers.every((spoil) => {
                                 const fake: T = generator();
                                 spoil(fake);
-                                return parameters[key]!(fake) === false;
+                                return is(fake) === false;
                             })) ||
                         key === "zod" ||
                         key === "class-validator"
