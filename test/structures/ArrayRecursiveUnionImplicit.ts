@@ -193,8 +193,7 @@ export namespace ArrayRecursiveUnionImplicit {
             return ["$input[2].path"];
         },
         (input) => {
-            (input[3] as ArrayRecursiveUnionImplicit.IShortcut).target =
-                [] as any;
+            (input[3] as IShortcut).target = [] as any;
             return [
                 "$input[3].target.children",
                 "$input[3].target.id",
@@ -203,8 +202,7 @@ export namespace ArrayRecursiveUnionImplicit {
             ];
         },
         (input) => {
-            (input[4] as ArrayRecursiveUnionImplicit.IShortcut).name =
-                null as any as "string";
+            (input[4] as IShortcut).name = null as any as "string";
             return ["$input[4].name"];
         },
         (input) => {
@@ -212,9 +210,7 @@ export namespace ArrayRecursiveUnionImplicit {
             return ["$input[5].path"];
         },
         (input) => {
-            (
-                input[6] as ArrayRecursiveUnionImplicit.IDirectory
-            ).children[0].path = [] as any as string;
+            (input[6] as IDirectory).children[0].path = [] as any as string;
             return ["$input[6].children[0].path"];
         },
         (input) => {

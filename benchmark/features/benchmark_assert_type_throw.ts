@@ -69,38 +69,40 @@ class CustomError extends Error {
     }
 }
 
-const assertTypeBox =
-    <S extends TSchema>(schema: S) =>
-    <T>(input: T[]) => {
-        const program = TypeCompiler.Compile(Type.Array(schema));
+const assertTypeBox = <S extends TSchema>(schema: S) => {
+    const program = TypeCompiler.Compile(Type.Array(schema));
+    return <T>(input: T[]) => {
         if (program.Check(input)) return input;
 
         const iterator = program.Errors(input);
         throw new CustomError(iterator.next().value);
     };
-const assertIoTs =
-    <S extends t.Mixed>(type: S) =>
-    <T>(input: T[]) => {
-        const validation = t.array(type).decode(input);
+};
+const assertIoTs = <S extends t.Mixed>(type: S) => {
+    const program = t.array(type);
+    return <T>(input: T[]) => {
+        const validation = program.decode(input);
         const paths: string[] = IoTsUtils.getPaths(validation);
 
         if (paths.length) throw new CustomError(paths);
         return input;
     };
-const assertZod =
-    <S extends z.ZodTypeAny>(type: S) =>
-    <T>(input: T[]) => {
-        const res = z.array(type).safeParse(input);
+};
+const assertZod = <S extends z.ZodTypeAny>(type: S) => {
+    const program = z.array(type);
+    return <T>(input: T[]) => {
+        const res = program.safeParse(input);
         if (res.success) return input;
         throw new CustomError(res.error);
     };
+};
 const assertClassValidator =
     <S extends object>(schema: ClassConstructor<S>) =>
     <T>(input: T[]) => {
-        const result = input.map((elem) =>
-            cv.validateSync(tr.plainToInstance(schema, elem)),
-        );
-        if (result.length) throw new CustomError(result);
+        const errors: cv.ValidationError[] = [];
+        for (const elem of input)
+            errors.push(...cv.validateSync(tr.plainToInstance(schema, elem)));
+        if (errors.length) throw new CustomError(errors);
         return input;
     };
 
