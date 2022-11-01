@@ -20,18 +20,15 @@ export namespace AssertThrowBenchmarker {
             spoilers?: Array<(input: T) => string[]>,
         ): (() => IOutput<Components>) => {
             // GENERATE DATA TO ASSERT
-            const data: T[] = new Array(99).fill("").map(() => generator());
+            const data: T[] = new Array(REPEAT - 1)
+                .fill("")
+                .map(() => generator());
             data.push(trailer());
 
-            const output: IOutput<Components> = {
-                name,
-                result: {} as any,
-            };
             const suite: benchmark.Suite = new benchmark.Suite();
-
             for (const key of components) {
                 const assert = parameters[key];
-                if (assert === null) output.result[key] = null;
+                if (assert === null) continue;
                 else
                     suite.add(key, () => {
                         try {
@@ -40,11 +37,17 @@ export namespace AssertThrowBenchmarker {
                     });
             }
 
+            const output: IOutput<Components> = {
+                name,
+                result: {} as any,
+            };
+            for (const comp of components) output.result[comp] = null;
+
             return () => {
                 suite.run();
                 suite.map((elem: benchmark) => {
                     (output as any).result[elem.name!]! =
-                        elem.count / elem.times.elapsed;
+                        (elem.count / elem.times.elapsed) * REPEAT;
                 });
 
                 for (const key of components) {
@@ -77,3 +80,5 @@ export namespace AssertThrowBenchmarker {
         }
     };
 }
+
+const REPEAT = 100;

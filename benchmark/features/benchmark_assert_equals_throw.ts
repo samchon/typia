@@ -38,15 +38,15 @@ class CustomError extends Error {
     }
 }
 
-const assertTypeBox =
-    <S extends TSchema>(schema: S) =>
-    <T>(input: T[]) => {
-        const program = TypeCompiler.Compile(Type.Array(schema));
+const assertTypeBox = <S extends TSchema>(schema: S) => {
+    const program = TypeCompiler.Compile(Type.Array(schema));
+    return <T>(input: T[]) => {
         if (program.Check(input)) return input;
 
         const iterator = program.Errors(input);
         throw new CustomError(iterator.next().value);
     };
+};
 
 const prepare = AssertThrowBenchmarker.prepare(["typescript-json", "typebox"]);
 
