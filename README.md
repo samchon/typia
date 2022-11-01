@@ -567,7 +567,7 @@ https://github.com/samchon/nestia-helper
 
 Helper library of `NestJS`, using this `typescript-json`.
 
-`nestia-helper` is a helper library of `NestJS`, which boosts up the `JSON.stringify()` speed 5x times faster about the API responses, automatically. Also, `nestia-helper` supports automatic valiation of request body, too. 
+`nestia-helper` is a helper library of `NestJS`, which boosts up the `JSON.stringify()` speed 5x times faster about the API responses, automatically. Also, `nestia-helper` supports automatic validation of request body, too. 
 
 ```typescript
 import helper from "nestia-helper";
