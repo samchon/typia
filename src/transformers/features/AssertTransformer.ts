@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { AssertProgrammerV3 } from "../../programmers/AssertProgrammer";
+import { AssertProgrammer } from "../../programmers/AssertProgrammer";
 
 import { IProject } from "../IProject";
 
@@ -34,7 +34,7 @@ export namespace AssertTransformer {
 
             // DO TRANSFORM
             return ts.factory.createCallExpression(
-                AssertProgrammerV3.generate(project, modulo, equals)(type),
+                AssertProgrammer.generate(project, modulo, equals)(type),
                 undefined,
                 [expression.arguments[0]!],
             );
