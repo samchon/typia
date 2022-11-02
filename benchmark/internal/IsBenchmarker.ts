@@ -1,7 +1,7 @@
 import benchmark from "benchmark";
 
 export namespace IsBenchmarker {
-    export interface IOutput<Components extends "name" | string> {
+    export interface IOutput<Components extends string> {
         name: string;
         result: Record<Components, number | null>;
     }
