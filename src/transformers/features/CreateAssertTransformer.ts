@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { AssertProgrammerV3 } from "../../programmers/AssertProgrammer";
+import { AssertProgrammer } from "../../programmers/AssertProgrammer";
 
 import { IProject } from "../IProject";
 
@@ -29,7 +29,7 @@ export namespace CreateAssertTransformer {
                 throw new Error(MESSAGES.GENERIC_ARGUMENT);
 
             // DO TRANSFORM
-            return AssertProgrammerV3.generate(project, modulo, equals)(type);
+            return AssertProgrammer.generate(project, modulo, equals)(type);
         };
     }
 }
