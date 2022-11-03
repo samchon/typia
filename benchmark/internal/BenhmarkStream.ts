@@ -1,10 +1,16 @@
 import fs from "fs";
 
-export class WriteStream {
+export class BenchmarkStream {
     private readonly stream_: fs.WriteStream;
+    private readonly time_: Date;
 
-    public constructor(path: string) {
-        this.stream_ = fs.createWriteStream(path, "utf8");
+    public constructor(public readonly path: string) {
+        this.stream_ = fs.createWriteStream(path + "/README.md", "utf8");
+        this.time_ = new Date();
+    }
+
+    public elapsed(): number {
+        return Date.now() - this.time_.getTime();
     }
 
     public write(data: string): Promise<void> {

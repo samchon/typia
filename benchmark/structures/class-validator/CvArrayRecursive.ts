@@ -14,11 +14,13 @@ export class CvArrayRecursive {
     public sequence!: number;
 
     @cv.ValidateNested({ each: true })
+    @cv.IsObject()
     @tr.Type(() => CvTimestamp)
     public created_at!: CvTimestamp;
 
     @cv.IsArray()
     @cv.ValidateNested({ each: true })
+    @cv.IsObject()
     @tr.Type(() => CvArrayRecursive)
     public children!: CvArrayRecursive[];
 }

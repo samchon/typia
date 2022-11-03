@@ -6,6 +6,7 @@ import { CvTimestamp } from "./CvTimestamp";
 export class CvObjectRecursive {
     @cv.IsOptional()
     @cv.ValidateNested({ each: true })
+    @cv.IsObject()
     @tr.Type(() => CvObjectRecursive)
     public parent!: CvObjectRecursive | null;
 
@@ -22,6 +23,7 @@ export class CvObjectRecursive {
     public sequence!: number;
 
     @cv.ValidateNested()
+    @cv.IsObject()
     @tr.Type(() => CvTimestamp)
     public created_at!: CvTimestamp;
 }

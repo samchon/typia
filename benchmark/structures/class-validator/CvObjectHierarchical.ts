@@ -8,16 +8,19 @@ export class CvObjectHierarchical {
     public id!: number;
 
     @cv.ValidateNested()
+    @cv.IsObject()
     @tr.Type(() => CvObjectHierarchical.Channel)
     public channel!: CvObjectHierarchical.Channel;
 
     @cv.IsOptional()
     @cv.ValidateNested()
+    @cv.IsObject()
     @tr.Type(() => CvObjectHierarchical.Member)
     public member!: CvObjectHierarchical.Member | null;
 
     @cv.IsOptional()
     @cv.ValidateNested()
+    @cv.IsObject()
     @tr.Type(() => CvObjectHierarchical.Account)
     public account!: CvObjectHierarchical.Account | null;
 
@@ -32,6 +35,7 @@ export class CvObjectHierarchical {
     public ip!: [number, number, number, number];
 
     @cv.ValidateNested()
+    @cv.IsObject()
     @tr.Type(() => CvTimestamp)
     public created_at!: CvTimestamp;
 }
@@ -56,6 +60,7 @@ export namespace CvObjectHierarchical {
         public priority!: number;
 
         @cv.ValidateNested()
+        @cv.IsObject()
         @tr.Type(() => CvTimestamp)
         public created_at!: CvTimestamp;
     }
@@ -68,6 +73,7 @@ export namespace CvObjectHierarchical {
         public code!: string;
 
         @cv.ValidateNested()
+        @cv.IsObject()
         @tr.Type(() => CvTimestamp)
         public created_at!: CvTimestamp;
     }
@@ -77,11 +83,13 @@ export namespace CvObjectHierarchical {
         public id!: number;
 
         @cv.ValidateNested()
+        @cv.IsObject()
         @tr.Type(() => Account)
         public account!: Account;
 
         @cv.IsOptional()
         @cv.ValidateNested()
+        @cv.IsObject()
         @tr.Type(() => Enterprise)
         public enterprise!: Enterprise | null;
 
@@ -90,6 +98,7 @@ export namespace CvObjectHierarchical {
         public emails!: string[];
 
         @cv.ValidateNested()
+        @cv.IsObject()
         @tr.Type(() => CvTimestamp)
         public created_at!: CvTimestamp;
 
@@ -102,6 +111,7 @@ export namespace CvObjectHierarchical {
         public id!: number;
 
         @cv.ValidateNested()
+        @cv.IsObject()
         @tr.Type(() => Account)
         public account!: Account;
 
@@ -112,6 +122,7 @@ export namespace CvObjectHierarchical {
         public grade!: number;
 
         @cv.ValidateNested()
+        @cv.IsObject()
         @tr.Type(() => CvTimestamp)
         public created_at!: CvTimestamp;
     }
