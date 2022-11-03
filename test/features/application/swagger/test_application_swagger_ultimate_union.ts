@@ -120,6 +120,14 @@ export const test_application_swagger_ultimate_union =
                                 type: "boolean",
                                 nullable: false,
                             },
+                            deprecated: {
+                                type: "boolean",
+                                nullable: false,
+                            },
+                            title: {
+                                type: "string",
+                                nullable: false,
+                            },
                             description: {
                                 type: "string",
                                 nullable: false,
@@ -547,6 +555,14 @@ export const test_application_swagger_ultimate_union =
                                 type: "number",
                                 nullable: false,
                             },
+                            deprecated: {
+                                type: "boolean",
+                                nullable: false,
+                            },
+                            title: {
+                                type: "string",
+                                nullable: false,
+                            },
                             description: {
                                 type: "string",
                                 nullable: false,
@@ -641,6 +657,14 @@ export const test_application_swagger_ultimate_union =
                             },
                             default: {
                                 type: "boolean",
+                                nullable: false,
+                            },
+                            deprecated: {
+                                type: "boolean",
+                                nullable: false,
+                            },
+                            title: {
+                                type: "string",
                                 nullable: false,
                             },
                             description: {
@@ -739,6 +763,14 @@ export const test_application_swagger_ultimate_union =
                                 type: "string",
                                 nullable: false,
                             },
+                            deprecated: {
+                                type: "boolean",
+                                nullable: false,
+                            },
+                            title: {
+                                type: "string",
+                                nullable: false,
+                            },
                             description: {
                                 type: "string",
                                 nullable: false,
@@ -825,6 +857,14 @@ export const test_application_swagger_ultimate_union =
                             },
                             default: {
                                 type: "boolean",
+                                nullable: false,
+                            },
+                            deprecated: {
+                                type: "boolean",
+                                nullable: false,
+                            },
+                            title: {
+                                type: "string",
                                 nullable: false,
                             },
                             description: {
@@ -931,6 +971,14 @@ export const test_application_swagger_ultimate_union =
                                 type: "number",
                                 nullable: false,
                             },
+                            deprecated: {
+                                type: "boolean",
+                                nullable: false,
+                            },
+                            title: {
+                                type: "string",
+                                nullable: false,
+                            },
                             description: {
                                 type: "string",
                                 nullable: false,
@@ -1017,6 +1065,14 @@ export const test_application_swagger_ultimate_union =
                             },
                             default: {
                                 type: "boolean",
+                                nullable: false,
+                            },
+                            deprecated: {
+                                type: "boolean",
+                                nullable: false,
+                            },
+                            title: {
+                                type: "string",
                                 nullable: false,
                             },
                             description: {
@@ -1120,6 +1176,14 @@ export const test_application_swagger_ultimate_union =
                                 nullable: false,
                             },
                             default: {
+                                type: "string",
+                                nullable: false,
+                            },
+                            deprecated: {
+                                type: "boolean",
+                                nullable: false,
+                            },
+                            title: {
                                 type: "string",
                                 nullable: false,
                             },
@@ -1395,6 +1459,14 @@ export const test_application_swagger_ultimate_union =
                                 },
                                 nullable: false,
                             },
+                            deprecated: {
+                                type: "boolean",
+                                nullable: false,
+                            },
+                            title: {
+                                type: "string",
+                                nullable: false,
+                            },
                             description: {
                                 type: "string",
                                 nullable: false,
@@ -1471,6 +1543,14 @@ export const test_application_swagger_ultimate_union =
                         type: "object",
                         properties: {
                             $ref: {
+                                type: "string",
+                                nullable: false,
+                            },
+                            deprecated: {
+                                type: "boolean",
+                                nullable: false,
+                            },
+                            title: {
                                 type: "string",
                                 nullable: false,
                             },
@@ -1553,6 +1633,14 @@ export const test_application_swagger_ultimate_union =
                                 type: "string",
                                 nullable: false,
                             },
+                            deprecated: {
+                                type: "boolean",
+                                nullable: false,
+                            },
+                            title: {
+                                type: "string",
+                                nullable: false,
+                            },
                             description: {
                                 type: "string",
                                 nullable: false,
@@ -1631,6 +1719,14 @@ export const test_application_swagger_ultimate_union =
                             type: {
                                 type: "string",
                                 enum: ["null"],
+                                nullable: false,
+                            },
+                            deprecated: {
+                                type: "boolean",
+                                nullable: false,
+                            },
+                            title: {
+                                type: "string",
                                 nullable: false,
                             },
                             description: {
