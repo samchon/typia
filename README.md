@@ -44,7 +44,7 @@ TSON.application<[T, U, V], "ajv">(); // JSON schema application generator
 
 ![Is Function Benchmark](https://github.com/samchon/typescript-json/raw/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics/images/is.svg)
 
-> Measured on [AMD R9 5800H](https://github.com/samchon/typescript-json/tree/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics#is)
+> Measured on [AMD R7 5800H](https://github.com/samchon/typescript-json/tree/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics#is)
 
 
 
