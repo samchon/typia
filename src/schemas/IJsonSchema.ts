@@ -83,6 +83,8 @@ export namespace IJsonSchema {
         nullable: boolean;
     }
     export interface IAttribute {
+        deprecated?: boolean;
+        title?: string;
         description?: string;
         "x-tson-metaTags"?: IMetadataTag[];
         "x-tson-jsDocTags"?: IJsDocTagInfo[];
