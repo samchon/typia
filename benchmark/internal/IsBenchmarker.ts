@@ -1,8 +1,8 @@
 import benchmark from "benchmark";
 
 export namespace IsBenchmarker {
-    export interface IOutput<Components extends "name" | string> {
-        name: string;
+    export interface IOutput<Components extends string> {
+        category: string;
         result: Record<Components, number | null>;
     }
     export type IParameters<Components extends string, T> = Record<
@@ -13,7 +13,7 @@ export namespace IsBenchmarker {
     export const prepare =
         <Components extends string>(components: Components[]) =>
         <T>(
-            name: string,
+            category: string,
             generator: () => T,
             parameters: IParameters<Components, T>,
             spoilers: Array<(input: T) => string[]>,
@@ -34,11 +34,10 @@ export namespace IsBenchmarker {
             }
 
             const output: IOutput<Components> = {
-                name,
+                category: category,
                 result: {} as any,
             };
             for (const comp of components) output.result[comp] = null;
-
             return () => {
                 suite.run();
                 suite.map((elem: benchmark) => {
@@ -57,8 +56,9 @@ export namespace IsBenchmarker {
                                 spoil(fake);
                                 return is(fake) === false;
                             })) ||
-                        key === "zod" ||
-                        key === "class-validator"
+                        (key === "class-validator" &&
+                            category.indexOf("implicit") === -1 &&
+                            category.indexOf("ultimate") === -1)
                     )
                         continue;
                     output.result[key] = null;
