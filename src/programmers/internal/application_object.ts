@@ -1,3 +1,6 @@
+import { CommentFactory } from "../../factories/CommentFactory";
+
+import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
 import { MetadataObject } from "../../metadata/MetadataObject";
 import { IJsonComponents } from "../../schemas/IJsonComponents";
 
@@ -38,6 +41,17 @@ export const application_object =
             const value: IJsonSchema | null = application_schema(options)(
                 components,
             )(true)(property.value, {
+                deprecated:
+                    !!property.jsDocTags.find(
+                        (tag) => tag.name === "deprecated",
+                    ) || undefined,
+                title: (() => {
+                    const info: IJsDocTagInfo | undefined =
+                        property.jsDocTags.find((tag) => tag.name === "title");
+                    return info?.text?.length
+                        ? CommentFactory.generate(info.text)
+                        : undefined;
+                })(),
                 description: property.description,
                 "x-tson-metaTags": property.tags.length
                     ? property.tags
