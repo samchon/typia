@@ -105,13 +105,13 @@ export namespace HorizontalBarChart {
 
             // LEGEND
             svg.append("rect")
-                .attr("x", style.width - style.margin.right + 50 + 5)
+                .attr("x", style.width - style.margin.right + 40 + 5)
                 .attr("y", style.margin.top + columns.length * 20)
                 .attr("width", 200)
                 .attr("height", 5)
                 .attr("fill", "gray");
             svg.append("rect")
-                .attr("x", style.width - style.margin.right + 50)
+                .attr("x", style.width - style.margin.right + 40)
                 .attr("y", style.margin.top - 10)
                 .attr("width", 200)
                 .attr("height", columns.length * 20 + 10)
@@ -119,13 +119,13 @@ export namespace HorizontalBarChart {
                 .attr("stroke", "black");
             columns.map((col, i) => {
                 svg.append("rect")
-                    .attr("x", style.width - style.margin.right + 60)
+                    .attr("x", style.width - style.margin.right + 40 + 10)
                     .attr("y", style.margin.top + 20 * i)
                     .attr("width", 10)
                     .attr("height", 10)
                     .style("fill", style.colors[i]);
                 svg.append("text")
-                    .attr("x", style.width - style.margin.right + 75)
+                    .attr("x", style.width - style.margin.right + 40 + 25)
                     .attr("y", style.margin.top + 20 * i + 10)
                     .style("font-size", "12px")
                     .text(col);
@@ -168,18 +168,21 @@ export namespace HorizontalBarChart {
                 .enter()
                 .append("text")
                 .attr("class", "label")
-                .attr("x", (d) => calc.width(d.value) + style.margin.left + 5)
-                .attr("y", (d) => calc.height(d.category)(d.column) + 7)
-                .attr("font-size", "8px")
+                .attr("x", (d) => calc.width(d.value) + style.margin.left + 8.5)
+                .attr("y", (d) => calc.height(d.category)(d.column) + 8.5)
+                .attr("font-size", "10px")
                 .text((d) =>
                     Number.isFinite(d.value)
                         ? d.value === 0
                             ? ""
-                            : Math.round(d.value).toLocaleString() + "x"
-                        : "∞",
+                            : (maximum >= 100
+                                  ? Math.round(d.value)
+                                  : Math.round(d.value * 100) / 100
+                              ).toLocaleString() + "x"
+                        : "Infinity",
                 );
             // FONT-SIZE
-            svg.selectAll("g").style("font-size", "12px");
+            svg.selectAll("g").style("font-size", "13px");
             return svg;
         };
 
@@ -203,7 +206,7 @@ export namespace HorizontalBarChart {
 const style = {
     width: 800,
     height: (rows: number) => (cols: number) =>
-        rows * 50 + cols * 20 + style.margin.top + style.margin.bottom,
+        rows * cols * 15 + style.margin.top + style.margin.bottom,
     margin: {
         top: 45,
         left: 150,
