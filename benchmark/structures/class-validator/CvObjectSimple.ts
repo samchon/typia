@@ -3,18 +3,22 @@ import * as cv from "class-validator";
 
 export class CvObjectSimple {
     @cv.ValidateNested()
+    @cv.IsObject()
     @tr.Type(() => CvObjectSimple.Point3D)
     public scale!: CvObjectSimple.Point3D;
 
     @cv.ValidateNested()
+    @cv.IsObject()
     @tr.Type(() => CvObjectSimple.Point3D)
     public position!: CvObjectSimple.Point3D;
 
     @cv.ValidateNested()
+    @cv.IsObject()
     @tr.Type(() => CvObjectSimple.Point3D)
     public rotate!: CvObjectSimple.Point3D;
 
     @cv.ValidateNested()
+    @cv.IsObject()
     @tr.Type(() => CvObjectSimple.Point3D)
     public pivot!: CvObjectSimple.Point3D;
 }

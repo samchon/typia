@@ -5,7 +5,7 @@ import TSON from "../../src";
 
 export namespace ValidateBenchmarker {
     export interface IOutput<Components extends "name" | string> {
-        name: string;
+        category: string;
         result: Record<Components, number | null>;
     }
 
@@ -17,7 +17,7 @@ export namespace ValidateBenchmarker {
     export const prepare =
         <Components extends string>(components: Components[]) =>
         <T>(
-            name: string,
+            category: string,
             generator: () => T,
             parameters: IParameters<Components, T>,
             spoilers: Array<(input: T) => string[]>,
@@ -39,7 +39,7 @@ export namespace ValidateBenchmarker {
             }
 
             const output: IOutput<Components> = {
-                name,
+                category,
                 result: {} as any,
             };
             for (const comp of components) output.result[comp] = null;
@@ -61,8 +61,9 @@ export namespace ValidateBenchmarker {
                                 spoil(fake);
                                 return check(parameters[key]!(fake)) === false;
                             })) ||
-                        key === "zod" ||
-                        key === "class-validator"
+                        (key === "class-validator" &&
+                            category.indexOf("implicit") === -1 &&
+                            category.indexOf("ultimate") === -1)
                     )
                         continue;
                     output.result[key] = null;

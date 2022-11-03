@@ -2,7 +2,7 @@ import benchmark from "benchmark";
 
 export namespace OptimizerBenchmarker {
     export interface IOutput {
-        name: string;
+        category: string;
         result: {
             "typescript-json": number;
             ajv: number | null;
@@ -16,7 +16,7 @@ export namespace OptimizerBenchmarker {
     }
 
     export function prepare<T>(
-        name: string,
+        category: string,
         generator: () => T,
         parameters: IParameters<T>,
     ): () => IOutput {
@@ -32,7 +32,7 @@ export namespace OptimizerBenchmarker {
         if (ajv !== null) suite.add("ajv", () => ajv!(data));
 
         const output: IOutput = {
-            name,
+            category,
             result: {
                 "typescript-json": 0,
                 typebox: 0,

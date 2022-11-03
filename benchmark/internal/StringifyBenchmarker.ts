@@ -2,7 +2,7 @@ import benchmark from "benchmark";
 
 export namespace StringifyBenchmarker {
     export interface IOutput {
-        name: string;
+        category: string;
         result: {
             "TSON.stringify()": number;
             "TSON.assertStringify()": number;
@@ -19,7 +19,7 @@ export namespace StringifyBenchmarker {
     }
 
     export function prepare<T>(
-        name: string,
+        category: string,
         generator: () => T,
         parameters: IParameters<T>,
     ): () => IOutput {
@@ -43,7 +43,7 @@ export namespace StringifyBenchmarker {
 
         return () => {
             const output: IOutput = {
-                name,
+                category,
                 result: {
                     "TSON.stringify()": 0,
                     "TSON.assertStringify()": 0,
