@@ -14,6 +14,7 @@ export class CvArrayRecursiveUnionImplicit {
     @cv.IsOptional()
     @cv.IsArray()
     @cv.ValidateNested({ each: true })
+    @cv.IsObject()
     @tr.Type(() => CvArrayRecursiveUnionImplicit)
     children?: CvArrayRecursiveUnionImplicit[];
 
@@ -43,6 +44,7 @@ export class CvArrayRecursiveUnionImplicit {
 
     @cv.IsOptional()
     @cv.ValidateNested()
+    @cv.IsObject()
     @tr.Type(() => CvArrayRecursiveUnionImplicit)
     target?: CvArrayRecursiveUnionImplicit;
 
