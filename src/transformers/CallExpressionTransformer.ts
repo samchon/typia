@@ -3,8 +3,8 @@ import ts from "typescript";
 
 import { IProject } from "./IProject";
 import { ApplicationTransformer } from "./features/ApplicationTransformer";
-import { AssertTransformer } from "./features/AssertTransformer";
 import { AssertStringifyTransformer } from "./features/AssertStringifyTransformer";
+import { AssertTransformer } from "./features/AssertTransformer";
 import { CreateAssertStringifyTransformer } from "./features/CreateAssertStringifyTransformer";
 import { CreateAssertTransformer } from "./features/CreateAssertTransformer";
 import { CreateInstanceTransformer } from "./features/CreateInstanceTransformer";

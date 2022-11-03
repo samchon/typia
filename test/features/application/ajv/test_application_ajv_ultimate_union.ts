@@ -119,6 +119,14 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                             type: "boolean",
                             nullable: false,
                         },
+                        deprecated: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        title: {
+                            type: "string",
+                            nullable: false,
+                        },
                         description: {
                             type: "string",
                             nullable: false,
@@ -566,6 +574,14 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                             type: "number",
                             nullable: false,
                         },
+                        deprecated: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        title: {
+                            type: "string",
+                            nullable: false,
+                        },
                         description: {
                             type: "string",
                             nullable: false,
@@ -661,6 +677,14 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                         },
                         default: {
                             type: "boolean",
+                            nullable: false,
+                        },
+                        deprecated: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        title: {
+                            type: "string",
                             nullable: false,
                         },
                         description: {
@@ -760,6 +784,14 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                             type: "string",
                             nullable: false,
                         },
+                        deprecated: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        title: {
+                            type: "string",
+                            nullable: false,
+                        },
                         description: {
                             type: "string",
                             nullable: false,
@@ -847,6 +879,14 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                         },
                         default: {
                             type: "boolean",
+                            nullable: false,
+                        },
+                        deprecated: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        title: {
+                            type: "string",
                             nullable: false,
                         },
                         description: {
@@ -954,6 +994,14 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                             type: "number",
                             nullable: false,
                         },
+                        deprecated: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        title: {
+                            type: "string",
+                            nullable: false,
+                        },
                         description: {
                             type: "string",
                             nullable: false,
@@ -1041,6 +1089,14 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                         },
                         default: {
                             type: "boolean",
+                            nullable: false,
+                        },
+                        deprecated: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        title: {
+                            type: "string",
                             nullable: false,
                         },
                         description: {
@@ -1145,6 +1201,14 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                             nullable: false,
                         },
                         default: {
+                            type: "string",
+                            nullable: false,
+                        },
+                        deprecated: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        title: {
                             type: "string",
                             nullable: false,
                         },
@@ -1435,6 +1499,14 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                             },
                             nullable: false,
                         },
+                        deprecated: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        title: {
+                            type: "string",
+                            nullable: false,
+                        },
                         description: {
                             type: "string",
                             nullable: false,
@@ -1512,6 +1584,14 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                     type: "object",
                     properties: {
                         $ref: {
+                            type: "string",
+                            nullable: false,
+                        },
+                        deprecated: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        title: {
                             type: "string",
                             nullable: false,
                         },
@@ -1595,6 +1675,14 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                             type: "string",
                             nullable: false,
                         },
+                        deprecated: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        title: {
+                            type: "string",
+                            nullable: false,
+                        },
                         description: {
                             type: "string",
                             nullable: false,
@@ -1674,6 +1762,14 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                         type: {
                             type: "string",
                             enum: ["null"],
+                            nullable: false,
+                        },
+                        deprecated: {
+                            type: "boolean",
+                            nullable: false,
+                        },
+                        title: {
+                            type: "string",
                             nullable: false,
                         },
                         description: {
