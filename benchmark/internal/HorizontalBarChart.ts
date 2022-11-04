@@ -117,7 +117,7 @@ export namespace HorizontalBarChart {
                 .attr("height", columns.length * 20 + 10)
                 .attr("fill", "none")
                 .attr("stroke", "black");
-            columns.map((col, i) => {
+            columns.forEach((col, i) => {
                 svg.append("rect")
                     .attr("x", style.width - style.margin.right + 40 + 10)
                     .attr("y", style.margin.top + 20 * i)
@@ -134,10 +134,10 @@ export namespace HorizontalBarChart {
             //----
             // BAR CHARTS
             //----
+            // LISTING UP DATA
             const mapped = svg
                 .append("g")
                 .selectAll("g")
-                // LISTING UP DATA
                 .data(data)
                 .enter()
                 .append("g")
@@ -154,6 +154,7 @@ export namespace HorizontalBarChart {
                                 : d.result[column],
                     })),
                 );
+
             // DRAW BARS
             mapped
                 .enter()
@@ -163,6 +164,7 @@ export namespace HorizontalBarChart {
                 .attr("width", (d) => calc.width(d.value))
                 .attr("height", components.bandwidth())
                 .attr("fill", (d) => color(d.column) as string);
+
             // LABELING DATA
             mapped
                 .enter()
@@ -181,6 +183,15 @@ export namespace HorizontalBarChart {
                               ).toLocaleString() + "x"
                         : "Infinity",
                 );
+            mapped
+                .enter()
+                .append("text")
+                .attr("class", "label")
+                .attr("x", (d) => calc.width(d.value) + style.margin.left + 5)
+                .attr("y", (d) => calc.height(d.category)(d.column) + 10)
+                .attr("font-size", "8px")
+                .text((d) => (d.value === 0 ? "Failed" : ""));
+
             // FONT-SIZE
             svg.selectAll("g").style("font-size", "13px");
             return svg;
