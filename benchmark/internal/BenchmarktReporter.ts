@@ -101,6 +101,7 @@ export namespace BenchmarkReporter {
                 memory / 1024 / 1024,
             ).toLocaleString()} MB`,
         );
+        await stream.write(`> - OS: ${os.platform()}`);
         await stream.write(
             `> - TypeScript-JSON version: ${await get_package_version()}`,
         );
