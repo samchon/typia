@@ -1,10 +1,10 @@
 import ts from "typescript";
 
-import { IsStringifyProgrammer } from "../../programmers/IsStringifyProgrammer";
+import { IsCloneProgrammer } from "../../../programmers/IsCloneProgrammer";
 
-import { IProject } from "../IProject";
+import { IProject } from "../../IProject";
 
-export namespace IsStringifyTransformer {
+export namespace IsCloneTransformer {
     export function transform(
         project: IProject,
         modulo: ts.LeftHandSideExpression,
@@ -25,7 +25,7 @@ export namespace IsStringifyTransformer {
 
         // DO TRANSFORM
         return ts.factory.createCallExpression(
-            IsStringifyProgrammer.generate(project, modulo)(type),
+            IsCloneProgrammer.generate(project, modulo)(type),
             undefined,
             [expression.arguments[0]!],
         );
@@ -33,6 +33,6 @@ export namespace IsStringifyTransformer {
 }
 
 const enum ErrorMessages {
-    NO_INPUT_VALUE = "Error on TSON.isStringify(): no input value.",
-    GENERIC_ARGUMENT = "Error on TSON.isStringify(): non-specified generic argument.",
+    NO_INPUT_VALUE = "Error on TSON.isClone(): no input value.",
+    GENERIC_ARGUMENT = "Error on TSON.isClone(): non-specified generic argument.",
 }

@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { IProject } from "../IProject";
+import { IProject } from "../../IProject";
 
 export namespace CreateInstanceTransformer {
     export function transform(

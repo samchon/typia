@@ -1,5 +1,5 @@
 import { IJsonApplication } from "../../../../src";
-import { Primitive } from "../../../internal/Primitive";
+import { primitive_equal_to } from "../../../internal/primitive_equal_to";
 
 export function _test_application_ajv(
     name: string,
@@ -10,7 +10,7 @@ export function _test_application_ajv(
         sort(generated);
         sort(expected);
 
-        if (Primitive.equal_to(generated, expected) === false)
+        if (primitive_equal_to(generated, expected) === false)
             throw new Error(
                 `Bug on TSON.application("ajv"): failed to understand the ${name} type.`,
             );

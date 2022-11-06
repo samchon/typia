@@ -92,7 +92,7 @@ export const test_application_ajv_object_literal_property =
                                         name: "title",
                                         text: [
                                             {
-                                                text: "something content with\nenter and\nnew line",
+                                                text: "something content with\r\nenter and\r\nnew line",
                                                 kind: "text",
                                             },
                                         ],

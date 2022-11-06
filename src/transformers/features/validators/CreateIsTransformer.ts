@@ -1,12 +1,12 @@
 import ts from "typescript";
 
-import { ValidateProgrammer } from "../../programmers/ValidateProgrammer";
+import { IsProgrammer } from "../../../programmers/IsProgrammer";
 
-import { IProject } from "../IProject";
+import { IProject } from "../../IProject";
 
-export namespace CreateValidateTransformer {
+export namespace CreateIsTransformer {
     export function transform(equals: boolean) {
-        const SYMBOL = equals ? "createValidateEquals" : "createValidate";
+        const SYMBOL = equals ? "createEquals" : "createIs";
         const MESSAGES = {
             NOT_SPECIFIED: `Error on TSON.${SYMBOL}(): generic argument is not specified.`,
             GENERIC_ARGUMENT: `Error on TSON.${SYMBOL}(): non-specified generic argument.`,
@@ -29,7 +29,7 @@ export namespace CreateValidateTransformer {
                 throw new Error(MESSAGES.GENERIC_ARGUMENT);
 
             // DO TRANSFORM
-            return ValidateProgrammer.generate(project, modulo, equals)(type);
+            return IsProgrammer.generate(project, modulo, equals)(type);
         };
     }
 }

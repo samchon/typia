@@ -1,6 +1,5 @@
-import { TypeGuardError } from "../../../src";
-import { Primitive } from "../../internal/Primitive";
 import { Spoiler } from "../../internal/Spoiler";
+import { primitive_equal_to } from "../../internal/primitive_equal_to";
 
 export function _test_is_stringify<T>(
     name: string,
@@ -45,5 +44,5 @@ function predicate<T>(data: any, optimized: string): boolean {
     const parsed: T = JSON.parse(optimized);
     const expected: T = JSON.parse(JSON.stringify(data));
 
-    return Primitive.equal_to(parsed, expected);
+    return primitive_equal_to(parsed, expected);
 }

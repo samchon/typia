@@ -40,31 +40,6 @@ export type Primitive<Instance> = value_of<Instance> extends object
         : never // cannot be
     : value_of<Instance>;
 
-export namespace Primitive {
-    /**
-     * Hard copy for primitive object.
-     *
-     * `Primitive.clone` is a function copying an object in the primitive and entire level.
-     *
-     * @param instance Target instance to be copied
-     * @return The copied instance
-     */
-    export function clone<Instance>(instance: Instance): Primitive<Instance> {
-        return JSON.parse(JSON.stringify(instance));
-    }
-
-    /**
-     * Test whether two arguments are equal in the primitive level.
-     *
-     * @param x The first argument to compare
-     * @param y The second argument to compare
-     * @return Whether two arguments are equal or not
-     */
-    export function equal_to<Instance>(x: Instance, y: Instance): boolean {
-        return recursive_equal_to(x, y, "$input");
-    }
-}
-
 type PrimitiveObject<Instance extends object> = Instance extends Array<infer T>
     ? Primitive<T>[]
     : {
@@ -98,40 +73,4 @@ interface IValueOf<T> {
 
 interface IJsonable<T> {
     toJSON(): T;
-}
-
-function object_equal_to<T extends object>(x: T, y: T, path: string): boolean {
-    return Object.entries(x).every(([key, value]) => {
-        return recursive_equal_to(value, (y as any)[key], `${path}.${key}`);
-    });
-}
-
-function array_equal_to<T>(x: T[], y: T[], path: string): boolean {
-    if (x.length !== y.length)
-        return trace(x.length, y.length, `${path}.length`);
-    return x.every((value, index) => {
-        return recursive_equal_to(value, y[index], `${path}[${index}]`);
-    });
-}
-
-function recursive_equal_to<T>(x: T, y: T, path: string): boolean {
-    const type = typeof x;
-    if (type !== typeof y) return trace(x, y, path);
-    else if (type === "object")
-        if (x === null) return trace(x, y, path);
-        else if (x instanceof Array)
-            return array_equal_to(x, y as typeof x, path);
-        else
-            return object_equal_to(
-                (<any>x) as object,
-                (<any>y) as object,
-                path,
-            );
-    else if (type !== "function") return trace(x, y, path);
-    else return trace(x, y, path);
-}
-
-function trace(x: any, y: any, path: string): boolean {
-    if (x !== y) console.log(x, y, path);
-    return x === y;
 }

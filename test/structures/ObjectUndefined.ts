@@ -8,6 +8,7 @@ export namespace ObjectUndefined {
         classroom?: IClassroom;
         grade: number | undefined;
         nothing: undefined;
+        never: never;
     }
     export interface IClassroom {
         id: string;
@@ -33,6 +34,7 @@ export namespace ObjectUndefined {
                               }
                             : undefined,
                         nothing,
+                        never: undefined!,
                     });
 
         return output;
@@ -58,6 +60,10 @@ export namespace ObjectUndefined {
         (input) => {
             input[0].nothing = "undefined" as any;
             return ["$input[0].nothing"];
+        },
+        (input) => {
+            (input[0] as any).never = "undefined" as any;
+            return ["$input[0].never"];
         },
     ];
 }

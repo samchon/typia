@@ -6,4 +6,5 @@ export const test_create_is_ultimate_union = _test_is(
     "ultimate union",
     UltimateUnion.generate,
     TSON.createIs<UltimateUnion>(),
+    UltimateUnion.SPOILERS,
 );

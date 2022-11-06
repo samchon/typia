@@ -1,8 +1,8 @@
 import ts from "typescript";
 
-import { AssertStringifyProgrammer } from "../../programmers/AssertStringifyProgrammer";
+import { AssertStringifyProgrammer } from "../../../programmers/AssertStringifyProgrammer";
 
-import { IProject } from "../IProject";
+import { IProject } from "../../IProject";
 
 export namespace CreateAssertStringifyTransformer {
     export function transform(

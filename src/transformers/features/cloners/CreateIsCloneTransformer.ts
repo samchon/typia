@@ -1,10 +1,10 @@
 import ts from "typescript";
 
-import { StringifyProgrammer } from "../../programmers/StringifyProgrammer";
+import { IsCloneProgrammer } from "../../../programmers/IsCloneProgrammer";
 
-import { IProject } from "../IProject";
+import { IProject } from "../../IProject";
 
-export namespace CreateStringifyTransformer {
+export namespace CreateIsCloneTransformer {
     export function transform(
         project: IProject,
         modulo: ts.LeftHandSideExpression,
@@ -21,11 +21,12 @@ export namespace CreateStringifyTransformer {
         if (type.isTypeParameter())
             throw new Error(ErrorMessages.GENERIC_ARGUMENT);
 
-        return StringifyProgrammer.generate(project, modulo)(type);
+        // DO TRANSFORM
+        return IsCloneProgrammer.generate(project, modulo)(type);
     }
 }
 
 const enum ErrorMessages {
-    NOT_SPECIFIED = "Error on TSON.stringify(): generic argument is not specified.",
-    GENERIC_ARGUMENT = "Error on TSON.stringify(): non-specified generic argument.",
+    NOT_SPECIFIED = "Error on TSON.isClone(): generic argument is not specified.",
+    GENERIC_ARGUMENT = "Error on TSON.isClone(): non-specified generic argument.",
 }
