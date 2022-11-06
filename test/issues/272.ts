@@ -1,4 +1,4 @@
-import { type IValidation, validate } from "../../lib";
+import { type IValidation, validate } from "../../src";
 
 interface ISomething {
     id: string;
