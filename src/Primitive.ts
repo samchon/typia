@@ -1,5 +1,3 @@
-import { Equal } from "./Equal";
-
 /**
  * Primitive type.
  *
@@ -30,9 +28,11 @@ import { Equal } from "./Equal";
  * @template Instance Target argument type.
  * @author Jenogho Nam - https://github.com/samchon
  */
-export type Primitive<T> = Equal<T, _Primitive<T>> extends true
+export type Primitive<T> = _Equal<T, _Primitive<T>> extends true
     ? T
     : _Primitive<T>;
+
+type _Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
 type _Primitive<Instance> = _ValueOf<Instance> extends object
     ? Instance extends object
