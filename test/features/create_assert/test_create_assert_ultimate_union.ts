@@ -6,5 +6,5 @@ export const test_create_assert_ultimate_union = _test_assert(
     "ultimate union",
     UltimateUnion.generate,
     TSON.createAssertType<UltimateUnion>(),
-    // GIVE UP, SOMEDAY LATER
+    UltimateUnion.SPOILERS,
 );

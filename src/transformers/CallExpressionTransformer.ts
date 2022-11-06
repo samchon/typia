@@ -2,20 +2,26 @@ import path from "path";
 import ts from "typescript";
 
 import { IProject } from "./IProject";
-import { ApplicationTransformer } from "./features/ApplicationTransformer";
-import { AssertStringifyTransformer } from "./features/AssertStringifyTransformer";
-import { AssertTransformer } from "./features/AssertTransformer";
-import { CreateAssertStringifyTransformer } from "./features/CreateAssertStringifyTransformer";
-import { CreateAssertTransformer } from "./features/CreateAssertTransformer";
-import { CreateInstanceTransformer } from "./features/CreateInstanceTransformer";
-import { CreateIsStringifyTransformer } from "./features/CreateIsStringifyTransformer";
-import { CreateIsTransformer } from "./features/CreateIsTransformer";
-import { CreateStringifyTransformer } from "./features/CreateStringifyTransformer";
-import { CreateValidateTransformer } from "./features/CreateValidateTransformer";
-import { IsStringifyTransformer } from "./features/IsStringifyTransformer";
-import { IsTransformer } from "./features/IsTransformer";
-import { StringifyTransformer } from "./features/StringifyTransformer";
-import { ValidateTransformer } from "./features/ValidateTransformer";
+import { AssertCloneTransformer } from "./features/cloners/AssertCloneTransformer";
+import { CloneTransformer } from "./features/cloners/CloneTransformer";
+import { CreateAssertCloneTransformer } from "./features/cloners/CreateAssertCloneTransformer";
+import { CreateCloneTransformer } from "./features/cloners/CreateCloneTransformer";
+import { CreateIsCloneTransformer } from "./features/cloners/CreateIsCloneTransformer";
+import { IsCloneTransformer } from "./features/cloners/IsCloneTransformer";
+import { ApplicationTransformer } from "./features/miscellaneous/ApplicationTransformer";
+import { CreateInstanceTransformer } from "./features/miscellaneous/CreateInstanceTransformer";
+import { AssertStringifyTransformer } from "./features/stringifiers/AssertStringifyTransformer";
+import { CreateAssertStringifyTransformer } from "./features/stringifiers/CreateAssertStringifyTransformer";
+import { CreateIsStringifyTransformer } from "./features/stringifiers/CreateIsStringifyTransformer";
+import { CreateStringifyTransformer } from "./features/stringifiers/CreateStringifyTransformer";
+import { IsStringifyTransformer } from "./features/stringifiers/IsStringifyTransformer";
+import { StringifyTransformer } from "./features/stringifiers/StringifyTransformer";
+import { AssertTransformer } from "./features/validators/AssertTransformer";
+import { CreateAssertTransformer } from "./features/validators/CreateAssertTransformer";
+import { CreateIsTransformer } from "./features/validators/CreateIsTransformer";
+import { CreateValidateTransformer } from "./features/validators/CreateValidateTransformer";
+import { IsTransformer } from "./features/validators/IsTransformer";
+import { ValidateTransformer } from "./features/validators/ValidateTransformer";
 
 export namespace CallExpressionTransformer {
     export function transform(
@@ -71,10 +77,17 @@ const FUNCTORS: Record<string, () => Task> = {
     equals: () => IsTransformer.transform(true),
     validateEquals: () => ValidateTransformer.transform(true),
 
-    // APPENDIX FUNCTIONS
+    // STRINGIFY FUNCTIONS
     stringify: () => StringifyTransformer.transform,
     assertStringify: () => AssertStringifyTransformer.transform,
     isStringify: () => IsStringifyTransformer.transform,
+
+    // CLONE FUNCTIONS
+    clone: () => CloneTransformer.transform,
+    isClone: () => IsCloneTransformer.transform,
+    assertClone: () => AssertCloneTransformer.transform,
+
+    // MISC
     application: () => ApplicationTransformer.transform,
 
     //----
@@ -90,9 +103,16 @@ const FUNCTORS: Record<string, () => Task> = {
     createEquals: () => CreateIsTransformer.transform(true),
     createValidateEquals: () => CreateValidateTransformer.transform(true),
 
-    // APPENDIX FUNCTIONS
+    // STRINGIFY FUNCTIONS
     createStringify: () => CreateStringifyTransformer.transform,
     createAssertStringify: () => CreateAssertStringifyTransformer.transform,
     createIsStringify: () => CreateIsStringifyTransformer.transform,
+
+    // CLONE
+    createClone: () => CreateCloneTransformer.transform,
+    createIsClone: () => CreateIsCloneTransformer.transform,
+    createAssertClone: () => CreateAssertCloneTransformer.transform,
+
+    // MISC
     createObject: () => CreateInstanceTransformer.transform,
 };

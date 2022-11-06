@@ -8,13 +8,13 @@ export const test_application_ajv_object_primitive = _test_application_ajv(
     {
         schemas: [
             {
-                $ref: "components#/schemas/__type",
+                $ref: "components#/schemas/ObjectPrimitive.IArticle",
             },
         ],
         components: {
             schemas: {
-                __type: {
-                    $id: "components#/schemas/__type",
+                "ObjectPrimitive.IArticle": {
+                    $id: "components#/schemas/ObjectPrimitive.IArticle",
                     type: "object",
                     properties: {
                         id: {
@@ -37,7 +37,7 @@ export const test_application_ajv_object_primitive = _test_application_ajv(
                         files: {
                             type: "array",
                             items: {
-                                $ref: "components#/schemas/__type.o1",
+                                $ref: "components#/schemas/ObjectPrimitive.IFile",
                             },
                             nullable: false,
                         },
@@ -62,8 +62,8 @@ export const test_application_ajv_object_primitive = _test_application_ajv(
                     ],
                     "x-tson_jsDocTags": [],
                 },
-                "__type.o1": {
-                    $id: "components#/schemas/__type.o1",
+                "ObjectPrimitive.IFile": {
+                    $id: "components#/schemas/ObjectPrimitive.IFile",
                     type: "object",
                     properties: {
                         id: {

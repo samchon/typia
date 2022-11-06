@@ -9,11 +9,9 @@ import { AssertProgrammer } from "./AssertProgrammer";
 import { StringifyProgrammer } from "./StringifyProgrammer";
 
 export namespace AssertStringifyProgrammer {
-    export function generate(
-        project: IProject,
-        modulo: ts.LeftHandSideExpression,
-    ) {
-        return (type: ts.Type) =>
+    export const generate =
+        (project: IProject, modulo: ts.LeftHandSideExpression) =>
+        (type: ts.Type) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -44,5 +42,4 @@ export namespace AssertStringifyProgrammer {
                     ),
                 ]),
             );
-    }
 }
