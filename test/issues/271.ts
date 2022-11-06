@@ -186,7 +186,7 @@ type Test555 = Filter<{
     cc: string;
 }>;
 const value: Test555 = {
-    or: { operation: "like", column: "bb.yy_bad" as "bb.yy", value: "abc" },
+    or: { operation: "like", column: "bb.yy_bad", value: "abc" },
 };
 
 const is = TSON.createIs<Test555>();
