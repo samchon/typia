@@ -1,5 +1,4 @@
-import { Primitive } from "../../src/typings/Primitive";
-
+import { Primitive } from "../../src/Primitive";
 import { RandomGenerator } from "../internal/RandomGenerator";
 import { Spoiler } from "../internal/Spoiler";
 

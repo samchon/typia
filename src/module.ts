@@ -13,15 +13,14 @@ import { $tail } from "./functional/$tail";
 
 import { IJsonApplication } from "./schemas/IJsonApplication";
 
-import { Primitive } from "./typings/Primitive";
-
 import { IValidation } from "./IValidation";
+import { Primitive } from "./Primitive";
 import { TypeGuardError } from "./TypeGuardError";
 
 export * from "./schemas/IJsonApplication";
 export * from "./schemas/IJsonComponents";
 export * from "./schemas/IJsonSchema";
-export * from "./typings/Primitive";
+export * from "./Primitive";
 export * from "./TypeGuardError";
 export * from "./IValidation";
 
@@ -599,6 +598,22 @@ export namespace isStringify {
 /* -----------------------------------------------------------
     CLONE FUNCTIONS
 ----------------------------------------------------------- */
+/**
+ * Clone a data.
+ *
+ * Clones an instance following type `T`. If the target *input* value or its member
+ * variable contains a class instance that is having a `toJSON()` method, its return
+ * value would be cloned.
+ *
+ * For reference, this `TSON.clone()` function does not validate the input value type.
+ * It just believes that the input value is following the type `T`. Therefore, if you
+ * can't ensure the input value type, it would be better to call {@link assertClone}
+ * function instead.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data
+ */
 export function clone<T>(input: T): Primitive<T>;
 
 /**
@@ -626,6 +641,21 @@ export namespace clone {
     }
 }
 
+/**
+ * Clone a data with type checking.
+ *
+ * Clones an instance following type `T`, with type checking. If the target `input`
+ * value or its member variable contains a class instance that is having a `toJSON()`
+ * method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * `null` value instead. Otherwise, there's no problem on the `input` value, cloned
+ * data would be returned.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data when exact type, otherwise null
+ */
 export function isClone<T>(input: T): Primitive<T> | null;
 
 /**
@@ -652,6 +682,21 @@ export namespace isClone {
     export const throws = () => {};
 }
 
+/**
+ * Clone a data with type assertion.
+ *
+ * Clones an instance following type `T`, with type assertion. If the target `input`
+ * value or its member variable contains a class instance that is having a `toJSON()`
+ * method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it throws an
+ * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, cloned
+ * data would be returned.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data
+ */
 export function assertClone<T>(input: T): Primitive<T>;
 
 /**
@@ -1105,12 +1150,12 @@ export function createClone(): never;
  * @template T Type of the input value
  * @returns A reusable `clone` function
  */
-export function createClone<T>(): (input: T) => string;
+export function createClone<T>(): (input: T) => Primitive<T>;
 
 /**
  * @internal
  */
-export function createClone<T>(): (input: T) => string {
+export function createClone<T>(): (input: T) => Primitive<T> {
     halt("createClone");
 }
 
@@ -1130,12 +1175,12 @@ export namespace createClone {
  * @template T Type of the input value
  * @returns A reusable `assertClone` function
  */
-export function createAssertClone<T>(): (input: T) => string;
+export function createAssertClone<T>(): (input: T) => Primitive<T>;
 
 /**
  * @internal
  */
-export function createAssertClone<T>(): (input: T) => string {
+export function createAssertClone<T>(): (input: T) => Primitive<T> {
     halt("createAssertClone");
 }
 
@@ -1165,12 +1210,12 @@ export namespace createAssertClone {
  * @template T Type of the input value
  * @returns A reusable `isClone` function
  */
-export function createIsClone<T>(): (input: T) => string | null;
+export function createIsClone<T>(): (input: T) => Primitive<T> | null;
 
 /**
  * @internal
  */
-export function createIsClone<T>(): (input: T) => string | null {
+export function createIsClone<T>(): (input: T) => Primitive<T> | null {
     halt("createIsClone");
 }
 
