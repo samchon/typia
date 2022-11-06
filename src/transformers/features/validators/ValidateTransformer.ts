@@ -1,12 +1,12 @@
 import ts from "typescript";
 
-import { IsProgrammer } from "../../programmers/IsProgrammer";
+import { ValidateProgrammer } from "../../../programmers/ValidateProgrammer";
 
-import { IProject } from "../IProject";
+import { IProject } from "../../IProject";
 
-export namespace IsTransformer {
+export namespace ValidateTransformer {
     export function transform(equals: boolean) {
-        const SYMBOL = equals ? "equals" : "is";
+        const SYMBOL = equals ? "validateEquals" : "validate";
         const MESSAGES = {
             NO_INPUT_VALUE: `Error on TSON.${SYMBOL}(): no input value.`,
             GENERIC_ARGUMENT: `Error on TSON.${SYMBOL}(): non-specified generic argument.`,
@@ -34,7 +34,7 @@ export namespace IsTransformer {
 
             // DO TRANSFORM
             return ts.factory.createCallExpression(
-                IsProgrammer.generate(project, modulo, equals)(type),
+                ValidateProgrammer.generate(project, modulo, equals)(type),
                 undefined,
                 [expression.arguments[0]!],
             );

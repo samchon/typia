@@ -14,6 +14,9 @@ Super-fast Runtime validators and `JSON.stringify()` functions, with only one li
 ```typescript
 import TSON from "typescript-json";
 
+//----
+// VALIDATORS
+//----
 // ALLOW SUPERFLUOUS PROPERTIES
 TSON.assertType<T>(input); // throws exception
 TSON.is<T>(input); // returns boolean value
@@ -24,10 +27,20 @@ TSON.equals<T>(input); // returns boolean value
 TSON.assertEquals<T>(input); // throws exception
 TSON.validateEquals<T>(input); // archives all errors
 
+//----
 // APPENDIX FUNCTIONS
+//----
+// STRINGIFY
 TSON.stringify<T>(input); // 5x faster JSON.stringify()
 TSON.assertStringify<T>(input); // assertType() + stringify() 
 TSON.isStringify<T>(input); // is() + stringify()
+
+// CLONE
+TSON.clone<T>(input); // deep copy
+TSON.isClone<T>(input); // is() + clone()
+TSON.assertClone<T>(input); // assertType() + clone()
+
+// JSON SCHEMA
 TSON.application<[T, U, V], "ajv">(); // JSON schema application generator
 ```
 
@@ -301,6 +314,21 @@ When you need to share your TypeScript types to other language, this `applicatio
 
 By the way, the reason why you're using this `application()` is for generating a swagger documents, I recommend you to use my another library [nestia](https://github.com/samchon/nestia). It will automate the swagger documents generation, by analyzing your entire backend server code.
 
+### Deep copy functions
+```typescript
+export function clone<T>(input: T): Primitive<T>; // do not validate type (danger)
+export function assertClone<T>(input: T): Primitive<T>; // throws TypeGuardError
+export function isClone<T>(input: T): Primitive<T> | null; // null when wrong type
+
+export function createClone<T>(): (input: T) => Primitive<T>;
+export function createAssertClone<T>(): (input: T) => Primitive<T>;
+export function createIsClone<T>(): (input: T) => Primitive<T> | null;
+```
+
+You can safely deep copy instances like above.
+
+If you sure the target type exactly, then utilize `clone()` function for fastest cloning. However, you want to realize safe deep clone, you can choose one of two functions instead; `isClone()` or `assertClone()`. When you need the deep copy function repeatedly, you can choose factory functions; `createClone()`, `createIsClone()`, `createAssertClone()`.
+
 ### Comment Tags
 You can enhance [Runtime Validators](#runtime-validators) and [JSON Schema Generator](#json-schema-generation) by writing comment tags.
 
@@ -565,7 +593,7 @@ https://github.com/samchon/nestia-helper
 
 Helper library of `NestJS`, using this `typescript-json`.
 
-`nestia-helper` is a helper library of `NestJS`, which boosts up the `JSON.stringify()` speed 5x times faster about the API responses, automatically. Also, `nestia-helper` supports automatic validation of request body, too. 
+`nestia-helper` is a helper library of `NestJS`, which boosts up the `JSON.stringify()` speed 5x times faster about the API responses, automatically. Also, `nestia-helper` supports automatic validation of request body, that is about 8,000x times faster than legacy `class-validator` too. 
 
 ```typescript
 import helper from "nestia-helper";
