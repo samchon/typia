@@ -9,12 +9,12 @@ export const test_application_swagger_object_primitive =
         {
             schemas: [
                 {
-                    $ref: "#/components/schemas/__type",
+                    $ref: "#/components/schemas/ObjectPrimitive.IArticle",
                 },
             ],
             components: {
                 schemas: {
-                    __type: {
+                    "ObjectPrimitive.IArticle": {
                         type: "object",
                         properties: {
                             id: {
@@ -37,7 +37,7 @@ export const test_application_swagger_object_primitive =
                             files: {
                                 type: "array",
                                 items: {
-                                    $ref: "#/components/schemas/__type.o1",
+                                    $ref: "#/components/schemas/ObjectPrimitive.IFile",
                                 },
                                 nullable: false,
                             },
@@ -62,7 +62,7 @@ export const test_application_swagger_object_primitive =
                         ],
                         "x-tson_jsDocTags": [],
                     },
-                    "__type.o1": {
+                    "ObjectPrimitive.IFile": {
                         type: "object",
                         properties: {
                             id: {

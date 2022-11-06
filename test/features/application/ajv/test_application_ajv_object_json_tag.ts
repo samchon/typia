@@ -92,7 +92,7 @@ export const test_application_ajv_object_json_tag = _test_application_ajv(
                                     name: "title",
                                     text: [
                                         {
-                                            text: "something content with\r\nenter and\r\nnew line",
+                                            text: "something content with\nenter and\nnew line",
                                             kind: "text",
                                         },
                                     ],
