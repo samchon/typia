@@ -8,7 +8,7 @@ import { IProject } from "../transformers/IProject";
 import { AssertProgrammer } from "./AssertProgrammer";
 import { StringifyProgrammer } from "./StringifyProgrammer";
 
-export namespace AssertStringifyProgrammer {
+export namespace AssertCloneProgrammer {
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type) =>
@@ -29,13 +29,25 @@ export namespace AssertStringifyProgrammer {
                     ),
                     ts.factory.createReturnStatement(
                         ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("stringify"),
+                            ts.factory.createIdentifier("JSON.parse"),
                             undefined,
                             [
                                 ts.factory.createCallExpression(
-                                    ts.factory.createIdentifier("assertType"),
+                                    ts.factory.createIdentifier("stringify"),
                                     undefined,
-                                    [ts.factory.createIdentifier("input")],
+                                    [
+                                        ts.factory.createCallExpression(
+                                            ts.factory.createIdentifier(
+                                                "assertType",
+                                            ),
+                                            undefined,
+                                            [
+                                                ts.factory.createIdentifier(
+                                                    "input",
+                                                ),
+                                            ],
+                                        ),
+                                    ],
                                 ),
                             ],
                         ),

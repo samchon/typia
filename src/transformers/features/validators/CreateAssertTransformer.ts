@@ -1,8 +1,8 @@
 import ts from "typescript";
 
-import { AssertProgrammer } from "../../programmers/AssertProgrammer";
+import { AssertProgrammer } from "../../../programmers/AssertProgrammer";
 
-import { IProject } from "../IProject";
+import { IProject } from "../../IProject";
 
 export namespace CreateAssertTransformer {
     export function transform(equals: boolean) {

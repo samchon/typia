@@ -1,10 +1,10 @@
 import ts from "typescript";
 
-import { StringifyProgrammer } from "../../programmers/StringifyProgrammer";
+import { CloneProgrammer } from "../../../programmers/CloneProgrammer";
 
-import { IProject } from "../IProject";
+import { IProject } from "../../IProject";
 
-export namespace StringifyTransformer {
+export namespace CloneTransformer {
     export function transform(
         project: IProject,
         modulo: ts.LeftHandSideExpression,
@@ -13,6 +13,7 @@ export namespace StringifyTransformer {
         if (expression.arguments.length !== 1)
             throw new Error(ErrorMessages.NO_INPUT_VALUE);
 
+        // GET TYPE INFO
         const type: ts.Type =
             expression.typeArguments && expression.typeArguments[0]
                 ? project.checker.getTypeFromTypeNode(
@@ -22,8 +23,9 @@ export namespace StringifyTransformer {
         if (type.isTypeParameter())
             throw new Error(ErrorMessages.GENERIC_ARGUMENT);
 
+        // DO TRANSFORM
         return ts.factory.createCallExpression(
-            StringifyProgrammer.generate(project, modulo)(type),
+            CloneProgrammer.generate(project, modulo)(type),
             undefined,
             [expression.arguments[0]!],
         );
@@ -31,6 +33,6 @@ export namespace StringifyTransformer {
 }
 
 const enum ErrorMessages {
-    NO_INPUT_VALUE = "Error on TSON.stringify(): no input value.",
-    GENERIC_ARGUMENT = "Error on TSON.stringify(): non-specified generic argument.",
+    NO_INPUT_VALUE = "Error on TSON.clone(): no input value.",
+    GENERIC_ARGUMENT = "Error on TSON.clone(): non-specified generic argument.",
 }

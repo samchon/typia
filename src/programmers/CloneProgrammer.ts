@@ -5,10 +5,9 @@ import { StatementFactory } from "../factories/StatementFactory";
 
 import { IProject } from "../transformers/IProject";
 
-import { AssertProgrammer } from "./AssertProgrammer";
 import { StringifyProgrammer } from "./StringifyProgrammer";
 
-export namespace AssertStringifyProgrammer {
+export namespace CloneProgrammer {
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type) =>
@@ -20,20 +19,16 @@ export namespace AssertStringifyProgrammer {
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(
-                        "assertType",
-                        AssertProgrammer.generate(project, modulo)(type),
-                    ),
-                    StatementFactory.constant(
                         "stringify",
                         StringifyProgrammer.generate(project, modulo)(type),
                     ),
                     ts.factory.createReturnStatement(
                         ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("stringify"),
+                            ts.factory.createIdentifier("JSON.parse"),
                             undefined,
                             [
                                 ts.factory.createCallExpression(
-                                    ts.factory.createIdentifier("assertType"),
+                                    ts.factory.createIdentifier("stringify"),
                                     undefined,
                                     [ts.factory.createIdentifier("input")],
                                 ),
