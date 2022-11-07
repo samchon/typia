@@ -5,6 +5,6 @@ import { _test_assert } from "./../assert/_test_assert";
 export const test_create_assert_class_closure = _test_assert(
     "class closure",
     ClassClosure.generate,
-    TSON.createAssertType<ClassClosure>(),
+    TSON.createAssert<ClassClosure>(),
     ClassClosure.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { _test_assert } from "./_test_assert";
 export const test_assert_dynamic_composite = _test_assert(
     "dynamic composite",
     DynamicComposite.generate,
-    (input) => TSON.assertType(input),
+    (input) => TSON.assert(input),
     DynamicComposite.SPOILERS,
 );

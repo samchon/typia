@@ -5,6 +5,6 @@ import { _test_assert } from "./../assert/_test_assert";
 export const test_create_assert_object_intersection = _test_assert(
     "intersected object",
     ObjectIntersection.generate,
-    TSON.createAssertType<ObjectIntersection>(),
+    TSON.createAssert<ObjectIntersection>(),
     ObjectIntersection.SPOILERS,
 );

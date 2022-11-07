@@ -5,6 +5,6 @@ import { _test_assert } from "./_test_assert";
 export const test_assert_functional_value_union = _test_assert(
     "functional union value",
     FunctionalValueUnion.generate,
-    (input) => TSON.assertType(input),
+    (input) => TSON.assert(input),
     FunctionalValueUnion.SPOILERS,
 );

@@ -18,7 +18,7 @@ import TSON from "typescript-json";
 // VALIDATORS
 //----
 // ALLOW SUPERFLUOUS PROPERTIES
-TSON.assertType<T>(input); // throws exception
+TSON.assert<T>(input); // throws exception
 TSON.is<T>(input); // returns boolean value
 TSON.validate<T>(input); // archives all errors
 
@@ -32,13 +32,13 @@ TSON.validateEquals<T>(input); // archives all errors
 //----
 // STRINGIFY
 TSON.stringify<T>(input); // 5x faster JSON.stringify()
-TSON.assertStringify<T>(input); // assertType() + stringify() 
+TSON.assertStringify<T>(input); // assert() + stringify() 
 TSON.isStringify<T>(input); // is() + stringify()
 
 // CLONE
 TSON.clone<T>(input); // deep copy
 TSON.isClone<T>(input); // is() + clone()
-TSON.assertClone<T>(input); // assertType() + clone()
+TSON.assertClone<T>(input); // assert() + clone()
 
 // JSON SCHEMA
 TSON.application<[T, U, V], "ajv">(); // JSON schema application generator
@@ -47,7 +47,7 @@ TSON.application<[T, U, V], "ajv">(); // JSON schema application generator
 `typescript-json` is a transformer library providing JSON related functions.
 
   - Powerful Runtime type checkers:
-    - Performed by only one line, `TSON.assertType<T>(input)`
+    - Performed by only one line, `TSON.assert<T>(input)`
     - Only one library which can validate union type
     - Maximum 8,000x faster than other libraries
   - 10x faster `JSON.stringify()` function:
@@ -170,7 +170,7 @@ module.exports = {
 ```typescript
 // ALLOW SUPERFLUOUS PROPERTIES
 export function is<T>(input: T | unknown): input is T; // true or false
-export function assertType<T>(input: T | unknown): T; // throws `TypeGuardError`
+export function assert<T>(input: T | unknown): T; // throws `TypeGuardError`
 export function validate<T>(input: T | unknown): IValidation; // detailed reasons
 
 // DO NOT ALLOW SUPERFLUOUS PROPERTIES
@@ -180,7 +180,7 @@ export function validateEquals<T>(input: T | unknown): IValidation;
 
 // REUSABLE FUNCTIONS
 export function createIs<T>(): (input: unknown): input is T;
-export function createAssertType<T>(): (input: unknown) => T;
+export function createAssert<T>(): (input: unknown) => T;
 export function createValidate<T>(): (input: unknown) => IValidation;
 
 export function createEquals<T>(): (input: unknown) => input is T;
@@ -212,13 +212,13 @@ export class TypeGuardError extends Error {
 
 `typescript-json` provides three basic validator functions.
 
-The first, `assertType()` is a function throwing `TypeGuardError` when an `input` value is different with its type, generic argument `T`. The second function, `is()` returns a `boolean` value meaning whether matched or not. The last `validate()` function archives all type errors into an `IValidation.errors` array.
+The first, `assert()` is a function throwing `TypeGuardError` when an `input` value is different with its type, generic argument `T`. The second function, `is()` returns a `boolean` value meaning whether matched or not. The last `validate()` function archives all type errors into an `IValidation.errors` array.
 
 If you want much strict validators that do not allow superfluous properties, you can use below functions instead. `assertEquals()` function throws `TypeGuardError`, `equals()` function returns `boolean` value, and `validateEquals()` function archives all type errors into an `IValidation.errors` array.
 
 Basic | Strict
 ------|--------
-`assertType` | `assertEquals`
+`assert` | `assertEquals`
 `is` | `equals`
 `validate` | `validateEquals`
 
@@ -287,7 +287,7 @@ Super-fast JSON string conversion function.
 
 When you call `TSON.stringify()` function instead of the native `JSON.stringify()`, the JSON conversion time would be 10x times faster. Also, you can perform such super-fast JSON string conversion very easily, by only one line: `TSON.stringify<T>(input)`.
 
-If you want to validate the input type at the same time, you can choose `TSON.isStringify<T>(input)` or `TSON.assertStringify<T>(input)` functions instead. Those function calls `TSON.is()` or `TSON.assertType()` function before converting to the JSON string. Of course, its conversion speed would be reduced, but it would be much safer than the native `JSON.stringify()`.
+If you want to validate the input type at the same time, you can choose `TSON.isStringify<T>(input)` or `TSON.assertStringify<T>(input)` functions instead. Those function calls `TSON.is()` or `TSON.assert()` function before converting to the JSON string. Of course, its conversion speed would be reduced, but it would be much safer than the native `JSON.stringify()`.
 
 Comparing performance, `typescript-json` is about 10x times faster than the native `JSON.stringify()` function. Other funtions with built-in checkers are also about 8x times faster than the native `JSON.stringify()` function.
 
@@ -605,7 +605,7 @@ export class BbsArticlesController
     // automatic TSON.stringify() for response body
     @helper.TypedRoute.Get()
     public store(
-        // automatic TSON.assertType() for request body
+        // automatic TSON.assert() for request body
         @helper.TypedBody() input: IBbsArticle.IStore
     ): Promise<IBbsArticle>;
 }

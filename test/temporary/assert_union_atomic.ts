@@ -1,3 +1,3 @@
 import TSON from "../../src";
 
-TSON.assertType<boolean | number | string>(3);
+TSON.assert<boolean | number | string>(3);

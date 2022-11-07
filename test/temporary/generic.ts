@@ -2,7 +2,7 @@
 // import tis from "typescript-is";
 
 // function generic<T extends { name: string }>(input: T): void {
-//     TSON.assertType(input);
+//     TSON.assert(input);
 //     TSON.is(input);
 //     TSON.stringify(input);
 

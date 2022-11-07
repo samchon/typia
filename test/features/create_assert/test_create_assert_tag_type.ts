@@ -5,6 +5,6 @@ import { _test_assert } from "./../assert/_test_assert";
 export const test_create_assert_tag_type = _test_assert(
     "type tag",
     TagType.generate,
-    TSON.createAssertType<TagType>(),
+    TSON.createAssert<TagType>(),
     TagType.SPOILERS,
 );

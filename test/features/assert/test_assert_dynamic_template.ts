@@ -5,6 +5,6 @@ import { _test_assert } from "./_test_assert";
 export const test_assert_dynamic_template = _test_assert(
     "dynamic template",
     DynamicTemplate.generate,
-    (input) => TSON.assertType(input),
+    (input) => TSON.assert(input),
     DynamicTemplate.SPOILERS,
 );

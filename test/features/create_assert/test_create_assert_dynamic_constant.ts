@@ -5,6 +5,6 @@ import { _test_assert } from "./../assert/_test_assert";
 export const test_create_assert_dynamic_constant = _test_assert(
     "dynamic constant",
     DynamicConstant.generate,
-    TSON.createAssertType<DynamicConstant>(),
+    TSON.createAssert<DynamicConstant>(),
     DynamicConstant.SPOILERS,
 );

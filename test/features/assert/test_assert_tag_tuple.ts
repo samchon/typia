@@ -6,6 +6,6 @@ import { _test_assert } from "./_test_assert";
 export const test_assert_tag_tuple = _test_assert(
     "tuple tag",
     TagTuple.generate,
-    (input) => TSON.assertType(input),
+    (input) => TSON.assert(input),
     TagTuple.SPOILERS,
 );

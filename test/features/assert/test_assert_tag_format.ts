@@ -5,6 +5,6 @@ import { _test_assert } from "./_test_assert";
 export const test_assert_tag_format = _test_assert(
     "format tag",
     TagFormat.generate,
-    (input) => TSON.assertType(input),
+    (input) => TSON.assert(input),
     TagFormat.SPOILERS,
 );

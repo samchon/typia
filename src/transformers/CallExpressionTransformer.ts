@@ -68,6 +68,7 @@ const FUNCTORS: Record<string, () => Task> = {
     // SINGLE FUNCTIONS
     //----
     // BASIC VALIDATORS
+    assert: () => AssertTransformer.transform(false),
     assertType: () => AssertTransformer.transform(false),
     is: () => IsTransformer.transform(false),
     validate: () => ValidateTransformer.transform(false),
@@ -94,6 +95,7 @@ const FUNCTORS: Record<string, () => Task> = {
     // FACTORY FUNCTIONS
     //----
     // BASIC VALIDATORS
+    createAssert: () => CreateAssertTransformer.transform(false),
     createAssertType: () => CreateAssertTransformer.transform(false),
     createIs: () => CreateIsTransformer.transform(false),
     createValidate: () => CreateValidateTransformer.transform(false),

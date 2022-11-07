@@ -5,6 +5,6 @@ import { _test_assert } from "./../assert/_test_assert";
 export const test_create_assert_tuple_hierarchical = _test_assert(
     "hierarchical tuple",
     TupleHierarchical.generate,
-    TSON.createAssertType<TupleHierarchical>(),
+    TSON.createAssert<TupleHierarchical>(),
     TupleHierarchical.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { _test_assert } from "./_test_assert";
 export const test_assert_template_union = _test_assert(
     "template union",
     TemplateUnion.generate,
-    (input) => TSON.assertType(input),
+    (input) => TSON.assert(input),
     TemplateUnion.SPOILERS,
 );

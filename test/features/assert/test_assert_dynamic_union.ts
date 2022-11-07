@@ -5,6 +5,6 @@ import { _test_assert } from "./_test_assert";
 export const test_assert_dynamic_union = _test_assert(
     "dynamic union",
     DynamicUnion.generate,
-    (input) => TSON.assertType<DynamicUnion>(input),
+    (input) => TSON.assert<DynamicUnion>(input),
     DynamicUnion.SPOILERS,
 );

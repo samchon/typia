@@ -5,6 +5,6 @@ import { _test_assert } from "./_test_assert";
 export const test_assert_array_recursive_union_explicit = _test_assert(
     "explicit recursive union array",
     ArrayRecursiveUnionExplicit.generate,
-    (input) => TSON.assertType(input),
+    (input) => TSON.assert(input),
     ArrayRecursiveUnionExplicit.SPOILERS,
 );

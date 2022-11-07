@@ -5,6 +5,6 @@ import { _test_assert } from "../assert/_test_assert";
 export const test_create_assert_object_recursive = _test_assert(
     "recursive object",
     ObjectRecursive.generate,
-    TSON.createAssertType<ObjectRecursive>(),
+    TSON.createAssert<ObjectRecursive>(),
     ObjectRecursive.SPOILERS,
 );
