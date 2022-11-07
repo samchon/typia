@@ -5,6 +5,6 @@ import { _test_assert } from "./_test_assert";
 export const test_assert_tag_atomic_union = _test_assert(
     "atomic union tag",
     TagAtomicUnion.generate,
-    (input) => TSON.assertType(input),
+    (input) => TSON.assert(input),
     TagAtomicUnion.SPOILERS,
 );

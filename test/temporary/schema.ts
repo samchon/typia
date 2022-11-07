@@ -2,10 +2,10 @@ import { IJsonSchema } from "../../src/schemas/IJsonSchema";
 
 import TSON from "../../src";
 
-const assertType = (input: IJsonSchema) => TSON.assertType(input);
+const assert = (input: IJsonSchema) => TSON.assert(input);
 const is = (input: IJsonSchema) => TSON.is(input);
 const stringify = (input: IJsonSchema) => TSON.stringify(input);
 
-assertType;
+assert;
 is;
 stringify;

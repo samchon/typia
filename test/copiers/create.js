@@ -2,7 +2,7 @@ const cp = require("child_process");
 const fs = require("fs");
 
 function copy(from, to, name, method) {
-    let content = fs.readFileSync(from, "utf8");
+    let content = fs.readFileSync(`${__dirname}/../features/${from}`, "utf8");
     const [structure, isClass] = (() => {
         const last = content.indexOf(".generate");
         if (last === -1) {
@@ -30,7 +30,7 @@ function copy(from, to, name, method) {
         `(input) => TSON.${method}(input)`,
         `TSON.create${method[0].toUpperCase()}${method.substr(1)}<${type}>()`
     );
-    fs.writeFileSync(to, content, "utf8");
+    fs.writeFileSync(`${__dirname}/../features/${to}`, content, "utf8");
 }
 
 function replica(name, method = name) {
@@ -49,7 +49,7 @@ function replica(name, method = name) {
                 method
             );
 }
-replica("assert", "assertType");
+replica("assert", "assert");
 replica("is");
 replica("validate");
 

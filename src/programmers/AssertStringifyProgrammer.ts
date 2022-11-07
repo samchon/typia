@@ -20,7 +20,7 @@ export namespace AssertStringifyProgrammer {
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(
-                        "assertType",
+                        "assert",
                         AssertProgrammer.generate(project, modulo)(type),
                     ),
                     StatementFactory.constant(
@@ -33,7 +33,7 @@ export namespace AssertStringifyProgrammer {
                             undefined,
                             [
                                 ts.factory.createCallExpression(
-                                    ts.factory.createIdentifier("assertType"),
+                                    ts.factory.createIdentifier("assert"),
                                     undefined,
                                     [ts.factory.createIdentifier("input")],
                                 ),

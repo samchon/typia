@@ -5,6 +5,6 @@ import { _test_assert } from "./../assert/_test_assert";
 export const test_create_assert_object_union_implicit = _test_assert(
     "union object",
     ObjectUnionImplicit.generate,
-    TSON.createAssertType<ObjectUnionImplicit>(),
+    TSON.createAssert<ObjectUnionImplicit>(),
     ObjectUnionImplicit.SPOILERS,
 );

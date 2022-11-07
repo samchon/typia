@@ -14,13 +14,13 @@ export function _test_assert<T>(
 
             if (input !== output)
                 throw new Error(
-                    "Bug on TSON.assertType(): failed to return input value.",
+                    "Bug on TSON.assert(): failed to return input value.",
                 );
         } catch (exp) {
             if (exp instanceof TypeGuardError) {
                 console.log(exp);
                 throw new Error(
-                    `Bug on TSON.assertType(): failed to understand the ${name} type.`,
+                    `Bug on TSON.assert(): failed to understand the ${name} type.`,
                 );
             } else throw exp;
         }
@@ -43,7 +43,7 @@ export function _test_assert<T>(
             }
             console.log(paths.value);
             throw new Error(
-                `Bug on TSON.assertType(): failed to detect error on the ${name} type.`,
+                `Bug on TSON.assert(): failed to detect error on the ${name} type.`,
             );
         }
     };

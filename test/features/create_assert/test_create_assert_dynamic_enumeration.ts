@@ -5,6 +5,6 @@ import { _test_assert } from "./../assert/_test_assert";
 export const test_create_assert_dynamic_enumeration = _test_assert(
     "dynamic enumeration",
     DynamicEnumeration.generate,
-    TSON.createAssertType<DynamicEnumeration>(),
+    TSON.createAssert<DynamicEnumeration>(),
     DynamicEnumeration.SPOILERS,
 );

@@ -9,4 +9,4 @@ const a: [A, A] = [
         },
     },
 ];
-console.log(TSON.assertType<[A, A]>(a));
+console.log(TSON.assert<[A, A]>(a));

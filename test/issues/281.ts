@@ -20,9 +20,9 @@
 // };
 
 // const individual = (input: ObjectHierarchical) => {
-//     const $guard = throwable("TSON.assertType()");
+//     const $guard = throwable("TSON.assert()");
 //     const $every = <T>(array: T[], closure: (elem: T, i: number) => boolean) => array.every(closure);
-//     const $join = TSON.createAssertType.join;
+//     const $join = TSON.createAssert.join;
 //     const error = ((
 //         input: ObjectHierarchical,
 //         path: string,
@@ -383,7 +383,7 @@
 
 // suite.add("is", () => TSON.is(right));
 // suite.add("individual", () => individual(right));
-// suite.add("last", () => TSON.assertType(right));
+// suite.add("last", () => TSON.assert(right));
 
 // suite.run();
 

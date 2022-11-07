@@ -5,6 +5,6 @@ import { _test_assert } from "./../assert/_test_assert";
 export const test_create_assert_array_hierarchical = _test_assert(
     "hierarchical array",
     ArrayHierarchical.generate,
-    TSON.createAssertType<ArrayHierarchical>(),
+    TSON.createAssert<ArrayHierarchical>(),
     ArrayHierarchical.SPOILERS,
 );

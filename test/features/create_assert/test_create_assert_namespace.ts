@@ -5,6 +5,6 @@ import { _test_assert } from "./../assert/_test_assert";
 export const test_create_assert_namespace = _test_assert(
     "namespace",
     Namespace.generate,
-    TSON.createAssertType<Namespace>(),
+    TSON.createAssert<Namespace>(),
     // UNABLE TO SPOIL
 );

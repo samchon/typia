@@ -5,6 +5,6 @@ import { _test_assert } from "./_test_assert";
 export const test_assert_class_property_assignment = _test_assert(
     "property assigned class",
     ClassPropertyAssignment.generate,
-    (input) => TSON.assertType(input),
+    (input) => TSON.assert(input),
     ClassPropertyAssignment.SPOILERS,
 );

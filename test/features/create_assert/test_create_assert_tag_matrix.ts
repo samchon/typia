@@ -8,6 +8,6 @@ import { _test_assert } from "./../assert/_test_assert";
 export const test_create_assert_tag_matrix = _test_assert(
     "matrix tag",
     TagMatrix.generate,
-    TSON.createAssertType<TagMatrix>(),
+    TSON.createAssert<TagMatrix>(),
     TagMatrix.SPOILERS,
 );

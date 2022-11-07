@@ -5,6 +5,6 @@ import { _test_assert } from "./../assert/_test_assert";
 export const test_create_assert_object_generic_alias = _test_assert(
     "generic aliased object",
     ObjectGenericAlias.generate,
-    TSON.createAssertType<ObjectGenericAlias>(),
+    TSON.createAssert<ObjectGenericAlias>(),
     ObjectGenericAlias.SPOILERS,
 );

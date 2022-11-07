@@ -6,6 +6,6 @@ import { _test_assert } from "./../assert/_test_assert";
 export const test_create_assert_tag_tuple = _test_assert(
     "tuple tag",
     TagTuple.generate,
-    TSON.createAssertType<TagTuple>(),
+    TSON.createAssert<TagTuple>(),
     TagTuple.SPOILERS,
 );

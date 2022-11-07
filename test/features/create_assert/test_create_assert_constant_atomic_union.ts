@@ -5,6 +5,6 @@ import { _test_assert } from "./../assert/_test_assert";
 export const test_create_assert_constant_atomic_union = _test_assert(
     "constant atomic",
     ConstantAtomicUnion.generate,
-    TSON.createAssertType<ConstantAtomicUnion>(),
+    TSON.createAssert<ConstantAtomicUnion>(),
     ConstantAtomicUnion.SPOILERS,
 );

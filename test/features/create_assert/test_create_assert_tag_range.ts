@@ -5,6 +5,6 @@ import { _test_assert } from "./../assert/_test_assert";
 export const test_create_assert_tag_range = _test_assert(
     "range tag",
     TagRange.generate,
-    TSON.createAssertType<TagRange>(),
+    TSON.createAssert<TagRange>(),
     TagRange.SPOILERS,
 );

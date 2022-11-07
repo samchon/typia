@@ -20,7 +20,7 @@ export namespace AssertCloneProgrammer {
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(
-                        "assertType",
+                        "assert",
                         AssertProgrammer.generate(project, modulo)(type),
                     ),
                     StatementFactory.constant(
@@ -38,7 +38,7 @@ export namespace AssertCloneProgrammer {
                                     [
                                         ts.factory.createCallExpression(
                                             ts.factory.createIdentifier(
-                                                "assertType",
+                                                "assert",
                                             ),
                                             undefined,
                                             [
