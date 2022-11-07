@@ -121,7 +121,7 @@ const assertType_po_iterate_pc = () => [
         "object (simple)",
         () => ObjectSimple.generate(),
         {
-            "typescript-json": TSON.createAssertType<ObjectSimple>(),
+            "typescript-json": TSON.createAssert<ObjectSimple>(),
             typebox: assertTypeBox(TypeBoxObjectSimple),
             "io-ts": assertIoTs(IoTsObjectSimple),
             zod: assertZod(ZodObjectSimple),
@@ -133,7 +133,7 @@ const assertType_po_iterate_pc = () => [
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
         {
-            "typescript-json": TSON.createAssertType<ObjectHierarchical>(),
+            "typescript-json": TSON.createAssert<ObjectHierarchical>(),
             "io-ts": assertIoTs(IoTsObjectHierarchical),
             "class-validator": assertClassValidator(CvObjectHierarchical),
             zod: assertZod(ZodObjectHierarchical),
@@ -145,7 +145,7 @@ const assertType_po_iterate_pc = () => [
         "object (recursive)",
         () => ObjectRecursive.generate(),
         {
-            "typescript-json": TSON.createAssertType<ObjectRecursive>(),
+            "typescript-json": TSON.createAssert<ObjectRecursive>(),
             "io-ts": assertIoTs(IoTsObjectRecursive),
             "class-validator": assertClassValidator(CvObjectRecursive),
             zod: assertZod(ZodObjectRecursive),
@@ -157,7 +157,7 @@ const assertType_po_iterate_pc = () => [
         "object (union, explicit)",
         () => ObjectUnionExplicit.generate(),
         {
-            "typescript-json": TSON.createAssertType<ObjectUnionExplicit>(),
+            "typescript-json": TSON.createAssert<ObjectUnionExplicit>(),
             "io-ts": assertIoTs(IoTsObjectUnionExplicit),
             "class-validator": assertClassValidator(CvObjectUnionExplicit),
             zod: assertZod(ZodObjectUnionExplicit),
@@ -169,7 +169,7 @@ const assertType_po_iterate_pc = () => [
         "object (union, implicit)",
         () => ObjectUnionImplicit.generate(),
         {
-            "typescript-json": TSON.createAssertType<ObjectUnionImplicit>(),
+            "typescript-json": TSON.createAssert<ObjectUnionImplicit>(),
             "io-ts": assertIoTs(IoTsObjectUnionImplicit),
             "class-validator": assertClassValidator(CvObjectUnionImplicit),
             zod: assertZod(ZodObjectUnionImplicit),
@@ -181,7 +181,7 @@ const assertType_po_iterate_pc = () => [
         "array (recursive)",
         () => ArrayRecursive.generate(),
         {
-            "typescript-json": TSON.createAssertType<ArrayRecursive>(),
+            "typescript-json": TSON.createAssert<ArrayRecursive>(),
             "io-ts": assertIoTs(IoTsArrayRecursive),
             "class-validator": assertClassValidator(CvArrayRecursive),
             zod: assertZod(ZodArrayRecursive),
@@ -193,8 +193,7 @@ const assertType_po_iterate_pc = () => [
         "array (union, explicit)",
         () => ArrayRecursiveUnionExplicit.generate(),
         {
-            "typescript-json":
-                TSON.createAssertType<ArrayRecursiveUnionExplicit>(),
+            "typescript-json": TSON.createAssert<ArrayRecursiveUnionExplicit>(),
             "io-ts": assertIoTs(IoTsArrayRecursiveUnionExplicit),
             "class-validator": assertClassValidator(
                 CvArrayRecursiveUnionExplicit,
@@ -208,8 +207,7 @@ const assertType_po_iterate_pc = () => [
         "array (union, implicit)",
         () => ArrayRecursiveUnionImplicit.generate(),
         {
-            "typescript-json":
-                TSON.createAssertType<ArrayRecursiveUnionImplicit>(),
+            "typescript-json": TSON.createAssert<ArrayRecursiveUnionImplicit>(),
             "io-ts": assertIoTs(IoTsArrayRecursiveUnionImplicit),
             "class-validator": assertClassValidator(
                 CvArrayRecursiveUnionImplicit,
@@ -223,7 +221,7 @@ const assertType_po_iterate_pc = () => [
         "ultimate union",
         () => UltimateUnion.generate(),
         {
-            "typescript-json": TSON.createAssertType<UltimateUnion>(),
+            "typescript-json": TSON.createAssert<UltimateUnion>(),
             "io-ts": assertIoTs(IoTsUltimateUnion),
             "class-validator": null,
             zod: assertZod(ZodUltimateUnion),

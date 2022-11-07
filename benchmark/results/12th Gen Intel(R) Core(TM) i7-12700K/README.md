@@ -23,9 +23,9 @@ ultimate union | 828.9768483943242 | Failed | Failed | Failed | Failed | Failed
 
 
 
-## assertType (iterate)
+## assert (iterate)
 
-![assertType (iterate) benchmark](images/assertType_po_iterate_pc.svg)
+![assert (iterate) benchmark](images/assertType_po_iterate_pc.svg)
 
  Components | typescript-json | typebox | io-ts | zod | class-validator 
 ------------|-----------------|---------|-------|-----|-----------------
@@ -41,9 +41,9 @@ ultimate union | 401.8007878446821 | Failed | Failed | Failed | Failed
 
 
 
-## assertType (throw)
+## assert (throw)
 
-![assertType (throw) benchmark](images/assertType_po_throw_pc.svg)
+![assert (throw) benchmark](images/assertType_po_throw_pc.svg)
 
  Components | typescript-json | typebox | io-ts | zod | class-validator 
 ------------|-----------------|---------|-------|-----|-----------------
