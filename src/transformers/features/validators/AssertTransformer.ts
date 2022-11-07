@@ -6,7 +6,7 @@ import { IProject } from "../../IProject";
 
 export namespace AssertTransformer {
     export function transform(equals: boolean) {
-        const SYMBOL = equals ? "assertEquals" : "assertType";
+        const SYMBOL = equals ? "assertEquals" : "assert";
         const MESSAGES = {
             NO_INPUT_VALUE: `Error on TSON.${SYMBOL}(): no input value.`,
             GENERIC_ARGUMENT: `Error on TSON.${SYMBOL}(): non-specified generic argument.`,

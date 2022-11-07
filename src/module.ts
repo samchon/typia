@@ -55,7 +55,7 @@ export * from "./IValidation";
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertType<T>(input: T): T;
+export function assert<T>(input: T): T;
 
 /**
  * Asserts a value type.
@@ -78,6 +78,58 @@ export function assertType<T>(input: T): T;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
+export function assert<T>(input: unknown): T;
+
+/**
+ * @internal
+ */
+export function assert(): never {
+    halt("assert");
+}
+
+/**
+ * @internal
+ */
+export namespace assert {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+
+    export const join = $join;
+    export const every = $every;
+    export const guard = $guard("TSON.assert");
+}
+
+/**
+ * Asserts a value type.
+ *
+ * Duplicated function of {@link assert} for `typescript-is` users.
+ *
+ * @template T Type of the input value
+ * @param input A value to be asserted
+ * @returns Parametric input value
+ * @throws A {@link TypeGuardError} instance with detailed reason
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ * @deprecated
+ */
+export function assertType<T>(input: T): T;
+
+/**
+ * Asserts a value type.
+ *
+ * Duplicated function of {@link assert} for `typescript-is` users.
+ *
+ * @template T Type of the input value
+ * @param input A value to be asserted
+ * @returns Parametric input value
+ * @throws A {@link TypeGuardError} instance with detailed reason
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ * @deprecated
+ */
 export function assertType<T>(input: unknown): T;
 
 /**
@@ -87,21 +139,7 @@ export function assertType(): never {
     halt("assertType");
 }
 
-/**
- * @internal
- */
-export namespace assertType {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-
-    export const join = $join;
-    export const every = $every;
-    // export const guardV2 = $guardV2("TSON.assertType");
-    export const guard = $guard("TSON.assertType");
-}
+Object.assign(assertType, assert);
 
 /**
  * Tests a value type.
@@ -113,7 +151,7 @@ export namespace assertType {
  *
  * If what you want is not just knowing whether the parametric value is following the
  * type `T` or not, but throwing an exception with detailed reason, you can choose
- * {@link assertType} function instead. Also, if you want to know all the errors with
+ * {@link assert} function instead. Also, if you want to know all the errors with
  * detailed reasons, {@link validate} function would be useful.
  *
  * On the other and, if you don't want to allow any superfluous property that is not
@@ -137,7 +175,7 @@ export function is<T>(input: T): input is T;
  *
  * If what you want is not just knowing whether the parametric value is following the
  * type `T` or not, but throwing an exception with detailed reason, you can choose
- * {@link assertType} function instead. Also, if you want to know all the errors with
+ * {@link assert} function instead. Also, if you want to know all the errors with
  * detailed reasons, {@link validate} function would be useful.
  *
  * On the other and, if you don't want to allow any superfluous property that is not
@@ -179,7 +217,7 @@ export namespace is {
  * would have the `true` value.
  *
  * If what you want is not finding all the error, but asserting the parametric value
- * type with exception throwing, you can choose {@link assertType} function instead.
+ * type with exception throwing, you can choose {@link assert} function instead.
  * Otherwise, you just want to know whether the parametric value is matched with the
  * type `T`, {@link is} function is the way to go.
  *
@@ -189,6 +227,8 @@ export namespace is {
  * @template Type of the input value
  * @param input A value to be validated
  * @returns Validation result
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function validate<T>(input: T): IValidation;
 
@@ -202,7 +242,7 @@ export function validate<T>(input: T): IValidation;
  * would have the `true` value.
  *
  * If what you want is not finding all the error, but asserting the parametric value
- * type with exception throwing, you can choose {@link assertType} function instead.
+ * type with exception throwing, you can choose {@link assert} function instead.
  * Otherwise, you just want to know whether the parametric value is matched with the
  * type `T`, {@link is} function is the way to go.
  *
@@ -212,6 +252,8 @@ export function validate<T>(input: T): IValidation;
  * @template Type of the input value
  * @param input A value to be validated
  * @returns Validation result
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function validate<T>(input: unknown): IValidation;
 
@@ -253,7 +295,7 @@ export namespace validate {
  * Otherwise, you want to know all the errors, {@link validateEquals} is the way to go.
  *
  * On the other hand, if you want to allow superfluous property that is not enrolled
- * to the type `T`, you can use {@link assertType} function instead.
+ * to the type `T`, you can use {@link assert} function instead.
  *
  * @template T Type of the input value
  * @param input A value to be asserted
@@ -278,7 +320,7 @@ export function assertEquals<T>(input: T): T;
  * Otherwise, you want to know all the errors, {@link validateEquals} is the way to go.
  *
  * On the other hand, if you want to allow superfluous property that is not enrolled
- * to the type `T`, you can use {@link assertType} function instead.
+ * to the type `T`, you can use {@link assert} function instead.
  *
  * @template T Type of the input value
  * @param input A value to be asserted
@@ -392,7 +434,7 @@ export namespace equals {
  * and {@link IValidation.success} would have the `true` value.
  *
  * If what you want is not finding all the error, but asserting the parametric value
- * type with exception throwing, you can choose {@link assertType} function instead.
+ * type with exception throwing, you can choose {@link assert} function instead.
  * Otherwise, you just want to know whether the parametric value is matched with the
  * type `T`, {@link is} function is the way to go.
  *
@@ -402,6 +444,8 @@ export namespace equals {
  * @template Type of the input value
  * @param input A value to be validated
  * @returns Validation result
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function validateEquals<T>(input: T): IValidation;
 
@@ -416,7 +460,7 @@ export function validateEquals<T>(input: T): IValidation;
  * and {@link IValidation.success} would have the `true` value.
  *
  * If what you want is not finding all the error, but asserting the parametric value
- * type with exception throwing, you can choose {@link assertType} function instead.
+ * type with exception throwing, you can choose {@link assert} function instead.
  * Otherwise, you just want to know whether the parametric value is matched with the
  * type `T`, {@link is} function is the way to go.
  *
@@ -426,6 +470,8 @@ export function validateEquals<T>(input: T): IValidation;
  * @template Type of the input value
  * @param input A value to be validated
  * @returns Validation result
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function validateEquals<T>(input: unknown): IValidation;
 
@@ -501,7 +547,7 @@ export namespace stringify {
 /**
  * 3x faster `JSON.stringify()` function with type assertion.
  *
- * `TSON.assertStringify()` is a combination function of {@link assertType} and
+ * `TSON.assertStringify()` is a combination function of {@link assert} and
  * {@link stringify}. Therefore, it converts an input value to JSON (JavaScript Object
  * Notation) string, with type assertion.
  *
@@ -613,6 +659,8 @@ export namespace isStringify {
  * @template T Type of the input value
  * @param input A value to be cloned
  * @return Cloned data
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function clone<T>(input: T): Primitive<T>;
 
@@ -655,6 +703,8 @@ export namespace clone {
  * @template T Type of the input value
  * @param input A value to be cloned
  * @return Cloned data when exact type, otherwise null
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function isClone<T>(input: T): Primitive<T> | null;
 
@@ -696,6 +746,8 @@ export namespace isClone {
  * @template T Type of the input value
  * @param input A value to be cloned
  * @return Cloned data
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function assertClone<T>(input: T): Primitive<T>;
 
@@ -803,19 +855,59 @@ export function application(): never {
     BASIC VALIDATORS
 ----------------------------------------------------------- */
 /**
- * Creates a reusable {@link assertType} function.
+ * Creates a reusable {@link assert} function.
  *
  * @danger You have to specify the generic argument `T`
  * @return Nothing until specifying the generic argument `T`
  * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssert(): never;
+
+/**
+ * Creates a reusable {@link assert} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `assert` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssert<T>(): (input: unknown) => T;
+
+/**
+ * @internal
+ */
+export function createAssert<T>(): (input: unknown) => T {
+    halt("createAssert");
+}
+
+Object.assign(createAssert, assert);
+
+/**
+ * Creates a reusable {@link assertType} function.
+ *
+ * Duplicated function of {@link createAssert} for `typescript-is` users.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ * @deprecated
  */
 export function createAssertType(): never;
 
 /**
  * Creates a reusable {@link assertType} function.
  *
+ * Duplicated function of {@link createAssert} for `typescript-is` users.
+ *
  * @template T Type of the input value
- * @returns A reusable `assertType` function
+ * @returns A reusable `assert` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ * @deprecated
  */
 export function createAssertType<T>(): (input: unknown) => T;
 
@@ -826,21 +918,7 @@ export function createAssertType<T>(): (input: unknown) => T {
     halt("createAssertType");
 }
 
-/**
- * @internal
- */
-export namespace createAssertType {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-
-    export const join = $join;
-    export const every = $every;
-    // export const guardV2 = assertType.guardV2;
-    export const guard = assertType.guard;
-}
+Object.assign(createAssertType, assert);
 
 /**
  * Creates a reusable {@link is} function.
@@ -848,6 +926,8 @@ export namespace createAssertType {
  * @danger You have to specify the generic argument `T`
  * @return Nothing until specifying the generic argument `T`
  * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createIs(): never;
 
@@ -856,6 +936,8 @@ export function createIs(): never;
  *
  * @template T Type of the input value
  * @returns A reusable `is` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createIs<T>(): (input: unknown) => input is T;
 
@@ -866,16 +948,7 @@ export function createIs<T>(): (input: unknown) => input is T {
     halt("createIs");
 }
 
-/**
- * @internal
- */
-export namespace createIs {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-}
+Object.assign(createIs, is);
 
 /**
  * Creates a reusable {@link validate} function.
@@ -883,6 +956,8 @@ export namespace createIs {
  * @danger You have to specify the generic argument `T`
  * @return Nothing until specifying the generic argument `T`
  * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidate(): never;
 
@@ -891,6 +966,8 @@ export function createValidate(): never;
  *
  * @template T Type of the input value
  * @returns A reusable `validate` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidate<T>(): (input: unknown) => IValidation;
 
@@ -901,18 +978,7 @@ export function createValidate(): (input: unknown) => IValidation {
     halt("createValidate");
 }
 
-/**
- * @internal
- */
-export namespace createValidate {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const join = $join;
-    export const report = validate.report;
-}
+Object.assign(createValidate, validate);
 
 /* -----------------------------------------------------------
     STRICT VALIDATORS
@@ -923,6 +989,8 @@ export namespace createValidate {
  * @danger You have to specify the generic argument `T`
  * @return Nothing until specifying the generic argument `T`
  * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertEquals(): never;
 
@@ -931,6 +999,8 @@ export function createAssertEquals(): never;
  *
  * @template T Type of the input value
  * @returns A reusable `assertEquals` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertEquals<T>(): (input: unknown) => T;
 
@@ -941,20 +1011,7 @@ export function createAssertEquals<T>(): (input: unknown) => T {
     halt("createAssertEquals");
 }
 
-/**
- * @internal
- */
-export namespace createAssertEquals {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-
-    export const join = $join;
-    export const every = assertEquals.every;
-    export const guard = assertEquals.guard;
-}
+Object.assign(createAssertEquals, assertEquals);
 
 /**
  * Creates a reusable {@link equals} function.
@@ -962,6 +1019,8 @@ export namespace createAssertEquals {
  * @danger You have to specify the generic argument `T`
  * @return Nothing until specifying the generic argument `T`
  * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createEquals(): never;
 
@@ -970,6 +1029,8 @@ export function createEquals(): never;
  *
  * @template T Type of the input value
  * @returns A reusable `equals` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createEquals<T>(): (input: unknown) => input is T;
 
@@ -980,17 +1041,7 @@ export function createEquals<T>(): (input: unknown) => input is T {
     halt("createEquals");
 }
 
-/**
- * @internal
- */
-export namespace createEquals {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const join = $join;
-}
+Object.assign(createEquals, equals);
 
 /**
  * Creates a reusable {@link validateEquals} function.
@@ -998,6 +1049,8 @@ export namespace createEquals {
  * @danger You have to specify the generic argument `T`
  * @return Nothing until specifying the generic argument `T`
  * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidateEquals(): never;
 
@@ -1006,6 +1059,8 @@ export function createValidateEquals(): never;
  *
  * @template T Type of the input value
  * @returns A reusable `validateEquals` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidateEquals<T>(): (input: unknown) => IValidation;
 
@@ -1016,18 +1071,7 @@ export function createValidateEquals(): (input: unknown) => IValidation {
     halt("createValidateEquals");
 }
 
-/**
- * @internal
- */
-export namespace createValidateEquals {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const join = $join;
-    export const report = validateEquals.report;
-}
+Object.assign(createValidateEquals, validateEquals);
 
 /* -----------------------------------------------------------
     STRINGIFY FUNCTIONS
@@ -1038,6 +1082,8 @@ export namespace createValidateEquals {
  * @danger You have to specify the generic argument `T`
  * @return Nothing until specifying the generic argument `T`
  * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createStringify(): never;
 
@@ -1046,6 +1092,8 @@ export function createStringify(): never;
  *
  * @template T Type of the input value
  * @returns A reusable `stringify` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createStringify<T>(): (input: T) => string;
 
@@ -1056,21 +1104,26 @@ export function createStringify<T>(): (input: T) => string {
     halt("createStringify");
 }
 
+Object.assign(createStringify, stringify);
+
 /**
- * @internal
+ * Creates a reusable {@link assertStringify} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
-export namespace createStringify {
-    export const number = $number;
-    export const string = $string;
-    export const tail = $tail;
-    export const throws = stringify.throws;
-}
+export function createAssertStringify(): never;
 
 /**
  * Creates a reusable {@link assertStringify} function.
  *
  * @template T Type of the input value
  * @returns A reusable `assertStringify` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertStringify<T>(): (input: T) => string;
 
@@ -1081,31 +1134,26 @@ export function createAssertStringify<T>(): (input: T) => string {
     halt("createAssertStringify");
 }
 
+Object.assign(createAssertStringify, assertStringify);
+
 /**
- * @internal
+ * Creates a reusable {@link isStringify} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
-export namespace createAssertStringify {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-
-    export const number = $number;
-    export const string = $string;
-    export const tail = $tail;
-    export const join = $join;
-
-    export const every = assertStringify.every;
-    export const guard = assertStringify.guard;
-    export const throws = assertStringify.throws;
-}
+export function createIsStringify(): never;
 
 /**
  * Creates a reusable {@link isStringify} function.
  *
  * @template T Type of the input value
  * @returns A reusable `isStringify` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createIsStringify<T>(): (input: T) => string | null;
 
@@ -1116,21 +1164,7 @@ export function createIsStringify<T>(): (input: T) => string | null {
     halt("createIsStringify");
 }
 
-/**
- * @internal
- */
-export namespace createIsStringify {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-
-    export const number = $number;
-    export const string = $string;
-    export const tail = $tail;
-    export const throws = isStringify.throws;
-}
+Object.assign(createIsStringify, isStringify);
 
 /* -----------------------------------------------------------
     CLONE FUNCTIONS
@@ -1141,6 +1175,8 @@ export namespace createIsStringify {
  * @danger You have to specify the generic argument `T`
  * @return Nothing until specifying the generic argument `T`
  * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createClone(): never;
 
@@ -1149,6 +1185,8 @@ export function createClone(): never;
  *
  * @template T Type of the input value
  * @returns A reusable `clone` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createClone<T>(): (input: T) => Primitive<T>;
 
@@ -1159,21 +1197,26 @@ export function createClone<T>(): (input: T) => Primitive<T> {
     halt("createClone");
 }
 
+Object.assign(createClone, clone);
+
 /**
- * @internal
+ * Creates a reusable {@link assertClone} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
-export namespace createClone {
-    export const number = $number;
-    export const string = $string;
-    export const tail = $tail;
-    export const throws = clone.throws;
-}
+export function createAssertClone(): never;
 
 /**
  * Creates a reusable {@link assertClone} function.
  *
  * @template T Type of the input value
  * @returns A reusable `assertClone` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertClone<T>(): (input: T) => Primitive<T>;
 
@@ -1184,31 +1227,26 @@ export function createAssertClone<T>(): (input: T) => Primitive<T> {
     halt("createAssertClone");
 }
 
+Object.assign(createAssertClone, assertClone);
+
 /**
- * @internal
+ * Creates a reusable {@link isClone} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
-export namespace createAssertClone {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-
-    export const number = $number;
-    export const string = $string;
-    export const tail = $tail;
-    export const join = $join;
-
-    export const every = assertClone.every;
-    export const guard = assertClone.guard;
-    export const throws = assertClone.throws;
-}
+export function createIsClone(): never;
 
 /**
  * Creates a reusable {@link isClone} function.
  *
  * @template T Type of the input value
  * @returns A reusable `isClone` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function createIsClone<T>(): (input: T) => Primitive<T> | null;
 
@@ -1219,21 +1257,7 @@ export function createIsClone<T>(): (input: T) => Primitive<T> | null {
     halt("createIsClone");
 }
 
-/**
- * @internal
- */
-export namespace createIsClone {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-
-    export const number = $number;
-    export const string = $string;
-    export const tail = $tail;
-    export const throws = isClone.throws;
-}
+Object.assign(createIsClone, isClone);
 
 /* -----------------------------------------------------------
     MISC
