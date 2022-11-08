@@ -1,7 +1,7 @@
 import { benchmark_assert_equals_iterate } from "./features/benchmark_assert_equals_iterate";
 import { benchmark_assert_equals_throw } from "./features/benchmark_assert_equals_throw";
-import { benchmark_assert_type_iterate } from "./features/benchmark_assert_type_iterate";
-import { benchmark_assert_type_throw } from "./features/benchmark_assert_type_throw";
+import { benchmark_assert_iterate } from "./features/benchmark_assert_iterate";
+import { benchmark_assert_throw } from "./features/benchmark_assert_throw";
 import { benchmark_equals } from "./features/benchmark_equals_throw";
 import { benchmark_is } from "./features/benchmark_is";
 import { benchmark_optimizer } from "./features/benchmark_optimizer";
@@ -15,8 +15,8 @@ async function main(): Promise<void> {
     const stream: BenchmarkStream = await BenchmarkReporter.initialize();
     const functors = [
         benchmark_is,
-        benchmark_assert_type_iterate,
-        benchmark_assert_type_throw,
+        benchmark_assert_iterate,
+        benchmark_assert_throw,
         benchmark_validate,
         benchmark_equals,
         benchmark_assert_equals_iterate,
