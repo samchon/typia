@@ -41,7 +41,7 @@ TSON.isClone<T>(input); // is() + clone()
 TSON.assertClone<T>(input); // assert() + clone()
 
 // JSON SCHEMA
-TSON.application<[T, U, V], "ajv">(); // JSON schema application generator
+TSON.application<[T, U, V], "ajv">();
 ```
 
 `typescript-json` is a transformer library providing JSON related functions.
