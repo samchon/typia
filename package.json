@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "benchmark": "node benchmark/index.js",
+    "benchmark": "rimraf bin && ttsc -p tsconfig.test.json && node bin/benchmark",
     "build": "rimraf lib && ttsc --removeComments --declaration false && ttsc --emitDeclarationOnly",
     "build:test": "rimraf bin && ttsc -p tsconfig.test.json && prettier --write ./bin/**/*.js",
     "dev": "npm run build -- --watch",
