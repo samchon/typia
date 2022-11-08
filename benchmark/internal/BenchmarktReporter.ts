@@ -4,6 +4,8 @@ import os from "os";
 import { BenchmarkStream } from "./BenhmarkStream";
 import { HorizontalBarChart } from "./HorizontalBarChart";
 
+const EXTENSION = __filename.substring(-2);
+
 export namespace BenchmarkReporter {
     interface Measurement<Components extends string> {
         category: string;
@@ -88,7 +90,10 @@ export namespace BenchmarkReporter {
     export async function initialize(): Promise<BenchmarkStream> {
         const memory: number = os.totalmem();
         const cpu: string = os.cpus()[0].model.trim();
-        const location: string = `${__dirname}/../results/${cpu}`;
+        const location: string =
+            EXTENSION === "ts"
+                ? `${__dirname}/../results/${cpu}`
+                : `${__dirname}/../../../benchmark/results/${cpu}`;
 
         await mkdir(location);
         await mkdir(`${location}/images`);
@@ -125,7 +130,9 @@ export namespace BenchmarkReporter {
 
     async function get_package_version(): Promise<string> {
         const content: string = await fs.promises.readFile(
-            __dirname + "/../../package.json",
+            EXTENSION === "ts"
+                ? __dirname + "/../../package.json"
+                : __dirname + "/../../../package.json",
             "utf8",
         );
         const data: { version: string } = JSON.parse(content);
