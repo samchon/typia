@@ -49,7 +49,7 @@ TSON.application<[T, U, V], "ajv">();
   - Powerful Runtime type checkers:
     - Performed by only one line, `TSON.assert<T>(input)`
     - Only one library which can validate union type
-    - Maximum 8,000x faster than other libraries
+    - Maximum 9,000x faster than other libraries
   - 10x faster `JSON.stringify()` function:
     - Performed by only one line: `TSON.stringify<T>(input)`
     - Guarded by type validation: `TSON.assertStringify<T>(input)`
