@@ -161,7 +161,7 @@ export namespace FeatureProgrammer {
                 );
 
     function generate_object(config: IConfig, importer: FunctionImporter) {
-        importer.use("join");
+        if (config.path === true) importer.use("join");
         return function (obj: MetadataObject) {
             const entries: IExpressionEntry[] = [];
             for (const prop of obj.properties) {
