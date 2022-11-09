@@ -268,7 +268,7 @@ As you can see from the above table, `ajv` and `typescript-is` are fallen in the
 
 The extreme different is shown in the "ultimate union" type, when validating [JSON schema](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts).
 
-![Super-fast runtime validator](https://github.com/samchon/typescript-json/raw/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics/images/assertType_po_iterate_pc.svg)
+![Super-fast runtime validator](https://github.com/samchon/typescript-json/raw/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics/images/assert_po_iterate_pc.svg)
 
 > Measured on [AMD R7 5800H](https://github.com/samchon/typescript-json/tree/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics#asserttype-iterate)
 
