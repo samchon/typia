@@ -2,7 +2,7 @@
 > - CPU: AMD Ryzen 9 5900HX with Radeon Graphics
 > - Memory: 64,928 MB
 > - OS: win32
-> - TypeScript-JSON version: 3.3.22
+> - TypeScript-JSON version: 3.3.23
 
 
 ## is
