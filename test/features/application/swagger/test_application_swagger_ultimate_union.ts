@@ -26,19 +26,19 @@ export const test_application_swagger_ultimate_union =
                                 items: {
                                     oneOf: [
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
+                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
                                             "x-tson-required": true,
                                         },
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
+                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
                                             "x-tson-required": true,
                                         },
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
+                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_",
                                             "x-tson-required": true,
                                         },
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
+                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
                                             "x-tson-required": true,
                                         },
                                         {
@@ -116,143 +116,144 @@ export const test_application_swagger_ultimate_union =
                         ],
                         "x-tson_jsDocTags": [],
                     },
-                    "IJsonSchema.IEnumeration_lt_boolean_gt_": {
-                        type: "object",
-                        properties: {
-                            enum: {
-                                type: "array",
-                                items: {
+                    "IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_":
+                        {
+                            type: "object",
+                            properties: {
+                                enum: {
+                                    type: "array",
+                                    items: {
+                                        type: "boolean",
+                                        nullable: false,
+                                        "x-tson-required": true,
+                                    },
+                                    nullable: false,
+                                    "x-tson-required": true,
+                                },
+                                default: {
+                                    type: "boolean",
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                type: {
+                                    type: "string",
+                                    enum: ["boolean"],
+                                    nullable: false,
+                                    "x-tson-required": true,
+                                },
+                                nullable: {
                                     type: "boolean",
                                     nullable: false,
                                     "x-tson-required": true,
                                 },
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            default: {
-                                type: "boolean",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            type: {
-                                type: "string",
-                                enum: ["boolean"],
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            nullable: {
-                                type: "boolean",
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            deprecated: {
-                                type: "boolean",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            title: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            description: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            "x-tson-metaTags": {
-                                type: "array",
-                                items: {
-                                    oneOf: [
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IItems",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMinItems",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMaxItems",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IFormat",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IPattern",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.ILength",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMinLength",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMaxLength",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IType",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IRange",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMinimum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMaximum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IStep",
-                                            "x-tson-required": false,
-                                        },
-                                    ],
+                                deprecated: {
+                                    type: "boolean",
+                                    nullable: false,
                                     "x-tson-required": false,
                                 },
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            "x-tson-jsDocTags": {
-                                type: "array",
-                                items: {
-                                    $ref: "#/components/schemas/IJsDocTagInfo",
+                                title: {
+                                    type: "string",
+                                    nullable: false,
                                     "x-tson-required": false,
                                 },
-                                nullable: false,
-                                "x-tson-required": false,
+                                description: {
+                                    type: "string",
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                "x-tson-metaTags": {
+                                    type: "array",
+                                    items: {
+                                        oneOf: [
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IItems",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.ILength",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IType",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IRange",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IStep",
+                                                "x-tson-required": false,
+                                            },
+                                        ],
+                                        "x-tson-required": false,
+                                    },
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                "x-tson-jsDocTags": {
+                                    type: "array",
+                                    items: {
+                                        $ref: "#/components/schemas/IJsDocTagInfo",
+                                        "x-tson-required": false,
+                                    },
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                "x-tson-required": {
+                                    type: "boolean",
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
                             },
-                            "x-tson-required": {
-                                type: "boolean",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
+                            nullable: false,
+                            required: ["enum", "type", "nullable"],
+                            "x-tson_jsDocTags": [],
                         },
-                        nullable: false,
-                        required: ["enum", "type", "nullable"],
-                        "x-tson_jsDocTags": [],
-                    },
                     "IMetadataTag.IItems": {
                         type: "object",
                         properties: {
@@ -626,417 +627,420 @@ export const test_application_swagger_ultimate_union =
                         required: ["text", "kind"],
                         "x-tson_jsDocTags": [],
                     },
-                    "IJsonSchema.IEnumeration_lt_number_gt_": {
-                        type: "object",
-                        properties: {
-                            enum: {
-                                type: "array",
-                                items: {
-                                    type: "number",
+                    "IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_":
+                        {
+                            type: "object",
+                            properties: {
+                                enum: {
+                                    type: "array",
+                                    items: {
+                                        type: "number",
+                                        nullable: false,
+                                        "x-tson-required": true,
+                                    },
                                     nullable: false,
                                     "x-tson-required": true,
                                 },
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            default: {
-                                type: "number",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            type: {
-                                type: "string",
-                                enum: ["number"],
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            nullable: {
-                                type: "boolean",
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            deprecated: {
-                                type: "boolean",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            title: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            description: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            "x-tson-metaTags": {
-                                type: "array",
-                                items: {
-                                    oneOf: [
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IItems",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMinItems",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMaxItems",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IFormat",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IPattern",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.ILength",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMinLength",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMaxLength",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IType",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IRange",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMinimum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMaximum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IStep",
-                                            "x-tson-required": false,
-                                        },
-                                    ],
+                                default: {
+                                    type: "number",
+                                    nullable: false,
                                     "x-tson-required": false,
                                 },
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            "x-tson-jsDocTags": {
-                                type: "array",
-                                items: {
-                                    $ref: "#/components/schemas/IJsDocTagInfo",
-                                    "x-tson-required": false,
+                                type: {
+                                    type: "string",
+                                    enum: ["number"],
+                                    nullable: false,
+                                    "x-tson-required": true,
                                 },
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            "x-tson-required": {
-                                type: "boolean",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                        },
-                        nullable: false,
-                        required: ["enum", "type", "nullable"],
-                        "x-tson_jsDocTags": [],
-                    },
-                    "IJsonSchema.IEnumeration_lt_bigint_gt_": {
-                        type: "object",
-                        properties: {
-                            enum: {
-                                type: "array",
-                                items: {
+                                nullable: {
                                     type: "boolean",
                                     nullable: false,
                                     "x-tson-required": true,
                                 },
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            default: {
-                                type: "boolean",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            type: {
-                                type: "string",
-                                enum: ["bigint"],
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            nullable: {
-                                type: "boolean",
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            deprecated: {
-                                type: "boolean",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            title: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            description: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            "x-tson-metaTags": {
-                                type: "array",
-                                items: {
-                                    oneOf: [
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IItems",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMinItems",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMaxItems",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IFormat",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IPattern",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.ILength",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMinLength",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMaxLength",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IType",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IRange",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMinimum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMaximum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IStep",
-                                            "x-tson-required": false,
-                                        },
-                                    ],
+                                deprecated: {
+                                    type: "boolean",
+                                    nullable: false,
                                     "x-tson-required": false,
                                 },
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            "x-tson-jsDocTags": {
-                                type: "array",
-                                items: {
-                                    $ref: "#/components/schemas/IJsDocTagInfo",
-                                    "x-tson-required": false,
-                                },
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            "x-tson-required": {
-                                type: "boolean",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                        },
-                        nullable: false,
-                        required: ["enum", "type", "nullable"],
-                        "x-tson_jsDocTags": [],
-                    },
-                    "IJsonSchema.IEnumeration_lt_string_gt_": {
-                        type: "object",
-                        properties: {
-                            enum: {
-                                type: "array",
-                                items: {
+                                title: {
                                     type: "string",
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                description: {
+                                    type: "string",
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                "x-tson-metaTags": {
+                                    type: "array",
+                                    items: {
+                                        oneOf: [
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IItems",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.ILength",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IType",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IRange",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IStep",
+                                                "x-tson-required": false,
+                                            },
+                                        ],
+                                        "x-tson-required": false,
+                                    },
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                "x-tson-jsDocTags": {
+                                    type: "array",
+                                    items: {
+                                        $ref: "#/components/schemas/IJsDocTagInfo",
+                                        "x-tson-required": false,
+                                    },
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                "x-tson-required": {
+                                    type: "boolean",
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                            },
+                            nullable: false,
+                            required: ["enum", "type", "nullable"],
+                            "x-tson_jsDocTags": [],
+                        },
+                    "IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_":
+                        {
+                            type: "object",
+                            properties: {
+                                enum: {
+                                    type: "array",
+                                    items: {
+                                        type: "boolean",
+                                        nullable: false,
+                                        "x-tson-required": true,
+                                    },
                                     nullable: false,
                                     "x-tson-required": true,
                                 },
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            default: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            type: {
-                                type: "string",
-                                enum: ["string"],
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            nullable: {
-                                type: "boolean",
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            deprecated: {
-                                type: "boolean",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            title: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            description: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            "x-tson-metaTags": {
-                                type: "array",
-                                items: {
-                                    oneOf: [
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IItems",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMinItems",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMaxItems",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IFormat",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IPattern",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.ILength",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMinLength",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMaxLength",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IType",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IRange",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMinimum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMaximum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
-                                            "x-tson-required": false,
-                                        },
-                                        {
-                                            $ref: "#/components/schemas/IMetadataTag.IStep",
-                                            "x-tson-required": false,
-                                        },
-                                    ],
+                                default: {
+                                    type: "boolean",
+                                    nullable: false,
                                     "x-tson-required": false,
                                 },
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
-                            "x-tson-jsDocTags": {
-                                type: "array",
-                                items: {
-                                    $ref: "#/components/schemas/IJsDocTagInfo",
+                                type: {
+                                    type: "string",
+                                    enum: ["bigint"],
+                                    nullable: false,
+                                    "x-tson-required": true,
+                                },
+                                nullable: {
+                                    type: "boolean",
+                                    nullable: false,
+                                    "x-tson-required": true,
+                                },
+                                deprecated: {
+                                    type: "boolean",
+                                    nullable: false,
                                     "x-tson-required": false,
                                 },
-                                nullable: false,
-                                "x-tson-required": false,
+                                title: {
+                                    type: "string",
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                description: {
+                                    type: "string",
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                "x-tson-metaTags": {
+                                    type: "array",
+                                    items: {
+                                        oneOf: [
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IItems",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.ILength",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IType",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IRange",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IStep",
+                                                "x-tson-required": false,
+                                            },
+                                        ],
+                                        "x-tson-required": false,
+                                    },
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                "x-tson-jsDocTags": {
+                                    type: "array",
+                                    items: {
+                                        $ref: "#/components/schemas/IJsDocTagInfo",
+                                        "x-tson-required": false,
+                                    },
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                "x-tson-required": {
+                                    type: "boolean",
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
                             },
-                            "x-tson-required": {
-                                type: "boolean",
-                                nullable: false,
-                                "x-tson-required": false,
-                            },
+                            nullable: false,
+                            required: ["enum", "type", "nullable"],
+                            "x-tson_jsDocTags": [],
                         },
-                        nullable: false,
-                        required: ["enum", "type", "nullable"],
-                        "x-tson_jsDocTags": [],
-                    },
+                    "IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_":
+                        {
+                            type: "object",
+                            properties: {
+                                enum: {
+                                    type: "array",
+                                    items: {
+                                        type: "string",
+                                        nullable: false,
+                                        "x-tson-required": true,
+                                    },
+                                    nullable: false,
+                                    "x-tson-required": true,
+                                },
+                                default: {
+                                    type: "string",
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                type: {
+                                    type: "string",
+                                    enum: ["string"],
+                                    nullable: false,
+                                    "x-tson-required": true,
+                                },
+                                nullable: {
+                                    type: "boolean",
+                                    nullable: false,
+                                    "x-tson-required": true,
+                                },
+                                deprecated: {
+                                    type: "boolean",
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                title: {
+                                    type: "string",
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                description: {
+                                    type: "string",
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                "x-tson-metaTags": {
+                                    type: "array",
+                                    items: {
+                                        oneOf: [
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IItems",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMinItems",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMaxItems",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IFormat",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IPattern",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.ILength",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMinLength",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMaxLength",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IType",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IRange",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMinimum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMaximum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IExclusiveMinimum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IExclusiveMaximum",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IMultipleOf",
+                                                "x-tson-required": false,
+                                            },
+                                            {
+                                                $ref: "#/components/schemas/IMetadataTag.IStep",
+                                                "x-tson-required": false,
+                                            },
+                                        ],
+                                        "x-tson-required": false,
+                                    },
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                "x-tson-jsDocTags": {
+                                    type: "array",
+                                    items: {
+                                        $ref: "#/components/schemas/IJsDocTagInfo",
+                                        "x-tson-required": false,
+                                    },
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                                "x-tson-required": {
+                                    type: "boolean",
+                                    nullable: false,
+                                    "x-tson-required": false,
+                                },
+                            },
+                            nullable: false,
+                            required: ["enum", "type", "nullable"],
+                            "x-tson_jsDocTags": [],
+                        },
                     "IJsonSchema.IBoolean": {
                         type: "object",
                         properties: {
@@ -1591,19 +1595,19 @@ export const test_application_swagger_ultimate_union =
                             items: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
                                         "x-tson-required": true,
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
                                         "x-tson-required": true,
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_",
                                         "x-tson-required": true,
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
                                         "x-tson-required": true,
                                     },
                                     {
@@ -1790,19 +1794,19 @@ export const test_application_swagger_ultimate_union =
                                 items: {
                                     oneOf: [
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
+                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
                                             "x-tson-required": true,
                                         },
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
+                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
                                             "x-tson-required": true,
                                         },
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
+                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_",
                                             "x-tson-required": true,
                                         },
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
+                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
                                             "x-tson-required": true,
                                         },
                                         {
@@ -1982,19 +1986,19 @@ export const test_application_swagger_ultimate_union =
                                 items: {
                                     oneOf: [
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
+                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
                                             "x-tson-required": true,
                                         },
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
+                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
                                             "x-tson-required": true,
                                         },
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
+                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_",
                                             "x-tson-required": true,
                                         },
                                         {
-                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
+                                            $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
                                             "x-tson-required": true,
                                         },
                                         {
@@ -2514,7 +2518,7 @@ export const test_application_swagger_ultimate_union =
                         type: "object",
                         properties: {
                             schemas: {
-                                $ref: "#/components/schemas/Record_lt_string_comma_IJsonComponents.IObject_gt_",
+                                $ref: "#/components/schemas/Record_lt_string_comma__space_IJsonComponents.IObject_gt_",
                                 "x-tson-required": true,
                             },
                         },
@@ -2522,16 +2526,17 @@ export const test_application_swagger_ultimate_union =
                         required: ["schemas"],
                         "x-tson_jsDocTags": [],
                     },
-                    "Record_lt_string_comma_IJsonComponents.IObject_gt_": {
-                        type: "object",
-                        properties: {},
-                        additionalProperties: {
-                            $ref: "#/components/schemas/IJsonComponents.IObject",
-                            "x-tson-required": true,
+                    "Record_lt_string_comma__space_IJsonComponents.IObject_gt_":
+                        {
+                            type: "object",
+                            properties: {},
+                            additionalProperties: {
+                                $ref: "#/components/schemas/IJsonComponents.IObject",
+                                "x-tson-required": true,
+                            },
+                            nullable: false,
+                            "x-tson_jsDocTags": [],
                         },
-                        nullable: false,
-                        "x-tson_jsDocTags": [],
-                    },
                     "IJsonComponents.IObject": {
                         type: "object",
                         properties: {
@@ -2552,29 +2557,29 @@ export const test_application_swagger_ultimate_union =
                                 "x-tson-required": true,
                             },
                             properties: {
-                                $ref: "#/components/schemas/Record_lt_string_comma_IJsonSchema_gt_",
+                                $ref: "#/components/schemas/Record_lt_string_comma__space_IJsonSchema_gt_",
                                 "x-tson-required": true,
                             },
                             patternProperties: {
-                                $ref: "#/components/schemas/Record_lt_string_comma_IJsonSchema_gt_",
+                                $ref: "#/components/schemas/Record_lt_string_comma__space_IJsonSchema_gt_",
                                 "x-tson-required": false,
                             },
                             additionalProperties: {
                                 oneOf: [
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_",
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
+                                        $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -2658,25 +2663,25 @@ export const test_application_swagger_ultimate_union =
                         required: ["type", "nullable", "properties"],
                         "x-tson_jsDocTags": [],
                     },
-                    Record_lt_string_comma_IJsonSchema_gt_: {
+                    Record_lt_string_comma__space_IJsonSchema_gt_: {
                         type: "object",
                         properties: {},
                         additionalProperties: {
                             oneOf: [
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_boolean_gt_",
+                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
                                     "x-tson-required": true,
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_number_gt_",
+                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
                                     "x-tson-required": true,
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_bigint_gt_",
+                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_",
                                     "x-tson-required": true,
                                 },
                                 {
-                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt_string_gt_",
+                                    $ref: "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
                                     "x-tson-required": true,
                                 },
                                 {

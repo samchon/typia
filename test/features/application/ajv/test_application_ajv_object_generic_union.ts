@@ -129,7 +129,7 @@ export const test_application_ajv_object_generic_union = _test_application_ajv(
                         files: {
                             type: "array",
                             items: {
-                                $ref: "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma_id_gt_",
+                                $ref: "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
                                 "x-tson-required": true,
                             },
                             nullable: false,
@@ -140,30 +140,31 @@ export const test_application_ajv_object_generic_union = _test_application_ajv(
                     required: ["id", "created_at", "title", "body", "files"],
                     "x-tson_jsDocTags": [],
                 },
-                "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma_id_gt_": {
-                    $id: "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma_id_gt_",
-                    type: "object",
-                    properties: {
-                        url: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
+                "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_":
+                    {
+                        $id: "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+                        type: "object",
+                        properties: {
+                            url: {
+                                type: "string",
+                                nullable: false,
+                                "x-tson-required": true,
+                            },
+                            name: {
+                                type: "string",
+                                nullable: false,
+                                "x-tson-required": true,
+                            },
+                            extension: {
+                                type: "string",
+                                nullable: true,
+                                "x-tson-required": true,
+                            },
                         },
-                        name: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        extension: {
-                            type: "string",
-                            nullable: true,
-                            "x-tson-required": true,
-                        },
+                        nullable: false,
+                        required: ["url", "name", "extension"],
+                        "x-tson_jsDocTags": [],
                     },
-                    nullable: false,
-                    required: ["url", "name", "extension"],
-                    "x-tson_jsDocTags": [],
-                },
                 "ObjectGenericUnion.ISaleReview": {
                     $id: "components#/schemas/ObjectGenericUnion.ISaleReview",
                     type: "object",
@@ -245,7 +246,7 @@ export const test_application_ajv_object_generic_union = _test_application_ajv(
                         files: {
                             type: "array",
                             items: {
-                                $ref: "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma_id_gt_",
+                                $ref: "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
                                 "x-tson-required": true,
                             },
                             nullable: false,

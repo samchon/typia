@@ -115,8 +115,8 @@ const REPLACERS: [string, string][] = [
     ["[", "_alt_"],
     ["]", "_agt_"],
     [",", "_comma_"],
-    ["`", ""],
-    ["'", ""],
-    ['"', ""],
-    [" ", ""],
+    ["`", "_backquote_"],
+    ["'", "_singlequote_"],
+    ['"', "_doublequote_"],
+    [" ", "_space_"],
 ];

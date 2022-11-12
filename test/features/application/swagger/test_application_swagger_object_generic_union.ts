@@ -127,7 +127,7 @@ export const test_application_swagger_object_generic_union =
                             files: {
                                 type: "array",
                                 items: {
-                                    $ref: "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma_id_gt_",
+                                    $ref: "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
                                     "x-tson-required": true,
                                 },
                                 nullable: false,
@@ -144,29 +144,30 @@ export const test_application_swagger_object_generic_union =
                         ],
                         "x-tson_jsDocTags": [],
                     },
-                    "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma_id_gt_": {
-                        type: "object",
-                        properties: {
-                            url: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": true,
+                    "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_":
+                        {
+                            type: "object",
+                            properties: {
+                                url: {
+                                    type: "string",
+                                    nullable: false,
+                                    "x-tson-required": true,
+                                },
+                                name: {
+                                    type: "string",
+                                    nullable: false,
+                                    "x-tson-required": true,
+                                },
+                                extension: {
+                                    type: "string",
+                                    nullable: true,
+                                    "x-tson-required": true,
+                                },
                             },
-                            name: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            extension: {
-                                type: "string",
-                                nullable: true,
-                                "x-tson-required": true,
-                            },
+                            nullable: false,
+                            required: ["url", "name", "extension"],
+                            "x-tson_jsDocTags": [],
                         },
-                        nullable: false,
-                        required: ["url", "name", "extension"],
-                        "x-tson_jsDocTags": [],
-                    },
                     "ObjectGenericUnion.ISaleReview": {
                         type: "object",
                         properties: {
@@ -246,7 +247,7 @@ export const test_application_swagger_object_generic_union =
                             files: {
                                 type: "array",
                                 items: {
-                                    $ref: "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma_id_gt_",
+                                    $ref: "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
                                     "x-tson-required": true,
                                 },
                                 nullable: false,
