@@ -20,10 +20,12 @@ export const test_application_ajv_class_method = _test_application_ajv(
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         age: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

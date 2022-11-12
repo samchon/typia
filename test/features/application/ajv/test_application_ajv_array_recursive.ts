@@ -23,23 +23,29 @@ export const test_application_ajv_array_recursive = _test_application_ajv(
                             items: {
                                 $recursiveRef:
                                     "components#/schemas/ArrayRecursive.ICategory",
+                                "x-tson-required": true,
                             },
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         id: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         code: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         sequence: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         created_at: {
                             $ref: "components#/schemas/ArrayRecursive.ITimestamp",
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,
@@ -59,10 +65,12 @@ export const test_application_ajv_array_recursive = _test_application_ajv(
                         time: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         zone: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

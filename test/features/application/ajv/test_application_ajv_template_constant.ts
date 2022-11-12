@@ -25,11 +25,13 @@ export const test_application_ajv_template_constant = _test_application_ajv(
                             type: "string",
                             enum: ["prefix_A", "prefix_B", "prefix_C"],
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         postfix: {
                             type: "string",
                             enum: ["2_postfix", "3_postfix", "1_postfix"],
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         combined: {
                             type: "string",
@@ -45,6 +47,7 @@ export const test_application_ajv_template_constant = _test_application_ajv(
                                 "the_1_value_with_label_C",
                             ],
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

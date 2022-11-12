@@ -20,18 +20,22 @@ export const test_application_ajv_object_optional = _test_application_ajv(
                         id: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": false,
                         },
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": false,
                         },
                         email: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": false,
                         },
                         sequence: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": false,
                         },
                     },
                     nullable: false,

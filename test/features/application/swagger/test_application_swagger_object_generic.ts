@@ -34,16 +34,20 @@ export const test_application_swagger_object_generic =
                             value: {
                                 type: "boolean",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             child: {
                                 $ref: "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma_boolean_gt_",
+                                "x-tson-required": true,
                             },
                             elements: {
                                 type: "array",
                                 items: {
                                     $ref: "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma_boolean_gt_",
+                                    "x-tson-required": true,
                                 },
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,
@@ -56,10 +60,12 @@ export const test_application_swagger_object_generic =
                             child_value: {
                                 type: "boolean",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             child_next: {
                                 type: "boolean",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,
@@ -72,16 +78,20 @@ export const test_application_swagger_object_generic =
                             value: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             child: {
                                 $ref: "#/components/schemas/ObjectGeneric.IChild_lt_number_comma_number_gt_",
+                                "x-tson-required": true,
                             },
                             elements: {
                                 type: "array",
                                 items: {
                                     $ref: "#/components/schemas/ObjectGeneric.IChild_lt_number_comma_number_gt_",
+                                    "x-tson-required": true,
                                 },
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,
@@ -94,10 +104,12 @@ export const test_application_swagger_object_generic =
                             child_value: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             child_next: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,
@@ -110,16 +122,20 @@ export const test_application_swagger_object_generic =
                             value: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             child: {
                                 $ref: "#/components/schemas/ObjectGeneric.IChild_lt_string_comma_string_gt_",
+                                "x-tson-required": true,
                             },
                             elements: {
                                 type: "array",
                                 items: {
                                     $ref: "#/components/schemas/ObjectGeneric.IChild_lt_string_comma_string_gt_",
+                                    "x-tson-required": true,
                                 },
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,
@@ -132,10 +148,12 @@ export const test_application_swagger_object_generic =
                             child_value: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             child_next: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,

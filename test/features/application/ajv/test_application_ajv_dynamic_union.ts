@@ -21,18 +21,22 @@ export const test_application_ajv_dynamic_union = _test_application_ajv(
                         "^-?\\d+\\.?\\d*$": {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         "^(prefix_(.*))": {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         "((.*)_postfix)$": {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         "^(value_between_-?\\d+\\.?\\d*_and_-?\\d+\\.?\\d*)$": {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

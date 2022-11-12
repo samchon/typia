@@ -33,6 +33,7 @@ export const test_application_ajv_constant_atomic_wrapper =
                             value: {
                                 type: "boolean",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,
@@ -46,6 +47,7 @@ export const test_application_ajv_constant_atomic_wrapper =
                             value: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,
@@ -59,6 +61,7 @@ export const test_application_ajv_constant_atomic_wrapper =
                             value: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,

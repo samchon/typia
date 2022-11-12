@@ -30,6 +30,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             default: true,
                         },
                         number: {
@@ -46,6 +47,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             default: 1,
                         },
                         string: {
@@ -62,6 +64,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             default: "two",
                         },
                         text: {
@@ -78,6 +81,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             default: "Very long text, can you understand it?",
                         },
                         template: {
@@ -94,6 +98,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             pattern: "^(prefix_(.*))",
                             default: "prefix_A",
                         },
@@ -131,6 +136,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                     default: "two",
                                 },
                                 {
@@ -165,6 +171,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                     default: 1,
                                 },
                                 {
@@ -199,6 +206,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                     default: true,
                                 },
                             ],
@@ -231,6 +239,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                         union_but_boolean: {
                             oneOf: [
@@ -248,6 +257,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                 },
                                 {
                                     type: "number",
@@ -263,6 +273,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                 },
                                 {
                                     type: "boolean",
@@ -278,6 +289,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                     default: true,
                                 },
                             ],
@@ -292,6 +304,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                         union_but_number: {
                             oneOf: [
@@ -309,6 +322,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                 },
                                 {
                                     type: "number",
@@ -324,6 +338,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                     default: 1,
                                 },
                                 {
@@ -340,6 +355,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                 },
                             ],
                             "x-tson-jsDocTags": [
@@ -353,6 +369,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                         union_but_string: {
                             oneOf: [
@@ -370,6 +387,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                     default: "two",
                                 },
                                 {
@@ -386,6 +404,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                 },
                                 {
                                     type: "boolean",
@@ -401,6 +420,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                 },
                             ],
                             "x-tson-jsDocTags": [
@@ -414,6 +434,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                         vulnerable_range: {
                             type: "number",
@@ -457,6 +478,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             minimum: 3,
                             maximum: 5,
                         },
@@ -474,6 +496,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             pattern: "^(prefix_(.*))",
                         },
                         boolean_and_number_and_template: {
@@ -510,6 +533,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                     pattern:
                                         "^(-?\\d+\\.?\\d*|true|false|(prefix_(.*)))",
                                     default: "prefix_B",
@@ -546,6 +570,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                     default: 1,
                                 },
                                 {
@@ -580,6 +605,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                             ],
                                         },
                                     ],
+                                    "x-tson-required": true,
                                     default: true,
                                 },
                             ],
@@ -612,6 +638,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

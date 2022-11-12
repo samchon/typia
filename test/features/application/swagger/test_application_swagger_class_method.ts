@@ -19,10 +19,12 @@ export const test_application_swagger_class_method = _test_application_swagger(
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         age: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

@@ -11,45 +11,52 @@ export const test_application_swagger_object_generic_union =
                 {
                     oneOf: [
                         {
-                            $ref: "#/components/schemas/ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
+                            $ref: "#/components/schemas/ObjectGenericUnion.ISaleQuestion_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
                         },
                         {
-                            $ref: "#/components/schemas/ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
+                            $ref: "#/components/schemas/ObjectGenericUnion.ISaleReview_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
                         },
                     ],
                 },
             ],
             components: {
                 schemas: {
-                    "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_":
+                    "ObjectGenericUnion.ISaleQuestion_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_":
                         {
                             type: "object",
                             properties: {
                                 writer: {
                                     type: "string",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 answer: {
-                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
+                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleAnswer_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
+                                    "x-tson-required": true,
                                 },
                                 id: {
                                     type: "string",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 hit: {
                                     type: "number",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 contents: {
                                     type: "array",
                                     items: {
                                         $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+                                        "x-tson-required": true,
                                     },
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 created_at: {
                                     type: "string",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                             },
                             nullable: false,
@@ -63,28 +70,33 @@ export const test_application_swagger_object_generic_union =
                             ],
                             "x-tson_jsDocTags": [],
                         },
-                    "ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable":
+                    "ObjectGenericUnion.ISaleAnswer_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable":
                         {
                             type: "object",
                             properties: {
                                 id: {
                                     type: "string",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 hit: {
                                     type: "number",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 contents: {
                                     type: "array",
                                     items: {
                                         $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+                                        "x-tson-required": true,
                                     },
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 created_at: {
                                     type: "string",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                             },
                             nullable: true,
@@ -97,25 +109,31 @@ export const test_application_swagger_object_generic_union =
                             id: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             created_at: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             title: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             body: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             files: {
                                 type: "array",
                                 items: {
-                                    $ref: "#/components/schemas/__type",
+                                    $ref: "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma_id_gt_",
+                                    "x-tson-required": true,
                                 },
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,
@@ -128,55 +146,65 @@ export const test_application_swagger_object_generic_union =
                         ],
                         "x-tson_jsDocTags": [],
                     },
-                    __type: {
+                    "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma_id_gt_": {
                         type: "object",
                         properties: {
                             url: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             extension: {
                                 type: "string",
                                 nullable: true,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,
                         required: ["url", "name", "extension"],
                         "x-tson_jsDocTags": [],
                     },
-                    "ObjectGenericUnion.ISaleInquiry_lt_ObjectGenericUnion.ISaleReview.IContent_gt_":
+                    "ObjectGenericUnion.ISaleReview_lt_ObjectGenericUnion.ISaleReview.IContent_gt_":
                         {
                             type: "object",
                             properties: {
                                 writer: {
                                     type: "string",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 answer: {
-                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
+                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleAnswer_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
+                                    "x-tson-required": true,
                                 },
                                 id: {
                                     type: "string",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 hit: {
                                     type: "number",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 contents: {
                                     type: "array",
                                     items: {
                                         $ref: "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
+                                        "x-tson-required": true,
                                     },
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 created_at: {
                                     type: "string",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                             },
                             nullable: false,
@@ -196,29 +224,36 @@ export const test_application_swagger_object_generic_union =
                             score: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             id: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             created_at: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             title: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             body: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             files: {
                                 type: "array",
                                 items: {
-                                    $ref: "#/components/schemas/__type",
+                                    $ref: "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma_id_gt_",
+                                    "x-tson-required": true,
                                 },
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,

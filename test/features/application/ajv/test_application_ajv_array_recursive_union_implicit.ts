@@ -48,14 +48,17 @@ export const test_application_ajv_array_recursive_union_implicit =
                             id: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             path: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             children: {
                                 type: "array",
@@ -64,27 +67,35 @@ export const test_application_ajv_array_recursive_union_implicit =
                                         {
                                             $recursiveRef:
                                                 "components#/schemas/ArrayRecursiveUnionImplicit.IDirectory",
+                                            "x-tson-required": true,
                                         },
                                         {
                                             $recursiveRef:
                                                 "components#/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
+                                            "x-tson-required": true,
                                         },
                                         {
                                             $ref: "components#/schemas/ArrayRecursiveUnionImplicit.IImageFile",
+                                            "x-tson-required": true,
                                         },
                                         {
                                             $ref: "components#/schemas/ArrayRecursiveUnionImplicit.ITextFile",
+                                            "x-tson-required": true,
                                         },
                                         {
                                             $ref: "components#/schemas/ArrayRecursiveUnionImplicit.IZipFile",
+                                            "x-tson-required": true,
                                         },
                                         {
                                             $recursiveRef:
                                                 "components#/schemas/ArrayRecursiveUnionImplicit.IShortcut",
+                                            "x-tson-required": true,
                                         },
                                     ],
+                                    "x-tson-required": true,
                                 },
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,
@@ -100,18 +111,22 @@ export const test_application_ajv_array_recursive_union_implicit =
                                 type: "string",
                                 enum: ["read", "write"],
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             id: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             path: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             children: {
                                 type: "array",
@@ -120,27 +135,35 @@ export const test_application_ajv_array_recursive_union_implicit =
                                         {
                                             $recursiveRef:
                                                 "components#/schemas/ArrayRecursiveUnionImplicit.IDirectory",
+                                            "x-tson-required": true,
                                         },
                                         {
                                             $recursiveRef:
                                                 "components#/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
+                                            "x-tson-required": true,
                                         },
                                         {
                                             $ref: "components#/schemas/ArrayRecursiveUnionImplicit.IImageFile",
+                                            "x-tson-required": true,
                                         },
                                         {
                                             $ref: "components#/schemas/ArrayRecursiveUnionImplicit.ITextFile",
+                                            "x-tson-required": true,
                                         },
                                         {
                                             $ref: "components#/schemas/ArrayRecursiveUnionImplicit.IZipFile",
+                                            "x-tson-required": true,
                                         },
                                         {
                                             $recursiveRef:
                                                 "components#/schemas/ArrayRecursiveUnionImplicit.IShortcut",
+                                            "x-tson-required": true,
                                         },
                                     ],
+                                    "x-tson-required": true,
                                 },
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,
@@ -154,30 +177,37 @@ export const test_application_ajv_array_recursive_union_implicit =
                             id: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             path: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             width: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             height: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             url: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             size: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,
@@ -199,22 +229,27 @@ export const test_application_ajv_array_recursive_union_implicit =
                             id: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             path: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             size: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             content: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,
@@ -228,22 +263,27 @@ export const test_application_ajv_array_recursive_union_implicit =
                             id: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             path: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             size: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             count: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,
@@ -258,39 +298,49 @@ export const test_application_ajv_array_recursive_union_implicit =
                             id: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             path: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             target: {
                                 oneOf: [
                                     {
                                         $recursiveRef:
                                             "components#/schemas/ArrayRecursiveUnionImplicit.IDirectory",
+                                        "x-tson-required": true,
                                     },
                                     {
                                         $recursiveRef:
                                             "components#/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
+                                        "x-tson-required": true,
                                     },
                                     {
                                         $ref: "components#/schemas/ArrayRecursiveUnionImplicit.IImageFile",
+                                        "x-tson-required": true,
                                     },
                                     {
                                         $ref: "components#/schemas/ArrayRecursiveUnionImplicit.ITextFile",
+                                        "x-tson-required": true,
                                     },
                                     {
                                         $ref: "components#/schemas/ArrayRecursiveUnionImplicit.IZipFile",
+                                        "x-tson-required": true,
                                     },
                                     {
                                         $recursiveRef:
                                             "components#/schemas/ArrayRecursiveUnionImplicit.IShortcut",
+                                        "x-tson-required": true,
                                     },
                                 ],
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,

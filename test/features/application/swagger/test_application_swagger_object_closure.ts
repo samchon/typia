@@ -20,6 +20,7 @@ export const test_application_swagger_object_closure =
                             id: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,

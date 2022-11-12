@@ -20,6 +20,7 @@ export const test_application_ajv_dynamic_simple = _test_application_ajv(
                     additionalProperties: {
                         type: "number",
                         nullable: false,
+                        "x-tson-required": true,
                     },
                     nullable: false,
                     "x-tson_jsDocTags": [],

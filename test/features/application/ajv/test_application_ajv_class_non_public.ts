@@ -20,10 +20,12 @@ export const test_application_ajv_class_non_public = _test_application_ajv(
                         implicit: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         shown: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

@@ -36,6 +36,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             format: "uuid",
                         },
                         email: {
@@ -59,6 +60,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             format: "email",
                         },
                         url: {
@@ -82,6 +84,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             format: "url",
                         },
                         ipv4: {
@@ -105,6 +108,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             format: "ipv4",
                         },
                         ipv6: {
@@ -128,6 +132,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             format: "ipv6",
                         },
                         custom: {
@@ -145,6 +150,7 @@ export const test_application_swagger_tag_format = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             format: "my-custom-format",
                         },
                     },

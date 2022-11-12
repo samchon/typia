@@ -19,15 +19,19 @@ export const test_application_ajv_object_simple = _test_application_ajv(
                     properties: {
                         scale: {
                             $ref: "components#/schemas/ObjectSimple.IPoint3D",
+                            "x-tson-required": true,
                         },
                         position: {
                             $ref: "components#/schemas/ObjectSimple.IPoint3D",
+                            "x-tson-required": true,
                         },
                         rotate: {
                             $ref: "components#/schemas/ObjectSimple.IPoint3D",
+                            "x-tson-required": true,
                         },
                         pivot: {
                             $ref: "components#/schemas/ObjectSimple.IPoint3D",
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,
@@ -41,14 +45,17 @@ export const test_application_ajv_object_simple = _test_application_ajv(
                         x: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         y: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         z: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

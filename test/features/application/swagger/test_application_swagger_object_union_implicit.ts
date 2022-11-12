@@ -46,14 +46,17 @@ export const test_application_swagger_object_union_implicit =
                             x: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             y: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             slope: {
                                 type: "number",
                                 nullable: true,
+                                "x-tson-required": false,
                             },
                         },
                         nullable: false,
@@ -65,17 +68,21 @@ export const test_application_swagger_object_union_implicit =
                         properties: {
                             p1: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
+                                "x-tson-required": true,
                             },
                             p2: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
+                                "x-tson-required": true,
                             },
                             width: {
                                 type: "number",
                                 nullable: true,
+                                "x-tson-required": false,
                             },
                             distance: {
                                 type: "number",
                                 nullable: true,
+                                "x-tson-required": false,
                             },
                         },
                         nullable: false,
@@ -87,24 +94,30 @@ export const test_application_swagger_object_union_implicit =
                         properties: {
                             p1: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
+                                "x-tson-required": true,
                             },
                             p2: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
+                                "x-tson-required": true,
                             },
                             p3: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
+                                "x-tson-required": true,
                             },
                             width: {
                                 type: "number",
                                 nullable: true,
+                                "x-tson-required": false,
                             },
                             height: {
                                 type: "number",
                                 nullable: true,
+                                "x-tson-required": false,
                             },
                             area: {
                                 type: "number",
                                 nullable: true,
+                                "x-tson-required": false,
                             },
                         },
                         nullable: false,
@@ -116,27 +129,34 @@ export const test_application_swagger_object_union_implicit =
                         properties: {
                             p1: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
+                                "x-tson-required": true,
                             },
                             p2: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
+                                "x-tson-required": true,
                             },
                             p3: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
+                                "x-tson-required": true,
                             },
                             p4: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
+                                "x-tson-required": true,
                             },
                             width: {
                                 type: "number",
                                 nullable: true,
+                                "x-tson-required": false,
                             },
                             height: {
                                 type: "number",
                                 nullable: true,
+                                "x-tson-required": false,
                             },
                             area: {
                                 type: "number",
                                 nullable: true,
+                                "x-tson-required": false,
                             },
                         },
                         nullable: false,
@@ -150,12 +170,15 @@ export const test_application_swagger_object_union_implicit =
                                 type: "array",
                                 items: {
                                     $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
+                                    "x-tson-required": true,
                                 },
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             length: {
                                 type: "number",
                                 nullable: true,
+                                "x-tson-required": false,
                             },
                         },
                         nullable: false,
@@ -167,17 +190,21 @@ export const test_application_swagger_object_union_implicit =
                         properties: {
                             outer: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPolyline",
+                                "x-tson-required": true,
                             },
                             inner: {
                                 type: "array",
                                 items: {
                                     $ref: "#/components/schemas/ObjectUnionImplicit.IPolyline",
+                                    "x-tson-required": false,
                                 },
                                 nullable: false,
+                                "x-tson-required": false,
                             },
                             area: {
                                 type: "number",
                                 nullable: true,
+                                "x-tson-required": false,
                             },
                         },
                         nullable: false,
@@ -189,14 +216,17 @@ export const test_application_swagger_object_union_implicit =
                         properties: {
                             centroid: {
                                 $ref: "#/components/schemas/ObjectUnionImplicit.IPoint",
+                                "x-tson-required": false,
                             },
                             radius: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             area: {
                                 type: "number",
                                 nullable: true,
+                                "x-tson-required": false,
                             },
                         },
                         nullable: false,

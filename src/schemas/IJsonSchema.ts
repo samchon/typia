@@ -29,9 +29,7 @@ export namespace IJsonSchema {
         enum: Array<Atomic.Mapper[Literal]>;
     }
     export interface IAtomic<Literal extends Atomic.Literal>
-        extends IAttribute {
-        type: Literal;
-        nullable: boolean;
+        extends ISignificant<Literal> {
         default?: Atomic.Mapper[Literal];
     }
     export interface IString extends IAtomic<"string"> {
@@ -78,7 +76,7 @@ export namespace IJsonSchema {
     }
     export interface IUnknown {}
 
-    export interface ISignificant<Literal extends string> {
+    export interface ISignificant<Literal extends string> extends IAttribute {
         type: Literal;
         nullable: boolean;
     }
@@ -88,5 +86,6 @@ export namespace IJsonSchema {
         description?: string;
         "x-tson-metaTags"?: IMetadataTag[];
         "x-tson-jsDocTags"?: IJsDocTagInfo[];
+        "x-tson-required"?: boolean;
     }
 }

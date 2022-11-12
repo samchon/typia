@@ -22,8 +22,10 @@ export const test_application_ajv_dynamic_array = _test_application_ajv(
                         items: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         nullable: false,
+                        "x-tson-required": true,
                     },
                     nullable: false,
                     "x-tson_jsDocTags": [],

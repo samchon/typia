@@ -20,10 +20,12 @@ export const test_application_swagger_dynamic_composite =
                             id: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         additionalProperties: {
@@ -31,34 +33,42 @@ export const test_application_swagger_dynamic_composite =
                                 {
                                     type: "number",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 {
                                     type: "string",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 {
                                     type: "string",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 {
                                     oneOf: [
                                         {
                                             type: "string",
                                             nullable: false,
+                                            "x-tson-required": true,
                                         },
                                         {
                                             type: "number",
                                             nullable: false,
+                                            "x-tson-required": true,
                                         },
                                         {
                                             type: "boolean",
                                             nullable: false,
+                                            "x-tson-required": true,
                                         },
                                     ],
+                                    "x-tson-required": true,
                                 },
                                 {
                                     type: "boolean",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                             ],
                         },

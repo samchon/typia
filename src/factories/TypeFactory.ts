@@ -53,13 +53,12 @@ export namespace TypeFactory {
         type: ts.Type,
     ): string {
         // PRIMITIVE
-        const symbol: ts.Symbol | undefined =
-            type.getSymbol() || type.aliasSymbol;
-        if (symbol === undefined)
-            return checker.typeToString(type, undefined, undefined);
+        const symbol: ts.Symbol | undefined = type.getSymbol();
+        const alias: ts.Symbol | undefined = type.aliasSymbol;
+        if (symbol === undefined) return checker.typeToString(type);
 
         // UNION OR INTERSECT
-        if (type.aliasSymbol === undefined && type.isUnionOrIntersection()) {
+        if (alias === undefined && type.isUnionOrIntersection()) {
             const joiner: string = type.isIntersection() ? " & " : " | ";
             return type.types
                 .map((child) => getFullName(checker, child))
@@ -69,12 +68,12 @@ export namespace TypeFactory {
         //----
         // SPECIALIZATION
         //----
-        const name: string = get_name(symbol);
+        const name: string = get_name(alias || symbol);
 
         // CHECK GENERIC
-        const generic: readonly ts.Type[] = checker.getTypeArguments(
-            type as ts.TypeReference,
-        );
+        const generic: readonly ts.Type[] =
+            type.aliasTypeArguments ||
+            checker.getTypeArguments(type as ts.TypeReference);
         return generic.length
             ? name === "Promise"
                 ? getFullName(checker, generic[0]!)

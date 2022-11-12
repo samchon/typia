@@ -20,6 +20,7 @@ export const test_application_ajv_object_closure = _test_application_ajv(
                         id: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

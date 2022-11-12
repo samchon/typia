@@ -8,24 +8,27 @@ export const test_application_ajv_object_generic_array = _test_application_ajv(
     {
         schemas: [
             {
-                $ref: "components#/schemas/ObjectGenericArray.IPage_lt_ObjectGenericArray.IPerson_gt_",
+                $ref: "components#/schemas/ObjectGenericArray_lt_ObjectGenericArray.IPerson_gt_",
             },
         ],
         components: {
             schemas: {
-                "ObjectGenericArray.IPage_lt_ObjectGenericArray.IPerson_gt_": {
-                    $id: "components#/schemas/ObjectGenericArray.IPage_lt_ObjectGenericArray.IPerson_gt_",
+                "ObjectGenericArray_lt_ObjectGenericArray.IPerson_gt_": {
+                    $id: "components#/schemas/ObjectGenericArray_lt_ObjectGenericArray.IPerson_gt_",
                     type: "object",
                     properties: {
                         pagination: {
                             $ref: "components#/schemas/ObjectGenericArray.IPagination",
+                            "x-tson-required": true,
                         },
                         data: {
                             type: "array",
                             items: {
                                 $ref: "components#/schemas/ObjectGenericArray.IPerson",
+                                "x-tson-required": true,
                             },
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,
@@ -39,18 +42,22 @@ export const test_application_ajv_object_generic_array = _test_application_ajv(
                         page: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         limit: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         total_count: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         total_pages: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,
@@ -64,10 +71,12 @@ export const test_application_ajv_object_generic_array = _test_application_ajv(
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         age: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

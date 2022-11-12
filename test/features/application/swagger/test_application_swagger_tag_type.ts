@@ -41,6 +41,7 @@ export const test_application_swagger_tag_type = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                         uint: {
                             type: "integer",
@@ -63,6 +64,7 @@ export const test_application_swagger_tag_type = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             minimum: 0,
                         },
                     },

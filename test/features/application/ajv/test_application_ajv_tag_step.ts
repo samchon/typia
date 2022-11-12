@@ -54,6 +54,7 @@ export const test_application_ajv_tag_step = _test_application_ajv(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                         minimum: {
                             type: "number",
@@ -88,6 +89,7 @@ export const test_application_ajv_tag_step = _test_application_ajv(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             minimum: 3,
                         },
                         range: {
@@ -130,6 +132,7 @@ export const test_application_ajv_tag_step = _test_application_ajv(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             exclusiveMinimum: 0,
                             exclusiveMaximum: 100,
                         },
@@ -153,6 +156,7 @@ export const test_application_ajv_tag_step = _test_application_ajv(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

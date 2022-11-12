@@ -21,8 +21,10 @@ export const test_application_swagger_dynamic_array = _test_application_swagger(
                         items: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         nullable: false,
+                        "x-tson-required": true,
                     },
                     nullable: false,
                     "x-tson_jsDocTags": [],

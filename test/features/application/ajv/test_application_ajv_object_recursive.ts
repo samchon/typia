@@ -22,25 +22,31 @@ export const test_application_ajv_object_recursive = _test_application_ajv(
                         parent: {
                             $recursiveRef:
                                 "components#/schemas/ObjectRecursive.IDepartment.Nullable",
+                            "x-tson-required": true,
                         },
                         id: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         code: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         sequence: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         created_at: {
                             $ref: "components#/schemas/ObjectRecursive.ITimestamp",
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,
@@ -62,25 +68,31 @@ export const test_application_ajv_object_recursive = _test_application_ajv(
                         parent: {
                             $recursiveRef:
                                 "components#/schemas/ObjectRecursive.IDepartment.Nullable",
+                            "x-tson-required": true,
                         },
                         id: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         code: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         sequence: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         created_at: {
                             $ref: "components#/schemas/ObjectRecursive.ITimestamp",
+                            "x-tson-required": true,
                         },
                     },
                     nullable: true,
@@ -101,10 +113,12 @@ export const test_application_ajv_object_recursive = _test_application_ajv(
                         time: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         zone: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

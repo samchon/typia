@@ -40,6 +40,7 @@ export const test_application_swagger_tag_range = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             minimum: 3,
                         },
                         maximum: {
@@ -62,6 +63,7 @@ export const test_application_swagger_tag_range = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             maximum: 7,
                         },
                         minimum_and_maximum: {
@@ -97,6 +99,7 @@ export const test_application_swagger_tag_range = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             minimum: 3,
                             maximum: 7,
                         },
@@ -123,6 +126,7 @@ export const test_application_swagger_tag_range = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             exclusiveMinimum: 3,
                         },
                         greater_equal: {
@@ -148,6 +152,7 @@ export const test_application_swagger_tag_range = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             minimum: 3,
                         },
                         less: {
@@ -173,6 +178,7 @@ export const test_application_swagger_tag_range = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             exclusiveMaximum: 7,
                         },
                         less_equal: {
@@ -198,6 +204,7 @@ export const test_application_swagger_tag_range = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             maximum: 7,
                         },
                         greater_less: {
@@ -227,6 +234,7 @@ export const test_application_swagger_tag_range = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             exclusiveMinimum: 3,
                             exclusiveMaximum: 7,
                         },
@@ -257,6 +265,7 @@ export const test_application_swagger_tag_range = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             minimum: 3,
                             exclusiveMaximum: 7,
                         },
@@ -287,6 +296,7 @@ export const test_application_swagger_tag_range = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             exclusiveMinimum: 3,
                             maximum: 7,
                         },
@@ -317,6 +327,7 @@ export const test_application_swagger_tag_range = _test_application_swagger(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                             minimum: 3,
                             maximum: 7,
                         },
