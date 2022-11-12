@@ -8,13 +8,13 @@ export const test_application_ajv_object_generic_array = _test_application_ajv(
     {
         schemas: [
             {
-                $ref: "components#/schemas/ObjectGenericArray_lt_ObjectGenericArray.IPerson_gt_",
+                $ref: "components#/schemas/ObjectGenericArray",
             },
         ],
         components: {
             schemas: {
-                "ObjectGenericArray_lt_ObjectGenericArray.IPerson_gt_": {
-                    $id: "components#/schemas/ObjectGenericArray_lt_ObjectGenericArray.IPerson_gt_",
+                ObjectGenericArray: {
+                    $id: "components#/schemas/ObjectGenericArray",
                     type: "object",
                     properties: {
                         pagination: {

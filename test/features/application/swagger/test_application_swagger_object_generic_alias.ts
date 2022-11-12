@@ -9,12 +9,12 @@ export const test_application_swagger_object_generic_alias =
         {
             schemas: [
                 {
-                    $ref: "#/components/schemas/ObjectGenericAlias.Alias_lt_string_gt_",
+                    $ref: "#/components/schemas/ObjectGenericAlias.Alias",
                 },
             ],
             components: {
                 schemas: {
-                    "ObjectGenericAlias.Alias_lt_string_gt_": {
+                    "ObjectGenericAlias.Alias": {
                         type: "object",
                         properties: {
                             value: {

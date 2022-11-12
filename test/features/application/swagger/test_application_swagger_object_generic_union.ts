@@ -11,98 +11,96 @@ export const test_application_swagger_object_generic_union =
                 {
                     oneOf: [
                         {
-                            $ref: "#/components/schemas/ObjectGenericUnion.ISaleQuestion_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_",
+                            $ref: "#/components/schemas/ObjectGenericUnion.ISaleQuestion",
                         },
                         {
-                            $ref: "#/components/schemas/ObjectGenericUnion.ISaleReview_lt_ObjectGenericUnion.ISaleReview.IContent_gt_",
+                            $ref: "#/components/schemas/ObjectGenericUnion.ISaleReview",
                         },
                     ],
                 },
             ],
             components: {
                 schemas: {
-                    "ObjectGenericUnion.ISaleQuestion_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_":
-                        {
-                            type: "object",
-                            properties: {
-                                writer: {
-                                    type: "string",
-                                    nullable: false,
-                                    "x-tson-required": true,
-                                },
-                                answer: {
-                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleAnswer_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
-                                    "x-tson-required": true,
-                                },
-                                id: {
-                                    type: "string",
-                                    nullable: false,
-                                    "x-tson-required": true,
-                                },
-                                hit: {
-                                    type: "number",
-                                    nullable: false,
-                                    "x-tson-required": true,
-                                },
-                                contents: {
-                                    type: "array",
-                                    items: {
-                                        $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
-                                        "x-tson-required": true,
-                                    },
-                                    nullable: false,
-                                    "x-tson-required": true,
-                                },
-                                created_at: {
-                                    type: "string",
-                                    nullable: false,
-                                    "x-tson-required": true,
-                                },
+                    "ObjectGenericUnion.ISaleQuestion": {
+                        type: "object",
+                        properties: {
+                            writer: {
+                                type: "string",
+                                nullable: false,
+                                "x-tson-required": true,
                             },
-                            nullable: false,
-                            required: [
-                                "writer",
-                                "answer",
-                                "id",
-                                "hit",
-                                "contents",
-                                "created_at",
-                            ],
-                            "x-tson_jsDocTags": [],
-                        },
-                    "ObjectGenericUnion.ISaleAnswer_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable":
-                        {
-                            type: "object",
-                            properties: {
-                                id: {
-                                    type: "string",
-                                    nullable: false,
-                                    "x-tson-required": true,
-                                },
-                                hit: {
-                                    type: "number",
-                                    nullable: false,
-                                    "x-tson-required": true,
-                                },
-                                contents: {
-                                    type: "array",
-                                    items: {
-                                        $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
-                                        "x-tson-required": true,
-                                    },
-                                    nullable: false,
-                                    "x-tson-required": true,
-                                },
-                                created_at: {
-                                    type: "string",
-                                    nullable: false,
-                                    "x-tson-required": true,
-                                },
+                            answer: {
+                                $ref: "#/components/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
+                                "x-tson-required": true,
                             },
-                            nullable: true,
-                            required: ["id", "hit", "contents", "created_at"],
-                            "x-tson_jsDocTags": [],
+                            id: {
+                                type: "string",
+                                nullable: false,
+                                "x-tson-required": true,
+                            },
+                            hit: {
+                                type: "number",
+                                nullable: false,
+                                "x-tson-required": true,
+                            },
+                            contents: {
+                                type: "array",
+                                items: {
+                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+                                    "x-tson-required": true,
+                                },
+                                nullable: false,
+                                "x-tson-required": true,
+                            },
+                            created_at: {
+                                type: "string",
+                                nullable: false,
+                                "x-tson-required": true,
+                            },
                         },
+                        nullable: false,
+                        required: [
+                            "writer",
+                            "answer",
+                            "id",
+                            "hit",
+                            "contents",
+                            "created_at",
+                        ],
+                        "x-tson_jsDocTags": [],
+                    },
+                    "ObjectGenericUnion.ISaleAnswer.Nullable": {
+                        type: "object",
+                        properties: {
+                            id: {
+                                type: "string",
+                                nullable: false,
+                                "x-tson-required": true,
+                            },
+                            hit: {
+                                type: "number",
+                                nullable: false,
+                                "x-tson-required": true,
+                            },
+                            contents: {
+                                type: "array",
+                                items: {
+                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+                                    "x-tson-required": true,
+                                },
+                                nullable: false,
+                                "x-tson-required": true,
+                            },
+                            created_at: {
+                                type: "string",
+                                nullable: false,
+                                "x-tson-required": true,
+                            },
+                        },
+                        nullable: true,
+                        required: ["id", "hit", "contents", "created_at"],
+                        "x-tson_jsDocTags": [],
+                    },
                     "ObjectGenericUnion.ISaleArticle.IContent": {
                         type: "object",
                         properties: {
@@ -169,55 +167,54 @@ export const test_application_swagger_object_generic_union =
                         required: ["url", "name", "extension"],
                         "x-tson_jsDocTags": [],
                     },
-                    "ObjectGenericUnion.ISaleReview_lt_ObjectGenericUnion.ISaleReview.IContent_gt_":
-                        {
-                            type: "object",
-                            properties: {
-                                writer: {
-                                    type: "string",
-                                    nullable: false,
-                                    "x-tson-required": true,
-                                },
-                                answer: {
-                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleAnswer_lt_ObjectGenericUnion.ISaleArticle.IContent_gt_.Nullable",
-                                    "x-tson-required": true,
-                                },
-                                id: {
-                                    type: "string",
-                                    nullable: false,
-                                    "x-tson-required": true,
-                                },
-                                hit: {
-                                    type: "number",
-                                    nullable: false,
-                                    "x-tson-required": true,
-                                },
-                                contents: {
-                                    type: "array",
-                                    items: {
-                                        $ref: "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
-                                        "x-tson-required": true,
-                                    },
-                                    nullable: false,
-                                    "x-tson-required": true,
-                                },
-                                created_at: {
-                                    type: "string",
-                                    nullable: false,
-                                    "x-tson-required": true,
-                                },
+                    "ObjectGenericUnion.ISaleReview": {
+                        type: "object",
+                        properties: {
+                            writer: {
+                                type: "string",
+                                nullable: false,
+                                "x-tson-required": true,
                             },
-                            nullable: false,
-                            required: [
-                                "writer",
-                                "answer",
-                                "id",
-                                "hit",
-                                "contents",
-                                "created_at",
-                            ],
-                            "x-tson_jsDocTags": [],
+                            answer: {
+                                $ref: "#/components/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
+                                "x-tson-required": true,
+                            },
+                            id: {
+                                type: "string",
+                                nullable: false,
+                                "x-tson-required": true,
+                            },
+                            hit: {
+                                type: "number",
+                                nullable: false,
+                                "x-tson-required": true,
+                            },
+                            contents: {
+                                type: "array",
+                                items: {
+                                    $ref: "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
+                                    "x-tson-required": true,
+                                },
+                                nullable: false,
+                                "x-tson-required": true,
+                            },
+                            created_at: {
+                                type: "string",
+                                nullable: false,
+                                "x-tson-required": true,
+                            },
                         },
+                        nullable: false,
+                        required: [
+                            "writer",
+                            "answer",
+                            "id",
+                            "hit",
+                            "contents",
+                            "created_at",
+                        ],
+                        "x-tson_jsDocTags": [],
+                    },
                     "ObjectGenericUnion.ISaleReview.IContent": {
                         type: "object",
                         properties: {
