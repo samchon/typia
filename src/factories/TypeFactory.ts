@@ -71,9 +71,9 @@ export namespace TypeFactory {
         const name: string = get_name(alias || symbol);
 
         // CHECK GENERIC
-        const generic: readonly ts.Type[] =
-            type.aliasTypeArguments ||
-            checker.getTypeArguments(type as ts.TypeReference);
+        const generic: readonly ts.Type[] = alias
+            ? type.aliasTypeArguments || []
+            : checker.getTypeArguments(type as ts.TypeReference);
         return generic.length
             ? name === "Promise"
                 ? getFullName(checker, generic[0]!)
