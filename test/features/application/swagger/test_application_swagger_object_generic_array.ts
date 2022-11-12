@@ -9,12 +9,12 @@ export const test_application_swagger_object_generic_array =
         {
             schemas: [
                 {
-                    $ref: "#/components/schemas/ObjectGenericArray_lt_ObjectGenericArray.IPerson_gt_",
+                    $ref: "#/components/schemas/ObjectGenericArray",
                 },
             ],
             components: {
                 schemas: {
-                    "ObjectGenericArray_lt_ObjectGenericArray.IPerson_gt_": {
+                    ObjectGenericArray: {
                         type: "object",
                         properties: {
                             pagination: {
