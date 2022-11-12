@@ -9,17 +9,18 @@ export const test_application_swagger_object_generic_alias =
         {
             schemas: [
                 {
-                    $ref: "#/components/schemas/ObjectGenericAlias.ISomething_lt_string_gt_",
+                    $ref: "#/components/schemas/ObjectGenericAlias.Alias_lt_string_gt_",
                 },
             ],
             components: {
                 schemas: {
-                    "ObjectGenericAlias.ISomething_lt_string_gt_": {
+                    "ObjectGenericAlias.Alias_lt_string_gt_": {
                         type: "object",
                         properties: {
                             value: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,

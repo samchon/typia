@@ -20,24 +20,29 @@ export const test_application_swagger_class_property_assignment =
                             id: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             note: {
                                 type: "string",
                                 enum: ["assignment"],
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             editable: {
                                 type: "boolean",
                                 enum: [false],
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             incremental: {
                                 type: "boolean",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,

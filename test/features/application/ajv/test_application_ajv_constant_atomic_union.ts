@@ -44,6 +44,7 @@ export const test_application_ajv_constant_atomic_union = _test_application_ajv(
                             type: "string",
                             enum: ["key"],
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

@@ -21,10 +21,12 @@ export const test_application_ajv_object_literal_property =
                             "something-interesting-do-you-want?": {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             "or-something-crazy-do-you-want?": {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,

@@ -26,11 +26,13 @@ export const test_application_ajv_object_json_tag = _test_application_ajv(
                                     name: "deprecated",
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                         description: {
                             type: "string",
                             nullable: false,
                             description: "Descripted property.",
+                            "x-tson-required": true,
                         },
                         title: {
                             type: "string",
@@ -48,6 +50,7 @@ export const test_application_ajv_object_json_tag = _test_application_ajv(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                         complicate_title: {
                             type: "string",
@@ -81,6 +84,7 @@ export const test_application_ajv_object_json_tag = _test_application_ajv(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                         entered_title: {
                             type: "string",
@@ -98,6 +102,7 @@ export const test_application_ajv_object_json_tag = _test_application_ajv(
                                     ],
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

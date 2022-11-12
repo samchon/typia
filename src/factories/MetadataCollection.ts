@@ -89,12 +89,18 @@ export class MetadataCollection {
 }
 export namespace MetadataCollection {
     export interface IOptions {
-        replace(str: string): string;
+        replace?(str: string): string;
     }
 
     export function replace(str: string): string {
         for (const [before, after] of REPLACERS)
             str = str.split(before).join(after);
+        return str;
+    }
+
+    export function escape(str: string): string {
+        for (const [before, after] of REPLACERS)
+            if (after !== "") str = str.split(after).join(before);
         return str;
     }
 }

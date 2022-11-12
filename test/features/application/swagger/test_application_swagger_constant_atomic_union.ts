@@ -44,6 +44,7 @@ export const test_application_swagger_constant_atomic_union =
                                 type: "string",
                                 enum: ["key"],
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,

@@ -23,14 +23,17 @@ export const test_application_swagger_object_alias = _test_application_swagger(
                         id: {
                             type: "string",
                             nullable: true,
+                            "x-tson-required": true,
                         },
                         email: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         sex: {
                             oneOf: [
@@ -38,21 +41,26 @@ export const test_application_swagger_object_alias = _test_application_swagger(
                                     type: "number",
                                     enum: [2, 1],
                                     nullable: true,
+                                    "x-tson-required": true,
                                 },
                                 {
                                     type: "string",
                                     enum: ["male", "female"],
                                     nullable: true,
+                                    "x-tson-required": true,
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                         age: {
                             type: "number",
                             nullable: true,
+                            "x-tson-required": true,
                         },
                         dead: {
                             type: "boolean",
                             nullable: true,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

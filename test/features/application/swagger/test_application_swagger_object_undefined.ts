@@ -24,25 +24,31 @@ export const test_application_swagger_object_undefined =
                             name: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             professor: {
                                 oneOf: [
                                     {
                                         type: "string",
                                         nullable: false,
+                                        "x-tson-required": false,
                                     },
                                     {
                                         type: "number",
                                         nullable: false,
+                                        "x-tson-required": false,
                                     },
                                 ],
+                                "x-tson-required": false,
                             },
                             classroom: {
                                 $ref: "#/components/schemas/ObjectUndefined.IClassroom",
+                                "x-tson-required": false,
                             },
                             grade: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": false,
                             },
                         },
                         nullable: false,
@@ -55,10 +61,12 @@ export const test_application_swagger_object_undefined =
                             id: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,

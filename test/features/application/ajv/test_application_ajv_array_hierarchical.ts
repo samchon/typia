@@ -24,24 +24,30 @@ export const test_application_ajv_array_hierarchical = _test_application_ajv(
                         id: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         serial: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         established_at: {
                             $ref: "components#/schemas/ArrayHierarchical.ITimestamp",
+                            "x-tson-required": true,
                         },
                         departments: {
                             type: "array",
                             items: {
                                 $ref: "components#/schemas/ArrayHierarchical.IDepartment",
+                                "x-tson-required": true,
                             },
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,
@@ -61,10 +67,12 @@ export const test_application_ajv_array_hierarchical = _test_application_ajv(
                         time: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         zone: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,
@@ -78,24 +86,30 @@ export const test_application_ajv_array_hierarchical = _test_application_ajv(
                         id: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         code: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         sales: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         created_at: {
                             $ref: "components#/schemas/ArrayHierarchical.ITimestamp",
+                            "x-tson-required": true,
                         },
                         employees: {
                             type: "array",
                             items: {
                                 $ref: "components#/schemas/ArrayHierarchical.IEmployee",
+                                "x-tson-required": true,
                             },
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,
@@ -115,21 +129,26 @@ export const test_application_ajv_array_hierarchical = _test_application_ajv(
                         id: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         age: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         grade: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         employeed_at: {
                             $ref: "components#/schemas/ArrayHierarchical.ITimestamp",
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

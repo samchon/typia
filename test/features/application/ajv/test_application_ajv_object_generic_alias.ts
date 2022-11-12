@@ -8,18 +8,19 @@ export const test_application_ajv_object_generic_alias = _test_application_ajv(
     {
         schemas: [
             {
-                $ref: "components#/schemas/ObjectGenericAlias.ISomething_lt_string_gt_",
+                $ref: "components#/schemas/ObjectGenericAlias.Alias_lt_string_gt_",
             },
         ],
         components: {
             schemas: {
-                "ObjectGenericAlias.ISomething_lt_string_gt_": {
-                    $id: "components#/schemas/ObjectGenericAlias.ISomething_lt_string_gt_",
+                "ObjectGenericAlias.Alias_lt_string_gt_": {
+                    $id: "components#/schemas/ObjectGenericAlias.Alias_lt_string_gt_",
                     type: "object",
                     properties: {
                         value: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

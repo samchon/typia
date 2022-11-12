@@ -20,6 +20,7 @@ export const test_application_swagger_dynamic_simple =
                         additionalProperties: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         nullable: false,
                         "x-tson_jsDocTags": [],

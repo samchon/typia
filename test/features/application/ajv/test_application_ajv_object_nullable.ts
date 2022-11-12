@@ -32,22 +32,28 @@ export const test_application_ajv_object_nullable = _test_application_ajv(
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         manufacturer: {
                             $ref: "components#/schemas/ObjectNullable.IManufacturer",
+                            "x-tson-required": true,
                         },
                         brand: {
                             $ref: "components#/schemas/ObjectNullable.IBrand.Nullable",
+                            "x-tson-required": true,
                         },
                         similar: {
                             oneOf: [
                                 {
                                     $ref: "components#/schemas/ObjectNullable.IManufacturer.Nullable",
+                                    "x-tson-required": true,
                                 },
                                 {
                                     $ref: "components#/schemas/ObjectNullable.IBrand.Nullable",
+                                    "x-tson-required": true,
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,
@@ -62,10 +68,12 @@ export const test_application_ajv_object_nullable = _test_application_ajv(
                             type: "string",
                             enum: ["manufacturer"],
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,
@@ -80,10 +88,12 @@ export const test_application_ajv_object_nullable = _test_application_ajv(
                             type: "string",
                             enum: ["brand"],
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: true,
@@ -98,10 +108,12 @@ export const test_application_ajv_object_nullable = _test_application_ajv(
                             type: "string",
                             enum: ["manufacturer"],
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: true,

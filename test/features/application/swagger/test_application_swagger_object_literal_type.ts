@@ -20,14 +20,17 @@ export const test_application_swagger_object_literal_type =
                             id: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             age: {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,

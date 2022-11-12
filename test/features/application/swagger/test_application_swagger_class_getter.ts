@@ -19,14 +19,17 @@ export const test_application_swagger_class_getter = _test_application_swagger(
                         id: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         dead: {
                             type: "boolean",
                             nullable: true,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

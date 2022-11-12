@@ -22,18 +22,22 @@ export const test_application_swagger_dynamic_template =
                                 {
                                     type: "string",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 {
                                     type: "string",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 {
                                     type: "number",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 {
                                     type: "boolean",
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                             ],
                         },

@@ -20,10 +20,12 @@ export const test_application_swagger_class_non_public =
                             implicit: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             shown: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,

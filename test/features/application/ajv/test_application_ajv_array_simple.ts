@@ -24,10 +24,12 @@ export const test_application_ajv_array_simple = _test_application_ajv(
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         email: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         hobbies: {
                             oneOf: [
@@ -36,24 +38,31 @@ export const test_application_ajv_array_simple = _test_application_ajv(
                                     items: {
                                         type: "string",
                                         nullable: false,
+                                        "x-tson-required": true,
                                     },
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 {
                                     type: "array",
                                     items: {
                                         $ref: "components#/schemas/ArraySimple.IHobby",
+                                        "x-tson-required": true,
                                     },
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                                 {
                                     type: "array",
                                     items: {
                                         $ref: "components#/schemas/ArraySimple.IContent",
+                                        "x-tson-required": true,
                                     },
                                     nullable: false,
+                                    "x-tson-required": true,
                                 },
                             ],
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,
@@ -67,10 +76,12 @@ export const test_application_ajv_array_simple = _test_application_ajv(
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         rank: {
                             type: "number",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,
@@ -84,6 +95,7 @@ export const test_application_ajv_array_simple = _test_application_ajv(
                         body: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

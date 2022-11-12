@@ -20,10 +20,12 @@ export const test_application_swagger_object_internal =
                             id: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         },
                         nullable: false,

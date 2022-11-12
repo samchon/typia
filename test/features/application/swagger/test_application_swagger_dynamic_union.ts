@@ -21,18 +21,22 @@ export const test_application_swagger_dynamic_union = _test_application_swagger(
                             {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             {
                                 type: "string",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                             {
                                 type: "number",
                                 nullable: false,
+                                "x-tson-required": true,
                             },
                         ],
                     },

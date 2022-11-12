@@ -20,14 +20,17 @@ export const test_application_ajv_object_intersection = _test_application_ajv(
                         email: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         vulnerable: {
                             type: "boolean",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,

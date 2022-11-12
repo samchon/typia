@@ -20,34 +20,42 @@ export const test_application_ajv_object_primitive = _test_application_ajv(
                         id: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         extension: {
                             type: "string",
                             enum: ["txt", "md", "html"],
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         title: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         body: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         files: {
                             type: "array",
                             items: {
                                 $ref: "components#/schemas/ObjectPrimitive.IFile",
+                                "x-tson-required": true,
                             },
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         secret: {
                             type: "boolean",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         created_at: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,
@@ -69,22 +77,27 @@ export const test_application_ajv_object_primitive = _test_application_ajv(
                         id: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         extension: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         url: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                         created_at: {
                             type: "string",
                             nullable: false,
+                            "x-tson-required": true,
                         },
                     },
                     nullable: false,
