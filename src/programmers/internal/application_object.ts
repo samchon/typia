@@ -59,6 +59,7 @@ export const application_object =
                 "x-tson-jsDocTags": property.jsDocTags.length
                     ? property.jsDocTags
                     : undefined,
+                "x-tson-required": property.value.required,
             });
 
             if (value === null) continue;
