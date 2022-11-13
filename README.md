@@ -49,8 +49,8 @@ TSON.application<[T, U, V], "ajv">();
   - Powerful Runtime type checkers:
     - Performed by only one line, `TSON.assert<T>(input)`
     - Only one library which can validate union type
-    - Maximum 9,000x faster than other libraries
-  - 10x faster `JSON.stringify()` function:
+    - Maximum 10,000x faster than other libraries
+  - 5x faster `JSON.stringify()` function:
     - Performed by only one line: `TSON.stringify<T>(input)`
     - Guarded by type validation: `TSON.assertStringify<T>(input)`
     - Only one library which can stringify union type
@@ -285,11 +285,11 @@ export function createIsStringify<T>(): (input: T) => string | null;
 
 Super-fast JSON string conversion function.
 
-When you call `TSON.stringify()` function instead of the native `JSON.stringify()`, the JSON conversion time would be 10x times faster. Also, you can perform such super-fast JSON string conversion very easily, by only one line: `TSON.stringify<T>(input)`.
+When you call `TSON.stringify()` function instead of the native `JSON.stringify()`, the JSON conversion time would be 5x times faster. Also, you can perform such super-fast JSON string conversion very easily, by only one line: `TSON.stringify<T>(input)`.
 
 If you want to validate the input type at the same time, you can choose `TSON.isStringify<T>(input)` or `TSON.assertStringify<T>(input)` functions instead. Those function calls `TSON.is()` or `TSON.assert()` function before converting to the JSON string. Of course, its conversion speed would be reduced, but it would be much safer than the native `JSON.stringify()`.
 
-Comparing performance, `typescript-json` is about 10x times faster than the native `JSON.stringify()` function. Other funtions with built-in checkers are also about 8x times faster than the native `JSON.stringify()` function.
+Comparing performance, `typescript-json` is about 5x times faster than the native `JSON.stringify()` function. Other funtions with built-in checkers are also about 8x times faster than the native `JSON.stringify()` function.
 
 ![JSON conversion speed on each CPU](https://github.com/samchon/typescript-json/raw/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics/images/stringify.svg)
 
@@ -593,7 +593,7 @@ https://github.com/samchon/nestia-helper
 
 Helper library of `NestJS`, using this `typescript-json`.
 
-`nestia-helper` is a helper library of `NestJS`, which boosts up the `JSON.stringify()` speed 5x times faster about the API responses, automatically. Also, `nestia-helper` supports automatic validation of request body, that is about 8,000x times faster than legacy `class-validator` too. 
+`nestia-helper` is a helper library of `NestJS`, which boosts up the `JSON.stringify()` speed 5x times faster about the API responses, automatically. Also, `nestia-helper` supports automatic validation of request body, that is maximum 10,000x times faster than legacy `class-validator` too. 
 
 ```typescript
 import helper from "nestia-helper";

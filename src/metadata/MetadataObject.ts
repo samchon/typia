@@ -55,6 +55,9 @@ export class MetadataObject {
         return new MetadataObject(props);
     }
 
+    /**
+     * @internal
+     */
     public static _From_without_properties(
         obj: IMetadataObject,
     ): MetadataObject {
@@ -69,6 +72,23 @@ export class MetadataObject {
             recursive: obj.recursive,
             nullables: obj.nullables.slice(),
         });
+    }
+
+    /**
+     * @internal
+     */
+    public _Is_simple(): boolean {
+        return (
+            this.properties.length < 4 &&
+            this.properties.every(
+                (property) =>
+                    property.key.isSoleLiteral() &&
+                    property.value.size() === 1 &&
+                    property.value.atomics.length === 1 &&
+                    property.value.nullable === false &&
+                    property.value.required === true,
+            )
+        );
     }
 
     public toJSON(): IMetadataObject {

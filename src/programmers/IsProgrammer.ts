@@ -1,7 +1,10 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { ValueFactory } from "../factories/ValueFactory";
+
+import { MetadataObject } from "../metadata/MetadataObject";
 
 import { IProject } from "../transformers/IProject";
 
@@ -9,6 +12,7 @@ import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { check_object } from "./internal/check_object";
+import { feature_object_entries } from "./internal/feature_object_entries";
 
 export namespace IsProgrammer {
     export const CONFIG = (
@@ -76,25 +80,63 @@ export namespace IsProgrammer {
         equals: boolean = false,
     ) {
         const importer: FunctionImporter = new FunctionImporter();
-        if (equals === true) importer.use("join");
 
-        return CheckerProgrammer.generate(
-            project,
-            {
-                ...CONFIG({
-                    object: check_object({
-                        equals,
-                        assert: true,
-                        reduce: ts.factory.createLogicalAnd,
-                        positive: ts.factory.createTrue(),
-                        superfluous: () => ts.factory.createFalse(),
-                    }),
-                    numeric: !!project.options.numeric,
-                }),
-                trace: equals,
-            },
-            importer,
-            () => importer.declare(modulo),
+        // CONFIGURATION
+        const config = CONFIG({
+            object: check_object({
+                equals,
+                assert: true,
+                reduce: ts.factory.createLogicalAnd,
+                positive: ts.factory.createTrue(),
+                superfluous: () => ts.factory.createFalse(),
+            }),
+            numeric: !!project.options.numeric,
+        });
+        config.trace = equals;
+
+        if (equals === false)
+            config.decoder = (input, target, explore, tags) => {
+                if (
+                    target.size() === 1 &&
+                    target.objects.length === 1 &&
+                    target.required === true &&
+                    target.nullable === false
+                ) {
+                    // ONLY WHEN OBJECT WITH SOME ATOMIC PROPERTIES
+                    const obj: MetadataObject = target.objects[0]!;
+                    if (
+                        obj._Is_simple() &&
+                        obj.properties.length < 4 &&
+                        obj.properties.every(
+                            (p) =>
+                                p.key.isSoleLiteral() &&
+                                p.value.size() === 1 &&
+                                p.value.atomics.length === 1 &&
+                                p.value.required === true &&
+                                p.value.nullable === false &&
+                                p.tags.length === 0,
+                        )
+                    )
+                        return ts.factory.createLogicalAnd(
+                            ExpressionFactory.isObject(input, true),
+                            config.joiner.object(
+                                feature_object_entries(config as any)(obj)(
+                                    input,
+                                ),
+                            ),
+                        );
+                }
+                return CheckerProgrammer.decode(project, config, importer)(
+                    input,
+                    target,
+                    explore,
+                    tags,
+                );
+            };
+
+        // GENERATE CHECKER
+        return CheckerProgrammer.generate(project, config, importer, () =>
+            importer.declare(modulo),
         );
     }
 
