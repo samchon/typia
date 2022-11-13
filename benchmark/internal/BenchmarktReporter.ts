@@ -88,13 +88,16 @@ export namespace BenchmarkReporter {
     }
 
     export async function initialize(): Promise<BenchmarkStream> {
+        const results: string =
+            EXTENSION === "ts"
+                ? `${__dirname}/../results`
+                : `${__dirname}/../../../benchmark/results`;
+
         const memory: number = os.totalmem();
         const cpu: string = os.cpus()[0].model.trim();
-        const location: string =
-            EXTENSION === "ts"
-                ? `${__dirname}/../results/${cpu}`
-                : `${__dirname}/../../../benchmark/results/${cpu}`;
+        const location: string = `${results}/${cpu}`;
 
+        await mkdir(results);
         await mkdir(location);
         await mkdir(`${location}/images`);
 
