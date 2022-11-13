@@ -139,6 +139,24 @@ export function assertType(): never {
     halt("assertType");
 }
 
+/**
+ * @internal
+ */
+export namespace assertType {
+    // FOR LEGACY FUNCTIONS
+    export function predicate(
+        matched: boolean,
+        exceptionable: boolean,
+        closure: () => Omit<TypeGuardError.IProps, "method">,
+    ): boolean {
+        if (matched === false && exceptionable === true)
+            throw new TypeGuardError({
+                method: "TSON.assertType",
+                ...closure(),
+            });
+        return matched;
+    }
+}
 Object.assign(assertType, assert);
 
 /**
@@ -276,6 +294,35 @@ export namespace validate {
 
     export const join = $join;
     export const report = $report;
+
+    // FOR LEGACY FUNCTIONS
+    export const predicate =
+        (res: IValidation) =>
+        (
+            matched: boolean,
+            exceptionable: boolean,
+            closure: () => IValidation.IError,
+        ) => {
+            // CHECK FAILURE
+            if (matched === false && exceptionable === true)
+                (() => {
+                    res.success &&= false;
+
+                    // TRACE ERROR
+                    const error = closure();
+                    if (res.errors.length) {
+                        const last = res.errors[res.errors.length - 1]!.path;
+                        if (
+                            last.length >= error.path.length &&
+                            last.substring(0, error.path.length) === error.path
+                        )
+                            return;
+                    }
+                    res.errors.push(error);
+                    return;
+                })();
+            return matched;
+        };
 }
 
 /* -----------------------------------------------------------
@@ -352,6 +399,20 @@ export namespace assertEquals {
     export const every = $every;
     // export const guardV2 = $guardV2("TSON.assertEquals");
     export const guard = $guard("TSON.assertEquals");
+
+    // FOR LEGACY FUNCTIONS
+    export function predicate(
+        matched: boolean,
+        exceptionable: boolean,
+        closure: () => Omit<TypeGuardError.IProps, "method">,
+    ): boolean {
+        if (matched === false && exceptionable === true)
+            throw new TypeGuardError({
+                method: "TSON.assertEquals",
+                ...closure(),
+            });
+        return matched;
+    }
 }
 
 /**
@@ -494,6 +555,35 @@ export namespace validateEquals {
     export const join = $join;
 
     export const report = validate.report;
+
+    // FOR LEGACY FUNCTIONS
+    export const predicate =
+        (res: IValidation) =>
+        (
+            matched: boolean,
+            exceptionable: boolean,
+            closure: () => IValidation.IError,
+        ) => {
+            // CHECK FAILURE
+            if (matched === false && exceptionable === true)
+                (() => {
+                    res.success &&= false;
+
+                    // TRACE ERROR
+                    const error = closure();
+                    if (res.errors.length) {
+                        const last = res.errors[res.errors.length - 1]!.path;
+                        if (
+                            last.length >= error.path.length &&
+                            last.substring(0, error.path.length) === error.path
+                        )
+                            return;
+                    }
+                    res.errors.push(error);
+                    return;
+                })();
+            return matched;
+        };
 }
 
 /* -----------------------------------------------------------
@@ -592,6 +682,20 @@ export namespace assertStringify {
     export const guard = $guard("TSON.assertStringify");
     export const every = $every;
     export const throws = () => {};
+
+    // FOR LEGACY FUNCTIONS
+    export function predicate(
+        matched: boolean,
+        exceptionable: boolean,
+        closure: () => Omit<TypeGuardError.IProps, "method">,
+    ): boolean {
+        if (matched === false && exceptionable === true)
+            throw new TypeGuardError({
+                method: "TSON.assertStringify",
+                ...closure(),
+            });
+        return matched;
+    }
 }
 
 /**
@@ -918,7 +1022,7 @@ export function createAssertType<T>(): (input: unknown) => T {
     halt("createAssertType");
 }
 
-Object.assign(createAssertType, assert);
+Object.assign(createAssertType, assertType);
 
 /**
  * Creates a reusable {@link is} function.
