@@ -18,18 +18,22 @@ export namespace IsBenchmarker {
             parameters: IParameters<Components, T>,
             spoilers: Array<(input: T) => string[]>,
         ) => {
-            const x: T = generator();
-            const y: T = generator();
-            const z: T = generator();
+            // TO ANTICIPATE OVER-FITTING OPTIMIZATION
+            // BY TSON AND TYPEBOX
+            const a: T = generator();
+            const b: T = generator();
+            const c: T = generator();
+            const d: T = generator();
 
             const suite: benchmark.Suite = new benchmark.Suite();
             for (const key of components.slice().reverse()) {
                 const is = parameters[key];
                 if (is !== null)
                     suite.add(key, () => {
-                        is(x);
-                        is(y);
-                        is(z);
+                        is(a);
+                        is(b);
+                        is(c);
+                        is(d);
                     });
             }
 
@@ -42,7 +46,7 @@ export namespace IsBenchmarker {
                 suite.run();
                 suite.map((elem: benchmark) => {
                     (output.result as any)[elem.name!] =
-                        (elem.count / elem.times.elapsed) * 3;
+                        (elem.count / elem.times.elapsed) * 4;
                 });
 
                 for (const key of components) {

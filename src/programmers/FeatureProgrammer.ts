@@ -11,12 +11,11 @@ import { MetadataObject } from "../metadata/MetadataObject";
 
 import { IProject } from "../transformers/IProject";
 
-import { Escaper } from "../utils/Escaper";
-
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { UnionExplorer } from "./helpers/UnionExplorer";
+import { feature_object_entries } from "./internal/feature_object_entries";
 
 export namespace FeatureProgrammer {
     /* -----------------------------------------------------------
@@ -162,53 +161,20 @@ export namespace FeatureProgrammer {
 
     function generate_object(config: IConfig, importer: FunctionImporter) {
         if (config.path === true) importer.use("join");
-        return function (obj: MetadataObject) {
-            const entries: IExpressionEntry[] = [];
-            for (const prop of obj.properties) {
-                const key: string | null = prop.key.getSoleLiteral();
-                const input: ts.Expression =
-                    key === null
-                        ? ts.factory.createIdentifier("value")
-                        : Escaper.variable(key)
-                        ? ts.factory.createPropertyAccessExpression(
-                              ValueFactory.INPUT(),
-                              ts.factory.createIdentifier(key),
-                          )
-                        : ts.factory.createElementAccessExpression(
-                              ValueFactory.INPUT(),
-                              ts.factory.createStringLiteral(key),
-                          );
-
-                entries.push({
-                    input,
-                    key: prop.key,
-                    meta: prop.value,
-                    expression: config.decoder(
-                        input,
-                        prop.value,
-                        {
-                            tracable: config.path || config.trace,
-                            source: "object",
-                            from: "object",
-                            postfix:
-                                key !== null
-                                    ? IdentifierFactory.postfix(key)
-                                    : `$join(key)`,
-                        },
-                        prop.tags,
-                    ),
-                });
-            }
-
-            return ts.factory.createArrowFunction(
+        return (obj: MetadataObject) =>
+            ts.factory.createArrowFunction(
                 undefined,
                 undefined,
                 PARAMETERS(config)(ValueFactory.INPUT()),
                 undefined,
                 undefined,
-                config.objector.joiner(entries, obj),
+                config.objector.joiner(
+                    feature_object_entries(config)(obj)(
+                        ts.factory.createIdentifier("input"),
+                    ),
+                    obj,
+                ),
             );
-        };
     }
 
     function generate_union(config: IConfig) {
