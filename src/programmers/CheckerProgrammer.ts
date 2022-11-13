@@ -31,6 +31,7 @@ export namespace CheckerProgrammer {
         equals: boolean;
         numeric: boolean;
         combiner: IConfig.Combiner;
+        decoder?: FeatureProgrammer.Decoder<Metadata>;
         joiner: IConfig.IJoiner;
         success: ts.Expression;
     }
@@ -133,9 +134,9 @@ export namespace CheckerProgrammer {
                 );
                 return [collection, meta];
             },
-            decoder: decode(project, config, importer),
+            decoder: config.decoder || decode(project, config, importer),
             objector: {
-                checker: decode(project, config, importer),
+                checker: config.decoder || decode(project, config, importer),
                 decoder: decode_object(config),
                 joiner: config.joiner.object,
                 unionizer: config.equals
