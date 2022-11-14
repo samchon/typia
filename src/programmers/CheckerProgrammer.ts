@@ -323,35 +323,41 @@ export namespace CheckerProgrammer {
 
             // ARRAY
             if (meta.arrays.length > 0)
-                binaries.push({
-                    expression: config.combiner(explore)("and")(
-                        input,
-                        [
-                            {
-                                expression: check_array(input, tags),
-                                combined: false,
-                            },
-                            {
-                                expression: explore_array(
-                                    project,
-                                    config,
-                                    importer,
-                                )(
-                                    input,
-                                    meta.arrays,
-                                    {
-                                        ...explore,
-                                        from: "array",
-                                    },
-                                    tags,
-                                ),
-                                combined: true,
-                            },
-                        ],
-                        meta.getName(),
-                    ),
-                    combined: true,
-                });
+                if (meta.arrays.every((elem) => elem.any))
+                    binaries.push({
+                        expression: check_array(input, tags),
+                        combined: false,
+                    });
+                else
+                    binaries.push({
+                        expression: config.combiner(explore)("and")(
+                            input,
+                            [
+                                {
+                                    expression: check_array(input, tags),
+                                    combined: false,
+                                },
+                                {
+                                    expression: explore_array(
+                                        project,
+                                        config,
+                                        importer,
+                                    )(
+                                        input,
+                                        meta.arrays,
+                                        {
+                                            ...explore,
+                                            from: "array",
+                                        },
+                                        tags,
+                                    ),
+                                    combined: true,
+                                },
+                            ],
+                            meta.getName(),
+                        ),
+                        combined: true,
+                    });
 
             // OBJECT
             if (meta.objects.length > 0)

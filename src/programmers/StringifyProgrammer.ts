@@ -283,19 +283,30 @@ export namespace StringifyProgrammer {
                         throw new Error(
                             `Error on TSON.stringify(): array cannot contain undefined value (${child.getName()}).`,
                         );
+                const value: () => ts.Expression = meta.arrays.some(
+                    (elem) => elem.any,
+                )
+                    ? () =>
+                          ts.factory.createCallExpression(
+                              ts.factory.createIdentifier("JSON.stringify"),
+                              undefined,
+                              [input],
+                          )
+                    : () =>
+                          explore_arrays(project, importer)(
+                              input,
+                              meta.arrays,
+                              {
+                                  ...explore,
+                                  from: "array",
+                              },
+                              [],
+                          );
+
                 unions.push({
                     type: "array",
                     is: () => ExpressionFactory.isArray(input),
-                    value: () =>
-                        explore_arrays(project, importer)(
-                            input,
-                            meta.arrays,
-                            {
-                                ...explore,
-                                from: "array",
-                            },
-                            [],
-                        ),
+                    value,
                 });
             }
 
