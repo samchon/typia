@@ -2,7 +2,7 @@ import { ITransformOptions } from "../../transformers/ITransformOptions";
 
 export namespace OptionPredicator {
     export function functional(options: ITransformOptions): boolean {
-        return options.functional === undefined || options.functional === true;
+        return options.functional === true;
     }
 
     export function numeric(
