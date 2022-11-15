@@ -1,52 +1,45 @@
 import benchmark from "benchmark";
 
 export namespace OptimizerBenchmarker {
-    export interface IOutput {
+    export interface IOutput<Components extends string> {
         category: string;
-        result: {
-            "typescript-json": number;
-            ajv: number | null;
-            typebox: number | null;
-        };
+        result: Record<Components, number | null>;
+        unit: string;
     }
-    export interface IParameters<T> {
-        "typescript-json": () => (input: T) => boolean;
-        ajv: () => null | ((input: T) => boolean);
-        typebox: () => null | ((input: T) => boolean);
-    }
+    export type IParameters<Components extends string, T> = Record<
+        Components,
+        null | (() => (input: T) => boolean)
+    >;
 
-    export function prepare<T>(
-        category: string,
-        generator: () => T,
-        parameters: IParameters<T>,
-    ): () => IOutput {
-        const data: T = generator();
-        const ajv = parameters["ajv"]();
-        const typebox = parameters["typebox"]();
+    export const prepare =
+        <Components extends string>(components: Components[]) =>
+        <T>(
+            category: string,
+            generator: () => T,
+            parameters: IParameters<Components, T>,
+        ): (() => IOutput<Components>) => {
+            const data: T = generator();
 
-        const suite: benchmark.Suite = new benchmark.Suite();
-        suite.add("typescript-json", () =>
-            parameters["typescript-json"]()(data),
-        );
-        if (typebox !== null) suite.add("typebox", () => typebox!(data));
-        if (ajv !== null) suite.add("ajv", () => ajv!(data));
+            const suite: benchmark.Suite = new benchmark.Suite();
+            for (const key of components) {
+                const factory = parameters[key];
+                if (factory !== null) suite.add(key, () => factory()(data));
+            }
 
-        const output: IOutput = {
-            category,
-            result: {
-                "typescript-json": 0,
-                typebox: 0,
-                ajv: null,
-            },
+            const size: number = Buffer.from(JSON.stringify(data)).length;
+            const output: IOutput<Components> = {
+                category,
+                result: {} as any,
+                unit: "kilobytes/sec",
+            };
+
+            return () => {
+                suite.run();
+                suite.map((elem: benchmark) => {
+                    (output.result as any)[elem.name!] =
+                        ((elem.count / elem.times.elapsed) * size) / 1_024;
+                });
+                return output;
+            };
         };
-
-        return () => {
-            suite.run();
-            suite.map((elem: benchmark) => {
-                (output.result as any)[elem.name!] =
-                    elem.count / elem.times.elapsed;
-            });
-            return output;
-        };
-    }
 }

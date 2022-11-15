@@ -37,97 +37,71 @@ function buildAjv(app: TSON.IJsonApplication): any {
 const buildTypebox = (schema: TSchema) => (input: any) =>
     TypeCompiler.Compile(schema).Check(input);
 
+const prepare = OptimizerBenchmarker.prepare([
+    "typescript-json",
+    "typebox",
+    "ajv",
+]);
+
 const optimizer = () => [
     //----
     // OBJECT
     //----
-    OptimizerBenchmarker.prepare(
-        "object (hierarchical)",
-        () => ObjectHierarchical.generate(),
-        {
-            "typescript-json": () => (input) => TSON.is(input),
-            ajv: () => (input) =>
-                buildAjv(TSON.application<[ObjectHierarchical], "ajv">())(
-                    input,
-                ),
-            typebox: () => buildTypebox(__TypeBoxObjectHierarchical),
-        },
-    ),
-    OptimizerBenchmarker.prepare(
-        "object (recursive)",
-        () => ObjectRecursive.generate(),
-        {
-            "typescript-json": () => (input) => TSON.is(input),
-            ajv: () => (input) =>
-                buildAjv(TSON.application<[ObjectRecursive], "ajv">())(input),
-            typebox: () => buildTypebox(__TypeBoxObjectRecursive),
-        },
-    ),
+    prepare("object (hierarchical)", () => ObjectHierarchical.generate(), {
+        "typescript-json": () => (input) => TSON.is(input),
+        ajv: () => (input) =>
+            buildAjv(TSON.application<[ObjectHierarchical], "ajv">())(input),
+        typebox: () => buildTypebox(__TypeBoxObjectHierarchical),
+    }),
+    prepare("object (recursive)", () => ObjectRecursive.generate(), {
+        "typescript-json": () => (input) => TSON.is(input),
+        ajv: () => (input) =>
+            buildAjv(TSON.application<[ObjectRecursive], "ajv">())(input),
+        typebox: () => buildTypebox(__TypeBoxObjectRecursive),
+    }),
     // SPECIAL UNION TYPES
-    OptimizerBenchmarker.prepare(
-        "object (union)",
-        () => ObjectUnionImplicit.generate(),
-        {
-            "typescript-json": () => (input) => TSON.is(input),
-            ajv: () => (input) =>
-                buildAjv(TSON.application<[ObjectUnionImplicit], "ajv">())(
-                    input,
-                ),
-            typebox: () => buildTypebox(__TypeBoxObjectUnionImplicit),
-        },
-    ),
+    prepare("object (union)", () => ObjectUnionImplicit.generate(), {
+        "typescript-json": () => (input) => TSON.is(input),
+        ajv: () => (input) =>
+            buildAjv(TSON.application<[ObjectUnionImplicit], "ajv">())(input),
+        typebox: () => buildTypebox(__TypeBoxObjectUnionImplicit),
+    }),
 
     //----
     // ARRAY
     //----
     // NORMAL STRUCTURES
-    OptimizerBenchmarker.prepare(
-        "array (hierarchical)",
-        () => ArrayHierarchical.generate(),
-        {
-            "typescript-json": () => (input) => TSON.is(input),
-            ajv: () => (input) =>
-                buildAjv(TSON.application<[ArrayHierarchical], "ajv">())(input),
-            typebox: () => buildTypebox(__TypeBoxArrayRecursive),
-        },
-    ),
+    prepare("array (hierarchical)", () => ArrayHierarchical.generate(), {
+        "typescript-json": () => (input) => TSON.is(input),
+        ajv: () => (input) =>
+            buildAjv(TSON.application<[ArrayHierarchical], "ajv">())(input),
+        typebox: () => buildTypebox(__TypeBoxArrayRecursive),
+    }),
     // RECURSIVE STRUCTURE
-    OptimizerBenchmarker.prepare(
-        "array (recursive)",
-        () => ArrayRecursive.generate(),
-        {
-            "typescript-json": () => (input) => TSON.is(input),
-            ajv: () => (input) =>
-                buildAjv(TSON.application<[ArrayRecursive], "ajv">())(input),
-            typebox: () => buildTypebox(__TypeBoxArrayRecursive),
-        },
-    ),
+    prepare("array (recursive)", () => ArrayRecursive.generate(), {
+        "typescript-json": () => (input) => TSON.is(input),
+        ajv: () => (input) =>
+            buildAjv(TSON.application<[ArrayRecursive], "ajv">())(input),
+        typebox: () => buildTypebox(__TypeBoxArrayRecursive),
+    }),
     // SPECIAL UNION STRUCTURES
-    OptimizerBenchmarker.prepare(
-        "array (union)",
-        () => ArrayRecursiveUnionExplicit.generate(),
-        {
-            "typescript-json": () => (input) => TSON.is(input),
-            ajv: () => (input) =>
-                buildAjv(
-                    TSON.application<[ArrayRecursiveUnionExplicit], "ajv">(),
-                )(input),
-            typebox: () => buildTypebox(__TypeBoxArrayRecursiveUnionExplicit),
-        },
-    ),
+    prepare("array (union)", () => ArrayRecursiveUnionExplicit.generate(), {
+        "typescript-json": () => (input) => TSON.is(input),
+        ajv: () => (input) =>
+            buildAjv(TSON.application<[ArrayRecursiveUnionExplicit], "ajv">())(
+                input,
+            ),
+        typebox: () => buildTypebox(__TypeBoxArrayRecursiveUnionExplicit),
+    }),
 
     //----
     // ULTIMATE UNION
     //----
-    OptimizerBenchmarker.prepare(
-        "ultimate union",
-        () => UltimateUnion.generate(),
-        {
-            "typescript-json": () => (input) => TSON.is(input),
-            ajv: () => (input) =>
-                buildAjv(TSON.application<[UltimateUnion], "ajv">())(input),
-            typebox: () => buildTypebox(__TypeBoxUltimateUnion),
-        },
-    ),
+    prepare("ultimate union", () => UltimateUnion.generate(), {
+        "typescript-json": () => (input) => TSON.is(input),
+        ajv: () => (input) =>
+            buildAjv(TSON.application<[UltimateUnion], "ajv">())(input),
+        typebox: () => buildTypebox(__TypeBoxUltimateUnion),
+    }),
 ];
 export { optimizer as benchmark_optimizer };

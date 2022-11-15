@@ -4,6 +4,7 @@ export namespace IsBenchmarker {
     export interface IOutput<Components extends string> {
         category: string;
         result: Record<Components, number | null>;
+        unit: string;
     }
     export type IParameters<Components extends string, T> = Record<
         Components,
@@ -37,16 +38,20 @@ export namespace IsBenchmarker {
                     });
             }
 
+            const size: number = [a, b, c, d]
+                .map((elem) => JSON.stringify(elem).length)
+                .reduce((a, b) => a + b);
             const output: IOutput<Components> = {
                 category: category,
                 result: {} as any,
+                unit: "kilobytes/sec",
             };
             for (const comp of components) output.result[comp] = null;
             return () => {
                 suite.run();
                 suite.map((elem: benchmark) => {
                     (output.result as any)[elem.name!] =
-                        (elem.count / elem.times.elapsed) * 4;
+                        ((elem.count / elem.times.elapsed) * size) / 1_024;
                 });
 
                 for (const key of components) {
