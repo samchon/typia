@@ -34,7 +34,7 @@ interface A_Const {
 }
 
 interface A_Expr {
-    lexpr?: OneOfA_Const | OneOfA_Expr | OneOfFuncCall;
+    lexpr?: OneOfA_Expr | OneOfFuncCall | OneOfA_Const;
     rexpr?: OneOfA_Expr | OneOfFuncCall | OneOfA_Const;
     location: number;
 }
