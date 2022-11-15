@@ -63,7 +63,7 @@ export class MetadataCollection {
     public getUnionIndex(meta: Metadata): number {
         const key: string = meta.objects.map((obj) => obj.name).join(" | ");
         MapUtil.take(this.unions_, key, () => meta.objects);
-        return this.unions_.size - 1;
+        return [...this.unions_.keys()].indexOf(key);
     }
 
     private get_name(checker: ts.TypeChecker, type: ts.Type): string {
