@@ -7,6 +7,7 @@ export namespace ValidateBenchmarker {
     export interface IOutput<Components extends "name" | string> {
         category: string;
         result: Record<Components, number | null>;
+        unit: string;
     }
 
     export type IParameters<Components extends string, T> = Record<
@@ -38,9 +39,13 @@ export namespace ValidateBenchmarker {
                     });
             }
 
+            const size: number = [x, y, z]
+                .map((elem) => Buffer.from(JSON.stringify(elem)).length)
+                .reduce((a, b) => a + b);
             const output: IOutput<Components> = {
                 category,
                 result: {} as any,
+                unit: "kilobytes/sec",
             };
             for (const comp of components) output.result[comp] = null;
 
@@ -48,7 +53,7 @@ export namespace ValidateBenchmarker {
                 suite.run();
                 suite.map((elem: benchmark) => {
                     (output.result as any)[elem.name!] =
-                        (elem.count / elem.times.elapsed) * 3;
+                        ((elem.count / elem.times.elapsed) * size) / 1_024;
                 });
 
                 for (const key of components) {
