@@ -10,6 +10,7 @@ export namespace BenchmarkReporter {
     interface Measurement<Components extends string> {
         category: string;
         result: Record<Components, number | null>;
+        unit: string;
     }
 
     export async function measure<
@@ -83,6 +84,10 @@ export namespace BenchmarkReporter {
                             .map((key) => measured.result[key] || "Failed")
                             .join(" | "),
                 ].join(" | "),
+            );
+        if (measurements.length !== 0)
+            await stream.write(
+                `\n<p style="text-align: right"> Unit: ${measurements[0].unit} </p>`,
             );
         await stream.write("\n\n");
     }
