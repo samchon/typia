@@ -6,7 +6,7 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "benchmark": "npm run build:test && node bin/benchmark",
-    "build": "rimraf lib && ttsc --removeComments --declaration false && ttsc --emitDeclarationOnly",
+    "build": "rimraf lib && ttsc --removeComments --declaration false && ttsc --emitDeclarationOnly && npm run build:test",
     "build:test": "rimraf bin && ttsc -p tsconfig.test.json",
     "build:test:prettier": "npm run build:test && prettier --write ./bin/**/*.js",
     "dev": "npm run build -- --watch",
