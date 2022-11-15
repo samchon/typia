@@ -1,9 +1,10 @@
 import benchmark from "benchmark";
 
 export namespace AssertThrowBenchmarker {
-    export interface IOutput<Components extends "name" | string> {
+    export interface IOutput<Components extends string> {
         category: string;
         result: Record<Components, number | null>;
+        unit: string;
     }
     export type IParameters<Components extends string, T> = Record<
         Components,
@@ -37,9 +38,13 @@ export namespace AssertThrowBenchmarker {
                     });
             }
 
+            const size: number = data
+                .map((elem) => Buffer.from(JSON.stringify(elem)).length)
+                .reduce((a, b) => a + b);
             const output: IOutput<Components> = {
                 category,
                 result: {} as any,
+                unit: "kilobytes/sec",
             };
             for (const comp of components) output.result[comp] = null;
 
@@ -47,7 +52,7 @@ export namespace AssertThrowBenchmarker {
                 suite.run();
                 suite.map((elem: benchmark) => {
                     (output as any).result[elem.name!]! =
-                        (elem.count / elem.times.elapsed) * REPEAT;
+                        ((elem.count / elem.times.elapsed) * size) / 1_024;
                 });
 
                 for (const key of components) {
