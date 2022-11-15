@@ -34,7 +34,7 @@ export namespace ArrayAny {
         },
         (input) => {
             input.undefindable1 = null!;
-            return ["$input.undefindable2"];
+            return ["$input.undefindable1"];
         },
         (input) => {
             input.nullables2 = {} as any;
