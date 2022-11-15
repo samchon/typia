@@ -4,39 +4,106 @@ import { Metadata } from "../../metadata/Metadata";
 
 import { ArrayUtil } from "../../utils/ArrayUtil";
 
-export const iterate_metadata_atomic = (
-    meta: Metadata,
-    type: ts.Type,
-): boolean => {
-    // PREPARE INTERNAL FUNCTIONS
-    const filter = (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
-    const check = (
-        flag: ts.TypeFlags,
-        literal: ts.TypeFlags,
-        className: string,
-    ) => {
-        if (
-            filter(flag) ||
-            filter(literal) ||
-            type.symbol?.escapedName === className
-        ) {
-            ArrayUtil.add(meta.atomics, className.toLowerCase());
-            return true;
-        }
-        return false;
-    };
+import { TypeFactory } from "../TypeFactory";
 
-    // CHECK EACH TYPES
-    for (const [flag, literal, className] of ATOMICS)
-        if (check(flag, literal, className) === true) {
-            return true;
-        }
-    return false;
+const same = (type: ts.Type | null) => {
+    if (type === null) return () => false;
+    return (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
 };
 
-const ATOMICS: [ts.TypeFlags, ts.TypeFlags, string][] = [
-    [ts.TypeFlags.BooleanLike, ts.TypeFlags.BooleanLiteral, "Boolean"],
-    [ts.TypeFlags.NumberLike, ts.TypeFlags.NumberLiteral, "Number"],
-    [ts.TypeFlags.BigIntLike, ts.TypeFlags.BigIntLiteral, "BigInt"],
-    [ts.TypeFlags.StringLike, ts.TypeFlags.StringLiteral, "String"],
+export const iterate_metadata_atomic =
+    (checker: ts.TypeChecker) =>
+    (meta: Metadata, type: ts.Type): boolean => {
+        // PREPARE INTERNAL FUNCTIONS
+        const filter = same(type);
+        const check = (info: IAtomicInfo) => {
+            if (
+                filter(info.atomic) ||
+                filter(info.literal) ||
+                (type.symbol?.escapedName === info.class.name &&
+                    same(TypeFactory.getReturnType(checker, type, "valueOf"))(
+                        info.atomic,
+                    ) &&
+                    info.class.methods.every((method) =>
+                        same(
+                            TypeFactory.getReturnType(
+                                checker,
+                                type,
+                                method.name,
+                            ),
+                        )(method.return),
+                    ))
+            ) {
+                ArrayUtil.add(meta.atomics, info.class.name.toLowerCase());
+                return true;
+            }
+            return false;
+        };
+
+        // CHECK EACH TYPES
+        return ATOMICS.some((info) => check(info));
+    };
+
+const ATOMICS: IAtomicInfo[] = [
+    {
+        atomic: ts.TypeFlags.BooleanLike,
+        literal: ts.TypeFlags.BooleanLiteral,
+        class: {
+            name: "Boolean",
+            methods: [],
+        },
+    },
+    {
+        atomic: ts.TypeFlags.NumberLike,
+        literal: ts.TypeFlags.NumberLiteral,
+        class: {
+            name: "Number",
+            methods: [
+                {
+                    name: "toLocaleString",
+                    return: ts.TypeFlags.String,
+                },
+            ],
+        },
+    },
+    {
+        atomic: ts.TypeFlags.BigInt,
+        literal: ts.TypeFlags.BigIntLiteral,
+        class: {
+            name: "BigInt",
+            methods: [
+                {
+                    name: "toLocaleString",
+                    return: ts.TypeFlags.String,
+                },
+            ],
+        },
+    },
+    {
+        atomic: ts.TypeFlags.StringLike,
+        literal: ts.TypeFlags.StringLiteral,
+        class: {
+            name: "String",
+            methods: [
+                {
+                    name: "toLowerCase",
+                    return: ts.TypeFlags.String,
+                },
+            ],
+        },
+    },
 ];
+
+interface IAtomicInfo {
+    atomic: ts.TypeFlags;
+    literal: ts.TypeFlags;
+    class: IClass;
+}
+interface IClass {
+    name: string;
+    methods: IMethod[];
+}
+interface IMethod {
+    name: string;
+    return: ts.TypeFlags;
+}

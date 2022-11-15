@@ -53,7 +53,7 @@ export const iterate_metadata =
                 meta,
                 type,
             ) ||
-            iterate_metadata_atomic(meta, type) ||
+            iterate_metadata_atomic(checker)(meta, type) ||
             iterate_metadata_tuple(checker)(options)(collection)(meta, type) ||
             iterate_metadata_array(checker)(options)(collection)(meta, type) ||
             iterate_metadata_object(checker)(options)(collection)(
