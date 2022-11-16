@@ -206,6 +206,10 @@ function create_output() {
     return ts.factory.createObjectLiteralExpression(
         [
             ts.factory.createPropertyAssignment(
+                "data",
+                ts.factory.createIdentifier("input"),
+            ),
+            ts.factory.createPropertyAssignment(
                 "success",
                 ts.factory.createTrue(),
             ),

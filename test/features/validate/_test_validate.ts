@@ -8,19 +8,27 @@ export function _test_validate<T>(
     spoilers?: Spoiler<T>[],
 ): () => void {
     return () => {
-        const valid = validator(generator());
+        const input: T = generator();
+        const valid: IValidation = validator(input);
         if (valid.success === false) {
             console.log(valid);
             throw new Error(
                 `Bug on TSON.validate(): failed to understand the ${name} type.`,
             );
-        }
+        } else if (valid.data !== input)
+            throw new Error(
+                "Bug on TSON.validate(): failed to archive the input value.",
+            );
 
         const wrong: ISpoiled[] = [];
         for (const spoil of spoilers || []) {
             const elem: T = generator();
             const expected: string[] = spoil(elem);
-            const { errors } = validator(elem);
+            const { success, errors } = validator(elem);
+            if (success === true)
+                throw new Error(
+                    `Bug on TSON.validate(): failed to detect error on the ${name} type.`,
+                );
 
             expected.sort();
             errors.sort((x, y) => (x.path < y.path ? -1 : 1));
