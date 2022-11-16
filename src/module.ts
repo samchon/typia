@@ -248,7 +248,7 @@ export namespace is {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validate<T>(input: T): IValidation;
+export function validate<T>(input: T): IValidation<T>;
 
 /**
  * Validates a value type.
@@ -273,7 +273,7 @@ export function validate<T>(input: T): IValidation;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validate<T>(input: unknown): IValidation;
+export function validate<T>(input: unknown): IValidation<T>;
 
 /**
  * @internal
@@ -307,18 +307,19 @@ export namespace validate {
             if (matched === false && exceptionable === true)
                 (() => {
                     res.success &&= false;
+                    const errorList = (res as IValidation.IFailure).errors;
 
                     // TRACE ERROR
                     const error = closure();
-                    if (res.errors.length) {
-                        const last = res.errors[res.errors.length - 1]!.path;
+                    if (errorList.length) {
+                        const last = errorList[errorList.length - 1]!.path;
                         if (
                             last.length >= error.path.length &&
                             last.substring(0, error.path.length) === error.path
                         )
                             return;
                     }
-                    res.errors.push(error);
+                    errorList.push(error);
                     return;
                 })();
             return matched;
@@ -508,7 +509,7 @@ export namespace equals {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validateEquals<T>(input: T): IValidation;
+export function validateEquals<T>(input: T): IValidation<T>;
 
 /**
  * Validates equality between a value and its type.
@@ -534,7 +535,7 @@ export function validateEquals<T>(input: T): IValidation;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validateEquals<T>(input: unknown): IValidation;
+export function validateEquals<T>(input: unknown): IValidation<T>;
 
 /**
  * @internal
@@ -568,18 +569,19 @@ export namespace validateEquals {
             if (matched === false && exceptionable === true)
                 (() => {
                     res.success &&= false;
+                    const errorList = (res as IValidation.IFailure).errors;
 
                     // TRACE ERROR
                     const error = closure();
-                    if (res.errors.length) {
-                        const last = res.errors[res.errors.length - 1]!.path;
+                    if (errorList.length) {
+                        const last = errorList[errorList.length - 1]!.path;
                         if (
                             last.length >= error.path.length &&
                             last.substring(0, error.path.length) === error.path
                         )
                             return;
                     }
-                    res.errors.push(error);
+                    errorList.push(error);
                     return;
                 })();
             return matched;
