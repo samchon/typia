@@ -7,7 +7,7 @@ import { HorizontalBarChart } from "./HorizontalBarChart";
 const EXTENSION = __filename.substring(-2);
 
 export namespace BenchmarkReporter {
-    interface Measurement<Components extends string> {
+    export interface Measurement<Components extends string> {
         category: string;
         result: Record<Components, number | null>;
         unit: string;
@@ -16,7 +16,14 @@ export namespace BenchmarkReporter {
     export async function measure<
         Components extends string,
         T extends Measurement<any>,
-    >(stream: BenchmarkStream, functor: () => (() => T)[]): Promise<void> {
+    >(
+        stream: BenchmarkStream,
+        functor: () => Array<(() => T) | (() => Promise<T>)>,
+        starter?: () => Promise<void>,
+        terminator?: () => Promise<void>,
+    ): Promise<void> {
+        if (starter) await starter();
+
         const name: string = functor.name
             .split("po_")
             .join("(")
@@ -27,11 +34,14 @@ export namespace BenchmarkReporter {
         console.log("  - " + name);
 
         // MEASURE PERFORMANCE
-        const measurements: Measurement<any>[] = functor().map((f) => {
-            const m: Measurement<any> = f();
-            console.log("    - " + m.category);
-            return m;
-        });
+        const measurements: Measurement<any>[] = await map(
+            functor(),
+            async (f) => {
+                const m: Measurement<any> = await f();
+                console.log("    - " + m.category);
+                return m;
+            },
+        );
         const columns = Object.keys(measurements[0].result) as Components[];
         const relatives = measurements.map((measured) => {
             // COALESCING
@@ -90,6 +100,8 @@ export namespace BenchmarkReporter {
                 `\n<p style="text-align: right"> Unit: ${measurements[0].unit} </p>`,
             );
         await stream.write("\n\n");
+
+        if (terminator) await terminator();
     }
 
     export async function initialize(): Promise<BenchmarkStream> {
@@ -145,5 +157,14 @@ export namespace BenchmarkReporter {
         );
         const data: { version: string } = JSON.parse(content);
         return data.version;
+    }
+
+    async function map<T, U>(
+        array: T[],
+        closure: (value: T) => Promise<U>,
+    ): Promise<U[]> {
+        const result: U[] = [];
+        for (const value of array) result.push(await closure(value));
+        return result;
     }
 }
