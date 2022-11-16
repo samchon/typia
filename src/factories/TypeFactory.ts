@@ -5,7 +5,7 @@ export namespace TypeFactory {
         checker: ts.TypeChecker,
         type: ts.Type,
     ): ts.Type | null {
-        return get_return_type(checker, type, "toJSON");
+        return getReturnType(checker, type, "toJSON");
     }
 
     export function isFunction(type: ts.Type): boolean {
@@ -24,7 +24,7 @@ export namespace TypeFactory {
             : null;
     }
 
-    function get_return_type(
+    export function getReturnType(
         checker: ts.TypeChecker,
         type: ts.Type,
         name: string,
