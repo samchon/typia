@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.3.33",
+  "version": "3.4.0-dev.20221116",
   "description": "Runtime type checkers and 5x faster JSON.stringify() function",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
