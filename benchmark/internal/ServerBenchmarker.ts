@@ -39,16 +39,16 @@ export namespace ServerBenchmarker {
 
             const total =
                 request.method === "GET"
-                    ? (result: cannon.Result) => result.throughput.total
+                    ? (result: cannon.Result) => result.throughput.total / 1_024
                     : (result: cannon.Result) => result.requests.total;
 
             const entries = Object.entries(parameters).slice().reverse();
             for (const [key, port] of entries) {
                 const result: cannon.Result = await measure(request)(port);
-                const time: number =
-                    result.finish.getTime() - result.start.getTime();
+                const sec: number =
+                    (result.finish.getTime() - result.start.getTime()) / 1_000;
 
-                const value: number = total(result) / time;
+                const value: number = total(result) / sec;
                 output.result[key] = value;
             }
             return output;
