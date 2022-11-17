@@ -34,6 +34,13 @@ export namespace ArraySimple {
         }));
     }
 
+    export function trail(): ArraySimple {
+        const data = generate();
+        const hobbies = data[data.length - 1]!.hobbies;
+        hobbies[hobbies.length - 1] = {} as any;
+        return data;
+    }
+
     export const SPOILERS: Spoiler<ArraySimple>[] = [
         (input) => {
             input[0].name = false as any;
