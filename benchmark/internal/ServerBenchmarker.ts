@@ -9,38 +9,65 @@ export namespace ServerBenchmarker {
     }
 
     export type IParameters = Record<string, number>;
+    export interface IRequest {
+        method: "GET" | "POST";
+        path: string;
+        body?: string;
+    }
 
     export const prepare =
         (parameters: IParameters) =>
-        (category: string, path: string) =>
+        (category: string, input: string | Omit<IRequest, "method">) =>
         async () => {
+            const request: IRequest =
+                typeof input === "string"
+                    ? {
+                          method: "GET",
+                          path: input,
+                      }
+                    : {
+                          ...input,
+                          method: "POST",
+                      };
             const output: IOutput = {
                 category,
                 result: {} as any,
-                unit: "megabytes/sec",
+                unit:
+                    request.method === "GET" ? "megabytes/sec" : "requsts/sec",
             };
-            for (const [key, port] of Object.entries(parameters)) {
-                const result: cannon.Result = await measure(path)(port);
-                const value: number =
-                    result.throughput.total /
-                    (result.finish.getTime() - result.start.getTime());
+            for (const key of Object.keys(parameters)) output.result[key] = 0;
+
+            const total =
+                request.method === "GET"
+                    ? (result: cannon.Result) => result.throughput.total
+                    : (result: cannon.Result) => result.requests.total;
+
+            const entries = Object.entries(parameters).slice().reverse();
+            for (const [key, port] of entries) {
+                const result: cannon.Result = await measure(request)(port);
+                const time: number =
+                    result.finish.getTime() - result.start.getTime();
+
+                const value: number = total(result) / time;
                 output.result[key] = value;
             }
             return output;
         };
-}
 
-const measure = (path: string) => (port: number) =>
-    new Promise<cannon.Result>((resolve, reject) =>
-        cannon(
-            {
-                url: `http://127.0.0.1:${port}/${path}`,
-                connections: PHYSICAL_CPU_COUNT * 32,
-                workers: Math.min(1, Math.ceil(PHYSICAL_CPU_COUNT / 2)),
-            },
-            (err, result) => {
-                if (err) reject(err);
-                else resolve(result);
-            },
-        ),
-    );
+    const measure = (request: IRequest) => (port: number) =>
+        new Promise<cannon.Result>((resolve, reject) =>
+            cannon(
+                {
+                    url: `http://127.0.0.1:${port}/${request.path}`,
+                    method: request.method,
+                    body: request.body,
+                    connections: 128,
+                    workers: Math.min(1, Math.ceil(PHYSICAL_CPU_COUNT / 2)),
+                },
+                (err, result) => {
+                    if (err) reject(err);
+                    else resolve(result);
+                },
+            ),
+        );
+}

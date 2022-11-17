@@ -1,3 +1,5 @@
-import { __TypeBoxObjectRecursive } from "../../benchmark/structures/typebox/TypeBoxObjectRecursive";
+import TSON from "../../src";
+import { ObjectSimple } from "../structures/ObjectSimple";
 
-console.log(JSON.stringify(__TypeBoxObjectRecursive, null, 4));
+TSON.createIs<ObjectSimple>();
+TSON.createStringify<ObjectSimple>();

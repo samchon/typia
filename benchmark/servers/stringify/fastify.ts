@@ -1,15 +1,17 @@
 import fastify, { FastifyReply, FastifyRequest } from "fastify";
 
-import TSON from "../../src";
-import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
-import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
-import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
-import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
-import { ObjectSimple } from "../../test/structures/ObjectSimple";
-import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
-import { ServerStorage } from "./ServerStorage";
+import TSON from "../../../src";
+import { ArrayHierarchical } from "../../../test/structures/ArrayHierarchical";
+import { ArrayRecursive } from "../../../test/structures/ArrayRecursive";
+import { ArrayRecursiveUnionExplicit } from "../../../test/structures/ArrayRecursiveUnionExplicit";
+import { ArraySimple } from "../../../test/structures/ArraySimple";
+import { ObjectHierarchical } from "../../../test/structures/ObjectHierarchical";
+import { ObjectRecursive } from "../../../test/structures/ObjectRecursive";
+import { ObjectSimple } from "../../../test/structures/ObjectSimple";
+import { ObjectUnionExplicit } from "../../../test/structures/ObjectUnionExplicit";
+import { ServerStorage } from "../ServerStorage";
 
-const server = fastify().withTypeProvider();
+const server = fastify();
 const schema = (app: TSON.IJsonApplication) => {
     const definitions: Record<string, TSON.IJsonSchema> = {};
     for (const [key, value] of Object.entries(app.components.schemas))
@@ -29,30 +31,42 @@ const schema = (app: TSON.IJsonApplication) => {
 const reply = (data: object) => (_i: FastifyRequest, o: FastifyReply) =>
     o.send(data);
 
+const storage = ServerStorage(true);
+
 server.get(
     "/ObjectSimple",
     schema(TSON.application<[ObjectSimple[]], "ajv", "#/definitions">()),
-    reply(ServerStorage.ObjectSimple),
+    reply(storage.ObjectSimple),
 );
 server.get(
     "/ObjectHierarchical",
     schema(TSON.application<[ObjectHierarchical[]], "ajv", "#/definitions">()),
-    reply(ServerStorage.ObjectHierarchical),
+    reply(storage.ObjectHierarchical),
 );
 server.get(
     "/ObjectRecursive",
     schema(TSON.application<[ObjectRecursive[]], "ajv", "#/definitions">()),
-    reply(ServerStorage.ObjectRecursive),
+    reply(storage.ObjectRecursive),
 );
 server.get(
     "/ObjectUnionExplicit",
     schema(TSON.application<[ObjectUnionExplicit[]], "ajv", "#/definitions">()),
-    reply(ServerStorage.ObjectUnionExplicit),
+    reply(storage.ObjectUnionExplicit),
+);
+server.get(
+    "/ArraySimple",
+    schema(TSON.application<[ArraySimple[]], "ajv", "#/definitions">()),
+    reply(storage.ArraySimple),
+);
+server.get(
+    "/ArrayHierarchical",
+    schema(TSON.application<[ArrayHierarchical[]], "ajv", "#/definitions">()),
+    reply(storage.ArrayHierarchical),
 );
 server.get(
     "/ArrayRecursive",
     schema(TSON.application<[ArrayRecursive[]], "ajv", "#/definitions">()),
-    reply(ServerStorage.ArrayRecursive),
+    reply(storage.ArrayRecursive),
 );
 server.get(
     "/ArrayRecursiveUnionExplicit",
@@ -63,7 +77,7 @@ server.get(
             "#/definitions"
         >(),
     ),
-    reply(ServerStorage.ArrayRecursiveUnionExplicit),
+    reply(storage.ArrayRecursiveUnionExplicit),
 );
 
 server.listen({ port: 44_444 });

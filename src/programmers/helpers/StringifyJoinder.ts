@@ -11,7 +11,7 @@ import { IExpressionEntry } from "./IExpressionEntry";
 export namespace StringifyJoiner {
     export const object =
         (importer: FunctionImporter) =>
-        (entries: IExpressionEntry[]): ts.ConciseBody => {
+        (entries: IExpressionEntry[]): ts.Expression => {
             // CHECK AND SORT ENTRIES
             const regular: IExpressionEntry[] = entries.filter((entry) =>
                 entry.key.isSoleLiteral(),
