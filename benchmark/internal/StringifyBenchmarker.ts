@@ -31,12 +31,12 @@ export namespace StringifyBenchmarker {
             }
 
             const size: number = data
-                .map((elem) => JSON.stringify(elem).length)
+                .map((elem) => Buffer.from(JSON.stringify(elem)).length)
                 .reduce((a, b) => a + b);
             const output: IOutput<Components> = {
                 category,
                 result: {} as any,
-                unit: "KB/s",
+                unit: "kilobytes/sec",
             };
 
             return () => {

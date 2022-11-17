@@ -39,7 +39,7 @@ export namespace IsBenchmarker {
             }
 
             const size: number = [a, b, c, d]
-                .map((elem) => JSON.stringify(elem).length)
+                .map((elem) => Buffer.from(JSON.stringify(elem)).length)
                 .reduce((a, b) => a + b);
             const output: IOutput<Components> = {
                 category: category,

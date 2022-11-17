@@ -4,11 +4,11 @@ import { ServerBenchmarker } from "../internal/ServerBenchmarker";
 
 let forked: cp.ChildProcess | null = null;
 const prepare = ServerBenchmarker.prepare({
-    "express (pure)": 22222,
-    "express (TSON.stringify)": 33333,
-    "express (TSON.isStringify)": 33334,
-    "express (TSON.assertStringify)": 33335,
-    fastify: 44444,
+    "express (pure)": ":33333/express",
+    "express (TSON.stringify)": ":33333/stringify",
+    "express (TSON.isStringify)": ":33333/isStringify",
+    "express (TSON.assertStringify)": ":33333/assertStringify",
+    fastify: ":44444",
 });
 
 const stringify_po_server_pc = () => [
