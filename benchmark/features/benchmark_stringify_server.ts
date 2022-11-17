@@ -12,15 +12,17 @@ const prepare = ServerBenchmarker.prepare({
 });
 
 const stringify_po_server_pc = () => [
-    prepare("object (simple)", "ObjetSimple"),
+    prepare("object (simple)", "ObjectSimple"),
     prepare("object (hierarchical)", "ObjectHierarchical"),
     prepare("object (recursive)", "ObjectRecursive"),
     prepare("object (union)", "ObjectUnionExplicit"),
+    prepare("array (simple)", "ArraySimple"),
+    prepare("array (hierarchical)", "ArrayHierarchical"),
     prepare("array (recursive)", "ArrayRecursive"),
     prepare("array (union)", "ArrayRecursiveUnionExplicit"),
 ];
 stringify_po_server_pc.starter = () => {
-    forked = cp.fork(__dirname + "/../servers/index.js");
+    forked = cp.fork(__dirname + "/../servers/stringify/index.js");
     return new Promise<void>((resolve) => forked!.on("spawn", resolve));
 };
 stringify_po_server_pc.terminator = async () => {

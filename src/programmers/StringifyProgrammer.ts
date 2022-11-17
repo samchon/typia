@@ -8,6 +8,7 @@ import { ValueFactory } from "../factories/ValueFactory";
 
 import { IMetadataTag } from "../metadata/IMetadataTag";
 import { Metadata } from "../metadata/Metadata";
+import { MetadataObject } from "../metadata/MetadataObject";
 
 import { IProject } from "../transformers/IProject";
 
@@ -16,11 +17,13 @@ import { ArrayUtil } from "../utils/ArrayUtil";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { StringifyJoiner } from "./helpers/StringifyJoinder";
 import { StringifyPredicator } from "./helpers/StringifyPredicator";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 import { decode_union_object } from "./internal/decode_union_object";
+import { feature_object_entries } from "./internal/feature_object_entries";
 
 export namespace StringifyProgrammer {
     /* -----------------------------------------------------------
@@ -316,10 +319,24 @@ export namespace StringifyProgrammer {
                     type: "object",
                     is: () => ExpressionFactory.isObject(input, true),
                     value: () =>
-                        explore_objects(input, meta, {
-                            ...explore,
-                            from: "object",
-                        }),
+                        meta.objects.length === 1 &&
+                        meta.objects[0]!._Is_simple()
+                            ? (() => {
+                                  const obj: MetadataObject = meta.objects[0]!;
+                                  const entries: IExpressionEntry[] =
+                                      feature_object_entries({
+                                          decoder: decode(project, importer),
+                                          trace: false,
+                                          path: false,
+                                      })(obj)(input);
+                                  return StringifyJoiner.object(importer)(
+                                      entries,
+                                  );
+                              })()
+                            : explore_objects(input, meta, {
+                                  ...explore,
+                                  from: "object",
+                              }),
                 });
 
             //----
