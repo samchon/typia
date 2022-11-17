@@ -4,6 +4,7 @@ import TSON from "../../src";
 import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
+import { ArraySimple } from "../../test/structures/ArraySimple";
 import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
 import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
 import { ObjectSimple } from "../../test/structures/ObjectSimple";
@@ -75,6 +76,13 @@ const stringify = () => [
     //----
     // ARRAY
     //----
+    prepare("array (simple)", () => ArraySimple.generate(), {
+        "TSON.stringify()": TSON.createStringify<ArraySimple>(),
+        "TSON.assertStringify()": TSON.createAssertStringify<ArraySimple>(),
+        "TSON.isStringify()": TSON.createIsStringify<ArraySimple>(),
+        "fast-json-stringify": build(TSON.application<[ArraySimple], "ajv">()),
+        "JSON.stringify": JSON.stringify,
+    }),
     prepare("array (hierarchical)", () => ArrayHierarchical.generate(), {
         "TSON.stringify()": TSON.createStringify<ArrayHierarchical>(),
         "TSON.assertStringify()":
