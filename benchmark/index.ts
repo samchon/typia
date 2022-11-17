@@ -1,5 +1,3 @@
-import PHYSICAL_CPU_COUNT from "physical-cpu-count";
-
 import { benchmark_assert_equals_iterate } from "./features/benchmark_assert_equals_iterate";
 import { benchmark_assert_equals_throw } from "./features/benchmark_assert_equals_throw";
 import { benchmark_assert_iterate } from "./features/benchmark_assert_iterate";
@@ -34,7 +32,7 @@ async function main(): Promise<void> {
         benchmark_validate_equals,
         benchmark_optimizer,
         benchmark_stringify,
-        ...(PHYSICAL_CPU_COUNT >= 8 ? [benchmark_stringify_server] : []),
+        benchmark_stringify_server,
     ];
 
     for (const func of functors) {
