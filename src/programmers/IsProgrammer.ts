@@ -104,19 +104,7 @@ export namespace IsProgrammer {
                 ) {
                     // ONLY WHEN OBJECT WITH SOME ATOMIC PROPERTIES
                     const obj: MetadataObject = target.objects[0]!;
-                    if (
-                        obj._Is_simple() &&
-                        obj.properties.length < 4 &&
-                        obj.properties.every(
-                            (p) =>
-                                p.key.isSoleLiteral() &&
-                                p.value.size() === 1 &&
-                                p.value.atomics.length === 1 &&
-                                p.value.required === true &&
-                                p.value.nullable === false &&
-                                p.tags.length === 0,
-                        )
-                    )
+                    if (obj._Is_simple())
                         return ts.factory.createLogicalAnd(
                             ExpressionFactory.isObject(input, true),
                             config.joiner.object(

@@ -18,19 +18,25 @@ export namespace StringifyBenchmarker {
             generator: () => T,
             parameters: IParameters<Components, T>,
         ): (() => IOutput<Components>) => {
-            const data: T = generator();
+            // TO ANTICIPATE OVER-FITTING OPTIMIZATION
+            const data: T[] = new Array(10).fill("").map(generator);
 
             const suite: benchmark.Suite = new benchmark.Suite();
             for (const key of components) {
                 const stringify = parameters[key];
-                if (stringify !== null) suite.add(key, () => stringify(data));
+                if (stringify !== null)
+                    suite.add(key, () => {
+                        for (const elem of data) stringify(elem);
+                    });
             }
 
-            const size: number = JSON.stringify(data).length;
+            const size: number = data
+                .map((elem) => Buffer.from(JSON.stringify(elem)).length)
+                .reduce((a, b) => a + b);
             const output: IOutput<Components> = {
                 category,
                 result: {} as any,
-                unit: "KB/s",
+                unit: "kilobytes/sec",
             };
 
             return () => {
