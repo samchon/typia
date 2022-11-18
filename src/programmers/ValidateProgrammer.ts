@@ -45,13 +45,16 @@ export namespace ValidateProgrammer {
                 undefined,
                 ts.factory.createBlock(
                     [
-                        StatementFactory.constant("$out", create_output()),
+                        StatementFactory.constant(
+                            "errors",
+                            ts.factory.createArrayLiteralExpression([]),
+                        ),
                         StatementFactory.constant(
                             "$report",
                             ts.factory.createCallExpression(
                                 IdentifierFactory.join(modulo, "report"),
                                 [],
-                                [ts.factory.createIdentifier("$out")],
+                                [ts.factory.createIdentifier("errors")],
                             ),
                         ),
                         ...importer.declare(modulo),
@@ -66,29 +69,14 @@ export namespace ValidateProgrammer {
                                 ],
                             ),
                         ),
-                        ts.factory.createIfStatement(
-                            ts.factory.createStrictInequality(
+                        StatementFactory.constant(
+                            "success",
+                            ts.factory.createStrictEquality(
                                 ts.factory.createNumericLiteral(0),
-                                ts.factory.createIdentifier(
-                                    "$out.errors.length",
-                                ),
-                            ),
-                            ts.factory.createExpressionStatement(
-                                ts.factory.createBinaryExpression(
-                                    ts.factory.createPropertyAccessExpression(
-                                        ts.factory.createIdentifier("$out"),
-                                        ts.factory.createIdentifier("success"),
-                                    ),
-                                    ts.factory.createToken(
-                                        ts.SyntaxKind.EqualsToken,
-                                    ),
-                                    ts.factory.createFalse(),
-                                ),
+                                ts.factory.createIdentifier("errors.length"),
                             ),
                         ),
-                        ts.factory.createReturnStatement(
-                            ts.factory.createIdentifier("$out"),
-                        ),
+                        ts.factory.createReturnStatement(create_output()),
                     ],
                     true,
                 ),
@@ -205,17 +193,17 @@ const joiner =
 function create_output() {
     return ts.factory.createObjectLiteralExpression(
         [
+            ts.factory.createShorthandPropertyAssignment("success"),
+            ts.factory.createShorthandPropertyAssignment("errors"),
             ts.factory.createPropertyAssignment(
                 "data",
-                ts.factory.createIdentifier("input"),
-            ),
-            ts.factory.createPropertyAssignment(
-                "success",
-                ts.factory.createTrue(),
-            ),
-            ts.factory.createPropertyAssignment(
-                "errors",
-                ts.factory.createArrayLiteralExpression([], true),
+                ts.factory.createConditionalExpression(
+                    ts.factory.createIdentifier("success"),
+                    undefined,
+                    ts.factory.createIdentifier("input"),
+                    undefined,
+                    ts.factory.createIdentifier("undefined"),
+                ),
             ),
         ],
         true,
