@@ -60,6 +60,14 @@ export namespace ArrayHierarchical {
         }));
     }
 
+    export function trail(): ArrayHierarchical {
+        const data = generate();
+        const departments = data[data.length - 1]!.departments;
+        const employees = departments[departments.length - 1]!.employees;
+        employees[employees.length - 1] = {} as any;
+        return data;
+    }
+
     export const SPOILERS: Spoiler<ArrayHierarchical>[] = [
         (input) => {
             input[0].serial = "number" as any;
