@@ -22,16 +22,16 @@ interface Functor {
 async function main(): Promise<void> {
     const stream: BenchmarkStream = await BenchmarkReporter.initialize();
     const functors: Functor[] = [
-        // benchmark_is,
-        // benchmark_assert_iterate,
-        // benchmark_assert_throw,
-        // benchmark_validate,
-        // benchmark_equals,
-        // benchmark_assert_equals_iterate,
-        // benchmark_assert_equals_throw,
-        // benchmark_validate_equals,
-        // benchmark_optimizer,
-        // benchmark_stringify,
+        benchmark_is,
+        benchmark_assert_iterate,
+        benchmark_assert_throw,
+        benchmark_validate,
+        benchmark_equals,
+        benchmark_assert_equals_iterate,
+        benchmark_assert_equals_throw,
+        benchmark_validate_equals,
+        benchmark_optimizer,
+        benchmark_stringify,
         benchmark_stringify_server,
     ];
 
