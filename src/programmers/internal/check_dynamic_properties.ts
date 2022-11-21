@@ -1,6 +1,7 @@
 import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
+import { StatementFactory } from "../../factories/StatementFactory";
 
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { check_everything } from "./check_everything";
@@ -19,7 +20,7 @@ export const check_dynamic_properties =
         const criteria = props.entries
             ? ts.factory.createCallExpression(props.entries, undefined, [
                   ts.factory.createCallExpression(
-                      ts.factory.createIdentifier("Object.entries"),
+                      ts.factory.createIdentifier("Object.keys"),
                       undefined,
                       [ts.factory.createIdentifier("input")],
                   ),
@@ -28,7 +29,7 @@ export const check_dynamic_properties =
             : ts.factory.createCallExpression(
                   IdentifierFactory.join(
                       ts.factory.createCallExpression(
-                          ts.factory.createIdentifier("Object.entries"),
+                          ts.factory.createIdentifier("Object.keys"),
                           undefined,
                           [ts.factory.createIdentifier("input")],
                       ),
@@ -52,15 +53,7 @@ const check_dynamic_property =
         const key = ts.factory.createIdentifier("key");
         const value = ts.factory.createIdentifier("value");
 
-        const statements: ts.IfStatement[] = [
-            ts.factory.createIfStatement(
-                ts.factory.createStrictEquality(
-                    ts.factory.createIdentifier("undefined"),
-                    value,
-                ),
-                ts.factory.createReturnStatement(props.positive),
-            ),
-        ];
+        const statements: ts.Statement[] = [];
         const add = (exp: ts.Expression, output: ts.Expression) =>
             statements.push(
                 ts.factory.createIfStatement(
@@ -72,6 +65,19 @@ const check_dynamic_property =
         // GATHER CONDITIONS
         if (props.equals === true && regular.length)
             add(is_regular_property(regular), props.positive);
+        statements.push(
+            StatementFactory.constant(
+                "value",
+                ts.factory.createIdentifier("input[key]"),
+            ),
+        );
+        add(
+            ts.factory.createStrictEquality(
+                ts.factory.createIdentifier("undefined"),
+                value,
+            ),
+            props.positive,
+        );
         for (const entry of dynamic)
             add(
                 ts.factory.createCallExpression(
@@ -95,9 +101,7 @@ const check_dynamic_property =
                 ...statements,
                 ts.factory.createReturnStatement(
                     props.equals === true
-                        ? props.superfluous(
-                              ts.factory.createIdentifier("value"),
-                          )
+                        ? props.superfluous(value)
                         : props.positive,
                 ),
             ],
@@ -108,22 +112,7 @@ const check_dynamic_property =
         return ts.factory.createArrowFunction(
             undefined,
             undefined,
-            [
-                IdentifierFactory.parameter(
-                    ts.factory.createArrayBindingPattern([
-                        ts.factory.createBindingElement(
-                            undefined,
-                            undefined,
-                            "key",
-                        ),
-                        ts.factory.createBindingElement(
-                            undefined,
-                            undefined,
-                            "value",
-                        ),
-                    ]),
-                ),
-            ],
+            [IdentifierFactory.parameter("key")],
             undefined,
             undefined,
             block,

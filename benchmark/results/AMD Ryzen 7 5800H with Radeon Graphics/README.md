@@ -91,15 +91,15 @@ ultimate union | 2711.840715531116 | Failed | Failed | Failed | Failed
 
  Components | typescript-json | typebox 
 ------------|-----------------|---------
-object (simple) | 3964.8603738455267 | 8622.833224134001
-object (hierarchical) | 8391.157085316734 | 17456.644690160832
-object (recursive) | 8372.25910121991 | 13960.155890969669
-object (union, explicit) | 3432.2368421052633 | 3849.389926723358
-object (union, implicit) | 2901.365945956684 | 3577.840578445065
-array (recursive) | 6854.909276318872 | 12395.663594090662
-array (union, explicit) | 5838.26362251805 | 5445.17936536497
-array (union, implicit) | 3643.3178274105367 | 4164.33231863079
-ultimate union | 3876.636849870896 | Failed
+object (simple) | 13824.475806919438 | 8378.646985619469
+object (hierarchical) | 14940.332593848725 | 16000.884474369515
+object (recursive) | 21169.29909984827 | 12520.116381147911
+object (union, explicit) | 8157.084256659551 | 3492.150719267655
+object (union, implicit) | 7175.367705676021 | 3395.01997716895
+array (recursive) | 19154.52482400889 | 12432.991087730508
+array (union, explicit) | 13136.394905566029 | 5232.858611965302
+array (union, implicit) | 5854.826918987285 | 3925.6561450961713
+ultimate union | 5896.4390530787505 | Failed
 
 <p style="text-align: right"> Unit: kilobytes/sec </p>
 
