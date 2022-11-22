@@ -1075,7 +1075,7 @@ export function createValidate(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidate<T>(): (input: unknown) => IValidation;
+export function createValidate<T>(): (input: unknown) => IValidation<T>;
 
 /**
  * @internal

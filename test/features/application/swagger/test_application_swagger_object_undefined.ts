@@ -50,9 +50,10 @@ export const test_application_swagger_object_undefined =
                                 nullable: false,
                                 "x-tson-required": false,
                             },
+                            unknown: {},
                         },
                         nullable: false,
-                        required: ["name"],
+                        required: ["name", "unknown"],
                         "x-tson_jsDocTags": [],
                     },
                     "ObjectUndefined.IClassroom": {

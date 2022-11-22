@@ -8,6 +8,7 @@ export namespace ObjectUndefined {
         classroom?: IClassroom;
         grade: number | undefined;
         nothing: undefined;
+        unknown: unknown;
         never: never;
     }
     export interface IClassroom {
@@ -34,6 +35,7 @@ export namespace ObjectUndefined {
                               }
                             : undefined,
                         nothing,
+                        unknown: null!,
                         never: undefined!,
                     });
 
