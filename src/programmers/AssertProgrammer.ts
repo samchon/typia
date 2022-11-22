@@ -1,9 +1,8 @@
 import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
-// import { StatementFactory } from "../factories/StatementFactory";
-import { ValueFactory } from "../factories/ValueFactory";
 
+// import { StatementFactory } from "../factories/StatementFactory";
 import { IProject } from "../transformers/IProject";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
@@ -261,13 +260,15 @@ export namespace AssertProgrammer {
                                 program,
                                 undefined,
                                 [
-                                    ValueFactory.INPUT(),
+                                    ts.factory.createIdentifier("input"),
                                     ts.factory.createStringLiteral("$input"),
                                     ts.factory.createTrue(),
                                 ],
                             ),
                         ),
-                        ts.factory.createReturnStatement(ValueFactory.INPUT()),
+                        ts.factory.createReturnStatement(
+                            ts.factory.createIdentifier("input"),
+                        ),
                     ],
                     true,
                 ),

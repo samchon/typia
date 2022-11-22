@@ -2,7 +2,6 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
-import { ValueFactory } from "../factories/ValueFactory";
 
 import { IProject } from "../transformers/IProject";
 
@@ -63,7 +62,7 @@ export namespace ValidateProgrammer {
                                 program,
                                 undefined,
                                 [
-                                    ValueFactory.INPUT(),
+                                    ts.factory.createIdentifier("input"),
                                     ts.factory.createStringLiteral("$input"),
                                     ts.factory.createTrue(),
                                 ],

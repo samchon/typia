@@ -93,9 +93,9 @@ export namespace TypeFactory {
     }
 
     function get_name(symbol: ts.Symbol): string {
-        return explore_name(
-            symbol.escapedName.toString(),
-            symbol.getDeclarations()![0]!.parent,
-        );
+        const parent = symbol.getDeclarations()?.[0]?.parent;
+        return parent
+            ? explore_name(symbol.escapedName.toString(), parent)
+            : "__type";
     }
 }
