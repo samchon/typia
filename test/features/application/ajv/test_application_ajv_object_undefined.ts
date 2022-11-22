@@ -50,9 +50,10 @@ export const test_application_ajv_object_undefined = _test_application_ajv(
                             nullable: false,
                             "x-tson-required": false,
                         },
+                        unknown: {},
                     },
                     nullable: false,
-                    required: ["name"],
+                    required: ["name", "unknown"],
                     "x-tson_jsDocTags": [],
                 },
                 "ObjectUndefined.IClassroom": {

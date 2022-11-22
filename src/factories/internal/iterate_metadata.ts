@@ -45,7 +45,11 @@ export const iterate_metadata =
             undefined,
             undefined,
         );
-        if (node === undefined) return;
+        if (node === undefined) {
+            // EMPTY TUPLE CASE CAN BE
+            iterate_metadata_tuple(checker)(options)(collection)(meta, type);
+            return;
+        }
 
         iterate_metadata_coalesce(meta, type) ||
             iterate_metadata_constant(checker)(options)(meta, type) ||

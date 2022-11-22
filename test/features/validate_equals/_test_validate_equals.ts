@@ -1,23 +1,28 @@
 import { Escaper } from "../../../src/utils/Escaper";
 
+import TSON from "../../../src";
 import { IValidation } from "../../../src/IValidation";
 
 export function _test_validate_equals<T>(
     name: string,
     generator: () => T,
-    assert: (input: T) => IValidation,
+    assert: (input: T) => IValidation<T>,
     doSpoil: boolean = true,
 ): () => void {
     return () => {
         const input: T = generator();
 
         // EXACT TYPE
-        const { success }: IValidation = assert(input);
-        if (success === false)
+        const valid: IValidation<unknown> = assert(input);
+        if (valid.success === false)
             throw new Error(
                 `Bug on TSON.validateEquals(): failed to understand the ${name} type.`,
             );
-
+        else if (valid.data !== input)
+            throw new Error(
+                "Bug on TSON.validateEquals(): failed to archive the input value.",
+            );
+        TSON.assert(valid);
         if (doSpoil === false) return;
 
         // EXPECTED
