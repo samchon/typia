@@ -418,7 +418,7 @@ export namespace CheckerProgrammer {
                 }
 
             // COMBINE CONDITIONS
-            return top.length !== 0
+            return top.length && binaries.length
                 ? config.combiner(explore)("and")(
                       input,
                       [
@@ -434,11 +434,13 @@ export namespace CheckerProgrammer {
                       ],
                       meta.getName(),
                   )
-                : config.combiner(explore)("or")(
+                : binaries.length
+                ? config.combiner(explore)("or")(
                       input,
                       binaries,
                       meta.getName(),
-                  );
+                  )
+                : config.success;
         };
     }
 
