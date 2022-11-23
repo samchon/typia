@@ -17,6 +17,7 @@ import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 import { check_array } from "./internal/check_array";
+import { check_native } from "./internal/check_native";
 import { check_number } from "./internal/check_number";
 import { check_string } from "./internal/check_string";
 import { check_template } from "./internal/check_template";
@@ -388,6 +389,33 @@ export namespace CheckerProgrammer {
                     ),
                     combined: true,
                 });
+
+            // NATIVE CLASSES
+            for (const native of meta.natives)
+                binaries.push({
+                    expression: check_native(native)(input),
+                    combined: false,
+                });
+
+            // SETS
+            if (meta.sets.length)
+                if (meta.sets.every((elem) => elem.any))
+                    binaries.push({
+                        expression: check_native("Set")(input),
+                        combined: false,
+                    });
+                else {
+                }
+
+            // MAPS
+            if (meta.maps.length)
+                if (meta.maps.every((elem) => elem.key.any && elem.value.any))
+                    binaries.push({
+                        expression: check_native("Map")(input),
+                        combined: false,
+                    });
+                else {
+                }
 
             // COMBINE CONDITIONS
             return top.length !== 0

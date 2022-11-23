@@ -51,10 +51,10 @@ export namespace TypeFactory {
     export function getFullName(
         checker: ts.TypeChecker,
         type: ts.Type,
+        symbol?: ts.Symbol,
     ): string {
         // PRIMITIVE
-        const symbol: ts.Symbol | undefined =
-            type.aliasSymbol || type.getSymbol();
+        symbol ||= type.aliasSymbol || type.getSymbol();
         if (symbol === undefined) return checker.typeToString(type);
 
         // UNION OR INTERSECT

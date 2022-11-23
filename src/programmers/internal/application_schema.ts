@@ -133,6 +133,7 @@ const recursive = (
 
 /**
  * @internal
+ * @todo: not perfect
  */
 function merge_metadata(x: Metadata, y: Metadata): Metadata {
     const output: Metadata = Metadata.create({
@@ -151,6 +152,10 @@ function merge_metadata(x: Metadata, y: Metadata): Metadata {
         arrays: x.arrays.slice(),
         tuples: x.tuples.slice(),
         objects: x.objects.slice(),
+
+        natives: [...new Set([...x.natives, ...y.natives])],
+        sets: x.sets.slice(),
+        maps: x.maps.slice(),
     });
     for (const constant of y.constants) {
         const target: MetadataConstant = ArrayUtil.take(
