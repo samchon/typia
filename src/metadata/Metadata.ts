@@ -22,6 +22,10 @@ export class Metadata {
     public readonly tuples: Metadata[][];
     public readonly objects: MetadataObject[];
 
+    public readonly natives: string[];
+    public readonly sets: Metadata[];
+    public readonly maps: Metadata.Entry[];
+
     /**
      * @internal
      */
@@ -52,6 +56,10 @@ export class Metadata {
         this.arrays = props.arrays;
         this.tuples = props.tuples;
         this.objects = props.objects;
+
+        this.natives = props.natives;
+        this.sets = props.sets;
+        this.maps = props.maps;
     }
 
     /**
@@ -78,6 +86,10 @@ export class Metadata {
             arrays: [],
             tuples: [],
             objects: [],
+
+            natives: [],
+            sets: [],
+            maps: [],
         });
     }
 
@@ -100,6 +112,13 @@ export class Metadata {
                 meta.map((meta) => meta.toJSON()),
             ),
             objects: this.objects.map((obj) => obj.name),
+
+            natives: this.natives.slice(),
+            sets: this.sets.map((meta) => meta.toJSON()),
+            maps: this.maps.map((entry) => ({
+                key: entry.key.toJSON(),
+                value: entry.value.toJSON(),
+            })),
         };
     }
 
@@ -151,6 +170,13 @@ export class Metadata {
                     );
                 return found;
             }),
+
+            natives: meta.natives.slice(),
+            sets: meta.sets.map((meta) => this._From(meta, objects)),
+            maps: meta.maps.map((entry) => ({
+                key: this._From(entry.key, objects),
+                value: this._From(entry.value, objects),
+            })),
         });
     }
 
@@ -176,7 +202,10 @@ export class Metadata {
                 .reduce((x, y) => x + y, 0) +
             this.arrays.length +
             this.tuples.length +
-            this.objects.length
+            this.objects.length +
+            this.natives.length +
+            this.sets.length +
+            this.maps.length
         );
     }
     public bucket(): number {
@@ -188,7 +217,10 @@ export class Metadata {
             (this.constants.length ? 1 : 0) +
             (this.arrays.length ? 1 : 0) +
             (this.tuples.length ? 1 : 0) +
-            (this.objects.length ? 1 : 0)
+            (this.objects.length ? 1 : 0) +
+            (this.natives.length ? 1 : 0) +
+            (this.sets.length ? 1 : 0) +
+            (this.maps.length ? 1 : 0)
         );
     }
     public isConstant(): boolean {
@@ -325,6 +357,12 @@ export namespace Metadata {
             )
                 return false;
 
+        // NATIVES
+
+        // SETS
+        for (const ys of y.sets)
+            if (x.sets.some((xs) => covers(xs, ys)) === false) return false;
+
         //----
         // VALUES
         //----
@@ -396,10 +434,22 @@ function getName(metadata: Metadata): string {
         elements.push(`Resolve<${object.name}>`);
     if (metadata.resolved !== null) elements.push(metadata.resolved.getName());
 
+    // NATIVES
+    for (const native of metadata.natives) elements.push(native);
+    for (const set of metadata.sets) elements.push(`Set<${set.getName()}>`);
+    for (const map of metadata.maps)
+        elements.push(`Map<${map.key.getName()}, ${map.value.getName()}>`);
+
     // RETURNS
     if (elements.length === 0) return "unknown";
     else if (elements.length === 1) return elements[0]!;
 
     elements.sort();
     return `(${elements.join(" | ")})`;
+}
+export namespace Metadata {
+    export interface Entry {
+        key: Metadata;
+        value: Metadata;
+    }
 }

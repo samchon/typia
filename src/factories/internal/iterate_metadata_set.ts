@@ -6,23 +6,27 @@ import { ArrayUtil } from "../../utils/ArrayUtil";
 
 import { MetadataCollection } from "../MetadataCollection";
 import { MetadataFactory } from "../MetadataFactory";
+import { TypeFactory } from "../TypeFactory";
 import { explore_metadata } from "./explore_metadata";
 
-export const iterate_metadata_array =
+export const iterate_metadata_set =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
     (meta: Metadata, type: ts.Type): boolean => {
-        if (
-            !(checker as any).isArrayType(type) &&
-            !(checker as any).isArrayLikeType(type)
-        )
+        type = checker.getApparentType(type);
+
+        const name = TypeFactory.getFullName(checker, type, type.getSymbol());
+        const generic = type.aliasSymbol
+            ? type.aliasTypeArguments
+            : checker.getTypeArguments(type as ts.TypeReference);
+        if (name.substring(0, 4) !== "Set<" || generic?.length !== 1)
             return false;
 
-        const value: ts.Type | null = type.getNumberIndexType() || null;
+        const key: ts.Type = generic[0]!;
         ArrayUtil.set(
-            meta.arrays,
-            explore_metadata(checker)(options)(collection)(value, false),
+            meta.sets,
+            explore_metadata(checker)(options)(collection)(key, false),
             (elem) => elem.getName(),
         );
         return true;

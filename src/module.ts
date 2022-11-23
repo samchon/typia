@@ -11,6 +11,7 @@ import { $report } from "./functional/$report";
 import { $string } from "./functional/$string";
 import { $tail } from "./functional/$tail";
 
+import { IMetadataApplication } from "./metadata/IMetadataApplication";
 import { IJsonApplication } from "./schemas/IJsonApplication";
 
 import { IValidation } from "./IValidation";
@@ -1368,6 +1369,18 @@ Object.assign(createIsClone, isClone);
 /* -----------------------------------------------------------
     MISC
 ----------------------------------------------------------- */
+/**
+ * @internal
+ */
+export function metadata<Types extends unknown[]>(): IMetadataApplication;
+
+/**
+ * @internal
+ */
+export function metadata(): never {
+    halt("metadata");
+}
+
 /**
  * 2x faster constant object creator.
  *

@@ -8,8 +8,11 @@ import { iterate_metadata_array } from "./iterate_metadata_array";
 import { iterate_metadata_atomic } from "./iterate_metadata_atomic";
 import { iterate_metadata_coalesce } from "./iterate_metadata_coalesce";
 import { iterate_metadata_constant } from "./iterate_metadata_constant";
+import { iterate_metadata_map } from "./iterate_metadata_map";
+import { iterate_metadata_native } from "./iterate_metadata_native";
 import { iterate_metadata_object } from "./iterate_metadata_object";
 import { iterate_metadata_resolve } from "./iterate_metadata_resolve";
+import { iterate_metadata_set } from "./iterate_metadata_set";
 import { iterate_metadata_template } from "./iterate_metadata_template";
 import { iterate_metadata_tuple } from "./iterate_metadata_tuple";
 import { iterate_metadata_union } from "./iterate_metadata_union";
@@ -60,6 +63,9 @@ export const iterate_metadata =
             iterate_metadata_atomic(checker)(meta, type) ||
             iterate_metadata_tuple(checker)(options)(collection)(meta, type) ||
             iterate_metadata_array(checker)(options)(collection)(meta, type) ||
+            iterate_metadata_native(checker)(meta, type) ||
+            iterate_metadata_map(checker)(options)(collection)(meta, type) ||
+            iterate_metadata_set(checker)(options)(collection)(meta, type) ||
             iterate_metadata_object(checker)(options)(collection)(
                 meta,
                 type,
