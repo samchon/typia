@@ -234,16 +234,21 @@ export namespace CheckerProgrammer {
                 );
 
             // FUNCTIONAL
-            if (
-                meta.functional === true &&
-                (OptionPredicator.functional(project.options) ||
-                    meta.size() !== 1)
-            )
-                add(
-                    true,
-                    ts.factory.createStringLiteral("function"),
-                    ValueFactory.TYPEOF(input),
-                );
+            if (meta.functional === true)
+                if (
+                    OptionPredicator.functional(project.options) ||
+                    meta.size() !== 1
+                )
+                    add(
+                        true,
+                        ts.factory.createStringLiteral("function"),
+                        ValueFactory.TYPEOF(input),
+                    );
+                else
+                    binaries.push({
+                        combined: false,
+                        expression: config.success,
+                    });
 
             //----
             // VALUES
