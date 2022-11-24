@@ -6,5 +6,5 @@ export const test_create_assert_set_alias = _test_assert(
     "aliased set",
     SetAlias.generate,
     TSON.createAssert<SetAlias>(),
-    SetAlias.SPOILERS,
+    SetAlias.SPOILERS(),
 );

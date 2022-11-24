@@ -1,4 +1,4 @@
-import { Spoiler } from "../internal/Spoiler";
+import { NativeSimple } from "./NativeSimple";
 
 export interface NativeAlias {
     date: NativeAlias.DATE;
@@ -63,78 +63,5 @@ export namespace NativeAlias {
         };
     }
 
-    export const SPOILERS: Spoiler<NativeAlias>[] = [
-        (input) => {
-            input.date = {} as any;
-            return ["$input.date"];
-        },
-        (input) => {
-            input.uint8Array = [] as any;
-            return ["$input.uint8Array"];
-        },
-        (input) => {
-            input.uint8ClampedArray = null!;
-            return ["$input.uint8ClampedArray"];
-        },
-        (input) => {
-            input.uint16Array = undefined!;
-            return ["$input.uint16Array"];
-        },
-        (input) => {
-            input.uint32Array = new Int32Array() as any;
-            return ["$input.uint32Array"];
-        },
-        (input) => {
-            input.bigUint64Array = new Set() as any;
-            return ["$input.bigUint64Array"];
-        },
-        (input) => {
-            input.int8Array = new Map() as any;
-            return ["$input.int8Array"];
-        },
-        (input) => {
-            input.int16Array = new WeakMap() as any;
-            return ["$input.int16Array"];
-        },
-        (input) => {
-            input.int32Array = new WeakSet() as any;
-            return ["$input.int32Array"];
-        },
-        (input) => {
-            input.bigInt64Array = new Date() as any;
-            return ["$input.bigInt64Array"];
-        },
-        (input) => {
-            input.float32Array = new RegExp("") as any;
-            return ["$input.float32Array"];
-        },
-        (input) => {
-            input.float64Array = new Error() as any;
-            return ["$input.float64Array"];
-        },
-        (input) => {
-            input.buffer = new ArrayBuffer(0) as any;
-            return ["$input.buffer"];
-        },
-        (input) => {
-            input.arrayBuffer = undefined! as any;
-            return ["$input.arrayBuffer"];
-        },
-        (input) => {
-            input.sharedArrayBuffer = null! as any;
-            return ["$input.sharedArrayBuffer"];
-        },
-        (input) => {
-            input.dataView = 0 as any;
-            return ["$input.dataView"];
-        },
-        (input) => {
-            input.weakSet = new Set() as any;
-            return ["$input.weakSet"];
-        },
-        (input) => {
-            input.weakMap = new Map() as any;
-            return ["$input.weakMap"];
-        },
-    ];
+    export const SPOILERS = () => NativeSimple.SPOILERS;
 }
