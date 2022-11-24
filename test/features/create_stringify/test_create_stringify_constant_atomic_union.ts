@@ -1,6 +1,6 @@
 import TSON from "../../../src";
 import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
-import { _test_stringify } from "./../stringify/_test_stringify";
+import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_create_stringify_constant_atomic_union = _test_stringify(
     "constant atomic",

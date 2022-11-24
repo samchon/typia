@@ -1,11 +1,9 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
+
 /**
  * @internal
  */
 export const check_native = (type: string) => (input: ts.Expression) =>
-    ts.factory.createBinaryExpression(
-        input,
-        ts.factory.createToken(ts.SyntaxKind.InstanceOfKeyword),
-        ts.factory.createIdentifier(type),
-    );
+    ExpressionFactory.isInstanceOf(input, type);

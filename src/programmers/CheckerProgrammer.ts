@@ -191,6 +191,36 @@ export namespace CheckerProgrammer {
         project: IProject,
         config: IConfig,
         importer: FunctionImporter,
+    ): (
+        input: ts.Expression,
+        meta: Metadata,
+        explore: IExplore,
+        tags: IMetadataTag[],
+    ) => ts.Expression;
+
+    /**
+     * @internal
+     */
+    export function decode(
+        project: IProject,
+        config: IConfig,
+        importer: FunctionImporter,
+        checkTupleLength: boolean,
+    ): (
+        input: ts.Expression,
+        meta: Metadata,
+        explore: IExplore,
+        tags: IMetadataTag[],
+    ) => ts.Expression;
+
+    /**
+     * @internal
+     */
+    export function decode(
+        project: IProject,
+        config: IConfig,
+        importer: FunctionImporter,
+        checkTupleLength: boolean = true,
     ) {
         return function (
             input: ts.Expression,
@@ -299,12 +329,12 @@ export namespace CheckerProgrammer {
                 const inner: ts.Expression[] = [];
                 for (const tuple of meta.tuples)
                     inner.push(
-                        decode_tuple(project, config, importer)(
-                            input,
-                            tuple,
-                            explore,
-                            tags,
-                        ),
+                        decode_tuple(
+                            project,
+                            config,
+                            importer,
+                            checkTupleLength,
+                        )(input, tuple, explore, tags),
                     );
 
                 // ADD
@@ -312,10 +342,15 @@ export namespace CheckerProgrammer {
                     expression: config.combiner(explore)("and")(
                         input,
                         [
-                            {
-                                expression: ExpressionFactory.isArray(input),
-                                combined: false,
-                            },
+                            ...(checkTupleLength
+                                ? [
+                                      {
+                                          expression:
+                                              ExpressionFactory.isArray(input),
+                                          combined: false,
+                                      },
+                                  ]
+                                : []),
                             ...inner.map((expression) => ({
                                 expression,
                                 combined: true,
@@ -406,11 +441,39 @@ export namespace CheckerProgrammer {
             if (meta.sets.length)
                 if (meta.sets.every((elem) => elem.any))
                     binaries.push({
-                        expression: check_native("Set")(input),
                         combined: false,
+                        expression: check_native("Set")(input),
                     });
-                else {
-                }
+                else
+                    binaries.push({
+                        combined: true,
+                        expression: config.combiner(explore)("and")(
+                            input,
+                            [
+                                {
+                                    combined: false,
+                                    expression: check_native("Set")(input),
+                                },
+                                {
+                                    combined: true,
+                                    expression: explore_set(
+                                        project,
+                                        config,
+                                        importer,
+                                    )(
+                                        input,
+                                        meta.sets,
+                                        {
+                                            ...explore,
+                                            from: "array",
+                                        },
+                                        [],
+                                    ),
+                                },
+                            ],
+                            meta.getName(),
+                        ),
+                    });
 
             // MAPS
             if (meta.maps.length)
@@ -419,8 +482,36 @@ export namespace CheckerProgrammer {
                         expression: check_native("Map")(input),
                         combined: false,
                     });
-                else {
-                }
+                else
+                    binaries.push({
+                        combined: true,
+                        expression: config.combiner(explore)("and")(
+                            input,
+                            [
+                                {
+                                    combined: false,
+                                    expression: check_native("Map")(input),
+                                },
+                                {
+                                    combined: true,
+                                    expression: explore_map(
+                                        project,
+                                        config,
+                                        importer,
+                                    )(
+                                        input,
+                                        meta.maps.map((m) => [m.key, m.value]),
+                                        {
+                                            ...explore,
+                                            from: "array",
+                                        },
+                                        [],
+                                    ),
+                                },
+                            ],
+                            meta.getName(),
+                        ),
+                    });
 
             // COMBINE CONDITIONS
             return top.length && binaries.length
@@ -453,6 +544,7 @@ export namespace CheckerProgrammer {
         project: IProject,
         config: IConfig,
         importer: FunctionImporter,
+        checkLength: boolean,
     ) {
         return function (
             input: ts.Expression,
@@ -460,10 +552,6 @@ export namespace CheckerProgrammer {
             explore: IExplore,
             tagList: IMetadataTag[],
         ): ts.Expression {
-            const length: ts.BinaryExpression = ts.factory.createStrictEquality(
-                ts.factory.createPropertyAccessExpression(input, "length"),
-                ts.factory.createNumericLiteral(tuple.length),
-            );
             const binaries: ts.Expression[] = tuple.map((meta, index) =>
                 decode(project, config, importer)(
                     ts.factory.createElementAccessExpression(input, index),
@@ -481,10 +569,22 @@ export namespace CheckerProgrammer {
             return config.combiner(explore)("and")(
                 input,
                 [
-                    {
-                        expression: length,
-                        combined: false,
-                    },
+                    ...(checkLength
+                        ? [
+                              {
+                                  combined: false,
+                                  expression: ts.factory.createStrictEquality(
+                                      ts.factory.createPropertyAccessExpression(
+                                          input,
+                                          "length",
+                                      ),
+                                      ts.factory.createNumericLiteral(
+                                          tuple.length,
+                                      ),
+                                  ),
+                              },
+                          ]
+                        : []),
                     ...(config.joiner.tuple
                         ? [
                               {
@@ -506,12 +606,13 @@ export namespace CheckerProgrammer {
         project: IProject,
         config: IConfig,
         importer: FunctionImporter,
+        checkTupleLength: boolean,
     ) {
         return FeatureProgrammer.decode_array(
             {
                 trace: config.trace,
                 path: config.path,
-                decoder: decode(project, config, importer),
+                decoder: decode(project, config, importer, checkTupleLength),
             },
             importer,
             config.joiner.array,
@@ -535,16 +636,85 @@ export namespace CheckerProgrammer {
         config: IConfig,
         importer: FunctionImporter,
     ) =>
-        UnionExplorer.array(
-            decode(project, config, importer),
-            decode_array(project, config, importer),
-            config.success,
-            config.success,
-            (input, expected, explore) =>
+        UnionExplorer.array({
+            checker: decode(project, config, importer),
+            decoder: decode_array(project, config, importer, true),
+            empty: config.success,
+            success: config.success,
+            failure: (input, expected, explore) =>
                 ts.factory.createReturnStatement(
                     config.joiner.failure(input, expected, explore),
                 ),
-        );
+        });
+
+    const explore_set = (
+        project: IProject,
+        config: IConfig,
+        importer: FunctionImporter,
+    ) =>
+        UnionExplorer.set({
+            checker: decode(project, config, importer),
+            decoder: decode_array(project, config, importer, true),
+            empty: config.success,
+            success: config.success,
+            failure: (input, expected, explore) =>
+                ts.factory.createReturnStatement(
+                    config.joiner.failure(input, expected, explore),
+                ),
+        });
+
+    const explore_map = (
+        project: IProject,
+        config: IConfig,
+        importer: FunctionImporter,
+    ) =>
+        UnionExplorer.map({
+            checker: (input, entry, explore) => {
+                const func = decode(project, config, importer);
+                return ts.factory.createLogicalAnd(
+                    func(
+                        ts.factory.createElementAccessExpression(input, 0),
+                        entry[0],
+                        { ...explore, postfix: `${explore.postfix}[0]` },
+                        [],
+                    ),
+                    func(
+                        ts.factory.createElementAccessExpression(input, 1),
+                        entry[1],
+                        { ...explore, postfix: `${explore.postfix}[1]` },
+                        [],
+                    ),
+                );
+            },
+            decoder: (input, target, explore) =>
+                decode_array(project, config, importer, false)(
+                    input,
+                    Metadata.create({
+                        any: false,
+                        nullable: false,
+                        required: true,
+                        functional: false,
+                        resolved: null,
+                        constants: [],
+                        atomics: [],
+                        templates: [],
+                        arrays: [],
+                        tuples: [target],
+                        objects: [],
+                        natives: [],
+                        sets: [],
+                        maps: [],
+                    }),
+                    explore,
+                    [],
+                ),
+            empty: config.success,
+            success: config.success,
+            failure: (input, expected, explore) =>
+                ts.factory.createReturnStatement(
+                    config.joiner.failure(input, expected, explore),
+                ),
+        });
 
     const explore_objects = (config: IConfig) => {
         const objector = decode_object(config);

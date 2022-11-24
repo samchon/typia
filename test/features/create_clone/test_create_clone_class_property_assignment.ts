@@ -1,6 +1,6 @@
 import TSON from "../../../src";
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
-import { _test_clone } from "./../clone/_test_clone";
+import { _test_clone } from "../internal/_test_clone";
 
 export const test_create_clone_class_property_assignment = _test_clone(
     "property assigned class",

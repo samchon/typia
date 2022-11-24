@@ -1,6 +1,6 @@
 import TSON from "../../../src";
 import { TagPattern } from "../../structures/TagPattern";
-import { _test_clone } from "./../clone/_test_clone";
+import { _test_clone } from "../internal/_test_clone";
 
 export const test_create_clone_tag_pattern = _test_clone(
     "pattern tag",

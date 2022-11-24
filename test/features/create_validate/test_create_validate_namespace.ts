@@ -1,6 +1,6 @@
 import TSON from "../../../src";
 import { Namespace } from "../../structures/Namespace";
-import { _test_validate } from "./../validate/_test_validate";
+import { _test_validate } from "../internal/_test_validate";
 
 export const test_create_validate_namespace = _test_validate(
     "namespace",

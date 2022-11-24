@@ -14,21 +14,27 @@ export const iterate_metadata_native =
             type,
             type.getSymbol(),
         );
-        if (SIMPLE.has(name) === true) {
+        if (SIMPLES.has(name) === true) {
             ArrayUtil.set(meta.natives, name, (str) => str);
             return true;
-        } else if (COMPLICATE.has(name) === true) {
+        } else if (COMPLICATES.has(name) === true) {
             ArrayUtil.set(
                 meta.natives,
-                COMPLICATE.get(name)!.name,
+                COMPLICATES.get(name)!.name,
                 (str) => str,
             );
             return true;
+        } else {
+            for (const generic of GENERICS)
+                if (name.substring(0, generic.name.length) === generic.name) {
+                    ArrayUtil.set(meta.natives, generic.name, (str) => str);
+                    return true;
+                }
         }
         return false;
     };
 
-const SIMPLE: Set<string> = new Set([
+const SIMPLES: Set<string> = new Set([
     "Date",
     "Uint8Array",
     "Uint8ClampedArray",
@@ -45,10 +51,11 @@ const SIMPLE: Set<string> = new Set([
     "SharedArrayBuffer",
     "DataView",
 ]);
-const COMPLICATE: Map<string, IComplicate> = new Map([
+const COMPLICATES: Map<string, IClassInfo> = new Map([
     [`'buffer'.global.Buffer`, { name: "Buffer" }],
 ]);
+const GENERICS: IClassInfo[] = [{ name: "WeakMap" }, { name: "WeakSet" }];
 
-interface IComplicate {
+interface IClassInfo {
     name: string;
 }

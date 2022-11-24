@@ -9,6 +9,7 @@ import { ApplicationProgrammer } from "../ApplicationProgrammer";
 import { application_array } from "./application_array";
 import { application_boolean } from "./application_boolean";
 import { application_constant } from "./application_constant";
+import { application_native } from "./application_native";
 import { application_number } from "./application_number";
 import { application_object } from "./application_object";
 import { application_string } from "./application_string";
@@ -89,6 +90,27 @@ export const application_schema =
                     ),
                 );
             }
+
+        // NATIVES
+        for (const native of meta.natives)
+            union.push(
+                application_native(options)(components)(native)(
+                    meta.nullable,
+                    attribute,
+                ),
+            );
+        for (const set of meta.sets.values())
+            union.push(
+                application_native(options)(components)(
+                    `Set<${set.getName()}>`,
+                )(meta.nullable, attribute),
+            );
+        for (const map of meta.maps.values())
+            union.push(
+                application_native(options)(components)(
+                    `Map<${map.key.getName()}, ${map.value.getName()}>`,
+                )(meta.nullable, attribute),
+            );
 
         // OBJECT
         for (const obj of meta.objects) {

@@ -1,6 +1,6 @@
 import TSON from "../../../src";
 import { DynamicUndefined } from "../../structures/DynamicUndefined";
-import { _test_stringify } from "./../stringify/_test_stringify";
+import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_create_stringify_dynamic_undefined = _test_stringify(
     "dynamic tree",

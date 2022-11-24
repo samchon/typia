@@ -1,6 +1,6 @@
 import TSON from "../../../src";
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
-import { _test_stringify } from "./../stringify/_test_stringify";
+import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_create_stringify_object_recursive = _test_stringify(
     "recursive object",

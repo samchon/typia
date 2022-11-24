@@ -1,6 +1,6 @@
 import TSON from "../../../src";
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
-import { _test_is_stringify } from "./../is_stringify/_test_is_stringify";
+import { _test_is_stringify } from "../internal/_test_is_stringify";
 
 export const test_create_is_stringify_object_undefined = _test_is_stringify(
     "undefined object",

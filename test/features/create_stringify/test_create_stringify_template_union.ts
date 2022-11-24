@@ -1,6 +1,6 @@
 import TSON from "../../../src";
 import { TemplateUnion } from "../../structures/TemplateUnion";
-import { _test_stringify } from "./../stringify/_test_stringify";
+import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_create_stringify_template_union = _test_stringify(
     "template union",
