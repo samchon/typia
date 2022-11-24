@@ -313,6 +313,31 @@ export namespace StringifyProgrammer {
                 });
             }
 
+            // BUILT-IN CLASSES
+            if (meta.natives.length)
+                for (const native of meta.natives)
+                    unions.push({
+                        type: "object",
+                        is: () => ExpressionFactory.isInstanceOf(input, native),
+                        value: () => ts.factory.createStringLiteral("{}"),
+                    });
+
+            // SETS
+            if (meta.sets.length)
+                unions.push({
+                    type: "object",
+                    is: () => ExpressionFactory.isInstanceOf(input, "Set"),
+                    value: () => ts.factory.createStringLiteral("{}"),
+                });
+
+            // MAPS
+            if (meta.maps.length)
+                unions.push({
+                    type: "object",
+                    is: () => ExpressionFactory.isInstanceOf(input, "Map"),
+                    value: () => ts.factory.createStringLiteral("{}"),
+                });
+
             // OBJECTS
             if (meta.objects.length)
                 unions.push({
@@ -504,13 +529,14 @@ export namespace StringifyProgrammer {
         EXPLORERS
     ----------------------------------------------------------- */
     const explore_arrays = (project: IProject, importer: FunctionImporter) =>
-        UnionExplorer.array(
-            IsProgrammer.decode(project, importer),
-            decode_array(project, importer),
-            ts.factory.createStringLiteral("[]"),
-            ts.factory.createTrue(),
-            (input, expected) => create_throw_error(importer, input, expected),
-        );
+        UnionExplorer.array({
+            checker: IsProgrammer.decode(project, importer),
+            decoder: decode_array(project, importer),
+            empty: ts.factory.createStringLiteral("[]"),
+            success: ts.factory.createTrue(),
+            failure: (input, expected) =>
+                create_throw_error(importer, input, expected),
+        });
 
     const explore_objects = (
         input: ts.Expression,
