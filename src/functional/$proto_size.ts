@@ -26,6 +26,14 @@ export function $proto_size_bytes(len: number): number {
     return $proto_size_varint(len) + len;
 }
 
+const utf8_encoder = new TextEncoder();
+
+export function $proto_size_string(value: string): number {
+    // TODO: optimize (DON'T ENCODE TEXT TWICE)
+    const bytes = utf8_encoder.encode(value);
+    return $proto_size_bytes(bytes.length);
+}
+
 function SizeVarInt32(value: number): number {
     value = (value | 0) >>> 0; // 32-bit integer
     // TODO: optimize ( branchless solution exists )
