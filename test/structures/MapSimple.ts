@@ -14,6 +14,8 @@ export namespace MapSimple {
         age: number;
     }
 
+    export const ADDABLE = false;
+
     export function generate(): MapSimple {
         return {
             boolean: new Map([

@@ -14,6 +14,8 @@ export namespace SetSimple {
         age: number;
     }
 
+    export const ADDABLE = false;
+
     export function generate(): SetSimple {
         return {
             booleans: new Set([true, false]),

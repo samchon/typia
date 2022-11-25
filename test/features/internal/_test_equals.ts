@@ -12,9 +12,7 @@ export function _test_equals<T extends object>(
 
         while (repeat-- > 0) {
             const elem: T = generator();
-            spoil(elem);
-
-            if (validator(elem) === true)
+            if (spoil(elem) && validator(elem))
                 throw new Error(
                     `Bug on TSON.equals(): failed to detect error on the ${name} type.`,
                 );
@@ -22,16 +20,24 @@ export function _test_equals<T extends object>(
     };
 }
 
-function spoil(input: any): void {
-    if (Array.isArray(input)) spoil_array(input);
-    else if (typeof input === "object" && input !== null) spoil_object(input);
+function spoil(input: any): boolean {
+    if (Array.isArray(input)) return spoil_array(input);
+    else if (
+        typeof input === "object" &&
+        input !== null &&
+        typeof input.valueOf() === "object"
+    )
+        return spoil_object(input);
+    return false;
 }
 
-function spoil_object(obj: any): void {
+function spoil_object(obj: any): boolean {
     obj.__non_regular_type__ = "vulnerable";
     for (const value of Object.values(obj)) spoil(value);
+    return true;
 }
 
-function spoil_array(array: any): void {
-    for (const child of array) spoil(child);
+function spoil_array(array: any): boolean {
+    const res: boolean[] = array.map((child: any) => spoil(child));
+    return res.some((b) => b);
 }

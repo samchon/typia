@@ -792,7 +792,7 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                             enum: {
                                 type: "array",
                                 items: {
-                                    type: "boolean",
+                                    type: "number",
                                     nullable: false,
                                     "x-tson-required": true,
                                 },
@@ -800,7 +800,7 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                                 "x-tson-required": true,
                             },
                             default: {
-                                type: "boolean",
+                                type: "number",
                                 nullable: false,
                                 "x-tson-required": false,
                             },
@@ -1343,7 +1343,7 @@ export const test_application_ajv_ultimate_union = _test_application_ajv(
                     type: "object",
                     properties: {
                         default: {
-                            type: "boolean",
+                            type: "number",
                             nullable: false,
                             "x-tson-required": false,
                         },

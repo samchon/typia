@@ -44,6 +44,8 @@ export namespace NativeSimple {
         };
     }
 
+    export const ADDABLE = false;
+
     export const SPOILERS: Spoiler<NativeSimple>[] = [
         (input) => {
             input.date = {} as any;

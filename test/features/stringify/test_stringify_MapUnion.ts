@@ -1,0 +1,9 @@
+import TSON from "../../../src";
+import { MapUnion } from "../../structures/MapUnion";
+import { _test_stringify } from "../internal/_test_stringify";
+
+export const test_stringify_MapUnion = _test_stringify(
+    "MapUnion",
+    MapUnion.generate,
+    (input) => TSON.stringify(input),
+);

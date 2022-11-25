@@ -44,4 +44,6 @@ export namespace UltimateUnion {
             ];
         },
     ];
+
+    export const ADDABLE = false;
 }

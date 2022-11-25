@@ -5,7 +5,7 @@ export type ToJsonAtomicSimple = [
 ];
 export namespace ToJsonAtomicSimple {
     export interface IToJson<T> {
-        toJSON(): T;
+        toJSON: () => T;
     }
 
     export function generate(): ToJsonAtomicSimple {

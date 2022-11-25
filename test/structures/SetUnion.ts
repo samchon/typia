@@ -14,6 +14,8 @@ export namespace SetUnion {
         age: number;
     }
 
+    export const ADDABLE = false;
+
     export function generate(): SetUnion {
         return [
             new Set([true, false]),

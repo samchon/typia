@@ -8,7 +8,7 @@ export type ToJsonUnion = Array<
 >;
 export namespace ToJsonUnion {
     export interface IWrapper<T> {
-        toJSON(): T;
+        toJSON: () => T;
     }
     export interface ICitizen {
         id: number;

@@ -12,6 +12,7 @@ export function _test_clone<T>(
         const cloned: Primitive<T> = cloner(data);
 
         if (primitive_equal_to(replica, cloned) === false) {
+            console.log(replica, cloned);
             throw new Error(
                 `Bug on TSON.clone(): failed to understand the ${name} type.`,
             );

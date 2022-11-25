@@ -44,5 +44,6 @@ export namespace NativeAlias {
         return NativeSimple.generate();
     }
 
+    export const ADDABLE = false;
     export const SPOILERS = NativeSimple.SPOILERS;
 }

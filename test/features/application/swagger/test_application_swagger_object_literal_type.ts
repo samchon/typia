@@ -9,32 +9,15 @@ export const test_application_swagger_object_literal_type =
         {
             schemas: [
                 {
-                    $ref: "#/components/schemas/__object",
+                    $ref: "#/components/schemas/ObjectLiteralType",
                 },
             ],
             components: {
                 schemas: {
-                    __object: {
+                    ObjectLiteralType: {
                         type: "object",
-                        properties: {
-                            id: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            name: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            age: {
-                                type: "number",
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                        },
+                        properties: {},
                         nullable: false,
-                        required: ["id", "name", "age"],
                         "x-tson_jsDocTags": [],
                     },
                 },

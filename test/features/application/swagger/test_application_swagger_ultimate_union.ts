@@ -772,7 +772,7 @@ export const test_application_swagger_ultimate_union =
                                 enum: {
                                     type: "array",
                                     items: {
-                                        type: "boolean",
+                                        type: "number",
                                         nullable: false,
                                         "x-tson-required": true,
                                     },
@@ -780,7 +780,7 @@ export const test_application_swagger_ultimate_union =
                                     "x-tson-required": true,
                                 },
                                 default: {
-                                    type: "boolean",
+                                    type: "number",
                                     nullable: false,
                                     "x-tson-required": false,
                                 },
@@ -1319,7 +1319,7 @@ export const test_application_swagger_ultimate_union =
                         type: "object",
                         properties: {
                             default: {
-                                type: "boolean",
+                                type: "number",
                                 nullable: false,
                                 "x-tson-required": false,
                             },

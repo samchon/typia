@@ -8,33 +8,16 @@ export const test_application_ajv_object_literal_type = _test_application_ajv(
     {
         schemas: [
             {
-                $ref: "components#/schemas/__object",
+                $ref: "components#/schemas/ObjectLiteralType",
             },
         ],
         components: {
             schemas: {
-                __object: {
-                    $id: "components#/schemas/__object",
+                ObjectLiteralType: {
+                    $id: "components#/schemas/ObjectLiteralType",
                     type: "object",
-                    properties: {
-                        id: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        name: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        age: {
-                            type: "number",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                    },
+                    properties: {},
                     nullable: false,
-                    required: ["id", "name", "age"],
                     "x-tson_jsDocTags": [],
                 },
             },

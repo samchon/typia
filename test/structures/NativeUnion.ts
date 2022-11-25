@@ -16,6 +16,8 @@ export namespace NativeUnion {
         weak: WeakSet<any> | WeakMap<any, any>;
     }
 
+    export const ADDABLE = false;
+
     // prettier-ignore
     export function generate(): NativeUnion {
         const output: NativeUnion = [];
@@ -25,7 +27,14 @@ export namespace NativeUnion {
         for (const float of [new Float32Array(), new Float64Array()])
         for (const buffer of [Buffer.alloc(0), new ArrayBuffer(0), new SharedArrayBuffer(0), new DataView(new ArrayBuffer(0))])
         for (const weak of [new WeakSet(), new WeakMap()])
-            output.push({ date, unsigned, signed, float, buffer, weak });
+            output.push({ 
+                date, 
+                unsigned, 
+                signed, 
+                float, 
+                buffer, 
+                weak 
+            });
         return output;
     }
 

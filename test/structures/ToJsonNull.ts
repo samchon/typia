@@ -1,5 +1,5 @@
 export interface ToJsonNull {
-    toJSON(): null;
+    toJSON: () => null;
 }
 export namespace ToJsonNull {
     export function generate(): ToJsonNull {

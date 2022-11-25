@@ -20,5 +20,6 @@ export namespace SetAlias {
         return SetSimple.generate();
     }
 
+    export const ADDABLE = false;
     export const SPOILERS = SetSimple.SPOILERS;
 }

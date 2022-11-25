@@ -14,6 +14,8 @@ export namespace MapUnion {
         age: number;
     }
 
+    export const ADDABLE = false;
+
     export function generate(): MapUnion {
         return [
             new Map([
