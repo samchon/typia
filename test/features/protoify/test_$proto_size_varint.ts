@@ -17,4 +17,18 @@ export const test_$proto_size_varint = () => {
             );
         }
     }
+
+    for (let i = -1000000n; i < 1000000n; i++) {
+        offset = 0;
+        const value = i * 1000n;
+        const expected = $proto_size_varint(value);
+        offset = $varint_encode(buffer, offset, value);
+        const actual = offset;
+
+        if (expected !== actual) {
+            throw new Error(
+                `expected ${expected} but got ${actual} for ${value}`,
+            );
+        }
+    }
 };
