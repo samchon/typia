@@ -1,8 +1,12 @@
-import { $proto_bytes_encode } from "../../src/functional/$proto_bytes";
 import {
     $proto_field_encode,
     $proto_field_wiretype,
 } from "../../src/functional/$proto_field";
+import {
+    $proto_size_bytes,
+    $proto_size_field,
+    $proto_size_varint,
+} from "../../src/functional/$proto_size";
 import { $varint_encode } from "../../src/functional/$varint";
 
 import { Hex } from "../internal/Hex";
@@ -31,59 +35,76 @@ const testObject: ObjectSimple = {
     },
 };
 
-function encode_IBox3D(o: ObjectSimple.IPoint3D): Uint8Array {
-    const buffer = new Uint8Array(1024); // TODO: calculate size
-    let offset = 0;
-
-    offset = $proto_field_encode(
-        buffer,
-        offset,
-        1,
-        $proto_field_wiretype.VARINT,
-    );
-    offset = $varint_encode(buffer, offset, o.x);
-
-    offset = $proto_field_encode(
-        buffer,
-        offset,
-        2,
-        $proto_field_wiretype.VARINT,
-    );
-    offset = $varint_encode(buffer, offset, o.y);
-
-    offset = $proto_field_encode(
-        buffer,
-        offset,
-        3,
-        $proto_field_wiretype.VARINT,
-    );
-    offset = $varint_encode(buffer, offset, o.z);
-
-    return buffer.subarray(0, offset);
+function $size_IBox3D(o: ObjectSimple.IPoint3D): number {
+    const size =
+        $proto_size_field(1, $proto_field_wiretype.VARINT) +
+        $proto_size_varint(o.x) +
+        $proto_size_field(2, $proto_field_wiretype.VARINT) +
+        $proto_size_varint(o.y) +
+        $proto_size_field(3, $proto_field_wiretype.VARINT) +
+        $proto_size_varint(o.z);
+    return size;
 }
 
-function encode_ObjectSimple(o: ObjectSimple): Uint8Array {
-    const buffer = new Uint8Array(1024); // TODO: calculate size
-    let offset = 0;
+function $encode_IBox3D(
+    dst: Uint8Array,
+    offset: number,
+    o: ObjectSimple.IPoint3D,
+): number {
+    offset = $proto_field_encode(dst, offset, 1, $proto_field_wiretype.VARINT);
+    offset = $varint_encode(dst, offset, o.x);
 
-    offset = $proto_field_encode(buffer, offset, 1, $proto_field_wiretype.LEN);
-    const scale = encode_IBox3D(o.scale);
-    offset = $proto_bytes_encode(buffer, offset, scale);
+    offset = $proto_field_encode(dst, offset, 2, $proto_field_wiretype.VARINT);
+    offset = $varint_encode(dst, offset, o.y);
 
-    offset = $proto_field_encode(buffer, offset, 2, $proto_field_wiretype.LEN);
-    const position = encode_IBox3D(o.position);
-    offset = $proto_bytes_encode(buffer, offset, position);
+    offset = $proto_field_encode(dst, offset, 3, $proto_field_wiretype.VARINT);
+    offset = $varint_encode(dst, offset, o.z);
 
-    offset = $proto_field_encode(buffer, offset, 3, $proto_field_wiretype.LEN);
-    const rotate = encode_IBox3D(o.rotate);
-    offset = $proto_bytes_encode(buffer, offset, rotate);
-
-    offset = $proto_field_encode(buffer, offset, 4, $proto_field_wiretype.LEN);
-    const pivot = encode_IBox3D(o.pivot);
-    offset = $proto_bytes_encode(buffer, offset, pivot);
-
-    return buffer.subarray(0, offset);
+    return offset;
 }
 
-// Print the result
-console.log(Hex(encode_ObjectSimple(testObject)));
+function $size_ObjectSimple(o: ObjectSimple): number {
+    const size =
+        $proto_size_field(1, $proto_field_wiretype.LEN) +
+        $proto_size_bytes($size_IBox3D(o.scale)) +
+        $proto_size_field(2, $proto_field_wiretype.LEN) +
+        $proto_size_bytes($size_IBox3D(o.position)) +
+        $proto_size_field(3, $proto_field_wiretype.LEN) +
+        $proto_size_bytes($size_IBox3D(o.rotate)) +
+        $proto_size_field(4, $proto_field_wiretype.LEN) +
+        $proto_size_bytes($size_IBox3D(o.pivot));
+    return size;
+}
+
+function $encode_ObjectSimple(
+    dst: Uint8Array,
+    offset: number,
+    o: ObjectSimple,
+): number {
+    offset = $proto_field_encode(dst, offset, 1, $proto_field_wiretype.LEN);
+    offset = $varint_encode(dst, offset, $size_IBox3D(o.scale));
+    offset = $encode_IBox3D(dst, offset, o.scale);
+
+    offset = $proto_field_encode(dst, offset, 2, $proto_field_wiretype.LEN);
+    offset = $varint_encode(dst, offset, $size_IBox3D(o.position));
+    offset = $encode_IBox3D(dst, offset, o.position);
+
+    offset = $proto_field_encode(dst, offset, 3, $proto_field_wiretype.LEN);
+    offset = $varint_encode(dst, offset, $size_IBox3D(o.rotate));
+    offset = $encode_IBox3D(dst, offset, o.rotate);
+
+    offset = $proto_field_encode(dst, offset, 4, $proto_field_wiretype.LEN);
+    offset = $varint_encode(dst, offset, $size_IBox3D(o.pivot));
+    offset = $encode_IBox3D(dst, offset, o.pivot);
+
+    return offset;
+}
+
+const buffer = new Uint8Array($size_ObjectSimple(testObject));
+const offset = $encode_ObjectSimple(buffer, 0, testObject);
+
+if (offset !== buffer.length) {
+    throw new Error("offset !== buffer.length");
+}
+
+console.log(Hex(buffer));
