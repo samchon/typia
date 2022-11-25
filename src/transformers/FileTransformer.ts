@@ -42,7 +42,7 @@ export namespace FileTransformer {
             const { line, character } = file.getLineAndCharacterOfPosition(
                 node.pos,
             );
-            exp.message += ` - ${file.fileName}.${line + 1}:${character + 1}`;
+            exp.message += ` - ${file.fileName}:${line + 1}:${character + 1}`;
             throw exp;
         }
     }

@@ -6,7 +6,7 @@ export type ToJsonArray = [
 ];
 export namespace ToJsonArray {
     export interface IArray<T> {
-        toJSON(): T[];
+        toJSON: () => T[];
     }
     export interface IObject {
         id: string;

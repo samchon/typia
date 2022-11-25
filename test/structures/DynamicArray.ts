@@ -20,4 +20,5 @@ export namespace DynamicArray {
             return [`$input.something[0]`, `$input.another[0]`];
         },
     ];
+    export const ADDABLE = false;
 }

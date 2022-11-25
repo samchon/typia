@@ -27,4 +27,6 @@ export namespace ObjectDynamic {
             return ["$input.something"];
         },
     ];
+
+    export const ADDABLE = false;
 }

@@ -1,7 +1,7 @@
 export type ToJsonAtomicUnion = ToJsonAtomicUnion.IToJson[];
 export namespace ToJsonAtomicUnion {
     export interface IToJson {
-        toJSON(): null | boolean | number | string;
+        toJSON: () => null | boolean | number | string;
     }
 
     export function generate(): ToJsonAtomicUnion {
