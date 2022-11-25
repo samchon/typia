@@ -22,6 +22,10 @@ export function $proto_size_field(
     return $proto_size_varint(tag);
 }
 
+export function $proto_size_bytes(len: number): number {
+    return $proto_size_varint(len) + len;
+}
+
 function SizeVarInt32(value: number): number {
     value = (value | 0) >>> 0; // 32-bit integer
     // TODO: optimize ( branchless solution exists )
