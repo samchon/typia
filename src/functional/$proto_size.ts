@@ -1,3 +1,5 @@
+import { $proto_field_wiretype } from "./$proto_field";
+
 export function $proto_size_varint(n: number): number;
 export function $proto_size_varint(n: bigint): number;
 
@@ -10,6 +12,14 @@ export function $proto_size_varint(n: number | bigint): number {
     }
 
     return SizeVarInt64(n);
+}
+
+export function $proto_size_field(
+    fieldNumber: number,
+    wireType: $proto_field_wiretype,
+): number {
+    const tag = (fieldNumber << 3) | Number(wireType);
+    return $proto_size_varint(tag);
 }
 
 function SizeVarInt32(value: number): number {
