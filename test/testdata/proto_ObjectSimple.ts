@@ -41,7 +41,7 @@ function encode_IBox3D(o: ObjectSimple.IPoint3D): Uint8Array {
         1,
         $proto_field_wiretype.VARINT,
     );
-    offset = $varint_encode(buffer, offset, BigInt(o.x));
+    offset = $varint_encode(buffer, offset, o.x);
 
     offset = $proto_field_encode(
         buffer,
@@ -49,7 +49,7 @@ function encode_IBox3D(o: ObjectSimple.IPoint3D): Uint8Array {
         2,
         $proto_field_wiretype.VARINT,
     );
-    offset = $varint_encode(buffer, offset, BigInt(o.y));
+    offset = $varint_encode(buffer, offset, o.y);
 
     offset = $proto_field_encode(
         buffer,
@@ -57,7 +57,7 @@ function encode_IBox3D(o: ObjectSimple.IPoint3D): Uint8Array {
         3,
         $proto_field_wiretype.VARINT,
     );
-    offset = $varint_encode(buffer, offset, BigInt(o.z));
+    offset = $varint_encode(buffer, offset, o.z);
 
     return buffer.subarray(0, offset);
 }
