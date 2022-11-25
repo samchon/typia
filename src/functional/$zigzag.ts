@@ -1,6 +1,8 @@
 export function $zigzag_encode(value: number): number;
 export function $zigzag_encode(value: bigint): bigint;
 export function $zigzag_encode(value: number | bigint): any {
+    // TODO: optimize (branchless solution exists)
+
     if (typeof value === "bigint") {
         if (value < BigInt(0)) {
             value = -value;
@@ -19,6 +21,8 @@ export function $zigzag_encode(value: number | bigint): any {
 export function $zigzag_decode(value: number): number;
 export function $zigzag_decode(value: bigint): bigint;
 export function $zigzag_decode(value: number | bigint): any {
+    // TODO: optimize (branchless solution exists)
+
     if (typeof value === "bigint") {
         value = BigInt.asUintN(64, value);
         if (value & BigInt(1)) {
