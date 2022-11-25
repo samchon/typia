@@ -6,7 +6,7 @@ export const test_$proto_size_varint = () => {
     let offset = 0;
     for (let i = -1000000; i < 1000000; i++) {
         offset = 0;
-        const value = i * 1000;
+        const value = i * 10;
         const expected = $proto_size_varint(value);
         offset = $varint_encode(buffer, offset, value);
         const actual = offset;
@@ -20,7 +20,7 @@ export const test_$proto_size_varint = () => {
 
     for (let i = -1000000n; i < 1000000n; i++) {
         offset = 0;
-        const value = i * 1000n;
+        const value = i * 10n;
         const expected = $proto_size_varint(value);
         offset = $varint_encode(buffer, offset, value);
         const actual = offset;
