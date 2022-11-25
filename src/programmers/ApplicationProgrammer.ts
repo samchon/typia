@@ -40,11 +40,11 @@ export namespace ApplicationProgrammer {
         const generator = application_schema(fullOptions)(components)(true);
 
         return {
-            schemas: metadatas.map((meta) => {
+            schemas: metadatas.map((meta, i) => {
                 const schema: IJsonSchema | null = generator(meta, {});
                 if (schema === null)
                     throw new Error(
-                        "Error on TSON.application(): never type on argument.",
+                        `Error on TSON.application(): invalid type on argument - (${meta.getName()}, ${i})`,
                     );
                 return schema;
             }),

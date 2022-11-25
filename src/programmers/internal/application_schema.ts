@@ -38,6 +38,14 @@ export const application_schema =
         //----
         const union: IJsonSchema[] = [];
 
+        // toJSON() METHOD
+        if (meta.resolved !== null) {
+            const resolved = application_schema(options)(components)(
+                blockNever,
+            )(meta.resolved, attribute);
+            if (resolved !== null) union.push(resolved);
+        }
+
         // ATOMIC TYPES
         if (meta.templates.length && AtomicPredicator.template(meta))
             union.push(application_templates(meta, attribute));

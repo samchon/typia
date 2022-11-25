@@ -34,6 +34,11 @@ export class Metadata {
     /**
      * @internal
      */
+    private parent_resolved_: boolean = false;
+
+    /**
+     * @internal
+     */
     public union_index?: number;
 
     /* -----------------------------------------------------------
@@ -72,8 +77,8 @@ export class Metadata {
     /**
      * @internal
      */
-    public static initialize(): Metadata {
-        return this.create({
+    public static initialize(parentResolved: boolean = false): Metadata {
+        const meta: Metadata = this.create({
             any: false,
             nullable: false,
             required: true,
@@ -91,6 +96,8 @@ export class Metadata {
             sets: [],
             maps: [],
         });
+        meta.parent_resolved_ = parentResolved;
+        return meta;
     }
 
     public toJSON(): IMetadata {
@@ -255,6 +262,13 @@ export class Metadata {
      */
     public isSoleLiteral(): boolean {
         return this.getSoleLiteral() !== null;
+    }
+
+    /**
+     * @internal
+     */
+    public isParentResolved(): boolean {
+        return this.parent_resolved_;
     }
 }
 export namespace Metadata {
