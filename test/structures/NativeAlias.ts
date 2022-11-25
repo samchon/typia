@@ -41,27 +41,8 @@ export namespace NativeAlias {
     export type WEAKMAP = WeakMap<any, any>;
 
     export function generate(): NativeAlias {
-        return {
-            date: new Date(),
-            uint8Array: new Uint8Array(),
-            uint8ClampedArray: new Uint8ClampedArray(),
-            uint16Array: new Uint16Array(),
-            uint32Array: new Uint32Array(),
-            bigUint64Array: new BigUint64Array(),
-            int8Array: new Int8Array(),
-            int16Array: new Int16Array(),
-            int32Array: new Int32Array(),
-            bigInt64Array: new BigInt64Array(),
-            float32Array: new Float32Array(),
-            float64Array: new Float64Array(),
-            buffer: Buffer.alloc(0),
-            arrayBuffer: new ArrayBuffer(0),
-            sharedArrayBuffer: new SharedArrayBuffer(0),
-            dataView: new DataView(new ArrayBuffer(0)),
-            weakSet: new WeakSet(),
-            weakMap: new WeakMap(),
-        };
+        return NativeSimple.generate();
     }
 
-    export const SPOILERS = () => NativeSimple.SPOILERS;
+    export const SPOILERS = NativeSimple.SPOILERS;
 }

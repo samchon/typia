@@ -1,0 +1,10 @@
+import TSON from "../../../src";
+import { ObjectClosure } from "../../structures/ObjectClosure";
+import { _test_assert } from "../internal/_test_assert";
+
+export const test_assert_object_closure = _test_assert(
+    "closured object",
+    ObjectClosure.generate,
+    (input) => TSON.assert(input),
+    ObjectClosure.SPOILERS,
+);

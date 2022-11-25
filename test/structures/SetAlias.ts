@@ -17,20 +17,8 @@ export namespace SetAlias {
     }
 
     export function generate(): SetAlias {
-        return {
-            booleans: new Set([true, false]),
-            numbers: new Set([1, 2, 3]),
-            strings: new Set(["a", "b", "c"]),
-            arrays: new Set([
-                [1, 2, 3],
-                [4, 5, 6],
-            ]),
-            objects: new Set([
-                { id: "1", name: "John", age: 20 },
-                { id: "2", name: "Jane", age: 21 },
-            ]),
-        };
+        return SetSimple.generate();
     }
 
-    export const SPOILERS = () => SetSimple.SPOILERS;
+    export const SPOILERS = SetSimple.SPOILERS;
 }

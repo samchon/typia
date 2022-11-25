@@ -6,5 +6,5 @@ export const test_create_validate_set_alias = _test_validate(
     "aliased set",
     SetAlias.generate,
     TSON.createValidate<SetAlias>(),
-    SetAlias.SPOILERS(),
+    SetAlias.SPOILERS,
 );

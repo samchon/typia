@@ -11,7 +11,10 @@ function copy(from, to, method) {
         ].join("");
         const start = content.indexOf(factory);
         if (start === -1) {
-            console.log(from.replace(`${__dirname}/../features/`, ""));
+            console.log(
+                method,
+                from.replace(`${__dirname}/../features/`, "")
+            );
             return content;
         }
         const last = content.indexOf(">()", start);

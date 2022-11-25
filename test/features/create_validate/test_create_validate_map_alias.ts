@@ -6,5 +6,5 @@ export const test_create_validate_map_alias = _test_validate(
     "aliased map",
     MapAlias.generate,
     TSON.createValidate<MapAlias>(),
-    MapAlias.SPOILERS(),
+    MapAlias.SPOILERS,
 );

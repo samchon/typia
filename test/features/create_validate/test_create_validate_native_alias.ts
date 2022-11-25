@@ -6,5 +6,5 @@ export const test_create_validate_native_alias = _test_validate(
     "aliased native",
     NativeAlias.generate,
     TSON.createValidate<NativeAlias>(),
-    NativeAlias.SPOILERS(),
+    NativeAlias.SPOILERS,
 );

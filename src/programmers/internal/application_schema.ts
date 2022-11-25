@@ -99,17 +99,19 @@ export const application_schema =
                     attribute,
                 ),
             );
-        for (const set of meta.sets.values())
+        if (meta.sets.length)
             union.push(
-                application_native(options)(components)(
-                    `Set<${set.getName()}>`,
-                )(meta.nullable, attribute),
+                application_native(options)(components)(`Set`)(
+                    meta.nullable,
+                    attribute,
+                ),
             );
-        for (const map of meta.maps.values())
+        if (meta.maps.length)
             union.push(
-                application_native(options)(components)(
-                    `Map<${map.key.getName()}, ${map.value.getName()}>`,
-                )(meta.nullable, attribute),
+                application_native(options)(components)(`Map`)(
+                    meta.nullable,
+                    attribute,
+                ),
             );
 
         // OBJECT
