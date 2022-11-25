@@ -6,6 +6,7 @@ import { IJsonSchema } from "../../schemas/IJsonSchema";
 import { ArrayUtil } from "../../utils/ArrayUtil";
 
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
+import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { application_array } from "./application_array";
 import { application_boolean } from "./application_boolean";
 import { application_constant } from "./application_constant";
@@ -38,11 +39,11 @@ export const application_schema =
         const union: IJsonSchema[] = [];
 
         // ATOMIC TYPES
-        if (meta.templates.length) {
+        if (meta.templates.length && AtomicPredicator.template(meta))
             union.push(application_templates(meta, attribute));
-        }
         for (const constant of meta.constants) {
             if (constant.type === "string" && meta.templates.length) continue;
+            else if (!AtomicPredicator.constant(meta)(constant.type)) continue;
             union.push(
                 application_constant(constant, meta.nullable, attribute),
             );
@@ -51,9 +52,9 @@ export const application_schema =
             union.push(
                 type === "string"
                     ? application_string(meta, attribute)
-                    : type === "number"
-                    ? application_number(meta.nullable, attribute)
-                    : application_boolean(meta.nullable, attribute),
+                    : type === "boolean"
+                    ? application_boolean(meta.nullable, attribute)
+                    : application_number(meta.nullable, attribute),
             );
         }
 

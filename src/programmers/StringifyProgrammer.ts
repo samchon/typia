@@ -16,6 +16,7 @@ import { ArrayUtil } from "../utils/ArrayUtil";
 
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
+import { AtomicPredicator } from "./helpers/AtomicPredicator";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
@@ -152,7 +153,7 @@ export namespace StringifyProgrammer {
                 meta.templates.length ||
                 ArrayUtil.has(meta.constants, (c) => c.type === "string")
             )
-                if (!ArrayUtil.has(meta.atomics, (type) => type === "string")) {
+                if (AtomicPredicator.template(meta)) {
                     const partial = Metadata.initialize();
                     partial.atomics.push("string"),
                         unions.push({
@@ -177,13 +178,9 @@ export namespace StringifyProgrammer {
             // CONSTANTS
             for (const constant of meta.constants)
                 if (
-                    ArrayUtil.has(
-                        meta.atomics,
-                        (type) => type === constant.type,
-                    )
+                    constant.type !== "string" &&
+                    AtomicPredicator.constant(meta)(constant.type)
                 )
-                    continue;
-                else if (constant.type !== "string")
                     unions.push({
                         type: "atomic",
                         is: () =>
