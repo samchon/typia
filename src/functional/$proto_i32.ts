@@ -13,3 +13,17 @@ export function $proto_i32_encode(
 
     return offset;
 }
+
+export function $proto_i32_decode(
+    buf: Uint8Array,
+    offset: number,
+): [value: number, offset: number] {
+    const value =
+        (buf[offset]! << 0) |
+        (buf[offset + 1]! << 8) |
+        (buf[offset + 2]! << 16) |
+        (buf[offset + 3]! << 24);
+    offset += 4;
+
+    return [value, offset];
+}
