@@ -119,6 +119,10 @@ export function $varint_encode(
     if (typeof value === "bigint") {
         offset = EncodeVarBigInt(dst, offset, value);
     } else {
+        if (value < 0) {
+            // NOTE: Protocol Buffers signed varint encoding uses two's complement of 64-bit unsigned integers.
+            offset = EncodeVarBigInt(dst, offset, BigInt(value));
+        }
         offset = EncodeVarNumber(dst, offset, value);
     }
     return offset;
