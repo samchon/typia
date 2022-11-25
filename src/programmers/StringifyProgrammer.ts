@@ -341,6 +341,7 @@ export namespace StringifyProgrammer {
                     type: "object",
                     is: () => ExpressionFactory.isObject(input, true),
                     value: () =>
+                        meta.isParentResolved() === false &&
                         meta.objects.length === 1 &&
                         meta.objects[0]!._Is_simple()
                             ? (() => {
