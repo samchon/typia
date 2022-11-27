@@ -1,10 +1,10 @@
 import ts from "typescript";
 
-import { Metadata } from "../../metadata/Metadata";
+import { Metadata } from "../../../metadata/Metadata";
 
-import { ArrayUtil } from "../../utils/ArrayUtil";
+import { ArrayUtil } from "../../../utils/ArrayUtil";
 
-import { TypeFactory } from "../TypeFactory";
+import { TypeFactory } from "../../TypeFactory";
 
 export const iterate_metadata_native =
     (checker: ts.TypeChecker) =>

@@ -29,6 +29,7 @@ export * from "./IValidation";
     SINGLE FUNCTIONS
         - BASIC VALIDATORS
         - STRICT VALIDATORS
+        - PROTOCOL BUFFER FUNCTIONS
         - STRINGIFY FUNCTIONS
         - CLONE FUNCTIONS
         - MISC
@@ -587,6 +588,16 @@ export namespace validateEquals {
                 })();
             return matched;
         };
+}
+
+/* -----------------------------------------------------------
+    PROTOCOL BUFFER FUNCTIONS
+----------------------------------------------------------- */
+export function message(): never;
+export function message<T>(): string;
+
+export function message(): string {
+    halt("message");
 }
 
 /* -----------------------------------------------------------
