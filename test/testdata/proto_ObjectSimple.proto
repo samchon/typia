@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package ObjectSimple;
+
+message Box3D {
+    Point3D scale = 1;
+    Point3D position = 2;
+    Point3D rotate = 3;
+    Point3D pivot = 4;
+}
+
+message Point3D {
+    int32 x = 1;
+    int32 y = 2;
+    int32 z = 3;
+}
