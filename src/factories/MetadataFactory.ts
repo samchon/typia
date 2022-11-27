@@ -1,11 +1,11 @@
 import ts from "typescript";
 
 import { Metadata } from "../metadata/Metadata";
+import { explore_metadata } from "./internal/metadata/explore_metadata";
 
 import { ArrayUtil } from "../utils/ArrayUtil";
 
 import { MetadataCollection } from "./MetadataCollection";
-import { explore_metadata } from "./internal/explore_metadata";
 
 export namespace MetadataFactory {
     export interface IOptions {

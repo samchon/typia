@@ -1,11 +1,11 @@
 import ts from "typescript";
 
-import { Metadata } from "../../metadata/Metadata";
-import { MetadataConstant } from "../../metadata/MetadataConstant";
+import { Metadata } from "../../../metadata/Metadata";
+import { MetadataConstant } from "../../../metadata/MetadataConstant";
 
-import { ArrayUtil } from "../../utils/ArrayUtil";
+import { ArrayUtil } from "../../../utils/ArrayUtil";
 
-import { MetadataFactory } from "../MetadataFactory";
+import { MetadataFactory } from "../../MetadataFactory";
 
 export const iterate_metadata_constant =
     (checker: ts.TypeChecker) =>

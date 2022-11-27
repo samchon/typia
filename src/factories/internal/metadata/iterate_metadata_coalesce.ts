@@ -1,10 +1,10 @@
 import ts from "typescript";
 
-import { Metadata } from "../../metadata/Metadata";
+import { Metadata } from "../../../metadata/Metadata";
 
-import { Writable } from "../../typings/Writable";
+import { Writable } from "../../../typings/Writable";
 
-import { TypeFactory } from "../TypeFactory";
+import { TypeFactory } from "../../TypeFactory";
 
 export const iterate_metadata_coalesce = (
     meta: Metadata,
