@@ -10,8 +10,9 @@ import { iterate_protocol_constant } from "./iterate_protocol_constant";
 
 export const emplace_protocol_property =
     (_collection: MetadataCollection) =>
-    (_messages: IProtocolMessage[]) =>
+    (_dict: Map<string, IProtocolMessage>) =>
     (_object: MetadataObject) =>
+    (_message: IProtocolMessage) =>
     (property: MetadataProperty) =>
     (repeat: boolean): IProtocolProperty => {
         const meta: Metadata = property.value;
