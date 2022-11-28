@@ -86,6 +86,7 @@ export const explore_metadata =
         )
             meta.templates.splice(0, meta.templates.length);
 
-        // RETURNS
+        // RETURNS WITH VALIDATION
+        if (options.validate) options.validate(meta);
         return meta;
     };

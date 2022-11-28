@@ -1,8 +1,7 @@
 import ts from "typescript";
 
+import { MessageFactory } from "../factories/MessageFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
-import { MetadataFactory } from "../factories/MetadataFactory";
-import { emplace_protocol_object } from "../factories/internal/protocols/emplace_protocol_object";
 
 import { Metadata } from "../metadata/Metadata";
 
@@ -13,43 +12,31 @@ import { MapUtil } from "../utils/MapUtil";
 import { IProtocolMessage } from "../messages/IProtocolMessage";
 
 export namespace MessageProgrammer {
-    export const generate = (project: IProject) => (type: ts.Type) => {
-        // PARSE TARGET TYPE
-        const collection: MetadataCollection = new MetadataCollection({
-            replace: MetadataCollection.replace,
-        });
-        const metadata: Metadata = MetadataFactory.generate(
-            project.checker,
-            collection,
-            type,
-            {
-                resolve: false,
-                constant: true,
-            },
-        );
-        metadata;
+    export const generate =
+        ({ checker }: IProject) =>
+        (type: ts.Type) => {
+            // PARSE TARGET TYPE
+            const collection: MetadataCollection = MessageFactory.collection();
+            const metadata: Metadata =
+                MessageFactory.metadata(checker)(collection)(type);
 
-        // CONVERT TO PROTOCOL MESSAGES
-        const messages: IProtocolMessage[] = [];
-        messages.push(
-            ...collection
-                .objects()
-                .map((obj) =>
-                    emplace_protocol_object(collection)(messages)(obj),
-                ),
-        );
+            // CONVERT TO PROTOCOL MESSAGES
+            const dict: Map<string, IProtocolMessage> = new Map();
+            MessageFactory.generate(collection)(dict)(metadata);
 
-        // STRINGIFY
-        const dict: Map<string, Hierarchy> = new Map();
-        for (const msg of messages) emplace(dict)(msg);
+            // STRINGIFY
+            const hierarchies: Map<string, Hierarchy> = new Map();
+            for (const msg of dict.values()) emplace(hierarchies)(msg);
 
-        const content: string =
-            `syntax = "proto3";\n\n` +
-            [...dict.values()].map((hier) => stringify(hier, 0)).join("\n\n");
+            const content: string =
+                `syntax = "proto3";\n\n` +
+                [...hierarchies.values()]
+                    .map((hier) => stringify(hier, 0))
+                    .join("\n\n");
 
-        // RETURNS
-        return ts.factory.createStringLiteral(content);
-    };
+            // RETURNS
+            return ts.factory.createStringLiteral(content);
+        };
 
     const stringify = (hierarchy: Hierarchy, level: number): string => {
         const { key, message, children } = hierarchy;

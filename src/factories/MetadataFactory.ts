@@ -11,6 +11,7 @@ export namespace MetadataFactory {
     export interface IOptions {
         resolve: boolean;
         constant: boolean;
+        validate?: (meta: Metadata) => void;
     }
 
     export function generate(
