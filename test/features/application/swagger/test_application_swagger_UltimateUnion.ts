@@ -1184,6 +1184,11 @@ export const test_application_swagger_UltimateUnion = _test_application(
                         nullable: false,
                         "x-tson-required": false,
                     },
+                    multipleOf: {
+                        type: "number",
+                        nullable: false,
+                        "x-tson-required": false,
+                    },
                     default: {
                         type: "number",
                         nullable: false,

@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.3.39",
+  "version": "3.3.40",
   "description": "Runtime type checkers and 5x faster JSON.stringify() function",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -52,6 +52,9 @@
     "url": "https://github.com/samchon/typescript-json/issues"
   },
   "homepage": "https://github.com/samchon/typescript-json#readme",
+  "peerDependencies": {
+    "typescript": "4.6.x || 4.7.x || 4.8.x"
+  },
   "devDependencies": {
     "@fastify/type-provider-typebox": "^2.3.0",
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",

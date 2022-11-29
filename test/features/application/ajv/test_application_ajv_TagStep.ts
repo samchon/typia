@@ -157,6 +157,7 @@ export const test_application_ajv_TagStep = _test_application("ajv")(
                                 },
                             ],
                             "x-tson-required": true,
+                            multipleOf: 5,
                         },
                     },
                     nullable: false,
