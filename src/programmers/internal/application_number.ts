@@ -33,6 +33,8 @@ export const application_number = (
                     output.maximum = tag.maximum.value;
                 else output.exclusiveMaximum = tag.maximum.value;
         }
+        // MULTIPLE-OF
+        else if (tag.kind === "multipleOf") output.multipleOf = tag.value;
     }
 
     // WHEN UNSIGNED INT
@@ -64,6 +66,8 @@ export const application_number = (
             conditions.push(value > output.exclusiveMinimum);
         if (output.exclusiveMaximum !== undefined)
             conditions.push(value < output.exclusiveMaximum);
+        if (output.multipleOf !== undefined)
+            conditions.push(value % output.multipleOf === 0);
         return conditions.every((cond) => cond);
     })((str) => Number(str));
 
