@@ -15,7 +15,11 @@ function replace(type, file, schema) {
 
     const newContent =
         content.substring(0, first) + symbol + schema + "\n" + ");";
-    fs.writeFileSync(file, newContent, "utf8");
+    fs.writeFileSync(
+        file, 
+        newContent.split("\r\n").join("\n"), 
+        "utf8"
+    );
 }
 
 function iterate(type) {

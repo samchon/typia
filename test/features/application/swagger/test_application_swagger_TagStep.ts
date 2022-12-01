@@ -156,6 +156,7 @@ export const test_application_swagger_TagStep = _test_application("swagger")(
                                 },
                             ],
                             "x-tson-required": true,
+                            multipleOf: 5,
                         },
                     },
                     nullable: false,

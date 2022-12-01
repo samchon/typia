@@ -1214,6 +1214,11 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                             nullable: false,
                             "x-tson-required": false,
                         },
+                        multipleOf: {
+                            type: "number",
+                            nullable: false,
+                            "x-tson-required": false,
+                        },
                         default: {
                             type: "number",
                             nullable: false,
