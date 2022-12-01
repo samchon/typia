@@ -1,7 +1,7 @@
 import ts from "typescript";
 
-import { MessageFactory } from "../factories/MessageFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
+import { ProtocolFactory } from "../factories/ProtocolFactory";
 
 import { Metadata } from "../metadata/Metadata";
 
@@ -16,13 +16,13 @@ export namespace MessageProgrammer {
         ({ checker }: IProject) =>
         (type: ts.Type) => {
             // PARSE TARGET TYPE
-            const collection: MetadataCollection = MessageFactory.collection();
+            const collection: MetadataCollection = ProtocolFactory.collection();
             const metadata: Metadata =
-                MessageFactory.metadata(checker)(collection)(type);
+                ProtocolFactory.metadata(checker)(collection)(type);
 
             // CONVERT TO PROTOCOL MESSAGES
             const dict: Map<string, IProtocolMessage> = new Map();
-            MessageFactory.generate(collection)(dict)(metadata);
+            ProtocolFactory.generate(collection)(dict)(metadata);
 
             // STRINGIFY
             const hierarchies: Map<string, Hierarchy> = new Map();
@@ -31,14 +31,14 @@ export namespace MessageProgrammer {
             const content: string =
                 `syntax = "proto3";\n\n` +
                 [...hierarchies.values()]
-                    .map((hier) => stringify(hier, 0))
+                    .map((hier) => stringify(hier))
                     .join("\n\n");
 
             // RETURNS
             return ts.factory.createStringLiteral(content);
         };
 
-    const stringify = (hierarchy: Hierarchy, level: number): string => {
+    const stringify = (hierarchy: Hierarchy): string => {
         const { key, message, children } = hierarchy;
         let index: number = 1;
 
@@ -49,19 +49,21 @@ export namespace MessageProgrammer {
                     if (property.oneOf.length === 1)
                         return [
                             TAB,
-                            property.required ? "" : "optional",
-                            property.oneOf[0]!.repeat ? "repeat" : "",
-                            property.oneOf[0]!.type,
-                            property.key,
-                            "=",
+                            property.required ? "" : "optional ",
+                            property.repeated ? "repeated " : "",
+                            property.oneOf[0]!.type + " ",
+                            property.key + " ",
+                            "= ",
                             `${index++};`,
-                        ].join(" ");
+                        ].join("");
                     return (
-                        `${TAB}oneof ${property.key}\n` +
-                        property.oneOf.map(
-                            (o, i) =>
-                                `${TAB}${TAB}${o.type} o${i} = ${index++};\n`,
-                        ) +
+                        `${TAB}oneof ${property.key} {\n` +
+                        property.oneOf
+                            .map(
+                                (o, i) =>
+                                    `${TAB}${TAB}${o.type} o${i} = ${index++};`,
+                            )
+                            .join("\n") +
                         `\n${TAB}}`
                     );
                 }),
@@ -69,16 +71,19 @@ export namespace MessageProgrammer {
         if (message !== null && children.size) elements.push("\n");
         if (children.size)
             elements.push(
-                ...[...children.values()]
-                    .map((child) => stringify(child, level + 1))
-                    .join("\n\n")
-                    .split("\n"),
+                [...children.values()]
+                    .map((child) => stringify(child))
+                    .map((body) =>
+                        body
+                            .split("\n")
+                            .map((line) => `${TAB}${line}`)
+                            .join("\n"),
+                    )
+                    .join("\n\n"),
             );
         elements.push("}");
 
-        return level === 0
-            ? elements.join("\n")
-            : elements.map((line) => `${TAB.repeat(level)}${line}`).join("\n");
+        return elements.join("\n");
     };
 
     const emplace =

@@ -1,14 +1,14 @@
 import { MetadataConstant } from "../../../metadata/MetadataConstant";
 
-export const iterate_protocol_constant =
-    (adder: (type: string) => void) => (constants: MetadataConstant[]) => {
-        for (const { type, values } of constants) {
-            if (type === "boolean") adder("bool");
-            else if (type === "number") adder(number(values));
-            else if (type === "bigint") adder(bigint(values));
-            else adder("string");
-        }
-    };
+export const iterate_protocol_constant = ({
+    type,
+    values,
+}: MetadataConstant) => {
+    if (type === "boolean") return "bool";
+    else if (type === "number") return number(values);
+    else if (type === "bigint") return bigint(values);
+    else return "string";
+};
 
 const bigint = (values: bigint[]): string => {
     return values.every((v) => v >= BigInt(0)) ? "uint64" : "int64";
