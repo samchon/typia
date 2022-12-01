@@ -12,7 +12,7 @@ export const iterate_protocol_tuple =
         const name: string = MetadataCollection.replace(
             `[${tuple.map((m) => m.getName()).join(", ")}]`,
         );
-        if (dict.has(name)) return name;
+        if (dict.has(name)) return MetadataCollection.escape(name);
 
         const obj: MetadataObject = ProtocolMetadataUtil.object(
             name,
@@ -24,5 +24,5 @@ export const iterate_protocol_tuple =
             ),
         );
         emplace_protocol_object(dict)(obj);
-        return obj.name;
+        return MetadataCollection.escape(obj.name);
     };

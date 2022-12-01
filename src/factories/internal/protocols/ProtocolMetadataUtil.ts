@@ -26,6 +26,21 @@ export namespace ProtocolMetadataUtil {
         );
     }
 
+    export function standalone(meta: Metadata): boolean {
+        return (
+            size(meta) === 1 &&
+            meta.required === true &&
+            meta.nullable === false &&
+            meta.tuples.length === 0 &&
+            meta.arrays.length === 0 &&
+            meta.sets.length === 0 &&
+            meta.maps.length === 0 &&
+            meta.objects.every((obj) =>
+                obj.properties.every((p) => p.key.isSoleLiteral()),
+            )
+        );
+    }
+
     export function object(name: string, index: number): MetadataObject {
         return MetadataObject.create({
             name,

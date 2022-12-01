@@ -5,6 +5,7 @@ import { IProtocolMessage } from "../../../messages/IProtocolMessage";
 import { IProtocolProperty } from "../../../messages/IProtocolProperty";
 import { iterate_protocol_atomic } from "./iterate_protocol_atomic";
 import { iterate_protocol_constant } from "./iterate_protocol_constant";
+import { iterate_protocol_map } from "./iterate_protocol_map";
 import { iterate_protocol_native } from "./iterate_protocol_native";
 import { iterate_protocol_repeated } from "./iterate_protocol_repeated";
 import { iterate_protocol_tuple } from "./iterate_protocol_tuple";
@@ -45,7 +46,15 @@ export const iterate_protocol_metadata =
             add(iterate_protocol_constant(constant));
 
         // INSTANCE TYPES
-        for (const obj of meta.objects) add(obj.name);
+        for (const obj of meta.objects)
+            if (obj.properties.some((p) => !p.key.isSoleLiteral())) {
+                for (const prop of obj.properties)
+                    add(
+                        iterate_protocol_map("Object")(dict)(prop.key)(
+                            prop.value,
+                        ),
+                    );
+            } else add(obj.name);
         for (const native of meta.natives)
             add(iterate_protocol_native(dict)(native));
         for (const tuple of meta.tuples)
@@ -54,6 +63,8 @@ export const iterate_protocol_metadata =
             add(iterate_protocol_repeated("Array")(false)(dict)(array)(tags));
         for (const set of meta.sets)
             add(iterate_protocol_repeated("Set")(false)(dict)(set)(tags));
+        for (const map of meta.maps)
+            add(iterate_protocol_map("Map")(dict)(map.key)(map.value));
 
         // RETURNS
         return {
