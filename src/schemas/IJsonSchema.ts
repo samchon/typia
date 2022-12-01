@@ -43,6 +43,7 @@ export namespace IJsonSchema {
         maximum?: number;
         exclusiveMinimum?: number;
         exclusiveMaximum?: number;
+        multipleOf?: number;
     }
     export interface IBoolean extends IAtomic<"boolean"> {}
     export interface IBigInt extends IAtomic<"bigint"> {}

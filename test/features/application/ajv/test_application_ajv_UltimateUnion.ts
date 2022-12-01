@@ -197,7 +197,7 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                             "x-tson-required": false,
                                         },
                                         {
-                                            $ref: "components#/schemas/IMetadataTag.IType",
+                                            $ref: "components#/schemas/IMetadataTag.INumberType",
                                             "x-tson-required": false,
                                         },
                                         {
@@ -226,6 +226,10 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                         },
                                         {
                                             $ref: "components#/schemas/IMetadataTag.IStep",
+                                            "x-tson-required": false,
+                                        },
+                                        {
+                                            $ref: "components#/schemas/IMetadataTag.IBigintType",
                                             "x-tson-required": false,
                                         },
                                     ],
@@ -439,8 +443,8 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                     required: ["kind", "value"],
                     "x-tson_jsDocTags": [],
                 },
-                "IMetadataTag.IType": {
-                    $id: "components#/schemas/IMetadataTag.IType",
+                "IMetadataTag.INumberType": {
+                    $id: "components#/schemas/IMetadataTag.INumberType",
                     type: "object",
                     properties: {
                         kind: {
@@ -451,7 +455,16 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                         },
                         value: {
                             type: "string",
-                            enum: ["int", "uint"],
+                            enum: [
+                                "int",
+                                "uint",
+                                "int32",
+                                "uint32",
+                                "int64",
+                                "uint64",
+                                "float",
+                                "double",
+                            ],
                             nullable: false,
                             "x-tson-required": true,
                         },
@@ -603,6 +616,27 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                     required: ["kind", "value"],
                     "x-tson_jsDocTags": [],
                 },
+                "IMetadataTag.IBigintType": {
+                    $id: "components#/schemas/IMetadataTag.IBigintType",
+                    type: "object",
+                    properties: {
+                        kind: {
+                            type: "string",
+                            enum: ["type"],
+                            nullable: false,
+                            "x-tson-required": true,
+                        },
+                        value: {
+                            type: "string",
+                            enum: ["int64", "uint64"],
+                            nullable: false,
+                            "x-tson-required": true,
+                        },
+                    },
+                    nullable: false,
+                    required: ["kind", "value"],
+                    "x-tson_jsDocTags": [],
+                },
                 IJsDocTagInfo: {
                     $id: "components#/schemas/IJsDocTagInfo",
                     type: "object",
@@ -728,7 +762,7 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                             "x-tson-required": false,
                                         },
                                         {
-                                            $ref: "components#/schemas/IMetadataTag.IType",
+                                            $ref: "components#/schemas/IMetadataTag.INumberType",
                                             "x-tson-required": false,
                                         },
                                         {
@@ -757,6 +791,10 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                         },
                                         {
                                             $ref: "components#/schemas/IMetadataTag.IStep",
+                                            "x-tson-required": false,
+                                        },
+                                        {
+                                            $ref: "components#/schemas/IMetadataTag.IBigintType",
                                             "x-tson-required": false,
                                         },
                                     ],
@@ -867,7 +905,7 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                             "x-tson-required": false,
                                         },
                                         {
-                                            $ref: "components#/schemas/IMetadataTag.IType",
+                                            $ref: "components#/schemas/IMetadataTag.INumberType",
                                             "x-tson-required": false,
                                         },
                                         {
@@ -896,6 +934,10 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                         },
                                         {
                                             $ref: "components#/schemas/IMetadataTag.IStep",
+                                            "x-tson-required": false,
+                                        },
+                                        {
+                                            $ref: "components#/schemas/IMetadataTag.IBigintType",
                                             "x-tson-required": false,
                                         },
                                     ],
@@ -1006,7 +1048,7 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                             "x-tson-required": false,
                                         },
                                         {
-                                            $ref: "components#/schemas/IMetadataTag.IType",
+                                            $ref: "components#/schemas/IMetadataTag.INumberType",
                                             "x-tson-required": false,
                                         },
                                         {
@@ -1035,6 +1077,10 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                         },
                                         {
                                             $ref: "components#/schemas/IMetadataTag.IStep",
+                                            "x-tson-required": false,
+                                        },
+                                        {
+                                            $ref: "components#/schemas/IMetadataTag.IBigintType",
                                             "x-tson-required": false,
                                         },
                                     ],
@@ -1134,7 +1180,7 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "components#/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.INumberType",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -1163,6 +1209,10 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                     },
                                     {
                                         $ref: "components#/schemas/IMetadataTag.IStep",
+                                        "x-tson-required": false,
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IBigintType",
                                         "x-tson-required": false,
                                     },
                                 ],
@@ -1210,6 +1260,11 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                             "x-tson-required": false,
                         },
                         exclusiveMaximum: {
+                            type: "number",
+                            nullable: false,
+                            "x-tson-required": false,
+                        },
+                        multipleOf: {
                             type: "number",
                             nullable: false,
                             "x-tson-required": false,
@@ -1282,7 +1337,7 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "components#/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.INumberType",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -1311,6 +1366,10 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                     },
                                     {
                                         $ref: "components#/schemas/IMetadataTag.IStep",
+                                        "x-tson-required": false,
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IBigintType",
                                         "x-tson-required": false,
                                     },
                                 ],
@@ -1410,7 +1469,7 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "components#/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.INumberType",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -1439,6 +1498,10 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                     },
                                     {
                                         $ref: "components#/schemas/IMetadataTag.IStep",
+                                        "x-tson-required": false,
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IBigintType",
                                         "x-tson-required": false,
                                     },
                                 ],
@@ -1558,7 +1621,7 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "components#/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.INumberType",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -1587,6 +1650,10 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                     },
                                     {
                                         $ref: "components#/schemas/IMetadataTag.IStep",
+                                        "x-tson-required": false,
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IBigintType",
                                         "x-tson-required": false,
                                     },
                                 ],
@@ -1760,7 +1827,7 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "components#/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.INumberType",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -1789,6 +1856,10 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                     },
                                     {
                                         $ref: "components#/schemas/IMetadataTag.IStep",
+                                        "x-tson-required": false,
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IBigintType",
                                         "x-tson-required": false,
                                     },
                                 ],
@@ -1957,7 +2028,7 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "components#/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.INumberType",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -1986,6 +2057,10 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                     },
                                     {
                                         $ref: "components#/schemas/IMetadataTag.IStep",
+                                        "x-tson-required": false,
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IBigintType",
                                         "x-tson-required": false,
                                     },
                                 ],
@@ -2143,7 +2218,7 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "components#/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.INumberType",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -2172,6 +2247,10 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                     },
                                     {
                                         $ref: "components#/schemas/IMetadataTag.IStep",
+                                        "x-tson-required": false,
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IBigintType",
                                         "x-tson-required": false,
                                     },
                                 ],
@@ -2260,7 +2339,7 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "components#/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.INumberType",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -2289,6 +2368,10 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                     },
                                     {
                                         $ref: "components#/schemas/IMetadataTag.IStep",
+                                        "x-tson-required": false,
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IBigintType",
                                         "x-tson-required": false,
                                     },
                                 ],
@@ -2377,7 +2460,7 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "components#/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.INumberType",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -2406,6 +2489,10 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                     },
                                     {
                                         $ref: "components#/schemas/IMetadataTag.IStep",
+                                        "x-tson-required": false,
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IBigintType",
                                         "x-tson-required": false,
                                     },
                                 ],
@@ -2495,7 +2582,7 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "components#/schemas/IMetadataTag.IType",
+                                        $ref: "components#/schemas/IMetadataTag.INumberType",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -2524,6 +2611,10 @@ export const test_application_ajv_UltimateUnion = _test_application("ajv")(
                                     },
                                     {
                                         $ref: "components#/schemas/IMetadataTag.IStep",
+                                        "x-tson-required": false,
+                                    },
+                                    {
+                                        $ref: "components#/schemas/IMetadataTag.IBigintType",
                                         "x-tson-required": false,
                                     },
                                 ],

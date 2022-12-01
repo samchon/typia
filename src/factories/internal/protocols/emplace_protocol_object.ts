@@ -1,13 +1,10 @@
 import { MetadataObject } from "../../../metadata/MetadataObject";
 
 import { IProtocolMessage } from "../../../messages/IProtocolMessage";
-import { MetadataCollection } from "../../MetadataCollection";
 import { emplace_protocol_property } from "./emplace_protocol_property";
 
 export const emplace_protocol_object =
-    (collection: MetadataCollection) =>
-    (dict: Map<string, IProtocolMessage>) =>
-    (object: MetadataObject) => {
+    (dict: Map<string, IProtocolMessage>) => (object: MetadataObject) => {
         if (dict.has(object.name)) return;
 
         const regular = object.properties.filter((p) => p.key.isSoleLiteral());
@@ -22,11 +19,7 @@ export const emplace_protocol_object =
         dict.set(object.name, output);
 
         output.properties.push(
-            ...regular.map((prop) =>
-                emplace_protocol_property(collection)(dict)(object)(output)(
-                    prop,
-                )(false),
-            ),
+            ...regular.map((prop) => emplace_protocol_property(dict)(prop)),
         );
         return output;
     };
