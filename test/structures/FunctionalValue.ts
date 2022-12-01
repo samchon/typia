@@ -4,4 +4,5 @@ export namespace FunctionalValue {
         return console.log;
     }
     export const JSONABLE = false;
+    export const BINARABLE = false;
 }

@@ -1,33 +1,28 @@
 import fs from "fs";
 
-import TSON from "../../src";
-import { ArrayHierarchical } from "../structures/ArrayHierarchical";
-import { ArrayRecursiveUnionExplicit } from "../structures/ArrayRecursiveUnionExplicit";
-import { ObjectHierarchical } from "../structures/ObjectHierarchical";
-import { ObjectUnionExplicit } from "../structures/ObjectUnionExplicit";
+import { TestMessageGenerator } from "../generate/TestMessageGenerator";
+import { TestStructure } from "../generate/TestStructure";
 
-fs.writeFileSync(
-    __dirname + "/internal/364/ObjectHierarchical.proto",
-    TSON.message<ObjectHierarchical>(),
-    "utf8",
-);
+async function load(): Promise<TestStructure<any>[]> {
+    const path: string = `${__dirname}/../structures`;
+    const output: TestStructure<any>[] = [];
 
-fs.writeFileSync(
-    __dirname + "/internal/364/ArrayHierarchical.proto",
-    TSON.message<ArrayHierarchical>(),
-    "utf8",
-);
+    for (const file of await fs.promises.readdir(path)) {
+        const location: string = `${path}/${file}`;
+        const modulo: Record<string, TestStructure<any>> = await import(
+            location
+        );
+        output.push({
+            ...Object.values(modulo)[0],
+            name: file.substring(0, file.length - 3),
+        });
+    }
+    return output;
+}
 
-fs.writeFileSync(
-    __dirname + "/internal/364/ObjectUnionExplicit.proto",
-    TSON.message<ObjectUnionExplicit>(),
-    "utf8",
-);
-
-fs.writeFileSync(
-    __dirname + "/internal/364/ArrayRecursiveUnionExplicit.proto",
-    TSON.message<ArrayRecursiveUnionExplicit>(),
-    "utf8",
-);
-
-console.log(TSON.message<Date | boolean[] | string[][] | number[][][]>());
+async function main() {
+    const structures: TestStructure<any>[] = await load();
+    await TestMessageGenerator.generate(structures);
+    await TestMessageGenerator.fill();
+}
+main().catch(() => {});

@@ -27,7 +27,7 @@ export namespace ProtocolFactory {
                         throw new Error(ErrorMessages.NO_FUNCTIONAL);
                     else if (meta.objects.find((o) => o.name === "__Main"))
                         throw new Error(ErrorMessages.NO_MAIN);
-                    else if (meta.objects.find((o) => o.name === "_Timestamp"))
+                    else if (meta.objects.find((o) => o.name === "__Timestamp"))
                         throw new Error(ErrorMessages.NO_TIMESTAMP);
                     else if (
                         meta.objects.some(
@@ -63,16 +63,28 @@ export namespace ProtocolFactory {
             iterate_protocol_main(dict)(meta);
         };
 
-    const is_atomic_key = (key: Metadata) =>
-        key.required &&
-        key.nullable === false &&
-        key.functional === false &&
-        key.resolved === null &&
-        key.size() ===
-            key.atomics.length +
-                key.constants
-                    .map((c) => c.values.length)
-                    .reduce((a, b) => a + b, 0);
+    const is_atomic_key = (key: Metadata) => {
+        if (
+            key.required &&
+            key.nullable === false &&
+            key.functional === false &&
+            key.resolved === null &&
+            key.size() ===
+                key.atomics.length +
+                    key.constants
+                        .map((c) => c.values.length)
+                        .reduce((a, b) => a + b, 0) +
+                    key.templates.length
+        ) {
+            const set: Set<string> = new Set();
+            for (const atomic of key.atomics) set.add(atomic);
+            for (const constant of key.constants) set.add(constant.type);
+            if (key.templates.length) set.add("string");
+
+            return set.size === 1;
+        }
+        return false;
+    };
 }
 
 const enum ErrorMessages {

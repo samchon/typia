@@ -21,4 +21,6 @@ export namespace FunctionalValueUnion {
             return ["$input[2]"];
         },
     ];
+
+    export const BINARABLE = false;
 }

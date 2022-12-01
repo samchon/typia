@@ -13,12 +13,7 @@ export const iterate_protocol_repeated =
     (dict: Map<string, IProtocolMessage>) =>
     (meta: Metadata) =>
     (tags: IMetadataTag[]): string => {
-        sole &&=
-            ProtocolMetadataUtil.size(meta) === 1 &&
-            meta.arrays.length === 0 &&
-            meta.sets.length === 0 &&
-            meta.required === true &&
-            meta.nullable === false;
+        sole &&= ProtocolMetadataUtil.standalone(meta);
         if (sole === true) return MetadataCollection.replace(meta.getName());
 
         const obj: MetadataObject = ProtocolMetadataUtil.object(
@@ -29,5 +24,5 @@ export const iterate_protocol_repeated =
         );
         obj.properties.push(ProtocolMetadataUtil.property("value", meta, tags));
         emplace_protocol_object(dict)(obj);
-        return obj.name;
+        return MetadataCollection.replace(obj.name);
     };
