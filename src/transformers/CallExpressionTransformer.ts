@@ -10,6 +10,7 @@ import { CreateIsCloneTransformer } from "./features/cloners/CreateIsCloneTransf
 import { IsCloneTransformer } from "./features/cloners/IsCloneTransformer";
 import { ApplicationTransformer } from "./features/miscellaneous/ApplicationTransformer";
 import { CreateInstanceTransformer } from "./features/miscellaneous/CreateInstanceTransformer";
+import { MetadataTransformer } from "./features/miscellaneous/MetadataTransformer";
 import { AssertStringifyTransformer } from "./features/stringifiers/AssertStringifyTransformer";
 import { CreateAssertStringifyTransformer } from "./features/stringifiers/CreateAssertStringifyTransformer";
 import { CreateIsStringifyTransformer } from "./features/stringifiers/CreateIsStringifyTransformer";
@@ -117,4 +118,5 @@ const FUNCTORS: Record<string, () => Task> = {
 
     // MISC
     createObject: () => CreateInstanceTransformer.transform,
+    metadata: () => MetadataTransformer.transform,
 };

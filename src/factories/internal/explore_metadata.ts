@@ -15,7 +15,7 @@ export const explore_metadata =
     (collection: MetadataCollection) =>
     (type: ts.Type | null, parentResolved: boolean): Metadata => {
         // CONSTRUCT METADATA
-        const meta: Metadata = Metadata.initialize();
+        const meta: Metadata = Metadata.initialize(parentResolved);
         if (type !== null)
             iterate_metadata(checker)(options)(collection)(
                 meta,

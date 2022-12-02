@@ -6,9 +6,11 @@ import { IJsonSchema } from "../../schemas/IJsonSchema";
 import { ArrayUtil } from "../../utils/ArrayUtil";
 
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
+import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { application_array } from "./application_array";
 import { application_boolean } from "./application_boolean";
 import { application_constant } from "./application_constant";
+import { application_native } from "./application_native";
 import { application_number } from "./application_number";
 import { application_object } from "./application_object";
 import { application_string } from "./application_string";
@@ -36,12 +38,20 @@ export const application_schema =
         //----
         const union: IJsonSchema[] = [];
 
-        // ATOMIC TYPES
-        if (meta.templates.length) {
-            union.push(application_templates(meta, attribute));
+        // toJSON() METHOD
+        if (meta.resolved !== null) {
+            const resolved = application_schema(options)(components)(
+                blockNever,
+            )(meta.resolved, attribute);
+            if (resolved !== null) union.push(resolved);
         }
+
+        // ATOMIC TYPES
+        if (meta.templates.length && AtomicPredicator.template(meta))
+            union.push(application_templates(meta, attribute));
         for (const constant of meta.constants) {
             if (constant.type === "string" && meta.templates.length) continue;
+            else if (!AtomicPredicator.constant(meta)(constant.type)) continue;
             union.push(
                 application_constant(constant, meta.nullable, attribute),
             );
@@ -50,9 +60,9 @@ export const application_schema =
             union.push(
                 type === "string"
                     ? application_string(meta, attribute)
-                    : type === "number"
-                    ? application_number(meta.nullable, attribute)
-                    : application_boolean(meta.nullable, attribute),
+                    : type === "boolean"
+                    ? application_boolean(meta.nullable, attribute)
+                    : application_number(meta.nullable, attribute),
             );
         }
 
@@ -89,6 +99,29 @@ export const application_schema =
                     ),
                 );
             }
+
+        // NATIVES
+        for (const native of meta.natives)
+            union.push(
+                application_native(options)(components)(native)(
+                    meta.nullable,
+                    attribute,
+                ),
+            );
+        if (meta.sets.length)
+            union.push(
+                application_native(options)(components)(`Set`)(
+                    meta.nullable,
+                    attribute,
+                ),
+            );
+        if (meta.maps.length)
+            union.push(
+                application_native(options)(components)(`Map`)(
+                    meta.nullable,
+                    attribute,
+                ),
+            );
 
         // OBJECT
         for (const obj of meta.objects) {
@@ -133,6 +166,7 @@ const recursive = (
 
 /**
  * @internal
+ * @todo: not perfect
  */
 function merge_metadata(x: Metadata, y: Metadata): Metadata {
     const output: Metadata = Metadata.create({
@@ -151,6 +185,10 @@ function merge_metadata(x: Metadata, y: Metadata): Metadata {
         arrays: x.arrays.slice(),
         tuples: x.tuples.slice(),
         objects: x.objects.slice(),
+
+        natives: [...new Set([...x.natives, ...y.natives])],
+        sets: x.sets.slice(),
+        maps: x.maps.slice(),
     });
     for (const constant of y.constants) {
         const target: MetadataConstant = ArrayUtil.take(

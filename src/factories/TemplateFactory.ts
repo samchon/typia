@@ -2,6 +2,13 @@ import ts from "typescript";
 
 export namespace TemplateFactory {
     export function generate(expressions: ts.Expression[]): ts.Expression {
+        if (expressions.every((exp) => ts.isStringLiteral(exp)))
+            return ts.factory.createStringLiteral(
+                (expressions as ts.StringLiteral[])
+                    .map((str) => str.text)
+                    .join(""),
+            );
+
         const it: IIerator = {
             value: "",
             index: 0,

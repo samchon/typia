@@ -38,4 +38,15 @@ export namespace ExpressionFactory {
             ? conditions[0]!
             : conditions.reduce((x, y) => ts.factory.createLogicalAnd(x, y));
     }
+
+    export function isInstanceOf(
+        input: ts.Expression,
+        type: string,
+    ): ts.Expression {
+        return ts.factory.createBinaryExpression(
+            input,
+            ts.factory.createToken(ts.SyntaxKind.InstanceOfKeyword),
+            ts.factory.createIdentifier(type),
+        );
+    }
 }

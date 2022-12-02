@@ -92,13 +92,29 @@ export function stringify_dynamic_properties(
     if (regular.length)
         statements.push(
             ts.factory.createIfStatement(
-                IdentifierFactory.join(
-                    ts.factory.createArrayLiteralExpression(
-                        regular.map((key) =>
-                            ts.factory.createStringLiteral(key),
+                ts.factory.createCallExpression(
+                    IdentifierFactory.join(
+                        ts.factory.createArrayLiteralExpression(
+                            regular.map((key) =>
+                                ts.factory.createStringLiteral(key),
+                            ),
                         ),
+                        "some",
                     ),
-                    "some",
+                    undefined,
+                    [
+                        ts.factory.createArrowFunction(
+                            undefined,
+                            undefined,
+                            [IdentifierFactory.parameter("regular")],
+                            undefined,
+                            undefined,
+                            ts.factory.createStrictEquality(
+                                ts.factory.createIdentifier("regular"),
+                                ts.factory.createIdentifier("key"),
+                            ),
+                        ),
+                    ],
                 ),
                 ts.factory.createReturnStatement(
                     ts.factory.createStringLiteral(""),
