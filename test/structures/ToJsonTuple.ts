@@ -6,7 +6,7 @@ export type ToJsonTuple = [
 ];
 export namespace ToJsonTuple {
     export interface IToJson<T> {
-        toJSON(): T;
+        toJSON: () => T;
     }
     export type IObject = IToJson<IHobby>;
     export interface IHobby {

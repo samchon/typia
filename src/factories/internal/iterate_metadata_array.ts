@@ -19,11 +19,11 @@ export const iterate_metadata_array =
         )
             return false;
 
-        const elemType: ts.Type | null = type.getNumberIndexType() || null;
-        const elemMeta: Metadata = explore_metadata(checker)(options)(
-            collection,
-        )(elemType, false);
-
-        ArrayUtil.set(meta.arrays, elemMeta, (elem) => elem.getName());
+        const value: ts.Type | null = type.getNumberIndexType() || null;
+        ArrayUtil.set(
+            meta.arrays,
+            explore_metadata(checker)(options)(collection)(value, false),
+            (elem) => elem.getName(),
+        );
         return true;
     };

@@ -51,7 +51,7 @@ export namespace ObjectHierarchical {
         authorized: boolean = true,
         employeed: boolean = true,
     ): ObjectHierarchical {
-        const account: IAccount | null = authorized ? generate_account() : null;
+        const account = authorized ? () => generate_account() : () => null;
         const enterprise: IEnterprise | null = employeed
             ? {
                   id: RandomGenerator.integer(),
@@ -72,11 +72,11 @@ export namespace ObjectHierarchical {
                 priority: RandomGenerator.integer(),
                 created_at: generate_timestamp(),
             },
-            account,
-            member: account
+            account: account(),
+            member: account()
                 ? {
                       id: RandomGenerator.integer(),
-                      account,
+                      account: account()!,
                       emails: [
                           "samchon.github@gmail.com",
                           "samchon@archisketch.com",

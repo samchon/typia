@@ -32,3 +32,4 @@ export interface ObjectJsonTag {
      */
     entered_title: string;
 }
+export namespace ObjectJsonTag {}

@@ -36,4 +36,7 @@ export namespace ClassNonPublic {
             return ["$input.shown"];
         },
     ];
+
+    export const JSONABLE = false;
+    export const ADDABLE = false;
 }

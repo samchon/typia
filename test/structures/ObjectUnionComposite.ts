@@ -107,7 +107,7 @@ export namespace ObjectUnionComposite {
         },
         (input) => {
             (input[1] as ObjectUnionComposite.ILine).p2 = [] as any;
-            return ["$input[1].p2"];
+            return ["$input[1].p2.x", "$input[1].p2.y"];
         },
         (input) => {
             (input[2] as ObjectUnionComposite.ITriangle).p3 = null!;
@@ -123,13 +123,13 @@ export namespace ObjectUnionComposite {
         },
         (input) => {
             (input[5] as ObjectUnionComposite.IPolygon).outer = {} as any;
-            return ["$input[5].outer"];
+            return ["$input[5].p1", "$input[5].p2"];
         },
         (input) => {
             (input[6] as ObjectUnionComposite.IPointedShape).outer = {
                 length: 0,
             } as any;
-            return ["$input[6].outer"];
+            return ["$input[6].p1", "$input[6].p2"];
         },
         (input) => {
             (input[7] as ObjectUnionComposite.ICircle).radius = "string" as any;

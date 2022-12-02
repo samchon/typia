@@ -137,32 +137,95 @@ export namespace UnionExplorer {
         };
     }
 
-    export function array(
-        checker: (
-            input: ts.Expression,
-            metadata: Metadata,
-            explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
-        ) => ts.Expression,
-        decoder: Decoder<Metadata>,
-        empty: ts.Expression,
-        success: ts.Expression,
-        failure: (
-            input: ts.Expression,
-            expected: string,
-            explore: CheckerProgrammer.IExplore,
-        ) => ts.Statement,
-    ) {
-        return function (
-            input: ts.Expression,
-            targets: Metadata[],
-            explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
-        ): ts.Expression {
-            if (targets.length === 1)
-                return decoder(input, targets[0]!, explore, tags);
+    export const array = (props: array.IProps) =>
+        iterate<Metadata>({
+            size: (input) => IdentifierFactory.join(input, "length"),
+            front: (input) =>
+                ts.factory.createElementAccessExpression(input, 0),
+            array: (input) => input,
+            name: (t) => `Array<${t.getName()}>`,
+        })(props);
+    export namespace array {
+        export type IProps = iterate.IProps<Metadata>;
+    }
 
-            const top = ts.factory.createElementAccessExpression(input, 0);
+    export const set = (props: set.IProps) =>
+        iterate<Metadata>({
+            size: (input) => IdentifierFactory.join(input, "size"),
+            front: (input) =>
+                IdentifierFactory.join(
+                    ts.factory.createCallExpression(
+                        IdentifierFactory.join(
+                            ts.factory.createCallExpression(
+                                IdentifierFactory.join(input, "values"),
+                                undefined,
+                                undefined,
+                            ),
+                            "next",
+                        ),
+                        undefined,
+                        undefined,
+                    ),
+                    "value",
+                ),
+            array: (input) =>
+                ts.factory.createArrayLiteralExpression(
+                    [ts.factory.createSpreadElement(input)],
+                    false,
+                ),
+            name: (t) => `Set<${t.getName()}>`,
+        })(props);
+    export namespace set {
+        export type IProps = iterate.IProps<Metadata>;
+    }
+
+    export const map = (props: map.IProps) =>
+        iterate<[Metadata, Metadata]>({
+            size: (input) => IdentifierFactory.join(input, "size"),
+            front: (input) =>
+                IdentifierFactory.join(
+                    ts.factory.createCallExpression(
+                        IdentifierFactory.join(
+                            ts.factory.createCallExpression(
+                                IdentifierFactory.join(input, "entries"),
+                                undefined,
+                                undefined,
+                            ),
+                            "next",
+                        ),
+                        undefined,
+                        undefined,
+                    ),
+                    "value",
+                ),
+            array: (input) =>
+                ts.factory.createArrayLiteralExpression(
+                    [ts.factory.createSpreadElement(input)],
+                    false,
+                ),
+            name: ([k, v]) => `Map<${k.getName()}, ${v.getName()}>`,
+        })(props);
+
+    export namespace map {
+        export type IProps = iterate.IProps<[Metadata, Metadata]>;
+    }
+
+    const iterate =
+        <T>(accessor: iterate.IAccessor<T>) =>
+        (props: iterate.IProps<T>) =>
+        (
+            input: ts.Expression,
+            targets: T[],
+            explore: FeatureProgrammer.IExplore,
+            tags: IMetadataTag[],
+        ): ts.Expression => {
+            if (targets.length === 1)
+                return props.decoder(
+                    accessor.array(input),
+                    targets[0]!,
+                    explore,
+                    tags,
+                );
 
             //----
             // LIST UP VARIABLES
@@ -180,7 +243,7 @@ export namespace UnionExplorer {
                                     [IdentifierFactory.parameter("branch")],
                                     undefined,
                                     undefined,
-                                    checker(
+                                    props.checker(
                                         ts.factory.createIdentifier("branch"),
                                         meta,
                                         {
@@ -197,7 +260,7 @@ export namespace UnionExplorer {
                                     [IdentifierFactory.parameter("branch")],
                                     undefined,
                                     undefined,
-                                    decoder(
+                                    props.decoder(
                                         ts.factory.createIdentifier("branch"),
                                         meta,
                                         {
@@ -226,11 +289,11 @@ export namespace UnionExplorer {
                             undefined,
                             undefined,
                             ts.factory.createStrictEquality(
-                                success,
+                                props.success,
                                 ts.factory.createCallExpression(
                                     ts.factory.createIdentifier("tuple[0]"),
                                     undefined,
-                                    [top],
+                                    [ts.factory.createIdentifier("front")],
                                 ),
                             ),
                         ),
@@ -251,7 +314,7 @@ export namespace UnionExplorer {
                     ts.factory.createCallExpression(
                         ts.factory.createIdentifier(`filtered[0][1]`),
                         undefined,
-                        [input],
+                        [accessor.array(input)],
                     ),
                 ),
             );
@@ -267,7 +330,10 @@ export namespace UnionExplorer {
                 ts.factory.createIdentifier("filtered"),
                 ts.factory.createIfStatement(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(input, "every"),
+                        IdentifierFactory.join(
+                            ts.factory.createIdentifier("array"),
+                            "every",
+                        ),
                         undefined,
                         [
                             ts.factory.createArrowFunction(
@@ -277,7 +343,7 @@ export namespace UnionExplorer {
                                 undefined,
                                 undefined,
                                 ts.factory.createStrictEquality(
-                                    success,
+                                    props.success,
                                     ts.factory.createCallExpression(
                                         ts.factory.createIdentifier("tuple[0]"),
                                         undefined,
@@ -291,7 +357,7 @@ export namespace UnionExplorer {
                         ts.factory.createCallExpression(
                             ts.factory.createIdentifier(`tuple[1]`),
                             undefined,
-                            [input],
+                            [ts.factory.createIdentifier("array")],
                         ),
                     ),
                 ),
@@ -309,22 +375,23 @@ export namespace UnionExplorer {
                 ts.factory.createIfStatement(
                     ts.factory.createStrictEquality(
                         ts.factory.createNumericLiteral(0),
-                        IdentifierFactory.join(input, "length"),
+                        accessor.size(input),
                     ),
-                    ts.factory.createReturnStatement(empty),
+                    ts.factory.createReturnStatement(props.empty),
                 ),
-                // VARIABLES
+
+                // UNION PREDICATORS
                 tupleListVariable,
+                StatementFactory.constant("front", accessor.front(input)),
                 filteredVariable,
+                uniqueStatement,
 
                 // CONDITIONAL STATEMENTS
-                uniqueStatement,
+                StatementFactory.constant("array", accessor.array(input)),
                 unionStatement,
-                failure(
+                props.failure(
                     input,
-                    `(${targets
-                        .map((t) => `Array<${t.getName()}>`)
-                        .join(" | ")})`,
+                    `(${targets.map((t) => accessor.name(t)).join(" | ")})`,
                     explore,
                 ),
             ];
@@ -342,5 +409,29 @@ export namespace UnionExplorer {
                 undefined,
             );
         };
+    namespace iterate {
+        export interface IProps<T> {
+            checker(
+                input: ts.Expression,
+                target: T,
+                explore: FeatureProgrammer.IExplore,
+                tags: IMetadataTag[],
+            ): ts.Expression;
+            decoder: Decoder<T>;
+            empty: ts.Expression;
+            success: ts.Expression;
+            failure(
+                input: ts.Expression,
+                expected: string,
+                explore: CheckerProgrammer.IExplore,
+            ): ts.Statement;
+        }
+
+        export interface IAccessor<T> {
+            name(metadata: T): string;
+            size(input: ts.Expression): ts.Expression;
+            front(input: ts.Expression): ts.Expression;
+            array(input: ts.Expression): ts.Expression;
+        }
     }
 }

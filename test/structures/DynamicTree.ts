@@ -45,4 +45,6 @@ export namespace DynamicTree {
             ];
         },
     ];
+
+    export const ADDABLE = false;
 }
