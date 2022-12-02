@@ -25,4 +25,6 @@ export namespace DynamicUndefined {
             return [`$input.wrong`];
         },
     ];
+
+    export const BINARABLE = false;
 }

@@ -61,4 +61,6 @@ export namespace FunctionalObjectUnion {
             return ["$input[0].distance"];
         },
     ];
+
+    export const BINARABLE = false;
 }

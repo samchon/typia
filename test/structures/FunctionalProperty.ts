@@ -38,4 +38,6 @@ export namespace FunctionalProperty {
             return ["$input.closure"];
         },
     ];
+
+    export const BINARABLE = false;
 }

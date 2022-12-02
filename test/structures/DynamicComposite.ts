@@ -13,6 +13,8 @@ export interface DynamicComposite {
     [key: `between_${string}_and_${number}`]: boolean;
 }
 export namespace DynamicComposite {
+    export const BINARABLE = false;
+
     export function generate(): DynamicComposite {
         const number = () => Math.random() - 0.5;
         const string = () => RandomGenerator.string();
