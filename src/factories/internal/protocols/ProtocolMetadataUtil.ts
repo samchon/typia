@@ -41,6 +41,10 @@ export namespace ProtocolMetadataUtil {
         );
     }
 
+    export function regular(obj: MetadataObject): boolean {
+        return obj.properties.every((p) => p.key.isSoleLiteral());
+    }
+
     export function object(name: string, index: number): MetadataObject {
         return MetadataObject.create({
             name,

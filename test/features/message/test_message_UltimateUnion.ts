@@ -313,9 +313,6 @@ message IJsonSchema {
         optional repeated IJsDocTagInfo x-tson-jsDocTags = 6;
         optional bool x-tson-required = 7;
     }
-
-    message IUnknown {
-    }
 }
 
 message IMetadataTag {
@@ -458,11 +455,6 @@ message IJsonComponents {
     }
 }
 
-message Record_lt_string_comma__space_IJsonComponents {
-    message IObject_gt_ {
-    }
-}
-
 message Object {
     message Value_lt__lp_IJsonSchema {
         message IArray_space__or__space_IJsonSchema {
@@ -513,9 +505,6 @@ message Object {
             }
         }
     }
-}
-
-message Record_lt_string_comma__space_IJsonSchema_gt_ {
 }
 
 message __Main {

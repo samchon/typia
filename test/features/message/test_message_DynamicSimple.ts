@@ -7,6 +7,7 @@ export const test_message_DynamicSimple = _test_message(
     TSON.message<DynamicSimple>(),
     `syntax = \"proto3\";
 
-message DynamicSimple {
+message __Main {
+    map<string, number> value = 1;
 }`,
 );

@@ -7,6 +7,13 @@ export const test_message_DynamicArray = _test_message(
     TSON.message<DynamicArray>(),
     `syntax = \"proto3\";
 
-message DynamicArray {
+message __Main {
+    map<string, Object.Value_lt_Array_lt_string_gt__gt_> value = 1;
+}
+
+message Object {
+    message Value_lt_Array_lt_string_gt__gt_ {
+        repeated string value = 1;
+    }
 }`,
 );

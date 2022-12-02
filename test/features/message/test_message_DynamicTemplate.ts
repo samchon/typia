@@ -7,6 +7,11 @@ export const test_message_DynamicTemplate = _test_message(
     TSON.message<DynamicTemplate>(),
     `syntax = \"proto3\";
 
-message DynamicTemplate {
+message __Main {
+    oneof value {
+        map<string, string> o0 = 1;
+        map<string, number> o1 = 2;
+        map<string, boolean> o2 = 3;
+    }
 }`,
 );

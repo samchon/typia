@@ -9,7 +9,7 @@ export const iterate_protocol_main =
     (dict: Map<string, IProtocolMessage>) =>
     (meta: Metadata): string => {
         // ONLY ONE OBJECT TYPE
-        if (meta.size() === 1 && meta.objects.length === 1)
+        if (ProtocolMetadataUtil.standalone(meta) && meta.objects.length === 1)
             return MetadataCollection.escape(meta.getName());
 
         const obj = ProtocolMetadataUtil.object("__Main", dict.size);

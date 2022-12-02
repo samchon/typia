@@ -1,28 +1,12 @@
-import fs from "fs";
+import TSON from "../../src";
 
-import { TestMessageGenerator } from "../generate/TestMessageGenerator";
-import { TestStructure } from "../generate/TestStructure";
-
-async function load(): Promise<TestStructure<any>[]> {
-    const path: string = `${__dirname}/../structures`;
-    const output: TestStructure<any>[] = [];
-
-    for (const file of await fs.promises.readdir(path)) {
-        const location: string = `${path}/${file}`;
-        const modulo: Record<string, TestStructure<any>> = await import(
-            location
-        );
-        output.push({
-            ...Object.values(modulo)[0],
-            name: file.substring(0, file.length - 3),
-        });
-    }
-    return output;
+interface Something {
+    map: Map<string, number>;
+    record: Record<number, string>;
+    dynamic: Dynamic;
+}
+interface Dynamic {
+    [key: string]: string;
 }
 
-async function main() {
-    const structures: TestStructure<any>[] = await load();
-    await TestMessageGenerator.generate(structures);
-    await TestMessageGenerator.fill();
-}
-main().catch(() => {});
+console.log(TSON.message<Dynamic>());
