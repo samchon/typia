@@ -198,6 +198,7 @@ export class Metadata {
     public empty(): boolean {
         return this.bucket() === 0 || this.size() === 0;
     }
+
     public size(): number {
         return (
             (this.resolved ? 1 : 0) +
@@ -215,6 +216,7 @@ export class Metadata {
             this.maps.length
         );
     }
+
     public bucket(): number {
         return (
             (this.resolved ? 1 : 0) +
@@ -230,6 +232,7 @@ export class Metadata {
             (this.maps.length ? 1 : 0)
         );
     }
+
     public isConstant(): boolean {
         return this.bucket() === (this.constants.length ? 1 : 0);
     }
@@ -444,8 +447,7 @@ function getName(metadata: Metadata): string {
         elements.push(`Array<${array.getName()}>`);
 
     // OBJECT
-    for (const object of metadata.objects)
-        elements.push(`Resolve<${object.name}>`);
+    for (const object of metadata.objects) elements.push(object.name);
     if (metadata.resolved !== null) elements.push(metadata.resolved.getName());
 
     // NATIVES

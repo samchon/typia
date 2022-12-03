@@ -1,5 +1,7 @@
 export type ToJsonAtomicUnion = ToJsonAtomicUnion.IToJson[];
 export namespace ToJsonAtomicUnion {
+    export const BINARABLE = false;
+
     export interface IToJson {
         toJSON: () => null | boolean | number | string;
     }

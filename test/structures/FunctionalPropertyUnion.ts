@@ -23,4 +23,6 @@ export namespace FunctionalPropertyUnion {
             return ["$input[1].closure"];
         },
     ];
+
+    export const BINARABLE = false;
 }
