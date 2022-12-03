@@ -1,17 +1,17 @@
 import ts from "typescript";
 
-import { Metadata } from "../../metadata/Metadata";
-import { MetadataObject } from "../../metadata/MetadataObject";
-import { MetadataProperty } from "../../metadata/MetadataProperty";
+import { Metadata } from "../../../metadata/Metadata";
+import { MetadataObject } from "../../../metadata/MetadataObject";
+import { MetadataProperty } from "../../../metadata/MetadataProperty";
 
-import { Writable } from "../../typings/Writable";
+import { Writable } from "../../../typings/Writable";
 
-import { ArrayUtil } from "../../utils/ArrayUtil";
+import { ArrayUtil } from "../../../utils/ArrayUtil";
 
-import { CommentFactory } from "../CommentFactory";
-import { MetadataCollection } from "../MetadataCollection";
-import { MetadataFactory } from "../MetadataFactory";
-import { MetadataTagFactory } from "../MetadataTagFactory";
+import { CommentFactory } from "../../CommentFactory";
+import { MetadataCollection } from "../../MetadataCollection";
+import { MetadataFactory } from "../../MetadataFactory";
+import { MetadataTagFactory } from "../../MetadataTagFactory";
 import { MetadataHelper } from "./MetadataHelper";
 import { explore_metadata } from "./explore_metadata";
 

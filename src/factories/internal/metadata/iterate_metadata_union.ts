@@ -1,12 +1,12 @@
 import ts from "typescript";
 
-import { Metadata } from "../../metadata/Metadata";
+import { Metadata } from "../../../metadata/Metadata";
 
-import { Writable } from "../../typings/Writable";
+import { Writable } from "../../../typings/Writable";
 
-import { MetadataCollection } from "../MetadataCollection";
-import { MetadataFactory } from "../MetadataFactory";
-import { TypeFactory } from "../TypeFactory";
+import { MetadataCollection } from "../../MetadataCollection";
+import { MetadataFactory } from "../../MetadataFactory";
+import { TypeFactory } from "../../TypeFactory";
 import { iterate_metadata } from "./iterate_metadata";
 
 export const iterate_metadata_union =
