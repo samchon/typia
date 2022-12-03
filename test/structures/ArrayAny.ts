@@ -59,7 +59,6 @@ export namespace ArrayAny {
     ];
 
     export const ADDABLE = false;
-    export const BINARABLE = false;
 
     const random = () => RandomGenerator.pick([null, true, 2, "three", {}, []]);
 }

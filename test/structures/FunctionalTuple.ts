@@ -37,6 +37,4 @@ export namespace FunctionalTuple {
             return ["$input[2]"];
         },
     ];
-
-    export const BINARABLE = false;
 }

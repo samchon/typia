@@ -15,7 +15,6 @@ export namespace MapUnion {
     }
 
     export const ADDABLE = false;
-    export const BINARABLE = false;
 
     export function generate(): MapUnion {
         return [

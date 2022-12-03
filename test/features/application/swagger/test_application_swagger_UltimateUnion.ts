@@ -191,7 +191,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.INumberType",
+                                        $ref: "#/components/schemas/IMetadataTag.IType",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -220,10 +220,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                     },
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IStep",
-                                        "x-tson-required": false,
-                                    },
-                                    {
-                                        $ref: "#/components/schemas/IMetadataTag.IBigintType",
                                         "x-tson-required": false,
                                     },
                                 ],
@@ -428,7 +424,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                 required: ["kind", "value"],
                 "x-tson_jsDocTags": [],
             },
-            "IMetadataTag.INumberType": {
+            "IMetadataTag.IType": {
                 type: "object",
                 properties: {
                     kind: {
@@ -439,16 +435,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                     },
                     value: {
                         type: "string",
-                        enum: [
-                            "int",
-                            "uint",
-                            "int32",
-                            "uint32",
-                            "int64",
-                            "uint64",
-                            "float",
-                            "double",
-                        ],
+                        enum: ["int", "uint"],
                         nullable: false,
                         "x-tson-required": true,
                     },
@@ -593,26 +580,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                 required: ["kind", "value"],
                 "x-tson_jsDocTags": [],
             },
-            "IMetadataTag.IBigintType": {
-                type: "object",
-                properties: {
-                    kind: {
-                        type: "string",
-                        enum: ["type"],
-                        nullable: false,
-                        "x-tson-required": true,
-                    },
-                    value: {
-                        type: "string",
-                        enum: ["int64", "uint64"],
-                        nullable: false,
-                        "x-tson-required": true,
-                    },
-                },
-                nullable: false,
-                required: ["kind", "value"],
-                "x-tson_jsDocTags": [],
-            },
             IJsDocTagInfo: {
                 type: "object",
                 properties: {
@@ -735,7 +702,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.INumberType",
+                                        $ref: "#/components/schemas/IMetadataTag.IType",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -764,10 +731,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                     },
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IStep",
-                                        "x-tson-required": false,
-                                    },
-                                    {
-                                        $ref: "#/components/schemas/IMetadataTag.IBigintType",
                                         "x-tson-required": false,
                                     },
                                 ],
@@ -877,7 +840,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.INumberType",
+                                        $ref: "#/components/schemas/IMetadataTag.IType",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -906,10 +869,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                     },
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IStep",
-                                        "x-tson-required": false,
-                                    },
-                                    {
-                                        $ref: "#/components/schemas/IMetadataTag.IBigintType",
                                         "x-tson-required": false,
                                     },
                                 ],
@@ -1019,7 +978,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                         "x-tson-required": false,
                                     },
                                     {
-                                        $ref: "#/components/schemas/IMetadataTag.INumberType",
+                                        $ref: "#/components/schemas/IMetadataTag.IType",
                                         "x-tson-required": false,
                                     },
                                     {
@@ -1048,10 +1007,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                     },
                                     {
                                         $ref: "#/components/schemas/IMetadataTag.IStep",
-                                        "x-tson-required": false,
-                                    },
-                                    {
-                                        $ref: "#/components/schemas/IMetadataTag.IBigintType",
                                         "x-tson-required": false,
                                     },
                                 ],
@@ -1150,7 +1105,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                     "x-tson-required": false,
                                 },
                                 {
-                                    $ref: "#/components/schemas/IMetadataTag.INumberType",
+                                    $ref: "#/components/schemas/IMetadataTag.IType",
                                     "x-tson-required": false,
                                 },
                                 {
@@ -1179,10 +1134,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                 },
                                 {
                                     $ref: "#/components/schemas/IMetadataTag.IStep",
-                                    "x-tson-required": false,
-                                },
-                                {
-                                    $ref: "#/components/schemas/IMetadataTag.IBigintType",
                                     "x-tson-required": false,
                                 },
                             ],
@@ -1306,7 +1257,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                     "x-tson-required": false,
                                 },
                                 {
-                                    $ref: "#/components/schemas/IMetadataTag.INumberType",
+                                    $ref: "#/components/schemas/IMetadataTag.IType",
                                     "x-tson-required": false,
                                 },
                                 {
@@ -1335,10 +1286,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                 },
                                 {
                                     $ref: "#/components/schemas/IMetadataTag.IStep",
-                                    "x-tson-required": false,
-                                },
-                                {
-                                    $ref: "#/components/schemas/IMetadataTag.IBigintType",
                                     "x-tson-required": false,
                                 },
                             ],
@@ -1437,7 +1384,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                     "x-tson-required": false,
                                 },
                                 {
-                                    $ref: "#/components/schemas/IMetadataTag.INumberType",
+                                    $ref: "#/components/schemas/IMetadataTag.IType",
                                     "x-tson-required": false,
                                 },
                                 {
@@ -1466,10 +1413,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                 },
                                 {
                                     $ref: "#/components/schemas/IMetadataTag.IStep",
-                                    "x-tson-required": false,
-                                },
-                                {
-                                    $ref: "#/components/schemas/IMetadataTag.IBigintType",
                                     "x-tson-required": false,
                                 },
                             ],
@@ -1588,7 +1531,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                     "x-tson-required": false,
                                 },
                                 {
-                                    $ref: "#/components/schemas/IMetadataTag.INumberType",
+                                    $ref: "#/components/schemas/IMetadataTag.IType",
                                     "x-tson-required": false,
                                 },
                                 {
@@ -1617,10 +1560,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                 },
                                 {
                                     $ref: "#/components/schemas/IMetadataTag.IStep",
-                                    "x-tson-required": false,
-                                },
-                                {
-                                    $ref: "#/components/schemas/IMetadataTag.IBigintType",
                                     "x-tson-required": false,
                                 },
                             ],
@@ -1789,7 +1728,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                     "x-tson-required": false,
                                 },
                                 {
-                                    $ref: "#/components/schemas/IMetadataTag.INumberType",
+                                    $ref: "#/components/schemas/IMetadataTag.IType",
                                     "x-tson-required": false,
                                 },
                                 {
@@ -1818,10 +1757,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                 },
                                 {
                                     $ref: "#/components/schemas/IMetadataTag.IStep",
-                                    "x-tson-required": false,
-                                },
-                                {
-                                    $ref: "#/components/schemas/IMetadataTag.IBigintType",
                                     "x-tson-required": false,
                                 },
                             ],
@@ -1985,7 +1920,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                     "x-tson-required": false,
                                 },
                                 {
-                                    $ref: "#/components/schemas/IMetadataTag.INumberType",
+                                    $ref: "#/components/schemas/IMetadataTag.IType",
                                     "x-tson-required": false,
                                 },
                                 {
@@ -2014,10 +1949,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                 },
                                 {
                                     $ref: "#/components/schemas/IMetadataTag.IStep",
-                                    "x-tson-required": false,
-                                },
-                                {
-                                    $ref: "#/components/schemas/IMetadataTag.IBigintType",
                                     "x-tson-required": false,
                                 },
                             ],
@@ -2170,7 +2101,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                     "x-tson-required": false,
                                 },
                                 {
-                                    $ref: "#/components/schemas/IMetadataTag.INumberType",
+                                    $ref: "#/components/schemas/IMetadataTag.IType",
                                     "x-tson-required": false,
                                 },
                                 {
@@ -2199,10 +2130,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                 },
                                 {
                                     $ref: "#/components/schemas/IMetadataTag.IStep",
-                                    "x-tson-required": false,
-                                },
-                                {
-                                    $ref: "#/components/schemas/IMetadataTag.IBigintType",
                                     "x-tson-required": false,
                                 },
                             ],
@@ -2290,7 +2217,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                     "x-tson-required": false,
                                 },
                                 {
-                                    $ref: "#/components/schemas/IMetadataTag.INumberType",
+                                    $ref: "#/components/schemas/IMetadataTag.IType",
                                     "x-tson-required": false,
                                 },
                                 {
@@ -2319,10 +2246,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                 },
                                 {
                                     $ref: "#/components/schemas/IMetadataTag.IStep",
-                                    "x-tson-required": false,
-                                },
-                                {
-                                    $ref: "#/components/schemas/IMetadataTag.IBigintType",
                                     "x-tson-required": false,
                                 },
                             ],
@@ -2410,7 +2333,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                     "x-tson-required": false,
                                 },
                                 {
-                                    $ref: "#/components/schemas/IMetadataTag.INumberType",
+                                    $ref: "#/components/schemas/IMetadataTag.IType",
                                     "x-tson-required": false,
                                 },
                                 {
@@ -2439,10 +2362,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                 },
                                 {
                                     $ref: "#/components/schemas/IMetadataTag.IStep",
-                                    "x-tson-required": false,
-                                },
-                                {
-                                    $ref: "#/components/schemas/IMetadataTag.IBigintType",
                                     "x-tson-required": false,
                                 },
                             ],
@@ -2531,7 +2450,7 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                     "x-tson-required": false,
                                 },
                                 {
-                                    $ref: "#/components/schemas/IMetadataTag.INumberType",
+                                    $ref: "#/components/schemas/IMetadataTag.IType",
                                     "x-tson-required": false,
                                 },
                                 {
@@ -2560,10 +2479,6 @@ export const test_application_swagger_UltimateUnion = _test_application(
                                 },
                                 {
                                     $ref: "#/components/schemas/IMetadataTag.IStep",
-                                    "x-tson-required": false,
-                                },
-                                {
-                                    $ref: "#/components/schemas/IMetadataTag.IBigintType",
                                     "x-tson-required": false,
                                 },
                             ],

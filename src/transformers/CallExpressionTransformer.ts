@@ -11,7 +11,6 @@ import { IsCloneTransformer } from "./features/cloners/IsCloneTransformer";
 import { ApplicationTransformer } from "./features/miscellaneous/ApplicationTransformer";
 import { CreateInstanceTransformer } from "./features/miscellaneous/CreateInstanceTransformer";
 import { MetadataTransformer } from "./features/miscellaneous/MetadataTransformer";
-import { MessageTransformer } from "./features/protocols/MessageTransformer";
 import { AssertStringifyTransformer } from "./features/stringifiers/AssertStringifyTransformer";
 import { CreateAssertStringifyTransformer } from "./features/stringifiers/CreateAssertStringifyTransformer";
 import { CreateIsStringifyTransformer } from "./features/stringifiers/CreateIsStringifyTransformer";
@@ -79,9 +78,6 @@ const FUNCTORS: Record<string, () => Task> = {
     assertEquals: () => AssertTransformer.transform(true),
     equals: () => IsTransformer.transform(true),
     validateEquals: () => ValidateTransformer.transform(true),
-
-    // PROTOCOL BUFFER FUNCTIONS
-    message: () => MessageTransformer.transform,
 
     // STRINGIFY FUNCTIONS
     stringify: () => StringifyTransformer.transform,

@@ -5,6 +5,5 @@ export interface TestStructure<T> {
     generate?(): T;
     SPOILERS?: Spoiler<T>[];
     ADDABLE?: boolean;
-    BINARABLE?: boolean;
     JSONABLE?: boolean;
 }

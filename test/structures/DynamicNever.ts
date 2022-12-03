@@ -7,8 +7,6 @@ export interface DynamicNever {
     [key: string]: never;
 }
 export namespace DynamicNever {
-    export const BINARABLE = false;
-
     export function generate(): DynamicNever {
         const output: DynamicNever = {};
         ArrayUtil.repeat(RandomGenerator.integer(3, 10), () => {

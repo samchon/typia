@@ -2,8 +2,6 @@ import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectUndefined = ObjectUndefined.ILecture[];
 export namespace ObjectUndefined {
-    export const BINARABLE = false;
-
     export interface ILecture {
         name: string;
         professor?: string | number;

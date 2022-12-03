@@ -1,9 +1,7 @@
 import cp from "child_process";
 import fs from "fs";
 
-import { TestApplicationGenerator } from "./TestApplicationGenerator";
 import { TestFeature } from "./TestFeature";
-import { TestMessageGenerator } from "./TestMessageGenerator";
 import { TestStructure } from "./TestStructure";
 
 async function load(): Promise<TestStructure<any>[]> {
@@ -76,6 +74,42 @@ function script(
     return elements.filter((e) => e !== null).join("\n");
 }
 
+async function application(
+    structures: TestStructure<any>[],
+    purpose: "ajv" | "swagger",
+): Promise<void> {
+    const path: string = `${__dirname}/../features/application/${purpose}`;
+    if (fs.existsSync(path)) cp.execSync(`npx rimraf ${path}`);
+    await fs.promises.mkdir(path);
+
+    for (const s of structures) {
+        if (s.JSONABLE === false) continue;
+
+        const content: string[] = [
+            `import TSON from "../../../../src";`,
+            `import { ${s.name} } from "../../../structures/${s.name}";`,
+            `import { _test_application } from "../../internal/_test_application";`,
+            "",
+            `export const test_application_${purpose}_${s.name} = `,
+            `    _test_application("${purpose}")(`,
+            `        "${s.name}",`,
+            `        TSON.application<[${s.name}], "${purpose}">(),`,
+            `        {`,
+            `            schemas: [],`,
+            `            components: {`,
+            `                schemas: {},`,
+            `            },`,
+            `        },`,
+            `    );`,
+        ];
+        await fs.promises.writeFile(
+            `${__dirname}/../features/application/${purpose}/test_application_${purpose}_${s.name}.ts`,
+            content.join("\n"),
+            "utf8",
+        );
+    }
+}
+
 async function main(): Promise<void> {
     const structures: TestStructure<any>[] = await load();
 
@@ -85,17 +119,12 @@ async function main(): Promise<void> {
         if (feature.creatable) await generate(feature, structures, true);
     }
 
-    // SCHEMAS
-    await TestApplicationGenerator.generate(structures);
-    await TestMessageGenerator.generate(structures);
-
-    // FILL SCHEMA CONTENTS
-    cp.execSync("npx rimraf bin");
-    cp.execSync("npx ttsc -p tsconfig.test.json");
-    await TestApplicationGenerator.fill();
-    await TestMessageGenerator.fill();
+    // JSON SCHEMAS
+    await application(structures, "ajv");
+    await application(structures, "swagger");
 
     // DO BUILD
+    cp.execSync("npm run test:application:replace");
     cp.execSync("npm run prettier", { stdio: "inherit" });
     cp.execSync("npm run build:test:prettier", { stdio: "inherit" });
 }

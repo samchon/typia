@@ -17,7 +17,8 @@
     "prettier": "prettier  --write ./**/*.ts",
     "test": "node bin/test",
     "test:generate": "ts-node -P tsconfig.test.json test/generate/index.ts",
-    "test:manual": "node test/manual"
+    "test:manual": "node test/manual",
+    "test:application:replace": "node test/features/application/replace && npm run prettier"
   },
   "repository": {
     "type": "git",

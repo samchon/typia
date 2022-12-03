@@ -23,6 +23,4 @@ export namespace FunctionalArrayUnion {
             return ["$input[0]"];
         },
     ];
-
-    export const BINARABLE = false;
 }

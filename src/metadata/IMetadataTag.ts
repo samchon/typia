@@ -10,16 +10,14 @@ export type IMetadataTag =
     | IMetadataTag.IMinLength
     | IMetadataTag.IMaxLength
     // NUMBER
-    | IMetadataTag.INumberType
+    | IMetadataTag.IType
     | IMetadataTag.IRange
     | IMetadataTag.IMinimum
     | IMetadataTag.IMaximum
     | IMetadataTag.IExclusiveMinimum
     | IMetadataTag.IExclusiveMaximum
     | IMetadataTag.IMultipleOf
-    | IMetadataTag.IStep
-    // BIGINT
-    | IMetadataTag.IBigintType;
+    | IMetadataTag.IStep;
 
 export namespace IMetadataTag {
     /* -----------------------------------------------------------
@@ -73,17 +71,9 @@ export namespace IMetadataTag {
     /* -----------------------------------------------------------
         NUMBER
     ----------------------------------------------------------- */
-    export interface INumberType {
+    export interface IType {
         kind: "type";
-        value:
-            | "int"
-            | "uint"
-            | "int32"
-            | "uint32"
-            | "int64"
-            | "uint64"
-            | "float"
-            | "double";
+        value: "int" | "uint";
     }
 
     export interface IRange {
@@ -125,11 +115,6 @@ export namespace IMetadataTag {
     /* -----------------------------------------------------------
         MISCELLANEOUS
     ----------------------------------------------------------- */
-    export interface IBigintType {
-        kind: "type";
-        value: "int64" | "uint64";
-    }
-
     export interface ISign {
         include: boolean;
         value: number;

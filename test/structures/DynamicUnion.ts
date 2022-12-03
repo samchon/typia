@@ -40,6 +40,4 @@ export namespace DynamicUnion {
             return [`$input.value_between_1_and_2`];
         },
     ];
-
-    export const BINARABLE = false;
 }

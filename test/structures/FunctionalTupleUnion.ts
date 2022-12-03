@@ -26,6 +26,4 @@ export namespace FunctionalTupleUnion {
             return ["$input[2]"];
         },
     ];
-
-    export const BINARABLE = false;
 }
