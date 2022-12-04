@@ -1,10 +1,10 @@
 import ts from "typescript";
 
-import { ValidateCloneProgrammer } from "../../../programmers/ValidateCloneProgrammer";
+import { IsParseProgrammer } from "../../../programmers/IsParseProgrammer";
 
 import { IProject } from "../../IProject";
 
-export namespace CreateValidateCloneTransformer {
+export namespace IsParseTransformer {
     export function transform(
         project: IProject,
         modulo: ts.LeftHandSideExpression,
@@ -22,11 +22,15 @@ export namespace CreateValidateCloneTransformer {
             throw new Error(ErrorMessages.GENERIC_ARGUMENT);
 
         // DO TRANSFORM
-        return ValidateCloneProgrammer.generate(project, modulo)(type);
+        return ts.factory.createCallExpression(
+            IsParseProgrammer.generate(project, modulo)(type),
+            undefined,
+            [expression.arguments[0]!],
+        );
     }
 }
 
 const enum ErrorMessages {
-    NOT_SPECIFIED = "Error on TSON.validateClone(): generic argument is not specified.",
-    GENERIC_ARGUMENT = "Error on TSON.validateClone(): non-specified generic argument.",
+    NOT_SPECIFIED = "Error on TSON.isParse(): generic argument is not specified.",
+    GENERIC_ARGUMENT = "Error on TSON.isParse(): non-specified generic argument.",
 }
