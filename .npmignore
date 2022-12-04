@@ -5,7 +5,6 @@ assets/
 bin/
 benchmark/
 node_modules/
-src/
 test/
 
 *.*ignore
