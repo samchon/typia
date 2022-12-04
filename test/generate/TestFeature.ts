@@ -63,6 +63,12 @@ export namespace TestFeature {
             spoilable: true,
             jsonable: true,
         },
+        {
+            method: "validateStringify",
+            creatable: true,
+            spoilable: true,
+            jsonable: true,
+        },
 
         // CLONE
         {
@@ -79,6 +85,12 @@ export namespace TestFeature {
         },
         {
             method: "assertClone",
+            creatable: true,
+            spoilable: true,
+            jsonable: true,
+        },
+        {
+            method: "validateClone",
             creatable: true,
             spoilable: true,
             jsonable: true,
