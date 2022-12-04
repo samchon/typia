@@ -37,6 +37,7 @@ export namespace ClassNonPublic {
         },
     ];
 
-    export const JSONABLE = false;
     export const ADDABLE = false;
+    export const PRIMITIVE = false;
+    export const JSONABLE = false;
 }

@@ -18,7 +18,7 @@ export function _test_validateStringify<T>(
 
         if (predicate(input, valid.data) === false) {
             throw new Error(
-                `Bug on TSON.assertStringify(): failed to understand the ${name} type.`,
+                `Bug on TSON.validateStringify(): failed to understand the ${name} type.`,
             );
         }
 

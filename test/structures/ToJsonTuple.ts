@@ -5,6 +5,8 @@ export type ToJsonTuple = [
     ToJsonTuple.IObject,
 ];
 export namespace ToJsonTuple {
+    export const PRIMITIVE = false;
+
     export interface IToJson<T> {
         toJSON: () => T;
     }

@@ -654,6 +654,166 @@ export function application(): never {
 }
 
 /**
+ * > You must configure the generic argument `T`.
+ *
+ * Safe `JSON.parse()` function with type assertion.
+ *
+ * `TSON.assertParse()` is a combination function of `JSON.parse()` and {@link assert}.
+ * Therefore, it convers a JSON (JavaScript Object Notation) string to a `T` typed
+ * instance with type assertion.
+ *
+ * In such reason, when parsed JSON string value is not matched with the type `T`, it
+ * throws {@link TypeGuardError}. Otherwise, there's no problem on the parsed value,
+ * the parsed value would be returned.
+ *
+ * @template T Expected type of parsed value
+ * @param input JSON string
+ * @returns Parsed value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertParse(input: string): never;
+
+/**
+ * Safe `JSON.parse()` function with type assertion.
+ *
+ * `TSON.assertParse()` is a combination function of `JSON.parse()` and {@link assert}.
+ * Therefore, it convers a JSON (JavaScript Object Notation) string to a `T` typed
+ * instance with type assertion.
+ *
+ * In such reason, when parsed JSON string value is not matched with the type `T`, it
+ * throws {@link TypeGuardError}. Otherwise, there's no problem on the parsed value,
+ * the parsed value would be returned.
+ *
+ * @template T Expected type of parsed value
+ * @param input JSON string
+ * @returns Parsed value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertParse<T>(input: string): T;
+
+/**
+ * @internal
+ */
+export function assertParse<T>(): T {
+    halt("assertParse");
+}
+
+/**
+ * @internal
+ */
+export namespace assertParse {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+
+    export const join = $join;
+    export const every = $every;
+    export const guard = $guard("TSON.assertParse");
+}
+
+/**
+ * > You must configure the generic argument `T`.
+ *
+ * Safe `JSON.parse()` function with type checking.
+ *
+ * `TSON.isParse()` is a combination function of `JSON.parse()` and {@link is}.
+ * Therefore, it convers a JSON (JavaScript Object Notation) string to a `T` typed
+ * instance with type checking.
+ *
+ * In such reason, when parsed JSON string value is not matched with the type `T`, it
+ * returns `null` value. Otherwise, there's no problem on the parsed value, the parsed
+ * value would be returned.
+ *
+ * @template T Expected type of parsed value
+ * @param input JSON string
+ * @returns Parsed value when exact type, otherwise `null`
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function isParse(input: string): never;
+
+/**
+ * Safe `JSON.parse()` function with type checking.
+ *
+ * `TSON.isParse()` is a combination function of `JSON.parse()` and {@link is}.
+ * Therefore, it convers a JSON (JavaScript Object Notation) string to a `T` typed
+ * instance with type checking.
+ *
+ * In such reason, when parsed JSON string value is not matched with the type `T`, it
+ * returns `null` value. Otherwise, there's no problem on the parsed value, the parsed
+ * value would be returned.
+ *
+ * @template T Expected type of parsed value
+ * @param input JSON string
+ * @returns Parsed value when exact type, otherwise `null`
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function isParse<T>(input: string): T | null;
+
+/**
+ * @internal
+ */
+export function isParse<T>(): T | null {
+    halt("isParse");
+}
+Object.assign(isParse, is);
+
+/**
+ * > You must configure the generic argument `T`.
+ *
+ * Safe `JSON.parse()` function with detailed type validation.
+ *
+ * `TSON.validateParse()` is a combination function of `JSON.parse()` and
+ * {@link validate}. Therefore, it convers a JSON (JavaScript Object Notation) string
+ * to a `T` typed instance with detailed type validation.
+ *
+ * In such reason, when parsed JSON string value is not matched with the type `T`, it
+ * returns {@link IValidation.IFailure} value with detailed error reasons. Otherwise,
+ * there's no problem on the parsed value, the parsed value would be stored in `data`
+ * property of the output {@link IValidation.ISuccess} instance.
+ *
+ * @template T Expected type of parsed value
+ * @param input JSON string
+ * @returns Validation result with JSON parsed value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function validateParse(input: string): never;
+
+/**
+ * Safe `JSON.parse()` function with detailed type validation.
+ *
+ * `TSON.validateParse()` is a combination function of `JSON.parse()` and
+ * {@link validate}. Therefore, it convers a JSON (JavaScript Object Notation) string
+ * to a `T` typed instance with detailed type validation.
+ *
+ * In such reason, when parsed JSON string value is not matched with the type `T`, it
+ * returns {@link IValidation.IFailure} value with detailed error reasons. Otherwise,
+ * there's no problem on the parsed value, the parsed value would be stored in `data`
+ * property of the output {@link IValidation.ISuccess} instance.
+ *
+ * @template T Expected type of parsed value
+ * @param input JSON string
+ * @returns Validation result with JSON parsed value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function validateParse<T>(input: string): IValidation<T>;
+
+/**
+ * @internal
+ */
+export function validateParse<T>(): IValidation<T> {
+    halt("validateParse");
+}
+Object.assign(validateParse, validate);
+
+/**
  * 8x faster `JSON.stringify()` function.
  *
  * Converts an input value to a JSON (JavaScript Object Notation) string, about 8x faster
@@ -1340,6 +1500,93 @@ Object.assign(createValidateEquals, validateEquals);
 /* -----------------------------------------------------------
     JSON FUNCTIONS
 ----------------------------------------------------------- */
+/**
+ * Creates a reusable {@link isParse} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createIsParse(): never;
+
+/**
+ * Creates a reusable {@link isParse} function.
+ *
+ * @template T Expected type of parsed value
+ * @returns A reusable `isParse` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createIsParse<T>(): (input: string) => T | null;
+
+/**
+ * @internal
+ */
+export function createIsParse<T>(): (input: string) => T | null {
+    halt("createIsParse");
+}
+Object.assign(createIsParse, isParse);
+
+/**
+ * Creates a reusable {@link assertParse} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertParse(): never;
+
+/**
+ * Creates a reusable {@link assertParse} function.
+ *
+ * @template T Expected type of parsed value
+ * @returns A reusable `assertParse` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertParse<T>(): (input: string) => T;
+
+/**
+ * @internal
+ */
+export function createAssertParse<T>(): (input: string) => T {
+    halt("createAssertParse");
+}
+Object.assign(createAssertParse, assertParse);
+
+/**
+ * Creates a reusable {@link validateParse} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidateParse(): never;
+
+/**
+ * Creates a reusable {@link validateParse} function.
+ *
+ * @template T Expected type of parsed value
+ * @returns A reusable `validateParse` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidateParse<T>(): (input: string) => IValidation<T>;
+
+/**
+ * @internal
+ */
+export function createValidateParse<T>(): (input: string) => IValidation<T> {
+    halt("createValidateParse");
+}
+Object.assign(createValidateParse, validateParse);
+
 /**
  * Creates a reusable {@link stringify} function.
  *

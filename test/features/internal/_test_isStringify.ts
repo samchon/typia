@@ -18,7 +18,6 @@ export function _test_isStringify<T>(
         }
 
         for (const spoil of spoilers || []) {
-            const paths = { value: [] as string[] };
             const elem: T = generator();
             spoil(elem);
 

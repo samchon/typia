@@ -27,6 +27,6 @@ export namespace CreateValidateCloneTransformer {
 }
 
 const enum ErrorMessages {
-    NOT_SPECIFIED = "Error on TSON.validateClone(): generic argument validate not specified.",
+    NOT_SPECIFIED = "Error on TSON.validateClone(): generic argument is not specified.",
     GENERIC_ARGUMENT = "Error on TSON.validateClone(): non-specified generic argument.",
 }

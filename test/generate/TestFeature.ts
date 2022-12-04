@@ -4,6 +4,8 @@ export interface TestFeature {
     spoilable: boolean;
     jsonable?: true;
     strict?: true;
+    explicit?: true;
+    primitive?: true;
 }
 export namespace TestFeature {
     export const DATA: TestFeature[] = [
@@ -44,6 +46,32 @@ export namespace TestFeature {
             strict: true,
         },
 
+        // PARSERS
+        {
+            method: "isParse",
+            creatable: true,
+            spoilable: true,
+            jsonable: true,
+            explicit: true,
+            primitive: true,
+        },
+        {
+            method: "assertParse",
+            creatable: true,
+            spoilable: true,
+            jsonable: true,
+            explicit: true,
+            primitive: true,
+        },
+        {
+            method: "validateParse",
+            creatable: true,
+            spoilable: true,
+            jsonable: true,
+            explicit: true,
+            primitive: true,
+        },
+
         // STRINGIFY
         {
             method: "stringify",
@@ -76,24 +104,28 @@ export namespace TestFeature {
             creatable: true,
             spoilable: false,
             jsonable: true,
+            primitive: true,
         },
         {
             method: "isClone",
             creatable: true,
             spoilable: true,
             jsonable: true,
+            primitive: true,
         },
         {
             method: "assertClone",
             creatable: true,
             spoilable: true,
             jsonable: true,
+            primitive: true,
         },
         {
             method: "validateClone",
             creatable: true,
             spoilable: true,
             jsonable: true,
+            primitive: true,
         },
     ];
 }

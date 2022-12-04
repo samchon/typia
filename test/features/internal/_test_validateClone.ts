@@ -12,14 +12,14 @@ export function _test_validateClone<T>(
         const input: T = generator();
         const replica: TSON.Primitive<T> = JSON.parse(JSON.stringify(input));
         const valid: TSON.IValidation<TSON.Primitive<T>> = validator(input);
+
         if (valid.success === false)
             throw new Error(
                 `Bug on TSON.validateClone(): failed to understand the ${name} type.`,
             );
-
-        if (primitive_equal_to(replica, valid.data) === false) {
+        else if (primitive_equal_to(replica, valid.data) === false) {
             throw new Error(
-                `Bug on TSON.assertStringify(): failed to understand the ${name} type.`,
+                `Bug on TSON.validateClone(): failed to understand the ${name} type.`,
             );
         }
 
