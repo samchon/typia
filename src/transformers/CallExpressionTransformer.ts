@@ -7,7 +7,9 @@ import { CloneTransformer } from "./features/cloners/CloneTransformer";
 import { CreateAssertCloneTransformer } from "./features/cloners/CreateAssertCloneTransformer";
 import { CreateCloneTransformer } from "./features/cloners/CreateCloneTransformer";
 import { CreateIsCloneTransformer } from "./features/cloners/CreateIsCloneTransformer";
+import { CreateValidateCloneTransformer } from "./features/cloners/CreateValidateCloneTransformer";
 import { IsCloneTransformer } from "./features/cloners/IsCloneTransformer";
+import { ValidateCloneTransformer } from "./features/cloners/ValidateCloneTransformer";
 import { ApplicationTransformer } from "./features/miscellaneous/ApplicationTransformer";
 import { CreateInstanceTransformer } from "./features/miscellaneous/CreateInstanceTransformer";
 import { MetadataTransformer } from "./features/miscellaneous/MetadataTransformer";
@@ -15,8 +17,10 @@ import { AssertStringifyTransformer } from "./features/stringifiers/AssertString
 import { CreateAssertStringifyTransformer } from "./features/stringifiers/CreateAssertStringifyTransformer";
 import { CreateIsStringifyTransformer } from "./features/stringifiers/CreateIsStringifyTransformer";
 import { CreateStringifyTransformer } from "./features/stringifiers/CreateStringifyTransformer";
+import { CreateValidateStringifyTransformer } from "./features/stringifiers/CreateValidateStringifyProgrammer";
 import { IsStringifyTransformer } from "./features/stringifiers/IsStringifyTransformer";
 import { StringifyTransformer } from "./features/stringifiers/StringifyTransformer";
+import { ValidateStringifyTransformer } from "./features/stringifiers/ValidateStringifyTransformer";
 import { AssertTransformer } from "./features/validators/AssertTransformer";
 import { CreateAssertTransformer } from "./features/validators/CreateAssertTransformer";
 import { CreateIsTransformer } from "./features/validators/CreateIsTransformer";
@@ -83,11 +87,13 @@ const FUNCTORS: Record<string, () => Task> = {
     stringify: () => StringifyTransformer.transform,
     assertStringify: () => AssertStringifyTransformer.transform,
     isStringify: () => IsStringifyTransformer.transform,
+    validateStringify: () => ValidateStringifyTransformer.transform,
 
     // CLONE FUNCTIONS
     clone: () => CloneTransformer.transform,
-    isClone: () => IsCloneTransformer.transform,
     assertClone: () => AssertCloneTransformer.transform,
+    isClone: () => IsCloneTransformer.transform,
+    validateClone: () => ValidateCloneTransformer.transform,
 
     // MISC
     application: () => ApplicationTransformer.transform,
@@ -110,11 +116,13 @@ const FUNCTORS: Record<string, () => Task> = {
     createStringify: () => CreateStringifyTransformer.transform,
     createAssertStringify: () => CreateAssertStringifyTransformer.transform,
     createIsStringify: () => CreateIsStringifyTransformer.transform,
+    createValidateStringify: () => CreateValidateStringifyTransformer.transform,
 
     // CLONE
     createClone: () => CreateCloneTransformer.transform,
-    createIsClone: () => CreateIsCloneTransformer.transform,
     createAssertClone: () => CreateAssertCloneTransformer.transform,
+    createIsClone: () => CreateIsCloneTransformer.transform,
+    createValidateClone: () => CreateValidateCloneTransformer.transform,
 
     // MISC
     createObject: () => CreateInstanceTransformer.transform,

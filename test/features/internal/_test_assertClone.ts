@@ -9,9 +9,9 @@ export function _test_assertClone<T>(
     spoilers?: Spoiler<T>[],
 ): () => void {
     return () => {
-        const data: T = generator();
-        const replica: Primitive<T> = JSON.parse(JSON.stringify(data));
-        const cloned: Primitive<T> = cloner(data);
+        const input: T = generator();
+        const replica: Primitive<T> = JSON.parse(JSON.stringify(input));
+        const cloned: Primitive<T> = cloner(input);
 
         if (primitive_equal_to(replica, cloned) === false) {
             throw new Error(
