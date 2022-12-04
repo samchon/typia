@@ -14,7 +14,9 @@ export const test_application_ajv_TupleHierarchical = _test_application("ajv")(
                         type: "boolean",
                         nullable: false,
                     },
-                    {},
+                    {
+                        type: "null",
+                    },
                     {
                         type: "number",
                         nullable: false,

@@ -12,15 +12,15 @@ export const test_application_swagger_TupleHierarchical = _test_application(
                 oneOf: [
                     {
                         type: "boolean",
-                        nullable: false,
+                        nullable: true,
                     },
                     {
                         type: "number",
-                        nullable: false,
+                        nullable: true,
                     },
                 ],
             },
-            nullable: false,
+            nullable: true,
         },
     ],
     components: {

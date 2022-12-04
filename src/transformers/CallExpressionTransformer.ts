@@ -13,6 +13,12 @@ import { ValidateCloneTransformer } from "./features/cloners/ValidateCloneTransf
 import { ApplicationTransformer } from "./features/miscellaneous/ApplicationTransformer";
 import { CreateInstanceTransformer } from "./features/miscellaneous/CreateInstanceTransformer";
 import { MetadataTransformer } from "./features/miscellaneous/MetadataTransformer";
+import { AssertParseTransformer } from "./features/parsers/AssertParseTransformer";
+import { CreateAssertParseTransformer } from "./features/parsers/CreateAssertParseTransformer";
+import { CreateIsParseTransformer } from "./features/parsers/CreateIsParseTransformer";
+import { CreateValidateParseTransformer } from "./features/parsers/CreateValidateParseTransformer";
+import { IsParseTransformer } from "./features/parsers/IsParseTransformer";
+import { ValidateParseTransformer } from "./features/parsers/ValidateParseTransformer";
 import { AssertStringifyTransformer } from "./features/stringifiers/AssertStringifyTransformer";
 import { CreateAssertStringifyTransformer } from "./features/stringifiers/CreateAssertStringifyTransformer";
 import { CreateIsStringifyTransformer } from "./features/stringifiers/CreateIsStringifyTransformer";
@@ -83,6 +89,11 @@ const FUNCTORS: Record<string, () => Task> = {
     equals: () => IsTransformer.transform(true),
     validateEquals: () => ValidateTransformer.transform(true),
 
+    // PARSE FUNCTIONS
+    isParse: () => IsParseTransformer.transform,
+    assertParse: () => AssertParseTransformer.transform,
+    validateParse: () => ValidateParseTransformer.transform,
+
     // STRINGIFY FUNCTIONS
     stringify: () => StringifyTransformer.transform,
     assertStringify: () => AssertStringifyTransformer.transform,
@@ -97,6 +108,7 @@ const FUNCTORS: Record<string, () => Task> = {
 
     // MISC
     application: () => ApplicationTransformer.transform,
+    metadata: () => MetadataTransformer.transform,
 
     //----
     // FACTORY FUNCTIONS
@@ -112,6 +124,11 @@ const FUNCTORS: Record<string, () => Task> = {
     createEquals: () => CreateIsTransformer.transform(true),
     createValidateEquals: () => CreateValidateTransformer.transform(true),
 
+    // PARSE FUNCTIONS
+    createIsParse: () => CreateIsParseTransformer.transform,
+    createAssertParse: () => CreateAssertParseTransformer.transform,
+    createValidateParse: () => CreateValidateParseTransformer.transform,
+
     // STRINGIFY FUNCTIONS
     createStringify: () => CreateStringifyTransformer.transform,
     createAssertStringify: () => CreateAssertStringifyTransformer.transform,
@@ -126,5 +143,4 @@ const FUNCTORS: Record<string, () => Task> = {
 
     // MISC
     createObject: () => CreateInstanceTransformer.transform,
-    metadata: () => MetadataTransformer.transform,
 };

@@ -6,4 +6,5 @@ export interface TestStructure<T> {
     SPOILERS?: Spoiler<T>[];
     ADDABLE?: boolean;
     JSONABLE?: boolean;
+    PRIMITIVE?: boolean;
 }

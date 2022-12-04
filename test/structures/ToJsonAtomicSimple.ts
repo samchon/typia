@@ -4,6 +4,8 @@ export type ToJsonAtomicSimple = [
     ToJsonAtomicSimple.IToJson<string>,
 ];
 export namespace ToJsonAtomicSimple {
+    export const PRIMITIVE = false;
+
     export interface IToJson<T> {
         toJSON: () => T;
     }

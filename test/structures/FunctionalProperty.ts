@@ -5,6 +5,8 @@ export interface FunctionalProperty {
     closure: (value: number) => boolean;
 }
 export namespace FunctionalProperty {
+    export const PRIMITIVE = false;
+
     export function generate(): FunctionalProperty {
         return {
             name: "name",

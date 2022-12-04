@@ -15,6 +15,7 @@ export namespace MapUnion {
     }
 
     export const ADDABLE = false;
+    export const PRIMITIVE = false;
 
     export function generate(): MapUnion {
         return [

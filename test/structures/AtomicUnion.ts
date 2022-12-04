@@ -15,9 +15,5 @@ export namespace AtomicUnion {
             input[1] = {} as any;
             return ["$input[1]"];
         },
-        (input) => {
-            input[2] = undefined!;
-            return ["$input[2]"];
-        },
     ];
 }
