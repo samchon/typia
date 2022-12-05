@@ -3,6 +3,8 @@ import { Spoiler } from "../internal/Spoiler";
 
 export type ClassMethod = ClassMethod.Animal;
 export namespace ClassMethod {
+    export const PRIMITIVE = false;
+
     export class Animal {
         public constructor(public readonly name: string, age: number) {
             this.age = age;

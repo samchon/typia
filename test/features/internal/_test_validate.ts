@@ -25,6 +25,7 @@ export function _test_validate<T>(
             const elem: T = generator();
             const expected: string[] = spoil(elem);
             const valid: TSON.IValidation<T> = validator(elem);
+
             if (valid.success === true)
                 throw new Error(
                     `Bug on TSON.validate(): failed to detect error on the ${name} type.`,

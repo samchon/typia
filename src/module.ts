@@ -29,9 +29,7 @@ export * from "./IValidation";
     SINGLE FUNCTIONS
         - BASIC VALIDATORS
         - STRICT VALIDATORS
-        - STRINGIFY FUNCTIONS
-        - CLONE FUNCTIONS
-        - MISC
+        - JSON FUNCTIONS
 ==============================================================
     BASIC VALIDATORS
 ----------------------------------------------------------- */
@@ -590,19 +588,246 @@ export namespace validateEquals {
 }
 
 /* -----------------------------------------------------------
-    STRINGIFY FUNCTIONS
+    JSON FUNCTIONS
 ----------------------------------------------------------- */
 /**
- * 5x faster `JSON.stringify()` function.
+ * > You must configure the generic argument `T`.
  *
- * Converts an input value to a JSON (JavaScript Object Notation) string, about 5x faster
+ * JSON Schema Application.
+ *
+ * Creates a JSON schema application which contains both main JSON schemas and components.
+ * Note that, all of the object types are stored in the {@link IJsonApplication.components}
+ * property for the `$ref` referencing.
+ *
+ * Also, `TSON.application()` has additional generic arguments, *Purpose*.
+ * As JSON schema definitions used by `swagger` and `ajv` are different a little bit,
+ * you should configure the *Purpose* appropriately.
+ *
+ * For an example, `ajv` has an extra property "$recursiveRef" that are not exists
+ * in the standard JSON schema definition spec. Otherwise, `swagger` can't identify
+ * the tuple definition.
+ *
+ * @template Types Tuple of target types
+ * @template Purpose Purpose of the JSON schema`
+ * @template Prefix Prefix of the JSON components referenced by `$ref` tag
+ * @return JSON schema application
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function application(): never;
+
+/**
+ * JSON Schema Application.
+ *
+ * Creates a JSON schema application which contains both main JSON schemas and components.
+ * Note that, all of the object types are stored in the {@link IJsonApplication.components}
+ * property for the `$ref` referencing.
+ *
+ * Also, `TSON.application()` has additional generic arguments, *Purpose*.
+ * As JSON schema definitions used by `swagger` and `ajv` are different a little bit,
+ * you should configure the *Purpose* appropriately.
+ *
+ * For an example, `ajv` has an extra property "$recursiveRef" that are not exists
+ * in the standard JSON schema definition spec. Otherwise, `swagger` can't identify
+ * the tuple definition.
+ *
+ * @template Types Tuple of target types
+ * @template Purpose Purpose of the JSON schema
+ * @template Prefix Prefix of the JSON components referenced by `$ref` tag
+ * @return JSON schema application
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function application<
+    Types extends unknown[],
+    Purpose extends "swagger" | "ajv" = "swagger",
+    Prefix extends string = Purpose extends "swagger"
+        ? "#/components/schemas"
+        : "components#/schemas",
+>(): IJsonApplication;
+
+/**
+ * @internal
+ */
+export function application(): never {
+    halt("application");
+}
+
+/**
+ * > You must configure the generic argument `T`.
+ *
+ * Safe `JSON.parse()` function with type assertion.
+ *
+ * `TSON.assertParse()` is a combination function of `JSON.parse()` and {@link assert}.
+ * Therefore, it convers a JSON (JavaScript Object Notation) string to a `T` typed
+ * instance with type assertion.
+ *
+ * In such reason, when parsed JSON string value is not matched with the type `T`, it
+ * throws {@link TypeGuardError}. Otherwise, there's no problem on the parsed value,
+ * the parsed value would be returned.
+ *
+ * @template T Expected type of parsed value
+ * @param input JSON string
+ * @returns Parsed value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertParse(input: string): never;
+
+/**
+ * Safe `JSON.parse()` function with type assertion.
+ *
+ * `TSON.assertParse()` is a combination function of `JSON.parse()` and {@link assert}.
+ * Therefore, it convers a JSON (JavaScript Object Notation) string to a `T` typed
+ * instance with type assertion.
+ *
+ * In such reason, when parsed JSON string value is not matched with the type `T`, it
+ * throws {@link TypeGuardError}. Otherwise, there's no problem on the parsed value,
+ * the parsed value would be returned.
+ *
+ * @template T Expected type of parsed value
+ * @param input JSON string
+ * @returns Parsed value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertParse<T>(input: string): T;
+
+/**
+ * @internal
+ */
+export function assertParse<T>(): T {
+    halt("assertParse");
+}
+
+/**
+ * @internal
+ */
+export namespace assertParse {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+
+    export const join = $join;
+    export const every = $every;
+    export const guard = $guard("TSON.assertParse");
+}
+
+/**
+ * > You must configure the generic argument `T`.
+ *
+ * Safe `JSON.parse()` function with type checking.
+ *
+ * `TSON.isParse()` is a combination function of `JSON.parse()` and {@link is}.
+ * Therefore, it convers a JSON (JavaScript Object Notation) string to a `T` typed
+ * instance with type checking.
+ *
+ * In such reason, when parsed JSON string value is not matched with the type `T`, it
+ * returns `null` value. Otherwise, there's no problem on the parsed value, the parsed
+ * value would be returned.
+ *
+ * @template T Expected type of parsed value
+ * @param input JSON string
+ * @returns Parsed value when exact type, otherwise `null`
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function isParse(input: string): never;
+
+/**
+ * Safe `JSON.parse()` function with type checking.
+ *
+ * `TSON.isParse()` is a combination function of `JSON.parse()` and {@link is}.
+ * Therefore, it convers a JSON (JavaScript Object Notation) string to a `T` typed
+ * instance with type checking.
+ *
+ * In such reason, when parsed JSON string value is not matched with the type `T`, it
+ * returns `null` value. Otherwise, there's no problem on the parsed value, the parsed
+ * value would be returned.
+ *
+ * @template T Expected type of parsed value
+ * @param input JSON string
+ * @returns Parsed value when exact type, otherwise `null`
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function isParse<T>(input: string): T | null;
+
+/**
+ * @internal
+ */
+export function isParse<T>(): T | null {
+    halt("isParse");
+}
+Object.assign(isParse, is);
+
+/**
+ * > You must configure the generic argument `T`.
+ *
+ * Safe `JSON.parse()` function with detailed type validation.
+ *
+ * `TSON.validateParse()` is a combination function of `JSON.parse()` and
+ * {@link validate}. Therefore, it convers a JSON (JavaScript Object Notation) string
+ * to a `T` typed instance with detailed type validation.
+ *
+ * In such reason, when parsed JSON string value is not matched with the type `T`, it
+ * returns {@link IValidation.IFailure} value with detailed error reasons. Otherwise,
+ * there's no problem on the parsed value, the parsed value would be stored in `data`
+ * property of the output {@link IValidation.ISuccess} instance.
+ *
+ * @template T Expected type of parsed value
+ * @param input JSON string
+ * @returns Validation result with JSON parsed value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function validateParse(input: string): never;
+
+/**
+ * Safe `JSON.parse()` function with detailed type validation.
+ *
+ * `TSON.validateParse()` is a combination function of `JSON.parse()` and
+ * {@link validate}. Therefore, it convers a JSON (JavaScript Object Notation) string
+ * to a `T` typed instance with detailed type validation.
+ *
+ * In such reason, when parsed JSON string value is not matched with the type `T`, it
+ * returns {@link IValidation.IFailure} value with detailed error reasons. Otherwise,
+ * there's no problem on the parsed value, the parsed value would be stored in `data`
+ * property of the output {@link IValidation.ISuccess} instance.
+ *
+ * @template T Expected type of parsed value
+ * @param input JSON string
+ * @returns Validation result with JSON parsed value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function validateParse<T>(input: string): IValidation<T>;
+
+/**
+ * @internal
+ */
+export function validateParse<T>(): IValidation<T> {
+    halt("validateParse");
+}
+Object.assign(validateParse, validate);
+
+/**
+ * 8x faster `JSON.stringify()` function.
+ *
+ * Converts an input value to a JSON (JavaScript Object Notation) string, about 8x faster
  * than the native `JSON.stringify()` function. The 5x faster principle is because
  * it writes an optimized JSON conversion plan, only for the type `T`.
  *
  * For reference, this `TSON.stringify()` does not validate the input value type. It
  * just believes that the input value is following the type `T`. Therefore, if you
- * can't ensure the input value type, it would be better to call {@link assertStringify}
- * function instead.
+ * can't ensure the input value type, it would be better to call one of below functions
+ * instead.
+ *
+ *  - {@link assertStringify}
+ *  - {@link isStringify}
+ *  - {@link validateStringify}
  *
  * @template T Type of the input value
  * @param input A value to be converted
@@ -638,7 +863,7 @@ export namespace stringify {
 }
 
 /**
- * 3x faster `JSON.stringify()` function with type assertion.
+ * 5x faster `JSON.stringify()` function with type assertion.
  *
  * `TSON.assertStringify()` is a combination function of {@link assert} and
  * {@link stringify}. Therefore, it converts an input value to JSON (JavaScript Object
@@ -648,7 +873,7 @@ export namespace stringify {
  * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, JSON
  * string would be returned.
  *
- * For reference, with type assertion, it is even 3x times faster than the native
+ * For reference, with type assertion, it is even 5x times faster than the native
  * `JSON.stringify()` function. So, just enjoy the safe and fast JSON conversion
  * with confidence.
  *
@@ -659,6 +884,29 @@ export namespace stringify {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function assertStringify<T>(input: T): string;
+
+/**
+ * 5x faster `JSON.stringify()` function with type assertion.
+ *
+ * `TSON.assertStringify()` is a combination function of {@link assert} and
+ * {@link stringify}. Therefore, it converts an input value to JSON (JavaScript Object
+ * Notation) string, with type assertion.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it throws an
+ * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, JSON
+ * string would be returned.
+ *
+ * For reference, with type assertion, it is even 5x times faster than the native
+ * `JSON.stringify()` function. So, just enjoy the safe and fast JSON conversion
+ * with confidence.
+ *
+ * @template T Type of the input value
+ * @param input A value to be asserted and converted
+ * @return JSON string value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertStringify<T>(input: T): unknown;
 
 /**
  * @internal
@@ -702,9 +950,9 @@ export namespace assertStringify {
 }
 
 /**
- * 4x faster `JSON.isStringify()` function with type checking.
+ * 7x faster `JSON.stringify()` function with type checking.
  *
- * `TSON.isStringify()` is a combination function of {@link is} and
+ * `TSON.stringify()` is a combination function of {@link is} and
  * {@link stringify}. Therefore, it converts an input value to JSON
  * (JavaScript Object Notation) string, with type checking.
  *
@@ -712,7 +960,7 @@ export namespace assertStringify {
  * `null` value. Otherwise, there's no problem on the `input` value, JSON string would
  * be returned.
  *
- * For reference, with type checking, it is even 4x times faster than the native
+ * For reference, with type checking, it is even 7x times faster than the native
  * `JSON.stringify()` function. So, just enjoy the safe and fast JSON conversion
  * with confidence.
  *
@@ -723,6 +971,29 @@ export namespace assertStringify {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function isStringify<T>(input: T): string | null;
+
+/**
+ * 7x faster `JSON.stringify()` function with type checking.
+ *
+ * `TSON.isStringify()` is a combination function of {@link is} and
+ * {@link stringify}. Therefore, it converts an input value to JSON
+ * (JavaScript Object Notation) string, with type checking.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * `null` value. Otherwise, there's no problem on the `input` value, JSON string would
+ * be returned.
+ *
+ * For reference, with type checking, it is even 7x times faster than the native
+ * `JSON.stringify()` function. So, just enjoy the safe and fast JSON conversion
+ * with confidence.
+ *
+ * @template T Type of the input value
+ * @param input A value to be checked and converted
+ * @return JSON string value when exact type, otherwise null
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function isStringify<T>(input: unknown): string | null;
 
 /**
  * @internal
@@ -748,9 +1019,63 @@ export namespace isStringify {
     export const throws = () => {};
 }
 
-/* -----------------------------------------------------------
-    CLONE FUNCTIONS
------------------------------------------------------------ */
+/**
+ * 5x faster `JSON.stringify()` function with detailed type validation.
+ *
+ * `TSON.validateStringify()` is a combination function of {@link validate} and
+ * {@link stringify}. Therefore, it converts an input value to JSON (JavaScript Object
+ * Notation) string, with detailed type validation.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * {@link IValidation.IFailure} value with detailed error reasons. Otherwise, there's no
+ * problem on the `input` value, JSON string would be stored in `data` property of
+ * the output {@link IValidation.ISuccess} instance.
+ *
+ * For reference, with detailed type validation, it is even 5x times faster than the
+ * native `JSON.stringify()` function. So, just enjoy the safe and fast JSON conversion
+ * with confidence.
+ *
+ * @template T Type of the input value
+ * @param input A value to be checked and converted
+ * @returns Validation result with JSON string value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function validateStringify<T>(input: T): IValidation<string>;
+
+/**
+ * 5x faster `JSON.stringify()` function with detailed type validation.
+ *
+ * `TSON.validateStringify()` is a combination function of {@link validate} and
+ * {@link stringify}. Therefore, it converts an input value to JSON (JavaScript Object
+ * Notation) string, with detailed type validation.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * {@link IValidation.IFailure} value with detailed error reasons. Otherwise, there's no
+ * problem on the `input` value, JSON string would be stored in `data` property of
+ * the output {@link IValidation.ISuccess} instance.
+ *
+ * For reference, with detailed type validation, it is even 5x times faster than the
+ * native `JSON.stringify()` function. So, just enjoy the safe and fast JSON conversion
+ * with confidence.
+ *
+ * @template T Type of the input value
+ * @param input A value to be checked and converted
+ * @returns Validation result with JSON string value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function validateStringify<T>(input: unknown): IValidation<string>;
+
+/**
+ * @internal
+ */
+export function validateStringify(): IValidation<string> {
+    halt("validateStringify");
+}
+Object.assign(validateStringify, validate);
+Object.assign(validateStringify, stringify);
+
 /**
  * Clone a data.
  *
@@ -797,47 +1122,23 @@ export namespace clone {
 }
 
 /**
- * Clone a data with type checking.
+ * Clone a data with type assertion.
  *
- * Clones an instance following type `T`, with type checking. If the target `input`
+ * Clones an instance following type `T`, with type assertion. If the target `input`
  * value or its member variable contains a class instance that is having a `toJSON()`
  * method, its return value would be cloned.
  *
- * In such reason, when `input` value is not matched with the type `T`, it returns
- * `null` value instead. Otherwise, there's no problem on the `input` value, cloned
+ * In such reason, when `input` value is not matched with the type `T`, it throws an
+ * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, cloned
  * data would be returned.
  *
  * @template T Type of the input value
  * @param input A value to be cloned
- * @return Cloned data when exact type, otherwise null
+ * @return Cloned data
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isClone<T>(input: T): Primitive<T> | null;
-
-/**
- * @internal
- */
-export function isClone<T>(): Primitive<T> | null {
-    halt("isClone");
-}
-
-/**
- * @internal
- */
-export namespace isClone {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-
-    export const number = $number;
-    export const string = $string;
-    export const tail = $tail;
-
-    export const throws = () => {};
-}
+export function assertClone<T>(input: T): Primitive<T>;
 
 /**
  * Clone a data with type assertion.
@@ -856,7 +1157,7 @@ export namespace isClone {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertClone<T>(input: T): Primitive<T>;
+export function assertClone<T>(input: unknown): Primitive<T>;
 
 /**
  * @internal
@@ -885,79 +1186,102 @@ export namespace assertClone {
     export const throws = () => {};
 }
 
-/* -----------------------------------------------------------
-    MISC
------------------------------------------------------------ */
 /**
- * > You must configure the generic argument `T`.
+ * Clone a data with type checking.
  *
- * JSON Schema Application.
+ * Clones an instance following type `T`, with type checking. If the target `input`
+ * value or its member variable contains a class instance that is having a `toJSON()`
+ * method, its return value would be cloned.
  *
- * Creates a JSON schema application which contains both main JSON schemas and components.
- * Note that, all of the object types are stored in the {@link IJsonApplication.components}
- * property for the `$ref` referencing.
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * `null` value instead. Otherwise, there's no problem on the `input` value, cloned
+ * data would be returned.
  *
- * Also, `TSON.application()` has additional generic arguments, *Purpose*.
- * As JSON schema definitions used by `swagger` and `ajv` are different a little bit,
- * you should configure the *Purpose* appropriately.
- *
- * For an example, `ajv` has an extra property "$recursiveRef" that are not exists
- * in the standard JSON schema definition spec. Otherwise, `swagger` can't identify
- * the tuple definition.
- *
- * @template Types Tuple of target types
- * @template Purpose Purpose of the JSON schema
- * @template Prefix Prefix of the JSON components referenced by `$ref` tag
- * @return JSON schema application
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data when exact type, otherwise null
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function application(): never;
+export function isClone<T>(input: T): Primitive<T> | null;
 
 /**
- * JSON Schema Application.
+ * Clone a data with type checking.
  *
- * Creates a JSON schema application which contains both main JSON schemas and components.
- * Note that, all of the object types are stored in the {@link IJsonApplication.components}
- * property for the `$ref` referencing.
+ * Clones an instance following type `T`, with type checking. If the target `input`
+ * value or its member variable contains a class instance that is having a `toJSON()`
+ * method, its return value would be cloned.
  *
- * Also, `TSON.application()` has additional generic arguments, *Purpose*.
- * As JSON schema definitions used by `swagger` and `ajv` are different a little bit,
- * you should configure the *Purpose* appropriately.
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * `null` value instead. Otherwise, there's no problem on the `input` value, cloned
+ * data would be returned.
  *
- * For an example, `ajv` has an extra property "$recursiveRef" that are not exists
- * in the standard JSON schema definition spec. Otherwise, `swagger` can't identify
- * the tuple definition.
- *
- * @template Types Tuple of target types
- * @template Purpose Purpose of the JSON schema
- * @template Prefix Prefix of the JSON components referenced by `$ref` tag
- * @return JSON schema application
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data when exact type, otherwise null
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function application<
-    Types extends unknown[],
-    Purpose extends "swagger" | "ajv" = "swagger",
-    Prefix extends string = Purpose extends "swagger"
-        ? "#/components/schemas"
-        : "components#/schemas",
->(): IJsonApplication;
+export function isClone<T>(input: unknown): Primitive<T> | null;
 
 /**
  * @internal
  */
-export function application(): never {
-    halt("application");
+export function isClone<T>(): Primitive<T> | null {
+    halt("isClone");
 }
+Object.assign(isClone, isStringify);
+
+/**
+ * Clone a data with detailed type validation.
+ *
+ * Clones an instance following type `T`, with detailed type validation. If the target
+ * `input` value or its member variable contains a class instance that is having a
+ * `toJSON()` method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * {@link IValidation.Failure} value. Otherwise, there's no problem on the `input`
+ * value, cloned data would be stored in `data` property of the output
+ * {@link IValidation.Success} instance.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @returns Validation result with cloned value
+ */
+export function validateClone<T>(input: T): IValidation<Primitive<T>>;
+
+/**
+ * Clone a data with detailed type validation.
+ *
+ * Clones an instance following type `T`, with detailed type validation. If the target
+ * `input` value or its member variable contains a class instance that is having a
+ * `toJSON()` method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * {@link IValidation.Failure} value. Otherwise, there's no problem on the `input`
+ * value, cloned data would be stored in `data` property of the output
+ * {@link IValidation.Success} instance.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @returns Validation result with cloned value
+ */
+export function validateClone<T>(input: unknown): IValidation<Primitive<T>>;
+
+/**
+ * @internal
+ */
+export function validateClone<T>(): IValidation<Primitive<T>> {
+    halt("validateClone");
+}
+Object.assign(validateClone, validateStringify);
 
 /* ===========================================================
     FACTORY FUNCTIONS
         - BASIC VALIDATORS
         - STRICT VALIDATORS
-        - STRINGIFY FUNCTIONS
-        - CLONE FUNCTIONS
-        - MISC
+        - JSON FUNCTIONS
+        - MISCELLANEOUS
 ==============================================================
     BASIC VALIDATORS
 ----------------------------------------------------------- */
@@ -988,7 +1312,6 @@ export function createAssert<T>(): (input: unknown) => T;
 export function createAssert<T>(): (input: unknown) => T {
     halt("createAssert");
 }
-
 Object.assign(createAssert, assert);
 
 /**
@@ -1024,7 +1347,6 @@ export function createAssertType<T>(): (input: unknown) => T;
 export function createAssertType<T>(): (input: unknown) => T {
     halt("createAssertType");
 }
-
 Object.assign(createAssertType, assertType);
 
 /**
@@ -1054,7 +1376,6 @@ export function createIs<T>(): (input: unknown) => input is T;
 export function createIs<T>(): (input: unknown) => input is T {
     halt("createIs");
 }
-
 Object.assign(createIs, is);
 
 /**
@@ -1084,7 +1405,6 @@ export function createValidate<T>(): (input: unknown) => IValidation<T>;
 export function createValidate(): (input: unknown) => IValidation {
     halt("createValidate");
 }
-
 Object.assign(createValidate, validate);
 
 /* -----------------------------------------------------------
@@ -1117,7 +1437,6 @@ export function createAssertEquals<T>(): (input: unknown) => T;
 export function createAssertEquals<T>(): (input: unknown) => T {
     halt("createAssertEquals");
 }
-
 Object.assign(createAssertEquals, assertEquals);
 
 /**
@@ -1147,7 +1466,6 @@ export function createEquals<T>(): (input: unknown) => input is T;
 export function createEquals<T>(): (input: unknown) => input is T {
     halt("createEquals");
 }
-
 Object.assign(createEquals, equals);
 
 /**
@@ -1177,12 +1495,98 @@ export function createValidateEquals<T>(): (input: unknown) => IValidation;
 export function createValidateEquals(): (input: unknown) => IValidation {
     halt("createValidateEquals");
 }
-
 Object.assign(createValidateEquals, validateEquals);
 
 /* -----------------------------------------------------------
-    STRINGIFY FUNCTIONS
+    JSON FUNCTIONS
 ----------------------------------------------------------- */
+/**
+ * Creates a reusable {@link isParse} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createIsParse(): never;
+
+/**
+ * Creates a reusable {@link isParse} function.
+ *
+ * @template T Expected type of parsed value
+ * @returns A reusable `isParse` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createIsParse<T>(): (input: string) => T | null;
+
+/**
+ * @internal
+ */
+export function createIsParse<T>(): (input: string) => T | null {
+    halt("createIsParse");
+}
+Object.assign(createIsParse, isParse);
+
+/**
+ * Creates a reusable {@link assertParse} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertParse(): never;
+
+/**
+ * Creates a reusable {@link assertParse} function.
+ *
+ * @template T Expected type of parsed value
+ * @returns A reusable `assertParse` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertParse<T>(): (input: string) => T;
+
+/**
+ * @internal
+ */
+export function createAssertParse<T>(): (input: string) => T {
+    halt("createAssertParse");
+}
+Object.assign(createAssertParse, assertParse);
+
+/**
+ * Creates a reusable {@link validateParse} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidateParse(): never;
+
+/**
+ * Creates a reusable {@link validateParse} function.
+ *
+ * @template T Expected type of parsed value
+ * @returns A reusable `validateParse` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidateParse<T>(): (input: string) => IValidation<T>;
+
+/**
+ * @internal
+ */
+export function createValidateParse<T>(): (input: string) => IValidation<T> {
+    halt("createValidateParse");
+}
+Object.assign(createValidateParse, validateParse);
+
 /**
  * Creates a reusable {@link stringify} function.
  *
@@ -1210,7 +1614,6 @@ export function createStringify<T>(): (input: T) => string;
 export function createStringify<T>(): (input: T) => string {
     halt("createStringify");
 }
-
 Object.assign(createStringify, stringify);
 
 /**
@@ -1232,15 +1635,14 @@ export function createAssertStringify(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertStringify<T>(): (input: T) => string;
+export function createAssertStringify<T>(): (input: unknown) => string;
 
 /**
  * @internal
  */
-export function createAssertStringify<T>(): (input: T) => string {
+export function createAssertStringify(): (input: unknown) => string {
     halt("createAssertStringify");
 }
-
 Object.assign(createAssertStringify, assertStringify);
 
 /**
@@ -1262,20 +1664,49 @@ export function createIsStringify(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsStringify<T>(): (input: T) => string | null;
+export function createIsStringify<T>(): (input: unknown) => string | null;
 
 /**
  * @internal
  */
-export function createIsStringify<T>(): (input: T) => string | null {
+export function createIsStringify(): (input: unknown) => string | null {
     halt("createIsStringify");
 }
-
 Object.assign(createIsStringify, isStringify);
 
-/* -----------------------------------------------------------
-    CLONE FUNCTIONS
------------------------------------------------------------ */
+/**
+ * Creates a reusable {@link validateStringify} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidateStringify(): never;
+
+/**
+ * Creates a reusable {@link validateStringify} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `validateStringify` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidateStringify<T>(): (
+    input: unknown,
+) => IValidation<string>;
+
+/**
+ * @internal
+ */
+export function createValidateStringify(): (
+    input: unknown,
+) => IValidation<string> {
+    halt("createValidateStringify");
+}
+Object.assign(createValidateStringify, validateStringify);
+
 /**
  * Creates a reusable {@link clone} function.
  *
@@ -1303,7 +1734,6 @@ export function createClone<T>(): (input: T) => Primitive<T>;
 export function createClone<T>(): (input: T) => Primitive<T> {
     halt("createClone");
 }
-
 Object.assign(createClone, clone);
 
 /**
@@ -1325,15 +1755,14 @@ export function createAssertClone(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertClone<T>(): (input: T) => Primitive<T>;
+export function createAssertClone<T>(): (input: unknown) => Primitive<T>;
 
 /**
  * @internal
  */
-export function createAssertClone<T>(): (input: T) => Primitive<T> {
+export function createAssertClone<T>(): (input: unknown) => Primitive<T> {
     halt("createAssertClone");
 }
-
 Object.assign(createAssertClone, assertClone);
 
 /**
@@ -1355,43 +1784,63 @@ export function createIsClone(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsClone<T>(): (input: T) => Primitive<T> | null;
+export function createIsClone<T>(): (input: unknown) => Primitive<T> | null;
 
 /**
  * @internal
  */
-export function createIsClone<T>(): (input: T) => Primitive<T> | null {
+export function createIsClone<T>(): (input: unknown) => Primitive<T> | null {
     halt("createIsClone");
 }
-
 Object.assign(createIsClone, isClone);
 
-/* -----------------------------------------------------------
-    MISC
------------------------------------------------------------ */
 /**
- * @internal
+ * Creates a reusable {@link validateClone} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
-export function metadata<Types extends unknown[]>(): IMetadataApplication;
+export function createValidateClone(): never;
+
+/**
+ * Creates a reusable {@link validateClone} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `validateClone` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidateClone<T>(): (
+    input: unknown,
+) => IValidation<Primitive<T>>;
 
 /**
  * @internal
  */
-export function metadata(): never {
-    halt("metadata");
+export function createValidateClone<T>(): (
+    input: unknown,
+) => IValidation<Primitive<T>> {
+    halt("createValidateClone");
 }
+Object.assign(createValidateClone, validateClone);
 
+/* -----------------------------------------------------------
+    MISCELLANEOUS
+----------------------------------------------------------- */
 /**
  * 2x faster constant object creator.
  *
- * You know what? `JSON.parse()` is faster than literal object construction, when the
+ * You know what? `JSON.createObject()` is faster than literal object construction, when the
  * object would be constructed only one time.
  *
- * - [Faster apps with JSON.parse (Chrome Dev Summit 2019)](https://www.youtube.com/watch?v=ff4fgQxPaO0)
+ * - [Faster apps with JSON.createObject (Chrome Dev Summit 2019)](https://www.youtube.com/watch?v=ff4fgQxPaO0)
  * - [The cost of parsing JSON](https://v8.dev/blog/cost-of-javascript-2019#json)
  *
  * `TSON.createObject()` is a transformer function which converts a literal object construction
- * to a `JSON.parse()` function call expression with JSON string argument. Therefore, if
+ * to a `JSON.createObject()` function call expression with JSON string argument. Therefore, if
  * you construct a literal object via this `TSON.createObject()`, you can get benefit from
  * both type safe and performance tuning at the same time.
  *
@@ -1408,6 +1857,18 @@ export function createObject<T>(input: T): T;
  */
 export function createObject(): never {
     halt("createObject");
+}
+
+/**
+ * @internal
+ */
+export function metadata<Types extends unknown[]>(): IMetadataApplication;
+
+/**
+ * @internal
+ */
+export function metadata(): never {
+    halt("metadata");
 }
 
 /**

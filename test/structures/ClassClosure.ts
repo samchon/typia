@@ -3,6 +3,8 @@ import { Spoiler } from "../internal/Spoiler";
 
 export type ClassClosure = ClassClosure.Something;
 export namespace ClassClosure {
+    export const PRIMITIVE = false;
+
     export class Something {
         public constructor(public readonly id: string) {}
         public readonly type: "something" = "something" as const;

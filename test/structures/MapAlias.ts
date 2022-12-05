@@ -22,5 +22,6 @@ export namespace MapAlias {
     }
 
     export const ADDABLE = false;
+    export const PRIMITIVE = false;
     export const SPOILERS = MapSimple.SPOILERS;
 }

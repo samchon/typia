@@ -3,6 +3,8 @@ import { Spoiler } from "../internal/Spoiler";
 
 export type FunctionalArrayUnion = FunctionalArrayUnion.Union[];
 export namespace FunctionalArrayUnion {
+    export const PRIMITIVE = false;
+
     export type Union = Array<() => any> | number[] | string[] | null[];
     export function generate(): FunctionalArrayUnion {
         return [

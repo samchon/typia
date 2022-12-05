@@ -1,5 +1,7 @@
 export type ToJsonDouble = ToJsonDouble.Parent;
 export namespace ToJsonDouble {
+    export const PRIMITIVE = false;
+
     export class Parent {
         public toJSON(): Child {
             return new Child();

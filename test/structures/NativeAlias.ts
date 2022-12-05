@@ -21,6 +21,8 @@ export interface NativeAlias {
     weakMap: NativeAlias.WEAKMAP;
 }
 export namespace NativeAlias {
+    export const PRIMITIVE = false;
+
     export type DATE = Date;
     export type UINT8ARRAY = Uint8Array;
     export type UINT8CLAMPEDARRAY = Uint8ClampedArray;

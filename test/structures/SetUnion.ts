@@ -15,6 +15,7 @@ export namespace SetUnion {
     }
 
     export const ADDABLE = false;
+    export const PRIMITIVE = false;
 
     export function generate(): SetUnion {
         return [

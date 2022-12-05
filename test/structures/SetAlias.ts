@@ -22,4 +22,5 @@ export namespace SetAlias {
 
     export const ADDABLE = false;
     export const SPOILERS = SetSimple.SPOILERS;
+    export const PRIMITIVE = false;
 }
