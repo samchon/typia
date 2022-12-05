@@ -7,16 +7,26 @@ import { CloneTransformer } from "./features/cloners/CloneTransformer";
 import { CreateAssertCloneTransformer } from "./features/cloners/CreateAssertCloneTransformer";
 import { CreateCloneTransformer } from "./features/cloners/CreateCloneTransformer";
 import { CreateIsCloneTransformer } from "./features/cloners/CreateIsCloneTransformer";
+import { CreateValidateCloneTransformer } from "./features/cloners/CreateValidateCloneTransformer";
 import { IsCloneTransformer } from "./features/cloners/IsCloneTransformer";
+import { ValidateCloneTransformer } from "./features/cloners/ValidateCloneTransformer";
 import { ApplicationTransformer } from "./features/miscellaneous/ApplicationTransformer";
 import { CreateInstanceTransformer } from "./features/miscellaneous/CreateInstanceTransformer";
 import { MetadataTransformer } from "./features/miscellaneous/MetadataTransformer";
+import { AssertParseTransformer } from "./features/parsers/AssertParseTransformer";
+import { CreateAssertParseTransformer } from "./features/parsers/CreateAssertParseTransformer";
+import { CreateIsParseTransformer } from "./features/parsers/CreateIsParseTransformer";
+import { CreateValidateParseTransformer } from "./features/parsers/CreateValidateParseTransformer";
+import { IsParseTransformer } from "./features/parsers/IsParseTransformer";
+import { ValidateParseTransformer } from "./features/parsers/ValidateParseTransformer";
 import { AssertStringifyTransformer } from "./features/stringifiers/AssertStringifyTransformer";
 import { CreateAssertStringifyTransformer } from "./features/stringifiers/CreateAssertStringifyTransformer";
 import { CreateIsStringifyTransformer } from "./features/stringifiers/CreateIsStringifyTransformer";
 import { CreateStringifyTransformer } from "./features/stringifiers/CreateStringifyTransformer";
+import { CreateValidateStringifyTransformer } from "./features/stringifiers/CreateValidateStringifyProgrammer";
 import { IsStringifyTransformer } from "./features/stringifiers/IsStringifyTransformer";
 import { StringifyTransformer } from "./features/stringifiers/StringifyTransformer";
+import { ValidateStringifyTransformer } from "./features/stringifiers/ValidateStringifyTransformer";
 import { AssertTransformer } from "./features/validators/AssertTransformer";
 import { CreateAssertTransformer } from "./features/validators/CreateAssertTransformer";
 import { CreateIsTransformer } from "./features/validators/CreateIsTransformer";
@@ -79,18 +89,26 @@ const FUNCTORS: Record<string, () => Task> = {
     equals: () => IsTransformer.transform(true),
     validateEquals: () => ValidateTransformer.transform(true),
 
+    // PARSE FUNCTIONS
+    isParse: () => IsParseTransformer.transform,
+    assertParse: () => AssertParseTransformer.transform,
+    validateParse: () => ValidateParseTransformer.transform,
+
     // STRINGIFY FUNCTIONS
     stringify: () => StringifyTransformer.transform,
     assertStringify: () => AssertStringifyTransformer.transform,
     isStringify: () => IsStringifyTransformer.transform,
+    validateStringify: () => ValidateStringifyTransformer.transform,
 
     // CLONE FUNCTIONS
     clone: () => CloneTransformer.transform,
-    isClone: () => IsCloneTransformer.transform,
     assertClone: () => AssertCloneTransformer.transform,
+    isClone: () => IsCloneTransformer.transform,
+    validateClone: () => ValidateCloneTransformer.transform,
 
     // MISC
     application: () => ApplicationTransformer.transform,
+    metadata: () => MetadataTransformer.transform,
 
     //----
     // FACTORY FUNCTIONS
@@ -106,17 +124,23 @@ const FUNCTORS: Record<string, () => Task> = {
     createEquals: () => CreateIsTransformer.transform(true),
     createValidateEquals: () => CreateValidateTransformer.transform(true),
 
+    // PARSE FUNCTIONS
+    createIsParse: () => CreateIsParseTransformer.transform,
+    createAssertParse: () => CreateAssertParseTransformer.transform,
+    createValidateParse: () => CreateValidateParseTransformer.transform,
+
     // STRINGIFY FUNCTIONS
     createStringify: () => CreateStringifyTransformer.transform,
     createAssertStringify: () => CreateAssertStringifyTransformer.transform,
     createIsStringify: () => CreateIsStringifyTransformer.transform,
+    createValidateStringify: () => CreateValidateStringifyTransformer.transform,
 
     // CLONE
     createClone: () => CreateCloneTransformer.transform,
-    createIsClone: () => CreateIsCloneTransformer.transform,
     createAssertClone: () => CreateAssertCloneTransformer.transform,
+    createIsClone: () => CreateIsCloneTransformer.transform,
+    createValidateClone: () => CreateValidateCloneTransformer.transform,
 
     // MISC
     createObject: () => CreateInstanceTransformer.transform,
-    metadata: () => MetadataTransformer.transform,
 };
