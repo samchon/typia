@@ -1,10 +1,10 @@
 import ts from "typescript";
 
-import { AssertCloneProgrammer } from "../../../programmers/AssertCloneProgrammer";
+import { AssertParseProgrammer } from "../../../programmers/AssertParseProgrammer";
 
 import { IProject } from "../../IProject";
 
-export namespace CreateAssertCloneTransformer {
+export namespace CreateAssertParseTransformer {
     export function transform(
         project: IProject,
         modulo: ts.LeftHandSideExpression,
@@ -22,11 +22,11 @@ export namespace CreateAssertCloneTransformer {
             throw new Error(ErrorMessages.GENERIC_ARGUMENT);
 
         // DO TRANSFORM
-        return AssertCloneProgrammer.generate(project, modulo)(type);
+        return AssertParseProgrammer.generate(project, modulo)(type);
     }
 }
 
 const enum ErrorMessages {
-    NOT_SPECIFIED = "Error on TSON.assertClone(): generic argument is not specified.",
-    GENERIC_ARGUMENT = "Error on TSON.assertClone(): non-specified generic argument.",
+    NOT_SPECIFIED = "Error on TSON.assertParse(): generic argument is not specified.",
+    GENERIC_ARGUMENT = "Error on TSON.assertParse(): non-specified generic argument.",
 }

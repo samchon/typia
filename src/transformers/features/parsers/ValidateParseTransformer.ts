@@ -1,16 +1,16 @@
 import ts from "typescript";
 
-import { AssertCloneProgrammer } from "../../../programmers/AssertCloneProgrammer";
+import { ValidateParseProgrammer } from "../../../programmers/ValidateParseProgrammer";
 
 import { IProject } from "../../IProject";
 
-export namespace CreateAssertCloneTransformer {
+export namespace ValidateParseTransformer {
     export function transform(
         project: IProject,
         modulo: ts.LeftHandSideExpression,
         expression: ts.CallExpression,
     ): ts.Expression {
-        // CHECK GENERIC ARGUMENT EXASSERTTENCE
+        // CHECK GENERIC ARGUMENT EXVALIDATETENCE
         if (!expression.typeArguments || !expression.typeArguments[0])
             throw new Error(ErrorMessages.NOT_SPECIFIED);
 
@@ -22,11 +22,15 @@ export namespace CreateAssertCloneTransformer {
             throw new Error(ErrorMessages.GENERIC_ARGUMENT);
 
         // DO TRANSFORM
-        return AssertCloneProgrammer.generate(project, modulo)(type);
+        return ts.factory.createCallExpression(
+            ValidateParseProgrammer.generate(project, modulo)(type),
+            undefined,
+            [expression.arguments[0]!],
+        );
     }
 }
 
 const enum ErrorMessages {
-    NOT_SPECIFIED = "Error on TSON.assertClone(): generic argument is not specified.",
-    GENERIC_ARGUMENT = "Error on TSON.assertClone(): non-specified generic argument.",
+    NOT_SPECIFIED = "Error on TSON.validateParse(): generic argument is not specified.",
+    GENERIC_ARGUMENT = "Error on TSON.validateParse(): non-specified generic argument.",
 }
