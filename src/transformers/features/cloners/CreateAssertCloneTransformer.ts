@@ -27,6 +27,6 @@ export namespace CreateAssertCloneTransformer {
 }
 
 const enum ErrorMessages {
-    NOT_SPECIFIED = "Error on TSON.assertClone(): generic argument assert not specified.",
+    NOT_SPECIFIED = "Error on TSON.assertClone(): generic argument is not specified.",
     GENERIC_ARGUMENT = "Error on TSON.assertClone(): non-specified generic argument.",
 }

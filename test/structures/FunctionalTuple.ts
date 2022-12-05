@@ -6,6 +6,8 @@ export type FunctionalTuple = [
     FunctionalTuple.Functional,
 ];
 export namespace FunctionalTuple {
+    export const PRIMITIVE = false;
+
     export type Functional = (...args: any[]) => any;
     export function generate(): FunctionalTuple {
         return [console.log, console.log, console.log];

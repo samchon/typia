@@ -2,6 +2,8 @@ import { Spoiler } from "../internal/Spoiler";
 
 export type NativeUnion = NativeUnion.Union[];
 export namespace NativeUnion {
+    export const PRIMITIVE = false;
+
     export interface Union {
         date: Date | null;
         unsigned:

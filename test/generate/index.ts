@@ -39,6 +39,7 @@ async function generate(
     for (const s of structures) {
         if (s.generate === undefined) continue;
         else if (feat.jsonable && s.JSONABLE === false) continue;
+        else if (feat.primitive && s.PRIMITIVE === false) continue;
         else if (feat.strict && s.ADDABLE === false) continue;
 
         const location: string = `${path}/test_${method}_${s.name}.ts`;
@@ -67,7 +68,9 @@ function script(
         `    ${struct.name}.generate,`,
         create
             ? `    TSON.${method}<${struct.name}>(),`
-            : `    (input) => TSON.${method}(input),`,
+            : `    (input) => TSON.${method}${
+                  feat.explicit ? `<${struct.name}>` : ""
+              }(input),`,
         feat.spoilable && struct.SPOILERS
             ? `    ${struct.name}.SPOILERS,`
             : null,
