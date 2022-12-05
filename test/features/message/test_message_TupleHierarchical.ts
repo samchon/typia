@@ -8,10 +8,10 @@ export const test_message_TupleHierarchical = _test_message(
     `syntax = \"proto3\";
 
 message __Main {
-    [boolean, undefined, number, [boolean, null, [number, [boolean, string]]], [number, Array<[string, boolean, Array<[number, number, [boolean, string]]>]>]] value = 1;
+    [boolean, null, number, [boolean, null, [number, [boolean, string]]], [number, Array<[string, boolean, Array<[number, number, [boolean, string]]>]>]] value = 1;
 }
 
-message _alt_boolean_comma__space_undefined_comma__space_number_comma__space__alt_boolean_comma__space_null_comma__space__alt_number_comma__space__alt_boolean_comma__space_string_agt__agt__agt__comma__space__alt_number_comma__space_Array_lt__alt_string_comma__space_boolean_comma__space_Array_lt__alt_number_comma__space_number_comma__space__alt_boolean_comma__space_string_agt__agt__gt__agt__gt__agt__agt_ {
+message _alt_boolean_comma__space_null_comma__space_number_comma__space__alt_boolean_comma__space_null_comma__space__alt_number_comma__space__alt_boolean_comma__space_string_agt__agt__agt__comma__space__alt_number_comma__space_Array_lt__alt_string_comma__space_boolean_comma__space_Array_lt__alt_number_comma__space_number_comma__space__alt_boolean_comma__space_string_agt__agt__gt__agt__gt__agt__agt_ {
     bool v0 = 1;
     oneof v1 {
 
