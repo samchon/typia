@@ -49,7 +49,8 @@ export namespace CallExpressionTransformer {
 
         // FILE PATH
         const file: string = path.resolve(declaration.getSourceFile().fileName);
-        if (file !== LIB_PATH && file !== SRC_PATH) return expression;
+        if (file.indexOf(LIB_PATH) === -1 && file !== SRC_PATH)
+            return expression;
 
         //----
         // TRANSFORMATION
@@ -72,8 +73,14 @@ type Task = (
     expression: ts.CallExpression,
 ) => ts.Expression;
 
-const LIB_PATH = path.resolve(path.join(__dirname, "..", "module.d.ts"));
+const LIB_PATH = path.join(
+    "node_modules",
+    "typescript-json",
+    "lib",
+    "module.d.ts",
+);
 const SRC_PATH = path.resolve(path.join(__dirname, "..", "module.ts"));
+
 const FUNCTORS: Record<string, () => Task> = {
     //----
     // SINGLE FUNCTIONS
