@@ -22,14 +22,5 @@ export interface ObjectJsonTag {
      * @title something weirdo with {@link something} tag
      */
     complicate_title: string;
-
-    /**
-     * Entered title.
-     *
-     * @title something content with
-     * enter and
-     * new line
-     */
-    entered_title: string;
 }
 export namespace ObjectJsonTag {}
