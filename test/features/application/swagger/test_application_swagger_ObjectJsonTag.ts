@@ -84,24 +84,6 @@ export const test_application_swagger_ObjectJsonTag = _test_application(
                         ],
                         "x-tson-required": true,
                     },
-                    entered_title: {
-                        type: "string",
-                        nullable: false,
-                        title: "something content with\nenter and\nnew line",
-                        description: "Entered title.",
-                        "x-tson-jsDocTags": [
-                            {
-                                name: "title",
-                                text: [
-                                    {
-                                        text: "something content with\nenter and\nnew line",
-                                        kind: "text",
-                                    },
-                                ],
-                            },
-                        ],
-                        "x-tson-required": true,
-                    },
                 },
                 nullable: false,
                 required: [
@@ -109,7 +91,6 @@ export const test_application_swagger_ObjectJsonTag = _test_application(
                     "description",
                     "title",
                     "complicate_title",
-                    "entered_title",
                 ],
                 "x-tson_jsDocTags": [],
             },
