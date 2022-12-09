@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.3.42",
+  "version": "3.3.43",
   "description": "Runtime type checkers and 5x faster JSON.stringify() function",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -53,7 +53,8 @@
   },
   "homepage": "https://github.com/samchon/typescript-json#readme",
   "peerDependencies": {
-    "typescript": "4.6.x || 4.7.x || 4.8.x"
+    "typescript": ">= 4.5.2",
+    "ttypescript": ">= 1.5.15"
   },
   "devDependencies": {
     "@fastify/type-provider-typebox": "^2.3.0",
@@ -91,8 +92,8 @@
     "source-map-support": "^0.5.21",
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.9.1",
-    "ttypescript": "^1.5.13",
-    "typescript": "4.8.4",
+    "ttypescript": "^1.5.15",
+    "typescript": "^4.9.4",
     "uuid": "^8.3.2",
     "zod": "^3.19.1"
   }
