@@ -14,6 +14,7 @@ export interface IMetadata {
     templates: IMetadata[][];
     resolved: IMetadata | null;
 
+    rest: IMetadata | null;
     arrays: IMetadata[];
     tuples: IMetadata[][];
     objects: string[];

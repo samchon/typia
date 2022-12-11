@@ -2,6 +2,8 @@ import ts from "typescript";
 
 import { Metadata } from "../../metadata/Metadata";
 
+import { Writable } from "../../typings/Writable";
+
 import { ArrayUtil } from "../../utils/ArrayUtil";
 
 import { MetadataCollection } from "../MetadataCollection";
@@ -12,14 +14,34 @@ export const iterate_metadata_tuple =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (meta: Metadata, type: ts.Type): boolean => {
+    (meta: Metadata, type: ts.Type, node: ts.TypeNode): boolean => {
         if (!(checker as any).isTupleType(type)) return false;
 
+        while (ts.isTypeReferenceNode(node)) {
+            const declarations: ts.Declaration[] | undefined = (
+                node.typeName as any
+            )?.symbol?.declarations;
+            if (!declarations?.length) break;
+
+            const alias = declarations[0];
+            if (!alias || !ts.isTypeAliasDeclaration(alias)) break;
+            node = alias.type;
+        }
+
+        const elements = ts.isTupleTypeNode(node) ? node.elements : undefined;
         const children: Metadata[] = checker
             .getTypeArguments(type as ts.TypeReference)
-            .map((elem) =>
-                explore_metadata(checker)(options)(collection)(elem, false),
-            );
+            .map((elem, i) => {
+                const child: Metadata = explore_metadata(checker)(options)(
+                    collection,
+                )(elem, false);
+                if (elements === undefined || !ts.isRestTypeNode(elements[i]!))
+                    return child;
+
+                const wrapper: Metadata = Metadata.initialize();
+                Writable(wrapper).rest = child;
+                return wrapper;
+            });
         ArrayUtil.set(meta.tuples, children, join_tuple_names);
         return true;
     };
