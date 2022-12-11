@@ -182,6 +182,8 @@ function merge_metadata(x: Metadata, y: Metadata): Metadata {
         atomics: [...new Set([...x.atomics, ...y.atomics])],
         constants: [...x.constants],
         templates: x.templates.slice(),
+
+        rest: x.rest || y.rest,
         arrays: x.arrays.slice(),
         tuples: x.tuples.slice(),
         objects: x.objects.slice(),
