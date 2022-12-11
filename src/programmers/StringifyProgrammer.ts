@@ -421,18 +421,48 @@ export namespace StringifyProgrammer {
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
         ): ts.Expression => {
-            const children: ts.Expression[] = tuple.map((elem, index) =>
-                decode(project, importer)(
-                    ts.factory.createElementAccessExpression(input, index),
-                    elem,
+            const children: ts.Expression[] = tuple
+                .filter((elem) => elem.rest === null)
+                .map((elem, index) =>
+                    decode(project, importer)(
+                        ts.factory.createElementAccessExpression(input, index),
+                        elem,
+                        {
+                            ...explore,
+                            from: "array",
+                        },
+                        tags,
+                    ),
+                );
+            const rest = (() => {
+                if (tuple.length === 0) return null;
+                const last = tuple[tuple.length - 1]!;
+                if (last.rest === null) return null;
+
+                const code = decode(project, importer)(
+                    ts.factory.createCallExpression(
+                        IdentifierFactory.join(input, "slice"),
+                        undefined,
+                        [ts.factory.createNumericLiteral(tuple.length - 1)],
+                    ),
+                    (() => {
+                        const wrapper: Metadata = Metadata.initialize();
+                        wrapper.arrays.push(tuple[tuple.length - 1]!.rest!);
+                        return wrapper;
+                    })(),
                     {
                         ...explore,
-                        from: "array",
+                        start: tuple.length - 1,
                     },
                     tags,
-                ),
-            );
-            return StringifyJoiner.tuple(children);
+                );
+                return ts.factory.createCallExpression(
+                    importer.use("rest"),
+                    undefined,
+                    [code],
+                );
+            })();
+            return StringifyJoiner.tuple(children, rest);
         };
 
     const decode_atomic =
