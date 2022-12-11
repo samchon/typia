@@ -3,7 +3,7 @@ import { Spoiler } from "../internal/Spoiler";
 export type AtomicSimple = [
     AtomicSimple.Value<boolean>,
     AtomicSimple.Value<number>,
-    ...AtomicSimple.Value<string>[],
+    AtomicSimple.Value<string>,
 ];
 export namespace AtomicSimple {
     export type Value<T> = T;

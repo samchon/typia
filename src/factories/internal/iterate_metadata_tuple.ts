@@ -17,8 +17,18 @@ export const iterate_metadata_tuple =
     (meta: Metadata, type: ts.Type, node: ts.TypeNode): boolean => {
         if (!(checker as any).isTupleType(type)) return false;
 
-        const elements = ts.isTupleTypeNode(node) ? node.elements : undefined;
+        while (ts.isTypeReferenceNode(node)) {
+            const declarations: ts.Declaration[] | undefined = (
+                node.typeName as any
+            )?.symbol?.declarations;
+            if (!declarations?.length) break;
 
+            const alias = declarations[0];
+            if (!alias || !ts.isTypeAliasDeclaration(alias)) break;
+            node = alias.type;
+        }
+
+        const elements = ts.isTupleTypeNode(node) ? node.elements : undefined;
         const children: Metadata[] = checker
             .getTypeArguments(type as ts.TypeReference)
             .map((elem, i) => {

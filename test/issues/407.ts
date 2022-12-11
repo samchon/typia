@@ -1,6 +1,4 @@
 import TSON from "../../src";
+import { TupleRestArray } from "../structures/TupleRestArray";
 
-type X = [boolean, number, ...string[]];
-
-const app = TSON.metadata<[X]>();
-// console.log(JSON.stringify(app, null, 4));
+console.log(TSON.createAssert<TupleRestArray>().toString());

@@ -8,6 +8,7 @@ import { $is_uuid } from "./functional/$is_uuid";
 import { $join } from "./functional/$join";
 import { $number } from "./functional/$number";
 import { $report } from "./functional/$report";
+import { $rest } from "./functional/$rest";
 import { $string } from "./functional/$string";
 import { $tail } from "./functional/$tail";
 
@@ -851,6 +852,7 @@ export namespace stringify {
     export const number = $number;
     export const string = $string;
     export const tail = $tail;
+    export const rest = $rest;
 
     export function throws(
         props: Pick<TypeGuardError.IProps, "expected" | "value">,
@@ -928,6 +930,7 @@ export namespace assertStringify {
     export const number = $number;
     export const string = $string;
     export const tail = $tail;
+    export const rest = $rest;
 
     export const join = $join;
     export const guard = $guard("TSON.assertStringify");
@@ -1015,6 +1018,7 @@ export namespace isStringify {
     export const number = $number;
     export const string = $string;
     export const tail = $tail;
+    export const rest = $rest;
 
     export const throws = () => {};
 }
@@ -1110,6 +1114,7 @@ export namespace clone {
     export const number = $number;
     export const string = $string;
     export const tail = $tail;
+    export const rest = $rest;
 
     export function throws(
         props: Pick<TypeGuardError.IProps, "expected" | "value">,
@@ -1179,6 +1184,7 @@ export namespace assertClone {
     export const number = $number;
     export const string = $string;
     export const tail = $tail;
+    export const rest = $rest;
 
     export const join = $join;
     export const guard = $guard("TSON.assertClone");

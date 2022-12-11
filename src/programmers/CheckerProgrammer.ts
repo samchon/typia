@@ -375,10 +375,17 @@ export namespace CheckerProgrammer {
                         expression: config.combiner(explore)("and")(
                             input,
                             [
-                                {
-                                    expression: check_array(input, tags),
-                                    combined: false,
-                                },
+                                ...(checkTupleLength
+                                    ? [
+                                          {
+                                              expression: check_array(
+                                                  input,
+                                                  tags,
+                                              ),
+                                              combined: false,
+                                          },
+                                      ]
+                                    : []),
                                 {
                                     expression: explore_array(
                                         project,
@@ -582,7 +589,7 @@ export namespace CheckerProgrammer {
                               ],
                           ),
                           (() => {
-                              const wrapper = Metadata.initialize();
+                              const wrapper: Metadata = Metadata.initialize();
                               wrapper.arrays.push(
                                   tuple[tuple.length - 1]!.rest!,
                               );
@@ -590,12 +597,7 @@ export namespace CheckerProgrammer {
                           })(),
                           {
                               ...explore,
-                              from: "array",
-                              postfix: explore.postfix.length
-                                  ? `${explore.postfix.slice(0, -1)}[${
-                                        tuple.length - 1
-                                    }]"`
-                                  : `[${tuple.length - 1}]`,
+                              start: tuple.length - 1,
                           },
                           tagList,
                       )
@@ -631,14 +633,14 @@ export namespace CheckerProgrammer {
                               expression,
                               combined: true,
                           }))),
-                    // ...(rest !== null
-                    //     ? [
-                    //           {
-                    //               expression: rest,
-                    //               combined: true,
-                    //           },
-                    //       ]
-                    //     : []),
+                    ...(rest !== null
+                        ? [
+                              {
+                                  expression: rest,
+                                  combined: true,
+                              },
+                          ]
+                        : []),
                 ],
                 `[${tuple.map((t) => t.getName()).join(", ")}]`,
             );
