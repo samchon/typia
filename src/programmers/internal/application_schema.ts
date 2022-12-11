@@ -78,7 +78,10 @@ export const application_schema =
 
         // TUPLE
         for (const items of meta.tuples)
-            if (options.purpose === "ajv")
+            if (
+                options.purpose === "ajv" &&
+                items.every((i) => i.rest === null)
+            )
                 union.push(
                     application_tuple(options)(components)(
                         items,
@@ -183,7 +186,7 @@ function merge_metadata(x: Metadata, y: Metadata): Metadata {
         constants: [...x.constants],
         templates: x.templates.slice(),
 
-        rest: x.rest || y.rest,
+        rest: null,
         arrays: x.arrays.slice(),
         tuples: x.tuples.slice(),
         objects: x.objects.slice(),
@@ -208,5 +211,11 @@ function merge_metadata(x: Metadata, y: Metadata): Metadata {
         ArrayUtil.set(output.arrays, array, (elem) => elem.getName());
     for (const obj of y.objects)
         ArrayUtil.set(output.objects, obj, (elem) => elem.name);
+
+    if (x.rest !== null)
+        ArrayUtil.set(output.arrays, x.rest, (elem) => elem.getName());
+    if (y.rest !== null)
+        ArrayUtil.set(output.arrays, y.rest, (elem) => elem.getName());
+
     return output;
 }
