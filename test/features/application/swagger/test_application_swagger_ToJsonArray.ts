@@ -1,11 +1,11 @@
-import typia from "../../../../src";
+import TSON from "../../../../src";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_ToJsonArray = _test_application(
-    "swagger",
-)("ToJsonArray", typia.application<[ToJsonArray], "swagger">(), {
-    schemas: [
+export const test_application_swagger_ToJsonArray = 
+    _test_application("swagger")(
+        "ToJsonArray",
+        TSON.application<[ToJsonArray], "swagger">(),{schemas: [
         {
             type: "array",
             items: {
@@ -14,37 +14,37 @@ export const test_application_swagger_ToJsonArray = _test_application(
                         type: "array",
                         items: {
                             type: "boolean",
-                            nullable: false,
+                            nullable: false
                         },
-                        nullable: false,
+                        nullable: false
                     },
                     {
                         type: "array",
                         items: {
                             type: "number",
-                            nullable: false,
+                            nullable: false
                         },
-                        nullable: false,
+                        nullable: false
                     },
                     {
                         type: "array",
                         items: {
                             type: "string",
-                            nullable: false,
+                            nullable: false
                         },
-                        nullable: false,
+                        nullable: false
                     },
                     {
                         type: "array",
                         items: {
-                            $ref: "#/components/schemas/ToJsonArray.IObject",
+                            $ref: "#/components/schemas/ToJsonArray.IObject"
                         },
-                        nullable: false,
-                    },
-                ],
+                        nullable: false
+                    }
+                ]
             },
-            nullable: false,
-        },
+            nullable: false
+        }
     ],
     components: {
         schemas: {
@@ -54,15 +54,18 @@ export const test_application_swagger_ToJsonArray = _test_application(
                     id: {
                         type: "string",
                         nullable: false,
-                        "x-typia-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
-                required: ["id"],
-                "x-typia_jsDocTags": [],
-            },
-        },
+                required: [
+                    "id"
+                ],
+                "x-typia_jsDocTags": []
+            }
+        }
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

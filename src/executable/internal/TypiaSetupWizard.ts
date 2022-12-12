@@ -5,9 +5,9 @@ import fs from "fs";
 export namespace TypiaSetupWizard {
     export async function ttypescript(): Promise<void> {
         // INSTALL
-        prepare();
-        install("ttypescript", "--save-dev");
-        install("ts-node", "--save-dev");
+        const pack: any = await prepare();
+        install(pack, "ttypescript", "--save-dev");
+        install(pack, "ts-node", "--save-dev");
 
         // TSCONFIG.JSON
         await configure();
@@ -15,14 +15,11 @@ export namespace TypiaSetupWizard {
 
     export async function tsPatch(): Promise<void> {
         // INSTALL
-        prepare();
-        install("ts-patch", "--save-dev");
+        const pack: any = await prepare();
+        install(pack, "ts-patch", "--save-dev");
         execute("npx ts-patch install");
 
         // PACKAGE.JSON
-        const pack: any = JSON.parse(
-            await fs.promises.readFile("package.json", "utf8"),
-        );
         if (!pack.scripts || typeof pack.scripts !== "object")
             pack.scripts = {};
         if (typeof pack.scripts.prepare === "string") {
@@ -41,11 +38,15 @@ export namespace TypiaSetupWizard {
         await configure();
     }
 
-    async function prepare(): Promise<void> {
+    async function prepare(): Promise<any> {
         if (fs.existsSync("package.json") === false)
-            halt("make package.json file or move to it.");
-        install("typia", "--save");
-        install("typescript", "--save-dev");
+            halt(() => {})("make package.json file or move to it.");
+        const pack: any = JSON.parse(
+            await fs.promises.readFile("package.json", "utf8"),
+        );
+        install(pack, "typia", "--save");
+        install(pack, "typescript", "--save-dev");
+        return pack;
     }
 
     async function configure(): Promise<void> {
@@ -53,12 +54,17 @@ export namespace TypiaSetupWizard {
         if (fs.existsSync("tsconfig.json") === false) {
             execute("npx tsc --init");
             if (fs.existsSync("tsconfig.json") === false)
-                halt("tsconfig.json file does not exist.");
+                halt(() => {})("tsconfig.json file does not exist.");
         }
 
         const temporary: boolean = !fs.existsSync("node_modules/comment-json");
         if (temporary === true)
             cp.execSync("npm install --save-dev comment-json");
+
+        const halter: (msg: string) => never = halt(() => {
+            if (temporary === true)
+                cp.execSync("npm uninstall --save-dev comment-json");
+        });
 
         // READ TSCONFIG FILE
         const Comment: typeof import("comment-json") = await import(
@@ -71,7 +77,7 @@ export namespace TypiaSetupWizard {
             | Comment.CommentObject
             | undefined;
         if (options === undefined)
-            halt(
+            halter(
                 `tsconfig.json file does not have "compilerOptions" property.`,
             );
 
@@ -81,7 +87,9 @@ export namespace TypiaSetupWizard {
                 | undefined;
             if (plugins === undefined) return (options.plugins = [] as any);
             else if (!Array.isArray(plugins))
-                halt(`"plugins" property of tsconfig.json must be array type.`);
+                halter(
+                    `"plugins" property of tsconfig.json must be array type.`,
+                );
             return plugins;
         })();
 
@@ -114,15 +122,26 @@ export namespace TypiaSetupWizard {
     }
 }
 
-function install(modulo: string, mode: "--save" | "--save-dev"): void {
-    if (fs.existsSync("node_modules/" + modulo) === false)
-        execute(`npm install ${mode} ${modulo}`);
+function install(
+    pack: any,
+    modulo: string,
+    mode: "--save" | "--save-dev",
+): void {
+    const exists: boolean =
+        (mode === "--save"
+            ? !!pack.dependencies && !!pack.dependencies[modulo]
+            : !!pack.devDependencies && !!pack.devDependencies[modulo]) &&
+        fs.existsSync("node_modules/" + modulo);
+    if (exists === false) execute(`npm install ${mode} ${modulo}`);
 }
 
-function halt(desc: string): never {
-    console.error(desc);
-    process.exit(-1);
-}
+const halt =
+    (closer: () => any) =>
+    (desc: string): never => {
+        console.error(desc);
+        closer();
+        process.exit(-1);
+    };
 
 function execute(command: string): void {
     console.log(command);

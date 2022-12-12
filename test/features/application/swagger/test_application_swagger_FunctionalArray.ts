@@ -1,20 +1,21 @@
-import typia from "../../../../src";
+import TSON from "../../../../src";
 import { FunctionalArray } from "../../../structures/FunctionalArray";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_FunctionalArray = _test_application(
-    "swagger",
-)("FunctionalArray", typia.application<[FunctionalArray], "swagger">(), {
-    schemas: [
+export const test_application_swagger_FunctionalArray = 
+    _test_application("swagger")(
+        "FunctionalArray",
+        TSON.application<[FunctionalArray], "swagger">(),{schemas: [
         {
             type: "array",
             items: {},
-            nullable: false,
-        },
+            nullable: false
+        }
     ],
     components: {
-        schemas: {},
+        schemas: {}
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);
