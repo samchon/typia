@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { TypiaSetupWizard } from "./internal/TypiaSetupWizard";
 
 const USAGE = `Usage: npx typia setup (transformer?: "ttypescript" | "ts-patch")

@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "3.4.0",
+  "version": "3.4.4",
   "description": "Runtime type checkers and 5x faster JSON.stringify() function",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -18,8 +18,9 @@
     "eslint:fix": "eslint ./**/*.ts --fix",
     "issue": "node test/issue",
     "prettier": "prettier  --write ./**/*.ts",
+    "publish": "ts-node build/publish.ts",
     "test": "node bin/test",
-    "test:generate": "ts-node -P tsconfig.test.json test/generate/index.ts",
+    "test:generate": "ts-node -P tsconfig.test.json build/test.ts",
     "test:manual": "node test/manual",
     "test:application:replace": "node test/features/application/replace && npm run prettier"
   },
@@ -102,5 +103,13 @@
     "typescript": "^4.9.4",
     "uuid": "^8.3.2",
     "zod": "^3.19.1"
-  }
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "lib",
+    "src"
+  ],
+  "private": true
 }
