@@ -1,7 +1,7 @@
 import benchmark from "benchmark";
 import { output } from "cli";
 
-import TSON from "../../src";
+import typia from "../../src";
 
 export namespace ValidateBenchmarker {
     export interface IOutput<Components extends "name" | string> {
@@ -12,7 +12,7 @@ export namespace ValidateBenchmarker {
 
     export type IParameters<Components extends string, T> = Record<
         Components,
-        null | ((input: T) => any[] | TSON.IValidation)
+        null | ((input: T) => any[] | typia.IValidation)
     >;
 
     export const prepare =
@@ -77,8 +77,8 @@ export namespace ValidateBenchmarker {
             };
         };
 
-    const check = (output: TSON.IValidation | any[]) => {
+    const check = (output: typia.IValidation | any[]) => {
         if (Array.isArray(output)) return output.length === 0;
-        return (output as TSON.IValidation).errors.length === 0;
+        return (output as typia.IValidation).errors.length === 0;
     };
 }

@@ -20,7 +20,7 @@ export namespace IsBenchmarker {
             spoilers: Array<(input: T) => string[]>,
         ) => {
             // TO ANTICIPATE OVER-FITTING OPTIMIZATION
-            // BY TSON AND TYPEBOX
+            // BY typia AND TYPEBOX
             const a: T = generator();
             const b: T = generator();
             const c: T = generator();

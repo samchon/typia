@@ -5,7 +5,7 @@ Thanks for your advise. Before publishing an issue, please check some components
 ### 1. Search for duplicates
 Before publishing an issue, please check whether the duplicated issue exists or not.
 
-  - [Ordinary Issues](https://github.com/samchon/typescript-json/issues)
+  - [Ordinary Issues](https://github.com/samchon/typia/issues)
 
 ### 2. Did you find a bug?
 When you reporting a bug, then please write about those items:
@@ -49,7 +49,7 @@ Note that, the special functions starting from the prefix `test_` must be `expor
 When you detect an error, then throw exception such below:
 
 ```typescript
-import TSON from "../../../src";
+import typia from "../../../src";
 import { RandomGenerator } from "../internal/RandomGenerator";
 
 export function test_stringify_object_recursive(): void
@@ -65,11 +65,11 @@ export function test_stringify_object_recursive(): void
         }
     };
 
-    const json: string = TSON.stringify<IDepartment>(department);
+    const json: string = typia.stringify<IDepartment>(department);
     const expected: string = JSON.stringify(department);
 
     if (json !== expected)
-        throw new Error("Bug on TSON.stringify(): failed to understand the recursive object.");
+        throw new Error("Bug on typia.stringify(): failed to understand the recursive object.");
 }
 
 interface IDepartment

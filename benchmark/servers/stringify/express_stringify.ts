@@ -1,6 +1,6 @@
 import express from "express";
 
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ArrayHierarchical } from "../../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../../test/structures/ArrayRecursiveUnionExplicit";
@@ -25,42 +25,42 @@ const storage = ServerStorage(true);
 
 server.get(
     "/ObjectSimple",
-    reply(TSON.createStringify<ObjectSimple[]>())(storage.ObjectSimple),
+    reply(typia.createStringify<ObjectSimple[]>())(storage.ObjectSimple),
 );
 server.get(
     "/ObjectHierarchical",
-    reply(TSON.createStringify<ObjectHierarchical[]>())(
+    reply(typia.createStringify<ObjectHierarchical[]>())(
         storage.ObjectHierarchical,
     ),
 );
 server.get(
     "/ObjectRecursive",
-    reply(TSON.createStringify<ObjectRecursive[]>())(storage.ObjectRecursive),
+    reply(typia.createStringify<ObjectRecursive[]>())(storage.ObjectRecursive),
 );
 server.get(
     "/ObjectUnionExplicit",
-    reply(TSON.createStringify<ObjectUnionExplicit[]>())(
+    reply(typia.createStringify<ObjectUnionExplicit[]>())(
         storage.ObjectUnionExplicit,
     ),
 );
 
 server.get(
     "/ArraySimple",
-    reply(TSON.createStringify<ArraySimple[]>())(storage.ArraySimple),
+    reply(typia.createStringify<ArraySimple[]>())(storage.ArraySimple),
 );
 server.get(
     "/ArrayHierarchical",
-    reply(TSON.createStringify<ArrayHierarchical[]>())(
+    reply(typia.createStringify<ArrayHierarchical[]>())(
         storage.ArrayHierarchical,
     ),
 );
 server.get(
     "/ArrayRecursive",
-    reply(TSON.createStringify<ArrayRecursive[]>())(storage.ArrayRecursive),
+    reply(typia.createStringify<ArrayRecursive[]>())(storage.ArrayRecursive),
 );
 server.get(
     "/ArrayRecursiveUnionExplicit",
-    reply(TSON.createStringify<ArrayRecursiveUnionExplicit[]>())(
+    reply(typia.createStringify<ArrayRecursiveUnionExplicit[]>())(
         storage.ArrayRecursiveUnionExplicit,
     ),
 );

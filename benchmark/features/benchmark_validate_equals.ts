@@ -1,7 +1,7 @@
 import { TSchema } from "@sinclair/typebox";
 import { TypeCheck } from "@sinclair/typebox/compiler";
 
-import TSON from "../../src";
+import typia from "../../src";
 // PURE TYPESCRIPT TYPES
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
@@ -33,7 +33,7 @@ const validateTypeBox =
     <T>(input: T) =>
         [...program.Errors(input)];
 
-const prepare = ValidateBenchmarker.prepare(["typescript-json", "typebox"]);
+const prepare = ValidateBenchmarker.prepare(["typia", "typebox"]);
 
 /* -----------------------------------------------------------
     DO BENCHMARK
@@ -43,7 +43,7 @@ const validateEquals = () => [
         "object (simple)",
         () => ObjectSimple.generate(),
         {
-            "typescript-json": TSON.createValidateEquals<ObjectSimple>(),
+            typia: typia.createValidateEquals<ObjectSimple>(),
             typebox: validateTypeBox(TypeBoxObjectSimpleEquals),
         },
         ObjectSimple.SPOILERS,
@@ -52,7 +52,7 @@ const validateEquals = () => [
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
         {
-            "typescript-json": TSON.createValidateEquals<ObjectHierarchical>(),
+            typia: typia.createValidateEquals<ObjectHierarchical>(),
 
             typebox: validateTypeBox(TypeBoxObjectHierarchicalEquals),
         },
@@ -62,7 +62,7 @@ const validateEquals = () => [
         "object (recursive)",
         () => ObjectRecursive.generate(),
         {
-            "typescript-json": TSON.createValidateEquals<ObjectRecursive>(),
+            typia: typia.createValidateEquals<ObjectRecursive>(),
 
             typebox: validateTypeBox(TypeBoxObjectRecursiveEquals),
         },
@@ -72,7 +72,7 @@ const validateEquals = () => [
         "object (union, explicit)",
         () => ObjectUnionExplicit.generate(),
         {
-            "typescript-json": TSON.createValidateEquals<ObjectUnionExplicit>(),
+            typia: typia.createValidateEquals<ObjectUnionExplicit>(),
 
             typebox: validateTypeBox(TypeBoxObjectUnionExplicitEquals),
         },
@@ -82,7 +82,7 @@ const validateEquals = () => [
         "object (union, implicit)",
         () => ObjectUnionImplicit.generate(),
         {
-            "typescript-json": TSON.createValidateEquals<ObjectUnionImplicit>(),
+            typia: typia.createValidateEquals<ObjectUnionImplicit>(),
 
             typebox: validateTypeBox(TypeBoxObjectUnionImplicitEquals),
         },
@@ -92,7 +92,7 @@ const validateEquals = () => [
         "array (recursive)",
         () => ArrayRecursive.generate(),
         {
-            "typescript-json": TSON.createValidateEquals<ArrayRecursive>(),
+            typia: typia.createValidateEquals<ArrayRecursive>(),
 
             typebox: validateTypeBox(TypeBoxArrayRecursiveEquals),
         },
@@ -102,8 +102,7 @@ const validateEquals = () => [
         "array (union, explicit)",
         () => ArrayRecursiveUnionExplicit.generate(),
         {
-            "typescript-json":
-                TSON.createValidateEquals<ArrayRecursiveUnionExplicit>(),
+            typia: typia.createValidateEquals<ArrayRecursiveUnionExplicit>(),
 
             typebox: validateTypeBox(TypeBoxArrayRecursiveUnionExplicitEquals),
         },
@@ -113,8 +112,7 @@ const validateEquals = () => [
         "array (union, implicit)",
         () => ArrayRecursiveUnionImplicit.generate(),
         {
-            "typescript-json":
-                TSON.createValidateEquals<ArrayRecursiveUnionImplicit>(),
+            typia: typia.createValidateEquals<ArrayRecursiveUnionImplicit>(),
 
             typebox: validateTypeBox(TypeBoxArrayRecursiveUnionImplicitEquals),
         },
@@ -124,7 +122,7 @@ const validateEquals = () => [
         "ultimate union",
         () => UltimateUnion.generate(),
         {
-            "typescript-json": TSON.createValidateEquals<UltimateUnion>(),
+            typia: typia.createValidateEquals<UltimateUnion>(),
 
             typebox: validateTypeBox(TypeBoxUltimateUnionEquals),
         },
