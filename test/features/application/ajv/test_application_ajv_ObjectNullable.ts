@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectNullable = _test_application("ajv")(
     "ObjectNullable",
-    TSON.application<[ObjectNullable], "ajv">(),
+    typia.application<[ObjectNullable], "ajv">(),
     {
         schemas: [
             {
@@ -32,33 +32,33 @@ export const test_application_ajv_ObjectNullable = _test_application("ajv")(
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         manufacturer: {
                             $ref: "components#/schemas/ObjectNullable.IManufacturer",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         brand: {
                             $ref: "components#/schemas/ObjectNullable.IBrand.Nullable",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         similar: {
                             oneOf: [
                                 {
                                     $ref: "components#/schemas/ObjectNullable.IManufacturer.Nullable",
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 {
                                     $ref: "components#/schemas/ObjectNullable.IBrand.Nullable",
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["name", "manufacturer", "brand", "similar"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectNullable.IManufacturer": {
                     $id: "components#/schemas/ObjectNullable.IManufacturer",
@@ -68,17 +68,17 @@ export const test_application_ajv_ObjectNullable = _test_application("ajv")(
                             type: "string",
                             enum: ["manufacturer"],
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["type", "name"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectNullable.IBrand.Nullable": {
                     $id: "components#/schemas/ObjectNullable.IBrand.Nullable",
@@ -88,17 +88,17 @@ export const test_application_ajv_ObjectNullable = _test_application("ajv")(
                             type: "string",
                             enum: ["brand"],
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: true,
                     required: ["type", "name"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectNullable.IManufacturer.Nullable": {
                     $id: "components#/schemas/ObjectNullable.IManufacturer.Nullable",
@@ -108,17 +108,17 @@ export const test_application_ajv_ObjectNullable = _test_application("ajv")(
                             type: "string",
                             enum: ["manufacturer"],
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: true,
                     required: ["type", "name"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

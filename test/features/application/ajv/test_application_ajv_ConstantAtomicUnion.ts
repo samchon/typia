@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ConstantAtomicUnion = _test_application(
     "ajv",
-)("ConstantAtomicUnion", TSON.application<[ConstantAtomicUnion], "ajv">(), {
+)("ConstantAtomicUnion", typia.application<[ConstantAtomicUnion], "ajv">(), {
     schemas: [
         {
             type: "array",
@@ -43,12 +43,12 @@ export const test_application_ajv_ConstantAtomicUnion = _test_application(
                         type: "string",
                         enum: ["key"],
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["key"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

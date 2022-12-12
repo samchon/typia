@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TagAtomicUnion = _test_application("ajv")(
     "TagAtomicUnion",
-    TSON.application<[TagAtomicUnion], "ajv">(),
+    typia.application<[TagAtomicUnion], "ajv">(),
     {
         schemas: [
             {
@@ -26,7 +26,7 @@ export const test_application_ajv_TagAtomicUnion = _test_application("ajv")(
                                 {
                                     type: "string",
                                     nullable: false,
-                                    "x-tson-metaTags": [
+                                    "x-typia-metaTags": [
                                         {
                                             kind: "minimum",
                                             value: 3,
@@ -43,7 +43,7 @@ export const test_application_ajv_TagAtomicUnion = _test_application("ajv")(
                                             },
                                         },
                                     ],
-                                    "x-tson-jsDocTags": [
+                                    "x-typia-jsDocTags": [
                                         {
                                             name: "minimum",
                                             text: [
@@ -63,14 +63,14 @@ export const test_application_ajv_TagAtomicUnion = _test_application("ajv")(
                                             ],
                                         },
                                     ],
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                     minLength: 3,
                                     maxLength: 7,
                                 },
                                 {
                                     type: "number",
                                     nullable: false,
-                                    "x-tson-metaTags": [
+                                    "x-typia-metaTags": [
                                         {
                                             kind: "minimum",
                                             value: 3,
@@ -87,7 +87,7 @@ export const test_application_ajv_TagAtomicUnion = _test_application("ajv")(
                                             },
                                         },
                                     ],
-                                    "x-tson-jsDocTags": [
+                                    "x-typia-jsDocTags": [
                                         {
                                             name: "minimum",
                                             text: [
@@ -107,11 +107,11 @@ export const test_application_ajv_TagAtomicUnion = _test_application("ajv")(
                                             ],
                                         },
                                     ],
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                     minimum: 3,
                                 },
                             ],
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "minimum",
                                     value: 3,
@@ -128,7 +128,7 @@ export const test_application_ajv_TagAtomicUnion = _test_application("ajv")(
                                     },
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "minimum",
                                     text: [
@@ -148,12 +148,12 @@ export const test_application_ajv_TagAtomicUnion = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

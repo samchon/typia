@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { DynamicSimple } from "../../../structures/DynamicSimple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_DynamicSimple = _test_application("ajv")(
     "DynamicSimple",
-    TSON.application<[DynamicSimple], "ajv">(),
+    typia.application<[DynamicSimple], "ajv">(),
     {
         schemas: [
             {
@@ -20,10 +20,10 @@ export const test_application_ajv_DynamicSimple = _test_application("ajv")(
                     additionalProperties: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     nullable: false,
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

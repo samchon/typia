@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectLiteralType = _test_application(
     "swagger",
-)("ObjectLiteralType", TSON.application<[ObjectLiteralType], "swagger">(), {
+)("ObjectLiteralType", typia.application<[ObjectLiteralType], "swagger">(), {
     schemas: [
         {
             $ref: "#/components/schemas/__object",
@@ -18,22 +18,22 @@ export const test_application_swagger_ObjectLiteralType = _test_application(
                     id: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     age: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["id", "name", "age"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

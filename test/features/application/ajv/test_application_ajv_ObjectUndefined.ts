@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectUndefined = _test_application("ajv")(
     "ObjectUndefined",
-    TSON.application<[ObjectUndefined], "ajv">(),
+    typia.application<[ObjectUndefined], "ajv">(),
     {
         schemas: [
             {
@@ -24,37 +24,37 @@ export const test_application_ajv_ObjectUndefined = _test_application("ajv")(
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         professor: {
                             oneOf: [
                                 {
                                     type: "string",
                                     nullable: false,
-                                    "x-tson-required": false,
+                                    "x-typia-required": false,
                                 },
                                 {
                                     type: "number",
                                     nullable: false,
-                                    "x-tson-required": false,
+                                    "x-typia-required": false,
                                 },
                             ],
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         classroom: {
                             $ref: "components#/schemas/ObjectUndefined.IClassroom",
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         grade: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         unknown: {},
                     },
                     nullable: false,
                     required: ["name", "unknown"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectUndefined.IClassroom": {
                     $id: "components#/schemas/ObjectUndefined.IClassroom",
@@ -63,17 +63,17 @@ export const test_application_ajv_ObjectUndefined = _test_application("ajv")(
                         id: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["id", "name"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

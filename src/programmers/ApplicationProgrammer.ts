@@ -44,7 +44,7 @@ export namespace ApplicationProgrammer {
                 const schema: IJsonSchema | null = generator(meta, {});
                 if (schema === null)
                     throw new Error(
-                        `Error on TSON.application(): invalid type on argument - (${meta.getName()}, ${i})`,
+                        `Error on typia.application(): invalid type on argument - (${meta.getName()}, ${i})`,
                     );
                 return schema;
             }),

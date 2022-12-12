@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ArrayRecursiveUnionImplicit =
     _test_application("swagger")(
         "ArrayRecursiveUnionImplicit",
-        TSON.application<[ArrayRecursiveUnionImplicit], "swagger">(),
+        typia.application<[ArrayRecursiveUnionImplicit], "swagger">(),
         {
             schemas: [
                 {
@@ -43,17 +43,17 @@ export const test_application_swagger_ArrayRecursiveUnionImplicit =
                             id: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             path: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             children: {
                                 type: "array",
@@ -61,38 +61,38 @@ export const test_application_swagger_ArrayRecursiveUnionImplicit =
                                     oneOf: [
                                         {
                                             $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory",
-                                            "x-tson-required": true,
+                                            "x-typia-required": true,
                                         },
                                         {
                                             $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
-                                            "x-tson-required": true,
+                                            "x-typia-required": true,
                                         },
                                         {
                                             $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile",
-                                            "x-tson-required": true,
+                                            "x-typia-required": true,
                                         },
                                         {
                                             $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.ITextFile",
-                                            "x-tson-required": true,
+                                            "x-typia-required": true,
                                         },
                                         {
                                             $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IZipFile",
-                                            "x-tson-required": true,
+                                            "x-typia-required": true,
                                         },
                                         {
                                             $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut",
-                                            "x-tson-required": true,
+                                            "x-typia-required": true,
                                         },
                                     ],
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                         },
                         nullable: false,
                         required: ["id", "name", "path", "children"],
-                        "x-tson_jsDocTags": [],
+                        "x-typia_jsDocTags": [],
                     },
                     "ArrayRecursiveUnionImplicit.ISharedDirectory": {
                         type: "object",
@@ -101,22 +101,22 @@ export const test_application_swagger_ArrayRecursiveUnionImplicit =
                                 type: "string",
                                 enum: ["read", "write"],
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             id: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             path: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             children: {
                                 type: "array",
@@ -124,38 +124,38 @@ export const test_application_swagger_ArrayRecursiveUnionImplicit =
                                     oneOf: [
                                         {
                                             $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory",
-                                            "x-tson-required": true,
+                                            "x-typia-required": true,
                                         },
                                         {
                                             $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
-                                            "x-tson-required": true,
+                                            "x-typia-required": true,
                                         },
                                         {
                                             $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile",
-                                            "x-tson-required": true,
+                                            "x-typia-required": true,
                                         },
                                         {
                                             $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.ITextFile",
-                                            "x-tson-required": true,
+                                            "x-typia-required": true,
                                         },
                                         {
                                             $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IZipFile",
-                                            "x-tson-required": true,
+                                            "x-typia-required": true,
                                         },
                                         {
                                             $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut",
-                                            "x-tson-required": true,
+                                            "x-typia-required": true,
                                         },
                                     ],
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                         },
                         nullable: false,
                         required: ["access", "id", "name", "path", "children"],
-                        "x-tson_jsDocTags": [],
+                        "x-typia_jsDocTags": [],
                     },
                     "ArrayRecursiveUnionImplicit.IImageFile": {
                         type: "object",
@@ -163,37 +163,37 @@ export const test_application_swagger_ArrayRecursiveUnionImplicit =
                             id: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             path: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             width: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             height: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             url: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             size: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                         },
                         nullable: false,
@@ -206,7 +206,7 @@ export const test_application_swagger_ArrayRecursiveUnionImplicit =
                             "url",
                             "size",
                         ],
-                        "x-tson_jsDocTags": [],
+                        "x-typia_jsDocTags": [],
                     },
                     "ArrayRecursiveUnionImplicit.ITextFile": {
                         type: "object",
@@ -214,32 +214,32 @@ export const test_application_swagger_ArrayRecursiveUnionImplicit =
                             id: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             path: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             size: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             content: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                         },
                         nullable: false,
                         required: ["id", "name", "path", "size", "content"],
-                        "x-tson_jsDocTags": [],
+                        "x-typia_jsDocTags": [],
                     },
                     "ArrayRecursiveUnionImplicit.IZipFile": {
                         type: "object",
@@ -247,32 +247,32 @@ export const test_application_swagger_ArrayRecursiveUnionImplicit =
                             id: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             path: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             size: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             count: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                         },
                         nullable: false,
                         required: ["id", "name", "path", "size", "count"],
-                        "x-tson_jsDocTags": [],
+                        "x-typia_jsDocTags": [],
                     },
                     "ArrayRecursiveUnionImplicit.IShortcut": {
                         type: "object",
@@ -280,51 +280,51 @@ export const test_application_swagger_ArrayRecursiveUnionImplicit =
                             id: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             path: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             target: {
                                 oneOf: [
                                     {
                                         $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory",
-                                        "x-tson-required": true,
+                                        "x-typia-required": true,
                                     },
                                     {
                                         $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
-                                        "x-tson-required": true,
+                                        "x-typia-required": true,
                                     },
                                     {
                                         $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile",
-                                        "x-tson-required": true,
+                                        "x-typia-required": true,
                                     },
                                     {
                                         $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.ITextFile",
-                                        "x-tson-required": true,
+                                        "x-typia-required": true,
                                     },
                                     {
                                         $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IZipFile",
-                                        "x-tson-required": true,
+                                        "x-typia-required": true,
                                     },
                                     {
                                         $ref: "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut",
-                                        "x-tson-required": true,
+                                        "x-typia-required": true,
                                     },
                                 ],
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                         },
                         nullable: false,
                         required: ["id", "name", "path", "target"],
-                        "x-tson_jsDocTags": [],
+                        "x-typia_jsDocTags": [],
                     },
                 },
             },

@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ArraySimple } from "../../../structures/ArraySimple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ArraySimple = _test_application(
     "swagger",
-)("ArraySimple", TSON.application<[ArraySimple], "swagger">(), {
+)("ArraySimple", typia.application<[ArraySimple], "swagger">(), {
     schemas: [
         {
             type: "array",
@@ -22,12 +22,12 @@ export const test_application_swagger_ArraySimple = _test_application(
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     email: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     hobbies: {
                         oneOf: [
@@ -36,36 +36,36 @@ export const test_application_swagger_ArraySimple = _test_application(
                                 items: {
                                     type: "string",
                                     nullable: false,
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             {
                                 type: "array",
                                 items: {
                                     $ref: "#/components/schemas/ArraySimple.IHobby",
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             {
                                 type: "array",
                                 items: {
                                     $ref: "#/components/schemas/ArraySimple.IContent",
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                         ],
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["name", "email", "hobbies"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ArraySimple.IHobby": {
                 type: "object",
@@ -73,17 +73,17 @@ export const test_application_swagger_ArraySimple = _test_application(
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     rank: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["name", "rank"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ArraySimple.IContent": {
                 type: "object",
@@ -91,12 +91,12 @@ export const test_application_swagger_ArraySimple = _test_application(
                     body: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["body"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_DynamicEnumeration = _test_application("ajv")(
     "DynamicEnumeration",
-    TSON.application<[DynamicEnumeration], "ajv">(),
+    typia.application<[DynamicEnumeration], "ajv">(),
     {
         schemas: [
             {
@@ -20,56 +20,56 @@ export const test_application_ajv_DynamicEnumeration = _test_application("ajv")(
                         ar: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         "zh-Hans": {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         "zh-Hant": {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         en: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         fr: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         de: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         ja: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         ko: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         pt: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         ru: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                     },
                     nullable: false,
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

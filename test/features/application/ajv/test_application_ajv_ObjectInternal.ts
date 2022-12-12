@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectInternal = _test_application("ajv")(
     "ObjectInternal",
-    TSON.application<[ObjectInternal], "ajv">(),
+    typia.application<[ObjectInternal], "ajv">(),
     {
         schemas: [
             {
@@ -20,17 +20,17 @@ export const test_application_ajv_ObjectInternal = _test_application("ajv")(
                         id: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["id", "name"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

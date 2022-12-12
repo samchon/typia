@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_ToJsonAtomicSimple = _test_is(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
-    TSON.createIs<ToJsonAtomicSimple>(),
+    typia.createIs<ToJsonAtomicSimple>(),
 );

@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_isParse_ConstantAtomicSimple = _test_isParse(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
-    (input) => TSON.isParse<ConstantAtomicSimple>(input),
+    (input) => typia.isParse<ConstantAtomicSimple>(input),
     ConstantAtomicSimple.SPOILERS,
 );

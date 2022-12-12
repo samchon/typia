@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { TagMatrix } from "../../structures/TagMatrix";
 import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_TagMatrix = _test_stringify(
     "TagMatrix",
     TagMatrix.generate,
-    TSON.createStringify<TagMatrix>(),
+    typia.createStringify<TagMatrix>(),
 );

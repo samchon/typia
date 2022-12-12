@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { TagRange } from "../../structures/TagRange";
 import { _test_assert } from "../internal/_test_assert";
 
 export const test_createAssert_TagRange = _test_assert(
     "TagRange",
     TagRange.generate,
-    TSON.createAssert<TagRange>(),
+    typia.createAssert<TagRange>(),
     TagRange.SPOILERS,
 );

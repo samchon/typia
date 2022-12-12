@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { MapAlias } from "../../../structures/MapAlias";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_MapAlias = _test_application("swagger")(
     "MapAlias",
-    TSON.application<[MapAlias], "swagger">(),
+    typia.application<[MapAlias], "swagger">(),
     {
         schemas: [
             {
@@ -18,23 +18,23 @@ export const test_application_swagger_MapAlias = _test_application("swagger")(
                     properties: {
                         boolean: {
                             $ref: "#/components/schemas/Map",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         number: {
                             $ref: "#/components/schemas/Map",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         strings: {
                             $ref: "#/components/schemas/Map",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         arrays: {
                             $ref: "#/components/schemas/Map",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         objects: {
                             $ref: "#/components/schemas/Map",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
@@ -45,7 +45,7 @@ export const test_application_swagger_MapAlias = _test_application("swagger")(
                         "arrays",
                         "objects",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 Map: {
                     type: "object",

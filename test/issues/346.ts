@@ -1,4 +1,4 @@
-import TSON from "../../src";
+import typia from "../../src";
 
 interface Boolean {
     special: "value";
@@ -17,4 +17,4 @@ interface ISpecial {
     string: string;
     String: String;
 }
-TSON.createIs<ISpecial>();
+typia.createIs<ISpecial>();

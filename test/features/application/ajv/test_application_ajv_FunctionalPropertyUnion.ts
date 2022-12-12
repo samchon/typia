@@ -1,4 +1,4 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { FunctionalPropertyUnion } from "../../../structures/FunctionalPropertyUnion";
 import { _test_application } from "../../internal/_test_application";
 
@@ -6,7 +6,7 @@ export const test_application_ajv_FunctionalPropertyUnion = _test_application(
     "ajv",
 )(
     "FunctionalPropertyUnion",
-    TSON.application<[FunctionalPropertyUnion], "ajv">(),
+    typia.application<[FunctionalPropertyUnion], "ajv">(),
     {
         schemas: [
             {
@@ -26,27 +26,27 @@ export const test_application_ajv_FunctionalPropertyUnion = _test_application(
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         closure: {
                             oneOf: [
                                 {
                                     type: "string",
                                     nullable: true,
-                                    "x-tson-required": false,
+                                    "x-typia-required": false,
                                 },
                                 {
                                     type: "number",
                                     nullable: true,
-                                    "x-tson-required": false,
+                                    "x-typia-required": false,
                                 },
                             ],
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                     },
                     nullable: false,
                     required: ["name"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

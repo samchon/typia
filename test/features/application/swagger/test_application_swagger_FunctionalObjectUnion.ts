@@ -1,4 +1,4 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { FunctionalObjectUnion } from "../../../structures/FunctionalObjectUnion";
 import { _test_application } from "../../internal/_test_application";
 
@@ -6,7 +6,7 @@ export const test_application_swagger_FunctionalObjectUnion = _test_application(
     "swagger",
 )(
     "FunctionalObjectUnion",
-    TSON.application<[FunctionalObjectUnion], "swagger">(),
+    typia.application<[FunctionalObjectUnion], "swagger">(),
     {
         schemas: [
             {
@@ -38,33 +38,33 @@ export const test_application_swagger_FunctionalObjectUnion = _test_application(
                         x: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         y: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["x", "y"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "FunctionalObjectUnion.ILine": {
                     type: "object",
                     properties: {
                         p1: {
                             $ref: "#/components/schemas/FunctionalObjectUnion.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         p2: {
                             $ref: "#/components/schemas/FunctionalObjectUnion.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["p1", "p2"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "FunctionalObjectUnion.IPolyline": {
                     type: "object",
@@ -73,15 +73,15 @@ export const test_application_swagger_FunctionalObjectUnion = _test_application(
                             type: "array",
                             items: {
                                 $ref: "#/components/schemas/FunctionalObjectUnion.IPoint",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["points"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "FunctionalObjectUnion.IPolygon": {
                     type: "object",
@@ -90,15 +90,15 @@ export const test_application_swagger_FunctionalObjectUnion = _test_application(
                             type: "array",
                             items: {
                                 $ref: "#/components/schemas/FunctionalObjectUnion.IPoint",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["points"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

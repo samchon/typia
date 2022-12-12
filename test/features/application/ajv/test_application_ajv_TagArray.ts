@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagArray } from "../../../structures/TagArray";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TagArray = _test_application("ajv")(
     "TagArray",
-    TSON.application<[TagArray], "ajv">(),
+    typia.application<[TagArray], "ajv">(),
     {
         schemas: [
             {
@@ -26,7 +26,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                             items: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-metaTags": [
+                                "x-typia-metaTags": [
                                     {
                                         kind: "items",
                                         minimum: {
@@ -43,7 +43,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                         value: "uuid",
                                     },
                                 ],
-                                "x-tson-jsDocTags": [
+                                "x-typia-jsDocTags": [
                                     {
                                         name: "items",
                                         text: [
@@ -63,11 +63,11 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                         ],
                                     },
                                 ],
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                                 format: "uuid",
                             },
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "items",
                                     minimum: {
@@ -84,7 +84,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                     value: "uuid",
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "items",
                                     text: [
@@ -104,7 +104,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minItems: 3,
                             maxItems: 6,
                         },
@@ -113,7 +113,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                             items: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-metaTags": [
+                                "x-typia-metaTags": [
                                     {
                                         kind: "minItems",
                                         value: 3,
@@ -123,7 +123,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                         value: 3,
                                     },
                                 ],
-                                "x-tson-jsDocTags": [
+                                "x-typia-jsDocTags": [
                                     {
                                         name: "minItems",
                                         text: [
@@ -143,11 +143,11 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                         ],
                                     },
                                 ],
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                                 minimum: 3,
                             },
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "minItems",
                                     value: 3,
@@ -157,7 +157,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                     value: 3,
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "minItems",
                                     text: [
@@ -177,7 +177,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minItems: 3,
                         },
                         maxItems: {
@@ -187,7 +187,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                     {
                                         type: "string",
                                         nullable: false,
-                                        "x-tson-metaTags": [
+                                        "x-typia-metaTags": [
                                             {
                                                 kind: "maxItems",
                                                 value: 7,
@@ -201,7 +201,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                                 value: 7,
                                             },
                                         ],
-                                        "x-tson-jsDocTags": [
+                                        "x-typia-jsDocTags": [
                                             {
                                                 name: "maxItems",
                                                 text: [
@@ -230,13 +230,13 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                                 ],
                                             },
                                         ],
-                                        "x-tson-required": true,
+                                        "x-typia-required": true,
                                         maxLength: 7,
                                     },
                                     {
                                         type: "number",
                                         nullable: false,
-                                        "x-tson-metaTags": [
+                                        "x-typia-metaTags": [
                                             {
                                                 kind: "maxItems",
                                                 value: 7,
@@ -250,7 +250,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                                 value: 7,
                                             },
                                         ],
-                                        "x-tson-jsDocTags": [
+                                        "x-typia-jsDocTags": [
                                             {
                                                 name: "maxItems",
                                                 text: [
@@ -279,11 +279,11 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                                 ],
                                             },
                                         ],
-                                        "x-tson-required": true,
+                                        "x-typia-required": true,
                                         maximum: 7,
                                     },
                                 ],
-                                "x-tson-metaTags": [
+                                "x-typia-metaTags": [
                                     {
                                         kind: "maxItems",
                                         value: 7,
@@ -297,7 +297,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                         value: 7,
                                     },
                                 ],
-                                "x-tson-jsDocTags": [
+                                "x-typia-jsDocTags": [
                                     {
                                         name: "maxItems",
                                         text: [
@@ -326,10 +326,10 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                         ],
                                     },
                                 ],
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "maxItems",
                                     value: 7,
@@ -343,7 +343,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                     value: 7,
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "maxItems",
                                     text: [
@@ -372,7 +372,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             maxItems: 7,
                         },
                         both: {
@@ -380,7 +380,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                             items: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-metaTags": [
+                                "x-typia-metaTags": [
                                     {
                                         kind: "minItems",
                                         value: 3,
@@ -394,7 +394,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                         value: "uuid",
                                     },
                                 ],
-                                "x-tson-jsDocTags": [
+                                "x-typia-jsDocTags": [
                                     {
                                         name: "minItems",
                                         text: [
@@ -423,11 +423,11 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                         ],
                                     },
                                 ],
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                                 format: "uuid",
                             },
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "minItems",
                                     value: 3,
@@ -441,7 +441,7 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                     value: "uuid",
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "minItems",
                                     text: [
@@ -470,14 +470,14 @@ export const test_application_ajv_TagArray = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minItems: 3,
                             maxItems: 7,
                         },
                     },
                     nullable: false,
                     required: ["items", "minItems", "maxItems", "both"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

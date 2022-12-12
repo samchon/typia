@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ArrayUnion = _test_application("swagger")(
     "ArrayUnion",
-    TSON.application<[ArrayUnion], "swagger">(),
+    typia.application<[ArrayUnion], "swagger">(),
     {
         schemas: [
             {

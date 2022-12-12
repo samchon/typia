@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ArrayRecursive = _test_application(
     "swagger",
-)("ArrayRecursive", TSON.application<[ArrayRecursive], "swagger">(), {
+)("ArrayRecursive", typia.application<[ArrayRecursive], "swagger">(), {
     schemas: [
         {
             $ref: "#/components/schemas/ArrayRecursive.ICategory",
@@ -19,34 +19,34 @@ export const test_application_swagger_ArrayRecursive = _test_application(
                         type: "array",
                         items: {
                             $ref: "#/components/schemas/ArrayRecursive.ICategory",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     id: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     code: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     sequence: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     created_at: {
                         $ref: "#/components/schemas/ArrayRecursive.ITimestamp",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["children", "id", "code", "sequence", "created_at"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ArrayRecursive.ITimestamp": {
                 type: "object",
@@ -54,17 +54,17 @@ export const test_application_swagger_ArrayRecursive = _test_application(
                     time: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     zone: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["time", "zone"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

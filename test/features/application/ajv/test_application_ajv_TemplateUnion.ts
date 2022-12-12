@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TemplateUnion } from "../../../structures/TemplateUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TemplateUnion = _test_application("ajv")(
     "TemplateUnion",
-    TSON.application<[TemplateUnion], "ajv">(),
+    typia.application<[TemplateUnion], "ajv">(),
     {
         schemas: [
             {
@@ -24,21 +24,21 @@ export const test_application_ajv_TemplateUnion = _test_application("ajv")(
                         prefix: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             pattern:
                                 "^((prefix_(.*))|(prefix_-?\\d+\\.?\\d*))$",
                         },
                         postfix: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             pattern:
                                 "(((.*)_postfix)|(-?\\d+\\.?\\d*_postfix))$",
                         },
                         middle: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             pattern:
                                 "^(the_false_value|the_true_value|(the_-?\\d+\\.?\\d*_value))$",
                         },
@@ -47,31 +47,31 @@ export const test_application_ajv_TemplateUnion = _test_application("ajv")(
                                 {
                                     type: "string",
                                     nullable: false,
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                     pattern:
                                         "^(the_A_value|the_B_value|-?\\d+\\.?\\d*|true|false|(the_-?\\d+\\.?\\d*_value))$",
                                 },
                                 {
                                     type: "number",
                                     nullable: false,
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 {
                                     type: "boolean",
                                     nullable: false,
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 {
                                     $ref: "components#/schemas/__type",
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["prefix", "postfix", "middle", "mixed"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 __type: {
                     $id: "components#/schemas/__type",
@@ -80,12 +80,12 @@ export const test_application_ajv_TemplateUnion = _test_application("ajv")(
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["name"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

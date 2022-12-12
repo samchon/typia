@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagType } from "../../../structures/TagType";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TagType = _test_application("ajv")(
     "TagType",
-    TSON.application<[TagType], "ajv">(),
+    typia.application<[TagType], "ajv">(),
     {
         schemas: [
             {
@@ -25,13 +25,13 @@ export const test_application_ajv_TagType = _test_application("ajv")(
                             type: "integer",
                             nullable: false,
                             description: "Integer value.",
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "type",
                                     value: "int",
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "type",
                                     text: [
@@ -42,19 +42,19 @@ export const test_application_ajv_TagType = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         uint: {
                             type: "integer",
                             nullable: false,
                             description: "Unsigned integer value.",
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "type",
                                     value: "uint",
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "type",
                                     text: [
@@ -65,13 +65,13 @@ export const test_application_ajv_TagType = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minimum: 0,
                         },
                     },
                     nullable: false,
                     required: ["int", "uint"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

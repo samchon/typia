@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ClassGetter } from "../../../structures/ClassGetter";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ClassGetter = _test_application("ajv")(
     "ClassGetter",
-    TSON.application<[ClassGetter], "ajv">(),
+    typia.application<[ClassGetter], "ajv">(),
     {
         schemas: [
             {
@@ -20,22 +20,22 @@ export const test_application_ajv_ClassGetter = _test_application("ajv")(
                         id: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         dead: {
                             type: "boolean",
                             nullable: true,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["id", "name", "dead"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

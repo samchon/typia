@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagStep } from "../../../structures/TagStep";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_TagStep = _test_application("swagger")(
     "TagStep",
-    TSON.application<[TagStep], "swagger">(),
+    typia.application<[TagStep], "swagger">(),
     {
         schemas: [
             {
@@ -23,7 +23,7 @@ export const test_application_swagger_TagStep = _test_application("swagger")(
                         exclusiveMinimum: {
                             type: "number",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "step",
                                     value: 5,
@@ -33,7 +33,7 @@ export const test_application_swagger_TagStep = _test_application("swagger")(
                                     value: 3,
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "step",
                                     text: [
@@ -53,12 +53,12 @@ export const test_application_swagger_TagStep = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         minimum: {
                             type: "number",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "step",
                                     value: 5,
@@ -68,7 +68,7 @@ export const test_application_swagger_TagStep = _test_application("swagger")(
                                     value: 3,
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "step",
                                     text: [
@@ -88,13 +88,13 @@ export const test_application_swagger_TagStep = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minimum: 3,
                         },
                         range: {
                             type: "number",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "step",
                                     value: 5,
@@ -111,7 +111,7 @@ export const test_application_swagger_TagStep = _test_application("swagger")(
                                     },
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "step",
                                     text: [
@@ -131,20 +131,20 @@ export const test_application_swagger_TagStep = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             exclusiveMinimum: 0,
                             exclusiveMaximum: 100,
                         },
                         multipleOf: {
                             type: "number",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "multipleOf",
                                     value: 5,
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "multipleOf",
                                     text: [
@@ -155,7 +155,7 @@ export const test_application_swagger_TagStep = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             multipleOf: 5,
                         },
                     },
@@ -166,7 +166,7 @@ export const test_application_swagger_TagStep = _test_application("swagger")(
                         "range",
                         "multipleOf",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

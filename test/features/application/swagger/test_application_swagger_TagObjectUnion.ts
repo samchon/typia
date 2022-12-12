@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_TagObjectUnion = _test_application(
     "swagger",
-)("TagObjectUnion", TSON.application<[TagObjectUnion], "swagger">(), {
+)("TagObjectUnion", typia.application<[TagObjectUnion], "swagger">(), {
     schemas: [
         {
             type: "array",
@@ -29,13 +29,13 @@ export const test_application_swagger_TagObjectUnion = _test_application(
                     value: {
                         type: "number",
                         nullable: false,
-                        "x-tson-metaTags": [
+                        "x-typia-metaTags": [
                             {
                                 kind: "minimum",
                                 value: 3,
                             },
                         ],
-                        "x-tson-jsDocTags": [
+                        "x-typia-jsDocTags": [
                             {
                                 name: "minimum",
                                 text: [
@@ -46,13 +46,13 @@ export const test_application_swagger_TagObjectUnion = _test_application(
                                 ],
                             },
                         ],
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                         minimum: 3,
                     },
                 },
                 nullable: false,
                 required: ["value"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "TagObjectUnion.Literal": {
                 type: "object",
@@ -60,7 +60,7 @@ export const test_application_swagger_TagObjectUnion = _test_application(
                     value: {
                         type: "string",
                         nullable: false,
-                        "x-tson-metaTags": [
+                        "x-typia-metaTags": [
                             {
                                 kind: "length",
                                 minimum: {
@@ -73,7 +73,7 @@ export const test_application_swagger_TagObjectUnion = _test_application(
                                 },
                             },
                         ],
-                        "x-tson-jsDocTags": [
+                        "x-typia-jsDocTags": [
                             {
                                 name: "length",
                                 text: [
@@ -84,14 +84,14 @@ export const test_application_swagger_TagObjectUnion = _test_application(
                                 ],
                             },
                         ],
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                         minLength: 3,
                         maxLength: 7,
                     },
                 },
                 nullable: false,
                 required: ["value"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

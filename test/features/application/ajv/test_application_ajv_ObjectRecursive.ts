@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectRecursive = _test_application("ajv")(
     "ObjectRecursive",
-    TSON.application<[ObjectRecursive], "ajv">(),
+    typia.application<[ObjectRecursive], "ajv">(),
     {
         schemas: [
             {
@@ -22,31 +22,31 @@ export const test_application_ajv_ObjectRecursive = _test_application("ajv")(
                         parent: {
                             $recursiveRef:
                                 "components#/schemas/ObjectRecursive.IDepartment.Nullable",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         id: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         code: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         sequence: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         created_at: {
                             $ref: "components#/schemas/ObjectRecursive.ITimestamp",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
@@ -58,7 +58,7 @@ export const test_application_ajv_ObjectRecursive = _test_application("ajv")(
                         "sequence",
                         "created_at",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectRecursive.IDepartment.Nullable": {
                     $id: "components#/schemas/ObjectRecursive.IDepartment.Nullable",
@@ -68,31 +68,31 @@ export const test_application_ajv_ObjectRecursive = _test_application("ajv")(
                         parent: {
                             $recursiveRef:
                                 "components#/schemas/ObjectRecursive.IDepartment.Nullable",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         id: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         code: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         sequence: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         created_at: {
                             $ref: "components#/schemas/ObjectRecursive.ITimestamp",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: true,
@@ -104,7 +104,7 @@ export const test_application_ajv_ObjectRecursive = _test_application("ajv")(
                         "sequence",
                         "created_at",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectRecursive.ITimestamp": {
                     $id: "components#/schemas/ObjectRecursive.ITimestamp",
@@ -113,17 +113,17 @@ export const test_application_ajv_ObjectRecursive = _test_application("ajv")(
                         time: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         zone: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["time", "zone"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

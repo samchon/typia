@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ToJsonDouble = _test_application("ajv")(
     "ToJsonDouble",
-    TSON.application<[ToJsonDouble], "ajv">(),
+    typia.application<[ToJsonDouble], "ajv">(),
     {
         schemas: [
             {
@@ -20,17 +20,17 @@ export const test_application_ajv_ToJsonDouble = _test_application("ajv")(
                         id: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         flag: {
                             type: "boolean",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["id", "flag"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ObjectTuple } from "../../structures/ObjectTuple";
 import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_ObjectTuple = _test_equals(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input) => TSON.equals(input),
+    (input) => typia.equals(input),
 );

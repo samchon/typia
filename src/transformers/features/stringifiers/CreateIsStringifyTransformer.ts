@@ -27,6 +27,6 @@ export namespace CreateIsStringifyTransformer {
 }
 
 const enum ErrorMessages {
-    NOT_SPECIFIED = "Error on TSON.isStringify(): generic argument is not specified.",
-    GENERIC_ARGUMENT = "Error on TSON.isStringify(): non-specified generic argument.",
+    NOT_SPECIFIED = "Error on typia.isStringify(): generic argument is not specified.",
+    GENERIC_ARGUMENT = "Error on typia.isStringify(): non-specified generic argument.",
 }

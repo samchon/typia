@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectNullable = _test_application(
     "swagger",
-)("ObjectNullable", TSON.application<[ObjectNullable], "swagger">(), {
+)("ObjectNullable", typia.application<[ObjectNullable], "swagger">(), {
     schemas: [
         {
             type: "array",
@@ -22,33 +22,33 @@ export const test_application_swagger_ObjectNullable = _test_application(
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     manufacturer: {
                         $ref: "#/components/schemas/ObjectNullable.IManufacturer",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     brand: {
                         $ref: "#/components/schemas/ObjectNullable.IBrand.Nullable",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     similar: {
                         oneOf: [
                             {
                                 $ref: "#/components/schemas/ObjectNullable.IManufacturer.Nullable",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             {
                                 $ref: "#/components/schemas/ObjectNullable.IBrand.Nullable",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                         ],
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["name", "manufacturer", "brand", "similar"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ObjectNullable.IManufacturer": {
                 type: "object",
@@ -57,17 +57,17 @@ export const test_application_swagger_ObjectNullable = _test_application(
                         type: "string",
                         enum: ["manufacturer"],
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["type", "name"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ObjectNullable.IBrand.Nullable": {
                 type: "object",
@@ -76,17 +76,17 @@ export const test_application_swagger_ObjectNullable = _test_application(
                         type: "string",
                         enum: ["brand"],
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: true,
                 required: ["type", "name"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ObjectNullable.IManufacturer.Nullable": {
                 type: "object",
@@ -95,17 +95,17 @@ export const test_application_swagger_ObjectNullable = _test_application(
                         type: "string",
                         enum: ["manufacturer"],
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: true,
                 required: ["type", "name"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ArrayMatrix = _test_application("ajv")(
     "ArrayMatrix",
-    TSON.application<[ArrayMatrix], "ajv">(),
+    typia.application<[ArrayMatrix], "ajv">(),
     {
         schemas: [
             {

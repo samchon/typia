@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectGenericUnion } from "../../../structures/ObjectGenericUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectGenericUnion = _test_application("ajv")(
     "ObjectGenericUnion",
-    TSON.application<[ObjectGenericUnion], "ajv">(),
+    typia.application<[ObjectGenericUnion], "ajv">(),
     {
         schemas: [
             {
@@ -27,35 +27,35 @@ export const test_application_ajv_ObjectGenericUnion = _test_application("ajv")(
                         writer: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         answer: {
                             $ref: "components#/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         id: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         hit: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         contents: {
                             type: "array",
                             items: {
                                 $ref: "components#/schemas/ObjectGenericUnion.ISaleArticle.IContent",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         created_at: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
@@ -67,7 +67,7 @@ export const test_application_ajv_ObjectGenericUnion = _test_application("ajv")(
                         "contents",
                         "created_at",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectGenericUnion.ISaleAnswer.Nullable": {
                     $id: "components#/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
@@ -76,31 +76,31 @@ export const test_application_ajv_ObjectGenericUnion = _test_application("ajv")(
                         id: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         hit: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         contents: {
                             type: "array",
                             items: {
                                 $ref: "components#/schemas/ObjectGenericUnion.ISaleArticle.IContent",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         created_at: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: true,
                     required: ["id", "hit", "contents", "created_at"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectGenericUnion.ISaleArticle.IContent": {
                     $id: "components#/schemas/ObjectGenericUnion.ISaleArticle.IContent",
@@ -109,36 +109,36 @@ export const test_application_ajv_ObjectGenericUnion = _test_application("ajv")(
                         id: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         created_at: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         title: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         body: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         files: {
                             type: "array",
                             items: {
                                 $ref: "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["id", "created_at", "title", "body", "files"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_":
                     {
@@ -148,22 +148,22 @@ export const test_application_ajv_ObjectGenericUnion = _test_application("ajv")(
                             url: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             extension: {
                                 type: "string",
                                 nullable: true,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                         },
                         nullable: false,
                         required: ["url", "name", "extension"],
-                        "x-tson_jsDocTags": [],
+                        "x-typia_jsDocTags": [],
                     },
                 "ObjectGenericUnion.ISaleReview": {
                     $id: "components#/schemas/ObjectGenericUnion.ISaleReview",
@@ -172,35 +172,35 @@ export const test_application_ajv_ObjectGenericUnion = _test_application("ajv")(
                         writer: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         answer: {
                             $ref: "components#/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         id: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         hit: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         contents: {
                             type: "array",
                             items: {
                                 $ref: "components#/schemas/ObjectGenericUnion.ISaleReview.IContent",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         created_at: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
@@ -212,7 +212,7 @@ export const test_application_ajv_ObjectGenericUnion = _test_application("ajv")(
                         "contents",
                         "created_at",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectGenericUnion.ISaleReview.IContent": {
                     $id: "components#/schemas/ObjectGenericUnion.ISaleReview.IContent",
@@ -221,36 +221,36 @@ export const test_application_ajv_ObjectGenericUnion = _test_application("ajv")(
                         score: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         id: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         created_at: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         title: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         body: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         files: {
                             type: "array",
                             items: {
                                 $ref: "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
@@ -262,7 +262,7 @@ export const test_application_ajv_ObjectGenericUnion = _test_application("ajv")(
                         "body",
                         "files",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

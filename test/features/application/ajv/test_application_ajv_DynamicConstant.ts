@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_DynamicConstant = _test_application("ajv")(
     "DynamicConstant",
-    TSON.application<[DynamicConstant], "ajv">(),
+    typia.application<[DynamicConstant], "ajv">(),
     {
         schemas: [
             {
@@ -20,27 +20,27 @@ export const test_application_ajv_DynamicConstant = _test_application("ajv")(
                         a: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         b: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         c: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         d: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["a", "b", "c", "d"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

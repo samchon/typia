@@ -1,4 +1,4 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { FunctionalProperty } from "../../structures/FunctionalProperty";
 import { _test_validateEquals } from "../internal/_test_validateEquals";
 
@@ -6,5 +6,5 @@ export const test_createValidateEquals_FunctionalProperty =
     _test_validateEquals(
         "FunctionalProperty",
         FunctionalProperty.generate,
-        TSON.createValidateEquals<FunctionalProperty>(),
+        typia.createValidateEquals<FunctionalProperty>(),
     );

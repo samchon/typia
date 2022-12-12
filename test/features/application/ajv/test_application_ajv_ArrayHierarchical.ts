@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ArrayHierarchical = _test_application("ajv")(
     "ArrayHierarchical",
-    TSON.application<[ArrayHierarchical], "ajv">(),
+    typia.application<[ArrayHierarchical], "ajv">(),
     {
         schemas: [
             {
@@ -24,30 +24,30 @@ export const test_application_ajv_ArrayHierarchical = _test_application("ajv")(
                         id: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         serial: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         established_at: {
                             $ref: "components#/schemas/ArrayHierarchical.ITimestamp",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         departments: {
                             type: "array",
                             items: {
                                 $ref: "components#/schemas/ArrayHierarchical.IDepartment",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
@@ -58,7 +58,7 @@ export const test_application_ajv_ArrayHierarchical = _test_application("ajv")(
                         "established_at",
                         "departments",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ArrayHierarchical.ITimestamp": {
                     $id: "components#/schemas/ArrayHierarchical.ITimestamp",
@@ -67,17 +67,17 @@ export const test_application_ajv_ArrayHierarchical = _test_application("ajv")(
                         time: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         zone: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["time", "zone"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ArrayHierarchical.IDepartment": {
                     $id: "components#/schemas/ArrayHierarchical.IDepartment",
@@ -86,30 +86,30 @@ export const test_application_ajv_ArrayHierarchical = _test_application("ajv")(
                         id: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         code: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         sales: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         created_at: {
                             $ref: "components#/schemas/ArrayHierarchical.ITimestamp",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         employees: {
                             type: "array",
                             items: {
                                 $ref: "components#/schemas/ArrayHierarchical.IEmployee",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
@@ -120,7 +120,7 @@ export const test_application_ajv_ArrayHierarchical = _test_application("ajv")(
                         "created_at",
                         "employees",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ArrayHierarchical.IEmployee": {
                     $id: "components#/schemas/ArrayHierarchical.IEmployee",
@@ -129,31 +129,31 @@ export const test_application_ajv_ArrayHierarchical = _test_application("ajv")(
                         id: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         age: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         grade: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         employeed_at: {
                             $ref: "components#/schemas/ArrayHierarchical.ITimestamp",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["id", "name", "age", "grade", "employeed_at"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

@@ -1,3 +1,3 @@
-import TSON from "../../src";
+import typia from "../../src";
 
-TSON.assert<boolean | number | string>(3);
+typia.assert<boolean | number | string>(3);

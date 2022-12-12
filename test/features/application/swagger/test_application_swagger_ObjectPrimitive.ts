@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectPrimitive = _test_application(
     "swagger",
-)("ObjectPrimitive", TSON.application<[ObjectPrimitive], "swagger">(), {
+)("ObjectPrimitive", typia.application<[ObjectPrimitive], "swagger">(), {
     schemas: [
         {
             $ref: "#/components/schemas/ObjectPrimitive.IArticle",
@@ -18,42 +18,42 @@ export const test_application_swagger_ObjectPrimitive = _test_application(
                     id: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     extension: {
                         type: "string",
                         enum: ["txt", "md", "html"],
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     title: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     body: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     files: {
                         type: "array",
                         items: {
                             $ref: "#/components/schemas/ObjectPrimitive.IFile",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     secret: {
                         type: "boolean",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     created_at: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
@@ -66,7 +66,7 @@ export const test_application_swagger_ObjectPrimitive = _test_application(
                     "secret",
                     "created_at",
                 ],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ObjectPrimitive.IFile": {
                 type: "object",
@@ -74,32 +74,32 @@ export const test_application_swagger_ObjectPrimitive = _test_application(
                     id: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     extension: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     url: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     created_at: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["id", "name", "extension", "url", "created_at"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

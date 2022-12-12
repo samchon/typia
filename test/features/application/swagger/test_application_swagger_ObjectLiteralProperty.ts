@@ -1,4 +1,4 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 import { _test_application } from "../../internal/_test_application";
 
@@ -6,7 +6,7 @@ export const test_application_swagger_ObjectLiteralProperty = _test_application(
     "swagger",
 )(
     "ObjectLiteralProperty",
-    TSON.application<[ObjectLiteralProperty], "swagger">(),
+    typia.application<[ObjectLiteralProperty], "swagger">(),
     {
         schemas: [
             {
@@ -21,12 +21,12 @@ export const test_application_swagger_ObjectLiteralProperty = _test_application(
                         "something-interesting-do-you-want?": {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         "or-something-crazy-do-you-want?": {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
@@ -34,7 +34,7 @@ export const test_application_swagger_ObjectLiteralProperty = _test_application(
                         "something-interesting-do-you-want?",
                         "or-something-crazy-do-you-want?",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

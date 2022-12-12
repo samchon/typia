@@ -2,7 +2,7 @@ import { TSchema } from "@sinclair/typebox";
 import { TypeCompiler } from "@sinclair/typebox/compiler";
 import Ajv from "ajv";
 
-import TSON from "../../src";
+import typia from "../../src";
 // PURE TYPESCRIPT TYPES
 import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
@@ -22,7 +22,7 @@ import { __TypeBoxObjectUnionExplicit } from "../structures/typebox/TypeBoxObjec
 import { __TypeBoxObjectUnionImplicit } from "../structures/typebox/TypeBoxObjectUnionImplicit";
 import { __TypeBoxUltimateUnion } from "../structures/typebox/TypeBoxUltimateUnion";
 
-function buildAjv(app: TSON.IJsonApplication): any {
+function buildAjv(app: typia.IJsonApplication): any {
     try {
         (app.schemas[0] as any).$id = "main";
         const ajv = new Ajv({
@@ -37,33 +37,29 @@ function buildAjv(app: TSON.IJsonApplication): any {
 const buildTypebox = (schema: TSchema) => (input: any) =>
     TypeCompiler.Compile(schema).Check(input);
 
-const prepare = OptimizerBenchmarker.prepare([
-    "typescript-json",
-    "typebox",
-    "ajv",
-]);
+const prepare = OptimizerBenchmarker.prepare(["typia", "typebox", "ajv"]);
 
 const optimizer = () => [
     //----
     // OBJECT
     //----
     prepare("object (hierarchical)", () => ObjectHierarchical.generate(), {
-        "typescript-json": () => (input) => TSON.is(input),
+        typia: () => (input) => typia.is(input),
         ajv: () => (input) =>
-            buildAjv(TSON.application<[ObjectHierarchical], "ajv">())(input),
+            buildAjv(typia.application<[ObjectHierarchical], "ajv">())(input),
         typebox: () => buildTypebox(__TypeBoxObjectHierarchical),
     }),
     prepare("object (recursive)", () => ObjectRecursive.generate(), {
-        "typescript-json": () => (input) => TSON.is(input),
+        typia: () => (input) => typia.is(input),
         ajv: () => (input) =>
-            buildAjv(TSON.application<[ObjectRecursive], "ajv">())(input),
+            buildAjv(typia.application<[ObjectRecursive], "ajv">())(input),
         typebox: () => buildTypebox(__TypeBoxObjectRecursive),
     }),
     // SPECIAL UNION TYPES
     prepare("object (union)", () => ObjectUnionImplicit.generate(), {
-        "typescript-json": () => (input) => TSON.is(input),
+        typia: () => (input) => typia.is(input),
         ajv: () => (input) =>
-            buildAjv(TSON.application<[ObjectUnionImplicit], "ajv">())(input),
+            buildAjv(typia.application<[ObjectUnionImplicit], "ajv">())(input),
         typebox: () => buildTypebox(__TypeBoxObjectUnionImplicit),
     }),
 
@@ -72,23 +68,23 @@ const optimizer = () => [
     //----
     // NORMAL STRUCTURES
     prepare("array (hierarchical)", () => ArrayHierarchical.generate(), {
-        "typescript-json": () => (input) => TSON.is(input),
+        typia: () => (input) => typia.is(input),
         ajv: () => (input) =>
-            buildAjv(TSON.application<[ArrayHierarchical], "ajv">())(input),
+            buildAjv(typia.application<[ArrayHierarchical], "ajv">())(input),
         typebox: () => buildTypebox(__TypeBoxArrayRecursive),
     }),
     // RECURSIVE STRUCTURE
     prepare("array (recursive)", () => ArrayRecursive.generate(), {
-        "typescript-json": () => (input) => TSON.is(input),
+        typia: () => (input) => typia.is(input),
         ajv: () => (input) =>
-            buildAjv(TSON.application<[ArrayRecursive], "ajv">())(input),
+            buildAjv(typia.application<[ArrayRecursive], "ajv">())(input),
         typebox: () => buildTypebox(__TypeBoxArrayRecursive),
     }),
     // SPECIAL UNION STRUCTURES
     prepare("array (union)", () => ArrayRecursiveUnionExplicit.generate(), {
-        "typescript-json": () => (input) => TSON.is(input),
+        typia: () => (input) => typia.is(input),
         ajv: () => (input) =>
-            buildAjv(TSON.application<[ArrayRecursiveUnionExplicit], "ajv">())(
+            buildAjv(typia.application<[ArrayRecursiveUnionExplicit], "ajv">())(
                 input,
             ),
         typebox: () => buildTypebox(__TypeBoxArrayRecursiveUnionExplicit),
@@ -98,9 +94,9 @@ const optimizer = () => [
     // ULTIMATE UNION
     //----
     prepare("ultimate union", () => UltimateUnion.generate(), {
-        "typescript-json": () => (input) => TSON.is(input),
+        typia: () => (input) => typia.is(input),
         ajv: () => (input) =>
-            buildAjv(TSON.application<[UltimateUnion], "ajv">())(input),
+            buildAjv(typia.application<[UltimateUnion], "ajv">())(input),
         typebox: () => buildTypebox(__TypeBoxUltimateUnion),
     }),
 ];

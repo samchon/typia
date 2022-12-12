@@ -1,4 +1,4 @@
-import TSON from "../../src";
+import typia from "../../src";
 import { TupleRestArray } from "../structures/TupleRestArray";
 
-console.log(TSON.createAssert<TupleRestArray>().toString());
+console.log(typia.createAssert<TupleRestArray>().toString());

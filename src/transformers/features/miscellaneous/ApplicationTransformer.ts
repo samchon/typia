@@ -95,20 +95,20 @@ export namespace ApplicationTransformer {
         const type: ts.Type = checker.getTypeFromTypeNode(node);
         if (!type.isLiteral())
             throw new Error(
-                `Error on TSON.application(): generic argument "${name}" must be constant.`,
+                `Error on typia.application(): generic argument "${name}" must be constant.`,
             );
 
         // GET VALUE AND VALIDATE IT
         const value = type.value;
         if (typeof value !== "string" || predicator(value) === false)
             throw new Error(
-                `Error on TSON.application(): invalid value on generic argument "${name}".`,
+                `Error on typia.application(): invalid value on generic argument "${name}".`,
             );
         return value as T;
     }
 }
 
 const enum ErrorMessages {
-    NO_GENERIC_ARGUMENT = "Error on TSON.application(): no generic argument.",
-    GENERIC_ARGUMENT = "Error on TSON.application(): non-specified generic argument(s).",
+    NO_GENERIC_ARGUMENT = "Error on typia.application(): no generic argument.",
+    GENERIC_ARGUMENT = "Error on typia.application(): non-specified generic argument(s).",
 }

@@ -85,8 +85,8 @@ export namespace IJsonSchema {
         deprecated?: boolean;
         title?: string;
         description?: string;
-        "x-tson-metaTags"?: IMetadataTag[];
-        "x-tson-jsDocTags"?: IJsDocTagInfo[];
-        "x-tson-required"?: boolean;
+        "x-typia-metaTags"?: IMetadataTag[];
+        "x-typia-jsDocTags"?: IJsDocTagInfo[];
+        "x-typia-required"?: boolean;
     }
 }

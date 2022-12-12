@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ClassPropertyAssignment =
     _test_application("swagger")(
         "ClassPropertyAssignment",
-        TSON.application<[ClassPropertyAssignment], "swagger">(),
+        typia.application<[ClassPropertyAssignment], "swagger">(),
         {
             schemas: [
                 {
@@ -20,29 +20,29 @@ export const test_application_swagger_ClassPropertyAssignment =
                             id: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             name: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             note: {
                                 type: "string",
                                 enum: ["assignment"],
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             editable: {
                                 type: "boolean",
                                 enum: [false],
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             incremental: {
                                 type: "boolean",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                         },
                         nullable: false,
@@ -53,7 +53,7 @@ export const test_application_swagger_ClassPropertyAssignment =
                             "editable",
                             "incremental",
                         ],
-                        "x-tson_jsDocTags": [],
+                        "x-typia_jsDocTags": [],
                     },
                 },
             },

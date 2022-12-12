@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagMatrix } from "../../../structures/TagMatrix";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TagMatrix = _test_application("ajv")(
     "TagMatrix",
-    TSON.application<[TagMatrix], "ajv">(),
+    typia.application<[TagMatrix], "ajv">(),
     {
         schemas: [
             {
@@ -25,7 +25,7 @@ export const test_application_ajv_TagMatrix = _test_application("ajv")(
                                     type: "string",
                                     nullable: false,
                                     description: "Doubled array.",
-                                    "x-tson-metaTags": [
+                                    "x-typia-metaTags": [
                                         {
                                             kind: "items",
                                             minimum: {
@@ -42,7 +42,7 @@ export const test_application_ajv_TagMatrix = _test_application("ajv")(
                                             value: "uuid",
                                         },
                                     ],
-                                    "x-tson-jsDocTags": [
+                                    "x-typia-jsDocTags": [
                                         {
                                             name: "items",
                                             text: [
@@ -62,12 +62,12 @@ export const test_application_ajv_TagMatrix = _test_application("ajv")(
                                             ],
                                         },
                                     ],
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                     format: "uuid",
                                 },
                                 nullable: false,
                                 description: "Doubled array.",
-                                "x-tson-metaTags": [
+                                "x-typia-metaTags": [
                                     {
                                         kind: "items",
                                         minimum: {
@@ -84,7 +84,7 @@ export const test_application_ajv_TagMatrix = _test_application("ajv")(
                                         value: "uuid",
                                     },
                                 ],
-                                "x-tson-jsDocTags": [
+                                "x-typia-jsDocTags": [
                                     {
                                         name: "items",
                                         text: [
@@ -104,13 +104,13 @@ export const test_application_ajv_TagMatrix = _test_application("ajv")(
                                         ],
                                     },
                                 ],
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                                 minItems: 3,
                                 maxItems: 3,
                             },
                             nullable: false,
                             description: "Doubled array.",
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "items",
                                     minimum: {
@@ -127,7 +127,7 @@ export const test_application_ajv_TagMatrix = _test_application("ajv")(
                                     value: "uuid",
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "items",
                                     text: [
@@ -147,14 +147,14 @@ export const test_application_ajv_TagMatrix = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minItems: 3,
                             maxItems: 3,
                         },
                     },
                     nullable: false,
                     required: ["matrix"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

@@ -1,6 +1,6 @@
 import express from "express";
 
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ArrayHierarchical } from "../../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../../test/structures/ArrayRecursiveUnionExplicit";
@@ -25,42 +25,44 @@ const storage = ServerStorage(true);
 
 server.get(
     "/ObjectSimple",
-    reply(TSON.createIsStringify<ObjectSimple[]>())(storage.ObjectSimple),
+    reply(typia.createIsStringify<ObjectSimple[]>())(storage.ObjectSimple),
 );
 server.get(
     "/ObjectHierarchical",
-    reply(TSON.createIsStringify<ObjectHierarchical[]>())(
+    reply(typia.createIsStringify<ObjectHierarchical[]>())(
         storage.ObjectHierarchical,
     ),
 );
 server.get(
     "/ObjectRecursive",
-    reply(TSON.createIsStringify<ObjectRecursive[]>())(storage.ObjectRecursive),
+    reply(typia.createIsStringify<ObjectRecursive[]>())(
+        storage.ObjectRecursive,
+    ),
 );
 server.get(
     "/ObjectUnionExplicit",
-    reply(TSON.createIsStringify<ObjectUnionExplicit[]>())(
+    reply(typia.createIsStringify<ObjectUnionExplicit[]>())(
         storage.ObjectUnionExplicit,
     ),
 );
 
 server.get(
     "/ArraySimple",
-    reply(TSON.createIsStringify<ArraySimple[]>())(storage.ArraySimple),
+    reply(typia.createIsStringify<ArraySimple[]>())(storage.ArraySimple),
 );
 server.get(
     "/ArrayHierarchical",
-    reply(TSON.createIsStringify<ArrayHierarchical[]>())(
+    reply(typia.createIsStringify<ArrayHierarchical[]>())(
         storage.ArrayHierarchical,
     ),
 );
 server.get(
     "/ArrayRecursive",
-    reply(TSON.createIsStringify<ArrayRecursive[]>())(storage.ArrayRecursive),
+    reply(typia.createIsStringify<ArrayRecursive[]>())(storage.ArrayRecursive),
 );
 server.get(
     "/ArrayRecursiveUnionExplicit",
-    reply(TSON.createIsStringify<ArrayRecursiveUnionExplicit[]>())(
+    reply(typia.createIsStringify<ArrayRecursiveUnionExplicit[]>())(
         storage.ArrayRecursiveUnionExplicit,
     ),
 );

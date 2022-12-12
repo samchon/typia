@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectTuple = _test_application("ajv")(
     "ObjectTuple",
-    TSON.application<[ObjectTuple], "ajv">(),
+    typia.application<[ObjectTuple], "ajv">(),
     {
         schemas: [
             {
@@ -29,22 +29,22 @@ export const test_application_ajv_ObjectTuple = _test_application("ajv")(
                         id: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         code: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["id", "code", "name"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectTuple.ICitizen": {
                     $id: "components#/schemas/ObjectTuple.ICitizen",
@@ -53,22 +53,22 @@ export const test_application_ajv_ObjectTuple = _test_application("ajv")(
                         id: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         mobile: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["id", "mobile", "name"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

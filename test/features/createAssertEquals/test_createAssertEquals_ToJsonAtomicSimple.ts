@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_ToJsonAtomicSimple = _test_assertEquals(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
-    TSON.createAssertEquals<ToJsonAtomicSimple>(),
+    typia.createAssertEquals<ToJsonAtomicSimple>(),
 );

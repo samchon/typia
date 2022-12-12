@@ -1,7 +1,7 @@
 import { Type } from "@sinclair/typebox";
 import { TypeCompiler } from "@sinclair/typebox/compiler";
 
-import TSON from "../../src";
+import typia from "../../src";
 
 export function by_typescript_json() {
     interface Point2D {
@@ -13,7 +13,7 @@ export function by_typescript_json() {
         y: number;
         z: number;
     }
-    return (input: Point2D | Point3D) => TSON.is(input);
+    return (input: Point2D | Point3D) => typia.is(input);
 }
 
 export function by_typebox() {

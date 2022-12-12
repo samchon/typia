@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { NativeSimple } from "../../../structures/NativeSimple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_NativeSimple = _test_application(
     "swagger",
-)("NativeSimple", TSON.application<[NativeSimple], "swagger">(), {
+)("NativeSimple", typia.application<[NativeSimple], "swagger">(), {
     schemas: [
         {
             $ref: "#/components/schemas/NativeSimple",
@@ -18,75 +18,75 @@ export const test_application_swagger_NativeSimple = _test_application(
                     date: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     uint8Array: {
                         $ref: "#/components/schemas/Uint8Array",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     uint8ClampedArray: {
                         $ref: "#/components/schemas/Uint8ClampedArray",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     uint16Array: {
                         $ref: "#/components/schemas/Uint16Array",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     uint32Array: {
                         $ref: "#/components/schemas/Uint32Array",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     bigUint64Array: {
                         $ref: "#/components/schemas/BigUint64Array",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     int8Array: {
                         $ref: "#/components/schemas/Int8Array",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     int16Array: {
                         $ref: "#/components/schemas/Int16Array",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     int32Array: {
                         $ref: "#/components/schemas/Int32Array",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     bigInt64Array: {
                         $ref: "#/components/schemas/BigInt64Array",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     float32Array: {
                         $ref: "#/components/schemas/Float32Array",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     float64Array: {
                         $ref: "#/components/schemas/Float64Array",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     buffer: {
                         $ref: "#/components/schemas/__type",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     arrayBuffer: {
                         $ref: "#/components/schemas/ArrayBuffer",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     sharedArrayBuffer: {
                         $ref: "#/components/schemas/SharedArrayBuffer",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     dataView: {
                         $ref: "#/components/schemas/DataView",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     weakSet: {
                         $ref: "#/components/schemas/WeakSet",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     weakMap: {
                         $ref: "#/components/schemas/WeakMap",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
@@ -110,7 +110,7 @@ export const test_application_swagger_NativeSimple = _test_application(
                     "weakSet",
                     "weakMap",
                 ],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             Uint8Array: {
                 type: "object",
@@ -174,22 +174,22 @@ export const test_application_swagger_NativeSimple = _test_application(
                         type: "string",
                         enum: ["Buffer"],
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     data: {
                         type: "array",
                         items: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["type", "data"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             ArrayBuffer: {
                 type: "object",

@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ToJsonTuple = _test_application("ajv")(
     "ToJsonTuple",
-    TSON.application<[ToJsonTuple], "ajv">(),
+    typia.application<[ToJsonTuple], "ajv">(),
     {
         schemas: [
             {
@@ -38,17 +38,17 @@ export const test_application_ajv_ToJsonTuple = _test_application("ajv")(
                         code: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["code", "name"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

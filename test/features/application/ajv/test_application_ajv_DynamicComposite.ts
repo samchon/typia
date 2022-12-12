@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_DynamicComposite = _test_application("ajv")(
     "DynamicComposite",
-    TSON.application<[DynamicComposite], "ajv">(),
+    typia.application<[DynamicComposite], "ajv">(),
     {
         schemas: [
             {
@@ -20,59 +20,59 @@ export const test_application_ajv_DynamicComposite = _test_application("ajv")(
                         id: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     patternProperties: {
                         "^-?\\d+\\.?\\d*$": {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         "^(prefix_(.*))": {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         "((.*)_postfix)$": {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         "^(value_-?\\d+\\.?\\d*)$": {
                             oneOf: [
                                 {
                                     type: "string",
                                     nullable: false,
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 {
                                     type: "number",
                                     nullable: false,
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 {
                                     type: "boolean",
                                     nullable: false,
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         "^(between_(.*)_and_-?\\d+\\.?\\d*)$": {
                             type: "boolean",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["id", "name"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

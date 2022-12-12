@@ -31,6 +31,6 @@ export namespace AssertParseTransformer {
 }
 
 const enum ErrorMessages {
-    NOT_SPECIFIED = "Error on TSON.assertParse(): generic argument is not specified",
-    GENERIC_ARGUMENT = "Error on TSON.assertParse(): non-specified generic argument.",
+    NOT_SPECIFIED = "Error on typia.assertParse(): generic argument is not specified",
+    GENERIC_ARGUMENT = "Error on typia.assertParse(): non-specified generic argument.",
 }
