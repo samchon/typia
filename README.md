@@ -51,7 +51,7 @@ Just type `npx typia setup`, that's all.
 
 After the setup, you can compile `typia` utilized code by using `ttsc` ([`ttypescript`](https://github.com/cevek/ttypescript)) command. If you want to run your TypeScript file directly through `ts-node`, add `-C ttypescript` argument like below:
 
-<!-- ```bash
+```bash
 # COMPILE THROUGH TTYPESCRIPT
 npx ttsc
 
@@ -59,28 +59,10 @@ npx ttsc
 npx ts-node -C ttypescript src/index.ts
 ```
 
-> If you want to use only `tsc` command, you can choose another option: [`ts-patch`](https://github.com/nonara/ts-patch). 
-> 
-> Set it up through `npx typia setup ts-patch` command and compile your project with pure(?) TypeScript compiler (`tsc`). When you want to run your TypeScript file directly, just use the pure `ts-node`, too. 
-> 
-> However, note that, the `ts-patch` will modify JavaScript files in `node_modules/typescript` directly. Therefore, it may cause some problems when you update typescript version after the `setup` process, until running `npm run prepare` command.
-> 
-> ```bash
-> # SETUP
-> npx typia setup ts-patch
-> 
-> #COMPILE
-> npx tsc
-> npx ts-node src/index.ts
->
-> # AFTER UPDATE, HAVE TO RUN PREPARE COMMAND
-> npm install --save-dev typescript@latest
-> npm run prepare
-> ``` -->
-
 ### Manual Setup
 If you want to install and setup `typia` manually, read [Guide Documents - Setup](https://github.com/samchon/typia/wiki/Setup).
 
+  - [Setup Wizard](https://github.com/samchon/typia/wiki/Setup#setup-wizard)
   - [NPM Packages](https://github.com/samchon/typia/wiki/Setup#npm-packages)
   - [`tsconfig.json`](https://github.com/samchon/typia/wiki/Setup#tsconfigjson)
   - [vite](https://github.com/samchon/typia/wiki/Setup#vite)
@@ -89,7 +71,7 @@ If you want to install and setup `typia` manually, read [Guide Documents - Setup
 ### vite
 When you want to setup `typia` on your frontend project with [`vite`](https://vitejs.dev/), just configure `vite.config.ts` like below.
 
-For reference, don't forget [setting up](#setup) before.
+For reference, don't forget running [Setup Wizard](#setup-wizard) before.
 
 ```typescript
 import { defineConfig } from "vite";
@@ -116,7 +98,7 @@ export default defineConfig({
 
 In here README documents, only summarized informations are provided. 
 
-For more details, please refer to the [Guide Documents (wiki)](https://github.com/samchon/typia/wiki).
+For more details, refer to the [Guide Documents (wiki)](https://github.com/samchon/typia/wiki).
 
 > - **Runtime Validators**
 >   - [powerful validator](https://github.com/samchon/typia/wiki/Runtime-Validators#powerful-validator)
@@ -163,31 +145,7 @@ export function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
 
 Also, if you want more strict validator functions that even do not allowing superfluous properties not written in the type `T`, you can use those functions instead; `equals()`, `assertEquals()`, `validateEquals()`. Otherwise you want to create resuable validator functions,  you can utilize factory functions like `createIs()` instead.
 
-When you want to add special validation logics, like limiting range of numeric values, you can do it through comment tags. If you want to know about it, please visit the Guide Documents ([Features > Runtime Validators > Comment Tags](https://github.com/samchon/typia/wiki/Runtime-Validators#comment-tags)).
-
-<!-- > By the way, comparing those validator functions with other competitive libaries, you can find that only `typia` is able to validate complicate union type. It is because `typia` is supporting entire TypeScript type specs. Therefore, adapt `typia` with confidence. It can validate everything.
-> 
-> Moreover, validation speed of `typia` is extremely faster than any other validation libraries. For an example, `typia` is maximum 15,000x times faster than `class-validator`. Visit [benchmarks](https://github.com/samchon/typia/wiki/Benchmarks#validate-functions) section of Guide Documents and feel how fast `typia` is.
-> 
-> Components               | `typia` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
-> -------------------------|--------|-----------|-------|---------|-------|------------------
-> **Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ 
-> [Object (simple)](https://github.com/samchon/typia/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-> [Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-> [Object (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔ | ✔
-> [Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-> [Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
-> [Object (additional tags)](https://github.com/samchon/typia/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-> [Object (template literal types)](https://github.com/samchon/typia/blob/master/test/structures/TemplateUnion.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-> [Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
-> [Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-> [Array (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
-> [Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
-> [Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-> [**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-> 
-> - typia: `typia`
-> - C.V.: `class-validator` -->
+When you want to add special validation logics, like limiting range of numeric values, you can do it through comment tags. If you want to know about it, visit the Guide Documents ([Features > Runtime Validators > Comment Tags](https://github.com/samchon/typia/wiki/Runtime-Validators#comment-tags)).
 
 ### Enhanced JSON
 ```typescript
