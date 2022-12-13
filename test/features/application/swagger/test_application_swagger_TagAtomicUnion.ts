@@ -1,18 +1,18 @@
-import typia from "../../../../src";
+import TSON from "../../../../src";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_TagAtomicUnion = _test_application(
-    "swagger",
-)("TagAtomicUnion", typia.application<[TagAtomicUnion], "swagger">(), {
-    schemas: [
+export const test_application_swagger_TagAtomicUnion = 
+    _test_application("swagger")(
+        "TagAtomicUnion",
+        TSON.application<[TagAtomicUnion], "swagger">(),{schemas: [
         {
             type: "array",
             items: {
-                $ref: "#/components/schemas/TagAtomicUnion.Type",
+                $ref: "#/components/schemas/TagAtomicUnion.Type"
             },
-            nullable: false,
-        },
+            nullable: false
+        }
     ],
     components: {
         schemas: {
@@ -27,19 +27,19 @@ export const test_application_swagger_TagAtomicUnion = _test_application(
                                 "x-typia-metaTags": [
                                     {
                                         kind: "minimum",
-                                        value: 3,
+                                        value: 3
                                     },
                                     {
                                         kind: "length",
                                         minimum: {
                                             include: true,
-                                            value: 3,
+                                            value: 3
                                         },
                                         maximum: {
                                             include: true,
-                                            value: 7,
-                                        },
-                                    },
+                                            value: 7
+                                        }
+                                    }
                                 ],
                                 "x-typia-jsDocTags": [
                                     {
@@ -47,23 +47,23 @@ export const test_application_swagger_TagAtomicUnion = _test_application(
                                         text: [
                                             {
                                                 text: "3",
-                                                kind: "text",
-                                            },
-                                        ],
+                                                kind: "text"
+                                            }
+                                        ]
                                     },
                                     {
                                         name: "length",
                                         text: [
                                             {
                                                 text: "[3, 7]",
-                                                kind: "text",
-                                            },
-                                        ],
-                                    },
+                                                kind: "text"
+                                            }
+                                        ]
+                                    }
                                 ],
                                 "x-typia-required": true,
                                 minLength: 3,
-                                maxLength: 7,
+                                maxLength: 7
                             },
                             {
                                 type: "number",
@@ -71,19 +71,19 @@ export const test_application_swagger_TagAtomicUnion = _test_application(
                                 "x-typia-metaTags": [
                                     {
                                         kind: "minimum",
-                                        value: 3,
+                                        value: 3
                                     },
                                     {
                                         kind: "length",
                                         minimum: {
                                             include: true,
-                                            value: 3,
+                                            value: 3
                                         },
                                         maximum: {
                                             include: true,
-                                            value: 7,
-                                        },
-                                    },
+                                            value: 7
+                                        }
+                                    }
                                 ],
                                 "x-typia-jsDocTags": [
                                     {
@@ -91,40 +91,40 @@ export const test_application_swagger_TagAtomicUnion = _test_application(
                                         text: [
                                             {
                                                 text: "3",
-                                                kind: "text",
-                                            },
-                                        ],
+                                                kind: "text"
+                                            }
+                                        ]
                                     },
                                     {
                                         name: "length",
                                         text: [
                                             {
                                                 text: "[3, 7]",
-                                                kind: "text",
-                                            },
-                                        ],
-                                    },
+                                                kind: "text"
+                                            }
+                                        ]
+                                    }
                                 ],
                                 "x-typia-required": true,
-                                minimum: 3,
-                            },
+                                minimum: 3
+                            }
                         ],
                         "x-typia-metaTags": [
                             {
                                 kind: "minimum",
-                                value: 3,
+                                value: 3
                             },
                             {
                                 kind: "length",
                                 minimum: {
                                     include: true,
-                                    value: 3,
+                                    value: 3
                                 },
                                 maximum: {
                                     include: true,
-                                    value: 7,
-                                },
-                            },
+                                    value: 7
+                                }
+                            }
                         ],
                         "x-typia-jsDocTags": [
                             {
@@ -132,29 +132,32 @@ export const test_application_swagger_TagAtomicUnion = _test_application(
                                 text: [
                                     {
                                         text: "3",
-                                        kind: "text",
-                                    },
-                                ],
+                                        kind: "text"
+                                    }
+                                ]
                             },
                             {
                                 name: "length",
                                 text: [
                                     {
                                         text: "[3, 7]",
-                                        kind: "text",
-                                    },
-                                ],
-                            },
+                                        kind: "text"
+                                    }
+                                ]
+                            }
                         ],
-                        "x-typia-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
-                required: ["value"],
-                "x-typia_jsDocTags": [],
-            },
-        },
+                required: [
+                    "value"
+                ],
+                "x-typia_jsDocTags": []
+            }
+        }
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

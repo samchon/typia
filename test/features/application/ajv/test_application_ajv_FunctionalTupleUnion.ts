@@ -1,11 +1,11 @@
-import typia from "../../../../src";
+import TSON from "../../../../src";
 import { FunctionalTupleUnion } from "../../../structures/FunctionalTupleUnion";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_ajv_FunctionalTupleUnion = _test_application(
-    "ajv",
-)("FunctionalTupleUnion", typia.application<[FunctionalTupleUnion], "ajv">(), {
-    schemas: [
+export const test_application_ajv_FunctionalTupleUnion = 
+    _test_application("ajv")(
+        "FunctionalTupleUnion",
+        TSON.application<[FunctionalTupleUnion], "ajv">(),{schemas: [
         {
             type: "array",
             items: [
@@ -13,57 +13,58 @@ export const test_application_ajv_FunctionalTupleUnion = _test_application(
                     oneOf: [
                         {
                             type: "string",
-                            nullable: true,
+                            nullable: true
                         },
                         {
                             type: "number",
-                            nullable: true,
-                        },
-                    ],
+                            nullable: true
+                        }
+                    ]
                 },
                 {
                     oneOf: [
                         {
                             type: "string",
-                            nullable: true,
+                            nullable: true
                         },
                         {
                             type: "number",
-                            nullable: true,
-                        },
-                    ],
+                            nullable: true
+                        }
+                    ]
                 },
                 {
                     oneOf: [
                         {
                             type: "string",
-                            nullable: true,
+                            nullable: true
                         },
                         {
                             type: "number",
-                            nullable: true,
-                        },
-                    ],
+                            nullable: true
+                        }
+                    ]
                 },
                 {
                     oneOf: [
                         {
                             type: "string",
-                            nullable: true,
+                            nullable: true
                         },
                         {
                             type: "number",
-                            nullable: true,
-                        },
-                    ],
-                },
+                            nullable: true
+                        }
+                    ]
+                }
             ],
-            nullable: false,
-        },
+            nullable: false
+        }
     ],
     components: {
-        schemas: {},
+        schemas: {}
     },
     purpose: "ajv",
-    prefix: "components#/schemas",
-});
+    prefix: "components#/schemas"
+}
+);

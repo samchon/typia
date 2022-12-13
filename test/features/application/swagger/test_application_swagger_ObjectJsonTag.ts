@@ -1,14 +1,14 @@
-import typia from "../../../../src";
+import TSON from "../../../../src";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_ObjectJsonTag = _test_application(
-    "swagger",
-)("ObjectJsonTag", typia.application<[ObjectJsonTag], "swagger">(), {
-    schemas: [
+export const test_application_swagger_ObjectJsonTag = 
+    _test_application("swagger")(
+        "ObjectJsonTag",
+        TSON.application<[ObjectJsonTag], "swagger">(),{schemas: [
         {
-            $ref: "#/components/schemas/ObjectJsonTag",
-        },
+            $ref: "#/components/schemas/ObjectJsonTag"
+        }
     ],
     components: {
         schemas: {
@@ -21,16 +21,16 @@ export const test_application_swagger_ObjectJsonTag = _test_application(
                         deprecated: true,
                         "x-typia-jsDocTags": [
                             {
-                                name: "deprecated",
-                            },
+                                name: "deprecated"
+                            }
                         ],
-                        "x-typia-required": true,
+                        "x-typia-required": true
                     },
                     description: {
                         type: "string",
                         nullable: false,
                         description: "Descripted property.",
-                        "x-typia-required": true,
+                        "x-typia-required": true
                     },
                     title: {
                         type: "string",
@@ -43,12 +43,12 @@ export const test_application_swagger_ObjectJsonTag = _test_application(
                                 text: [
                                     {
                                         text: "something",
-                                        kind: "text",
-                                    },
-                                ],
-                            },
+                                        kind: "text"
+                                    }
+                                ]
+                            }
                         ],
-                        "x-typia-required": true,
+                        "x-typia-required": true
                     },
                     complicate_title: {
                         type: "string",
@@ -61,41 +61,42 @@ export const test_application_swagger_ObjectJsonTag = _test_application(
                                 text: [
                                     {
                                         text: "something weirdo with ",
-                                        kind: "text",
+                                        kind: "text"
                                     },
                                     {
                                         text: "{@link ",
-                                        kind: "link",
+                                        kind: "link"
                                     },
                                     {
                                         text: "something ",
-                                        kind: "linkText",
+                                        kind: "linkText"
                                     },
                                     {
                                         text: "}",
-                                        kind: "link",
+                                        kind: "link"
                                     },
                                     {
                                         text: " tag",
-                                        kind: "text",
-                                    },
-                                ],
-                            },
+                                        kind: "text"
+                                    }
+                                ]
+                            }
                         ],
-                        "x-typia-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
                 required: [
                     "vulnerable",
                     "description",
                     "title",
-                    "complicate_title",
+                    "complicate_title"
                 ],
-                "x-typia_jsDocTags": [],
-            },
-        },
+                "x-typia_jsDocTags": []
+            }
+        }
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);
