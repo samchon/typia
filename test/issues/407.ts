@@ -1,4 +1,11 @@
 import typia from "../../src";
-import { TupleRestArray } from "../structures/TupleRestArray";
 
-console.log(typia.createAssert<TupleRestArray>().toString());
+type AtomicTuple = [number, ...string[]];
+interface ObjectTuple {
+    tuple: [number, ...string[]];
+}
+
+console.log(
+    typia.createIs<AtomicTuple>().toString(),
+    typia.createIs<ObjectTuple>().toString(),
+);
