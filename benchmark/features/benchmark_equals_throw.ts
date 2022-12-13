@@ -1,7 +1,7 @@
 import { TSchema } from "@sinclair/typebox";
 import { TypeCheck } from "@sinclair/typebox/compiler";
 
-import TSON from "../../src";
+import typia from "../../src";
 // PURE TYPESCRIPT TYPES
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
@@ -33,7 +33,7 @@ const equalsTypeBox =
     <T>(input: T) =>
         program.Check(input);
 
-const prepare = IsBenchmarker.prepare(["typescript-json", "typebox"]);
+const prepare = IsBenchmarker.prepare(["typia", "typebox"]);
 
 /* -----------------------------------------------------------
     DO BENCHMARK
@@ -43,7 +43,7 @@ const equals = () => [
         "object (simple)",
         () => ObjectSimple.generate(),
         {
-            "typescript-json": TSON.createEquals<ObjectSimple>(),
+            typia: typia.createEquals<ObjectSimple>(),
             typebox: equalsTypeBox(TypeBoxObjectSimpleEquals),
         },
         [],
@@ -52,7 +52,7 @@ const equals = () => [
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
         {
-            "typescript-json": TSON.createEquals<ObjectHierarchical>(),
+            typia: typia.createEquals<ObjectHierarchical>(),
             typebox: equalsTypeBox(TypeBoxObjectHierarchicalEquals),
         },
         [],
@@ -61,7 +61,7 @@ const equals = () => [
         "object (recursive)",
         () => ObjectRecursive.generate(),
         {
-            "typescript-json": TSON.createEquals<ObjectRecursive>(),
+            typia: typia.createEquals<ObjectRecursive>(),
             typebox: equalsTypeBox(TypeBoxObjectRecursiveEquals),
         },
         [],
@@ -70,7 +70,7 @@ const equals = () => [
         "object (union, explicit)",
         () => ObjectUnionExplicit.generate(),
         {
-            "typescript-json": TSON.createEquals<ObjectUnionExplicit>(),
+            typia: typia.createEquals<ObjectUnionExplicit>(),
             typebox: equalsTypeBox(TypeBoxObjectUnionExplicitEquals),
         },
         [],
@@ -79,7 +79,7 @@ const equals = () => [
         "object (union, implicit)",
         () => ObjectUnionImplicit.generate(),
         {
-            "typescript-json": TSON.createEquals<ObjectUnionImplicit>(),
+            typia: typia.createEquals<ObjectUnionImplicit>(),
             typebox: equalsTypeBox(TypeBoxObjectUnionImplicitEquals),
         },
         [],
@@ -88,7 +88,7 @@ const equals = () => [
         "array (recursive)",
         () => ArrayRecursive.generate(),
         {
-            "typescript-json": TSON.createEquals<ArrayRecursive>(),
+            typia: typia.createEquals<ArrayRecursive>(),
             typebox: equalsTypeBox(TypeBoxArrayRecursiveEquals),
         },
         [],
@@ -97,7 +97,7 @@ const equals = () => [
         "array (union, explicit)",
         () => ArrayRecursiveUnionExplicit.generate(),
         {
-            "typescript-json": TSON.createEquals<ArrayRecursiveUnionExplicit>(),
+            typia: typia.createEquals<ArrayRecursiveUnionExplicit>(),
             typebox: equalsTypeBox(TypeBoxArrayRecursiveUnionExplicitEquals),
         },
         [],
@@ -106,7 +106,7 @@ const equals = () => [
         "array (union, implicit)",
         () => ArrayRecursiveUnionImplicit.generate(),
         {
-            "typescript-json": TSON.createEquals<ArrayRecursiveUnionImplicit>(),
+            typia: typia.createEquals<ArrayRecursiveUnionImplicit>(),
             typebox: equalsTypeBox(TypeBoxArrayRecursiveUnionImplicitEquals),
         },
         [],
@@ -115,7 +115,7 @@ const equals = () => [
         "ultimate union",
         () => UltimateUnion.generate(),
         {
-            "typescript-json": TSON.createEquals<UltimateUnion>(),
+            typia: typia.createEquals<UltimateUnion>(),
             typebox: equalsTypeBox(TypeBoxUltimateUnionEquals),
         },
         [],

@@ -1,4 +1,4 @@
-import * as TSON from "./module";
+import * as typia from "./module";
 
-export default TSON;
+export default typia;
 export * from "./module";

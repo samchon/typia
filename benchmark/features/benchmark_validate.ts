@@ -7,7 +7,7 @@ import * as t from "io-ts";
 import "reflect-metadata";
 import { z } from "zod";
 
-import TSON from "../../src";
+import typia from "../../src";
 // PURE TYPESCRIPT TYPES
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
@@ -85,7 +85,7 @@ const validateClassValidator =
         cv.validateSync(tr.plainToInstance(schema, input));
 
 const prepare = ValidateBenchmarker.prepare([
-    "typescript-json",
+    "typia",
     "typebox",
     "io-ts",
     "zod",
@@ -100,7 +100,7 @@ const validate = () => [
         "object (simple)",
         () => ObjectSimple.generate(),
         {
-            "typescript-json": TSON.createValidate<ObjectSimple>(),
+            typia: typia.createValidate<ObjectSimple>(),
             typebox: validateTypeBox(TypeBoxObjectSimple),
             "io-ts": validateIoTs(IoTsObjectSimple),
             zod: validateZod(ZodObjectSimple),
@@ -112,7 +112,7 @@ const validate = () => [
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
         {
-            "typescript-json": TSON.createValidate<ObjectHierarchical>(),
+            typia: typia.createValidate<ObjectHierarchical>(),
             typebox: validateTypeBox(TypeBoxObjectHierarchical),
             "io-ts": validateIoTs(IoTsObjectHierarchical),
             zod: validateZod(ZodObjectHierarchical),
@@ -124,7 +124,7 @@ const validate = () => [
         "object (recursive)",
         () => ObjectRecursive.generate(),
         {
-            "typescript-json": TSON.createValidate<ObjectRecursive>(),
+            typia: typia.createValidate<ObjectRecursive>(),
             typebox: validateTypeBox(TypeBoxObjectRecursive),
             "io-ts": validateIoTs(IoTsObjectRecursive),
             zod: validateZod(ZodObjectRecursive),
@@ -136,7 +136,7 @@ const validate = () => [
         "object (union, explicit)",
         () => ObjectUnionExplicit.generate(),
         {
-            "typescript-json": TSON.createValidate<ObjectUnionExplicit>(),
+            typia: typia.createValidate<ObjectUnionExplicit>(),
             typebox: validateTypeBox(TypeBoxObjectUnionExplicit),
             "io-ts": validateIoTs(IoTsObjectUnionExplicit),
             zod: validateZod(ZodObjectUnionExplicit),
@@ -148,7 +148,7 @@ const validate = () => [
         "object (union, implicit)",
         () => ObjectUnionImplicit.generate(),
         {
-            "typescript-json": TSON.createValidate<ObjectUnionImplicit>(),
+            typia: typia.createValidate<ObjectUnionImplicit>(),
             typebox: validateTypeBox(TypeBoxObjectUnionImplicit),
             "io-ts": validateIoTs(IoTsObjectUnionImplicit),
             zod: validateZod(ZodObjectUnionImplicit),
@@ -160,7 +160,7 @@ const validate = () => [
         "array (recursive)",
         () => ArrayRecursive.generate(),
         {
-            "typescript-json": TSON.createValidate<ArrayRecursive>(),
+            typia: typia.createValidate<ArrayRecursive>(),
             typebox: validateTypeBox(TypeBoxArrayRecursive),
             "io-ts": validateIoTs(IoTsArrayRecursive),
             zod: validateZod(ZodArrayRecursive),
@@ -172,8 +172,7 @@ const validate = () => [
         "array (union, explicit)",
         () => ArrayRecursiveUnionExplicit.generate(),
         {
-            "typescript-json":
-                TSON.createValidate<ArrayRecursiveUnionExplicit>(),
+            typia: typia.createValidate<ArrayRecursiveUnionExplicit>(),
             typebox: validateTypeBox(TypeBoxArrayRecursiveUnionExplicit),
             "io-ts": validateIoTs(IoTsArrayRecursiveUnionExplicit),
             zod: validateZod(ZodArrayRecursiveUnionExplicit),
@@ -187,8 +186,7 @@ const validate = () => [
         "array (union, implicit)",
         () => ArrayRecursiveUnionImplicit.generate(),
         {
-            "typescript-json":
-                TSON.createValidate<ArrayRecursiveUnionImplicit>(),
+            typia: typia.createValidate<ArrayRecursiveUnionImplicit>(),
             typebox: validateTypeBox(TypeBoxArrayRecursiveUnionImplicit),
             "io-ts": validateIoTs(IoTsArrayRecursiveUnionImplicit),
             zod: validateZod(ZodArrayRecursiveUnionImplicit),
@@ -202,7 +200,7 @@ const validate = () => [
         "ultimate union",
         () => UltimateUnion.generate(),
         {
-            "typescript-json": TSON.createValidate<UltimateUnion>(),
+            typia: typia.createValidate<UltimateUnion>(),
             typebox: validateTypeBox(TypeBoxUltimateUnion),
             "io-ts": validateIoTs(IoTsUltimateUnion),
             zod: validateZod(ZodUltimateUnion),

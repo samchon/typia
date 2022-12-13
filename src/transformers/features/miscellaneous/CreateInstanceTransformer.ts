@@ -36,6 +36,6 @@ export namespace CreateInstanceTransformer {
 }
 
 const enum ErrorMessages {
-    NO_INPUT_VALUE = "Error on TSON.createObject(): no input value.",
-    NO_CONSTANT_VALUE = "Error on TSON.createObject(): input value must be constant.",
+    NO_INPUT_VALUE = "Error on typia.createObject(): no input value.",
+    NO_CONSTANT_VALUE = "Error on typia.createObject(): input value must be constant.",
 }
