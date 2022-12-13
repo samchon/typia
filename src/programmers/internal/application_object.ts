@@ -53,13 +53,13 @@ export const application_object =
                         : undefined;
                 })(),
                 description: property.description,
-                "x-tson-metaTags": property.tags.length
+                "x-typia-metaTags": property.tags.length
                     ? property.tags
                     : undefined,
-                "x-tson-jsDocTags": property.jsDocTags.length
+                "x-typia-jsDocTags": property.jsDocTags.length
                     ? property.jsDocTags
                     : undefined,
-                "x-tson-required": property.value.required,
+                "x-typia-required": property.value.required,
             });
 
             if (value === null) continue;
@@ -97,7 +97,7 @@ export const application_object =
             nullable,
             required: required.length ? required : undefined,
             description: obj.description,
-            "x-tson_jsDocTags": obj.jsDocTags,
+            "x-typia_jsDocTags": obj.jsDocTags,
         };
         components.schemas[key] = schema;
     };

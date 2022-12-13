@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { SetSimple } from "../../../structures/SetSimple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_SetSimple = _test_application("swagger")(
     "SetSimple",
-    TSON.application<[SetSimple], "swagger">(),
+    typia.application<[SetSimple], "swagger">(),
     {
         schemas: [
             {
@@ -18,23 +18,23 @@ export const test_application_swagger_SetSimple = _test_application("swagger")(
                     properties: {
                         booleans: {
                             $ref: "#/components/schemas/Set",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         numbers: {
                             $ref: "#/components/schemas/Set",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         strings: {
                             $ref: "#/components/schemas/Set",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         arrays: {
                             $ref: "#/components/schemas/Set",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         objects: {
                             $ref: "#/components/schemas/Set",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
@@ -45,7 +45,7 @@ export const test_application_swagger_SetSimple = _test_application("swagger")(
                         "arrays",
                         "objects",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 Set: {
                     type: "object",

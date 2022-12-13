@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TupleRestObject = _test_application("ajv")(
     "TupleRestObject",
-    TSON.application<[TupleRestObject], "ajv">(),
+    typia.application<[TupleRestObject], "ajv">(),
     {
         schemas: [
             {
@@ -40,12 +40,12 @@ export const test_application_ajv_TupleRestObject = _test_application("ajv")(
                         value: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

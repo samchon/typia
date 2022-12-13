@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_TemplateConstant = _test_application(
     "swagger",
-)("TemplateConstant", TSON.application<[TemplateConstant], "swagger">(), {
+)("TemplateConstant", typia.application<[TemplateConstant], "swagger">(), {
     schemas: [
         {
             type: "array",
@@ -23,13 +23,13 @@ export const test_application_swagger_TemplateConstant = _test_application(
                         type: "string",
                         enum: ["prefix_A", "prefix_B", "prefix_C"],
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     postfix: {
                         type: "string",
                         enum: ["2_postfix", "3_postfix", "1_postfix"],
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     combined: {
                         type: "string",
@@ -45,12 +45,12 @@ export const test_application_swagger_TemplateConstant = _test_application(
                             "the_1_value_with_label_C",
                         ],
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["prefix", "postfix", "combined"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

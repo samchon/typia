@@ -26,7 +26,7 @@ export const iterate_metadata =
     (meta: Metadata, type: ts.Type, parentResolved: boolean): void => {
         if (type.isTypeParameter() === true)
             throw new Error(
-                `Error on TSON.MetadataFactory.generate(): non-specified generic argument on ${meta.getName()}.`,
+                `Error on typia.MetadataFactory.generate(): non-specified generic argument on ${meta.getName()}.`,
             );
 
         // CHECK UNION & toJSON()

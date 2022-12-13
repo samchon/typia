@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagMatrix } from "../../../structures/TagMatrix";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_TagMatrix = _test_application("swagger")(
     "TagMatrix",
-    TSON.application<[TagMatrix], "swagger">(),
+    typia.application<[TagMatrix], "swagger">(),
     {
         schemas: [
             {
@@ -24,7 +24,7 @@ export const test_application_swagger_TagMatrix = _test_application("swagger")(
                                     type: "string",
                                     nullable: false,
                                     description: "Doubled array.",
-                                    "x-tson-metaTags": [
+                                    "x-typia-metaTags": [
                                         {
                                             kind: "items",
                                             minimum: {
@@ -41,7 +41,7 @@ export const test_application_swagger_TagMatrix = _test_application("swagger")(
                                             value: "uuid",
                                         },
                                     ],
-                                    "x-tson-jsDocTags": [
+                                    "x-typia-jsDocTags": [
                                         {
                                             name: "items",
                                             text: [
@@ -61,12 +61,12 @@ export const test_application_swagger_TagMatrix = _test_application("swagger")(
                                             ],
                                         },
                                     ],
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                     format: "uuid",
                                 },
                                 nullable: false,
                                 description: "Doubled array.",
-                                "x-tson-metaTags": [
+                                "x-typia-metaTags": [
                                     {
                                         kind: "items",
                                         minimum: {
@@ -83,7 +83,7 @@ export const test_application_swagger_TagMatrix = _test_application("swagger")(
                                         value: "uuid",
                                     },
                                 ],
-                                "x-tson-jsDocTags": [
+                                "x-typia-jsDocTags": [
                                     {
                                         name: "items",
                                         text: [
@@ -103,13 +103,13 @@ export const test_application_swagger_TagMatrix = _test_application("swagger")(
                                         ],
                                     },
                                 ],
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                                 minItems: 3,
                                 maxItems: 3,
                             },
                             nullable: false,
                             description: "Doubled array.",
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "items",
                                     minimum: {
@@ -126,7 +126,7 @@ export const test_application_swagger_TagMatrix = _test_application("swagger")(
                                     value: "uuid",
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "items",
                                     text: [
@@ -146,14 +146,14 @@ export const test_application_swagger_TagMatrix = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minItems: 3,
                             maxItems: 3,
                         },
                     },
                     nullable: false,
                     required: ["matrix"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

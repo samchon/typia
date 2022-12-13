@@ -1,4 +1,4 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 import { _test_application } from "../../internal/_test_application";
 
@@ -6,7 +6,7 @@ export const test_application_swagger_ConstantAtomicWrapper = _test_application(
     "swagger",
 )(
     "ConstantAtomicWrapper",
-    TSON.application<[ConstantAtomicWrapper], "swagger">(),
+    typia.application<[ConstantAtomicWrapper], "swagger">(),
     {
         schemas: [
             {
@@ -35,12 +35,12 @@ export const test_application_swagger_ConstantAtomicWrapper = _test_application(
                         value: {
                             type: "boolean",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ConstantAtomicWrapper.IPointer_lt_number_gt_": {
                     type: "object",
@@ -48,12 +48,12 @@ export const test_application_swagger_ConstantAtomicWrapper = _test_application(
                         value: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ConstantAtomicWrapper.IPointer_lt_string_gt_": {
                     type: "object",
@@ -61,12 +61,12 @@ export const test_application_swagger_ConstantAtomicWrapper = _test_application(
                         value: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

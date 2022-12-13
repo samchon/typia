@@ -1,4 +1,4 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 import { _test_application } from "../../internal/_test_application";
 
@@ -6,7 +6,7 @@ export const test_application_ajv_ObjectUnionNonPredictable = _test_application(
     "ajv",
 )(
     "ObjectUnionNonPredictable",
-    TSON.application<[ObjectUnionNonPredictable], "ajv">(),
+    typia.application<[ObjectUnionNonPredictable], "ajv">(),
     {
         schemas: [
             {
@@ -26,12 +26,12 @@ export const test_application_ajv_ObjectUnionNonPredictable = _test_application(
                         properties: {
                             value: {
                                 $ref: "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                         },
                         nullable: false,
                         required: ["value"],
-                        "x-tson_jsDocTags": [],
+                        "x-typia_jsDocTags": [],
                     },
                 "ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_":
                     {
@@ -42,23 +42,23 @@ export const test_application_ajv_ObjectUnionNonPredictable = _test_application(
                                 oneOf: [
                                     {
                                         $ref: "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
-                                        "x-tson-required": true,
+                                        "x-typia-required": true,
                                     },
                                     {
                                         $ref: "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
-                                        "x-tson-required": true,
+                                        "x-typia-required": true,
                                     },
                                     {
                                         $ref: "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
-                                        "x-tson-required": true,
+                                        "x-typia-required": true,
                                     },
                                 ],
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                         },
                         nullable: false,
                         required: ["value"],
-                        "x-tson_jsDocTags": [],
+                        "x-typia_jsDocTags": [],
                     },
                 "ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_": {
                     $id: "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
@@ -66,12 +66,12 @@ export const test_application_ajv_ObjectUnionNonPredictable = _test_application(
                     properties: {
                         value: {
                             $ref: "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectUnionNonPredictable.IPointer_lt_boolean_gt_": {
                     $id: "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
@@ -80,12 +80,12 @@ export const test_application_ajv_ObjectUnionNonPredictable = _test_application(
                         value: {
                             type: "boolean",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectUnionNonPredictable.IWrapper_lt_number_gt_": {
                     $id: "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
@@ -93,12 +93,12 @@ export const test_application_ajv_ObjectUnionNonPredictable = _test_application(
                     properties: {
                         value: {
                             $ref: "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectUnionNonPredictable.IPointer_lt_number_gt_": {
                     $id: "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
@@ -107,12 +107,12 @@ export const test_application_ajv_ObjectUnionNonPredictable = _test_application(
                         value: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectUnionNonPredictable.IWrapper_lt_string_gt_": {
                     $id: "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
@@ -120,12 +120,12 @@ export const test_application_ajv_ObjectUnionNonPredictable = _test_application(
                     properties: {
                         value: {
                             $ref: "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectUnionNonPredictable.IPointer_lt_string_gt_": {
                     $id: "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
@@ -134,12 +134,12 @@ export const test_application_ajv_ObjectUnionNonPredictable = _test_application(
                         value: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

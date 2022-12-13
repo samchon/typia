@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectSimple = _test_application("ajv")(
     "ObjectSimple",
-    TSON.application<[ObjectSimple], "ajv">(),
+    typia.application<[ObjectSimple], "ajv">(),
     {
         schemas: [
             {
@@ -19,24 +19,24 @@ export const test_application_ajv_ObjectSimple = _test_application("ajv")(
                     properties: {
                         scale: {
                             $ref: "components#/schemas/ObjectSimple.IPoint3D",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         position: {
                             $ref: "components#/schemas/ObjectSimple.IPoint3D",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         rotate: {
                             $ref: "components#/schemas/ObjectSimple.IPoint3D",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         pivot: {
                             $ref: "components#/schemas/ObjectSimple.IPoint3D",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["scale", "position", "rotate", "pivot"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectSimple.IPoint3D": {
                     $id: "components#/schemas/ObjectSimple.IPoint3D",
@@ -45,22 +45,22 @@ export const test_application_ajv_ObjectSimple = _test_application("ajv")(
                         x: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         y: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         z: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["x", "y", "z"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

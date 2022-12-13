@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ArrayAny } from "../../../structures/ArrayAny";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ArrayAny = _test_application("ajv")(
     "ArrayAny",
-    TSON.application<[ArrayAny], "ajv">(),
+    typia.application<[ArrayAny], "ajv">(),
     {
         schemas: [
             {
@@ -21,60 +21,60 @@ export const test_application_ajv_ArrayAny = _test_application("ajv")(
                             type: "array",
                             items: {},
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         undefindable1: {
                             type: "array",
                             items: {},
                             nullable: false,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         undefindable2: {
                             type: "array",
                             items: {},
                             nullable: false,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         nullables1: {
                             type: "array",
                             items: {},
                             nullable: true,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         nullables2: {
                             type: "array",
                             items: {},
                             nullable: true,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         both1: {
                             type: "array",
                             items: {},
                             nullable: true,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         both2: {
                             type: "array",
                             items: {},
                             nullable: true,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         both3: {
                             type: "array",
                             items: {},
                             nullable: true,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         union: {
                             type: "array",
                             items: {},
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["anys", "nullables1", "nullables2", "union"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

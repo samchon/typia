@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagFormat } from "../../../structures/TagFormat";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TagFormat = _test_application("ajv")(
     "TagFormat",
-    TSON.application<[TagFormat], "ajv">(),
+    typia.application<[TagFormat], "ajv">(),
     {
         schemas: [
             {
@@ -20,13 +20,13 @@ export const test_application_ajv_TagFormat = _test_application("ajv")(
                         uuid: {
                             type: "string",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "format",
                                     value: "uuid",
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "format",
                                     text: [
@@ -37,20 +37,20 @@ export const test_application_ajv_TagFormat = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             format: "uuid",
                         },
                         email: {
                             type: "string",
                             nullable: false,
                             description: "Email address",
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "format",
                                     value: "email",
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "format",
                                     text: [
@@ -61,20 +61,20 @@ export const test_application_ajv_TagFormat = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             format: "email",
                         },
                         url: {
                             type: "string",
                             nullable: false,
                             description: "URL address.",
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "format",
                                     value: "url",
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "format",
                                     text: [
@@ -85,20 +85,20 @@ export const test_application_ajv_TagFormat = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             format: "url",
                         },
                         ipv4: {
                             type: "string",
                             nullable: false,
                             description: "IPv4 address.",
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "format",
                                     value: "ipv4",
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "format",
                                     text: [
@@ -109,20 +109,20 @@ export const test_application_ajv_TagFormat = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             format: "ipv4",
                         },
                         ipv6: {
                             type: "string",
                             nullable: false,
                             description: "IPv6 address.",
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "format",
                                     value: "ipv6",
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "format",
                                     text: [
@@ -133,14 +133,14 @@ export const test_application_ajv_TagFormat = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             format: "ipv6",
                         },
                         custom: {
                             type: "string",
                             nullable: false,
                             description: "A custom format string.",
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "format",
                                     text: [
@@ -151,7 +151,7 @@ export const test_application_ajv_TagFormat = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             format: "my-custom-format",
                         },
                     },
@@ -164,7 +164,7 @@ export const test_application_ajv_TagFormat = _test_application("ajv")(
                         "ipv6",
                         "custom",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

@@ -1,6 +1,6 @@
 import { Escaper } from "../../../src/utils/Escaper";
 
-import TSON from "../../../src";
+import typia from "../../../src";
 import { IValidation } from "../../../src/IValidation";
 
 export function _test_validateEquals<T>(
@@ -16,13 +16,13 @@ export function _test_validateEquals<T>(
         const valid: IValidation<unknown> = assert(input);
         if (valid.success === false)
             throw new Error(
-                `Bug on TSON.validateEquals(): failed to understand the ${name} type.`,
+                `Bug on typia.validateEquals(): failed to understand the ${name} type.`,
             );
         else if (valid.data !== input)
             throw new Error(
-                "Bug on TSON.validateEquals(): failed to archive the input value.",
+                "Bug on typia.validateEquals(): failed to archive the input value.",
             );
-        TSON.assert(valid);
+        typia.assert(valid);
         if (doSpoil === false) return;
 
         // EXPECTED
@@ -46,7 +46,7 @@ export function _test_validateEquals<T>(
             console.log(expected);
             console.log(solution);
             throw new Error(
-                `Bug on TSON.validateEquals(): failed to detect surplus property on the ${name} type.`,
+                `Bug on typia.validateEquals(): failed to detect surplus property on the ${name} type.`,
             );
         }
     };

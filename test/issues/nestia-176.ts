@@ -1,4 +1,4 @@
-import TSON from "../../src";
+import typia from "../../src";
 
 namespace Userspace {
     interface User {
@@ -16,7 +16,7 @@ namespace Userspace {
     }
 }
 
-TSON.createIs<Userspace.UserType1>();
-TSON.createIs<Userspace.UserType2>();
-TSON.createIs<Userspace.UserType3>();
-TSON.createIs<Userspace.UserType4>();
+typia.createIs<Userspace.UserType1>();
+typia.createIs<Userspace.UserType2>();
+typia.createIs<Userspace.UserType3>();
+typia.createIs<Userspace.UserType4>();

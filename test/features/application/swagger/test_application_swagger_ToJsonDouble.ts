@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ToJsonDouble = _test_application(
     "swagger",
-)("ToJsonDouble", TSON.application<[ToJsonDouble], "swagger">(), {
+)("ToJsonDouble", typia.application<[ToJsonDouble], "swagger">(), {
     schemas: [
         {
             $ref: "#/components/schemas/ToJsonDouble.Child",
@@ -18,17 +18,17 @@ export const test_application_swagger_ToJsonDouble = _test_application(
                     id: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     flag: {
                         type: "boolean",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["id", "flag"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectHierarchical = _test_application("ajv")(
     "ObjectHierarchical",
-    TSON.application<[ObjectHierarchical], "ajv">(),
+    typia.application<[ObjectHierarchical], "ajv">(),
     {
         schemas: [
             {
@@ -20,29 +20,29 @@ export const test_application_ajv_ObjectHierarchical = _test_application("ajv")(
                         id: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         channel: {
                             $ref: "components#/schemas/ObjectHierarchical.IChannel",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         member: {
                             $ref: "components#/schemas/ObjectHierarchical.IMember.Nullable",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         account: {
                             $ref: "components#/schemas/ObjectHierarchical.IAccount.Nullable",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         href: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         referrer: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         ip: {
                             type: "array",
@@ -50,30 +50,30 @@ export const test_application_ajv_ObjectHierarchical = _test_application("ajv")(
                                 {
                                     type: "number",
                                     nullable: false,
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 {
                                     type: "number",
                                     nullable: false,
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 {
                                     type: "number",
                                     nullable: false,
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 {
                                     type: "number",
                                     nullable: false,
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                             ],
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         created_at: {
                             $ref: "components#/schemas/ObjectHierarchical.ITimestamp",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
@@ -87,7 +87,7 @@ export const test_application_ajv_ObjectHierarchical = _test_application("ajv")(
                         "ip",
                         "created_at",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectHierarchical.IChannel": {
                     $id: "components#/schemas/ObjectHierarchical.IChannel",
@@ -96,36 +96,36 @@ export const test_application_ajv_ObjectHierarchical = _test_application("ajv")(
                         id: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         code: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         sequence: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         exclusive: {
                             type: "boolean",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         priority: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         created_at: {
                             $ref: "components#/schemas/ObjectHierarchical.ITimestamp",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
@@ -138,7 +138,7 @@ export const test_application_ajv_ObjectHierarchical = _test_application("ajv")(
                         "priority",
                         "created_at",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectHierarchical.ITimestamp": {
                     $id: "components#/schemas/ObjectHierarchical.ITimestamp",
@@ -147,17 +147,17 @@ export const test_application_ajv_ObjectHierarchical = _test_application("ajv")(
                         time: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         zone: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["time", "zone"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectHierarchical.IMember.Nullable": {
                     $id: "components#/schemas/ObjectHierarchical.IMember.Nullable",
@@ -166,34 +166,34 @@ export const test_application_ajv_ObjectHierarchical = _test_application("ajv")(
                         id: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         account: {
                             $ref: "components#/schemas/ObjectHierarchical.IAccount",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         enterprise: {
                             $ref: "components#/schemas/ObjectHierarchical.IEnterprise.Nullable",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         emails: {
                             type: "array",
                             items: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         created_at: {
                             $ref: "components#/schemas/ObjectHierarchical.ITimestamp",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         authorized: {
                             type: "boolean",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: true,
@@ -205,7 +205,7 @@ export const test_application_ajv_ObjectHierarchical = _test_application("ajv")(
                         "created_at",
                         "authorized",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectHierarchical.IAccount": {
                     $id: "components#/schemas/ObjectHierarchical.IAccount",
@@ -214,21 +214,21 @@ export const test_application_ajv_ObjectHierarchical = _test_application("ajv")(
                         id: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         code: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         created_at: {
                             $ref: "components#/schemas/ObjectHierarchical.ITimestamp",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["id", "code", "created_at"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectHierarchical.IEnterprise.Nullable": {
                     $id: "components#/schemas/ObjectHierarchical.IEnterprise.Nullable",
@@ -237,30 +237,30 @@ export const test_application_ajv_ObjectHierarchical = _test_application("ajv")(
                         id: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         account: {
                             $ref: "components#/schemas/ObjectHierarchical.IAccount",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         grade: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         created_at: {
                             $ref: "components#/schemas/ObjectHierarchical.ITimestamp",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: true,
                     required: ["id", "account", "name", "grade", "created_at"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectHierarchical.IAccount.Nullable": {
                     $id: "components#/schemas/ObjectHierarchical.IAccount.Nullable",
@@ -269,21 +269,21 @@ export const test_application_ajv_ObjectHierarchical = _test_application("ajv")(
                         id: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         code: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         created_at: {
                             $ref: "components#/schemas/ObjectHierarchical.ITimestamp",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: true,
                     required: ["id", "code", "created_at"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

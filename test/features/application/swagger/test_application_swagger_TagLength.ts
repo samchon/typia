@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagLength } from "../../../structures/TagLength";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_TagLength = _test_application("swagger")(
     "TagLength",
-    TSON.application<[TagLength], "swagger">(),
+    typia.application<[TagLength], "swagger">(),
     {
         schemas: [
             {
@@ -23,7 +23,7 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                         fixed: {
                             type: "string",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "length",
                                     minimum: {
@@ -36,7 +36,7 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     },
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "length",
                                     text: [
@@ -47,14 +47,14 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minLength: 5,
                             maxLength: 5,
                         },
                         greater: {
                             type: "string",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "length",
                                     minimum: {
@@ -63,7 +63,7 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     },
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "length",
                                     text: [
@@ -74,13 +74,13 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minLength: 4,
                         },
                         greater_equal: {
                             type: "string",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "length",
                                     minimum: {
@@ -89,7 +89,7 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     },
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "length",
                                     text: [
@@ -100,13 +100,13 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minLength: 3,
                         },
                         less: {
                             type: "string",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "length",
                                     maximum: {
@@ -115,7 +115,7 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     },
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "length",
                                     text: [
@@ -126,13 +126,13 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             maxLength: 6,
                         },
                         less_equal: {
                             type: "string",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "length",
                                     maximum: {
@@ -141,7 +141,7 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     },
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "length",
                                     text: [
@@ -152,13 +152,13 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             maxLength: 7,
                         },
                         greater_less: {
                             type: "string",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "length",
                                     minimum: {
@@ -171,7 +171,7 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     },
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "length",
                                     text: [
@@ -182,14 +182,14 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minLength: 4,
                             maxLength: 6,
                         },
                         greater_equal_less: {
                             type: "string",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "length",
                                     minimum: {
@@ -202,7 +202,7 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     },
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "length",
                                     text: [
@@ -213,14 +213,14 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minLength: 3,
                             maxLength: 6,
                         },
                         greater_less_equal: {
                             type: "string",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "length",
                                     minimum: {
@@ -233,7 +233,7 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     },
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "length",
                                     text: [
@@ -244,14 +244,14 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minLength: 4,
                             maxLength: 7,
                         },
                         greater_equal_less_equal: {
                             type: "string",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "length",
                                     minimum: {
@@ -264,7 +264,7 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     },
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "length",
                                     text: [
@@ -275,20 +275,20 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minLength: 3,
                             maxLength: 7,
                         },
                         minimum: {
                             type: "string",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "minLength",
                                     value: 3,
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "minLength",
                                     text: [
@@ -299,19 +299,19 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minLength: 3,
                         },
                         maximum: {
                             type: "string",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "maxLength",
                                     value: 7,
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "maxLength",
                                     text: [
@@ -322,13 +322,13 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             maxLength: 7,
                         },
                         minimum_and_maximum: {
                             type: "string",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "minLength",
                                     value: 3,
@@ -338,7 +338,7 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     value: 7,
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "minLength",
                                     text: [
@@ -358,7 +358,7 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minLength: 3,
                             maxLength: 7,
                         },
@@ -378,7 +378,7 @@ export const test_application_swagger_TagLength = _test_application("swagger")(
                         "maximum",
                         "minimum_and_maximum",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

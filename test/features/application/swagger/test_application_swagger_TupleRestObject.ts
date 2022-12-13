@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_TupleRestObject = _test_application(
     "swagger",
-)("TupleRestObject", TSON.application<[TupleRestObject], "swagger">(), {
+)("TupleRestObject", typia.application<[TupleRestObject], "swagger">(), {
     schemas: [
         {
             type: "array",
@@ -38,12 +38,12 @@ export const test_application_swagger_TupleRestObject = _test_application(
                     value: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["value"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

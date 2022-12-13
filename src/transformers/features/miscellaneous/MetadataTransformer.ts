@@ -50,6 +50,6 @@ export namespace MetadataTransformer {
 }
 
 const enum ErrorMessages {
-    NO_GENERIC_ARGUMENT = "Error on TSON.metadata(): no generic argument.",
-    GENERIC_ARGUMENT = "Error on TSON.metadata(): non-specified generic argument(s).",
+    NO_GENERIC_ARGUMENT = "Error on typia.metadata(): no generic argument.",
+    GENERIC_ARGUMENT = "Error on typia.metadata(): non-specified generic argument(s).",
 }

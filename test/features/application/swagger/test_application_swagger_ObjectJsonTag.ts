@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectJsonTag = _test_application(
     "swagger",
-)("ObjectJsonTag", TSON.application<[ObjectJsonTag], "swagger">(), {
+)("ObjectJsonTag", typia.application<[ObjectJsonTag], "swagger">(), {
     schemas: [
         {
             $ref: "#/components/schemas/ObjectJsonTag",
@@ -19,25 +19,25 @@ export const test_application_swagger_ObjectJsonTag = _test_application(
                         type: "string",
                         nullable: false,
                         deprecated: true,
-                        "x-tson-jsDocTags": [
+                        "x-typia-jsDocTags": [
                             {
                                 name: "deprecated",
                             },
                         ],
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     description: {
                         type: "string",
                         nullable: false,
                         description: "Descripted property.",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     title: {
                         type: "string",
                         nullable: false,
                         title: "something",
                         description: "Titled property.",
-                        "x-tson-jsDocTags": [
+                        "x-typia-jsDocTags": [
                             {
                                 name: "title",
                                 text: [
@@ -48,14 +48,14 @@ export const test_application_swagger_ObjectJsonTag = _test_application(
                                 ],
                             },
                         ],
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     complicate_title: {
                         type: "string",
                         nullable: false,
                         title: "something weirdo with {@link something } tag",
                         description: "Complicate title.",
-                        "x-tson-jsDocTags": [
+                        "x-typia-jsDocTags": [
                             {
                                 name: "title",
                                 text: [
@@ -82,7 +82,7 @@ export const test_application_swagger_ObjectJsonTag = _test_application(
                                 ],
                             },
                         ],
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
@@ -92,7 +92,7 @@ export const test_application_swagger_ObjectJsonTag = _test_application(
                     "title",
                     "complicate_title",
                 ],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

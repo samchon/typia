@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { FunctionalPropertyUnion } from "../../../structures/FunctionalPropertyUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_FunctionalPropertyUnion =
     _test_application("swagger")(
         "FunctionalPropertyUnion",
-        TSON.application<[FunctionalPropertyUnion], "swagger">(),
+        typia.application<[FunctionalPropertyUnion], "swagger">(),
         {
             schemas: [
                 {
@@ -24,27 +24,27 @@ export const test_application_swagger_FunctionalPropertyUnion =
                             name: {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             closure: {
                                 oneOf: [
                                     {
                                         type: "string",
                                         nullable: true,
-                                        "x-tson-required": false,
+                                        "x-typia-required": false,
                                     },
                                     {
                                         type: "number",
                                         nullable: true,
-                                        "x-tson-required": false,
+                                        "x-typia-required": false,
                                     },
                                 ],
-                                "x-tson-required": false,
+                                "x-typia-required": false,
                             },
                         },
                         nullable: false,
                         required: ["name"],
-                        "x-tson_jsDocTags": [],
+                        "x-typia_jsDocTags": [],
                     },
                 },
             },

@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectUnionExplicit = _test_application(
     "ajv",
-)("ObjectUnionExplicit", TSON.application<[ObjectUnionExplicit], "ajv">(), {
+)("ObjectUnionExplicit", typia.application<[ObjectUnionExplicit], "ajv">(), {
     schemas: [
         {
             type: "array",
@@ -46,23 +46,23 @@ export const test_application_ajv_ObjectUnionExplicit = _test_application(
                         x: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         y: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         type: {
                             type: "string",
                             enum: ["point"],
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["x", "y", "type"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             "ObjectUnionExplicit.Discriminator_lt__doublequote_line_doublequote__comma__space_ObjectUnionExplicit.ILine_gt_":
                 {
@@ -71,22 +71,22 @@ export const test_application_ajv_ObjectUnionExplicit = _test_application(
                     properties: {
                         p1: {
                             $ref: "components#/schemas/ObjectUnionExplicit.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         p2: {
                             $ref: "components#/schemas/ObjectUnionExplicit.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         type: {
                             type: "string",
                             enum: ["line"],
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["p1", "p2", "type"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             "ObjectUnionExplicit.IPoint": {
                 $id: "components#/schemas/ObjectUnionExplicit.IPoint",
@@ -95,17 +95,17 @@ export const test_application_ajv_ObjectUnionExplicit = _test_application(
                     x: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     y: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["x", "y"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ObjectUnionExplicit.Discriminator_lt__doublequote_triangle_doublequote__comma__space_ObjectUnionExplicit.ITriangle_gt_":
                 {
@@ -114,26 +114,26 @@ export const test_application_ajv_ObjectUnionExplicit = _test_application(
                     properties: {
                         p1: {
                             $ref: "components#/schemas/ObjectUnionExplicit.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         p2: {
                             $ref: "components#/schemas/ObjectUnionExplicit.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         p3: {
                             $ref: "components#/schemas/ObjectUnionExplicit.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         type: {
                             type: "string",
                             enum: ["triangle"],
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["p1", "p2", "p3", "type"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             "ObjectUnionExplicit.Discriminator_lt__doublequote_rectangle_doublequote__comma__space_ObjectUnionExplicit.IRectangle_gt_":
                 {
@@ -142,30 +142,30 @@ export const test_application_ajv_ObjectUnionExplicit = _test_application(
                     properties: {
                         p1: {
                             $ref: "components#/schemas/ObjectUnionExplicit.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         p2: {
                             $ref: "components#/schemas/ObjectUnionExplicit.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         p3: {
                             $ref: "components#/schemas/ObjectUnionExplicit.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         p4: {
                             $ref: "components#/schemas/ObjectUnionExplicit.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         type: {
                             type: "string",
                             enum: ["rectangle"],
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["p1", "p2", "p3", "p4", "type"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             "ObjectUnionExplicit.Discriminator_lt__doublequote_polyline_doublequote__comma__space_ObjectUnionExplicit.IPolyline_gt_":
                 {
@@ -176,21 +176,21 @@ export const test_application_ajv_ObjectUnionExplicit = _test_application(
                             type: "array",
                             items: {
                                 $ref: "components#/schemas/ObjectUnionExplicit.IPoint",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         type: {
                             type: "string",
                             enum: ["polyline"],
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["points", "type"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             "ObjectUnionExplicit.Discriminator_lt__doublequote_polygon_doublequote__comma__space_ObjectUnionExplicit.IPolygon_gt_":
                 {
@@ -199,27 +199,27 @@ export const test_application_ajv_ObjectUnionExplicit = _test_application(
                     properties: {
                         outer: {
                             $ref: "components#/schemas/ObjectUnionExplicit.IPolyline",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         inner: {
                             type: "array",
                             items: {
                                 $ref: "components#/schemas/ObjectUnionExplicit.IPolyline",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         type: {
                             type: "string",
                             enum: ["polygon"],
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["outer", "inner", "type"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             "ObjectUnionExplicit.IPolyline": {
                 $id: "components#/schemas/ObjectUnionExplicit.IPolyline",
@@ -229,15 +229,15 @@ export const test_application_ajv_ObjectUnionExplicit = _test_application(
                         type: "array",
                         items: {
                             $ref: "components#/schemas/ObjectUnionExplicit.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["points"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ObjectUnionExplicit.Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicit.ICircle_gt_":
                 {
@@ -246,23 +246,23 @@ export const test_application_ajv_ObjectUnionExplicit = _test_application(
                     properties: {
                         centroid: {
                             $ref: "components#/schemas/ObjectUnionExplicit.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         radius: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         type: {
                             type: "string",
                             enum: ["circle"],
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["centroid", "radius", "type"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
         },
     },

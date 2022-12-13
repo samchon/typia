@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ClassClosure } from "../../../structures/ClassClosure";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ClassClosure = _test_application("ajv")(
     "ClassClosure",
-    TSON.application<[ClassClosure], "ajv">(),
+    typia.application<[ClassClosure], "ajv">(),
     {
         schemas: [
             {
@@ -20,18 +20,18 @@ export const test_application_ajv_ClassClosure = _test_application("ajv")(
                         id: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         type: {
                             type: "string",
                             enum: ["something"],
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["id", "type"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { DynamicNever } from "../../../structures/DynamicNever";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_DynamicNever = _test_application("ajv")(
     "DynamicNever",
-    TSON.application<[DynamicNever], "ajv">(),
+    typia.application<[DynamicNever], "ajv">(),
     {
         schemas: [
             {
@@ -18,7 +18,7 @@ export const test_application_ajv_DynamicNever = _test_application("ajv")(
                     type: "object",
                     properties: {},
                     nullable: false,
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

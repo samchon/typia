@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_DynamicComposite = _test_application(
     "swagger",
-)("DynamicComposite", TSON.application<[DynamicComposite], "swagger">(), {
+)("DynamicComposite", typia.application<[DynamicComposite], "swagger">(), {
     schemas: [
         {
             $ref: "#/components/schemas/DynamicComposite",
@@ -18,12 +18,12 @@ export const test_application_swagger_DynamicComposite = _test_application(
                     id: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 additionalProperties: {
@@ -31,48 +31,48 @@ export const test_application_swagger_DynamicComposite = _test_application(
                         {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         {
                             oneOf: [
                                 {
                                     type: "string",
                                     nullable: false,
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 {
                                     type: "number",
                                     nullable: false,
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 {
                                     type: "boolean",
                                     nullable: false,
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         {
                             type: "boolean",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     ],
                 },
                 nullable: false,
                 required: ["id", "name"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

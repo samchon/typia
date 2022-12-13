@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagStep } from "../../../structures/TagStep";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TagStep = _test_application("ajv")(
     "TagStep",
-    TSON.application<[TagStep], "ajv">(),
+    typia.application<[TagStep], "ajv">(),
     {
         schemas: [
             {
@@ -24,7 +24,7 @@ export const test_application_ajv_TagStep = _test_application("ajv")(
                         exclusiveMinimum: {
                             type: "number",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "step",
                                     value: 5,
@@ -34,7 +34,7 @@ export const test_application_ajv_TagStep = _test_application("ajv")(
                                     value: 3,
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "step",
                                     text: [
@@ -54,12 +54,12 @@ export const test_application_ajv_TagStep = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         minimum: {
                             type: "number",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "step",
                                     value: 5,
@@ -69,7 +69,7 @@ export const test_application_ajv_TagStep = _test_application("ajv")(
                                     value: 3,
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "step",
                                     text: [
@@ -89,13 +89,13 @@ export const test_application_ajv_TagStep = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             minimum: 3,
                         },
                         range: {
                             type: "number",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "step",
                                     value: 5,
@@ -112,7 +112,7 @@ export const test_application_ajv_TagStep = _test_application("ajv")(
                                     },
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "step",
                                     text: [
@@ -132,20 +132,20 @@ export const test_application_ajv_TagStep = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             exclusiveMinimum: 0,
                             exclusiveMaximum: 100,
                         },
                         multipleOf: {
                             type: "number",
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "multipleOf",
                                     value: 5,
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "multipleOf",
                                     text: [
@@ -156,7 +156,7 @@ export const test_application_ajv_TagStep = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                             multipleOf: 5,
                         },
                     },
@@ -167,7 +167,7 @@ export const test_application_ajv_TagStep = _test_application("ajv")(
                         "range",
                         "multipleOf",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

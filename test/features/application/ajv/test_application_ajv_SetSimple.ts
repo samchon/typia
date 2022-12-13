@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { SetSimple } from "../../../structures/SetSimple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_SetSimple = _test_application("ajv")(
     "SetSimple",
-    TSON.application<[SetSimple], "ajv">(),
+    typia.application<[SetSimple], "ajv">(),
     {
         schemas: [
             {
@@ -19,23 +19,23 @@ export const test_application_ajv_SetSimple = _test_application("ajv")(
                     properties: {
                         booleans: {
                             $ref: "#/components/schemas/Set",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         numbers: {
                             $ref: "#/components/schemas/Set",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         strings: {
                             $ref: "#/components/schemas/Set",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         arrays: {
                             $ref: "#/components/schemas/Set",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         objects: {
                             $ref: "#/components/schemas/Set",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
@@ -46,7 +46,7 @@ export const test_application_ajv_SetSimple = _test_application("ajv")(
                         "arrays",
                         "objects",
                     ],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 Set: {
                     type: "object",

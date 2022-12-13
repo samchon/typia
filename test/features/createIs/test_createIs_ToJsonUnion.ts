@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ToJsonUnion } from "../../structures/ToJsonUnion";
 import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_ToJsonUnion = _test_is(
     "ToJsonUnion",
     ToJsonUnion.generate,
-    TSON.createIs<ToJsonUnion>(),
+    typia.createIs<ToJsonUnion>(),
 );

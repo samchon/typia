@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_DynamicUnion = _test_application(
     "swagger",
-)("DynamicUnion", TSON.application<[DynamicUnion], "swagger">(), {
+)("DynamicUnion", typia.application<[DynamicUnion], "swagger">(), {
     schemas: [
         {
             $ref: "#/components/schemas/DynamicUnion",
@@ -20,27 +20,27 @@ export const test_application_swagger_DynamicUnion = _test_application(
                         {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     ],
                 },
                 nullable: false,
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

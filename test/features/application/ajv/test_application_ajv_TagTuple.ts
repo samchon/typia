@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagTuple } from "../../../structures/TagTuple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TagTuple = _test_application("ajv")(
     "TagTuple",
-    TSON.application<[TagTuple], "ajv">(),
+    typia.application<[TagTuple], "ajv">(),
     {
         schemas: [
             {
@@ -23,7 +23,7 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                 {
                                     type: "string",
                                     nullable: false,
-                                    "x-tson-metaTags": [
+                                    "x-typia-metaTags": [
                                         {
                                             kind: "items",
                                             minimum: {
@@ -58,7 +58,7 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                             },
                                         },
                                     ],
-                                    "x-tson-jsDocTags": [
+                                    "x-typia-jsDocTags": [
                                         {
                                             name: "items",
                                             text: [
@@ -87,14 +87,14 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                             ],
                                         },
                                     ],
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                     minLength: 3,
                                     maxLength: 7,
                                 },
                                 {
                                     type: "number",
                                     nullable: false,
-                                    "x-tson-metaTags": [
+                                    "x-typia-metaTags": [
                                         {
                                             kind: "items",
                                             minimum: {
@@ -129,7 +129,7 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                             },
                                         },
                                     ],
-                                    "x-tson-jsDocTags": [
+                                    "x-typia-jsDocTags": [
                                         {
                                             name: "items",
                                             text: [
@@ -158,7 +158,7 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                             ],
                                         },
                                     ],
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                     minimum: 3,
                                     maximum: 7,
                                 },
@@ -167,7 +167,7 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                     items: {
                                         type: "string",
                                         nullable: false,
-                                        "x-tson-metaTags": [
+                                        "x-typia-metaTags": [
                                             {
                                                 kind: "items",
                                                 minimum: {
@@ -202,7 +202,7 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                                 },
                                             },
                                         ],
-                                        "x-tson-jsDocTags": [
+                                        "x-typia-jsDocTags": [
                                             {
                                                 name: "items",
                                                 text: [
@@ -231,12 +231,12 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                                 ],
                                             },
                                         ],
-                                        "x-tson-required": true,
+                                        "x-typia-required": true,
                                         minLength: 3,
                                         maxLength: 7,
                                     },
                                     nullable: false,
-                                    "x-tson-metaTags": [
+                                    "x-typia-metaTags": [
                                         {
                                             kind: "items",
                                             minimum: {
@@ -271,7 +271,7 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                             },
                                         },
                                     ],
-                                    "x-tson-jsDocTags": [
+                                    "x-typia-jsDocTags": [
                                         {
                                             name: "items",
                                             text: [
@@ -300,7 +300,7 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                             ],
                                         },
                                     ],
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                     minItems: 3,
                                     maxItems: 7,
                                 },
@@ -309,7 +309,7 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                     items: {
                                         type: "number",
                                         nullable: false,
-                                        "x-tson-metaTags": [
+                                        "x-typia-metaTags": [
                                             {
                                                 kind: "items",
                                                 minimum: {
@@ -344,7 +344,7 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                                 },
                                             },
                                         ],
-                                        "x-tson-jsDocTags": [
+                                        "x-typia-jsDocTags": [
                                             {
                                                 name: "items",
                                                 text: [
@@ -373,12 +373,12 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                                 ],
                                             },
                                         ],
-                                        "x-tson-required": true,
+                                        "x-typia-required": true,
                                         minimum: 3,
                                         maximum: 7,
                                     },
                                     nullable: false,
-                                    "x-tson-metaTags": [
+                                    "x-typia-metaTags": [
                                         {
                                             kind: "items",
                                             minimum: {
@@ -413,7 +413,7 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                             },
                                         },
                                     ],
-                                    "x-tson-jsDocTags": [
+                                    "x-typia-jsDocTags": [
                                         {
                                             name: "items",
                                             text: [
@@ -442,13 +442,13 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                             ],
                                         },
                                     ],
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                     minItems: 3,
                                     maxItems: 7,
                                 },
                             ],
                             nullable: false,
-                            "x-tson-metaTags": [
+                            "x-typia-metaTags": [
                                 {
                                     kind: "items",
                                     minimum: {
@@ -483,7 +483,7 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                     },
                                 },
                             ],
-                            "x-tson-jsDocTags": [
+                            "x-typia-jsDocTags": [
                                 {
                                     name: "items",
                                     text: [
@@ -512,12 +512,12 @@ export const test_application_ajv_TagTuple = _test_application("ajv")(
                                     ],
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["tuple"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

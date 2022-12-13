@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { DynamicArray } from "../../../structures/DynamicArray";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_DynamicArray = _test_application("ajv")(
     "DynamicArray",
-    TSON.application<[DynamicArray], "ajv">(),
+    typia.application<[DynamicArray], "ajv">(),
     {
         schemas: [
             {
@@ -22,13 +22,13 @@ export const test_application_ajv_DynamicArray = _test_application("ajv")(
                         items: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     nullable: false,
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

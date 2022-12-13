@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectGenericAlias = _test_application("ajv")(
     "ObjectGenericAlias",
-    TSON.application<[ObjectGenericAlias], "ajv">(),
+    typia.application<[ObjectGenericAlias], "ajv">(),
     {
         schemas: [
             {
@@ -20,12 +20,12 @@ export const test_application_ajv_ObjectGenericAlias = _test_application("ajv")(
                         value: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

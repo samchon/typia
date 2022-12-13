@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ToJsonArray = _test_application(
     "swagger",
-)("ToJsonArray", TSON.application<[ToJsonArray], "swagger">(), {
+)("ToJsonArray", typia.application<[ToJsonArray], "swagger">(), {
     schemas: [
         {
             type: "array",
@@ -54,12 +54,12 @@ export const test_application_swagger_ToJsonArray = _test_application(
                     id: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["id"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

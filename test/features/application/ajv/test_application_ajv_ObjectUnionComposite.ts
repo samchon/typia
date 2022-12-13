@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectUnionComposite = _test_application(
     "ajv",
-)("ObjectUnionComposite", TSON.application<[ObjectUnionComposite], "ajv">(), {
+)("ObjectUnionComposite", typia.application<[ObjectUnionComposite], "ajv">(), {
     schemas: [
         {
             type: "array",
@@ -48,17 +48,17 @@ export const test_application_ajv_ObjectUnionComposite = _test_application(
                     x: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     y: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["x", "y"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ObjectUnionComposite.ILine": {
                 $id: "components#/schemas/ObjectUnionComposite.ILine",
@@ -66,16 +66,16 @@ export const test_application_ajv_ObjectUnionComposite = _test_application(
                 properties: {
                     p1: {
                         $ref: "components#/schemas/ObjectUnionComposite.IPoint",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     p2: {
                         $ref: "components#/schemas/ObjectUnionComposite.IPoint",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["p1", "p2"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ObjectUnionComposite.ITriangle": {
                 $id: "components#/schemas/ObjectUnionComposite.ITriangle",
@@ -83,20 +83,20 @@ export const test_application_ajv_ObjectUnionComposite = _test_application(
                 properties: {
                     p1: {
                         $ref: "components#/schemas/ObjectUnionComposite.IPoint",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     p2: {
                         $ref: "components#/schemas/ObjectUnionComposite.IPoint",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     p3: {
                         $ref: "components#/schemas/ObjectUnionComposite.IPoint",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["p1", "p2", "p3"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ObjectUnionComposite.IRectangle": {
                 $id: "components#/schemas/ObjectUnionComposite.IRectangle",
@@ -104,24 +104,24 @@ export const test_application_ajv_ObjectUnionComposite = _test_application(
                 properties: {
                     p1: {
                         $ref: "components#/schemas/ObjectUnionComposite.IPoint",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     p2: {
                         $ref: "components#/schemas/ObjectUnionComposite.IPoint",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     p3: {
                         $ref: "components#/schemas/ObjectUnionComposite.IPoint",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     p4: {
                         $ref: "components#/schemas/ObjectUnionComposite.IPoint",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["p1", "p2", "p3", "p4"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ObjectUnionComposite.IPolyline": {
                 $id: "components#/schemas/ObjectUnionComposite.IPolyline",
@@ -131,15 +131,15 @@ export const test_application_ajv_ObjectUnionComposite = _test_application(
                         type: "array",
                         items: {
                             $ref: "components#/schemas/ObjectUnionComposite.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["points"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ObjectUnionComposite.IPolygon": {
                 $id: "components#/schemas/ObjectUnionComposite.IPolygon",
@@ -147,21 +147,21 @@ export const test_application_ajv_ObjectUnionComposite = _test_application(
                 properties: {
                     outer: {
                         $ref: "components#/schemas/ObjectUnionComposite.IPolyline",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     inner: {
                         type: "array",
                         items: {
                             $ref: "components#/schemas/ObjectUnionComposite.IPolyline",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["outer", "inner"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ObjectUnionComposite.IPointedShape": {
                 $id: "components#/schemas/ObjectUnionComposite.IPointedShape",
@@ -171,19 +171,19 @@ export const test_application_ajv_ObjectUnionComposite = _test_application(
                         type: "array",
                         items: {
                             $ref: "components#/schemas/ObjectUnionComposite.IPoint",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     inner: {
                         $ref: "components#/schemas/ObjectUnionComposite.IPoint",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["outer", "inner"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
             "ObjectUnionComposite.ICircle": {
                 $id: "components#/schemas/ObjectUnionComposite.ICircle",
@@ -191,17 +191,17 @@ export const test_application_ajv_ObjectUnionComposite = _test_application(
                 properties: {
                     centroid: {
                         $ref: "components#/schemas/ObjectUnionComposite.IPoint",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     radius: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["centroid", "radius"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

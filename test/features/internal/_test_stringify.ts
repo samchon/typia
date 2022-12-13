@@ -11,7 +11,7 @@ export function _test_stringify<T>(
 
         if (predicate(data, optimized) === false) {
             throw new Error(
-                `Bug on TSON.stringify(): failed to understand the ${name} type.`,
+                `Bug on typia.stringify(): failed to understand the ${name} type.`,
             );
         }
     };

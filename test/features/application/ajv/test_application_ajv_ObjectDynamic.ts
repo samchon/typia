@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectDynamic = _test_application("ajv")(
     "ObjectDynamic",
-    TSON.application<[ObjectDynamic], "ajv">(),
+    typia.application<[ObjectDynamic], "ajv">(),
     {
         schemas: [
             {
@@ -22,23 +22,23 @@ export const test_application_ajv_ObjectDynamic = _test_application("ajv")(
                             {
                                 type: "string",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             {
                                 type: "boolean",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                         ],
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     nullable: false,
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

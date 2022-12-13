@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { FunctionalProperty } from "../../../structures/FunctionalProperty";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_FunctionalProperty = _test_application("ajv")(
     "FunctionalProperty",
-    TSON.application<[FunctionalProperty], "ajv">(),
+    typia.application<[FunctionalProperty], "ajv">(),
     {
         schemas: [
             {
@@ -20,12 +20,12 @@ export const test_application_ajv_FunctionalProperty = _test_application("ajv")(
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["name"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

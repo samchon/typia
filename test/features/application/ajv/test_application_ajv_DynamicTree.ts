@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { DynamicTree } from "../../../structures/DynamicTree";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_DynamicTree = _test_application("ajv")(
     "DynamicTree",
-    TSON.application<[DynamicTree], "ajv">(),
+    typia.application<[DynamicTree], "ajv">(),
     {
         schemas: [
             {
@@ -20,21 +20,21 @@ export const test_application_ajv_DynamicTree = _test_application("ajv")(
                         id: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         sequence: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         children: {
                             $ref: "components#/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["id", "sequence", "children"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 Record_lt_string_comma__space_DynamicTree_gt_: {
                     $id: "components#/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
@@ -42,10 +42,10 @@ export const test_application_ajv_DynamicTree = _test_application("ajv")(
                     properties: {},
                     additionalProperties: {
                         $ref: "components#/schemas/DynamicTree",
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     nullable: false,
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

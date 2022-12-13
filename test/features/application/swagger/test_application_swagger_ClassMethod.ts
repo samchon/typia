@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ClassMethod } from "../../../structures/ClassMethod";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ClassMethod = _test_application(
     "swagger",
-)("ClassMethod", TSON.application<[ClassMethod], "swagger">(), {
+)("ClassMethod", typia.application<[ClassMethod], "swagger">(), {
     schemas: [
         {
             $ref: "#/components/schemas/ClassMethod.Animal",
@@ -18,17 +18,17 @@ export const test_application_swagger_ClassMethod = _test_application(
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                     age: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                     },
                 },
                 nullable: false,
                 required: ["name", "age"],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": [],
             },
         },
     },

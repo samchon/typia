@@ -57,7 +57,7 @@ function script(
 ): string {
     const common: string = `_test_${feat.method}`;
     const elements: Array<string | null> = [
-        `import TSON from "../../../src";`,
+        `import typia from "../../../src";`,
         `import { ${struct.name} } from "../../structures/${struct.name}";`,
         `import { ${common} } from "../internal/${common}";`,
         "",
@@ -65,8 +65,8 @@ function script(
         `    "${struct.name}",`,
         `    ${struct.name}.generate,`,
         create
-            ? `    TSON.${method}<${struct.name}>(),`
-            : `    (input) => TSON.${method}${
+            ? `    typia.${method}<${struct.name}>(),`
+            : `    (input) => typia.${method}${
                   feat.explicit ? `<${struct.name}>` : ""
               }(input),`,
         feat.spoilable && struct.SPOILERS
@@ -89,14 +89,14 @@ async function application(
         if (s.JSONABLE === false) continue;
 
         const content: string[] = [
-            `import TSON from "../../../../src";`,
+            `import typia from "../../../../src";`,
             `import { ${s.name} } from "../../../structures/${s.name}";`,
             `import { _test_application } from "../../internal/_test_application";`,
             "",
             `export const test_application_${purpose}_${s.name} = `,
             `    _test_application("${purpose}")(`,
             `        "${s.name}",`,
-            `        TSON.application<[${s.name}], "${purpose}">(),`,
+            `        typia.application<[${s.name}], "${purpose}">(),`,
             `        {`,
             `            schemas: [],`,
             `            components: {`,

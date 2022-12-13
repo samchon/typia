@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_DynamicUnion = _test_application("ajv")(
     "DynamicUnion",
-    TSON.application<[DynamicUnion], "ajv">(),
+    typia.application<[DynamicUnion], "ajv">(),
     {
         schemas: [
             {
@@ -21,26 +21,26 @@ export const test_application_ajv_DynamicUnion = _test_application("ajv")(
                         "^-?\\d+\\.?\\d*$": {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         "^(prefix_(.*))": {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         "((.*)_postfix)$": {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         "^(value_between_-?\\d+\\.?\\d*_and_-?\\d+\\.?\\d*)$": {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

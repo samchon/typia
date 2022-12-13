@@ -1,6 +1,6 @@
 import ajv from "fast-json-stringify";
 
-import TSON from "../../src";
+import typia from "../../src";
 import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
@@ -11,7 +11,7 @@ import { ObjectSimple } from "../../test/structures/ObjectSimple";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { StringifyBenchmarker } from "../internal/StringifyBenchmarker";
 
-function build<T>(app: TSON.IJsonApplication): null | ((input: T) => string) {
+function build<T>(app: typia.IJsonApplication): null | ((input: T) => string) {
     try {
         return ajv(app.schemas[0] as any, {
             // mode: "standalone",
@@ -25,9 +25,9 @@ function build<T>(app: TSON.IJsonApplication): null | ((input: T) => string) {
 }
 
 const prepare = StringifyBenchmarker.prepare([
-    "TSON.stringify()",
-    "TSON.assertStringify()",
-    "TSON.isStringify()",
+    "typia.stringify()",
+    "typia.assertStringify()",
+    "typia.isStringify()",
     "fast-json-stringify",
     "JSON.stringify",
 ]);
@@ -37,38 +37,41 @@ const stringify = () => [
     // OBJECT
     //----
     prepare("object (simple)", () => ObjectSimple.generate(), {
-        "TSON.stringify()": TSON.createStringify<ObjectSimple>(),
-        "TSON.assertStringify()": TSON.createAssertStringify<ObjectSimple>(),
-        "TSON.isStringify()": TSON.createIsStringify<ObjectSimple>(),
-        "fast-json-stringify": build(TSON.application<[ObjectSimple], "ajv">()),
+        "typia.stringify()": typia.createStringify<ObjectSimple>(),
+        "typia.assertStringify()": typia.createAssertStringify<ObjectSimple>(),
+        "typia.isStringify()": typia.createIsStringify<ObjectSimple>(),
+        "fast-json-stringify": build(
+            typia.application<[ObjectSimple], "ajv">(),
+        ),
         "JSON.stringify": JSON.stringify,
     }),
     prepare("object (hierarchical)", () => ObjectHierarchical.generate(), {
-        "TSON.stringify()": TSON.createStringify<ObjectHierarchical>(),
-        "TSON.assertStringify()":
-            TSON.createAssertStringify<ObjectHierarchical>(),
-        "TSON.isStringify()": TSON.createIsStringify<ObjectHierarchical>(),
+        "typia.stringify()": typia.createStringify<ObjectHierarchical>(),
+        "typia.assertStringify()":
+            typia.createAssertStringify<ObjectHierarchical>(),
+        "typia.isStringify()": typia.createIsStringify<ObjectHierarchical>(),
         "fast-json-stringify": build(
-            TSON.application<[ObjectHierarchical], "ajv">(),
+            typia.application<[ObjectHierarchical], "ajv">(),
         ),
         "JSON.stringify": JSON.stringify,
     }),
     prepare("object (recursive)", () => ObjectRecursive.generate(), {
-        "TSON.stringify()": TSON.createStringify<ObjectRecursive>(),
-        "TSON.assertStringify()": TSON.createAssertStringify<ObjectRecursive>(),
-        "TSON.isStringify()": TSON.createIsStringify<ObjectRecursive>(),
+        "typia.stringify()": typia.createStringify<ObjectRecursive>(),
+        "typia.assertStringify()":
+            typia.createAssertStringify<ObjectRecursive>(),
+        "typia.isStringify()": typia.createIsStringify<ObjectRecursive>(),
         "fast-json-stringify": build(
-            TSON.application<[ObjectRecursive], "ajv">(),
+            typia.application<[ObjectRecursive], "ajv">(),
         ),
         "JSON.stringify": JSON.stringify,
     }),
     prepare("object (union)", () => ObjectUnionImplicit.generate(), {
-        "TSON.stringify()": TSON.createStringify<ObjectUnionImplicit>(),
-        "TSON.assertStringify()":
-            TSON.createAssertStringify<ObjectUnionImplicit>(),
-        "TSON.isStringify()": TSON.createIsStringify<ObjectUnionImplicit>(),
+        "typia.stringify()": typia.createStringify<ObjectUnionImplicit>(),
+        "typia.assertStringify()":
+            typia.createAssertStringify<ObjectUnionImplicit>(),
+        "typia.isStringify()": typia.createIsStringify<ObjectUnionImplicit>(),
         "fast-json-stringify": build(
-            TSON.application<[ObjectUnionImplicit], "ajv">(),
+            typia.application<[ObjectUnionImplicit], "ajv">(),
         ),
         "JSON.stringify": JSON.stringify,
     }),
@@ -77,39 +80,41 @@ const stringify = () => [
     // ARRAY
     //----
     prepare("array (simple)", () => ArraySimple.generate(), {
-        "TSON.stringify()": TSON.createStringify<ArraySimple>(),
-        "TSON.assertStringify()": TSON.createAssertStringify<ArraySimple>(),
-        "TSON.isStringify()": TSON.createIsStringify<ArraySimple>(),
-        "fast-json-stringify": build(TSON.application<[ArraySimple], "ajv">()),
+        "typia.stringify()": typia.createStringify<ArraySimple>(),
+        "typia.assertStringify()": typia.createAssertStringify<ArraySimple>(),
+        "typia.isStringify()": typia.createIsStringify<ArraySimple>(),
+        "fast-json-stringify": build(typia.application<[ArraySimple], "ajv">()),
         "JSON.stringify": JSON.stringify,
     }),
     prepare("array (hierarchical)", () => ArrayHierarchical.generate(), {
-        "TSON.stringify()": TSON.createStringify<ArrayHierarchical>(),
-        "TSON.assertStringify()":
-            TSON.createAssertStringify<ArrayHierarchical>(),
-        "TSON.isStringify()": TSON.createIsStringify<ArrayHierarchical>(),
+        "typia.stringify()": typia.createStringify<ArrayHierarchical>(),
+        "typia.assertStringify()":
+            typia.createAssertStringify<ArrayHierarchical>(),
+        "typia.isStringify()": typia.createIsStringify<ArrayHierarchical>(),
         "fast-json-stringify": build(
-            TSON.application<[ArrayHierarchical], "ajv">(),
+            typia.application<[ArrayHierarchical], "ajv">(),
         ),
         "JSON.stringify": JSON.stringify,
     }),
     prepare("array (recursive)", () => ArrayRecursive.generate(), {
-        "TSON.stringify()": TSON.createStringify<ArrayRecursive>(),
-        "TSON.assertStringify()": TSON.createAssertStringify<ArrayRecursive>(),
-        "TSON.isStringify()": TSON.createIsStringify<ArrayRecursive>(),
+        "typia.stringify()": typia.createStringify<ArrayRecursive>(),
+        "typia.assertStringify()":
+            typia.createAssertStringify<ArrayRecursive>(),
+        "typia.isStringify()": typia.createIsStringify<ArrayRecursive>(),
         "fast-json-stringify": build(
-            TSON.application<[ArrayRecursive], "ajv">(),
+            typia.application<[ArrayRecursive], "ajv">(),
         ),
         "JSON.stringify": JSON.stringify,
     }),
     prepare("array (union)", () => ArrayRecursiveUnionExplicit.generate(), {
-        "TSON.stringify()": TSON.createStringify<ArrayRecursiveUnionExplicit>(),
-        "TSON.assertStringify()":
-            TSON.createAssertStringify<ArrayRecursiveUnionExplicit>(),
-        "TSON.isStringify()":
-            TSON.createIsStringify<ArrayRecursiveUnionExplicit>(),
+        "typia.stringify()":
+            typia.createStringify<ArrayRecursiveUnionExplicit>(),
+        "typia.assertStringify()":
+            typia.createAssertStringify<ArrayRecursiveUnionExplicit>(),
+        "typia.isStringify()":
+            typia.createIsStringify<ArrayRecursiveUnionExplicit>(),
         "fast-json-stringify": build(
-            TSON.application<[ArrayRecursiveUnionExplicit], "ajv">(),
+            typia.application<[ArrayRecursiveUnionExplicit], "ajv">(),
         ),
         "JSON.stringify": JSON.stringify,
     }),

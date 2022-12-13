@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectUnionDouble = _test_application("ajv")(
     "ObjectUnionDouble",
-    TSON.application<[ObjectUnionDouble], "ajv">(),
+    typia.application<[ObjectUnionDouble], "ajv">(),
     {
         schemas: [
             {
@@ -30,25 +30,25 @@ export const test_application_ajv_ObjectUnionDouble = _test_application("ajv")(
                     properties: {
                         value: {
                             $ref: "components#/schemas/__type",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         child: {
                             oneOf: [
                                 {
                                     $ref: "components#/schemas/ObjectUnionDouble.IAA",
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 {
                                     $ref: "components#/schemas/ObjectUnionDouble.IAB",
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value", "child"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 __type: {
                     $id: "components#/schemas/__type",
@@ -57,12 +57,12 @@ export const test_application_ajv_ObjectUnionDouble = _test_application("ajv")(
                         x: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["x"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectUnionDouble.IAA": {
                     $id: "components#/schemas/ObjectUnionDouble.IAA",
@@ -70,12 +70,12 @@ export const test_application_ajv_ObjectUnionDouble = _test_application("ajv")(
                     properties: {
                         value: {
                             $ref: "components#/schemas/__type.o1",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "__type.o1": {
                     $id: "components#/schemas/__type.o1",
@@ -84,12 +84,12 @@ export const test_application_ajv_ObjectUnionDouble = _test_application("ajv")(
                         y: {
                             type: "boolean",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["y"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectUnionDouble.IAB": {
                     $id: "components#/schemas/ObjectUnionDouble.IAB",
@@ -97,12 +97,12 @@ export const test_application_ajv_ObjectUnionDouble = _test_application("ajv")(
                     properties: {
                         value: {
                             $ref: "components#/schemas/__type.o2",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "__type.o2": {
                     $id: "components#/schemas/__type.o2",
@@ -111,12 +111,12 @@ export const test_application_ajv_ObjectUnionDouble = _test_application("ajv")(
                         y: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["y"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectUnionDouble.IB": {
                     $id: "components#/schemas/ObjectUnionDouble.IB",
@@ -124,25 +124,25 @@ export const test_application_ajv_ObjectUnionDouble = _test_application("ajv")(
                     properties: {
                         value: {
                             $ref: "components#/schemas/__type.o3",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         child: {
                             oneOf: [
                                 {
                                     $ref: "components#/schemas/ObjectUnionDouble.IBA",
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                                 {
                                     $ref: "components#/schemas/ObjectUnionDouble.IBB",
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                 },
                             ],
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value", "child"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "__type.o3": {
                     $id: "components#/schemas/__type.o3",
@@ -151,12 +151,12 @@ export const test_application_ajv_ObjectUnionDouble = _test_application("ajv")(
                         x: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["x"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectUnionDouble.IBA": {
                     $id: "components#/schemas/ObjectUnionDouble.IBA",
@@ -164,12 +164,12 @@ export const test_application_ajv_ObjectUnionDouble = _test_application("ajv")(
                     properties: {
                         value: {
                             $ref: "components#/schemas/__type.o4",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "__type.o4": {
                     $id: "components#/schemas/__type.o4",
@@ -178,12 +178,12 @@ export const test_application_ajv_ObjectUnionDouble = _test_application("ajv")(
                         y: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["y"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectUnionDouble.IBB": {
                     $id: "components#/schemas/ObjectUnionDouble.IBB",
@@ -191,12 +191,12 @@ export const test_application_ajv_ObjectUnionDouble = _test_application("ajv")(
                     properties: {
                         value: {
                             $ref: "components#/schemas/__type.o5",
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "__type.o5": {
                     $id: "components#/schemas/__type.o5",
@@ -207,15 +207,15 @@ export const test_application_ajv_ObjectUnionDouble = _test_application("ajv")(
                             items: {
                                 type: "number",
                                 nullable: false,
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["y"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

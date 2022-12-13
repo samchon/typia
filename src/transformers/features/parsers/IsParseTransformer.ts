@@ -31,6 +31,6 @@ export namespace IsParseTransformer {
 }
 
 const enum ErrorMessages {
-    NOT_SPECIFIED = "Error on TSON.isParse(): generic argument is not specified.",
-    GENERIC_ARGUMENT = "Error on TSON.isParse(): non-specified generic argument.",
+    NOT_SPECIFIED = "Error on typia.isParse(): generic argument is not specified.",
+    GENERIC_ARGUMENT = "Error on typia.isParse(): non-specified generic argument.",
 }

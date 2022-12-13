@@ -1,4 +1,4 @@
-import TSON from "../../src";
+import typia from "../../src";
 
 type Join<K, P> = K extends string | number
     ? P extends string | number
@@ -189,5 +189,5 @@ const value: Test555 = {
     or: { operation: "like", column: "bb.yy_bad" as "bb.yy", value: "abc" },
 };
 
-const is = TSON.createIs<Test555>();
+const is = typia.createIs<Test555>();
 console.log(is(value));

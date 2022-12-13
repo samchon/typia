@@ -1,4 +1,4 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 import { _test_application } from "../../internal/_test_application";
 
@@ -6,7 +6,7 @@ export const test_application_ajv_ObjectPropertyNullable = _test_application(
     "ajv",
 )(
     "ObjectPropertyNullable",
-    TSON.application<[ObjectPropertyNullable], "ajv">(),
+    typia.application<[ObjectPropertyNullable], "ajv">(),
     {
         schemas: [
             {
@@ -53,12 +53,12 @@ export const test_application_ajv_ObjectPropertyNullable = _test_application(
                         value: {
                             type: "boolean",
                             nullable: true,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectPropertyNullable.IPointer_lt_number_gt_": {
                     $id: "components#/schemas/ObjectPropertyNullable.IPointer_lt_number_gt_",
@@ -67,12 +67,12 @@ export const test_application_ajv_ObjectPropertyNullable = _test_application(
                         value: {
                             type: "number",
                             nullable: true,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectPropertyNullable.IPointer_lt_string_gt_": {
                     $id: "components#/schemas/ObjectPropertyNullable.IPointer_lt_string_gt_",
@@ -81,12 +81,12 @@ export const test_application_ajv_ObjectPropertyNullable = _test_application(
                         value: {
                             type: "string",
                             nullable: true,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["value"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
                 "ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_":
                     {
@@ -95,12 +95,12 @@ export const test_application_ajv_ObjectPropertyNullable = _test_application(
                         properties: {
                             value: {
                                 $ref: "components#/schemas/ObjectPropertyNullable.IMember.Nullable",
-                                "x-tson-required": true,
+                                "x-typia-required": true,
                             },
                         },
                         nullable: false,
                         required: ["value"],
-                        "x-tson_jsDocTags": [],
+                        "x-typia_jsDocTags": [],
                     },
                 "ObjectPropertyNullable.IMember.Nullable": {
                     $id: "components#/schemas/ObjectPropertyNullable.IMember.Nullable",
@@ -109,32 +109,32 @@ export const test_application_ajv_ObjectPropertyNullable = _test_application(
                         id: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         name: {
                             type: "string",
                             nullable: true,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         grade: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         serial: {
                             type: "number",
                             nullable: true,
-                            "x-tson-required": false,
+                            "x-typia-required": false,
                         },
                         activated: {
                             type: "boolean",
                             nullable: true,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: true,
                     required: ["id", "name", "activated"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },

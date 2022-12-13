@@ -1,10 +1,10 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ClassMethod } from "../../../structures/ClassMethod";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ClassMethod = _test_application("ajv")(
     "ClassMethod",
-    TSON.application<[ClassMethod], "ajv">(),
+    typia.application<[ClassMethod], "ajv">(),
     {
         schemas: [
             {
@@ -20,17 +20,17 @@ export const test_application_ajv_ClassMethod = _test_application("ajv")(
                         name: {
                             type: "string",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                         age: {
                             type: "number",
                             nullable: false,
-                            "x-tson-required": true,
+                            "x-typia-required": true,
                         },
                     },
                     nullable: false,
                     required: ["name", "age"],
-                    "x-tson_jsDocTags": [],
+                    "x-typia_jsDocTags": [],
                 },
             },
         },
