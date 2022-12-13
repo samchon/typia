@@ -106,17 +106,16 @@ export namespace TypiaSetupWizard {
             console.log(
                 "you've been already configured the tsconfig.json file.",
             );
-            return;
+        } else {
+            // DO CONFIGURE
+            options.strict = true;
+            plugins.push({ transform: "typia/lib/transform" } as any);
+
+            await fs.promises.writeFile(
+                "tsconfig.json",
+                Comment.stringify(config, null, 2),
+            );
         }
-
-        // DO CONFIGURE
-        options.strict = true;
-        plugins.push({ transform: "typia/lib/transform" } as any);
-
-        await fs.promises.writeFile(
-            "tsconfig.json",
-            Comment.stringify(config, null, 2),
-        );
         if (temporary === true)
             cp.execSync("npm uninstall --save-dev comment-json");
     }
@@ -138,8 +137,8 @@ function install(
 const halt =
     (closer: () => any) =>
     (desc: string): never => {
-        console.error(desc);
         closer();
+        console.error(desc);
         process.exit(-1);
     };
 
