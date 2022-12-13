@@ -66,8 +66,7 @@ export const iterate_metadata =
             iterate_metadata_atomic(meta, type) ||
             iterate_metadata_tuple(checker)(options)(collection)(
                 meta,
-                type,
-                node,
+                type as ts.TupleType,
             ) ||
             iterate_metadata_array(checker)(options)(collection)(meta, type) ||
             iterate_metadata_native(checker)(meta, type) ||

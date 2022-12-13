@@ -14,29 +14,23 @@ export const iterate_metadata_tuple =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (meta: Metadata, type: ts.Type, node: ts.TypeNode): boolean => {
+    (meta: Metadata, type: ts.TupleType): boolean => {
         if (!(checker as any).isTupleType(type)) return false;
 
-        while (ts.isTypeReferenceNode(node)) {
-            const declarations: ts.Declaration[] | undefined = (
-                node.typeName as any
-            )?.symbol?.declarations;
-            if (!declarations?.length) break;
+        const elementFlags: readonly ts.ElementFlags[] =
+            type.elementFlags ??
+            (type.target as ts.TupleType)?.elementFlags ??
+            [];
 
-            const alias = declarations[0];
-            if (!alias || !ts.isTypeAliasDeclaration(alias)) break;
-            node = alias.type;
-        }
-
-        const elements = ts.isTupleTypeNode(node) ? node.elements : undefined;
         const children: Metadata[] = checker
             .getTypeArguments(type as ts.TypeReference)
             .map((elem, i) => {
                 const child: Metadata = explore_metadata(checker)(options)(
                     collection,
                 )(elem, false);
-                if (elements === undefined || !ts.isRestTypeNode(elements[i]!))
-                    return child;
+
+                const flag: ts.ElementFlags | undefined = elementFlags[i];
+                if (flag !== ts.ElementFlags.Rest) return child;
 
                 const wrapper: Metadata = Metadata.initialize();
                 Writable(wrapper).rest = child;
