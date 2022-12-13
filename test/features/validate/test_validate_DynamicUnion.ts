@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { DynamicUnion } from "../../structures/DynamicUnion";
 import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_DynamicUnion = _test_validate(
     "DynamicUnion",
     DynamicUnion.generate,
-    (input) => TSON.validate(input),
+    (input) => typia.validate(input),
     DynamicUnion.SPOILERS,
 );

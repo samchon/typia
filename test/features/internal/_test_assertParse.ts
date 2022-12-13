@@ -16,7 +16,7 @@ export const _test_assertParse =
 
         if (primitive_equal_to(data, parsed) === false) {
             throw new Error(
-                `Bug on TSON.assertParse(): failed to understand the ${name} type.`,
+                `Bug on typia.assertParse(): failed to understand the ${name} type.`,
             );
         }
 
@@ -38,7 +38,7 @@ export const _test_assertParse =
                         });
             }
             throw new Error(
-                `Bug on TSON.assertParse(): failed to detect error on the ${name} type.`,
+                `Bug on typia.assertParse(): failed to detect error on the ${name} type.`,
             );
         }
     };

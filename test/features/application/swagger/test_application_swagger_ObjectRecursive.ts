@@ -2,13 +2,13 @@ import TSON from "../../../../src";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_ObjectRecursive = _test_application(
-    "swagger",
-)("ObjectRecursive", TSON.application<[ObjectRecursive], "swagger">(), {
-    schemas: [
+export const test_application_swagger_ObjectRecursive = 
+    _test_application("swagger")(
+        "ObjectRecursive",
+        TSON.application<[ObjectRecursive], "swagger">(),{schemas: [
         {
-            $ref: "#/components/schemas/ObjectRecursive.IDepartment",
-        },
+            $ref: "#/components/schemas/ObjectRecursive.IDepartment"
+        }
     ],
     components: {
         schemas: {
@@ -17,32 +17,32 @@ export const test_application_swagger_ObjectRecursive = _test_application(
                 properties: {
                     parent: {
                         $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     id: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     code: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     sequence: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     created_at: {
                         $ref: "#/components/schemas/ObjectRecursive.ITimestamp",
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
                 required: [
@@ -51,41 +51,41 @@ export const test_application_swagger_ObjectRecursive = _test_application(
                     "code",
                     "name",
                     "sequence",
-                    "created_at",
+                    "created_at"
                 ],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": []
             },
             "ObjectRecursive.IDepartment.Nullable": {
                 type: "object",
                 properties: {
                     parent: {
                         $ref: "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     id: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     code: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     sequence: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     created_at: {
                         $ref: "#/components/schemas/ObjectRecursive.ITimestamp",
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: true,
                 required: [
@@ -94,9 +94,9 @@ export const test_application_swagger_ObjectRecursive = _test_application(
                     "code",
                     "name",
                     "sequence",
-                    "created_at",
+                    "created_at"
                 ],
-                "x-tson_jsDocTags": [],
+                "x-typia_jsDocTags": []
             },
             "ObjectRecursive.ITimestamp": {
                 type: "object",
@@ -104,20 +104,24 @@ export const test_application_swagger_ObjectRecursive = _test_application(
                     time: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     zone: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
-                required: ["time", "zone"],
-                "x-tson_jsDocTags": [],
-            },
-        },
+                required: [
+                    "time",
+                    "zone"
+                ],
+                "x-typia_jsDocTags": []
+            }
+        }
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

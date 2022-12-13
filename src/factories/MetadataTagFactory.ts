@@ -173,7 +173,7 @@ const PARSER: Record<
         validate(identifier, metadata, output, "format", "string", ["pattern"]);
 
         // Ignore arbitrary @format values in the internal metadata,
-        // these are currently only supported on the TSON.application() API.
+        // these are currently only supported on the typia.application() API.
         if (FORMATS.has(value) === false) return null;
 
         return {
@@ -289,7 +289,7 @@ function parse_number(identifier: () => string, str: string): number {
     return value;
 }
 
-const LABEL = "Error on TSON.MetadataTagFactory.generate()";
+const LABEL = "Error on typia.MetadataTagFactory.generate()";
 const LEFT_PARENTHESIS = ["[", "("] as const;
 const RIGHT_PARENTHESIS = ["]", ")"] as const;
 const FORMATS = new Set(["uuid", "email", "url", "mobile", "ipv4", "ipv6"]);

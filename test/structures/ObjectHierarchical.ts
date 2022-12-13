@@ -86,8 +86,8 @@ export namespace ObjectHierarchical {
                       enterprise,
                   }
                 : null,
-            href: "https://github.com/samchon/typescript-json/blob/master/benchmark/data/recursive.ts",
-            referrer: "https://github.com/samchon/typescript-json",
+            href: "https://github.com/samchon/typia/blob/master/benchmark/data/recursive.ts",
+            referrer: "https://github.com/samchon/typia",
             ip: [127, 0, 0, 1],
             created_at: generate_timestamp(),
         };

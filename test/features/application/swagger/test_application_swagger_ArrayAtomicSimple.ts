@@ -2,10 +2,10 @@ import TSON from "../../../../src";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_ArrayAtomicSimple = _test_application(
-    "swagger",
-)("ArrayAtomicSimple", TSON.application<[ArrayAtomicSimple], "swagger">(), {
-    schemas: [
+export const test_application_swagger_ArrayAtomicSimple = 
+    _test_application("swagger")(
+        "ArrayAtomicSimple",
+        TSON.application<[ArrayAtomicSimple], "swagger">(),{schemas: [
         {
             type: "array",
             items: {
@@ -14,34 +14,35 @@ export const test_application_swagger_ArrayAtomicSimple = _test_application(
                         type: "array",
                         items: {
                             type: "boolean",
-                            nullable: false,
+                            nullable: false
                         },
-                        nullable: false,
+                        nullable: false
                     },
                     {
                         type: "array",
                         items: {
                             type: "number",
-                            nullable: false,
+                            nullable: false
                         },
-                        nullable: false,
+                        nullable: false
                     },
                     {
                         type: "array",
                         items: {
                             type: "string",
-                            nullable: false,
+                            nullable: false
                         },
-                        nullable: false,
-                    },
-                ],
+                        nullable: false
+                    }
+                ]
             },
-            nullable: false,
-        },
+            nullable: false
+        }
     ],
     components: {
-        schemas: {},
+        schemas: {}
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

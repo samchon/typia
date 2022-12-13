@@ -7,14 +7,14 @@ export function _test_equals<T extends object>(
     return () => {
         if (validator(generator()) === false)
             throw new Error(
-                `Bug on TSON.equals(): failed to understand the ${name} type.`,
+                `Bug on typia.equals(): failed to understand the ${name} type.`,
             );
 
         while (repeat-- > 0) {
             const elem: T = generator();
             if (spoil(elem) && validator(elem))
                 throw new Error(
-                    `Bug on TSON.equals(): failed to detect error on the ${name} type.`,
+                    `Bug on typia.equals(): failed to detect error on the ${name} type.`,
                 );
         }
     };

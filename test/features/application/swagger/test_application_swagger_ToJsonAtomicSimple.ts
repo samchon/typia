@@ -2,34 +2,35 @@ import TSON from "../../../../src";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_ToJsonAtomicSimple = _test_application(
-    "swagger",
-)("ToJsonAtomicSimple", TSON.application<[ToJsonAtomicSimple], "swagger">(), {
-    schemas: [
+export const test_application_swagger_ToJsonAtomicSimple = 
+    _test_application("swagger")(
+        "ToJsonAtomicSimple",
+        TSON.application<[ToJsonAtomicSimple], "swagger">(),{schemas: [
         {
             type: "array",
             items: {
                 oneOf: [
                     {
                         type: "boolean",
-                        nullable: false,
+                        nullable: false
                     },
                     {
                         type: "number",
-                        nullable: false,
+                        nullable: false
                     },
                     {
                         type: "string",
-                        nullable: false,
-                    },
-                ],
+                        nullable: false
+                    }
+                ]
             },
-            nullable: false,
-        },
+            nullable: false
+        }
     ],
     components: {
-        schemas: {},
+        schemas: {}
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

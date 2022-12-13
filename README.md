@@ -1,9 +1,9 @@
-# TypeScript-JSON
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typescript-json/blob/master/LICENSE)
-[![npm version](https://img.shields.io/npm/v/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
-[![Downloads](https://img.shields.io/npm/dm/typescript-json.svg)](https://www.npmjs.com/package/typescript-json)
-[![Build Status](https://github.com/samchon/typescript-json/workflows/build/badge.svg)](https://github.com/samchon/typescript-json/actions?query=workflow%3Abuild)
-[![Guide Documents](https://img.shields.io/badge/wiki-documentation-forestgreen)](https://github.com/samchon/typescript-json/wiki)
+# Typia
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typia/blob/master/LICENSE)
+[![npm version](https://img.shields.io/npm/v/typia.svg)](https://www.npmjs.com/package/typia)
+[![Downloads](https://img.shields.io/npm/dm/typia.svg)](https://www.npmjs.com/package/typia)
+[![Build Status](https://github.com/samchon/typia/workflows/build/badge.svg)](https://github.com/samchon/typia/actions?query=workflow%3Abuild)
+[![Guide Documents](https://img.shields.io/badge/wiki-documentation-forestgreen)](https://github.com/samchon/typia/wiki)
 
 ```typescript
 // RUNTIME VALIDATORS
@@ -24,78 +24,76 @@ export function assertStringify<T>(input: T): string; // safe and faster
     // +) stringify, isStringify, validateStringify
 ```
 
-`typescript-json` is a transformer library of TypeScript, supporting below features:
+`typia` is a transformer library of TypeScript, supporting below features:
 
   - Super-fast Runtime Validators
   - Safe JSON parse and fast stringify functions
   - JSON schema generator
 
-All functions in `typescript-json` require **only one line**. You don't need any extra dedication like JSON schema definitions or decorator function calls. Just call `typescript-json` function with only one line like `TSON.assert<T>(input)`.
+All functions in `typia` require **only one line**. You don't need any extra dedication like JSON schema definitions or decorator function calls. Just call `typia` function with only one line like `typia.assert<T>(input)`.
 
-Also, as `typescript-json` performs AOT (Ahead of Time) compilation skill, its performance is much faster than other competitive libaries. For an example, when comparing validate function `is()` with other competitive libraries, `typescript-json` is maximum **15,000x times faster** than `class-validator`.
+Also, as `typia` performs AOT (Ahead of Time) compilation skill, its performance is much faster than other competitive libaries. For an example, when comparing validate function `is()` with other competitive libraries, `typia` is maximum **15,000x times faster** than `class-validator`.
 
-![Is Function Benchmark](https://github.com/samchon/typescript-json/raw/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/is.svg)
+![Is Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/is.svg)
 
-> Measured on [Intel i5-1135g7, Surface Pro 8](https://github.com/samchon/typescript-json/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz#is)
+> Measured on [Intel i5-1135g7, Surface Pro 8](https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz#is)
 
 
 
 
 ## Setup
-### NPM Package
-At first, install this `typescript-json` by the `npm install` command. 
-
-Also, you need additional `devDependencies` to compile the TypeScript code with transformation. Therefore, install those all libraries `typescript`, `ttypescript` and `ts-node`. Inform that, `ttypescript` is not mis-writing. Do not forget to install the `ttypescript`.
-
+### Setup Wizard
 ```bash
-npm install --save typescript-json
-
-# ENSURE THOSE PACKAGES ARE INSTALLED
-npm install --save-dev typescript
-npm install --save-dev ttypescript
-npm install --save-dev ts-node
+npx typia setup
 ```
 
-### tsconfig.json
-After the installation, you've to configure `tsconfig.json` file like below. 
+Just type `npx typia setup`, that's all.
 
-Add a property `transform` and its value as `typescript-json/lib/transform` into `compilerOptions.plugins` array. When configuring, I recommend you to use the `strict` option, to enforce developers to distinguish whether each property is nullable or undefindable.
+After the setup, you can compile `typia` utilized code by using `ttsc` ([`ttypescript`](https://github.com/cevek/ttypescript)) command. If you want to run your TypeScript file directly through `ts-node`, add `-C ttypescript` argument like below:
 
-Also, you can configure additional properties like `numeric` and `functional`. The first, `numeric` is an option whether to test `Number.isNaN()` and `Number.isFinite()` to numeric value or not. The second, `functional` is an option whether to test function type or not. Default values of those options are all `true`.
-
-```typescript
-{
-  "compilerOptions": {
-    "strict": true,
-    "plugins": [
-      {
-        "transform": "typescript-json/lib/transform",
-        // "functional": true, // test function type
-        // "numeric": true, // test `isNaN()` and `isFinite()`
-      }
-    ]
-  }
-}
-```
-
-After the `tsconfig.json` definition, you can compile `typescript-json` utilized code by using `ttypescript`. If you want to run your TypeScript file through `ts-node`, use `-C ttypescript` argument like below:
-
-```bash
-# COMPILE
+<!-- ```bash
+# COMPILE THROUGH TTYPESCRIPT
 npx ttsc
 
-# WITH TS-NODE
-npx ts-node -C ttypescript
+# RUN TS-NODE WITH TTYPESCRIPT
+npx ts-node -C ttypescript src/index.ts
 ```
 
-### vite
-Just open `vite.config.ts` file and assign `typescript: ttsc` property like below.
+> If you want to use only `tsc` command, you can choose another option: [`ts-patch`](https://github.com/nonara/ts-patch). 
+> 
+> Set it up through `npx typia setup ts-patch` command and compile your project with pure(?) TypeScript compiler (`tsc`). When you want to run your TypeScript file directly, just use the pure `ts-node`, too. 
+> 
+> However, note that, the `ts-patch` will modify JavaScript files in `node_modules/typescript` directly. Therefore, it may cause some problems when you update typescript version after the `setup` process, until running `npm run prepare` command.
+> 
+> ```bash
+> # SETUP
+> npx typia setup ts-patch
+> 
+> #COMPILE
+> npx tsc
+> npx ts-node src/index.ts
+>
+> # AFTER UPDATE, HAVE TO RUN PREPARE COMMAND
+> npm install --save-dev typescript@latest
+> npm run prepare
+> ``` -->
 
-For reference, don't forget configuring [`tsconfig.json`](#tsconfigjson) file of above.
+### Manual Setup
+If you want to install and setup `typia` manually, read [Guide Documents - Setup](https://github.com/samchon/typia/wiki/Setup).
+
+  - [NPM Packages](https://github.com/samchon/typia/wiki/Setup#npm-packages)
+  - [`tsconfig.json`](https://github.com/samchon/typia/wiki/Setup#tsconfigjson)
+  - [vite](https://github.com/samchon/typia/wiki/Setup#vite)
+  - [webpack](https://github.com/samchon/typia/wiki/Setup#webpack)
+
+### vite
+When you want to setup `typia` on your frontend project with [`vite`](https://vitejs.dev/), just configure `vite.config.ts` like below.
+
+For reference, don't forget [setting up](#setup) before.
 
 ```typescript
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 import typescript from "@rollup/plugin-typescript";
 import ttsc from "ttypescript";
 
@@ -110,59 +108,29 @@ export default defineConfig({
 });
 ```
 
-### webpack
-If you're using `webpack` with `ts-loader`, configure the `webpack.config.js` file like below.
-
-```javascript
-const transform = require("typescript-json/lib/transform").default;
-
-module.exports = {
-    // I am hiding the rest of the webpack config
-    module: {
-        rules: [
-            {
-                test: /\.(ts|tsx)$/,
-                exclude: /node_modules/,
-                loader: 'ts-loader',
-                options: {
-                    getCustomTransformers: program => ({
-                        before: [transform(program)]
-                        // before: [
-                        //     transform(program, {
-                        //         functional: true,
-                        //         numeric: true
-                        // })
-                        // ]
-                    })
-                }
-            }
-        ]
-    }
-};
-```
 
 
 
 ## Features
-[![Guide Documents](https://img.shields.io/badge/wiki-documentation-forestgreen)](https://github.com/samchon/typescript-json/wiki)
+[![Guide Documents](https://img.shields.io/badge/wiki-documentation-forestgreen)](https://github.com/samchon/typia/wiki)
 
 In here README documents, only summarized informations are provided. 
 
-For more details, please refer to the [Guide Documents (wiki)](https://github.com/samchon/typescript-json/wiki).
+For more details, please refer to the [Guide Documents (wiki)](https://github.com/samchon/typia/wiki).
 
 > - **Runtime Validators**
->   - [powerful validator](https://github.com/samchon/typescript-json/wiki/Runtime-Validators#powerful-validator)
->   - [`is()` function](https://github.com/samchon/typescript-json/wiki/Runtime-Validators#is-function)
->   - [`assert()` function](https://github.com/samchon/typescript-json/wiki/Runtime-Validators#assert-function)
->   - [`validate()` function](https://github.com/samchon/typescript-json/wiki/Runtime-Validators#validate-function)
->   - [strict validators](https://github.com/samchon/typescript-json/wiki/Runtime-Validators#strict-validators)
->   - [factory functions](https://github.com/samchon/typescript-json/wiki/Runtime-Validators#factory-functions)
->   - [comment tags](https://github.com/samchon/typescript-json/wiki/Runtime-Validators#comment-tags)
+>   - [powerful validator](https://github.com/samchon/typia/wiki/Runtime-Validators#powerful-validator)
+>   - [`is()` function](https://github.com/samchon/typia/wiki/Runtime-Validators#is-function)
+>   - [`assert()` function](https://github.com/samchon/typia/wiki/Runtime-Validators#assert-function)
+>   - [`validate()` function](https://github.com/samchon/typia/wiki/Runtime-Validators#validate-function)
+>   - [strict validators](https://github.com/samchon/typia/wiki/Runtime-Validators#strict-validators)
+>   - [factory functions](https://github.com/samchon/typia/wiki/Runtime-Validators#factory-functions)
+>   - [comment tags](https://github.com/samchon/typia/wiki/Runtime-Validators#comment-tags)
 > - **Enhanced JSON**
->   - [JSON schema](https://github.com/samchon/typescript-json/wiki/Enhanced-JSON#json-schema)
->   - [`parse()` functions](https://github.com/samchon/typescript-json/wiki/Enhanced-JSON#parse-functions)
->   - [`stringify()` functions](https://github.com/samchon/typescript-json/wiki/Enhanced-JSON#stringify-functions)
->   - [comment tags](https://github.com/samchon/typescript-json/wiki/Enhanced-JSON#comment-tags)
+>   - [JSON schema](https://github.com/samchon/typia/wiki/Enhanced-JSON#json-schema)
+>   - [`parse()` functions](https://github.com/samchon/typia/wiki/Enhanced-JSON#parse-functions)
+>   - [`stringify()` functions](https://github.com/samchon/typia/wiki/Enhanced-JSON#stringify-functions)
+>   - [comment tags](https://github.com/samchon/typia/wiki/Enhanced-JSON#comment-tags)
 
 ### Runtime Validators
 ```typescript
@@ -185,40 +153,40 @@ export function createAssertEquals<T>(): (input: unknown) => T;
 export function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
 ```
 
-`typescript-json` supports three type of validator functions:
+`typia` supports three type of validator functions:
 
   - `is()`: returns `false` if not matched with the type `T`
-  - `assert()`: throws a [`TypeGuardError`](https://github.com/samchon/typescript-json/blob/master/src/TypeGuardError.ts) when not matched
+  - `assert()`: throws a [`TypeGuardError`](https://github.com/samchon/typia/blob/master/src/TypeGuardError.ts) when not matched
   - `validate()`
-    - when matched, returns [`IValidation.ISuccess<T>`](https://github.com/samchon/typescript-json/blob/master/src/IValidation.ts) with `value` property
-    - when not matched, returns [`IValidation.IFailure`](https://github.com/samchon/typescript-json/blob/master/src/IValidation.ts) with `errors` property
+    - when matched, returns [`IValidation.ISuccess<T>`](https://github.com/samchon/typia/blob/master/src/IValidation.ts) with `value` property
+    - when not matched, returns [`IValidation.IFailure`](https://github.com/samchon/typia/blob/master/src/IValidation.ts) with `errors` property
 
 Also, if you want more strict validator functions that even do not allowing superfluous properties not written in the type `T`, you can use those functions instead; `equals()`, `assertEquals()`, `validateEquals()`. Otherwise you want to create resuable validator functions,  you can utilize factory functions like `createIs()` instead.
 
-When you want to add special validation logics, like limiting range of numeric values, you can do it through comment tags. If you want to know about it, please visit the Guide Documents ([Features > Runtime Validators > Comment Tags](https://github.com/samchon/typescript-json/wiki/Runtime-Validators#comment-tags)).
+When you want to add special validation logics, like limiting range of numeric values, you can do it through comment tags. If you want to know about it, please visit the Guide Documents ([Features > Runtime Validators > Comment Tags](https://github.com/samchon/typia/wiki/Runtime-Validators#comment-tags)).
 
-<!-- > By the way, comparing those validator functions with other competitive libaries, you can find that only `typescript-json` is able to validate complicate union type. It is because `typescript-json` is supporting entire TypeScript type specs. Therefore, adapt `typescript-json` with confidence. It can validate everything.
+<!-- > By the way, comparing those validator functions with other competitive libaries, you can find that only `typia` is able to validate complicate union type. It is because `typia` is supporting entire TypeScript type specs. Therefore, adapt `typia` with confidence. It can validate everything.
 > 
-> Moreover, validation speed of `typescript-json` is extremely faster than any other validation libraries. For an example, `typescript-json` is maximum 15,000x times faster than `class-validator`. Visit [benchmarks](https://github.com/samchon/typescript-json/wiki/Benchmarks#validate-functions) section of Guide Documents and feel how fast `typescript-json` is.
+> Moreover, validation speed of `typia` is extremely faster than any other validation libraries. For an example, `typia` is maximum 15,000x times faster than `class-validator`. Visit [benchmarks](https://github.com/samchon/typia/wiki/Benchmarks#validate-functions) section of Guide Documents and feel how fast `typia` is.
 > 
-> Components               | `TSON` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
+> Components               | `typia` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
 > -------------------------|--------|-----------|-------|---------|-------|------------------
 > **Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ 
-> [Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-> [Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-> [Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔ | ✔
-> [Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-> [Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
-> [Object (additional tags)](https://github.com/samchon/typescript-json/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-> [Object (template literal types)](https://github.com/samchon/typescript-json/blob/master/test/structures/TemplateUnion.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-> [Object (dynamic properties)](https://github.com/samchon/typescript-json/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
-> [Array (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-> [Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
-> [Array (recursive, union)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
-> [Array (R+U, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-> [**Ultimate Union Type**](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+> [Object (simple)](https://github.com/samchon/typia/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+> [Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+> [Object (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔ | ✔
+> [Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+> [Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+> [Object (additional tags)](https://github.com/samchon/typia/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+> [Object (template literal types)](https://github.com/samchon/typia/blob/master/test/structures/TemplateUnion.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+> [Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+> [Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+> [Array (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+> [Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
+> [Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+> [**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
 > 
-> - TSON: `typescript-json`
+> - typia: `typia`
 > - C.V.: `class-validator` -->
 
 ### Enhanced JSON
@@ -250,16 +218,16 @@ export function createAssertStringify<T>(): (input: T) => string;
     // +) createStringify, createIsStringify, createValidateStringify
 ```
 
-`typescript-json` supports enhanced JSON functions.
+`typia` supports enhanced JSON functions.
 
   - `application()`: generate JSON schema with only one line
-    - you can complement JSON schema contents through [comment tags](https://github.com/samchon/typescript-json/wiki/Enhanced-JSON#comment-tags)
+    - you can complement JSON schema contents through [comment tags](https://github.com/samchon/typia/wiki/Enhanced-JSON#comment-tags)
   - `assertParse()`: parse JSON string safely with type validation
   - `isStringify()`: maximum 10x faster JSON stringify fuction even type safe
 
-![JSON string conversion speed](https://github.com/samchon/typescript-json/raw/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics/images/stringify.svg)
+![JSON string conversion speed](https://github.com/samchon/typia/raw/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics/images/stringify.svg)
 
-> Measured on [AMD R7 5800H](https://github.com/samchon/typescript-json/tree/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics#stringify)
+> Measured on [AMD R7 5800H](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics#stringify)
 
 
 
@@ -349,7 +317,7 @@ export async function trace_sale_question_and_comment
 ### Nestia-Helper
 https://github.com/samchon/nestia-helper
 
-Helper library of `NestJS`, using this `typescript-json`.
+Helper library of `NestJS`, using this `typia`.
 
 `nestia-helper` is a helper library of `NestJS`, which boosts up the `JSON.stringify()` speed 5x times faster about the API responses, automatically. Also, `nestia-helper` supports automatic validation of request body, that is maximum 15,000x times faster than legacy `class-validator` too. 
 
@@ -360,10 +328,10 @@ import * as nest from "@nestjs/common";
 @nest.Controller("bbs/articles")
 export class BbsArticlesController
 {
-    // automatic TSON.stringify() for response body
+    // automatic typia.stringify() for response body
     @helper.TypedRoute.Get()
     public store(
-        // automatic TSON.assert() for request body
+        // automatic typia.assert() for request body
         @helper.TypedBody() input: IBbsArticle.IStore
     ): Promise<IBbsArticle>;
 }

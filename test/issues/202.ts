@@ -1,8 +1,8 @@
-import TSON from "../../src";
+import typia from "../../src";
 
 type AnyTypeTry = { a: string };
 
-const validation: TSON.IValidation = TSON.validateEquals<AnyTypeTry>({
+const validation: typia.IValidation = typia.validateEquals<AnyTypeTry>({
     a: "something",
     b: "more",
     c: "and",

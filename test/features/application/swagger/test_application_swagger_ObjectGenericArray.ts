@@ -2,13 +2,13 @@ import TSON from "../../../../src";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_ObjectGenericArray = _test_application(
-    "swagger",
-)("ObjectGenericArray", TSON.application<[ObjectGenericArray], "swagger">(), {
-    schemas: [
+export const test_application_swagger_ObjectGenericArray = 
+    _test_application("swagger")(
+        "ObjectGenericArray",
+        TSON.application<[ObjectGenericArray], "swagger">(),{schemas: [
         {
-            $ref: "#/components/schemas/ObjectGenericArray",
-        },
+            $ref: "#/components/schemas/ObjectGenericArray"
+        }
     ],
     components: {
         schemas: {
@@ -17,21 +17,24 @@ export const test_application_swagger_ObjectGenericArray = _test_application(
                 properties: {
                     pagination: {
                         $ref: "#/components/schemas/ObjectGenericArray.IPagination",
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     data: {
                         type: "array",
                         items: {
                             $ref: "#/components/schemas/ObjectGenericArray.IPerson",
-                            "x-tson-required": true,
+                            "x-typia-required": true
                         },
                         nullable: false,
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
-                required: ["pagination", "data"],
-                "x-tson_jsDocTags": [],
+                required: [
+                    "pagination",
+                    "data"
+                ],
+                "x-typia_jsDocTags": []
             },
             "ObjectGenericArray.IPagination": {
                 type: "object",
@@ -39,27 +42,32 @@ export const test_application_swagger_ObjectGenericArray = _test_application(
                     page: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     limit: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     total_count: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     total_pages: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
-                required: ["page", "limit", "total_count", "total_pages"],
-                "x-tson_jsDocTags": [],
+                required: [
+                    "page",
+                    "limit",
+                    "total_count",
+                    "total_pages"
+                ],
+                "x-typia_jsDocTags": []
             },
             "ObjectGenericArray.IPerson": {
                 type: "object",
@@ -67,20 +75,24 @@ export const test_application_swagger_ObjectGenericArray = _test_application(
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     age: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
-                required: ["name", "age"],
-                "x-tson_jsDocTags": [],
-            },
-        },
+                required: [
+                    "name",
+                    "age"
+                ],
+                "x-typia_jsDocTags": []
+            }
+        }
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

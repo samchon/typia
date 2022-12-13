@@ -1,6 +1,6 @@
 import express from "express";
 
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ArrayHierarchical } from "../../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../../test/structures/ArrayRecursiveUnionExplicit";
@@ -25,46 +25,46 @@ const storage = ServerStorage(true);
 
 server.get(
     "/ObjectSimple",
-    reply(TSON.createAssertStringify<ObjectSimple[]>())(storage.ObjectSimple),
+    reply(typia.createAssertStringify<ObjectSimple[]>())(storage.ObjectSimple),
 );
 server.get(
     "/ObjectHierarchical",
-    reply(TSON.createAssertStringify<ObjectHierarchical[]>())(
+    reply(typia.createAssertStringify<ObjectHierarchical[]>())(
         storage.ObjectHierarchical,
     ),
 );
 server.get(
     "/ObjectRecursive",
-    reply(TSON.createAssertStringify<ObjectRecursive[]>())(
+    reply(typia.createAssertStringify<ObjectRecursive[]>())(
         storage.ObjectRecursive,
     ),
 );
 server.get(
     "/ObjectUnionExplicit",
-    reply(TSON.createAssertStringify<ObjectUnionExplicit[]>())(
+    reply(typia.createAssertStringify<ObjectUnionExplicit[]>())(
         storage.ObjectUnionExplicit,
     ),
 );
 
 server.get(
     "/ArraySimple",
-    reply(TSON.createAssertStringify<ArraySimple[]>())(storage.ArraySimple),
+    reply(typia.createAssertStringify<ArraySimple[]>())(storage.ArraySimple),
 );
 server.get(
     "/ArrayHierarchical",
-    reply(TSON.createAssertStringify<ArrayHierarchical[]>())(
+    reply(typia.createAssertStringify<ArrayHierarchical[]>())(
         storage.ArrayHierarchical,
     ),
 );
 server.get(
     "/ArrayRecursive",
-    reply(TSON.createAssertStringify<ArrayRecursive[]>())(
+    reply(typia.createAssertStringify<ArrayRecursive[]>())(
         storage.ArrayRecursive,
     ),
 );
 server.get(
     "/ArrayRecursiveUnionExplicit",
-    reply(TSON.createAssertStringify<ArrayRecursiveUnionExplicit[]>())(
+    reply(typia.createAssertStringify<ArrayRecursiveUnionExplicit[]>())(
         storage.ArrayRecursiveUnionExplicit,
     ),
 );

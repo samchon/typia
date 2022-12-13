@@ -2,30 +2,31 @@ import TSON from "../../../../src";
 import { FunctionalValueUnion } from "../../../structures/FunctionalValueUnion";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_ajv_FunctionalValueUnion = _test_application(
-    "ajv",
-)("FunctionalValueUnion", TSON.application<[FunctionalValueUnion], "ajv">(), {
-    schemas: [
+export const test_application_ajv_FunctionalValueUnion = 
+    _test_application("ajv")(
+        "FunctionalValueUnion",
+        TSON.application<[FunctionalValueUnion], "ajv">(),{schemas: [
         {
             type: "array",
             items: {
                 oneOf: [
                     {
                         type: "string",
-                        nullable: true,
+                        nullable: true
                     },
                     {
                         type: "number",
-                        nullable: true,
-                    },
-                ],
+                        nullable: true
+                    }
+                ]
             },
-            nullable: false,
-        },
+            nullable: false
+        }
     ],
     components: {
-        schemas: {},
+        schemas: {}
     },
     purpose: "ajv",
-    prefix: "components#/schemas",
-});
+    prefix: "components#/schemas"
+}
+);

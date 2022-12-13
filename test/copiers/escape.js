@@ -5,7 +5,7 @@ function copy(from, to, method) {
     const content = fs.readFileSync(from, "utf8");
     const replaced = ((content) => {
         const factory = [
-            "TSON.create",
+            "typia.create",
             method[0].toUpperCase(),
             method.substr(1)
         ].join("");
@@ -20,7 +20,7 @@ function copy(from, to, method) {
         const last = content.indexOf(">()", start);
         return [
             content.substring(0, start).replace("create_", ""),
-            `(input) => TSON.${method}(input)`,
+            `(input) => typia.${method}(input)`,
             content.substring(last + 3)
         ].join("")
     })(content);

@@ -2,34 +2,35 @@ import TSON from "../../../../src";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_ToJsonAtomicUnion = _test_application(
-    "swagger",
-)("ToJsonAtomicUnion", TSON.application<[ToJsonAtomicUnion], "swagger">(), {
-    schemas: [
+export const test_application_swagger_ToJsonAtomicUnion = 
+    _test_application("swagger")(
+        "ToJsonAtomicUnion",
+        TSON.application<[ToJsonAtomicUnion], "swagger">(),{schemas: [
         {
             type: "array",
             items: {
                 oneOf: [
                     {
                         type: "string",
-                        nullable: true,
+                        nullable: true
                     },
                     {
                         type: "number",
-                        nullable: true,
+                        nullable: true
                     },
                     {
                         type: "boolean",
-                        nullable: true,
-                    },
-                ],
+                        nullable: true
+                    }
+                ]
             },
-            nullable: false,
-        },
+            nullable: false
+        }
     ],
     components: {
-        schemas: {},
+        schemas: {}
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

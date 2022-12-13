@@ -15,7 +15,7 @@ export const _test_isParse =
 
         if (parsed === null || primitive_equal_to(data, parsed) === false) {
             throw new Error(
-                `Bug on TSON.isParse(): failed to understand the ${name} type.`,
+                `Bug on typia.isParse(): failed to understand the ${name} type.`,
             );
         }
 
@@ -25,7 +25,7 @@ export const _test_isParse =
 
             if (parser(JSON.stringify(elem)) !== null) {
                 throw new Error(
-                    `Bug on TSON.isParse(): failed to detect error on the ${name} type.`,
+                    `Bug on typia.isParse(): failed to detect error on the ${name} type.`,
                 );
             }
         }

@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_validateEquals_ObjectUnionImplicit = _test_validateEquals(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (input) => TSON.validateEquals(input),
+    (input) => typia.validateEquals(input),
 );

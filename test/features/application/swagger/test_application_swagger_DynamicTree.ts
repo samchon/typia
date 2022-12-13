@@ -2,13 +2,13 @@ import TSON from "../../../../src";
 import { DynamicTree } from "../../../structures/DynamicTree";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_DynamicTree = _test_application(
-    "swagger",
-)("DynamicTree", TSON.application<[DynamicTree], "swagger">(), {
-    schemas: [
+export const test_application_swagger_DynamicTree = 
+    _test_application("swagger")(
+        "DynamicTree",
+        TSON.application<[DynamicTree], "swagger">(),{schemas: [
         {
-            $ref: "#/components/schemas/DynamicTree",
-        },
+            $ref: "#/components/schemas/DynamicTree"
+        }
     ],
     components: {
         schemas: {
@@ -18,34 +18,39 @@ export const test_application_swagger_DynamicTree = _test_application(
                     id: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     sequence: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     children: {
                         $ref: "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
-                required: ["id", "sequence", "children"],
-                "x-tson_jsDocTags": [],
+                required: [
+                    "id",
+                    "sequence",
+                    "children"
+                ],
+                "x-typia_jsDocTags": []
             },
             Record_lt_string_comma__space_DynamicTree_gt_: {
                 type: "object",
                 properties: {},
                 additionalProperties: {
                     $ref: "#/components/schemas/DynamicTree",
-                    "x-tson-required": true,
+                    "x-typia-required": true
                 },
                 nullable: false,
-                "x-tson_jsDocTags": [],
-            },
-        },
+                "x-typia_jsDocTags": []
+            }
+        }
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

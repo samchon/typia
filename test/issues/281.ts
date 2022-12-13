@@ -2,7 +2,7 @@
 
 // import { $guard } from "../../src/functional/$guard";
 
-// import TSON from "../../src";
+// import typia from "../../src";
 // import { ObjectHierarchical } from "../structures/ObjectHierarchical";
 // import { ObjectSimple } from "../structures/ObjectSimple";
 
@@ -12,7 +12,7 @@
 //     const guard = $guard(method);
 //     return (
 //         exceptionable: boolean,
-//         props: Omit<TSON.TypeGuardError.IProps, "method">,
+//         props: Omit<typia.TypeGuardError.IProps, "method">,
 //     ) => {
 //         if (exceptionable) throw guard(props);
 //         return false;
@@ -20,9 +20,9 @@
 // };
 
 // const individual = (input: ObjectHierarchical) => {
-//     const $guard = throwable("TSON.assert()");
+//     const $guard = throwable("typia.assert()");
 //     const $every = <T>(array: T[], closure: (elem: T, i: number) => boolean) => array.every(closure);
-//     const $join = TSON.createAssert.join;
+//     const $join = typia.createAssert.join;
 //     const error = ((
 //         input: ObjectHierarchical,
 //         path: string,
@@ -381,9 +381,9 @@
 
 // const suite: benchmark.Suite = new benchmark.Suite();
 
-// suite.add("is", () => TSON.is(right));
+// suite.add("is", () => typia.is(right));
 // suite.add("individual", () => individual(right));
-// suite.add("last", () => TSON.assert(right));
+// suite.add("last", () => typia.assert(right));
 
 // suite.run();
 

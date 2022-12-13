@@ -2,271 +2,284 @@ import TSON from "../../../../src";
 import { ObjectGenericUnion } from "../../../structures/ObjectGenericUnion";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_ajv_ObjectGenericUnion = _test_application("ajv")(
-    "ObjectGenericUnion",
-    TSON.application<[ObjectGenericUnion], "ajv">(),
-    {
-        schemas: [
-            {
-                oneOf: [
-                    {
-                        $ref: "components#/schemas/ObjectGenericUnion.ISaleQuestion",
-                    },
-                    {
-                        $ref: "components#/schemas/ObjectGenericUnion.ISaleReview",
-                    },
-                ],
-            },
-        ],
-        components: {
-            schemas: {
-                "ObjectGenericUnion.ISaleQuestion": {
-                    $id: "components#/schemas/ObjectGenericUnion.ISaleQuestion",
-                    type: "object",
-                    properties: {
-                        writer: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        answer: {
-                            $ref: "components#/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
-                            "x-tson-required": true,
-                        },
-                        id: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        hit: {
-                            type: "number",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        contents: {
-                            type: "array",
-                            items: {
-                                $ref: "components#/schemas/ObjectGenericUnion.ISaleArticle.IContent",
-                                "x-tson-required": true,
-                            },
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        created_at: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                    },
-                    nullable: false,
-                    required: [
-                        "writer",
-                        "answer",
-                        "id",
-                        "hit",
-                        "contents",
-                        "created_at",
-                    ],
-                    "x-tson_jsDocTags": [],
+export const test_application_ajv_ObjectGenericUnion = 
+    _test_application("ajv")(
+        "ObjectGenericUnion",
+        TSON.application<[ObjectGenericUnion], "ajv">(),{schemas: [
+        {
+            oneOf: [
+                {
+                    $ref: "components#/schemas/ObjectGenericUnion.ISaleQuestion"
                 },
-                "ObjectGenericUnion.ISaleAnswer.Nullable": {
-                    $id: "components#/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
-                    type: "object",
-                    properties: {
-                        id: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        hit: {
-                            type: "number",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        contents: {
-                            type: "array",
-                            items: {
-                                $ref: "components#/schemas/ObjectGenericUnion.ISaleArticle.IContent",
-                                "x-tson-required": true,
-                            },
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        created_at: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
+                {
+                    $ref: "components#/schemas/ObjectGenericUnion.ISaleReview"
+                }
+            ]
+        }
+    ],
+    components: {
+        schemas: {
+            "ObjectGenericUnion.ISaleQuestion": {
+                $id: "components#/schemas/ObjectGenericUnion.ISaleQuestion",
+                type: "object",
+                properties: {
+                    writer: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
                     },
-                    nullable: true,
-                    required: ["id", "hit", "contents", "created_at"],
-                    "x-tson_jsDocTags": [],
-                },
-                "ObjectGenericUnion.ISaleArticle.IContent": {
-                    $id: "components#/schemas/ObjectGenericUnion.ISaleArticle.IContent",
-                    type: "object",
-                    properties: {
-                        id: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        created_at: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        title: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        body: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        files: {
-                            type: "array",
-                            items: {
-                                $ref: "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
-                                "x-tson-required": true,
-                            },
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
+                    answer: {
+                        $ref: "components#/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
+                        "x-typia-required": true
                     },
-                    nullable: false,
-                    required: ["id", "created_at", "title", "body", "files"],
-                    "x-tson_jsDocTags": [],
-                },
-                "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_":
-                    {
-                        $id: "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
-                        type: "object",
-                        properties: {
-                            url: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            name: {
-                                type: "string",
-                                nullable: false,
-                                "x-tson-required": true,
-                            },
-                            extension: {
-                                type: "string",
-                                nullable: true,
-                                "x-tson-required": true,
-                            },
+                    id: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    hit: {
+                        type: "number",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    contents: {
+                        type: "array",
+                        items: {
+                            $ref: "components#/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+                            "x-typia-required": true
                         },
                         nullable: false,
-                        required: ["url", "name", "extension"],
-                        "x-tson_jsDocTags": [],
+                        "x-typia-required": true
                     },
-                "ObjectGenericUnion.ISaleReview": {
-                    $id: "components#/schemas/ObjectGenericUnion.ISaleReview",
-                    type: "object",
-                    properties: {
-                        writer: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        answer: {
-                            $ref: "components#/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
-                            "x-tson-required": true,
-                        },
-                        id: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        hit: {
-                            type: "number",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        contents: {
-                            type: "array",
-                            items: {
-                                $ref: "components#/schemas/ObjectGenericUnion.ISaleReview.IContent",
-                                "x-tson-required": true,
-                            },
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        created_at: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                    },
-                    nullable: false,
-                    required: [
-                        "writer",
-                        "answer",
-                        "id",
-                        "hit",
-                        "contents",
-                        "created_at",
-                    ],
-                    "x-tson_jsDocTags": [],
+                    created_at: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    }
                 },
-                "ObjectGenericUnion.ISaleReview.IContent": {
-                    $id: "components#/schemas/ObjectGenericUnion.ISaleReview.IContent",
-                    type: "object",
-                    properties: {
-                        score: {
-                            type: "number",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        id: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        created_at: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        title: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        body: {
-                            type: "string",
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                        files: {
-                            type: "array",
-                            items: {
-                                $ref: "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
-                                "x-tson-required": true,
-                            },
-                            nullable: false,
-                            "x-tson-required": true,
-                        },
-                    },
-                    nullable: false,
-                    required: [
-                        "score",
-                        "id",
-                        "created_at",
-                        "title",
-                        "body",
-                        "files",
-                    ],
-                    "x-tson_jsDocTags": [],
-                },
+                nullable: false,
+                required: [
+                    "writer",
+                    "answer",
+                    "id",
+                    "hit",
+                    "contents",
+                    "created_at"
+                ],
+                "x-typia_jsDocTags": []
             },
-        },
-        purpose: "ajv",
-        prefix: "components#/schemas",
+            "ObjectGenericUnion.ISaleAnswer.Nullable": {
+                $id: "components#/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
+                type: "object",
+                properties: {
+                    id: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    hit: {
+                        type: "number",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    contents: {
+                        type: "array",
+                        items: {
+                            $ref: "components#/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+                            "x-typia-required": true
+                        },
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    created_at: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    }
+                },
+                nullable: true,
+                required: [
+                    "id",
+                    "hit",
+                    "contents",
+                    "created_at"
+                ],
+                "x-typia_jsDocTags": []
+            },
+            "ObjectGenericUnion.ISaleArticle.IContent": {
+                $id: "components#/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+                type: "object",
+                properties: {
+                    id: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    created_at: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    title: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    body: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    files: {
+                        type: "array",
+                        items: {
+                            $ref: "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+                            "x-typia-required": true
+                        },
+                        nullable: false,
+                        "x-typia-required": true
+                    }
+                },
+                nullable: false,
+                required: [
+                    "id",
+                    "created_at",
+                    "title",
+                    "body",
+                    "files"
+                ],
+                "x-typia_jsDocTags": []
+            },
+            "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_": {
+                $id: "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+                type: "object",
+                properties: {
+                    url: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    name: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    extension: {
+                        type: "string",
+                        nullable: true,
+                        "x-typia-required": true
+                    }
+                },
+                nullable: false,
+                required: [
+                    "url",
+                    "name",
+                    "extension"
+                ],
+                "x-typia_jsDocTags": []
+            },
+            "ObjectGenericUnion.ISaleReview": {
+                $id: "components#/schemas/ObjectGenericUnion.ISaleReview",
+                type: "object",
+                properties: {
+                    writer: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    answer: {
+                        $ref: "components#/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
+                        "x-typia-required": true
+                    },
+                    id: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    hit: {
+                        type: "number",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    contents: {
+                        type: "array",
+                        items: {
+                            $ref: "components#/schemas/ObjectGenericUnion.ISaleReview.IContent",
+                            "x-typia-required": true
+                        },
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    created_at: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    }
+                },
+                nullable: false,
+                required: [
+                    "writer",
+                    "answer",
+                    "id",
+                    "hit",
+                    "contents",
+                    "created_at"
+                ],
+                "x-typia_jsDocTags": []
+            },
+            "ObjectGenericUnion.ISaleReview.IContent": {
+                $id: "components#/schemas/ObjectGenericUnion.ISaleReview.IContent",
+                type: "object",
+                properties: {
+                    score: {
+                        type: "number",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    id: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    created_at: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    title: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    body: {
+                        type: "string",
+                        nullable: false,
+                        "x-typia-required": true
+                    },
+                    files: {
+                        type: "array",
+                        items: {
+                            $ref: "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+                            "x-typia-required": true
+                        },
+                        nullable: false,
+                        "x-typia-required": true
+                    }
+                },
+                nullable: false,
+                required: [
+                    "score",
+                    "id",
+                    "created_at",
+                    "title",
+                    "body",
+                    "files"
+                ],
+                "x-typia_jsDocTags": []
+            }
+        }
     },
+    purpose: "ajv",
+    prefix: "components#/schemas"
+}
 );

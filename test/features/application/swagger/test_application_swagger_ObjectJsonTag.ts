@@ -2,13 +2,13 @@ import TSON from "../../../../src";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_ObjectJsonTag = _test_application(
-    "swagger",
-)("ObjectJsonTag", TSON.application<[ObjectJsonTag], "swagger">(), {
-    schemas: [
+export const test_application_swagger_ObjectJsonTag = 
+    _test_application("swagger")(
+        "ObjectJsonTag",
+        TSON.application<[ObjectJsonTag], "swagger">(),{schemas: [
         {
-            $ref: "#/components/schemas/ObjectJsonTag",
-        },
+            $ref: "#/components/schemas/ObjectJsonTag"
+        }
     ],
     components: {
         schemas: {
@@ -19,83 +19,84 @@ export const test_application_swagger_ObjectJsonTag = _test_application(
                         type: "string",
                         nullable: false,
                         deprecated: true,
-                        "x-tson-jsDocTags": [
+                        "x-typia-jsDocTags": [
                             {
-                                name: "deprecated",
-                            },
+                                name: "deprecated"
+                            }
                         ],
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     description: {
                         type: "string",
                         nullable: false,
                         description: "Descripted property.",
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     title: {
                         type: "string",
                         nullable: false,
                         title: "something",
                         description: "Titled property.",
-                        "x-tson-jsDocTags": [
+                        "x-typia-jsDocTags": [
                             {
                                 name: "title",
                                 text: [
                                     {
                                         text: "something",
-                                        kind: "text",
-                                    },
-                                ],
-                            },
+                                        kind: "text"
+                                    }
+                                ]
+                            }
                         ],
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     complicate_title: {
                         type: "string",
                         nullable: false,
                         title: "something weirdo with {@link something } tag",
                         description: "Complicate title.",
-                        "x-tson-jsDocTags": [
+                        "x-typia-jsDocTags": [
                             {
                                 name: "title",
                                 text: [
                                     {
                                         text: "something weirdo with ",
-                                        kind: "text",
+                                        kind: "text"
                                     },
                                     {
                                         text: "{@link ",
-                                        kind: "link",
+                                        kind: "link"
                                     },
                                     {
                                         text: "something ",
-                                        kind: "linkText",
+                                        kind: "linkText"
                                     },
                                     {
                                         text: "}",
-                                        kind: "link",
+                                        kind: "link"
                                     },
                                     {
                                         text: " tag",
-                                        kind: "text",
-                                    },
-                                ],
-                            },
+                                        kind: "text"
+                                    }
+                                ]
+                            }
                         ],
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
                 required: [
                     "vulnerable",
                     "description",
                     "title",
-                    "complicate_title",
+                    "complicate_title"
                 ],
-                "x-tson_jsDocTags": [],
-            },
-        },
+                "x-typia_jsDocTags": []
+            }
+        }
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

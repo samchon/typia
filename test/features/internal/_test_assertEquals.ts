@@ -16,12 +16,12 @@ export function _test_assertEquals<T>(
             const output: T = assert(input);
             if (input !== output)
                 throw new Error(
-                    "Bug on TSON.assertEquals(): failed to return input value.",
+                    "Bug on typia.assertEquals(): failed to return input value.",
                 );
         } catch (exp) {
             if (exp instanceof TypeGuardError) {
                 throw new Error(
-                    `Bug on TSON.assertEquals(): failed to understand the ${name} type.`,
+                    `Bug on typia.assertEquals(): failed to understand the ${name} type.`,
                 );
             } else throw exp;
         }
@@ -47,12 +47,12 @@ export function _test_assertEquals<T>(
             try {
                 assert(input);
                 throw new Error(
-                    `Bug on TSON.assertEquals(): failed to detect surplus property on the ${name} type.`,
+                    `Bug on typia.assertEquals(): failed to detect surplus property on the ${name} type.`,
                 );
             } catch (exp) {
                 if (
                     exp instanceof TypeGuardError &&
-                    exp.method === "TSON.assertEquals" &&
+                    exp.method === "typia.assertEquals" &&
                     exp.path === fullPath &&
                     exp.expected === "undefined" &&
                     exp.value === key
@@ -67,7 +67,7 @@ export function _test_assertEquals<T>(
                         expected: exp.expected,
                     });
                     throw new Error(
-                        `Bug on TSON.assertEquals(): failed to detect surplus property on the ${name} type.`,
+                        `Bug on typia.assertEquals(): failed to detect surplus property on the ${name} type.`,
                     );
                 } else throw exp;
             }

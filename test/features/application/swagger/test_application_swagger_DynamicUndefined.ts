@@ -2,13 +2,13 @@ import TSON from "../../../../src";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_DynamicUndefined = _test_application(
-    "swagger",
-)("DynamicUndefined", TSON.application<[DynamicUndefined], "swagger">(), {
-    schemas: [
+export const test_application_swagger_DynamicUndefined = 
+    _test_application("swagger")(
+        "DynamicUndefined",
+        TSON.application<[DynamicUndefined], "swagger">(),{schemas: [
         {
-            $ref: "#/components/schemas/DynamicUndefined",
-        },
+            $ref: "#/components/schemas/DynamicUndefined"
+        }
     ],
     components: {
         schemas: {
@@ -16,10 +16,11 @@ export const test_application_swagger_DynamicUndefined = _test_application(
                 type: "object",
                 properties: {},
                 nullable: false,
-                "x-tson_jsDocTags": [],
-            },
-        },
+                "x-typia_jsDocTags": []
+            }
+        }
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

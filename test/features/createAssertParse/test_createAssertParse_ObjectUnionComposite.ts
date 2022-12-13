@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    TSON.createAssertParse<ObjectUnionComposite>(),
+    typia.createAssertParse<ObjectUnionComposite>(),
     ObjectUnionComposite.SPOILERS,
 );

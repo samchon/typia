@@ -2,13 +2,13 @@ import TSON from "../../../../src";
 import { DynamicArray } from "../../../structures/DynamicArray";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_DynamicArray = _test_application(
-    "swagger",
-)("DynamicArray", TSON.application<[DynamicArray], "swagger">(), {
-    schemas: [
+export const test_application_swagger_DynamicArray = 
+    _test_application("swagger")(
+        "DynamicArray",
+        TSON.application<[DynamicArray], "swagger">(),{schemas: [
         {
-            $ref: "#/components/schemas/DynamicArray",
-        },
+            $ref: "#/components/schemas/DynamicArray"
+        }
     ],
     components: {
         schemas: {
@@ -20,16 +20,17 @@ export const test_application_swagger_DynamicArray = _test_application(
                     items: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     nullable: false,
-                    "x-tson-required": true,
+                    "x-typia-required": true
                 },
                 nullable: false,
-                "x-tson_jsDocTags": [],
-            },
-        },
+                "x-typia_jsDocTags": []
+            }
+        }
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

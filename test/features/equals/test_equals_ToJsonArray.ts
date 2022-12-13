@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ToJsonArray } from "../../structures/ToJsonArray";
 import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_ToJsonArray = _test_equals(
     "ToJsonArray",
     ToJsonArray.generate,
-    (input) => TSON.equals(input),
+    (input) => typia.equals(input),
 );
