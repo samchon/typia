@@ -31,6 +31,6 @@ export namespace StringifyTransformer {
 }
 
 const enum ErrorMessages {
-    NO_INPUT_VALUE = "Error on TSON.stringify(): no input value.",
-    GENERIC_ARGUMENT = "Error on TSON.stringify(): non-specified generic argument.",
+    NO_INPUT_VALUE = "Error on typia.stringify(): no input value.",
+    GENERIC_ARGUMENT = "Error on typia.stringify(): non-specified generic argument.",
 }

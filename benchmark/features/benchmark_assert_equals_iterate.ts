@@ -1,7 +1,7 @@
 import { TSchema } from "@sinclair/typebox";
 import { TypeCheck } from "@sinclair/typebox/compiler";
 
-import TSON from "../../src";
+import typia from "../../src";
 // PURE TYPESCRIPT TYPES
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
@@ -46,45 +46,41 @@ const assertTypeBox =
         return input;
     };
 
-const prepare = AssertIterateBenchmarker.prepare([
-    "typescript-json",
-    "typebox",
-]);
+const prepare = AssertIterateBenchmarker.prepare(["typia", "typebox"]);
 
 /* -----------------------------------------------------------
     DO BENCHMARK
 ----------------------------------------------------------- */
 const assertEquals_po_iterate_pc = () => [
     prepare("object (simple)", () => ObjectSimple.generate(), {
-        "typescript-json": TSON.createAssertEquals<ObjectSimple>(),
+        typia: typia.createAssertEquals<ObjectSimple>(),
         typebox: assertTypeBox(TypeBoxObjectSimpleEquals),
     }),
     prepare("object (hierarchical)", () => ObjectHierarchical.generate(), {
-        "typescript-json": TSON.createAssertEquals<ObjectHierarchical>(),
+        typia: typia.createAssertEquals<ObjectHierarchical>(),
         typebox: assertTypeBox(TypeBoxObjectHierarchicalEquals),
     }),
     prepare("object (recursive)", () => ObjectRecursive.generate(), {
-        "typescript-json": TSON.createAssertEquals<ObjectRecursive>(),
+        typia: typia.createAssertEquals<ObjectRecursive>(),
         typebox: assertTypeBox(TypeBoxObjectRecursiveEquals),
     }),
     prepare("object (union, explicit)", () => ObjectUnionExplicit.generate(), {
-        "typescript-json": TSON.createAssertEquals<ObjectUnionExplicit>(),
+        typia: typia.createAssertEquals<ObjectUnionExplicit>(),
         typebox: assertTypeBox(TypeBoxObjectUnionExplicitEquals),
     }),
     prepare("object (union, implicit)", () => ObjectUnionImplicit.generate(), {
-        "typescript-json": TSON.createAssertEquals<ObjectUnionImplicit>(),
+        typia: typia.createAssertEquals<ObjectUnionImplicit>(),
         typebox: assertTypeBox(TypeBoxObjectUnionImplicitEquals),
     }),
     prepare("array (recursive)", () => ArrayRecursive.generate(), {
-        "typescript-json": TSON.createAssertEquals<ArrayRecursive>(),
+        typia: typia.createAssertEquals<ArrayRecursive>(),
         typebox: assertTypeBox(TypeBoxArrayRecursiveEquals),
     }),
     prepare(
         "array (union, explicit)",
         () => ArrayRecursiveUnionExplicit.generate(),
         {
-            "typescript-json":
-                TSON.createAssertEquals<ArrayRecursiveUnionExplicit>(),
+            typia: typia.createAssertEquals<ArrayRecursiveUnionExplicit>(),
             typebox: assertTypeBox(TypeBoxArrayRecursiveUnionExplicitEquals),
         },
     ),
@@ -92,13 +88,12 @@ const assertEquals_po_iterate_pc = () => [
         "array (union, implicit)",
         () => ArrayRecursiveUnionImplicit.generate(),
         {
-            "typescript-json":
-                TSON.createAssertEquals<ArrayRecursiveUnionImplicit>(),
+            typia: typia.createAssertEquals<ArrayRecursiveUnionImplicit>(),
             typebox: assertTypeBox(TypeBoxArrayRecursiveUnionImplicitEquals),
         },
     ),
     prepare("ultimate union", () => UltimateUnion.generate(), {
-        "typescript-json": TSON.createAssertEquals<UltimateUnion>(),
+        typia: typia.createAssertEquals<UltimateUnion>(),
         typebox: assertTypeBox(TypeBoxUltimateUnionEquals),
     }),
 ];

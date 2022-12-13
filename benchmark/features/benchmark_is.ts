@@ -7,7 +7,7 @@ import * as t from "io-ts";
 import "reflect-metadata";
 import { z } from "zod";
 
-import TSON from "../../src";
+import typia from "../../src";
 // PURE TYPESCRIPT TYPES
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
@@ -97,7 +97,7 @@ const isClassValidator =
     };
 
 const prepare = IsBenchmarker.prepare([
-    "typescript-json",
+    "typia",
     "typebox",
     "ajv",
     "io-ts",
@@ -113,7 +113,7 @@ const is = () => [
         "object (simple)",
         () => ObjectSimple.generate(),
         {
-            "typescript-json": TSON.createIs<ObjectSimple>(),
+            typia: typia.createIs<ObjectSimple>(),
             "io-ts": isIoTs(IoTsObjectSimple),
             "class-validator": isClassValidator(CvObjectSimple),
             zod: isZod(ZodObjectSimple),
@@ -126,7 +126,7 @@ const is = () => [
         "object (hierarchical)",
         () => ObjectHierarchical.generate(),
         {
-            "typescript-json": TSON.createIs<ObjectHierarchical>(),
+            typia: typia.createIs<ObjectHierarchical>(),
             "io-ts": isIoTs(IoTsObjectHierarchical),
             "class-validator": isClassValidator(CvObjectHierarchical),
             zod: isZod(ZodObjectHierarchical),
@@ -139,7 +139,7 @@ const is = () => [
         "object (recursive)",
         () => ObjectRecursive.generate(),
         {
-            "typescript-json": TSON.createIs<ObjectRecursive>(),
+            typia: typia.createIs<ObjectRecursive>(),
             "io-ts": isIoTs(IoTsObjectRecursive),
             "class-validator": isClassValidator(CvObjectRecursive),
             zod: isZod(ZodObjectRecursive),
@@ -152,7 +152,7 @@ const is = () => [
         "object (union, explicit)",
         () => ObjectUnionExplicit.generate(),
         {
-            "typescript-json": TSON.createIs<ObjectUnionExplicit>(),
+            typia: typia.createIs<ObjectUnionExplicit>(),
             "io-ts": isIoTs(IoTsObjectUnionExplicit),
             "class-validator": isClassValidator(CvObjectUnionExplicit),
             zod: isZod(ZodObjectUnionExplicit),
@@ -165,7 +165,7 @@ const is = () => [
         "object (union, implicit)",
         () => ObjectUnionImplicit.generate(),
         {
-            "typescript-json": TSON.createIs<ObjectUnionImplicit>(),
+            typia: typia.createIs<ObjectUnionImplicit>(),
             "io-ts": isIoTs(IoTsObjectUnionImplicit),
             "class-validator": isClassValidator(CvObjectUnionImplicit),
             zod: isZod(ZodObjectUnionImplicit),
@@ -178,7 +178,7 @@ const is = () => [
         "array (recursive)",
         () => ArrayRecursive.generate(),
         {
-            "typescript-json": TSON.createIs<ArrayRecursive>(),
+            typia: typia.createIs<ArrayRecursive>(),
             "io-ts": isIoTs(IoTsArrayRecursive),
             "class-validator": isClassValidator(CvArrayRecursive),
             zod: isZod(ZodArrayRecursive),
@@ -191,7 +191,7 @@ const is = () => [
         "array (union, explicit)",
         () => ArrayRecursiveUnionExplicit.generate(),
         {
-            "typescript-json": TSON.createIs<ArrayRecursiveUnionExplicit>(),
+            typia: typia.createIs<ArrayRecursiveUnionExplicit>(),
             "io-ts": isIoTs(IoTsArrayRecursiveUnionExplicit),
             "class-validator": isClassValidator(CvArrayRecursiveUnionExplicit),
             zod: isZod(ZodArrayRecursiveUnionExplicit),
@@ -204,7 +204,7 @@ const is = () => [
         "array (union, implicit)",
         () => ArrayRecursiveUnionImplicit.generate(),
         {
-            "typescript-json": TSON.createIs<ArrayRecursiveUnionImplicit>(),
+            typia: typia.createIs<ArrayRecursiveUnionImplicit>(),
             "io-ts": isIoTs(IoTsArrayRecursiveUnionImplicit),
             "class-validator": isClassValidator(CvArrayRecursiveUnionImplicit),
             zod: isZod(ZodArrayRecursiveUnionImplicit),
@@ -217,7 +217,7 @@ const is = () => [
         "ultimate union",
         () => UltimateUnion.generate(),
         {
-            "typescript-json": TSON.createIs<UltimateUnion>(),
+            typia: typia.createIs<UltimateUnion>(),
             "io-ts": isIoTs(IoTsUltimateUnion),
             "class-validator": null,
             zod: isZod(ZodUltimateUnion),

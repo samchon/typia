@@ -251,7 +251,7 @@ export namespace StringifyProgrammer {
                 for (const child of tuple)
                     if (StringifyPredicator.undefindable(meta))
                         throw new Error(
-                            `Error on TSON.stringify(): tuple cannot contain undefined value - (${child.getName()}).`,
+                            `Error on typia.stringify(): tuple cannot contain undefined value - (${child.getName()}).`,
                         );
                 unions.push({
                     type: "tuple",
@@ -281,7 +281,7 @@ export namespace StringifyProgrammer {
                 for (const child of meta.arrays)
                     if (StringifyPredicator.undefindable(child))
                         throw new Error(
-                            `Error on TSON.stringify(): array cannot contain undefined value (${child.getName()}).`,
+                            `Error on typia.stringify(): array cannot contain undefined value (${child.getName()}).`,
                         );
                 const value: () => ts.Expression = meta.arrays.some(
                     (elem) => elem.any,
