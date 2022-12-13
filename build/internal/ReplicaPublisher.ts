@@ -77,6 +77,7 @@ export namespace ReplicaPublisher {
         };
         delete pack.private;
         delete pack.devDependencies;
+        delete pack.bin;
 
         fs.writeFileSync(
             `${TSON}/package.json`,
