@@ -12,7 +12,7 @@ export function assert<T>(input: unknown | T): T; // throws TypeGuardError
 export function validate<T>(input: unknown | T): IValidation<T>; // detailed
 
 // STRICT VALIDATORS
-export function equals<T>(input: unknown| T): input is T;
+export function equals<T>(input: unknown | T): input is T;
 export function assertEquals<T>(input: unknown | T): T;
 export function validateEquals<T>(input: unknown | T): IValidation<T>;
 
