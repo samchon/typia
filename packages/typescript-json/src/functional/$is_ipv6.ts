@@ -1,0 +1,1 @@
+export * from "typia/lib/functional/$is_ipv6";

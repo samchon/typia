@@ -3,23 +3,25 @@ import type Comment from "comment-json";
 import fs from "fs";
 
 export namespace TypiaSetupWizard {
-    export async function ttypescript(): Promise<void> {
+    export async function ttypescript(manager: string): Promise<void> {
         // INSTALL
-        const pack: any = await prepare();
-        install(pack, "ttypescript", "--save-dev");
-        install(pack, "ts-node", "--save-dev");
+        const pack: any = await prepare(manager);
+        add(manager)(pack)("ttypescript", true);
+        add(manager)(pack)("ts-node", true);
 
         // TSCONFIG.JSON
-        await configure();
+        await configure(manager)(pack);
     }
 
-    export async function tsPatch(): Promise<void> {
+    export async function tsPatch(manager: string): Promise<void> {
         // INSTALL
-        const pack: any = await prepare();
-        install(pack, "ts-patch", "--save-dev");
+        add(manager)(await prepare(manager))("ts-patch", true);
         execute("npx ts-patch install");
 
         // PACKAGE.JSON
+        const pack: any = JSON.parse(
+            await fs.promises.readFile("package.json", "utf8"),
+        );
         if (!pack.scripts || typeof pack.scripts !== "object")
             pack.scripts = {};
         if (typeof pack.scripts.prepare === "string") {
@@ -35,104 +37,123 @@ export namespace TypiaSetupWizard {
         );
 
         // TSCONFIG.JSON
-        await configure();
+        await configure(manager)(pack);
     }
 
-    async function prepare(): Promise<any> {
+    async function prepare(manager: string): Promise<any> {
         if (fs.existsSync("package.json") === false)
             halt(() => {})("make package.json file or move to it.");
+
         const pack: any = JSON.parse(
             await fs.promises.readFile("package.json", "utf8"),
         );
-        install(pack, "typia", "--save");
-        install(pack, "typescript", "--save-dev");
+        const wizard = add(manager)(pack);
+
+        wizard("typia", false);
+        wizard("typescript", true);
         return pack;
     }
 
-    async function configure(): Promise<void> {
-        // VALIDATE PRERATATION
-        if (fs.existsSync("tsconfig.json") === false) {
-            execute("npx tsc --init");
-            if (fs.existsSync("tsconfig.json") === false)
-                halt(() => {})("tsconfig.json file does not exist.");
-        }
+    const configure =
+        (manager: string) =>
+        async (pack: any): Promise<void> => {
+            // VALIDATE PRERATATION
+            if (fs.existsSync("tsconfig.json") === false) {
+                execute("npx tsc --init");
+                if (fs.existsSync("tsconfig.json") === false)
+                    halt(() => {})("tsconfig.json file does not exist.");
+            }
 
-        const temporary: boolean = !fs.existsSync("node_modules/comment-json");
-        if (temporary === true)
-            cp.execSync("npm install --save-dev comment-json");
-
-        const halter: (msg: string) => never = halt(() => {
-            if (temporary === true)
-                cp.execSync("npm uninstall --save-dev comment-json");
-        });
-
-        // READ TSCONFIG FILE
-        const Comment: typeof import("comment-json") = await import(
-            process.cwd() + "/node_modules/comment-json"
-        );
-        const config: Comment.CommentObject = Comment.parse(
-            await fs.promises.readFile("tsconfig.json", "utf8"),
-        ) as Comment.CommentObject;
-        const options = config.compilerOptions as
-            | Comment.CommentObject
-            | undefined;
-        if (options === undefined)
-            halter(
-                `tsconfig.json file does not have "compilerOptions" property.`,
+            const temporary: boolean = !fs.existsSync(
+                "node_modules/comment-json",
             );
+            if (temporary === true) add(manager)(pack)("comment-json", true);
 
-        const plugins: Comment.CommentArray<Comment.CommentObject> = (() => {
-            const plugins = options.plugins as
-                | Comment.CommentArray<Comment.CommentObject>
+            const halter: (msg: string) => never = halt(() => {
+                if (temporary === true) remove(manager)("comment-json", true);
+            });
+
+            // READ TSCONFIG FILE
+            const Comment: typeof import("comment-json") = await import(
+                process.cwd() + "/node_modules/comment-json"
+            );
+            const config: Comment.CommentObject = Comment.parse(
+                await fs.promises.readFile("tsconfig.json", "utf8"),
+            ) as Comment.CommentObject;
+            const options = config.compilerOptions as
+                | Comment.CommentObject
                 | undefined;
-            if (plugins === undefined) return (options.plugins = [] as any);
-            else if (!Array.isArray(plugins))
+            if (options === undefined)
                 halter(
-                    `"plugins" property of tsconfig.json must be array type.`,
+                    `tsconfig.json file does not have "compilerOptions" property.`,
                 );
-            return plugins;
-        })();
 
-        // CHECK WHETHER CONFIGURED
-        const strict: boolean = options.strict === true;
-        const oldbie: Comment.CommentObject | undefined = plugins.find(
-            (p) =>
-                typeof p === "object" &&
-                p !== null &&
-                p.transform === "typia/lib/transform",
-        );
+            const plugins: Comment.CommentArray<Comment.CommentObject> =
+                (() => {
+                    const plugins = options.plugins as
+                        | Comment.CommentArray<Comment.CommentObject>
+                        | undefined;
+                    if (plugins === undefined)
+                        return (options.plugins = [] as any);
+                    else if (!Array.isArray(plugins))
+                        halter(
+                            `"plugins" property of tsconfig.json must be array type.`,
+                        );
+                    return plugins;
+                })();
 
-        if (strict === true && oldbie !== undefined) {
-            console.log(
-                "you've been already configured the tsconfig.json file.",
+            // CHECK WHETHER CONFIGURED
+            const strict: boolean = options.strict === true;
+            const oldbie: Comment.CommentObject | undefined = plugins.find(
+                (p) =>
+                    typeof p === "object" &&
+                    p !== null &&
+                    p.transform === "typia/lib/transform",
             );
-        } else {
-            // DO CONFIGURE
-            options.strict = true;
-            plugins.push({ transform: "typia/lib/transform" } as any);
 
-            await fs.promises.writeFile(
-                "tsconfig.json",
-                Comment.stringify(config, null, 2),
-            );
-        }
-        if (temporary === true)
-            cp.execSync("npm uninstall --save-dev comment-json");
-    }
+            if (strict === true && oldbie !== undefined) {
+                console.log(
+                    "you've been already configured the tsconfig.json file.",
+                );
+            } else {
+                // DO CONFIGURE
+                options.strict = true;
+                plugins.push({ transform: "typia/lib/transform" } as any);
+
+                await fs.promises.writeFile(
+                    "tsconfig.json",
+                    Comment.stringify(config, null, 2),
+                );
+            }
+            if (temporary === true) remove(manager)("comment-json", false);
+        };
 }
 
-function install(
-    pack: any,
-    modulo: string,
-    mode: "--save" | "--save-dev",
-): void {
-    const exists: boolean =
-        (mode === "--save"
-            ? !!pack.dependencies && !!pack.dependencies[modulo]
-            : !!pack.devDependencies && !!pack.devDependencies[modulo]) &&
-        fs.existsSync("node_modules/" + modulo);
-    if (exists === false) execute(`npm install ${mode} ${modulo}`);
-}
+const add =
+    (manager: string) =>
+    (pack: any) =>
+    (modulo: string, devOnly: boolean): void => {
+        const exists: boolean =
+            (devOnly === false
+                ? !!pack.dependencies && !!pack.dependencies[modulo]
+                : !!pack.devDependencies && !!pack.devDependencies[modulo]) &&
+            fs.existsSync("node_modules/" + modulo);
+        const middle: string =
+            manager === "yarn"
+                ? `add${devOnly ? " -D" : ""}`
+                : `install ${devOnly ? "--save-dev" : "--save"}`;
+        if (exists === false) execute(`${manager} ${middle} ${modulo}`);
+    };
+
+const remove =
+    (manager: string) =>
+    (modulo: string, devOnly: boolean): void => {
+        const middle: string =
+            manager === "yarn"
+                ? `remove${devOnly ? " -D" : ""}`
+                : `uninstall ${devOnly ? "--save-dev" : "--save"}`;
+        execute(`${manager} ${middle} ${modulo}`);
+    };
 
 const halt =
     (closer: () => any) =>
