@@ -1,0 +1,1 @@
+export * from "typia/lib/programmers/internal/metadata_to_pattern";
