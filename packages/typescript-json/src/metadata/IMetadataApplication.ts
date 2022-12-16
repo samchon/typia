@@ -1,0 +1,1 @@
+export * from "typia/lib/metadata/IMetadataApplication";

@@ -1,0 +1,1 @@
+export * from "typia/lib/factories/internal/emplace_metadata_object";
