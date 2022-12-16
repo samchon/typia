@@ -9,13 +9,9 @@ export namespace ReplicaPublisher {
         fs.mkdirSync(TSON);
 
         // COPY ESSENTIAL FILES
-        for (const file of [
-            "package.json",
-            "README.md",
-            "LICENSE",
-            "tsconfig.json",
-        ])
+        for (const file of ["package.json", "LICENSE", "tsconfig.json"])
             fs.copyFileSync(`${ROOT}/${file}`, `${TSON}/${file}`);
+        readme();
 
         // CREATE RE-EXPORT FILES
         fs.mkdirSync(`${TSON}/src`);
@@ -30,11 +26,19 @@ export namespace ReplicaPublisher {
         } catch {}
 
         console.log("publish typescript-json (replica)");
-        try {
-            cp.execSync(`npm publish --tag ${tag}`, {
-                cwd: TSON,
-            });
-        } catch {}
+        publish(`npm publish --tag ${tag}`);
+    }
+
+    function readme(): void {
+        const content: string = fs.readFileSync(`${ROOT}/README.md`, "utf8");
+        fs.writeFileSync(
+            `${TSON}/README.md`,
+            "> ## Deprecated\n" +
+                "> `typescript-json` has been renamed to [`typia`](https://github.com/samchon/typia)" +
+                "\n\n" +
+                content,
+            "utf8",
+        );
     }
 
     function link(lib: string, src: string): void {
@@ -84,6 +88,14 @@ export namespace ReplicaPublisher {
             JSON.stringify(pack, null, 2),
             "utf8",
         );
+    }
+
+    function publish(command: string): void {
+        try {
+            cp.execSync(command, {
+                cwd: TSON,
+            });
+        } catch {}
     }
 }
 
