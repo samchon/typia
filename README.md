@@ -78,7 +78,7 @@ If you want to install and setup `typia` manually, read [Guide Documents - Setup
 
 Also, the [Guide Documents - Setup](https://github.com/samchon/typia/wiki/Setup), you can learn how to use pure TypeScript compiler `tsc` instead of installing the `ttypescript` compiler with `ttsc` command.
 
-### vite
+### Vite
 When you want to setup `typia` on your frontend project with [`vite`](https://vitejs.dev/), just configure `vite.config.ts` like below.
 
 For reference, don't forget running [Setup Wizard](#setup-wizard) before.
@@ -231,7 +231,8 @@ export class BbsArticlesController {
      */
     @TypedRoute.Post() // 10x faster and safer JSON.stringify()
     public async store(
-        @TypedBody() input: IBbsArticle.IStore // supoer-fast validator
+        // super-fast validator
+        @TypedBody() input: IBbsArticle.IStore
     ): Promise<IBbsArticle>;
 }
 ```
