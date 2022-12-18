@@ -58,7 +58,7 @@ export namespace ArrayRecursive {
             return ["$input.sequence"];
         },
         (input) => {
-            input.created_at = [] as any;
+            input.created_at = {} as any;
             return ["$input.created_at.time", "$input.created_at.zone"];
         },
         (input) => {

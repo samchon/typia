@@ -45,7 +45,7 @@ export namespace ObjectGenericArray {
             return ["$input.pagination"];
         },
         (input) => {
-            input.pagination = [] as any;
+            input.pagination = {} as any;
             return [
                 "$input.pagination.page",
                 "$input.pagination.limit",

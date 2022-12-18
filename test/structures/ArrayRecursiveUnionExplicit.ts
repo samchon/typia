@@ -239,7 +239,7 @@ export namespace ArrayRecursiveUnionExplicit {
             return ["$input[4]"];
         },
         (input) => {
-            input[5].type = [] as any;
+            input[5].type = {} as any;
             return ["$input[5].type"];
         },
         (input) => {
