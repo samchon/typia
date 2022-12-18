@@ -106,7 +106,7 @@ export namespace ObjectUnionComposite {
             return ["$input[0].x"];
         },
         (input) => {
-            (input[1] as ObjectUnionComposite.ILine).p2 = [] as any;
+            (input[1] as ObjectUnionComposite.ILine).p2 = {} as any;
             return ["$input[1].p2.x", "$input[1].p2.y"];
         },
         (input) => {

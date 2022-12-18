@@ -52,7 +52,7 @@ export namespace ObjectUndefined {
             return ["$input[0].professor"];
         },
         (input) => {
-            input[0].classroom = [] as any;
+            input[0].classroom = {} as any;
             return ["$input[0].classroom.id", "$input[0].classroom.name"];
         },
         (input) => {

@@ -41,7 +41,7 @@ export namespace ObjectSimple {
             return ["$input.scale.x"];
         },
         (input) => {
-            input.position = [] as any;
+            input.position = {} as any;
             return [
                 "$input.position.x",
                 "$input.position.y",

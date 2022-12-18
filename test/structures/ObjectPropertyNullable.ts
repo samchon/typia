@@ -57,7 +57,7 @@ export namespace ObjectPropertyNullable {
             return ["$input[2][0].value"];
         },
         (input) => {
-            input[3][0].value = [] as any;
+            input[3][0].value = {} as any;
             return [
                 "$input[3][0].value.id",
                 "$input[3][0].value.name",
