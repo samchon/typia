@@ -415,10 +415,16 @@ export namespace CheckerProgrammer {
                         input,
                         [
                             {
-                                expression: ExpressionFactory.isObject(
-                                    input,
-                                    true,
-                                ),
+                                expression: ExpressionFactory.isObject(input, {
+                                    checkNull: true,
+                                    checkArray: meta.objects.some((obj) =>
+                                        obj.properties.every(
+                                            (prop) =>
+                                                !prop.key.isSoleLiteral() ||
+                                                !prop.value.required,
+                                        ),
+                                    ),
+                                }),
                                 combined: false,
                             },
                             {

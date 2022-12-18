@@ -339,7 +339,17 @@ export namespace StringifyProgrammer {
             if (meta.objects.length)
                 unions.push({
                     type: "object",
-                    is: () => ExpressionFactory.isObject(input, true),
+                    is: () =>
+                        ExpressionFactory.isObject(input, {
+                            checkNull: true,
+                            checkArray: meta.objects.some((obj) =>
+                                obj.properties.every(
+                                    (prop) =>
+                                        !prop.key.isSoleLiteral() ||
+                                        !prop.value.required,
+                                ),
+                            ),
+                        }),
                     value: () =>
                         meta.isParentResolved() === false &&
                         meta.objects.length === 1 &&
