@@ -130,7 +130,7 @@ export namespace ObjectUnionImplicit {
         (input) => {
             // line
             (input[1] as ObjectUnionImplicit.ILine).p2 = [] as any;
-            return ["$input[1].p2"];
+            return ["$input[1].p2.x", "$input[1].p2.y"];
         },
         (input) => {
             // triangle
