@@ -1,0 +1,1 @@
+export * from "typia/lib/factories/internal/protocols/emplace_protocol_property";
