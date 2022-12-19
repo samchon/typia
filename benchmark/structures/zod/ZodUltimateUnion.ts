@@ -18,7 +18,7 @@ const Schema: z.ZodType<IJsonSchema> = z.lazy(
 
 const Attribute = {
     description: z.union([z.string(), z.undefined()]),
-    "x-tson-metaTags": z.union([
+    "x-typia-metaTags": z.union([
         z.undefined(),
         z.array(
             z.object({
@@ -26,7 +26,7 @@ const Attribute = {
             }),
         ),
     ]),
-    "x-tson-jsDocTags": z.union([
+    "x-typia-jsDocTags": z.union([
         z.undefined(),
         z.array(
             z.object({
