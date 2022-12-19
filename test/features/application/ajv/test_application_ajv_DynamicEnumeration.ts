@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_DynamicEnumeration = 
     _test_application("ajv")(
         "DynamicEnumeration",
-        TSON.application<[DynamicEnumeration], "ajv">(),{schemas: [
+        typia.application<[DynamicEnumeration], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/DynamicEnumeration"
         }

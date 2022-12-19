@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { AtomicSimple } from "../../../structures/AtomicSimple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_AtomicSimple = 
     _test_application("swagger")(
         "AtomicSimple",
-        TSON.application<[AtomicSimple], "swagger">(),{schemas: [
+        typia.application<[AtomicSimple], "swagger">(),{schemas: [
         {
             type: "array",
             items: {

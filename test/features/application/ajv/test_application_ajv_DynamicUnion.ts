@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_DynamicUnion = 
     _test_application("ajv")(
         "DynamicUnion",
-        TSON.application<[DynamicUnion], "ajv">(),{schemas: [
+        typia.application<[DynamicUnion], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/DynamicUnion"
         }

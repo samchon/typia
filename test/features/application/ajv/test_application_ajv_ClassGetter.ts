@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ClassGetter } from "../../../structures/ClassGetter";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ClassGetter = 
     _test_application("ajv")(
         "ClassGetter",
-        TSON.application<[ClassGetter], "ajv">(),{schemas: [
+        typia.application<[ClassGetter], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/ClassGetter.Person"
         }

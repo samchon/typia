@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectGenericAlias = 
     _test_application("ajv")(
         "ObjectGenericAlias",
-        TSON.application<[ObjectGenericAlias], "ajv">(),{schemas: [
+        typia.application<[ObjectGenericAlias], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/ObjectGenericAlias.Alias"
         }

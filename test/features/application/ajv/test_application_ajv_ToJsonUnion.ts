@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ToJsonUnion = 
     _test_application("ajv")(
         "ToJsonUnion",
-        TSON.application<[ToJsonUnion], "ajv">(),{schemas: [
+        typia.application<[ToJsonUnion], "ajv">(),{schemas: [
         {
             type: "array",
             items: {

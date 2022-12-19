@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagDefault } from "../../../structures/TagDefault";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TagDefault = 
     _test_application("ajv")(
         "TagDefault",
-        TSON.application<[TagDefault], "ajv">(),{schemas: [
+        typia.application<[TagDefault], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/TagDefault"
         }

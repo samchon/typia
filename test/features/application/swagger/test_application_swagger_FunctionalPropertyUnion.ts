@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { FunctionalPropertyUnion } from "../../../structures/FunctionalPropertyUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_FunctionalPropertyUnion = 
     _test_application("swagger")(
         "FunctionalPropertyUnion",
-        TSON.application<[FunctionalPropertyUnion], "swagger">(),{schemas: [
+        typia.application<[FunctionalPropertyUnion], "swagger">(),{schemas: [
         {
             type: "array",
             items: {

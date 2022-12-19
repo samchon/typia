@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectRecursive = 
     _test_application("swagger")(
         "ObjectRecursive",
-        TSON.application<[ObjectRecursive], "swagger">(),{schemas: [
+        typia.application<[ObjectRecursive], "swagger">(),{schemas: [
         {
             $ref: "#/components/schemas/ObjectRecursive.IDepartment"
         }

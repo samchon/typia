@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectUnionNonPredictable = 
     _test_application("swagger")(
         "ObjectUnionNonPredictable",
-        TSON.application<[ObjectUnionNonPredictable], "swagger">(),{schemas: [
+        typia.application<[ObjectUnionNonPredictable], "swagger">(),{schemas: [
         {
             type: "array",
             items: {

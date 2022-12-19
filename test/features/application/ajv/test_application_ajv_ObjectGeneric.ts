@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectGeneric = 
     _test_application("ajv")(
         "ObjectGeneric",
-        TSON.application<[ObjectGeneric], "ajv">(),{schemas: [
+        typia.application<[ObjectGeneric], "ajv">(),{schemas: [
         {
             type: "array",
             items: [

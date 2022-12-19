@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ConstantAtomicWrapper = 
     _test_application("swagger")(
         "ConstantAtomicWrapper",
-        TSON.application<[ConstantAtomicWrapper], "swagger">(),{schemas: [
+        typia.application<[ConstantAtomicWrapper], "swagger">(),{schemas: [
         {
             type: "array",
             items: {

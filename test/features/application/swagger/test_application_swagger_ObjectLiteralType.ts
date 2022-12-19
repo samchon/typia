@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectLiteralType = 
     _test_application("swagger")(
         "ObjectLiteralType",
-        TSON.application<[ObjectLiteralType], "swagger">(),{schemas: [
+        typia.application<[ObjectLiteralType], "swagger">(),{schemas: [
         {
             $ref: "#/components/schemas/__object"
         }

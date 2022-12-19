@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TupleRestArray = 
     _test_application("ajv")(
         "TupleRestArray",
-        TSON.application<[TupleRestArray], "ajv">(),{schemas: [
+        typia.application<[TupleRestArray], "ajv">(),{schemas: [
         {
             type: "array",
             items: {

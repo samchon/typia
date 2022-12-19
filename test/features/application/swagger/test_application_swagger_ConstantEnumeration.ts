@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ConstantEnumeration = 
     _test_application("swagger")(
         "ConstantEnumeration",
-        TSON.application<[ConstantEnumeration], "swagger">(),{schemas: [
+        typia.application<[ConstantEnumeration], "swagger">(),{schemas: [
         {
             type: "array",
             items: {

@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectRecursive = 
     _test_application("ajv")(
         "ObjectRecursive",
-        TSON.application<[ObjectRecursive], "ajv">(),{schemas: [
+        typia.application<[ObjectRecursive], "ajv">(),{schemas: [
         {
             $recursiveRef: "components#/schemas/ObjectRecursive.IDepartment"
         }

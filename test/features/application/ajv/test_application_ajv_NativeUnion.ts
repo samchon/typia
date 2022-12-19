@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { NativeUnion } from "../../../structures/NativeUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_NativeUnion = 
     _test_application("ajv")(
         "NativeUnion",
-        TSON.application<[NativeUnion], "ajv">(),{schemas: [
+        typia.application<[NativeUnion], "ajv">(),{schemas: [
         {
             type: "array",
             items: {

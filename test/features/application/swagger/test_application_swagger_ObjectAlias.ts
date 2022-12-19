@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectAlias = 
     _test_application("swagger")(
         "ObjectAlias",
-        TSON.application<[ObjectAlias], "swagger">(),{schemas: [
+        typia.application<[ObjectAlias], "swagger">(),{schemas: [
         {
             type: "array",
             items: {

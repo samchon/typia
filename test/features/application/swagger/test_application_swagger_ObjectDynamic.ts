@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectDynamic = 
     _test_application("swagger")(
         "ObjectDynamic",
-        TSON.application<[ObjectDynamic], "swagger">(),{schemas: [
+        typia.application<[ObjectDynamic], "swagger">(),{schemas: [
         {
             $ref: "#/components/schemas/ObjectDynamic"
         }

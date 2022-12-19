@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagMatrix } from "../../../structures/TagMatrix";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TagMatrix = 
     _test_application("ajv")(
         "TagMatrix",
-        TSON.application<[TagMatrix], "ajv">(),{schemas: [
+        typia.application<[TagMatrix], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/TagMatrix"
         }

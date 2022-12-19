@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TemplateAtomic = 
     _test_application("ajv")(
         "TemplateAtomic",
-        TSON.application<[TemplateAtomic], "ajv">(),{schemas: [
+        typia.application<[TemplateAtomic], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/TemplateAtomic"
         }

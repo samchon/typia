@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { SetSimple } from "../../../structures/SetSimple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_SetSimple = 
     _test_application("ajv")(
         "SetSimple",
-        TSON.application<[SetSimple], "ajv">(),{schemas: [
+        typia.application<[SetSimple], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/SetSimple"
         }

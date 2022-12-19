@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TagObjectUnion = 
     _test_application("ajv")(
         "TagObjectUnion",
-        TSON.application<[TagObjectUnion], "ajv">(),{schemas: [
+        typia.application<[TagObjectUnion], "ajv">(),{schemas: [
         {
             type: "array",
             items: {

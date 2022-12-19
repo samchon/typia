@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectOptional = 
     _test_application("ajv")(
         "ObjectOptional",
-        TSON.application<[ObjectOptional], "ajv">(),{schemas: [
+        typia.application<[ObjectOptional], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/ObjectOptional"
         }

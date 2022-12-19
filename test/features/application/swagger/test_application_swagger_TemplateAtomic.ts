@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_TemplateAtomic = 
     _test_application("swagger")(
         "TemplateAtomic",
-        TSON.application<[TemplateAtomic], "swagger">(),{schemas: [
+        typia.application<[TemplateAtomic], "swagger">(),{schemas: [
         {
             $ref: "#/components/schemas/TemplateAtomic"
         }

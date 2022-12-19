@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { SetSimple } from "../../../structures/SetSimple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_SetSimple = 
     _test_application("swagger")(
         "SetSimple",
-        TSON.application<[SetSimple], "swagger">(),{schemas: [
+        typia.application<[SetSimple], "swagger">(),{schemas: [
         {
             $ref: "#/components/schemas/SetSimple"
         }

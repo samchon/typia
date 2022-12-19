@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ArrayRecursiveUnionImplicit = 
     _test_application("swagger")(
         "ArrayRecursiveUnionImplicit",
-        TSON.application<[ArrayRecursiveUnionImplicit], "swagger">(),{schemas: [
+        typia.application<[ArrayRecursiveUnionImplicit], "swagger">(),{schemas: [
         {
             type: "array",
             items: {

@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ArrayRecursiveUnionExplicit = 
     _test_application("ajv")(
         "ArrayRecursiveUnionExplicit",
-        TSON.application<[ArrayRecursiveUnionExplicit], "ajv">(),{schemas: [
+        typia.application<[ArrayRecursiveUnionExplicit], "ajv">(),{schemas: [
         {
             type: "array",
             items: {

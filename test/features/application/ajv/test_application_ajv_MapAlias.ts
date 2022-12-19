@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { MapAlias } from "../../../structures/MapAlias";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_MapAlias = 
     _test_application("ajv")(
         "MapAlias",
-        TSON.application<[MapAlias], "ajv">(),{schemas: [
+        typia.application<[MapAlias], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/MapAlias"
         }

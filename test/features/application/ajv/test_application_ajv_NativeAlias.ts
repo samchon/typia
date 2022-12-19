@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { NativeAlias } from "../../../structures/NativeAlias";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_NativeAlias = 
     _test_application("ajv")(
         "NativeAlias",
-        TSON.application<[NativeAlias], "ajv">(),{schemas: [
+        typia.application<[NativeAlias], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/NativeAlias"
         }

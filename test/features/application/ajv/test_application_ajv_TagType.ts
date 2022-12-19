@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagType } from "../../../structures/TagType";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TagType = 
     _test_application("ajv")(
         "TagType",
-        TSON.application<[TagType], "ajv">(),{schemas: [
+        typia.application<[TagType], "ajv">(),{schemas: [
         {
             type: "array",
             items: {

@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { SetAlias } from "../../../structures/SetAlias";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_SetAlias = 
     _test_application("swagger")(
         "SetAlias",
-        TSON.application<[SetAlias], "swagger">(),{schemas: [
+        typia.application<[SetAlias], "swagger">(),{schemas: [
         {
             $ref: "#/components/schemas/SetAlias"
         }

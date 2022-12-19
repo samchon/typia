@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_TemplateConstant = 
     _test_application("swagger")(
         "TemplateConstant",
-        TSON.application<[TemplateConstant], "swagger">(),{schemas: [
+        typia.application<[TemplateConstant], "swagger">(),{schemas: [
         {
             type: "array",
             items: {

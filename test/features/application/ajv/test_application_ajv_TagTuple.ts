@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagTuple } from "../../../structures/TagTuple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TagTuple = 
     _test_application("ajv")(
         "TagTuple",
-        TSON.application<[TagTuple], "ajv">(),{schemas: [
+        typia.application<[TagTuple], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/TagTuple"
         }

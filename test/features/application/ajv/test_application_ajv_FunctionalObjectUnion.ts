@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { FunctionalObjectUnion } from "../../../structures/FunctionalObjectUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_FunctionalObjectUnion = 
     _test_application("ajv")(
         "FunctionalObjectUnion",
-        TSON.application<[FunctionalObjectUnion], "ajv">(),{schemas: [
+        typia.application<[FunctionalObjectUnion], "ajv">(),{schemas: [
         {
             type: "array",
             items: {
