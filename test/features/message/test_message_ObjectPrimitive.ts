@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_ObjectPrimitive = _test_message(
     "ObjectPrimitive",
-    TSON.message<ObjectPrimitive>(),
+    typia.message<ObjectPrimitive>(),
     `syntax = \"proto3\";
 
 message ObjectPrimitive {
@@ -25,5 +25,5 @@ message ObjectPrimitive {
         string url = 4;
         string created_at = 5;
     }
-}`,
+}`
 );

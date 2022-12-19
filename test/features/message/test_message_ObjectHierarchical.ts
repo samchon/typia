@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_ObjectHierarchical = _test_message(
     "ObjectHierarchical",
-    TSON.message<ObjectHierarchical>(),
+    typia.message<ObjectHierarchical>(),
     `syntax = \"proto3\";
 
 message ObjectHierarchical {
@@ -63,5 +63,5 @@ message _alt_number_comma__space_number_comma__space_number_comma__space_number_
     double v1 = 2;
     double v2 = 3;
     double v3 = 4;
-}`,
+}`
 );

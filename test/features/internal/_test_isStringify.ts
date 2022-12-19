@@ -13,7 +13,7 @@ export function _test_isStringify<T>(
 
         if (optimized === null || predicate(data, optimized) === false) {
             throw new Error(
-                `Bug on TSON.isStringify(): failed to understand the ${name} type.`,
+                `Bug on typia.isStringify(): failed to understand the ${name} type.`,
             );
         }
 
@@ -23,7 +23,7 @@ export function _test_isStringify<T>(
 
             if (converter(elem) !== null)
                 throw new Error(
-                    `Bug on TSON.isStringify(): failed to detect error on the ${name} type.`,
+                    `Bug on typia.isStringify(): failed to detect error on the ${name} type.`,
                 );
         }
     };

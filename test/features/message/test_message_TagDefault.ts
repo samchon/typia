@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { TagDefault } from "../../structures/TagDefault";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_TagDefault = _test_message(
     "TagDefault",
-    TSON.message<TagDefault>(),
+    typia.message<TagDefault>(),
     `syntax = \"proto3\";
 
 message TagDefault {
@@ -43,5 +43,5 @@ message TagDefault {
         double o0 = 18;
         bool o1 = 19;
     }
-}`,
+}`
 );

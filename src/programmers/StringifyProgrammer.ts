@@ -251,7 +251,7 @@ export namespace StringifyProgrammer {
                 for (const child of tuple)
                     if (StringifyPredicator.undefindable(meta))
                         throw new Error(
-                            `Error on TSON.stringify(): tuple cannot contain undefined value - (${child.getName()}).`,
+                            `Error on typia.stringify(): tuple cannot contain undefined value - (${child.getName()}).`,
                         );
                 unions.push({
                     type: "tuple",
@@ -281,7 +281,7 @@ export namespace StringifyProgrammer {
                 for (const child of meta.arrays)
                     if (StringifyPredicator.undefindable(child))
                         throw new Error(
-                            `Error on TSON.stringify(): array cannot contain undefined value (${child.getName()}).`,
+                            `Error on typia.stringify(): array cannot contain undefined value (${child.getName()}).`,
                         );
                 const value: () => ts.Expression = meta.arrays.some(
                     (elem) => elem.any,
@@ -339,7 +339,17 @@ export namespace StringifyProgrammer {
             if (meta.objects.length)
                 unions.push({
                     type: "object",
-                    is: () => ExpressionFactory.isObject(input, true),
+                    is: () =>
+                        ExpressionFactory.isObject(input, {
+                            checkNull: true,
+                            checkArray: meta.objects.some((obj) =>
+                                obj.properties.every(
+                                    (prop) =>
+                                        !prop.key.isSoleLiteral() ||
+                                        !prop.value.required,
+                                ),
+                            ),
+                        }),
                     value: () =>
                         meta.isParentResolved() === false &&
                         meta.objects.length === 1 &&
@@ -421,18 +431,48 @@ export namespace StringifyProgrammer {
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
         ): ts.Expression => {
-            const children: ts.Expression[] = tuple.map((elem, index) =>
-                decode(project, importer)(
-                    ts.factory.createElementAccessExpression(input, index),
-                    elem,
+            const children: ts.Expression[] = tuple
+                .filter((elem) => elem.rest === null)
+                .map((elem, index) =>
+                    decode(project, importer)(
+                        ts.factory.createElementAccessExpression(input, index),
+                        elem,
+                        {
+                            ...explore,
+                            from: "array",
+                        },
+                        tags,
+                    ),
+                );
+            const rest = (() => {
+                if (tuple.length === 0) return null;
+                const last = tuple[tuple.length - 1]!;
+                if (last.rest === null) return null;
+
+                const code = decode(project, importer)(
+                    ts.factory.createCallExpression(
+                        IdentifierFactory.join(input, "slice"),
+                        undefined,
+                        [ts.factory.createNumericLiteral(tuple.length - 1)],
+                    ),
+                    (() => {
+                        const wrapper: Metadata = Metadata.initialize();
+                        wrapper.arrays.push(tuple[tuple.length - 1]!.rest!);
+                        return wrapper;
+                    })(),
                     {
                         ...explore,
-                        from: "array",
+                        start: tuple.length - 1,
                     },
                     tags,
-                ),
-            );
-            return StringifyJoiner.tuple(children);
+                );
+                return ts.factory.createCallExpression(
+                    importer.use("rest"),
+                    undefined,
+                    [code],
+                );
+            })();
+            return StringifyJoiner.tuple(children, rest);
         };
 
     const decode_atomic =

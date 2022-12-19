@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { SetSimple } from "../../structures/SetSimple";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_SetSimple = _test_message(
     "SetSimple",
-    TSON.message<SetSimple>(),
+    typia.message<SetSimple>(),
     `syntax = \"proto3\";
 
 message SetSimple {
@@ -26,5 +26,5 @@ message Set {
     message Element_lt_Array_lt_number_gt__gt_ {
         repeated number value = 1;
     }
-}`,
+}`
 );

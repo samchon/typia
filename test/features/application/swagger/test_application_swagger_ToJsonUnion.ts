@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_ToJsonUnion = _test_application(
-    "swagger",
-)("ToJsonUnion", TSON.application<[ToJsonUnion], "swagger">(), {
-    schemas: [
+export const test_application_swagger_ToJsonUnion = 
+    _test_application("swagger")(
+        "ToJsonUnion",
+        typia.application<[ToJsonUnion], "swagger">(),{schemas: [
         {
             type: "array",
             items: {
@@ -13,26 +13,26 @@ export const test_application_swagger_ToJsonUnion = _test_application(
                     {},
                     {
                         type: "string",
-                        nullable: false,
+                        nullable: false
                     },
                     {
                         type: "number",
-                        nullable: false,
+                        nullable: false
                     },
                     {
                         type: "boolean",
-                        nullable: false,
+                        nullable: false
                     },
                     {
-                        $ref: "#/components/schemas/ToJsonUnion.ICitizen",
+                        $ref: "#/components/schemas/ToJsonUnion.ICitizen"
                     },
                     {
-                        $ref: "#/components/schemas/ToJsonUnion.IProduct",
-                    },
-                ],
+                        $ref: "#/components/schemas/ToJsonUnion.IProduct"
+                    }
+                ]
             },
-            nullable: false,
-        },
+            nullable: false
+        }
     ],
     components: {
         schemas: {
@@ -42,22 +42,26 @@ export const test_application_swagger_ToJsonUnion = _test_application(
                     id: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     mobile: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
-                required: ["id", "mobile", "name"],
-                "x-tson_jsDocTags": [],
+                required: [
+                    "id",
+                    "mobile",
+                    "name"
+                ],
+                "x-typia_jsDocTags": []
             },
             "ToJsonUnion.IProduct": {
                 type: "object",
@@ -65,25 +69,30 @@ export const test_application_swagger_ToJsonUnion = _test_application(
                     manufacturer: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     brand: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     name: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
-                required: ["manufacturer", "brand", "name"],
-                "x-tson_jsDocTags": [],
-            },
-        },
+                required: [
+                    "manufacturer",
+                    "brand",
+                    "name"
+                ],
+                "x-typia_jsDocTags": []
+            }
+        }
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

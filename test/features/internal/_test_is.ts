@@ -9,7 +9,7 @@ export function _test_is<T>(
     return () => {
         if (validator(generator()) === false)
             throw new Error(
-                `Bug on TSON.is(): failed to understand the ${name} type.`,
+                `Bug on typia.is(): failed to understand the ${name} type.`,
             );
 
         (spoilers || []).forEach((spoil, i) => {
@@ -18,7 +18,7 @@ export function _test_is<T>(
 
             if (validator(elem) === true)
                 throw new Error(
-                    `Bug on TSON.is(): failed to detect error on the ${name} (${i}) type.`,
+                    `Bug on typia.is(): failed to detect error on the ${name} (${i}) type.`,
                 );
         });
     };

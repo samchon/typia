@@ -2,6 +2,8 @@ import ts from "typescript";
 
 import { Metadata } from "../../../metadata/Metadata";
 
+import { ArrayUtil } from "../../../utils/ArrayUtil";
+
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
 import { iterate_metadata_array } from "./iterate_metadata_array";
@@ -24,7 +26,7 @@ export const iterate_metadata =
     (meta: Metadata, type: ts.Type, parentResolved: boolean): void => {
         if (type.isTypeParameter() === true)
             throw new Error(
-                `Error on TSON.MetadataFactory.generate(): non-specified generic argument on ${meta.getName()}.`,
+                `Error on typia.MetadataFactory.generate(): non-specified generic argument on ${meta.getName()}.`,
             );
 
         // CHECK UNION & toJSON()
@@ -50,10 +52,11 @@ export const iterate_metadata =
         );
         if (node === undefined) {
             // EMPTY TUPLE CASE CAN BE
-            iterate_metadata_tuple(checker)(options)(collection)(meta, type);
+            ArrayUtil.set(meta.tuples, [], () => "[]");
             return;
         }
 
+        // ITERATE CASES
         iterate_metadata_coalesce(meta, type) ||
             iterate_metadata_constant(checker)(options)(meta, type) ||
             iterate_metadata_template(checker)(options)(collection)(
@@ -61,7 +64,10 @@ export const iterate_metadata =
                 type,
             ) ||
             iterate_metadata_atomic(meta, type) ||
-            iterate_metadata_tuple(checker)(options)(collection)(meta, type) ||
+            iterate_metadata_tuple(checker)(options)(collection)(
+                meta,
+                type as ts.TupleType,
+            ) ||
             iterate_metadata_array(checker)(options)(collection)(meta, type) ||
             iterate_metadata_native(checker)(meta, type) ||
             iterate_metadata_map(checker)(options)(collection)(meta, type) ||

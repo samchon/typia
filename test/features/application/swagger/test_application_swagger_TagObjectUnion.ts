@@ -1,25 +1,25 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_TagObjectUnion = _test_application(
-    "swagger",
-)("TagObjectUnion", TSON.application<[TagObjectUnion], "swagger">(), {
-    schemas: [
+export const test_application_swagger_TagObjectUnion = 
+    _test_application("swagger")(
+        "TagObjectUnion",
+        typia.application<[TagObjectUnion], "swagger">(),{schemas: [
         {
             type: "array",
             items: {
                 oneOf: [
                     {
-                        $ref: "#/components/schemas/TagObjectUnion.Numeric",
+                        $ref: "#/components/schemas/TagObjectUnion.Numeric"
                     },
                     {
-                        $ref: "#/components/schemas/TagObjectUnion.Literal",
-                    },
-                ],
+                        $ref: "#/components/schemas/TagObjectUnion.Literal"
+                    }
+                ]
             },
-            nullable: false,
-        },
+            nullable: false
+        }
     ],
     components: {
         schemas: {
@@ -29,30 +29,32 @@ export const test_application_swagger_TagObjectUnion = _test_application(
                     value: {
                         type: "number",
                         nullable: false,
-                        "x-tson-metaTags": [
+                        "x-typia-metaTags": [
                             {
                                 kind: "minimum",
-                                value: 3,
-                            },
+                                value: 3
+                            }
                         ],
-                        "x-tson-jsDocTags": [
+                        "x-typia-jsDocTags": [
                             {
                                 name: "minimum",
                                 text: [
                                     {
                                         text: "3",
-                                        kind: "text",
-                                    },
-                                ],
-                            },
+                                        kind: "text"
+                                    }
+                                ]
+                            }
                         ],
-                        "x-tson-required": true,
-                        minimum: 3,
-                    },
+                        "x-typia-required": true,
+                        minimum: 3
+                    }
                 },
                 nullable: false,
-                required: ["value"],
-                "x-tson_jsDocTags": [],
+                required: [
+                    "value"
+                ],
+                "x-typia_jsDocTags": []
             },
             "TagObjectUnion.Literal": {
                 type: "object",
@@ -60,41 +62,44 @@ export const test_application_swagger_TagObjectUnion = _test_application(
                     value: {
                         type: "string",
                         nullable: false,
-                        "x-tson-metaTags": [
+                        "x-typia-metaTags": [
                             {
                                 kind: "length",
                                 minimum: {
                                     include: true,
-                                    value: 3,
+                                    value: 3
                                 },
                                 maximum: {
                                     include: true,
-                                    value: 7,
-                                },
-                            },
+                                    value: 7
+                                }
+                            }
                         ],
-                        "x-tson-jsDocTags": [
+                        "x-typia-jsDocTags": [
                             {
                                 name: "length",
                                 text: [
                                     {
                                         text: "[3, 7]",
-                                        kind: "text",
-                                    },
-                                ],
-                            },
+                                        kind: "text"
+                                    }
+                                ]
+                            }
                         ],
-                        "x-tson-required": true,
+                        "x-typia-required": true,
                         minLength: 3,
-                        maxLength: 7,
-                    },
+                        maxLength: 7
+                    }
                 },
                 nullable: false,
-                required: ["value"],
-                "x-tson_jsDocTags": [],
-            },
-        },
+                required: [
+                    "value"
+                ],
+                "x-typia_jsDocTags": []
+            }
+        }
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

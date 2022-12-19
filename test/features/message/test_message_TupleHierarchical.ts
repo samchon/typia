@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_TupleHierarchical = _test_message(
     "TupleHierarchical",
-    TSON.message<TupleHierarchical>(),
+    typia.message<TupleHierarchical>(),
     `syntax = \"proto3\";
 
 message __Main {
@@ -64,5 +64,5 @@ message _alt_number_comma__space_number_comma__space__alt_boolean_comma__space_s
     double v0 = 1;
     double v1 = 2;
     [boolean, string] v2 = 3;
-}`,
+}`
 );

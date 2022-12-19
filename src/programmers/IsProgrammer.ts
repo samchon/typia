@@ -106,7 +106,10 @@ export namespace IsProgrammer {
                     const obj: MetadataObject = target.objects[0]!;
                     if (obj._Is_simple())
                         return ts.factory.createLogicalAnd(
-                            ExpressionFactory.isObject(input, true),
+                            ExpressionFactory.isObject(input, {
+                                checkNull: true,
+                                checkArray: false,
+                            }),
                             config.joiner.object(
                                 feature_object_entries(config as any)(obj)(
                                     input,

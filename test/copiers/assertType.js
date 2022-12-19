@@ -15,7 +15,7 @@ function copy(path, method) {
         const replaced = content
             .split("_assert").join("_assert_type")
             .split("assert/").join("assert_type/")
-            .split(`TSON.${method}`).join(`TSON.${method}Type`);
+            .split(`typia.${method}`).join(`typia.${method}Type`);
         fs.writeFileSync(
             `${to}/${file.replace("assert", "assert_type")}`, 
             replaced, 

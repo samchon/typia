@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { TemplateConstant } from "../../structures/TemplateConstant";
 import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_createIsParse_TemplateConstant = _test_isParse(
     "TemplateConstant",
     TemplateConstant.generate,
-    TSON.createIsParse<TemplateConstant>(),
+    typia.createIsParse<TemplateConstant>(),
     TemplateConstant.SPOILERS,
 );

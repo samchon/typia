@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ObjectDynamic } from "../../structures/ObjectDynamic";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_ObjectDynamic = _test_message(
     "ObjectDynamic",
-    TSON.message<ObjectDynamic>(),
+    typia.message<ObjectDynamic>(),
     `syntax = \"proto3\";
 
 message __Main {
@@ -19,5 +19,5 @@ message Object {
             bool o2 = 3;
         }
     }
-}`,
+}`
 );

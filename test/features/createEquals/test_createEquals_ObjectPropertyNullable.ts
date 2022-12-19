@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_ObjectPropertyNullable = _test_equals(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
-    TSON.createEquals<ObjectPropertyNullable>(),
+    typia.createEquals<ObjectPropertyNullable>(),
 );

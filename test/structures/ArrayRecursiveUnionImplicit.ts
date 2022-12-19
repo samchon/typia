@@ -193,7 +193,7 @@ export namespace ArrayRecursiveUnionImplicit {
             return ["$input[2].path"];
         },
         (input) => {
-            (input[3] as IShortcut).target = [] as any;
+            (input[3] as IShortcut).target = {} as any;
             return [
                 "$input[3].target.children",
                 "$input[3].target.id",

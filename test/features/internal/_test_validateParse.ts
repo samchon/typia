@@ -1,4 +1,4 @@
-import TSON, { IValidation, TypeGuardError } from "../../../src";
+import typia, { IValidation, TypeGuardError } from "../../../src";
 import { Spoiler } from "../../internal/Spoiler";
 import { primitive_equal_to } from "../../internal/primitive_equal_to";
 
@@ -16,11 +16,11 @@ export const _test_validateParse =
 
         if (valid.success === false)
             throw new Error(
-                `Bug on TSON.validateParse(): failed to understand the ${name} type.`,
+                `Bug on typia.validateParse(): failed to understand the ${name} type.`,
             );
         else if (primitive_equal_to(data, valid.data) === false) {
             throw new Error(
-                `Bug on TSON.validateParse(): failed to understand the ${name} type.`,
+                `Bug on typia.validateParse(): failed to understand the ${name} type.`,
             );
         }
 
@@ -32,10 +32,10 @@ export const _test_validateParse =
 
             if (valid.success === true)
                 throw new Error(
-                    `Bug on TSON.validateParse(): failed to detect error on the ${name} type.`,
+                    `Bug on typia.validateParse(): failed to detect error on the ${name} type.`,
                 );
 
-            TSON.assert(valid);
+            typia.assert(valid);
             expected.sort();
             valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 
@@ -51,7 +51,7 @@ export const _test_validateParse =
         if (wrong.length !== 0) {
             console.log(wrong);
             throw new Error(
-                `Bug on TSON.validateParse(): failed to detect error on the ${name} type.`,
+                `Bug on typia.validateParse(): failed to detect error on the ${name} type.`,
             );
         }
     };

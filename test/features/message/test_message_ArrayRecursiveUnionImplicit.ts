@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_ArrayRecursiveUnionImplicit = _test_message(
     "ArrayRecursiveUnionImplicit",
-    TSON.message<ArrayRecursiveUnionImplicit>(),
+    typia.message<ArrayRecursiveUnionImplicit>(),
     `syntax = \"proto3\";
 
 message ArrayRecursiveUnionImplicit {
@@ -91,5 +91,5 @@ message Array {
 
 message __Main {
     repeated Array.Element_lt__lp_ArrayRecursiveUnionImplicit.IDirectory_space__or__space_ArrayRecursiveUnionImplicit.IImageFile_space__or__space_ArrayRecursiveUnionImplicit.ISharedDirectory_space__or__space_ArrayRecursiveUnionImplicit.IShortcut_space__or__space_ArrayRecursiveUnionImplicit.ITextFile_space__or__space_ArrayRecursiveUnionImplicit.IZipFile_rp__gt_ value = 1;
-}`,
+}`
 );

@@ -1,5 +1,5 @@
-import TSON from "../../src";
+import typia from "../../src";
 
-TSON.assert<any>(1);
-TSON.is<any>(2);
-TSON.stringify<any>(3);
+typia.assert<any>(1);
+typia.is<any>(2);
+typia.stringify<any>(3);

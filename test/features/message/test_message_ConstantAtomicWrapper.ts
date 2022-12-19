@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_ConstantAtomicWrapper = _test_message(
     "ConstantAtomicWrapper",
-    TSON.message<ConstantAtomicWrapper>(),
+    typia.message<ConstantAtomicWrapper>(),
     `syntax = \"proto3\";
 
 message ConstantAtomicWrapper {
@@ -35,5 +35,5 @@ message _alt_ConstantAtomicWrapper {
             }
         }
     }
-}`,
+}`
 );

@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { TemplateUnion } from "../../structures/TemplateUnion";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_TemplateUnion = _test_message(
     "TemplateUnion",
-    TSON.message<TemplateUnion>(),
+    typia.message<TemplateUnion>(),
     `syntax = \"proto3\";
 
 message TemplateUnion {
@@ -31,5 +31,5 @@ message __type {
 
 message __Main {
     repeated TemplateUnion.Type value = 1;
-}`,
+}`
 );

@@ -1,527 +1,528 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagTuple } from "../../../structures/TagTuple";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_ajv_TagTuple = _test_application("ajv")(
-    "TagTuple",
-    TSON.application<[TagTuple], "ajv">(),
-    {
-        schemas: [
-            {
-                $ref: "components#/schemas/TagTuple",
-            },
-        ],
-        components: {
-            schemas: {
-                TagTuple: {
-                    $id: "components#/schemas/TagTuple",
-                    type: "object",
-                    properties: {
-                        tuple: {
-                            type: "array",
-                            items: [
-                                {
+export const test_application_ajv_TagTuple = 
+    _test_application("ajv")(
+        "TagTuple",
+        typia.application<[TagTuple], "ajv">(),{schemas: [
+        {
+            $ref: "components#/schemas/TagTuple"
+        }
+    ],
+    components: {
+        schemas: {
+            TagTuple: {
+                $id: "components#/schemas/TagTuple",
+                type: "object",
+                properties: {
+                    tuple: {
+                        type: "array",
+                        items: [
+                            {
+                                type: "string",
+                                nullable: false,
+                                "x-typia-metaTags": [
+                                    {
+                                        kind: "items",
+                                        minimum: {
+                                            include: true,
+                                            value: 3
+                                        },
+                                        maximum: {
+                                            include: true,
+                                            value: 7
+                                        }
+                                    },
+                                    {
+                                        kind: "range",
+                                        minimum: {
+                                            include: true,
+                                            value: 3
+                                        },
+                                        maximum: {
+                                            include: true,
+                                            value: 7
+                                        }
+                                    },
+                                    {
+                                        kind: "length",
+                                        minimum: {
+                                            include: true,
+                                            value: 3
+                                        },
+                                        maximum: {
+                                            include: true,
+                                            value: 7
+                                        }
+                                    }
+                                ],
+                                "x-typia-jsDocTags": [
+                                    {
+                                        name: "items",
+                                        text: [
+                                            {
+                                                text: "[3, 7]",
+                                                kind: "text"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: "range",
+                                        text: [
+                                            {
+                                                text: "[3, 7]",
+                                                kind: "text"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: "length",
+                                        text: [
+                                            {
+                                                text: "[3, 7]",
+                                                kind: "text"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "x-typia-required": true,
+                                minLength: 3,
+                                maxLength: 7
+                            },
+                            {
+                                type: "number",
+                                nullable: false,
+                                "x-typia-metaTags": [
+                                    {
+                                        kind: "items",
+                                        minimum: {
+                                            include: true,
+                                            value: 3
+                                        },
+                                        maximum: {
+                                            include: true,
+                                            value: 7
+                                        }
+                                    },
+                                    {
+                                        kind: "range",
+                                        minimum: {
+                                            include: true,
+                                            value: 3
+                                        },
+                                        maximum: {
+                                            include: true,
+                                            value: 7
+                                        }
+                                    },
+                                    {
+                                        kind: "length",
+                                        minimum: {
+                                            include: true,
+                                            value: 3
+                                        },
+                                        maximum: {
+                                            include: true,
+                                            value: 7
+                                        }
+                                    }
+                                ],
+                                "x-typia-jsDocTags": [
+                                    {
+                                        name: "items",
+                                        text: [
+                                            {
+                                                text: "[3, 7]",
+                                                kind: "text"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: "range",
+                                        text: [
+                                            {
+                                                text: "[3, 7]",
+                                                kind: "text"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: "length",
+                                        text: [
+                                            {
+                                                text: "[3, 7]",
+                                                kind: "text"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "x-typia-required": true,
+                                minimum: 3,
+                                maximum: 7
+                            },
+                            {
+                                type: "array",
+                                items: {
                                     type: "string",
                                     nullable: false,
-                                    "x-tson-metaTags": [
+                                    "x-typia-metaTags": [
                                         {
                                             kind: "items",
                                             minimum: {
                                                 include: true,
-                                                value: 3,
+                                                value: 3
                                             },
                                             maximum: {
                                                 include: true,
-                                                value: 7,
-                                            },
+                                                value: 7
+                                            }
                                         },
                                         {
                                             kind: "range",
                                             minimum: {
                                                 include: true,
-                                                value: 3,
+                                                value: 3
                                             },
                                             maximum: {
                                                 include: true,
-                                                value: 7,
-                                            },
+                                                value: 7
+                                            }
                                         },
                                         {
                                             kind: "length",
                                             minimum: {
                                                 include: true,
-                                                value: 3,
+                                                value: 3
                                             },
                                             maximum: {
                                                 include: true,
-                                                value: 7,
-                                            },
-                                        },
+                                                value: 7
+                                            }
+                                        }
                                     ],
-                                    "x-tson-jsDocTags": [
+                                    "x-typia-jsDocTags": [
                                         {
                                             name: "items",
                                             text: [
                                                 {
                                                     text: "[3, 7]",
-                                                    kind: "text",
-                                                },
-                                            ],
+                                                    kind: "text"
+                                                }
+                                            ]
                                         },
                                         {
                                             name: "range",
                                             text: [
                                                 {
                                                     text: "[3, 7]",
-                                                    kind: "text",
-                                                },
-                                            ],
+                                                    kind: "text"
+                                                }
+                                            ]
                                         },
                                         {
                                             name: "length",
                                             text: [
                                                 {
                                                     text: "[3, 7]",
-                                                    kind: "text",
-                                                },
-                                            ],
-                                        },
+                                                    kind: "text"
+                                                }
+                                            ]
+                                        }
                                     ],
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                     minLength: 3,
-                                    maxLength: 7,
+                                    maxLength: 7
                                 },
-                                {
+                                nullable: false,
+                                "x-typia-metaTags": [
+                                    {
+                                        kind: "items",
+                                        minimum: {
+                                            include: true,
+                                            value: 3
+                                        },
+                                        maximum: {
+                                            include: true,
+                                            value: 7
+                                        }
+                                    },
+                                    {
+                                        kind: "range",
+                                        minimum: {
+                                            include: true,
+                                            value: 3
+                                        },
+                                        maximum: {
+                                            include: true,
+                                            value: 7
+                                        }
+                                    },
+                                    {
+                                        kind: "length",
+                                        minimum: {
+                                            include: true,
+                                            value: 3
+                                        },
+                                        maximum: {
+                                            include: true,
+                                            value: 7
+                                        }
+                                    }
+                                ],
+                                "x-typia-jsDocTags": [
+                                    {
+                                        name: "items",
+                                        text: [
+                                            {
+                                                text: "[3, 7]",
+                                                kind: "text"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: "range",
+                                        text: [
+                                            {
+                                                text: "[3, 7]",
+                                                kind: "text"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: "length",
+                                        text: [
+                                            {
+                                                text: "[3, 7]",
+                                                kind: "text"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "x-typia-required": true,
+                                minItems: 3,
+                                maxItems: 7
+                            },
+                            {
+                                type: "array",
+                                items: {
                                     type: "number",
                                     nullable: false,
-                                    "x-tson-metaTags": [
+                                    "x-typia-metaTags": [
                                         {
                                             kind: "items",
                                             minimum: {
                                                 include: true,
-                                                value: 3,
+                                                value: 3
                                             },
                                             maximum: {
                                                 include: true,
-                                                value: 7,
-                                            },
+                                                value: 7
+                                            }
                                         },
                                         {
                                             kind: "range",
                                             minimum: {
                                                 include: true,
-                                                value: 3,
+                                                value: 3
                                             },
                                             maximum: {
                                                 include: true,
-                                                value: 7,
-                                            },
+                                                value: 7
+                                            }
                                         },
                                         {
                                             kind: "length",
                                             minimum: {
                                                 include: true,
-                                                value: 3,
+                                                value: 3
                                             },
                                             maximum: {
                                                 include: true,
-                                                value: 7,
-                                            },
-                                        },
+                                                value: 7
+                                            }
+                                        }
                                     ],
-                                    "x-tson-jsDocTags": [
+                                    "x-typia-jsDocTags": [
                                         {
                                             name: "items",
                                             text: [
                                                 {
                                                     text: "[3, 7]",
-                                                    kind: "text",
-                                                },
-                                            ],
+                                                    kind: "text"
+                                                }
+                                            ]
                                         },
                                         {
                                             name: "range",
                                             text: [
                                                 {
                                                     text: "[3, 7]",
-                                                    kind: "text",
-                                                },
-                                            ],
+                                                    kind: "text"
+                                                }
+                                            ]
                                         },
                                         {
                                             name: "length",
                                             text: [
                                                 {
                                                     text: "[3, 7]",
-                                                    kind: "text",
-                                                },
-                                            ],
-                                        },
+                                                    kind: "text"
+                                                }
+                                            ]
+                                        }
                                     ],
-                                    "x-tson-required": true,
+                                    "x-typia-required": true,
                                     minimum: 3,
-                                    maximum: 7,
+                                    maximum: 7
                                 },
-                                {
-                                    type: "array",
-                                    items: {
-                                        type: "string",
-                                        nullable: false,
-                                        "x-tson-metaTags": [
-                                            {
-                                                kind: "items",
-                                                minimum: {
-                                                    include: true,
-                                                    value: 3,
-                                                },
-                                                maximum: {
-                                                    include: true,
-                                                    value: 7,
-                                                },
-                                            },
-                                            {
-                                                kind: "range",
-                                                minimum: {
-                                                    include: true,
-                                                    value: 3,
-                                                },
-                                                maximum: {
-                                                    include: true,
-                                                    value: 7,
-                                                },
-                                            },
-                                            {
-                                                kind: "length",
-                                                minimum: {
-                                                    include: true,
-                                                    value: 3,
-                                                },
-                                                maximum: {
-                                                    include: true,
-                                                    value: 7,
-                                                },
-                                            },
-                                        ],
-                                        "x-tson-jsDocTags": [
-                                            {
-                                                name: "items",
-                                                text: [
-                                                    {
-                                                        text: "[3, 7]",
-                                                        kind: "text",
-                                                    },
-                                                ],
-                                            },
-                                            {
-                                                name: "range",
-                                                text: [
-                                                    {
-                                                        text: "[3, 7]",
-                                                        kind: "text",
-                                                    },
-                                                ],
-                                            },
-                                            {
-                                                name: "length",
-                                                text: [
-                                                    {
-                                                        text: "[3, 7]",
-                                                        kind: "text",
-                                                    },
-                                                ],
-                                            },
-                                        ],
-                                        "x-tson-required": true,
-                                        minLength: 3,
-                                        maxLength: 7,
+                                nullable: false,
+                                "x-typia-metaTags": [
+                                    {
+                                        kind: "items",
+                                        minimum: {
+                                            include: true,
+                                            value: 3
+                                        },
+                                        maximum: {
+                                            include: true,
+                                            value: 7
+                                        }
                                     },
-                                    nullable: false,
-                                    "x-tson-metaTags": [
-                                        {
-                                            kind: "items",
-                                            minimum: {
-                                                include: true,
-                                                value: 3,
-                                            },
-                                            maximum: {
-                                                include: true,
-                                                value: 7,
-                                            },
+                                    {
+                                        kind: "range",
+                                        minimum: {
+                                            include: true,
+                                            value: 3
                                         },
-                                        {
-                                            kind: "range",
-                                            minimum: {
-                                                include: true,
-                                                value: 3,
-                                            },
-                                            maximum: {
-                                                include: true,
-                                                value: 7,
-                                            },
+                                        maximum: {
+                                            include: true,
+                                            value: 7
+                                        }
+                                    },
+                                    {
+                                        kind: "length",
+                                        minimum: {
+                                            include: true,
+                                            value: 3
                                         },
-                                        {
-                                            kind: "length",
-                                            minimum: {
-                                                include: true,
-                                                value: 3,
-                                            },
-                                            maximum: {
-                                                include: true,
-                                                value: 7,
-                                            },
-                                        },
-                                    ],
-                                    "x-tson-jsDocTags": [
-                                        {
-                                            name: "items",
-                                            text: [
-                                                {
-                                                    text: "[3, 7]",
-                                                    kind: "text",
-                                                },
-                                            ],
-                                        },
-                                        {
-                                            name: "range",
-                                            text: [
-                                                {
-                                                    text: "[3, 7]",
-                                                    kind: "text",
-                                                },
-                                            ],
-                                        },
-                                        {
-                                            name: "length",
-                                            text: [
-                                                {
-                                                    text: "[3, 7]",
-                                                    kind: "text",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                    "x-tson-required": true,
-                                    minItems: 3,
-                                    maxItems: 7,
-                                },
-                                {
-                                    type: "array",
-                                    items: {
-                                        type: "number",
-                                        nullable: false,
-                                        "x-tson-metaTags": [
+                                        maximum: {
+                                            include: true,
+                                            value: 7
+                                        }
+                                    }
+                                ],
+                                "x-typia-jsDocTags": [
+                                    {
+                                        name: "items",
+                                        text: [
                                             {
-                                                kind: "items",
-                                                minimum: {
-                                                    include: true,
-                                                    value: 3,
-                                                },
-                                                maximum: {
-                                                    include: true,
-                                                    value: 7,
-                                                },
-                                            },
+                                                text: "[3, 7]",
+                                                kind: "text"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: "range",
+                                        text: [
                                             {
-                                                kind: "range",
-                                                minimum: {
-                                                    include: true,
-                                                    value: 3,
-                                                },
-                                                maximum: {
-                                                    include: true,
-                                                    value: 7,
-                                                },
-                                            },
+                                                text: "[3, 7]",
+                                                kind: "text"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: "length",
+                                        text: [
                                             {
-                                                kind: "length",
-                                                minimum: {
-                                                    include: true,
-                                                    value: 3,
-                                                },
-                                                maximum: {
-                                                    include: true,
-                                                    value: 7,
-                                                },
-                                            },
-                                        ],
-                                        "x-tson-jsDocTags": [
-                                            {
-                                                name: "items",
-                                                text: [
-                                                    {
-                                                        text: "[3, 7]",
-                                                        kind: "text",
-                                                    },
-                                                ],
-                                            },
-                                            {
-                                                name: "range",
-                                                text: [
-                                                    {
-                                                        text: "[3, 7]",
-                                                        kind: "text",
-                                                    },
-                                                ],
-                                            },
-                                            {
-                                                name: "length",
-                                                text: [
-                                                    {
-                                                        text: "[3, 7]",
-                                                        kind: "text",
-                                                    },
-                                                ],
-                                            },
-                                        ],
-                                        "x-tson-required": true,
-                                        minimum: 3,
-                                        maximum: 7,
-                                    },
-                                    nullable: false,
-                                    "x-tson-metaTags": [
-                                        {
-                                            kind: "items",
-                                            minimum: {
-                                                include: true,
-                                                value: 3,
-                                            },
-                                            maximum: {
-                                                include: true,
-                                                value: 7,
-                                            },
-                                        },
-                                        {
-                                            kind: "range",
-                                            minimum: {
-                                                include: true,
-                                                value: 3,
-                                            },
-                                            maximum: {
-                                                include: true,
-                                                value: 7,
-                                            },
-                                        },
-                                        {
-                                            kind: "length",
-                                            minimum: {
-                                                include: true,
-                                                value: 3,
-                                            },
-                                            maximum: {
-                                                include: true,
-                                                value: 7,
-                                            },
-                                        },
-                                    ],
-                                    "x-tson-jsDocTags": [
-                                        {
-                                            name: "items",
-                                            text: [
-                                                {
-                                                    text: "[3, 7]",
-                                                    kind: "text",
-                                                },
-                                            ],
-                                        },
-                                        {
-                                            name: "range",
-                                            text: [
-                                                {
-                                                    text: "[3, 7]",
-                                                    kind: "text",
-                                                },
-                                            ],
-                                        },
-                                        {
-                                            name: "length",
-                                            text: [
-                                                {
-                                                    text: "[3, 7]",
-                                                    kind: "text",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                    "x-tson-required": true,
-                                    minItems: 3,
-                                    maxItems: 7,
+                                                text: "[3, 7]",
+                                                kind: "text"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "x-typia-required": true,
+                                minItems: 3,
+                                maxItems: 7
+                            }
+                        ],
+                        nullable: false,
+                        "x-typia-metaTags": [
+                            {
+                                kind: "items",
+                                minimum: {
+                                    include: true,
+                                    value: 3
                                 },
-                            ],
-                            nullable: false,
-                            "x-tson-metaTags": [
-                                {
-                                    kind: "items",
-                                    minimum: {
-                                        include: true,
-                                        value: 3,
-                                    },
-                                    maximum: {
-                                        include: true,
-                                        value: 7,
-                                    },
+                                maximum: {
+                                    include: true,
+                                    value: 7
+                                }
+                            },
+                            {
+                                kind: "range",
+                                minimum: {
+                                    include: true,
+                                    value: 3
                                 },
-                                {
-                                    kind: "range",
-                                    minimum: {
-                                        include: true,
-                                        value: 3,
-                                    },
-                                    maximum: {
-                                        include: true,
-                                        value: 7,
-                                    },
+                                maximum: {
+                                    include: true,
+                                    value: 7
+                                }
+                            },
+                            {
+                                kind: "length",
+                                minimum: {
+                                    include: true,
+                                    value: 3
                                 },
-                                {
-                                    kind: "length",
-                                    minimum: {
-                                        include: true,
-                                        value: 3,
-                                    },
-                                    maximum: {
-                                        include: true,
-                                        value: 7,
-                                    },
-                                },
-                            ],
-                            "x-tson-jsDocTags": [
-                                {
-                                    name: "items",
-                                    text: [
-                                        {
-                                            text: "[3, 7]",
-                                            kind: "text",
-                                        },
-                                    ],
-                                },
-                                {
-                                    name: "range",
-                                    text: [
-                                        {
-                                            text: "[3, 7]",
-                                            kind: "text",
-                                        },
-                                    ],
-                                },
-                                {
-                                    name: "length",
-                                    text: [
-                                        {
-                                            text: "[3, 7]",
-                                            kind: "text",
-                                        },
-                                    ],
-                                },
-                            ],
-                            "x-tson-required": true,
-                        },
-                    },
-                    nullable: false,
-                    required: ["tuple"],
-                    "x-tson_jsDocTags": [],
+                                maximum: {
+                                    include: true,
+                                    value: 7
+                                }
+                            }
+                        ],
+                        "x-typia-jsDocTags": [
+                            {
+                                name: "items",
+                                text: [
+                                    {
+                                        text: "[3, 7]",
+                                        kind: "text"
+                                    }
+                                ]
+                            },
+                            {
+                                name: "range",
+                                text: [
+                                    {
+                                        text: "[3, 7]",
+                                        kind: "text"
+                                    }
+                                ]
+                            },
+                            {
+                                name: "length",
+                                text: [
+                                    {
+                                        text: "[3, 7]",
+                                        kind: "text"
+                                    }
+                                ]
+                            }
+                        ],
+                        "x-typia-required": true
+                    }
                 },
-            },
-        },
-        purpose: "ajv",
-        prefix: "components#/schemas",
+                nullable: false,
+                required: [
+                    "tuple"
+                ],
+                "x-typia_jsDocTags": []
+            }
+        }
     },
+    purpose: "ajv",
+    prefix: "components#/schemas"
+}
 );

@@ -20,7 +20,7 @@ export const iterate_metadata_native =
         if (simple && validator(simple)) {
             if (FORBIDDEN.has(name))
                 throw new Error(
-                    `Error on TSON.metadata(): typescript-json does not allow "${name}" class type. Use "${name.toLowerCase()}" type instead.`,
+                    `Error on typia.metadata(): typia does not allow "${name}" class type. Use "${name.toLowerCase()}" type instead.`,
                 );
             ArrayUtil.set(meta.natives, name, (str) => str);
             return true;

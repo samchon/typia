@@ -1,35 +1,36 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_AtomicUnion = _test_application(
-    "swagger",
-)("AtomicUnion", TSON.application<[AtomicUnion], "swagger">(), {
-    schemas: [
+export const test_application_swagger_AtomicUnion = 
+    _test_application("swagger")(
+        "AtomicUnion",
+        typia.application<[AtomicUnion], "swagger">(),{schemas: [
         {
             type: "array",
             items: {
                 oneOf: [
                     {
                         type: "string",
-                        nullable: true,
+                        nullable: true
                     },
                     {
                         type: "number",
-                        nullable: true,
+                        nullable: true
                     },
                     {
                         type: "boolean",
-                        nullable: true,
-                    },
-                ],
+                        nullable: true
+                    }
+                ]
             },
-            nullable: false,
-        },
+            nullable: false
+        }
     ],
     components: {
-        schemas: {},
+        schemas: {}
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

@@ -18,6 +18,7 @@ export class Metadata {
     public readonly constants: MetadataConstant[];
     public readonly templates: Metadata[][];
 
+    public readonly rest: Metadata | null;
     public readonly arrays: Metadata[];
     public readonly tuples: Metadata[][];
     public readonly objects: MetadataObject[];
@@ -58,6 +59,7 @@ export class Metadata {
         this.constants = props.constants;
         this.templates = props.templates;
 
+        this.rest = props.rest;
         this.arrays = props.arrays;
         this.tuples = props.tuples;
         this.objects = props.objects;
@@ -92,6 +94,7 @@ export class Metadata {
             tuples: [],
             objects: [],
 
+            rest: null,
             natives: [],
             sets: [],
             maps: [],
@@ -114,6 +117,7 @@ export class Metadata {
             ),
             resolved: this.resolved ? this.resolved.toJSON() : null,
 
+            rest: this.rest ? this.rest.toJSON() : null,
             arrays: this.arrays.map((meta) => meta.toJSON()),
             tuples: this.tuples.map((meta) =>
                 meta.map((meta) => meta.toJSON()),
@@ -165,6 +169,7 @@ export class Metadata {
             ),
             resolved: meta.resolved ? this._From(meta.resolved, objects) : null,
 
+            rest: meta.rest ? this._From(meta.rest, objects) : null,
             arrays: meta.arrays.map((meta) => this._From(meta, objects)),
             tuples: meta.tuples.map((tuple) =>
                 tuple.map((meta) => this._From(meta, objects)),
@@ -208,6 +213,7 @@ export class Metadata {
             this.constants
                 .map((c) => c.values.length)
                 .reduce((x, y) => x + y, 0) +
+            (this.rest ? this.rest.size() : 0) +
             this.arrays.length +
             this.tuples.length +
             this.objects.length +
@@ -224,6 +230,7 @@ export class Metadata {
             (this.templates.length ? 1 : 0) +
             (this.atomics.length ? 1 : 0) +
             (this.constants.length ? 1 : 0) +
+            (this.rest ? this.rest.size() : 0) +
             (this.arrays.length ? 1 : 0) +
             (this.tuples.length ? 1 : 0) +
             (this.objects.length ? 1 : 0) +
@@ -441,6 +448,7 @@ function getName(metadata: Metadata): string {
         );
 
     // ARRAY
+    if (metadata.rest !== null) elements.push(`...${metadata.rest.getName()}`);
     for (const tuple of metadata.tuples)
         elements.push(`[${tuple.map((elem) => elem.getName()).join(", ")}]`);
     for (const array of metadata.arrays)

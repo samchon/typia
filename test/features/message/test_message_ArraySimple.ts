@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ArraySimple } from "../../structures/ArraySimple";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_ArraySimple = _test_message(
     "ArraySimple",
-    TSON.message<ArraySimple>(),
+    typia.message<ArraySimple>(),
     `syntax = \"proto3\";
 
 message ArraySimple {
@@ -46,5 +46,5 @@ message Array {
 
 message __Main {
     repeated ArraySimple.IPerson value = 1;
-}`,
+}`
 );

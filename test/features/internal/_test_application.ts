@@ -9,7 +9,7 @@ export const _test_application =
 
         if (primitive_equal_to(generated, expected) === false)
             throw new Error(
-                `Bug on TSON.application("${purpose}"): failed to understand the ${name} type.`,
+                `Bug on typia.application("${purpose}"): failed to understand the ${name} type.`,
             );
     };
 

@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ClassGetter } from "../../structures/ClassGetter";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_ClassGetter = _test_message(
     "ClassGetter",
-    TSON.message<ClassGetter>(),
+    typia.message<ClassGetter>(),
     `syntax = \"proto3\";
 
 message ClassGetter {
@@ -13,5 +13,5 @@ message ClassGetter {
         string name = 2;
         optional bool dead = 3;
     }
-}`,
+}`
 );

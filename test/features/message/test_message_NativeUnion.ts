@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { NativeUnion } from "../../structures/NativeUnion";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_NativeUnion = _test_message(
     "NativeUnion",
-    TSON.message<NativeUnion>(),
+    typia.message<NativeUnion>(),
     `syntax = \"proto3\";
 
 message NativeUnion {
@@ -25,5 +25,5 @@ message __Timestamp {
 
 message __Main {
     repeated NativeUnion.Union value = 1;
-}`,
+}`
 );

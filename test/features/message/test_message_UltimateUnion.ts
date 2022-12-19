@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { UltimateUnion } from "../../structures/UltimateUnion";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_UltimateUnion = _test_message(
     "UltimateUnion",
-    TSON.message<UltimateUnion>(),
+    typia.message<UltimateUnion>(),
     `syntax = \"proto3\";
 
 message IJsonApplication {
@@ -131,9 +131,9 @@ message IJsonSchema {
         optional bool deprecated = 5;
         optional string title = 6;
         optional string description = 7;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-tson-metaTags = 8;
-        optional repeated IJsDocTagInfo x-tson-jsDocTags = 9;
-        optional bool x-tson-required = 10;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 8;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 9;
+        optional bool x-typia-required = 10;
     }
 
     message IEnumeration_lt__doublequote_number_doublequote__gt_ {
@@ -144,9 +144,9 @@ message IJsonSchema {
         optional bool deprecated = 5;
         optional string title = 6;
         optional string description = 7;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-tson-metaTags = 8;
-        optional repeated IJsDocTagInfo x-tson-jsDocTags = 9;
-        optional bool x-tson-required = 10;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 8;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 9;
+        optional bool x-typia-required = 10;
     }
 
     message IEnumeration_lt__doublequote_bigint_doublequote__gt_ {
@@ -157,9 +157,9 @@ message IJsonSchema {
         optional bool deprecated = 5;
         optional string title = 6;
         optional string description = 7;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-tson-metaTags = 8;
-        optional repeated IJsDocTagInfo x-tson-jsDocTags = 9;
-        optional bool x-tson-required = 10;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 8;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 9;
+        optional bool x-typia-required = 10;
     }
 
     message IEnumeration_lt__doublequote_string_doublequote__gt_ {
@@ -170,9 +170,9 @@ message IJsonSchema {
         optional bool deprecated = 5;
         optional string title = 6;
         optional string description = 7;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-tson-metaTags = 8;
-        optional repeated IJsDocTagInfo x-tson-jsDocTags = 9;
-        optional bool x-tson-required = 10;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 8;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 9;
+        optional bool x-typia-required = 10;
     }
 
     message IBoolean {
@@ -182,9 +182,9 @@ message IJsonSchema {
         optional bool deprecated = 4;
         optional string title = 5;
         optional string description = 6;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-tson-metaTags = 7;
-        optional repeated IJsDocTagInfo x-tson-jsDocTags = 8;
-        optional bool x-tson-required = 9;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 7;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 8;
+        optional bool x-typia-required = 9;
     }
 
     message INumber {
@@ -199,9 +199,9 @@ message IJsonSchema {
         optional bool deprecated = 9;
         optional string title = 10;
         optional string description = 11;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-tson-metaTags = 12;
-        optional repeated IJsDocTagInfo x-tson-jsDocTags = 13;
-        optional bool x-tson-required = 14;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 12;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 13;
+        optional bool x-typia-required = 14;
     }
 
     message IBigInt {
@@ -211,9 +211,9 @@ message IJsonSchema {
         optional bool deprecated = 4;
         optional string title = 5;
         optional string description = 6;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-tson-metaTags = 7;
-        optional repeated IJsDocTagInfo x-tson-jsDocTags = 8;
-        optional bool x-tson-required = 9;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 7;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 8;
+        optional bool x-typia-required = 9;
     }
 
     message IString {
@@ -227,9 +227,9 @@ message IJsonSchema {
         optional bool deprecated = 8;
         optional string title = 9;
         optional string description = 10;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-tson-metaTags = 11;
-        optional repeated IJsDocTagInfo x-tson-jsDocTags = 12;
-        optional bool x-tson-required = 13;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 11;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 12;
+        optional bool x-typia-required = 13;
     }
 
     message IArray {
@@ -257,9 +257,9 @@ message IJsonSchema {
         optional bool deprecated = 20;
         optional string title = 21;
         optional string description = 22;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-tson-metaTags = 23;
-        optional repeated IJsDocTagInfo x-tson-jsDocTags = 24;
-        optional bool x-tson-required = 25;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 23;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 24;
+        optional bool x-typia-required = 25;
     }
 
     message ITuple {
@@ -269,9 +269,9 @@ message IJsonSchema {
         optional bool deprecated = 4;
         optional string title = 5;
         optional string description = 6;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-tson-metaTags = 7;
-        optional repeated IJsDocTagInfo x-tson-jsDocTags = 8;
-        optional bool x-tson-required = 9;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 7;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 8;
+        optional bool x-typia-required = 9;
     }
 
     message IOneOf {
@@ -279,9 +279,9 @@ message IJsonSchema {
         optional bool deprecated = 2;
         optional string title = 3;
         optional string description = 4;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-tson-metaTags = 5;
-        optional repeated IJsDocTagInfo x-tson-jsDocTags = 6;
-        optional bool x-tson-required = 7;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 5;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 6;
+        optional bool x-typia-required = 7;
     }
 
     message IReference {
@@ -289,9 +289,9 @@ message IJsonSchema {
         optional bool deprecated = 2;
         optional string title = 3;
         optional string description = 4;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-tson-metaTags = 5;
-        optional repeated IJsDocTagInfo x-tson-jsDocTags = 6;
-        optional bool x-tson-required = 7;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 5;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 6;
+        optional bool x-typia-required = 7;
     }
 
     message IRecursiveReference {
@@ -299,9 +299,9 @@ message IJsonSchema {
         optional bool deprecated = 2;
         optional string title = 3;
         optional string description = 4;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-tson-metaTags = 5;
-        optional repeated IJsDocTagInfo x-tson-jsDocTags = 6;
-        optional bool x-tson-required = 7;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 5;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 6;
+        optional bool x-typia-required = 7;
     }
 
     message INullOnly {
@@ -309,9 +309,9 @@ message IJsonSchema {
         optional bool deprecated = 2;
         optional string title = 3;
         optional string description = 4;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-tson-metaTags = 5;
-        optional repeated IJsDocTagInfo x-tson-jsDocTags = 6;
-        optional bool x-tson-required = 7;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 5;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 6;
+        optional bool x-typia-required = 7;
     }
 }
 
@@ -450,7 +450,7 @@ message IJsonComponents {
         }
         optional repeated string required = 21;
         optional string description = 22;
-        optional repeated IJsDocTagInfo x-tson_jsDocTags = 23;
+        optional repeated IJsDocTagInfo x-typia_jsDocTags = 23;
         optional bool $recursiveAnchor = 24;
     }
 }
@@ -509,5 +509,5 @@ message Object {
 
 message __Main {
     repeated IJsonApplication value = 1;
-}`,
+}`
 );

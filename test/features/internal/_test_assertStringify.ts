@@ -14,7 +14,7 @@ export function _test_assertStringify<T>(
 
         if (predicate(data, optimized) === false) {
             throw new Error(
-                `Bug on TSON.assertStringify(): failed to understand the ${name} type.`,
+                `Bug on typia.assertStringify(): failed to understand the ${name} type.`,
             );
         }
 
@@ -35,7 +35,7 @@ export function _test_assertStringify<T>(
                         });
             }
             throw new Error(
-                `Bug on TSON.assertStringify(): failed to detect error on the ${name} type.`,
+                `Bug on typia.assertStringify(): failed to detect error on the ${name} type.`,
             );
         }
     };

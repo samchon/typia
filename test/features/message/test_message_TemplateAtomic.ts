@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { TemplateAtomic } from "../../structures/TemplateAtomic";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_TemplateAtomic = _test_message(
     "TemplateAtomic",
-    TSON.message<TemplateAtomic>(),
+    typia.message<TemplateAtomic>(),
     `syntax = \"proto3\";
 
 message TemplateAtomic {
@@ -30,5 +30,5 @@ message TemplateAtomic {
     oneof email {
 
     }
-}`,
+}`
 );

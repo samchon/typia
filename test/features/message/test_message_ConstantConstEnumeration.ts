@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_ConstantConstEnumeration = _test_message(
     "ConstantConstEnumeration",
-    TSON.message<ConstantConstEnumeration>(),
+    typia.message<ConstantConstEnumeration>(),
     `syntax = \"proto3\";
 
 message __Main {
@@ -18,5 +18,5 @@ message Array {
             string o1 = 2;
         }
     }
-}`,
+}`
 );

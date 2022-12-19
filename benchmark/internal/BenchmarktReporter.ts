@@ -119,7 +119,7 @@ export namespace BenchmarkReporter {
         await mkdir(`${location}/images`);
 
         const stream: BenchmarkStream = new BenchmarkStream(location);
-        await stream.write("# Benchmark of `typescript-json`");
+        await stream.write("# Benchmark of `typia`");
         await stream.write(`> - CPU: ${cpu}`);
         await stream.write(
             `> - Memory: ${Math.round(
@@ -127,9 +127,7 @@ export namespace BenchmarkReporter {
             ).toLocaleString()} MB`,
         );
         await stream.write(`> - OS: ${os.platform()}`);
-        await stream.write(
-            `> - TypeScript-JSON version: ${await get_package_version()}`,
-        );
+        await stream.write(`> - Typia version: ${await get_package_version()}`);
         await stream.write("\n");
         return stream;
     }

@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { SetAlias } from "../../structures/SetAlias";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_SetAlias = _test_message(
     "SetAlias",
-    TSON.message<SetAlias>(),
+    typia.message<SetAlias>(),
     `syntax = \"proto3\";
 
 message SetAlias {
@@ -26,5 +26,5 @@ message Set {
     message Element_lt_Array_lt_number_gt__gt_ {
         repeated number value = 1;
     }
-}`,
+}`
 );

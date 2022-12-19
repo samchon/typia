@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_ObjectUnionNonPredictable = _test_message(
     "ObjectUnionNonPredictable",
-    TSON.message<ObjectUnionNonPredictable>(),
+    typia.message<ObjectUnionNonPredictable>(),
     `syntax = \"proto3\";
 
 message ObjectUnionNonPredictable {
@@ -51,5 +51,5 @@ message ObjectUnionNonPredictable {
 
 message __Main {
     repeated ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_ value = 1;
-}`,
+}`
 );

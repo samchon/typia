@@ -1,4 +1,4 @@
-import TSON from "../../src";
+import typia from "../../src";
 
 type DeepPartial<T> = T extends object
     ? {
@@ -14,13 +14,13 @@ interface TestInterface {
     a: string;
 }
 
-const res = TSON.validateEquals<TestInterface>(input);
+const res = typia.validateEquals<TestInterface>(input);
 console.log("valid:", res);
 
-const res2 = TSON.validateEquals<Partial<TestInterface>>(input);
+const res2 = typia.validateEquals<Partial<TestInterface>>(input);
 console.log("valid:", res2);
 
-const res3 = TSON.validateEquals<DeepPartial<TestInterface>>(input);
+const res3 = typia.validateEquals<DeepPartial<TestInterface>>(input);
 console.log("valid:", res3);
 
 console.log("");
@@ -33,11 +33,11 @@ declare class TestClass {
     a: string;
 }
 
-const res4 = TSON.validateEquals<TestClass>(input);
+const res4 = typia.validateEquals<TestClass>(input);
 console.log("valid:", res4);
 
-const res5 = TSON.validateEquals<Partial<TestClass>>(input);
+const res5 = typia.validateEquals<Partial<TestClass>>(input);
 console.log("should be valid:", res5);
 
-const res6 = TSON.validateEquals<DeepPartial<TestClass>>(input);
+const res6 = typia.validateEquals<DeepPartial<TestClass>>(input);
 console.log("should be invalid:", res6);

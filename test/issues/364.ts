@@ -1,4 +1,4 @@
-import TSON from "../../src";
+import typia from "../../src";
 
 interface Something {
     map: Map<string, number>;
@@ -9,4 +9,4 @@ interface Dynamic {
     [key: string]: string;
 }
 
-console.log(TSON.message<Dynamic>());
+console.log(typia.message<Dynamic>());

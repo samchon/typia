@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
 import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_ObjectRecursive = _test_is(
     "ObjectRecursive",
     ObjectRecursive.generate,
-    TSON.createIs<ObjectRecursive>(),
+    typia.createIs<ObjectRecursive>(),
     ObjectRecursive.SPOILERS,
 );

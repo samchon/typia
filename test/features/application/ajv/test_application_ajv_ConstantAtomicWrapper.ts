@@ -1,26 +1,26 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_ajv_ConstantAtomicWrapper = _test_application(
-    "ajv",
-)("ConstantAtomicWrapper", TSON.application<[ConstantAtomicWrapper], "ajv">(), {
-    schemas: [
+export const test_application_ajv_ConstantAtomicWrapper = 
+    _test_application("ajv")(
+        "ConstantAtomicWrapper",
+        typia.application<[ConstantAtomicWrapper], "ajv">(),{schemas: [
         {
             type: "array",
             items: [
                 {
-                    $ref: "components#/schemas/ConstantAtomicWrapper.IPointer_lt_boolean_gt_",
+                    $ref: "components#/schemas/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
                 },
                 {
-                    $ref: "components#/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_",
+                    $ref: "components#/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_"
                 },
                 {
-                    $ref: "components#/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_",
-                },
+                    $ref: "components#/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_"
+                }
             ],
-            nullable: false,
-        },
+            nullable: false
+        }
     ],
     components: {
         schemas: {
@@ -31,12 +31,14 @@ export const test_application_ajv_ConstantAtomicWrapper = _test_application(
                     value: {
                         type: "boolean",
                         nullable: false,
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
-                required: ["value"],
-                "x-tson_jsDocTags": [],
+                required: [
+                    "value"
+                ],
+                "x-typia_jsDocTags": []
             },
             "ConstantAtomicWrapper.IPointer_lt_number_gt_": {
                 $id: "components#/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_",
@@ -45,12 +47,14 @@ export const test_application_ajv_ConstantAtomicWrapper = _test_application(
                     value: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
-                required: ["value"],
-                "x-tson_jsDocTags": [],
+                required: [
+                    "value"
+                ],
+                "x-typia_jsDocTags": []
             },
             "ConstantAtomicWrapper.IPointer_lt_string_gt_": {
                 $id: "components#/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_",
@@ -59,15 +63,18 @@ export const test_application_ajv_ConstantAtomicWrapper = _test_application(
                     value: {
                         type: "string",
                         nullable: false,
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
-                required: ["value"],
-                "x-tson_jsDocTags": [],
-            },
-        },
+                required: [
+                    "value"
+                ],
+                "x-typia_jsDocTags": []
+            }
+        }
     },
     purpose: "ajv",
-    prefix: "components#/schemas",
-});
+    prefix: "components#/schemas"
+}
+);

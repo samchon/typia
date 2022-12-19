@@ -1,6 +1,6 @@
 import fastify, { FastifyReply, FastifyRequest } from "fastify";
 
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ArrayHierarchical } from "../../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../../test/structures/ArrayRecursiveUnionExplicit";
@@ -12,8 +12,8 @@ import { ObjectUnionExplicit } from "../../../test/structures/ObjectUnionExplici
 import { ServerStorage } from "../ServerStorage";
 
 const server = fastify();
-const schema = (app: TSON.IJsonApplication) => {
-    const definitions: Record<string, TSON.IJsonSchema> = {};
+const schema = (app: typia.IJsonApplication) => {
+    const definitions: Record<string, typia.IJsonSchema> = {};
     for (const [key, value] of Object.entries(app.components.schemas))
         definitions[key.replace("#/definitions/", "")] = value;
 
@@ -35,43 +35,45 @@ const storage = ServerStorage(true);
 
 server.get(
     "/ObjectSimple",
-    schema(TSON.application<[ObjectSimple[]], "ajv", "#/definitions">()),
+    schema(typia.application<[ObjectSimple[]], "ajv", "#/definitions">()),
     reply(storage.ObjectSimple),
 );
 server.get(
     "/ObjectHierarchical",
-    schema(TSON.application<[ObjectHierarchical[]], "ajv", "#/definitions">()),
+    schema(typia.application<[ObjectHierarchical[]], "ajv", "#/definitions">()),
     reply(storage.ObjectHierarchical),
 );
 server.get(
     "/ObjectRecursive",
-    schema(TSON.application<[ObjectRecursive[]], "ajv", "#/definitions">()),
+    schema(typia.application<[ObjectRecursive[]], "ajv", "#/definitions">()),
     reply(storage.ObjectRecursive),
 );
 server.get(
     "/ObjectUnionExplicit",
-    schema(TSON.application<[ObjectUnionExplicit[]], "ajv", "#/definitions">()),
+    schema(
+        typia.application<[ObjectUnionExplicit[]], "ajv", "#/definitions">(),
+    ),
     reply(storage.ObjectUnionExplicit),
 );
 server.get(
     "/ArraySimple",
-    schema(TSON.application<[ArraySimple[]], "ajv", "#/definitions">()),
+    schema(typia.application<[ArraySimple[]], "ajv", "#/definitions">()),
     reply(storage.ArraySimple),
 );
 server.get(
     "/ArrayHierarchical",
-    schema(TSON.application<[ArrayHierarchical[]], "ajv", "#/definitions">()),
+    schema(typia.application<[ArrayHierarchical[]], "ajv", "#/definitions">()),
     reply(storage.ArrayHierarchical),
 );
 server.get(
     "/ArrayRecursive",
-    schema(TSON.application<[ArrayRecursive[]], "ajv", "#/definitions">()),
+    schema(typia.application<[ArrayRecursive[]], "ajv", "#/definitions">()),
     reply(storage.ArrayRecursive),
 );
 server.get(
     "/ArrayRecursiveUnionExplicit",
     schema(
-        TSON.application<
+        typia.application<
             [ArrayRecursiveUnionExplicit[]],
             "ajv",
             "#/definitions"

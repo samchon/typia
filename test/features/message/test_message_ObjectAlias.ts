@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ObjectAlias } from "../../structures/ObjectAlias";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_ObjectAlias = _test_message(
     "ObjectAlias",
-    TSON.message<ObjectAlias>(),
+    typia.message<ObjectAlias>(),
     `syntax = \"proto3\";
 
 message ObjectAlias {
@@ -23,5 +23,5 @@ message ObjectAlias {
 
 message __Main {
     repeated ObjectAlias.IMember value = 1;
-}`,
+}`
 );

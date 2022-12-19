@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { TagRange } from "../../structures/TagRange";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_TagRange = _test_message(
     "TagRange",
-    TSON.message<TagRange>(),
+    typia.message<TagRange>(),
     `syntax = \"proto3\";
 
 message TagRange {
@@ -25,5 +25,5 @@ message TagRange {
 
 message __Main {
     repeated TagRange.Type value = 1;
-}`,
+}`
 );

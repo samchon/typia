@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_DynamicEnumeration = _test_message(
     "DynamicEnumeration",
-    TSON.message<DynamicEnumeration>(),
+    typia.message<DynamicEnumeration>(),
     `syntax = \"proto3\";
 
 message DynamicEnumeration {
@@ -18,5 +18,5 @@ message DynamicEnumeration {
     optional string ko = 8;
     optional string pt = 9;
     optional string ru = 10;
-}`,
+}`
 );

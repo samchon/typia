@@ -33,6 +33,6 @@ export namespace AssertStringifyTransformer {
 }
 
 const enum ErrorMessages {
-    NO_INPUT_VALUE = "Error on TSON.assertStringify(): no input value.",
-    GENERIC_ARGUMENT = "Error on TSON.assertStringify(): non-specified generic argument.",
+    NO_INPUT_VALUE = "Error on typia.assertStringify(): no input value.",
+    GENERIC_ARGUMENT = "Error on typia.assertStringify(): non-specified generic argument.",
 }

@@ -88,10 +88,10 @@ export namespace ProtocolFactory {
 }
 
 const enum ErrorMessages {
-    NO_ANY = `Error on TSON.message(): any type is not supported in protocol buffer.`,
-    NO_FUNCTIONAL = `Error on TSON.message(): functional type is not supported in protocol buffer.`,
-    NO_MAIN = `Error on TSON.message(): reserved type "__Main" has been detected.`,
-    NO_TIMESTAMP = `Error on TSON.message(): reserved type "__Timestamp" has been detected.`,
-    NOT_ALLOWED_KEY = `Error on TSON.message(): only atomic key type is supported in protocol buffer.`,
-    NO_SIMULATENOUS = `Error on TSON.message(): object can't have both regular and dynamic properties in protocol buffer.`,
+    NO_ANY = `Error on typia.message(): any type is not supported in protocol buffer.`,
+    NO_FUNCTIONAL = `Error on typia.message(): functional type is not supported in protocol buffer.`,
+    NO_MAIN = `Error on typia.message(): reserved type "__Main" has been detected.`,
+    NO_TIMESTAMP = `Error on typia.message(): reserved type "__Timestamp" has been detected.`,
+    NOT_ALLOWED_KEY = `Error on typia.message(): only atomic key type is supported in protocol buffer.`,
+    NO_SIMULATENOUS = `Error on typia.message(): object can't have both regular and dynamic properties in protocol buffer.`,
 }

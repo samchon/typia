@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_ArrayHierarchical = _test_message(
     "ArrayHierarchical",
-    TSON.message<ArrayHierarchical>(),
+    typia.message<ArrayHierarchical>(),
     `syntax = \"proto3\";
 
 message ArrayHierarchical {
@@ -40,5 +40,5 @@ message ArrayHierarchical {
 
 message __Main {
     repeated ArrayHierarchical.ICompany value = 1;
-}`,
+}`
 );

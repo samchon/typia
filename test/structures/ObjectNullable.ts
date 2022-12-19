@@ -68,14 +68,14 @@ export namespace ObjectNullable {
             return [`$input[2].manufacturer.name`];
         },
         (input) => {
-            input[0].manufacturer = [] as any;
+            input[0].manufacturer = {} as any;
             return [
                 `$input[0].manufacturer.type`,
                 `$input[0].manufacturer.name`,
             ];
         },
         (input) => {
-            input[1].brand = [] as any;
+            input[1].brand = {} as any;
             return [`$input[1].brand.name`, `$input[1].brand.type`];
         },
         (input) => {
@@ -104,7 +104,7 @@ export namespace ObjectNullable {
             return [`$input[2].similar.name`];
         },
         (input) => {
-            input[0].similar = [] as any;
+            input[0].similar = {} as any;
             return [`$input[0].similar`];
         },
     ];

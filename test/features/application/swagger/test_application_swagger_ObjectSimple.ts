@@ -1,14 +1,14 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_swagger_ObjectSimple = _test_application(
-    "swagger",
-)("ObjectSimple", TSON.application<[ObjectSimple], "swagger">(), {
-    schemas: [
+export const test_application_swagger_ObjectSimple = 
+    _test_application("swagger")(
+        "ObjectSimple",
+        typia.application<[ObjectSimple], "swagger">(),{schemas: [
         {
-            $ref: "#/components/schemas/ObjectSimple.IBox3D",
-        },
+            $ref: "#/components/schemas/ObjectSimple.IBox3D"
+        }
     ],
     components: {
         schemas: {
@@ -17,24 +17,29 @@ export const test_application_swagger_ObjectSimple = _test_application(
                 properties: {
                     scale: {
                         $ref: "#/components/schemas/ObjectSimple.IPoint3D",
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     position: {
                         $ref: "#/components/schemas/ObjectSimple.IPoint3D",
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     rotate: {
                         $ref: "#/components/schemas/ObjectSimple.IPoint3D",
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     pivot: {
                         $ref: "#/components/schemas/ObjectSimple.IPoint3D",
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
-                required: ["scale", "position", "rotate", "pivot"],
-                "x-tson_jsDocTags": [],
+                required: [
+                    "scale",
+                    "position",
+                    "rotate",
+                    "pivot"
+                ],
+                "x-typia_jsDocTags": []
             },
             "ObjectSimple.IPoint3D": {
                 type: "object",
@@ -42,25 +47,30 @@ export const test_application_swagger_ObjectSimple = _test_application(
                     x: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     y: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
+                        "x-typia-required": true
                     },
                     z: {
                         type: "number",
                         nullable: false,
-                        "x-tson-required": true,
-                    },
+                        "x-typia-required": true
+                    }
                 },
                 nullable: false,
-                required: ["x", "y", "z"],
-                "x-tson_jsDocTags": [],
-            },
-        },
+                required: [
+                    "x",
+                    "y",
+                    "z"
+                ],
+                "x-typia_jsDocTags": []
+            }
+        }
     },
     purpose: "swagger",
-    prefix: "#/components/schemas",
-});
+    prefix: "#/components/schemas"
+}
+);

@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ArrayUnion } from "../../structures/ArrayUnion";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_ArrayUnion = _test_message(
     "ArrayUnion",
-    TSON.message<ArrayUnion>(),
+    typia.message<ArrayUnion>(),
     `syntax = \"proto3\";
 
 message __Main {
@@ -31,5 +31,5 @@ message Array {
     message Element_lt_number_gt_ {
         double value = 1;
     }
-}`,
+}`
 );

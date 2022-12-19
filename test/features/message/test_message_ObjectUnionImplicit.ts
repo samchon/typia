@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 import { _test_message } from "../internal/_test_message";
 
 export const test_message_ObjectUnionImplicit = _test_message(
     "ObjectUnionImplicit",
-    TSON.message<ObjectUnionImplicit>(),
+    typia.message<ObjectUnionImplicit>(),
     `syntax = \"proto3\";
 
 message ObjectUnionImplicit {
@@ -88,5 +88,5 @@ message Array {
             }
         }
     }
-}`,
+}`
 );
