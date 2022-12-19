@@ -21,24 +21,35 @@ export namespace IsBenchmarker {
         ) => {
             // TO ANTICIPATE OVER-FITTING OPTIMIZATION
             // BY typia AND TYPEBOX
+            const simple: boolean = category === "object (simple)";
             const a: T = generator();
             const b: T = generator();
             const c: T = generator();
             const d: T = generator();
 
             const suite: benchmark.Suite = new benchmark.Suite();
-            for (const key of components.slice().reverse()) {
+            for (const key of components) {
                 const is = parameters[key];
-                if (is !== null)
-                    suite.add(key, () => {
-                        is(a);
-                        is(b);
-                        is(c);
-                        is(d);
-                    });
+                if (is === null) continue;
+
+                const task = simple
+                    ? () => {
+                          is(a);
+                          is(b);
+                          is(c);
+                          is(d);
+                      }
+                    : () => {
+                          is(a);
+                          is(b);
+                          is(c);
+                      };
+                if (key !== "class-validator" && key !== "zod")
+                    new Array(100).fill("").forEach(task);
+                suite.add(key, task);
             }
 
-            const size: number = [a, b, c, d]
+            const size: number = (simple ? [a, b, c, d] : [a, b, c])
                 .map((elem) => Buffer.from(JSON.stringify(elem)).length)
                 .reduce((a, b) => a + b);
             const output: IOutput<Components> = {

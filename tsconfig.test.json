@@ -104,7 +104,7 @@
       { 
         "transform": "./src/transform.ts", 
         "functional": true, 
-        "numeric": false, 
+        "numeric": true, 
       },
     ]
   },
