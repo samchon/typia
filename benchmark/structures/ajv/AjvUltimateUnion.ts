@@ -3,7 +3,7 @@ import Ajv from "ajv";
 
 const Attribute = {
     description: Type.Optional(Type.String()),
-    "x-tson-metaTags": Type.Optional(
+    "x-typia-metaTags": Type.Optional(
         Type.Array(
             Type.Object({
                 // @todo - must be specified, but too hard
@@ -11,7 +11,7 @@ const Attribute = {
             }),
         ),
     ),
-    "x-tson-jsDocTags": Type.Optional(
+    "x-typia-jsDocTags": Type.Optional(
         Type.Array(
             Type.Object({
                 name: Type.String(),
