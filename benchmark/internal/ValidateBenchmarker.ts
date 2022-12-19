@@ -31,12 +31,15 @@ export namespace ValidateBenchmarker {
             for (const key of components) {
                 const validate = parameters[key];
                 if (validate === null) continue;
-                else
-                    suite.add(key, () => {
-                        validate(x);
-                        validate(y);
-                        validate(z);
-                    });
+
+                const task = () => {
+                    validate(x);
+                    validate(y);
+                    validate(z);
+                };
+                if (key !== "class-validator" && key !== "zod")
+                    new Array(100).fill("").forEach(task);
+                suite.add(key, task);
             }
 
             const size: number = [x, y, z]

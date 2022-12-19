@@ -30,12 +30,15 @@ export namespace AssertThrowBenchmarker {
             for (const key of components) {
                 const assert = parameters[key];
                 if (assert === null) continue;
-                else
-                    suite.add(key, () => {
-                        try {
-                            assert(data);
-                        } catch {}
-                    });
+
+                const task = () => {
+                    try {
+                        assert(data);
+                    } catch {}
+                };
+                if (key !== "class-validator" && key !== "zod")
+                    new Array(100).fill("").forEach(task);
+                suite.add(key, task);
             }
 
             const size: number = data
