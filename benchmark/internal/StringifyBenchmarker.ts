@@ -19,18 +19,25 @@ export namespace StringifyBenchmarker {
             parameters: IParameters<Components, T>,
         ): (() => IOutput<Components>) => {
             // TO ANTICIPATE OVER-FITTING OPTIMIZATION
-            const data: T[] = new Array(10).fill("").map(generator);
+            const x: T = generator();
+            const y: T = generator();
+            const z: T = generator();
 
             const suite: benchmark.Suite = new benchmark.Suite();
             for (const key of components) {
                 const stringify = parameters[key];
-                if (stringify !== null)
-                    suite.add(key, () => {
-                        for (const elem of data) stringify(elem);
-                    });
+                if (stringify === null) continue;
+
+                const task = () => {
+                    stringify(x);
+                    stringify(y);
+                    stringify(z);
+                };
+                new Array(100).fill("").forEach(task);
+                suite.add(key, task);
             }
 
-            const size: number = data
+            const size: number = [x, y, z]
                 .map((elem) => Buffer.from(JSON.stringify(elem)).length)
                 .reduce((a, b) => a + b);
             const output: IOutput<Components> = {
