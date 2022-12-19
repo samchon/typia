@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectGenericAlias = 
     _test_application("swagger")(
         "ObjectGenericAlias",
-        TSON.application<[ObjectGenericAlias], "swagger">(),{schemas: [
+        typia.application<[ObjectGenericAlias], "swagger">(),{schemas: [
         {
             $ref: "#/components/schemas/ObjectGenericAlias.Alias"
         }

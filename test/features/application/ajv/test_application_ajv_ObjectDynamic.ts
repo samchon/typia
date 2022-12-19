@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectDynamic = 
     _test_application("ajv")(
         "ObjectDynamic",
-        TSON.application<[ObjectDynamic], "ajv">(),{schemas: [
+        typia.application<[ObjectDynamic], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/ObjectDynamic"
         }

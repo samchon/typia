@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectHierarchical = 
     _test_application("ajv")(
         "ObjectHierarchical",
-        TSON.application<[ObjectHierarchical], "ajv">(),{schemas: [
+        typia.application<[ObjectHierarchical], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/ObjectHierarchical.ICustomer"
         }

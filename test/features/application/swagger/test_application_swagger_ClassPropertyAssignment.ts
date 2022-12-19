@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ClassPropertyAssignment = 
     _test_application("swagger")(
         "ClassPropertyAssignment",
-        TSON.application<[ClassPropertyAssignment], "swagger">(),{schemas: [
+        typia.application<[ClassPropertyAssignment], "swagger">(),{schemas: [
         {
             $ref: "#/components/schemas/ClassPropertyAssignment"
         }

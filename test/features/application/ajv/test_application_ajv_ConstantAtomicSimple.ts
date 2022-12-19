@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ConstantAtomicSimple = 
     _test_application("ajv")(
         "ConstantAtomicSimple",
-        TSON.application<[ConstantAtomicSimple], "ajv">(),{schemas: [
+        typia.application<[ConstantAtomicSimple], "ajv">(),{schemas: [
         {
             type: "array",
             items: [

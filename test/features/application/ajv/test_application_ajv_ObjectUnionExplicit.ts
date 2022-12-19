@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectUnionExplicit = 
     _test_application("ajv")(
         "ObjectUnionExplicit",
-        TSON.application<[ObjectUnionExplicit], "ajv">(),{schemas: [
+        typia.application<[ObjectUnionExplicit], "ajv">(),{schemas: [
         {
             type: "array",
             items: {

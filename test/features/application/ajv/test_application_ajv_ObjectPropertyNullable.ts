@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectPropertyNullable = 
     _test_application("ajv")(
         "ObjectPropertyNullable",
-        TSON.application<[ObjectPropertyNullable], "ajv">(),{schemas: [
+        typia.application<[ObjectPropertyNullable], "ajv">(),{schemas: [
         {
             type: "array",
             items: [

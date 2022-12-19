@@ -1,3 +1,4 @@
-import TSON from "typia";
-export default TSON;
+import typia from "typia";
+
+export default typia;
 export * from "typia";

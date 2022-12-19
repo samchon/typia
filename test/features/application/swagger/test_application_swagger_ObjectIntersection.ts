@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectIntersection = 
     _test_application("swagger")(
         "ObjectIntersection",
-        TSON.application<[ObjectIntersection], "swagger">(),{schemas: [
+        typia.application<[ObjectIntersection], "swagger">(),{schemas: [
         {
             $ref: "#/components/schemas/ObjectIntersection"
         }

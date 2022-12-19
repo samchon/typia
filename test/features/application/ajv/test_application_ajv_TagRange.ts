@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagRange } from "../../../structures/TagRange";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_TagRange = 
     _test_application("ajv")(
         "TagRange",
-        TSON.application<[TagRange], "ajv">(),{schemas: [
+        typia.application<[TagRange], "ajv">(),{schemas: [
         {
             type: "array",
             items: {

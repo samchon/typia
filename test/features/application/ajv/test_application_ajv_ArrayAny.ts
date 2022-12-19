@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ArrayAny } from "../../../structures/ArrayAny";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ArrayAny = 
     _test_application("ajv")(
         "ArrayAny",
-        TSON.application<[ArrayAny], "ajv">(),{schemas: [
+        typia.application<[ArrayAny], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/ArrayAny"
         }

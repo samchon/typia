@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectUnionExplicit = 
     _test_application("swagger")(
         "ObjectUnionExplicit",
-        TSON.application<[ObjectUnionExplicit], "swagger">(),{schemas: [
+        typia.application<[ObjectUnionExplicit], "swagger">(),{schemas: [
         {
             type: "array",
             items: {

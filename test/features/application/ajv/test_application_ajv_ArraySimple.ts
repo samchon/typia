@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ArraySimple } from "../../../structures/ArraySimple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ArraySimple = 
     _test_application("ajv")(
         "ArraySimple",
-        TSON.application<[ArraySimple], "ajv">(),{schemas: [
+        typia.application<[ArraySimple], "ajv">(),{schemas: [
         {
             type: "array",
             items: {

@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { NativeSimple } from "../../../structures/NativeSimple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_NativeSimple = 
     _test_application("swagger")(
         "NativeSimple",
-        TSON.application<[NativeSimple], "swagger">(),{schemas: [
+        typia.application<[NativeSimple], "swagger">(),{schemas: [
         {
             $ref: "#/components/schemas/NativeSimple"
         }

@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_DynamicEnumeration = 
     _test_application("swagger")(
         "DynamicEnumeration",
-        TSON.application<[DynamicEnumeration], "swagger">(),{schemas: [
+        typia.application<[DynamicEnumeration], "swagger">(),{schemas: [
         {
             $ref: "#/components/schemas/DynamicEnumeration"
         }

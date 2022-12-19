@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectSimple = 
     _test_application("swagger")(
         "ObjectSimple",
-        TSON.application<[ObjectSimple], "swagger">(),{schemas: [
+        typia.application<[ObjectSimple], "swagger">(),{schemas: [
         {
             $ref: "#/components/schemas/ObjectSimple.IBox3D"
         }

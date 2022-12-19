@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagDefault } from "../../../structures/TagDefault";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_TagDefault = 
     _test_application("swagger")(
         "TagDefault",
-        TSON.application<[TagDefault], "swagger">(),{schemas: [
+        typia.application<[TagDefault], "swagger">(),{schemas: [
         {
             $ref: "#/components/schemas/TagDefault"
         }

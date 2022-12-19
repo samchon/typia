@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectTuple = 
     _test_application("swagger")(
         "ObjectTuple",
-        TSON.application<[ObjectTuple], "swagger">(),{schemas: [
+        typia.application<[ObjectTuple], "swagger">(),{schemas: [
         {
             type: "array",
             items: {

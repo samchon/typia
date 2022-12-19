@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { TagStep } from "../../../structures/TagStep";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_TagStep = 
     _test_application("swagger")(
         "TagStep",
-        TSON.application<[TagStep], "swagger">(),{schemas: [
+        typia.application<[TagStep], "swagger">(),{schemas: [
         {
             type: "array",
             items: {

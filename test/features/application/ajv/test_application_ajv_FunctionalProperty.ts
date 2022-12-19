@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { FunctionalProperty } from "../../../structures/FunctionalProperty";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_FunctionalProperty = 
     _test_application("ajv")(
         "FunctionalProperty",
-        TSON.application<[FunctionalProperty], "ajv">(),{schemas: [
+        typia.application<[FunctionalProperty], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/FunctionalProperty"
         }

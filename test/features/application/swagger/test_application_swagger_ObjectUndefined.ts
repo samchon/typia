@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ObjectUndefined = 
     _test_application("swagger")(
         "ObjectUndefined",
-        TSON.application<[ObjectUndefined], "swagger">(),{schemas: [
+        typia.application<[ObjectUndefined], "swagger">(),{schemas: [
         {
             type: "array",
             items: {

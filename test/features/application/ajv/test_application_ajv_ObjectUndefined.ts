@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectUndefined = 
     _test_application("ajv")(
         "ObjectUndefined",
-        TSON.application<[ObjectUndefined], "ajv">(),{schemas: [
+        typia.application<[ObjectUndefined], "ajv">(),{schemas: [
         {
             type: "array",
             items: {

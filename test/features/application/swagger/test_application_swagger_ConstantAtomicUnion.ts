@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ConstantAtomicUnion = 
     _test_application("swagger")(
         "ConstantAtomicUnion",
-        TSON.application<[ConstantAtomicUnion], "swagger">(),{schemas: [
+        typia.application<[ConstantAtomicUnion], "swagger">(),{schemas: [
         {
             type: "array",
             items: {

@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { MapSimple } from "../../../structures/MapSimple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_MapSimple = 
     _test_application("ajv")(
         "MapSimple",
-        TSON.application<[MapSimple], "ajv">(),{schemas: [
+        typia.application<[MapSimple], "ajv">(),{schemas: [
         {
             $ref: "components#/schemas/MapSimple"
         }

@@ -1,11 +1,11 @@
-import TSON from "../../../../src";
+import typia from "../../../../src";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 import { _test_application } from "../../internal/_test_application";
 
 export const test_application_ajv_ObjectTuple = 
     _test_application("ajv")(
         "ObjectTuple",
-        TSON.application<[ObjectTuple], "ajv">(),{schemas: [
+        typia.application<[ObjectTuple], "ajv">(),{schemas: [
         {
             type: "array",
             items: [
