@@ -1,6 +1,7 @@
 import ts from "typescript";
 
 import { ExpressionFactory } from "../factories/ExpressionFactory";
+import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
 import { ValueFactory } from "../factories/ValueFactory";
@@ -374,10 +375,17 @@ export namespace CheckerProgrammer {
                         expression: config.combiner(explore)("and")(
                             input,
                             [
-                                {
-                                    expression: check_array(input, tags),
-                                    combined: false,
-                                },
+                                ...(checkTupleLength
+                                    ? [
+                                          {
+                                              expression: check_array(
+                                                  input,
+                                                  tags,
+                                              ),
+                                              combined: false,
+                                          },
+                                      ]
+                                    : []),
                                 {
                                     expression: explore_array(
                                         project,
@@ -407,10 +415,16 @@ export namespace CheckerProgrammer {
                         input,
                         [
                             {
-                                expression: ExpressionFactory.isObject(
-                                    input,
-                                    true,
-                                ),
+                                expression: ExpressionFactory.isObject(input, {
+                                    checkNull: true,
+                                    checkArray: meta.objects.some((obj) =>
+                                        obj.properties.every(
+                                            (prop) =>
+                                                !prop.key.isSoleLiteral() ||
+                                                !prop.value.required,
+                                        ),
+                                    ),
+                                }),
                                 combined: false,
                             },
                             {
@@ -552,24 +566,53 @@ export namespace CheckerProgrammer {
             explore: IExplore,
             tagList: IMetadataTag[],
         ): ts.Expression {
-            const binaries: ts.Expression[] = tuple.map((meta, index) =>
-                decode(project, config, importer)(
-                    ts.factory.createElementAccessExpression(input, index),
-                    meta,
-                    {
-                        ...explore,
-                        from: "array",
-                        postfix: explore.postfix.length
-                            ? `${explore.postfix.slice(0, -1)}[${index}]"`
-                            : `[${index}]`,
-                    },
-                    tagList,
-                ),
-            );
+            const binaries: ts.Expression[] = tuple
+                .filter((meta) => meta.rest === null)
+                .map((meta, index) =>
+                    decode(project, config, importer)(
+                        ts.factory.createElementAccessExpression(input, index),
+                        meta,
+                        {
+                            ...explore,
+                            from: "array",
+                            postfix: explore.postfix.length
+                                ? `${explore.postfix.slice(0, -1)}[${index}]"`
+                                : `[${index}]`,
+                        },
+                        tagList,
+                    ),
+                );
+            const rest: ts.Expression | null =
+                tuple.length && tuple[tuple.length - 1]!.rest !== null
+                    ? decode(project, config, importer, false)(
+                          ts.factory.createCallExpression(
+                              IdentifierFactory.join(input, "slice"),
+                              undefined,
+                              [
+                                  ts.factory.createNumericLiteral(
+                                      tuple.length - 1,
+                                  ),
+                              ],
+                          ),
+                          (() => {
+                              const wrapper: Metadata = Metadata.initialize();
+                              wrapper.arrays.push(
+                                  tuple[tuple.length - 1]!.rest!,
+                              );
+                              return wrapper;
+                          })(),
+                          {
+                              ...explore,
+                              start: tuple.length - 1,
+                          },
+                          tagList,
+                      )
+                    : null;
+
             return config.combiner(explore)("and")(
                 input,
                 [
-                    ...(checkLength
+                    ...(checkLength && rest === null
                         ? [
                               {
                                   combined: false,
@@ -596,6 +639,14 @@ export namespace CheckerProgrammer {
                               expression,
                               combined: true,
                           }))),
+                    ...(rest !== null
+                        ? [
+                              {
+                                  expression: rest,
+                                  combined: true,
+                              },
+                          ]
+                        : []),
                 ],
                 `[${tuple.map((t) => t.getName()).join(", ")}]`,
             );
@@ -698,6 +749,7 @@ export namespace CheckerProgrammer {
                         constants: [],
                         atomics: [],
                         templates: [],
+                        rest: null,
                         arrays: [],
                         tuples: [target],
                         objects: [],

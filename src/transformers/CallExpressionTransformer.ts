@@ -2,16 +2,7 @@ import path from "path";
 import ts from "typescript";
 
 import { IProject } from "./IProject";
-import { AssertCloneTransformer } from "./features/cloners/AssertCloneTransformer";
-import { CloneTransformer } from "./features/cloners/CloneTransformer";
-import { CreateAssertCloneTransformer } from "./features/cloners/CreateAssertCloneTransformer";
-import { CreateCloneTransformer } from "./features/cloners/CreateCloneTransformer";
-import { CreateIsCloneTransformer } from "./features/cloners/CreateIsCloneTransformer";
-import { CreateValidateCloneTransformer } from "./features/cloners/CreateValidateCloneTransformer";
-import { IsCloneTransformer } from "./features/cloners/IsCloneTransformer";
-import { ValidateCloneTransformer } from "./features/cloners/ValidateCloneTransformer";
 import { ApplicationTransformer } from "./features/miscellaneous/ApplicationTransformer";
-import { CreateInstanceTransformer } from "./features/miscellaneous/CreateInstanceTransformer";
 import { MetadataTransformer } from "./features/miscellaneous/MetadataTransformer";
 import { AssertParseTransformer } from "./features/parsers/AssertParseTransformer";
 import { CreateAssertParseTransformer } from "./features/parsers/CreateAssertParseTransformer";
@@ -50,7 +41,8 @@ export namespace CallExpressionTransformer {
 
         // FILE PATH
         const file: string = path.resolve(declaration.getSourceFile().fileName);
-        if (file !== LIB_PATH && file !== SRC_PATH) return expression;
+        if (file.indexOf(LIB_PATH) === -1 && file !== SRC_PATH)
+            return expression;
 
         //----
         // TRANSFORMATION
@@ -73,8 +65,9 @@ type Task = (
     expression: ts.CallExpression,
 ) => ts.Expression;
 
-const LIB_PATH = path.resolve(path.join(__dirname, "..", "module.d.ts"));
+const LIB_PATH = path.join("node_modules", "typia", "lib", "module.d.ts");
 const SRC_PATH = path.resolve(path.join(__dirname, "..", "module.ts"));
+
 const FUNCTORS: Record<string, () => Task> = {
     //----
     // VALIDATORS
@@ -112,12 +105,6 @@ const FUNCTORS: Record<string, () => Task> = {
     isStringify: () => IsStringifyTransformer.transform,
     validateStringify: () => ValidateStringifyTransformer.transform,
 
-    // CLONE FUNCTIONS
-    clone: () => CloneTransformer.transform,
-    assertClone: () => AssertCloneTransformer.transform,
-    isClone: () => IsCloneTransformer.transform,
-    validateClone: () => ValidateCloneTransformer.transform,
-
     // MISC
     metadata: () => MetadataTransformer.transform,
 
@@ -141,13 +128,4 @@ const FUNCTORS: Record<string, () => Task> = {
     createAssertStringify: () => CreateAssertStringifyTransformer.transform,
     createIsStringify: () => CreateIsStringifyTransformer.transform,
     createValidateStringify: () => CreateValidateStringifyTransformer.transform,
-
-    // CLONE
-    createClone: () => CreateCloneTransformer.transform,
-    createAssertClone: () => CreateAssertCloneTransformer.transform,
-    createIsClone: () => CreateIsCloneTransformer.transform,
-    createValidateClone: () => CreateValidateCloneTransformer.transform,
-
-    // MISC
-    createObject: () => CreateInstanceTransformer.transform,
 };

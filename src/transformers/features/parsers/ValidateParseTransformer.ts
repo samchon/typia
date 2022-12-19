@@ -31,6 +31,6 @@ export namespace ValidateParseTransformer {
 }
 
 const enum ErrorMessages {
-    NOT_SPECIFIED = "Error on TSON.validateParse(): generic argument is not specified.",
-    GENERIC_ARGUMENT = "Error on TSON.validateParse(): non-specified generic argument.",
+    NOT_SPECIFIED = "Error on typia.validateParse(): generic argument is not specified.",
+    GENERIC_ARGUMENT = "Error on typia.validateParse(): non-specified generic argument.",
 }

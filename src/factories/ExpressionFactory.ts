@@ -18,7 +18,10 @@ export namespace ExpressionFactory {
 
     export function isObject(
         input: ts.Expression,
-        nullChecked: boolean,
+        options: {
+            checkNull: boolean;
+            checkArray: boolean;
+        },
     ): ts.Expression {
         const conditions: ts.Expression[] = [
             ts.factory.createStrictEquality(
@@ -26,11 +29,22 @@ export namespace ExpressionFactory {
                 ts.factory.createTypeOfExpression(input),
             ),
         ];
-        if (nullChecked === true)
+        if (options.checkNull === true)
             conditions.push(
                 ts.factory.createStrictInequality(
                     ts.factory.createNull(),
                     input,
+                ),
+            );
+        if (options.checkArray === true)
+            conditions.push(
+                ts.factory.createStrictEquality(
+                    ts.factory.createFalse(),
+                    ts.factory.createCallExpression(
+                        ts.factory.createIdentifier("Array.isArray"),
+                        undefined,
+                        [input],
+                    ),
                 ),
             );
 

@@ -17,7 +17,7 @@ export namespace IJsonComponents {
 
         required?: string[];
         description?: string;
-        "x-tson_jsDocTags"?: IJsDocTagInfo[];
+        "x-typia_jsDocTags"?: IJsDocTagInfo[];
 
         $recursiveAnchor?: boolean;
     }

@@ -28,7 +28,7 @@ export const application_array =
         };
 
         // RANGE
-        for (const tag of attribute["x-tson-metaTags"] || [])
+        for (const tag of attribute["x-typia-metaTags"] || [])
             if (tag.kind === "minItems") output.minItems = tag.value;
             else if (tag.kind === "maxItems") output.maxItems = tag.value;
             else if (tag.kind === "items") {

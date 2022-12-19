@@ -7,7 +7,7 @@ import * as t from "io-ts";
 import "reflect-metadata";
 import { z } from "zod";
 
-import TSON from "../../src";
+import typia from "../../src";
 // PURE TYPESCRIPT TYPES
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
@@ -107,7 +107,7 @@ const assertClassValidator =
     };
 
 const prepare = AssertThrowBenchmarker.prepare([
-    "typescript-json",
+    "typia",
     "typebox",
     "io-ts",
     "zod",
@@ -123,7 +123,7 @@ const assert_po_throw_pc = () => [
         () => ObjectSimple.generate(),
         () => ObjectSimple.trail(),
         {
-            "typescript-json": TSON.createAssert<ObjectSimple[]>(),
+            typia: typia.createAssert<ObjectSimple[]>(),
             "io-ts": assertIoTs(IoTsObjectSimple),
             "class-validator": assertClassValidator(CvObjectSimple),
             zod: assertZod(ZodObjectSimple),
@@ -136,7 +136,7 @@ const assert_po_throw_pc = () => [
         () => ObjectHierarchical.generate(),
         () => ObjectHierarchical.trail(),
         {
-            "typescript-json": TSON.createAssert<ObjectHierarchical[]>(),
+            typia: typia.createAssert<ObjectHierarchical[]>(),
             "io-ts": assertIoTs(IoTsObjectHierarchical),
             "class-validator": assertClassValidator(CvObjectHierarchical),
             zod: assertZod(ZodObjectHierarchical),
@@ -149,7 +149,7 @@ const assert_po_throw_pc = () => [
         () => ObjectUnionImplicit.generate(),
         () => ObjectUnionImplicit.trail(),
         {
-            "typescript-json": TSON.createAssert<ObjectUnionImplicit[]>(),
+            typia: typia.createAssert<ObjectUnionImplicit[]>(),
             "io-ts": assertIoTs(IoTsObjectUnionImplicit),
             "class-validator": assertClassValidator(CvObjectUnionImplicit),
             zod: assertZod(ZodObjectUnionImplicit),
@@ -162,7 +162,7 @@ const assert_po_throw_pc = () => [
         () => ObjectUnionExplicit.generate(),
         () => ObjectUnionExplicit.trail(),
         {
-            "typescript-json": TSON.createAssert<ObjectUnionExplicit[]>(),
+            typia: typia.createAssert<ObjectUnionExplicit[]>(),
             "io-ts": assertIoTs(IoTsObjectUnionExplicit),
             "class-validator": assertClassValidator(CvObjectUnionExplicit),
             zod: assertZod(ZodObjectUnionExplicit),
@@ -175,7 +175,7 @@ const assert_po_throw_pc = () => [
         () => ObjectUnionImplicit.generate(),
         () => ObjectUnionImplicit.trail(),
         {
-            "typescript-json": TSON.createAssert<ObjectUnionImplicit[]>(),
+            typia: typia.createAssert<ObjectUnionImplicit[]>(),
             "io-ts": assertIoTs(IoTsObjectUnionImplicit),
             "class-validator": assertClassValidator(CvObjectUnionImplicit),
             zod: assertZod(ZodObjectUnionImplicit),
@@ -188,7 +188,7 @@ const assert_po_throw_pc = () => [
         () => ArrayRecursive.generate(),
         () => ArrayRecursive.trail(),
         {
-            "typescript-json": TSON.createAssert<ArrayRecursive[]>(),
+            typia: typia.createAssert<ArrayRecursive[]>(),
             "io-ts": assertIoTs(IoTsArrayRecursive),
             "class-validator": assertClassValidator(CvArrayRecursive),
             zod: assertZod(ZodArrayRecursive),
@@ -201,8 +201,7 @@ const assert_po_throw_pc = () => [
         () => ArrayRecursiveUnionExplicit.generate(),
         () => ArrayRecursiveUnionExplicit.trail(),
         {
-            "typescript-json":
-                TSON.createAssert<ArrayRecursiveUnionExplicit[]>(),
+            typia: typia.createAssert<ArrayRecursiveUnionExplicit[]>(),
             "io-ts": assertIoTs(IoTsArrayRecursiveUnionExplicit),
             "class-validator": assertClassValidator(
                 CvArrayRecursiveUnionExplicit,
@@ -217,8 +216,7 @@ const assert_po_throw_pc = () => [
         () => ArrayRecursiveUnionImplicit.generate(),
         () => ArrayRecursiveUnionImplicit.trail(),
         {
-            "typescript-json":
-                TSON.createAssert<ArrayRecursiveUnionImplicit[]>(),
+            typia: typia.createAssert<ArrayRecursiveUnionImplicit[]>(),
             "io-ts": assertIoTs(IoTsArrayRecursiveUnionImplicit),
             "class-validator": assertClassValidator(
                 CvArrayRecursiveUnionImplicit,
@@ -233,7 +231,7 @@ const assert_po_throw_pc = () => [
         () => UltimateUnion.generate(),
         () => UltimateUnion.trail(),
         {
-            "typescript-json": TSON.createAssert<UltimateUnion[]>(),
+            typia: typia.createAssert<UltimateUnion[]>(),
             "io-ts": assertIoTs(IoTsUltimateUnion),
             "class-validator": null,
             zod: assertZod(ZodUltimateUnion),

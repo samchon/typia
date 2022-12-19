@@ -1,0 +1,1 @@
+export * from "typia/lib/programmers/internal/decode_union_object";

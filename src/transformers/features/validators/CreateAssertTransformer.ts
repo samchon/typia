@@ -8,8 +8,8 @@ export namespace CreateAssertTransformer {
     export function transform(equals: boolean) {
         const SYMBOL = equals ? "createAssertEquals" : "createAssert";
         const MESSAGES = {
-            NOT_SPECIFIED: `Error on TSON.${SYMBOL}(): generic argument is not specified.`,
-            GENERIC_ARGUMENT: `Error on TSON.${SYMBOL}(): non-specified generic argument.`,
+            NOT_SPECIFIED: `Error on typia.${SYMBOL}(): generic argument is not specified.`,
+            GENERIC_ARGUMENT: `Error on typia.${SYMBOL}(): non-specified generic argument.`,
         };
 
         return function (

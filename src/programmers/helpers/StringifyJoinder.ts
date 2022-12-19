@@ -80,9 +80,15 @@ export namespace StringifyJoiner {
         ]);
     }
 
-    export function tuple(children: ts.Expression[]): ts.Expression {
+    export function tuple(
+        children: ts.Expression[],
+        rest: ts.Expression | null,
+    ): ts.Expression {
         if (children.length === 0) return ts.factory.createStringLiteral("[]");
-        if (children.every((child) => ts.isStringLiteral(child)))
+        if (
+            rest === null &&
+            children.every((child) => ts.isStringLiteral(child))
+        )
             return ts.factory.createStringLiteral(
                 "[" +
                     children
@@ -97,6 +103,8 @@ export namespace StringifyJoiner {
             if (i !== children.length - 1)
                 elements.push(ts.factory.createStringLiteral(`,`));
         });
+        if (rest !== null) elements.push(rest);
+
         elements.push(ts.factory.createStringLiteral(`]`));
         return TemplateFactory.generate(elements);
     }

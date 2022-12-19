@@ -62,6 +62,7 @@ export namespace FeatureProgrammer {
         source: "top" | "object";
         from: "top" | "array" | "object";
         postfix: string;
+        start?: number;
     }
 
     export interface Initializer {
@@ -239,7 +240,9 @@ export namespace FeatureProgrammer {
                         tracable: explore.tracable,
                         source: explore.source,
                         from: "array",
-                        postfix: INDEX_SYMBOL(explore.postfix)(rand),
+                        postfix: INDEX_SYMBOL(explore.start ?? null)(
+                            explore.postfix,
+                        )(rand),
                     },
                     tags,
                 ),
@@ -299,13 +302,17 @@ export namespace FeatureProgrammer {
         };
 }
 
-const INDEX_SYMBOL = (prev: string) => (rand: string) => {
-    const tail: string = `"[" + index${rand} + "]"`;
-    if (prev === "") return tail;
-    else if (prev[prev.length - 1] === `"`)
-        return prev.substring(0, prev.length - 1) + tail.substring(1);
-    return prev + ` + ${tail}`;
-};
+const INDEX_SYMBOL =
+    (start: number | null) => (prev: string) => (rand: string) => {
+        const tail: string =
+            start !== null
+                ? `"[" + (${start} + index${rand}) + "]"`
+                : `"[" + index${rand} + "]"`;
+        if (prev === "") return tail;
+        else if (prev[prev.length - 1] === `"`)
+            return prev.substring(0, prev.length - 1) + tail.substring(1);
+        return prev + ` + ${tail}`;
+    };
 const PARAMETERS = (
     props: Pick<CheckerProgrammer.IConfig, "path" | "trace">,
 ) => {

@@ -28,12 +28,19 @@ export namespace AssertIterateBenchmarker {
             for (const key of components) {
                 const assert = parameters[key];
                 if (assert === null) continue;
-                else
-                    suite.add(key, () => {
-                        assert(x);
-                        assert(y);
-                        assert(z);
+
+                const task = () => {
+                    assert(x);
+                    assert(y);
+                    assert(z);
+                };
+                if (key !== "class-validator" && key !== "zod")
+                    new Array(100).fill("").forEach(() => {
+                        try {
+                            task();
+                        } catch {}
                     });
+                suite.add(key, task);
             }
 
             const size: number = [x, y, z]

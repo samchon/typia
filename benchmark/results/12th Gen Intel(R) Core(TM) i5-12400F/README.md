@@ -1,15 +1,15 @@
-# Benchmark of `typescript-json`
+# Benchmark of `typia`
 > - CPU: 12th Gen Intel(R) Core(TM) i5-12400F
 > - Memory: 32,628 MB
 > - OS: win32
-> - TypeScript-JSON version: 3.3.37
+> - Typia version: 3.3.37
 
 
 ## is
 
 ![is benchmark](images/is.svg)
 
- Components | typescript-json | typebox | ajv | io-ts | zod | class-validator 
+ Components | typia | typebox | ajv | io-ts | zod | class-validator 
 ------------|-----------------|---------|-----|-------|-----|-----------------
 object (simple) | 291685.7310267857 | 163750.80568668907 | 72235.34435007385 | 5151.574238313857 | 584.2839645127119 | 17.51858722766386
 object (hierarchical) | 192341.05548620314 | 166398.86214812254 | 54836.263785104755 | 9444.91601341308 | 476.2225234717653 | 46.15644773079024
@@ -29,7 +29,7 @@ ultimate union | 9938.030397885364 | Failed | Failed | Failed | Failed | Failed
 
 ![assert (iterate) benchmark](images/assert_po_iterate_pc.svg)
 
- Components | typescript-json | typebox | io-ts | zod | class-validator 
+ Components | typia | typebox | io-ts | zod | class-validator 
 ------------|-----------------|---------|-------|-----|-----------------
 object (simple) | 27959.28151954487 | 557.4153731064148 | 2910.2798609840866 | 610.0872256612267 | 21.726135736619458
 object (hierarchical) | 73460.73358838008 | 935.6104676882786 | 3965.4043097245067 | 473.11040110625703 | 49.747970191785775
@@ -49,7 +49,7 @@ ultimate union | 4566.63044747731 | Failed | Failed | Failed | Failed
 
 ![assert (throw) benchmark](images/assert_po_throw_pc.svg)
 
- Components | typescript-json | typebox | io-ts | zod | class-validator 
+ Components | typia | typebox | io-ts | zod | class-validator 
 ------------|-----------------|---------|-------|-----|-----------------
 object (simple) | 7602.90916102707 | 461.1245205900074 | 1809.5671706448713 | Failed | 22.825097584915998
 object (hierarchical) | 33209.29508273787 | 911.605182532021 | 3554.994158878505 | 480.7883723810872 | 62.248699825879754
@@ -69,7 +69,7 @@ ultimate union | 4714.455059496515 | Failed | Failed | Failed | Failed
 
 ![validate benchmark](images/validate.svg)
 
- Components | typescript-json | typebox | io-ts | zod | class-validator 
+ Components | typia | typebox | io-ts | zod | class-validator 
 ------------|-----------------|---------|-------|-----|-----------------
 object (simple) | 13911.134902894222 | 467.9105500840179 | 2194.955212198516 | 562.5836699037937 | 21.619918558508672
 object (hierarchical) | 39213.15470746898 | 894.3514667123352 | 3805.763708010185 | 464.9954705854491 | 50.1913886476718
@@ -89,7 +89,7 @@ ultimate union | 3179.7998667196007 | Failed | Failed | Failed | Failed
 
 ![equals benchmark](images/equals.svg)
 
- Components | typescript-json | typebox 
+ Components | typia | typebox 
 ------------|-----------------|---------
 object (simple) | 16557.085750078913 | 10447.66455348891
 object (hierarchical) | 25933.394444188616 | 19784.910877953953
@@ -109,7 +109,7 @@ ultimate union | 7034.596389645777 | Failed
 
 ![assertEquals (iterate) benchmark](images/assertEquals_po_iterate_pc.svg)
 
- Components | typescript-json | typebox 
+ Components | typia | typebox 
 ------------|-----------------|---------
 object (simple) | 8525.411691613346 | 415.560191090325
 object (hierarchical) | 25368.17908110186 | 789.0221798058711
@@ -129,7 +129,7 @@ ultimate union | 3569.82421875 | Failed
 
 ![assertEquals (throw) benchmark](images/assertEquals_po_throw_pc.svg)
 
- Components | typescript-json | typebox 
+ Components | typia | typebox 
 ------------|-----------------|---------
 object (simple) | 3457.7663966587606 | 316.50966347486604
 object (hierarchical) | 12214.787248623556 | 615.1219466048807
@@ -149,7 +149,7 @@ ultimate union | 3962.14221611404 | Failed
 
 ![validateEquals benchmark](images/validateEquals.svg)
 
- Components | typescript-json | typebox 
+ Components | typia | typebox 
 ------------|-----------------|---------
 object (simple) | 5141.723364132428 | 362.1984011627907
 object (hierarchical) | 10851.552843458156 | 709.1226525147113
@@ -169,7 +169,7 @@ ultimate union | 2564.7280794902913 | Failed
 
 ![optimizer benchmark](images/optimizer.svg)
 
- Components | typescript-json | typebox | ajv 
+ Components | typia | typebox | ajv 
 ------------|-----------------|---------|-----
 object (hierarchical) | 195614.0784513099 | 196.32457065168236 | 5.583301118792068
 object (recursive) | 153461.38111198737 | 1095.0320772399111 | 12.683024148778681
@@ -187,7 +187,7 @@ ultimate union | 9894.82544011691 | 192.304643043437 | 15.798595104185877
 
 ![stringify benchmark](images/stringify.svg)
 
- Components | TSON.stringify() | TSON.assertStringify() | TSON.isStringify() | fast-json-stringify | JSON.stringify 
+ Components | typia.stringify() | typia.assertStringify() | typia.isStringify() | fast-json-stringify | JSON.stringify 
 ------------|------------------|------------------------|--------------------|---------------------|----------------
 object (simple) | 7532.614729829756 | 5384.092613423322 | 6284.709366901147 | 4616.485269281291 | 1087.6837542404824
 object (hierarchical) | 5375.009084302325 | 4946.674325404288 | 5310.317628175413 | 5698.774248190088 | 1738.8629095343274
@@ -206,7 +206,7 @@ array (union) | 2265.524212126797 | 1971.9095508954676 | 2062.6237338858195 | 18
 
 ![stringify (server) benchmark](images/stringify_po_server_pc.svg)
 
- Components | express (pure) | express (TSON.stringify) | express (TSON.isStringify) | express (TSON.assertStringify) | fastify 
+ Components | express (pure) | express (typia.stringify) | express (typia.isStringify) | express (typia.assertStringify) | fastify 
 ------------|----------------|--------------------------|----------------------------|--------------------------------|---------
 object (simple) | 55869.52341694265 | 73995.36059709871 | 74375.8882996824 | 64903.23250073723 | 99331.82511239682
 object (hierarchical) | 122090.07905024843 | 131118.51061898711 | 129750.75371024634 | 126333.04436414562 | 156785.36989795917

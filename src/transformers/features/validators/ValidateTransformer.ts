@@ -8,8 +8,8 @@ export namespace ValidateTransformer {
     export function transform(equals: boolean) {
         const SYMBOL = equals ? "validateEquals" : "validate";
         const MESSAGES = {
-            NO_INPUT_VALUE: `Error on TSON.${SYMBOL}(): no input value.`,
-            GENERIC_ARGUMENT: `Error on TSON.${SYMBOL}(): non-specified generic argument.`,
+            NO_INPUT_VALUE: `Error on typia.${SYMBOL}(): no input value.`,
+            GENERIC_ARGUMENT: `Error on typia.${SYMBOL}(): non-specified generic argument.`,
         };
 
         return function (
