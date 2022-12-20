@@ -89,7 +89,7 @@ If you want to install and setup `typia` manually, read [Guide Documents - Setup
   - [vite](https://github.com/samchon/typia/wiki/Setup#vite)
   - [webpack](https://github.com/samchon/typia/wiki/Setup#webpack)
 
-Also, the [Guide Documents - Setup](https://github.com/samchon/typia/wiki/Setup), you can learn how to use pure TypeScript compiler `tsc` instead of installing the `ttypescript` compiler with `ttsc` command.
+Also, by [Guide Documents - Setup](https://github.com/samchon/typia/wiki/Setup) section, you can learn how to use pure TypeScript compiler `tsc` with [`ts-patch`](https://github.com/nonara/ts-patch), instead of installing the `ttypescript` compiler with `ttsc` command.
 
 ### Vite
 When you want to setup `typia` on your frontend project with [`vite`](https://vitejs.dev/), just configure `vite.config.ts` like below.
