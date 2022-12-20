@@ -118,13 +118,14 @@ export namespace TypiaSetupWizard {
             } else {
                 // DO CONFIGURE
                 options.strict = true;
-                plugins.push(
-                    Comment.parse(`{
-                        "transform": "typia/lib/transform",
-                        "numeric": true, // check isNaN() and isFinite()
-                        "functional": false, // validate function type
-                    }`) as Comment.CommentObject,
-                );
+                if (oldbie === undefined)
+                    plugins.push(
+                        Comment.parse(`{
+                            "transform": "typia/lib/transform",
+                            "numeric": true, // check isNaN() and isFinite()
+                            "functional": false, // validate function type
+                        }`) as Comment.CommentObject,
+                    );
                 await fs.promises.writeFile(
                     "tsconfig.json",
                     Comment.stringify(config, null, 2),
