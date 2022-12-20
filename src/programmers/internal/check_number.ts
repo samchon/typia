@@ -149,10 +149,7 @@ export function check_number(project: IProject, numeric: boolean) {
         const valid: boolean =
             finite || tagList.find((tag) => tag.kind === "type") !== undefined;
 
-        if (
-            numeric &&
-            OptionPredicator.numeric(project.options, "checker") === false
-        ) {
+        if (numeric && OptionPredicator.numeric(project.options) === false) {
             if (finite === false)
                 conditions.push(
                     ts.factory.createCallExpression(
