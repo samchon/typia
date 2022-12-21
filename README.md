@@ -11,24 +11,27 @@ export function is<T>(input: unknown | T): input is T; // returns boolean
 export function assert<T>(input: unknown | T): T; // throws TypeGuardError
 export function validate<T>(input: unknown | T): IValidation<T>; // detailed
 
-// STRICT VALIDATORS
-export function equals<T>(input: unknown | T): input is T;
-export function assertEquals<T>(input: unknown | T): T;
-export function validateEquals<T>(input: unknown | T): IValidation<T>;
-
 // JSON
 export function application<T>(): IJsonApplication; // JSON schema
 export function assertParse<T>(input: string): T; // type safe parser
 export function assertStringify<T>(input: T): string; // safe and faster
     // +) isParse, validateParse 
     // +) stringify, isStringify, validateStringify
+
+// PROTOCOL BUFFER
+export function message<T>(): string; // Protocol Buffer message
+export function assertDecode<T>(buffer: Buffer): T; // safe decoder
+export function assertEncode<T>(input: T): Uint8Array; // safe encoder
+    // +) decode, isDecode, validateDecode
+    // +) encode, isEncode, validateEncode
 ```
 
 `typia` is a transformer library of TypeScript, supporting below features:
 
   - Super-fast Runtime Validators
   - Safe JSON parse and fast stringify functions
-  - JSON schema generator
+  - Protocol Buffer encoder and decoder
+  - Protobuf/JSON schema generator
 
 All functions in `typia` require **only one line**. You don't need any extra dedication like JSON schema definitions or decorator function calls. Just call `typia` function with only one line like `typia.assert<T>(input)`.
 
@@ -41,7 +44,7 @@ Also, as `typia` performs AOT (Ahead of Time) compilation skill, its performance
 
 
 
-## Sponsors and Backers
+## Sponsors
 Thanks for your support.
 
 Your donation would encourage `typia` development.
@@ -133,6 +136,12 @@ For more details, refer to the [Guide Documents (wiki)](https://github.com/samch
 >   - [`parse()` functions](https://github.com/samchon/typia/wiki/Enhanced-JSON#parse-functions)
 >   - [`stringify()` functions](https://github.com/samchon/typia/wiki/Enhanced-JSON#stringify-functions)
 >   - [comment tags](https://github.com/samchon/typia/wiki/Enhanced-JSON#comment-tags)
+> - **Protocol Buffer**
+>   - [`message()` function](https://github.com/samchon/typia/wiki/Protocol-Buffer#message-function)
+>   - [`decode()` function](https://github.com/samchon/typia/wiki/Protocol-Buffer#decode-function)
+>   - [`encode()` functions](https://github.com/samchon/typia/wiki/Protocol-Buffer#encode-functions)
+>   - [comment tags](https://github.com/samchon/typia/wiki/Protocol-Buffer#comment-tags)
+>   - [weaknesses](https://github.com/samchon/typia/wiki/Protocol-Buffer#weaknesses)
 
 ### Runtime Validators
 ```typescript
@@ -207,7 +216,39 @@ export function createAssertStringify<T>(): (input: T) => string;
 
 > Measured on [AMD R7 5800H](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics#stringify)
 
+### Protocol Buffer
+```typescript
+// PROTOCOL BUFFER MESSAGE
+export function message<T>(): string;
 
+// ENCODE FUNCTIONS
+export function encode<T>(input: T): Uint8Array;
+export function isEncode<T>(input: T): Uint8Array | null;
+export function assertEncode<T>(input: T): Uint8Array;
+export function validateEncode<T>(input: T): IValidation<Uint8Array>;
+
+// DECODE FUNCTIONS
+export function decode<T>(buffer: Uint8Array): T;
+export function isDecode<T>(buffer: Uint8Array): T | null;
+export function assertDecode<T>(buffer: Uint8Array): T;
+export function validateDecode<T>(buffer: Uint8Array): IValidation<T>;
+
+// FACTORY FUNCTIONS
+export function createDecode<T>(): (input: Uint8Array) => T;
+export function createEncode<T>(): (input: T) => Uint8Array;
+    // +) createIsDecode, createAssertDecode, createValidateDecode
+    // +) createIsEncode, createAssertEncode, createValidateEncode
+```
+
+`typia` supports Protocol Buffer.
+
+  - `message()`: generate Protocol Buffer schema
+  - `encode()`: encode JavaScript object to Protocol Buffer
+  - `decode()`: decode Protocol Buffer to JavaScript object
+
+Do not need to define any `*.proto` schema file. Just call above functions with generic argument `T`, then `typia` will generate the Protocol Buffer schema automatically, by analyzing your type `T`.
+
+If you want to add special type like `float32`, you can do it through **comment tags**. If you want to know more about those comment tags, visit Guide Documents ([Features > Protocol Buffer > Comment Tags](https://github.com/samchon/typia/wiki/Protocol-Buffer#comment-tags)).
 
 
 
