@@ -142,15 +142,15 @@ export function assert<T>(input: T | unknown): T; // throws `TypeGuardError`
 export function validate<T>(input: T | unknown): IValidation<T>; // detailed
 
 // DO NOT ALLOW SUPERFLUOUS PROPERTIES
-export function equals<T>(input: T | unknown): boolean;
+export function equals<T>(input: T | unknown): input is T;
 export function assertEquals<T>(input: T | unknown): T;
 export function validateEquals<T>(input: T | unknown): IValidation<T>;
 
 // REUSABLE FACTORY FUNCTIONS
-export function createIs<T>(): (input: unknown) => T;
+export function createIs<T>(): (input: unknown) => input is T;
 export function createAssert<T>(): (input: unknown) => T;
 export function createValidate<T>(): (input: unknown) => IValidation<T>;
-export function createEquals<T>(): (input: unknown) => boolean;
+export function createEquals<T>(): (input: unknown) => input is T;
 export function createAssertEquals<T>(): (input: unknown) => T;
 export function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
 ```
