@@ -68,6 +68,10 @@
     "src"
   ],
   "dependencies": {
+<<<<<<< HEAD
     "typia": "3.5.0-dev.20221219"
+=======
+    "typia": "3.4.13"
+>>>>>>> master
   }
 }
