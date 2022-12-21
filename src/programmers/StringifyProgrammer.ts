@@ -498,7 +498,7 @@ export namespace StringifyProgrammer {
                     );
             else if (
                 type === "number" &&
-                OptionPredicator.numeric(project.options, "stringify")
+                OptionPredicator.numeric(project.options)
             )
                 input = ts.factory.createCallExpression(
                     importer.use("number"),
