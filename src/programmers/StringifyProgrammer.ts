@@ -759,4 +759,4 @@ interface IUnion {
     value: () => ts.Expression;
 }
 
-const NO_BIGINT = "Error on typia.stringify(): bigint type is not supported.";
+const NO_BIGINT = "Error on typia.stringify(): does not allow bigint type.";

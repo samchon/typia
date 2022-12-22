@@ -225,4 +225,4 @@ function merge_metadata(x: Metadata, y: Metadata): Metadata {
     return output;
 }
 
-const NO_BIGINT = "Error on typia.application(): bigint type is not supported.";
+const NO_BIGINT = "Error on typia.application(): does not allow bigint type.";

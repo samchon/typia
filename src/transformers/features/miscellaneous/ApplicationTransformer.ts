@@ -115,5 +115,5 @@ export namespace ApplicationTransformer {
 const enum ErrorMessages {
     NO_GENERIC_ARGUMENT = "Error on typia.application(): no generic argument.",
     GENERIC_ARGUMENT = "Error on typia.application(): non-specified generic argument(s).",
-    NO_BIGIT = "Error on typia.application(): bigint type is not supported.",
+    NO_BIGIT = "Error on typia.application(): does not allow bigint type.",
 }

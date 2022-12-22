@@ -3,6 +3,9 @@ import ts from "typescript";
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 
 export function check_bigint(input: ts.Expression, tagList: IMetadataTag[]) {
+    const caster = (value: number) =>
+        ts.factory.createIdentifier(`${Math.floor(value)}n`);
+
     // TYPEOF STATEMENT
     const conditions: ts.Expression[] = [
         ts.factory.createStrictEquality(
@@ -12,8 +15,6 @@ export function check_bigint(input: ts.Expression, tagList: IMetadataTag[]) {
     ];
 
     // TAG (RANGE)
-    const caster = (value: number) =>
-        ts.factory.createBigIntLiteral(value.toString());
     for (const tag of tagList)
         if (tag.kind === "multipleOf")
             conditions.push(

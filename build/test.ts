@@ -90,12 +90,15 @@ async function main(): Promise<void> {
     }
 
     // SCHEMAS
+    const schemas: string = `${__dirname}/../test/schemas`;
+    if (fs.existsSync(schemas)) cp.execSync(`npx rimraf ${schemas}`);
+    await fs.promises.mkdir(schemas);
+
     await TestApplicationGenerator.generate(structures);
 
     // FILL SCHEMA CONTENTS
-    cp.execSync("npx rimraf bin");
-    cp.execSync("npx ttsc -p tsconfig.test.json");
-    await TestApplicationGenerator.fill();
+    cp.execSync("npm run build:test");
+    await TestApplicationGenerator.schema();
 }
 main().catch((exp) => {
     console.log(exp);

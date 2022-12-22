@@ -120,55 +120,9 @@ export namespace TypiaSetupWizard {
                 if (oldbie === undefined)
                     plugins.push(
                         Comment.parse(`
-      {
-        "transform": "typia/lib/transform",
-
-        /**
-         * Whether to validate finite number or not.
-         *
-         * If configured true, number typed values would be validated by Number.isNaN().
-         *
-         * However, whatever you configure, it would be ignored when marshaling or parsing.
-         *
-         *   - when marshaling, always be true
-         *     - assertStringify()
-         *     - validateEncode()
-         *   - when parsing, always be false
-         *     - assertParse()
-         *     - isDecode()
-         * 
-         * @default false
-         */
-        "finite": false,
-        
-        /**
-         * Whether to validate finite number or not.
-         *
-         * If configured true, number typed values would be validated by Number.isFinite().
-         *
-         * However, whatever you configure, it can be ignored in below case.
-         *
-         *   - when \`finite\` option is true, this option would be ignored
-         *   - when marshaling, always be true
-         *     - assertStringify()
-         *     - validateEncode()
-         *   - when parsing, always be false
-         *     - assertParse()
-         *     - isDecode()
-         * 
-         * @default false
-         */
-        "numeric": false,
-
-        /**
-         * Whether to validate functional type or not.
-         *
-         * However, whatever you configure, it becomes false when marshaling or parsing.
-         *
-         * @default false
-         */
-        "functional": false, // validate function type
-      }`) as Comment.CommentObject,
+                            {
+                                "transform": "typia/lib/transform"
+                            }`) as Comment.CommentObject,
                     );
                 await fs.promises.writeFile(
                     "tsconfig.json",
