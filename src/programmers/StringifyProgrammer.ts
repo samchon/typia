@@ -700,6 +700,10 @@ export namespace StringifyProgrammer {
             {
                 resolve: true,
                 constant: true,
+                validate: (meta) => {
+                    if (meta.atomics.find((str) => str === "bigint"))
+                        throw new Error(NO_BIGINT);
+                },
             },
         );
         return [collection, meta];
@@ -754,3 +758,5 @@ interface IUnion {
     is: () => ts.Expression;
     value: () => ts.Expression;
 }
+
+const NO_BIGINT = "Error on typia.stringify(): does not allow bigint type.";

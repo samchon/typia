@@ -34,12 +34,6 @@ export namespace TestApplicationGenerator {
                 `    _test_application("${purpose}")(`,
                 `        "${s.name}",`,
                 `        typia.application<[${s.name}], "${purpose}">(),`,
-                `        {`,
-                `            schemas: [],`,
-                `            components: {`,
-                `                schemas: {},`,
-                `            },`,
-                `        },`,
                 `    );`,
             ];
             await fs.promises.writeFile(
@@ -50,41 +44,35 @@ export namespace TestApplicationGenerator {
         }
     }
 
-    export async function fill(): Promise<void> {
+    export async function schema(): Promise<void> {
+        const schemas: string = `${__dirname}/../../test/schemas/json`;
+        await mkdir(schemas);
+
         await iterate("ajv");
         await iterate("swagger");
     }
 
-    function getSchema(content: string) {
+    function getSchema(content: string): object {
         const first: number = content.indexOf("schemas: [");
-        const last: number = content.indexOf("}, {");
+        const last: number = content.lastIndexOf("}");
 
-        return "{" + content.substring(first, last) + "}";
-    }
-
-    async function replace(
-        type: "ajv" | "swagger",
-        file: string,
-        schema: string,
-    ): Promise<void> {
-        const content = await fs.promises.readFile(file, "utf8");
-        const symbol: string = `], "${type}">(),`;
-        const first: number = content.indexOf(symbol);
-
-        const newContent: string =
-            content.substring(0, first) + symbol + schema + "\n" + ");";
-        await fs.promises.writeFile(
-            file,
-            newContent.split("\r\n").join("\n"),
-            "utf8",
-        );
+        return new Function(
+            "return {" + content.substring(first, last) + "}",
+        )();
     }
 
     async function iterate(type: "ajv" | "swagger") {
         const path: string = `${__dirname}/../../test/features/application/${type}`;
+        const schemaPath: string = `${__dirname}/../../test/schemas/json/${type}`;
+        await mkdir(schemaPath);
+
         for (const file of await fs.promises.readdir(path)) {
             if (file.substring(file.length - 3) !== ".ts") continue;
 
+            const name: string = file.substring(
+                `test_application_${type}_`.length,
+                file.length - 3,
+            );
             const location: string = `${__dirname}/../../test/features/application/${type}/${file}`;
             const jsLocation: string =
                 __dirname +
@@ -92,10 +80,19 @@ export namespace TestApplicationGenerator {
                     0,
                     -3,
                 )}.js`;
-            const schema: string = getSchema(
+            const schema: object = getSchema(
                 fs.readFileSync(jsLocation, "utf8"),
             );
-            await replace(type, location, schema);
+            await fs.promises.writeFile(
+                `${schemaPath}/${name}.json`,
+                JSON.stringify(schema, null, 2),
+                "utf8",
+            );
         }
+    }
+
+    async function mkdir(path: string): Promise<void> {
+        if (fs.existsSync(path)) cp.execSync(`npx rimraf ${path}`);
+        await fs.promises.mkdir(path);
     }
 }

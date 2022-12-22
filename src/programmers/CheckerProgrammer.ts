@@ -18,6 +18,7 @@ import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 import { check_array } from "./internal/check_array";
+import { check_bigint } from "./internal/check_bigint";
 import { check_native } from "./internal/check_native";
 import { check_number } from "./internal/check_number";
 import { check_string } from "./internal/check_string";
@@ -297,6 +298,11 @@ export namespace CheckerProgrammer {
                             input,
                             tags,
                         ),
+                        combined: false,
+                    });
+                else if (type === "bigint")
+                    binaries.push({
+                        expression: check_bigint(input, tags),
                         combined: false,
                     });
                 else if (type === "string")
