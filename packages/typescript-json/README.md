@@ -145,15 +145,15 @@ export function assert<T>(input: T | unknown): T; // throws `TypeGuardError`
 export function validate<T>(input: T | unknown): IValidation<T>; // detailed
 
 // DO NOT ALLOW SUPERFLUOUS PROPERTIES
-export function equals<T>(input: T | unknown): boolean;
+export function equals<T>(input: T | unknown): input is T;
 export function assertEquals<T>(input: T | unknown): T;
 export function validateEquals<T>(input: T | unknown): IValidation<T>;
 
 // REUSABLE FACTORY FUNCTIONS
-export function createIs<T>(): (input: unknown) => T;
+export function createIs<T>(): (input: unknown) => input is T;
 export function createAssert<T>(): (input: unknown) => T;
 export function createValidate<T>(): (input: unknown) => IValidation<T>;
-export function createEquals<T>(): (input: unknown) => boolean;
+export function createEquals<T>(): (input: unknown) => input is T;
 export function createAssertEquals<T>(): (input: unknown) => T;
 export function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
 ```
@@ -222,7 +222,7 @@ export function createAssertStringify<T>(): (input: T) => string;
 [![Build Status](https://github.com/samchon/typia/workflows/build/badge.svg)](https://github.com/samchon/nestia/actions?query=workflow%3Abuild)
 [![Guide Documents](https://img.shields.io/badge/wiki-documentation-forestgreen)](https://github.com/samchon/nestia/wiki)
 
-[Nestia](https://github.com/samchon/nestia) is a helper library set for `NestJS`, supporting below features:
+[Nestia](https://github.com/samchon/nestia) is a set of helper libraries for `NestJS`, supporting below features:
 
   - [`@nestia/core`](https://github.com/samchon/nestia#nestiacore): **15,000x times faster** validation decorator using `typia`
   - [`@nestia/sdk`](https://github.com/samchon/nestia#nestiasdk): evolved **SDK** and **Swagger** generator for `@nestia/core`
@@ -232,7 +232,7 @@ export function createAssertStringify<T>(): (input: T) => string;
 import { Controller } from "@nestjs/common";
 import { TypedBody, TypedRoute } from "@nestia/core";
 
-import { IBbsArticle } from "@bbs-api/structures/IBbsArticle";
+import type { IBbsArticle } from "@bbs-api/structures/IBbsArticle";
 
 @Controller("bbs/articles")
 export class BbsArticlesController {
@@ -244,8 +244,9 @@ export class BbsArticlesController {
      */
     @TypedRoute.Post() // 10x faster and safer JSON.stringify()
     public async store(
-        // super-fast validator
-        @TypedBody() input: IBbsArticle.IStore
-    ): Promise<IBbsArticle>;
+        @TypedBody() input: IBbsArticle.IStore // super-fast validator
+    ): Promise<IBbsArticle>; 
+        // do not need DTO class definition, 
+        // just fine with interface
 }
 ```
