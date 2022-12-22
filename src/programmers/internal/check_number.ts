@@ -12,7 +12,7 @@ import { OptionPredicator } from "../helpers/OptionPredicator";
 export const check_number =
     ({ options }: IProject, numeric: boolean) =>
     (input: ts.Expression, tagList: IMetadataTag[]) => {
-        // TYPEOF
+        // TYPEOF STATEMENT
         const conditions: ts.Expression[] = [
             ts.factory.createStrictEquality(
                 ts.factory.createStringLiteral("number"),

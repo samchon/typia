@@ -66,6 +66,10 @@ export namespace ApplicationTransformer {
             MetadataFactory.generate(checker, collection, type, {
                 resolve: true,
                 constant: true,
+                validate: (meta) => {
+                    if (meta.atomics.find((str) => str === "bigint"))
+                        throw new Error(ErrorMessages.NO_BIGIT);
+                },
             }),
         );
 
@@ -111,4 +115,5 @@ export namespace ApplicationTransformer {
 const enum ErrorMessages {
     NO_GENERIC_ARGUMENT = "Error on typia.application(): no generic argument.",
     GENERIC_ARGUMENT = "Error on typia.application(): non-specified generic argument(s).",
+    NO_BIGIT = "Error on typia.application(): bigint type is not supported.",
 }

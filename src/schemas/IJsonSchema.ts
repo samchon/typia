@@ -8,11 +8,9 @@ export namespace IJsonSchema {
     export type NotUnknown =
         | IEnumeration<"boolean">
         | IEnumeration<"number">
-        | IEnumeration<"bigint">
         | IEnumeration<"string">
         | IBoolean
         | INumber
-        | IBigInt
         | IString
         | IArray
         | ITuple
@@ -24,11 +22,12 @@ export namespace IJsonSchema {
     /* -----------------------------------------------------------
         ATOMICS
     ----------------------------------------------------------- */
-    export interface IEnumeration<Literal extends Atomic.Literal>
-        extends IAtomic<Literal> {
+    export interface IEnumeration<
+        Literal extends Exclude<Atomic.Literal, "bigint">,
+    > extends IAtomic<Literal> {
         enum: Array<Atomic.Mapper[Literal]>;
     }
-    export interface IAtomic<Literal extends Atomic.Literal>
+    export interface IAtomic<Literal extends Exclude<Atomic.Literal, "bigint">>
         extends ISignificant<Literal> {
         default?: Atomic.Mapper[Literal];
     }
@@ -46,7 +45,6 @@ export namespace IJsonSchema {
         multipleOf?: number;
     }
     export interface IBoolean extends IAtomic<"boolean"> {}
-    export interface IBigInt extends IAtomic<"bigint"> {}
 
     /* -----------------------------------------------------------
         OBJECTS

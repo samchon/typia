@@ -1,12 +1,12 @@
 import ts from "typescript";
 
-import { Metadata } from "../../metadata/Metadata";
-import { MetadataObject } from "../../metadata/MetadataObject";
+import { Metadata } from "../../../metadata/Metadata";
+import { MetadataObject } from "../../../metadata/MetadataObject";
 
-import { ArrayUtil } from "../../utils/ArrayUtil";
+import { ArrayUtil } from "../../../utils/ArrayUtil";
 
-import { MetadataCollection } from "../MetadataCollection";
-import { MetadataFactory } from "../MetadataFactory";
+import { MetadataCollection } from "../../MetadataCollection";
+import { MetadataFactory } from "../../MetadataFactory";
 import { iterate_metadata } from "./iterate_metadata";
 
 export const explore_metadata =
