@@ -11,6 +11,7 @@ import { IProject } from "../transformers/IProject";
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
+import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
 import { feature_object_entries } from "./internal/feature_object_entries";
 
@@ -23,7 +24,9 @@ export namespace IsProgrammer {
         trace: false,
         path: false,
         equals: !!options?.object,
-        numeric: !!options?.numeric,
+        numeric: OptionPredicator.numeric({
+            numeric: options?.numeric,
+        }),
         combiner: () => (type: "and" | "or") => {
             const initial: ts.TrueLiteral | ts.FalseLiteral =
                 type === "and"
@@ -90,7 +93,7 @@ export namespace IsProgrammer {
                 positive: ts.factory.createTrue(),
                 superfluous: () => ts.factory.createFalse(),
             }),
-            numeric: !!project.options.numeric,
+            numeric: OptionPredicator.numeric(project.options),
         });
         config.trace = equals;
 
