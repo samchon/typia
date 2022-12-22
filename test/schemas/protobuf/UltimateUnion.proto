@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message IJsonApplication {
-    repeated Array.Element_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBigInt_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_ schemas = 1;
+    repeated Array.Element_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_ schemas = 1;
     IJsonComponents components = 2;
     string purpose = 3;
     string prefix = 4;
@@ -10,38 +10,32 @@ message IJsonApplication {
 message Array {
     message Element_lt__lp_IJsonSchema {
         message IArray_space__or__space_IJsonSchema {
-            message IBigInt_space__or__space_IJsonSchema {
-                message IBoolean_space__or__space_IJsonSchema {
-                    message IEnumeration_lt__doublequote_bigint_doublequote__gt__space__or__space_IJsonSchema {
-                        message IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema {
-                            message IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema {
-                                message IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema {
-                                    message INullOnly_space__or__space_IJsonSchema {
-                                        message INumber_space__or__space_IJsonSchema {
-                                            message IOneOf_space__or__space_IJsonSchema {
-                                                message IRecursiveReference_space__or__space_IJsonSchema {
-                                                    message IReference_space__or__space_IJsonSchema {
-                                                        message IString_space__or__space_IJsonSchema {
-                                                            message ITuple_space__or__space_IJsonSchema {
-                                                                message IUnknown_rp__gt_ {
-                                                                    oneof value {
-                                                                        IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 1;
-                                                                        IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 2;
-                                                                        IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_ o2 = 3;
-                                                                        IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o3 = 4;
-                                                                        IJsonSchema.IBoolean o4 = 5;
-                                                                        IJsonSchema.INumber o5 = 6;
-                                                                        IJsonSchema.IBigInt o6 = 7;
-                                                                        IJsonSchema.IString o7 = 8;
-                                                                        IJsonSchema.IArray o8 = 9;
-                                                                        IJsonSchema.ITuple o9 = 10;
-                                                                        IJsonSchema.IOneOf o10 = 11;
-                                                                        IJsonSchema.IReference o11 = 12;
-                                                                        IJsonSchema.IRecursiveReference o12 = 13;
-                                                                        IJsonSchema.INullOnly o13 = 14;
-                                                                        IJsonSchema.IUnknown o14 = 15;
-                                                                    }
-                                                                }
+            message IBoolean_space__or__space_IJsonSchema {
+                message IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema {
+                    message IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema {
+                        message IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema {
+                            message INullOnly_space__or__space_IJsonSchema {
+                                message INumber_space__or__space_IJsonSchema {
+                                    message IOneOf_space__or__space_IJsonSchema {
+                                        message IRecursiveReference_space__or__space_IJsonSchema {
+                                            message IReference_space__or__space_IJsonSchema {
+                                                message IString_space__or__space_IJsonSchema {
+                                                    message ITuple_space__or__space_IJsonSchema {
+                                                        message IUnknown_rp__gt_ {
+                                                            oneof value {
+                                                                IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 1;
+                                                                IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 2;
+                                                                IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o2 = 3;
+                                                                IJsonSchema.IBoolean o3 = 4;
+                                                                IJsonSchema.INumber o4 = 5;
+                                                                IJsonSchema.IString o5 = 6;
+                                                                IJsonSchema.IArray o6 = 7;
+                                                                IJsonSchema.ITuple o7 = 8;
+                                                                IJsonSchema.IOneOf o8 = 9;
+                                                                IJsonSchema.IReference o9 = 10;
+                                                                IJsonSchema.IRecursiveReference o10 = 11;
+                                                                IJsonSchema.INullOnly o11 = 12;
+                                                                IJsonSchema.IUnknown o12 = 13;
                                                             }
                                                         }
                                                     }
@@ -142,19 +136,6 @@ message IJsonSchema {
         optional bool x-typia-required = 10;
     }
 
-    message IEnumeration_lt__doublequote_bigint_doublequote__gt_ {
-        repeated bigint enum = 1;
-        optional int64 default = 2;
-        string type = 3;
-        bool nullable = 4;
-        optional bool deprecated = 5;
-        optional string title = 6;
-        optional string description = 7;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 8;
-        optional repeated IJsDocTagInfo x-typia-jsDocTags = 9;
-        optional bool x-typia-required = 10;
-    }
-
     message IEnumeration_lt__doublequote_string_doublequote__gt_ {
         repeated string enum = 1;
         optional string default = 2;
@@ -197,18 +178,6 @@ message IJsonSchema {
         optional bool x-typia-required = 14;
     }
 
-    message IBigInt {
-        optional int64 default = 1;
-        string type = 2;
-        bool nullable = 3;
-        optional bool deprecated = 4;
-        optional string title = 5;
-        optional string description = 6;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 7;
-        optional repeated IJsDocTagInfo x-typia-jsDocTags = 8;
-        optional bool x-typia-required = 9;
-    }
-
     message IString {
         optional double minLength = 1;
         optional double maxLength = 2;
@@ -229,34 +198,32 @@ message IJsonSchema {
         oneof items {
             IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 1;
             IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 2;
-            IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_ o2 = 3;
-            IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o3 = 4;
-            IJsonSchema.IBoolean o4 = 5;
-            IJsonSchema.INumber o5 = 6;
-            IJsonSchema.IBigInt o6 = 7;
-            IJsonSchema.IString o7 = 8;
-            IJsonSchema.IArray o8 = 9;
-            IJsonSchema.ITuple o9 = 10;
-            IJsonSchema.IOneOf o10 = 11;
-            IJsonSchema.IReference o11 = 12;
-            IJsonSchema.IRecursiveReference o12 = 13;
-            IJsonSchema.INullOnly o13 = 14;
-            IJsonSchema.IUnknown o14 = 15;
+            IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o2 = 3;
+            IJsonSchema.IBoolean o3 = 4;
+            IJsonSchema.INumber o4 = 5;
+            IJsonSchema.IString o5 = 6;
+            IJsonSchema.IArray o6 = 7;
+            IJsonSchema.ITuple o7 = 8;
+            IJsonSchema.IOneOf o8 = 9;
+            IJsonSchema.IReference o9 = 10;
+            IJsonSchema.IRecursiveReference o10 = 11;
+            IJsonSchema.INullOnly o11 = 12;
+            IJsonSchema.IUnknown o12 = 13;
         }
-        optional double minItems = 16;
-        optional double maxItems = 17;
-        string type = 18;
-        bool nullable = 19;
-        optional bool deprecated = 20;
-        optional string title = 21;
-        optional string description = 22;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 23;
-        optional repeated IJsDocTagInfo x-typia-jsDocTags = 24;
-        optional bool x-typia-required = 25;
+        optional double minItems = 14;
+        optional double maxItems = 15;
+        string type = 16;
+        bool nullable = 17;
+        optional bool deprecated = 18;
+        optional string title = 19;
+        optional string description = 20;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ x-typia-metaTags = 21;
+        optional repeated IJsDocTagInfo x-typia-jsDocTags = 22;
+        optional bool x-typia-required = 23;
     }
 
     message ITuple {
-        repeated Array.Element_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBigInt_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_ items = 1;
+        repeated Array.Element_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_ items = 1;
         string type = 2;
         bool nullable = 3;
         optional bool deprecated = 4;
@@ -268,7 +235,7 @@ message IJsonSchema {
     }
 
     message IOneOf {
-        repeated Array.Element_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBigInt_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_ oneOf = 1;
+        repeated Array.Element_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_ oneOf = 1;
         optional bool deprecated = 2;
         optional string title = 3;
         optional string description = 4;
@@ -422,67 +389,59 @@ message IJsonComponents {
         optional string $id = 1;
         string type = 2;
         bool nullable = 3;
-        map<string, Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBigInt_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_> properties = 4;
-        optional map<string, Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBigInt_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_> patternProperties = 5;
+        map<string, Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_> properties = 4;
+        optional map<string, Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_> patternProperties = 5;
         oneof additionalProperties {
             IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 6;
             IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 7;
-            IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_ o2 = 8;
-            IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o3 = 9;
-            IJsonSchema.IBoolean o4 = 10;
-            IJsonSchema.INumber o5 = 11;
-            IJsonSchema.IBigInt o6 = 12;
-            IJsonSchema.IString o7 = 13;
-            IJsonSchema.IArray o8 = 14;
-            IJsonSchema.ITuple o9 = 15;
-            IJsonSchema.IOneOf o10 = 16;
-            IJsonSchema.IReference o11 = 17;
-            IJsonSchema.IRecursiveReference o12 = 18;
-            IJsonSchema.INullOnly o13 = 19;
-            IJsonSchema.IUnknown o14 = 20;
+            IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o2 = 8;
+            IJsonSchema.IBoolean o3 = 9;
+            IJsonSchema.INumber o4 = 10;
+            IJsonSchema.IString o5 = 11;
+            IJsonSchema.IArray o6 = 12;
+            IJsonSchema.ITuple o7 = 13;
+            IJsonSchema.IOneOf o8 = 14;
+            IJsonSchema.IReference o9 = 15;
+            IJsonSchema.IRecursiveReference o10 = 16;
+            IJsonSchema.INullOnly o11 = 17;
+            IJsonSchema.IUnknown o12 = 18;
         }
-        optional repeated string required = 21;
-        optional string description = 22;
-        optional repeated IJsDocTagInfo x-typia_jsDocTags = 23;
-        optional bool $recursiveAnchor = 24;
+        optional repeated string required = 19;
+        optional string description = 20;
+        optional repeated IJsDocTagInfo x-typia_jsDocTags = 21;
+        optional bool $recursiveAnchor = 22;
     }
 }
 
 message Object {
     message Value_lt__lp_IJsonSchema {
         message IArray_space__or__space_IJsonSchema {
-            message IBigInt_space__or__space_IJsonSchema {
-                message IBoolean_space__or__space_IJsonSchema {
-                    message IEnumeration_lt__doublequote_bigint_doublequote__gt__space__or__space_IJsonSchema {
-                        message IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema {
-                            message IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema {
-                                message IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema {
-                                    message INullOnly_space__or__space_IJsonSchema {
-                                        message INumber_space__or__space_IJsonSchema {
-                                            message IOneOf_space__or__space_IJsonSchema {
-                                                message IRecursiveReference_space__or__space_IJsonSchema {
-                                                    message IReference_space__or__space_IJsonSchema {
-                                                        message IString_space__or__space_IJsonSchema {
-                                                            message ITuple_space__or__space_IJsonSchema {
-                                                                message IUnknown_rp__gt_ {
-                                                                    oneof value {
-                                                                        IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 1;
-                                                                        IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 2;
-                                                                        IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_ o2 = 3;
-                                                                        IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o3 = 4;
-                                                                        IJsonSchema.IBoolean o4 = 5;
-                                                                        IJsonSchema.INumber o5 = 6;
-                                                                        IJsonSchema.IBigInt o6 = 7;
-                                                                        IJsonSchema.IString o7 = 8;
-                                                                        IJsonSchema.IArray o8 = 9;
-                                                                        IJsonSchema.ITuple o9 = 10;
-                                                                        IJsonSchema.IOneOf o10 = 11;
-                                                                        IJsonSchema.IReference o11 = 12;
-                                                                        IJsonSchema.IRecursiveReference o12 = 13;
-                                                                        IJsonSchema.INullOnly o13 = 14;
-                                                                        IJsonSchema.IUnknown o14 = 15;
-                                                                    }
-                                                                }
+            message IBoolean_space__or__space_IJsonSchema {
+                message IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema {
+                    message IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema {
+                        message IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema {
+                            message INullOnly_space__or__space_IJsonSchema {
+                                message INumber_space__or__space_IJsonSchema {
+                                    message IOneOf_space__or__space_IJsonSchema {
+                                        message IRecursiveReference_space__or__space_IJsonSchema {
+                                            message IReference_space__or__space_IJsonSchema {
+                                                message IString_space__or__space_IJsonSchema {
+                                                    message ITuple_space__or__space_IJsonSchema {
+                                                        message IUnknown_rp__gt_ {
+                                                            oneof value {
+                                                                IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 1;
+                                                                IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 2;
+                                                                IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o2 = 3;
+                                                                IJsonSchema.IBoolean o3 = 4;
+                                                                IJsonSchema.INumber o4 = 5;
+                                                                IJsonSchema.IString o5 = 6;
+                                                                IJsonSchema.IArray o6 = 7;
+                                                                IJsonSchema.ITuple o7 = 8;
+                                                                IJsonSchema.IOneOf o8 = 9;
+                                                                IJsonSchema.IReference o9 = 10;
+                                                                IJsonSchema.IRecursiveReference o10 = 11;
+                                                                IJsonSchema.INullOnly o11 = 12;
+                                                                IJsonSchema.IUnknown o12 = 13;
                                                             }
                                                         }
                                                     }

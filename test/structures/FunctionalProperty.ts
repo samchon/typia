@@ -6,6 +6,7 @@ export interface FunctionalProperty {
 }
 export namespace FunctionalProperty {
     export const PRIMITIVE = false;
+    export const JSONABLE = false;
 
     export function generate(): FunctionalProperty {
         return {

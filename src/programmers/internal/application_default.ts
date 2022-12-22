@@ -1,4 +1,4 @@
-import { IJsonSchema } from "../../module";
+import { IJsonSchema } from "../../schemas/IJsonSchema";
 
 /**
  * @internal

@@ -9,15 +9,57 @@ import { OptionPredicator } from "../helpers/OptionPredicator";
 /**
  * @internal
  */
-export function check_number(project: IProject, numeric: boolean) {
-    return function (input: ts.Expression, tagList: IMetadataTag[]) {
-        // TYPEOF
+export const check_number =
+    ({ options }: IProject, numeric: boolean) =>
+    (input: ts.Expression, tagList: IMetadataTag[]) => {
+        // TYPEOF STATEMENT
         const conditions: ts.Expression[] = [
             ts.factory.createStrictEquality(
                 ts.factory.createStringLiteral("number"),
                 ts.factory.createTypeOfExpression(input),
             ),
         ];
+
+        // CHECK FINITE AND NAN
+        const finite: boolean =
+            !!tagList.find(
+                (tag) =>
+                    tag.kind === "range" &&
+                    tag.minimum !== undefined &&
+                    tag.maximum !== undefined,
+            ) ||
+            (!!tagList.find(
+                (tag) =>
+                    tag.kind === "minimum" || tag.kind === "exclusiveMinimum",
+            ) &&
+                !!tagList.find(
+                    (tag) =>
+                        tag.kind === "maximum" ||
+                        tag.kind === "exclusiveMaximum",
+                )) ||
+            !!tagList.find(
+                (tag) => tag.kind === "step" || tag.kind === "multipleOf",
+            );
+
+        if (numeric === true && finite === false)
+            if (OptionPredicator.finite(options))
+                conditions.push(
+                    ts.factory.createCallExpression(
+                        ts.factory.createIdentifier("Number.isFinite"),
+                        undefined,
+                        [input],
+                    ),
+                );
+            else if (OptionPredicator.numeric(options))
+                conditions.push(
+                    ts.factory.createLogicalNot(
+                        ts.factory.createCallExpression(
+                            ts.factory.createIdentifier("Number.isNaN"),
+                            undefined,
+                            [input],
+                        ),
+                    ),
+                );
 
         // TAG (RANGE)
         for (const tag of tagList)
@@ -126,53 +168,8 @@ export function check_number(project: IProject, numeric: boolean) {
                     ),
                 );
 
-        // NUMERIC VALIDATION
-        const finite: boolean =
-            !!tagList.find(
-                (tag) =>
-                    tag.kind === "range" &&
-                    tag.minimum !== undefined &&
-                    tag.maximum !== undefined,
-            ) ||
-            (!!tagList.find(
-                (tag) =>
-                    tag.kind === "minimum" || tag.kind === "exclusiveMinimum",
-            ) &&
-                !!tagList.find(
-                    (tag) =>
-                        tag.kind === "maximum" ||
-                        tag.kind === "exclusiveMaximum",
-                )) ||
-            !!tagList.find(
-                (tag) => tag.kind === "step" || tag.kind === "multipleOf",
-            );
-        const valid: boolean =
-            finite || tagList.find((tag) => tag.kind === "type") !== undefined;
-
-        if (numeric && OptionPredicator.numeric(project.options) === false) {
-            if (finite === false)
-                conditions.push(
-                    ts.factory.createCallExpression(
-                        ts.factory.createIdentifier("Number.isFinite"),
-                        undefined,
-                        [input],
-                    ),
-                );
-            if (valid === false)
-                conditions.push(
-                    ts.factory.createLogicalNot(
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("Number.isNaN"),
-                            undefined,
-                            [input],
-                        ),
-                    ),
-                );
-        }
-
         // COMBINATION
         return conditions.length === 1
             ? conditions[0]!
             : conditions.reduce((x, y) => ts.factory.createLogicalAnd(x, y));
     };
-}

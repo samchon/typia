@@ -4,6 +4,7 @@ import { Spoiler } from "../internal/Spoiler";
 export type FunctionalArray = Array<(...args: any[]) => any>;
 export namespace FunctionalArray {
     export const PRIMITIVE = false;
+    export const JSONABLE = false;
 
     export function generate(): FunctionalArray {
         return RandomGenerator.array(() => console.log);

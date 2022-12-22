@@ -105,8 +105,9 @@
         "transform": "./src/transform.ts", 
         "functional": true, 
         "numeric": true, 
+        "finite": true,
       },
     ]
   },
-  "include": ["test", "benchmark", "src"]
+  "include": ["test", "src"]
 }

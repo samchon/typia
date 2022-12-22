@@ -50,13 +50,18 @@ export const application_schema =
         if (meta.templates.length && AtomicPredicator.template(meta))
             union.push(application_templates(meta, attribute));
         for (const constant of meta.constants) {
-            if (constant.type === "string" && meta.templates.length) continue;
-            else if (!AtomicPredicator.constant(meta)(constant.type)) continue;
+            if (constant.type === "bigint") throw new Error(NO_BIGINT);
+            else if (
+                (constant.type === "string" && meta.templates.length) ||
+                AtomicPredicator.constant(meta)(constant.type) === false
+            )
+                continue;
             union.push(
                 application_constant(constant, meta.nullable, attribute),
             );
         }
         for (const type of meta.atomics) {
+            if (type === "bigint") throw new Error(NO_BIGINT);
             union.push(
                 type === "string"
                     ? application_string(meta, attribute)
@@ -219,3 +224,5 @@ function merge_metadata(x: Metadata, y: Metadata): Metadata {
 
     return output;
 }
+
+const NO_BIGINT = "Error on typia.application(): does not allow bigint type.";

@@ -23,7 +23,17 @@ export namespace StringifyTransformer {
             throw new Error(ErrorMessages.GENERIC_ARGUMENT);
 
         return ts.factory.createCallExpression(
-            StringifyProgrammer.generate(project, modulo)(type),
+            StringifyProgrammer.generate(
+                {
+                    ...project,
+                    options: {
+                        ...project.options,
+                        functional: false,
+                        numeric: true,
+                    },
+                },
+                modulo,
+            )(type),
             undefined,
             [expression.arguments[0]!],
         );

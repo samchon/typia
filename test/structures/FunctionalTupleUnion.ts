@@ -8,6 +8,7 @@ export type FunctionalTupleUnion = [
 ];
 export namespace FunctionalTupleUnion {
     export const PRIMITIVE = false;
+    export const JSONABLE = false;
 
     export type Union = ((...args: any[]) => any) | number | string | null;
     export function generate(): FunctionalTupleUnion {
