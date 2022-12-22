@@ -1,4 +1,4 @@
 import typia from "../../src";
-import { NumberFinite } from "../structures/NumberFinite";
+import { TagBigInt } from "../structures/TagBigInt";
 
-console.log(typia.createIs<NumberFinite>().toString());
+console.log(typia.createIs<TagBigInt>().toString());

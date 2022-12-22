@@ -1,13 +1,14 @@
 {
   "name": "typescript-json",
-  "version": "3.4.14",
+  "version": "3.4.15",
   "description": "Runtime type checkers and 5x faster JSON.stringify() function",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "benchmark": "npm run build:test && node bin/benchmark",
+    "benchmark": "npm run build:benchmark && node measure/benchmark",
     "build": "rimraf lib && ttsc --removeComments --declaration false && ttsc --emitDeclarationOnly",
     "build:test": "rimraf bin && ttsc -p tsconfig.test.json",
+    "build:benchmark": "rimraf measure && ttsc -p tsconfig.benchmark.json",
     "build:test:prettier": "npm run build:test && prettier --write ./bin/**/*.js",
     "dev": "rimraf lib && ttsc --watch",
     "dev:test": "rimraf bin && ttsc -p tsconfig.test.json --watch",
@@ -69,6 +70,6 @@
     "src"
   ],
   "dependencies": {
-    "typia": "3.4.14"
+    "typia": "3.4.15"
   }
 }

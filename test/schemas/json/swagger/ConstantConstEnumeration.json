@@ -1,0 +1,34 @@
+{
+  "schemas": [
+    {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "number",
+            "enum": [
+              0,
+              1,
+              2
+            ],
+            "nullable": false
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Three",
+              "Four"
+            ],
+            "nullable": false
+          }
+        ]
+      },
+      "nullable": false
+    }
+  ],
+  "components": {
+    "schemas": {}
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

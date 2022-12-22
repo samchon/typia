@@ -1,0 +1,28 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectGenericAlias.Alias"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectGenericAlias.Alias": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "nullable": false,
+            "x-typia-required": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia_jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}
