@@ -330,8 +330,12 @@ function validate(
 }
 
 function has_atomic(metadata: Metadata, type: "string" | "number"): boolean {
+    const valid =
+        type === "number"
+            ? (atom: string) => atom === type || atom === "bigint"
+            : (atom: string) => atom === type;
     return (
-        metadata.atomics.find((atom) => atom === type) !== undefined ||
+        metadata.atomics.find((atom) => valid(atom)) !== undefined ||
         metadata.arrays.some((child) => has_atomic(child, type)) ||
         metadata.tuples.some((tuple) =>
             tuple.some((child) => has_atomic(child, type)),
