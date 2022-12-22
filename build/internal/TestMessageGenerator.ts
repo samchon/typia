@@ -8,8 +8,7 @@ export namespace TestMessageGenerator {
         structures: TestStructure<any>[],
     ): Promise<void> {
         const path: string = `${__dirname}/../../test/features/message`;
-        if (fs.existsSync(path)) cp.execSync(`npx rimraf ${path}`);
-        await fs.promises.mkdir(path);
+        await mkdir(path);
 
         for (const s of structures) {
             if (s.JSONABLE === false || s.BINARABLE === false) continue;
@@ -22,7 +21,6 @@ export namespace TestMessageGenerator {
                 `export const test_message_${s.name} = _test_message(`,
                 `    "${s.name}",`,
                 `    typia.message<${s.name}>(),`,
-                `    ""`,
                 `);`,
             ];
             await fs.promises.writeFile(
@@ -33,12 +31,22 @@ export namespace TestMessageGenerator {
         }
     }
 
-    export async function fill(): Promise<void> {
+    export async function schema(): Promise<void> {
         const path: string = `${__dirname}/../../test/features/message`;
+        await mkdir(`${path}/../../schemas/protobuf`);
+
         for (const file of await fs.promises.readdir(path)) {
             if (file.substring(file.length - 3) !== ".ts") continue;
-            const message: string = await read(file);
-            await replace(`${path}/${file}`, message);
+
+            const name: string = file.substring(
+                "test_message_".length,
+                file.length - 3,
+            );
+            await fs.promises.writeFile(
+                `${path}/../../schemas/protobuf/${name}.proto`,
+                await read(file),
+                "utf8",
+            );
         }
     }
 
@@ -50,20 +58,13 @@ export namespace TestMessageGenerator {
             )}.js`,
             "utf8",
         );
-        const first: number = content.indexOf(`syntax = `);
+        const first: number = content.indexOf(`"syntax = `);
         const last: number = content.lastIndexOf(`}"`);
-        return content
-            .substring(first, last + 1)
-            .split("\\n")
-            .join("\n");
+        return JSON.parse(content.substring(first, last + 2));
     }
 
-    async function replace(file: string, message: string): Promise<void> {
-        const content: string = await fs.promises.readFile(file, "utf8");
-        await fs.promises.writeFile(
-            file,
-            content.split('""').join("`" + message + "`"),
-            "utf8",
-        );
+    async function mkdir(path: string): Promise<void> {
+        if (fs.existsSync(path)) cp.execSync(`npx rimraf ${path}`);
+        await fs.promises.mkdir(path);
     }
 }
