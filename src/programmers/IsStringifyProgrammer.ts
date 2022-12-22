@@ -21,11 +21,31 @@ export namespace IsStringifyProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "is",
-                        IsProgrammer.generate(project, modulo)(type),
+                        IsProgrammer.generate(
+                            {
+                                ...project,
+                                options: {
+                                    ...project.options,
+                                    functional: false,
+                                    numeric: true,
+                                },
+                            },
+                            modulo,
+                        )(type),
                     ),
                     StatementFactory.constant(
                         "stringify",
-                        StringifyProgrammer.generate(project, modulo)(type),
+                        StringifyProgrammer.generate(
+                            {
+                                ...project,
+                                options: {
+                                    ...project.options,
+                                    functional: false,
+                                    numeric: false,
+                                },
+                            },
+                            modulo,
+                        )(type),
                     ),
                     ts.factory.createReturnStatement(
                         ts.factory.createConditionalExpression(

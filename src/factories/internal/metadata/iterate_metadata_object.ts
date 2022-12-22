@@ -16,10 +16,13 @@ export const iterate_metadata_object =
     (collection: MetadataCollection) =>
     (meta: Metadata, type: ts.Type, parentResolved: boolean): boolean => {
         const filter = (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
-        if (!filter(ts.TypeFlags.Object) && !type.isIntersection())
+        if (
+            !filter(ts.TypeFlags.Object) &&
+            !type.isIntersection() &&
+            (type as any).intrinsicName !== "object"
+        )
             return false;
-
-        if (type.isIntersection()) {
+        else if (type.isIntersection()) {
             const fakeCollection = new MetadataCollection();
             const fakeSchema: Metadata = Metadata.initialize();
 

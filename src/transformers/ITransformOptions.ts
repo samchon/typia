@@ -1,4 +1,47 @@
 export interface ITransformOptions {
-    functional?: boolean;
+    /**
+     * Whether to validate finite number or not.
+     *
+     * If configured true, number typed values would be validated by Number.isNaN().
+     *
+     * However, whatever you configure, it would be ignored when marshaling or parsing.
+     *
+     *   - when marshaling, always be true
+     *     - assertStringify()
+     *     - validateEncode()
+     *   - when parsing, always be false
+     *     - assertParse()
+     *     - isDecode()
+     *
+     * @default false
+     */
+    finite?: boolean;
+
+    /**
+     * Whether to validate finite number or not.
+     *
+     * If configured true, number typed values would be validated by Number.isFinite().
+     *
+     * However, whatever you configure, it can be ignored in below case.
+     *
+     *   - when `finite` option is true, this option would be ignored
+     *   - when marshaling, always be true
+     *     - assertStringify()
+     *     - validateEncode()
+     *   - when parsing, always be false
+     *     - assertParse()
+     *     - isDecode()
+     *
+     * @default false
+     */
     numeric?: boolean;
+
+    /**
+     * Whether to validate functional type or not.
+     *
+     * However, whatever you configure, it becomes false when marshaling or parsing.
+     *
+     * @default false
+     */
+    functional?: boolean;
 }

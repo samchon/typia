@@ -48,7 +48,6 @@ export namespace TypiaSetupWizard {
             await fs.promises.readFile("package.json", "utf8"),
         );
         const wizard = add(manager)(pack);
-
         wizard("typia", false);
         wizard("typescript", true);
         return pack;
@@ -120,11 +119,10 @@ export namespace TypiaSetupWizard {
                 options.strict = true;
                 if (oldbie === undefined)
                     plugins.push(
-                        Comment.parse(`{
-                            "transform": "typia/lib/transform",
-                            "numeric": true, // check isNaN() and isFinite()
-                            "functional": false, // validate function type
-                        }`) as Comment.CommentObject,
+                        Comment.parse(`
+                            {
+                                "transform": "typia/lib/transform"
+                            }`) as Comment.CommentObject,
                     );
                 await fs.promises.writeFile(
                     "tsconfig.json",
