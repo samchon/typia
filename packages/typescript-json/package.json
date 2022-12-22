@@ -1,10 +1,6 @@
 {
   "name": "typescript-json",
-<<<<<<< HEAD
-  "version": "3.5.0-dev.20221219",
-=======
-  "version": "3.4.15",
->>>>>>> master
+  "version": "3.5.0-dev.20221222",
   "description": "Runtime type checkers and 5x faster JSON.stringify() function",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -73,14 +69,6 @@
     "src"
   ],
   "dependencies": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "typia": "3.5.0-dev.20221219"
-=======
-    "typia": "3.4.13"
->>>>>>> master
-=======
-    "typia": "3.4.15"
->>>>>>> master
+    "typia": "3.5.0-dev.20221222"
   }
 }

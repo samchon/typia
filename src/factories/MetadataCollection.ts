@@ -14,9 +14,7 @@ export class MetadataCollection {
     private readonly unions_: Map<string, MetadataObject[]>;
     private index_: number;
 
-    public constructor(
-        private readonly options?: Partial<MetadataCollection.IOptions>,
-    ) {
+    public constructor() {
         this.dict_ = new Map();
         this.names_ = new Map();
         this.unions_ = new Map();
@@ -67,11 +65,7 @@ export class MetadataCollection {
     }
 
     private get_name(checker: ts.TypeChecker, type: ts.Type): string {
-        const name: string = (() => {
-            const str: string = TypeFactory.getFullName(checker, type);
-            return this.options?.replace ? this.options.replace(str) : str;
-        })();
-
+        const name: string = TypeFactory.getFullName(checker, type);
         const duplicates: Map<ts.Type, string> = MapUtil.take(
             this.names_,
             name,
@@ -87,38 +81,3 @@ export class MetadataCollection {
         return addicted;
     }
 }
-export namespace MetadataCollection {
-    export interface IOptions {
-        replace?(str: string): string;
-    }
-
-    export function replace(str: string): string {
-        for (const [before, after] of REPLACERS)
-            str = str.split(before).join(after);
-        return str;
-    }
-
-    export function escape(str: string): string {
-        for (const [before, after] of REPLACERS)
-            if (after !== "") str = str.split(after).join(before);
-        return str;
-    }
-}
-const REPLACERS: [string, string][] = [
-    ["$", "_dollar_"],
-    ["&", "_and_"],
-    ["|", "_or_"],
-    ["{", "_blt_"],
-    ["}", "_bgt_"],
-    ["<", "_lt_"],
-    [">", "_gt_"],
-    ["(", "_lp_"],
-    [")", "_rp_"],
-    ["[", "_alt_"],
-    ["]", "_agt_"],
-    [",", "_comma_"],
-    ["`", "_backquote_"],
-    ["'", "_singlequote_"],
-    ['"', "_doublequote_"],
-    [" ", "_space_"],
-];

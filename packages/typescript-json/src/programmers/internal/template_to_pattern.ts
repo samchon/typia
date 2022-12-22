@@ -1,1 +1,0 @@
-export * from "typia/lib/programmers/internal/template_to_pattern";

@@ -9,11 +9,6 @@ import { emplace_protocol_object } from "./internal/protocols/emplace_protocol_o
 import { iterate_protocol_main } from "./internal/protocols/iterate_protocol_main";
 
 export namespace ProtocolFactory {
-    export const collection = () =>
-        new MetadataCollection({
-            replace: MetadataCollection.replace,
-        });
-
     export const metadata =
         (checker: ts.TypeChecker) =>
         (collection: MetadataCollection) =>
