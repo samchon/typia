@@ -8,6 +8,7 @@ import { IProject } from "../transformers/IProject";
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
 
 // /* -----------------------------------------------------------
@@ -31,7 +32,7 @@ import { check_object } from "./internal/check_object";
 //                     unioners: "$au",
 //                     path: true,
 //                     trace: true,
-//                     numeric: !!project.options.numeric,
+//                     numeric: OptionPredicator.numeric(project.options),
 //                     equals,
 //                     combiner,
 //                     joiner: joiner(equals)(importer),
@@ -237,7 +238,7 @@ export namespace AssertProgrammer {
                     unioners: "$au",
                     path: true,
                     trace: true,
-                    numeric: !!project.options.numeric,
+                    numeric: OptionPredicator.numeric(project.options),
                     equals,
                     combiner: combiner(equals)(importer),
                     joiner: joiner(equals)(importer),

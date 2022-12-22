@@ -21,11 +21,31 @@ export namespace ValidateStringifyProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "validate",
-                        ValidateProgrammer.generate(project, modulo)(type),
+                        ValidateProgrammer.generate(
+                            {
+                                ...project,
+                                options: {
+                                    ...project.options,
+                                    functional: false,
+                                    numeric: true,
+                                },
+                            },
+                            modulo,
+                        )(type),
                     ),
                     StatementFactory.constant(
                         "stringify",
-                        StringifyProgrammer.generate(project, modulo)(type),
+                        StringifyProgrammer.generate(
+                            {
+                                ...project,
+                                options: {
+                                    ...project.options,
+                                    functional: false,
+                                    numeric: false,
+                                },
+                            },
+                            modulo,
+                        )(type),
                     ),
                     StatementFactory.constant(
                         "output",

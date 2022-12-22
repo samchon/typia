@@ -7,6 +7,7 @@ export type FunctionalTuple = [
 ];
 export namespace FunctionalTuple {
     export const PRIMITIVE = false;
+    export const JSONABLE = false;
 
     export type Functional = (...args: any[]) => any;
     export function generate(): FunctionalTuple {

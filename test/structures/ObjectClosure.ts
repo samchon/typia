@@ -3,6 +3,7 @@ import { Spoiler } from "../internal/Spoiler";
 export type ObjectClosure = ObjectClosure.IRecord;
 export namespace ObjectClosure {
     export const PRIMITIVE = false;
+    export const JSONABLE = false;
 
     export interface IRecord {
         id: string;
