@@ -7,7 +7,9 @@ import { Metadata } from "../metadata/Metadata";
 
 import { IProject } from "../transformers/IProject";
 
+import { Escaper } from "../utils/Escaper";
 import { MapUtil } from "../utils/MapUtil";
+import { NameEncoder } from "../utils/NameEncoder";
 
 import { IProtocolMessage } from "../messages/IProtocolMessage";
 
@@ -16,7 +18,7 @@ export namespace MessageProgrammer {
         ({ checker }: IProject) =>
         (type: ts.Type) => {
             // PARSE TARGET TYPE
-            const collection: MetadataCollection = ProtocolFactory.collection();
+            const collection: MetadataCollection = new MetadataCollection();
             const metadata: Metadata =
                 ProtocolFactory.metadata(checker)(collection)(type);
 
@@ -42,7 +44,7 @@ export namespace MessageProgrammer {
         const { key, message, children } = hierarchy;
         let index: number = 1;
 
-        const elements: string[] = [`message ${key} {`];
+        const elements: string[] = [`message ${NameEncoder.encode(key)} {`];
         if (message !== null)
             elements.push(
                 ...message.properties.map((property) => {
@@ -51,9 +53,11 @@ export namespace MessageProgrammer {
                             TAB,
                             property.required ? "" : "optional ",
                             property.repeated ? "repeated " : "",
-                            property.oneOf[0]!.type + " ",
-                            property.key + " ",
-                            "= ",
+                            NameEncoder.encode(property.oneOf[0]!.type) + " ",
+                            Escaper.variable(property.key)
+                                ? property.key
+                                : `v${index + 1}`,
+                            " = ",
                             `${index++};`,
                         ].join("");
                     return (
@@ -61,7 +65,9 @@ export namespace MessageProgrammer {
                         property.oneOf
                             .map(
                                 (o, i) =>
-                                    `${TAB}${TAB}${o.type} o${i} = ${index++};`,
+                                    `${TAB}${TAB}${NameEncoder.encode(
+                                        o.type,
+                                    )} o${i} = ${index++};`,
                             )
                             .join("\n") +
                         `\n${TAB}}`

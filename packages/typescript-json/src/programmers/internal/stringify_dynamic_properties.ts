@@ -1,1 +1,0 @@
-export * from "typia/lib/programmers/internal/stringify_dynamic_properties";

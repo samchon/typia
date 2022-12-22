@@ -17,10 +17,10 @@ import { metadata_to_pattern } from "./metadata_to_pattern";
 export const application_object =
     (options: ApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
-    (key: string, obj: MetadataObject, nullable: boolean): void => {
+    (id: string, obj: MetadataObject, nullable: boolean): void => {
         // TEMPORARY ASSIGNMENT
-        if (components.schemas[key] !== undefined) return;
-        components.schemas[key] = {} as any;
+        if (components.schemas[id] !== undefined) return;
+        components.schemas[id] = {} as any;
 
         // ITERATE PROPERTIES
         const properties: Record<string, any> = {};
@@ -80,7 +80,7 @@ export const application_object =
         const schema: IJsonComponents.IObject = {
             $id:
                 options.purpose === "ajv"
-                    ? options.prefix + "/" + key
+                    ? options.prefix + "/" + id
                     : undefined,
             $recursiveAnchor:
                 (options.purpose === "ajv" && obj.recursive) || undefined,
@@ -99,5 +99,5 @@ export const application_object =
             description: obj.description,
             "x-typia_jsDocTags": obj.jsDocTags,
         };
-        components.schemas[key] = schema;
+        components.schemas[id] = schema;
     };
