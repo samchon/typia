@@ -4,6 +4,7 @@ import { IJsonComponents } from "../../schemas/IJsonComponents";
 import { IJsonSchema } from "../../schemas/IJsonSchema";
 
 import { ArrayUtil } from "../../utils/ArrayUtil";
+import { NameEncoder } from "../../utils/NameEncoder";
 
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
@@ -133,12 +134,14 @@ export const application_schema =
 
         // OBJECT
         for (const obj of meta.objects) {
-            const key: string = obj.name + (meta.nullable ? ".Nullable" : "");
-            application_object(options)(components)(key, obj, meta.nullable);
+            const id: string =
+                NameEncoder.encode(obj.name) +
+                (meta.nullable ? ".Nullable" : "");
+            application_object(options)(components)(id, obj, meta.nullable);
             union.push(
                 (options.purpose === "ajv" && obj.recursive
                     ? recursive
-                    : reference)(`${options.prefix}/${key}`, attribute),
+                    : reference)(`${options.prefix}/${id}`, attribute),
             );
         }
 

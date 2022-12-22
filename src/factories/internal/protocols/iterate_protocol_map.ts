@@ -2,7 +2,6 @@ import { Metadata } from "../../../metadata/Metadata";
 import { MetadataObject } from "../../../metadata/MetadataObject";
 
 import { IProtocolMessage } from "../../../messages/IProtocolMessage";
-import { MetadataCollection } from "../../MetadataCollection";
 import { ProtocolMetadataUtil } from "./ProtocolMetadataUtil";
 import { emplace_protocol_object } from "./emplace_protocol_object";
 import { iterate_protocol_atomic } from "./iterate_protocol_atomic";
@@ -27,14 +26,13 @@ const getValueName =
     (container: "Object" | "Map") =>
     (dict: Map<string, IProtocolMessage>) =>
     (meta: Metadata) => {
-        if (ProtocolMetadataUtil.standalone(meta))
-            return MetadataCollection.escape(meta.getName());
+        if (ProtocolMetadataUtil.standalone(meta)) return meta.getName();
 
         const obj: MetadataObject = ProtocolMetadataUtil.object(
-            MetadataCollection.replace(`${container}.Value<${meta.getName()}>`),
+            `${container}.Value<${meta.getName()}>`,
             dict.size,
         );
         obj.properties.push(ProtocolMetadataUtil.property("value", meta, []));
         emplace_protocol_object(dict)(obj);
-        return MetadataCollection.replace(obj.name);
+        return obj.name;
     };

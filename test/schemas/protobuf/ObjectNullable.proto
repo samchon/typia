@@ -23,7 +23,7 @@ message ObjectNullable {
 }
 
 message __Main {
-    [ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct] value = 1;
+    _alt_ObjectNullable.IProduct_comma__space_ObjectNullable.IProduct_comma__space_ObjectNullable.IProduct_agt_ value = 1;
 }
 
 message _alt_ObjectNullable {

@@ -2,18 +2,14 @@ syntax = "proto3";
 
 message TemplateUnion {
     message Type {
-        oneof prefix {
-    
-        }
-        oneof postfix {
-    
-        }
-        string middle = 1;
+        string prefix = 1;
+        string postfix = 2;
+        string middle = 3;
         oneof mixed {
-            double o0 = 2;
-            bool o1 = 3;
-            string o2 = 4;
-            __type o3 = 5;
+            double o0 = 4;
+            bool o1 = 5;
+            string o2 = 6;
+            __type o3 = 7;
         }
     }
 }

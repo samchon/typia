@@ -29,7 +29,7 @@ message ObjectPropertyNullable {
 }
 
 message __Main {
-    [Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>] value = 1;
+    _alt_Array_lt_ObjectPropertyNullable.IPointer_lt_boolean_gt__gt__comma__space_Array_lt_ObjectPropertyNullable.IPointer_lt_number_gt__gt__comma__space_Array_lt_ObjectPropertyNullable.IPointer_lt_string_gt__gt__comma__space_Array_lt_ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt__gt__agt_ value = 1;
 }
 
 message _alt_Array_lt_ObjectPropertyNullable {

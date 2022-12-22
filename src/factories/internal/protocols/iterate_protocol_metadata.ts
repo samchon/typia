@@ -44,6 +44,7 @@ export const iterate_protocol_metadata =
             add(iterate_protocol_atomic(tags)(type));
         for (const constant of meta.constants)
             add(iterate_protocol_constant(constant));
+        if (meta.templates.length) add("string");
 
         // INSTANCE TYPES
         for (const obj of meta.objects)

@@ -8,7 +8,7 @@ message ObjectHierarchical {
         optional ObjectHierarchical.IAccount account = 4;
         string href = 5;
         string referrer = 6;
-        [number, number, number, number] ip = 7;
+        _alt_number_comma__space_number_comma__space_number_comma__space_number_agt_ ip = 7;
         ObjectHierarchical.ITimestamp created_at = 8;
     }
 

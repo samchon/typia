@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message __Main {
-    [boolean, number, ...Array<string>] value = 1;
+    _alt_boolean_comma__space_number_comma__space_...Array_lt_string_gt__agt_ value = 1;
 }
 
 message _alt_boolean_comma__space_number_comma__space_ {

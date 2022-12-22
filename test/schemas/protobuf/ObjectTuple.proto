@@ -15,7 +15,7 @@ message ObjectTuple {
 }
 
 message __Main {
-    [ObjectTuple.ISection, ObjectTuple.ICitizen] value = 1;
+    _alt_ObjectTuple.ISection_comma__space_ObjectTuple.ICitizen_agt_ value = 1;
 }
 
 message _alt_ObjectTuple {

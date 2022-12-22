@@ -36,7 +36,7 @@ message ObjectGeneric {
 }
 
 message __Main {
-    [ObjectGeneric.ISomething<boolean>, ObjectGeneric.ISomething<number>, ObjectGeneric.ISomething<string>] value = 1;
+    _alt_ObjectGeneric.ISomething_lt_boolean_gt__comma__space_ObjectGeneric.ISomething_lt_number_gt__comma__space_ObjectGeneric.ISomething_lt_string_gt__agt_ value = 1;
 }
 
 message _alt_ObjectGeneric {
