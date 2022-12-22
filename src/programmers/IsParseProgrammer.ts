@@ -20,7 +20,17 @@ export namespace IsParseProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "is",
-                        IsProgrammer.generate(project, modulo)(type),
+                        IsProgrammer.generate(
+                            {
+                                ...project,
+                                options: {
+                                    ...project.options,
+                                    functional: false,
+                                    numeric: false,
+                                },
+                            },
+                            modulo,
+                        )(type),
                     ),
                     ts.factory.createExpressionStatement(
                         ts.factory.createBinaryExpression(

@@ -20,7 +20,17 @@ export namespace AssertParseProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "assert",
-                        AssertProgrammer.generate(project, modulo)(type),
+                        AssertProgrammer.generate(
+                            {
+                                ...project,
+                                options: {
+                                    ...project.options,
+                                    functional: false,
+                                    numeric: false,
+                                },
+                            },
+                            modulo,
+                        )(type),
                     ),
                     ts.factory.createExpressionStatement(
                         ts.factory.createBinaryExpression(

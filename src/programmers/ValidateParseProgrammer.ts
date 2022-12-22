@@ -20,7 +20,17 @@ export namespace ValidateParseProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "validate",
-                        ValidateProgrammer.generate(project, modulo)(type),
+                        ValidateProgrammer.generate(
+                            {
+                                ...project,
+                                options: {
+                                    ...project.options,
+                                    functional: false,
+                                    numeric: false,
+                                },
+                            },
+                            modulo,
+                        )(type),
                     ),
                     ts.factory.createExpressionStatement(
                         ts.factory.createBinaryExpression(

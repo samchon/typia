@@ -4,6 +4,7 @@ import { Spoiler } from "../internal/Spoiler";
 export type ClassClosure = ClassClosure.Something;
 export namespace ClassClosure {
     export const PRIMITIVE = false;
+    export const JSONABLE = false;
 
     export class Something {
         public constructor(public readonly id: string) {}
