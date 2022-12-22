@@ -1,0 +1,24 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicSimple"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "DynamicSimple": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": {
+          "type": "number",
+          "nullable": false,
+          "x-typia-required": true
+        },
+        "nullable": false,
+        "x-typia_jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

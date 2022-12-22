@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message ClassMethod {
+    message Animal {
+        string name = 1;
+        double age = 2;
+    }
+}

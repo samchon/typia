@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+message ObjectRecursive {
+    message IDepartment {
+        optional ObjectRecursive.IDepartment parent = 1;
+        double id = 2;
+        string code = 3;
+        string name = 4;
+        double sequence = 5;
+        ObjectRecursive.ITimestamp created_at = 6;
+    }
+
+    message ITimestamp {
+        double time = 1;
+        double zone = 2;
+    }
+}

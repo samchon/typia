@@ -1,0 +1,28 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/FunctionalProperty"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "FunctionalProperty": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": false,
+            "x-typia-required": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name"
+        ],
+        "x-typia_jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

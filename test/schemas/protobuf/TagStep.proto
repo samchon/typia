@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+message TagStep {
+    message Type {
+        double exclusiveMinimum = 1;
+        double minimum = 2;
+        double range = 3;
+        double multipleOf = 4;
+    }
+}
+
+message __Main {
+    repeated TagStep.Type value = 1;
+}

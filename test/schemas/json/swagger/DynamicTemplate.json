@@ -1,0 +1,43 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicTemplate"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "DynamicTemplate": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string",
+              "nullable": false,
+              "x-typia-required": true
+            },
+            {
+              "type": "string",
+              "nullable": false,
+              "x-typia-required": true
+            },
+            {
+              "type": "number",
+              "nullable": false,
+              "x-typia-required": true
+            },
+            {
+              "type": "boolean",
+              "nullable": false,
+              "x-typia-required": true
+            }
+          ]
+        },
+        "nullable": false,
+        "x-typia_jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}
