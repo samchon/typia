@@ -5,35 +5,32 @@ message TagDefault {
     double number = 2;
     string string = 3;
     string text = 4;
-    oneof template {
-
-    }
+    string template = 5;
     oneof boolean_and_number_and_string {
-        string o0 = 5;
-        double o1 = 6;
-        bool o2 = 7;
+        string o0 = 6;
+        double o1 = 7;
+        bool o2 = 8;
     }
     oneof union_but_boolean {
-        string o0 = 8;
-        double o1 = 9;
-        bool o2 = 10;
+        string o0 = 9;
+        double o1 = 10;
+        bool o2 = 11;
     }
     oneof union_but_number {
-        string o0 = 11;
-        double o1 = 12;
-        bool o2 = 13;
+        string o0 = 12;
+        double o1 = 13;
+        bool o2 = 14;
     }
     oneof union_but_string {
-        string o0 = 14;
-        double o1 = 15;
-        bool o2 = 16;
+        string o0 = 15;
+        double o1 = 16;
+        bool o2 = 17;
     }
-    double vulnerable_range = 17;
-    oneof vulnerable_template {
-
-    }
+    double vulnerable_range = 18;
+    string vulnerable_template = 19;
     oneof boolean_and_number_and_template {
-        double o0 = 18;
-        bool o1 = 19;
+        double o0 = 20;
+        bool o1 = 21;
+        string o2 = 22;
     }
 }

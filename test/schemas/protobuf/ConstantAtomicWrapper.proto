@@ -15,7 +15,7 @@ message ConstantAtomicWrapper {
 }
 
 message __Main {
-    [ConstantAtomicWrapper.IPointer<boolean>, ConstantAtomicWrapper.IPointer<number>, ConstantAtomicWrapper.IPointer<string>] value = 1;
+    _alt_ConstantAtomicWrapper.IPointer_lt_boolean_gt__comma__space_ConstantAtomicWrapper.IPointer_lt_number_gt__comma__space_ConstantAtomicWrapper.IPointer_lt_string_gt__agt_ value = 1;
 }
 
 message _alt_ConstantAtomicWrapper {

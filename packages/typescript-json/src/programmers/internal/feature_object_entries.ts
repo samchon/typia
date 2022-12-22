@@ -1,1 +1,0 @@
-export * from "typia/lib/programmers/internal/feature_object_entries";

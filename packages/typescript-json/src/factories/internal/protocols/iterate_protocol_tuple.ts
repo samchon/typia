@@ -1,1 +1,0 @@
-export * from "typia/lib/factories/internal/protocols/iterate_protocol_tuple";

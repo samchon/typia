@@ -59,9 +59,7 @@ export namespace ApplicationTransformer {
         // GENERATORS
         //----
         // METADATA
-        const collection: MetadataCollection = new MetadataCollection({
-            replace: MetadataCollection.replace,
-        });
+        const collection: MetadataCollection = new MetadataCollection();
         const metadatas: Array<Metadata> = types.map((type) =>
             MetadataFactory.generate(checker, collection, type, {
                 resolve: true,

@@ -1,1 +1,0 @@
-export * from "typia/lib/transformers/features/protocols/MessageTransformer";

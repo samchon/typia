@@ -1,1 +1,0 @@
-export * from "typia/lib/factories/LiteralFactory";

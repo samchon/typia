@@ -1,26 +1,12 @@
 syntax = "proto3";
 
 message TemplateAtomic {
-    oneof prefix {
-
-    }
-    oneof postfix {
-
-    }
-    oneof middle_string {
-
-    }
-    oneof middle_string_empty {
-
-    }
-    oneof middle_numeric {
-
-    }
-    string middle_boolean = 1;
-    oneof ipv4 {
-
-    }
-    oneof email {
-
-    }
+    string prefix = 1;
+    string postfix = 2;
+    string middle_string = 3;
+    string middle_string_empty = 4;
+    string middle_numeric = 5;
+    string middle_boolean = 6;
+    string ipv4 = 7;
+    string email = 8;
 }

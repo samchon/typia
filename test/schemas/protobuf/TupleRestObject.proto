@@ -7,7 +7,7 @@ message TupleRestObject {
 }
 
 message __Main {
-    [boolean, number, ...TupleRestObject.IObject] value = 1;
+    _alt_boolean_comma__space_number_comma__space_...TupleRestObject.IObject_agt_ value = 1;
 }
 
 message _alt_boolean_comma__space_number_comma__space_ {
