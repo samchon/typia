@@ -1,0 +1,37 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ClassClosure.Something"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ClassClosure.Something": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": false,
+            "x-typia-required": true
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "something"
+            ],
+            "nullable": false,
+            "x-typia-required": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "type"
+        ],
+        "x-typia_jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

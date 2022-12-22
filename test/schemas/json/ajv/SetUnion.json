@@ -1,0 +1,23 @@
+{
+  "schemas": [
+    {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Set"
+      },
+      "nullable": false
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Set": {
+        "type": "object",
+        "$id": "components#/schemas/Set",
+        "properties": {},
+        "nullable": false
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "components#/schemas"
+}

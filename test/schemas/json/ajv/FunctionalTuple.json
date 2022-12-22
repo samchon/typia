@@ -1,0 +1,18 @@
+{
+  "schemas": [
+    {
+      "type": "array",
+      "items": [
+        {},
+        {},
+        {}
+      ],
+      "nullable": false
+    }
+  ],
+  "components": {
+    "schemas": {}
+  },
+  "purpose": "ajv",
+  "prefix": "components#/schemas"
+}

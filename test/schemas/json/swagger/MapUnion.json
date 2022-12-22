@@ -1,0 +1,22 @@
+{
+  "schemas": [
+    {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Map"
+      },
+      "nullable": false
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Map": {
+        "type": "object",
+        "properties": {},
+        "nullable": false
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

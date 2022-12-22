@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+message TemplateConstant {
+    message Type {
+        string prefix = 1;
+        string postfix = 2;
+        string combined = 3;
+    }
+}
+
+message __Main {
+    repeated TemplateConstant.Type value = 1;
+}

@@ -1,0 +1,29 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicArray"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "DynamicArray": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "nullable": false,
+            "x-typia-required": true
+          },
+          "nullable": false,
+          "x-typia-required": true
+        },
+        "nullable": false,
+        "x-typia_jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

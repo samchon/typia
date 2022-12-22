@@ -5,15 +5,5 @@ import { _test_application } from "../../internal/_test_application";
 export const test_application_ajv_ToJsonNull = 
     _test_application("ajv")(
         "ToJsonNull",
-        typia.application<[ToJsonNull], "ajv">(),{schemas: [
-        {
-            type: "null"
-        }
-    ],
-    components: {
-        schemas: {}
-    },
-    purpose: "ajv",
-    prefix: "components#/schemas"
-}
-);
+        typia.application<[ToJsonNull], "ajv">(),
+    );

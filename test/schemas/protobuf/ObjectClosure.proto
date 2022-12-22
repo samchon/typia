@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message ObjectClosure {
+    message IRecord {
+        string id = 1;
+        oneof open {
+    
+        }
+    }
+}

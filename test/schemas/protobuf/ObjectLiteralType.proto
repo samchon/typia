@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+message __object {
+    string id = 1;
+    string name = 2;
+    double age = 3;
+}

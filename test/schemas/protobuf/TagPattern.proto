@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message TagPattern {
+    string uuid = 1;
+    string email = 2;
+    string url = 3;
+    string ipv4 = 4;
+    string ipv6 = 5;
+}

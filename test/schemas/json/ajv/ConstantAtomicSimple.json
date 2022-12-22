@@ -1,0 +1,43 @@
+{
+  "schemas": [
+    {
+      "type": "array",
+      "items": [
+        {
+          "type": "boolean",
+          "enum": [
+            false
+          ],
+          "nullable": false
+        },
+        {
+          "type": "boolean",
+          "enum": [
+            true
+          ],
+          "nullable": false
+        },
+        {
+          "type": "number",
+          "enum": [
+            2
+          ],
+          "nullable": false
+        },
+        {
+          "type": "string",
+          "enum": [
+            "three"
+          ],
+          "nullable": false
+        }
+      ],
+      "nullable": false
+    }
+  ],
+  "components": {
+    "schemas": {}
+  },
+  "purpose": "ajv",
+  "prefix": "components#/schemas"
+}
