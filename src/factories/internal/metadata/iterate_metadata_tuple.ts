@@ -1,13 +1,13 @@
 import ts from "typescript";
 
-import { Metadata } from "../../metadata/Metadata";
+import { Metadata } from "../../../metadata/Metadata";
 
-import { Writable } from "../../typings/Writable";
+import { Writable } from "../../../typings/Writable";
 
-import { ArrayUtil } from "../../utils/ArrayUtil";
+import { ArrayUtil } from "../../../utils/ArrayUtil";
 
-import { MetadataCollection } from "../MetadataCollection";
-import { MetadataFactory } from "../MetadataFactory";
+import { MetadataCollection } from "../../MetadataCollection";
+import { MetadataFactory } from "../../MetadataFactory";
 import { explore_metadata } from "./explore_metadata";
 
 export const iterate_metadata_tuple =

@@ -1,9 +1,9 @@
 import ts from "typescript";
 
-import { Metadata } from "../../metadata/Metadata";
+import { Metadata } from "../../../metadata/Metadata";
 
-import { MetadataCollection } from "../MetadataCollection";
-import { MetadataFactory } from "../MetadataFactory";
+import { MetadataCollection } from "../../MetadataCollection";
+import { MetadataFactory } from "../../MetadataFactory";
 import { MetadataHelper } from "./MetadataHelper";
 import { explore_metadata } from "./explore_metadata";
 

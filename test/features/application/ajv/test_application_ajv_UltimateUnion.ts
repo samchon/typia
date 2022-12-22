@@ -33,10 +33,6 @@ export const test_application_ajv_UltimateUnion =
                                     "x-typia-required": true
                                 },
                                 {
-                                    $ref: "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_",
-                                    "x-typia-required": true
-                                },
-                                {
                                     $ref: "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
                                     "x-typia-required": true
                                 },
@@ -46,10 +42,6 @@ export const test_application_ajv_UltimateUnion =
                                 },
                                 {
                                     $ref: "components#/schemas/IJsonSchema.INumber",
-                                    "x-typia-required": true
-                                },
-                                {
-                                    $ref: "components#/schemas/IJsonSchema.IBigInt",
                                     "x-typia-required": true
                                 },
                                 {
@@ -892,150 +884,6 @@ export const test_application_ajv_UltimateUnion =
                 ],
                 "x-typia_jsDocTags": []
             },
-            "IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_": {
-                $id: "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_",
-                type: "object",
-                properties: {
-                    "enum": {
-                        type: "array",
-                        items: {
-                            type: "number",
-                            nullable: false,
-                            "x-typia-required": true
-                        },
-                        nullable: false,
-                        "x-typia-required": true
-                    },
-                    "default": {
-                        type: "number",
-                        nullable: false,
-                        "x-typia-required": false
-                    },
-                    type: {
-                        type: "string",
-                        "enum": [
-                            "bigint"
-                        ],
-                        nullable: false,
-                        "x-typia-required": true
-                    },
-                    nullable: {
-                        type: "boolean",
-                        nullable: false,
-                        "x-typia-required": true
-                    },
-                    deprecated: {
-                        type: "boolean",
-                        nullable: false,
-                        "x-typia-required": false
-                    },
-                    title: {
-                        type: "string",
-                        nullable: false,
-                        "x-typia-required": false
-                    },
-                    description: {
-                        type: "string",
-                        nullable: false,
-                        "x-typia-required": false
-                    },
-                    "x-typia-metaTags": {
-                        type: "array",
-                        items: {
-                            oneOf: [
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IItems",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IMinItems",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IMaxItems",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IFormat",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IPattern",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.ILength",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IMinLength",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IMaxLength",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IType",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IRange",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IMinimum",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IMaximum",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IMultipleOf",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IStep",
-                                    "x-typia-required": false
-                                }
-                            ],
-                            "x-typia-required": false
-                        },
-                        nullable: false,
-                        "x-typia-required": false
-                    },
-                    "x-typia-jsDocTags": {
-                        type: "array",
-                        items: {
-                            $ref: "components#/schemas/IJsDocTagInfo",
-                            "x-typia-required": false
-                        },
-                        nullable: false,
-                        "x-typia-required": false
-                    },
-                    "x-typia-required": {
-                        type: "boolean",
-                        nullable: false,
-                        "x-typia-required": false
-                    }
-                },
-                nullable: false,
-                required: [
-                    "enum",
-                    "type",
-                    "nullable"
-                ],
-                "x-typia_jsDocTags": []
-            },
             "IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_": {
                 $id: "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
                 type: "object",
@@ -1472,139 +1320,6 @@ export const test_application_ajv_UltimateUnion =
                 ],
                 "x-typia_jsDocTags": []
             },
-            "IJsonSchema.IBigInt": {
-                $id: "components#/schemas/IJsonSchema.IBigInt",
-                type: "object",
-                properties: {
-                    "default": {
-                        type: "number",
-                        nullable: false,
-                        "x-typia-required": false
-                    },
-                    type: {
-                        type: "string",
-                        "enum": [
-                            "bigint"
-                        ],
-                        nullable: false,
-                        "x-typia-required": true
-                    },
-                    nullable: {
-                        type: "boolean",
-                        nullable: false,
-                        "x-typia-required": true
-                    },
-                    deprecated: {
-                        type: "boolean",
-                        nullable: false,
-                        "x-typia-required": false
-                    },
-                    title: {
-                        type: "string",
-                        nullable: false,
-                        "x-typia-required": false
-                    },
-                    description: {
-                        type: "string",
-                        nullable: false,
-                        "x-typia-required": false
-                    },
-                    "x-typia-metaTags": {
-                        type: "array",
-                        items: {
-                            oneOf: [
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IItems",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IMinItems",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IMaxItems",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IFormat",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IPattern",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.ILength",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IMinLength",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IMaxLength",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IType",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IRange",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IMinimum",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IMaximum",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IMultipleOf",
-                                    "x-typia-required": false
-                                },
-                                {
-                                    $ref: "components#/schemas/IMetadataTag.IStep",
-                                    "x-typia-required": false
-                                }
-                            ],
-                            "x-typia-required": false
-                        },
-                        nullable: false,
-                        "x-typia-required": false
-                    },
-                    "x-typia-jsDocTags": {
-                        type: "array",
-                        items: {
-                            $ref: "components#/schemas/IJsDocTagInfo",
-                            "x-typia-required": false
-                        },
-                        nullable: false,
-                        "x-typia-required": false
-                    },
-                    "x-typia-required": {
-                        type: "boolean",
-                        nullable: false,
-                        "x-typia-required": false
-                    }
-                },
-                nullable: false,
-                required: [
-                    "type",
-                    "nullable"
-                ],
-                "x-typia_jsDocTags": []
-            },
             "IJsonSchema.IString": {
                 $id: "components#/schemas/IJsonSchema.IString",
                 type: "object",
@@ -1774,10 +1489,6 @@ export const test_application_ajv_UltimateUnion =
                                 "x-typia-required": true
                             },
                             {
-                                $ref: "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_",
-                                "x-typia-required": true
-                            },
-                            {
                                 $ref: "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
                                 "x-typia-required": true
                             },
@@ -1787,10 +1498,6 @@ export const test_application_ajv_UltimateUnion =
                             },
                             {
                                 $ref: "components#/schemas/IJsonSchema.INumber",
-                                "x-typia-required": true
-                            },
-                            {
-                                $ref: "components#/schemas/IJsonSchema.IBigInt",
                                 "x-typia-required": true
                             },
                             {
@@ -1981,10 +1688,6 @@ export const test_application_ajv_UltimateUnion =
                                     "x-typia-required": true
                                 },
                                 {
-                                    $ref: "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_",
-                                    "x-typia-required": true
-                                },
-                                {
                                     $ref: "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
                                     "x-typia-required": true
                                 },
@@ -1997,11 +1700,11 @@ export const test_application_ajv_UltimateUnion =
                                     "x-typia-required": true
                                 },
                                 {
-                                    $ref: "components#/schemas/IJsonSchema.IBigInt",
+                                    $ref: "components#/schemas/IJsonSchema.IString",
                                     "x-typia-required": true
                                 },
                                 {
-                                    $ref: "components#/schemas/IJsonSchema.IString",
+                                    $ref: "components#/schemas/IJsonSchema.IUnknown",
                                     "x-typia-required": true
                                 },
                                 {
@@ -2026,10 +1729,6 @@ export const test_application_ajv_UltimateUnion =
                                 },
                                 {
                                     $ref: "components#/schemas/IJsonSchema.INullOnly",
-                                    "x-typia-required": true
-                                },
-                                {
-                                    $ref: "components#/schemas/IJsonSchema.IUnknown",
                                     "x-typia-required": true
                                 }
                             ],
@@ -2163,6 +1862,13 @@ export const test_application_ajv_UltimateUnion =
                 ],
                 "x-typia_jsDocTags": []
             },
+            "IJsonSchema.IUnknown": {
+                $id: "components#/schemas/IJsonSchema.IUnknown",
+                type: "object",
+                properties: {},
+                nullable: false,
+                "x-typia_jsDocTags": []
+            },
             "IJsonSchema.IOneOf": {
                 $id: "components#/schemas/IJsonSchema.IOneOf",
                 $recursiveAnchor: true,
@@ -2181,10 +1887,6 @@ export const test_application_ajv_UltimateUnion =
                                     "x-typia-required": true
                                 },
                                 {
-                                    $ref: "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_",
-                                    "x-typia-required": true
-                                },
-                                {
                                     $ref: "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
                                     "x-typia-required": true
                                 },
@@ -2197,11 +1899,11 @@ export const test_application_ajv_UltimateUnion =
                                     "x-typia-required": true
                                 },
                                 {
-                                    $ref: "components#/schemas/IJsonSchema.IBigInt",
+                                    $ref: "components#/schemas/IJsonSchema.IString",
                                     "x-typia-required": true
                                 },
                                 {
-                                    $ref: "components#/schemas/IJsonSchema.IString",
+                                    $ref: "components#/schemas/IJsonSchema.IUnknown",
                                     "x-typia-required": true
                                 },
                                 {
@@ -2226,10 +1928,6 @@ export const test_application_ajv_UltimateUnion =
                                 },
                                 {
                                     $ref: "components#/schemas/IJsonSchema.INullOnly",
-                                    "x-typia-required": true
-                                },
-                                {
-                                    $ref: "components#/schemas/IJsonSchema.IUnknown",
                                     "x-typia-required": true
                                 }
                             ],
@@ -2708,13 +2406,6 @@ export const test_application_ajv_UltimateUnion =
                 ],
                 "x-typia_jsDocTags": []
             },
-            "IJsonSchema.IUnknown": {
-                $id: "components#/schemas/IJsonSchema.IUnknown",
-                type: "object",
-                properties: {},
-                nullable: false,
-                "x-typia_jsDocTags": []
-            },
             IJsonComponents: {
                 $id: "components#/schemas/IJsonComponents",
                 type: "object",
@@ -2782,10 +2473,6 @@ export const test_application_ajv_UltimateUnion =
                                 "x-typia-required": false
                             },
                             {
-                                $ref: "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_",
-                                "x-typia-required": false
-                            },
-                            {
                                 $ref: "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
                                 "x-typia-required": false
                             },
@@ -2795,10 +2482,6 @@ export const test_application_ajv_UltimateUnion =
                             },
                             {
                                 $ref: "components#/schemas/IJsonSchema.INumber",
-                                "x-typia-required": false
-                            },
-                            {
-                                $ref: "components#/schemas/IJsonSchema.IBigInt",
                                 "x-typia-required": false
                             },
                             {
@@ -2889,10 +2572,6 @@ export const test_application_ajv_UltimateUnion =
                             "x-typia-required": true
                         },
                         {
-                            $ref: "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_bigint_doublequote__gt_",
-                            "x-typia-required": true
-                        },
-                        {
                             $ref: "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
                             "x-typia-required": true
                         },
@@ -2902,10 +2581,6 @@ export const test_application_ajv_UltimateUnion =
                         },
                         {
                             $ref: "components#/schemas/IJsonSchema.INumber",
-                            "x-typia-required": true
-                        },
-                        {
-                            $ref: "components#/schemas/IJsonSchema.IBigInt",
                             "x-typia-required": true
                         },
                         {

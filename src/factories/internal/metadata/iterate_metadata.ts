@@ -1,11 +1,11 @@
 import ts from "typescript";
 
-import { Metadata } from "../../metadata/Metadata";
+import { Metadata } from "../../../metadata/Metadata";
 
-import { ArrayUtil } from "../../utils/ArrayUtil";
+import { ArrayUtil } from "../../../utils/ArrayUtil";
 
-import { MetadataCollection } from "../MetadataCollection";
-import { MetadataFactory } from "../MetadataFactory";
+import { MetadataCollection } from "../../MetadataCollection";
+import { MetadataFactory } from "../../MetadataFactory";
 import { iterate_metadata_array } from "./iterate_metadata_array";
 import { iterate_metadata_atomic } from "./iterate_metadata_atomic";
 import { iterate_metadata_coalesce } from "./iterate_metadata_coalesce";
