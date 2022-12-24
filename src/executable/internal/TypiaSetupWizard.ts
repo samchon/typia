@@ -10,7 +10,7 @@ export namespace TypiaSetupWizard {
 
     export async function ttypescript(args: IArguments): Promise<void> {
         // INSTALL
-        const pack: any = await prepare(args);
+        const pack: any = await prepare(args.manager);
         add(args.manager)(pack)("ttypescript", true);
         add(args.manager)(pack)("ts-node", true);
 
@@ -20,7 +20,7 @@ export namespace TypiaSetupWizard {
 
     export async function tsPatch(args: IArguments): Promise<void> {
         // INSTALL
-        add(args.manager)(await prepare(args))("ts-patch", true);
+        add(args.manager)(await prepare(args.manager))("ts-patch", true);
         execute("npx ts-patch install");
 
         // PACKAGE.JSON
@@ -45,14 +45,14 @@ export namespace TypiaSetupWizard {
         await configure(args)(pack);
     }
 
-    async function prepare(args: IArguments): Promise<any> {
+    async function prepare(manager: string): Promise<any> {
         if (fs.existsSync("package.json") === false)
             halt(() => {})("make package.json file or move to it.");
 
         const pack: any = JSON.parse(
             await fs.promises.readFile("package.json", "utf8"),
         );
-        const wizard = add(args.manager)(pack);
+        const wizard = add(manager)(pack);
         wizard("typia", false);
         wizard("typescript", true);
         return pack;
@@ -62,7 +62,7 @@ export namespace TypiaSetupWizard {
         (args: IArguments) =>
         async (pack: any): Promise<void> => {
             // VALIDATE PRERATATION
-            if (fs.existsSync(args.manager) === false) {
+            if (fs.existsSync(args.project) === false) {
                 if (args.project === "tsconfig.json") execute("npx tsc --init");
                 if (fs.existsSync(args.project) === false)
                     halt(() => {})(`${args.project} file does not exist.`);
