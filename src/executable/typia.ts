@@ -6,7 +6,7 @@ const USAGE = `Wrong command has been detected. Use like below:
 
   npx typia setup \\
     --compiler (ttypescript|ts-patch) \\
-    --manager (npm|pnpm|yarn)
+    --manager (npm|pnpm|yarn) \\
     --project {tsconfig.json file path}
 
   - npx typia setup

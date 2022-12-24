@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.4.16",
+  "version": "3.4.17",
   "description": "Runtime type checkers and 5x faster JSON.stringify() function",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -15,10 +15,10 @@
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "issue": "node test/issue",
+    "package:latest": "ts-node build/publish.ts latest",
+    "package:next": "ts-node build/publish.ts next",
+    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
     "prettier": "prettier  --write ./**/*.ts",
-    "publish:latest": "ts-node build/publish.ts latest",
-    "publish:next": "ts-node build/publish.ts next",
-    "publish:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
     "test": "node bin/test",
     "test:generate": "ts-node -P tsconfig.test.json build/test.ts",
     "test:manual": "node test/manual",
@@ -70,6 +70,6 @@
     "src"
   ],
   "dependencies": {
-    "typia": "3.4.16"
+    "typia": "3.4.17"
   }
 }
