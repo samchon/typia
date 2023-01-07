@@ -2,14 +2,13 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
-import { StatementFactory } from "../../factories/StatementFactory";
 
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 import { Metadata } from "../../metadata/Metadata";
 import { MetadataObject } from "../../metadata/MetadataObject";
 
-import { CheckerProgrammer } from "../CheckerProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";
+import { check_union_array_like } from "../internal/check_union_array_like";
 import { UnionPredicator } from "./UnionPredicator";
 
 export namespace UnionExplorer {
@@ -23,16 +22,17 @@ export namespace UnionExplorer {
     }
     export type ObjectCombiner = Decoder<MetadataObject[]>;
 
-    export function object(
-        config: FeatureProgrammer.IConfig,
-        level: number = 0,
-    ) {
-        return function (
+    /* -----------------------------------------------------------
+        OBJECT
+    ----------------------------------------------------------- */
+    export const object =
+        (config: FeatureProgrammer.IConfig, level: number = 0) =>
+        (
             input: ts.Expression,
             targets: MetadataObject[],
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
-        ): ts.Expression {
+        ): ts.Expression => {
             // BREAKER
             if (targets.length === 1)
                 return config.objector.decoder(
@@ -135,10 +135,25 @@ export namespace UnionExplorer {
                 undefined,
             );
         };
+
+    /* -----------------------------------------------------------
+        ARRAY LIKE
+    ----------------------------------------------------------- */
+    export const tuple = (props: check_union_array_like.IProps<Metadata[]>) =>
+        check_union_array_like<Metadata[]>({
+            size: null,
+            front: (input) => input,
+            array: (input) => input,
+            name: (elems) => `[${elems.map((e) => e.getName()).join(", ")}]`,
+        })(props);
+    export namespace tuple {
+        export type IProps = check_union_array_like.IProps<
+            Metadata | Metadata[]
+        >;
     }
 
     export const array = (props: array.IProps) =>
-        iterate<Metadata>({
+        check_union_array_like<Metadata>({
             size: (input) => IdentifierFactory.join(input, "length"),
             front: (input) =>
                 ts.factory.createElementAccessExpression(input, 0),
@@ -146,11 +161,28 @@ export namespace UnionExplorer {
             name: (t) => `Array<${t.getName()}>`,
         })(props);
     export namespace array {
-        export type IProps = iterate.IProps<Metadata>;
+        export type IProps = check_union_array_like.IProps<Metadata>;
+    }
+
+    export const array_or_tuple = (props: array_or_tuple.IProps) =>
+        check_union_array_like<Metadata | Metadata[]>({
+            size: (input) => IdentifierFactory.join(input, "length"),
+            front: (input) =>
+                ts.factory.createElementAccessExpression(input, 0),
+            array: (input) => input,
+            name: (t) =>
+                Array.isArray(t)
+                    ? `[${t.map((e) => e.getName()).join(", ")}]`
+                    : `Array<${t.getName()}>`,
+        })(props);
+    export namespace array_or_tuple {
+        export type IProps = check_union_array_like.IProps<
+            Metadata | Metadata[]
+        >;
     }
 
     export const set = (props: set.IProps) =>
-        iterate<Metadata>({
+        check_union_array_like<Metadata>({
             size: (input) => IdentifierFactory.join(input, "size"),
             front: (input) =>
                 IdentifierFactory.join(
@@ -176,11 +208,11 @@ export namespace UnionExplorer {
             name: (t) => `Set<${t.getName()}>`,
         })(props);
     export namespace set {
-        export type IProps = iterate.IProps<Metadata>;
+        export type IProps = check_union_array_like.IProps<Metadata>;
     }
 
     export const map = (props: map.IProps) =>
-        iterate<[Metadata, Metadata]>({
+        check_union_array_like<[Metadata, Metadata]>({
             size: (input) => IdentifierFactory.join(input, "size"),
             front: (input) =>
                 IdentifierFactory.join(
@@ -207,231 +239,36 @@ export namespace UnionExplorer {
         })(props);
 
     export namespace map {
-        export type IProps = iterate.IProps<[Metadata, Metadata]>;
+        export type IProps = check_union_array_like.IProps<
+            [Metadata, Metadata]
+        >;
     }
 
-    const iterate =
-        <T>(accessor: iterate.IAccessor<T>) =>
-        (props: iterate.IProps<T>) =>
-        (
-            input: ts.Expression,
-            targets: T[],
-            explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
-        ): ts.Expression => {
-            if (targets.length === 1)
-                return props.decoder(
-                    accessor.array(input),
-                    targets[0]!,
-                    explore,
-                    tags,
-                );
-
-            //----
-            // LIST UP VARIABLES
-            //----
-            // TUPLES
-            const tupleListVariable: ts.VariableStatement =
-                StatementFactory.constant(
-                    "tupleList",
-                    ts.factory.createArrayLiteralExpression(
-                        targets.map((meta) =>
-                            ts.factory.createArrayLiteralExpression([
-                                ts.factory.createArrowFunction(
-                                    undefined,
-                                    undefined,
-                                    [IdentifierFactory.parameter("branch")],
-                                    undefined,
-                                    undefined,
-                                    props.checker(
-                                        ts.factory.createIdentifier("branch"),
-                                        meta,
-                                        {
-                                            ...explore,
-                                            tracable: false,
-                                            postfix: `"[0]"`,
-                                        },
-                                        tags,
-                                    ),
-                                ),
-                                ts.factory.createArrowFunction(
-                                    undefined,
-                                    undefined,
-                                    [IdentifierFactory.parameter("branch")],
-                                    undefined,
-                                    undefined,
-                                    props.decoder(
-                                        ts.factory.createIdentifier("branch"),
-                                        meta,
-                                        {
-                                            ...explore,
-                                            tracable: true,
-                                        },
-                                        tags,
-                                    ),
-                                ),
-                            ]),
-                        ),
-                    ),
-                );
-
-            // FILTERED TUPLES
-            const filteredVariable = StatementFactory.constant(
-                "filtered",
-                ts.factory.createCallExpression(
-                    ts.factory.createIdentifier("tupleList.filter"),
-                    undefined,
-                    [
-                        ts.factory.createArrowFunction(
-                            undefined,
-                            undefined,
-                            [IdentifierFactory.parameter("tuple")],
-                            undefined,
-                            undefined,
-                            ts.factory.createStrictEquality(
-                                props.success,
-                                ts.factory.createCallExpression(
-                                    ts.factory.createIdentifier("tuple[0]"),
-                                    undefined,
-                                    [ts.factory.createIdentifier("front")],
-                                ),
-                            ),
-                        ),
-                    ],
-                ),
-            );
-
-            //----
-            // STATEMENTS
-            //----
-            // ONLY ONE TYPE
-            const uniqueStatement = ts.factory.createIfStatement(
-                ts.factory.createStrictEquality(
-                    ts.factory.createNumericLiteral(1),
-                    ts.factory.createIdentifier("filtered.length"),
-                ),
-                ts.factory.createReturnStatement(
-                    ts.factory.createCallExpression(
-                        ts.factory.createIdentifier(`filtered[0][1]`),
-                        undefined,
-                        [accessor.array(input)],
-                    ),
-                ),
-            );
-
-            // UNION TYPE
-            const forOfStatement = ts.factory.createForOfStatement(
-                undefined,
-                ts.factory.createVariableDeclarationList(
-                    [ts.factory.createVariableDeclaration("tuple")],
-                    ts.NodeFlags.Const,
-                ),
-                // StatementFactory.variable(ts.NodeFlags.Const, "tuple"),
-                ts.factory.createIdentifier("filtered"),
-                ts.factory.createIfStatement(
-                    ts.factory.createCallExpression(
-                        IdentifierFactory.join(
-                            ts.factory.createIdentifier("array"),
-                            "every",
-                        ),
-                        undefined,
-                        [
-                            ts.factory.createArrowFunction(
-                                undefined,
-                                undefined,
-                                [IdentifierFactory.parameter("value")],
-                                undefined,
-                                undefined,
-                                ts.factory.createStrictEquality(
-                                    props.success,
-                                    ts.factory.createCallExpression(
-                                        ts.factory.createIdentifier("tuple[0]"),
-                                        undefined,
-                                        [ts.factory.createIdentifier("value")],
-                                    ),
-                                ),
-                            ),
-                        ],
-                    ),
-                    ts.factory.createReturnStatement(
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier(`tuple[1]`),
-                            undefined,
-                            [ts.factory.createIdentifier("array")],
-                        ),
-                    ),
-                ),
-            );
-            const unionStatement = ts.factory.createIfStatement(
-                ts.factory.createLessThan(
-                    ts.factory.createNumericLiteral(1),
-                    ts.factory.createIdentifier("filtered.length"),
-                ),
-                forOfStatement,
-            );
-
-            const block = [
-                // ARRAY.LENGTH := 0
-                ts.factory.createIfStatement(
-                    ts.factory.createStrictEquality(
-                        ts.factory.createNumericLiteral(0),
-                        accessor.size(input),
-                    ),
-                    ts.factory.createReturnStatement(props.empty),
-                ),
-
-                // UNION PREDICATORS
-                tupleListVariable,
-                StatementFactory.constant("front", accessor.front(input)),
-                filteredVariable,
-                uniqueStatement,
-
-                // CONDITIONAL STATEMENTS
-                StatementFactory.constant("array", accessor.array(input)),
-                unionStatement,
-                props.failure(
-                    input,
-                    `(${targets.map((t) => accessor.name(t)).join(" | ")})`,
-                    explore,
-                ),
-            ];
-
-            return ts.factory.createCallExpression(
-                ts.factory.createArrowFunction(
-                    undefined,
-                    undefined,
-                    [],
-                    undefined,
-                    undefined,
-                    ts.factory.createBlock(block, true),
-                ),
-                undefined,
-                undefined,
-            );
-        };
-    namespace iterate {
-        export interface IProps<T> {
-            checker(
-                input: ts.Expression,
-                target: T,
-                explore: FeatureProgrammer.IExplore,
-                tags: IMetadataTag[],
-            ): ts.Expression;
-            decoder: Decoder<T>;
-            empty: ts.Expression;
-            success: ts.Expression;
-            failure(
-                input: ts.Expression,
-                expected: string,
-                explore: CheckerProgrammer.IExplore,
-            ): ts.Statement;
-        }
-
-        export interface IAccessor<T> {
-            name(metadata: T): string;
-            size(input: ts.Expression): ts.Expression;
-            front(input: ts.Expression): ts.Expression;
-            array(input: ts.Expression): ts.Expression;
-        }
-    }
+    // const transform = <T>(
+    //     props: check_union_array_like.IProps<T>,
+    // ): check_union_array_like.IProps<T> => ({
+    //     ...props,
+    //     checker: (top, targets, explore, tags, array) =>
+    //         props.checker(
+    //             top,
+    //             targets,
+    //             {
+    //                 ...explore,
+    //                 tracable: false,
+    //                 postfix: `"[0]"`,
+    //             },
+    //             tags,
+    //             array,
+    //         ),
+    //     decoder: (input, targets, explore, tags) =>
+    //         props.decoder(
+    //             input,
+    //             targets,
+    //             {
+    //                 ...explore,
+    //                 tracable: true,
+    //             },
+    //             tags,
+    //         ),
+    // });
 }
