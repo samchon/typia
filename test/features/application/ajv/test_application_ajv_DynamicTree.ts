@@ -2,7 +2,8 @@ import typia from "../../../../src";
 import { DynamicTree } from "../../../structures/DynamicTree";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_ajv_DynamicTree = _test_application("ajv")(
-    "DynamicTree",
-    typia.application<[DynamicTree], "ajv">(),
-);
+export const test_application_ajv_DynamicTree = 
+    _test_application("ajv")(
+        "DynamicTree",
+        typia.application<[DynamicTree], "ajv">(),
+    );
