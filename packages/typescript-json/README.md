@@ -65,12 +65,15 @@ npx typia setup
 
 Just type `npx typia setup`, that's all.
 
-Also, you can specify package manager by `--manager` argument.
+Also, you can specify package manager or target `tsconfig.json` file like below:
 
 ```bash
 npx typia setup --manager npm
 npx typia setup --manager pnpm
 npx typia setup --manager yarn
+
+npx typia setup --project tsconfig.json
+npx typia setup --project tsconfig.test.json
 ```
 
 After the setup, you can compile `typia` utilization code by using `ttsc` ([`ttypescript`](https://github.com/cevek/ttypescript)) command. If you want to run your TypeScript file directly through `ts-node`, add `-C ttypescript` argument like below:
@@ -92,7 +95,7 @@ If you want to install and setup `typia` manually, read [Guide Documents - Setup
   - [vite](https://github.com/samchon/typia/wiki/Setup#vite)
   - [webpack](https://github.com/samchon/typia/wiki/Setup#webpack)
 
-Also, by [Guide Documents - Setup](https://github.com/samchon/typia/wiki/Setup) section, you can learn how to use pure TypeScript compiler `tsc` with [`ts-patch`](https://github.com/nonara/ts-patch), instead of installing the `ttypescript` compiler with `ttsc` command.
+Also, by [Guide Documents - Setup](https://github.com/samchon/typia/wiki/Setup) section, you can learn how to use pure TypeScript compiler `tsc` through [`ts-patch`](https://github.com/nonara/ts-patch), instead of using the `ttypescript` compiler with `ttsc` command.
 
 ### Vite
 When you want to setup `typia` on your frontend project with [`vite`](https://vitejs.dev/), just configure `vite.config.ts` like below.

@@ -6,12 +6,13 @@ const USAGE = `Wrong command has been detected. Use like below:
 
   npx typia setup \\
     --compiler (ttypescript|ts-patch) \\
-    --manager (npm|pnpm|yarn)
+    --manager (npm|pnpm|yarn) \\
+    --project {tsconfig.json file path}
 
   - npx typia setup
-  - npx typia setup --compiler ttypescript
   - npx typia setup --compiler ts-patch
-  - npx typia setup --manager pnpm`;
+  - npx typia setup --manager pnpm
+  - npx typia setup --project tsconfig.test.json`;
 
 function halt(desc: string): never {
     console.error(desc);
@@ -24,6 +25,7 @@ async function setup(): Promise<void> {
     );
     const manager: string = options.manager ?? "npm";
     const compiler: string = options.compiler ?? "ttypescript";
+    const project: string = options.project ?? "tsconfig.json";
 
     if (
         (compiler !== "ttypescript" && compiler !== "ts-patch") ||
@@ -31,8 +33,8 @@ async function setup(): Promise<void> {
     )
         halt(USAGE);
     else if (compiler === "ttypescript")
-        await TypiaSetupWizard.ttypescript(manager);
-    else await TypiaSetupWizard.tsPatch(manager);
+        await TypiaSetupWizard.ttypescript({ manager, project });
+    else await TypiaSetupWizard.tsPatch({ manager, project });
 }
 
 async function main(): Promise<void> {

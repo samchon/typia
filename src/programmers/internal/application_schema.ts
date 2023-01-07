@@ -96,6 +96,11 @@ export const application_schema =
                     ),
                 );
             else {
+                if (items.length === 0)
+                    throw new Error(
+                        "Error on typia.application(): swagger does not support zero length tuple type.",
+                    );
+
                 // SWAGGER DOES NOT SUPPORT TUPLE TYPE YET
                 const merged: Metadata = items.reduce((x, y) =>
                     merge_metadata(x, y),
