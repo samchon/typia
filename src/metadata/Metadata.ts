@@ -315,7 +315,9 @@ export namespace Metadata {
         // TUPLES
         for (const xt of x.tuples)
             for (const yt of y.tuples)
-                if (
+                if (xt.length === 0 || yt.length === 0)
+                    return xt.length === 0 && yt.length === 0;
+                else if (
                     xt
                         .slice(0, Math.min(xt.length, yt.length))
                         .some((xv, i) => intersects(xv, yt[i]!, deep))
@@ -371,6 +373,7 @@ export namespace Metadata {
         // TUPLES
         for (const yt of y.tuples)
             if (
+                yt.length !== 0 &&
                 x.tuples.some(
                     (xt) =>
                         xt.length >= yt.length &&
@@ -447,6 +450,12 @@ function getName(metadata: Metadata): string {
                 "`",
         );
 
+    // NATIVES
+    for (const native of metadata.natives) elements.push(native);
+    for (const set of metadata.sets) elements.push(`Set<${set.getName()}>`);
+    for (const map of metadata.maps)
+        elements.push(`Map<${map.key.getName()}, ${map.value.getName()}>`);
+
     // ARRAY
     if (metadata.rest !== null) elements.push(`...${metadata.rest.getName()}`);
     for (const tuple of metadata.tuples)
@@ -457,12 +466,6 @@ function getName(metadata: Metadata): string {
     // OBJECT
     for (const object of metadata.objects) elements.push(object.name);
     if (metadata.resolved !== null) elements.push(metadata.resolved.getName());
-
-    // NATIVES
-    for (const native of metadata.natives) elements.push(native);
-    for (const set of metadata.sets) elements.push(`Set<${set.getName()}>`);
-    for (const map of metadata.maps)
-        elements.push(`Map<${map.key.getName()}, ${map.value.getName()}>`);
 
     // RETURNS
     if (elements.length === 0) return "unknown";

@@ -280,7 +280,7 @@ export namespace AssertProgrammer {
         (equals: boolean) =>
         (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner =>
         (explore: CheckerProgrammer.IExplore) => {
-            if (explore.tracable === false && explore.from !== "top")
+            if (explore.tracable === false)
                 return IsProgrammer.CONFIG({
                     object: assert_object(equals)(importer),
                     numeric: true,

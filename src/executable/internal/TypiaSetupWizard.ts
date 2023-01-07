@@ -3,19 +3,24 @@ import type Comment from "comment-json";
 import fs from "fs";
 
 export namespace TypiaSetupWizard {
-    export async function ttypescript(manager: string): Promise<void> {
-        // INSTALL
-        const pack: any = await prepare(manager);
-        add(manager)(pack)("ttypescript", true);
-        add(manager)(pack)("ts-node", true);
-
-        // TSCONFIG.JSON
-        await configure(manager)(pack);
+    export interface IArguments {
+        manager: "npm" | "pnpm" | "yarn";
+        project: string;
     }
 
-    export async function tsPatch(manager: string): Promise<void> {
+    export async function ttypescript(args: IArguments): Promise<void> {
         // INSTALL
-        add(manager)(await prepare(manager))("ts-patch", true);
+        const pack: any = await prepare(args.manager);
+        add(args.manager)(pack)("ttypescript", true);
+        add(args.manager)(pack)("ts-node", true);
+
+        // TSCONFIG.JSON
+        await configure(args)(pack);
+    }
+
+    export async function tsPatch(args: IArguments): Promise<void> {
+        // INSTALL
+        add(args.manager)(await prepare(args.manager))("ts-patch", true);
         execute("npx ts-patch install");
 
         // PACKAGE.JSON
@@ -37,7 +42,7 @@ export namespace TypiaSetupWizard {
         );
 
         // TSCONFIG.JSON
-        await configure(manager)(pack);
+        await configure(args)(pack);
     }
 
     async function prepare(manager: string): Promise<any> {
@@ -54,22 +59,25 @@ export namespace TypiaSetupWizard {
     }
 
     const configure =
-        (manager: string) =>
+        (args: IArguments) =>
         async (pack: any): Promise<void> => {
             // VALIDATE PRERATATION
-            if (fs.existsSync("tsconfig.json") === false) {
-                execute("npx tsc --init");
-                if (fs.existsSync("tsconfig.json") === false)
-                    halt(() => {})("tsconfig.json file does not exist.");
+            if (fs.existsSync(args.project) === false) {
+                if (args.project === "tsconfig.json") execute("npx tsc --init");
+                if (fs.existsSync(args.project) === false)
+                    halt(() => {})(`${args.project} file does not exist.`);
             }
 
+            // INSTALL COMMENT-JSON FOR A WHILE
             const temporary: boolean = !fs.existsSync(
                 "node_modules/comment-json",
             );
-            if (temporary === true) add(manager)(pack)("comment-json", true);
+            if (temporary === true)
+                add(args.manager)(pack)("comment-json", true);
 
             const halter: (msg: string) => never = halt(() => {
-                if (temporary === true) remove(manager)("comment-json", true);
+                if (temporary === true)
+                    remove(args.manager)("comment-json", true);
             });
 
             // READ TSCONFIG FILE
@@ -77,16 +85,17 @@ export namespace TypiaSetupWizard {
                 process.cwd() + "/node_modules/comment-json"
             );
             const config: Comment.CommentObject = Comment.parse(
-                await fs.promises.readFile("tsconfig.json", "utf8"),
+                await fs.promises.readFile(args.project, "utf8"),
             ) as Comment.CommentObject;
             const options = config.compilerOptions as
                 | Comment.CommentObject
                 | undefined;
             if (options === undefined)
                 halter(
-                    `tsconfig.json file does not have "compilerOptions" property.`,
+                    `${args.project} file does not have "compilerOptions" property.`,
                 );
 
+            // PREPARE PLUGINS
             const plugins: Comment.CommentArray<Comment.CommentObject> =
                 (() => {
                     const plugins = options.plugins as
@@ -96,7 +105,7 @@ export namespace TypiaSetupWizard {
                         return (options.plugins = [] as any);
                     else if (!Array.isArray(plugins))
                         halter(
-                            `"plugins" property of tsconfig.json must be array type.`,
+                            `"plugins" property of ${args.project} must be array type.`,
                         );
                     return plugins;
                 })();
@@ -112,7 +121,7 @@ export namespace TypiaSetupWizard {
 
             if (strict === true && oldbie !== undefined) {
                 console.log(
-                    "you've been already configured the tsconfig.json file.",
+                    `you've been already configured the ${args.project} file.`,
                 );
             } else {
                 // DO CONFIGURE
@@ -125,11 +134,11 @@ export namespace TypiaSetupWizard {
                             }`) as Comment.CommentObject,
                     );
                 await fs.promises.writeFile(
-                    "tsconfig.json",
+                    args.project,
                     Comment.stringify(config, null, 2),
                 );
             }
-            if (temporary === true) remove(manager)("comment-json", false);
+            if (temporary === true) remove(args.manager)("comment-json", false);
         };
 }
 
