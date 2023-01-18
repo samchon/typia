@@ -157,7 +157,7 @@
           "ipv6",
           "custom"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

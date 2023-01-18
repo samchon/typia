@@ -23,9 +23,11 @@
           "type": "array",
           "items": {
             "type": "string",
-            "nullable": false
+            "nullable": false,
+            "x-typia-rest": false
           },
-          "nullable": false
+          "nullable": false,
+          "x-typia-rest": false
         }
       ],
       "nullable": false

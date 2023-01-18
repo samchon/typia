@@ -12,7 +12,20 @@
           }
         ]
       },
-      "nullable": false
+      "nullable": false,
+      "x-typia-tuple": {
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/schemas/ObjectTuple.ISection"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectTuple.ICitizen",
+            "x-typia-rest": false
+          }
+        ],
+        "nullable": false
+      }
     }
   ],
   "components": {
@@ -42,7 +55,7 @@
           "code",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectTuple.ICitizen": {
         "type": "object",
@@ -69,7 +82,7 @@
           "mobile",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

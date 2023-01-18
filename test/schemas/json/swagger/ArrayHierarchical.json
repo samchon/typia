@@ -50,7 +50,7 @@
           "established_at",
           "departments"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArrayHierarchical.ITimestamp": {
         "type": "object",
@@ -71,7 +71,7 @@
           "time",
           "zone"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArrayHierarchical.IDepartment": {
         "type": "object",
@@ -113,7 +113,7 @@
           "created_at",
           "employees"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArrayHierarchical.IEmployee": {
         "type": "object",
@@ -151,7 +151,7 @@
           "grade",
           "employeed_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

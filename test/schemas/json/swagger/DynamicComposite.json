@@ -20,56 +20,74 @@
             "x-typia-required": true
           }
         },
-        "additionalProperties": {
-          "oneOf": [
-            {
-              "type": "number",
-              "nullable": false,
-              "x-typia-required": true
-            },
-            {
-              "type": "string",
-              "nullable": false,
-              "x-typia-required": true
-            },
-            {
-              "type": "string",
-              "nullable": false,
-              "x-typia-required": true
-            },
-            {
-              "oneOf": [
-                {
-                  "type": "string",
-                  "nullable": false,
-                  "x-typia-required": true
-                },
-                {
-                  "type": "number",
-                  "nullable": false,
-                  "x-typia-required": true
-                },
-                {
-                  "type": "boolean",
-                  "nullable": false,
-                  "x-typia-required": true
-                }
-              ],
-              "x-typia-required": true
-            },
-            {
-              "type": "boolean",
-              "nullable": false,
-              "x-typia-required": true
-            }
-          ]
-        },
         "nullable": false,
         "required": [
           "id",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": [],
+        "x-typia-patternProperties": {
+          "^-?\\d+\\.?\\d*$": {
+            "type": "number",
+            "nullable": false,
+            "x-typia-required": true
+          },
+          "^(prefix_(.*))": {
+            "type": "string",
+            "nullable": false,
+            "x-typia-required": true
+          },
+          "((.*)_postfix)$": {
+            "type": "string",
+            "nullable": false,
+            "x-typia-required": true
+          },
+          "^(value_-?\\d+\\.?\\d*)$": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": false,
+                "x-typia-required": true
+              },
+              {
+                "type": "number",
+                "nullable": false,
+                "x-typia-required": true
+              },
+              {
+                "type": "boolean",
+                "nullable": false,
+                "x-typia-required": true
+              }
+            ],
+            "x-typia-required": true
+          },
+          "^(between_(.*)_and_-?\\d+\\.?\\d*)$": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": true
+          }
+        },
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "number",
+              "nullable": false,
+              "x-typia-required": false
+            },
+            {
+              "type": "string",
+              "nullable": false,
+              "x-typia-required": false
+            },
+            {
+              "type": "boolean",
+              "nullable": false,
+              "x-typia-required": false
+            }
+          ],
+          "x-typia-required": false
+        }
       }
     }
   },

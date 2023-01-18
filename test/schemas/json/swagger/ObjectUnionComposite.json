@@ -54,7 +54,7 @@
           "x",
           "y"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionComposite.ILine": {
         "type": "object",
@@ -73,7 +73,7 @@
           "p1",
           "p2"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionComposite.ITriangle": {
         "type": "object",
@@ -97,7 +97,7 @@
           "p2",
           "p3"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionComposite.IRectangle": {
         "type": "object",
@@ -126,7 +126,7 @@
           "p3",
           "p4"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionComposite.IPolyline": {
         "type": "object",
@@ -145,7 +145,7 @@
         "required": [
           "points"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionComposite.IPolygon": {
         "type": "object",
@@ -169,7 +169,7 @@
           "outer",
           "inner"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionComposite.IPointedShape": {
         "type": "object",
@@ -193,7 +193,7 @@
           "outer",
           "inner"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionComposite.ICircle": {
         "type": "object",
@@ -213,7 +213,7 @@
           "centroid",
           "radius"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

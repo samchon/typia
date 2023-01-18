@@ -58,7 +58,8 @@
               {
                 "type": "number",
                 "nullable": false,
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-rest": false
               }
             ],
             "nullable": false,
@@ -80,7 +81,7 @@
           "ip",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IChannel": {
         "$id": "components#/schemas/ObjectHierarchical.IChannel",
@@ -131,7 +132,7 @@
           "priority",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.ITimestamp": {
         "$id": "components#/schemas/ObjectHierarchical.ITimestamp",
@@ -153,7 +154,7 @@
           "time",
           "zone"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IMember.Nullable": {
         "$id": "components#/schemas/ObjectHierarchical.IMember.Nullable",
@@ -201,7 +202,7 @@
           "created_at",
           "authorized"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IAccount": {
         "$id": "components#/schemas/ObjectHierarchical.IAccount",
@@ -228,7 +229,7 @@
           "code",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IEnterprise.Nullable": {
         "$id": "components#/schemas/ObjectHierarchical.IEnterprise.Nullable",
@@ -266,7 +267,7 @@
           "grade",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IAccount.Nullable": {
         "$id": "components#/schemas/ObjectHierarchical.IAccount.Nullable",
@@ -293,7 +294,7 @@
           "code",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

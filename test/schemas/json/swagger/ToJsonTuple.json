@@ -21,7 +21,29 @@
           }
         ]
       },
-      "nullable": false
+      "nullable": false,
+      "x-typia-tuple": {
+        "type": "array",
+        "items": [
+          {
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "type": "number",
+            "nullable": false
+          },
+          {
+            "type": "boolean",
+            "nullable": false
+          },
+          {
+            "$ref": "#/components/schemas/ToJsonTuple.IHobby",
+            "x-typia-rest": false
+          }
+        ],
+        "nullable": false
+      }
     }
   ],
   "components": {
@@ -45,7 +67,7 @@
           "code",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

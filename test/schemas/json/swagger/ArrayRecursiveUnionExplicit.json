@@ -91,7 +91,7 @@
           "children",
           "type"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionExplicit.IImageFile": {
         "type": "object",
@@ -160,7 +160,7 @@
           "type",
           "extension"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionExplicit.ITextFile": {
         "type": "object",
@@ -217,7 +217,7 @@
           "type",
           "extension"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionExplicit.IZipFile": {
         "type": "object",
@@ -274,7 +274,7 @@
           "type",
           "extension"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionExplicit.IShortcut": {
         "type": "object",
@@ -345,7 +345,7 @@
           "type",
           "extension"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

@@ -5,7 +5,23 @@
       "items": {
         "$ref": "#/components/schemas/ObjectNullable.IProduct"
       },
-      "nullable": false
+      "nullable": false,
+      "x-typia-tuple": {
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/schemas/ObjectNullable.IProduct"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectNullable.IProduct"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectNullable.IProduct",
+            "x-typia-rest": false
+          }
+        ],
+        "nullable": false
+      }
     }
   ],
   "components": {
@@ -47,7 +63,7 @@
           "brand",
           "similar"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectNullable.IManufacturer": {
         "type": "object",
@@ -71,7 +87,7 @@
           "type",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectNullable.IBrand.Nullable": {
         "type": "object",
@@ -95,7 +111,7 @@
           "type",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectNullable.IManufacturer.Nullable": {
         "type": "object",
@@ -119,7 +135,7 @@
           "type",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

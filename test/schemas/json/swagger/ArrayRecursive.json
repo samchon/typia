@@ -46,7 +46,7 @@
           "sequence",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArrayRecursive.ITimestamp": {
         "type": "object",
@@ -67,7 +67,7 @@
           "time",
           "zone"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

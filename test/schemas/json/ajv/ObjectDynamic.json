@@ -10,6 +10,8 @@
         "$id": "components#/schemas/ObjectDynamic",
         "type": "object",
         "properties": {},
+        "nullable": false,
+        "x-typia-jsDocTags": [],
         "additionalProperties": {
           "oneOf": [
             {
@@ -29,9 +31,7 @@
             }
           ],
           "x-typia-required": true
-        },
-        "nullable": false,
-        "x-typia_jsDocTags": []
+        }
       }
     }
   },

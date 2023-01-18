@@ -71,7 +71,7 @@
           "nullables2",
           "union"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

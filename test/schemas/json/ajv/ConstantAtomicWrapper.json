@@ -10,7 +10,8 @@
           "$ref": "components#/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_"
         },
         {
-          "$ref": "components#/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_"
+          "$ref": "components#/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_",
+          "x-typia-rest": false
         }
       ],
       "nullable": false
@@ -32,7 +33,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ConstantAtomicWrapper.IPointer_lt_number_gt_": {
         "$id": "components#/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_",
@@ -48,7 +49,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ConstantAtomicWrapper.IPointer_lt_string_gt_": {
         "$id": "components#/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_",
@@ -64,7 +65,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

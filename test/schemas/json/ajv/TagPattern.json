@@ -134,7 +134,7 @@
           "ipv4",
           "ipv6"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

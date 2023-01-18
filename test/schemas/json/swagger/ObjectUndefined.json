@@ -49,7 +49,7 @@
           "name",
           "unknown"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUndefined.IClassroom": {
         "type": "object",
@@ -70,7 +70,7 @@
           "id",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

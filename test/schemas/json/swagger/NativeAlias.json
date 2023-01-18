@@ -104,7 +104,7 @@
           "weakSet",
           "weakMap"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "Uint8Array": {
         "type": "object",
@@ -188,7 +188,7 @@
           "type",
           "data"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArrayBuffer": {
         "type": "object",

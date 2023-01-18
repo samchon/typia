@@ -2,30 +2,26 @@
   "schemas": [
     {
       "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "boolean",
-            "nullable": false
+      "items": [
+        {
+          "type": "boolean",
+          "nullable": false
+        },
+        {
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "nullable": false,
+            "x-typia-rest": true
           },
-          {
-            "type": "number",
-            "nullable": false
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "nullable": false
-              },
-              "nullable": false
-            },
-            "nullable": false
-          }
-        ]
-      },
+          "nullable": false,
+          "x-typia-rest": true
+        }
+      ],
       "nullable": false
     }
   ],

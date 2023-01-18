@@ -160,7 +160,7 @@
           "range",
           "multipleOf"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

@@ -149,7 +149,7 @@
         "required": [
           "matrix"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

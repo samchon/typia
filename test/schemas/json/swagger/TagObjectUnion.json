@@ -48,7 +48,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "TagObjectUnion.Literal": {
         "type": "object",
@@ -89,7 +89,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

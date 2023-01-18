@@ -60,7 +60,7 @@
           "contents",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleAnswer.Nullable": {
         "$id": "components#/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
@@ -98,7 +98,7 @@
           "contents",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleArticle.IContent": {
         "$id": "components#/schemas/ObjectGenericUnion.ISaleArticle.IContent",
@@ -142,7 +142,7 @@
           "body",
           "files"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_": {
         "$id": "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
@@ -170,7 +170,7 @@
           "name",
           "extension"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleReview": {
         "$id": "components#/schemas/ObjectGenericUnion.ISaleReview",
@@ -219,7 +219,7 @@
           "contents",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleReview.IContent": {
         "$id": "components#/schemas/ObjectGenericUnion.ISaleReview.IContent",
@@ -269,7 +269,7 @@
           "body",
           "files"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

@@ -29,7 +29,7 @@
           "pagination",
           "data"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectGenericArray.IPagination": {
         "$id": "components#/schemas/ObjectGenericArray.IPagination",
@@ -63,7 +63,7 @@
           "total_count",
           "total_pages"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectGenericArray.IPerson": {
         "$id": "components#/schemas/ObjectGenericArray.IPerson",
@@ -85,7 +85,7 @@
           "name",
           "age"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

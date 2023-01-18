@@ -54,7 +54,7 @@
         "required": [
           "key"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

@@ -649,7 +649,7 @@
           "vulnerable_template",
           "boolean_and_number_and_template"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

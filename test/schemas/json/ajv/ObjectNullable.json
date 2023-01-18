@@ -10,7 +10,8 @@
           "$ref": "components#/schemas/ObjectNullable.IProduct"
         },
         {
-          "$ref": "components#/schemas/ObjectNullable.IProduct"
+          "$ref": "components#/schemas/ObjectNullable.IProduct",
+          "x-typia-rest": false
         }
       ],
       "nullable": false
@@ -56,7 +57,7 @@
           "brand",
           "similar"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectNullable.IManufacturer": {
         "$id": "components#/schemas/ObjectNullable.IManufacturer",
@@ -81,7 +82,7 @@
           "type",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectNullable.IBrand.Nullable": {
         "$id": "components#/schemas/ObjectNullable.IBrand.Nullable",
@@ -106,7 +107,7 @@
           "type",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectNullable.IManufacturer.Nullable": {
         "$id": "components#/schemas/ObjectNullable.IManufacturer.Nullable",
@@ -131,7 +132,7 @@
           "type",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },
