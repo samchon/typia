@@ -8,6 +8,8 @@ export interface IJsonComponents {
 export namespace IJsonComponents {
     export interface IObject {
         $id?: string;
+        $recursiveAnchor?: boolean;
+
         type: "object";
         nullable: boolean;
 
@@ -17,8 +19,8 @@ export namespace IJsonComponents {
 
         required?: string[];
         description?: string;
-        "x-typia_jsDocTags"?: IJsDocTagInfo[];
-
-        $recursiveAnchor?: boolean;
+        "x-typia-jsDocTags"?: IJsDocTagInfo[];
+        "x-typia-patternProperties"?: Record<string, IJsonSchema>;
+        "x-typia-additionalProperties"?: IJsonSchema;
     }
 }

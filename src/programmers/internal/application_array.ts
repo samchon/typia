@@ -11,6 +11,7 @@ import { application_schema } from "./application_schema";
 export const application_array =
     (options: ApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
+    (tuple?: IJsonSchema.ITuple) =>
     (
         metadata: Metadata,
         nullable: boolean,
@@ -24,6 +25,7 @@ export const application_array =
                 attribute,
             ),
             nullable,
+            "x-typia-tuple": tuple,
             ...attribute,
         };
 
