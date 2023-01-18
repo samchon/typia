@@ -29,7 +29,8 @@
           "enum": [
             "three"
           ],
-          "nullable": false
+          "nullable": false,
+          "x-typia-rest": false
         }
       ],
       "nullable": false

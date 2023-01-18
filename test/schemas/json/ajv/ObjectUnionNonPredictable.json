@@ -23,7 +23,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_": {
         "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_",
@@ -51,7 +51,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_": {
         "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
@@ -66,7 +66,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_boolean_gt_": {
         "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
@@ -82,7 +82,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IWrapper_lt_number_gt_": {
         "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
@@ -97,7 +97,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_number_gt_": {
         "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
@@ -113,7 +113,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IWrapper_lt_string_gt_": {
         "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
@@ -128,7 +128,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_string_gt_": {
         "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
@@ -144,7 +144,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

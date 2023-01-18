@@ -9,7 +9,9 @@
       "DynamicArray": {
         "type": "object",
         "properties": {},
-        "additionalProperties": {
+        "nullable": false,
+        "x-typia-jsDocTags": [],
+        "x-typia-additionalProperties": {
           "type": "array",
           "items": {
             "type": "string",
@@ -19,8 +21,16 @@
           "nullable": false,
           "x-typia-required": true
         },
-        "nullable": false,
-        "x-typia_jsDocTags": []
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "nullable": false,
+            "x-typia-required": true
+          },
+          "nullable": false,
+          "x-typia-required": true
+        }
       }
     }
   },

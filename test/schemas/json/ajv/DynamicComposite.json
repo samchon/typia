@@ -21,6 +21,12 @@
             "x-typia-required": true
           }
         },
+        "nullable": false,
+        "required": [
+          "id",
+          "name"
+        ],
+        "x-typia-jsDocTags": [],
         "patternProperties": {
           "^-?\\d+\\.?\\d*$": {
             "type": "number",
@@ -62,13 +68,7 @@
             "nullable": false,
             "x-typia-required": true
           }
-        },
-        "nullable": false,
-        "required": [
-          "id",
-          "name"
-        ],
-        "x-typia_jsDocTags": []
+        }
       }
     }
   },

@@ -7,7 +7,8 @@
           "$ref": "components#/schemas/ObjectTuple.ISection"
         },
         {
-          "$ref": "components#/schemas/ObjectTuple.ICitizen"
+          "$ref": "components#/schemas/ObjectTuple.ICitizen",
+          "x-typia-rest": false
         }
       ],
       "nullable": false
@@ -41,7 +42,7 @@
           "code",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectTuple.ICitizen": {
         "$id": "components#/schemas/ObjectTuple.ICitizen",
@@ -69,7 +70,7 @@
           "mobile",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

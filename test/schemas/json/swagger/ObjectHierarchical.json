@@ -44,6 +44,34 @@
               "x-typia-required": true
             },
             "nullable": false,
+            "x-typia-tuple": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "number",
+                  "nullable": false,
+                  "x-typia-required": true
+                },
+                {
+                  "type": "number",
+                  "nullable": false,
+                  "x-typia-required": true
+                },
+                {
+                  "type": "number",
+                  "nullable": false,
+                  "x-typia-required": true
+                },
+                {
+                  "type": "number",
+                  "nullable": false,
+                  "x-typia-required": true,
+                  "x-typia-rest": false
+                }
+              ],
+              "nullable": false,
+              "x-typia-required": true
+            },
             "x-typia-required": true
           },
           "created_at": {
@@ -62,7 +90,7 @@
           "ip",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IChannel": {
         "type": "object",
@@ -112,7 +140,7 @@
           "priority",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.ITimestamp": {
         "type": "object",
@@ -133,7 +161,7 @@
           "time",
           "zone"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IMember.Nullable": {
         "type": "object",
@@ -180,7 +208,7 @@
           "created_at",
           "authorized"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IAccount": {
         "type": "object",
@@ -206,7 +234,7 @@
           "code",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IEnterprise.Nullable": {
         "type": "object",
@@ -243,7 +271,7 @@
           "grade",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IAccount.Nullable": {
         "type": "object",
@@ -269,7 +297,7 @@
           "code",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

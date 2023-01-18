@@ -31,18 +31,18 @@
           "sequence",
           "children"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "Record_lt_string_comma__space_DynamicTree_gt_": {
         "$id": "components#/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
         "type": "object",
         "properties": {},
+        "nullable": false,
+        "x-typia-jsDocTags": [],
         "additionalProperties": {
           "$ref": "components#/schemas/DynamicTree",
           "x-typia-required": true
-        },
-        "nullable": false,
-        "x-typia_jsDocTags": []
+        }
       }
     }
   },

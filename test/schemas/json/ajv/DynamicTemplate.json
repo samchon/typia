@@ -10,6 +10,8 @@
         "$id": "components#/schemas/DynamicTemplate",
         "type": "object",
         "properties": {},
+        "nullable": false,
+        "x-typia-jsDocTags": [],
         "patternProperties": {
           "^(prefix_(.*))": {
             "type": "string",
@@ -31,9 +33,7 @@
             "nullable": false,
             "x-typia-required": true
           }
-        },
-        "nullable": false,
-        "x-typia_jsDocTags": []
+        }
       }
     }
   },

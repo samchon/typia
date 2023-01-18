@@ -38,7 +38,7 @@
           "arrays",
           "objects"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "Set": {
         "type": "object",

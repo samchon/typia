@@ -49,7 +49,7 @@
           "editable",
           "incremental"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

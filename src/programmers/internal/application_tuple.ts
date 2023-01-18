@@ -17,8 +17,12 @@ export const application_tuple =
         attribute: IJsonSchema.IAttribute,
     ): IJsonSchema.ITuple => ({
         type: "array",
-        items: items.map((meta) =>
-            application_schema(options)(components)(false)(meta, attribute),
+        items: items.map((meta, i) =>
+            application_schema(options)(components)(false)(meta.rest ?? meta, {
+                ...attribute,
+                "x-typia-rest":
+                    i === items.length - 1 ? meta.rest !== null : undefined,
+            }),
         ),
         nullable,
         ...attribute,

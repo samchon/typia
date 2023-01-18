@@ -18,7 +18,26 @@
           }
         ]
       },
-      "nullable": false
+      "nullable": false,
+      "x-typia-tuple": {
+        "type": "array",
+        "items": [
+          {
+            "type": "boolean",
+            "nullable": false
+          },
+          {
+            "type": "number",
+            "nullable": false
+          },
+          {
+            "type": "string",
+            "nullable": false,
+            "x-typia-rest": false
+          }
+        ],
+        "nullable": false
+      }
     }
   ],
   "components": {

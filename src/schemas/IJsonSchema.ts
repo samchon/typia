@@ -53,6 +53,7 @@ export namespace IJsonSchema {
         items: IJsonSchema;
         minItems?: number;
         maxItems?: number;
+        "x-typia-tuple"?: ITuple;
     }
     export interface ITuple extends ISignificant<"array"> {
         items: IJsonSchema[];
@@ -86,5 +87,6 @@ export namespace IJsonSchema {
         "x-typia-metaTags"?: IMetadataTag[];
         "x-typia-jsDocTags"?: IJsDocTagInfo[];
         "x-typia-required"?: boolean;
+        "x-typia-rest"?: boolean;
     }
 }

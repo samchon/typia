@@ -2,25 +2,20 @@
   "schemas": [
     {
       "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "boolean",
-            "nullable": false
-          },
-          {
-            "type": "number",
-            "nullable": false
-          },
-          {
-            "type": "array",
-            "items": {
-              "$ref": "components#/schemas/TupleRestObject.IObject"
-            },
-            "nullable": false
-          }
-        ]
-      },
+      "items": [
+        {
+          "type": "boolean",
+          "nullable": false
+        },
+        {
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "$ref": "components#/schemas/TupleRestObject.IObject",
+          "x-typia-rest": true
+        }
+      ],
       "nullable": false
     }
   ],
@@ -40,7 +35,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

@@ -67,7 +67,7 @@
           "int",
           "uint"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

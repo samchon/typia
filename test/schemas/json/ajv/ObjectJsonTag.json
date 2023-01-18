@@ -87,7 +87,7 @@
           "title",
           "complicate_title"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

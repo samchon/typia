@@ -10,6 +10,8 @@
         "$id": "components#/schemas/DynamicArray",
         "type": "object",
         "properties": {},
+        "nullable": false,
+        "x-typia-jsDocTags": [],
         "additionalProperties": {
           "type": "array",
           "items": {
@@ -19,9 +21,7 @@
           },
           "nullable": false,
           "x-typia-required": true
-        },
-        "nullable": false,
-        "x-typia_jsDocTags": []
+        }
       }
     }
   },
