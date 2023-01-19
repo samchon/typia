@@ -83,13 +83,16 @@ export const application_schema =
             const tuple: IJsonSchema.ITuple = application_tuple(options)(
                 components,
             )(items, meta.nullable, attribute);
-            if (options.purpose === "ajv") union.push(tuple);
+            if (options.purpose === "swagger" && items.length === 0)
+                throw new Error(
+                    "Error on typia.application(): swagger does not support zero length tuple type.",
+                );
+            else if (
+                options.purpose === "ajv" &&
+                !items[items.length - 1]?.rest
+            )
+                union.push(tuple);
             else {
-                if (items.length === 0)
-                    throw new Error(
-                        "Error on typia.application(): swagger does not support zero length tuple type.",
-                    );
-
                 // SWAGGER DOES NOT SUPPORT TUPLE TYPE YET
                 const merged: Metadata = items.reduce((x, y) =>
                     Metadata.merge(x, y),
