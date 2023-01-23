@@ -93,7 +93,7 @@
           "children",
           "type"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionExplicit.IImageFile": {
         "$id": "components#/schemas/ArrayRecursiveUnionExplicit.IImageFile",
@@ -163,7 +163,7 @@
           "type",
           "extension"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionExplicit.ITextFile": {
         "$id": "components#/schemas/ArrayRecursiveUnionExplicit.ITextFile",
@@ -221,7 +221,7 @@
           "type",
           "extension"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionExplicit.IZipFile": {
         "$id": "components#/schemas/ArrayRecursiveUnionExplicit.IZipFile",
@@ -279,7 +279,7 @@
           "type",
           "extension"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionExplicit.IShortcut": {
         "$id": "components#/schemas/ArrayRecursiveUnionExplicit.IShortcut",
@@ -352,7 +352,7 @@
           "type",
           "extension"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

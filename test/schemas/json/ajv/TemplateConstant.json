@@ -57,7 +57,7 @@
           "postfix",
           "combined"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

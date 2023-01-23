@@ -63,7 +63,7 @@
           "email",
           "hobbies"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArraySimple.IHobby": {
         "type": "object",
@@ -84,7 +84,7 @@
           "name",
           "rank"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ArraySimple.IContent": {
         "type": "object",
@@ -99,7 +99,7 @@
         "required": [
           "body"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

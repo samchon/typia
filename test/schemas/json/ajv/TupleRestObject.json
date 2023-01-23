@@ -21,7 +21,25 @@
           }
         ]
       },
-      "nullable": false
+      "nullable": false,
+      "x-typia-tuple": {
+        "type": "array",
+        "items": [
+          {
+            "type": "boolean",
+            "nullable": false
+          },
+          {
+            "type": "number",
+            "nullable": false
+          },
+          {
+            "$ref": "components#/schemas/TupleRestObject.IObject",
+            "x-typia-rest": true
+          }
+        ],
+        "nullable": false
+      }
     }
   ],
   "components": {
@@ -40,7 +58,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

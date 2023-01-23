@@ -65,7 +65,7 @@
           "middle",
           "mixed"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "__type": {
         "$id": "components#/schemas/__type",
@@ -81,7 +81,7 @@
         "required": [
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

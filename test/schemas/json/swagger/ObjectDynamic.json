@@ -9,7 +9,9 @@
       "ObjectDynamic": {
         "type": "object",
         "properties": {},
-        "additionalProperties": {
+        "nullable": false,
+        "x-typia-jsDocTags": [],
+        "x-typia-additionalProperties": {
           "oneOf": [
             {
               "type": "string",
@@ -29,8 +31,26 @@
           ],
           "x-typia-required": true
         },
-        "nullable": false,
-        "x-typia_jsDocTags": []
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string",
+              "nullable": false,
+              "x-typia-required": true
+            },
+            {
+              "type": "number",
+              "nullable": false,
+              "x-typia-required": true
+            },
+            {
+              "type": "boolean",
+              "nullable": false,
+              "x-typia-required": true
+            }
+          ],
+          "x-typia-required": true
+        }
       }
     }
   },

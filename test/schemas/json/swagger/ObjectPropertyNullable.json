@@ -34,7 +34,43 @@
           }
         ]
       },
-      "nullable": false
+      "nullable": false,
+      "x-typia-tuple": {
+        "type": "array",
+        "items": [
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_boolean_gt_"
+            },
+            "nullable": false
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_number_gt_"
+            },
+            "nullable": false
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_string_gt_"
+            },
+            "nullable": false
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_",
+              "x-typia-rest": false
+            },
+            "nullable": false,
+            "x-typia-rest": false
+          }
+        ],
+        "nullable": false
+      }
     }
   ],
   "components": {
@@ -52,7 +88,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectPropertyNullable.IPointer_lt_number_gt_": {
         "type": "object",
@@ -67,7 +103,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectPropertyNullable.IPointer_lt_string_gt_": {
         "type": "object",
@@ -82,7 +118,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_": {
         "type": "object",
@@ -96,7 +132,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectPropertyNullable.IMember.Nullable": {
         "type": "object",
@@ -133,7 +169,7 @@
           "name",
           "activated"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

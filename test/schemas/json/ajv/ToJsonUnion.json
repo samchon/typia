@@ -56,7 +56,7 @@
           "mobile",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ToJsonUnion.IProduct": {
         "$id": "components#/schemas/ToJsonUnion.IProduct",
@@ -84,7 +84,7 @@
           "brand",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

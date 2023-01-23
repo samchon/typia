@@ -49,7 +49,7 @@
           "sequence",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectRecursive.IDepartment.Nullable": {
         "$id": "components#/schemas/ObjectRecursive.IDepartment.Nullable",
@@ -94,7 +94,7 @@
           "sequence",
           "created_at"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectRecursive.ITimestamp": {
         "$id": "components#/schemas/ObjectRecursive.ITimestamp",
@@ -116,7 +116,7 @@
           "time",
           "zone"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

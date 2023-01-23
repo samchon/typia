@@ -1,6 +1,8 @@
 import { Atomic } from "../typings/Atomic";
 import { ClassProperties } from "../typings/ClassProperties";
 
+import { ArrayUtil } from "../utils/ArrayUtil";
+
 import { IMetadata } from "./IMetadata";
 import { IMetadataObject } from "./IMetadataObject";
 import { MetadataConstant } from "./MetadataConstant";
@@ -416,6 +418,58 @@ export namespace Metadata {
 
         // SUCCESS
         return true;
+    }
+
+    export function merge(x: Metadata, y: Metadata): Metadata {
+        const output: Metadata = Metadata.create({
+            any: x.any || y.any,
+            nullable: x.nullable || y.nullable,
+            required: x.required && y.required,
+            functional: x.functional || y.functional,
+
+            resolved:
+                x.resolved !== null && y.resolved !== null
+                    ? merge(x.resolved, y.resolved)
+                    : x.resolved || y.resolved,
+            atomics: [...new Set([...x.atomics, ...y.atomics])],
+            constants: [...x.constants],
+            templates: x.templates.slice(),
+
+            rest:
+                x.rest !== null && y.rest !== null
+                    ? merge(x.rest, y.rest)
+                    : x.rest ?? y.rest,
+            arrays: x.arrays.slice(),
+            tuples: x.tuples.slice(),
+            objects: x.objects.slice(),
+
+            natives: [...new Set([...x.natives, ...y.natives])],
+            sets: x.sets.slice(),
+            maps: x.maps.slice(),
+        });
+        for (const constant of y.constants) {
+            const target: MetadataConstant = ArrayUtil.take(
+                output.constants,
+                (elem) => elem.type === constant.type,
+                () => ({
+                    type: constant.type,
+                    values: [],
+                }),
+            );
+            for (const value of constant.values)
+                ArrayUtil.add(target.values, value);
+        }
+        for (const array of y.arrays)
+            ArrayUtil.set(output.arrays, array, (elem) => elem.getName());
+        for (const obj of y.objects)
+            ArrayUtil.set(output.objects, obj, (elem) => elem.name);
+
+        if (x.rest !== null)
+            ArrayUtil.set(output.arrays, x.rest, (elem) => elem.getName());
+        if (y.rest !== null)
+            ArrayUtil.set(output.arrays, y.rest, (elem) => elem.getName());
+
+        return output;
     }
 }
 

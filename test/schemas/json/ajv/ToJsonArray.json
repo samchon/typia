@@ -30,9 +30,11 @@
         {
           "type": "array",
           "items": {
-            "$ref": "components#/schemas/ToJsonArray.IObject"
+            "$ref": "components#/schemas/ToJsonArray.IObject",
+            "x-typia-rest": false
           },
-          "nullable": false
+          "nullable": false,
+          "x-typia-rest": false
         }
       ],
       "nullable": false
@@ -54,7 +56,7 @@
         "required": [
           "id"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

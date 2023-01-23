@@ -372,7 +372,7 @@
           "maximum",
           "minimum_and_maximum"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

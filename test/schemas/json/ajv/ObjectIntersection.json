@@ -32,7 +32,7 @@
           "name",
           "vulnerable"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

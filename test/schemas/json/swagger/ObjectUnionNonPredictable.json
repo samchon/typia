@@ -22,7 +22,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_": {
         "type": "object",
@@ -49,7 +49,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_": {
         "type": "object",
@@ -63,7 +63,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_boolean_gt_": {
         "type": "object",
@@ -78,7 +78,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IWrapper_lt_number_gt_": {
         "type": "object",
@@ -92,7 +92,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_number_gt_": {
         "type": "object",
@@ -107,7 +107,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IWrapper_lt_string_gt_": {
         "type": "object",
@@ -121,7 +121,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_string_gt_": {
         "type": "object",
@@ -136,7 +136,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

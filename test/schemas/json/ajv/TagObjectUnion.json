@@ -49,7 +49,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "TagObjectUnion.Literal": {
         "$id": "components#/schemas/TagObjectUnion.Literal",
@@ -91,7 +91,7 @@
         "required": [
           "value"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

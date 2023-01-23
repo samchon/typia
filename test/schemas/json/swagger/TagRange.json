@@ -339,7 +339,7 @@
           "greater_less_equal",
           "greater_equal_less_equal"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

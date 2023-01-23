@@ -15,7 +15,23 @@
           }
         ]
       },
-      "nullable": false
+      "nullable": false,
+      "x-typia-tuple": {
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_boolean_gt_"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_number_gt_"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_string_gt_",
+            "x-typia-rest": false
+          }
+        ],
+        "nullable": false
+      }
     }
   ],
   "components": {
@@ -48,7 +64,7 @@
           "child",
           "elements"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_": {
         "type": "object",
@@ -69,7 +85,7 @@
           "child_value",
           "child_next"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectGeneric.ISomething_lt_number_gt_": {
         "type": "object",
@@ -99,7 +115,7 @@
           "child",
           "elements"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectGeneric.IChild_lt_number_comma__space_number_gt_": {
         "type": "object",
@@ -120,7 +136,7 @@
           "child_value",
           "child_next"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectGeneric.ISomething_lt_string_gt_": {
         "type": "object",
@@ -150,7 +166,7 @@
           "child",
           "elements"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectGeneric.IChild_lt_string_comma__space_string_gt_": {
         "type": "object",
@@ -171,7 +187,7 @@
           "child_value",
           "child_next"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

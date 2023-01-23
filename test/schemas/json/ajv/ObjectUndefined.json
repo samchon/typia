@@ -50,7 +50,7 @@
           "name",
           "unknown"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUndefined.IClassroom": {
         "$id": "components#/schemas/ObjectUndefined.IClassroom",
@@ -72,7 +72,7 @@
           "id",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

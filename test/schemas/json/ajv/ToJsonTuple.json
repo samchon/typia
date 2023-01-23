@@ -16,7 +16,8 @@
           "nullable": false
         },
         {
-          "$ref": "components#/schemas/ToJsonTuple.IHobby"
+          "$ref": "components#/schemas/ToJsonTuple.IHobby",
+          "x-typia-rest": false
         }
       ],
       "nullable": false
@@ -44,7 +45,7 @@
           "code",
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

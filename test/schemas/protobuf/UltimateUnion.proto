@@ -121,6 +121,7 @@ message IJsonSchema {
         optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
         optional repeated IJsDocTagInfo v10 = 9;
         optional bool v11 = 10;
+        optional bool v12 = 11;
     }
 
     message IEnumeration_lt__doublequote_number_doublequote__gt_ {
@@ -134,6 +135,7 @@ message IJsonSchema {
         optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
         optional repeated IJsDocTagInfo v10 = 9;
         optional bool v11 = 10;
+        optional bool v12 = 11;
     }
 
     message IEnumeration_lt__doublequote_string_doublequote__gt_ {
@@ -147,6 +149,7 @@ message IJsonSchema {
         optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
         optional repeated IJsDocTagInfo v10 = 9;
         optional bool v11 = 10;
+        optional bool v12 = 11;
     }
 
     message IBoolean {
@@ -159,6 +162,7 @@ message IJsonSchema {
         optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v8 = 7;
         optional repeated IJsDocTagInfo v9 = 8;
         optional bool v10 = 9;
+        optional bool v11 = 10;
     }
 
     message INumber {
@@ -176,6 +180,7 @@ message IJsonSchema {
         optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v13 = 12;
         optional repeated IJsDocTagInfo v14 = 13;
         optional bool v15 = 14;
+        optional bool v16 = 15;
     }
 
     message IString {
@@ -192,6 +197,7 @@ message IJsonSchema {
         optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v12 = 11;
         optional repeated IJsDocTagInfo v13 = 12;
         optional bool v14 = 13;
+        optional bool v15 = 14;
     }
 
     message IArray {
@@ -212,14 +218,16 @@ message IJsonSchema {
         }
         optional double minItems = 14;
         optional double maxItems = 15;
-        string type = 16;
-        bool nullable = 17;
-        optional bool deprecated = 18;
-        optional string title = 19;
-        optional string description = 20;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v22 = 21;
-        optional repeated IJsDocTagInfo v23 = 22;
-        optional bool v24 = 23;
+        optional IJsonSchema.ITuple v17 = 16;
+        string type = 17;
+        bool nullable = 18;
+        optional bool deprecated = 19;
+        optional string title = 20;
+        optional string description = 21;
+        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v23 = 22;
+        optional repeated IJsDocTagInfo v24 = 23;
+        optional bool v25 = 24;
+        optional bool v26 = 25;
     }
 
     message ITuple {
@@ -232,6 +240,7 @@ message IJsonSchema {
         optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v8 = 7;
         optional repeated IJsDocTagInfo v9 = 8;
         optional bool v10 = 9;
+        optional bool v11 = 10;
     }
 
     message IOneOf {
@@ -242,6 +251,7 @@ message IJsonSchema {
         optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
         optional repeated IJsDocTagInfo v7 = 6;
         optional bool v8 = 7;
+        optional bool v9 = 8;
     }
 
     message IReference {
@@ -252,6 +262,7 @@ message IJsonSchema {
         optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
         optional repeated IJsDocTagInfo v7 = 6;
         optional bool v8 = 7;
+        optional bool v9 = 8;
     }
 
     message IRecursiveReference {
@@ -262,6 +273,7 @@ message IJsonSchema {
         optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
         optional repeated IJsDocTagInfo v7 = 6;
         optional bool v8 = 7;
+        optional bool v9 = 8;
     }
 
     message INullOnly {
@@ -272,6 +284,7 @@ message IJsonSchema {
         optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
         optional repeated IJsDocTagInfo v7 = 6;
         optional bool v8 = 7;
+        optional bool v9 = 8;
     }
 }
 
@@ -387,29 +400,45 @@ message IJsonComponents {
 
     message IObject {
         optional string $id = 1;
-        string type = 2;
-        bool nullable = 3;
-        map_lt_string_comma__space_Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt__gt_ properties = 4;
-        optional map_lt_string_comma__space_Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt__gt_ patternProperties = 5;
+        optional bool $recursiveAnchor = 2;
+        string type = 3;
+        bool nullable = 4;
+        map_lt_string_comma__space_Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt__gt_ properties = 5;
+        optional map_lt_string_comma__space_Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt__gt_ patternProperties = 6;
         oneof additionalProperties {
-            IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 6;
-            IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 7;
-            IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o2 = 8;
-            IJsonSchema.IBoolean o3 = 9;
-            IJsonSchema.INumber o4 = 10;
-            IJsonSchema.IString o5 = 11;
-            IJsonSchema.IArray o6 = 12;
-            IJsonSchema.ITuple o7 = 13;
-            IJsonSchema.IOneOf o8 = 14;
-            IJsonSchema.IReference o9 = 15;
-            IJsonSchema.IRecursiveReference o10 = 16;
-            IJsonSchema.INullOnly o11 = 17;
-            IJsonSchema.IUnknown o12 = 18;
+            IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 7;
+            IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 8;
+            IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o2 = 9;
+            IJsonSchema.IBoolean o3 = 10;
+            IJsonSchema.INumber o4 = 11;
+            IJsonSchema.IString o5 = 12;
+            IJsonSchema.IArray o6 = 13;
+            IJsonSchema.ITuple o7 = 14;
+            IJsonSchema.IOneOf o8 = 15;
+            IJsonSchema.IReference o9 = 16;
+            IJsonSchema.IRecursiveReference o10 = 17;
+            IJsonSchema.INullOnly o11 = 18;
+            IJsonSchema.IUnknown o12 = 19;
         }
-        optional repeated string required = 19;
-        optional string description = 20;
-        optional repeated IJsDocTagInfo v22 = 21;
-        optional bool $recursiveAnchor = 22;
+        optional repeated string required = 20;
+        optional string description = 21;
+        optional repeated IJsDocTagInfo v23 = 22;
+        optional map_lt_string_comma__space_Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt__gt_ v24 = 23;
+        oneof x-typia-additionalProperties {
+            IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 24;
+            IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 25;
+            IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o2 = 26;
+            IJsonSchema.IBoolean o3 = 27;
+            IJsonSchema.INumber o4 = 28;
+            IJsonSchema.IString o5 = 29;
+            IJsonSchema.IArray o6 = 30;
+            IJsonSchema.ITuple o7 = 31;
+            IJsonSchema.IOneOf o8 = 32;
+            IJsonSchema.IReference o9 = 33;
+            IJsonSchema.IRecursiveReference o10 = 34;
+            IJsonSchema.INullOnly o11 = 35;
+            IJsonSchema.IUnknown o12 = 36;
+        }
     }
 }
 

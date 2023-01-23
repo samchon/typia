@@ -64,7 +64,7 @@
           "middle",
           "mixed"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "__type": {
         "type": "object",
@@ -79,7 +79,7 @@
         "required": [
           "name"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

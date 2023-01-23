@@ -57,7 +57,7 @@
           "x",
           "y"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.ILine": {
         "$id": "components#/schemas/ObjectUnionImplicit.ILine",
@@ -87,7 +87,7 @@
           "p1",
           "p2"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.ITriangle": {
         "$id": "components#/schemas/ObjectUnionImplicit.ITriangle",
@@ -127,7 +127,7 @@
           "p2",
           "p3"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.IRectangle": {
         "$id": "components#/schemas/ObjectUnionImplicit.IRectangle",
@@ -172,7 +172,7 @@
           "p3",
           "p4"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.IPolyline": {
         "$id": "components#/schemas/ObjectUnionImplicit.IPolyline",
@@ -197,7 +197,7 @@
         "required": [
           "points"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.IPolygon": {
         "$id": "components#/schemas/ObjectUnionImplicit.IPolygon",
@@ -226,7 +226,7 @@
         "required": [
           "outer"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.ICircle": {
         "$id": "components#/schemas/ObjectUnionImplicit.ICircle",
@@ -251,7 +251,7 @@
         "required": [
           "radius"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   },

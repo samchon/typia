@@ -28,7 +28,43 @@
           }
         ]
       },
-      "nullable": false
+      "nullable": false,
+      "x-typia-tuple": {
+        "type": "array",
+        "items": [
+          {
+            "type": "boolean",
+            "enum": [
+              false,
+              true
+            ],
+            "nullable": false
+          },
+          {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "nullable": false
+          },
+          {
+            "type": "number",
+            "enum": [
+              2
+            ],
+            "nullable": false
+          },
+          {
+            "type": "string",
+            "enum": [
+              "three"
+            ],
+            "nullable": false,
+            "x-typia-rest": false
+          }
+        ],
+        "nullable": false
+      }
     }
   ],
   "components": {
