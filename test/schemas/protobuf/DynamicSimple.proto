@@ -1,5 +1,5 @@
 syntax = "proto3";
 
 message __Main {
-    map_lt_string_comma__space_number_gt_ value = 1;
+    map<string, double> value = 1;
 }

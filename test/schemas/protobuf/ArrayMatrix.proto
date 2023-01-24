@@ -10,6 +10,6 @@ message Array {
     }
 
     message Element_lt_Array_lt_number_gt__gt_ {
-        repeated number value = 1;
+        repeated double value = 1;
     }
 }

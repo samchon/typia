@@ -55,7 +55,7 @@ message __type {
     }
 
     message o5 {
-        repeated number y = 1;
+        repeated double y = 1;
     }
 }
 

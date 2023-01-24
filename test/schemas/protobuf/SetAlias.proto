@@ -1,8 +1,8 @@
 syntax = "proto3";
 
 message SetAlias {
-    repeated boolean booleans = 1;
-    repeated number numbers = 2;
+    repeated bool booleans = 1;
+    repeated double numbers = 2;
     repeated string strings = 3;
     repeated Set.Element_lt_Array_lt_number_gt__gt_ arrays = 4;
     repeated SetAlias.Person objects = 5;
@@ -17,6 +17,6 @@ message SetAlias {
 
 message Set {
     message Element_lt_Array_lt_number_gt__gt_ {
-        repeated number value = 1;
+        repeated double value = 1;
     }
 }
