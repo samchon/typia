@@ -2,8 +2,9 @@ syntax = "proto3";
 
 message __Main {
     oneof value {
-        map_lt_string_comma__space_string_gt_ o0 = 1;
-        map_lt_string_comma__space_number_gt_ o1 = 2;
-        map_lt_string_comma__space_boolean_gt_ o2 = 3;
+        map<string, string> o0 = 1;
+        map<string, string> o1 = 2;
+        map<string, double> o2 = 3;
+        map<string, bool> o3 = 4;
     }
 }

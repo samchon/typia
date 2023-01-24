@@ -8,5 +8,5 @@ message _alt_string_comma__space_number_comma__space_Array_lt_string_gt__comma__
     string v0 = 1;
     double v1 = 2;
     repeated string v2 = 3;
-    repeated number v3 = 4;
+    repeated double v3 = 4;
 }

@@ -111,7 +111,7 @@ message Array {
 
 message IJsonSchema {
     message IEnumeration_lt__doublequote_boolean_doublequote__gt_ {
-        repeated boolean v2 = 1;
+        repeated bool v2 = 1;
         optional bool v3 = 2;
         string type = 3;
         bool nullable = 4;
@@ -125,7 +125,7 @@ message IJsonSchema {
     }
 
     message IEnumeration_lt__doublequote_number_doublequote__gt_ {
-        repeated number v2 = 1;
+        repeated double v2 = 1;
         optional double v3 = 2;
         string type = 3;
         bool nullable = 4;
@@ -395,7 +395,7 @@ message IJsDocTagInfo {
 }
 
 message IJsonComponents {
-    map_lt_string_comma__space_IJsonComponents.IObject_gt_ schemas = 1;
+    map<string, IJsonComponents.IObject> schemas = 1;
 
 
     message IObject {
@@ -403,8 +403,8 @@ message IJsonComponents {
         optional bool $recursiveAnchor = 2;
         string type = 3;
         bool nullable = 4;
-        map_lt_string_comma__space_Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt__gt_ properties = 5;
-        optional map_lt_string_comma__space_Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt__gt_ patternProperties = 6;
+        map<string, Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_> properties = 5;
+        optional map<string, Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_> patternProperties = 6;
         oneof additionalProperties {
             IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 7;
             IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 8;
@@ -423,7 +423,7 @@ message IJsonComponents {
         optional repeated string required = 20;
         optional string description = 21;
         optional repeated IJsDocTagInfo v23 = 22;
-        optional map_lt_string_comma__space_Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt__gt_ v24 = 23;
+        optional map<string, Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_> v24 = 23;
         oneof x-typia-additionalProperties {
             IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 24;
             IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 25;

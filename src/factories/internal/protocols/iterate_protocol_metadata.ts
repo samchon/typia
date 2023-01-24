@@ -1,6 +1,7 @@
 import { IMetadataTag } from "../../../metadata/IMetadataTag";
 import { Metadata } from "../../../metadata/Metadata";
 
+import { IProtocolMap } from "../../../messages/IProtocolMap";
 import { IProtocolMessage } from "../../../messages/IProtocolMessage";
 import { IProtocolProperty } from "../../../messages/IProtocolProperty";
 import { iterate_protocol_atomic } from "./iterate_protocol_atomic";
@@ -18,7 +19,7 @@ export const iterate_protocol_metadata =
         const required: boolean = meta.required && !meta.nullable;
         const oneOf: IProtocolProperty.IOneOf[] = [];
 
-        const add = (type: string) => {
+        const add = (type: string | IProtocolMap) => {
             if (oneOf.some((one) => one.type === type)) return;
             oneOf.push({
                 type,
@@ -31,7 +32,11 @@ export const iterate_protocol_metadata =
                 meta.arrays.length === 1
                     ? (["Array", meta.arrays[0]!] as const)
                     : (["Set", meta.sets[0]!] as const);
-            add(iterate_protocol_repeated(container)(true)(dict)(child)(tags));
+            add(
+                iterate_protocol_repeated(container)(true, true)(dict)(child)(
+                    tags,
+                ),
+            );
             return {
                 required,
                 oneOf,
@@ -61,9 +66,17 @@ export const iterate_protocol_metadata =
         for (const tuple of meta.tuples)
             add(iterate_protocol_tuple(dict)(tuple));
         for (const array of meta.arrays)
-            add(iterate_protocol_repeated("Array")(false)(dict)(array)(tags));
+            add(
+                iterate_protocol_repeated("Array")(false, meta.bucket() === 1)(
+                    dict,
+                )(array)(tags),
+            );
         for (const set of meta.sets)
-            add(iterate_protocol_repeated("Set")(false)(dict)(set)(tags));
+            add(
+                iterate_protocol_repeated("Set")(false, meta.bucket() === 1)(
+                    dict,
+                )(set)(tags),
+            );
         for (const map of meta.maps)
             add(iterate_protocol_map("Map")(dict)(map.key)(map.value));
 

@@ -78,4 +78,24 @@ export namespace ProtocolMetadataUtil {
             jsDocTags: [],
         });
     }
+
+    export function array(meta: Metadata): Metadata {
+        return Metadata.create({
+            any: false,
+            required: true,
+            nullable: false,
+            functional: false,
+            resolved: null,
+            atomics: [],
+            constants: [],
+            templates: [],
+            rest: null,
+            arrays: [meta],
+            tuples: [],
+            objects: [],
+            natives: [],
+            sets: [],
+            maps: [],
+        });
+    }
 }

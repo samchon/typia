@@ -1,12 +1,10 @@
 import typia from "../../src";
 
 interface Something {
-    map: Map<string, number>;
-    record: Record<number, string>;
-    dynamic: Dynamic;
+    values: number[];
 }
-interface Dynamic {
-    [key: string]: string;
-}
-
-console.log(typia.message<Dynamic>());
+console.log(typia.message<Something>());
+console.log("\n");
+console.log(typia.message<number[]>());
+console.log("\n");
+console.log(typia.message<number | number[]>());
