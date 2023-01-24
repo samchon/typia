@@ -11,6 +11,7 @@ import { Escaper } from "../utils/Escaper";
 import { MapUtil } from "../utils/MapUtil";
 import { NameEncoder } from "../utils/NameEncoder";
 
+import { IProtocolMap } from "../messages/IProtocolMap";
 import { IProtocolMessage } from "../messages/IProtocolMessage";
 
 export namespace MessageProgrammer {
@@ -53,7 +54,7 @@ export namespace MessageProgrammer {
                             TAB,
                             property.required ? "" : "optional ",
                             property.repeated ? "repeated " : "",
-                            NameEncoder.encode(property.oneOf[0]!.type) + " ",
+                            getTypeName(property.oneOf[0]!.type) + " ",
                             Escaper.variable(property.key)
                                 ? property.key
                                 : `v${index + 1}`,
@@ -65,7 +66,7 @@ export namespace MessageProgrammer {
                         property.oneOf
                             .map(
                                 (o, i) =>
-                                    `${TAB}${TAB}${NameEncoder.encode(
+                                    `${TAB}${TAB}${getTypeName(
                                         o.type,
                                     )} o${i} = ${index++};`,
                             )
@@ -105,6 +106,12 @@ export namespace MessageProgrammer {
                 if (i === accessors.length - 1) hierarchy.message = message;
             });
         };
+
+    function getTypeName(type: string | IProtocolMap): string {
+        return typeof type === "string"
+            ? NameEncoder.encode(type)
+            : `map<${type.key}, ${getTypeName(type.value)}>`;
+    }
 }
 
 interface Hierarchy {
