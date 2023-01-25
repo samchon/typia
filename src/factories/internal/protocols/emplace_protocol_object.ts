@@ -8,7 +8,9 @@ export const emplace_protocol_object =
         if (dict.has(object.name)) return;
 
         const regular = object.properties.filter((p) => p.key.isSoleLiteral());
-        // const dynamic = object.properties.filter((p) => !p.key.isSoleLiteral());
+        const dynamic = object.properties.filter((p) => !p.key.isSoleLiteral());
+
+        if (dynamic.length) return;
 
         const output: IProtocolMessage = {
             name: object.name,

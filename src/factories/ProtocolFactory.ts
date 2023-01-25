@@ -25,18 +25,6 @@ export namespace ProtocolFactory {
                     else if (meta.objects.find((o) => o.name === "__Timestamp"))
                         throw new Error(ErrorMessages.NO_TIMESTAMP);
                     else if (
-                        meta.objects.some(
-                            (o) =>
-                                o.properties.filter((p) =>
-                                    p.key.isSoleLiteral(),
-                                ).length &&
-                                o.properties.filter(
-                                    (p) => !p.key.isSoleLiteral(),
-                                ).length,
-                        )
-                    )
-                        throw new Error(ErrorMessages.NO_SIMULATENOUS);
-                    else if (
                         meta.objects.some((o) =>
                             o.properties.some((p) => !is_atomic_key(p.key)),
                         ) ||
@@ -88,5 +76,4 @@ const enum ErrorMessages {
     NO_MAIN = `Error on typia.message(): reserved type "__Main" has been detected.`,
     NO_TIMESTAMP = `Error on typia.message(): reserved type "__Timestamp" has been detected.`,
     NOT_ALLOWED_KEY = `Error on typia.message(): only atomic key type is supported in protocol buffer.`,
-    NO_SIMULATENOUS = `Error on typia.message(): object can't have both regular and dynamic properties in protocol buffer.`,
 }

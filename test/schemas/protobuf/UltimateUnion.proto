@@ -445,14 +445,7 @@ message IJsonComponents {
     }
 }
 
-message Record_lt_string_comma__space_IJsonComponents {
-    message IObject_gt_ {
-    }
-}
-
 message Record_lt_string_comma__space_IJsonSchema_gt_ {
-
-
     message __Wrapper {
         oneof value {
             IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ value_o0 = 1;
