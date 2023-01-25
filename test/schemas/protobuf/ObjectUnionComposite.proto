@@ -59,14 +59,14 @@ message Array {
                                 message IRectangle_space__or__space_ObjectUnionComposite {
                                     message ITriangle_rp__gt_ {
                                         oneof value {
-                                            ObjectUnionComposite.IPoint o0 = 1;
-                                            ObjectUnionComposite.ILine o1 = 2;
-                                            ObjectUnionComposite.ITriangle o2 = 3;
-                                            ObjectUnionComposite.IRectangle o3 = 4;
-                                            ObjectUnionComposite.IPolyline o4 = 5;
-                                            ObjectUnionComposite.IPolygon o5 = 6;
-                                            ObjectUnionComposite.IPointedShape o6 = 7;
-                                            ObjectUnionComposite.ICircle o7 = 8;
+                                            ObjectUnionComposite.IPoint value_o0 = 1;
+                                            ObjectUnionComposite.ILine value_o1 = 2;
+                                            ObjectUnionComposite.ITriangle value_o2 = 3;
+                                            ObjectUnionComposite.IRectangle value_o3 = 4;
+                                            ObjectUnionComposite.IPolyline value_o4 = 5;
+                                            ObjectUnionComposite.IPolygon value_o5 = 6;
+                                            ObjectUnionComposite.IPointedShape value_o6 = 7;
+                                            ObjectUnionComposite.ICircle value_o7 = 8;
                                         }
                                     }
                                 }

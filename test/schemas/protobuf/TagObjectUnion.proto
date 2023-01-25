@@ -19,8 +19,8 @@ message Array {
         message Literal_space__or__space_TagObjectUnion {
             message Numeric_rp__gt_ {
                 oneof value {
-                    TagObjectUnion.Numeric o0 = 1;
-                    TagObjectUnion.Literal o1 = 2;
+                    TagObjectUnion.Numeric value_o0 = 1;
+                    TagObjectUnion.Literal value_o1 = 2;
                 }
             }
         }

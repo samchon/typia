@@ -23,19 +23,19 @@ message Array {
                                                     message ITuple_space__or__space_IJsonSchema {
                                                         message IUnknown_rp__gt_ {
                                                             oneof value {
-                                                                IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 1;
-                                                                IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 2;
-                                                                IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o2 = 3;
-                                                                IJsonSchema.IBoolean o3 = 4;
-                                                                IJsonSchema.INumber o4 = 5;
-                                                                IJsonSchema.IString o5 = 6;
-                                                                IJsonSchema.IArray o6 = 7;
-                                                                IJsonSchema.ITuple o7 = 8;
-                                                                IJsonSchema.IOneOf o8 = 9;
-                                                                IJsonSchema.IReference o9 = 10;
-                                                                IJsonSchema.IRecursiveReference o10 = 11;
-                                                                IJsonSchema.INullOnly o11 = 12;
-                                                                IJsonSchema.IUnknown o12 = 13;
+                                                                IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ value_o0 = 1;
+                                                                IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ value_o1 = 2;
+                                                                IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ value_o2 = 3;
+                                                                IJsonSchema.IBoolean value_o3 = 4;
+                                                                IJsonSchema.INumber value_o4 = 5;
+                                                                IJsonSchema.IString value_o5 = 6;
+                                                                IJsonSchema.IArray value_o6 = 7;
+                                                                IJsonSchema.ITuple value_o7 = 8;
+                                                                IJsonSchema.IOneOf value_o8 = 9;
+                                                                IJsonSchema.IReference value_o9 = 10;
+                                                                IJsonSchema.IRecursiveReference value_o10 = 11;
+                                                                IJsonSchema.INullOnly value_o11 = 12;
+                                                                IJsonSchema.IUnknown value_o12 = 13;
                                                             }
                                                         }
                                                     }
@@ -71,23 +71,23 @@ message Array {
                                                                     message IRange_space__or__space_IMetadataTag {
                                                                         message IStep_rp__gt_ {
                                                                             oneof value {
-                                                                                IMetadataTag.IItems o0 = 1;
-                                                                                IMetadataTag.IMinItems o1 = 2;
-                                                                                IMetadataTag.IMaxItems o2 = 3;
-                                                                                IMetadataTag.IFormat o3 = 4;
-                                                                                IMetadataTag.IPattern o4 = 5;
-                                                                                IMetadataTag.ILength o5 = 6;
-                                                                                IMetadataTag.IMinLength o6 = 7;
-                                                                                IMetadataTag.IMaxLength o7 = 8;
-                                                                                IMetadataTag.INumberType o8 = 9;
-                                                                                IMetadataTag.IRange o9 = 10;
-                                                                                IMetadataTag.IMinimum o10 = 11;
-                                                                                IMetadataTag.IMaximum o11 = 12;
-                                                                                IMetadataTag.IExclusiveMinimum o12 = 13;
-                                                                                IMetadataTag.IExclusiveMaximum o13 = 14;
-                                                                                IMetadataTag.IMultipleOf o14 = 15;
-                                                                                IMetadataTag.IStep o15 = 16;
-                                                                                IMetadataTag.IBigintType o16 = 17;
+                                                                                IMetadataTag.IItems value_o0 = 1;
+                                                                                IMetadataTag.IMinItems value_o1 = 2;
+                                                                                IMetadataTag.IMaxItems value_o2 = 3;
+                                                                                IMetadataTag.IFormat value_o3 = 4;
+                                                                                IMetadataTag.IPattern value_o4 = 5;
+                                                                                IMetadataTag.ILength value_o5 = 6;
+                                                                                IMetadataTag.IMinLength value_o6 = 7;
+                                                                                IMetadataTag.IMaxLength value_o7 = 8;
+                                                                                IMetadataTag.INumberType value_o8 = 9;
+                                                                                IMetadataTag.IRange value_o9 = 10;
+                                                                                IMetadataTag.IMinimum value_o10 = 11;
+                                                                                IMetadataTag.IMaximum value_o11 = 12;
+                                                                                IMetadataTag.IExclusiveMinimum value_o12 = 13;
+                                                                                IMetadataTag.IExclusiveMaximum value_o13 = 14;
+                                                                                IMetadataTag.IMultipleOf value_o14 = 15;
+                                                                                IMetadataTag.IStep value_o15 = 16;
+                                                                                IMetadataTag.IBigintType value_o16 = 17;
                                                                             }
                                                                         }
                                                                     }
@@ -118,8 +118,8 @@ message IJsonSchema {
         optional bool deprecated = 5;
         optional string title = 6;
         optional string description = 7;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
-        optional repeated IJsDocTagInfo v10 = 9;
+        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
+        repeated IJsDocTagInfo v10 = 9;
         optional bool v11 = 10;
         optional bool v12 = 11;
     }
@@ -132,8 +132,8 @@ message IJsonSchema {
         optional bool deprecated = 5;
         optional string title = 6;
         optional string description = 7;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
-        optional repeated IJsDocTagInfo v10 = 9;
+        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
+        repeated IJsDocTagInfo v10 = 9;
         optional bool v11 = 10;
         optional bool v12 = 11;
     }
@@ -146,8 +146,8 @@ message IJsonSchema {
         optional bool deprecated = 5;
         optional string title = 6;
         optional string description = 7;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
-        optional repeated IJsDocTagInfo v10 = 9;
+        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
+        repeated IJsDocTagInfo v10 = 9;
         optional bool v11 = 10;
         optional bool v12 = 11;
     }
@@ -159,8 +159,8 @@ message IJsonSchema {
         optional bool deprecated = 4;
         optional string title = 5;
         optional string description = 6;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v8 = 7;
-        optional repeated IJsDocTagInfo v9 = 8;
+        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v8 = 7;
+        repeated IJsDocTagInfo v9 = 8;
         optional bool v10 = 9;
         optional bool v11 = 10;
     }
@@ -177,8 +177,8 @@ message IJsonSchema {
         optional bool deprecated = 9;
         optional string title = 10;
         optional string description = 11;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v13 = 12;
-        optional repeated IJsDocTagInfo v14 = 13;
+        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v13 = 12;
+        repeated IJsDocTagInfo v14 = 13;
         optional bool v15 = 14;
         optional bool v16 = 15;
     }
@@ -194,27 +194,27 @@ message IJsonSchema {
         optional bool deprecated = 8;
         optional string title = 9;
         optional string description = 10;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v12 = 11;
-        optional repeated IJsDocTagInfo v13 = 12;
+        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v12 = 11;
+        repeated IJsDocTagInfo v13 = 12;
         optional bool v14 = 13;
         optional bool v15 = 14;
     }
 
     message IArray {
         oneof items {
-            IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 1;
-            IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 2;
-            IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o2 = 3;
-            IJsonSchema.IBoolean o3 = 4;
-            IJsonSchema.INumber o4 = 5;
-            IJsonSchema.IString o5 = 6;
-            IJsonSchema.IArray o6 = 7;
-            IJsonSchema.ITuple o7 = 8;
-            IJsonSchema.IOneOf o8 = 9;
-            IJsonSchema.IReference o9 = 10;
-            IJsonSchema.IRecursiveReference o10 = 11;
-            IJsonSchema.INullOnly o11 = 12;
-            IJsonSchema.IUnknown o12 = 13;
+            IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ items_o0 = 1;
+            IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ items_o1 = 2;
+            IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ items_o2 = 3;
+            IJsonSchema.IBoolean items_o3 = 4;
+            IJsonSchema.INumber items_o4 = 5;
+            IJsonSchema.IString items_o5 = 6;
+            IJsonSchema.IArray items_o6 = 7;
+            IJsonSchema.ITuple items_o7 = 8;
+            IJsonSchema.IOneOf items_o8 = 9;
+            IJsonSchema.IReference items_o9 = 10;
+            IJsonSchema.IRecursiveReference items_o10 = 11;
+            IJsonSchema.INullOnly items_o11 = 12;
+            IJsonSchema.IUnknown items_o12 = 13;
         }
         optional double minItems = 14;
         optional double maxItems = 15;
@@ -224,8 +224,8 @@ message IJsonSchema {
         optional bool deprecated = 19;
         optional string title = 20;
         optional string description = 21;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v23 = 22;
-        optional repeated IJsDocTagInfo v24 = 23;
+        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v23 = 22;
+        repeated IJsDocTagInfo v24 = 23;
         optional bool v25 = 24;
         optional bool v26 = 25;
     }
@@ -237,8 +237,8 @@ message IJsonSchema {
         optional bool deprecated = 4;
         optional string title = 5;
         optional string description = 6;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v8 = 7;
-        optional repeated IJsDocTagInfo v9 = 8;
+        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v8 = 7;
+        repeated IJsDocTagInfo v9 = 8;
         optional bool v10 = 9;
         optional bool v11 = 10;
     }
@@ -248,30 +248,30 @@ message IJsonSchema {
         optional bool deprecated = 2;
         optional string title = 3;
         optional string description = 4;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
-        optional repeated IJsDocTagInfo v7 = 6;
+        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
+        repeated IJsDocTagInfo v7 = 6;
         optional bool v8 = 7;
         optional bool v9 = 8;
     }
 
     message IReference {
-        string $ref = 1;
+        string v2 = 1;
         optional bool deprecated = 2;
         optional string title = 3;
         optional string description = 4;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
-        optional repeated IJsDocTagInfo v7 = 6;
+        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
+        repeated IJsDocTagInfo v7 = 6;
         optional bool v8 = 7;
         optional bool v9 = 8;
     }
 
     message IRecursiveReference {
-        string $recursiveRef = 1;
+        string v2 = 1;
         optional bool deprecated = 2;
         optional string title = 3;
         optional string description = 4;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
-        optional repeated IJsDocTagInfo v7 = 6;
+        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
+        repeated IJsDocTagInfo v7 = 6;
         optional bool v8 = 7;
         optional bool v9 = 8;
     }
@@ -281,10 +281,13 @@ message IJsonSchema {
         optional bool deprecated = 2;
         optional string title = 3;
         optional string description = 4;
-        optional repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
-        optional repeated IJsDocTagInfo v7 = 6;
+        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IRange_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
+        repeated IJsDocTagInfo v7 = 6;
         optional bool v8 = 7;
         optional bool v9 = 8;
+    }
+
+    message IUnknown {
     }
 }
 
@@ -385,7 +388,7 @@ message IMetadataTag {
 
 message IJsDocTagInfo {
     string name = 1;
-    optional repeated IJsDocTagInfo.IText text = 2;
+    repeated IJsDocTagInfo.IText text = 2;
 
 
     message IText {
@@ -399,91 +402,72 @@ message IJsonComponents {
 
 
     message IObject {
-        optional string $id = 1;
-        optional bool $recursiveAnchor = 2;
+        optional string v2 = 1;
+        optional bool v3 = 2;
         string type = 3;
         bool nullable = 4;
-        map<string, Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_> properties = 5;
-        optional map<string, Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_> patternProperties = 6;
+        map<string, Record_lt_string_comma__space_IJsonSchema_gt_.__Wrapper> properties = 5;
+        map<string, Record_lt_string_comma__space_IJsonSchema_gt_.__Wrapper> patternProperties = 6;
         oneof additionalProperties {
-            IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 7;
-            IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 8;
-            IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o2 = 9;
-            IJsonSchema.IBoolean o3 = 10;
-            IJsonSchema.INumber o4 = 11;
-            IJsonSchema.IString o5 = 12;
-            IJsonSchema.IArray o6 = 13;
-            IJsonSchema.ITuple o7 = 14;
-            IJsonSchema.IOneOf o8 = 15;
-            IJsonSchema.IReference o9 = 16;
-            IJsonSchema.IRecursiveReference o10 = 17;
-            IJsonSchema.INullOnly o11 = 18;
-            IJsonSchema.IUnknown o12 = 19;
+            IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ additionalProperties_o0 = 7;
+            IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ additionalProperties_o1 = 8;
+            IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ additionalProperties_o2 = 9;
+            IJsonSchema.IBoolean additionalProperties_o3 = 10;
+            IJsonSchema.INumber additionalProperties_o4 = 11;
+            IJsonSchema.IString additionalProperties_o5 = 12;
+            IJsonSchema.IArray additionalProperties_o6 = 13;
+            IJsonSchema.ITuple additionalProperties_o7 = 14;
+            IJsonSchema.IOneOf additionalProperties_o8 = 15;
+            IJsonSchema.IReference additionalProperties_o9 = 16;
+            IJsonSchema.IRecursiveReference additionalProperties_o10 = 17;
+            IJsonSchema.INullOnly additionalProperties_o11 = 18;
+            IJsonSchema.IUnknown additionalProperties_o12 = 19;
         }
-        optional repeated string required = 20;
+        repeated string required = 20;
         optional string description = 21;
-        optional repeated IJsDocTagInfo v23 = 22;
-        optional map<string, Object.Value_lt__lp_IJsonSchema.IArray_space__or__space_IJsonSchema.IBoolean_space__or__space_IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema.INullOnly_space__or__space_IJsonSchema.INumber_space__or__space_IJsonSchema.IOneOf_space__or__space_IJsonSchema.IRecursiveReference_space__or__space_IJsonSchema.IReference_space__or__space_IJsonSchema.IString_space__or__space_IJsonSchema.ITuple_space__or__space_IJsonSchema.IUnknown_rp__gt_> v24 = 23;
-        oneof x-typia-additionalProperties {
-            IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 24;
-            IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 25;
-            IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o2 = 26;
-            IJsonSchema.IBoolean o3 = 27;
-            IJsonSchema.INumber o4 = 28;
-            IJsonSchema.IString o5 = 29;
-            IJsonSchema.IArray o6 = 30;
-            IJsonSchema.ITuple o7 = 31;
-            IJsonSchema.IOneOf o8 = 32;
-            IJsonSchema.IReference o9 = 33;
-            IJsonSchema.IRecursiveReference o10 = 34;
-            IJsonSchema.INullOnly o11 = 35;
-            IJsonSchema.IUnknown o12 = 36;
+        repeated IJsDocTagInfo v23 = 22;
+        map<string, Record_lt_string_comma__space_IJsonSchema_gt_.__Wrapper> v24 = 23;
+        oneof v25 {
+            IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ v25_o0 = 24;
+            IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ v25_o1 = 25;
+            IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ v25_o2 = 26;
+            IJsonSchema.IBoolean v25_o3 = 27;
+            IJsonSchema.INumber v25_o4 = 28;
+            IJsonSchema.IString v25_o5 = 29;
+            IJsonSchema.IArray v25_o6 = 30;
+            IJsonSchema.ITuple v25_o7 = 31;
+            IJsonSchema.IOneOf v25_o8 = 32;
+            IJsonSchema.IReference v25_o9 = 33;
+            IJsonSchema.IRecursiveReference v25_o10 = 34;
+            IJsonSchema.INullOnly v25_o11 = 35;
+            IJsonSchema.IUnknown v25_o12 = 36;
         }
     }
 }
 
-message Object {
-    message Value_lt__lp_IJsonSchema {
-        message IArray_space__or__space_IJsonSchema {
-            message IBoolean_space__or__space_IJsonSchema {
-                message IEnumeration_lt__doublequote_boolean_doublequote__gt__space__or__space_IJsonSchema {
-                    message IEnumeration_lt__doublequote_number_doublequote__gt__space__or__space_IJsonSchema {
-                        message IEnumeration_lt__doublequote_string_doublequote__gt__space__or__space_IJsonSchema {
-                            message INullOnly_space__or__space_IJsonSchema {
-                                message INumber_space__or__space_IJsonSchema {
-                                    message IOneOf_space__or__space_IJsonSchema {
-                                        message IRecursiveReference_space__or__space_IJsonSchema {
-                                            message IReference_space__or__space_IJsonSchema {
-                                                message IString_space__or__space_IJsonSchema {
-                                                    message ITuple_space__or__space_IJsonSchema {
-                                                        message IUnknown_rp__gt_ {
-                                                            oneof value {
-                                                                IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ o0 = 1;
-                                                                IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ o1 = 2;
-                                                                IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ o2 = 3;
-                                                                IJsonSchema.IBoolean o3 = 4;
-                                                                IJsonSchema.INumber o4 = 5;
-                                                                IJsonSchema.IString o5 = 6;
-                                                                IJsonSchema.IArray o6 = 7;
-                                                                IJsonSchema.ITuple o7 = 8;
-                                                                IJsonSchema.IOneOf o8 = 9;
-                                                                IJsonSchema.IReference o9 = 10;
-                                                                IJsonSchema.IRecursiveReference o10 = 11;
-                                                                IJsonSchema.INullOnly o11 = 12;
-                                                                IJsonSchema.IUnknown o12 = 13;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+message Record_lt_string_comma__space_IJsonComponents {
+    message IObject_gt_ {
+    }
+}
+
+message Record_lt_string_comma__space_IJsonSchema_gt_ {
+
+
+    message __Wrapper {
+        oneof value {
+            IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_ value_o0 = 1;
+            IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_ value_o1 = 2;
+            IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_ value_o2 = 3;
+            IJsonSchema.IBoolean value_o3 = 4;
+            IJsonSchema.INumber value_o4 = 5;
+            IJsonSchema.IString value_o5 = 6;
+            IJsonSchema.IArray value_o6 = 7;
+            IJsonSchema.ITuple value_o7 = 8;
+            IJsonSchema.IOneOf value_o8 = 9;
+            IJsonSchema.IReference value_o9 = 10;
+            IJsonSchema.IRecursiveReference value_o10 = 11;
+            IJsonSchema.INullOnly value_o11 = 12;
+            IJsonSchema.IUnknown value_o12 = 13;
         }
     }
 }

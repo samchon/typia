@@ -1,15 +1,17 @@
 syntax = "proto3";
 
-message __Main {
-    map<string, Object.Value_lt__lp_boolean_space__or__space_number_space__or__space_string_rp__gt_> value = 1;
-}
+message ObjectDynamic {
 
-message Object {
-    message Value_lt__lp_boolean_space__or__space_number_space__or__space_string_rp__gt_ {
+
+    message __Wrapper {
         oneof value {
-            string o0 = 1;
-            double o1 = 2;
-            bool o2 = 3;
+            string value_o0 = 1;
+            double value_o1 = 2;
+            bool value_o2 = 3;
         }
     }
+}
+
+message __Main {
+    map<string, ObjectDynamic.__Wrapper> value = 1;
 }

@@ -17,7 +17,11 @@ export const iterate_protocol_tuple =
         );
         obj.properties.push(
             ...tuple.map((value, i) =>
-                ProtocolMetadataUtil.property(`v${i}`, value, []),
+                ProtocolMetadataUtil.property(
+                    `v${i}`,
+                    value.rest ? ProtocolMetadataUtil.array(value.rest) : value,
+                    [],
+                ),
             ),
         );
         emplace_protocol_object(dict)(obj);

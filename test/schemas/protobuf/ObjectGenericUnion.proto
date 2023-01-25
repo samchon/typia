@@ -57,7 +57,7 @@ message Omit_lt_ObjectGenericUnion {
 
 message __Main {
     oneof value {
-        ObjectGenericUnion.ISaleQuestion o0 = 1;
-        ObjectGenericUnion.ISaleReview o1 = 2;
+        ObjectGenericUnion.ISaleQuestion value_o0 = 1;
+        ObjectGenericUnion.ISaleReview value_o1 = 2;
     }
 }

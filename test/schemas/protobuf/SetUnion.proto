@@ -16,36 +16,40 @@ message Array {
     message Element_lt__lp_Set_lt_Array_lt_number_gt__gt__space__or__space_Set_lt_SetUnion {
         message Person_gt__space__or__space_Set_lt_boolean_gt__space__or__space_Set_lt_number_gt__space__or__space_Set_lt_string_gt__rp__gt_ {
             oneof value {
-                Set.Element_lt_string_gt_ o0 = 1;
-                Set.Element_lt_boolean_gt_ o1 = 2;
-                Set.Element_lt_number_gt_ o2 = 3;
-                Set.Element_lt_Array_lt_number_gt__gt_ o3 = 4;
-                Set.Element_lt_SetUnion.Person_gt_ o4 = 5;
+                Set.Wrapper_lt_string_gt_ value_o0 = 1;
+                Set.Wrapper_lt_boolean_gt_ value_o1 = 2;
+                Set.Wrapper_lt_number_gt_ value_o2 = 3;
+                Set.Wrapper_lt_Array_lt_number_gt__gt_ value_o3 = 4;
+                Set.Wrapper_lt_SetUnion.Person_gt_ value_o4 = 5;
             }
         }
-    }
-}
-
-message Set {
-    message Element_lt_string_gt_ {
-        string value = 1;
-    }
-
-    message Element_lt_boolean_gt_ {
-        bool value = 1;
-    }
-
-    message Element_lt_number_gt_ {
-        double value = 1;
     }
 
     message Element_lt_Array_lt_number_gt__gt_ {
         repeated double value = 1;
     }
+}
 
-    message Element_lt_SetUnion {
+message Set {
+    message Wrapper_lt_string_gt_ {
+        repeated string value = 1;
+    }
+
+    message Wrapper_lt_boolean_gt_ {
+        repeated bool value = 1;
+    }
+
+    message Wrapper_lt_number_gt_ {
+        repeated double value = 1;
+    }
+
+    message Wrapper_lt_Array_lt_number_gt__gt_ {
+        repeated Array.Element_lt_Array_lt_number_gt__gt_ value = 1;
+    }
+
+    message Wrapper_lt_SetUnion {
         message Person_gt_ {
-            SetUnion.Person value = 1;
+            repeated SetUnion.Person value = 1;
         }
     }
 }

@@ -5,3 +5,6 @@ message DynamicTree {
     double sequence = 2;
     map<string, DynamicTree> children = 3;
 }
+
+message Record_lt_string_comma__space_DynamicTree_gt_ {
+}

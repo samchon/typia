@@ -4,8 +4,8 @@ message ObjectUnionDouble {
     message IA {
         __type value = 1;
         oneof child {
-            ObjectUnionDouble.IAA o0 = 2;
-            ObjectUnionDouble.IAB o1 = 3;
+            ObjectUnionDouble.IAA child_o0 = 2;
+            ObjectUnionDouble.IAB child_o1 = 3;
         }
     }
 
@@ -20,8 +20,8 @@ message ObjectUnionDouble {
     message IB {
         __type.o3 value = 1;
         oneof child {
-            ObjectUnionDouble.IBA o0 = 2;
-            ObjectUnionDouble.IBB o1 = 3;
+            ObjectUnionDouble.IBA child_o0 = 2;
+            ObjectUnionDouble.IBB child_o1 = 3;
         }
     }
 
@@ -68,8 +68,8 @@ message Array {
         message IA_space__or__space_ObjectUnionDouble {
             message IB_rp__gt_ {
                 oneof value {
-                    ObjectUnionDouble.IA o0 = 1;
-                    ObjectUnionDouble.IB o1 = 2;
+                    ObjectUnionDouble.IA value_o0 = 1;
+                    ObjectUnionDouble.IB value_o1 = 2;
                 }
             }
         }

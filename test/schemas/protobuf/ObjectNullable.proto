@@ -6,8 +6,8 @@ message ObjectNullable {
         ObjectNullable.IManufacturer manufacturer = 2;
         optional ObjectNullable.IBrand brand = 3;
         oneof similar {
-            ObjectNullable.IManufacturer o0 = 4;
-            ObjectNullable.IBrand o1 = 5;
+            ObjectNullable.IManufacturer similar_o0 = 4;
+            ObjectNullable.IBrand similar_o1 = 5;
         }
     }
 

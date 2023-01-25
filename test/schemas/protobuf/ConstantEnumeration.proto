@@ -7,8 +7,8 @@ message __Main {
 message Array {
     message Element_lt__lp__doublequote_Four_doublequote__space__or__space__doublequote_Three_doublequote__space__or__space_0_space__or__space_1_space__or__space_2_rp__gt_ {
         oneof value {
-            uint32 o0 = 1;
-            string o1 = 2;
+            uint32 value_o0 = 1;
+            string value_o1 = 2;
         }
     }
 }

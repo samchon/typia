@@ -6,20 +6,16 @@ message __Main {
 
 message _alt_boolean_comma__space_null_comma__space_number_comma__space__alt_boolean_comma__space_null_comma__space__alt_number_comma__space__alt_boolean_comma__space_string_agt__agt__agt__comma__space__alt_number_comma__space_Array_lt__alt_string_comma__space_boolean_comma__space_Array_lt__alt_number_comma__space_number_comma__space__alt_boolean_comma__space_string_agt__agt__gt__agt__gt__agt__agt_ {
     bool v0 = 1;
-    oneof v1 {
-
-    }
-    double v2 = 2;
-    _alt_boolean_comma__space_null_comma__space__alt_number_comma__space__alt_boolean_comma__space_string_agt__agt__agt_ v3 = 3;
-    _alt_number_comma__space_Array_lt__alt_string_comma__space_boolean_comma__space_Array_lt__alt_number_comma__space_number_comma__space__alt_boolean_comma__space_string_agt__agt__gt__agt__gt__agt_ v4 = 4;
+    optional uint32 v1 = 2;
+    double v2 = 3;
+    _alt_boolean_comma__space_null_comma__space__alt_number_comma__space__alt_boolean_comma__space_string_agt__agt__agt_ v3 = 4;
+    _alt_number_comma__space_Array_lt__alt_string_comma__space_boolean_comma__space_Array_lt__alt_number_comma__space_number_comma__space__alt_boolean_comma__space_string_agt__agt__gt__agt__gt__agt_ v4 = 5;
 }
 
 message _alt_boolean_comma__space_null_comma__space__alt_number_comma__space__alt_boolean_comma__space_string_agt__agt__agt_ {
     bool v0 = 1;
-    oneof v1 {
-
-    }
-    _alt_number_comma__space__alt_boolean_comma__space_string_agt__agt_ v2 = 2;
+    optional uint32 v1 = 2;
+    _alt_number_comma__space__alt_boolean_comma__space_string_agt__agt_ v2 = 3;
 }
 
 message _alt_number_comma__space__alt_boolean_comma__space_string_agt__agt_ {
