@@ -1,10 +1,11 @@
 import typia from "../../src";
 
 interface Something {
-    values: number[];
+    [key: string]: number[];
 }
-console.log(typia.message<Something>());
-console.log("\n");
-console.log(typia.message<number[]>());
-console.log("\n");
-console.log(typia.message<number | number[]>());
+
+console.log(
+    typia.message<Something>() +
+        "\n---------------------------------------\n" +
+        typia.message<Map<string, number[]>>(),
+);

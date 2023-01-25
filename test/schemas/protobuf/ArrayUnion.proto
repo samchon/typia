@@ -7,21 +7,21 @@ message __Main {
 message Array {
     message Element_lt__lp_Array_lt_boolean_gt__space__or__space_Array_lt_number_gt__space__or__space_Array_lt_string_gt__rp__gt_ {
         oneof value {
-            Array.Element_lt_string_gt_ o0 = 1;
-            Array.Element_lt_boolean_gt_ o1 = 2;
-            Array.Element_lt_number_gt_ o2 = 3;
+            Array.Wrapper_lt_string_gt_ value_o0 = 1;
+            Array.Wrapper_lt_boolean_gt_ value_o1 = 2;
+            Array.Wrapper_lt_number_gt_ value_o2 = 3;
         }
     }
 
-    message Element_lt_string_gt_ {
-        string value = 1;
+    message Wrapper_lt_string_gt_ {
+        repeated string value = 1;
     }
 
-    message Element_lt_boolean_gt_ {
-        bool value = 1;
+    message Wrapper_lt_boolean_gt_ {
+        repeated bool value = 1;
     }
 
-    message Element_lt_number_gt_ {
-        double value = 1;
+    message Wrapper_lt_number_gt_ {
+        repeated double value = 1;
     }
 }

@@ -1,19 +1,17 @@
 syntax = "proto3";
 
 message __Main {
-    _alt_boolean_comma__space_number_comma__space_...Array_lt_string_gt__agt_ value = 1;
+    _alt_boolean_comma__space_number_comma__space_Rest_lt_Array_lt_string_gt__gt__agt_ value = 1;
 }
 
-message _alt_boolean_comma__space_number_comma__space_ {
-    message  {
-        message  {
-            message Array_lt_string_gt__agt_ {
-                bool v0 = 1;
-                double v1 = 2;
-                oneof v2 {
-            
-                }
-            }
-        }
+message _alt_boolean_comma__space_number_comma__space_Rest_lt_Array_lt_string_gt__gt__agt_ {
+    bool v0 = 1;
+    double v1 = 2;
+    repeated Array.Element_lt_Array_lt_string_gt__gt_ v2 = 3;
+}
+
+message Array {
+    message Element_lt_Array_lt_string_gt__gt_ {
+        repeated string value = 1;
     }
 }

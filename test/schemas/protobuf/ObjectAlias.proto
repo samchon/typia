@@ -6,8 +6,8 @@ message ObjectAlias {
         string email = 2;
         string name = 3;
         oneof sex {
-            uint32 o0 = 4;
-            string o1 = 5;
+            uint32 sex_o0 = 4;
+            string sex_o1 = 5;
         }
         optional double age = 6;
         optional bool dead = 7;

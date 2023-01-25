@@ -11,10 +11,10 @@ message __Main {
 message Array {
     message Element_lt__lp__doublequote_four_doublequote__space__or__space__doublequote_three_doublequote__space__or__space_1_space__or__space_2_space__or__space___type_space__or__space_false_rp__gt_ {
         oneof value {
-            bool o0 = 1;
-            uint32 o1 = 2;
-            string o2 = 3;
-            __type o3 = 4;
+            bool value_o0 = 1;
+            uint32 value_o1 = 2;
+            string value_o2 = 3;
+            __type value_o3 = 4;
         }
     }
 }

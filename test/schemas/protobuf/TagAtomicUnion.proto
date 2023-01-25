@@ -3,8 +3,8 @@ syntax = "proto3";
 message TagAtomicUnion {
     message Type {
         oneof value {
-            string o0 = 1;
-            double o1 = 2;
+            string value_o0 = 1;
+            double value_o1 = 2;
         }
     }
 }

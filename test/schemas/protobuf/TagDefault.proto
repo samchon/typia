@@ -7,30 +7,30 @@ message TagDefault {
     string text = 4;
     string template = 5;
     oneof boolean_and_number_and_string {
-        string o0 = 6;
-        double o1 = 7;
-        bool o2 = 8;
+        string boolean_and_number_and_string_o0 = 6;
+        double boolean_and_number_and_string_o1 = 7;
+        bool boolean_and_number_and_string_o2 = 8;
     }
     oneof union_but_boolean {
-        string o0 = 9;
-        double o1 = 10;
-        bool o2 = 11;
+        string union_but_boolean_o0 = 9;
+        double union_but_boolean_o1 = 10;
+        bool union_but_boolean_o2 = 11;
     }
     oneof union_but_number {
-        string o0 = 12;
-        double o1 = 13;
-        bool o2 = 14;
+        string union_but_number_o0 = 12;
+        double union_but_number_o1 = 13;
+        bool union_but_number_o2 = 14;
     }
     oneof union_but_string {
-        string o0 = 15;
-        double o1 = 16;
-        bool o2 = 17;
+        string union_but_string_o0 = 15;
+        double union_but_string_o1 = 16;
+        bool union_but_string_o2 = 17;
     }
     double vulnerable_range = 18;
     string vulnerable_template = 19;
     oneof boolean_and_number_and_template {
-        double o0 = 20;
-        bool o1 = 21;
-        string o2 = 22;
+        double boolean_and_number_and_template_o0 = 20;
+        bool boolean_and_number_and_template_o1 = 21;
+        string boolean_and_number_and_template_o2 = 22;
     }
 }

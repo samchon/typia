@@ -5,9 +5,9 @@ message ArraySimple {
         string name = 1;
         string email = 2;
         oneof hobbies {
-            Array.Element_lt_string_gt_ o0 = 3;
-            Array.Element_lt_ArraySimple.IHobby_gt_ o1 = 4;
-            Array.Element_lt_ArraySimple.IContent_gt_ o2 = 5;
+            Array.Wrapper_lt_string_gt_ hobbies_o0 = 3;
+            Array.Wrapper_lt_ArraySimple.IHobby_gt_ hobbies_o1 = 4;
+            Array.Wrapper_lt_ArraySimple.IContent_gt_ hobbies_o2 = 5;
         }
     }
 
@@ -22,17 +22,17 @@ message ArraySimple {
 }
 
 message Array {
-    message Element_lt_string_gt_ {
-        string value = 1;
+    message Wrapper_lt_string_gt_ {
+        repeated string value = 1;
     }
 
-    message Element_lt_ArraySimple {
+    message Wrapper_lt_ArraySimple {
         message IHobby_gt_ {
-            ArraySimple.IHobby value = 1;
+            repeated ArraySimple.IHobby value = 1;
         }
     
         message IContent_gt_ {
-            ArraySimple.IContent value = 1;
+            repeated ArraySimple.IContent value = 1;
         }
     }
 }

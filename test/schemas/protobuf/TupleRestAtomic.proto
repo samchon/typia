@@ -1,19 +1,11 @@
 syntax = "proto3";
 
 message __Main {
-    _alt_boolean_comma__space_number_comma__space_...string_agt_ value = 1;
+    _alt_boolean_comma__space_number_comma__space_Rest_lt_string_gt__agt_ value = 1;
 }
 
-message _alt_boolean_comma__space_number_comma__space_ {
-    message  {
-        message  {
-            message string_agt_ {
-                bool v0 = 1;
-                double v1 = 2;
-                oneof v2 {
-            
-                }
-            }
-        }
-    }
+message _alt_boolean_comma__space_number_comma__space_Rest_lt_string_gt__agt_ {
+    bool v0 = 1;
+    double v1 = 2;
+    repeated string v2 = 3;
 }

@@ -40,7 +40,7 @@ message ObjectUnionImplicit {
 
     message IPolygon {
         ObjectUnionImplicit.IPolyline outer = 1;
-        optional repeated ObjectUnionImplicit.IPolyline inner = 2;
+        repeated ObjectUnionImplicit.IPolyline inner = 2;
         optional double area = 3;
     }
 
@@ -65,13 +65,13 @@ message Array {
                             message IRectangle_space__or__space_ObjectUnionImplicit {
                                 message ITriangle_rp__gt_ {
                                     oneof value {
-                                        ObjectUnionImplicit.IPoint o0 = 1;
-                                        ObjectUnionImplicit.ILine o1 = 2;
-                                        ObjectUnionImplicit.ITriangle o2 = 3;
-                                        ObjectUnionImplicit.IRectangle o3 = 4;
-                                        ObjectUnionImplicit.IPolyline o4 = 5;
-                                        ObjectUnionImplicit.IPolygon o5 = 6;
-                                        ObjectUnionImplicit.ICircle o6 = 7;
+                                        ObjectUnionImplicit.IPoint value_o0 = 1;
+                                        ObjectUnionImplicit.ILine value_o1 = 2;
+                                        ObjectUnionImplicit.ITriangle value_o2 = 3;
+                                        ObjectUnionImplicit.IRectangle value_o3 = 4;
+                                        ObjectUnionImplicit.IPolyline value_o4 = 5;
+                                        ObjectUnionImplicit.IPolygon value_o5 = 6;
+                                        ObjectUnionImplicit.ICircle value_o6 = 7;
                                     }
                                 }
                             }

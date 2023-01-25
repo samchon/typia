@@ -3,6 +3,8 @@ import { Metadata } from "../../../metadata/Metadata";
 import { MetadataObject } from "../../../metadata/MetadataObject";
 import { MetadataProperty } from "../../../metadata/MetadataProperty";
 
+import { Atomic } from "../../../typings/Atomic";
+
 export namespace ProtocolMetadataUtil {
     export function size(meta: Metadata): number {
         return (
@@ -96,6 +98,66 @@ export namespace ProtocolMetadataUtil {
             natives: [],
             sets: [],
             maps: [],
+        });
+    }
+
+    export function atomic(type: Atomic.Literal): Metadata {
+        return Metadata.create({
+            any: false,
+            required: true,
+            nullable: false,
+            functional: false,
+            resolved: null,
+            atomics: [type],
+            constants: [],
+            templates: [],
+            rest: null,
+            arrays: [],
+            tuples: [],
+            objects: [],
+            natives: [],
+            sets: [],
+            maps: [],
+        });
+    }
+
+    export function reference(obj: MetadataObject): Metadata {
+        return Metadata.create({
+            any: false,
+            required: true,
+            nullable: false,
+            functional: false,
+            resolved: null,
+            atomics: [],
+            constants: [],
+            templates: [],
+            rest: null,
+            arrays: [],
+            tuples: [],
+            objects: [obj],
+            natives: [],
+            sets: [],
+            maps: [],
+        });
+    }
+
+    export function map(elem: Metadata.Entry): Metadata {
+        return Metadata.create({
+            any: false,
+            required: true,
+            nullable: false,
+            functional: false,
+            resolved: null,
+            atomics: [],
+            constants: [],
+            templates: [],
+            rest: null,
+            arrays: [],
+            tuples: [],
+            objects: [],
+            natives: [],
+            sets: [],
+            maps: [elem],
         });
     }
 }

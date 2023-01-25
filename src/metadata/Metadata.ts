@@ -511,7 +511,8 @@ function getName(metadata: Metadata): string {
         elements.push(`Map<${map.key.getName()}, ${map.value.getName()}>`);
 
     // ARRAY
-    if (metadata.rest !== null) elements.push(`...${metadata.rest.getName()}`);
+    if (metadata.rest !== null)
+        elements.push(`Rest<${metadata.rest.getName()}>`);
     for (const tuple of metadata.tuples)
         elements.push(`[${tuple.map((elem) => elem.getName()).join(", ")}]`);
     for (const array of metadata.arrays)
