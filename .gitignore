@@ -7,4 +7,4 @@ packages/typescript-json/src/
 package-lock.json
 
 protoc.exe
-test/schemas/references
+test/schemas/protobuf/references
