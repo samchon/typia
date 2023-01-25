@@ -49,26 +49,29 @@ export namespace MessageProgrammer {
         if (message !== null)
             elements.push(
                 ...message.properties.map((property) => {
+                    const key: string =
+                        Escaper.variable(property.key) &&
+                        property.key.indexOf("$") === -1
+                            ? property.key
+                            : `v${index + 1}`;
                     if (property.oneOf.length === 1)
                         return [
                             TAB,
                             property.required ? "" : "optional ",
                             property.repeated ? "repeated " : "",
                             getTypeName(property.oneOf[0]!.type) + " ",
-                            Escaper.variable(property.key)
-                                ? property.key
-                                : `v${index + 1}`,
+                            key,
                             " = ",
                             `${index++};`,
                         ].join("");
                     return (
-                        `${TAB}oneof ${property.key} {\n` +
+                        `${TAB}oneof ${key} {\n` +
                         property.oneOf
                             .map(
                                 (o, i) =>
                                     `${TAB}${TAB}${getTypeName(
                                         o.type,
-                                    )} o${i} = ${index++};`,
+                                    )} ${key}_o${i} = ${index++};`,
                             )
                             .join("\n") +
                         `\n${TAB}}`

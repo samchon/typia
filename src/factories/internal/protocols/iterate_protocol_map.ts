@@ -10,14 +10,30 @@ import { iterate_protocol_constant } from "./iterate_protocol_constant";
 import { iterate_protocol_metadata } from "./iterate_protocol_metadata";
 
 export const iterate_protocol_map =
-    (container: "Object" | "Map") =>
+    (sole: boolean) =>
     (dict: Map<string, IProtocolMessage>) =>
-    (key: Metadata) =>
-    (value: Metadata): IProtocolMap => ({
-        type: "map",
-        key: getKeyName(key),
-        value: getValueName(container)(dict)(value),
-    });
+    (prop: Metadata.Entry): string | IProtocolMap => {
+        if (sole === true)
+            return {
+                type: "map",
+                key: getKeyName(prop.key),
+                value: getValueName(dict)(prop.value),
+            };
+
+        const obj: MetadataObject = ProtocolMetadataUtil.object(
+            `Map.Wrapper<${prop.key.getName()}, ${prop.value.getName()}>`,
+            dict.size,
+        );
+        obj.properties.push(
+            ProtocolMetadataUtil.property(
+                "value",
+                ProtocolMetadataUtil.map(prop),
+                [],
+            ),
+        );
+        emplace_protocol_object(dict)(obj);
+        return obj.name;
+    };
 
 const getKeyName = (meta: Metadata) => {
     for (const atomic of meta.atomics)
@@ -28,14 +44,12 @@ const getKeyName = (meta: Metadata) => {
 };
 
 const getValueName =
-    (container: "Object" | "Map") =>
-    (dict: Map<string, IProtocolMessage>) =>
-    (meta: Metadata) => {
+    (dict: Map<string, IProtocolMessage>) => (meta: Metadata) => {
         if (ProtocolMetadataUtil.standalone(meta))
             return iterate_protocol_metadata(dict)(meta)([]).oneOf[0]!.type;
 
         const obj: MetadataObject = ProtocolMetadataUtil.object(
-            `${container}.Value<${meta.getName()}>`,
+            `Map.Value<${meta.getName()}>`,
             dict.size,
         );
         obj.properties.push(ProtocolMetadataUtil.property("value", meta, []));

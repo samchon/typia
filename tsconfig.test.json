@@ -109,5 +109,6 @@
       },
     ]
   },
-  "include": ["test", "src"]
+  "include": ["test", "src"],
+  "exclude": ["test/schemas/protobuf"]
 }

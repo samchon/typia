@@ -5,3 +5,6 @@ node_modules/
 
 packages/typescript-json/src/
 package-lock.json
+
+protoc.exe
+test/schemas/protobuf/references
