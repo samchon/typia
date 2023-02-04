@@ -128,6 +128,7 @@ const check_dynamic_property =
                 ),
                 props.positive,
             );
+
         for (const entry of dynamic)
             add(
                 ts.factory.createCallExpression(

@@ -52,6 +52,10 @@ export interface ITransformOptions {
      * issue when validating without allowing superfluous properties. Should undefined
      * value assigned superfluous property be allowed or not?
      *
+     * Note that, this option only works on {@link equals} function. Other function
+     * like {@link assertEquals} or {@link validateEquals} would ignore this option
+     * value and always allow the `undefined` value.
+     *
      * @default true
      */
     undefined?: boolean;
