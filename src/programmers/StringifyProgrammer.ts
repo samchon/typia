@@ -363,6 +363,7 @@ export namespace StringifyProgrammer {
                                           path: false,
                                       })(obj)(input);
                                   return StringifyJoiner.object(importer)(
+                                      input,
                                       entries,
                                   );
                               })()

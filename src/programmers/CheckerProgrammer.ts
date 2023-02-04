@@ -53,7 +53,10 @@ export namespace CheckerProgrammer {
             };
         }
         export interface IJoiner {
-            object(entries: IExpressionEntry[]): ts.Expression;
+            object(
+                input: ts.Expression,
+                entries: IExpressionEntry[],
+            ): ts.Expression;
             array(input: ts.Expression, arrow: ts.ArrowFunction): ts.Expression;
             tuple?(exprs: ts.Expression[]): ts.Expression;
 

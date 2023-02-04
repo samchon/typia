@@ -16,6 +16,7 @@ export const check_dynamic_properties =
     (props: check_object.IProps) =>
     (importer: FunctionImporter) =>
     (
+        input: ts.Expression,
         regular: IExpressionEntry[],
         dynamic: IExpressionEntry[],
     ): ts.Expression => {
@@ -23,7 +24,7 @@ export const check_dynamic_properties =
             ts.factory.createCallExpression(
                 ts.factory.createIdentifier("Object.keys"),
                 undefined,
-                [ts.factory.createIdentifier("input")],
+                [input],
             ),
             "length",
         );
@@ -61,21 +62,21 @@ export const check_dynamic_properties =
                   ts.factory.createCallExpression(
                       ts.factory.createIdentifier("Object.keys"),
                       undefined,
-                      [ts.factory.createIdentifier("input")],
+                      [input],
                   ),
-                  check_dynamic_property(props)(regular, dynamic),
+                  check_dynamic_property(props)(input, regular, dynamic),
               ])
             : ts.factory.createCallExpression(
                   IdentifierFactory.join(
                       ts.factory.createCallExpression(
                           ts.factory.createIdentifier("Object.keys"),
                           undefined,
-                          [ts.factory.createIdentifier("input")],
+                          [input],
                       ),
                       props.assert ? "every" : "map",
                   ),
                   undefined,
-                  [check_dynamic_property(props)(regular, dynamic)],
+                  [check_dynamic_property(props)(input, regular, dynamic)],
               );
         const right: ts.Expression = (props.halt || ((elem) => elem))(
             props.assert ? criteria : check_everything(criteria),
@@ -89,7 +90,11 @@ export const check_dynamic_properties =
 
 const check_dynamic_property =
     (props: check_object.IProps) =>
-    (regular: IExpressionEntry[], dynamic: IExpressionEntry[]) => {
+    (
+        input: ts.Expression,
+        regular: IExpressionEntry[],
+        dynamic: IExpressionEntry[],
+    ) => {
         //----
         // IF CONDITIONS
         //----
@@ -112,7 +117,7 @@ const check_dynamic_property =
         statements.push(
             StatementFactory.constant(
                 "value",
-                ts.factory.createIdentifier("input[key]"),
+                ts.factory.createElementAccessExpression(input, key),
             ),
         );
         if (props.undefined === true)
