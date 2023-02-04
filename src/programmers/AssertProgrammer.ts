@@ -4,7 +4,6 @@ import { IdentifierFactory } from "../factories/IdentifierFactory";
 
 // import { StatementFactory } from "../factories/StatementFactory";
 import { IProject } from "../transformers/IProject";
-import { ITransformOptions } from "../transformers/ITransformOptions";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
@@ -241,8 +240,8 @@ export namespace AssertProgrammer {
                     trace: true,
                     numeric: OptionPredicator.numeric(project.options),
                     equals,
-                    combiner: combiner(project.options)(equals)(importer),
-                    joiner: joiner(project.options)(equals)(importer),
+                    combiner: combiner(equals)(importer),
+                    joiner: joiner(equals)(importer),
                     success: ts.factory.createTrue(),
                 },
                 importer,
@@ -278,13 +277,12 @@ export namespace AssertProgrammer {
         };
 
     const combiner =
-        (options: ITransformOptions) =>
         (equals: boolean) =>
         (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner =>
         (explore: CheckerProgrammer.IExplore) => {
             if (explore.tracable === false)
                 return IsProgrammer.CONFIG({
-                    object: assert_object(options)(equals)(importer),
+                    object: assert_object(equals)(importer),
                     numeric: true,
                 })(importer).combiner(explore);
 
@@ -352,44 +350,40 @@ export namespace AssertProgrammer {
             //   );
         };
 
-    const assert_object =
-        (options: ITransformOptions) =>
-        (equals: boolean) =>
-        (importer: FunctionImporter) =>
-            check_object({
-                equals,
-                assert: true,
-                undefined: OptionPredicator.undefined(options),
-                reduce: ts.factory.createLogicalAnd,
-                positive: ts.factory.createTrue(),
-                superfluous: (value) =>
-                    create_guard_call(importer)()(
-                        ts.factory.createAdd(
-                            ts.factory.createIdentifier("path"),
-                            ts.factory.createCallExpression(
-                                importer.use("join"),
-                                undefined,
-                                [ts.factory.createIdentifier("key")],
-                            ),
+    const assert_object = (equals: boolean) => (importer: FunctionImporter) =>
+        check_object({
+            equals,
+            assert: true,
+            undefined: true,
+            reduce: ts.factory.createLogicalAnd,
+            positive: ts.factory.createTrue(),
+            superfluous: (value) =>
+                create_guard_call(importer)()(
+                    ts.factory.createAdd(
+                        ts.factory.createIdentifier("path"),
+                        ts.factory.createCallExpression(
+                            importer.use("join"),
+                            undefined,
+                            [ts.factory.createIdentifier("key")],
                         ),
-                        "undefined",
-                        value,
                     ),
-                halt: (expr) =>
-                    ts.factory.createLogicalOr(
-                        ts.factory.createStrictEquality(
-                            ts.factory.createFalse(),
-                            ts.factory.createIdentifier("exceptionable"),
-                        ),
-                        expr,
+                    "undefined",
+                    value,
+                ),
+            halt: (expr) =>
+                ts.factory.createLogicalOr(
+                    ts.factory.createStrictEquality(
+                        ts.factory.createFalse(),
+                        ts.factory.createIdentifier("exceptionable"),
                     ),
-            })(importer);
+                    expr,
+                ),
+        })(importer);
 
     const joiner =
-        (options: ITransformOptions) =>
         (equals: boolean) =>
         (importer: FunctionImporter): CheckerProgrammer.IConfig.IJoiner => ({
-            object: assert_object(options)(equals)(importer),
+            object: assert_object(equals)(importer),
             array: (input, arrow) =>
                 ts.factory.createCallExpression(
                     IdentifierFactory.join(input, "every"),
