@@ -3,6 +3,7 @@ import ts from "typescript";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 
+import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { check_everything } from "./check_everything";
 import { check_object } from "./check_object";
@@ -13,26 +14,47 @@ import { metadata_to_pattern } from "./metadata_to_pattern";
  */
 export const check_dynamic_properties =
     (props: check_object.IProps) =>
+    (importer: FunctionImporter) =>
     (
         regular: IExpressionEntry[],
         dynamic: IExpressionEntry[],
     ): ts.Expression => {
-        const length =
+        const length = IdentifierFactory.join(
+            ts.factory.createCallExpression(
+                ts.factory.createIdentifier("Object.keys"),
+                undefined,
+                [ts.factory.createIdentifier("input")],
+            ),
+            "length",
+        );
+        const left: ts.Expression | null =
             props.equals === true && dynamic.length === 0
-                ? ts.factory.createStrictEquality(
-                      ts.factory.createNumericLiteral(
-                          regular.filter((r) => r.meta.required).length,
-                      ),
-                      IdentifierFactory.join(
-                          ts.factory.createCallExpression(
-                              ts.factory.createIdentifier("Object.keys"),
-                              undefined,
-                              [ts.factory.createIdentifier("input")],
+                ? props.undefined === true ||
+                  regular.every((r) => r.meta.required)
+                    ? ts.factory.createStrictEquality(
+                          ts.factory.createNumericLiteral(
+                              regular.filter((r) => r.meta.required).length,
                           ),
-                          "length",
-                      ),
-                  )
+                          length,
+                      )
+                    : ts.factory.createCallExpression(
+                          importer.use("is_between"),
+                          [],
+                          [
+                              length,
+                              ts.factory.createNumericLiteral(
+                                  regular.filter((r) => r.meta.required).length,
+                              ),
+                              ts.factory.createNumericLiteral(regular.length),
+                          ],
+                      )
                 : null;
+        if (
+            props.undefined === false &&
+            left !== null &&
+            regular.every((r) => r.meta.required)
+        )
+            return left;
 
         const criteria = props.entries
             ? ts.factory.createCallExpression(props.entries, undefined, [
@@ -58,7 +80,11 @@ export const check_dynamic_properties =
         const right: ts.Expression = (props.halt || ((elem) => elem))(
             props.assert ? criteria : check_everything(criteria),
         );
-        return length ? ts.factory.createLogicalOr(length, right) : right;
+        return left
+            ? (props.undefined
+                  ? ts.factory.createLogicalOr
+                  : ts.factory.createLogicalAnd)(left, right)
+            : right;
     };
 
 const check_dynamic_property =
@@ -89,13 +115,14 @@ const check_dynamic_property =
                 ts.factory.createIdentifier("input[key]"),
             ),
         );
-        add(
-            ts.factory.createStrictEquality(
-                ts.factory.createIdentifier("undefined"),
-                value,
-            ),
-            props.positive,
-        );
+        if (props.undefined === true)
+            add(
+                ts.factory.createStrictEquality(
+                    ts.factory.createIdentifier("undefined"),
+                    value,
+                ),
+                props.positive,
+            );
         for (const entry of dynamic)
             add(
                 ts.factory.createCallExpression(
