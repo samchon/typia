@@ -1,5 +1,6 @@
 import { $every } from "./functional/$every";
 import { $guard } from "./functional/$guard";
+import { $is_between } from "./functional/$is_between";
 import { $is_email } from "./functional/$is_email";
 import { $is_ipv4 } from "./functional/$is_ipv4";
 import { $is_ipv6 } from "./functional/$is_ipv6";
@@ -95,6 +96,7 @@ export namespace assert {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+    export const is_between = $is_between;
 
     export const join = $join;
     export const every = $every;
@@ -222,6 +224,7 @@ export namespace is {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+    export const is_between = $is_between;
 }
 
 /**
@@ -290,6 +293,7 @@ export namespace validate {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+    export const is_between = $is_between;
 
     export const join = $join;
     export const report = $report;
@@ -394,6 +398,7 @@ export namespace assertEquals {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+    export const is_between = $is_between;
 
     export const join = $join;
     export const every = $every;
@@ -481,6 +486,7 @@ export namespace equals {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+    export const is_between = $is_between;
     export const join = $join;
 }
 
@@ -552,6 +558,7 @@ export namespace validateEquals {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+    export const is_between = $is_between;
     export const join = $join;
 
     export const report = validate.report;
@@ -709,6 +716,7 @@ export namespace assertParse {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+    export const is_between = $is_between;
 
     export const join = $join;
     export const every = $every;
@@ -925,6 +933,7 @@ export namespace assertStringify {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+    export const is_between = $is_between;
 
     export const number = $number;
     export const string = $string;
@@ -1013,6 +1022,7 @@ export namespace isStringify {
     export const is_url = $is_url;
     export const is_ipv4 = $is_ipv4;
     export const is_ipv6 = $is_ipv6;
+    export const is_between = $is_between;
 
     export const number = $number;
     export const string = $string;

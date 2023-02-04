@@ -716,7 +716,7 @@ export namespace StringifyProgrammer {
         checker: IsProgrammer.decode(project, importer),
         decoder: decode_object(),
         joiner: StringifyJoiner.object(importer),
-        unionizer: decode_union_object(IsProgrammer.decode_object())(
+        unionizer: decode_union_object(IsProgrammer.decode_object(importer))(
             decode_object(),
         )((exp) => exp)((value, expected) =>
             create_throw_error(importer, value, expected),
