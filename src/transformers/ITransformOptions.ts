@@ -44,4 +44,15 @@ export interface ITransformOptions {
      * @default false
      */
     functional?: boolean;
+
+    /**
+     * Whether to check undefined value or not.
+     *
+     * JavaScript can assign `undefined` value to a specific property and it is an
+     * issue when validating without allowing superfluous properties. Should undefined
+     * value assigned superfluous property be allowed or not?
+     *
+     * @default true
+     */
+    undefined?: boolean;
 }
