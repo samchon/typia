@@ -51,6 +51,9 @@ export namespace IsProgrammer {
                 options?.object ||
                 check_object({
                     equals: !!options?.object,
+                    undefined: OptionPredicator.undefined({
+                        undefined: options?.undefined,
+                    }),
                     assert: true,
                     reduce: ts.factory.createLogicalAnd,
                     positive: ts.factory.createTrue(),
@@ -70,6 +73,7 @@ export namespace IsProgrammer {
     export namespace CONFIG {
         export interface IOptions {
             numeric: boolean;
+            undefined: boolean;
             object: (entries: IExpressionEntry[]) => ts.Expression;
         }
     }
@@ -88,6 +92,7 @@ export namespace IsProgrammer {
         const config = CONFIG({
             object: check_object({
                 equals,
+                undefined: OptionPredicator.undefined(project.options),
                 assert: true,
                 reduce: ts.factory.createLogicalAnd,
                 positive: ts.factory.createTrue(),

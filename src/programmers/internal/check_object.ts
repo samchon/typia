@@ -26,6 +26,7 @@ export namespace check_object {
     export interface IProps {
         equals: boolean;
         assert: boolean;
+        undefined: boolean;
         halt?: (exp: ts.Expression) => ts.Expression;
         reduce: (a: ts.Expression, b: ts.Expression) => ts.Expression;
         positive: ts.Expression;

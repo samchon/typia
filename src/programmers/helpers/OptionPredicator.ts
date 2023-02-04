@@ -12,4 +12,8 @@ export namespace OptionPredicator {
     export function finite(options: ITransformOptions): boolean {
         return options.finite === true;
     }
+
+    export function undefined(options: ITransformOptions): boolean {
+        return options.undefined !== false;
+    }
 }

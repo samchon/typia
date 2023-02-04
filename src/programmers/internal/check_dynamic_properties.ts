@@ -17,6 +17,24 @@ export const check_dynamic_properties =
         regular: IExpressionEntry[],
         dynamic: IExpressionEntry[],
     ): ts.Expression => {
+        if (
+            props.equals === true &&
+            props.undefined === false &&
+            regular.every((r) => r.meta.required) &&
+            dynamic.length === 0
+        )
+            return ts.factory.createStrictEquality(
+                ts.factory.createNumericLiteral(regular.length),
+                IdentifierFactory.join(
+                    ts.factory.createCallExpression(
+                        ts.factory.createIdentifier("Object.keys"),
+                        undefined,
+                        [ts.factory.createIdentifier("input")],
+                    ),
+                    "length",
+                ),
+            );
+
         const criteria = props.entries
             ? ts.factory.createCallExpression(props.entries, undefined, [
                   ts.factory.createCallExpression(

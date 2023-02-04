@@ -4,6 +4,7 @@ import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
 
 import { IProject } from "../transformers/IProject";
+import { ITransformOptions } from "../transformers/ITransformOptions";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
@@ -30,8 +31,8 @@ export namespace ValidateProgrammer {
                     trace: true,
                     numeric: OptionPredicator.numeric(project.options),
                     equals,
-                    combiner: combine(equals)(importer),
-                    joiner: joiner(equals)(importer),
+                    combiner: combine(project.options)(equals)(importer),
+                    joiner: joiner(project.options)(equals)(importer),
                     success: ts.factory.createTrue(),
                 },
                 importer,
@@ -85,12 +86,13 @@ export namespace ValidateProgrammer {
 }
 
 const combine =
+    (options: ITransformOptions) =>
     (equals: boolean) =>
     (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner =>
     (explore: CheckerProgrammer.IExplore) => {
         if (explore.tracable === false)
             return IsProgrammer.CONFIG({
-                object: validate_object(equals)(importer),
+                object: validate_object(options)(equals)(importer),
                 numeric: true,
             }).combiner(explore);
 
@@ -131,39 +133,44 @@ const combine =
                   );
     };
 
-const validate_object = (equals: boolean) => (importer: FunctionImporter) =>
-    check_object({
-        equals,
-        assert: false,
-        reduce: ts.factory.createLogicalAnd,
-        positive: ts.factory.createTrue(),
-        superfluous: (value) =>
-            create_report_call()(
-                ts.factory.createAdd(
-                    ts.factory.createIdentifier("path"),
-                    ts.factory.createCallExpression(
-                        importer.use("join"),
-                        undefined,
-                        [ts.factory.createIdentifier("key")],
+const validate_object =
+    (options: ITransformOptions) =>
+    (equals: boolean) =>
+    (importer: FunctionImporter) =>
+        check_object({
+            equals,
+            undefined: OptionPredicator.undefined(options),
+            assert: false,
+            reduce: ts.factory.createLogicalAnd,
+            positive: ts.factory.createTrue(),
+            superfluous: (value) =>
+                create_report_call()(
+                    ts.factory.createAdd(
+                        ts.factory.createIdentifier("path"),
+                        ts.factory.createCallExpression(
+                            importer.use("join"),
+                            undefined,
+                            [ts.factory.createIdentifier("key")],
+                        ),
                     ),
+                    "undefined",
+                    value,
                 ),
-                "undefined",
-                value,
-            ),
-        halt: (expr) =>
-            ts.factory.createLogicalOr(
-                ts.factory.createStrictEquality(
-                    ts.factory.createFalse(),
-                    ts.factory.createIdentifier("exceptionable"),
+            halt: (expr) =>
+                ts.factory.createLogicalOr(
+                    ts.factory.createStrictEquality(
+                        ts.factory.createFalse(),
+                        ts.factory.createIdentifier("exceptionable"),
+                    ),
+                    expr,
                 ),
-                expr,
-            ),
-    });
+        });
 
 const joiner =
+    (options: ITransformOptions) =>
     (equals: boolean) =>
     (importer: FunctionImporter): CheckerProgrammer.IConfig.IJoiner => ({
-        object: validate_object(equals)(importer),
+        object: validate_object(options)(equals)(importer),
         array: (input, arrow) =>
             check_everything(
                 ts.factory.createCallExpression(
