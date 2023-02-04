@@ -77,7 +77,11 @@ export namespace FeatureProgrammer {
         ): ts.Expression;
     }
     export interface ObjectJoiner {
-        (entries: IExpressionEntry[], parent: MetadataObject): ts.ConciseBody;
+        (
+            input: ts.Expression,
+            entries: IExpressionEntry[],
+            parent: MetadataObject,
+        ): ts.ConciseBody;
     }
 
     /* -----------------------------------------------------------
@@ -170,6 +174,7 @@ export namespace FeatureProgrammer {
                 undefined,
                 undefined,
                 config.objector.joiner(
+                    ts.factory.createIdentifier("input"),
                     feature_object_entries(config)(obj)(
                         ts.factory.createIdentifier("input"),
                     ),

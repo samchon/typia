@@ -11,7 +11,7 @@ import { check_everything } from "./check_everything";
 export const check_object =
     (props: check_object.IProps) =>
     (importer: FunctionImporter) =>
-    (entries: IExpressionEntry[]) => {
+    (input: ts.Expression, entries: IExpressionEntry[]) => {
         // PREPARE ASSETS
         const regular = entries.filter((entry) => entry.key.isSoleLiteral());
         const dynamic = entries.filter((entry) => !entry.key.isSoleLiteral());
@@ -22,7 +22,9 @@ export const check_object =
             return regular.length === 0 ? props.positive : reduce(props)(flags);
 
         // CHECK DYNAMIC PROPERTIES
-        flags.push(check_dynamic_properties(props)(importer)(regular, dynamic));
+        flags.push(
+            check_dynamic_properties(props)(importer)(input, regular, dynamic),
+        );
         return reduce(props)(flags);
     };
 export namespace check_object {
