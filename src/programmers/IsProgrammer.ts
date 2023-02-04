@@ -74,7 +74,10 @@ export namespace IsProgrammer {
         export interface IOptions {
             numeric: boolean;
             undefined: boolean;
-            object: (entries: IExpressionEntry[]) => ts.Expression;
+            object: (
+                input: ts.Expression,
+                entries: IExpressionEntry[],
+            ) => ts.Expression;
         }
     }
 
@@ -102,36 +105,38 @@ export namespace IsProgrammer {
         })(importer);
         config.trace = equals;
 
-        if (equals === false)
-            config.decoder = (input, target, explore, tags) => {
+        config.decoder = (input, target, explore, tags) => {
+            if (
+                target.size() === 1 &&
+                target.objects.length === 1 &&
+                target.required === true &&
+                target.nullable === false
+            ) {
+                // ONLY WHEN OBJECT WITH SOME ATOMIC PROPERTIES
+                const obj: MetadataObject = target.objects[0]!;
                 if (
-                    target.size() === 1 &&
-                    target.objects.length === 1 &&
-                    target.required === true &&
-                    target.nullable === false
-                ) {
-                    // ONLY WHEN OBJECT WITH SOME ATOMIC PROPERTIES
-                    const obj: MetadataObject = target.objects[0]!;
-                    if (obj._Is_simple())
-                        return ts.factory.createLogicalAnd(
-                            ExpressionFactory.isObject(input, {
-                                checkNull: true,
-                                checkArray: false,
-                            }),
-                            config.joiner.object(
-                                feature_object_entries(config as any)(obj)(
-                                    input,
-                                ),
-                            ),
-                        );
-                }
-                return CheckerProgrammer.decode(project, config, importer)(
-                    input,
-                    target,
-                    explore,
-                    tags,
-                );
-            };
+                    obj._Is_simple() &&
+                    (equals === false ||
+                        OptionPredicator.undefined(project.options) === false)
+                )
+                    return ts.factory.createLogicalAnd(
+                        ExpressionFactory.isObject(input, {
+                            checkNull: true,
+                            checkArray: false,
+                        }),
+                        config.joiner.object(
+                            input,
+                            feature_object_entries(config as any)(obj)(input),
+                        ),
+                    );
+            }
+            return CheckerProgrammer.decode(project, config, importer)(
+                input,
+                target,
+                explore,
+                tags,
+            );
+        };
 
         // GENERATE CHECKER
         return CheckerProgrammer.generate(project, config, importer, () =>
