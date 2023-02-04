@@ -17,6 +17,23 @@ export const check_dynamic_properties =
         regular: IExpressionEntry[],
         dynamic: IExpressionEntry[],
     ): ts.Expression => {
+        const length =
+            props.equals === true && dynamic.length === 0
+                ? ts.factory.createStrictEquality(
+                      ts.factory.createNumericLiteral(
+                          regular.filter((r) => r.meta.required).length,
+                      ),
+                      IdentifierFactory.join(
+                          ts.factory.createCallExpression(
+                              ts.factory.createIdentifier("Object.keys"),
+                              undefined,
+                              [ts.factory.createIdentifier("input")],
+                          ),
+                          "length",
+                      ),
+                  )
+                : null;
+
         const criteria = props.entries
             ? ts.factory.createCallExpression(props.entries, undefined, [
                   ts.factory.createCallExpression(
@@ -38,9 +55,10 @@ export const check_dynamic_properties =
                   undefined,
                   [check_dynamic_property(props)(regular, dynamic)],
               );
-        return (props.halt || ((elem) => elem))(
+        const right: ts.Expression = (props.halt || ((elem) => elem))(
             props.assert ? criteria : check_everything(criteria),
         );
+        return length ? ts.factory.createLogicalOr(length, right) : right;
     };
 
 const check_dynamic_property =
