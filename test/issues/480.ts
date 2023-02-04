@@ -6,7 +6,7 @@ interface A {
 
 interface B {
     a: A;
-    b?: number;
+    b: number;
 }
 
 console.log(
