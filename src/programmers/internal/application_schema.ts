@@ -46,27 +46,28 @@ export const application_schema =
         // ATOMIC TYPES
         if (meta.templates.length && AtomicPredicator.template(meta))
             union.push(application_templates(meta, attribute));
-        for (const constant of meta.constants) {
+        for (const constant of meta.constants)
             if (constant.type === "bigint") throw new Error(NO_BIGINT);
             else if (
                 (constant.type === "string" && meta.templates.length) ||
                 AtomicPredicator.constant(meta)(constant.type) === false
             )
                 continue;
-            union.push(
-                application_constant(constant, meta.nullable, attribute),
-            );
-        }
-        for (const type of meta.atomics) {
+            else
+                union.push(
+                    application_constant(constant, meta.nullable, attribute),
+                );
+        for (const type of meta.atomics)
             if (type === "bigint") throw new Error(NO_BIGINT);
-            union.push(
-                type === "string"
-                    ? application_string(meta, attribute)
-                    : type === "boolean"
-                    ? application_boolean(meta.nullable, attribute)
-                    : application_number(meta.nullable, attribute),
-            );
-        }
+            else if (AtomicPredicator.atomic(meta)(type) === false) continue;
+            else
+                union.push(
+                    type === "string"
+                        ? application_string(meta, attribute)
+                        : type === "boolean"
+                        ? application_boolean(meta.nullable, attribute)
+                        : application_number(meta.nullable, attribute),
+                );
 
         // ARRAY
         for (const schema of meta.arrays.values())
@@ -109,12 +110,21 @@ export const application_schema =
 
         // NATIVES
         for (const native of meta.natives)
-            union.push(
-                application_native(options)(components)(native)(
-                    meta.nullable,
-                    attribute,
-                ),
-            );
+            if (AtomicPredicator.native(native))
+                union.push(
+                    native === "String"
+                        ? application_string(meta, attribute)
+                        : native === "Boolean"
+                        ? application_boolean(meta.nullable, attribute)
+                        : application_number(meta.nullable, attribute),
+                );
+            else
+                union.push(
+                    application_native(options)(components)(native)(
+                        meta.nullable,
+                        attribute,
+                    ),
+                );
         if (meta.sets.length)
             union.push(
                 application_native(options)(components)(`Set`)(

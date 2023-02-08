@@ -12,6 +12,8 @@ import { MetadataObject } from "../metadata/MetadataObject";
 
 import { IProject } from "../transformers/IProject";
 
+import { Atomic } from "../typings/Atomic";
+
 import { ArrayUtil } from "../utils/ArrayUtil";
 
 import { FeatureProgrammer } from "./FeatureProgrammer";
@@ -23,6 +25,7 @@ import { OptionPredicator } from "./helpers/OptionPredicator";
 import { StringifyJoiner } from "./helpers/StringifyJoinder";
 import { StringifyPredicator } from "./helpers/StringifyPredicator";
 import { UnionExplorer } from "./helpers/UnionExplorer";
+import { check_native } from "./internal/check_native";
 import { decode_union_object } from "./internal/decode_union_object";
 import { feature_object_entries } from "./internal/feature_object_entries";
 
@@ -177,10 +180,9 @@ export namespace StringifyProgrammer {
 
             // CONSTANTS
             for (const constant of meta.constants)
-                if (
-                    constant.type !== "string" &&
-                    AtomicPredicator.constant(meta)(constant.type)
-                )
+                if (AtomicPredicator.constant(meta)(constant.type) === false)
+                    continue;
+                else if (constant.type !== "string")
                     unions.push({
                         type: "atomic",
                         is: () =>
@@ -223,28 +225,31 @@ export namespace StringifyProgrammer {
                                 explore,
                             ),
                     });
+
+            /// ATOMICS
             for (const type of meta.atomics)
-                unions.push({
-                    type: "atomic",
-                    is: () =>
-                        IsProgrammer.decode(project, importer)(
-                            input,
-                            (() => {
-                                const partial = Metadata.initialize();
-                                partial.atomics.push(type);
-                                return partial;
-                            })(),
-                            explore,
-                            [],
-                        ),
-                    value: () =>
-                        decode_atomic(project, importer)(
-                            input,
-                            type,
-                            explore,
-                            tags,
-                        ),
-                });
+                if (AtomicPredicator.atomic(meta)(type))
+                    unions.push({
+                        type: "atomic",
+                        is: () =>
+                            IsProgrammer.decode(project, importer)(
+                                input,
+                                (() => {
+                                    const partial = Metadata.initialize();
+                                    partial.atomics.push(type);
+                                    return partial;
+                                })(),
+                                explore,
+                                [],
+                            ),
+                        value: () =>
+                            decode_atomic(project, importer)(
+                                input,
+                                type,
+                                explore,
+                                tags,
+                            ),
+                    });
 
             // TUPLES
             for (const tuple of meta.tuples) {
@@ -315,8 +320,16 @@ export namespace StringifyProgrammer {
                 for (const native of meta.natives)
                     unions.push({
                         type: "object",
-                        is: () => ExpressionFactory.isInstanceOf(input, native),
-                        value: () => ts.factory.createStringLiteral("{}"),
+                        is: () => check_native(native)(input),
+                        value: () =>
+                            AtomicPredicator.native(native)
+                                ? decode_atomic(project, importer)(
+                                      input,
+                                      native.toLowerCase() as Atomic.Literal,
+                                      explore,
+                                      tags,
+                                  )
+                                : ts.factory.createStringLiteral("{}"),
                     });
 
             // SETS
