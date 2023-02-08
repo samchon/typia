@@ -13,6 +13,7 @@ import { MetadataObject } from "../metadata/MetadataObject";
 import { IProject } from "../transformers/IProject";
 
 import { FeatureProgrammer } from "./FeatureProgrammer";
+import { AtomicPredicator } from "./helpers/AtomicPredicator";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
@@ -249,6 +250,7 @@ export namespace CheckerProgrammer {
             //----
             // CHECK OPTIONAL
             //----
+            // @todo -> should be elaborated
             const checkOptional: boolean = meta.empty() || meta.isUnionBucket();
 
             // NULLABLE
@@ -291,12 +293,14 @@ export namespace CheckerProgrammer {
             //----
             // CONSTANT VALUES
             for (const constant of meta.constants)
-                for (const val of constant.values)
-                    add(true, getConstantValue(val));
+                if (AtomicPredicator.constant(meta)(constant.type))
+                    for (const val of constant.values)
+                        add(true, getConstantValue(val));
 
             // ATOMIC VALUES
             for (const type of meta.atomics)
-                if (type === "number")
+                if (AtomicPredicator.atomic(meta)(type) === false) continue;
+                else if (type === "number")
                     binaries.push({
                         expression: check_number(project, config.numeric)(
                             input,
@@ -323,14 +327,15 @@ export namespace CheckerProgrammer {
 
             // TEMPLATE LITERAL VALUES
             if (meta.templates.length)
-                binaries.push({
-                    expression: check_template(importer)(
-                        input,
-                        meta.templates,
-                        tags,
-                    ),
-                    combined: false,
-                });
+                if (AtomicPredicator.template(meta))
+                    binaries.push({
+                        expression: check_template(importer)(
+                            input,
+                            meta.templates,
+                            tags,
+                        ),
+                        combined: false,
+                    });
 
             // NATIVE CLASSES
             for (const native of meta.natives)

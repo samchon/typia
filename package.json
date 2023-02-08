@@ -1,7 +1,7 @@
 {
   "name": "typia",
-  "version": "3.4.27",
-  "description": "Runtime type checkers and 5x faster JSON.stringify() function",
+  "version": "3.4.28",
+  "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "bin": {
@@ -68,6 +68,7 @@
   "devDependencies": {
     "@fastify/type-provider-typebox": "^2.3.0",
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",
+    "@typegoose/typegoose": "^10.1.1",
     "@types/autocannon": "^7.9.0",
     "@types/benchmark": "^2.1.2",
     "@types/cli": "^0.11.20",
