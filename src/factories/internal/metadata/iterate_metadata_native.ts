@@ -18,10 +18,6 @@ export const iterate_metadata_native =
 
         const simple = SIMPLES.get(name);
         if (simple && validator(simple)) {
-            if (FORBIDDEN.has(name))
-                throw new Error(
-                    `Error on typia.metadata(): typia does not allow "${name}" class type. Use "${name.toLowerCase()}" type instead.`,
-                );
             ArrayUtil.set(meta.natives, name, (str) => str);
             return true;
         }
@@ -210,7 +206,6 @@ const GENERICS: Array<IClassInfo & { name: string }> = [
         return: "boolean",
     })),
 }));
-const FORBIDDEN: Set<string> = new Set(["Bolean", "Number", "String"]);
 
 interface IClassInfo {
     name?: string;

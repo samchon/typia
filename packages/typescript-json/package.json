@@ -1,7 +1,7 @@
 {
   "name": "typescript-json",
-  "version": "3.4.27",
-  "description": "Runtime type checkers and 5x faster JSON.stringify() function",
+  "version": "3.4.28",
+  "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
@@ -70,6 +70,6 @@
     "src"
   ],
   "dependencies": {
-    "typia": "3.4.27"
+    "typia": "3.4.28"
   }
 }
