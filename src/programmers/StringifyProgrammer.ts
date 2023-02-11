@@ -705,7 +705,10 @@ export namespace StringifyProgrammer {
         objector: OBJECTOR(project, importer),
     });
 
-    const initializer: FeatureProgrammer.Initializer = ({ checker }, type) => {
+    const initializer: FeatureProgrammer.IConfig["initializer"] = (
+        { checker },
+        type,
+    ) => {
         const collection: MetadataCollection = new MetadataCollection();
         const meta: Metadata = MetadataFactory.generate(
             checker,
@@ -737,8 +740,6 @@ export namespace StringifyProgrammer {
         ),
         failure: (input, expected) =>
             create_throw_error(importer, input, expected),
-        is: (expr) => expr,
-        required: (expr) => expr,
     });
 
     function create_throw_error(
