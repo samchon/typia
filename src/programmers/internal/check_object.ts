@@ -11,7 +11,7 @@ import { check_everything } from "./check_everything";
 export const check_object =
     (props: check_object.IProps) =>
     (importer: FunctionImporter) =>
-    (input: ts.Expression, entries: IExpressionEntry[]) => {
+    (input: ts.Expression, entries: IExpressionEntry<ts.Expression>[]) => {
         // PREPARE ASSETS
         const regular = entries.filter((entry) => entry.key.isSoleLiteral());
         const dynamic = entries.filter((entry) => !entry.key.isSoleLiteral());
