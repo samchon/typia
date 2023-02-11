@@ -31,6 +31,7 @@ export * from "./IValidation";
         - BASIC VALIDATORS
         - STRICT VALIDATORS
         - JSON FUNCTIONS
+        - MISCELLANEOUS
 ==============================================================
     BASIC VALIDATORS
 ----------------------------------------------------------- */
@@ -1089,6 +1090,64 @@ export function validateStringify(): IValidation<string> {
 Object.assign(validateStringify, validate);
 Object.assign(validateStringify, stringify);
 
+/* -----------------------------------------------------------
+    MISCELLANEOUS
+----------------------------------------------------------- */
+/**
+ * @internal
+ */
+export function metadata<Types extends unknown[]>(): IMetadataApplication;
+
+/**
+ * @internal
+ */
+export function metadata(): never {
+    halt("metadata");
+}
+
+/**
+ * Prune, erase superfluous properties.
+ *
+ * Remove every superfluous properties from the `input` object, even including nested
+ * objects. Note that, as every superfluous properties would be deleted, you never can
+ * read those superfluous properties after calling this `prune()` function.
+ *
+ * @template T Type of the input value
+ * @param input target instance to prune
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function prune<T extends object>(input: T): void;
+
+/**
+ * @internal
+ */
+export function prune(): never {
+    halt("prune");
+}
+
+/**
+ * @internal
+ */
+export namespace prune {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+    export const is_between = $is_between;
+
+    export const rest = $rest;
+    export function throws(
+        props: Pick<TypeGuardError.IProps, "expected" | "value">,
+    ): void {
+        throw new TypeGuardError({
+            ...props,
+            method: "typia.prune",
+        });
+    }
+}
+
 /* ===========================================================
     FACTORY FUNCTIONS
         - BASIC VALIDATORS
@@ -1503,7 +1562,7 @@ export function createValidateStringify(): never;
  *
  * @template T Type of the input value
  * @returns A reusable `validateStringify` function
- *
+
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidateStringify<T>(): (
@@ -1524,16 +1583,33 @@ Object.assign(createValidateStringify, validateStringify);
     MISCELLANEOUS
 ----------------------------------------------------------- */
 /**
- * @internal
+ * Creates a reusable {@link prune} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
-export function metadata<Types extends unknown[]>(): IMetadataApplication;
+export function createPrune(): never;
+
+/**
+ * Creates a resuable {@link prune} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `prune` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createPrune<T extends object>(): (input: T) => void;
 
 /**
  * @internal
  */
-export function metadata(): never {
-    halt("metadata");
+export function createPrune<T extends object>(): (input: T) => void {
+    halt("createPrune");
 }
+Object.assign(createPrune, prune);
 
 /**
  * @internal

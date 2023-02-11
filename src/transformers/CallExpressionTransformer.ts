@@ -3,7 +3,9 @@ import ts from "typescript";
 
 import { IProject } from "./IProject";
 import { ApplicationTransformer } from "./features/miscellaneous/ApplicationTransformer";
+import { CreatePruneTransformer } from "./features/miscellaneous/CreatePruneTransformer";
 import { MetadataTransformer } from "./features/miscellaneous/MetadataTransformer";
+import { PruneTransformer } from "./features/miscellaneous/PruneTransformer";
 import { AssertParseTransformer } from "./features/parsers/AssertParseTransformer";
 import { CreateAssertParseTransformer } from "./features/parsers/CreateAssertParseTransformer";
 import { CreateIsParseTransformer } from "./features/parsers/CreateIsParseTransformer";
@@ -96,6 +98,7 @@ const FUNCTORS: Record<string, () => Task> = {
     // MISC
     application: () => ApplicationTransformer.transform,
     metadata: () => MetadataTransformer.transform,
+    prune: () => PruneTransformer.transform,
 
     //----
     // FACTORY FUNCTIONS
@@ -121,4 +124,7 @@ const FUNCTORS: Record<string, () => Task> = {
     createAssertStringify: () => CreateAssertStringifyTransformer.transform,
     createIsStringify: () => CreateIsStringifyTransformer.transform,
     createValidateStringify: () => CreateValidateStringifyTransformer.transform,
+
+    // MISC
+    createPrune: () => CreatePruneTransformer.transform,
 };

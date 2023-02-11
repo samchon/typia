@@ -17,8 +17,8 @@ export const check_dynamic_properties =
     (importer: FunctionImporter) =>
     (
         input: ts.Expression,
-        regular: IExpressionEntry[],
-        dynamic: IExpressionEntry[],
+        regular: IExpressionEntry<ts.Expression>[],
+        dynamic: IExpressionEntry<ts.Expression>[],
     ): ts.Expression => {
         const length = IdentifierFactory.join(
             ts.factory.createCallExpression(
@@ -92,8 +92,8 @@ const check_dynamic_property =
     (props: check_object.IProps) =>
     (
         input: ts.Expression,
-        regular: IExpressionEntry[],
-        dynamic: IExpressionEntry[],
+        regular: IExpressionEntry<ts.Expression>[],
+        dynamic: IExpressionEntry<ts.Expression>[],
     ) => {
         //----
         // IF CONDITIONS

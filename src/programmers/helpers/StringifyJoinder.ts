@@ -11,12 +11,15 @@ import { IExpressionEntry } from "./IExpressionEntry";
 export namespace StringifyJoiner {
     export const object =
         (importer: FunctionImporter) =>
-        (_input: ts.Expression, entries: IExpressionEntry[]): ts.Expression => {
+        (
+            _input: ts.Expression,
+            entries: IExpressionEntry<ts.Expression>[],
+        ): ts.Expression => {
             // CHECK AND SORT ENTRIES
-            const regular: IExpressionEntry[] = entries.filter((entry) =>
-                entry.key.isSoleLiteral(),
+            const regular: IExpressionEntry<ts.Expression>[] = entries.filter(
+                (entry) => entry.key.isSoleLiteral(),
             );
-            const dynamic: IExpressionEntry[] = entries.filter(
+            const dynamic: IExpressionEntry<ts.Expression>[] = entries.filter(
                 (entry) => !entry.key.isSoleLiteral(),
             );
             if (regular.length === 0 && dynamic.length === 0)

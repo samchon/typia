@@ -21,7 +21,7 @@ export namespace FeatureProgrammer {
     /* -----------------------------------------------------------
         PARAMETERS
     ----------------------------------------------------------- */
-    export interface IConfig {
+    export interface IConfig<Output extends ts.ConciseBody = ts.ConciseBody> {
         /**
          * Prefix name of functions for specific object types.
          */
@@ -53,7 +53,7 @@ export namespace FeatureProgrammer {
         /**
          * Decoder, station of every types.
          */
-        decoder: Decoder<Metadata>;
+        decoder: Decoder<Metadata, Output>;
 
         /**
          * Object configurator.
@@ -70,12 +70,12 @@ export namespace FeatureProgrammer {
             /**
              * Type checker when union object type comes.
              */
-            checker: Decoder<Metadata>;
+            checker: Decoder<Metadata, ts.Expression>;
 
             /**
              * Decoder, function call expression generator of specific typed objects.
              */
-            decoder: Decoder<MetadataObject>;
+            decoder: Decoder<MetadataObject, ts.Expression>;
 
             /**
              * Joiner of expressions from properties.
@@ -92,7 +92,7 @@ export namespace FeatureProgrammer {
              * Expression of an algorithm specifying object type and calling
              * the `decoder` function of the specified object type.
              */
-            unionizer: Decoder<MetadataObject[]>;
+            unionizer: Decoder<MetadataObject[], ts.Expression>;
 
             /**
              * Handler of union type specification failure.
@@ -181,13 +181,16 @@ export namespace FeatureProgrammer {
         start?: number;
     }
 
-    export interface Decoder<T> {
+    export interface Decoder<
+        T,
+        Output extends ts.ConciseBody = ts.ConciseBody,
+    > {
         (
             input: ts.Expression,
             target: T,
             explore: IExplore,
             tags: IMetadataTag[],
-        ): ts.Expression;
+        ): Output;
     }
 
     /* -----------------------------------------------------------
@@ -215,7 +218,7 @@ export namespace FeatureProgrammer {
             const [collection, meta] = config.initializer(project, type);
 
             // ITERATE OVER ALL METADATA
-            const output: ts.Expression = config.decoder(
+            const output: ts.ConciseBody = config.decoder(
                 ValueFactory.INPUT(),
                 meta,
                 {
@@ -249,7 +252,9 @@ export namespace FeatureProgrammer {
                         ...(added || []),
                         ...functors,
                         ...unioners,
-                        ts.factory.createReturnStatement(output),
+                        ...(ts.isBlock(output)
+                            ? output.statements
+                            : [ts.factory.createReturnStatement(output)]),
                     ],
                     true,
                 ),

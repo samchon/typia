@@ -76,7 +76,7 @@ export namespace IsProgrammer {
             undefined: boolean;
             object: (
                 input: ts.Expression,
-                entries: IExpressionEntry[],
+                entries: IExpressionEntry<ts.Expression>[],
             ) => ts.Expression;
         }
     }
