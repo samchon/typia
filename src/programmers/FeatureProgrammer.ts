@@ -22,28 +22,134 @@ export namespace FeatureProgrammer {
         PARAMETERS
     ----------------------------------------------------------- */
     export interface IConfig {
+        /**
+         * Prefix name of functions for specific object types.
+         */
         functors: string;
+
+        /**
+         * Prefix name of functions for union object types.
+         */
         unioners: string;
+
+        /**
+         * Whether to archive access path or not.
+         */
         path: boolean;
+
+        /**
+         * Whether to trace exception or not.
+         */
         trace: boolean;
-        initializer: Initializer;
+
+        /**
+         * Initializer of metadata.
+         */
+        initializer(
+            project: IProject,
+            type: ts.Type,
+        ): [MetadataCollection, Metadata];
+
+        /**
+         * Decoder, station of every types.
+         */
         decoder: Decoder<Metadata>;
+
+        /**
+         * Object configurator.
+         */
         objector: IConfig.IObjector;
+
+        /**
+         * Generator of functions for object types.
+         */
         generator?: Partial<IConfig.IGenerator>;
     }
     export namespace IConfig {
         export interface IObjector {
+            /**
+             * Type checker when union object type comes.
+             */
             checker: Decoder<Metadata>;
+
+            /**
+             * Decoder, function call expression generator of specific typed objects.
+             */
             decoder: Decoder<MetadataObject>;
-            joiner: ObjectJoiner;
+
+            /**
+             * Joiner of expressions from properties.
+             */
+            joiner(
+                input: ts.Expression,
+                entries: IExpressionEntry[],
+                parent: MetadataObject,
+            ): ts.ConciseBody;
+
+            /**
+             * Union type specificator.
+             *
+             * Expression of an algorithm specifying object type and calling
+             * the `decoder` function of the specified object type.
+             */
             unionizer: Decoder<MetadataObject[]>;
-            failure: (
+
+            /**
+             * Handler of union type specification failure.
+             *
+             * @param value Expression of input parameter
+             * @param expected Expected type name
+             * @param explore Exploration info
+             * @returns Statement of failure
+             */
+            failure(
                 value: ts.Expression,
                 expected: string,
                 explore?: IExplore,
-            ) => ts.Statement;
-            is?: (exp: ts.Expression) => ts.Expression;
-            required?: (exp: ts.Expression) => ts.Expression;
+            ): ts.Statement;
+
+            /**
+             * Transformer of type checking expression by discrimination.
+             *
+             * When an object type has been specified by a discrimination without full
+             * iteration, the `unionizer` will decode the object instance after
+             * the last type checking.
+             *
+             * In such circumtance, you can transform the last type checking function.
+             *
+             * @param exp Current expression about type checking
+             * @returns Transformed expression
+             * @deprecated
+             */
+            is?(exp: ts.Expression): ts.Expression;
+
+            /**
+             * Transformer of non-undefined type checking by discrimination.
+             *
+             * When specifying an union type of objects, `typia` tries to find
+             * descrimination way just by checking only one property type.
+             * If succeeded to find the discrimination way, `typia` will check the target
+             * property type and in the checking, non-undefined type checking would be
+             * done.
+             *
+             * In such process, you can transform the non-undefined type checking.
+             *
+             * @param exp
+             * @returns Transformed expression
+             * @deprecated
+             */
+            required?(exp: ts.Expression): ts.Expression;
+
+            /**
+             * Conditon wrapper when unable to specify any object type.
+             *
+             * When failed to specify an object type through discrimination, full
+             * iteration type checking would be happend. In such circumstance, you
+             * can wrap the condition with additional function.
+             *
+             * @param condition Current condition
+             * @returns A function wrapped current condition
+             */
             full?: (
                 condition: ts.Expression,
             ) => (
@@ -53,10 +159,20 @@ export namespace FeatureProgrammer {
             ) => ts.Expression;
         }
         export interface IGenerator {
+            /**
+             *
+             * @param col
+             */
             functors(col: MetadataCollection): ts.VariableStatement[];
+
+            /**
+             *
+             * @param col
+             */
             unioners(col: MetadataCollection): ts.VariableStatement[];
         }
     }
+
     export interface IExplore {
         tracable: boolean;
         source: "top" | "object";
@@ -65,9 +181,6 @@ export namespace FeatureProgrammer {
         start?: number;
     }
 
-    export interface Initializer {
-        (project: IProject, type: ts.Type): [MetadataCollection, Metadata];
-    }
     export interface Decoder<T> {
         (
             input: ts.Expression,
@@ -76,17 +189,19 @@ export namespace FeatureProgrammer {
             tags: IMetadataTag[],
         ): ts.Expression;
     }
-    export interface ObjectJoiner {
-        (
-            input: ts.Expression,
-            entries: IExpressionEntry[],
-            parent: MetadataObject,
-        ): ts.ConciseBody;
-    }
 
     /* -----------------------------------------------------------
         GENERATORS
     ----------------------------------------------------------- */
+    /**
+     * Generates a decoder function for a specific type.
+     *
+     * @param project Project configuration
+     * @param config Detailed configuration for programming
+     * @param importer Function importer
+     * @param addition Generator of additinal statements in the top of function
+     * @returns Currying function generating type decoder function
+     */
     export const generate =
         (
             project: IProject,
