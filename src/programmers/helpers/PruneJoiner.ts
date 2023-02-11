@@ -22,7 +22,7 @@ export namespace PruneJoiner {
                     : [ts.factory.createExpressionStatement(entry.expression)],
             ),
         );
-        statements.push(...prune_object_properties(obj));
+        statements.push(prune_object_properties(obj));
         return ts.factory.createBlock(statements, true);
     };
 

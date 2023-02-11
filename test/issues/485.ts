@@ -3,11 +3,6 @@ import typia from "../../src";
 interface IMember {
     id: string;
     name: number;
-    company: ICompany;
+    children: Array<IMember>;
 }
-interface ICompany {
-    id: string;
-    code: string;
-}
-
-console.log(typia.createPrune<IMember>().toString());
+console.log(typia.createPrune<[number, ...IMember[]]>().toString());
