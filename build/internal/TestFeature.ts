@@ -97,5 +97,14 @@ export namespace TestFeature {
             spoilable: true,
             jsonable: true,
         },
+
+        // MISCELLANEOUS
+        {
+            method: "prune",
+            creatable: true,
+            spoilable: false,
+            strict: true,
+            primitive: true,
+        },
     ];
 }

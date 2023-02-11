@@ -55,6 +55,8 @@ export namespace PruneProgrammer {
             meta: Metadata,
             explore: FeatureProgrammer.IExplore,
         ): ts.ConciseBody => {
+            if (filter(meta) === false) return ts.factory.createBlock([]);
+
             interface IUnion {
                 type: string;
                 is: () => ts.Expression;
@@ -65,20 +67,10 @@ export namespace PruneProgrammer {
             //----
             // LIST UP UNION TYPES
             //----
-            if (meta.required === false || meta.nullable === true)
-                unions.push({
-                    type: "null",
-                    is: () =>
-                        ts.factory.createPrefixUnaryExpression(
-                            ts.SyntaxKind.ExclamationToken,
-                            input,
-                        ),
-                    value: () => ts.factory.createReturnStatement(),
-                });
-
             // TUPLES
-            const tuples = meta.tuples.filter((t) => t.some((e) => filter(e)));
-            for (const t of tuples)
+            for (const tuple of meta.tuples.filter((t) =>
+                t.some((e) => filter(e.rest ?? e)),
+            ))
                 unions.push({
                     type: "tuple",
                     is: () =>
@@ -86,26 +78,25 @@ export namespace PruneProgrammer {
                             input,
                             (() => {
                                 const partial = Metadata.initialize();
-                                partial.tuples.push(t);
+                                partial.tuples.push(tuple);
                                 return partial;
                             })(),
                             explore,
                             [],
                         ),
                     value: () =>
-                        decode_tuple(project, importer)(input, t, explore),
+                        decode_tuple(project, importer)(input, tuple, explore),
                 });
 
             // ARRAYS
-            const arrays = meta.arrays.filter(filter);
-            if (arrays.length)
+            if (meta.arrays.filter(filter).length)
                 unions.push({
                     type: "array",
                     is: () => ExpressionFactory.isArray(input),
                     value: () =>
                         explore_arrays(project, importer)(
                             input,
-                            arrays,
+                            meta.arrays,
                             {
                                 ...explore,
                                 from: "array",
@@ -141,7 +132,7 @@ export namespace PruneProgrammer {
                     type: "object",
                     is: () =>
                         ExpressionFactory.isObject(input, {
-                            checkNull: false,
+                            checkNull: true,
                             checkArray: false,
                         }),
                     value: () =>
@@ -215,7 +206,7 @@ export namespace PruneProgrammer {
         FeatureProgrammer.decode_array(
             CONFIG(project, importer),
             importer,
-            (input, _arrow) => input,
+            PruneJoiner.array,
         );
 
     const decode_object = () =>
@@ -253,7 +244,7 @@ export namespace PruneProgrammer {
     const filter = (meta: Metadata): boolean =>
         meta.any === false &&
         (meta.objects.length !== 0 ||
-            meta.tuples.some((t) => t.some((e) => filter(e))) ||
+            meta.tuples.some((t) => t.some((e) => filter(e.rest ?? e))) ||
             meta.arrays.some((e) => filter(e)));
 
     /* -----------------------------------------------------------
