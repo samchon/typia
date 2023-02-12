@@ -25,4 +25,6 @@ export namespace DynamicNever {
             return [`$input.wrong`];
         },
     ];
+
+    export const ADDABLE = false;
 }

@@ -106,5 +106,26 @@ export namespace TestFeature {
             strict: true,
             primitive: true,
         },
+        {
+            method: "isPrune",
+            creatable: true,
+            spoilable: true,
+            strict: true,
+            primitive: true,
+        },
+        {
+            method: "assertPrune",
+            creatable: true,
+            spoilable: true,
+            strict: true,
+            primitive: true,
+        },
+        {
+            method: "validatePrune",
+            creatable: true,
+            spoilable: true,
+            strict: true,
+            primitive: true,
+        },
     ];
 }

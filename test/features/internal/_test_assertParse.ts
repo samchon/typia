@@ -20,20 +20,18 @@ export const _test_assertParse =
             );
         }
 
-        for (const spoil of spoilers || []) {
-            const paths = { value: [] as string[] };
+        for (const spoil of spoilers ?? []) {
             const elem: T = generator();
+            const paths: string[] = spoil(elem);
 
             try {
-                paths.value = spoil(elem);
                 parser(JSON.stringify(elem));
             } catch (exp) {
                 if (exp instanceof TypeGuardError)
-                    if (exp.path && paths.value.includes(exp.path) === true)
-                        continue;
+                    if (exp.path && paths.includes(exp.path) === true) continue;
                     else
                         console.log({
-                            input: paths.value,
+                            input: paths,
                             expected: exp.path,
                         });
             }

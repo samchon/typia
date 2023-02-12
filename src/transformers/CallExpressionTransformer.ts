@@ -3,9 +3,15 @@ import ts from "typescript";
 
 import { IProject } from "./IProject";
 import { ApplicationTransformer } from "./features/miscellaneous/ApplicationTransformer";
+import { AssertPruneTransformer } from "./features/miscellaneous/AssertPruneTransformer";
+import { CreateAssertPruneTransformer } from "./features/miscellaneous/CreateAssertPruneTransformer";
+import { CreateIsPruneTransformer } from "./features/miscellaneous/CreateIsPruneTransformer";
 import { CreatePruneTransformer } from "./features/miscellaneous/CreatePruneTransformer";
+import { CreateValidatePruneTransformer } from "./features/miscellaneous/CreateValidatePruneTransformer";
+import { IsPruneTransformer } from "./features/miscellaneous/IsPruneTransformer";
 import { MetadataTransformer } from "./features/miscellaneous/MetadataTransformer";
 import { PruneTransformer } from "./features/miscellaneous/PruneTransformer";
+import { ValidatePruneTransformer } from "./features/miscellaneous/ValidatePruneTransformer";
 import { AssertParseTransformer } from "./features/parsers/AssertParseTransformer";
 import { CreateAssertParseTransformer } from "./features/parsers/CreateAssertParseTransformer";
 import { CreateIsParseTransformer } from "./features/parsers/CreateIsParseTransformer";
@@ -99,6 +105,9 @@ const FUNCTORS: Record<string, () => Task> = {
     application: () => ApplicationTransformer.transform,
     metadata: () => MetadataTransformer.transform,
     prune: () => PruneTransformer.transform,
+    assertPrune: () => AssertPruneTransformer.transform,
+    isPrune: () => IsPruneTransformer.transform,
+    validatePrune: () => ValidatePruneTransformer.transform,
 
     //----
     // FACTORY FUNCTIONS
@@ -127,4 +136,7 @@ const FUNCTORS: Record<string, () => Task> = {
 
     // MISC
     createPrune: () => CreatePruneTransformer.transform,
+    createAssertPrune: () => CreateAssertPruneTransformer.transform,
+    createIsPrune: () => CreateIsPruneTransformer.transform,
+    createValidatePrune: () => CreateValidatePruneTransformer.transform,
 };
