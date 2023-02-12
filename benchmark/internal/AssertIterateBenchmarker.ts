@@ -65,7 +65,7 @@ export namespace AssertIterateBenchmarker {
                         output.result[key] === null ||
                         (true &&
                             is(generator(), parameters[key]!) &&
-                            (spoilers || []).every((spoil) => {
+                            (spoilers ?? []).every((spoil) => {
                                 const fake: T = generator();
                                 spoil(fake);
                                 return is(fake, parameters[key]!) === false;

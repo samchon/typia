@@ -829,8 +829,8 @@ Object.assign(validateParse, validate);
  * than the native `JSON.stringify()` function. The 5x faster principle is because
  * it writes an optimized JSON conversion plan, only for the type `T`.
  *
- * For reference, this `typia.stringify()` does not validate the input value type. It
- * just believes that the input value is following the type `T`. Therefore, if you
+ * For reference, this `typia.stringify()` does not validate the input value type.
+ * It just believes that the input value is following the type `T`. Therefore, if you
  * can't ensure the input value type, it would be better to call one of below functions
  * instead.
  *
@@ -990,7 +990,7 @@ export function isStringify<T>(input: T): string | null;
  * `typia.isStringify()` is a combination function of {@link is} and
  * {@link stringify}. Therefore, it converts an input value to JSON
  * (JavaScript Object Notation) string, with type checking.
- *
+ *f
  * In such reason, when `input` value is not matched with the type `T`, it returns
  * `null` value. Otherwise, there's no problem on the `input` value, JSON string would
  * be returned.
@@ -1112,8 +1112,17 @@ export function metadata(): never {
  * objects. Note that, as every superfluous properties would be deleted, you never can
  * read those superfluous properties after calling this `prune()` function.
  *
+ * For reference, this `typia.prune()` function does not validate the input value type.
+ * It just believes that the input value is following the type `T`. Therefore, if you
+ * can't ensure the input value type, it would better to call one of below functions
+ * instead.
+ *
+ *   - {@link assertPrune}
+ *   - {@link isPrune}
+ *   - {@link validatePrune}
+ *
  * @template T Type of the input value
- * @param input target instance to prune
+ * @param input Target instance to prune
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -1137,7 +1146,6 @@ export namespace prune {
     export const is_ipv6 = $is_ipv6;
     export const is_between = $is_between;
 
-    export const rest = $rest;
     export function throws(
         props: Pick<TypeGuardError.IProps, "expected" | "value">,
     ): void {
@@ -1147,6 +1155,180 @@ export namespace prune {
         });
     }
 }
+
+/**
+ * Prune, erase superfluous properties, with type assertion.
+ *
+ * `typia.assertPrune()` is a combination function of {@link assert} and {@link prune}.
+ * Therefore, it removes every superfluous properties from the `input` object including
+ * nested objects, with type assertion.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it throws an
+ * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, its
+ * every superfluous properties would be removed, including nested objects.
+ *
+ * @template T Type of the input value
+ * @param input Target instance to assert and prune
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertPrune<T>(input: T): T;
+
+/**
+ * Prune, erase superfluous properties, with type assertion.
+ *
+ * `typia.assertPrune()` is a combination function of {@link assert} and {@link prune}.
+ * Therefore, it removes every superfluous properties from the `input` object including
+ * nested objects, with type assertion.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it throws an
+ * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, its
+ * every superfluous properties would be removed, including nested objects.
+ *
+ * @template T Type of the input value
+ * @param input Target instance to assert and prune
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertPrune<T>(input: unknown): T;
+
+/**
+ * @internal
+ */
+export function assertPrune<T>(): unknown {
+    halt("assertPrune");
+}
+
+/**
+ * @internal
+ */
+export namespace assertPrune {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+    export const is_between = $is_between;
+
+    export const join = $join;
+    export const every = $every;
+    export const guard = $guard("typia.assertPrune");
+}
+
+/**
+ * Prune, erase superfluous properties, with type checking.
+ *
+ * `typia.assertPrune()` is a combination function of {@link is} and {@link prune}.
+ * Therefore, it removes every superfluous properties from the `input` object including
+ * nested objects, with type checking.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * `false` value. Otherwise, there's no problem on the `input` value, it returns
+ * `true` after removing every superfluous properties, including nested objects.
+ *
+ * @template T Type of the input value
+ * @param input Target instance to check and prune
+ * @returns Whether the parametric value is following the type `T` or not
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function isPrune<T>(input: T): input is T;
+
+/**
+ * Prune, erase superfluous properties, with type checking.
+ *
+ * `typia.assertPrune()` is a combination function of {@link is} and {@link prune}.
+ * Therefore, it removes every superfluous properties from the `input` object including
+ * nested objects, with type checking.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * `false` value. Otherwise, there's no problem on the `input` value, it returns
+ * `true` after removing every superfluous properties, including nested objects.
+ *
+ * @template T Type of the input value
+ * @param input Target instance to check and prune
+ * @returns Whether the parametric value is following the type `T` or not
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function isPrune<T>(input: unknown): input is T;
+
+/**
+ * @internal
+ */
+export function isPrune(): never {
+    halt("isPrune");
+}
+
+/**
+ * @internal
+ */
+export namespace isPrune {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+    export const is_between = $is_between;
+
+    export function throws(
+        props: Pick<TypeGuardError.IProps, "expected" | "value">,
+    ): void {
+        throw new TypeGuardError({
+            ...props,
+            method: "typia.prune",
+        });
+    }
+}
+
+/**
+ * Prune, erase superfluous properties, with type validation.
+ *
+ * `typia.validatePrune()` is a combination function of {@link validate} and {@link prune}.
+ * Therefore, it removes every superfluous properties from the `input` object including
+ * nested objects, with type validation.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * {@link IValidation.IFailure} value with detailed error reasons. Otherwise, there's
+ * no problem on the `input` value, it returns {@link IValidation.ISucess} value after
+ * removing every superfluous properties, including nested objects.
+ *
+ * @template T Type of the input value
+ * @param input Target instance to validate and prune
+ * @returns Validation result
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function validatePrune<T>(input: T): IValidation<T>;
+
+/**
+ * Prune, erase superfluous properties, with type validation.
+ *
+ * `typia.validatePrune()` is a combination function of {@link validate} and {@link prune}.
+ * Therefore, it removes every superfluous properties from the `input` object including
+ * nested objects, with type validation.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * {@link IValidation.IFailure} value with detailed error reasons. Otherwise, there's
+ * no problem on the `input` value, it returns {@link IValidation.ISucess} value after
+ * removing every superfluous properties, including nested objects.
+ *
+ * @template T Type of the input value
+ * @param input Target instance to validate and prune
+ * @returns Validation result
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function validatePrune<T>(input: unknown): IValidation<T>;
+
+/**
+ * @internal
+ */
+export function validatePrune<T>(): IValidation<T> {
+    halt("validatePrune");
+}
+Object.assign(validatePrune, prune);
+Object.assign(validatePrune, validate);
 
 /* ===========================================================
     FACTORY FUNCTIONS
@@ -1610,6 +1792,97 @@ export function createPrune<T extends object>(): (input: T) => void {
     halt("createPrune");
 }
 Object.assign(createPrune, prune);
+
+/**
+ * Creates a reusable {@link isPrune} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertPrune(): never;
+
+/**
+ * Creates a resuable {@link isPrune} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `isPrune` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertPrune<T extends object>(): (input: T) => T;
+
+/**
+ * @internal
+ */
+export function createAssertPrune<T extends object>(): (input: T) => T {
+    halt("createAssertPrune");
+}
+Object.assign(createAssertPrune, assertPrune);
+
+/**
+ * Creates a reusable {@link isPrune} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createIsPrune(): never;
+
+/**
+ * Creates a resuable {@link isPrune} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `isPrune` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createIsPrune<T extends object>(): (input: T) => input is T;
+
+/**
+ * @internal
+ */
+export function createIsPrune<T extends object>(): (input: T) => input is T {
+    halt("createIsPrune");
+}
+Object.assign(createIsPrune, isPrune);
+
+/**
+ * Creates a reusable {@link validatePrune} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidatePrune(): never;
+
+/**
+ * Creates a resuable {@link validatePrune} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `validatePrune` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidatePrune<T extends object>(): (
+    input: T,
+) => IValidation<T>;
+
+/**
+ * @internal
+ */
+export function createValidatePrune<T extends object>(): (
+    input: T,
+) => IValidation<T> {
+    halt("createValidatePrune");
+}
+Object.assign(createValidatePrune, validatePrune);
 
 /**
  * @internal

@@ -145,12 +145,15 @@ export namespace PruneProgrammer {
             //----
             // STATEMENTS
             //----
-            const value = (v: ts.Expression | ts.Block | ts.ReturnStatement) =>
+            const converter = (
+                v: ts.Expression | ts.Block | ts.ReturnStatement,
+            ) =>
                 ts.isReturnStatement(v) || ts.isBlock(v)
                     ? v
                     : ts.factory.createExpressionStatement(v);
+
             const statements: ts.Statement[] = unions.map((u) =>
-                ts.factory.createIfStatement(u.is(), value(u.value())),
+                ts.factory.createIfStatement(u.is(), converter(u.value())),
             );
             return ts.factory.createBlock(statements, true);
         };
