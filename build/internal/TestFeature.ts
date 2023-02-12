@@ -100,6 +100,13 @@ export namespace TestFeature {
 
         // MISCELLANEOUS
         {
+            method: "clone",
+            creatable: true,
+            spoilable: false,
+            strict: true,
+            jsonable: true,
+        },
+        {
             method: "prune",
             creatable: true,
             spoilable: false,
