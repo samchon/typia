@@ -1105,6 +1105,28 @@ export function metadata(): never {
     halt("metadata");
 }
 
+export function clone<T>(input: T): T;
+export function clone(): never {
+    halt("clone");
+}
+export namespace clone {
+    export const is_uuid = $is_uuid;
+    export const is_email = $is_email;
+    export const is_url = $is_url;
+    export const is_ipv4 = $is_ipv4;
+    export const is_ipv6 = $is_ipv6;
+    export const is_between = $is_between;
+
+    export function throws(
+        props: Pick<TypeGuardError.IProps, "expected" | "value">,
+    ): void {
+        throw new TypeGuardError({
+            ...props,
+            method: "typia.clone",
+        });
+    }
+}
+
 /**
  * Prune, erase superfluous properties.
  *
@@ -1764,6 +1786,17 @@ Object.assign(createValidateStringify, validateStringify);
 /* -----------------------------------------------------------
     MISCELLANEOUS
 ----------------------------------------------------------- */
+export function createClone(): never;
+export function createClone<T>(): (input: T) => T;
+
+/**
+ * @internal
+ */
+export function createClone(): never {
+    halt("createClone");
+}
+Object.assign(createClone, clone);
+
 /**
  * Creates a reusable {@link prune} function.
  *

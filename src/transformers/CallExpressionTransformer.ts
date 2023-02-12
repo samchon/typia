@@ -4,7 +4,9 @@ import ts from "typescript";
 import { IProject } from "./IProject";
 import { ApplicationTransformer } from "./features/miscellaneous/ApplicationTransformer";
 import { AssertPruneTransformer } from "./features/miscellaneous/AssertPruneTransformer";
+import { CloneTransformer } from "./features/miscellaneous/CloneTransformer";
 import { CreateAssertPruneTransformer } from "./features/miscellaneous/CreateAssertPruneTransformer";
+import { CreateCloneTransformer } from "./features/miscellaneous/CreateCloneTransformer";
 import { CreateIsPruneTransformer } from "./features/miscellaneous/CreateIsPruneTransformer";
 import { CreatePruneTransformer } from "./features/miscellaneous/CreatePruneTransformer";
 import { CreateValidatePruneTransformer } from "./features/miscellaneous/CreateValidatePruneTransformer";
@@ -96,14 +98,15 @@ const FUNCTORS: Record<string, () => Task> = {
     validateParse: () => ValidateParseTransformer.transform,
 
     // STRINGIFY FUNCTIONS
+    application: () => ApplicationTransformer.transform,
     stringify: () => StringifyTransformer.transform,
     assertStringify: () => AssertStringifyTransformer.transform,
     isStringify: () => IsStringifyTransformer.transform,
     validateStringify: () => ValidateStringifyTransformer.transform,
 
     // MISC
-    application: () => ApplicationTransformer.transform,
     metadata: () => MetadataTransformer.transform,
+    clone: () => CloneTransformer.transform,
     prune: () => PruneTransformer.transform,
     assertPrune: () => AssertPruneTransformer.transform,
     isPrune: () => IsPruneTransformer.transform,
@@ -135,6 +138,7 @@ const FUNCTORS: Record<string, () => Task> = {
     createValidateStringify: () => CreateValidateStringifyTransformer.transform,
 
     // MISC
+    createClone: () => CreateCloneTransformer.transform,
     createPrune: () => CreatePruneTransformer.transform,
     createAssertPrune: () => CreateAssertPruneTransformer.transform,
     createIsPrune: () => CreateIsPruneTransformer.transform,
