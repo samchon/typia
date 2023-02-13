@@ -19,7 +19,7 @@ export const _test_isParse =
             );
         }
 
-        for (const spoil of spoilers || []) {
+        for (const spoil of spoilers ?? []) {
             const elem: T = generator();
             spoil(elem);
 

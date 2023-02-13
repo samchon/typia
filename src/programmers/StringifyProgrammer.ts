@@ -369,12 +369,14 @@ export namespace StringifyProgrammer {
                         meta.objects[0]!._Is_simple()
                             ? (() => {
                                   const obj: MetadataObject = meta.objects[0]!;
-                                  const entries: IExpressionEntry[] =
-                                      feature_object_entries({
+                                  const entries: IExpressionEntry<ts.Expression>[] =
+                                      feature_object_entries<ts.Expression>({
                                           decoder: decode(project, importer),
                                           trace: false,
                                           path: false,
-                                      })(obj)(input);
+                                      })(obj)(
+                                          input,
+                                      );
                                   return StringifyJoiner.object(importer)(
                                       input,
                                       entries,

@@ -11,8 +11,8 @@ import { IExpressionEntry } from "../helpers/IExpressionEntry";
  * @internal
  */
 export function stringify_regular_properties(
-    regular: IExpressionEntry[],
-    dynamic: IExpressionEntry[],
+    regular: IExpressionEntry<ts.Expression>[],
+    dynamic: IExpressionEntry<ts.Expression>[],
 ): ts.Expression[] {
     const output: ts.Expression[] = [];
 

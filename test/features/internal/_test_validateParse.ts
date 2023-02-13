@@ -25,7 +25,7 @@ export const _test_validateParse =
         }
 
         const wrong: ISpoiled[] = [];
-        for (const spoil of spoilers || []) {
+        for (const spoil of spoilers ?? []) {
             const elem: T = generator();
             const expected: string[] = spoil(elem);
             const valid: IValidation<T> = parser(JSON.stringify(elem));
