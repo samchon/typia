@@ -5,10 +5,10 @@ import { StatementFactory } from "../factories/StatementFactory";
 
 import { IProject } from "../transformers/IProject";
 
-import { StringifyProgrammer } from "./StringifyProgrammer";
-import { ValidateProgrammer } from "./ValidateProgrammer";
+import { CloneProgrammer } from "./CloneProgrammer";
+import { IsProgrammer } from "./IsProgrammer";
 
-export namespace ValidateStringifyProgrammer {
+export namespace IsCloneProgrammer {
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type) =>
@@ -20,22 +20,12 @@ export namespace ValidateStringifyProgrammer {
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(
-                        "validate",
-                        ValidateProgrammer.generate(
-                            {
-                                ...project,
-                                options: {
-                                    ...project.options,
-                                    functional: false,
-                                    numeric: true,
-                                },
-                            },
-                            modulo,
-                        )(type),
+                        "is",
+                        IsProgrammer.generate(project, modulo)(type),
                     ),
                     StatementFactory.constant(
-                        "stringify",
-                        StringifyProgrammer.generate(
+                        "clone",
+                        CloneProgrammer.generate(
                             {
                                 ...project,
                                 options: {
@@ -47,26 +37,25 @@ export namespace ValidateStringifyProgrammer {
                             modulo,
                         )(type),
                     ),
+                    ts.factory.createIfStatement(
+                        ts.factory.createPrefixUnaryExpression(
+                            ts.SyntaxKind.ExclamationToken,
+                            ts.factory.createCallExpression(
+                                ts.factory.createIdentifier("is"),
+                                undefined,
+                                [ts.factory.createIdentifier("input")],
+                            ),
+                        ),
+                        ts.factory.createReturnStatement(
+                            ts.factory.createNull(),
+                        ),
+                    ),
                     StatementFactory.constant(
                         "output",
                         ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("validate"),
+                            ts.factory.createIdentifier("clone"),
                             undefined,
                             [ts.factory.createIdentifier("input")],
-                        ),
-                    ),
-                    ts.factory.createIfStatement(
-                        ts.factory.createIdentifier("output.success"),
-                        ts.factory.createExpressionStatement(
-                            ts.factory.createBinaryExpression(
-                                ts.factory.createIdentifier("output.data"),
-                                ts.SyntaxKind.EqualsToken,
-                                ts.factory.createCallExpression(
-                                    ts.factory.createIdentifier("stringify"),
-                                    undefined,
-                                    [ts.factory.createIdentifier("input")],
-                                ),
-                            ),
                         ),
                     ),
                     ts.factory.createReturnStatement(
