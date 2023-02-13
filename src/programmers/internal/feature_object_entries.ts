@@ -9,7 +9,12 @@ import { Escaper } from "../../utils/Escaper";
 import { FeatureProgrammer } from "../FeatureProgrammer";
 
 export const feature_object_entries =
-    (config: Pick<FeatureProgrammer.IConfig, "decoder" | "path" | "trace">) =>
+    <Output extends ts.ConciseBody>(
+        config: Pick<
+            FeatureProgrammer.IConfig<Output>,
+            "decoder" | "path" | "trace"
+        >,
+    ) =>
     (obj: MetadataObject) =>
     (input: ts.Expression) =>
         obj.properties.map((prop) => {

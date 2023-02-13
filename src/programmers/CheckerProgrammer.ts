@@ -37,7 +37,7 @@ export namespace CheckerProgrammer {
         equals: boolean;
         numeric: boolean;
         combiner: IConfig.Combiner;
-        decoder?: FeatureProgrammer.Decoder<Metadata>;
+        decoder?: FeatureProgrammer.Decoder<Metadata, ts.Expression>;
         joiner: IConfig.IJoiner;
         success: ts.Expression;
     }

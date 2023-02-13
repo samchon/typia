@@ -25,6 +25,13 @@ export function assertParse<T>(input: string): T; // type safe parser
 export function assertStringify<T>(input: T): string; // safe and faster
     // +) isParse, validateParse 
     // +) stringify, isStringify, validateStringify
+
+// MISC
+export function random<T>(): T;
+export function clone<T>(input: T): Primitive<T>;
+export function prune<T extends object>(input: T): void;
+    // +) isClone, assertClone, validateClone
+    // +) isPrune, assertPrune, validatePrune
 ```
 
 `typia` is a transformer library of TypeScript, supporting below features:
