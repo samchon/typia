@@ -62,15 +62,9 @@ export namespace CloneProgrammer {
                 meta.tuples.some((t) => t.every((e) => e.any))
             )
                 return ts.factory.createCallExpression(
-                    ts.factory.createIdentifier("JSON.parse"),
+                    importer.use("any"),
                     undefined,
-                    [
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("JSON.stringify"),
-                            undefined,
-                            [input],
-                        ),
-                    ],
+                    [input],
                 );
 
             interface IUnion {
@@ -87,7 +81,7 @@ export namespace CloneProgrammer {
             if (meta.resolved !== null)
                 unions.push({
                     type: "resolved",
-                    is: () => IsProgrammer.decode_to_json(input),
+                    is: () => IsProgrammer.decode_to_json(input, true),
                     value: () =>
                         decode_to_json(project, importer)(
                             input,

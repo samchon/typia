@@ -1,22 +1,10 @@
-import { $every } from "./functional/$every";
-import { $guard } from "./functional/$guard";
-import { $is_between } from "./functional/$is_between";
-import { $is_email } from "./functional/$is_email";
-import { $is_ipv4 } from "./functional/$is_ipv4";
-import { $is_ipv6 } from "./functional/$is_ipv6";
-import { $is_url } from "./functional/$is_url";
-import { $is_uuid } from "./functional/$is_uuid";
-import { $join } from "./functional/$join";
-import { $number } from "./functional/$number";
-import { $report } from "./functional/$report";
-import { $rest } from "./functional/$rest";
-import { $string } from "./functional/$string";
-import { $tail } from "./functional/$tail";
+import { Namespace } from "./functional/Namespace";
 
 import { IMetadataApplication } from "./metadata/IMetadataApplication";
 import { IJsonApplication } from "./schemas/IJsonApplication";
 
 import { IValidation } from "./IValidation";
+import { Primitive } from "./Primitive";
 import { TypeGuardError } from "./TypeGuardError";
 
 export * from "./schemas/IJsonApplication";
@@ -87,22 +75,7 @@ export function assert<T>(input: unknown): T;
 export function assert(): never {
     halt("assert");
 }
-
-/**
- * @internal
- */
-export namespace assert {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const is_between = $is_between;
-
-    export const join = $join;
-    export const every = $every;
-    export const guard = $guard("typia.assert");
-}
+Object.assign(assert, Namespace.assert("assert"));
 
 /**
  * Asserts a value type.
@@ -140,26 +113,7 @@ export function assertType<T>(input: unknown): T;
 export function assertType(): never {
     halt("assertType");
 }
-
-/**
- * @internal
- */
-export namespace assertType {
-    // FOR LEGACY FUNCTIONS
-    export function predicate(
-        matched: boolean,
-        exceptionable: boolean,
-        closure: () => Omit<TypeGuardError.IProps, "method">,
-    ): boolean {
-        if (matched === false && exceptionable === true)
-            throw new TypeGuardError({
-                method: "typia.assertType",
-                ...closure(),
-            });
-        return matched;
-    }
-}
-Object.assign(assertType, assert);
+Object.assign(assertType, Namespace.assert("assertType"));
 
 /**
  * Tests a value type.
@@ -215,18 +169,7 @@ export function is<T>(input: unknown): input is T;
 export function is(): never {
     halt("is");
 }
-
-/**
- * @internal
- */
-export namespace is {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const is_between = $is_between;
-}
+Object.assign(is, Namespace.assert("is"));
 
 /**
  * Validates a value type.
@@ -284,51 +227,7 @@ export function validate<T>(input: unknown): IValidation<T>;
 export function validate(): never {
     halt("validate");
 }
-
-/**
- * @internal
- */
-export namespace validate {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const is_between = $is_between;
-
-    export const join = $join;
-    export const report = $report;
-
-    // FOR LEGACY FUNCTIONS
-    export const predicate =
-        (res: IValidation) =>
-        (
-            matched: boolean,
-            exceptionable: boolean,
-            closure: () => IValidation.IError,
-        ) => {
-            // CHECK FAILURE
-            if (matched === false && exceptionable === true)
-                (() => {
-                    res.success &&= false;
-                    const errorList = (res as IValidation.IFailure).errors;
-
-                    // TRACE ERROR
-                    const error = closure();
-                    if (errorList.length) {
-                        const last = errorList[errorList.length - 1]!.path;
-                        if (
-                            last.length >= error.path.length &&
-                            last.substring(0, error.path.length) === error.path
-                        )
-                            return;
-                    }
-                    errorList.push(error);
-                    return;
-                })();
-            return matched;
-        };
-}
+Object.assign(validate, Namespace.validate());
 
 /* -----------------------------------------------------------
     STRICT VALIDATORS
@@ -386,40 +285,10 @@ export function assertEquals<T>(input: unknown): T;
 /**
  * @internal
  */
-export function assertEquals<T>(): never {
+export function assertEquals(): never {
     halt("assertEquals");
 }
-
-/**
- * @internal
- */
-export namespace assertEquals {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const is_between = $is_between;
-
-    export const join = $join;
-    export const every = $every;
-    // export const guardV2 = $guardV2("typia.assertEquals");
-    export const guard = $guard("typia.assertEquals");
-
-    // FOR LEGACY FUNCTIONS
-    export function predicate(
-        matched: boolean,
-        exceptionable: boolean,
-        closure: () => Omit<TypeGuardError.IProps, "method">,
-    ): boolean {
-        if (matched === false && exceptionable === true)
-            throw new TypeGuardError({
-                method: "typia.assertEquals",
-                ...closure(),
-            });
-        return matched;
-    }
-}
+Object.assign(assertEquals, Namespace.assert("assertEquals"));
 
 /**
  * Tests equality between a value and its type.
@@ -477,19 +346,7 @@ export function equals<T>(input: unknown): input is T;
 export function equals(): never {
     halt("equals");
 }
-
-/**
- * @internal
- */
-export namespace equals {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const is_between = $is_between;
-    export const join = $join;
-}
+Object.assign(equals, Namespace.is());
 
 /**
  * Validates equality between a value and its type.
@@ -549,51 +406,7 @@ export function validateEquals<T>(input: unknown): IValidation<T>;
 export function validateEquals(): never {
     halt("validateEquals");
 }
-
-/**
- * @internal
- */
-export namespace validateEquals {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const is_between = $is_between;
-    export const join = $join;
-
-    export const report = validate.report;
-
-    // FOR LEGACY FUNCTIONS
-    export const predicate =
-        (res: IValidation) =>
-        (
-            matched: boolean,
-            exceptionable: boolean,
-            closure: () => IValidation.IError,
-        ) => {
-            // CHECK FAILURE
-            if (matched === false && exceptionable === true)
-                (() => {
-                    res.success &&= false;
-                    const errorList = (res as IValidation.IFailure).errors;
-
-                    // TRACE ERROR
-                    const error = closure();
-                    if (errorList.length) {
-                        const last = errorList[errorList.length - 1]!.path;
-                        if (
-                            last.length >= error.path.length &&
-                            last.substring(0, error.path.length) === error.path
-                        )
-                            return;
-                    }
-                    errorList.push(error);
-                    return;
-                })();
-            return matched;
-        };
-}
+Object.assign(validateEquals, Namespace.validate());
 
 /* -----------------------------------------------------------
     JSON FUNCTIONS
@@ -707,22 +520,7 @@ export function assertParse<T>(input: string): T;
 export function assertParse<T>(): T {
     halt("assertParse");
 }
-
-/**
- * @internal
- */
-export namespace assertParse {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const is_between = $is_between;
-
-    export const join = $join;
-    export const every = $every;
-    export const guard = $guard("typia.assertParse");
-}
+Object.assign(assertParse, Namespace.assert("assertParse"));
 
 /**
  * > You must configure the generic argument `T`.
@@ -852,25 +650,7 @@ export function stringify<T>(input: T): string;
 export function stringify(): never {
     halt("stringify");
 }
-
-/**
- * @internal
- */
-export namespace stringify {
-    export const number = $number;
-    export const string = $string;
-    export const tail = $tail;
-    export const rest = $rest;
-
-    export function throws(
-        props: Pick<TypeGuardError.IProps, "expected" | "value">,
-    ): void {
-        throw new TypeGuardError({
-            ...props,
-            method: "typia.stringify",
-        });
-    }
-}
+Object.assign(stringify, Namespace.stringify("stringify"));
 
 /**
  * 5x faster `JSON.stringify()` function with type assertion.
@@ -924,42 +704,8 @@ export function assertStringify<T>(input: T): unknown;
 export function assertStringify(): string {
     halt("assertStringify");
 }
-
-/**
- * @internal
- */
-export namespace assertStringify {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const is_between = $is_between;
-
-    export const number = $number;
-    export const string = $string;
-    export const tail = $tail;
-    export const rest = $rest;
-
-    export const join = $join;
-    export const guard = $guard("typia.assertStringify");
-    export const every = $every;
-    export const throws = () => {};
-
-    // FOR LEGACY FUNCTIONS
-    export function predicate(
-        matched: boolean,
-        exceptionable: boolean,
-        closure: () => Omit<TypeGuardError.IProps, "method">,
-    ): boolean {
-        if (matched === false && exceptionable === true)
-            throw new TypeGuardError({
-                method: "typia.assertStringify",
-                ...closure(),
-            });
-        return matched;
-    }
-}
+Object.assign(assertStringify, Namespace.assert("assertStringify"));
+Object.assign(assertStringify, Namespace.stringify("assertStringify"));
 
 /**
  * 7x faster `JSON.stringify()` function with type checking.
@@ -1010,28 +756,12 @@ export function isStringify<T>(input: unknown): string | null;
 /**
  * @internal
  */
-export function isStringify<T>(): string | null {
+export function isStringify(): string | null {
     halt("isStringify");
 }
 
-/**
- * @internal
- */
-export namespace isStringify {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const is_between = $is_between;
-
-    export const number = $number;
-    export const string = $string;
-    export const tail = $tail;
-    export const rest = $rest;
-
-    export const throws = () => {};
-}
+Object.assign(isStringify, Namespace.is());
+Object.assign(isStringify, Namespace.stringify("isStringify"));
 
 /**
  * 5x faster `JSON.stringify()` function with detailed type validation.
@@ -1087,8 +817,8 @@ export function validateStringify<T>(input: unknown): IValidation<string>;
 export function validateStringify(): IValidation<string> {
     halt("validateStringify");
 }
-Object.assign(validateStringify, validate);
-Object.assign(validateStringify, stringify);
+Object.assign(validateStringify, Namespace.validate());
+Object.assign(validateStringify, Namespace.stringify("validateStringify"));
 
 /* -----------------------------------------------------------
     MISCELLANEOUS
@@ -1105,27 +835,172 @@ export function metadata(): never {
     halt("metadata");
 }
 
-export function clone<T>(input: T): T;
+/**
+ * Clone a data.
+ *
+ * Clones an instance following type `T`. If the target *input* value or its member
+ * variable contains a class instance that is having a `toJSON()` method, its return
+ * value would be cloned.
+ *
+ * For reference, this `TSON.clone()` function does not validate the input value type.
+ * It just believes that the input value is following the type `T`. Therefore, if you
+ * can't ensure the input value type, it would be better to call {@link assertClone}
+ * function instead.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function clone<T>(input: T): Primitive<T>;
+
+/**
+ * @internal
+ */
 export function clone(): never {
     halt("clone");
 }
-export namespace clone {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const is_between = $is_between;
+Object.assign(clone, Namespace.clone("clone"));
 
-    export function throws(
-        props: Pick<TypeGuardError.IProps, "expected" | "value">,
-    ): void {
-        throw new TypeGuardError({
-            ...props,
-            method: "typia.clone",
-        });
-    }
+/**
+ * Clone a data with type assertion.
+ *
+ * Clones an instance following type `T`, with type assertion. If the target `input`
+ * value or its member variable contains a class instance that is having a `toJSON()`
+ * method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it throws an
+ * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, cloned
+ * data would be returned.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertClone<T>(input: T): Primitive<T>;
+
+/**
+ * Clone a data with type assertion.
+ *
+ * Clones an instance following type `T`, with type assertion. If the target `input`
+ * value or its member variable contains a class instance that is having a `toJSON()`
+ * method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it throws an
+ * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, cloned
+ * data would be returned.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertClone<T>(input: unknown): Primitive<T>;
+
+/**
+ * @internal
+ */
+export function assertClone(): never {
+    halt("assertClone");
 }
+Object.assign(assertClone, Namespace.assert("assertClone"));
+Object.assign(assertClone, Namespace.clone("assertClone"));
+
+/**
+ * Clone a data with type checking.
+ *
+ * Clones an instance following type `T`, with type checking. If the target `input`
+ * value or its member variable contains a class instance that is having a `toJSON()`
+ * method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * `null` value instead. Otherwise, there's no problem on the `input` value, cloned
+ * data would be returned.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data when exact type, otherwise null
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function isClone<T>(input: T): Primitive<T> | null;
+
+/**
+ * Clone a data with type checking.
+ *
+ * Clones an instance following type `T`, with type checking. If the target `input`
+ * value or its member variable contains a class instance that is having a `toJSON()`
+ * method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * `null` value instead. Otherwise, there's no problem on the `input` value, cloned
+ * data would be returned.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data when exact type, otherwise null
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function isClone<T>(input: unknown): Primitive<T> | null;
+
+/**
+ * @internal
+ */
+export function isClone(): never {
+    halt("isClone");
+}
+Object.assign(isClone, Namespace.is());
+Object.assign(isClone, Namespace.clone("isClone"));
+
+/**
+ * Clone a data with detailed type validation.
+ *
+ * Clones an instance following type `T`, with detailed type validation. If the target
+ * `input` value or its member variable contains a class instance that is having a
+ * `toJSON()` method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * {@link IValidation.Failure} value. Otherwise, there's no problem on the `input`
+ * value, cloned data would be stored in `data` property of the output
+ * {@link IValidation.Success} instance.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @returns Validation result with cloned value
+ */
+export function validateClone<T>(input: T): IValidation<Primitive<T>>;
+
+/**
+ * Clone a data with detailed type validation.
+ *
+ * Clones an instance following type `T`, with detailed type validation. If the target
+ * `input` value or its member variable contains a class instance that is having a
+ * `toJSON()` method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * {@link IValidation.Failure} value. Otherwise, there's no problem on the `input`
+ * value, cloned data would be stored in `data` property of the output
+ * {@link IValidation.Success} instance.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @returns Validation result with cloned value
+ */
+export function validateClone<T>(input: unknown): IValidation<Primitive<T>>;
+
+/**
+ * @internal
+ */
+export function validateClone(): never {
+    halt("validateClone");
+}
+Object.assign(validateClone, Namespace.validate());
+Object.assign(validateClone, Namespace.clone("validateClone"));
 
 /**
  * Prune, erase superfluous properties.
@@ -1156,27 +1031,7 @@ export function prune<T extends object>(input: T): void;
 export function prune(): never {
     halt("prune");
 }
-
-/**
- * @internal
- */
-export namespace prune {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const is_between = $is_between;
-
-    export function throws(
-        props: Pick<TypeGuardError.IProps, "expected" | "value">,
-    ): void {
-        throw new TypeGuardError({
-            ...props,
-            method: "typia.prune",
-        });
-    }
-}
+Object.assign(prune, Namespace.prune("prune"));
 
 /**
  * Prune, erase superfluous properties, with type assertion.
@@ -1217,25 +1072,11 @@ export function assertPrune<T>(input: unknown): T;
 /**
  * @internal
  */
-export function assertPrune<T>(): unknown {
+export function assertPrune(): unknown {
     halt("assertPrune");
 }
-
-/**
- * @internal
- */
-export namespace assertPrune {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const is_between = $is_between;
-
-    export const join = $join;
-    export const every = $every;
-    export const guard = $guard("typia.assertPrune");
-}
+Object.assign(assertPrune, Namespace.assert("assertPrune"));
+Object.assign(assertPrune, Namespace.prune("assertPrune"));
 
 /**
  * Prune, erase superfluous properties, with type checking.
@@ -1281,27 +1122,8 @@ export function isPrune<T>(input: unknown): input is T;
 export function isPrune(): never {
     halt("isPrune");
 }
-
-/**
- * @internal
- */
-export namespace isPrune {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const is_between = $is_between;
-
-    export function throws(
-        props: Pick<TypeGuardError.IProps, "expected" | "value">,
-    ): void {
-        throw new TypeGuardError({
-            ...props,
-            method: "typia.prune",
-        });
-    }
-}
+Object.assign(isPrune, Namespace.is());
+Object.assign(isPrune, Namespace.prune("isPrune"));
 
 /**
  * Prune, erase superfluous properties, with type validation.
@@ -1349,8 +1171,8 @@ export function validatePrune<T>(input: unknown): IValidation<T>;
 export function validatePrune<T>(): IValidation<T> {
     halt("validatePrune");
 }
-Object.assign(validatePrune, prune);
-Object.assign(validatePrune, validate);
+Object.assign(validatePrune, Namespace.prune("validatePrune"));
+Object.assign(validatePrune, Namespace.validate());
 
 /* ===========================================================
     FACTORY FUNCTIONS
@@ -1786,8 +1608,26 @@ Object.assign(createValidateStringify, validateStringify);
 /* -----------------------------------------------------------
     MISCELLANEOUS
 ----------------------------------------------------------- */
+/**
+ * Creates a reusable {@link clone} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export function createClone(): never;
-export function createClone<T>(): (input: T) => T;
+
+/**
+ * Creates a resuable {@link clone} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `clone` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createClone<T>(): (input: T) => Primitive<T>;
 
 /**
  * @internal
@@ -1796,6 +1636,95 @@ export function createClone(): never {
     halt("createClone");
 }
 Object.assign(createClone, clone);
+
+/**
+ * Creates a reusable {@link assertClone} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertClone(): never;
+
+/**
+ * Creates a resuable {@link assertClone} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `clone` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertClone<T>(): (input: unknown) => Primitive<T>;
+
+/**
+ * @internal
+ */
+export function createAssertClone(): never {
+    halt("createAssertClone");
+}
+Object.assign(createAssertClone, assertClone);
+
+/**
+ * Creates a reusable {@link isClone} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createIsClone(): never;
+
+/**
+ * Creates a resuable {@link isClone} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `clone` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createIsClone<T>(): (input: unknown) => Primitive<T> | null;
+
+/**
+ * @internal
+ */
+export function createIsClone(): never {
+    halt("createIsClone");
+}
+Object.assign(createIsClone, isClone);
+
+/**
+ * Creates a reusable {@link validateClone} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidateClone(): never;
+
+/**
+ * Creates a resuable {@link validateClone} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `clone` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidateClone<T>(): (
+    input: unknown,
+) => IValidation<Primitive<T>>;
+
+/**
+ * @internal
+ */
+export function createValidateClone(): never {
+    halt("createValidateClone");
+}
+Object.assign(createValidateClone, validateClone);
 
 /**
  * Creates a reusable {@link prune} function.

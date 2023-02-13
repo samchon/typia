@@ -103,7 +103,24 @@ export namespace TestFeature {
             method: "clone",
             creatable: true,
             spoilable: false,
-            strict: true,
+            jsonable: true,
+        },
+        {
+            method: "isClone",
+            creatable: true,
+            spoilable: true,
+            jsonable: true,
+        },
+        {
+            method: "assertClone",
+            creatable: true,
+            spoilable: true,
+            jsonable: true,
+        },
+        {
+            method: "validateClone",
+            creatable: true,
+            spoilable: true,
             jsonable: true,
         },
         {
