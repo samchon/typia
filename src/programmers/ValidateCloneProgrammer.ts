@@ -5,10 +5,10 @@ import { StatementFactory } from "../factories/StatementFactory";
 
 import { IProject } from "../transformers/IProject";
 
-import { StringifyProgrammer } from "./StringifyProgrammer";
+import { CloneProgrammer } from "./CloneProgrammer";
 import { ValidateProgrammer } from "./ValidateProgrammer";
 
-export namespace ValidateStringifyProgrammer {
+export namespace ValidateCloneProgrammer {
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type) =>
@@ -34,8 +34,8 @@ export namespace ValidateStringifyProgrammer {
                         )(type),
                     ),
                     StatementFactory.constant(
-                        "stringify",
-                        StringifyProgrammer.generate(
+                        "clone",
+                        CloneProgrammer.generate(
                             {
                                 ...project,
                                 options: {
@@ -62,7 +62,7 @@ export namespace ValidateStringifyProgrammer {
                                 ts.factory.createIdentifier("output.data"),
                                 ts.SyntaxKind.EqualsToken,
                                 ts.factory.createCallExpression(
-                                    ts.factory.createIdentifier("stringify"),
+                                    ts.factory.createIdentifier("clone"),
                                     undefined,
                                     [ts.factory.createIdentifier("input")],
                                 ),

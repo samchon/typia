@@ -135,7 +135,7 @@ export namespace StringifyProgrammer {
                 else
                     unions.push({
                         type: "resolved",
-                        is: () => IsProgrammer.decode_to_json(input),
+                        is: () => IsProgrammer.decode_to_json(input, false),
                         value: () =>
                             decode_to_json(project, importer)(
                                 input,
@@ -374,9 +374,7 @@ export namespace StringifyProgrammer {
                                           decoder: decode(project, importer),
                                           trace: false,
                                           path: false,
-                                      })(obj)(
-                                          input,
-                                      );
+                                      })(obj)(input);
                                   return StringifyJoiner.object(importer)(
                                       input,
                                       entries,
