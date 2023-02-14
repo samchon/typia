@@ -18,63 +18,81 @@
                 "nullable": false,
                 "x-typia-metaTags": [
                   {
-                    "kind": "items",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 7
-                    }
+                    "kind": "minItems",
+                    "value": 3
                   },
                   {
-                    "kind": "range",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 7
-                    }
+                    "kind": "maxItems",
+                    "value": 7
                   },
                   {
-                    "kind": "length",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 7
-                    }
+                    "kind": "minimum",
+                    "value": 3
+                  },
+                  {
+                    "kind": "maximum",
+                    "value": 7
+                  },
+                  {
+                    "kind": "minLength",
+                    "value": 3
+                  },
+                  {
+                    "kind": "maxLength",
+                    "value": 7
                   }
                 ],
                 "x-typia-jsDocTags": [
                   {
-                    "name": "items",
+                    "name": "minItems",
                     "text": [
                       {
-                        "text": "[3, 7]",
+                        "text": "3",
                         "kind": "text"
                       }
                     ]
                   },
                   {
-                    "name": "range",
+                    "name": "maxItems",
                     "text": [
                       {
-                        "text": "[3, 7]",
+                        "text": "7",
                         "kind": "text"
                       }
                     ]
                   },
                   {
-                    "name": "length",
+                    "name": "minimum",
                     "text": [
                       {
-                        "text": "[3, 7]",
+                        "text": "3",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "maximum",
+                    "text": [
+                      {
+                        "text": "7",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "minLength",
+                    "text": [
+                      {
+                        "text": "3",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "maxLength",
+                    "text": [
+                      {
+                        "text": "7",
                         "kind": "text"
                       }
                     ]
@@ -89,63 +107,81 @@
                 "nullable": false,
                 "x-typia-metaTags": [
                   {
-                    "kind": "items",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 7
-                    }
+                    "kind": "minItems",
+                    "value": 3
                   },
                   {
-                    "kind": "range",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 7
-                    }
+                    "kind": "maxItems",
+                    "value": 7
                   },
                   {
-                    "kind": "length",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 7
-                    }
+                    "kind": "minimum",
+                    "value": 3
+                  },
+                  {
+                    "kind": "maximum",
+                    "value": 7
+                  },
+                  {
+                    "kind": "minLength",
+                    "value": 3
+                  },
+                  {
+                    "kind": "maxLength",
+                    "value": 7
                   }
                 ],
                 "x-typia-jsDocTags": [
                   {
-                    "name": "items",
+                    "name": "minItems",
                     "text": [
                       {
-                        "text": "[3, 7]",
+                        "text": "3",
                         "kind": "text"
                       }
                     ]
                   },
                   {
-                    "name": "range",
+                    "name": "maxItems",
                     "text": [
                       {
-                        "text": "[3, 7]",
+                        "text": "7",
                         "kind": "text"
                       }
                     ]
                   },
                   {
-                    "name": "length",
+                    "name": "minimum",
                     "text": [
                       {
-                        "text": "[3, 7]",
+                        "text": "3",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "maximum",
+                    "text": [
+                      {
+                        "text": "7",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "minLength",
+                    "text": [
+                      {
+                        "text": "3",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "maxLength",
+                    "text": [
+                      {
+                        "text": "7",
                         "kind": "text"
                       }
                     ]
@@ -162,63 +198,81 @@
                   "nullable": false,
                   "x-typia-metaTags": [
                     {
-                      "kind": "items",
-                      "minimum": {
-                        "include": true,
-                        "value": 3
-                      },
-                      "maximum": {
-                        "include": true,
-                        "value": 7
-                      }
+                      "kind": "minItems",
+                      "value": 3
                     },
                     {
-                      "kind": "range",
-                      "minimum": {
-                        "include": true,
-                        "value": 3
-                      },
-                      "maximum": {
-                        "include": true,
-                        "value": 7
-                      }
+                      "kind": "maxItems",
+                      "value": 7
                     },
                     {
-                      "kind": "length",
-                      "minimum": {
-                        "include": true,
-                        "value": 3
-                      },
-                      "maximum": {
-                        "include": true,
-                        "value": 7
-                      }
+                      "kind": "minimum",
+                      "value": 3
+                    },
+                    {
+                      "kind": "maximum",
+                      "value": 7
+                    },
+                    {
+                      "kind": "minLength",
+                      "value": 3
+                    },
+                    {
+                      "kind": "maxLength",
+                      "value": 7
                     }
                   ],
                   "x-typia-jsDocTags": [
                     {
-                      "name": "items",
+                      "name": "minItems",
                       "text": [
                         {
-                          "text": "[3, 7]",
+                          "text": "3",
                           "kind": "text"
                         }
                       ]
                     },
                     {
-                      "name": "range",
+                      "name": "maxItems",
                       "text": [
                         {
-                          "text": "[3, 7]",
+                          "text": "7",
                           "kind": "text"
                         }
                       ]
                     },
                     {
-                      "name": "length",
+                      "name": "minimum",
                       "text": [
                         {
-                          "text": "[3, 7]",
+                          "text": "3",
+                          "kind": "text"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "maximum",
+                      "text": [
+                        {
+                          "text": "7",
+                          "kind": "text"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "minLength",
+                      "text": [
+                        {
+                          "text": "3",
+                          "kind": "text"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "maxLength",
+                      "text": [
+                        {
+                          "text": "7",
                           "kind": "text"
                         }
                       ]
@@ -231,63 +285,81 @@
                 "nullable": false,
                 "x-typia-metaTags": [
                   {
-                    "kind": "items",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 7
-                    }
+                    "kind": "minItems",
+                    "value": 3
                   },
                   {
-                    "kind": "range",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 7
-                    }
+                    "kind": "maxItems",
+                    "value": 7
                   },
                   {
-                    "kind": "length",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 7
-                    }
+                    "kind": "minimum",
+                    "value": 3
+                  },
+                  {
+                    "kind": "maximum",
+                    "value": 7
+                  },
+                  {
+                    "kind": "minLength",
+                    "value": 3
+                  },
+                  {
+                    "kind": "maxLength",
+                    "value": 7
                   }
                 ],
                 "x-typia-jsDocTags": [
                   {
-                    "name": "items",
+                    "name": "minItems",
                     "text": [
                       {
-                        "text": "[3, 7]",
+                        "text": "3",
                         "kind": "text"
                       }
                     ]
                   },
                   {
-                    "name": "range",
+                    "name": "maxItems",
                     "text": [
                       {
-                        "text": "[3, 7]",
+                        "text": "7",
                         "kind": "text"
                       }
                     ]
                   },
                   {
-                    "name": "length",
+                    "name": "minimum",
                     "text": [
                       {
-                        "text": "[3, 7]",
+                        "text": "3",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "maximum",
+                    "text": [
+                      {
+                        "text": "7",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "minLength",
+                    "text": [
+                      {
+                        "text": "3",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "maxLength",
+                    "text": [
+                      {
+                        "text": "7",
                         "kind": "text"
                       }
                     ]
@@ -304,63 +376,81 @@
                   "nullable": false,
                   "x-typia-metaTags": [
                     {
-                      "kind": "items",
-                      "minimum": {
-                        "include": true,
-                        "value": 3
-                      },
-                      "maximum": {
-                        "include": true,
-                        "value": 7
-                      }
+                      "kind": "minItems",
+                      "value": 3
                     },
                     {
-                      "kind": "range",
-                      "minimum": {
-                        "include": true,
-                        "value": 3
-                      },
-                      "maximum": {
-                        "include": true,
-                        "value": 7
-                      }
+                      "kind": "maxItems",
+                      "value": 7
                     },
                     {
-                      "kind": "length",
-                      "minimum": {
-                        "include": true,
-                        "value": 3
-                      },
-                      "maximum": {
-                        "include": true,
-                        "value": 7
-                      }
+                      "kind": "minimum",
+                      "value": 3
+                    },
+                    {
+                      "kind": "maximum",
+                      "value": 7
+                    },
+                    {
+                      "kind": "minLength",
+                      "value": 3
+                    },
+                    {
+                      "kind": "maxLength",
+                      "value": 7
                     }
                   ],
                   "x-typia-jsDocTags": [
                     {
-                      "name": "items",
+                      "name": "minItems",
                       "text": [
                         {
-                          "text": "[3, 7]",
+                          "text": "3",
                           "kind": "text"
                         }
                       ]
                     },
                     {
-                      "name": "range",
+                      "name": "maxItems",
                       "text": [
                         {
-                          "text": "[3, 7]",
+                          "text": "7",
                           "kind": "text"
                         }
                       ]
                     },
                     {
-                      "name": "length",
+                      "name": "minimum",
                       "text": [
                         {
-                          "text": "[3, 7]",
+                          "text": "3",
+                          "kind": "text"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "maximum",
+                      "text": [
+                        {
+                          "text": "7",
+                          "kind": "text"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "minLength",
+                      "text": [
+                        {
+                          "text": "3",
+                          "kind": "text"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "maxLength",
+                      "text": [
+                        {
+                          "text": "7",
                           "kind": "text"
                         }
                       ]
@@ -374,63 +464,81 @@
                 "nullable": false,
                 "x-typia-metaTags": [
                   {
-                    "kind": "items",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 7
-                    }
+                    "kind": "minItems",
+                    "value": 3
                   },
                   {
-                    "kind": "range",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 7
-                    }
+                    "kind": "maxItems",
+                    "value": 7
                   },
                   {
-                    "kind": "length",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 7
-                    }
+                    "kind": "minimum",
+                    "value": 3
+                  },
+                  {
+                    "kind": "maximum",
+                    "value": 7
+                  },
+                  {
+                    "kind": "minLength",
+                    "value": 3
+                  },
+                  {
+                    "kind": "maxLength",
+                    "value": 7
                   }
                 ],
                 "x-typia-jsDocTags": [
                   {
-                    "name": "items",
+                    "name": "minItems",
                     "text": [
                       {
-                        "text": "[3, 7]",
+                        "text": "3",
                         "kind": "text"
                       }
                     ]
                   },
                   {
-                    "name": "range",
+                    "name": "maxItems",
                     "text": [
                       {
-                        "text": "[3, 7]",
+                        "text": "7",
                         "kind": "text"
                       }
                     ]
                   },
                   {
-                    "name": "length",
+                    "name": "minimum",
                     "text": [
                       {
-                        "text": "[3, 7]",
+                        "text": "3",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "maximum",
+                    "text": [
+                      {
+                        "text": "7",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "minLength",
+                    "text": [
+                      {
+                        "text": "3",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "maxLength",
+                    "text": [
+                      {
+                        "text": "7",
                         "kind": "text"
                       }
                     ]
@@ -445,63 +553,81 @@
             "nullable": false,
             "x-typia-metaTags": [
               {
-                "kind": "items",
-                "minimum": {
-                  "include": true,
-                  "value": 3
-                },
-                "maximum": {
-                  "include": true,
-                  "value": 7
-                }
+                "kind": "minItems",
+                "value": 3
               },
               {
-                "kind": "range",
-                "minimum": {
-                  "include": true,
-                  "value": 3
-                },
-                "maximum": {
-                  "include": true,
-                  "value": 7
-                }
+                "kind": "maxItems",
+                "value": 7
               },
               {
-                "kind": "length",
-                "minimum": {
-                  "include": true,
-                  "value": 3
-                },
-                "maximum": {
-                  "include": true,
-                  "value": 7
-                }
+                "kind": "minimum",
+                "value": 3
+              },
+              {
+                "kind": "maximum",
+                "value": 7
+              },
+              {
+                "kind": "minLength",
+                "value": 3
+              },
+              {
+                "kind": "maxLength",
+                "value": 7
               }
             ],
             "x-typia-jsDocTags": [
               {
-                "name": "items",
+                "name": "minItems",
                 "text": [
                   {
-                    "text": "[3, 7]",
+                    "text": "3",
                     "kind": "text"
                   }
                 ]
               },
               {
-                "name": "range",
+                "name": "maxItems",
                 "text": [
                   {
-                    "text": "[3, 7]",
+                    "text": "7",
                     "kind": "text"
                   }
                 ]
               },
               {
-                "name": "length",
+                "name": "minimum",
                 "text": [
                   {
-                    "text": "[3, 7]",
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "maximum",
+                "text": [
+                  {
+                    "text": "7",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "minLength",
+                "text": [
+                  {
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "maxLength",
+                "text": [
+                  {
+                    "text": "7",
                     "kind": "text"
                   }
                 ]

@@ -1,5 +1,6 @@
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Primitive } from "../../src/Primitive";
-import { RandomGenerator } from "../internal/RandomGenerator";
 import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectPrimitive = Primitive<ObjectPrimitive.IArticle>;
@@ -23,15 +24,15 @@ export namespace ObjectPrimitive {
 
     export function generate(): ObjectPrimitive {
         return {
-            id: RandomGenerator.string(),
+            id: TestRandomGenerator.string(),
             extension: "md",
-            title: RandomGenerator.string(),
-            body: RandomGenerator.string(),
-            files: RandomGenerator.array(() => ({
-                id: RandomGenerator.string(),
-                name: RandomGenerator.string(),
-                extension: RandomGenerator.string(),
-                url: RandomGenerator.string(),
+            title: TestRandomGenerator.string(),
+            body: TestRandomGenerator.string(),
+            files: TestRandomGenerator.array(() => ({
+                id: TestRandomGenerator.string(),
+                name: TestRandomGenerator.string(),
+                extension: TestRandomGenerator.string(),
+                url: TestRandomGenerator.string(),
                 created_at: new Date().toString(),
             })),
             secret: true,

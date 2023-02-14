@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export interface ObjectDynamic {
@@ -7,9 +8,9 @@ export interface ObjectDynamic {
 export namespace ObjectDynamic {
     export function generate(): ObjectDynamic {
         return {
-            [RandomGenerator.string()]: RandomGenerator.integer(),
-            [RandomGenerator.string()]: RandomGenerator.string(),
-            [RandomGenerator.string()]: RandomGenerator.boolean(),
+            [TestRandomGenerator.string()]: TestRandomGenerator.integer(),
+            [TestRandomGenerator.string()]: TestRandomGenerator.string(),
+            [TestRandomGenerator.string()]: TestRandomGenerator.boolean(),
         };
     }
 

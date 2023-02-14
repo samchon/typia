@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type ArrayHierarchical = ArrayHierarchical.ICompany[];
@@ -30,30 +31,30 @@ export namespace ArrayHierarchical {
     }
 
     export function generate(): ArrayHierarchical {
-        return RandomGenerator.array(() => ({
-            id: RandomGenerator.integer(),
-            serial: RandomGenerator.integer(),
-            name: RandomGenerator.string(),
+        return TestRandomGenerator.array(() => ({
+            id: TestRandomGenerator.integer(),
+            serial: TestRandomGenerator.integer(),
+            name: TestRandomGenerator.string(),
             established_at: {
-                time: RandomGenerator.integer(),
-                zone: RandomGenerator.integer(),
+                time: TestRandomGenerator.integer(),
+                zone: TestRandomGenerator.integer(),
             },
-            departments: RandomGenerator.array(() => ({
-                id: RandomGenerator.integer(),
-                code: RandomGenerator.string(),
-                sales: RandomGenerator.integer(),
+            departments: TestRandomGenerator.array(() => ({
+                id: TestRandomGenerator.integer(),
+                code: TestRandomGenerator.string(),
+                sales: TestRandomGenerator.integer(),
                 created_at: {
-                    time: RandomGenerator.integer(),
-                    zone: RandomGenerator.integer(),
+                    time: TestRandomGenerator.integer(),
+                    zone: TestRandomGenerator.integer(),
                 },
-                employees: RandomGenerator.array(() => ({
-                    id: RandomGenerator.integer(),
-                    name: RandomGenerator.string(),
-                    age: RandomGenerator.integer(),
-                    grade: RandomGenerator.integer(),
+                employees: TestRandomGenerator.array(() => ({
+                    id: TestRandomGenerator.integer(),
+                    name: TestRandomGenerator.string(),
+                    age: TestRandomGenerator.integer(),
+                    grade: TestRandomGenerator.integer(),
                     employeed_at: {
-                        time: RandomGenerator.integer(),
-                        zone: RandomGenerator.integer(),
+                        time: TestRandomGenerator.integer(),
+                        zone: TestRandomGenerator.integer(),
                     },
                 })),
             })),

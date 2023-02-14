@@ -1,6 +1,7 @@
 import { v4 } from "uuid";
 
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export interface TagMatrix {
@@ -15,15 +16,15 @@ export interface TagMatrix {
 export namespace TagMatrix {
     export function generate(): TagMatrix {
         return {
-            matrix: RandomGenerator.array(
-                () => RandomGenerator.array(() => v4(), 3),
+            matrix: TestRandomGenerator.array(
+                () => TestRandomGenerator.array(() => v4(), 3),
                 3,
             ),
         };
     }
     export const SPOILERS: Spoiler<TagMatrix>[] = [
         (input) => {
-            input.matrix[0] = RandomGenerator.array(() => v4(), 2);
+            input.matrix[0] = TestRandomGenerator.array(() => v4(), 2);
             return ["$input.matrix[0]"];
         },
         (input) => {

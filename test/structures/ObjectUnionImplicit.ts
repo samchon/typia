@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectUnionImplicit = Array<
@@ -82,26 +83,26 @@ export namespace ObjectUnionImplicit {
                 area: scalar(),
             },
             {
-                points: RandomGenerator.array(() => point(), 10),
+                points: TestRandomGenerator.array(() => point(), 10),
                 length: scalar(),
             },
             {
                 outer: {
-                    points: RandomGenerator.array(() => point(), 10),
+                    points: TestRandomGenerator.array(() => point(), 10),
                 },
                 inner: [
                     {
-                        points: RandomGenerator.array(() => point(), 10),
+                        points: TestRandomGenerator.array(() => point(), 10),
                     },
                     {
-                        points: RandomGenerator.array(() => point(), 10),
+                        points: TestRandomGenerator.array(() => point(), 10),
                     },
                 ],
                 area: scalar(),
             },
             {
                 centroid: point(),
-                radius: RandomGenerator.integer(),
+                radius: TestRandomGenerator.integer(),
                 area: scalar(),
             },
         ];
@@ -161,8 +162,8 @@ export namespace ObjectUnionImplicit {
 }
 
 const point = (): ObjectUnionImplicit.IPoint => ({
-    x: RandomGenerator.integer(),
-    y: RandomGenerator.integer(),
+    x: TestRandomGenerator.integer(),
+    y: TestRandomGenerator.integer(),
     slope: scalar(),
     ...{
         __cache: undefined,
@@ -173,5 +174,5 @@ const scalar = (): number | null | undefined =>
     Math.random() < 1 / 3
         ? null
         : Math.random() < 0.5
-        ? RandomGenerator.integer()
+        ? TestRandomGenerator.integer()
         : undefined;

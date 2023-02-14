@@ -17,7 +17,7 @@ export function _test_isStringify<T>(
             );
         }
 
-        for (const spoil of spoilers || []) {
+        for (const spoil of spoilers ?? []) {
             const elem: T = generator();
             spoil(elem);
 

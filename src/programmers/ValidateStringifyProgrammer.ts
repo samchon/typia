@@ -56,10 +56,7 @@ export namespace ValidateStringifyProgrammer {
                         ),
                     ),
                     ts.factory.createIfStatement(
-                        ts.factory.createStrictEquality(
-                            ts.factory.createTrue(),
-                            ts.factory.createIdentifier("output.success"),
-                        ),
+                        ts.factory.createIdentifier("output.success"),
                         ts.factory.createExpressionStatement(
                             ts.factory.createBinaryExpression(
                                 ts.factory.createIdentifier("output.data"),

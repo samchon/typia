@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectGeneric = [
@@ -19,9 +20,9 @@ export namespace ObjectGeneric {
 
     export function generate(): ObjectGeneric {
         return [
-            individual(RandomGenerator.boolean),
-            individual(RandomGenerator.integer),
-            individual(RandomGenerator.string),
+            individual(TestRandomGenerator.boolean),
+            individual(TestRandomGenerator.integer),
+            individual(TestRandomGenerator.string),
         ];
     }
     function individual<T>(value: () => T): ISomething<T> {
@@ -31,7 +32,7 @@ export namespace ObjectGeneric {
                 child_next: value(),
                 child_value: value(),
             },
-            elements: RandomGenerator.array(() => ({
+            elements: TestRandomGenerator.array(() => ({
                 child_next: value(),
                 child_value: value(),
             })),

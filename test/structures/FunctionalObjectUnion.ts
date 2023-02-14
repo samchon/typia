@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type FunctionalObjectUnion = FunctionalObjectUnion.Union[];
@@ -33,24 +34,24 @@ export namespace FunctionalObjectUnion {
             {
                 p1: point(),
                 p2: point(),
-                length: () => RandomGenerator.integer(),
+                length: () => TestRandomGenerator.integer(),
             },
             {
-                points: RandomGenerator.array(point),
-                length: () => RandomGenerator.integer(),
+                points: TestRandomGenerator.array(point),
+                length: () => TestRandomGenerator.integer(),
             },
             {
-                points: RandomGenerator.array(point),
-                length: () => RandomGenerator.integer(),
-                area: () => RandomGenerator.integer(),
+                points: TestRandomGenerator.array(point),
+                length: () => TestRandomGenerator.integer(),
+                area: () => TestRandomGenerator.integer(),
             },
         ];
     }
     export function point(): IPoint {
         return {
-            x: RandomGenerator.integer(),
-            y: RandomGenerator.integer(),
-            distance: () => RandomGenerator.integer(),
+            x: TestRandomGenerator.integer(),
+            y: TestRandomGenerator.integer(),
+            distance: () => TestRandomGenerator.integer(),
         };
     }
 

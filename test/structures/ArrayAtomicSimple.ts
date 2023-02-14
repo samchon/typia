@@ -1,13 +1,14 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type ArrayAtomicSimple = [Array<boolean>, Array<number>, Array<string>];
 export namespace ArrayAtomicSimple {
     export function generate(): ArrayAtomicSimple {
         return [
-            RandomGenerator.array(RandomGenerator.boolean),
-            RandomGenerator.array(RandomGenerator.integer),
-            RandomGenerator.array(RandomGenerator.string),
+            TestRandomGenerator.array(TestRandomGenerator.boolean),
+            TestRandomGenerator.array(TestRandomGenerator.integer),
+            TestRandomGenerator.array(TestRandomGenerator.string),
         ];
     }
     export const SPOILERS: Spoiler<ArrayAtomicSimple>[] = [

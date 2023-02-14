@@ -4,58 +4,46 @@ export type TagRange = TagRange.Type[];
 export namespace TagRange {
     export interface Type {
         /**
-         * @minimum 3
-         */
-        minimum: number;
-
-        /**
-         * @maximum 7
-         */
-        maximum: number;
-
-        /**
-         * @minimum 3
-         * @maximum 7
-         */
-        minimum_and_maximum: number;
-
-        /**
-         * @range (3
+         * @exclusiveMinimum 3
          */
         greater: number;
 
         /**
-         * @range [3
+         * @minimum 3
          */
         greater_equal: number;
 
         /**
-         * @range 7)
+         * @exclusiveMaximum 7
          */
         less: number;
 
         /**
-         * @range 7]
+         * @maximum 7
          */
         less_equal: number;
 
         /**
-         * @range (3, 7)
+         * @exclusiveMinimum 3
+         * @exclusiveMaximum 7
          */
         greater_less: number;
 
         /**
-         * @range [3, 7)
+         * @minimum 3
+         * @exclusiveMaximum 7
          */
         greater_equal_less: number;
 
         /**
-         * @range (3, 7]
+         * @exclusiveMinimum 3
+         * @maximum 7
          */
         greater_less_equal: number;
 
         /**
-         * @range [3, 7]
+         * @minimum 3
+         * @maximum 7
          */
         greater_equal_less_equal: number;
     }
@@ -64,9 +52,6 @@ export namespace TagRange {
     export function generate(): Type[] {
         const output: Type[] = [];
 
-        for (const minimum of [MINIMUM, 10])
-        for (const maximum of [0, MAXIMUM])
-        for (const minimum_and_maximum of [MINIMUM, MAXIMUM])
         for (const greater of [MINIMUM + 1, 10])
         for (const greater_equal of [MINIMUM, 10])
         for (const less of [0, MAXIMUM - 1])
@@ -76,9 +61,6 @@ export namespace TagRange {
         for (const greater_less_equal of [MINIMUM + 1, MAXIMUM])
         for (const greater_equal_less_equal of [MINIMUM, MAXIMUM])
             output.push({
-                minimum,
-                maximum,
-                minimum_and_maximum,
                 greater,
                 greater_equal,
                 less,
@@ -95,22 +77,6 @@ export namespace TagRange {
     export const MAXIMUM = 7;
 
     export const SPOILERS: Spoiler<TagRange>[] = [
-        (input) => {
-            input[0].minimum = 2;
-            return ["$input[0].minimum"];
-        },
-        (input) => {
-            input[1].maximum = 8;
-            return ["$input[1].maximum"];
-        },
-        (input) => {
-            input[2].minimum_and_maximum = 2;
-            return ["$input[2].minimum_and_maximum"];
-        },
-        (input) => {
-            input[3].minimum_and_maximum = 8;
-            return ["$input[3].minimum_and_maximum"];
-        },
         (input) => {
             input[4].greater = 3;
             return ["$input[4].greater"];

@@ -23,7 +23,7 @@ export function _test_validateStringify<T>(
         }
 
         const wrong: ISpoiled[] = [];
-        for (const spoil of spoilers || []) {
+        for (const spoil of spoilers ?? []) {
             const elem: T = generator();
             const expected: string[] = spoil(elem);
             const valid: typia.IValidation<string> = validator(elem);

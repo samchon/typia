@@ -11,7 +11,7 @@ export namespace IsParseTransformer {
         expression: ts.CallExpression,
     ): ts.Expression {
         // CHECK GENERIC ARGUMENT EXVALIDATETENCE
-        if (!expression.typeArguments || !expression.typeArguments[0])
+        if (!expression.typeArguments?.[0])
             throw new Error(ErrorMessages.NOT_SPECIFIED);
 
         // GET TYPE INFO

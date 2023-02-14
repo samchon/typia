@@ -25,23 +25,21 @@ export function _test_assert<T>(
             } else throw exp;
         }
 
-        for (const spoil of spoilers || []) {
-            const paths = { value: [] as string[] };
+        for (const spoil of spoilers ?? []) {
             const elem: T = generator();
+            const paths: string[] = spoil(elem);
+
             try {
-                paths.value = spoil(elem);
                 assert(elem);
             } catch (exp) {
                 if (exp instanceof TypeGuardError)
-                    if (exp.path && paths.value.includes(exp.path) === true)
-                        continue;
+                    if (exp.path && paths.includes(exp.path) === true) continue;
                     else
                         console.log({
                             expected: exp.path,
-                            solution: paths.value,
+                            solution: paths,
                         });
             }
-            console.log(paths.value);
             throw new Error(
                 `Bug on typia.assert(): failed to detect error on the ${name} type.`,
             );

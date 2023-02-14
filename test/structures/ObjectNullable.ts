@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectNullable = [
@@ -24,14 +25,14 @@ export namespace ObjectNullable {
 
     export function generate(): ObjectNullable {
         const product: () => Omit<IProduct, "similar"> = () => ({
-            name: RandomGenerator.string(),
+            name: TestRandomGenerator.string(),
             manufacturer: {
                 type: "manufacturer",
-                name: RandomGenerator.string(),
+                name: TestRandomGenerator.string(),
             },
             brand: {
                 type: "brand",
-                name: RandomGenerator.string(),
+                name: TestRandomGenerator.string(),
             },
         });
         return [
@@ -41,14 +42,14 @@ export namespace ObjectNullable {
                 brand: null,
                 similar: {
                     type: "manufacturer",
-                    name: RandomGenerator.string(),
+                    name: TestRandomGenerator.string(),
                 },
             },
             {
                 ...product(),
                 similar: {
                     type: "brand",
-                    name: RandomGenerator.string(),
+                    name: TestRandomGenerator.string(),
                 },
             },
         ];

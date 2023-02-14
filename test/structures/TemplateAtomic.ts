@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export interface TemplateAtomic {
@@ -14,9 +15,9 @@ export interface TemplateAtomic {
 export namespace TemplateAtomic {
     export function generate(): TemplateAtomic {
         return {
-            prefix: `prefix_${RandomGenerator.string()}`,
-            postfix: `${RandomGenerator.string()}_postfix`,
-            middle_string: `the_${RandomGenerator.string()}_value`,
+            prefix: `prefix_${TestRandomGenerator.string()}`,
+            postfix: `${TestRandomGenerator.string()}_postfix`,
+            middle_string: `the_${TestRandomGenerator.string()}_value`,
             middle_string_empty: `the__value`,
             middle_numeric: `the_${Math.random() * 100}_value`,
             middle_boolean: `the_${Math.random() > 0.5}_value`,

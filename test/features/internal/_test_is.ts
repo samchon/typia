@@ -12,7 +12,7 @@ export function _test_is<T>(
                 `Bug on typia.is(): failed to understand the ${name} type.`,
             );
 
-        (spoilers || []).forEach((spoil, i) => {
+        (spoilers ?? []).forEach((spoil, i) => {
             const elem: T = generator();
             spoil(elem);
 

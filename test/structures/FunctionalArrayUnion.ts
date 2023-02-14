@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type FunctionalArrayUnion = FunctionalArrayUnion.Union[];
@@ -9,10 +10,10 @@ export namespace FunctionalArrayUnion {
     export type Union = Array<() => any> | number[] | string[] | null[];
     export function generate(): FunctionalArrayUnion {
         return [
-            RandomGenerator.array(() => console.log),
-            RandomGenerator.array(() => 1),
-            RandomGenerator.array(() => "two"),
-            RandomGenerator.array(() => null),
+            TestRandomGenerator.array(() => console.log),
+            TestRandomGenerator.array(() => 1),
+            TestRandomGenerator.array(() => "two"),
+            TestRandomGenerator.array(() => null),
         ];
     }
 

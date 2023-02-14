@@ -13,107 +13,21 @@
       "TagRange.Type": {
         "type": "object",
         "properties": {
-          "minimum": {
-            "type": "number",
-            "nullable": false,
-            "x-typia-metaTags": [
-              {
-                "kind": "minimum",
-                "value": 3
-              }
-            ],
-            "x-typia-jsDocTags": [
-              {
-                "name": "minimum",
-                "text": [
-                  {
-                    "text": "3",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ],
-            "x-typia-required": true,
-            "minimum": 3
-          },
-          "maximum": {
-            "type": "number",
-            "nullable": false,
-            "x-typia-metaTags": [
-              {
-                "kind": "maximum",
-                "value": 7
-              }
-            ],
-            "x-typia-jsDocTags": [
-              {
-                "name": "maximum",
-                "text": [
-                  {
-                    "text": "7",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ],
-            "x-typia-required": true,
-            "maximum": 7
-          },
-          "minimum_and_maximum": {
-            "type": "number",
-            "nullable": false,
-            "x-typia-metaTags": [
-              {
-                "kind": "minimum",
-                "value": 3
-              },
-              {
-                "kind": "maximum",
-                "value": 7
-              }
-            ],
-            "x-typia-jsDocTags": [
-              {
-                "name": "minimum",
-                "text": [
-                  {
-                    "text": "3",
-                    "kind": "text"
-                  }
-                ]
-              },
-              {
-                "name": "maximum",
-                "text": [
-                  {
-                    "text": "7",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ],
-            "x-typia-required": true,
-            "minimum": 3,
-            "maximum": 7
-          },
           "greater": {
             "type": "number",
             "nullable": false,
             "x-typia-metaTags": [
               {
-                "kind": "range",
-                "minimum": {
-                  "include": false,
-                  "value": 3
-                }
+                "kind": "exclusiveMinimum",
+                "value": 3
               }
             ],
             "x-typia-jsDocTags": [
               {
-                "name": "range",
+                "name": "exclusiveMinimum",
                 "text": [
                   {
-                    "text": "(3",
+                    "text": "3",
                     "kind": "text"
                   }
                 ]
@@ -127,19 +41,16 @@
             "nullable": false,
             "x-typia-metaTags": [
               {
-                "kind": "range",
-                "minimum": {
-                  "include": true,
-                  "value": 3
-                }
+                "kind": "minimum",
+                "value": 3
               }
             ],
             "x-typia-jsDocTags": [
               {
-                "name": "range",
+                "name": "minimum",
                 "text": [
                   {
-                    "text": "[3",
+                    "text": "3",
                     "kind": "text"
                   }
                 ]
@@ -153,19 +64,16 @@
             "nullable": false,
             "x-typia-metaTags": [
               {
-                "kind": "range",
-                "maximum": {
-                  "include": false,
-                  "value": 7
-                }
+                "kind": "exclusiveMaximum",
+                "value": 7
               }
             ],
             "x-typia-jsDocTags": [
               {
-                "name": "range",
+                "name": "exclusiveMaximum",
                 "text": [
                   {
-                    "text": "7)",
+                    "text": "7",
                     "kind": "text"
                   }
                 ]
@@ -179,19 +87,16 @@
             "nullable": false,
             "x-typia-metaTags": [
               {
-                "kind": "range",
-                "maximum": {
-                  "include": true,
-                  "value": 7
-                }
+                "kind": "maximum",
+                "value": 7
               }
             ],
             "x-typia-jsDocTags": [
               {
-                "name": "range",
+                "name": "maximum",
                 "text": [
                   {
-                    "text": "7]",
+                    "text": "7",
                     "kind": "text"
                   }
                 ]
@@ -205,23 +110,29 @@
             "nullable": false,
             "x-typia-metaTags": [
               {
-                "kind": "range",
-                "minimum": {
-                  "include": false,
-                  "value": 3
-                },
-                "maximum": {
-                  "include": false,
-                  "value": 7
-                }
+                "kind": "exclusiveMinimum",
+                "value": 3
+              },
+              {
+                "kind": "exclusiveMaximum",
+                "value": 7
               }
             ],
             "x-typia-jsDocTags": [
               {
-                "name": "range",
+                "name": "exclusiveMinimum",
                 "text": [
                   {
-                    "text": "(3, 7)",
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "exclusiveMaximum",
+                "text": [
+                  {
+                    "text": "7",
                     "kind": "text"
                   }
                 ]
@@ -236,23 +147,29 @@
             "nullable": false,
             "x-typia-metaTags": [
               {
-                "kind": "range",
-                "minimum": {
-                  "include": true,
-                  "value": 3
-                },
-                "maximum": {
-                  "include": false,
-                  "value": 7
-                }
+                "kind": "minimum",
+                "value": 3
+              },
+              {
+                "kind": "exclusiveMaximum",
+                "value": 7
               }
             ],
             "x-typia-jsDocTags": [
               {
-                "name": "range",
+                "name": "minimum",
                 "text": [
                   {
-                    "text": "[3, 7)",
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "exclusiveMaximum",
+                "text": [
+                  {
+                    "text": "7",
                     "kind": "text"
                   }
                 ]
@@ -267,23 +184,29 @@
             "nullable": false,
             "x-typia-metaTags": [
               {
-                "kind": "range",
-                "minimum": {
-                  "include": false,
-                  "value": 3
-                },
-                "maximum": {
-                  "include": true,
-                  "value": 7
-                }
+                "kind": "exclusiveMinimum",
+                "value": 3
+              },
+              {
+                "kind": "maximum",
+                "value": 7
               }
             ],
             "x-typia-jsDocTags": [
               {
-                "name": "range",
+                "name": "exclusiveMinimum",
                 "text": [
                   {
-                    "text": "(3, 7]",
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "maximum",
+                "text": [
+                  {
+                    "text": "7",
                     "kind": "text"
                   }
                 ]
@@ -298,23 +221,29 @@
             "nullable": false,
             "x-typia-metaTags": [
               {
-                "kind": "range",
-                "minimum": {
-                  "include": true,
-                  "value": 3
-                },
-                "maximum": {
-                  "include": true,
-                  "value": 7
-                }
+                "kind": "minimum",
+                "value": 3
+              },
+              {
+                "kind": "maximum",
+                "value": 7
               }
             ],
             "x-typia-jsDocTags": [
               {
-                "name": "range",
+                "name": "minimum",
                 "text": [
                   {
-                    "text": "[3, 7]",
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "maximum",
+                "text": [
+                  {
+                    "text": "7",
                     "kind": "text"
                   }
                 ]
@@ -327,9 +256,6 @@
         },
         "nullable": false,
         "required": [
-          "minimum",
-          "maximum",
-          "minimum_and_maximum",
           "greater",
           "greater_equal",
           "less",

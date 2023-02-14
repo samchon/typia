@@ -1,6 +1,6 @@
 import { ArrayUtil } from "../../src/utils/ArrayUtil";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
 
-import { RandomGenerator } from "../internal/RandomGenerator";
 import { Spoiler } from "../internal/Spoiler";
 
 export interface DynamicComposite {
@@ -15,13 +15,13 @@ export interface DynamicComposite {
 export namespace DynamicComposite {
     export function generate(): DynamicComposite {
         const number = () => Math.random() - 0.5;
-        const string = () => RandomGenerator.string();
+        const string = () => TestRandomGenerator.string();
         const output: DynamicComposite = {
             id: "id",
             name: "name",
         };
 
-        ArrayUtil.repeat(RandomGenerator.integer(3, 10), () => {
+        ArrayUtil.repeat(TestRandomGenerator.integer(3, 10), () => {
             output[number()] = number();
             output[`prefix_${string()}`] = string();
             output[`${string()}_postfix`] = string();

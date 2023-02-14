@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type TagObjectUnion = TagObjectUnion.Type[];
@@ -12,7 +13,8 @@ export namespace TagObjectUnion {
     }
     export interface Literal {
         /**
-         * @length [3, 7]
+         * @minLength 3
+         * @maxLength 7
          */
         value: string;
     }
@@ -20,7 +22,7 @@ export namespace TagObjectUnion {
     export function generate(): TagObjectUnion {
         const output: TagObjectUnion = [];
         for (const value of [3, 7])
-            output.push({ value: RandomGenerator.string(value) });
+            output.push({ value: TestRandomGenerator.string(value) });
         output.push({ value: 3 });
         return output;
     }

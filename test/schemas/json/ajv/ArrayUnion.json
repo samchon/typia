@@ -15,7 +15,7 @@
           {
             "type": "array",
             "items": {
-              "type": "boolean",
+              "type": "number",
               "nullable": false
             },
             "nullable": false
@@ -23,7 +23,7 @@
           {
             "type": "array",
             "items": {
-              "type": "number",
+              "type": "boolean",
               "nullable": false
             },
             "nullable": false
