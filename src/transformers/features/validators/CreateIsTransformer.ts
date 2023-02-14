@@ -18,7 +18,7 @@ export namespace CreateIsTransformer {
             expression: ts.CallExpression,
         ): ts.Expression {
             // CHECK GENERIC ARGUMENT EXISTENCE
-            if (!expression.typeArguments || !expression.typeArguments[0])
+            if (!expression.typeArguments?.[0])
                 throw new Error(MESSAGES.NOT_SPECIFIED);
 
             // GET TYPE INFO

@@ -16,16 +16,16 @@ export namespace StringifyJoiner {
             entries: IExpressionEntry<ts.Expression>[],
         ): ts.Expression => {
             // CHECK AND SORT ENTRIES
+            if (entries.length === 0)
+                return ts.factory.createStringLiteral("{}");
+
+            // PROPERTIES
             const regular: IExpressionEntry<ts.Expression>[] = entries.filter(
                 (entry) => entry.key.isSoleLiteral(),
             );
             const dynamic: IExpressionEntry<ts.Expression>[] = entries.filter(
                 (entry) => !entry.key.isSoleLiteral(),
             );
-            if (regular.length === 0 && dynamic.length === 0)
-                return ts.factory.createStringLiteral("{}");
-
-            // PROPERTIES
             const expressions: ts.Expression[] = [
                 ...stringify_regular_properties(regular, dynamic),
                 ...(dynamic.length

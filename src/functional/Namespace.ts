@@ -1,3 +1,5 @@
+import { RandomGenerator } from "../utils/RandomGenerator";
+
 import { IValidation } from "../IValidation";
 import { TypeGuardError } from "../TypeGuardError";
 import { $any } from "./$any";
@@ -101,6 +103,11 @@ export namespace Namespace {
     export const prune = (method: string) => ({
         ...is(),
         throws: $throws(method),
+    });
+
+    export const random = () => ({
+        generator: RandomGenerator,
+        pick: RandomGenerator.pick,
     });
 
     const $throws =

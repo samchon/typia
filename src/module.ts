@@ -826,6 +826,11 @@ Object.assign(validateStringify, Namespace.stringify("validateStringify"));
 /**
  * @internal
  */
+export function metadata(): never;
+
+/**
+ * @internal
+ */
 export function metadata<Types extends unknown[]>(): IMetadataApplication;
 
 /**
@@ -836,13 +841,57 @@ export function metadata(): never {
 }
 
 /**
+ * > You must configure the generic argument `T`.
+ *
+ * Generate random data.
+ *
+ * Generates a random data following type the `T`.
+ *
+ * For reference, this `typia.random()` function generates only primitive type.
+ * If there're some methods in the type `T` or its nested instances, those would
+ * be ignored. Also, when the type `T` has a `toJSON()` method, its return type
+ * would be generated instead.
+ *
+ * @template T Type of data to generate
+ * @return Randomly generated data
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function random(): never;
+
+/**
+ * Generate random data.
+ *
+ * Generates a random data following type the `T`.
+ *
+ * For reference, this `typia.random()` function generates only primitive type.
+ * If there're some methods in the type `T` or its nested instances, those would
+ * be ignored. Also, when the type `T` has a `toJSON()` method, its return type
+ * would be generated instead.
+ *
+ * @template T Type of data to generate
+ * @return Randomly generated data
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function random<T>(): Primitive<T>;
+
+/**
+ * @internal
+ */
+export function random(): never {
+    halt("random");
+}
+Object.assign(random, Namespace.random());
+
+/**
  * Clone a data.
  *
  * Clones an instance following type `T`. If the target *input* value or its member
  * variable contains a class instance that is having a `toJSON()` method, its return
  * value would be cloned.
  *
- * For reference, this `TSON.clone()` function does not validate the input value type.
+ * For reference, this `typia.clone()` function does not validate the input value type.
  * It just believes that the input value is following the type `T`. Therefore, if you
  * can't ensure the input value type, it would be better to call {@link assertClone}
  * function instead.
@@ -1608,6 +1657,35 @@ Object.assign(createValidateStringify, validateStringify);
 /* -----------------------------------------------------------
     MISCELLANEOUS
 ----------------------------------------------------------- */
+/**
+ * Creates a reusable {@link random} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createRandom(): never;
+
+/**
+ * Creates a resuable {@link random} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `random` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createRandom<T>(): () => Primitive<T>;
+
+/**
+ * @internal
+ */
+export function createRandom(): never {
+    halt("createRandom");
+}
+Object.assign(createRandom, random);
+
 /**
  * Creates a reusable {@link clone} function.
  *

@@ -6,6 +6,7 @@ export interface TestFeature {
     strict?: true;
     explicit?: true;
     primitive?: true;
+    random?: true;
 }
 export namespace TestFeature {
     export const DATA: TestFeature[] = [
@@ -150,6 +151,13 @@ export namespace TestFeature {
             spoilable: true,
             strict: true,
             primitive: true,
+        },
+        {
+            method: "random",
+            creatable: true,
+            spoilable: false,
+            primitive: true,
+            random: true,
         },
     ];
 }

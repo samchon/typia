@@ -5,7 +5,6 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 
 import { FunctionImporter } from "../helpers/FunctionImporeter";
-import { check_length } from "./check_length";
 
 /**
  * @internal
@@ -39,6 +38,13 @@ export const check_string_tags =
                         ),
                     ),
                 );
+            else if (tag.kind === "length")
+                conditions.push(
+                    ts.factory.createStrictEquality(
+                        ts.factory.createNumericLiteral(tag.value),
+                        IdentifierFactory.join(input, "length"),
+                    ),
+                );
             else if (tag.kind === "minLength")
                 conditions.push(
                     ts.factory.createLessThanEquals(
@@ -52,12 +58,6 @@ export const check_string_tags =
                         ts.factory.createNumericLiteral(tag.value),
                         IdentifierFactory.join(input, "length"),
                     ),
-                );
-            else if (tag.kind === "length")
-                check_length(
-                    conditions,
-                    IdentifierFactory.join(input, "length"),
-                    tag,
                 );
         return conditions;
     };

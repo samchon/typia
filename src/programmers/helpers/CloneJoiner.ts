@@ -15,12 +15,10 @@ export namespace CloneJoiner {
         entries: IExpressionEntry<ts.Expression>[],
         _obj: MetadataObject,
     ): ts.ConciseBody => {
+        if (entries.length === 0) return ts.factory.createIdentifier("{}");
+
         const regular = entries.filter((e) => e.key.isSoleLiteral());
         const dynamic = entries.filter((e) => !e.key.isSoleLiteral());
-
-        if (regular.length === 0 && dynamic.length === 0)
-            return ts.factory.createIdentifier("{}");
-
         const literal = ts.factory.createObjectLiteralExpression(
             regular.map((entry) => {
                 const str: string = entry.key.getSoleLiteral()!;
