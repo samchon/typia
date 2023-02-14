@@ -11,7 +11,6 @@ export type IMetadataTag =
     | IMetadataTag.IMaxLength
     // NUMBER
     | IMetadataTag.IType
-    | IMetadataTag.IRange
     | IMetadataTag.IMinimum
     | IMetadataTag.IMaximum
     | IMetadataTag.IExclusiveMinimum
@@ -25,8 +24,7 @@ export namespace IMetadataTag {
     ----------------------------------------------------------- */
     export interface IItems {
         kind: "items";
-        minimum?: ISign;
-        maximum?: ISign;
+        value: number;
     }
 
     export interface IMinItems {
@@ -54,8 +52,7 @@ export namespace IMetadataTag {
 
     export interface ILength {
         kind: "length";
-        minimum?: ISign;
-        maximum?: ISign;
+        value: number;
     }
 
     export interface IMinLength {
@@ -74,12 +71,6 @@ export namespace IMetadataTag {
     export interface IType {
         kind: "type";
         value: "int" | "uint";
-    }
-
-    export interface IRange {
-        kind: "range";
-        minimum?: ISign;
-        maximum?: ISign;
     }
 
     export interface IMinimum {

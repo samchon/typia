@@ -50,7 +50,7 @@ When you detect an error, then throw exception such below:
 
 ```typescript
 import typia from "../../../src";
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { RandomGenerator } from "../../src/utils/RandomGenerator";
 
 export function test_stringify_object_recursive(): void
 {

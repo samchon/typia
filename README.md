@@ -24,7 +24,7 @@ export function assertStringify<T>(input: T): string; // safe and faster
     // +) stringify, isStringify, validateStringify
 
 // MISC
-export function random<T>(): T;
+export function random<T>(): T; // generate random data
 export function clone<T>(input: T): Primitive<T>;
 export function prune<T extends object>(input: T): void;
     // +) isClone, assertClone, validateClone
@@ -36,6 +36,7 @@ export function prune<T extends object>(input: T): void;
   - Super-fast Runtime Validators
   - Safe JSON parse and fast stringify functions
   - JSON schema generator
+  - Random data generator
 
 All functions in `typia` require **only one line**. You don't need any extra dedication like JSON schema definitions or decorator function calls. Just call `typia` function with only one line like `typia.assert<T>(input)`.
 
@@ -143,6 +144,10 @@ For more details, refer to the [Guide Documents (wiki)](https://github.com/samch
 >   - [`parse()` functions](https://github.com/samchon/typia/wiki/Enhanced-JSON#parse-functions)
 >   - [`stringify()` functions](https://github.com/samchon/typia/wiki/Enhanced-JSON#stringify-functions)
 >   - [comment tags](https://github.com/samchon/typia/wiki/Enhanced-JSON#comment-tags)
+> - **Miscellaneous**
+>   - [`random()` function](https://github.com/samchon/typia/wiki/Miscellaneous#random-function)
+>   - [`clone()` functions](https://github.com/samchon/typia/wiki/Miscellaneous#clone-functions)
+>   - [`prune()` functions](https://github.com/samchon/typia/wiki/Miscellaneous#prune-functions)
 
 ### Runtime Validators
 ```typescript
@@ -217,6 +222,16 @@ export function createAssertStringify<T>(): (input: T) => string;
 
 > Measured on [AMD R7 5800H](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics#stringify)
 
+### Miscellaneous
+```typescript
+export function random<T>(): Primitive<T>; // random data generator
+export function clone<T>(input: T): Primitive<T>; // deep copy
+export function prune<T>(input: T): void; // remove superfluous properties
+```
+
+When you need test data, just generate it through `typia.random<T>()`.
+
+If a little bit special data being required, use ([Features > Runtime Validators > Comment Tags](https://github.com/samchon/typia/wiki/Runtime-Validators#comment-tags))
 
 
 
