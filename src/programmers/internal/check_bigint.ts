@@ -30,8 +30,6 @@ export function check_bigint(input: ts.Expression, tagList: IMetadataTag[]) {
                 for (const tag of tagList)
                     if (tag.kind === "minimum") return tag.value;
                     else if (tag.kind === "exclusiveMinimum") return tag.value;
-                    else if (tag.kind === "range" && tag.minimum !== undefined)
-                        return tag.minimum.value;
                 return undefined;
             })();
             conditions.push(
@@ -42,25 +40,6 @@ export function check_bigint(input: ts.Expression, tagList: IMetadataTag[]) {
                         : modulo(),
                 ),
             );
-        } else if (tag.kind === "range") {
-            if (tag.minimum !== undefined)
-                conditions.push(
-                    (tag.minimum.include
-                        ? ts.factory.createLessThanEquals
-                        : ts.factory.createLessThan)(
-                        caster(tag.minimum.value),
-                        input,
-                    ),
-                );
-            if (tag.maximum !== undefined)
-                conditions.push(
-                    (tag.maximum.include
-                        ? ts.factory.createLessThanEquals
-                        : ts.factory.createLessThan)(
-                        input,
-                        caster(tag.maximum.value),
-                    ),
-                );
         } else if (tag.kind === "minimum")
             conditions.push(
                 ts.factory.createLessThanEquals(caster(tag.value), input),

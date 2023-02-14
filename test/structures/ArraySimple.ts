@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type ArraySimple = ArraySimple.IPerson[];
@@ -17,19 +18,19 @@ export namespace ArraySimple {
     }
 
     export function generate(): ArraySimple {
-        return RandomGenerator.array((index) => ({
-            name: RandomGenerator.string(),
-            email: RandomGenerator.string(),
+        return TestRandomGenerator.array((index) => ({
+            name: TestRandomGenerator.string(),
+            email: TestRandomGenerator.string(),
             hobbies:
                 index === 0
-                    ? RandomGenerator.array(RandomGenerator.string)
+                    ? TestRandomGenerator.array(TestRandomGenerator.string)
                     : index === 1
-                    ? RandomGenerator.array(() => ({
-                          body: RandomGenerator.string(),
+                    ? TestRandomGenerator.array(() => ({
+                          body: TestRandomGenerator.string(),
                       }))
-                    : RandomGenerator.array(() => ({
-                          name: RandomGenerator.string(),
-                          rank: RandomGenerator.integer(1, 3),
+                    : TestRandomGenerator.array(() => ({
+                          name: TestRandomGenerator.string(),
+                          rank: TestRandomGenerator.integer(1, 3),
                       })),
         }));
     }

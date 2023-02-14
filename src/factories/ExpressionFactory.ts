@@ -63,4 +63,15 @@ export namespace ExpressionFactory {
             ts.factory.createIdentifier(type),
         );
     }
+
+    export function coalesce(
+        x: ts.Expression,
+        y: ts.Expression,
+    ): ts.Expression {
+        return ts.factory.createBinaryExpression(
+            x,
+            ts.factory.createToken(ts.SyntaxKind.QuestionQuestionToken),
+            y,
+        );
+    }
 }

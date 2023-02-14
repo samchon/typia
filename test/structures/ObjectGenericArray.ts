@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectGenericArray =
@@ -20,7 +21,7 @@ export namespace ObjectGenericArray {
     }
 
     export function generate(): ObjectGenericArray {
-        const count: number = RandomGenerator.integer(10, 20);
+        const count: number = TestRandomGenerator.integer(10, 20);
         return {
             pagination: {
                 page: 1,
@@ -28,9 +29,9 @@ export namespace ObjectGenericArray {
                 total_count: count,
                 total_pages: Math.ceil(count / 10),
             },
-            data: RandomGenerator.array(() => ({
-                name: RandomGenerator.string(),
-                age: RandomGenerator.integer(),
+            data: TestRandomGenerator.array(() => ({
+                name: TestRandomGenerator.string(),
+                age: TestRandomGenerator.integer(),
             })),
         };
     }

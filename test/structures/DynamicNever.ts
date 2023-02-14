@@ -1,6 +1,6 @@
 import { ArrayUtil } from "../../src/utils/ArrayUtil";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
 
-import { RandomGenerator } from "../internal/RandomGenerator";
 import { Spoiler } from "../internal/Spoiler";
 
 export interface DynamicNever {
@@ -9,8 +9,8 @@ export interface DynamicNever {
 export namespace DynamicNever {
     export function generate(): DynamicNever {
         const output: DynamicNever = {};
-        ArrayUtil.repeat(RandomGenerator.integer(3, 10), () => {
-            (output as any)[RandomGenerator.string()] = undefined;
+        ArrayUtil.repeat(TestRandomGenerator.integer(3, 10), () => {
+            (output as any)[TestRandomGenerator.string()] = undefined;
         });
         return output;
     }
