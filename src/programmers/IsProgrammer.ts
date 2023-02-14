@@ -76,7 +76,7 @@ export namespace IsProgrammer {
             undefined: boolean;
             object: (
                 input: ts.Expression,
-                entries: IExpressionEntry[],
+                entries: IExpressionEntry<ts.Expression>[],
             ) => ts.Expression;
         }
     }
@@ -173,12 +173,15 @@ export namespace IsProgrammer {
     export const decode_object = (importer: FunctionImporter) =>
         CheckerProgrammer.decode_object(CONFIG()(importer));
 
-    export function decode_to_json(input: ts.Expression): ts.Expression {
+    export function decode_to_json(
+        input: ts.Expression,
+        checkNull: boolean,
+    ): ts.Expression {
         return ts.factory.createLogicalAnd(
-            ts.factory.createStrictEquality(
-                ts.factory.createStringLiteral("object"),
-                ValueFactory.TYPEOF(input),
-            ),
+            ExpressionFactory.isObject(input, {
+                checkArray: false,
+                checkNull,
+            }),
             ts.factory.createStrictEquality(
                 ts.factory.createStringLiteral("function"),
                 ValueFactory.TYPEOF(IdentifierFactory.join(input, "toJSON")),

@@ -52,11 +52,11 @@ const PARSER: Record<
         ARRAY
     ----------------------------------------------------------- */
     items: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "items", "array", [
-            "minItems",
-            "maxItems",
-        ]);
-        return parse_range("items", identifier, text, true);
+        validate(identifier, metadata, output, "items", "array", ["minItems"]);
+        return {
+            kind: "items",
+            value: parse_number(identifier, text),
+        };
     },
     minItems: (identifier, metadata, text, output) => {
         validate(identifier, metadata, output, "minItems", "array", ["items"]);
@@ -82,19 +82,8 @@ const PARSER: Record<
             throw new Error(`${LABEL}: invalid type tag on "${identifier()}".`);
         return { kind: "type", value: text };
     },
-    range: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "range", "number", [
-            "exclusiveMinimum",
-            "minimum",
-            "maximum",
-            "exclusiveMaximum",
-        ]);
-        return parse_range("range", identifier, text, false);
-    },
     minimum: (identifier, metadata, text, output) => {
         validate(identifier, metadata, output, "minimum", "number", [
-            "range",
-            "exclusiveMaximum",
             "exclusiveMinimum",
         ]);
         return {
@@ -104,8 +93,6 @@ const PARSER: Record<
     },
     maximum: (identifier, metadata, text, output) => {
         validate(identifier, metadata, output, "maximum", "number", [
-            "range",
-            "exclusiveMinimum",
             "exclusiveMaximum",
         ]);
         return {
@@ -115,9 +102,7 @@ const PARSER: Record<
     },
     exclusiveMinimum: (identifier, metadata, text, output) => {
         validate(identifier, metadata, output, "exclusiveMinimum", "number", [
-            "range",
             "minimum",
-            "maximum",
         ]);
         return {
             kind: "exclusiveMinimum",
@@ -126,8 +111,6 @@ const PARSER: Record<
     },
     exclusiveMaximum: (identifier, metadata, text, output) => {
         validate(identifier, metadata, output, "exclusiveMaximum", "number", [
-            "range",
-            "minimum",
             "maximum",
         ]);
         return {
@@ -150,14 +133,11 @@ const PARSER: Record<
         ]);
 
         const minimum: boolean = output.some(
-            (tag) =>
-                tag.kind === "minimum" ||
-                tag.kind === "exclusiveMinimum" ||
-                (tag.kind === "range" && tag.minimum !== undefined),
+            (tag) => tag.kind === "minimum" || tag.kind === "exclusiveMinimum",
         );
         if (minimum === undefined)
             throw new Error(
-                `${LABEL}: step requires minimum tag on "${identifier()}".`,
+                `${LABEL}: step requires minimum or exclusiveMinimum tag on "${identifier()}".`,
             );
 
         return {
@@ -193,7 +173,10 @@ const PARSER: Record<
             "minLength",
             "maxLength",
         ]);
-        return parse_range("length", identifier, text, true);
+        return {
+            kind: "length",
+            value: parse_number(identifier, text),
+        };
     },
     minLength: (identifier, metadata, text, output) => {
         validate(identifier, metadata, output, "minLength", "string", [
@@ -215,73 +198,6 @@ const PARSER: Record<
     },
 };
 
-function parse_range<Kind extends string>(
-    kind: Kind,
-    identifier: () => string,
-    text: string,
-    allowScalar: boolean,
-): Omit<IMetadataTag.IRange, "kind"> & { kind: Kind } {
-    if (allowScalar === true && Number.isNaN(Number(text)) === false) {
-        const value: number = Number(text);
-        if (Math.floor(value) !== value)
-            throw new Error(`${LABEL}: invalid length on "${identifier()}".`);
-        return {
-            kind,
-            minimum: {
-                include: true,
-                value,
-            },
-            maximum: {
-                include: true,
-                value,
-            },
-        };
-    } else if (text.indexOf(",") === -1)
-        if (LEFT_PARENTHESIS.some((str) => text.indexOf(str) !== -1))
-            return {
-                kind,
-                minimum: parse_side("left")(kind)(identifier)(text),
-            };
-        else if (RIGHT_PARENTHESIS.some((str) => text.indexOf(str) !== -1))
-            return {
-                kind,
-                maximum: parse_side("right")(kind)(identifier)(text),
-            };
-        else
-            throw new Error(
-                `${LABEL}: invalid ${kind} tag on "${identifier()}".`,
-            );
-
-    const [left, right] = text.split(",") as [string, string];
-    return {
-        kind,
-        minimum: parse_side("left")(kind)(identifier)(left),
-        maximum: parse_side("right")(kind)(identifier)(right),
-    };
-}
-
-const parse_side = (side: "left" | "right") => {
-    const symbol = side === "left" ? LEFT_PARENTHESIS : RIGHT_PARENTHESIS;
-    const substring: (str: string, index: number) => string =
-        side === "left"
-            ? (str, index) => str.substring(index + 1)
-            : (str, index) => str.substring(0, index);
-    return (tag: string) => (identifier: () => string) => (text: string) => {
-        const [index, include] =
-            text.indexOf(symbol[0]) !== -1
-                ? [text.indexOf(symbol[0]), true]
-                : [text.indexOf(symbol[1]), false];
-        if (index === -1)
-            throw new Error(
-                `${LABEL}: invalid ${tag} tag on "${identifier()}".`,
-            );
-        return {
-            include,
-            value: parse_number(identifier, substring(text, index)),
-        };
-    };
-};
-
 function parse_number(identifier: () => string, str: string): number {
     const value: number = Number(str);
     if (isNaN(value) === true)
@@ -290,8 +206,6 @@ function parse_number(identifier: () => string, str: string): number {
 }
 
 const LABEL = "Error on typia.MetadataTagFactory.generate()";
-const LEFT_PARENTHESIS = ["[", "("] as const;
-const RIGHT_PARENTHESIS = ["]", ")"] as const;
 const FORMATS = new Set(["uuid", "email", "url", "mobile", "ipv4", "ipv6"]);
 
 const WRONG_TYPE = (

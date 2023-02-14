@@ -22,12 +22,6 @@ export const check_number =
 
         // CHECK FINITE AND NAN
         const finite: boolean =
-            !!tagList.find(
-                (tag) =>
-                    tag.kind === "range" &&
-                    tag.minimum !== undefined &&
-                    tag.maximum !== undefined,
-            ) ||
             (!!tagList.find(
                 (tag) =>
                     tag.kind === "minimum" || tag.kind === "exclusiveMinimum",
@@ -102,11 +96,6 @@ export const check_number =
                         if (tag.kind === "minimum") return tag.value;
                         else if (tag.kind === "exclusiveMinimum")
                             return tag.value;
-                        else if (
-                            tag.kind === "range" &&
-                            tag.minimum !== undefined
-                        )
-                            return tag.minimum.value;
                     return undefined;
                 })();
                 conditions.push(
@@ -120,25 +109,6 @@ export const check_number =
                             : modulo(),
                     ),
                 );
-            } else if (tag.kind === "range") {
-                if (tag.minimum !== undefined)
-                    conditions.push(
-                        (tag.minimum.include
-                            ? ts.factory.createLessThanEquals
-                            : ts.factory.createLessThan)(
-                            ts.factory.createNumericLiteral(tag.minimum.value),
-                            input,
-                        ),
-                    );
-                if (tag.maximum !== undefined)
-                    conditions.push(
-                        (tag.maximum.include
-                            ? ts.factory.createLessThanEquals
-                            : ts.factory.createLessThan)(
-                            input,
-                            ts.factory.createNumericLiteral(tag.maximum.value),
-                        ),
-                    );
             } else if (tag.kind === "minimum")
                 conditions.push(
                     ts.factory.createLessThanEquals(

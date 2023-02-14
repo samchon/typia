@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "3.4.28",
+  "version": "3.5.0",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -53,7 +53,9 @@
     "checker",
     "validator",
     "safe",
-    "parse"
+    "parse",
+    "prune",
+    "random"
   ],
   "author": "Jeongho Nam",
   "license": "MIT",
@@ -115,5 +117,8 @@
     "lib",
     "src"
   ],
+  "dependencies": {
+    "randexp": "^0.5.3"
+  },
   "private": true
 }

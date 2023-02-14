@@ -64,7 +64,7 @@ export namespace AssertThrowBenchmarker {
                         (true &&
                             is([generator()], parameters[key]!) &&
                             is([trailer()], parameters[key]!) === false &&
-                            (spoilers || []).every((spoil) => {
+                            (spoilers ?? []).every((spoil) => {
                                 const fake: T[] = [generator()];
                                 spoil(fake[0]);
                                 return is(fake, parameters[key]!) === false;

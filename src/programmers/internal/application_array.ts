@@ -33,15 +33,5 @@ export const application_array =
         for (const tag of attribute["x-typia-metaTags"] || [])
             if (tag.kind === "minItems") output.minItems = tag.value;
             else if (tag.kind === "maxItems") output.maxItems = tag.value;
-            else if (tag.kind === "items") {
-                if (tag.minimum !== undefined)
-                    output.minItems =
-                        tag.minimum.value +
-                        (tag.minimum.include === true ? 0 : 1);
-                if (tag.maximum !== undefined)
-                    output.maxItems =
-                        tag.maximum.value -
-                        (tag.maximum.include === true ? 0 : 1);
-            }
         return output;
     };

@@ -135,7 +135,7 @@ export namespace StringifyProgrammer {
                 else
                     unions.push({
                         type: "resolved",
-                        is: () => IsProgrammer.decode_to_json(input),
+                        is: () => IsProgrammer.decode_to_json(input, false),
                         value: () =>
                             decode_to_json(project, importer)(
                                 input,
@@ -369,8 +369,8 @@ export namespace StringifyProgrammer {
                         meta.objects[0]!._Is_simple()
                             ? (() => {
                                   const obj: MetadataObject = meta.objects[0]!;
-                                  const entries: IExpressionEntry[] =
-                                      feature_object_entries({
+                                  const entries: IExpressionEntry<ts.Expression>[] =
+                                      feature_object_entries<ts.Expression>({
                                           decoder: decode(project, importer),
                                           trace: false,
                                           path: false,
