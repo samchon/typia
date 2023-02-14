@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.5.0-dev.20230213",
+  "version": "3.5.0",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -50,7 +50,9 @@
     "checker",
     "validator",
     "safe",
-    "parse"
+    "parse",
+    "prune",
+    "random"
   ],
   "author": "Jeongho Nam",
   "license": "MIT",
@@ -70,6 +72,6 @@
     "src"
   ],
   "dependencies": {
-    "typia": "3.5.0-dev.20230213"
+    "typia": "3.5.0"
   }
 }

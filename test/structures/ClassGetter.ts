@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type ClassGetter = ClassGetter.Person;
@@ -22,9 +23,9 @@ export namespace ClassGetter {
 
     export function generate(): ClassGetter {
         return new Person(
-            RandomGenerator.string(),
-            RandomGenerator.string(),
-            Math.random() < 0.5 ? RandomGenerator.boolean() : null,
+            TestRandomGenerator.string(),
+            TestRandomGenerator.string(),
+            Math.random() < 0.5 ? TestRandomGenerator.boolean() : null,
         );
     }
 

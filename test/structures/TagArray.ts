@@ -1,13 +1,14 @@
 import { v4 } from "uuid";
 
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type TagArray = TagArray.Type[];
 export namespace TagArray {
     export interface Type {
         /**
-         * @items [3, 7)
+         * @items 3
          * @format uuid
          */
         items: string[];
@@ -36,18 +37,17 @@ export namespace TagArray {
     // prettier-ignore
     export function generate(): Type[] {
         const output: Type[] = [];
-        for (const items of [3, 6])
         for (const minItems of [3, 10])
         for (const maxItems of [1, 7])
         for (const both of [3, 7]) {
-            const string = () => RandomGenerator.string(maxItems);
+            const string = () => TestRandomGenerator.string(maxItems);
             const number = () => maxItems;
             for (const closure of [string, number])
                 output.push({
-                    items: RandomGenerator.array(() => v4(), items),
-                    minItems: RandomGenerator.array(() => minItems, minItems),
-                    maxItems: RandomGenerator.array(() => closure(), maxItems),
-                    both: RandomGenerator.array(() => v4(), both),
+                    items: TestRandomGenerator.array(() => v4(), 3),
+                    minItems: TestRandomGenerator.array(() => minItems, minItems),
+                    maxItems: TestRandomGenerator.array(() => closure(), maxItems),
+                    both: TestRandomGenerator.array(() => v4(), both),
                 });
         }
         return output;
@@ -63,11 +63,11 @@ export namespace TagArray {
             ];
         },
         (input) => {
-            input[1].items = RandomGenerator.array(() => v4(), 2);
+            input[1].items = TestRandomGenerator.array(() => v4(), 2);
             return ["$input[1].items"];
         },
         (input) => {
-            input[2].items = RandomGenerator.array(() => v4(), 7);
+            input[2].items = TestRandomGenerator.array(() => v4(), 7);
             return ["$input[2].items"];
         },
         (input) => {
@@ -79,7 +79,7 @@ export namespace TagArray {
             ];
         },
         (input) => {
-            input[4].minItems = RandomGenerator.array(() => 3, 2);
+            input[4].minItems = TestRandomGenerator.array(() => 3, 2);
             return ["$input[4].minItems"];
         },
         (input) => {
@@ -91,7 +91,7 @@ export namespace TagArray {
             return ["$input[6].maxItems[0]"];
         },
         (input) => {
-            input[7].maxItems = RandomGenerator.array(() => 1, 8);
+            input[7].maxItems = TestRandomGenerator.array(() => 1, 8);
             return ["$input[7].maxItems"];
         },
         (input) => {
@@ -103,11 +103,11 @@ export namespace TagArray {
             ];
         },
         (input) => {
-            input[9].both = RandomGenerator.array(() => v4(), 2);
+            input[9].both = TestRandomGenerator.array(() => v4(), 2);
             return ["$input[9].both"];
         },
         (input) => {
-            input[10].both = RandomGenerator.array(() => v4(), 8);
+            input[10].both = TestRandomGenerator.array(() => v4(), 8);
             return ["$input[10].both"];
         },
     ];

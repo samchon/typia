@@ -47,7 +47,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "exclusiveMinimum": 3
           },
           "minimum": {
             "type": "number",
@@ -94,15 +95,12 @@
                 "value": 5
               },
               {
-                "kind": "range",
-                "minimum": {
-                  "include": false,
-                  "value": 0
-                },
-                "maximum": {
-                  "include": false,
-                  "value": 100
-                }
+                "kind": "exclusiveMinimum",
+                "value": 0
+              },
+              {
+                "kind": "exclusiveMaximum",
+                "value": 100
               }
             ],
             "x-typia-jsDocTags": [
@@ -116,10 +114,19 @@
                 ]
               },
               {
-                "name": "range",
+                "name": "exclusiveMinimum",
                 "text": [
                   {
-                    "text": "(0, 100)",
+                    "text": "0",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "exclusiveMaximum",
+                "text": [
+                  {
+                    "text": "100",
                     "kind": "text"
                   }
                 ]
@@ -136,6 +143,14 @@
               {
                 "kind": "multipleOf",
                 "value": 5
+              },
+              {
+                "kind": "minimum",
+                "value": 3
+              },
+              {
+                "kind": "maximum",
+                "value": 99
               }
             ],
             "x-typia-jsDocTags": [
@@ -147,10 +162,30 @@
                     "kind": "text"
                   }
                 ]
+              },
+              {
+                "name": "minimum",
+                "text": [
+                  {
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "maximum",
+                "text": [
+                  {
+                    "text": "99",
+                    "kind": "text"
+                  }
+                ]
               }
             ],
             "x-typia-required": true,
-            "multipleOf": 5
+            "multipleOf": 5,
+            "minimum": 3,
+            "maximum": 99
           }
         },
         "nullable": false,

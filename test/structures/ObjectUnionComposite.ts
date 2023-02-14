@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectUnionComposite = Array<
@@ -68,35 +69,35 @@ export namespace ObjectUnionComposite {
                 p4: point(),
             },
             {
-                points: RandomGenerator.array(() => point(), 10),
+                points: TestRandomGenerator.array(() => point(), 10),
             },
             {
                 outer: {
-                    points: RandomGenerator.array(() => point(), 10),
+                    points: TestRandomGenerator.array(() => point(), 10),
                 },
                 inner: [
                     {
-                        points: RandomGenerator.array(() => point(), 10),
+                        points: TestRandomGenerator.array(() => point(), 10),
                     },
                     {
-                        points: RandomGenerator.array(() => point(), 10),
+                        points: TestRandomGenerator.array(() => point(), 10),
                     },
                 ],
             },
             {
-                outer: RandomGenerator.array(() => point()),
+                outer: TestRandomGenerator.array(() => point()),
                 inner: point(),
             },
             {
                 centroid: point(),
-                radius: RandomGenerator.integer(),
+                radius: TestRandomGenerator.integer(),
             },
         ];
     }
     function point(): IPoint {
         return {
-            x: RandomGenerator.integer(),
-            y: RandomGenerator.integer(),
+            x: TestRandomGenerator.integer(),
+            y: TestRandomGenerator.integer(),
         };
     }
 

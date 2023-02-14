@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectUnionExplicit = Array<
@@ -80,26 +81,26 @@ export namespace ObjectUnionExplicit {
             },
             {
                 type: "polyline",
-                points: RandomGenerator.array(() => point(), 10),
+                points: TestRandomGenerator.array(() => point(), 10),
             },
             {
                 type: "polygon",
                 outer: {
-                    points: RandomGenerator.array(() => point(), 10),
+                    points: TestRandomGenerator.array(() => point(), 10),
                 },
                 inner: [
                     {
-                        points: RandomGenerator.array(() => point(), 10),
+                        points: TestRandomGenerator.array(() => point(), 10),
                     },
                     {
-                        points: RandomGenerator.array(() => point(), 10),
+                        points: TestRandomGenerator.array(() => point(), 10),
                     },
                 ],
             },
             {
                 type: "circle",
                 centroid: point(),
-                radius: RandomGenerator.integer(),
+                radius: TestRandomGenerator.integer(),
             },
         ];
     }
@@ -156,6 +157,6 @@ export namespace ObjectUnionExplicit {
 }
 
 const point = (): ObjectUnionExplicit.IPoint => ({
-    x: RandomGenerator.integer(),
-    y: RandomGenerator.integer(),
+    x: TestRandomGenerator.integer(),
+    y: TestRandomGenerator.integer(),
 });

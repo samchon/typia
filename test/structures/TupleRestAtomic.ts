@@ -1,10 +1,11 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type TupleRestAtomic = [boolean, number, ...string[]];
 export namespace TupleRestAtomic {
     export function generate(): TupleRestAtomic {
-        return [false, 1, ...new Array(3).fill("").map(RandomGenerator.string)];
+        return [false, 1, ...new Array(3).fill("").map(TestRandomGenerator.string)];
     }
 
     export const SPOILERS: Spoiler<TupleRestAtomic>[] = [

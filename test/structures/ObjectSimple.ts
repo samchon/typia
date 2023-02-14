@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type ObjectSimple = ObjectSimple.IBox3D;
@@ -17,9 +18,9 @@ export namespace ObjectSimple {
 
     export function generate(): ObjectSimple {
         const point = (): IPoint3D => ({
-            x: RandomGenerator.integer(),
-            y: RandomGenerator.integer(),
-            z: RandomGenerator.integer(),
+            x: TestRandomGenerator.integer(),
+            y: TestRandomGenerator.integer(),
+            z: TestRandomGenerator.integer(),
         });
         return {
             scale: point(),

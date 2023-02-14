@@ -7,9 +7,9 @@ import { application_default } from "./application_default";
 export const application_number = (
     nullable: boolean,
     attribute: IJsonSchema.IAttribute,
-): IJsonSchema.INumber => {
-    const output: IJsonSchema.INumber = {
-        type: "number",
+): IJsonSchema.INumber | IJsonSchema.IInteger => {
+    const output: IJsonSchema.INumber | IJsonSchema.IInteger = {
+        type: "number" as "number" | "integer",
         nullable,
         ...attribute,
     };
@@ -23,16 +23,10 @@ export const application_number = (
         // RANGE TAG
         else if (tag.kind === "minimum") output.minimum = tag.value;
         else if (tag.kind === "maximum") output.maximum = tag.value;
-        else if (tag.kind === "range") {
-            if (tag.minimum !== undefined)
-                if (tag.minimum.include === true)
-                    output.minimum = tag.minimum.value;
-                else output.exclusiveMinimum = tag.minimum.value;
-            if (tag.maximum !== undefined)
-                if (tag.maximum.include === true)
-                    output.maximum = tag.maximum.value;
-                else output.exclusiveMaximum = tag.maximum.value;
-        }
+        else if (tag.kind === "exclusiveMinimum")
+            output.exclusiveMinimum = tag.value;
+        else if (tag.kind === "exclusiveMaximum")
+            output.exclusiveMaximum = tag.value;
         // MULTIPLE-OF
         else if (tag.kind === "multipleOf") output.multipleOf = tag.value;
     }

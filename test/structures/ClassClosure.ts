@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type ClassClosure = ClassClosure.Something;
@@ -13,7 +14,7 @@ export namespace ClassClosure {
     }
 
     export function generate(): ClassClosure {
-        return new Something(RandomGenerator.string());
+        return new Something(TestRandomGenerator.string());
     }
 
     export const SPOILERS: Spoiler<ClassClosure>[] = [

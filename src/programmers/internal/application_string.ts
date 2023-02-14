@@ -28,14 +28,6 @@ export const application_string = (
         // RANGE
         if (tag.kind === "minLength") output.minLength = tag.value;
         else if (tag.kind === "maxLength") output.maxLength = tag.value;
-        else if (tag.kind === "length") {
-            if (tag.minimum !== undefined)
-                output.minLength =
-                    tag.minimum.value + (tag.minimum.include ? 0 : 1);
-            if (tag.maximum !== undefined)
-                output.maxLength =
-                    tag.maximum.value - (tag.maximum.include ? 0 : 1);
-        }
         // FORMAT AND PATTERN
         else if (tag.kind === "format") output.format = tag.value;
         else if (tag.kind === "pattern") output.pattern = tag.value;

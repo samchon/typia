@@ -12,12 +12,14 @@ import { CreateCloneTransformer } from "./features/miscellaneous/CreateCloneTran
 import { CreateIsCloneTransformer } from "./features/miscellaneous/CreateIsCloneTransformer";
 import { CreateIsPruneTransformer } from "./features/miscellaneous/CreateIsPruneTransformer";
 import { CreatePruneTransformer } from "./features/miscellaneous/CreatePruneTransformer";
+import { CreateRandomTransformer } from "./features/miscellaneous/CreateRandomGenerator";
 import { CreateValidateCloneTransformer } from "./features/miscellaneous/CreateValidateCloneTransformer";
 import { CreateValidatePruneTransformer } from "./features/miscellaneous/CreateValidatePruneTransformer";
 import { IsCloneTransformer } from "./features/miscellaneous/IsCloneTransformer";
 import { IsPruneTransformer } from "./features/miscellaneous/IsPruneTransformer";
 import { MetadataTransformer } from "./features/miscellaneous/MetadataTransformer";
 import { PruneTransformer } from "./features/miscellaneous/PruneTransformer";
+import { RandomTransformer } from "./features/miscellaneous/RandomTransformer";
 import { ValidateCloneTransformer } from "./features/miscellaneous/ValidateCloneTransformer";
 import { ValidatePruneTransformer } from "./features/miscellaneous/ValidatePruneTransformer";
 import { AssertParseTransformer } from "./features/parsers/AssertParseTransformer";
@@ -112,6 +114,7 @@ const FUNCTORS: Record<string, () => Task> = {
 
     // MISC
     metadata: () => MetadataTransformer.transform,
+    random: () => RandomTransformer.transform,
 
     clone: () => CloneTransformer.transform,
     assertClone: () => AssertCloneTransformer.transform,
@@ -149,6 +152,7 @@ const FUNCTORS: Record<string, () => Task> = {
     createValidateStringify: () => CreateValidateStringifyTransformer.transform,
 
     // MISC
+    createRandom: () => CreateRandomTransformer.transform,
     createClone: () => CreateCloneTransformer.transform,
     createAssertClone: () => CreateAssertCloneTransformer.transform,
     createIsClone: () => CreateIsCloneTransformer.transform,

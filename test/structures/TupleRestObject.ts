@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type TupleRestObject = [boolean, number, ...TupleRestObject.IObject[]];
@@ -12,7 +13,7 @@ export namespace TupleRestObject {
             false,
             1,
             ...new Array(3).fill("").map(() => ({
-                value: RandomGenerator.string(),
+                value: TestRandomGenerator.string(),
             })),
         ];
     }

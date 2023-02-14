@@ -1,8 +1,8 @@
 import { v4 } from "uuid";
 
 import { ArrayUtil } from "../../src/utils/ArrayUtil";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
 
-import { RandomGenerator } from "../internal/RandomGenerator";
 import { Spoiler } from "../internal/Spoiler";
 
 export interface DynamicTree {
@@ -22,7 +22,7 @@ export namespace DynamicTree {
             children: {},
         };
         if (level < limit)
-            ArrayUtil.repeat(RandomGenerator.integer(2, 5), () => {
+            ArrayUtil.repeat(TestRandomGenerator.integer(2, 5), () => {
                 const child: DynamicTree = create(limit, level + 1);
                 tree.children[child.id] = child;
             });

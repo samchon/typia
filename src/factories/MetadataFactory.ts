@@ -3,8 +3,6 @@ import ts from "typescript";
 import { Metadata } from "../metadata/Metadata";
 import { explore_metadata } from "./internal/metadata/explore_metadata";
 
-import { ArrayUtil } from "../utils/ArrayUtil";
-
 import { MetadataCollection } from "./MetadataCollection";
 
 export namespace MetadataFactory {
@@ -27,21 +25,27 @@ export namespace MetadataFactory {
 
         // FIND RECURSIVE OBJECTS
         for (const object of collection.objects())
-            object.recursive = object.properties.some(
-                (prop) =>
-                    ArrayUtil.has(
-                        prop.value.objects,
-                        (elem) => elem.name === object.name,
-                    ) ||
-                    prop.value.arrays.some((meta) =>
-                        ArrayUtil.has(
-                            meta.objects,
-                            (elem) => elem.name === object.name,
-                        ),
-                    ),
+            object.recursive = object.properties.some((prop) =>
+                isRecursive(object.name, prop.value),
             );
 
         // RETURNS
         return metadata;
+    }
+
+    function isRecursive(name: string, meta: Metadata): boolean {
+        const similar = (str: string) =>
+            name === str ||
+            name.indexOf(`<${str},`) !== -1 ||
+            name.indexOf(`, ${str}>`) !== -1 ||
+            name.indexOf(`, ${str},`) !== -1;
+        return (
+            meta.objects.some((obj) => similar(obj.name)) ||
+            meta.arrays.some((arr) => isRecursive(name, arr)) ||
+            meta.tuples.some((tuple) =>
+                tuple.some((m) => isRecursive(name, m.rest ?? m)),
+            ) ||
+            meta.maps.some((map) => isRecursive(name, map.value))
+        );
     }
 }

@@ -1,4 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+
 import { Spoiler } from "../internal/Spoiler";
 
 export type ArrayRecursiveUnionExplicit = ArrayRecursiveUnionExplicit.IBucket[];
@@ -95,21 +96,21 @@ export namespace ArrayRecursiveUnionExplicit {
     }
     function generate_image_file(): IImageFile {
         return {
-            width: RandomGenerator.integer(),
-            height: RandomGenerator.integer(),
-            url: RandomGenerator.string(),
+            width: TestRandomGenerator.integer(),
+            height: TestRandomGenerator.integer(),
+            url: TestRandomGenerator.string(),
             ...generate_file("jpg"),
         };
     }
     function generate_text_file(): ITextFile {
         return {
-            content: RandomGenerator.string(),
+            content: TestRandomGenerator.string(),
             ...generate_file("txt"),
         };
     }
     function generate_zip_file(): IZipFile {
         return {
-            count: RandomGenerator.integer(),
+            count: TestRandomGenerator.integer(),
             ...generate_file("zip"),
         };
     }
@@ -123,16 +124,16 @@ export namespace ArrayRecursiveUnionExplicit {
 
     function generate_bucket<Type extends string>(type: Type) {
         return {
-            id: RandomGenerator.integer(),
-            name: RandomGenerator.string(),
-            path: RandomGenerator.string(),
+            id: TestRandomGenerator.integer(),
+            name: TestRandomGenerator.string(),
+            path: TestRandomGenerator.string(),
             type,
         };
     }
     function generate_file<Extension extends string>(extension: Extension) {
         return {
             extension,
-            size: RandomGenerator.integer(),
+            size: TestRandomGenerator.integer(),
             ...generate_bucket("file"),
         };
     }
