@@ -1,4 +1,4 @@
-import typia from "../../src";
+import typia from "typia";
 
 type PrefixedString = `some_value/${string}`;
 

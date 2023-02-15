@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { ToJsonArray } from "../../structures/ToJsonArray";
 import { _test_isStringify } from "../internal/_test_isStringify";
 

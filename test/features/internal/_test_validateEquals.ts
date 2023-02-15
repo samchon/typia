@@ -1,7 +1,7 @@
-import { Escaper } from "../../../src/utils/Escaper";
+import typia from "typia";
+import { IValidation } from "typia/lib/IValidation";
 
-import typia from "../../../src";
-import { IValidation } from "../../../src/IValidation";
+import { Escaper } from "typia/lib/utils/Escaper";
 
 export function _test_validateEquals<T>(
     name: string,

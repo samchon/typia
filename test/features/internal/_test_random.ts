@@ -1,6 +1,6 @@
-import { ArrayUtil } from "../../../src/utils/ArrayUtil";
+import { Primitive } from "typia/lib/Primitive";
 
-import { Primitive } from "../../../src/Primitive";
+import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
 export function _test_random<T>(
     _name: string,

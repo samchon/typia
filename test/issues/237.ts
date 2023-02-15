@@ -1,4 +1,4 @@
-import { equals, is } from "../../src";
+import { equals, is } from "typia";
 
 const enum LanguageCode {
     Arabic = "ar",

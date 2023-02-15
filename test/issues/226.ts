@@ -1,4 +1,4 @@
-import typia from "../../src";
+import typia from "typia";
 
 type DeepPartial<T> = T extends object
     ? {

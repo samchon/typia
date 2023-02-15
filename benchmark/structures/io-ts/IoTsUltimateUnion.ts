@@ -1,8 +1,5 @@
 import * as t from "io-ts";
-
-import { IJsonApplication } from "../../../src/schemas/IJsonApplication";
-import { IJsonComponents } from "../../../src/schemas/IJsonComponents";
-import { IJsonSchema } from "../../../src/schemas/IJsonSchema";
+import { IJsonApplication, IJsonComponents, IJsonSchema } from "typia";
 
 const Schema: t.Type<IJsonSchema> = t.recursion(
     "Schema",

@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { DynamicTree } from "../../structures/DynamicTree";
 import { _test_clone } from "../internal/_test_clone";
 

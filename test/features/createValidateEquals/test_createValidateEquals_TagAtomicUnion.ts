@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 import { _test_validateEquals } from "../internal/_test_validateEquals";
 

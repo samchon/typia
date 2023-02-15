@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 import { _test_stringify } from "../internal/_test_stringify";
 

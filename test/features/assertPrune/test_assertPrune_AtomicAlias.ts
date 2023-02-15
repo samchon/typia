@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { AtomicAlias } from "../../structures/AtomicAlias";
 import { _test_assertPrune } from "../internal/_test_assertPrune";
 

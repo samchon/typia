@@ -1,9 +1,9 @@
 import { v4 } from "uuid";
 
-import { ArrayUtil } from "../../src/utils/ArrayUtil";
-import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
 import { Spoiler } from "../internal/Spoiler";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
 
 export interface DynamicTree {
     id: string;

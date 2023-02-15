@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { UltimateUnion } from "../../structures/UltimateUnion";
 import { _test_validate } from "../internal/_test_validate";
 

@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 import { _test_validateEquals } from "../internal/_test_validateEquals";
 

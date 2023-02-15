@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 import { _test_isPrune } from "../internal/_test_isPrune";
 

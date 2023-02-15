@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { ObjectTuple } from "../../structures/ObjectTuple";
 import { _test_assertParse } from "../internal/_test_assertParse";
 

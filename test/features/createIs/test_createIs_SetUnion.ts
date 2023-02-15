@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { SetUnion } from "../../structures/SetUnion";
 import { _test_is } from "../internal/_test_is";
 

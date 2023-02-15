@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { ArrayAny } from "../../structures/ArrayAny";
 import { _test_isParse } from "../internal/_test_isParse";
 

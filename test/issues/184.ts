@@ -1,4 +1,4 @@
-import typia from "../../src/index";
+import typia from "typia/lib/index";
 
 const value: string | number = "something" as any;
 if (typia.is<string>(value)) {

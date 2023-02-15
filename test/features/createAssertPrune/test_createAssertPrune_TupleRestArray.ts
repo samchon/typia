@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { TupleRestArray } from "../../structures/TupleRestArray";
 import { _test_assertPrune } from "../internal/_test_assertPrune";
 

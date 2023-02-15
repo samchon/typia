@@ -49,8 +49,8 @@ Note that, the special functions starting from the prefix `test_` must be `expor
 When you detect an error, then throw exception such below:
 
 ```typescript
-import typia from "../../../src";
-import { RandomGenerator } from "../../src/utils/RandomGenerator";
+import typia from "typia"
+import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
 
 export function test_stringify_object_recursive(): void
 {

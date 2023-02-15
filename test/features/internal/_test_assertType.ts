@@ -1,4 +1,5 @@
-import { TypeGuardError } from "../../../src";
+import { TypeGuardError } from "typia";
+
 import { Spoiler } from "../../internal/Spoiler";
 
 export function _test_assertType<T>(

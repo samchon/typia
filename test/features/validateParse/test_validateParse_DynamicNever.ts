@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { DynamicNever } from "../../structures/DynamicNever";
 import { _test_validateParse } from "../internal/_test_validateParse";
 

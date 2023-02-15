@@ -1,6 +1,6 @@
-import { IJsonSchema } from "../../src/schemas/IJsonSchema";
+import typia from "typia";
 
-import typia from "../../src";
+import { IJsonSchema } from "typia/lib/schemas/IJsonSchema";
 
 const assert = (input: IJsonSchema) => typia.assert(input);
 const is = (input: IJsonSchema) => typia.is(input);

@@ -1,9 +1,11 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { FunctionalValueUnion } from "../../structures/FunctionalValueUnion";
 import { _test_validateEquals } from "../internal/_test_validateEquals";
 
-export const test_createValidateEquals_FunctionalValueUnion = _test_validateEquals(
-    "FunctionalValueUnion",
-    FunctionalValueUnion.generate,
-    typia.createValidateEquals<FunctionalValueUnion>(),
-);
+export const test_createValidateEquals_FunctionalValueUnion =
+    _test_validateEquals(
+        "FunctionalValueUnion",
+        FunctionalValueUnion.generate,
+        typia.createValidateEquals<FunctionalValueUnion>(),
+    );

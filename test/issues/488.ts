@@ -1,6 +1,5 @@
 import { DocumentType, getModelForClass, prop } from "@typegoose/typegoose";
-
-import typia from "../../src";
+import typia from "typia";
 
 class KitchenClass {
     @prop()

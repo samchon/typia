@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { TagPattern } from "../../structures/TagPattern";
 import { _test_prune } from "../internal/_test_prune";
 

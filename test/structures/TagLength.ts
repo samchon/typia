@@ -1,4 +1,4 @@
-import { ArrayUtil } from "../../src/utils/ArrayUtil";
+import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
 import { Spoiler } from "../internal/Spoiler";
 import { TestRandomGenerator } from "../internal/TestRandomGenerator";
