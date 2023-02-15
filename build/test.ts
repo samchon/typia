@@ -60,7 +60,7 @@ function script(
 ): string {
     const common: string = `_test_${feat.method}`;
     const elements: Array<string | null> = [
-        `import typia from "../../../src";`,
+        `import typia from "typia"`,
         `import { ${struct.name} } from "../../structures/${struct.name}";`,
         `import { ${common} } from "../internal/${common}";`,
         "",

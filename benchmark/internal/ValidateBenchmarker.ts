@@ -1,7 +1,6 @@
 import benchmark from "benchmark";
 import { output } from "cli";
-
-import typia from "../../src";
+import typia from "typia";
 
 export namespace ValidateBenchmarker {
     export interface IOutput<Components extends "name" | string> {
