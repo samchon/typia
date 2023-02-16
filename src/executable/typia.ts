@@ -45,7 +45,10 @@ async function setup(): Promise<void> {
     if (args.compiler === "ts-patch") {
         await pack.save((data) => {
             data.scripts ??= {};
-            if (typeof data.scripts.prepare === "string")
+            if (
+                typeof data.scripts.prepare === "string" &&
+                data.scripts.prepare.indexOf("ts-patch install") === -1
+            )
                 data.scripts.prepare =
                     "ts-patch install && " + data.scripts.prepare;
             else data.scripts.prepare = "ts-patch install";
