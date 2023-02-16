@@ -1,9 +1,9 @@
-import typia from "typia";
-
+import typia from "typia"
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 import { _test_application } from "../../internal/_test_application";
 
-export const test_application_ajv_ArrayHierarchical = _test_application("ajv")(
-    "ArrayHierarchical",
-    typia.application<[ArrayHierarchical], "ajv">(),
-);
+export const test_application_ajv_ArrayHierarchical = 
+    _test_application("ajv")(
+        "ArrayHierarchical",
+        typia.application<[ArrayHierarchical], "ajv">(),
+    );
