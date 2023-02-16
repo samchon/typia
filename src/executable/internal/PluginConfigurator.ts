@@ -14,6 +14,7 @@ export namespace PluginConfigurator {
         const installed: boolean = pack.install({
             dev: true,
             modulo: "comment-json",
+            version: "4.2.3",
             silent: true,
         });
 
