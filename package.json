@@ -23,7 +23,7 @@
     "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
     "prettier": "prettier  --write ./**/*.ts",
     "test": "node bin/test",
-    "test:generate": "ts-node -P test/tsconfig.json build/test.ts",
+    "test:generate": "ts-node -P build/tsconfig.json -C ttypescript build/test.ts",
     "test:manual": "node test/manual",
     "test:application:replace": "node test/features/application/replace && npm run prettier"
   },
