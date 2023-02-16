@@ -18,6 +18,7 @@ export namespace ArgumentParser {
             commander: pack.install({
                 dev: true,
                 modulo: "commander",
+                version: "10.0.0",
                 silent: true,
             }),
             inquirer: pack.install({
