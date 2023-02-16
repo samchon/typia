@@ -67,7 +67,7 @@ npx typia setup
 
 Just type `npx typia setup`, that's all.
 
-If you've installed [ttypescript](https://github.com/cevek/ttypescript) build during setup, you have to compile `typia` utilization code through `ttsc` command instead of `tsc`. Otherwise, you've chosen [ts-patch](https://github.com/nonara/ts-patch), you can use original `tsc` command.
+If you've installed [ttypescript](https://github.com/cevek/ttypescript) during setup, you should compile `typia` utilization code through `ttsc` command, instead of `tsc`. 
 
 ```bash
 # COMPILE THROUGH TTYPESCRIPT
@@ -75,6 +75,20 @@ npx ttsc
 
 # RUN TS-NODE WITH TTYPESCRIPT
 npx ts-node -C ttypescript src/index.ts
+```
+
+Otherwise, you've chosen [ts-patch](https://github.com/nonara/ts-patch), you can use original `tsc` command. However, [ts-patch](https://github.com/nonara/ts-patch) hacks `node_modules/typescript` source code. Also, whenever update `typescript` version, you've to run `npm run prepare` command repeatedly.
+
+By the way, when using `@nest/cli`, you must just choose [ts-patch](https://github.com/nonara/ts-patch)
+
+```bash
+# USE ORIGINAL TSC COMMAND
+tsc
+npx ts-node src/index.ts
+
+# WHENVER UPDATE
+npm install --save-dev typescript@latest
+npm run prepare
 ```
 
 ### Manual Setup
