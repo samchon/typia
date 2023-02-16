@@ -24,9 +24,9 @@ export function assertStringify<T>(input: T): string; // safe and faster
     // +) stringify, isStringify, validateStringify
 
 // MISC
-export function random<T>(): T; // generate random data
-export function clone<T>(input: T): Primitive<T>;
-export function prune<T extends object>(input: T): void;
+export function random<T>(): Primitive<T>; // generate random data
+export function clone<T>(input: T): Primitive<T>; // hard copy
+export function prune<T extends object>(input: T): void; // erase extra props
     // +) isClone, assertClone, validateClone
     // +) isPrune, assertPrune, validatePrune
 ```
@@ -67,18 +67,7 @@ npx typia setup
 
 Just type `npx typia setup`, that's all.
 
-Also, you can specify package manager or target `tsconfig.json` file like below:
-
-```bash
-npx typia setup --manager npm
-npx typia setup --manager pnpm
-npx typia setup --manager yarn
-
-npx typia setup --project tsconfig.json
-npx typia setup --project tsconfig.test.json
-```
-
-After the setup, you can compile `typia` utilization code by using `ttsc` ([`ttypescript`](https://github.com/cevek/ttypescript)) command. If you want to run your TypeScript file directly through `ts-node`, add `-C ttypescript` argument like below:
+If you've installed [ttypescript](https://github.com/cevek/ttypescript) build during setup, you have to compile `typia` utilization code through `ttsc` command instead of `tsc`. Otherwise, you've chosen [ts-patch](https://github.com/nonara/ts-patch), you can use original `tsc` command.
 
 ```bash
 # COMPILE THROUGH TTYPESCRIPT
@@ -97,12 +86,12 @@ If you want to install and setup `typia` manually, read [Guide Documents - Setup
   - [vite](https://github.com/samchon/typia/wiki/Setup#vite)
   - [webpack](https://github.com/samchon/typia/wiki/Setup#webpack)
 
-Also, by [Guide Documents - Setup](https://github.com/samchon/typia/wiki/Setup) section, you can learn how to use pure TypeScript compiler `tsc` through [`ts-patch`](https://github.com/nonara/ts-patch), instead of using the `ttypescript` compiler with `ttsc` command.
-
 ### Vite
 When you want to setup `typia` on your frontend project with [`vite`](https://vitejs.dev/), just configure `vite.config.ts` like below.
 
-For reference, don't forget running [Setup Wizard](#setup-wizard) before.
+Also, don't forget running [Setup Wizard](#setup-wizard) before.
+
+If you've chosen [ts-patch](https://github.com/nonara/ts-patch) compiler, just call only `typescript()` function.
 
 ```typescript
 import { defineConfig } from "vite";
@@ -114,9 +103,12 @@ import ttsc from "ttypescript";
 export default defineConfig({
   plugins: [
     react(),
+    // when using "ttypescript"
     typescript({
       typescript: ttsc,
-    })
+    }),
+    // otherwise using "ts-patch"
+    typescript()
   ]
 });
 ```
@@ -218,9 +210,9 @@ export function createAssertStringify<T>(): (input: T) => string;
   - `assertParse()`: parse JSON string safely with type validation
   - `isStringify()`: maximum 10x faster JSON stringify fuction even type safe
 
-![JSON string conversion speed](https://github.com/samchon/typia/raw/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics/images/stringify.svg)
+![JSON string conversion speed](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/AMD%20Ryzen%207%206800HS%20with%20Radeon%20Graphics/images/stringify.svg)
 
-> Measured on [AMD R7 5800H](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics#stringify)
+> Measured on [AMD R7 6800HS](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%207%206800HS%20with%20Radeon%20Graphics)
 
 ### Miscellaneous
 ```typescript
