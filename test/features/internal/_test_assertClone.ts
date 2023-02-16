@@ -1,4 +1,5 @@
-import { Primitive, TypeGuardError } from "../../../src";
+import { Primitive, TypeGuardError } from "typia";
+
 import { Spoiler } from "../../internal/Spoiler";
 import { primitive_clone } from "../../internal/primitive_clone";
 import { primitive_equal_to } from "../../internal/primitive_equal_to";

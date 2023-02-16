@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { ClassClosure } from "../../structures/ClassClosure";
 import { _test_is } from "../internal/_test_is";
 

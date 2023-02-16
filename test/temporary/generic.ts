@@ -1,4 +1,4 @@
-// import typia from "../../src";
+// import typia from "typia"
 // import tis from "typescript-is";
 
 // function generic<T extends { name: string }>(input: T): void {

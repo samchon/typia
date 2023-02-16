@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { TagObjectUnion } from "../../structures/TagObjectUnion";
 import { _test_clone } from "../internal/_test_clone";
 

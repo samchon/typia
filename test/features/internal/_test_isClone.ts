@@ -1,4 +1,5 @@
-import { Primitive } from "../../../src/Primitive";
+import { Primitive } from "typia/lib/Primitive";
+
 import { Spoiler } from "../../internal/Spoiler";
 import { primitive_clone } from "../../internal/primitive_clone";
 import { primitive_equal_to } from "../../internal/primitive_equal_to";

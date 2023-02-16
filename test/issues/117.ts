@@ -1,4 +1,4 @@
-import typia from "../../src";
+import typia from "typia";
 
 function test<T extends object>(
     array: T,

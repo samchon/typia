@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { FunctionalProperty } from "../../structures/FunctionalProperty";
 import { _test_assert } from "../internal/_test_assert";
 

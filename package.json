@@ -10,11 +10,11 @@
   "scripts": {
     "benchmark": "npm run build:benchmark && node measure/benchmark",
     "build": "rimraf lib && ttsc --removeComments --declaration false && ttsc --emitDeclarationOnly",
-    "build:test": "rimraf bin && ttsc -p tsconfig.test.json",
-    "build:benchmark": "rimraf measure && ttsc -p tsconfig.benchmark.json",
+    "build:test": "rimraf bin && ttsc -p test/tsconfig.json",
+    "build:benchmark": "rimraf measure && ttsc -p benchmark/tsconfig.json",
     "build:test:prettier": "npm run build:test && prettier --write ./bin/**/*.js",
     "dev": "rimraf lib && ttsc --watch",
-    "dev:test": "rimraf bin && ttsc -p tsconfig.test.json --watch",
+    "dev:test": "rimraf bin && ttsc -p test/tsconfig.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "issue": "node test/issue",
@@ -23,7 +23,7 @@
     "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
     "prettier": "prettier  --write ./**/*.ts",
     "test": "node bin/test",
-    "test:generate": "ts-node -P tsconfig.test.json build/test.ts",
+    "test:generate": "ts-node -P test/tsconfig.json build/test.ts",
     "test:manual": "node test/manual",
     "test:application:replace": "node test/features/application/replace && npm run prettier"
   },
@@ -107,6 +107,7 @@
     "ts-node": "^10.9.1",
     "ttypescript": "^1.5.15",
     "typescript": "^4.9.4",
+    "typescript-transform-paths": "^3.4.6",
     "uuid": "^8.3.2",
     "zod": "^3.19.1"
   },

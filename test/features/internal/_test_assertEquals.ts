@@ -1,6 +1,6 @@
-import { Escaper } from "../../../src/utils/Escaper";
+import { TypeGuardError } from "typia";
 
-import { TypeGuardError } from "../../../src";
+import { Escaper } from "typia/lib/utils/Escaper";
 
 export function _test_assertEquals<T>(
     name: string,

@@ -1,6 +1,6 @@
 import fastify, { FastifyReply, FastifyRequest } from "fastify";
+import typia from "typia";
 
-import typia from "../../../src";
 import { ArrayHierarchical } from "../../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../../test/structures/ArrayRecursiveUnionExplicit";

@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 import { _test_validatePrune } from "../internal/_test_validatePrune";
 

@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { DynamicSimple } from "../../structures/DynamicSimple";
 import { _test_isParse } from "../internal/_test_isParse";
 

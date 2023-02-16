@@ -1,4 +1,4 @@
-import { type IValidation, validate } from "../../src";
+import { type IValidation, validate } from "typia";
 
 interface ISomething {
     id: string;

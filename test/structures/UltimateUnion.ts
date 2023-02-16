@@ -1,4 +1,5 @@
-import typia from "../../src";
+import typia from "typia";
+
 import { Spoiler } from "../internal/Spoiler";
 import { ArrayRecursiveUnionExplicit } from "./ArrayRecursiveUnionExplicit";
 import { ObjectUnionExplicit } from "./ObjectUnionExplicit";

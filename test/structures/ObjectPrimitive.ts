@@ -1,7 +1,7 @@
-import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+import { Primitive } from "typia/lib/Primitive";
 
-import { Primitive } from "../../src/Primitive";
 import { Spoiler } from "../internal/Spoiler";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
 
 export type ObjectPrimitive = Primitive<ObjectPrimitive.IArticle>;
 export namespace ObjectPrimitive {

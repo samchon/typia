@@ -1,4 +1,4 @@
-import typia from "../../../src";
+import typia from "typia";
 
 export function test_issue_438_primitve_object_type(): void {
     type X = object;

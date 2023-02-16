@@ -31,7 +31,10 @@
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
     // "moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
     // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
-    // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
+    "paths": {
+      "typia": ["../src"],
+      "typia/lib/*": ["../src/*"],
+    },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like `./node_modules/@types`. */
     // "types": [],                                      /* Specify type package names to be included without being referenced in a source file. */
@@ -50,7 +53,7 @@
     // "emitDeclarationOnly": true,                      /* Only output d.ts files and not JavaScript files. */
     // "sourceMap": true,                                /* Create source map files for emitted JavaScript files. */
     // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If `declaration` is true, also designates a file that bundles all .d.ts output. */
-    "outDir": "./bin",                                   /* Specify an output folder for all emitted files. */
+    "outDir": "../bin",                                   /* Specify an output folder for all emitted files. */
     // "removeComments": true,                           /* Disable emitting comments. */
     // "noEmit": true,                                   /* Disable emitting files from a compilation. */
     // "importHelpers": true,                            /* Allow importing helper functions from tslib once per project, instead of including them per-file. */
@@ -102,12 +105,13 @@
     "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
     "plugins": [
       { 
-        "transform": "./src/transform.ts", 
+        "transform": "../src/transform.ts", 
         "functional": true, 
         "numeric": true, 
         "finite": true,
       },
+      { "transform": "typescript-transform-paths" },
     ]
   },
-  "include": ["test", "src"]
+  "include": [".", "../src"]
 }

@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 import { _test_isParse } from "../internal/_test_isParse";
 

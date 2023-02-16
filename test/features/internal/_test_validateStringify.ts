@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { Spoiler } from "../../internal/Spoiler";
 import { primitive_equal_to } from "../../internal/primitive_equal_to";
 

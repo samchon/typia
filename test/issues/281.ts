@@ -1,8 +1,8 @@
 // import benchmark from "benchmark";
 
-// import { $guard } from "../../src/functional/$guard";
+// import { $guard } from "typia/lib/functional/$guard";
 
-// import typia from "../../src";
+// import typia from "typia"
 // import { ObjectHierarchical } from "../structures/ObjectHierarchical";
 // import { ObjectSimple } from "../structures/ObjectSimple";
 

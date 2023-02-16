@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { DynamicArray } from "../../structures/DynamicArray";
 import { _test_validate } from "../internal/_test_validate";
 

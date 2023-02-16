@@ -1,4 +1,4 @@
-import { RandomGenerator } from "../../src/utils/RandomGenerator";
+import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
 
 export const TestRandomGenerator = {
     ...RandomGenerator,

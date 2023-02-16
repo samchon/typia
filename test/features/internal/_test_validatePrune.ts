@@ -1,4 +1,5 @@
-import { IValidation, assert } from "../../../src";
+import { IValidation, assert } from "typia";
+
 import { Spoiler } from "../../internal/Spoiler";
 
 export function _test_validatePrune<T>(

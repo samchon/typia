@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
 import { _test_isClone } from "../internal/_test_isClone";
 

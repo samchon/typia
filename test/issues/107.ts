@@ -1,4 +1,4 @@
-import typia from "../../src";
+import typia from "typia";
 
 type A = { a: number } | { a: { a: number } };
 const a: [A, A] = [

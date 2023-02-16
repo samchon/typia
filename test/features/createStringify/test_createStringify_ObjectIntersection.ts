@@ -1,4 +1,5 @@
-import typia from "../../../src";
+import typia from "typia";
+
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
 import { _test_stringify } from "../internal/_test_stringify";
 
