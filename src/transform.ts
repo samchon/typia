@@ -4,7 +4,7 @@ import { FileTransformer } from "./transformers/FileTransformer";
 import { IProject } from "./transformers/IProject";
 import { ITransformOptions } from "./transformers/ITransformOptions";
 
-export default function transform(
+export function transform(
     program: ts.Program,
     options?: ITransformOptions,
 ): ts.TransformerFactory<ts.SourceFile> {
@@ -18,3 +18,4 @@ export default function transform(
     return (context) => (file) =>
         FileTransformer.transform(project, context, file);
 }
+export default transform;
