@@ -1,8 +1,8 @@
 import { TSchema } from "@sinclair/typebox";
 import { TypeCompiler } from "@sinclair/typebox/compiler";
 import Ajv from "ajv";
+import typia from "typia";
 
-import typia from "../../src";
 // PURE TYPESCRIPT TYPES
 import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
