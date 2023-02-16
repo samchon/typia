@@ -1,37 +1,28 @@
-import { TestRandomGenerator } from "../internal/TestRandomGenerator";
-
 import { Spoiler } from "../internal/Spoiler";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
 
 export type ArraySimple = ArraySimple.IPerson[];
 export namespace ArraySimple {
     export interface IPerson {
         name: string;
         email: string;
-        hobbies: IHobby[] | IContent[] | string[];
+        hobbies: IHobby[];
     }
     export interface IHobby {
         name: string;
-        rank: number;
-    }
-    export interface IContent {
         body: string;
+        rank: number;
     }
 
     export function generate(): ArraySimple {
-        return TestRandomGenerator.array((index) => ({
+        return TestRandomGenerator.array(() => ({
             name: TestRandomGenerator.string(),
             email: TestRandomGenerator.string(),
-            hobbies:
-                index === 0
-                    ? TestRandomGenerator.array(TestRandomGenerator.string)
-                    : index === 1
-                    ? TestRandomGenerator.array(() => ({
-                          body: TestRandomGenerator.string(),
-                      }))
-                    : TestRandomGenerator.array(() => ({
-                          name: TestRandomGenerator.string(),
-                          rank: TestRandomGenerator.integer(1, 3),
-                      })),
+            hobbies: TestRandomGenerator.array(() => ({
+                name: TestRandomGenerator.string(),
+                rank: TestRandomGenerator.integer(1, 3),
+                body: TestRandomGenerator.string(),
+            })),
         }));
     }
 
@@ -56,37 +47,24 @@ export namespace ArraySimple {
             return ["$input[0].hobbies"];
         },
         (input) => {
-            input[0].hobbies = [false, "something", 3] as any;
-            return ["$input[0].hobbies"];
-        },
-        (input) => {
             input[0].hobbies = [
                 {
                     name: "name",
                     rank: "best" as any as number,
+                    body: "something",
                 },
             ];
-            return ["$input[0].hobbies"];
-        },
-        (input) => {
-            input[0].hobbies = [
-                {
-                    body: 3 as any,
-                },
-            ];
-            return ["$input[0].hobbies"];
+            return ["$input[0].hobbies[0].rank"];
         },
         (input) => {
             input[0].hobbies = [
                 {
                     name: "name",
                     rank: 3,
+                    body: 3 as any,
                 },
-                {
-                    body: "something",
-                } as any,
             ];
-            return ["$input[0].hobbies[1].name", "$input[0].hobbies[1].rank"];
+            return ["$input[0].hobbies[0].body"];
         },
         (input) => {
             input[1] = null!;

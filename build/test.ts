@@ -5,6 +5,12 @@ import { TestApplicationGenerator } from "./internal/TestApplicationGenerator";
 import { TestFeature } from "./internal/TestFeature";
 import { TestStructure } from "./internal/TestStructure";
 
+const emit = process.emit;
+(process as any).emit = function (name: string, ...args: any[]) {
+    if (name === "warning") return false;
+    return emit.apply(process, [name, ...args] as any);
+};
+
 async function load(): Promise<TestStructure<any>[]> {
     const path: string = `${__dirname}/../test/structures`;
     const output: TestStructure<any>[] = [];
@@ -28,7 +34,7 @@ async function generate(
     create: boolean,
 ): Promise<void> {
     const method: string = create
-        ? `create${feat.method[0].toUpperCase()}${feat.method.substring(1)}`
+        ? `create${feat.method[0]!.toUpperCase()}${feat.method.substring(1)}`
         : feat.method;
     const path: string = `${__dirname}/../test/features/${method}`;
 
@@ -60,7 +66,8 @@ function script(
 ): string {
     const common: string = `_test_${feat.method}`;
     const elements: Array<string | null> = [
-        `import typia from "typia"`,
+        `import typia from "typia";`,
+        "",
         `import { ${struct.name} } from "../../structures/${struct.name}";`,
         `import { ${common} } from "../internal/${common}";`,
         "",
@@ -80,7 +87,7 @@ function script(
         feat.random
             ? `    typia.createAssert<typia.Primitive<${struct.name}>>(),`
             : null,
-        `);`,
+        `);\n`,
     ];
     return elements.filter((e) => e !== null).join("\n");
 }
