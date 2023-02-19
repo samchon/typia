@@ -2,13 +2,13 @@ import type Comment from "comment-json";
 import fs from "fs";
 import path from "path";
 
-import { ArgumentParser } from "./ArgumentParser";
+import { TypiaSetupWizard } from "../TypiaSetupWizard";
 import { PackageManager } from "./PackageManager";
 
 export namespace PluginConfigurator {
     export async function configure(
         pack: PackageManager,
-        args: ArgumentParser.IArguments,
+        args: TypiaSetupWizard.IArguments,
     ): Promise<void> {
         // INSTALL COMMENT-JSON
         const installed: boolean = pack.install({
@@ -39,7 +39,7 @@ export namespace PluginConfigurator {
 
     async function _Configure(
         pack: PackageManager,
-        args: ArgumentParser.IArguments,
+        args: TypiaSetupWizard.IArguments,
     ): Promise<void> {
         // GET COMPILER-OPTIONS
         const Comment: typeof import("comment-json") = await import(

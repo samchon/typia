@@ -25,7 +25,7 @@ export function assertStringify<T>(input: T): string; // safe and faster
 
 // MISC
 export function random<T>(): Primitive<T>; // generate random data
-export function clone<T>(input: T): Primitive<T>; // hard copy
+export function clone<T>(input: T): Primitive<T>; // deep clone
 export function prune<T extends object>(input: T): void; // erase extra props
     // +) isClone, assertClone, validateClone
     // +) isPrune, assertPrune, validatePrune
