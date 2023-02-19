@@ -28,7 +28,7 @@ export function assertStringify<T>(input: T): string; // safe and faster
 
 // MISC
 export function random<T>(): Primitive<T>; // generate random data
-export function clone<T>(input: T): Primitive<T>; // hard copy
+export function clone<T>(input: T): Primitive<T>; // deep clone
 export function prune<T extends object>(input: T): void; // erase extra props
     // +) isClone, assertClone, validateClone
     // +) isPrune, assertPrune, validatePrune
@@ -236,6 +236,8 @@ export function createAssertStringify<T>(): (input: T) => string;
 export function random<T>(): Primitive<T>; // random data generator
 export function clone<T>(input: T): Primitive<T>; // deep copy
 export function prune<T>(input: T): void; // remove superfluous properties
+    // +) isClone, assertClone, validateClone
+    // +) isPrune, assertPrune, validatePrune
 ```
 
 When you need test data, just generate it through `typia.random<T>()`.
