@@ -10,6 +10,7 @@ export namespace RandomRanger {
     }
 
     export const length =
+        (coalesce: (method: string) => ts.Expression) =>
         (defs: IDefaults) =>
         (acc: length.IAccessors) =>
         (tags: IMetadataTag[]) => {
@@ -29,7 +30,7 @@ export namespace RandomRanger {
                 (props.maximum as number) += defs.gap;
 
             return ts.factory.createCallExpression(
-                ts.factory.createIdentifier("generator.integer"),
+                coalesce("integer"),
                 undefined,
                 [
                     ts.factory.createNumericLiteral(props.minimum),

@@ -1,4 +1,4 @@
-import typia, { IValidation, TypeGuardError } from "typia";
+import typia, { IValidation, Primitive } from "typia";
 
 import { Spoiler } from "../../internal/Spoiler";
 import { primitive_equal_to } from "../../internal/primitive_equal_to";
@@ -7,19 +7,20 @@ export const _test_validateParse =
     <T>(
         name: string,
         generator: () => T,
-        parser: (input: string) => IValidation<T>,
+        parser: (input: string) => IValidation<Primitive<T>>,
         spoilers?: Spoiler<T>[],
     ) =>
     () => {
         const data: T = generator();
         const string: string = JSON.stringify(data);
-        const valid: IValidation<T> = parser(string);
+        const expected: Primitive<T> = JSON.parse(string);
+        const valid: IValidation<Primitive<T>> = parser(string);
 
         if (valid.success === false)
             throw new Error(
                 `Bug on typia.validateParse(): failed to understand the ${name} type.`,
             );
-        else if (primitive_equal_to(data, valid.data) === false) {
+        else if (primitive_equal_to(expected, valid.data) === false) {
             throw new Error(
                 `Bug on typia.validateParse(): failed to understand the ${name} type.`,
             );
@@ -29,7 +30,9 @@ export const _test_validateParse =
         for (const spoil of spoilers ?? []) {
             const elem: T = generator();
             const expected: string[] = spoil(elem);
-            const valid: IValidation<T> = parser(JSON.stringify(elem));
+            const valid: IValidation<Primitive<T>> = parser(
+                JSON.stringify(elem),
+            );
 
             if (valid.success === true)
                 throw new Error(
