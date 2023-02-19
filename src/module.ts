@@ -3,6 +3,7 @@ import { Namespace } from "./functional/Namespace";
 import { IMetadataApplication } from "./metadata/IMetadataApplication";
 import { IJsonApplication } from "./schemas/IJsonApplication";
 
+import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
 import { Primitive } from "./Primitive";
 import { TypeGuardError } from "./TypeGuardError";
@@ -10,9 +11,10 @@ import { TypeGuardError } from "./TypeGuardError";
 export * from "./schemas/IJsonApplication";
 export * from "./schemas/IJsonComponents";
 export * from "./schemas/IJsonSchema";
+export * from "./IRandomGenerator";
+export * from "./IValidation";
 export * from "./Primitive";
 export * from "./TypeGuardError";
-export * from "./IValidation";
 
 /* ===========================================================
     SINGLE FUNCTIONS
@@ -853,11 +855,12 @@ export function metadata(): never {
  * would be generated instead.
  *
  * @template T Type of data to generate
+ * @param generator Random data generator
  * @return Randomly generated data
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function random(): never;
+export function random(generator?: Partial<IRandomGenerator>): never;
 
 /**
  * Generate random data.
@@ -870,11 +873,12 @@ export function random(): never;
  * would be generated instead.
  *
  * @template T Type of data to generate
+ * @param generator Random data generator
  * @return Randomly generated data
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function random<T>(): Primitive<T>;
+export function random<T>(generator?: Partial<IRandomGenerator>): Primitive<T>;
 
 /**
  * @internal
@@ -1466,12 +1470,12 @@ export function createIsParse(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsParse<T>(): (input: string) => T | null;
+export function createIsParse<T>(): (input: string) => Primitive<T> | null;
 
 /**
  * @internal
  */
-export function createIsParse<T>(): (input: string) => T | null {
+export function createIsParse<T>(): (input: string) => Primitive<T> | null {
     halt("createIsParse");
 }
 Object.assign(createIsParse, isParse);
@@ -1495,12 +1499,12 @@ export function createAssertParse(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertParse<T>(): (input: string) => T;
+export function createAssertParse<T>(): (input: string) => Primitive<T>;
 
 /**
  * @internal
  */
-export function createAssertParse<T>(): (input: string) => T {
+export function createAssertParse<T>(): (input: string) => Primitive<T> {
     halt("createAssertParse");
 }
 Object.assign(createAssertParse, assertParse);
@@ -1524,12 +1528,16 @@ export function createValidateParse(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateParse<T>(): (input: string) => IValidation<T>;
+export function createValidateParse<T>(): (
+    input: string,
+) => IValidation<Primitive<T>>;
 
 /**
  * @internal
  */
-export function createValidateParse<T>(): (input: string) => IValidation<T> {
+export function createValidateParse<T>(): (
+    input: string,
+) => IValidation<Primitive<T>> {
     halt("createValidateParse");
 }
 Object.assign(createValidateParse, validateParse);
@@ -1661,22 +1669,26 @@ Object.assign(createValidateStringify, validateStringify);
  * Creates a reusable {@link random} function.
  *
  * @danger You have to specify the generic argument `T`
+ * @param generator Random data generator
  * @return Nothing until specifying the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createRandom(): never;
+export function createRandom(generator?: Partial<IRandomGenerator>): never;
 
 /**
  * Creates a resuable {@link random} function.
  *
  * @template T Type of the input value
+ * @param generator Random data generator
  * @returns A reusable `random` function
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createRandom<T>(): () => Primitive<T>;
+export function createRandom<T>(
+    generator?: Partial<IRandomGenerator>,
+): () => Primitive<T>;
 
 /**
  * @internal

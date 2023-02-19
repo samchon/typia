@@ -1,81 +1,71 @@
-import type CommanderModule from "commander";
 import fs from "fs";
-import type * as InquirerModule from "inquirer";
 import path from "path";
 
-import { PackageManager } from "./PackageManager";
+import { ArgumentParser } from "./setup/ArgumentParser";
+import { CommandExecutor } from "./setup/CommandExecutor";
+import { PackageManager } from "./setup/PackageManager";
+import { PluginConfigurator } from "./setup/PluginConfigurator";
 
-export namespace ArgumentParser {
+export namespace TypiaSetupWizard {
     export interface IArguments {
         compiler: "ts-patch" | "ttypescript";
         manager: "npm" | "pnpm" | "yarn";
         project: string | null;
     }
 
-    export async function parse(pack: PackageManager): Promise<IArguments> {
-        // INSTALL TEMPORARY PACKAGES
-        const newbie = {
-            commander: pack.install({
-                dev: true,
-                modulo: "commander",
-                version: "10.0.0",
-                silent: true,
-            }),
-            inquirer: pack.install({
-                dev: true,
-                modulo: "inquirer",
-                version: "8.2.5",
-                silent: true,
-            }),
-        };
+    export async function setup(): Promise<void> {
+        console.log("----------------------------------------");
+        console.log(" Typia Setup Wizard");
+        console.log("----------------------------------------");
 
-        // TAKE OPTIONS
-        const output: IArguments | Error = await (async () => {
-            try {
-                return await _Parse(pack);
-            } catch (error) {
-                return error as Error;
-            }
+        // PREPARE ASSETS
+        const pack: PackageManager = await PackageManager.mount();
+        const args: IArguments = await ArgumentParser.parse(pack)(true)(
+            inquiry,
+        );
+
+        // INSTALL TYPESCRIPT
+        pack.install({ dev: true, modulo: "typescript" });
+        args.project ??= (() => {
+            CommandExecutor.run("npx tsc --init", false);
+            return (args.project = "tsconfig.json");
         })();
+        pack.install({ dev: true, modulo: "ts-node" });
 
-        // REMOVE TEMPORARY PACKAGES
-        if (newbie.commander) pack.erase({ modulo: "commander", silent: true });
-        if (newbie.inquirer) pack.erase({ modulo: "inquirer", silent: true });
+        // INSTALL COMPILER
+        pack.install({ dev: true, modulo: args.compiler });
+        if (args.compiler === "ts-patch") {
+            await pack.save((data) => {
+                data.scripts ??= {};
+                if (
+                    typeof data.scripts.prepare === "string" &&
+                    data.scripts.prepare.indexOf("ts-patch install") === -1
+                )
+                    data.scripts.prepare =
+                        "ts-patch install && " + data.scripts.prepare;
+                else data.scripts.prepare = "ts-patch install";
+            });
+            CommandExecutor.run("npm run prepare", false);
+        }
 
-        // RETURNS
-        if (output instanceof Error) throw output;
-        return output;
+        // INSTALL AND CONFIGURE TYPIA
+        pack.install({ dev: false, modulo: "typia" });
+        await PluginConfigurator.configure(pack, args);
     }
 
-    async function _Parse(pack: PackageManager): Promise<IArguments> {
+    const inquiry: ArgumentParser.Inquiry<IArguments> = async (
+        pack,
+        command,
+        prompt,
+        action,
+    ) => {
         // PREPARE ASSETS
-        const { createPromptModule }: typeof InquirerModule = await import(
-            path.join(pack.directory, "node_modules", "inquirer")
-        );
-        const { program }: typeof CommanderModule = await import(
-            path.join(pack.directory, "node_modules", "commander")
-        );
-
-        program.option("--compiler [compiler]", "compiler type");
-        program.option("--manager [manager", "package manager");
-        program.option("--project [project]", "tsconfig.json file location");
+        command.option("--compiler [compiler]", "compiler type");
+        command.option("--manager [manager", "package manager");
+        command.option("--project [project]", "tsconfig.json file location");
 
         // INTERNAL PROCEDURES
         const questioned = { value: false };
-        const action = (
-            closure: (options: Partial<IArguments>) => Promise<IArguments>,
-        ) => {
-            return new Promise<IArguments>((resolve, reject) => {
-                program.action(async (options) => {
-                    try {
-                        resolve(await closure(options));
-                    } catch (exp) {
-                        reject(exp);
-                    }
-                });
-                program.parseAsync().catch(reject);
-            });
-        };
         const select =
             (name: string) =>
             (message: string) =>
@@ -84,7 +74,7 @@ export namespace ArgumentParser {
             ): Promise<Choice> => {
                 questioned.value = true;
                 return (
-                    await createPromptModule()({
+                    await prompt()({
                         type: "list",
                         name: name,
                         message: message,
@@ -113,7 +103,7 @@ export namespace ArgumentParser {
             if (options.compiler === undefined) {
                 console.log(COMPILER_DESCRIPTION);
                 options.compiler = await select("compiler")(`Compiler`)(
-                    pack.data.scripts?.build === "nest build"
+                    is_nest_cli(pack)
                         ? ["ts-patch" as const, "ttypescript" as const]
                         : ["ttypescript" as const, "ts-patch" as const],
                 );
@@ -129,6 +119,14 @@ export namespace ArgumentParser {
             if (questioned.value) console.log("");
             return options as IArguments;
         });
+    };
+
+    function is_nest_cli(pack: PackageManager): boolean {
+        return (
+            (typeof pack.data.scripts?.build === "string" &&
+                pack.data.scripts.build.indexOf("nest build") !== -1) ||
+            fs.existsSync(path.join(pack.directory, "nest-cli.json"))
+        );
     }
 }
 
