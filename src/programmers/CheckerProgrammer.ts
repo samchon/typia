@@ -4,6 +4,7 @@ import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
 import { IMetadataTag } from "../metadata/IMetadataTag";
@@ -106,8 +107,7 @@ export namespace CheckerProgrammer {
         config: IConfig,
         importer: FunctionImporter,
     ) =>
-        FeatureProgrammer.generate_functors(
-            CONFIG(project, config, importer),
+        FeatureProgrammer.generate_functors(CONFIG(project, config, importer))(
             importer,
         );
 
@@ -126,6 +126,19 @@ export namespace CheckerProgrammer {
         importer: FunctionImporter,
     ): FeatureProgrammer.IConfig {
         const output: FeatureProgrammer.IConfig = {
+            types: {
+                input: () => TypeFactory.keyword("any"),
+                output: (type) =>
+                    ts.factory.createTypePredicateNode(
+                        undefined,
+                        "input",
+                        project.checker.typeToTypeNode(
+                            type,
+                            undefined,
+                            undefined,
+                        ),
+                    ),
+            },
             trace: config.trace,
             path: config.path,
             functors: config.functors,

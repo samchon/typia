@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 
 import { IProject } from "../transformers/IProject";
 
@@ -15,8 +16,21 @@ export namespace ValidateCloneProgrammer {
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [IdentifierFactory.parameter("input")],
-                undefined,
+                [
+                    IdentifierFactory.parameter(
+                        "input",
+                        TypeFactory.keyword("any"),
+                    ),
+                ],
+                ts.factory.createTypeReferenceNode("typia.IValidation", [
+                    ts.factory.createTypeReferenceNode("typia.Primitive", [
+                        project.checker.typeToTypeNode(
+                            type,
+                            undefined,
+                            undefined,
+                        ) ?? TypeFactory.keyword("any"),
+                    ]),
+                ]),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(
@@ -49,10 +63,13 @@ export namespace ValidateCloneProgrammer {
                     ),
                     StatementFactory.constant(
                         "output",
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("validate"),
-                            undefined,
-                            [ts.factory.createIdentifier("input")],
+                        ts.factory.createAsExpression(
+                            ts.factory.createCallExpression(
+                                ts.factory.createIdentifier("validate"),
+                                undefined,
+                                [ts.factory.createIdentifier("input")],
+                            ),
+                            TypeFactory.keyword("any"),
                         ),
                     ),
                     ts.factory.createIfStatement(

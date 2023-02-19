@@ -58,7 +58,11 @@ export namespace CallExpressionTransformer {
 
         // FILE PATH
         const file: string = path.resolve(declaration.getSourceFile().fileName);
-        if (file.indexOf(LIB_PATH) === -1 && file !== SRC_PATH)
+        if (
+            file.indexOf(LIB_PATH) === -1 &&
+            file !== SRC_PATH &&
+            file !== CLI_PATH
+        )
             return expression;
 
         //----
@@ -84,6 +88,9 @@ type Task = (
 
 const LIB_PATH = path.join("node_modules", "typia", "lib", "module.d.ts");
 const SRC_PATH = path.resolve(path.join(__dirname, "..", "module.ts"));
+const CLI_PATH = path.resolve(
+    path.join(__dirname, "..", "..", "..", "src", "module.ts"),
+);
 
 const FUNCTORS: Record<string, () => Task> = {
     //----

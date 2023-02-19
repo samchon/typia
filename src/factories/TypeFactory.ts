@@ -11,6 +11,7 @@ export namespace TypeFactory {
     export function isFunction(type: ts.Type): boolean {
         return getFunction(type) !== null;
     }
+
     function getFunction(type: ts.Type) {
         const node = type.symbol?.declarations?.[0];
         if (node === undefined) return null;
@@ -98,4 +99,31 @@ export namespace TypeFactory {
             ? explore_name(symbol.escapedName.toString(), parent)
             : "__type";
     }
+
+    export const keyword = (
+        type:
+            | "void"
+            | "any"
+            | "unknown"
+            | "boolean"
+            | "number"
+            | "bigint"
+            | "string",
+    ) => {
+        return ts.factory.createKeywordTypeNode(
+            type === "void"
+                ? ts.SyntaxKind.VoidKeyword
+                : type === "any"
+                ? ts.SyntaxKind.AnyKeyword
+                : type === "unknown"
+                ? ts.SyntaxKind.UnknownKeyword
+                : type === "boolean"
+                ? ts.SyntaxKind.BooleanKeyword
+                : type === "number"
+                ? ts.SyntaxKind.NumberKeyword
+                : type === "bigint"
+                ? ts.SyntaxKind.BigIntKeyword
+                : ts.SyntaxKind.StringKeyword,
+        );
+    };
 }

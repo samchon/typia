@@ -126,7 +126,9 @@ export namespace IsProgrammer {
                         }),
                         config.joiner.object(
                             input,
-                            feature_object_entries(config as any)(obj)(input),
+                            feature_object_entries(config as any)(importer)(
+                                obj,
+                            )(input),
                         ),
                     );
             }

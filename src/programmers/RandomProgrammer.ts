@@ -6,6 +6,7 @@ import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
 import { StatementFactory } from "../factories/StatementFactory";
 import { TemplateFactory } from "../factories/TemplateFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 
 import { IMetadataTag } from "../metadata/IMetadataTag";
 import { Metadata } from "../metadata/Metadata";
@@ -49,7 +50,18 @@ export namespace RandomProgrammer {
                 [
                     IdentifierFactory.parameter(
                         "generator",
-                        IdentifierFactory.join(modulo, "generator"),
+                        ts.factory.createTypeReferenceNode(
+                            "typia.IRandomGenerator",
+                        ),
+                        IdentifierFactory.join(
+                            ts.factory.createParenthesizedExpression(
+                                ts.factory.createAsExpression(
+                                    modulo,
+                                    TypeFactory.keyword("any"),
+                                ),
+                            ),
+                            "generator",
+                        ),
                     ),
                 ],
                 undefined,
@@ -77,12 +89,14 @@ export namespace RandomProgrammer {
                         [
                             IdentifierFactory.parameter(
                                 "recursive",
+                                undefined,
                                 ts.factory.createIdentifier(
                                     String(obj.recursive),
                                 ),
                             ),
                             IdentifierFactory.parameter(
                                 "depth",
+                                undefined,
                                 ts.factory.createNumericLiteral(0),
                             ),
                         ],
