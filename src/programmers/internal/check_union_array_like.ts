@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
+import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 
@@ -140,7 +141,12 @@ export const check_union_array_like =
                         ts.factory.createArrowFunction(
                             undefined,
                             undefined,
-                            [IdentifierFactory.parameter("value")],
+                            [
+                                IdentifierFactory.parameter(
+                                    "value",
+                                    TypeFactory.keyword("any"),
+                                ),
+                            ],
                             undefined,
                             undefined,
                             ts.factory.createStrictEquality(

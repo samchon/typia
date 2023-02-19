@@ -24,6 +24,7 @@ export namespace IdentifierFactory {
 
     export function parameter(
         name: string | ts.BindingName,
+        type?: ts.TypeNode,
         init?: ts.Expression,
     ) {
         if (ts.version >= "4.8")
@@ -32,7 +33,7 @@ export namespace IdentifierFactory {
                 undefined,
                 name,
                 undefined,
-                undefined,
+                type,
                 init,
             );
         // eslint-disable-next-line
@@ -42,7 +43,7 @@ export namespace IdentifierFactory {
             undefined,
             name,
             undefined,
-            undefined,
+            type,
             init,
         );
     }

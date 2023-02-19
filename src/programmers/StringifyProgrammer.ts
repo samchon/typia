@@ -4,6 +4,7 @@ import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
 import { IMetadataTag } from "../metadata/IMetadataTag";
@@ -374,7 +375,7 @@ export namespace StringifyProgrammer {
                                           decoder: decode(project, importer),
                                           trace: false,
                                           path: false,
-                                      })(obj)(input);
+                                      })(importer)(obj)(input);
                                   return StringifyJoiner.object(importer)(
                                       input,
                                       entries,
@@ -696,6 +697,12 @@ export namespace StringifyProgrammer {
         project: IProject,
         importer: FunctionImporter,
     ): FeatureProgrammer.IConfig => ({
+        types: {
+            input: (type) =>
+                project.checker.typeToTypeNode(type, undefined, undefined) ??
+                TypeFactory.keyword("any"),
+            output: () => TypeFactory.keyword("string"),
+        },
         functors: FUNCTORS,
         unioners: UNIONERS,
         trace: false,

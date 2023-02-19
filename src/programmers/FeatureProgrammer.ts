@@ -3,6 +3,7 @@ import ts from "typescript";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { StatementFactory } from "../factories/StatementFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
 import { IMetadataTag } from "../metadata/IMetadataTag";
@@ -22,6 +23,8 @@ export namespace FeatureProgrammer {
         PARAMETERS
     ----------------------------------------------------------- */
     export interface IConfig<Output extends ts.ConciseBody = ts.ConciseBody> {
+        types: IConfig.ITypes;
+
         /**
          * Prefix name of functions for specific object types.
          */
@@ -66,6 +69,11 @@ export namespace FeatureProgrammer {
         generator?: Partial<IConfig.IGenerator>;
     }
     export namespace IConfig {
+        export interface ITypes {
+            input: (type: ts.Type) => ts.TypeNode;
+            output: (type: ts.Type) => ts.TypeNode;
+        }
+
         export interface IObjector {
             /**
              * Type checker when union object type comes.
@@ -234,7 +242,7 @@ export namespace FeatureProgrammer {
             const functors: ts.VariableStatement[] =
                 config.generator?.functors !== undefined
                     ? config.generator.functors(collection)
-                    : generate_functors(config, importer)(collection);
+                    : generate_functors(config)(importer)(collection);
             const unioners: ts.VariableStatement[] =
                 config.generator?.unioners !== undefined
                     ? config.generator.unioners(collection)
@@ -244,8 +252,10 @@ export namespace FeatureProgrammer {
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                PARAMETERS(config)(ValueFactory.INPUT()),
-                undefined,
+                PARAMETERS(config)(config.types.input(type))(
+                    ValueFactory.INPUT(),
+                ),
+                config.types.output(type),
                 undefined,
                 ts.factory.createBlock(
                     [
@@ -262,14 +272,15 @@ export namespace FeatureProgrammer {
         };
 
     export const generate_functors =
-        (config: IConfig, importer: FunctionImporter) =>
+        (config: IConfig) =>
+        (importer: FunctionImporter) =>
         (collection: MetadataCollection) =>
             collection
                 .objects()
                 .map((obj, i) =>
                     StatementFactory.constant(
                         `${config.functors}${i}`,
-                        generate_object(config, importer)(obj),
+                        generate_object(config)(importer)(obj),
                     ),
                 );
 
@@ -284,24 +295,26 @@ export namespace FeatureProgrammer {
                     ),
                 );
 
-    function generate_object(config: IConfig, importer: FunctionImporter) {
-        if (config.path === true) importer.use("join");
-        return (obj: MetadataObject) =>
+    const generate_object =
+        (config: IConfig) =>
+        (importer: FunctionImporter) =>
+        (obj: MetadataObject) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                PARAMETERS(config)(ValueFactory.INPUT()),
+                PARAMETERS(config)(TypeFactory.keyword("any"))(
+                    ValueFactory.INPUT(),
+                ),
                 undefined,
                 undefined,
                 config.objector.joiner(
                     ts.factory.createIdentifier("input"),
-                    feature_object_entries(config)(obj)(
+                    feature_object_entries(config)(importer)(obj)(
                         ts.factory.createIdentifier("input"),
                     ),
                     obj,
                 ),
             );
-    }
 
     function generate_union(config: IConfig) {
         const explorer = UnionExplorer.object(config);
@@ -311,7 +324,9 @@ export namespace FeatureProgrammer {
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                PARAMETERS(config)(ValueFactory.INPUT()),
+                PARAMETERS(config)(TypeFactory.keyword("any"))(
+                    ValueFactory.INPUT(),
+                ),
                 undefined,
                 undefined,
                 explorer(
@@ -343,7 +358,12 @@ export namespace FeatureProgrammer {
         const rand: string = importer.increment().toString();
         const tail =
             config.path || config.trace
-                ? [IdentifierFactory.parameter("index" + rand)]
+                ? [
+                      IdentifierFactory.parameter(
+                          "index" + rand,
+                          TypeFactory.keyword("number"),
+                      ),
+                  ]
                 : [];
 
         return (
@@ -355,7 +375,13 @@ export namespace FeatureProgrammer {
             const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [IdentifierFactory.parameter("elem"), ...tail],
+                [
+                    IdentifierFactory.parameter(
+                        "elem",
+                        TypeFactory.keyword("any"),
+                    ),
+                    ...tail,
+                ],
                 undefined,
                 undefined,
                 config.decoder(
@@ -438,15 +464,27 @@ const INDEX_SYMBOL =
             return prev.substring(0, prev.length - 1) + tail.substring(1);
         return prev + ` + ${tail}`;
     };
-const PARAMETERS = (
-    props: Pick<CheckerProgrammer.IConfig, "path" | "trace">,
-) => {
-    const tail: ts.ParameterDeclaration[] = [];
-    if (props.path) tail.push(IdentifierFactory.parameter("path"));
-    if (props.trace) tail.push(IdentifierFactory.parameter("exceptionable"));
+const PARAMETERS =
+    (props: Pick<CheckerProgrammer.IConfig, "path" | "trace">) =>
+    (type: ts.TypeNode) => {
+        const tail: ts.ParameterDeclaration[] = [];
+        if (props.path)
+            tail.push(
+                IdentifierFactory.parameter(
+                    "path",
+                    TypeFactory.keyword("string"),
+                ),
+            );
+        if (props.trace)
+            tail.push(
+                IdentifierFactory.parameter(
+                    "exceptionable",
+                    TypeFactory.keyword("boolean"),
+                ),
+            );
 
-    return (input: ts.Identifier) => [
-        IdentifierFactory.parameter(input),
-        ...tail,
-    ];
-};
+        return (input: ts.Identifier) => [
+            IdentifierFactory.parameter(input, type),
+            ...tail,
+        ];
+    };

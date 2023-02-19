@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 
 import { IProject } from "../transformers/IProject";
 
@@ -15,8 +16,17 @@ export namespace AssertStringifyProgrammer {
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [IdentifierFactory.parameter("input")],
-                undefined,
+                [
+                    IdentifierFactory.parameter(
+                        "input",
+                        project.checker.typeToTypeNode(
+                            type,
+                            undefined,
+                            undefined,
+                        ) ?? TypeFactory.keyword("any"),
+                    ),
+                ],
+                TypeFactory.keyword("string"),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(

@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 
 import { IProject } from "../transformers/IProject";
 
@@ -40,19 +41,43 @@ export namespace ValidateProgrammer {
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [IdentifierFactory.parameter("input")],
-                undefined,
+                [
+                    IdentifierFactory.parameter(
+                        "input",
+                        TypeFactory.keyword("any"),
+                    ),
+                ],
+                ts.factory.createTypeReferenceNode("typia.IValidation", [
+                    project.checker.typeToTypeNode(
+                        type,
+                        undefined,
+                        undefined,
+                    ) ?? TypeFactory.keyword("any"),
+                ]),
                 undefined,
                 ts.factory.createBlock(
                     [
                         StatementFactory.constant(
                             "errors",
-                            ts.factory.createArrayLiteralExpression([]),
+                            ts.factory.createAsExpression(
+                                ts.factory.createArrayLiteralExpression([]),
+                                ts.factory.createArrayTypeNode(
+                                    TypeFactory.keyword("any"),
+                                ),
+                            ),
                         ),
                         StatementFactory.constant(
                             "$report",
                             ts.factory.createCallExpression(
-                                IdentifierFactory.join(modulo, "report"),
+                                IdentifierFactory.join(
+                                    ts.factory.createParenthesizedExpression(
+                                        ts.factory.createAsExpression(
+                                            modulo,
+                                            TypeFactory.keyword("any"),
+                                        ),
+                                    ),
+                                    "report",
+                                ),
                                 [],
                                 [ts.factory.createIdentifier("errors")],
                             ),
@@ -76,7 +101,21 @@ export namespace ValidateProgrammer {
                                 ts.factory.createIdentifier("errors.length"),
                             ),
                         ),
-                        ts.factory.createReturnStatement(create_output()),
+                        ts.factory.createReturnStatement(
+                            ts.factory.createAsExpression(
+                                create_output(),
+                                ts.factory.createTypeReferenceNode(
+                                    "typia.IValidation",
+                                    [
+                                        project.checker.typeToTypeNode(
+                                            type,
+                                            undefined,
+                                            undefined,
+                                        ) ?? TypeFactory.keyword("any"),
+                                    ],
+                                ),
+                            ),
+                        ),
                     ],
                     true,
                 ),
