@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 
 import { CommandExecutor } from "./CommandExecutor";
+import { FileRetriever } from "./FileRetriever";
 
 export class PackageManager {
     public manager: string = "npm";
@@ -10,7 +11,9 @@ export class PackageManager {
     }
 
     public static async mount(): Promise<PackageManager> {
-        const location: string | null = await find(process.cwd());
+        const location: string | null = await FileRetriever.directory(
+            "package.json",
+        )(process.cwd());
         if (location === null)
             throw new Error(`Unable to find "package.json" file`);
 
@@ -43,9 +46,9 @@ export class PackageManager {
             : this.data.dependencies;
         if (
             !!container?.[props.modulo] &&
-            fs.existsSync(
-                path.join(this.directory, "node_modules", props.modulo),
-            )
+            FileRetriever.file(path.join("node_modules", props.modulo))(
+                this.directory,
+            ) !== null
         )
             return false;
 
@@ -86,14 +89,4 @@ export namespace Package {
         dependencies?: Record<string, string>;
         devDependencies?: Record<string, string>;
     }
-}
-
-async function find(
-    directory: string = process.cwd(),
-    depth: number = 0,
-): Promise<string | null> {
-    const location: string = path.join(directory, "package.json");
-    if (fs.existsSync(location)) return directory;
-    else if (depth > 1) return null;
-    return find(path.join(directory, ".."), depth + 1);
 }
