@@ -89,8 +89,8 @@ export namespace AssertProgrammer {
                 })(importer).combiner(explore);
 
             const path: string = explore.postfix
-                ? `path + ${explore.postfix}`
-                : "path";
+                ? `_path + ${explore.postfix}`
+                : "_path";
             return (logic) => (input, binaries, expected) =>
                 logic === "and"
                     ? binaries
@@ -103,7 +103,7 @@ export namespace AssertProgrammer {
                                             explore.source === "top"
                                                 ? ts.factory.createTrue()
                                                 : ts.factory.createIdentifier(
-                                                      "exceptionable",
+                                                      "_exceptionable",
                                                   ),
                                         )(
                                             ts.factory.createIdentifier(path),
@@ -124,7 +124,7 @@ export namespace AssertProgrammer {
                                       explore.source === "top"
                                           ? ts.factory.createTrue()
                                           : ts.factory.createIdentifier(
-                                                "exceptionable",
+                                                "_exceptionable",
                                             ),
                                   )(
                                       ts.factory.createIdentifier(path),
@@ -137,19 +137,6 @@ export namespace AssertProgrammer {
                               .map((b) => b.expression)
                               .reduce(ts.factory.createLogicalOr);
                       })();
-
-            // ts.factory.createLogicalOr(
-            //       binaries
-            //           .map((binary) => binary.expression)
-            //           .reduce(ts.factory.createLogicalOr),
-            //       create_guard_call(importer)(
-            //           explore.source === "top"
-            //               ? ts.factory.createTrue()
-            //               : ts.factory.createIdentifier(
-            //                     "exceptionable",
-            //                 ),
-            //       )(ts.factory.createIdentifier(path), expected, input),
-            //   );
         };
 
     const assert_object = (equals: boolean) => (importer: FunctionImporter) =>
@@ -162,7 +149,7 @@ export namespace AssertProgrammer {
             superfluous: (value) =>
                 create_guard_call(importer)()(
                     ts.factory.createAdd(
-                        ts.factory.createIdentifier("path"),
+                        ts.factory.createIdentifier("_path"),
                         ts.factory.createCallExpression(
                             importer.use("join"),
                             undefined,
@@ -176,7 +163,7 @@ export namespace AssertProgrammer {
                 ts.factory.createLogicalOr(
                     ts.factory.createStrictEquality(
                         ts.factory.createFalse(),
-                        ts.factory.createIdentifier("exceptionable"),
+                        ts.factory.createIdentifier("_exceptionable"),
                     ),
                     expr,
                 ),
@@ -196,10 +183,12 @@ export namespace AssertProgrammer {
                 create_guard_call(importer)(
                     explore?.from === "top"
                         ? ts.factory.createTrue()
-                        : ts.factory.createIdentifier("exceptionable"),
+                        : ts.factory.createIdentifier("_exceptionable"),
                 )(
                     ts.factory.createIdentifier(
-                        explore?.postfix ? `path + ${explore.postfix}` : "path",
+                        explore?.postfix
+                            ? `_path + ${explore.postfix}`
+                            : "_path",
                     ),
                     expected,
                     value,
@@ -213,10 +202,10 @@ export namespace AssertProgrammer {
                               explore.from === "top"
                                   ? ts.factory.createTrue()
                                   : ts.factory.createIdentifier(
-                                        "exceptionable",
+                                        "_exceptionable",
                                     ),
                           )(
-                              ts.factory.createIdentifier("path"),
+                              ts.factory.createIdentifier("_path"),
                               expected,
                               input,
                           ),
@@ -232,7 +221,7 @@ export namespace AssertProgrammer {
             value: ts.Expression,
         ): ts.Expression =>
             ts.factory.createCallExpression(importer.use("guard"), undefined, [
-                exceptionable || ts.factory.createIdentifier("exceptionable"),
+                exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
                 ts.factory.createObjectLiteralExpression(
                     [
                         ts.factory.createPropertyAssignment("path", path),
