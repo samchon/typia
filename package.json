@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "3.5.6",
+  "version": "3.5.7",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -110,7 +110,7 @@
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.9.1",
     "ttypescript": "^1.5.15",
-    "typescript": "^4.9.4",
+    "typescript": "^4.9.5",
     "typescript-transform-paths": "^3.4.6",
     "uuid": "^8.3.2",
     "zod": "^3.19.1"

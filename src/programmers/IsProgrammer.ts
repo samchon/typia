@@ -173,7 +173,7 @@ export namespace IsProgrammer {
         CheckerProgrammer.decode(project, CONFIG()(importer), importer);
 
     export const decode_object = (importer: FunctionImporter) =>
-        CheckerProgrammer.decode_object(CONFIG()(importer));
+        CheckerProgrammer.decode_object(CONFIG()(importer))(importer);
 
     export function decode_to_json(
         input: ts.Expression,
