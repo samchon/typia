@@ -106,8 +106,7 @@ export namespace CheckerProgrammer {
         config: IConfig,
         importer: FunctionImporter,
     ) =>
-        FeatureProgrammer.generate_functors(
-            CONFIG(project, config, importer),
+        FeatureProgrammer.generate_functors(CONFIG(project, config, importer))(
             importer,
         );
 
@@ -118,7 +117,7 @@ export namespace CheckerProgrammer {
     ) =>
         FeatureProgrammer.generate_unioners(
             CONFIG(project, { ...config, numeric: false }, importer),
-        );
+        )(importer);
 
     function CONFIG(
         project: IProject,
@@ -146,12 +145,12 @@ export namespace CheckerProgrammer {
             decoder: config.decoder || decode(project, config, importer),
             objector: {
                 checker: config.decoder || decode(project, config, importer),
-                decoder: decode_object(config),
+                decoder: decode_object(config)(importer),
                 joiner: config.joiner.object,
                 unionizer: config.equals
-                    ? decode_union_object(decode_object(config))(
+                    ? decode_union_object(decode_object(config)(importer))(
                           (input, obj, explore) =>
-                              decode_object(config)(input, obj, {
+                              decode_object(config)(importer)(input, obj, {
                                   ...explore,
                                   tracable: true,
                               }),
@@ -165,7 +164,7 @@ export namespace CheckerProgrammer {
                           config.combiner(explore)("or")(
                               input,
                               targets.map((obj) => ({
-                                  expression: decode_object(config)(
+                                  expression: decode_object(config)(importer)(
                                       input,
                                       obj,
                                       explore,
@@ -187,7 +186,7 @@ export namespace CheckerProgrammer {
             output.generator = {
                 unioners: FeatureProgrammer.generate_unioners(
                     CONFIG(project, { ...config, numeric: false }, importer),
-                ),
+                )(importer),
             };
         return output;
     }
@@ -477,7 +476,7 @@ export namespace CheckerProgrammer {
                         .map((obj) => `Resolve<${obj.name}>`)
                         .join(" | "),
                 )(
-                    explore_objects(config)(input, meta, {
+                    explore_objects(config)(importer)(input, meta, {
                         ...explore,
                         from: "object",
                     }),
@@ -672,17 +671,18 @@ export namespace CheckerProgrammer {
         );
     }
 
-    export function decode_object(config: IConfig) {
-        const func = FeatureProgrammer.decode_object(config);
-        return function (
-            input: ts.Expression,
-            obj: MetadataObject,
-            explore: IExplore,
-        ) {
-            obj.validated = true;
-            return func(input, obj, explore);
+    export const decode_object =
+        (config: IConfig) => (importer: FunctionImporter) => {
+            const func = FeatureProgrammer.decode_object(config)(importer);
+            return function (
+                input: ts.Expression,
+                obj: MetadataObject,
+                explore: IExplore,
+            ) {
+                obj.validated = true;
+                return func(input, obj, explore);
+            };
         };
-    }
 
     const explore_sets = (
         project: IProject,
@@ -834,22 +834,31 @@ export namespace CheckerProgrammer {
                 ),
         });
 
-    const explore_objects = (config: IConfig) => {
-        const objector = decode_object(config);
+    const explore_objects =
+        (config: IConfig) => (importer: FunctionImporter) => {
+            const objector = decode_object(config)(importer);
 
-        return (input: ts.Expression, meta: Metadata, explore: IExplore) => {
-            if (meta.objects.length === 1)
-                return objector(input, meta.objects[0]!, explore);
+            return (
+                input: ts.Expression,
+                meta: Metadata,
+                explore: IExplore,
+            ) => {
+                if (meta.objects.length === 1)
+                    return objector(input, meta.objects[0]!, explore);
 
-            return ts.factory.createCallExpression(
-                ts.factory.createIdentifier(
-                    `${config.unioners}${meta.union_index!}`,
-                ),
-                undefined,
-                FeatureProgrammer.get_object_arguments(config)(explore)(input),
-            );
+                return ts.factory.createCallExpression(
+                    ts.factory.createIdentifier(
+                        importer.useLocal(
+                            `${config.unioners}${meta.union_index!}`,
+                        ),
+                    ),
+                    undefined,
+                    FeatureProgrammer.get_object_arguments(config)(explore)(
+                        input,
+                    ),
+                );
+            };
         };
-    };
 }
 
 const create_add =

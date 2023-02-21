@@ -95,8 +95,8 @@ const combine =
             })(importer).combiner(explore);
 
         const path: string = explore.postfix
-            ? `path + ${explore.postfix}`
-            : "path";
+            ? `_path + ${explore.postfix}`
+            : "_path";
         return (logic) => (input, binaries, expected) =>
             logic === "and"
                 ? binaries
@@ -109,7 +109,7 @@ const combine =
                                         explore.source === "top"
                                             ? ts.factory.createTrue()
                                             : ts.factory.createIdentifier(
-                                                  "exceptionable",
+                                                  "_exceptionable",
                                               ),
                                     )(
                                         ts.factory.createIdentifier(path),
@@ -126,7 +126,7 @@ const combine =
                       create_report_call(
                           explore.source === "top"
                               ? ts.factory.createTrue()
-                              : ts.factory.createIdentifier("exceptionable"),
+                              : ts.factory.createIdentifier("_exceptionable"),
                       )(ts.factory.createIdentifier(path), expected, input),
                   );
     };
@@ -141,7 +141,7 @@ const validate_object = (equals: boolean) => (importer: FunctionImporter) =>
         superfluous: (value) =>
             create_report_call()(
                 ts.factory.createAdd(
-                    ts.factory.createIdentifier("path"),
+                    ts.factory.createIdentifier("_path"),
                     ts.factory.createCallExpression(
                         importer.use("join"),
                         undefined,
@@ -155,7 +155,7 @@ const validate_object = (equals: boolean) => (importer: FunctionImporter) =>
             ts.factory.createLogicalOr(
                 ts.factory.createStrictEquality(
                     ts.factory.createFalse(),
-                    ts.factory.createIdentifier("exceptionable"),
+                    ts.factory.createIdentifier("_exceptionable"),
                 ),
                 expr,
             ),
@@ -177,10 +177,10 @@ const joiner =
             create_report_call(
                 explore?.from === "top"
                     ? ts.factory.createTrue()
-                    : ts.factory.createIdentifier("exceptionable"),
+                    : ts.factory.createIdentifier("_exceptionable"),
             )(
                 ts.factory.createIdentifier(
-                    explore?.postfix ? `path + ${explore.postfix}` : "path",
+                    explore?.postfix ? `_path + ${explore.postfix}` : "_path",
                 ),
                 expected,
                 value,
@@ -222,7 +222,7 @@ const create_report_call =
             ts.factory.createIdentifier("$report"),
             undefined,
             [
-                exceptionable || ts.factory.createIdentifier("exceptionable"),
+                exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
                 ts.factory.createObjectLiteralExpression(
                     [
                         ts.factory.createPropertyAssignment("path", path),
