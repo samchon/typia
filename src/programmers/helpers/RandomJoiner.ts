@@ -18,8 +18,10 @@ export namespace RandomJoiner {
     ) => ts.Expression;
 
     export const array =
-        (decoder: Decoder) => (item: Metadata, tags: IMetadataTag[]) => {
-            const tail = RandomRanger.length({
+        (coalesce: (method: string) => ts.Expression) =>
+        (decoder: Decoder) =>
+        (item: Metadata, tags: IMetadataTag[]) => {
+            const tail = RandomRanger.length(coalesce)({
                 minimum: 0,
                 maximum: 3,
                 gap: 3,
@@ -29,7 +31,7 @@ export namespace RandomJoiner {
                 maximum: "maxItems",
             })(tags);
             return ts.factory.createCallExpression(
-                ts.factory.createIdentifier("generator.array"),
+                coalesce("array"),
                 undefined,
                 [
                     ts.factory.createArrowFunction(
@@ -53,6 +55,7 @@ export namespace RandomJoiner {
             );
 
     export const object =
+        (coalesce: (method: string) => ts.Expression) =>
         (decoder: Decoder) =>
         (obj: MetadataObject): ts.ConciseBody => {
             if (obj.properties.length === 0)
@@ -82,7 +85,7 @@ export namespace RandomJoiner {
 
             const properties: ts.Statement[] = dynamic.map((p) =>
                 ts.factory.createExpressionStatement(
-                    dynamicProperty(decoder)(p),
+                    dynamicProperty(coalesce)(decoder)(p),
                 ),
             );
             return ts.factory.createBlock(
@@ -107,11 +110,11 @@ export namespace RandomJoiner {
             );
         };
 
-    const dynamicProperty = (decoder: Decoder) => (p: MetadataProperty) =>
-        ts.factory.createCallExpression(
-            ts.factory.createIdentifier("generator.array"),
-            undefined,
-            [
+    const dynamicProperty =
+        (coalesce: (method: string) => ts.Expression) =>
+        (decoder: Decoder) =>
+        (p: MetadataProperty) =>
+            ts.factory.createCallExpression(coalesce("array"), undefined, [
                 ts.factory.createArrowFunction(
                     undefined,
                     undefined,
@@ -128,13 +131,12 @@ export namespace RandomJoiner {
                     ),
                 ),
                 ts.factory.createCallExpression(
-                    ts.factory.createIdentifier("generator.integer"),
+                    coalesce("integer"),
                     undefined,
                     [
                         ts.factory.createNumericLiteral(0),
                         ts.factory.createNumericLiteral(3),
                     ],
                 ),
-            ],
-        );
+            ]);
 }

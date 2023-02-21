@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 
 import { TypiaSetupWizard } from "../TypiaSetupWizard";
+import { FileRetriever } from "./FileRetriever";
 import { PackageManager } from "./PackageManager";
 
 export namespace PluginConfigurator {
@@ -42,9 +43,10 @@ export namespace PluginConfigurator {
         args: TypiaSetupWizard.IArguments,
     ): Promise<void> {
         // GET COMPILER-OPTIONS
-        const Comment: typeof import("comment-json") = await import(
-            path.join(pack.directory, "node_modules", "comment-json")
-        );
+        const Comment: typeof import("comment-json") =
+            await FileRetriever.require(
+                path.join("node_modules", "comment-json"),
+            )(pack.directory);
 
         const config: Comment.CommentObject = Comment.parse(
             await fs.promises.readFile(args.project!, "utf8"),

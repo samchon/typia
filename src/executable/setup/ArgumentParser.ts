@@ -2,6 +2,7 @@ import type CommanderModule from "commander";
 import type * as InquirerModule from "inquirer";
 import path from "path";
 
+import { FileRetriever } from "./FileRetriever";
 import { PackageManager } from "./PackageManager";
 
 export namespace ArgumentParser {
@@ -46,13 +47,14 @@ export namespace ArgumentParser {
             };
 
             // LOAD INSTALLED MODULES
-            const { program: command }: typeof CommanderModule = await import(
-                path.join(pack.directory, "node_modules", "commander")
-            );
+            const { program: command }: typeof CommanderModule =
+                await FileRetriever.require(
+                    path.join("node_modules", "commander"),
+                )(pack.directory);
             const { createPromptModule: prompt }: typeof InquirerModule =
-                await import(
-                    path.join(pack.directory, "node_modules", "inquirer")
-                );
+                await FileRetriever.require(
+                    path.join("node_modules", "inquirer"),
+                )(pack.directory);
 
             // TAKE OPTIONS
             const action = (closure: (options: Partial<T>) => Promise<T>) =>
