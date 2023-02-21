@@ -102,7 +102,7 @@ export namespace RandomProgrammer {
                         ],
                         undefined,
                         undefined,
-                        RandomJoiner.object(
+                        RandomJoiner.object(COALESCE(importer))(
                             decode(importer)({
                                 recursive: obj.recursive,
                                 object: true,
@@ -140,13 +140,14 @@ export namespace RandomProgrammer {
             for (const template of meta.templates)
                 expressions.push(decode_template(importer)(explore)(template));
             for (const atomic of meta.atomics)
-                if (atomic === "boolean") expressions.push(decode_boolean());
+                if (atomic === "boolean")
+                    expressions.push(decode_boolean(importer));
                 else if (atomic === "number")
-                    expressions.push(decode_number(tags));
+                    expressions.push(decode_number(importer)(tags));
                 else if (atomic === "string")
                     expressions.push(decode_string(importer)(tags));
                 else if (atomic === "bigint")
-                    expressions.push(decode_bigint(tags));
+                    expressions.push(decode_bigint(importer)(tags));
 
             // INSTANCE TYPES
             if (meta.resolved)
@@ -158,10 +159,9 @@ export namespace RandomProgrammer {
                     RandomJoiner.tuple(decode(importer)(explore))(t, tags),
                 );
             for (const a of meta.arrays) {
-                const array = RandomJoiner.array(decode(importer)(explore))(
-                    a,
-                    tags,
-                );
+                const array = RandomJoiner.array(COALESCE(importer))(
+                    decode(importer)(explore),
+                )(a, tags);
                 expressions.push(
                     explore.recursive && a.objects.length
                         ? ts.factory.createConditionalExpression(
@@ -207,9 +207,10 @@ export namespace RandomProgrammer {
                     ),
                 );
             for (const native of meta.natives)
-                if (native === "Boolean") expressions.push(decode_boolean());
+                if (native === "Boolean")
+                    expressions.push(decode_boolean(importer));
                 else if (native === "Number")
-                    expressions.push(decode_number(tags));
+                    expressions.push(decode_number(importer)(tags));
                 else if (native === "String")
                     expressions.push(decode_string(importer)(tags));
                 else expressions.push(ts.factory.createIdentifier("{}"));
@@ -243,14 +244,11 @@ export namespace RandomProgrammer {
             );
         };
 
-    const decode_boolean = () =>
-        ts.factory.createLessThan(
-            ts.factory.createNumericLiteral(0.5),
-            ts.factory.createCallExpression(
-                ts.factory.createIdentifier("Math.random"),
-                undefined,
-                undefined,
-            ),
+    const decode_boolean = (importer: FunctionImporter) =>
+        ts.factory.createCallExpression(
+            COALESCE(importer)("boolean"),
+            undefined,
+            undefined,
         );
 
     const decode_atomic = (value: Atomic) =>
@@ -270,65 +268,73 @@ export namespace RandomProgrammer {
                 template.map((meta) => decode(importer)(explore)(meta, [])),
             );
 
-    const decode_number = (tags: IMetadataTag[]): ts.Expression => {
-        const type = tags.find((t) => t.kind === "type" && t.value === "uint")
-            ? "int"
-            : tags.find((t) => t.kind === "type" && t.value === "int")
-            ? "uint"
-            : "double";
-        return RandomRanger.number({
-            type,
-            transform: (value) => ts.factory.createNumericLiteral(value),
-            setter: (args) =>
-                ts.factory.createCallExpression(
-                    ts.factory.createIdentifier(
+    const decode_number =
+        (importer: FunctionImporter) =>
+        (tags: IMetadataTag[]): ts.Expression => {
+            const type = tags.find(
+                (t) => t.kind === "type" && t.value === "uint",
+            )
+                ? "int"
+                : tags.find((t) => t.kind === "type" && t.value === "int")
+                ? "uint"
+                : "double";
+            return RandomRanger.number({
+                type,
+                transform: (value) => ts.factory.createNumericLiteral(value),
+                setter: (args) =>
+                    ts.factory.createCallExpression(
                         type === "double" &&
                             tags.every(
                                 (t) =>
                                     t.kind !== "multipleOf" &&
                                     t.kind !== "step",
                             )
-                            ? "generator.number"
-                            : "generator.integer",
+                            ? COALESCE(importer)("number")
+                            : COALESCE(importer)("integer"),
+                        undefined,
+                        args.map((val) => ts.factory.createNumericLiteral(val)),
                     ),
-                    undefined,
-                    args.map((val) => ts.factory.createNumericLiteral(val)),
-                ),
-        })({
-            minimum: 0,
-            maximum: 100,
-            gap: 10,
-        })(tags);
-    };
+            })({
+                minimum: 0,
+                maximum: 100,
+                gap: 10,
+            })(tags);
+        };
 
-    const decode_bigint = (tags: IMetadataTag[]): ts.Expression =>
-        RandomRanger.number({
-            type: tags.find((t) => t.kind === "type" && t.value === "uint")
-                ? "uint"
-                : "int",
-            transform: (value) =>
-                ts.factory.createCallExpression(
-                    ts.factory.createIdentifier("BigInt"),
-                    undefined,
-                    [ts.factory.createStringLiteral(value.toString())],
-                ),
-            setter: (args) =>
-                ts.factory.createCallExpression(
-                    ts.factory.createIdentifier("generator.bigint"),
-                    undefined,
-                    args.map((value) =>
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("BigInt"),
-                            undefined,
-                            [ts.factory.createStringLiteral(value.toString())],
+    const decode_bigint =
+        (importer: FunctionImporter) =>
+        (tags: IMetadataTag[]): ts.Expression =>
+            RandomRanger.number({
+                type: tags.find((t) => t.kind === "type" && t.value === "uint")
+                    ? "uint"
+                    : "int",
+                transform: (value) =>
+                    ts.factory.createCallExpression(
+                        ts.factory.createIdentifier("BigInt"),
+                        undefined,
+                        [ts.factory.createStringLiteral(value.toString())],
+                    ),
+                setter: (args) =>
+                    ts.factory.createCallExpression(
+                        COALESCE(importer)("bigint"),
+                        undefined,
+                        args.map((value) =>
+                            ts.factory.createCallExpression(
+                                ts.factory.createIdentifier("BigInt"),
+                                undefined,
+                                [
+                                    ts.factory.createStringLiteral(
+                                        value.toString(),
+                                    ),
+                                ],
+                            ),
                         ),
                     ),
-                ),
-        })({
-            minimum: 0,
-            maximum: 100,
-            gap: 10,
-        })(tags);
+            })({
+                minimum: 0,
+                maximum: 100,
+                gap: 10,
+            })(tags);
 
     const decode_string =
         (importer: FunctionImporter) =>
@@ -350,7 +356,7 @@ export namespace RandomProgrammer {
                         [ts.factory.createIdentifier(`/${t.value}/`)],
                     );
 
-            const tail = RandomRanger.length({
+            const tail = RandomRanger.length(COALESCE(importer))({
                 minimum: 5,
                 maximum: 25,
                 gap: 5,
@@ -360,7 +366,7 @@ export namespace RandomProgrammer {
                 maximum: "maxLength",
             })(tags);
             return ts.factory.createCallExpression(
-                ts.factory.createIdentifier("generator.string"),
+                COALESCE(importer)("string"),
                 undefined,
                 tail ? [tail] : undefined,
             );

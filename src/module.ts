@@ -860,7 +860,7 @@ export function metadata(): never {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function random(generator?: IRandomGenerator): never;
+export function random(generator?: Partial<IRandomGenerator>): never;
 
 /**
  * Generate random data.
@@ -873,12 +873,12 @@ export function random(generator?: IRandomGenerator): never;
  * would be generated instead.
  *
  * @template T Type of data to generate
- * generator Random data generator
+ * @param generator Random data generator
  * @return Randomly generated data
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function random<T>(generator?: IRandomGenerator): Primitive<T>;
+export function random<T>(generator?: Partial<IRandomGenerator>): Primitive<T>;
 
 /**
  * @internal
@@ -1669,25 +1669,25 @@ Object.assign(createValidateStringify, validateStringify);
  * Creates a reusable {@link random} function.
  *
  * @danger You have to specify the generic argument `T`
- * generator Random data generator
+ * @param generator Random data generator
  * @return Nothing until specifying the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createRandom(generator?: IRandomGenerator): never;
+export function createRandom(generator?: Partial<IRandomGenerator>): never;
 
 /**
  * Creates a resuable {@link random} function.
  *
  * @template T Type of the input value
- * generator Random data generator
+ * @param generator Random data generator
  * @returns A reusable `random` function
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createRandom<T>(
-    generator?: IRandomGenerator,
+    generator?: Partial<IRandomGenerator>,
 ): () => Primitive<T>;
 
 /**
