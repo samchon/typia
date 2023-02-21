@@ -11,245 +11,245 @@ export const generate_assert = (input: any) => {
     const $guard = (typia.createAssert as any).guard;
     ((
         input: any,
-        path: string,
-        exceptionable: boolean,
+        _path: string,
+        _exceptionable: boolean,
     ): input is ObjectUnionExplicit => {
-        const $ao0 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao0 = (input: any, _path: string, _exceptionable: boolean) =>
             ("number" === typeof input.x ||
-                $guard(exceptionable, {
-                    path: path + ".x",
+                $guard(_exceptionable, {
+                    path: _path + ".x",
                     expected: "number",
                     value: input.x,
                 })) &&
             ("number" === typeof input.y ||
-                $guard(exceptionable, {
-                    path: path + ".y",
+                $guard(_exceptionable, {
+                    path: _path + ".y",
                     expected: "number",
                     value: input.y,
                 })) &&
             ("point" === input.type ||
-                $guard(exceptionable, {
-                    path: path + ".type",
+                $guard(_exceptionable, {
+                    path: _path + ".type",
                     expected: '"point"',
                     value: input.type,
                 }));
-        const $ao1 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao1 = (input: any, _path: string, _exceptionable: boolean) =>
             (("object" === typeof input.p1 && null !== input.p1) ||
-                $guard(exceptionable, {
-                    path: path + ".p1",
+                $guard(_exceptionable, {
+                    path: _path + ".p1",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p1,
                 })) &&
-            $ao2(input.p1, path + ".p1", true && exceptionable) &&
+            $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
             (("object" === typeof input.p2 && null !== input.p2) ||
-                $guard(exceptionable, {
-                    path: path + ".p2",
+                $guard(_exceptionable, {
+                    path: _path + ".p2",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p2,
                 })) &&
-            $ao2(input.p2, path + ".p2", true && exceptionable) &&
+            $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
             ("line" === input.type ||
-                $guard(exceptionable, {
-                    path: path + ".type",
+                $guard(_exceptionable, {
+                    path: _path + ".type",
                     expected: '"line"',
                     value: input.type,
                 }));
-        const $ao2 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao2 = (input: any, _path: string, _exceptionable: boolean) =>
             ("number" === typeof input.x ||
-                $guard(exceptionable, {
-                    path: path + ".x",
+                $guard(_exceptionable, {
+                    path: _path + ".x",
                     expected: "number",
                     value: input.x,
                 })) &&
             ("number" === typeof input.y ||
-                $guard(exceptionable, {
-                    path: path + ".y",
+                $guard(_exceptionable, {
+                    path: _path + ".y",
                     expected: "number",
                     value: input.y,
                 }));
-        const $ao3 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao3 = (input: any, _path: string, _exceptionable: boolean) =>
             (("object" === typeof input.p1 && null !== input.p1) ||
-                $guard(exceptionable, {
-                    path: path + ".p1",
+                $guard(_exceptionable, {
+                    path: _path + ".p1",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p1,
                 })) &&
-            $ao2(input.p1, path + ".p1", true && exceptionable) &&
+            $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
             (("object" === typeof input.p2 && null !== input.p2) ||
-                $guard(exceptionable, {
-                    path: path + ".p2",
+                $guard(_exceptionable, {
+                    path: _path + ".p2",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p2,
                 })) &&
-            $ao2(input.p2, path + ".p2", true && exceptionable) &&
+            $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
             (("object" === typeof input.p3 && null !== input.p3) ||
-                $guard(exceptionable, {
-                    path: path + ".p3",
+                $guard(_exceptionable, {
+                    path: _path + ".p3",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p3,
                 })) &&
-            $ao2(input.p3, path + ".p3", true && exceptionable) &&
+            $ao2(input.p3, _path + ".p3", true && _exceptionable) &&
             ("triangle" === input.type ||
-                $guard(exceptionable, {
-                    path: path + ".type",
+                $guard(_exceptionable, {
+                    path: _path + ".type",
                     expected: '"triangle"',
                     value: input.type,
                 }));
-        const $ao4 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao4 = (input: any, _path: string, _exceptionable: boolean) =>
             (("object" === typeof input.p1 && null !== input.p1) ||
-                $guard(exceptionable, {
-                    path: path + ".p1",
+                $guard(_exceptionable, {
+                    path: _path + ".p1",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p1,
                 })) &&
-            $ao2(input.p1, path + ".p1", true && exceptionable) &&
+            $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
             (("object" === typeof input.p2 && null !== input.p2) ||
-                $guard(exceptionable, {
-                    path: path + ".p2",
+                $guard(_exceptionable, {
+                    path: _path + ".p2",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p2,
                 })) &&
-            $ao2(input.p2, path + ".p2", true && exceptionable) &&
+            $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
             (("object" === typeof input.p3 && null !== input.p3) ||
-                $guard(exceptionable, {
-                    path: path + ".p3",
+                $guard(_exceptionable, {
+                    path: _path + ".p3",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p3,
                 })) &&
-            $ao2(input.p3, path + ".p3", true && exceptionable) &&
+            $ao2(input.p3, _path + ".p3", true && _exceptionable) &&
             (("object" === typeof input.p4 && null !== input.p4) ||
-                $guard(exceptionable, {
-                    path: path + ".p4",
+                $guard(_exceptionable, {
+                    path: _path + ".p4",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p4,
                 })) &&
-            $ao2(input.p4, path + ".p4", true && exceptionable) &&
+            $ao2(input.p4, _path + ".p4", true && _exceptionable) &&
             ("rectangle" === input.type ||
-                $guard(exceptionable, {
-                    path: path + ".type",
+                $guard(_exceptionable, {
+                    path: _path + ".type",
                     expected: '"rectangle"',
                     value: input.type,
                 }));
-        const $ao5 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao5 = (input: any, _path: string, _exceptionable: boolean) =>
             (Array.isArray(input.points) ||
-                $guard(exceptionable, {
-                    path: path + ".points",
+                $guard(_exceptionable, {
+                    path: _path + ".points",
                     expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                     value: input.points,
                 })) &&
             input.points.every(
                 (elem: any, index2: number) =>
                     (("object" === typeof elem && null !== elem) ||
-                        $guard(exceptionable, {
-                            path: path + ".points[" + index2 + "]",
+                        $guard(_exceptionable, {
+                            path: _path + ".points[" + index2 + "]",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: elem,
                         })) &&
                     $ao2(
                         elem,
-                        path + ".points[" + index2 + "]",
-                        true && exceptionable,
+                        _path + ".points[" + index2 + "]",
+                        true && _exceptionable,
                     ),
             ) &&
             ("polyline" === input.type ||
-                $guard(exceptionable, {
-                    path: path + ".type",
+                $guard(_exceptionable, {
+                    path: _path + ".type",
                     expected: '"polyline"',
                     value: input.type,
                 }));
-        const $ao6 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao6 = (input: any, _path: string, _exceptionable: boolean) =>
             (("object" === typeof input.outer && null !== input.outer) ||
-                $guard(exceptionable, {
-                    path: path + ".outer",
+                $guard(_exceptionable, {
+                    path: _path + ".outer",
                     expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                     value: input.outer,
                 })) &&
-            $ao7(input.outer, path + ".outer", true && exceptionable) &&
+            $ao7(input.outer, _path + ".outer", true && _exceptionable) &&
             (Array.isArray(input.inner) ||
-                $guard(exceptionable, {
-                    path: path + ".inner",
+                $guard(_exceptionable, {
+                    path: _path + ".inner",
                     expected: "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                     value: input.inner,
                 })) &&
             input.inner.every(
                 (elem: any, index3: number) =>
                     (("object" === typeof elem && null !== elem) ||
-                        $guard(exceptionable, {
-                            path: path + ".inner[" + index3 + "]",
+                        $guard(_exceptionable, {
+                            path: _path + ".inner[" + index3 + "]",
                             expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                             value: elem,
                         })) &&
                     $ao7(
                         elem,
-                        path + ".inner[" + index3 + "]",
-                        true && exceptionable,
+                        _path + ".inner[" + index3 + "]",
+                        true && _exceptionable,
                     ),
             ) &&
             ("polygon" === input.type ||
-                $guard(exceptionable, {
-                    path: path + ".type",
+                $guard(_exceptionable, {
+                    path: _path + ".type",
                     expected: '"polygon"',
                     value: input.type,
                 }));
-        const $ao7 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao7 = (input: any, _path: string, _exceptionable: boolean) =>
             (Array.isArray(input.points) ||
-                $guard(exceptionable, {
-                    path: path + ".points",
+                $guard(_exceptionable, {
+                    path: _path + ".points",
                     expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                     value: input.points,
                 })) &&
             input.points.every(
                 (elem: any, index4: number) =>
                     (("object" === typeof elem && null !== elem) ||
-                        $guard(exceptionable, {
-                            path: path + ".points[" + index4 + "]",
+                        $guard(_exceptionable, {
+                            path: _path + ".points[" + index4 + "]",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: elem,
                         })) &&
                     $ao2(
                         elem,
-                        path + ".points[" + index4 + "]",
-                        true && exceptionable,
+                        _path + ".points[" + index4 + "]",
+                        true && _exceptionable,
                     ),
             );
-        const $ao8 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao8 = (input: any, _path: string, _exceptionable: boolean) =>
             (("object" === typeof input.centroid && null !== input.centroid) ||
-                $guard(exceptionable, {
-                    path: path + ".centroid",
+                $guard(_exceptionable, {
+                    path: _path + ".centroid",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.centroid,
                 })) &&
-            $ao2(input.centroid, path + ".centroid", true && exceptionable) &&
+            $ao2(input.centroid, _path + ".centroid", true && _exceptionable) &&
             ("number" === typeof input.radius ||
-                $guard(exceptionable, {
-                    path: path + ".radius",
+                $guard(_exceptionable, {
+                    path: _path + ".radius",
                     expected: "number",
                     value: input.radius,
                 })) &&
             ("circle" === input.type ||
-                $guard(exceptionable, {
-                    path: path + ".type",
+                $guard(_exceptionable, {
+                    path: _path + ".type",
                     expected: '"circle"',
                     value: input.type,
                 }));
-        const $au0 = (input: any, path: string, exceptionable: boolean) =>
+        const $au0 = (input: any, _path: string, _exceptionable: boolean) =>
             (() => {
                 if ("point" === input.type)
-                    return $ao0(input, path, true && exceptionable);
+                    return $ao0(input, _path, true && _exceptionable);
                 if ("line" === input.type)
-                    return $ao1(input, path, true && exceptionable);
+                    return $ao1(input, _path, true && _exceptionable);
                 if ("triangle" === input.type)
-                    return $ao3(input, path, true && exceptionable);
+                    return $ao3(input, _path, true && _exceptionable);
                 if ("rectangle" === input.type)
-                    return $ao4(input, path, true && exceptionable);
+                    return $ao4(input, _path, true && _exceptionable);
                 if ("polyline" === input.type)
-                    return $ao5(input, path, true && exceptionable);
+                    return $ao5(input, _path, true && _exceptionable);
                 if ("polygon" === input.type)
-                    return $ao6(input, path, true && exceptionable);
+                    return $ao6(input, _path, true && _exceptionable);
                 if ("circle" === input.type)
-                    return $ao8(input, path, true && exceptionable);
-                return $guard(exceptionable, {
-                    path: path,
+                    return $ao8(input, _path, true && _exceptionable);
+                return $guard(_exceptionable, {
+                    path: _path,
                     expected:
                         '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
                     value: input,
@@ -258,7 +258,7 @@ export const generate_assert = (input: any) => {
         return (
             (Array.isArray(input) ||
                 $guard(true, {
-                    path: path + "",
+                    path: _path + "",
                     expected:
                         'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                     value: input,
@@ -267,12 +267,12 @@ export const generate_assert = (input: any) => {
                 (elem: any, index1: number) =>
                     (("object" === typeof elem && null !== elem) ||
                         $guard(true, {
-                            path: path + "[" + index1 + "]",
+                            path: _path + "[" + index1 + "]",
                             expected:
                                 '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                             value: elem,
                         })) &&
-                    $au0(elem, path + "[" + index1 + "]", true),
+                    $au0(elem, _path + "[" + index1 + "]", true),
             )
         );
     })(input, "$input", true);
@@ -389,185 +389,185 @@ export const generate_validate = (
     const $report = (typia.createValidate as any).report(errors);
     ((
         input: any,
-        path: string,
-        exceptionable: boolean,
+        _path: string,
+        _exceptionable: boolean,
     ): input is ObjectUnionExplicit => {
-        const $vo0 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo0 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 "number" === typeof input.x ||
-                    $report(exceptionable, {
-                        path: path + ".x",
+                    $report(_exceptionable, {
+                        path: _path + ".x",
                         expected: "number",
                         value: input.x,
                     }),
                 "number" === typeof input.y ||
-                    $report(exceptionable, {
-                        path: path + ".y",
+                    $report(_exceptionable, {
+                        path: _path + ".y",
                         expected: "number",
                         value: input.y,
                     }),
                 "point" === input.type ||
-                    $report(exceptionable, {
-                        path: path + ".type",
+                    $report(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"point"',
                         value: input.type,
                     }),
             ].every((flag: boolean) => flag);
-        const $vo1 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo1 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 ((("object" === typeof input.p1 && null !== input.p1) ||
-                    $report(exceptionable, {
-                        path: path + ".p1",
+                    $report(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                    $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p1",
+                    $vo2(input.p1, _path + ".p1", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     }),
                 ((("object" === typeof input.p2 && null !== input.p2) ||
-                    $report(exceptionable, {
-                        path: path + ".p2",
+                    $report(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                    $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p2",
+                    $vo2(input.p2, _path + ".p2", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     }),
                 "line" === input.type ||
-                    $report(exceptionable, {
-                        path: path + ".type",
+                    $report(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"line"',
                         value: input.type,
                     }),
             ].every((flag: boolean) => flag);
-        const $vo2 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo2 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 "number" === typeof input.x ||
-                    $report(exceptionable, {
-                        path: path + ".x",
+                    $report(_exceptionable, {
+                        path: _path + ".x",
                         expected: "number",
                         value: input.x,
                     }),
                 "number" === typeof input.y ||
-                    $report(exceptionable, {
-                        path: path + ".y",
+                    $report(_exceptionable, {
+                        path: _path + ".y",
                         expected: "number",
                         value: input.y,
                     }),
             ].every((flag: boolean) => flag);
-        const $vo3 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo3 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 ((("object" === typeof input.p1 && null !== input.p1) ||
-                    $report(exceptionable, {
-                        path: path + ".p1",
+                    $report(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                    $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p1",
+                    $vo2(input.p1, _path + ".p1", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     }),
                 ((("object" === typeof input.p2 && null !== input.p2) ||
-                    $report(exceptionable, {
-                        path: path + ".p2",
+                    $report(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                    $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p2",
+                    $vo2(input.p2, _path + ".p2", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     }),
                 ((("object" === typeof input.p3 && null !== input.p3) ||
-                    $report(exceptionable, {
-                        path: path + ".p3",
+                    $report(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     })) &&
-                    $vo2(input.p3, path + ".p3", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p3",
+                    $vo2(input.p3, _path + ".p3", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     }),
                 "triangle" === input.type ||
-                    $report(exceptionable, {
-                        path: path + ".type",
+                    $report(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"triangle"',
                         value: input.type,
                     }),
             ].every((flag: boolean) => flag);
-        const $vo4 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo4 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 ((("object" === typeof input.p1 && null !== input.p1) ||
-                    $report(exceptionable, {
-                        path: path + ".p1",
+                    $report(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                    $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p1",
+                    $vo2(input.p1, _path + ".p1", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     }),
                 ((("object" === typeof input.p2 && null !== input.p2) ||
-                    $report(exceptionable, {
-                        path: path + ".p2",
+                    $report(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                    $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p2",
+                    $vo2(input.p2, _path + ".p2", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     }),
                 ((("object" === typeof input.p3 && null !== input.p3) ||
-                    $report(exceptionable, {
-                        path: path + ".p3",
+                    $report(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     })) &&
-                    $vo2(input.p3, path + ".p3", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p3",
+                    $vo2(input.p3, _path + ".p3", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     }),
                 ((("object" === typeof input.p4 && null !== input.p4) ||
-                    $report(exceptionable, {
-                        path: path + ".p4",
+                    $report(_exceptionable, {
+                        path: _path + ".p4",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p4,
                     })) &&
-                    $vo2(input.p4, path + ".p4", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p4",
+                    $vo2(input.p4, _path + ".p4", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p4",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p4,
                     }),
                 "rectangle" === input.type ||
-                    $report(exceptionable, {
-                        path: path + ".type",
+                    $report(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"rectangle"',
                         value: input.type,
                     }),
             ].every((flag: boolean) => flag);
-        const $vo5 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo5 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 ((Array.isArray(input.points) ||
-                    $report(exceptionable, {
-                        path: path + ".points",
+                    $report(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     })) &&
@@ -575,58 +575,58 @@ export const generate_validate = (
                         .map(
                             (elem: any, index2: number) =>
                                 ((("object" === typeof elem && null !== elem) ||
-                                    $report(exceptionable, {
-                                        path: path + ".points[" + index2 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".points[" + index2 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPoint>",
                                         value: elem,
                                     })) &&
                                     $vo2(
                                         elem,
-                                        path + ".points[" + index2 + "]",
-                                        true && exceptionable,
+                                        _path + ".points[" + index2 + "]",
+                                        true && _exceptionable,
                                     )) ||
-                                $report(exceptionable, {
-                                    path: path + ".points[" + index2 + "]",
+                                $report(_exceptionable, {
+                                    path: _path + ".points[" + index2 + "]",
                                     expected:
                                         "Resolve<ObjectUnionExplicit.IPoint>",
                                     value: elem,
                                 }),
                         )
                         .every((flag: boolean) => flag)) ||
-                    $report(exceptionable, {
-                        path: path + ".points",
+                    $report(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     }),
                 "polyline" === input.type ||
-                    $report(exceptionable, {
-                        path: path + ".type",
+                    $report(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"polyline"',
                         value: input.type,
                     }),
             ].every((flag: boolean) => flag);
-        const $vo6 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo6 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 ((("object" === typeof input.outer && null !== input.outer) ||
-                    $report(exceptionable, {
-                        path: path + ".outer",
+                    $report(_exceptionable, {
+                        path: _path + ".outer",
                         expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                         value: input.outer,
                     })) &&
                     $vo7(
                         input.outer,
-                        path + ".outer",
-                        true && exceptionable,
+                        _path + ".outer",
+                        true && _exceptionable,
                     )) ||
-                    $report(exceptionable, {
-                        path: path + ".outer",
+                    $report(_exceptionable, {
+                        path: _path + ".outer",
                         expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                         value: input.outer,
                     }),
                 ((Array.isArray(input.inner) ||
-                    $report(exceptionable, {
-                        path: path + ".inner",
+                    $report(_exceptionable, {
+                        path: _path + ".inner",
                         expected:
                             "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                         value: input.inner,
@@ -635,43 +635,43 @@ export const generate_validate = (
                         .map(
                             (elem: any, index3: number) =>
                                 ((("object" === typeof elem && null !== elem) ||
-                                    $report(exceptionable, {
-                                        path: path + ".inner[" + index3 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".inner[" + index3 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPolyline>",
                                         value: elem,
                                     })) &&
                                     $vo7(
                                         elem,
-                                        path + ".inner[" + index3 + "]",
-                                        true && exceptionable,
+                                        _path + ".inner[" + index3 + "]",
+                                        true && _exceptionable,
                                     )) ||
-                                $report(exceptionable, {
-                                    path: path + ".inner[" + index3 + "]",
+                                $report(_exceptionable, {
+                                    path: _path + ".inner[" + index3 + "]",
                                     expected:
                                         "Resolve<ObjectUnionExplicit.IPolyline>",
                                     value: elem,
                                 }),
                         )
                         .every((flag: boolean) => flag)) ||
-                    $report(exceptionable, {
-                        path: path + ".inner",
+                    $report(_exceptionable, {
+                        path: _path + ".inner",
                         expected:
                             "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                         value: input.inner,
                     }),
                 "polygon" === input.type ||
-                    $report(exceptionable, {
-                        path: path + ".type",
+                    $report(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"polygon"',
                         value: input.type,
                     }),
             ].every((flag: boolean) => flag);
-        const $vo7 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo7 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 ((Array.isArray(input.points) ||
-                    $report(exceptionable, {
-                        path: path + ".points",
+                    $report(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     })) &&
@@ -679,81 +679,81 @@ export const generate_validate = (
                         .map(
                             (elem: any, index4: number) =>
                                 ((("object" === typeof elem && null !== elem) ||
-                                    $report(exceptionable, {
-                                        path: path + ".points[" + index4 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".points[" + index4 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPoint>",
                                         value: elem,
                                     })) &&
                                     $vo2(
                                         elem,
-                                        path + ".points[" + index4 + "]",
-                                        true && exceptionable,
+                                        _path + ".points[" + index4 + "]",
+                                        true && _exceptionable,
                                     )) ||
-                                $report(exceptionable, {
-                                    path: path + ".points[" + index4 + "]",
+                                $report(_exceptionable, {
+                                    path: _path + ".points[" + index4 + "]",
                                     expected:
                                         "Resolve<ObjectUnionExplicit.IPoint>",
                                     value: elem,
                                 }),
                         )
                         .every((flag: boolean) => flag)) ||
-                    $report(exceptionable, {
-                        path: path + ".points",
+                    $report(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     }),
             ].every((flag: boolean) => flag);
-        const $vo8 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo8 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 ((("object" === typeof input.centroid &&
                     null !== input.centroid) ||
-                    $report(exceptionable, {
-                        path: path + ".centroid",
+                    $report(_exceptionable, {
+                        path: _path + ".centroid",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.centroid,
                     })) &&
                     $vo2(
                         input.centroid,
-                        path + ".centroid",
-                        true && exceptionable,
+                        _path + ".centroid",
+                        true && _exceptionable,
                     )) ||
-                    $report(exceptionable, {
-                        path: path + ".centroid",
+                    $report(_exceptionable, {
+                        path: _path + ".centroid",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.centroid,
                     }),
                 "number" === typeof input.radius ||
-                    $report(exceptionable, {
-                        path: path + ".radius",
+                    $report(_exceptionable, {
+                        path: _path + ".radius",
                         expected: "number",
                         value: input.radius,
                     }),
                 "circle" === input.type ||
-                    $report(exceptionable, {
-                        path: path + ".type",
+                    $report(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"circle"',
                         value: input.type,
                     }),
             ].every((flag: boolean) => flag);
-        const $vu0 = (input: any, path: string, exceptionable: boolean) =>
+        const $vu0 = (input: any, _path: string, _exceptionable: boolean) =>
             (() => {
                 if ("point" === input.type)
-                    return $vo0(input, path, true && exceptionable);
+                    return $vo0(input, _path, true && _exceptionable);
                 if ("line" === input.type)
-                    return $vo1(input, path, true && exceptionable);
+                    return $vo1(input, _path, true && _exceptionable);
                 if ("triangle" === input.type)
-                    return $vo3(input, path, true && exceptionable);
+                    return $vo3(input, _path, true && _exceptionable);
                 if ("rectangle" === input.type)
-                    return $vo4(input, path, true && exceptionable);
+                    return $vo4(input, _path, true && _exceptionable);
                 if ("polyline" === input.type)
-                    return $vo5(input, path, true && exceptionable);
+                    return $vo5(input, _path, true && _exceptionable);
                 if ("polygon" === input.type)
-                    return $vo6(input, path, true && exceptionable);
+                    return $vo6(input, _path, true && _exceptionable);
                 if ("circle" === input.type)
-                    return $vo8(input, path, true && exceptionable);
-                return $report(exceptionable, {
-                    path: path,
+                    return $vo8(input, _path, true && _exceptionable);
+                return $report(_exceptionable, {
+                    path: _path,
                     expected:
                         '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
                     value: input,
@@ -762,7 +762,7 @@ export const generate_validate = (
         return (
             ((Array.isArray(input) ||
                 $report(true, {
-                    path: path + "",
+                    path: _path + "",
                     expected:
                         'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                     value: input,
@@ -772,14 +772,14 @@ export const generate_validate = (
                         (elem: any, index1: number) =>
                             ((("object" === typeof elem && null !== elem) ||
                                 $report(true, {
-                                    path: path + "[" + index1 + "]",
+                                    path: _path + "[" + index1 + "]",
                                     expected:
                                         '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                     value: elem,
                                 })) &&
-                                $vu0(elem, path + "[" + index1 + "]", true)) ||
+                                $vu0(elem, _path + "[" + index1 + "]", true)) ||
                             $report(true, {
-                                path: path + "[" + index1 + "]",
+                                path: _path + "[" + index1 + "]",
                                 expected:
                                     '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                 value: elem,
@@ -787,7 +787,7 @@ export const generate_validate = (
                     )
                     .every((flag: boolean) => flag)) ||
             $report(true, {
-                path: path + "",
+                path: _path + "",
                 expected:
                     'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                 value: input,
@@ -809,178 +809,178 @@ export const generate_assert_equals = (input: any) => {
     const $join = (typia.createAssertEquals as any).join;
     ((
         input: any,
-        path: string,
-        exceptionable: boolean,
+        _path: string,
+        _exceptionable: boolean,
     ): input is ObjectUnionExplicit => {
-        const $ao0 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao0 = (input: any, _path: string, _exceptionable: boolean) =>
             ("number" === typeof input.x ||
-                $guard(exceptionable, {
-                    path: path + ".x",
+                $guard(_exceptionable, {
+                    path: _path + ".x",
                     expected: "number",
                     value: input.x,
                 })) &&
             ("number" === typeof input.y ||
-                $guard(exceptionable, {
-                    path: path + ".y",
+                $guard(_exceptionable, {
+                    path: _path + ".y",
                     expected: "number",
                     value: input.y,
                 })) &&
             ("point" === input.type ||
-                $guard(exceptionable, {
-                    path: path + ".type",
+                $guard(_exceptionable, {
+                    path: _path + ".type",
                     expected: '"point"',
                     value: input.type,
                 })) &&
             (3 === Object.keys(input).length ||
-                false === exceptionable ||
+                false === _exceptionable ||
                 Object.keys(input).every((key) => {
                     if (["x", "y", "type"].some((prop) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
-                    return $guard(exceptionable, {
-                        path: path + $join(key),
+                    return $guard(_exceptionable, {
+                        path: _path + $join(key),
                         expected: "undefined",
                         value: value,
                     });
                 }));
-        const $ao1 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao1 = (input: any, _path: string, _exceptionable: boolean) =>
             (("object" === typeof input.p1 && null !== input.p1) ||
-                $guard(exceptionable, {
-                    path: path + ".p1",
+                $guard(_exceptionable, {
+                    path: _path + ".p1",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p1,
                 })) &&
-            $ao2(input.p1, path + ".p1", true && exceptionable) &&
+            $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
             (("object" === typeof input.p2 && null !== input.p2) ||
-                $guard(exceptionable, {
-                    path: path + ".p2",
+                $guard(_exceptionable, {
+                    path: _path + ".p2",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p2,
                 })) &&
-            $ao2(input.p2, path + ".p2", true && exceptionable) &&
+            $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
             ("line" === input.type ||
-                $guard(exceptionable, {
-                    path: path + ".type",
+                $guard(_exceptionable, {
+                    path: _path + ".type",
                     expected: '"line"',
                     value: input.type,
                 })) &&
             (3 === Object.keys(input).length ||
-                false === exceptionable ||
+                false === _exceptionable ||
                 Object.keys(input).every((key) => {
                     if (["p1", "p2", "type"].some((prop) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
-                    return $guard(exceptionable, {
-                        path: path + $join(key),
+                    return $guard(_exceptionable, {
+                        path: _path + $join(key),
                         expected: "undefined",
                         value: value,
                     });
                 }));
-        const $ao2 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao2 = (input: any, _path: string, _exceptionable: boolean) =>
             ("number" === typeof input.x ||
-                $guard(exceptionable, {
-                    path: path + ".x",
+                $guard(_exceptionable, {
+                    path: _path + ".x",
                     expected: "number",
                     value: input.x,
                 })) &&
             ("number" === typeof input.y ||
-                $guard(exceptionable, {
-                    path: path + ".y",
+                $guard(_exceptionable, {
+                    path: _path + ".y",
                     expected: "number",
                     value: input.y,
                 })) &&
             (2 === Object.keys(input).length ||
-                false === exceptionable ||
+                false === _exceptionable ||
                 Object.keys(input).every((key) => {
                     if (["x", "y"].some((prop) => key === prop)) return true;
                     const value = input[key];
                     if (undefined === value) return true;
-                    return $guard(exceptionable, {
-                        path: path + $join(key),
+                    return $guard(_exceptionable, {
+                        path: _path + $join(key),
                         expected: "undefined",
                         value: value,
                     });
                 }));
-        const $ao3 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao3 = (input: any, _path: string, _exceptionable: boolean) =>
             (("object" === typeof input.p1 && null !== input.p1) ||
-                $guard(exceptionable, {
-                    path: path + ".p1",
+                $guard(_exceptionable, {
+                    path: _path + ".p1",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p1,
                 })) &&
-            $ao2(input.p1, path + ".p1", true && exceptionable) &&
+            $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
             (("object" === typeof input.p2 && null !== input.p2) ||
-                $guard(exceptionable, {
-                    path: path + ".p2",
+                $guard(_exceptionable, {
+                    path: _path + ".p2",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p2,
                 })) &&
-            $ao2(input.p2, path + ".p2", true && exceptionable) &&
+            $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
             (("object" === typeof input.p3 && null !== input.p3) ||
-                $guard(exceptionable, {
-                    path: path + ".p3",
+                $guard(_exceptionable, {
+                    path: _path + ".p3",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p3,
                 })) &&
-            $ao2(input.p3, path + ".p3", true && exceptionable) &&
+            $ao2(input.p3, _path + ".p3", true && _exceptionable) &&
             ("triangle" === input.type ||
-                $guard(exceptionable, {
-                    path: path + ".type",
+                $guard(_exceptionable, {
+                    path: _path + ".type",
                     expected: '"triangle"',
                     value: input.type,
                 })) &&
             (4 === Object.keys(input).length ||
-                false === exceptionable ||
+                false === _exceptionable ||
                 Object.keys(input).every((key) => {
                     if (["p1", "p2", "p3", "type"].some((prop) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
-                    return $guard(exceptionable, {
-                        path: path + $join(key),
+                    return $guard(_exceptionable, {
+                        path: _path + $join(key),
                         expected: "undefined",
                         value: value,
                     });
                 }));
-        const $ao4 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao4 = (input: any, _path: string, _exceptionable: boolean) =>
             (("object" === typeof input.p1 && null !== input.p1) ||
-                $guard(exceptionable, {
-                    path: path + ".p1",
+                $guard(_exceptionable, {
+                    path: _path + ".p1",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p1,
                 })) &&
-            $ao2(input.p1, path + ".p1", true && exceptionable) &&
+            $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
             (("object" === typeof input.p2 && null !== input.p2) ||
-                $guard(exceptionable, {
-                    path: path + ".p2",
+                $guard(_exceptionable, {
+                    path: _path + ".p2",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p2,
                 })) &&
-            $ao2(input.p2, path + ".p2", true && exceptionable) &&
+            $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
             (("object" === typeof input.p3 && null !== input.p3) ||
-                $guard(exceptionable, {
-                    path: path + ".p3",
+                $guard(_exceptionable, {
+                    path: _path + ".p3",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p3,
                 })) &&
-            $ao2(input.p3, path + ".p3", true && exceptionable) &&
+            $ao2(input.p3, _path + ".p3", true && _exceptionable) &&
             (("object" === typeof input.p4 && null !== input.p4) ||
-                $guard(exceptionable, {
-                    path: path + ".p4",
+                $guard(_exceptionable, {
+                    path: _path + ".p4",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.p4,
                 })) &&
-            $ao2(input.p4, path + ".p4", true && exceptionable) &&
+            $ao2(input.p4, _path + ".p4", true && _exceptionable) &&
             ("rectangle" === input.type ||
-                $guard(exceptionable, {
-                    path: path + ".type",
+                $guard(_exceptionable, {
+                    path: _path + ".type",
                     expected: '"rectangle"',
                     value: input.type,
                 })) &&
             (5 === Object.keys(input).length ||
-                false === exceptionable ||
+                false === _exceptionable ||
                 Object.keys(input).every((key) => {
                     if (
                         ["p1", "p2", "p3", "p4", "type"].some(
@@ -990,154 +990,154 @@ export const generate_assert_equals = (input: any) => {
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
-                    return $guard(exceptionable, {
-                        path: path + $join(key),
+                    return $guard(_exceptionable, {
+                        path: _path + $join(key),
                         expected: "undefined",
                         value: value,
                     });
                 }));
-        const $ao5 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao5 = (input: any, _path: string, _exceptionable: boolean) =>
             (Array.isArray(input.points) ||
-                $guard(exceptionable, {
-                    path: path + ".points",
+                $guard(_exceptionable, {
+                    path: _path + ".points",
                     expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                     value: input.points,
                 })) &&
             input.points.every(
                 (elem: any, index2: number) =>
                     (("object" === typeof elem && null !== elem) ||
-                        $guard(exceptionable, {
-                            path: path + ".points[" + index2 + "]",
+                        $guard(_exceptionable, {
+                            path: _path + ".points[" + index2 + "]",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: elem,
                         })) &&
                     $ao2(
                         elem,
-                        path + ".points[" + index2 + "]",
-                        true && exceptionable,
+                        _path + ".points[" + index2 + "]",
+                        true && _exceptionable,
                     ),
             ) &&
             ("polyline" === input.type ||
-                $guard(exceptionable, {
-                    path: path + ".type",
+                $guard(_exceptionable, {
+                    path: _path + ".type",
                     expected: '"polyline"',
                     value: input.type,
                 })) &&
             (2 === Object.keys(input).length ||
-                false === exceptionable ||
+                false === _exceptionable ||
                 Object.keys(input).every((key) => {
                     if (["points", "type"].some((prop) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
-                    return $guard(exceptionable, {
-                        path: path + $join(key),
+                    return $guard(_exceptionable, {
+                        path: _path + $join(key),
                         expected: "undefined",
                         value: value,
                     });
                 }));
-        const $ao6 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao6 = (input: any, _path: string, _exceptionable: boolean) =>
             (("object" === typeof input.outer && null !== input.outer) ||
-                $guard(exceptionable, {
-                    path: path + ".outer",
+                $guard(_exceptionable, {
+                    path: _path + ".outer",
                     expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                     value: input.outer,
                 })) &&
-            $ao7(input.outer, path + ".outer", true && exceptionable) &&
+            $ao7(input.outer, _path + ".outer", true && _exceptionable) &&
             (Array.isArray(input.inner) ||
-                $guard(exceptionable, {
-                    path: path + ".inner",
+                $guard(_exceptionable, {
+                    path: _path + ".inner",
                     expected: "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                     value: input.inner,
                 })) &&
             input.inner.every(
                 (elem: any, index3: number) =>
                     (("object" === typeof elem && null !== elem) ||
-                        $guard(exceptionable, {
-                            path: path + ".inner[" + index3 + "]",
+                        $guard(_exceptionable, {
+                            path: _path + ".inner[" + index3 + "]",
                             expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                             value: elem,
                         })) &&
                     $ao7(
                         elem,
-                        path + ".inner[" + index3 + "]",
-                        true && exceptionable,
+                        _path + ".inner[" + index3 + "]",
+                        true && _exceptionable,
                     ),
             ) &&
             ("polygon" === input.type ||
-                $guard(exceptionable, {
-                    path: path + ".type",
+                $guard(_exceptionable, {
+                    path: _path + ".type",
                     expected: '"polygon"',
                     value: input.type,
                 })) &&
             (3 === Object.keys(input).length ||
-                false === exceptionable ||
+                false === _exceptionable ||
                 Object.keys(input).every((key) => {
                     if (["outer", "inner", "type"].some((prop) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
-                    return $guard(exceptionable, {
-                        path: path + $join(key),
+                    return $guard(_exceptionable, {
+                        path: _path + $join(key),
                         expected: "undefined",
                         value: value,
                     });
                 }));
-        const $ao7 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao7 = (input: any, _path: string, _exceptionable: boolean) =>
             (Array.isArray(input.points) ||
-                $guard(exceptionable, {
-                    path: path + ".points",
+                $guard(_exceptionable, {
+                    path: _path + ".points",
                     expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                     value: input.points,
                 })) &&
             input.points.every(
                 (elem: any, index4: number) =>
                     (("object" === typeof elem && null !== elem) ||
-                        $guard(exceptionable, {
-                            path: path + ".points[" + index4 + "]",
+                        $guard(_exceptionable, {
+                            path: _path + ".points[" + index4 + "]",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: elem,
                         })) &&
                     $ao2(
                         elem,
-                        path + ".points[" + index4 + "]",
-                        true && exceptionable,
+                        _path + ".points[" + index4 + "]",
+                        true && _exceptionable,
                     ),
             ) &&
             (1 === Object.keys(input).length ||
-                false === exceptionable ||
+                false === _exceptionable ||
                 Object.keys(input).every((key) => {
                     if (["points"].some((prop) => key === prop)) return true;
                     const value = input[key];
                     if (undefined === value) return true;
-                    return $guard(exceptionable, {
-                        path: path + $join(key),
+                    return $guard(_exceptionable, {
+                        path: _path + $join(key),
                         expected: "undefined",
                         value: value,
                     });
                 }));
-        const $ao8 = (input: any, path: string, exceptionable: boolean) =>
+        const $ao8 = (input: any, _path: string, _exceptionable: boolean) =>
             (("object" === typeof input.centroid && null !== input.centroid) ||
-                $guard(exceptionable, {
-                    path: path + ".centroid",
+                $guard(_exceptionable, {
+                    path: _path + ".centroid",
                     expected: "Resolve<ObjectUnionExplicit.IPoint>",
                     value: input.centroid,
                 })) &&
-            $ao2(input.centroid, path + ".centroid", true && exceptionable) &&
+            $ao2(input.centroid, _path + ".centroid", true && _exceptionable) &&
             ("number" === typeof input.radius ||
-                $guard(exceptionable, {
-                    path: path + ".radius",
+                $guard(_exceptionable, {
+                    path: _path + ".radius",
                     expected: "number",
                     value: input.radius,
                 })) &&
             ("circle" === input.type ||
-                $guard(exceptionable, {
-                    path: path + ".type",
+                $guard(_exceptionable, {
+                    path: _path + ".type",
                     expected: '"circle"',
                     value: input.type,
                 })) &&
             (3 === Object.keys(input).length ||
-                false === exceptionable ||
+                false === _exceptionable ||
                 Object.keys(input).every((key) => {
                     if (
                         ["centroid", "radius", "type"].some(
@@ -1147,30 +1147,30 @@ export const generate_assert_equals = (input: any) => {
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
-                    return $guard(exceptionable, {
-                        path: path + $join(key),
+                    return $guard(_exceptionable, {
+                        path: _path + $join(key),
                         expected: "undefined",
                         value: value,
                     });
                 }));
-        const $au0 = (input: any, path: string, exceptionable: boolean) =>
+        const $au0 = (input: any, _path: string, _exceptionable: boolean) =>
             (() => {
                 if ("point" === input.type)
-                    return $ao0(input, path, true && exceptionable);
+                    return $ao0(input, _path, true && _exceptionable);
                 if ("line" === input.type)
-                    return $ao1(input, path, true && exceptionable);
+                    return $ao1(input, _path, true && _exceptionable);
                 if ("triangle" === input.type)
-                    return $ao3(input, path, true && exceptionable);
+                    return $ao3(input, _path, true && _exceptionable);
                 if ("rectangle" === input.type)
-                    return $ao4(input, path, true && exceptionable);
+                    return $ao4(input, _path, true && _exceptionable);
                 if ("polyline" === input.type)
-                    return $ao5(input, path, true && exceptionable);
+                    return $ao5(input, _path, true && _exceptionable);
                 if ("polygon" === input.type)
-                    return $ao6(input, path, true && exceptionable);
+                    return $ao6(input, _path, true && _exceptionable);
                 if ("circle" === input.type)
-                    return $ao8(input, path, true && exceptionable);
-                return $guard(exceptionable, {
-                    path: path,
+                    return $ao8(input, _path, true && _exceptionable);
+                return $guard(_exceptionable, {
+                    path: _path,
                     expected:
                         '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
                     value: input,
@@ -1179,7 +1179,7 @@ export const generate_assert_equals = (input: any) => {
         return (
             (Array.isArray(input) ||
                 $guard(true, {
-                    path: path + "",
+                    path: _path + "",
                     expected:
                         'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                     value: input,
@@ -1188,12 +1188,12 @@ export const generate_assert_equals = (input: any) => {
                 (elem: any, index1: number) =>
                     (("object" === typeof elem && null !== elem) ||
                         $guard(true, {
-                            path: path + "[" + index1 + "]",
+                            path: _path + "[" + index1 + "]",
                             expected:
                                 '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                             value: elem,
                         })) &&
-                    $au0(elem, path + "[" + index1 + "]", true),
+                    $au0(elem, _path + "[" + index1 + "]", true),
             )
         );
     })(input, "$input", true);
@@ -1204,9 +1204,9 @@ export const generate_assert_equals = (input: any) => {
  */
 export const generate_equals = (
     input: any,
-    exceptionable: boolean,
+    _exceptionable: boolean,
 ): input is ObjectUnionExplicit => {
-    const $io0 = (input: any, exceptionable: boolean) =>
+    const $io0 = (input: any, _exceptionable: boolean) =>
         "number" === typeof input.x &&
         "number" === typeof input.y &&
         "point" === input.type &&
@@ -1218,13 +1218,13 @@ export const generate_equals = (
                 if (undefined === value) return true;
                 return false;
             }));
-    const $io1 = (input: any, exceptionable: boolean) =>
+    const $io1 = (input: any, _exceptionable: boolean) =>
         "object" === typeof input.p1 &&
         null !== input.p1 &&
-        $io2(input.p1, true && exceptionable) &&
+        $io2(input.p1, true && _exceptionable) &&
         "object" === typeof input.p2 &&
         null !== input.p2 &&
-        $io2(input.p2, true && exceptionable) &&
+        $io2(input.p2, true && _exceptionable) &&
         "line" === input.type &&
         (3 === Object.keys(input).length ||
             Object.keys(input).every((key) => {
@@ -1234,7 +1234,7 @@ export const generate_equals = (
                 if (undefined === value) return true;
                 return false;
             }));
-    const $io2 = (input: any, exceptionable: boolean) =>
+    const $io2 = (input: any, _exceptionable: boolean) =>
         "number" === typeof input.x &&
         "number" === typeof input.y &&
         (2 === Object.keys(input).length ||
@@ -1244,16 +1244,16 @@ export const generate_equals = (
                 if (undefined === value) return true;
                 return false;
             }));
-    const $io3 = (input: any, exceptionable: boolean) =>
+    const $io3 = (input: any, _exceptionable: boolean) =>
         "object" === typeof input.p1 &&
         null !== input.p1 &&
-        $io2(input.p1, true && exceptionable) &&
+        $io2(input.p1, true && _exceptionable) &&
         "object" === typeof input.p2 &&
         null !== input.p2 &&
-        $io2(input.p2, true && exceptionable) &&
+        $io2(input.p2, true && _exceptionable) &&
         "object" === typeof input.p3 &&
         null !== input.p3 &&
-        $io2(input.p3, true && exceptionable) &&
+        $io2(input.p3, true && _exceptionable) &&
         "triangle" === input.type &&
         (4 === Object.keys(input).length ||
             Object.keys(input).every((key) => {
@@ -1263,19 +1263,19 @@ export const generate_equals = (
                 if (undefined === value) return true;
                 return false;
             }));
-    const $io4 = (input: any, exceptionable: boolean) =>
+    const $io4 = (input: any, _exceptionable: boolean) =>
         "object" === typeof input.p1 &&
         null !== input.p1 &&
-        $io2(input.p1, true && exceptionable) &&
+        $io2(input.p1, true && _exceptionable) &&
         "object" === typeof input.p2 &&
         null !== input.p2 &&
-        $io2(input.p2, true && exceptionable) &&
+        $io2(input.p2, true && _exceptionable) &&
         "object" === typeof input.p3 &&
         null !== input.p3 &&
-        $io2(input.p3, true && exceptionable) &&
+        $io2(input.p3, true && _exceptionable) &&
         "object" === typeof input.p4 &&
         null !== input.p4 &&
-        $io2(input.p4, true && exceptionable) &&
+        $io2(input.p4, true && _exceptionable) &&
         "rectangle" === input.type &&
         (5 === Object.keys(input).length ||
             Object.keys(input).every((key) => {
@@ -1289,13 +1289,13 @@ export const generate_equals = (
                 if (undefined === value) return true;
                 return false;
             }));
-    const $io5 = (input: any, exceptionable: boolean) =>
+    const $io5 = (input: any, _exceptionable: boolean) =>
         Array.isArray(input.points) &&
         input.points.every(
             (elem: any, index2: number) =>
                 "object" === typeof elem &&
                 null !== elem &&
-                $io2(elem, true && exceptionable),
+                $io2(elem, true && _exceptionable),
         ) &&
         "polyline" === input.type &&
         (2 === Object.keys(input).length ||
@@ -1306,16 +1306,16 @@ export const generate_equals = (
                 if (undefined === value) return true;
                 return false;
             }));
-    const $io6 = (input: any, exceptionable: boolean) =>
+    const $io6 = (input: any, _exceptionable: boolean) =>
         "object" === typeof input.outer &&
         null !== input.outer &&
-        $io7(input.outer, true && exceptionable) &&
+        $io7(input.outer, true && _exceptionable) &&
         Array.isArray(input.inner) &&
         input.inner.every(
             (elem: any, index3: number) =>
                 "object" === typeof elem &&
                 null !== elem &&
-                $io7(elem, true && exceptionable),
+                $io7(elem, true && _exceptionable),
         ) &&
         "polygon" === input.type &&
         (3 === Object.keys(input).length ||
@@ -1326,13 +1326,13 @@ export const generate_equals = (
                 if (undefined === value) return true;
                 return false;
             }));
-    const $io7 = (input: any, exceptionable: boolean) =>
+    const $io7 = (input: any, _exceptionable: boolean) =>
         Array.isArray(input.points) &&
         input.points.every(
             (elem: any, index4: number) =>
                 "object" === typeof elem &&
                 null !== elem &&
-                $io2(elem, true && exceptionable),
+                $io2(elem, true && _exceptionable),
         ) &&
         (1 === Object.keys(input).length ||
             Object.keys(input).every((key) => {
@@ -1341,10 +1341,10 @@ export const generate_equals = (
                 if (undefined === value) return true;
                 return false;
             }));
-    const $io8 = (input: any, exceptionable: boolean) =>
+    const $io8 = (input: any, _exceptionable: boolean) =>
         "object" === typeof input.centroid &&
         null !== input.centroid &&
-        $io2(input.centroid, true && exceptionable) &&
+        $io2(input.centroid, true && _exceptionable) &&
         "number" === typeof input.radius &&
         "circle" === input.type &&
         (3 === Object.keys(input).length ||
@@ -1355,22 +1355,22 @@ export const generate_equals = (
                 if (undefined === value) return true;
                 return false;
             }));
-    const $iu0 = (input: any, exceptionable: boolean) =>
+    const $iu0 = (input: any, _exceptionable: boolean) =>
         (() => {
             if ("point" === input.type)
-                return $io0(input, true && exceptionable);
+                return $io0(input, true && _exceptionable);
             if ("line" === input.type)
-                return $io1(input, true && exceptionable);
+                return $io1(input, true && _exceptionable);
             if ("triangle" === input.type)
-                return $io3(input, true && exceptionable);
+                return $io3(input, true && _exceptionable);
             if ("rectangle" === input.type)
-                return $io4(input, true && exceptionable);
+                return $io4(input, true && _exceptionable);
             if ("polyline" === input.type)
-                return $io5(input, true && exceptionable);
+                return $io5(input, true && _exceptionable);
             if ("polygon" === input.type)
-                return $io6(input, true && exceptionable);
+                return $io6(input, true && _exceptionable);
             if ("circle" === input.type)
-                return $io8(input, true && exceptionable);
+                return $io8(input, true && _exceptionable);
             return false;
         })();
     return (
@@ -1392,79 +1392,79 @@ export const generate_validate_equals = (
     const $join = (typia.createValidateEquals as any).join;
     ((
         input: any,
-        path: string,
-        exceptionable: boolean,
+        _path: string,
+        _exceptionable: boolean,
     ): input is ObjectUnionExplicit => {
-        const $vo0 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo0 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 "number" === typeof input.x ||
-                    $report(exceptionable, {
-                        path: path + ".x",
+                    $report(_exceptionable, {
+                        path: _path + ".x",
                         expected: "number",
                         value: input.x,
                     }),
                 "number" === typeof input.y ||
-                    $report(exceptionable, {
-                        path: path + ".y",
+                    $report(_exceptionable, {
+                        path: _path + ".y",
                         expected: "number",
                         value: input.y,
                     }),
                 "point" === input.type ||
-                    $report(exceptionable, {
-                        path: path + ".type",
+                    $report(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"point"',
                         value: input.type,
                     }),
                 3 === Object.keys(input).length ||
-                    false === exceptionable ||
+                    false === _exceptionable ||
                     Object.keys(input)
                         .map((key) => {
                             if (["x", "y", "type"].some((prop) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
-                            return $report(exceptionable, {
-                                path: path + $join(key),
+                            return $report(_exceptionable, {
+                                path: _path + $join(key),
                                 expected: "undefined",
                                 value: value,
                             });
                         })
                         .every((flag: boolean) => flag),
             ].every((flag: boolean) => flag);
-        const $vo1 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo1 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 ((("object" === typeof input.p1 && null !== input.p1) ||
-                    $report(exceptionable, {
-                        path: path + ".p1",
+                    $report(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                    $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p1",
+                    $vo2(input.p1, _path + ".p1", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     }),
                 ((("object" === typeof input.p2 && null !== input.p2) ||
-                    $report(exceptionable, {
-                        path: path + ".p2",
+                    $report(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                    $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p2",
+                    $vo2(input.p2, _path + ".p2", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     }),
                 "line" === input.type ||
-                    $report(exceptionable, {
-                        path: path + ".type",
+                    $report(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"line"',
                         value: input.type,
                     }),
                 3 === Object.keys(input).length ||
-                    false === exceptionable ||
+                    false === _exceptionable ||
                     Object.keys(input)
                         .map((key) => {
                             if (
@@ -1475,90 +1475,90 @@ export const generate_validate_equals = (
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
-                            return $report(exceptionable, {
-                                path: path + $join(key),
+                            return $report(_exceptionable, {
+                                path: _path + $join(key),
                                 expected: "undefined",
                                 value: value,
                             });
                         })
                         .every((flag: boolean) => flag),
             ].every((flag: boolean) => flag);
-        const $vo2 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo2 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 "number" === typeof input.x ||
-                    $report(exceptionable, {
-                        path: path + ".x",
+                    $report(_exceptionable, {
+                        path: _path + ".x",
                         expected: "number",
                         value: input.x,
                     }),
                 "number" === typeof input.y ||
-                    $report(exceptionable, {
-                        path: path + ".y",
+                    $report(_exceptionable, {
+                        path: _path + ".y",
                         expected: "number",
                         value: input.y,
                     }),
                 2 === Object.keys(input).length ||
-                    false === exceptionable ||
+                    false === _exceptionable ||
                     Object.keys(input)
                         .map((key) => {
                             if (["x", "y"].some((prop) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
-                            return $report(exceptionable, {
-                                path: path + $join(key),
+                            return $report(_exceptionable, {
+                                path: _path + $join(key),
                                 expected: "undefined",
                                 value: value,
                             });
                         })
                         .every((flag: boolean) => flag),
             ].every((flag: boolean) => flag);
-        const $vo3 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo3 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 ((("object" === typeof input.p1 && null !== input.p1) ||
-                    $report(exceptionable, {
-                        path: path + ".p1",
+                    $report(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                    $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p1",
+                    $vo2(input.p1, _path + ".p1", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     }),
                 ((("object" === typeof input.p2 && null !== input.p2) ||
-                    $report(exceptionable, {
-                        path: path + ".p2",
+                    $report(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                    $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p2",
+                    $vo2(input.p2, _path + ".p2", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     }),
                 ((("object" === typeof input.p3 && null !== input.p3) ||
-                    $report(exceptionable, {
-                        path: path + ".p3",
+                    $report(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     })) &&
-                    $vo2(input.p3, path + ".p3", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p3",
+                    $vo2(input.p3, _path + ".p3", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     }),
                 "triangle" === input.type ||
-                    $report(exceptionable, {
-                        path: path + ".type",
+                    $report(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"triangle"',
                         value: input.type,
                     }),
                 4 === Object.keys(input).length ||
-                    false === exceptionable ||
+                    false === _exceptionable ||
                     Object.keys(input)
                         .map((key) => {
                             if (
@@ -1569,72 +1569,72 @@ export const generate_validate_equals = (
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
-                            return $report(exceptionable, {
-                                path: path + $join(key),
+                            return $report(_exceptionable, {
+                                path: _path + $join(key),
                                 expected: "undefined",
                                 value: value,
                             });
                         })
                         .every((flag: boolean) => flag),
             ].every((flag: boolean) => flag);
-        const $vo4 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo4 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 ((("object" === typeof input.p1 && null !== input.p1) ||
-                    $report(exceptionable, {
-                        path: path + ".p1",
+                    $report(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                    $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p1",
+                    $vo2(input.p1, _path + ".p1", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     }),
                 ((("object" === typeof input.p2 && null !== input.p2) ||
-                    $report(exceptionable, {
-                        path: path + ".p2",
+                    $report(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                    $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p2",
+                    $vo2(input.p2, _path + ".p2", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     }),
                 ((("object" === typeof input.p3 && null !== input.p3) ||
-                    $report(exceptionable, {
-                        path: path + ".p3",
+                    $report(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     })) &&
-                    $vo2(input.p3, path + ".p3", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p3",
+                    $vo2(input.p3, _path + ".p3", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     }),
                 ((("object" === typeof input.p4 && null !== input.p4) ||
-                    $report(exceptionable, {
-                        path: path + ".p4",
+                    $report(_exceptionable, {
+                        path: _path + ".p4",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p4,
                     })) &&
-                    $vo2(input.p4, path + ".p4", true && exceptionable)) ||
-                    $report(exceptionable, {
-                        path: path + ".p4",
+                    $vo2(input.p4, _path + ".p4", true && _exceptionable)) ||
+                    $report(_exceptionable, {
+                        path: _path + ".p4",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p4,
                     }),
                 "rectangle" === input.type ||
-                    $report(exceptionable, {
-                        path: path + ".type",
+                    $report(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"rectangle"',
                         value: input.type,
                     }),
                 5 === Object.keys(input).length ||
-                    false === exceptionable ||
+                    false === _exceptionable ||
                     Object.keys(input)
                         .map((key) => {
                             if (
@@ -1645,19 +1645,19 @@ export const generate_validate_equals = (
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
-                            return $report(exceptionable, {
-                                path: path + $join(key),
+                            return $report(_exceptionable, {
+                                path: _path + $join(key),
                                 expected: "undefined",
                                 value: value,
                             });
                         })
                         .every((flag: boolean) => flag),
             ].every((flag: boolean) => flag);
-        const $vo5 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo5 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 ((Array.isArray(input.points) ||
-                    $report(exceptionable, {
-                        path: path + ".points",
+                    $report(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     })) &&
@@ -1665,73 +1665,73 @@ export const generate_validate_equals = (
                         .map(
                             (elem: any, index2: number) =>
                                 ((("object" === typeof elem && null !== elem) ||
-                                    $report(exceptionable, {
-                                        path: path + ".points[" + index2 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".points[" + index2 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPoint>",
                                         value: elem,
                                     })) &&
                                     $vo2(
                                         elem,
-                                        path + ".points[" + index2 + "]",
-                                        true && exceptionable,
+                                        _path + ".points[" + index2 + "]",
+                                        true && _exceptionable,
                                     )) ||
-                                $report(exceptionable, {
-                                    path: path + ".points[" + index2 + "]",
+                                $report(_exceptionable, {
+                                    path: _path + ".points[" + index2 + "]",
                                     expected:
                                         "Resolve<ObjectUnionExplicit.IPoint>",
                                     value: elem,
                                 }),
                         )
                         .every((flag: boolean) => flag)) ||
-                    $report(exceptionable, {
-                        path: path + ".points",
+                    $report(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     }),
                 "polyline" === input.type ||
-                    $report(exceptionable, {
-                        path: path + ".type",
+                    $report(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"polyline"',
                         value: input.type,
                     }),
                 2 === Object.keys(input).length ||
-                    false === exceptionable ||
+                    false === _exceptionable ||
                     Object.keys(input)
                         .map((key) => {
                             if (["points", "type"].some((prop) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
-                            return $report(exceptionable, {
-                                path: path + $join(key),
+                            return $report(_exceptionable, {
+                                path: _path + $join(key),
                                 expected: "undefined",
                                 value: value,
                             });
                         })
                         .every((flag: boolean) => flag),
             ].every((flag: boolean) => flag);
-        const $vo6 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo6 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 ((("object" === typeof input.outer && null !== input.outer) ||
-                    $report(exceptionable, {
-                        path: path + ".outer",
+                    $report(_exceptionable, {
+                        path: _path + ".outer",
                         expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                         value: input.outer,
                     })) &&
                     $vo7(
                         input.outer,
-                        path + ".outer",
-                        true && exceptionable,
+                        _path + ".outer",
+                        true && _exceptionable,
                     )) ||
-                    $report(exceptionable, {
-                        path: path + ".outer",
+                    $report(_exceptionable, {
+                        path: _path + ".outer",
                         expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                         value: input.outer,
                     }),
                 ((Array.isArray(input.inner) ||
-                    $report(exceptionable, {
-                        path: path + ".inner",
+                    $report(_exceptionable, {
+                        path: _path + ".inner",
                         expected:
                             "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                         value: input.inner,
@@ -1740,39 +1740,39 @@ export const generate_validate_equals = (
                         .map(
                             (elem: any, index3: number) =>
                                 ((("object" === typeof elem && null !== elem) ||
-                                    $report(exceptionable, {
-                                        path: path + ".inner[" + index3 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".inner[" + index3 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPolyline>",
                                         value: elem,
                                     })) &&
                                     $vo7(
                                         elem,
-                                        path + ".inner[" + index3 + "]",
-                                        true && exceptionable,
+                                        _path + ".inner[" + index3 + "]",
+                                        true && _exceptionable,
                                     )) ||
-                                $report(exceptionable, {
-                                    path: path + ".inner[" + index3 + "]",
+                                $report(_exceptionable, {
+                                    path: _path + ".inner[" + index3 + "]",
                                     expected:
                                         "Resolve<ObjectUnionExplicit.IPolyline>",
                                     value: elem,
                                 }),
                         )
                         .every((flag: boolean) => flag)) ||
-                    $report(exceptionable, {
-                        path: path + ".inner",
+                    $report(_exceptionable, {
+                        path: _path + ".inner",
                         expected:
                             "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                         value: input.inner,
                     }),
                 "polygon" === input.type ||
-                    $report(exceptionable, {
-                        path: path + ".type",
+                    $report(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"polygon"',
                         value: input.type,
                     }),
                 3 === Object.keys(input).length ||
-                    false === exceptionable ||
+                    false === _exceptionable ||
                     Object.keys(input)
                         .map((key) => {
                             if (
@@ -1783,19 +1783,19 @@ export const generate_validate_equals = (
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
-                            return $report(exceptionable, {
-                                path: path + $join(key),
+                            return $report(_exceptionable, {
+                                path: _path + $join(key),
                                 expected: "undefined",
                                 value: value,
                             });
                         })
                         .every((flag: boolean) => flag),
             ].every((flag: boolean) => flag);
-        const $vo7 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo7 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 ((Array.isArray(input.points) ||
-                    $report(exceptionable, {
-                        path: path + ".points",
+                    $report(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     })) &&
@@ -1803,79 +1803,79 @@ export const generate_validate_equals = (
                         .map(
                             (elem: any, index4: number) =>
                                 ((("object" === typeof elem && null !== elem) ||
-                                    $report(exceptionable, {
-                                        path: path + ".points[" + index4 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".points[" + index4 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPoint>",
                                         value: elem,
                                     })) &&
                                     $vo2(
                                         elem,
-                                        path + ".points[" + index4 + "]",
-                                        true && exceptionable,
+                                        _path + ".points[" + index4 + "]",
+                                        true && _exceptionable,
                                     )) ||
-                                $report(exceptionable, {
-                                    path: path + ".points[" + index4 + "]",
+                                $report(_exceptionable, {
+                                    path: _path + ".points[" + index4 + "]",
                                     expected:
                                         "Resolve<ObjectUnionExplicit.IPoint>",
                                     value: elem,
                                 }),
                         )
                         .every((flag: boolean) => flag)) ||
-                    $report(exceptionable, {
-                        path: path + ".points",
+                    $report(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     }),
                 1 === Object.keys(input).length ||
-                    false === exceptionable ||
+                    false === _exceptionable ||
                     Object.keys(input)
                         .map((key) => {
                             if (["points"].some((prop) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
-                            return $report(exceptionable, {
-                                path: path + $join(key),
+                            return $report(_exceptionable, {
+                                path: _path + $join(key),
                                 expected: "undefined",
                                 value: value,
                             });
                         })
                         .every((flag: boolean) => flag),
             ].every((flag: boolean) => flag);
-        const $vo8 = (input: any, path: string, exceptionable: boolean) =>
+        const $vo8 = (input: any, _path: string, _exceptionable: boolean) =>
             [
                 ((("object" === typeof input.centroid &&
                     null !== input.centroid) ||
-                    $report(exceptionable, {
-                        path: path + ".centroid",
+                    $report(_exceptionable, {
+                        path: _path + ".centroid",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.centroid,
                     })) &&
                     $vo2(
                         input.centroid,
-                        path + ".centroid",
-                        true && exceptionable,
+                        _path + ".centroid",
+                        true && _exceptionable,
                     )) ||
-                    $report(exceptionable, {
-                        path: path + ".centroid",
+                    $report(_exceptionable, {
+                        path: _path + ".centroid",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.centroid,
                     }),
                 "number" === typeof input.radius ||
-                    $report(exceptionable, {
-                        path: path + ".radius",
+                    $report(_exceptionable, {
+                        path: _path + ".radius",
                         expected: "number",
                         value: input.radius,
                     }),
                 "circle" === input.type ||
-                    $report(exceptionable, {
-                        path: path + ".type",
+                    $report(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"circle"',
                         value: input.type,
                     }),
                 3 === Object.keys(input).length ||
-                    false === exceptionable ||
+                    false === _exceptionable ||
                     Object.keys(input)
                         .map((key) => {
                             if (
@@ -1886,32 +1886,32 @@ export const generate_validate_equals = (
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
-                            return $report(exceptionable, {
-                                path: path + $join(key),
+                            return $report(_exceptionable, {
+                                path: _path + $join(key),
                                 expected: "undefined",
                                 value: value,
                             });
                         })
                         .every((flag: boolean) => flag),
             ].every((flag: boolean) => flag);
-        const $vu0 = (input: any, path: string, exceptionable: boolean) =>
+        const $vu0 = (input: any, _path: string, _exceptionable: boolean) =>
             (() => {
                 if ("point" === input.type)
-                    return $vo0(input, path, true && exceptionable);
+                    return $vo0(input, _path, true && _exceptionable);
                 if ("line" === input.type)
-                    return $vo1(input, path, true && exceptionable);
+                    return $vo1(input, _path, true && _exceptionable);
                 if ("triangle" === input.type)
-                    return $vo3(input, path, true && exceptionable);
+                    return $vo3(input, _path, true && _exceptionable);
                 if ("rectangle" === input.type)
-                    return $vo4(input, path, true && exceptionable);
+                    return $vo4(input, _path, true && _exceptionable);
                 if ("polyline" === input.type)
-                    return $vo5(input, path, true && exceptionable);
+                    return $vo5(input, _path, true && _exceptionable);
                 if ("polygon" === input.type)
-                    return $vo6(input, path, true && exceptionable);
+                    return $vo6(input, _path, true && _exceptionable);
                 if ("circle" === input.type)
-                    return $vo8(input, path, true && exceptionable);
-                return $report(exceptionable, {
-                    path: path,
+                    return $vo8(input, _path, true && _exceptionable);
+                return $report(_exceptionable, {
+                    path: _path,
                     expected:
                         '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
                     value: input,
@@ -1920,7 +1920,7 @@ export const generate_validate_equals = (
         return (
             ((Array.isArray(input) ||
                 $report(true, {
-                    path: path + "",
+                    path: _path + "",
                     expected:
                         'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                     value: input,
@@ -1930,14 +1930,14 @@ export const generate_validate_equals = (
                         (elem: any, index1: number) =>
                             ((("object" === typeof elem && null !== elem) ||
                                 $report(true, {
-                                    path: path + "[" + index1 + "]",
+                                    path: _path + "[" + index1 + "]",
                                     expected:
                                         '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                     value: elem,
                                 })) &&
-                                $vu0(elem, path + "[" + index1 + "]", true)) ||
+                                $vu0(elem, _path + "[" + index1 + "]", true)) ||
                             $report(true, {
-                                path: path + "[" + index1 + "]",
+                                path: _path + "[" + index1 + "]",
                                 expected:
                                     '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                 value: elem,
@@ -1945,7 +1945,7 @@ export const generate_validate_equals = (
                     )
                     .every((flag: boolean) => flag)) ||
             $report(true, {
-                path: path + "",
+                path: _path + "",
                 expected:
                     'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                 value: input,
@@ -2499,163 +2499,163 @@ export const generate_assert_parse = (
         const $guard = (typia.createAssertParse as any).guard;
         ((
             input: any,
-            path: string,
-            exceptionable: boolean,
+            _path: string,
+            _exceptionable: boolean,
         ): input is ObjectUnionExplicit => {
-            const $ao0 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao0 = (input: any, _path: string, _exceptionable: boolean) =>
                 ("number" === typeof input.x ||
-                    $guard(exceptionable, {
-                        path: path + ".x",
+                    $guard(_exceptionable, {
+                        path: _path + ".x",
                         expected: "number",
                         value: input.x,
                     })) &&
                 ("number" === typeof input.y ||
-                    $guard(exceptionable, {
-                        path: path + ".y",
+                    $guard(_exceptionable, {
+                        path: _path + ".y",
                         expected: "number",
                         value: input.y,
                     })) &&
                 ("point" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"point"',
                         value: input.type,
                     }));
-            const $ao1 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao1 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.p1 && null !== input.p1) ||
-                    $guard(exceptionable, {
-                        path: path + ".p1",
+                    $guard(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                $ao2(input.p1, path + ".p1", true && exceptionable) &&
+                $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
                 (("object" === typeof input.p2 && null !== input.p2) ||
-                    $guard(exceptionable, {
-                        path: path + ".p2",
+                    $guard(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                $ao2(input.p2, path + ".p2", true && exceptionable) &&
+                $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
                 ("line" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"line"',
                         value: input.type,
                     }));
-            const $ao2 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao2 = (input: any, _path: string, _exceptionable: boolean) =>
                 ("number" === typeof input.x ||
-                    $guard(exceptionable, {
-                        path: path + ".x",
+                    $guard(_exceptionable, {
+                        path: _path + ".x",
                         expected: "number",
                         value: input.x,
                     })) &&
                 ("number" === typeof input.y ||
-                    $guard(exceptionable, {
-                        path: path + ".y",
+                    $guard(_exceptionable, {
+                        path: _path + ".y",
                         expected: "number",
                         value: input.y,
                     }));
-            const $ao3 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao3 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.p1 && null !== input.p1) ||
-                    $guard(exceptionable, {
-                        path: path + ".p1",
+                    $guard(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                $ao2(input.p1, path + ".p1", true && exceptionable) &&
+                $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
                 (("object" === typeof input.p2 && null !== input.p2) ||
-                    $guard(exceptionable, {
-                        path: path + ".p2",
+                    $guard(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                $ao2(input.p2, path + ".p2", true && exceptionable) &&
+                $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
                 (("object" === typeof input.p3 && null !== input.p3) ||
-                    $guard(exceptionable, {
-                        path: path + ".p3",
+                    $guard(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     })) &&
-                $ao2(input.p3, path + ".p3", true && exceptionable) &&
+                $ao2(input.p3, _path + ".p3", true && _exceptionable) &&
                 ("triangle" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"triangle"',
                         value: input.type,
                     }));
-            const $ao4 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao4 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.p1 && null !== input.p1) ||
-                    $guard(exceptionable, {
-                        path: path + ".p1",
+                    $guard(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                $ao2(input.p1, path + ".p1", true && exceptionable) &&
+                $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
                 (("object" === typeof input.p2 && null !== input.p2) ||
-                    $guard(exceptionable, {
-                        path: path + ".p2",
+                    $guard(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                $ao2(input.p2, path + ".p2", true && exceptionable) &&
+                $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
                 (("object" === typeof input.p3 && null !== input.p3) ||
-                    $guard(exceptionable, {
-                        path: path + ".p3",
+                    $guard(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     })) &&
-                $ao2(input.p3, path + ".p3", true && exceptionable) &&
+                $ao2(input.p3, _path + ".p3", true && _exceptionable) &&
                 (("object" === typeof input.p4 && null !== input.p4) ||
-                    $guard(exceptionable, {
-                        path: path + ".p4",
+                    $guard(_exceptionable, {
+                        path: _path + ".p4",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p4,
                     })) &&
-                $ao2(input.p4, path + ".p4", true && exceptionable) &&
+                $ao2(input.p4, _path + ".p4", true && _exceptionable) &&
                 ("rectangle" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"rectangle"',
                         value: input.type,
                     }));
-            const $ao5 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao5 = (input: any, _path: string, _exceptionable: boolean) =>
                 (Array.isArray(input.points) ||
-                    $guard(exceptionable, {
-                        path: path + ".points",
+                    $guard(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     })) &&
                 input.points.every(
                     (elem: any, index2: number) =>
                         (("object" === typeof elem && null !== elem) ||
-                            $guard(exceptionable, {
-                                path: path + ".points[" + index2 + "]",
+                            $guard(_exceptionable, {
+                                path: _path + ".points[" + index2 + "]",
                                 expected: "Resolve<ObjectUnionExplicit.IPoint>",
                                 value: elem,
                             })) &&
                         $ao2(
                             elem,
-                            path + ".points[" + index2 + "]",
-                            true && exceptionable,
+                            _path + ".points[" + index2 + "]",
+                            true && _exceptionable,
                         ),
                 ) &&
                 ("polyline" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"polyline"',
                         value: input.type,
                     }));
-            const $ao6 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao6 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.outer && null !== input.outer) ||
-                    $guard(exceptionable, {
-                        path: path + ".outer",
+                    $guard(_exceptionable, {
+                        path: _path + ".outer",
                         expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                         value: input.outer,
                     })) &&
-                $ao7(input.outer, path + ".outer", true && exceptionable) &&
+                $ao7(input.outer, _path + ".outer", true && _exceptionable) &&
                 (Array.isArray(input.inner) ||
-                    $guard(exceptionable, {
-                        path: path + ".inner",
+                    $guard(_exceptionable, {
+                        path: _path + ".inner",
                         expected:
                             "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                         value: input.inner,
@@ -2663,88 +2663,88 @@ export const generate_assert_parse = (
                 input.inner.every(
                     (elem: any, index3: number) =>
                         (("object" === typeof elem && null !== elem) ||
-                            $guard(exceptionable, {
-                                path: path + ".inner[" + index3 + "]",
+                            $guard(_exceptionable, {
+                                path: _path + ".inner[" + index3 + "]",
                                 expected:
                                     "Resolve<ObjectUnionExplicit.IPolyline>",
                                 value: elem,
                             })) &&
                         $ao7(
                             elem,
-                            path + ".inner[" + index3 + "]",
-                            true && exceptionable,
+                            _path + ".inner[" + index3 + "]",
+                            true && _exceptionable,
                         ),
                 ) &&
                 ("polygon" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"polygon"',
                         value: input.type,
                     }));
-            const $ao7 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao7 = (input: any, _path: string, _exceptionable: boolean) =>
                 (Array.isArray(input.points) ||
-                    $guard(exceptionable, {
-                        path: path + ".points",
+                    $guard(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     })) &&
                 input.points.every(
                     (elem: any, index4: number) =>
                         (("object" === typeof elem && null !== elem) ||
-                            $guard(exceptionable, {
-                                path: path + ".points[" + index4 + "]",
+                            $guard(_exceptionable, {
+                                path: _path + ".points[" + index4 + "]",
                                 expected: "Resolve<ObjectUnionExplicit.IPoint>",
                                 value: elem,
                             })) &&
                         $ao2(
                             elem,
-                            path + ".points[" + index4 + "]",
-                            true && exceptionable,
+                            _path + ".points[" + index4 + "]",
+                            true && _exceptionable,
                         ),
                 );
-            const $ao8 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao8 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.centroid &&
                     null !== input.centroid) ||
-                    $guard(exceptionable, {
-                        path: path + ".centroid",
+                    $guard(_exceptionable, {
+                        path: _path + ".centroid",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.centroid,
                     })) &&
                 $ao2(
                     input.centroid,
-                    path + ".centroid",
-                    true && exceptionable,
+                    _path + ".centroid",
+                    true && _exceptionable,
                 ) &&
                 ("number" === typeof input.radius ||
-                    $guard(exceptionable, {
-                        path: path + ".radius",
+                    $guard(_exceptionable, {
+                        path: _path + ".radius",
                         expected: "number",
                         value: input.radius,
                     })) &&
                 ("circle" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"circle"',
                         value: input.type,
                     }));
-            const $au0 = (input: any, path: string, exceptionable: boolean) =>
+            const $au0 = (input: any, _path: string, _exceptionable: boolean) =>
                 (() => {
                     if ("point" === input.type)
-                        return $ao0(input, path, true && exceptionable);
+                        return $ao0(input, _path, true && _exceptionable);
                     if ("line" === input.type)
-                        return $ao1(input, path, true && exceptionable);
+                        return $ao1(input, _path, true && _exceptionable);
                     if ("triangle" === input.type)
-                        return $ao3(input, path, true && exceptionable);
+                        return $ao3(input, _path, true && _exceptionable);
                     if ("rectangle" === input.type)
-                        return $ao4(input, path, true && exceptionable);
+                        return $ao4(input, _path, true && _exceptionable);
                     if ("polyline" === input.type)
-                        return $ao5(input, path, true && exceptionable);
+                        return $ao5(input, _path, true && _exceptionable);
                     if ("polygon" === input.type)
-                        return $ao6(input, path, true && exceptionable);
+                        return $ao6(input, _path, true && _exceptionable);
                     if ("circle" === input.type)
-                        return $ao8(input, path, true && exceptionable);
-                    return $guard(exceptionable, {
-                        path: path,
+                        return $ao8(input, _path, true && _exceptionable);
+                    return $guard(_exceptionable, {
+                        path: _path,
                         expected:
                             '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
                         value: input,
@@ -2753,7 +2753,7 @@ export const generate_assert_parse = (
             return (
                 (Array.isArray(input) ||
                     $guard(true, {
-                        path: path + "",
+                        path: _path + "",
                         expected:
                             'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                         value: input,
@@ -2762,12 +2762,12 @@ export const generate_assert_parse = (
                     (elem: any, index1: number) =>
                         (("object" === typeof elem && null !== elem) ||
                             $guard(true, {
-                                path: path + "[" + index1 + "]",
+                                path: _path + "[" + index1 + "]",
                                 expected:
                                     '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                 value: elem,
                             })) &&
-                        $au0(elem, path + "[" + index1 + "]", true),
+                        $au0(elem, _path + "[" + index1 + "]", true),
                 )
             );
         })(input, "$input", true);
@@ -2894,185 +2894,221 @@ export const generate_validate_parse = (
         const $report = (typia.createValidateParse as any).report(errors);
         ((
             input: any,
-            path: string,
-            exceptionable: boolean,
+            _path: string,
+            _exceptionable: boolean,
         ): input is ObjectUnionExplicit => {
-            const $vo0 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo0 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     "number" === typeof input.x ||
-                        $report(exceptionable, {
-                            path: path + ".x",
+                        $report(_exceptionable, {
+                            path: _path + ".x",
                             expected: "number",
                             value: input.x,
                         }),
                     "number" === typeof input.y ||
-                        $report(exceptionable, {
-                            path: path + ".y",
+                        $report(_exceptionable, {
+                            path: _path + ".y",
                             expected: "number",
                             value: input.y,
                         }),
                     "point" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"point"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo1 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo1 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.p1 && null !== input.p1) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         })) &&
-                        $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $vo2(
+                            input.p1,
+                            _path + ".p1",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         }),
                     ((("object" === typeof input.p2 && null !== input.p2) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         })) &&
-                        $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $vo2(
+                            input.p2,
+                            _path + ".p2",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         }),
                     "line" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"line"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo2 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo2 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     "number" === typeof input.x ||
-                        $report(exceptionable, {
-                            path: path + ".x",
+                        $report(_exceptionable, {
+                            path: _path + ".x",
                             expected: "number",
                             value: input.x,
                         }),
                     "number" === typeof input.y ||
-                        $report(exceptionable, {
-                            path: path + ".y",
+                        $report(_exceptionable, {
+                            path: _path + ".y",
                             expected: "number",
                             value: input.y,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo3 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo3 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.p1 && null !== input.p1) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         })) &&
-                        $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $vo2(
+                            input.p1,
+                            _path + ".p1",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         }),
                     ((("object" === typeof input.p2 && null !== input.p2) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         })) &&
-                        $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $vo2(
+                            input.p2,
+                            _path + ".p2",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         }),
                     ((("object" === typeof input.p3 && null !== input.p3) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         })) &&
-                        $vo2(input.p3, path + ".p3", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $vo2(
+                            input.p3,
+                            _path + ".p3",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         }),
                     "triangle" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"triangle"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo4 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo4 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.p1 && null !== input.p1) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         })) &&
-                        $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $vo2(
+                            input.p1,
+                            _path + ".p1",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         }),
                     ((("object" === typeof input.p2 && null !== input.p2) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         })) &&
-                        $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $vo2(
+                            input.p2,
+                            _path + ".p2",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         }),
                     ((("object" === typeof input.p3 && null !== input.p3) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         })) &&
-                        $vo2(input.p3, path + ".p3", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $vo2(
+                            input.p3,
+                            _path + ".p3",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         }),
                     ((("object" === typeof input.p4 && null !== input.p4) ||
-                        $report(exceptionable, {
-                            path: path + ".p4",
+                        $report(_exceptionable, {
+                            path: _path + ".p4",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p4,
                         })) &&
-                        $vo2(input.p4, path + ".p4", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p4",
+                        $vo2(
+                            input.p4,
+                            _path + ".p4",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p4",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p4,
                         }),
                     "rectangle" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"rectangle"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo5 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo5 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((Array.isArray(input.points) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
@@ -3082,9 +3118,9 @@ export const generate_validate_parse = (
                                 (elem: any, index2: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
-                                        $report(exceptionable, {
+                                        $report(_exceptionable, {
                                             path:
-                                                path +
+                                                _path +
                                                 ".points[" +
                                                 index2 +
                                                 "]",
@@ -3094,52 +3130,52 @@ export const generate_validate_parse = (
                                         })) &&
                                         $vo2(
                                             elem,
-                                            path + ".points[" + index2 + "]",
-                                            true && exceptionable,
+                                            _path + ".points[" + index2 + "]",
+                                            true && _exceptionable,
                                         )) ||
-                                    $report(exceptionable, {
-                                        path: path + ".points[" + index2 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".points[" + index2 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPoint>",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
                         }),
                     "polyline" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"polyline"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo6 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo6 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.outer &&
                         null !== input.outer) ||
-                        $report(exceptionable, {
-                            path: path + ".outer",
+                        $report(_exceptionable, {
+                            path: _path + ".outer",
                             expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                             value: input.outer,
                         })) &&
                         $vo7(
                             input.outer,
-                            path + ".outer",
-                            true && exceptionable,
+                            _path + ".outer",
+                            true && _exceptionable,
                         )) ||
-                        $report(exceptionable, {
-                            path: path + ".outer",
+                        $report(_exceptionable, {
+                            path: _path + ".outer",
                             expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                             value: input.outer,
                         }),
                     ((Array.isArray(input.inner) ||
-                        $report(exceptionable, {
-                            path: path + ".inner",
+                        $report(_exceptionable, {
+                            path: _path + ".inner",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                             value: input.inner,
@@ -3149,44 +3185,47 @@ export const generate_validate_parse = (
                                 (elem: any, index3: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
-                                        $report(exceptionable, {
+                                        $report(_exceptionable, {
                                             path:
-                                                path + ".inner[" + index3 + "]",
+                                                _path +
+                                                ".inner[" +
+                                                index3 +
+                                                "]",
                                             expected:
                                                 "Resolve<ObjectUnionExplicit.IPolyline>",
                                             value: elem,
                                         })) &&
                                         $vo7(
                                             elem,
-                                            path + ".inner[" + index3 + "]",
-                                            true && exceptionable,
+                                            _path + ".inner[" + index3 + "]",
+                                            true && _exceptionable,
                                         )) ||
-                                    $report(exceptionable, {
-                                        path: path + ".inner[" + index3 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".inner[" + index3 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPolyline>",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
-                        $report(exceptionable, {
-                            path: path + ".inner",
+                        $report(_exceptionable, {
+                            path: _path + ".inner",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                             value: input.inner,
                         }),
                     "polygon" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"polygon"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo7 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo7 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((Array.isArray(input.points) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
@@ -3196,9 +3235,9 @@ export const generate_validate_parse = (
                                 (elem: any, index4: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
-                                        $report(exceptionable, {
+                                        $report(_exceptionable, {
                                             path:
-                                                path +
+                                                _path +
                                                 ".points[" +
                                                 index4 +
                                                 "]",
@@ -3208,74 +3247,74 @@ export const generate_validate_parse = (
                                         })) &&
                                         $vo2(
                                             elem,
-                                            path + ".points[" + index4 + "]",
-                                            true && exceptionable,
+                                            _path + ".points[" + index4 + "]",
+                                            true && _exceptionable,
                                         )) ||
-                                    $report(exceptionable, {
-                                        path: path + ".points[" + index4 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".points[" + index4 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPoint>",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo8 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo8 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.centroid &&
                         null !== input.centroid) ||
-                        $report(exceptionable, {
-                            path: path + ".centroid",
+                        $report(_exceptionable, {
+                            path: _path + ".centroid",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.centroid,
                         })) &&
                         $vo2(
                             input.centroid,
-                            path + ".centroid",
-                            true && exceptionable,
+                            _path + ".centroid",
+                            true && _exceptionable,
                         )) ||
-                        $report(exceptionable, {
-                            path: path + ".centroid",
+                        $report(_exceptionable, {
+                            path: _path + ".centroid",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.centroid,
                         }),
                     "number" === typeof input.radius ||
-                        $report(exceptionable, {
-                            path: path + ".radius",
+                        $report(_exceptionable, {
+                            path: _path + ".radius",
                             expected: "number",
                             value: input.radius,
                         }),
                     "circle" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"circle"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vu0 = (input: any, path: string, exceptionable: boolean) =>
+            const $vu0 = (input: any, _path: string, _exceptionable: boolean) =>
                 (() => {
                     if ("point" === input.type)
-                        return $vo0(input, path, true && exceptionable);
+                        return $vo0(input, _path, true && _exceptionable);
                     if ("line" === input.type)
-                        return $vo1(input, path, true && exceptionable);
+                        return $vo1(input, _path, true && _exceptionable);
                     if ("triangle" === input.type)
-                        return $vo3(input, path, true && exceptionable);
+                        return $vo3(input, _path, true && _exceptionable);
                     if ("rectangle" === input.type)
-                        return $vo4(input, path, true && exceptionable);
+                        return $vo4(input, _path, true && _exceptionable);
                     if ("polyline" === input.type)
-                        return $vo5(input, path, true && exceptionable);
+                        return $vo5(input, _path, true && _exceptionable);
                     if ("polygon" === input.type)
-                        return $vo6(input, path, true && exceptionable);
+                        return $vo6(input, _path, true && _exceptionable);
                     if ("circle" === input.type)
-                        return $vo8(input, path, true && exceptionable);
-                    return $report(exceptionable, {
-                        path: path,
+                        return $vo8(input, _path, true && _exceptionable);
+                    return $report(_exceptionable, {
+                        path: _path,
                         expected:
                             '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
                         value: input,
@@ -3284,7 +3323,7 @@ export const generate_validate_parse = (
             return (
                 ((Array.isArray(input) ||
                     $report(true, {
-                        path: path + "",
+                        path: _path + "",
                         expected:
                             'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                         value: input,
@@ -3294,18 +3333,18 @@ export const generate_validate_parse = (
                             (elem: any, index1: number) =>
                                 ((("object" === typeof elem && null !== elem) ||
                                     $report(true, {
-                                        path: path + "[" + index1 + "]",
+                                        path: _path + "[" + index1 + "]",
                                         expected:
                                             '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                         value: elem,
                                     })) &&
                                     $vu0(
                                         elem,
-                                        path + "[" + index1 + "]",
+                                        _path + "[" + index1 + "]",
                                         true,
                                     )) ||
                                 $report(true, {
-                                    path: path + "[" + index1 + "]",
+                                    path: _path + "[" + index1 + "]",
                                     expected:
                                         '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                     value: elem,
@@ -3313,7 +3352,7 @@ export const generate_validate_parse = (
                         )
                         .every((flag: boolean) => flag)) ||
                 $report(true, {
-                    path: path + "",
+                    path: _path + "",
                     expected:
                         'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                     value: input,
@@ -3434,7 +3473,6 @@ export const generate_stringify = (input: ObjectUnionExplicit): string => {
                 value: input.type,
             });
         })()}}`;
-    const $so2 = (input: any) => `{"x":${input.x},"y":${input.y}}`;
     const $so3 = (input: any) =>
         `{"p1":${`{"x":${input.p1.x},"y":${input.p1.y}}`},"p2":${`{"x":${input.p2.x},"y":${input.p2.y}}`},"p3":${`{"x":${input.p3.x},"y":${input.p3.y}}`},"type":${(() => {
             if ("string" === typeof input.type) return $string(input.type);
@@ -3517,163 +3555,163 @@ export const generate_assert_stringify = (
         const $guard = (typia.createAssertStringify as any).guard;
         ((
             input: any,
-            path: string,
-            exceptionable: boolean,
+            _path: string,
+            _exceptionable: boolean,
         ): input is ObjectUnionExplicit => {
-            const $ao0 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao0 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("number" === typeof input.x && !Number.isNaN(input.x)) ||
-                    $guard(exceptionable, {
-                        path: path + ".x",
+                    $guard(_exceptionable, {
+                        path: _path + ".x",
                         expected: "number",
                         value: input.x,
                     })) &&
                 (("number" === typeof input.y && !Number.isNaN(input.y)) ||
-                    $guard(exceptionable, {
-                        path: path + ".y",
+                    $guard(_exceptionable, {
+                        path: _path + ".y",
                         expected: "number",
                         value: input.y,
                     })) &&
                 ("point" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"point"',
                         value: input.type,
                     }));
-            const $ao1 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao1 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.p1 && null !== input.p1) ||
-                    $guard(exceptionable, {
-                        path: path + ".p1",
+                    $guard(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                $ao2(input.p1, path + ".p1", true && exceptionable) &&
+                $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
                 (("object" === typeof input.p2 && null !== input.p2) ||
-                    $guard(exceptionable, {
-                        path: path + ".p2",
+                    $guard(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                $ao2(input.p2, path + ".p2", true && exceptionable) &&
+                $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
                 ("line" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"line"',
                         value: input.type,
                     }));
-            const $ao2 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao2 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("number" === typeof input.x && !Number.isNaN(input.x)) ||
-                    $guard(exceptionable, {
-                        path: path + ".x",
+                    $guard(_exceptionable, {
+                        path: _path + ".x",
                         expected: "number",
                         value: input.x,
                     })) &&
                 (("number" === typeof input.y && !Number.isNaN(input.y)) ||
-                    $guard(exceptionable, {
-                        path: path + ".y",
+                    $guard(_exceptionable, {
+                        path: _path + ".y",
                         expected: "number",
                         value: input.y,
                     }));
-            const $ao3 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao3 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.p1 && null !== input.p1) ||
-                    $guard(exceptionable, {
-                        path: path + ".p1",
+                    $guard(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                $ao2(input.p1, path + ".p1", true && exceptionable) &&
+                $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
                 (("object" === typeof input.p2 && null !== input.p2) ||
-                    $guard(exceptionable, {
-                        path: path + ".p2",
+                    $guard(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                $ao2(input.p2, path + ".p2", true && exceptionable) &&
+                $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
                 (("object" === typeof input.p3 && null !== input.p3) ||
-                    $guard(exceptionable, {
-                        path: path + ".p3",
+                    $guard(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     })) &&
-                $ao2(input.p3, path + ".p3", true && exceptionable) &&
+                $ao2(input.p3, _path + ".p3", true && _exceptionable) &&
                 ("triangle" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"triangle"',
                         value: input.type,
                     }));
-            const $ao4 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao4 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.p1 && null !== input.p1) ||
-                    $guard(exceptionable, {
-                        path: path + ".p1",
+                    $guard(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                $ao2(input.p1, path + ".p1", true && exceptionable) &&
+                $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
                 (("object" === typeof input.p2 && null !== input.p2) ||
-                    $guard(exceptionable, {
-                        path: path + ".p2",
+                    $guard(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                $ao2(input.p2, path + ".p2", true && exceptionable) &&
+                $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
                 (("object" === typeof input.p3 && null !== input.p3) ||
-                    $guard(exceptionable, {
-                        path: path + ".p3",
+                    $guard(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     })) &&
-                $ao2(input.p3, path + ".p3", true && exceptionable) &&
+                $ao2(input.p3, _path + ".p3", true && _exceptionable) &&
                 (("object" === typeof input.p4 && null !== input.p4) ||
-                    $guard(exceptionable, {
-                        path: path + ".p4",
+                    $guard(_exceptionable, {
+                        path: _path + ".p4",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p4,
                     })) &&
-                $ao2(input.p4, path + ".p4", true && exceptionable) &&
+                $ao2(input.p4, _path + ".p4", true && _exceptionable) &&
                 ("rectangle" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"rectangle"',
                         value: input.type,
                     }));
-            const $ao5 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao5 = (input: any, _path: string, _exceptionable: boolean) =>
                 (Array.isArray(input.points) ||
-                    $guard(exceptionable, {
-                        path: path + ".points",
+                    $guard(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     })) &&
                 input.points.every(
                     (elem: any, index2: number) =>
                         (("object" === typeof elem && null !== elem) ||
-                            $guard(exceptionable, {
-                                path: path + ".points[" + index2 + "]",
+                            $guard(_exceptionable, {
+                                path: _path + ".points[" + index2 + "]",
                                 expected: "Resolve<ObjectUnionExplicit.IPoint>",
                                 value: elem,
                             })) &&
                         $ao2(
                             elem,
-                            path + ".points[" + index2 + "]",
-                            true && exceptionable,
+                            _path + ".points[" + index2 + "]",
+                            true && _exceptionable,
                         ),
                 ) &&
                 ("polyline" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"polyline"',
                         value: input.type,
                     }));
-            const $ao6 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao6 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.outer && null !== input.outer) ||
-                    $guard(exceptionable, {
-                        path: path + ".outer",
+                    $guard(_exceptionable, {
+                        path: _path + ".outer",
                         expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                         value: input.outer,
                     })) &&
-                $ao7(input.outer, path + ".outer", true && exceptionable) &&
+                $ao7(input.outer, _path + ".outer", true && _exceptionable) &&
                 (Array.isArray(input.inner) ||
-                    $guard(exceptionable, {
-                        path: path + ".inner",
+                    $guard(_exceptionable, {
+                        path: _path + ".inner",
                         expected:
                             "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                         value: input.inner,
@@ -3681,89 +3719,89 @@ export const generate_assert_stringify = (
                 input.inner.every(
                     (elem: any, index3: number) =>
                         (("object" === typeof elem && null !== elem) ||
-                            $guard(exceptionable, {
-                                path: path + ".inner[" + index3 + "]",
+                            $guard(_exceptionable, {
+                                path: _path + ".inner[" + index3 + "]",
                                 expected:
                                     "Resolve<ObjectUnionExplicit.IPolyline>",
                                 value: elem,
                             })) &&
                         $ao7(
                             elem,
-                            path + ".inner[" + index3 + "]",
-                            true && exceptionable,
+                            _path + ".inner[" + index3 + "]",
+                            true && _exceptionable,
                         ),
                 ) &&
                 ("polygon" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"polygon"',
                         value: input.type,
                     }));
-            const $ao7 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao7 = (input: any, _path: string, _exceptionable: boolean) =>
                 (Array.isArray(input.points) ||
-                    $guard(exceptionable, {
-                        path: path + ".points",
+                    $guard(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     })) &&
                 input.points.every(
                     (elem: any, index4: number) =>
                         (("object" === typeof elem && null !== elem) ||
-                            $guard(exceptionable, {
-                                path: path + ".points[" + index4 + "]",
+                            $guard(_exceptionable, {
+                                path: _path + ".points[" + index4 + "]",
                                 expected: "Resolve<ObjectUnionExplicit.IPoint>",
                                 value: elem,
                             })) &&
                         $ao2(
                             elem,
-                            path + ".points[" + index4 + "]",
-                            true && exceptionable,
+                            _path + ".points[" + index4 + "]",
+                            true && _exceptionable,
                         ),
                 );
-            const $ao8 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao8 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.centroid &&
                     null !== input.centroid) ||
-                    $guard(exceptionable, {
-                        path: path + ".centroid",
+                    $guard(_exceptionable, {
+                        path: _path + ".centroid",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.centroid,
                     })) &&
                 $ao2(
                     input.centroid,
-                    path + ".centroid",
-                    true && exceptionable,
+                    _path + ".centroid",
+                    true && _exceptionable,
                 ) &&
                 (("number" === typeof input.radius &&
                     !Number.isNaN(input.radius)) ||
-                    $guard(exceptionable, {
-                        path: path + ".radius",
+                    $guard(_exceptionable, {
+                        path: _path + ".radius",
                         expected: "number",
                         value: input.radius,
                     })) &&
                 ("circle" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"circle"',
                         value: input.type,
                     }));
-            const $au0 = (input: any, path: string, exceptionable: boolean) =>
+            const $au0 = (input: any, _path: string, _exceptionable: boolean) =>
                 (() => {
                     if ("point" === input.type)
-                        return $ao0(input, path, true && exceptionable);
+                        return $ao0(input, _path, true && _exceptionable);
                     if ("line" === input.type)
-                        return $ao1(input, path, true && exceptionable);
+                        return $ao1(input, _path, true && _exceptionable);
                     if ("triangle" === input.type)
-                        return $ao3(input, path, true && exceptionable);
+                        return $ao3(input, _path, true && _exceptionable);
                     if ("rectangle" === input.type)
-                        return $ao4(input, path, true && exceptionable);
+                        return $ao4(input, _path, true && _exceptionable);
                     if ("polyline" === input.type)
-                        return $ao5(input, path, true && exceptionable);
+                        return $ao5(input, _path, true && _exceptionable);
                     if ("polygon" === input.type)
-                        return $ao6(input, path, true && exceptionable);
+                        return $ao6(input, _path, true && _exceptionable);
                     if ("circle" === input.type)
-                        return $ao8(input, path, true && exceptionable);
-                    return $guard(exceptionable, {
-                        path: path,
+                        return $ao8(input, _path, true && _exceptionable);
+                    return $guard(_exceptionable, {
+                        path: _path,
                         expected:
                             '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
                         value: input,
@@ -3772,7 +3810,7 @@ export const generate_assert_stringify = (
             return (
                 (Array.isArray(input) ||
                     $guard(true, {
-                        path: path + "",
+                        path: _path + "",
                         expected:
                             'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                         value: input,
@@ -3781,12 +3819,12 @@ export const generate_assert_stringify = (
                     (elem: any, index1: number) =>
                         (("object" === typeof elem && null !== elem) ||
                             $guard(true, {
-                                path: path + "[" + index1 + "]",
+                                path: _path + "[" + index1 + "]",
                                 expected:
                                     '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                 value: elem,
                             })) &&
-                        $au0(elem, path + "[" + index1 + "]", true),
+                        $au0(elem, _path + "[" + index1 + "]", true),
                 )
             );
         })(input, "$input", true);
@@ -3894,7 +3932,6 @@ export const generate_assert_stringify = (
                     value: input.type,
                 });
             })()}}`;
-        const $so2 = (input: any) => `{"x":${input.x},"y":${input.y}}`;
         const $so3 = (input: any) =>
             `{"p1":${`{"x":${input.p1.x},"y":${input.p1.y}}`},"p2":${`{"x":${input.p2.x},"y":${input.p2.y}}`},"p3":${`{"x":${input.p3.x},"y":${input.p3.y}}`},"type":${(() => {
                 if ("string" === typeof input.type) return $string(input.type);
@@ -4206,7 +4243,6 @@ export const generate_is_stringify = (
                     value: input.type,
                 });
             })()}}`;
-        const $so2 = (input: any) => `{"x":${input.x},"y":${input.y}}`;
         const $so3 = (input: any) =>
             `{"p1":${`{"x":${input.p1.x},"y":${input.p1.y}}`},"p2":${`{"x":${input.p2.x},"y":${input.p2.y}}`},"p3":${`{"x":${input.p3.x},"y":${input.p3.y}}`},"type":${(() => {
                 if ("string" === typeof input.type) return $string(input.type);
@@ -4297,185 +4333,221 @@ export const generate_validate_stringify = (
         const $report = (typia.createValidateStringify as any).report(errors);
         ((
             input: any,
-            path: string,
-            exceptionable: boolean,
+            _path: string,
+            _exceptionable: boolean,
         ): input is ObjectUnionExplicit => {
-            const $vo0 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo0 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ("number" === typeof input.x && !Number.isNaN(input.x)) ||
-                        $report(exceptionable, {
-                            path: path + ".x",
+                        $report(_exceptionable, {
+                            path: _path + ".x",
                             expected: "number",
                             value: input.x,
                         }),
                     ("number" === typeof input.y && !Number.isNaN(input.y)) ||
-                        $report(exceptionable, {
-                            path: path + ".y",
+                        $report(_exceptionable, {
+                            path: _path + ".y",
                             expected: "number",
                             value: input.y,
                         }),
                     "point" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"point"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo1 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo1 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.p1 && null !== input.p1) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         })) &&
-                        $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $vo2(
+                            input.p1,
+                            _path + ".p1",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         }),
                     ((("object" === typeof input.p2 && null !== input.p2) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         })) &&
-                        $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $vo2(
+                            input.p2,
+                            _path + ".p2",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         }),
                     "line" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"line"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo2 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo2 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ("number" === typeof input.x && !Number.isNaN(input.x)) ||
-                        $report(exceptionable, {
-                            path: path + ".x",
+                        $report(_exceptionable, {
+                            path: _path + ".x",
                             expected: "number",
                             value: input.x,
                         }),
                     ("number" === typeof input.y && !Number.isNaN(input.y)) ||
-                        $report(exceptionable, {
-                            path: path + ".y",
+                        $report(_exceptionable, {
+                            path: _path + ".y",
                             expected: "number",
                             value: input.y,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo3 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo3 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.p1 && null !== input.p1) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         })) &&
-                        $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $vo2(
+                            input.p1,
+                            _path + ".p1",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         }),
                     ((("object" === typeof input.p2 && null !== input.p2) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         })) &&
-                        $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $vo2(
+                            input.p2,
+                            _path + ".p2",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         }),
                     ((("object" === typeof input.p3 && null !== input.p3) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         })) &&
-                        $vo2(input.p3, path + ".p3", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $vo2(
+                            input.p3,
+                            _path + ".p3",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         }),
                     "triangle" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"triangle"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo4 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo4 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.p1 && null !== input.p1) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         })) &&
-                        $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $vo2(
+                            input.p1,
+                            _path + ".p1",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         }),
                     ((("object" === typeof input.p2 && null !== input.p2) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         })) &&
-                        $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $vo2(
+                            input.p2,
+                            _path + ".p2",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         }),
                     ((("object" === typeof input.p3 && null !== input.p3) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         })) &&
-                        $vo2(input.p3, path + ".p3", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $vo2(
+                            input.p3,
+                            _path + ".p3",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         }),
                     ((("object" === typeof input.p4 && null !== input.p4) ||
-                        $report(exceptionable, {
-                            path: path + ".p4",
+                        $report(_exceptionable, {
+                            path: _path + ".p4",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p4,
                         })) &&
-                        $vo2(input.p4, path + ".p4", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p4",
+                        $vo2(
+                            input.p4,
+                            _path + ".p4",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p4",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p4,
                         }),
                     "rectangle" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"rectangle"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo5 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo5 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((Array.isArray(input.points) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
@@ -4485,9 +4557,9 @@ export const generate_validate_stringify = (
                                 (elem: any, index2: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
-                                        $report(exceptionable, {
+                                        $report(_exceptionable, {
                                             path:
-                                                path +
+                                                _path +
                                                 ".points[" +
                                                 index2 +
                                                 "]",
@@ -4497,52 +4569,52 @@ export const generate_validate_stringify = (
                                         })) &&
                                         $vo2(
                                             elem,
-                                            path + ".points[" + index2 + "]",
-                                            true && exceptionable,
+                                            _path + ".points[" + index2 + "]",
+                                            true && _exceptionable,
                                         )) ||
-                                    $report(exceptionable, {
-                                        path: path + ".points[" + index2 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".points[" + index2 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPoint>",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
                         }),
                     "polyline" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"polyline"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo6 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo6 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.outer &&
                         null !== input.outer) ||
-                        $report(exceptionable, {
-                            path: path + ".outer",
+                        $report(_exceptionable, {
+                            path: _path + ".outer",
                             expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                             value: input.outer,
                         })) &&
                         $vo7(
                             input.outer,
-                            path + ".outer",
-                            true && exceptionable,
+                            _path + ".outer",
+                            true && _exceptionable,
                         )) ||
-                        $report(exceptionable, {
-                            path: path + ".outer",
+                        $report(_exceptionable, {
+                            path: _path + ".outer",
                             expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                             value: input.outer,
                         }),
                     ((Array.isArray(input.inner) ||
-                        $report(exceptionable, {
-                            path: path + ".inner",
+                        $report(_exceptionable, {
+                            path: _path + ".inner",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                             value: input.inner,
@@ -4552,44 +4624,47 @@ export const generate_validate_stringify = (
                                 (elem: any, index3: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
-                                        $report(exceptionable, {
+                                        $report(_exceptionable, {
                                             path:
-                                                path + ".inner[" + index3 + "]",
+                                                _path +
+                                                ".inner[" +
+                                                index3 +
+                                                "]",
                                             expected:
                                                 "Resolve<ObjectUnionExplicit.IPolyline>",
                                             value: elem,
                                         })) &&
                                         $vo7(
                                             elem,
-                                            path + ".inner[" + index3 + "]",
-                                            true && exceptionable,
+                                            _path + ".inner[" + index3 + "]",
+                                            true && _exceptionable,
                                         )) ||
-                                    $report(exceptionable, {
-                                        path: path + ".inner[" + index3 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".inner[" + index3 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPolyline>",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
-                        $report(exceptionable, {
-                            path: path + ".inner",
+                        $report(_exceptionable, {
+                            path: _path + ".inner",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                             value: input.inner,
                         }),
                     "polygon" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"polygon"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo7 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo7 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((Array.isArray(input.points) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
@@ -4599,9 +4674,9 @@ export const generate_validate_stringify = (
                                 (elem: any, index4: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
-                                        $report(exceptionable, {
+                                        $report(_exceptionable, {
                                             path:
-                                                path +
+                                                _path +
                                                 ".points[" +
                                                 index4 +
                                                 "]",
@@ -4611,75 +4686,75 @@ export const generate_validate_stringify = (
                                         })) &&
                                         $vo2(
                                             elem,
-                                            path + ".points[" + index4 + "]",
-                                            true && exceptionable,
+                                            _path + ".points[" + index4 + "]",
+                                            true && _exceptionable,
                                         )) ||
-                                    $report(exceptionable, {
-                                        path: path + ".points[" + index4 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".points[" + index4 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPoint>",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo8 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo8 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.centroid &&
                         null !== input.centroid) ||
-                        $report(exceptionable, {
-                            path: path + ".centroid",
+                        $report(_exceptionable, {
+                            path: _path + ".centroid",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.centroid,
                         })) &&
                         $vo2(
                             input.centroid,
-                            path + ".centroid",
-                            true && exceptionable,
+                            _path + ".centroid",
+                            true && _exceptionable,
                         )) ||
-                        $report(exceptionable, {
-                            path: path + ".centroid",
+                        $report(_exceptionable, {
+                            path: _path + ".centroid",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.centroid,
                         }),
                     ("number" === typeof input.radius &&
                         !Number.isNaN(input.radius)) ||
-                        $report(exceptionable, {
-                            path: path + ".radius",
+                        $report(_exceptionable, {
+                            path: _path + ".radius",
                             expected: "number",
                             value: input.radius,
                         }),
                     "circle" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"circle"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vu0 = (input: any, path: string, exceptionable: boolean) =>
+            const $vu0 = (input: any, _path: string, _exceptionable: boolean) =>
                 (() => {
                     if ("point" === input.type)
-                        return $vo0(input, path, true && exceptionable);
+                        return $vo0(input, _path, true && _exceptionable);
                     if ("line" === input.type)
-                        return $vo1(input, path, true && exceptionable);
+                        return $vo1(input, _path, true && _exceptionable);
                     if ("triangle" === input.type)
-                        return $vo3(input, path, true && exceptionable);
+                        return $vo3(input, _path, true && _exceptionable);
                     if ("rectangle" === input.type)
-                        return $vo4(input, path, true && exceptionable);
+                        return $vo4(input, _path, true && _exceptionable);
                     if ("polyline" === input.type)
-                        return $vo5(input, path, true && exceptionable);
+                        return $vo5(input, _path, true && _exceptionable);
                     if ("polygon" === input.type)
-                        return $vo6(input, path, true && exceptionable);
+                        return $vo6(input, _path, true && _exceptionable);
                     if ("circle" === input.type)
-                        return $vo8(input, path, true && exceptionable);
-                    return $report(exceptionable, {
-                        path: path,
+                        return $vo8(input, _path, true && _exceptionable);
+                    return $report(_exceptionable, {
+                        path: _path,
                         expected:
                             '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
                         value: input,
@@ -4688,7 +4763,7 @@ export const generate_validate_stringify = (
             return (
                 ((Array.isArray(input) ||
                     $report(true, {
-                        path: path + "",
+                        path: _path + "",
                         expected:
                             'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                         value: input,
@@ -4698,18 +4773,18 @@ export const generate_validate_stringify = (
                             (elem: any, index1: number) =>
                                 ((("object" === typeof elem && null !== elem) ||
                                     $report(true, {
-                                        path: path + "[" + index1 + "]",
+                                        path: _path + "[" + index1 + "]",
                                         expected:
                                             '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                         value: elem,
                                     })) &&
                                     $vu0(
                                         elem,
-                                        path + "[" + index1 + "]",
+                                        _path + "[" + index1 + "]",
                                         true,
                                     )) ||
                                 $report(true, {
-                                    path: path + "[" + index1 + "]",
+                                    path: _path + "[" + index1 + "]",
                                     expected:
                                         '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                     value: elem,
@@ -4717,7 +4792,7 @@ export const generate_validate_stringify = (
                         )
                         .every((flag: boolean) => flag)) ||
                 $report(true, {
-                    path: path + "",
+                    path: _path + "",
                     expected:
                         'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                     value: input,
@@ -4833,7 +4908,6 @@ export const generate_validate_stringify = (
                     value: input.type,
                 });
             })()}}`;
-        const $so2 = (input: any) => `{"x":${input.x},"y":${input.y}}`;
         const $so3 = (input: any) =>
             `{"p1":${`{"x":${input.p1.x},"y":${input.p1.y}}`},"p2":${`{"x":${input.p2.x},"y":${input.p2.y}}`},"p3":${`{"x":${input.p3.x},"y":${input.p3.y}}`},"type":${(() => {
                 if ("string" === typeof input.type) return $string(input.type);
@@ -4924,10 +4998,11 @@ export const generate_validate_stringify = (
 export const generate_random = (
     generator: typia.IRandomGenerator = (typia.createRandom as any).generator,
 ) => {
+    const $generator = (typia.createRandom as any).generator;
     const $pick = (typia.createRandom as any).pick;
     const $ro0 = (recursive = false, depth = 0) => ({
-        x: generator.number(0, 100),
-        y: generator.number(0, 100),
+        x: (generator.number ?? $generator.number)(0, 100),
+        y: (generator.number ?? $generator.number)(0, 100),
         type: "point",
     });
     const $ro1 = (recursive = false, depth = 0) => ({
@@ -4936,8 +5011,8 @@ export const generate_random = (
         type: "line",
     });
     const $ro2 = (recursive = false, depth = 0) => ({
-        x: generator.number(0, 100),
-        y: generator.number(0, 100),
+        x: (generator.number ?? $generator.number)(0, 100),
+        y: (generator.number ?? $generator.number)(0, 100),
     });
     const $ro3 = (recursive = false, depth = 0) => ({
         p1: $ro2(recursive, recursive ? 1 + depth : depth),
@@ -4953,29 +5028,29 @@ export const generate_random = (
         type: "rectangle",
     });
     const $ro5 = (recursive = false, depth = 0) => ({
-        points: generator.array(() =>
+        points: (generator.array ?? $generator.array)(() =>
             $ro2(recursive, recursive ? 1 + depth : depth),
         ),
         type: "polyline",
     });
     const $ro6 = (recursive = false, depth = 0) => ({
         outer: $ro7(recursive, recursive ? 1 + depth : depth),
-        inner: generator.array(() =>
+        inner: (generator.array ?? $generator.array)(() =>
             $ro7(recursive, recursive ? 1 + depth : depth),
         ),
         type: "polygon",
     });
     const $ro7 = (recursive = false, depth = 0) => ({
-        points: generator.array(() =>
+        points: (generator.array ?? $generator.array)(() =>
             $ro2(recursive, recursive ? 1 + depth : depth),
         ),
     });
     const $ro8 = (recursive = false, depth = 0) => ({
         centroid: $ro2(recursive, recursive ? 1 + depth : depth),
-        radius: generator.number(0, 100),
+        radius: (generator.number ?? $generator.number)(0, 100),
         type: "circle",
     });
-    return generator.array(() =>
+    return (generator.array ?? $generator.array)(() =>
         $pick([
             () => $ro0(),
             () => $ro1(),
@@ -5193,163 +5268,163 @@ export const generate_assert_clone = (
         const $guard = (typia.createAssertClone as any).guard;
         ((
             input: any,
-            path: string,
-            exceptionable: boolean,
+            _path: string,
+            _exceptionable: boolean,
         ): input is ObjectUnionExplicit => {
-            const $ao0 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao0 = (input: any, _path: string, _exceptionable: boolean) =>
                 ("number" === typeof input.x ||
-                    $guard(exceptionable, {
-                        path: path + ".x",
+                    $guard(_exceptionable, {
+                        path: _path + ".x",
                         expected: "number",
                         value: input.x,
                     })) &&
                 ("number" === typeof input.y ||
-                    $guard(exceptionable, {
-                        path: path + ".y",
+                    $guard(_exceptionable, {
+                        path: _path + ".y",
                         expected: "number",
                         value: input.y,
                     })) &&
                 ("point" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"point"',
                         value: input.type,
                     }));
-            const $ao1 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao1 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.p1 && null !== input.p1) ||
-                    $guard(exceptionable, {
-                        path: path + ".p1",
+                    $guard(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                $ao2(input.p1, path + ".p1", true && exceptionable) &&
+                $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
                 (("object" === typeof input.p2 && null !== input.p2) ||
-                    $guard(exceptionable, {
-                        path: path + ".p2",
+                    $guard(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                $ao2(input.p2, path + ".p2", true && exceptionable) &&
+                $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
                 ("line" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"line"',
                         value: input.type,
                     }));
-            const $ao2 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao2 = (input: any, _path: string, _exceptionable: boolean) =>
                 ("number" === typeof input.x ||
-                    $guard(exceptionable, {
-                        path: path + ".x",
+                    $guard(_exceptionable, {
+                        path: _path + ".x",
                         expected: "number",
                         value: input.x,
                     })) &&
                 ("number" === typeof input.y ||
-                    $guard(exceptionable, {
-                        path: path + ".y",
+                    $guard(_exceptionable, {
+                        path: _path + ".y",
                         expected: "number",
                         value: input.y,
                     }));
-            const $ao3 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao3 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.p1 && null !== input.p1) ||
-                    $guard(exceptionable, {
-                        path: path + ".p1",
+                    $guard(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                $ao2(input.p1, path + ".p1", true && exceptionable) &&
+                $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
                 (("object" === typeof input.p2 && null !== input.p2) ||
-                    $guard(exceptionable, {
-                        path: path + ".p2",
+                    $guard(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                $ao2(input.p2, path + ".p2", true && exceptionable) &&
+                $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
                 (("object" === typeof input.p3 && null !== input.p3) ||
-                    $guard(exceptionable, {
-                        path: path + ".p3",
+                    $guard(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     })) &&
-                $ao2(input.p3, path + ".p3", true && exceptionable) &&
+                $ao2(input.p3, _path + ".p3", true && _exceptionable) &&
                 ("triangle" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"triangle"',
                         value: input.type,
                     }));
-            const $ao4 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao4 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.p1 && null !== input.p1) ||
-                    $guard(exceptionable, {
-                        path: path + ".p1",
+                    $guard(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                $ao2(input.p1, path + ".p1", true && exceptionable) &&
+                $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
                 (("object" === typeof input.p2 && null !== input.p2) ||
-                    $guard(exceptionable, {
-                        path: path + ".p2",
+                    $guard(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                $ao2(input.p2, path + ".p2", true && exceptionable) &&
+                $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
                 (("object" === typeof input.p3 && null !== input.p3) ||
-                    $guard(exceptionable, {
-                        path: path + ".p3",
+                    $guard(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     })) &&
-                $ao2(input.p3, path + ".p3", true && exceptionable) &&
+                $ao2(input.p3, _path + ".p3", true && _exceptionable) &&
                 (("object" === typeof input.p4 && null !== input.p4) ||
-                    $guard(exceptionable, {
-                        path: path + ".p4",
+                    $guard(_exceptionable, {
+                        path: _path + ".p4",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p4,
                     })) &&
-                $ao2(input.p4, path + ".p4", true && exceptionable) &&
+                $ao2(input.p4, _path + ".p4", true && _exceptionable) &&
                 ("rectangle" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"rectangle"',
                         value: input.type,
                     }));
-            const $ao5 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao5 = (input: any, _path: string, _exceptionable: boolean) =>
                 (Array.isArray(input.points) ||
-                    $guard(exceptionable, {
-                        path: path + ".points",
+                    $guard(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     })) &&
                 input.points.every(
                     (elem: any, index2: number) =>
                         (("object" === typeof elem && null !== elem) ||
-                            $guard(exceptionable, {
-                                path: path + ".points[" + index2 + "]",
+                            $guard(_exceptionable, {
+                                path: _path + ".points[" + index2 + "]",
                                 expected: "Resolve<ObjectUnionExplicit.IPoint>",
                                 value: elem,
                             })) &&
                         $ao2(
                             elem,
-                            path + ".points[" + index2 + "]",
-                            true && exceptionable,
+                            _path + ".points[" + index2 + "]",
+                            true && _exceptionable,
                         ),
                 ) &&
                 ("polyline" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"polyline"',
                         value: input.type,
                     }));
-            const $ao6 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao6 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.outer && null !== input.outer) ||
-                    $guard(exceptionable, {
-                        path: path + ".outer",
+                    $guard(_exceptionable, {
+                        path: _path + ".outer",
                         expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                         value: input.outer,
                     })) &&
-                $ao7(input.outer, path + ".outer", true && exceptionable) &&
+                $ao7(input.outer, _path + ".outer", true && _exceptionable) &&
                 (Array.isArray(input.inner) ||
-                    $guard(exceptionable, {
-                        path: path + ".inner",
+                    $guard(_exceptionable, {
+                        path: _path + ".inner",
                         expected:
                             "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                         value: input.inner,
@@ -5357,88 +5432,88 @@ export const generate_assert_clone = (
                 input.inner.every(
                     (elem: any, index3: number) =>
                         (("object" === typeof elem && null !== elem) ||
-                            $guard(exceptionable, {
-                                path: path + ".inner[" + index3 + "]",
+                            $guard(_exceptionable, {
+                                path: _path + ".inner[" + index3 + "]",
                                 expected:
                                     "Resolve<ObjectUnionExplicit.IPolyline>",
                                 value: elem,
                             })) &&
                         $ao7(
                             elem,
-                            path + ".inner[" + index3 + "]",
-                            true && exceptionable,
+                            _path + ".inner[" + index3 + "]",
+                            true && _exceptionable,
                         ),
                 ) &&
                 ("polygon" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"polygon"',
                         value: input.type,
                     }));
-            const $ao7 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao7 = (input: any, _path: string, _exceptionable: boolean) =>
                 (Array.isArray(input.points) ||
-                    $guard(exceptionable, {
-                        path: path + ".points",
+                    $guard(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     })) &&
                 input.points.every(
                     (elem: any, index4: number) =>
                         (("object" === typeof elem && null !== elem) ||
-                            $guard(exceptionable, {
-                                path: path + ".points[" + index4 + "]",
+                            $guard(_exceptionable, {
+                                path: _path + ".points[" + index4 + "]",
                                 expected: "Resolve<ObjectUnionExplicit.IPoint>",
                                 value: elem,
                             })) &&
                         $ao2(
                             elem,
-                            path + ".points[" + index4 + "]",
-                            true && exceptionable,
+                            _path + ".points[" + index4 + "]",
+                            true && _exceptionable,
                         ),
                 );
-            const $ao8 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao8 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.centroid &&
                     null !== input.centroid) ||
-                    $guard(exceptionable, {
-                        path: path + ".centroid",
+                    $guard(_exceptionable, {
+                        path: _path + ".centroid",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.centroid,
                     })) &&
                 $ao2(
                     input.centroid,
-                    path + ".centroid",
-                    true && exceptionable,
+                    _path + ".centroid",
+                    true && _exceptionable,
                 ) &&
                 ("number" === typeof input.radius ||
-                    $guard(exceptionable, {
-                        path: path + ".radius",
+                    $guard(_exceptionable, {
+                        path: _path + ".radius",
                         expected: "number",
                         value: input.radius,
                     })) &&
                 ("circle" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"circle"',
                         value: input.type,
                     }));
-            const $au0 = (input: any, path: string, exceptionable: boolean) =>
+            const $au0 = (input: any, _path: string, _exceptionable: boolean) =>
                 (() => {
                     if ("point" === input.type)
-                        return $ao0(input, path, true && exceptionable);
+                        return $ao0(input, _path, true && _exceptionable);
                     if ("line" === input.type)
-                        return $ao1(input, path, true && exceptionable);
+                        return $ao1(input, _path, true && _exceptionable);
                     if ("triangle" === input.type)
-                        return $ao3(input, path, true && exceptionable);
+                        return $ao3(input, _path, true && _exceptionable);
                     if ("rectangle" === input.type)
-                        return $ao4(input, path, true && exceptionable);
+                        return $ao4(input, _path, true && _exceptionable);
                     if ("polyline" === input.type)
-                        return $ao5(input, path, true && exceptionable);
+                        return $ao5(input, _path, true && _exceptionable);
                     if ("polygon" === input.type)
-                        return $ao6(input, path, true && exceptionable);
+                        return $ao6(input, _path, true && _exceptionable);
                     if ("circle" === input.type)
-                        return $ao8(input, path, true && exceptionable);
-                    return $guard(exceptionable, {
-                        path: path,
+                        return $ao8(input, _path, true && _exceptionable);
+                    return $guard(_exceptionable, {
+                        path: _path,
                         expected:
                             '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
                         value: input,
@@ -5447,7 +5522,7 @@ export const generate_assert_clone = (
             return (
                 (Array.isArray(input) ||
                     $guard(true, {
-                        path: path + "",
+                        path: _path + "",
                         expected:
                             'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                         value: input,
@@ -5456,12 +5531,12 @@ export const generate_assert_clone = (
                     (elem: any, index1: number) =>
                         (("object" === typeof elem && null !== elem) ||
                             $guard(true, {
-                                path: path + "[" + index1 + "]",
+                                path: _path + "[" + index1 + "]",
                                 expected:
                                     '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                 value: elem,
                             })) &&
-                        $au0(elem, path + "[" + index1 + "]", true),
+                        $au0(elem, _path + "[" + index1 + "]", true),
                 )
             );
         })(input, "$input", true);
@@ -5988,185 +6063,221 @@ export const generate_validate_clone = (
         const $report = (typia.createValidateClone as any).report(errors);
         ((
             input: any,
-            path: string,
-            exceptionable: boolean,
+            _path: string,
+            _exceptionable: boolean,
         ): input is ObjectUnionExplicit => {
-            const $vo0 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo0 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ("number" === typeof input.x && !Number.isNaN(input.x)) ||
-                        $report(exceptionable, {
-                            path: path + ".x",
+                        $report(_exceptionable, {
+                            path: _path + ".x",
                             expected: "number",
                             value: input.x,
                         }),
                     ("number" === typeof input.y && !Number.isNaN(input.y)) ||
-                        $report(exceptionable, {
-                            path: path + ".y",
+                        $report(_exceptionable, {
+                            path: _path + ".y",
                             expected: "number",
                             value: input.y,
                         }),
                     "point" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"point"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo1 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo1 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.p1 && null !== input.p1) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         })) &&
-                        $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $vo2(
+                            input.p1,
+                            _path + ".p1",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         }),
                     ((("object" === typeof input.p2 && null !== input.p2) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         })) &&
-                        $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $vo2(
+                            input.p2,
+                            _path + ".p2",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         }),
                     "line" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"line"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo2 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo2 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ("number" === typeof input.x && !Number.isNaN(input.x)) ||
-                        $report(exceptionable, {
-                            path: path + ".x",
+                        $report(_exceptionable, {
+                            path: _path + ".x",
                             expected: "number",
                             value: input.x,
                         }),
                     ("number" === typeof input.y && !Number.isNaN(input.y)) ||
-                        $report(exceptionable, {
-                            path: path + ".y",
+                        $report(_exceptionable, {
+                            path: _path + ".y",
                             expected: "number",
                             value: input.y,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo3 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo3 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.p1 && null !== input.p1) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         })) &&
-                        $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $vo2(
+                            input.p1,
+                            _path + ".p1",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         }),
                     ((("object" === typeof input.p2 && null !== input.p2) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         })) &&
-                        $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $vo2(
+                            input.p2,
+                            _path + ".p2",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         }),
                     ((("object" === typeof input.p3 && null !== input.p3) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         })) &&
-                        $vo2(input.p3, path + ".p3", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $vo2(
+                            input.p3,
+                            _path + ".p3",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         }),
                     "triangle" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"triangle"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo4 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo4 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.p1 && null !== input.p1) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         })) &&
-                        $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $vo2(
+                            input.p1,
+                            _path + ".p1",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         }),
                     ((("object" === typeof input.p2 && null !== input.p2) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         })) &&
-                        $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $vo2(
+                            input.p2,
+                            _path + ".p2",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         }),
                     ((("object" === typeof input.p3 && null !== input.p3) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         })) &&
-                        $vo2(input.p3, path + ".p3", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $vo2(
+                            input.p3,
+                            _path + ".p3",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         }),
                     ((("object" === typeof input.p4 && null !== input.p4) ||
-                        $report(exceptionable, {
-                            path: path + ".p4",
+                        $report(_exceptionable, {
+                            path: _path + ".p4",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p4,
                         })) &&
-                        $vo2(input.p4, path + ".p4", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p4",
+                        $vo2(
+                            input.p4,
+                            _path + ".p4",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p4",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p4,
                         }),
                     "rectangle" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"rectangle"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo5 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo5 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((Array.isArray(input.points) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
@@ -6176,9 +6287,9 @@ export const generate_validate_clone = (
                                 (elem: any, index2: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
-                                        $report(exceptionable, {
+                                        $report(_exceptionable, {
                                             path:
-                                                path +
+                                                _path +
                                                 ".points[" +
                                                 index2 +
                                                 "]",
@@ -6188,52 +6299,52 @@ export const generate_validate_clone = (
                                         })) &&
                                         $vo2(
                                             elem,
-                                            path + ".points[" + index2 + "]",
-                                            true && exceptionable,
+                                            _path + ".points[" + index2 + "]",
+                                            true && _exceptionable,
                                         )) ||
-                                    $report(exceptionable, {
-                                        path: path + ".points[" + index2 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".points[" + index2 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPoint>",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
                         }),
                     "polyline" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"polyline"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo6 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo6 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.outer &&
                         null !== input.outer) ||
-                        $report(exceptionable, {
-                            path: path + ".outer",
+                        $report(_exceptionable, {
+                            path: _path + ".outer",
                             expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                             value: input.outer,
                         })) &&
                         $vo7(
                             input.outer,
-                            path + ".outer",
-                            true && exceptionable,
+                            _path + ".outer",
+                            true && _exceptionable,
                         )) ||
-                        $report(exceptionable, {
-                            path: path + ".outer",
+                        $report(_exceptionable, {
+                            path: _path + ".outer",
                             expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                             value: input.outer,
                         }),
                     ((Array.isArray(input.inner) ||
-                        $report(exceptionable, {
-                            path: path + ".inner",
+                        $report(_exceptionable, {
+                            path: _path + ".inner",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                             value: input.inner,
@@ -6243,44 +6354,47 @@ export const generate_validate_clone = (
                                 (elem: any, index3: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
-                                        $report(exceptionable, {
+                                        $report(_exceptionable, {
                                             path:
-                                                path + ".inner[" + index3 + "]",
+                                                _path +
+                                                ".inner[" +
+                                                index3 +
+                                                "]",
                                             expected:
                                                 "Resolve<ObjectUnionExplicit.IPolyline>",
                                             value: elem,
                                         })) &&
                                         $vo7(
                                             elem,
-                                            path + ".inner[" + index3 + "]",
-                                            true && exceptionable,
+                                            _path + ".inner[" + index3 + "]",
+                                            true && _exceptionable,
                                         )) ||
-                                    $report(exceptionable, {
-                                        path: path + ".inner[" + index3 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".inner[" + index3 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPolyline>",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
-                        $report(exceptionable, {
-                            path: path + ".inner",
+                        $report(_exceptionable, {
+                            path: _path + ".inner",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                             value: input.inner,
                         }),
                     "polygon" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"polygon"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo7 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo7 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((Array.isArray(input.points) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
@@ -6290,9 +6404,9 @@ export const generate_validate_clone = (
                                 (elem: any, index4: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
-                                        $report(exceptionable, {
+                                        $report(_exceptionable, {
                                             path:
-                                                path +
+                                                _path +
                                                 ".points[" +
                                                 index4 +
                                                 "]",
@@ -6302,75 +6416,75 @@ export const generate_validate_clone = (
                                         })) &&
                                         $vo2(
                                             elem,
-                                            path + ".points[" + index4 + "]",
-                                            true && exceptionable,
+                                            _path + ".points[" + index4 + "]",
+                                            true && _exceptionable,
                                         )) ||
-                                    $report(exceptionable, {
-                                        path: path + ".points[" + index4 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".points[" + index4 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPoint>",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo8 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo8 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.centroid &&
                         null !== input.centroid) ||
-                        $report(exceptionable, {
-                            path: path + ".centroid",
+                        $report(_exceptionable, {
+                            path: _path + ".centroid",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.centroid,
                         })) &&
                         $vo2(
                             input.centroid,
-                            path + ".centroid",
-                            true && exceptionable,
+                            _path + ".centroid",
+                            true && _exceptionable,
                         )) ||
-                        $report(exceptionable, {
-                            path: path + ".centroid",
+                        $report(_exceptionable, {
+                            path: _path + ".centroid",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.centroid,
                         }),
                     ("number" === typeof input.radius &&
                         !Number.isNaN(input.radius)) ||
-                        $report(exceptionable, {
-                            path: path + ".radius",
+                        $report(_exceptionable, {
+                            path: _path + ".radius",
                             expected: "number",
                             value: input.radius,
                         }),
                     "circle" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"circle"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vu0 = (input: any, path: string, exceptionable: boolean) =>
+            const $vu0 = (input: any, _path: string, _exceptionable: boolean) =>
                 (() => {
                     if ("point" === input.type)
-                        return $vo0(input, path, true && exceptionable);
+                        return $vo0(input, _path, true && _exceptionable);
                     if ("line" === input.type)
-                        return $vo1(input, path, true && exceptionable);
+                        return $vo1(input, _path, true && _exceptionable);
                     if ("triangle" === input.type)
-                        return $vo3(input, path, true && exceptionable);
+                        return $vo3(input, _path, true && _exceptionable);
                     if ("rectangle" === input.type)
-                        return $vo4(input, path, true && exceptionable);
+                        return $vo4(input, _path, true && _exceptionable);
                     if ("polyline" === input.type)
-                        return $vo5(input, path, true && exceptionable);
+                        return $vo5(input, _path, true && _exceptionable);
                     if ("polygon" === input.type)
-                        return $vo6(input, path, true && exceptionable);
+                        return $vo6(input, _path, true && _exceptionable);
                     if ("circle" === input.type)
-                        return $vo8(input, path, true && exceptionable);
-                    return $report(exceptionable, {
-                        path: path,
+                        return $vo8(input, _path, true && _exceptionable);
+                    return $report(_exceptionable, {
+                        path: _path,
                         expected:
                             '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
                         value: input,
@@ -6379,7 +6493,7 @@ export const generate_validate_clone = (
             return (
                 ((Array.isArray(input) ||
                     $report(true, {
-                        path: path + "",
+                        path: _path + "",
                         expected:
                             'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                         value: input,
@@ -6389,18 +6503,18 @@ export const generate_validate_clone = (
                             (elem: any, index1: number) =>
                                 ((("object" === typeof elem && null !== elem) ||
                                     $report(true, {
-                                        path: path + "[" + index1 + "]",
+                                        path: _path + "[" + index1 + "]",
                                         expected:
                                             '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                         value: elem,
                                     })) &&
                                     $vu0(
                                         elem,
-                                        path + "[" + index1 + "]",
+                                        _path + "[" + index1 + "]",
                                         true,
                                     )) ||
                                 $report(true, {
-                                    path: path + "[" + index1 + "]",
+                                    path: _path + "[" + index1 + "]",
                                     expected:
                                         '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                     value: elem,
@@ -6408,7 +6522,7 @@ export const generate_validate_clone = (
                         )
                         .every((flag: boolean) => flag)) ||
                 $report(true, {
-                    path: path + "",
+                    path: _path + "",
                     expected:
                         'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                     value: input,
@@ -6825,163 +6939,163 @@ export const generate_assert_prune = (input: any): ObjectUnionExplicit => {
         const $guard = (typia.createAssertPrune as any).guard;
         ((
             input: any,
-            path: string,
-            exceptionable: boolean,
+            _path: string,
+            _exceptionable: boolean,
         ): input is ObjectUnionExplicit => {
-            const $ao0 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao0 = (input: any, _path: string, _exceptionable: boolean) =>
                 ("number" === typeof input.x ||
-                    $guard(exceptionable, {
-                        path: path + ".x",
+                    $guard(_exceptionable, {
+                        path: _path + ".x",
                         expected: "number",
                         value: input.x,
                     })) &&
                 ("number" === typeof input.y ||
-                    $guard(exceptionable, {
-                        path: path + ".y",
+                    $guard(_exceptionable, {
+                        path: _path + ".y",
                         expected: "number",
                         value: input.y,
                     })) &&
                 ("point" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"point"',
                         value: input.type,
                     }));
-            const $ao1 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao1 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.p1 && null !== input.p1) ||
-                    $guard(exceptionable, {
-                        path: path + ".p1",
+                    $guard(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                $ao2(input.p1, path + ".p1", true && exceptionable) &&
+                $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
                 (("object" === typeof input.p2 && null !== input.p2) ||
-                    $guard(exceptionable, {
-                        path: path + ".p2",
+                    $guard(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                $ao2(input.p2, path + ".p2", true && exceptionable) &&
+                $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
                 ("line" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"line"',
                         value: input.type,
                     }));
-            const $ao2 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao2 = (input: any, _path: string, _exceptionable: boolean) =>
                 ("number" === typeof input.x ||
-                    $guard(exceptionable, {
-                        path: path + ".x",
+                    $guard(_exceptionable, {
+                        path: _path + ".x",
                         expected: "number",
                         value: input.x,
                     })) &&
                 ("number" === typeof input.y ||
-                    $guard(exceptionable, {
-                        path: path + ".y",
+                    $guard(_exceptionable, {
+                        path: _path + ".y",
                         expected: "number",
                         value: input.y,
                     }));
-            const $ao3 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao3 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.p1 && null !== input.p1) ||
-                    $guard(exceptionable, {
-                        path: path + ".p1",
+                    $guard(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                $ao2(input.p1, path + ".p1", true && exceptionable) &&
+                $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
                 (("object" === typeof input.p2 && null !== input.p2) ||
-                    $guard(exceptionable, {
-                        path: path + ".p2",
+                    $guard(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                $ao2(input.p2, path + ".p2", true && exceptionable) &&
+                $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
                 (("object" === typeof input.p3 && null !== input.p3) ||
-                    $guard(exceptionable, {
-                        path: path + ".p3",
+                    $guard(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     })) &&
-                $ao2(input.p3, path + ".p3", true && exceptionable) &&
+                $ao2(input.p3, _path + ".p3", true && _exceptionable) &&
                 ("triangle" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"triangle"',
                         value: input.type,
                     }));
-            const $ao4 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao4 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.p1 && null !== input.p1) ||
-                    $guard(exceptionable, {
-                        path: path + ".p1",
+                    $guard(_exceptionable, {
+                        path: _path + ".p1",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p1,
                     })) &&
-                $ao2(input.p1, path + ".p1", true && exceptionable) &&
+                $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
                 (("object" === typeof input.p2 && null !== input.p2) ||
-                    $guard(exceptionable, {
-                        path: path + ".p2",
+                    $guard(_exceptionable, {
+                        path: _path + ".p2",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p2,
                     })) &&
-                $ao2(input.p2, path + ".p2", true && exceptionable) &&
+                $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
                 (("object" === typeof input.p3 && null !== input.p3) ||
-                    $guard(exceptionable, {
-                        path: path + ".p3",
+                    $guard(_exceptionable, {
+                        path: _path + ".p3",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p3,
                     })) &&
-                $ao2(input.p3, path + ".p3", true && exceptionable) &&
+                $ao2(input.p3, _path + ".p3", true && _exceptionable) &&
                 (("object" === typeof input.p4 && null !== input.p4) ||
-                    $guard(exceptionable, {
-                        path: path + ".p4",
+                    $guard(_exceptionable, {
+                        path: _path + ".p4",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.p4,
                     })) &&
-                $ao2(input.p4, path + ".p4", true && exceptionable) &&
+                $ao2(input.p4, _path + ".p4", true && _exceptionable) &&
                 ("rectangle" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"rectangle"',
                         value: input.type,
                     }));
-            const $ao5 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao5 = (input: any, _path: string, _exceptionable: boolean) =>
                 (Array.isArray(input.points) ||
-                    $guard(exceptionable, {
-                        path: path + ".points",
+                    $guard(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     })) &&
                 input.points.every(
                     (elem: any, index2: number) =>
                         (("object" === typeof elem && null !== elem) ||
-                            $guard(exceptionable, {
-                                path: path + ".points[" + index2 + "]",
+                            $guard(_exceptionable, {
+                                path: _path + ".points[" + index2 + "]",
                                 expected: "Resolve<ObjectUnionExplicit.IPoint>",
                                 value: elem,
                             })) &&
                         $ao2(
                             elem,
-                            path + ".points[" + index2 + "]",
-                            true && exceptionable,
+                            _path + ".points[" + index2 + "]",
+                            true && _exceptionable,
                         ),
                 ) &&
                 ("polyline" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"polyline"',
                         value: input.type,
                     }));
-            const $ao6 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao6 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.outer && null !== input.outer) ||
-                    $guard(exceptionable, {
-                        path: path + ".outer",
+                    $guard(_exceptionable, {
+                        path: _path + ".outer",
                         expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                         value: input.outer,
                     })) &&
-                $ao7(input.outer, path + ".outer", true && exceptionable) &&
+                $ao7(input.outer, _path + ".outer", true && _exceptionable) &&
                 (Array.isArray(input.inner) ||
-                    $guard(exceptionable, {
-                        path: path + ".inner",
+                    $guard(_exceptionable, {
+                        path: _path + ".inner",
                         expected:
                             "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                         value: input.inner,
@@ -6989,88 +7103,88 @@ export const generate_assert_prune = (input: any): ObjectUnionExplicit => {
                 input.inner.every(
                     (elem: any, index3: number) =>
                         (("object" === typeof elem && null !== elem) ||
-                            $guard(exceptionable, {
-                                path: path + ".inner[" + index3 + "]",
+                            $guard(_exceptionable, {
+                                path: _path + ".inner[" + index3 + "]",
                                 expected:
                                     "Resolve<ObjectUnionExplicit.IPolyline>",
                                 value: elem,
                             })) &&
                         $ao7(
                             elem,
-                            path + ".inner[" + index3 + "]",
-                            true && exceptionable,
+                            _path + ".inner[" + index3 + "]",
+                            true && _exceptionable,
                         ),
                 ) &&
                 ("polygon" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"polygon"',
                         value: input.type,
                     }));
-            const $ao7 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao7 = (input: any, _path: string, _exceptionable: boolean) =>
                 (Array.isArray(input.points) ||
-                    $guard(exceptionable, {
-                        path: path + ".points",
+                    $guard(_exceptionable, {
+                        path: _path + ".points",
                         expected: "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                         value: input.points,
                     })) &&
                 input.points.every(
                     (elem: any, index4: number) =>
                         (("object" === typeof elem && null !== elem) ||
-                            $guard(exceptionable, {
-                                path: path + ".points[" + index4 + "]",
+                            $guard(_exceptionable, {
+                                path: _path + ".points[" + index4 + "]",
                                 expected: "Resolve<ObjectUnionExplicit.IPoint>",
                                 value: elem,
                             })) &&
                         $ao2(
                             elem,
-                            path + ".points[" + index4 + "]",
-                            true && exceptionable,
+                            _path + ".points[" + index4 + "]",
+                            true && _exceptionable,
                         ),
                 );
-            const $ao8 = (input: any, path: string, exceptionable: boolean) =>
+            const $ao8 = (input: any, _path: string, _exceptionable: boolean) =>
                 (("object" === typeof input.centroid &&
                     null !== input.centroid) ||
-                    $guard(exceptionable, {
-                        path: path + ".centroid",
+                    $guard(_exceptionable, {
+                        path: _path + ".centroid",
                         expected: "Resolve<ObjectUnionExplicit.IPoint>",
                         value: input.centroid,
                     })) &&
                 $ao2(
                     input.centroid,
-                    path + ".centroid",
-                    true && exceptionable,
+                    _path + ".centroid",
+                    true && _exceptionable,
                 ) &&
                 ("number" === typeof input.radius ||
-                    $guard(exceptionable, {
-                        path: path + ".radius",
+                    $guard(_exceptionable, {
+                        path: _path + ".radius",
                         expected: "number",
                         value: input.radius,
                     })) &&
                 ("circle" === input.type ||
-                    $guard(exceptionable, {
-                        path: path + ".type",
+                    $guard(_exceptionable, {
+                        path: _path + ".type",
                         expected: '"circle"',
                         value: input.type,
                     }));
-            const $au0 = (input: any, path: string, exceptionable: boolean) =>
+            const $au0 = (input: any, _path: string, _exceptionable: boolean) =>
                 (() => {
                     if ("point" === input.type)
-                        return $ao0(input, path, true && exceptionable);
+                        return $ao0(input, _path, true && _exceptionable);
                     if ("line" === input.type)
-                        return $ao1(input, path, true && exceptionable);
+                        return $ao1(input, _path, true && _exceptionable);
                     if ("triangle" === input.type)
-                        return $ao3(input, path, true && exceptionable);
+                        return $ao3(input, _path, true && _exceptionable);
                     if ("rectangle" === input.type)
-                        return $ao4(input, path, true && exceptionable);
+                        return $ao4(input, _path, true && _exceptionable);
                     if ("polyline" === input.type)
-                        return $ao5(input, path, true && exceptionable);
+                        return $ao5(input, _path, true && _exceptionable);
                     if ("polygon" === input.type)
-                        return $ao6(input, path, true && exceptionable);
+                        return $ao6(input, _path, true && _exceptionable);
                     if ("circle" === input.type)
-                        return $ao8(input, path, true && exceptionable);
-                    return $guard(exceptionable, {
-                        path: path,
+                        return $ao8(input, _path, true && _exceptionable);
+                    return $guard(_exceptionable, {
+                        path: _path,
                         expected:
                             '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
                         value: input,
@@ -7079,7 +7193,7 @@ export const generate_assert_prune = (input: any): ObjectUnionExplicit => {
             return (
                 (Array.isArray(input) ||
                     $guard(true, {
-                        path: path + "",
+                        path: _path + "",
                         expected:
                             'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                         value: input,
@@ -7088,12 +7202,12 @@ export const generate_assert_prune = (input: any): ObjectUnionExplicit => {
                     (elem: any, index1: number) =>
                         (("object" === typeof elem && null !== elem) ||
                             $guard(true, {
-                                path: path + "[" + index1 + "]",
+                                path: _path + "[" + index1 + "]",
                                 expected:
                                     '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                 value: elem,
                             })) &&
-                        $au0(elem, path + "[" + index1 + "]", true),
+                        $au0(elem, _path + "[" + index1 + "]", true),
                 )
             );
         })(input, "$input", true);
@@ -7628,185 +7742,221 @@ export const generate_validate_prune = (
         const $report = (typia.createValidatePrune as any).report(errors);
         ((
             input: any,
-            path: string,
-            exceptionable: boolean,
+            _path: string,
+            _exceptionable: boolean,
         ): input is ObjectUnionExplicit => {
-            const $vo0 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo0 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ("number" === typeof input.x && !Number.isNaN(input.x)) ||
-                        $report(exceptionable, {
-                            path: path + ".x",
+                        $report(_exceptionable, {
+                            path: _path + ".x",
                             expected: "number",
                             value: input.x,
                         }),
                     ("number" === typeof input.y && !Number.isNaN(input.y)) ||
-                        $report(exceptionable, {
-                            path: path + ".y",
+                        $report(_exceptionable, {
+                            path: _path + ".y",
                             expected: "number",
                             value: input.y,
                         }),
                     "point" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"point"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo1 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo1 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.p1 && null !== input.p1) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         })) &&
-                        $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $vo2(
+                            input.p1,
+                            _path + ".p1",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         }),
                     ((("object" === typeof input.p2 && null !== input.p2) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         })) &&
-                        $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $vo2(
+                            input.p2,
+                            _path + ".p2",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         }),
                     "line" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"line"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo2 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo2 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ("number" === typeof input.x && !Number.isNaN(input.x)) ||
-                        $report(exceptionable, {
-                            path: path + ".x",
+                        $report(_exceptionable, {
+                            path: _path + ".x",
                             expected: "number",
                             value: input.x,
                         }),
                     ("number" === typeof input.y && !Number.isNaN(input.y)) ||
-                        $report(exceptionable, {
-                            path: path + ".y",
+                        $report(_exceptionable, {
+                            path: _path + ".y",
                             expected: "number",
                             value: input.y,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo3 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo3 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.p1 && null !== input.p1) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         })) &&
-                        $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $vo2(
+                            input.p1,
+                            _path + ".p1",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         }),
                     ((("object" === typeof input.p2 && null !== input.p2) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         })) &&
-                        $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $vo2(
+                            input.p2,
+                            _path + ".p2",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         }),
                     ((("object" === typeof input.p3 && null !== input.p3) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         })) &&
-                        $vo2(input.p3, path + ".p3", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $vo2(
+                            input.p3,
+                            _path + ".p3",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         }),
                     "triangle" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"triangle"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo4 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo4 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.p1 && null !== input.p1) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         })) &&
-                        $vo2(input.p1, path + ".p1", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p1",
+                        $vo2(
+                            input.p1,
+                            _path + ".p1",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p1",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p1,
                         }),
                     ((("object" === typeof input.p2 && null !== input.p2) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         })) &&
-                        $vo2(input.p2, path + ".p2", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p2",
+                        $vo2(
+                            input.p2,
+                            _path + ".p2",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p2",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p2,
                         }),
                     ((("object" === typeof input.p3 && null !== input.p3) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         })) &&
-                        $vo2(input.p3, path + ".p3", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p3",
+                        $vo2(
+                            input.p3,
+                            _path + ".p3",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p3",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p3,
                         }),
                     ((("object" === typeof input.p4 && null !== input.p4) ||
-                        $report(exceptionable, {
-                            path: path + ".p4",
+                        $report(_exceptionable, {
+                            path: _path + ".p4",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p4,
                         })) &&
-                        $vo2(input.p4, path + ".p4", true && exceptionable)) ||
-                        $report(exceptionable, {
-                            path: path + ".p4",
+                        $vo2(
+                            input.p4,
+                            _path + ".p4",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".p4",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.p4,
                         }),
                     "rectangle" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"rectangle"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo5 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo5 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((Array.isArray(input.points) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
@@ -7816,9 +7966,9 @@ export const generate_validate_prune = (
                                 (elem: any, index2: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
-                                        $report(exceptionable, {
+                                        $report(_exceptionable, {
                                             path:
-                                                path +
+                                                _path +
                                                 ".points[" +
                                                 index2 +
                                                 "]",
@@ -7828,52 +7978,52 @@ export const generate_validate_prune = (
                                         })) &&
                                         $vo2(
                                             elem,
-                                            path + ".points[" + index2 + "]",
-                                            true && exceptionable,
+                                            _path + ".points[" + index2 + "]",
+                                            true && _exceptionable,
                                         )) ||
-                                    $report(exceptionable, {
-                                        path: path + ".points[" + index2 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".points[" + index2 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPoint>",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
                         }),
                     "polyline" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"polyline"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo6 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo6 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.outer &&
                         null !== input.outer) ||
-                        $report(exceptionable, {
-                            path: path + ".outer",
+                        $report(_exceptionable, {
+                            path: _path + ".outer",
                             expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                             value: input.outer,
                         })) &&
                         $vo7(
                             input.outer,
-                            path + ".outer",
-                            true && exceptionable,
+                            _path + ".outer",
+                            true && _exceptionable,
                         )) ||
-                        $report(exceptionable, {
-                            path: path + ".outer",
+                        $report(_exceptionable, {
+                            path: _path + ".outer",
                             expected: "Resolve<ObjectUnionExplicit.IPolyline>",
                             value: input.outer,
                         }),
                     ((Array.isArray(input.inner) ||
-                        $report(exceptionable, {
-                            path: path + ".inner",
+                        $report(_exceptionable, {
+                            path: _path + ".inner",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                             value: input.inner,
@@ -7883,44 +8033,47 @@ export const generate_validate_prune = (
                                 (elem: any, index3: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
-                                        $report(exceptionable, {
+                                        $report(_exceptionable, {
                                             path:
-                                                path + ".inner[" + index3 + "]",
+                                                _path +
+                                                ".inner[" +
+                                                index3 +
+                                                "]",
                                             expected:
                                                 "Resolve<ObjectUnionExplicit.IPolyline>",
                                             value: elem,
                                         })) &&
                                         $vo7(
                                             elem,
-                                            path + ".inner[" + index3 + "]",
-                                            true && exceptionable,
+                                            _path + ".inner[" + index3 + "]",
+                                            true && _exceptionable,
                                         )) ||
-                                    $report(exceptionable, {
-                                        path: path + ".inner[" + index3 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".inner[" + index3 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPolyline>",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
-                        $report(exceptionable, {
-                            path: path + ".inner",
+                        $report(_exceptionable, {
+                            path: _path + ".inner",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPolyline>>",
                             value: input.inner,
                         }),
                     "polygon" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"polygon"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo7 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo7 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((Array.isArray(input.points) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
@@ -7930,9 +8083,9 @@ export const generate_validate_prune = (
                                 (elem: any, index4: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
-                                        $report(exceptionable, {
+                                        $report(_exceptionable, {
                                             path:
-                                                path +
+                                                _path +
                                                 ".points[" +
                                                 index4 +
                                                 "]",
@@ -7942,75 +8095,75 @@ export const generate_validate_prune = (
                                         })) &&
                                         $vo2(
                                             elem,
-                                            path + ".points[" + index4 + "]",
-                                            true && exceptionable,
+                                            _path + ".points[" + index4 + "]",
+                                            true && _exceptionable,
                                         )) ||
-                                    $report(exceptionable, {
-                                        path: path + ".points[" + index4 + "]",
+                                    $report(_exceptionable, {
+                                        path: _path + ".points[" + index4 + "]",
                                         expected:
                                             "Resolve<ObjectUnionExplicit.IPoint>",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
-                        $report(exceptionable, {
-                            path: path + ".points",
+                        $report(_exceptionable, {
+                            path: _path + ".points",
                             expected:
                                 "Array<Resolve<ObjectUnionExplicit.IPoint>>",
                             value: input.points,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vo8 = (input: any, path: string, exceptionable: boolean) =>
+            const $vo8 = (input: any, _path: string, _exceptionable: boolean) =>
                 [
                     ((("object" === typeof input.centroid &&
                         null !== input.centroid) ||
-                        $report(exceptionable, {
-                            path: path + ".centroid",
+                        $report(_exceptionable, {
+                            path: _path + ".centroid",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.centroid,
                         })) &&
                         $vo2(
                             input.centroid,
-                            path + ".centroid",
-                            true && exceptionable,
+                            _path + ".centroid",
+                            true && _exceptionable,
                         )) ||
-                        $report(exceptionable, {
-                            path: path + ".centroid",
+                        $report(_exceptionable, {
+                            path: _path + ".centroid",
                             expected: "Resolve<ObjectUnionExplicit.IPoint>",
                             value: input.centroid,
                         }),
                     ("number" === typeof input.radius &&
                         !Number.isNaN(input.radius)) ||
-                        $report(exceptionable, {
-                            path: path + ".radius",
+                        $report(_exceptionable, {
+                            path: _path + ".radius",
                             expected: "number",
                             value: input.radius,
                         }),
                     "circle" === input.type ||
-                        $report(exceptionable, {
-                            path: path + ".type",
+                        $report(_exceptionable, {
+                            path: _path + ".type",
                             expected: '"circle"',
                             value: input.type,
                         }),
                 ].every((flag: boolean) => flag);
-            const $vu0 = (input: any, path: string, exceptionable: boolean) =>
+            const $vu0 = (input: any, _path: string, _exceptionable: boolean) =>
                 (() => {
                     if ("point" === input.type)
-                        return $vo0(input, path, true && exceptionable);
+                        return $vo0(input, _path, true && _exceptionable);
                     if ("line" === input.type)
-                        return $vo1(input, path, true && exceptionable);
+                        return $vo1(input, _path, true && _exceptionable);
                     if ("triangle" === input.type)
-                        return $vo3(input, path, true && exceptionable);
+                        return $vo3(input, _path, true && _exceptionable);
                     if ("rectangle" === input.type)
-                        return $vo4(input, path, true && exceptionable);
+                        return $vo4(input, _path, true && _exceptionable);
                     if ("polyline" === input.type)
-                        return $vo5(input, path, true && exceptionable);
+                        return $vo5(input, _path, true && _exceptionable);
                     if ("polygon" === input.type)
-                        return $vo6(input, path, true && exceptionable);
+                        return $vo6(input, _path, true && _exceptionable);
                     if ("circle" === input.type)
-                        return $vo8(input, path, true && exceptionable);
-                    return $report(exceptionable, {
-                        path: path,
+                        return $vo8(input, _path, true && _exceptionable);
+                    return $report(_exceptionable, {
+                        path: _path,
                         expected:
                             '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
                         value: input,
@@ -8019,7 +8172,7 @@ export const generate_validate_prune = (
             return (
                 ((Array.isArray(input) ||
                     $report(true, {
-                        path: path + "",
+                        path: _path + "",
                         expected:
                             'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                         value: input,
@@ -8029,18 +8182,18 @@ export const generate_validate_prune = (
                             (elem: any, index1: number) =>
                                 ((("object" === typeof elem && null !== elem) ||
                                     $report(true, {
-                                        path: path + "[" + index1 + "]",
+                                        path: _path + "[" + index1 + "]",
                                         expected:
                                             '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                         value: elem,
                                     })) &&
                                     $vu0(
                                         elem,
-                                        path + "[" + index1 + "]",
+                                        _path + "[" + index1 + "]",
                                         true,
                                     )) ||
                                 $report(true, {
-                                    path: path + "[" + index1 + "]",
+                                    path: _path + "[" + index1 + "]",
                                     expected:
                                         '(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)',
                                     value: elem,
@@ -8048,7 +8201,7 @@ export const generate_validate_prune = (
                         )
                         .every((flag: boolean) => flag)) ||
                 $report(true, {
-                    path: path + "",
+                    path: _path + "",
                     expected:
                         'Array<(Resolve<ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>> | Resolve<ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>> | Resolve<ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>> | Resolve<ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon>> | Resolve<ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline>> | Resolve<ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle>> | Resolve<ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>>)>',
                     value: input,

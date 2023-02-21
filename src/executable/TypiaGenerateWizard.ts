@@ -25,8 +25,8 @@ export namespace TypiaGenerateWizard {
         action,
     ) => {
         // PREPARE ASSETS
-        command.option("--input <path>", "input directory");
-        command.option("--output <directory>", "output directory");
+        command.option("--input [path]", "input directory");
+        command.option("--output [directory]", "output directory");
         command.option("--project [project]", "tsconfig.json file location");
 
         const questioned = { value: false };

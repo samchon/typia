@@ -366,7 +366,7 @@ export namespace FeatureProgrammer {
             config.path || config.trace
                 ? [
                       IdentifierFactory.parameter(
-                          "index" + rand,
+                          "_index" + rand,
                           TypeFactory.keyword("number"),
                       ),
                   ]
@@ -466,14 +466,14 @@ const INDEX_SYMBOL =
     (start: number | null) => (prev: string) => (rand: string) => {
         const tail: string =
             start !== null
-                ? `"[" + (${start} + index${rand}) + "]"`
-                : `"[" + index${rand} + "]"`;
+                ? `"[" + (${start} + _index${rand}) + "]"`
+                : `"[" + _index${rand} + "]"`;
         if (prev === "") return tail;
         else if (prev[prev.length - 1] === `"`)
             return prev.substring(0, prev.length - 1) + tail.substring(1);
         return prev + ` + ${tail}`;
     };
-<<<<<<< HEAD
+
 const PARAMETERS =
     (props: Pick<CheckerProgrammer.IConfig, "path" | "trace">) =>
     (type: ts.TypeNode) => {
@@ -481,26 +481,17 @@ const PARAMETERS =
         if (props.path)
             tail.push(
                 IdentifierFactory.parameter(
-                    "path",
+                    "_path",
                     TypeFactory.keyword("string"),
                 ),
             );
         if (props.trace)
             tail.push(
                 IdentifierFactory.parameter(
-                    "exceptionable",
+                    "_exceptionable",
                     TypeFactory.keyword("boolean"),
                 ),
             );
-=======
-const PARAMETERS = (
-    props: Pick<CheckerProgrammer.IConfig, "path" | "trace">,
-) => {
-    const tail: ts.ParameterDeclaration[] = [];
-    if (props.path) tail.push(IdentifierFactory.parameter("_path"));
-    if (props.trace) tail.push(IdentifierFactory.parameter("_exceptionable"));
->>>>>>> features/unused
-
         return (input: ts.Identifier) => [
             IdentifierFactory.parameter(input, type),
             ...tail,

@@ -18,7 +18,7 @@ const USAGE = `Wrong command has been detected. Use like below:
     --input {directory} \\
     --output {directory}
 
-    --npx typia setup --input src/templates --output src/functinoal
+    --npx typia generate --input src/templates --output src/functinoal
 `;
 
 function halt(desc: string): never {
