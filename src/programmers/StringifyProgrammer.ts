@@ -54,8 +54,12 @@ export namespace StringifyProgrammer {
 
                 return [
                     ...importer.declare(modulo),
-                    ...isFunctors,
-                    ...isUnioners,
+                    ...isFunctors.filter((_, i) =>
+                        importer.hasLocal(`$io${i}`),
+                    ),
+                    ...isUnioners.filter((_, i) =>
+                        importer.hasLocal(`$iu${i}`),
+                    ),
                 ];
             },
         );
@@ -374,13 +378,13 @@ export namespace StringifyProgrammer {
                                           decoder: decode(project, importer),
                                           trace: false,
                                           path: false,
-                                      })(obj)(input);
+                                      })(importer)(obj)(input);
                                   return StringifyJoiner.object(importer)(
                                       input,
                                       entries,
                                   );
                               })()
-                            : explore_objects(input, meta, {
+                            : explore_objects(importer)(input, meta, {
                                   ...explore,
                                   from: "object",
                               }),
@@ -430,12 +434,12 @@ export namespace StringifyProgrammer {
             StringifyJoiner.array,
         );
 
-    const decode_object = () =>
+    const decode_object = (importer: FunctionImporter) =>
         FeatureProgrammer.decode_object({
             trace: false,
             path: false,
             functors: FUNCTORS,
-        });
+        })(importer);
 
     const decode_tuple =
         (project: IProject, importer: FunctionImporter) =>
@@ -590,20 +594,26 @@ export namespace StringifyProgrammer {
                 create_throw_error(importer, input, expected),
         });
 
-    const explore_objects = (
-        input: ts.Expression,
-        meta: Metadata,
-        explore: FeatureProgrammer.IExplore,
-    ) => {
-        if (meta.objects.length === 1)
-            return decode_object()(input, meta.objects[0]!, explore);
+    const explore_objects =
+        (importer: FunctionImporter) =>
+        (
+            input: ts.Expression,
+            meta: Metadata,
+            explore: FeatureProgrammer.IExplore,
+        ) => {
+            if (meta.objects.length === 1)
+                return decode_object(importer)(
+                    input,
+                    meta.objects[0]!,
+                    explore,
+                );
 
-        return ts.factory.createCallExpression(
-            ts.factory.createIdentifier(`${UNIONERS}${meta.union_index!}`),
-            undefined,
-            [input],
-        );
-    };
+            return ts.factory.createCallExpression(
+                ts.factory.createIdentifier(`${UNIONERS}${meta.union_index!}`),
+                undefined,
+                [input],
+            );
+        };
 
     /* -----------------------------------------------------------
         RETURN SCRIPTS
@@ -731,10 +741,10 @@ export namespace StringifyProgrammer {
         importer: FunctionImporter,
     ): FeatureProgrammer.IConfig.IObjector => ({
         checker: IsProgrammer.decode(project, importer),
-        decoder: decode_object(),
+        decoder: decode_object(importer),
         joiner: StringifyJoiner.object(importer),
         unionizer: decode_union_object(IsProgrammer.decode_object(importer))(
-            decode_object(),
+            decode_object(importer),
         )((exp) => exp)((value, expected) =>
             create_throw_error(importer, value, expected),
         ),
