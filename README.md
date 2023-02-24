@@ -54,7 +54,7 @@ Thanks for your support.
 
 Your donation would encourage `typia` development.
 
-[![Backers](https://opencollective.com/typia/backers.svg?width=1000)](https://opencollective.com/typia)
+[![Backers](https://opencollective.com/typia/backers.svg?width=500)](https://opencollective.com/typia)
 
 
 
