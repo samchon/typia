@@ -64,6 +64,15 @@ export namespace AssertCloneProgrammer {
                             [ts.factory.createIdentifier("input")],
                         ),
                     ),
+                    ts.factory.createExpressionStatement(
+                        ts.factory.createIdentifier(
+                            `/* ${TypeFactory.getFullName(
+                                project.checker,
+                                type,
+                                type.getSymbol(),
+                            )} */`,
+                        ),
+                    ),
                     ts.factory.createReturnStatement(
                         ts.factory.createAsExpression(
                             ts.factory.createIdentifier("output"),
