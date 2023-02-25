@@ -38,16 +38,6 @@ export const test_createAssertEquals_TagPattern = _test_assertEquals(
                         expected: "string",
                         value: input.email,
                     })) &&
-                (("string" === typeof input.url &&
-                    true ===
-                        RegExp(
-                            /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)/,
-                        ).test(input.url)) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".url",
-                        expected: "string",
-                        value: input.url,
-                    })) &&
                 (("string" === typeof input.ipv4 &&
                     true ===
                         RegExp(
@@ -68,11 +58,11 @@ export const test_createAssertEquals_TagPattern = _test_assertEquals(
                         expected: "string",
                         value: input.ipv6,
                     })) &&
-                (5 === Object.keys(input).length ||
+                (4 === Object.keys(input).length ||
                     false === _exceptionable ||
                     Object.keys(input).every((key) => {
                         if (
-                            ["uuid", "email", "url", "ipv4", "ipv6"].some(
+                            ["uuid", "email", "ipv4", "ipv6"].some(
                                 (prop) => key === prop,
                             )
                         )

@@ -10,7 +10,6 @@ export const test_clone_TagPattern = _test_clone(
             const $co0 = (input: any): any => ({
                 uuid: input.uuid as any,
                 email: input.email as any,
-                url: input.url as any,
                 ipv4: input.ipv4 as any,
                 ipv6: input.ipv6 as any,
             });

@@ -10,9 +10,7 @@ export const test_createStringify_TagPattern = _test_stringify(
         const $so0 = (input: any): any =>
             `{"uuid":${$string(input.uuid)},"email":${$string(
                 input.email,
-            )},"url":${$string(input.url)},"ipv4":${$string(
-                input.ipv4,
-            )},"ipv6":${$string(input.ipv6)}}`;
+            )},"ipv4":${$string(input.ipv4)},"ipv6":${$string(input.ipv6)}}`;
         return $so0(input);
     },
 );

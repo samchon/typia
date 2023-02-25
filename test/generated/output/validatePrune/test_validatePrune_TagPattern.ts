@@ -41,16 +41,6 @@ export const test_validatePrune_TagPattern = _test_validatePrune(
                                     expected: "string",
                                     value: input.email,
                                 }),
-                            ("string" === typeof input.url &&
-                                true ===
-                                    RegExp(
-                                        /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)/,
-                                    ).test(input.url)) ||
-                                $report(_exceptionable, {
-                                    path: _path + ".url",
-                                    expected: "string",
-                                    value: input.url,
-                                }),
                             ("string" === typeof input.ipv4 &&
                                 true ===
                                     RegExp(
@@ -100,7 +90,6 @@ export const test_validatePrune_TagPattern = _test_validatePrune(
                         if (
                             "uuid" === key ||
                             "email" === key ||
-                            "url" === key ||
                             "ipv4" === key ||
                             "ipv6" === key
                         )

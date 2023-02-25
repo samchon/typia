@@ -18,11 +18,6 @@ export const test_createIsParse_TagPattern = _test_isParse(
                     RegExp(
                         /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
                     ).test(input.email) &&
-                "string" === typeof input.url &&
-                true ===
-                    RegExp(
-                        /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)/,
-                    ).test(input.url) &&
                 "string" === typeof input.ipv4 &&
                 true ===
                     RegExp(

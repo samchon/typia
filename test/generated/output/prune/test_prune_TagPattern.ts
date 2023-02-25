@@ -12,7 +12,6 @@ export const test_prune_TagPattern = _test_prune(
                     if (
                         "uuid" === key ||
                         "email" === key ||
-                        "url" === key ||
                         "ipv4" === key ||
                         "ipv6" === key
                     )

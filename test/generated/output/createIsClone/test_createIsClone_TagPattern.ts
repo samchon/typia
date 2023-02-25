@@ -18,11 +18,6 @@ export const test_createIsClone_TagPattern = _test_isClone(
                     RegExp(
                         /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
                     ).test(input.email) &&
-                "string" === typeof input.url &&
-                true ===
-                    RegExp(
-                        /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)/,
-                    ).test(input.url) &&
                 "string" === typeof input.ipv4 &&
                 true ===
                     RegExp(
@@ -39,7 +34,6 @@ export const test_createIsClone_TagPattern = _test_isClone(
             const $co0 = (input: any): any => ({
                 uuid: input.uuid as any,
                 email: input.email as any,
-                url: input.url as any,
                 ipv4: input.ipv4 as any,
                 ipv6: input.ipv6 as any,
             });

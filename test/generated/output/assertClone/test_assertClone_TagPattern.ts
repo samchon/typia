@@ -39,16 +39,6 @@ export const test_assertClone_TagPattern = _test_assertClone(
                                 expected: "string",
                                 value: input.email,
                             })) &&
-                        (("string" === typeof input.url &&
-                            true ===
-                                RegExp(
-                                    /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)/,
-                                ).test(input.url)) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".url",
-                                expected: "string",
-                                value: input.url,
-                            })) &&
                         (("string" === typeof input.ipv4 &&
                             true ===
                                 RegExp(
@@ -85,7 +75,6 @@ export const test_assertClone_TagPattern = _test_assertClone(
                 const $co0 = (input: any): any => ({
                     uuid: input.uuid as any,
                     email: input.email as any,
-                    url: input.url as any,
                     ipv4: input.ipv4 as any,
                     ipv6: input.ipv6 as any,
                 });

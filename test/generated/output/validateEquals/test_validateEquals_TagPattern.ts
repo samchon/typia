@@ -41,16 +41,6 @@ export const test_validateEquals_TagPattern = _test_validateEquals(
                                 expected: "string",
                                 value: input.email,
                             }),
-                        ("string" === typeof input.url &&
-                            true ===
-                                RegExp(
-                                    /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)/,
-                                ).test(input.url)) ||
-                            $report(_exceptionable, {
-                                path: _path + ".url",
-                                expected: "string",
-                                value: input.url,
-                            }),
                         ("string" === typeof input.ipv4 &&
                             true ===
                                 RegExp(
@@ -71,18 +61,14 @@ export const test_validateEquals_TagPattern = _test_validateEquals(
                                 expected: "string",
                                 value: input.ipv6,
                             }),
-                        5 === Object.keys(input).length ||
+                        4 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
                                 .map((key) => {
                                     if (
-                                        [
-                                            "uuid",
-                                            "email",
-                                            "url",
-                                            "ipv4",
-                                            "ipv6",
-                                        ].some((prop) => key === prop)
+                                        ["uuid", "email", "ipv4", "ipv6"].some(
+                                            (prop) => key === prop,
+                                        )
                                     )
                                         return true;
                                     const value = input[key];

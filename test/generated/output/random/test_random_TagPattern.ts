@@ -20,9 +20,6 @@ export const test_random_TagPattern = _test_random(
                 email: (generator.pattern ?? $generator.pattern)(
                     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
                 ),
-                url: (generator.pattern ?? $generator.pattern)(
-                    /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)/,
-                ),
                 ipv4: (generator.pattern ?? $generator.pattern)(
                     /(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
                 ),
@@ -63,16 +60,6 @@ export const test_random_TagPattern = _test_random(
                         path: _path + ".email",
                         expected: "string",
                         value: input.email,
-                    })) &&
-                (("string" === typeof input.url &&
-                    true ===
-                        RegExp(
-                            /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)/,
-                        ).test(input.url)) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".url",
-                        expected: "string",
-                        value: input.url,
                     })) &&
                 (("string" === typeof input.ipv4 &&
                     true ===

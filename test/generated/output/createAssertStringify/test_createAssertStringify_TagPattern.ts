@@ -38,16 +38,6 @@ export const test_createAssertStringify_TagPattern = _test_assertStringify(
                             expected: "string",
                             value: input.email,
                         })) &&
-                    (("string" === typeof input.url &&
-                        true ===
-                            RegExp(
-                                /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)/,
-                            ).test(input.url)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".url",
-                            expected: "string",
-                            value: input.url,
-                        })) &&
                     (("string" === typeof input.ipv4 &&
                         true ===
                             RegExp(
@@ -85,9 +75,9 @@ export const test_createAssertStringify_TagPattern = _test_assertStringify(
             const $so0 = (input: any): any =>
                 `{"uuid":${$string(input.uuid)},"email":${$string(
                     input.email,
-                )},"url":${$string(input.url)},"ipv4":${$string(
-                    input.ipv4,
-                )},"ipv6":${$string(input.ipv6)}}`;
+                )},"ipv4":${$string(input.ipv4)},"ipv6":${$string(
+                    input.ipv6,
+                )}}`;
             return $so0(input);
         };
         return stringify(assert(input));

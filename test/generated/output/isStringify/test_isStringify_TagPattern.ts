@@ -19,11 +19,6 @@ export const test_isStringify_TagPattern = _test_isStringify(
                         RegExp(
                             /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
                         ).test(input.email) &&
-                    "string" === typeof input.url &&
-                    true ===
-                        RegExp(
-                            /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)/,
-                        ).test(input.url) &&
                     "string" === typeof input.ipv4 &&
                     true ===
                         RegExp(
@@ -43,9 +38,9 @@ export const test_isStringify_TagPattern = _test_isStringify(
                 const $so0 = (input: any): any =>
                     `{"uuid":${$string(input.uuid)},"email":${$string(
                         input.email,
-                    )},"url":${$string(input.url)},"ipv4":${$string(
-                        input.ipv4,
-                    )},"ipv6":${$string(input.ipv6)}}`;
+                    )},"ipv4":${$string(input.ipv4)},"ipv6":${$string(
+                        input.ipv6,
+                    )}}`;
                 return $so0(input);
             };
             return is(input) ? stringify(input) : null;
