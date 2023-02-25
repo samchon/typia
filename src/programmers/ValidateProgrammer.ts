@@ -47,13 +47,12 @@ export namespace ValidateProgrammer {
                         TypeFactory.keyword("any"),
                     ),
                 ],
-                ts.factory.createTypeReferenceNode("typia.IValidation", [
-                    project.checker.typeToTypeNode(
+                ts.factory.createTypeReferenceNode(
+                    `typia.IValidation<${TypeFactory.getFullName(
+                        project.checker,
                         type,
-                        undefined,
-                        undefined,
-                    ) ?? TypeFactory.keyword("any"),
-                ]),
+                    )}>`,
+                ),
                 undefined,
                 ts.factory.createBlock(
                     [
@@ -104,16 +103,7 @@ export namespace ValidateProgrammer {
                         ts.factory.createReturnStatement(
                             ts.factory.createAsExpression(
                                 create_output(),
-                                ts.factory.createTypeReferenceNode(
-                                    "typia.IValidation",
-                                    [
-                                        project.checker.typeToTypeNode(
-                                            type,
-                                            undefined,
-                                            undefined,
-                                        ) ?? TypeFactory.keyword("any"),
-                                    ],
-                                ),
+                                TypeFactory.keyword("any"),
                             ),
                         ),
                     ],

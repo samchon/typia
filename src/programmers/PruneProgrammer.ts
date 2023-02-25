@@ -273,8 +273,9 @@ export namespace PruneProgrammer {
     ): FeatureProgrammer.IConfig => ({
         types: {
             input: (type) =>
-                project.checker.typeToTypeNode(type, undefined, undefined) ??
-                TypeFactory.keyword("any"),
+                ts.factory.createTypeReferenceNode(
+                    TypeFactory.getFullName(project.checker, type),
+                ),
             output: () => TypeFactory.keyword("void"),
         },
         functors: FUNCTORS,

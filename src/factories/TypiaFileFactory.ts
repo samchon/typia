@@ -43,7 +43,7 @@ export namespace TypiaFileFactory {
                 await gather(container)(props.input)(props.output);
                 return container;
             })(),
-            config,
+            config.compilerOptions,
         );
 
         // DO TRANSFORM
@@ -56,8 +56,15 @@ export namespace TypiaFileFactory {
                         path.resolve(file.fileName).indexOf(props.input) !== -1,
                 ),
             [
-                transform(program),
                 ImportTransformer.transform(props.input)(props.output),
+                transform(
+                    program,
+                    (config.compilerOptions.plugins ?? []).find(
+                        (p: any) =>
+                            p.transform === "typia/lib/transform" ||
+                            p.transform === "../src/transform.ts",
+                    ) ?? {},
+                ),
             ],
             program.getCompilerOptions(),
         );

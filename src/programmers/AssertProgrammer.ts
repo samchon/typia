@@ -46,7 +46,9 @@ export namespace AssertProgrammer {
                         TypeFactory.keyword("any"),
                     ),
                 ],
-                undefined,
+                ts.factory.createTypeReferenceNode(
+                    TypeFactory.getFullName(project.checker, type),
+                ),
                 undefined,
                 ts.factory.createBlock(
                     [
@@ -63,14 +65,7 @@ export namespace AssertProgrammer {
                             ),
                         ),
                         ts.factory.createReturnStatement(
-                            ts.factory.createAsExpression(
-                                ts.factory.createIdentifier("input"),
-                                project.checker.typeToTypeNode(
-                                    type,
-                                    undefined,
-                                    undefined,
-                                ) ?? TypeFactory.keyword("any"),
-                            ),
+                            ts.factory.createIdentifier(`input`),
                         ),
                     ],
                     true,

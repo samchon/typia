@@ -19,11 +19,7 @@ export namespace AssertStringifyProgrammer {
                 [
                     IdentifierFactory.parameter(
                         "input",
-                        project.checker.typeToTypeNode(
-                            type,
-                            undefined,
-                            undefined,
-                        ) ?? TypeFactory.keyword("any"),
+                        TypeFactory.keyword("any"),
                     ),
                 ],
                 TypeFactory.keyword("string"),

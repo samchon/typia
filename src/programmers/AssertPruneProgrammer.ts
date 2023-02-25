@@ -22,8 +22,9 @@ export namespace AssertPruneProgrammer {
                         TypeFactory.keyword("any"),
                     ),
                 ],
-                project.checker.typeToTypeNode(type, undefined, undefined) ??
-                    TypeFactory.keyword("any"),
+                ts.factory.createTypeReferenceNode(
+                    TypeFactory.getFullName(project.checker, type),
+                ),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(

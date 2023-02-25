@@ -1,6 +1,7 @@
 import ts from "typescript";
 
 import { StatementFactory } from "../../factories/StatementFactory";
+import { TypeFactory } from "../../factories/TypeFactory";
 
 import { MetadataObject } from "../../metadata/MetadataObject";
 
@@ -65,7 +66,13 @@ export namespace CloneJoiner {
         );
 
         return ts.factory.createBlock([
-            StatementFactory.constant("output", literal),
+            StatementFactory.constant(
+                "output",
+                ts.factory.createAsExpression(
+                    literal,
+                    TypeFactory.keyword("any"),
+                ),
+            ),
             ts.factory.createForOfStatement(
                 undefined,
                 ts.factory.createVariableDeclarationList(
@@ -107,11 +114,14 @@ export namespace CloneJoiner {
         children: ts.Expression[],
         rest: ts.Expression | null,
     ): ts.Expression => {
-        if (rest === null)
-            return ts.factory.createArrayLiteralExpression(children, true);
-        return ts.factory.createArrayLiteralExpression(
-            [...children, ts.factory.createSpreadElement(rest)],
-            true,
+        return ts.factory.createAsExpression(
+            ts.factory.createArrayLiteralExpression(
+                rest === null
+                    ? children
+                    : [...children, ts.factory.createSpreadElement(rest)],
+                true,
+            ),
+            TypeFactory.keyword("any"),
         );
     };
 

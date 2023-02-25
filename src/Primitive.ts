@@ -36,7 +36,9 @@ type _Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
 type _Primitive<Instance> = _ValueOf<Instance> extends object
     ? Instance extends object
-        ? Instance extends IJsonable<infer Raw>
+        ? Instance extends _Native
+            ? {}
+            : Instance extends IJsonable<infer Raw>
             ? _ValueOf<Raw> extends object
                 ? Raw extends object
                     ? _PrimitiveObject<Raw> // object would be primitified
@@ -61,6 +63,26 @@ type _ValueOf<Instance> = _IsValueOf<Instance, Boolean> extends true
     : _IsValueOf<Instance, String> extends true
     ? string
     : Instance;
+
+type _Native =
+    | Set<any>
+    | Map<any, any>
+    | WeakSet<any>
+    | WeakMap<any, any>
+    | Uint8Array
+    | Uint8ClampedArray
+    | Uint16Array
+    | Uint32Array
+    | BigUint64Array
+    | Int8Array
+    | Int16Array
+    | Int32Array
+    | BigInt64Array
+    | Float32Array
+    | Float64Array
+    | ArrayBuffer
+    | SharedArrayBuffer
+    | DataView;
 
 type _IsValueOf<
     Instance,

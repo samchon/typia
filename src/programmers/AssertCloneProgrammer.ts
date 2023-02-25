@@ -22,13 +22,12 @@ export namespace AssertCloneProgrammer {
                         TypeFactory.keyword("any"),
                     ),
                 ],
-                ts.factory.createTypeReferenceNode("typia.Primitive", [
-                    project.checker.typeToTypeNode(
+                ts.factory.createTypeReferenceNode(
+                    `typia.Primitive<${TypeFactory.getFullName(
+                        project.checker,
                         type,
-                        undefined,
-                        undefined,
-                    ) ?? TypeFactory.keyword("any"),
-                ]),
+                    )}>`,
+                ),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(
@@ -64,24 +63,8 @@ export namespace AssertCloneProgrammer {
                             [ts.factory.createIdentifier("input")],
                         ),
                     ),
-                    ts.factory.createExpressionStatement(
-                        ts.factory.createIdentifier(
-                            `/* ${TypeFactory.getFullName(
-                                project.checker,
-                                type,
-                                type.getSymbol(),
-                            )} */`,
-                        ),
-                    ),
                     ts.factory.createReturnStatement(
-                        ts.factory.createAsExpression(
-                            ts.factory.createIdentifier("output"),
-                            project.checker.typeToTypeNode(
-                                type,
-                                undefined,
-                                undefined,
-                            ) ?? TypeFactory.keyword("any"),
-                        ),
+                        ts.factory.createIdentifier("output"),
                     ),
                 ]),
             );

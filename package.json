@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "3.5.7",
+  "version": "3.6.0-dev.20230225",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -23,7 +23,6 @@
     "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
     "prettier": "prettier  --write ./**/*.ts",
     "test": "node bin/test",
-    "test:features:generator": "rimraf test/generated && ts-node src/executable/typia generate --input test/features --output test/generated/output",
     "test:generate": "ts-node -P build/tsconfig.json -C ttypescript build/test.ts",
     "test:manual": "node test/manual",
     "test:application:replace": "node test/features/application/replace && npm run prettier"

@@ -23,13 +23,12 @@ export namespace IsCloneProgrammer {
                     ),
                 ],
                 ts.factory.createUnionTypeNode([
-                    ts.factory.createTypeReferenceNode("typia.Primitive", [
-                        project.checker.typeToTypeNode(
+                    ts.factory.createTypeReferenceNode(
+                        `typia.Primitive<${TypeFactory.getFullName(
+                            project.checker,
                             type,
-                            undefined,
-                            undefined,
-                        ) ?? TypeFactory.keyword("any"),
-                    ]),
+                        )}>`,
+                    ),
                     ts.factory.createLiteralTypeNode(ts.factory.createNull()),
                 ]),
                 undefined,

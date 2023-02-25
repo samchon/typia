@@ -55,7 +55,7 @@ export namespace TypeFactory {
         symbol?: ts.Symbol,
     ): string {
         // PRIMITIVE
-        symbol ||= type.aliasSymbol || type.getSymbol();
+        symbol ??= type.aliasSymbol ?? type.getSymbol();
         if (symbol === undefined) return checker.typeToString(type);
 
         // UNION OR INTERSECT

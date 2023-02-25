@@ -22,13 +22,12 @@ export namespace ValidatePruneProgrammer {
                         TypeFactory.keyword("any"),
                     ),
                 ],
-                ts.factory.createTypeReferenceNode("typia.IValidation", [
-                    project.checker.typeToTypeNode(
+                ts.factory.createTypeReferenceNode(
+                    `typia.IValidation<${TypeFactory.getFullName(
+                        project.checker,
                         type,
-                        undefined,
-                        undefined,
-                    ) ?? TypeFactory.keyword("any"),
-                ]),
+                    )}>`,
+                ),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(

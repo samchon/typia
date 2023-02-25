@@ -22,15 +22,12 @@ export namespace ValidateCloneProgrammer {
                         TypeFactory.keyword("any"),
                     ),
                 ],
-                ts.factory.createTypeReferenceNode("typia.IValidation", [
-                    ts.factory.createTypeReferenceNode("typia.Primitive", [
-                        project.checker.typeToTypeNode(
-                            type,
-                            undefined,
-                            undefined,
-                        ) ?? TypeFactory.keyword("any"),
-                    ]),
-                ]),
+                ts.factory.createTypeReferenceNode(
+                    `typia.IValidation<typia.Primitive<${TypeFactory.getFullName(
+                        project.checker,
+                        type,
+                    )}>>`,
+                ),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(

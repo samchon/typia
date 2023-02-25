@@ -165,6 +165,11 @@ export namespace FeatureProgrammer {
                 expected: string,
                 explore: IExplore,
             ) => ts.Expression;
+
+            /**
+             * Return type.
+             */
+            type?: ts.TypeNode;
         }
         export interface IGenerator {
             /**
@@ -311,7 +316,7 @@ export namespace FeatureProgrammer {
                 PARAMETERS(config)(TypeFactory.keyword("any"))(
                     ValueFactory.INPUT(),
                 ),
-                undefined,
+                config.objector.type ?? TypeFactory.keyword("any"),
                 undefined,
                 config.objector.joiner(
                     ts.factory.createIdentifier("input"),
@@ -333,7 +338,7 @@ export namespace FeatureProgrammer {
                 PARAMETERS(config)(TypeFactory.keyword("any"))(
                     ValueFactory.INPUT(),
                 ),
-                undefined,
+                TypeFactory.keyword("any"),
                 undefined,
                 explorer(
                     input,
@@ -490,6 +495,7 @@ const PARAMETERS =
                 IdentifierFactory.parameter(
                     "_exceptionable",
                     TypeFactory.keyword("boolean"),
+                    ts.factory.createTrue(),
                 ),
             );
         return (input: ts.Identifier) => [

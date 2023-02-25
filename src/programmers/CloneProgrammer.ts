@@ -148,7 +148,16 @@ export namespace CloneProgrammer {
                 unions.push({
                     type: "native",
                     is: () => ExpressionFactory.isInstanceOf(input, native),
-                    value: () => ts.factory.createIdentifier("{}"),
+                    value: () =>
+                        native === "Boolean" ||
+                        native === "Number" ||
+                        native === "String"
+                            ? ts.factory.createCallExpression(
+                                  IdentifierFactory.join(input, "valueOf"),
+                                  undefined,
+                                  undefined,
+                              )
+                            : ts.factory.createIdentifier("{}"),
                 });
 
             // OBJECTS
@@ -177,7 +186,10 @@ export namespace CloneProgrammer {
                     undefined,
                     last,
                 );
-            return last;
+            return ts.factory.createAsExpression(
+                last,
+                TypeFactory.keyword("any"),
+            );
         };
 
     const decode_to_json =
@@ -301,16 +313,16 @@ export namespace CloneProgrammer {
     ): FeatureProgrammer.IConfig => ({
         types: {
             input: (type) =>
-                project.checker.typeToTypeNode(type, undefined, undefined) ??
-                TypeFactory.keyword("any"),
+                ts.factory.createTypeReferenceNode(
+                    TypeFactory.getFullName(project.checker, type),
+                ),
             output: (type) =>
-                ts.factory.createTypeReferenceNode("typia.Primitive", [
-                    project.checker.typeToTypeNode(
+                ts.factory.createTypeReferenceNode(
+                    `typia.Primitive<${TypeFactory.getFullName(
+                        project.checker,
                         type,
-                        undefined,
-                        undefined,
-                    ) ?? TypeFactory.keyword("any"),
-                ]),
+                    )}>`,
+                ),
         },
         functors: FUNCTORS,
         unioners: UNIONERS,
