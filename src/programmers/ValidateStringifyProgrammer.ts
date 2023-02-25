@@ -19,16 +19,12 @@ export namespace ValidateStringifyProgrammer {
                 [
                     IdentifierFactory.parameter(
                         "input",
-                        project.checker.typeToTypeNode(
-                            type,
-                            undefined,
-                            undefined,
-                        ) ?? TypeFactory.keyword("any"),
+                        ts.factory.createTypeReferenceNode(
+                            TypeFactory.getFullName(project.checker, type),
+                        ),
                     ),
                 ],
-                ts.factory.createTypeReferenceNode("typia.IValidation", [
-                    TypeFactory.keyword("string"),
-                ]),
+                ts.factory.createTypeReferenceNode("typia.IValidation<string>"),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(

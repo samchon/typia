@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { DynamicConstant } from "../../structures/DynamicConstant";
 import { _test_assertEquals } from "../internal/_test_assertEquals";
 

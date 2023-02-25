@@ -1,23 +1,31 @@
-import typia from "typia";
-
 import fs from "fs";
+import typia from "typia";
 import { IJsonApplication } from "typia";
-import { primitive_equal_to } from "../../internal/primitive_equal_to";
-export const _test_application = (purpose: "ajv" | "swagger") => (name: string, generated: IJsonApplication) => {
-    const expected: IJsonApplication = JSON.parse(fs.readFileSync(`${__dirname}/../../../../test/schemas/json/${purpose}/${name}.json`, "utf8"));
-    sort(generated);
-    sort(expected);
-    if (primitive_equal_to(generated, expected) === false)
-        throw new Error(`Bug on typia.application("${purpose}"): failed to understand the ${name} type.`);
-};
+
+import { primitive_equal_to } from "../../../internal/primitive_equal_to";
+
+export const _test_application =
+    (purpose: "ajv" | "swagger") =>
+    (name: string, generated: IJsonApplication) => {
+        const expected: IJsonApplication = JSON.parse(
+            fs.readFileSync(
+                `${__dirname}/../../../../test/schemas/json/${purpose}/${name}.json`,
+                "utf8",
+            ),
+        );
+        sort(generated);
+        sort(expected);
+        if (primitive_equal_to(generated, expected) === false)
+            throw new Error(
+                `Bug on typia.application("${purpose}"): failed to understand the ${name} type.`,
+            );
+    };
 function sort(app: IJsonApplication): void {
     function object(elem: object) {
-        for (const value of Object.values(elem))
-            iterate(value);
+        for (const value of Object.values(elem)) iterate(value);
     }
     function array(elem: Array<any>) {
-        for (const v of elem)
-            iterate(v);
+        for (const v of elem) iterate(v);
         elem.sort((x, y) => {
             const alpha = JSON.stringify(x);
             const beta = JSON.stringify(y);
@@ -25,12 +33,9 @@ function sort(app: IJsonApplication): void {
         });
     }
     function iterate(elem: any) {
-        if (elem === null || elem === undefined)
-            return;
-        else if (Array.isArray(elem))
-            array(elem);
-        else if (typeof elem === "object")
-            object(elem);
+        if (elem === null || elem === undefined) return;
+        else if (Array.isArray(elem)) array(elem);
+        else if (typeof elem === "object") object(elem);
     }
     iterate(app);
 }

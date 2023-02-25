@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectGeneric } from "../../structures/ObjectGeneric";
 import { _test_isClone } from "../internal/_test_isClone";
 

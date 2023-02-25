@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectGeneric } from "../../structures/ObjectGeneric";
 import { _test_assertPrune } from "../internal/_test_assertPrune";
 

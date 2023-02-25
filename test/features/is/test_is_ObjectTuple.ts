@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectTuple } from "../../structures/ObjectTuple";
 import { _test_is } from "../internal/_test_is";
 

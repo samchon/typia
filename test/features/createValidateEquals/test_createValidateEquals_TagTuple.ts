@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TagTuple } from "../../structures/TagTuple";
 import { _test_validateEquals } from "../internal/_test_validateEquals";
 

@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TemplateAtomic } from "../../structures/TemplateAtomic";
 import { _test_isClone } from "../internal/_test_isClone";
 

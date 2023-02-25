@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 import { _test_assertEquals } from "../internal/_test_assertEquals";
 

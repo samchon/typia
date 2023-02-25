@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ToJsonUndefined } from "../../structures/ToJsonUndefined";
 import { _test_equals } from "../internal/_test_equals";
 

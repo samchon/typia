@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectInternal } from "../../structures/ObjectInternal";
 import { _test_assertStringify } from "../internal/_test_assertStringify";
 

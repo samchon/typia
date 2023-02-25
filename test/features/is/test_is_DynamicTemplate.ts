@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { DynamicTemplate } from "../../structures/DynamicTemplate";
 import { _test_is } from "../internal/_test_is";
 

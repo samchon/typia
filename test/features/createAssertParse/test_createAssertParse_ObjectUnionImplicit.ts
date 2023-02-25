@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 import { _test_assertParse } from "../internal/_test_assertParse";
 

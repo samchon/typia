@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { SetSimple } from "../../structures/SetSimple";
 import { _test_isClone } from "../internal/_test_isClone";
 

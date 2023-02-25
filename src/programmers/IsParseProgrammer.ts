@@ -21,13 +21,12 @@ export namespace IsParseProgrammer {
                         TypeFactory.keyword("any"),
                     ),
                 ],
-                ts.factory.createTypeReferenceNode("typia.Primitive", [
-                    project.checker.typeToTypeNode(
+                ts.factory.createTypeReferenceNode(
+                    `typia.Primitive<${TypeFactory.getFullName(
+                        project.checker,
                         type,
-                        undefined,
-                        undefined,
-                    ) ?? TypeFactory.keyword("any"),
-                ]),
+                    )}>`,
+                ),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(

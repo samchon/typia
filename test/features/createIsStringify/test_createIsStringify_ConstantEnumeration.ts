@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 import { _test_isStringify } from "../internal/_test_isStringify";
 

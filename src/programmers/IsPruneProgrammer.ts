@@ -25,11 +25,9 @@ export namespace IsPruneProgrammer {
                 ts.factory.createTypePredicateNode(
                     undefined,
                     "input",
-                    project.checker.typeToTypeNode(
-                        type,
-                        undefined,
-                        undefined,
-                    ) ?? TypeFactory.keyword("any"),
+                    ts.factory.createTypeReferenceNode(
+                        TypeFactory.getFullName(project.checker, type),
+                    ),
                 ),
                 undefined,
                 ts.factory.createBlock([

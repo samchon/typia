@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TupleRestObject } from "../../structures/TupleRestObject";
 import { _test_stringify } from "../internal/_test_stringify";
 

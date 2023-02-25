@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TemplateAtomic } from "../../structures/TemplateAtomic";
 import { _test_validateEquals } from "../internal/_test_validateEquals";
 

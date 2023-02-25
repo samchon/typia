@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 import { _test_equals } from "../internal/_test_equals";
 

@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectClosure } from "../../structures/ObjectClosure";
 import { _test_equals } from "../internal/_test_equals";
 

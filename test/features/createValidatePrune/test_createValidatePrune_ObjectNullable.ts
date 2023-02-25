@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectNullable } from "../../structures/ObjectNullable";
 import { _test_validatePrune } from "../internal/_test_validatePrune";
 

@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TagInfinite } from "../../structures/TagInfinite";
 import { _test_equals } from "../internal/_test_equals";
 

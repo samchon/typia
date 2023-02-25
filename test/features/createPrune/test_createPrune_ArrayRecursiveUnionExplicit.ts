@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnionExplicit";
 import { _test_prune } from "../internal/_test_prune";
 

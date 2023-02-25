@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { FunctionalObjectUnion } from "../../structures/FunctionalObjectUnion";
 import { _test_assertEquals } from "../internal/_test_assertEquals";
 

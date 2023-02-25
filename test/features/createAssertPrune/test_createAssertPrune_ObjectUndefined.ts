@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 import { _test_assertPrune } from "../internal/_test_assertPrune";
 

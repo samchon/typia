@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TagLength } from "../../structures/TagLength";
 import { _test_isStringify } from "../internal/_test_isStringify";
 

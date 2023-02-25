@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectOptional } from "../../structures/ObjectOptional";
 import { _test_clone } from "../internal/_test_clone";
 

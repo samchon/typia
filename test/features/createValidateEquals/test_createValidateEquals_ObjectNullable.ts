@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectNullable } from "../../structures/ObjectNullable";
 import { _test_validateEquals } from "../internal/_test_validateEquals";
 

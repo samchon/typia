@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TagStep } from "../../structures/TagStep";
 import { _test_isPrune } from "../internal/_test_isPrune";
 

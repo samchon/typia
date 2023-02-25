@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { MapUnion } from "../../structures/MapUnion";
 import { _test_is } from "../internal/_test_is";
 

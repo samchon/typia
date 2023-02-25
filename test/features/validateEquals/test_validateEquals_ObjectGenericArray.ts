@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 import { _test_validateEquals } from "../internal/_test_validateEquals";
 

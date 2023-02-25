@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
 import { _test_equals } from "../internal/_test_equals";
 

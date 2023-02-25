@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TagType } from "../../structures/TagType";
 import { _test_validateStringify } from "../internal/_test_validateStringify";
 

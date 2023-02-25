@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 import { _test_equals } from "../internal/_test_equals";
 

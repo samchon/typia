@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TagObjectUnion } from "../../structures/TagObjectUnion";
 import { _test_validatePrune } from "../internal/_test_validatePrune";
 

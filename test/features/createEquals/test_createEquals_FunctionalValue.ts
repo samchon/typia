@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { FunctionalValue } from "../../structures/FunctionalValue";
 import { _test_equals } from "../internal/_test_equals";
 

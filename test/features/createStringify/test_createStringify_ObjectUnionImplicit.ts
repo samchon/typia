@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 import { _test_stringify } from "../internal/_test_stringify";
 

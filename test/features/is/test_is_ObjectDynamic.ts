@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectDynamic } from "../../structures/ObjectDynamic";
 import { _test_is } from "../internal/_test_is";
 

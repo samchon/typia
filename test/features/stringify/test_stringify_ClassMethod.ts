@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ClassMethod } from "../../structures/ClassMethod";
 import { _test_stringify } from "../internal/_test_stringify";
 

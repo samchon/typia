@@ -10,39 +10,43 @@ export namespace ImportTransformer {
             transform_file(from)(to)(context)(file);
 
     const transform_file =
-        (from: string) =>
+        (top: string) =>
         (to: string) =>
         (context: ts.TransformationContext) =>
         (file: ts.SourceFile): ts.SourceFile => {
             if (file.isDeclarationFile) return file;
 
-            const next: string = get_directory_path(path.resolve(from));
-            to = next.replace(from, to);
+            const from: string = get_directory_path(
+                path.resolve(file.getSourceFile().fileName),
+            );
+            to = from.replace(top, to);
 
             return ts.visitEachChild(
                 file,
-                (node) => transform_node(next)(to)(node),
+                (node) => transform_node(top)(from)(to)(node),
                 context,
             );
         };
 
     const transform_node =
-        (from: string) => (to: string) => (node: ts.Node) => {
+        (top: string) => (from: string) => (to: string) => (node: ts.Node) => {
             if (
                 !ts.isImportDeclaration(node) ||
                 !ts.isStringLiteral(node.moduleSpecifier)
             )
                 return node;
 
-            const location: string = node.moduleSpecifier.text;
-            if (location[0] !== ".") return node;
+            const text: string = node.moduleSpecifier.text;
+            if (text[0] !== ".") return node;
 
-            const replaced: string = path.resolve(to, location);
+            const location: string = path.resolve(from, text);
+            if (location.indexOf(top) === 0) return node;
+
             return ts.factory.createImportDeclaration(
                 undefined,
                 node.importClause,
                 ts.factory.createStringLiteral(
-                    path.relative(from, replaced).split(path.sep).join("/"),
+                    path.relative(to, location).split(path.sep).join("/"),
                 ),
                 node.assertClause,
             );

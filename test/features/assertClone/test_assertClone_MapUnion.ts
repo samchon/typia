@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { MapUnion } from "../../structures/MapUnion";
 import { _test_assertClone } from "../internal/_test_assertClone";
 

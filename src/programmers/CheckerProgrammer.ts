@@ -132,10 +132,8 @@ export namespace CheckerProgrammer {
                     ts.factory.createTypePredicateNode(
                         undefined,
                         "input",
-                        project.checker.typeToTypeNode(
-                            type,
-                            undefined,
-                            undefined,
+                        ts.factory.createTypeReferenceNode(
+                            TypeFactory.getFullName(project.checker, type),
                         ),
                     ),
             },
@@ -194,6 +192,7 @@ export namespace CheckerProgrammer {
                 is: config.joiner.is,
                 required: config.joiner.required,
                 full: config.joiner.full,
+                type: TypeFactory.keyword("boolean"),
             },
         };
         if (config.numeric === true)

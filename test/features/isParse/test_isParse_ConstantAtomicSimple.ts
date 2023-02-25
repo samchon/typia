@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 import { _test_isParse } from "../internal/_test_isParse";
 

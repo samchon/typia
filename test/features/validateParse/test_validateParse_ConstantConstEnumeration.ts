@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
 import { _test_validateParse } from "../internal/_test_validateParse";
 

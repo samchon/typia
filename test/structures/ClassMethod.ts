@@ -1,6 +1,5 @@
-import { TestRandomGenerator } from "../internal/TestRandomGenerator";
-
 import { Spoiler } from "../internal/Spoiler";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
 
 export type ClassMethod = ClassMethod.Animal;
 export namespace ClassMethod {
@@ -18,7 +17,10 @@ export namespace ClassMethod {
     }
 
     export function generate(): ClassMethod {
-        return new Animal(TestRandomGenerator.string(), TestRandomGenerator.integer());
+        return new Animal(
+            TestRandomGenerator.string(),
+            TestRandomGenerator.integer(),
+        );
     }
 
     export const SPOILERS: Spoiler<ClassMethod>[] = [

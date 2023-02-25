@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TagLength } from "../../structures/TagLength";
 import { _test_equals } from "../internal/_test_equals";
 

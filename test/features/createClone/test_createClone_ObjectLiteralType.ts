@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 import { _test_clone } from "../internal/_test_clone";
 

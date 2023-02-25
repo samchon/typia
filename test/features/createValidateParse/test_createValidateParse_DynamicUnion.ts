@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { DynamicUnion } from "../../structures/DynamicUnion";
 import { _test_validateParse } from "../internal/_test_validateParse";
 

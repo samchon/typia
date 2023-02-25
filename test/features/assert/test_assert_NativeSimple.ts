@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { NativeSimple } from "../../structures/NativeSimple";
 import { _test_assert } from "../internal/_test_assert";
 

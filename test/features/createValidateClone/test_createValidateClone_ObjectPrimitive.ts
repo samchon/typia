@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 import { _test_validateClone } from "../internal/_test_validateClone";
 

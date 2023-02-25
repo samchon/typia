@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectSimple } from "../../structures/ObjectSimple";
 import { _test_validateParse } from "../internal/_test_validateParse";
 

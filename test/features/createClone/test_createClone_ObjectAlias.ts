@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectAlias } from "../../structures/ObjectAlias";
 import { _test_clone } from "../internal/_test_clone";
 

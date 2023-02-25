@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ToJsonTuple } from "../../structures/ToJsonTuple";
 import { _test_isClone } from "../internal/_test_isClone";
 

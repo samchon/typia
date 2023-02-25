@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 import { _test_is } from "../internal/_test_is";
 

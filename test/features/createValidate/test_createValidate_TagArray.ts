@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TagArray } from "../../structures/TagArray";
 import { _test_validate } from "../internal/_test_validate";
 

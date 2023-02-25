@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TagObjectUnion } from "../../structures/TagObjectUnion";
 import { _test_assertClone } from "../internal/_test_assertClone";
 

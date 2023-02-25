@@ -1,14 +1,26 @@
-import typia from "../../../src";
-import { ClassMethod } from "../../structures/ClassMethod";
+import typia from "../../../../src";
+import { ClassMethod } from "../../../structures/ClassMethod";
 import { _test_equals } from "../internal/_test_equals";
-export const test_createEquals_ClassMethod = _test_equals("ClassMethod", ClassMethod.generate, (input: any, _exceptionable: boolean): input is Animal => {
-    const $io0 = (input: any, _exceptionable: boolean) => "string" === typeof input.name && "number" === typeof input.age && (2 === Object.keys(input).length || Object.keys(input).every(key => {
-        if (["name", "age"].some(prop => key === prop))
-            return true;
-        const value = input[key];
-        if (undefined === value)
-            return true;
-        return false;
-    }));
-    return "object" === typeof input && null !== input && $io0(input, true);
-});
+
+export const test_createEquals_ClassMethod = _test_equals(
+    "ClassMethod",
+    ClassMethod.generate,
+    (
+        input: any,
+        _exceptionable: boolean = true,
+    ): input is ClassMethod.Animal => {
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
+            "string" === typeof input.name &&
+            "number" === typeof input.age &&
+            Number.isFinite(input.age) &&
+            (2 === Object.keys(input).length ||
+                Object.keys(input).every((key) => {
+                    if (["name", "age"].some((prop) => key === prop))
+                        return true;
+                    const value = input[key];
+                    if (undefined === value) return true;
+                    return false;
+                }));
+        return "object" === typeof input && null !== input && $io0(input, true);
+    },
+);

@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 import { _test_is } from "../internal/_test_is";
 

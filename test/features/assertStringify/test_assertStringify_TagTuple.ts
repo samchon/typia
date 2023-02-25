@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TagTuple } from "../../structures/TagTuple";
 import { _test_assertStringify } from "../internal/_test_assertStringify";
 

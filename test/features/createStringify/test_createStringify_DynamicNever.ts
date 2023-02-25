@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { DynamicNever } from "../../structures/DynamicNever";
 import { _test_stringify } from "../internal/_test_stringify";
 

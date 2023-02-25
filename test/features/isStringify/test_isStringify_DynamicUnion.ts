@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { DynamicUnion } from "../../structures/DynamicUnion";
 import { _test_isStringify } from "../internal/_test_isStringify";
 

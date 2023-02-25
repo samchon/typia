@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ArrayAny } from "../../structures/ArrayAny";
 import { _test_validateStringify } from "../internal/_test_validateStringify";
 

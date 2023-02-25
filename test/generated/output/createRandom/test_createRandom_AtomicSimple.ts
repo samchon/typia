@@ -1,25 +1,60 @@
-import typia from "../../../src";
-import { AtomicSimple } from "../../structures/AtomicSimple";
+import typia from "../../../../src";
+import { AtomicSimple } from "../../../structures/AtomicSimple";
 import { _test_random } from "../internal/_test_random";
-export const test_createRandom_AtomicSimple = _test_random("AtomicSimple", (generator: typia.IRandomGenerator = (typia.createRandom as any).generator) => {
-    const $generator = (typia.createRandom as any).generator;
-    return [
-        (generator.boolean ?? $generator.boolean)(),
-        (generator.number ?? $generator.number)(0, 100),
-        (generator.string ?? $generator.string)()
-    ];
-}, (input: any) => {
-    const $guard = (typia.createAssert as any).guard;
-    ((input: any, _path: string, _exceptionable: boolean): input is (string | number | boolean)[] => {
-        return (Array.isArray(input) || $guard(true, {
-            path: _path + "",
-            expected: "Array<(boolean | number | string)>",
-            value: input
-        })) && input.every((elem: any, _index1: number) => "string" === typeof elem || "number" === typeof elem || "boolean" === typeof elem || $guard(true, {
-            path: _path + "[" + _index1 + "]",
-            expected: "(boolean | number | string)",
-            value: elem
-        }));
-    })(input, "$input", true);
-    return input as typia.Primitive<AtomicSimple>;
-});
+
+export const test_createRandom_AtomicSimple = _test_random(
+    "AtomicSimple",
+    (
+        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
+            .generator,
+    ): typia.Primitive<AtomicSimple> => {
+        const $generator = (typia.createRandom as any).generator;
+        return [
+            (generator.boolean ?? $generator.boolean)(),
+            (generator.number ?? $generator.number)(0, 100),
+            (generator.string ?? $generator.string)(),
+        ];
+    },
+    (input: any): AtomicSimple => {
+        const $guard = (typia.createAssert as any).guard;
+        ((
+            input: any,
+            _path: string,
+            _exceptionable: boolean = true,
+        ): input is AtomicSimple => {
+            return (
+                (Array.isArray(input) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "[boolean, number, string]",
+                        value: input,
+                    })) &&
+                (input.length === 3 ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "[boolean, number, string]",
+                        value: input,
+                    })) &&
+                ("boolean" === typeof input[0] ||
+                    $guard(true, {
+                        path: _path + "[0]",
+                        expected: "boolean",
+                        value: input[0],
+                    })) &&
+                (("number" === typeof input[1] && Number.isFinite(input[1])) ||
+                    $guard(true, {
+                        path: _path + "[1]",
+                        expected: "number",
+                        value: input[1],
+                    })) &&
+                ("string" === typeof input[2] ||
+                    $guard(true, {
+                        path: _path + "[2]",
+                        expected: "string",
+                        value: input[2],
+                    }))
+            );
+        })(input, "$input", true);
+        return input;
+    },
+);

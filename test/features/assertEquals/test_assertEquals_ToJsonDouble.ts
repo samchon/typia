@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ToJsonDouble } from "../../structures/ToJsonDouble";
 import { _test_assertEquals } from "../internal/_test_assertEquals";
 

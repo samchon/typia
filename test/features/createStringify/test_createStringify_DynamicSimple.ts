@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { DynamicSimple } from "../../structures/DynamicSimple";
 import { _test_stringify } from "../internal/_test_stringify";
 

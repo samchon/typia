@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { MapAlias } from "../../structures/MapAlias";
 import { _test_stringify } from "../internal/_test_stringify";
 

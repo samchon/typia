@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
 import { _test_isClone } from "../internal/_test_isClone";
 

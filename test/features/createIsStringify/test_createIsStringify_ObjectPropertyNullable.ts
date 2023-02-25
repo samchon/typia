@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 import { _test_isStringify } from "../internal/_test_isStringify";
 

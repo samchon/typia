@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 import { _test_prune } from "../internal/_test_prune";
 

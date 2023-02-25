@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 import { _test_isStringify } from "../internal/_test_isStringify";
 

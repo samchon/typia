@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 import { _test_assertStringify } from "../internal/_test_assertStringify";
 

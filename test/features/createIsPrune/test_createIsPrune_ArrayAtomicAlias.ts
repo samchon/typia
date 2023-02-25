@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 import { _test_isPrune } from "../internal/_test_isPrune";
 

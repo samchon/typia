@@ -1,28 +1,34 @@
 import typia from "typia";
-
 import { TypeGuardError } from "typia";
+
 import { Escaper } from "typia/lib/utils/Escaper";
-export function _test_assertEquals<T>(name: string, generator: () => T, assert: (input: T) => T, spoil: boolean = true): () => void {
+
+export function _test_assertEquals<T>(
+    name: string,
+    generator: () => T,
+    assert: (input: T) => T,
+    spoil: boolean = true,
+): () => void {
     return () => {
         const input: T = generator();
         // EXACT TYPE
         try {
             const output: T = assert(input);
             if (input !== output)
-                throw new Error("Bug on typia.assertEquals(): failed to return input value.");
-        }
-        catch (exp) {
+                throw new Error(
+                    "Bug on typia.assertEquals(): failed to return input value.",
+                );
+        } catch (exp) {
             if (exp instanceof TypeGuardError) {
-                throw new Error(`Bug on typia.assertEquals(): failed to understand the ${name} type.`);
-            }
-            else
-                throw exp;
+                throw new Error(
+                    `Bug on typia.assertEquals(): failed to understand the ${name} type.`,
+                );
+            } else throw exp;
         }
         // WRONG TYPES
         const accessors: IAccessor[] = [];
         trace(accessors, "$input", input);
-        if (spoil === false || accessors.length === 0)
-            return;
+        if (spoil === false || accessors.length === 0) return;
         // SPOIL PROPERTIES
         for (const { path, value } of accessors) {
             const variable: boolean = Math.random() < 0.5;
@@ -35,49 +41,56 @@ export function _test_assertEquals<T>(name: string, generator: () => T, assert: 
             value[key] = key;
             try {
                 assert(input);
-                throw new Error(`Bug on typia.assertEquals(): failed to detect surplus property on the ${name} type.`);
-            }
-            catch (exp) {
-                if (exp instanceof TypeGuardError &&
+                throw new Error(
+                    `Bug on typia.assertEquals(): failed to detect surplus property on the ${name} type.`,
+                );
+            } catch (exp) {
+                if (
+                    exp instanceof TypeGuardError &&
                     exp.method === "typia.assertEquals" &&
                     exp.path === fullPath &&
                     exp.expected === "undefined" &&
-                    exp.value === key) {
+                    exp.value === key
+                ) {
                     delete value[key];
                     continue;
-                }
-                else if (exp instanceof TypeGuardError) {
+                } else if (exp instanceof TypeGuardError) {
                     console.log({
                         method: exp.method,
                         path: exp.path,
                         full: fullPath,
-                        expected: exp.expected
+                        expected: exp.expected,
                     });
-                    throw new Error(`Bug on typia.assertEquals(): failed to detect surplus property on the ${name} type.`);
-                }
-                else
-                    throw exp;
+                    throw new Error(
+                        `Bug on typia.assertEquals(): failed to detect surplus property on the ${name} type.`,
+                    );
+                } else throw exp;
             }
         }
     };
 }
 function trace(accessors: IAccessor[], path: string, input: any): void {
-    if (Array.isArray(input))
-        trace_array(accessors, path, input);
-    else if (typeof input === "object" &&
+    if (Array.isArray(input)) trace_array(accessors, path, input);
+    else if (
+        typeof input === "object" &&
         input !== null &&
-        typeof input.valueOf() === "object")
+        typeof input.valueOf() === "object"
+    )
         trace_object(accessors, path, input);
 }
 function trace_object(accessors: IAccessor[], path: string, obj: any): void {
     accessors.push({
         path,
-        value: obj
+        value: obj,
     });
     for (const [key, value] of Object.entries(obj))
-        trace(accessors, Escaper.variable(key)
-            ? `${path}.${key}`
-            : `${path}[${JSON.stringify(key)}]`, value);
+        trace(
+            accessors,
+            Escaper.variable(key)
+                ? `${path}.${key}`
+                : `${path}[${JSON.stringify(key)}]`,
+            value,
+        );
 }
 function trace_array(accessors: IAccessor[], path: string, array: any[]): void {
     array.forEach((elem, i) => trace(accessors, `${path}[${i}]`, elem));

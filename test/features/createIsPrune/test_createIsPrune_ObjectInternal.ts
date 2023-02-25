@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectInternal } from "../../structures/ObjectInternal";
 import { _test_isPrune } from "../internal/_test_isPrune";
 

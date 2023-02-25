@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { AtomicUnion } from "../../structures/AtomicUnion";
 import { _test_assertParse } from "../internal/_test_assertParse";
 

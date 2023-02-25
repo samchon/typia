@@ -51,7 +51,7 @@ export namespace RandomProgrammer {
                     IdentifierFactory.parameter(
                         "generator",
                         ts.factory.createTypeReferenceNode(
-                            "typia.IRandomGenerator",
+                            "Partial<typia.IRandomGenerator>",
                         ),
                         IdentifierFactory.join(
                             ts.factory.createParenthesizedExpression(
@@ -64,7 +64,12 @@ export namespace RandomProgrammer {
                         ),
                     ),
                 ],
-                undefined,
+                ts.factory.createTypeReferenceNode(
+                    `typia.Primitive<${TypeFactory.getFullName(
+                        project.checker,
+                        type,
+                    )}>`,
+                ),
                 undefined,
                 ts.factory.createBlock(
                     [
@@ -88,19 +93,19 @@ export namespace RandomProgrammer {
                         undefined,
                         [
                             IdentifierFactory.parameter(
-                                "recursive",
-                                undefined,
+                                "_recursive",
+                                TypeFactory.keyword("boolean"),
                                 ts.factory.createIdentifier(
                                     String(obj.recursive),
                                 ),
                             ),
                             IdentifierFactory.parameter(
-                                "depth",
-                                undefined,
+                                "_depth",
+                                TypeFactory.keyword("number"),
                                 ts.factory.createNumericLiteral(0),
                             ),
                         ],
-                        undefined,
+                        TypeFactory.keyword("any"),
                         undefined,
                         RandomJoiner.object(COALESCE(importer))(
                             decode(importer)({
@@ -166,10 +171,10 @@ export namespace RandomProgrammer {
                     explore.recursive && a.objects.length
                         ? ts.factory.createConditionalExpression(
                               ts.factory.createLogicalAnd(
-                                  ts.factory.createIdentifier("recursive"),
+                                  ts.factory.createIdentifier("_recursive"),
                                   ts.factory.createLessThan(
                                       ts.factory.createNumericLiteral(5),
-                                      ts.factory.createIdentifier("depth"),
+                                      ts.factory.createIdentifier("_depth"),
                                   ),
                               ),
                               undefined,
@@ -190,17 +195,17 @@ export namespace RandomProgrammer {
                                   explore.recursive
                                       ? ts.factory.createTrue()
                                       : ts.factory.createIdentifier(
-                                            "recursive",
+                                            "_recursive",
                                         ),
                                   ts.factory.createConditionalExpression(
-                                      ts.factory.createIdentifier("recursive"),
+                                      ts.factory.createIdentifier("_recursive"),
                                       undefined,
                                       ts.factory.createAdd(
                                           ts.factory.createNumericLiteral(1),
-                                          ts.factory.createIdentifier("depth"),
+                                          ts.factory.createIdentifier("_depth"),
                                       ),
                                       undefined,
-                                      ts.factory.createIdentifier("depth"),
+                                      ts.factory.createIdentifier("_depth"),
                                   ),
                               ]
                             : undefined,

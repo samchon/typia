@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TemplateUnion } from "../../structures/TemplateUnion";
 import { _test_assertEquals } from "../internal/_test_assertEquals";
 

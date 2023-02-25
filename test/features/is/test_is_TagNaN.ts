@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TagNaN } from "../../structures/TagNaN";
 import { _test_is } from "../internal/_test_is";
 

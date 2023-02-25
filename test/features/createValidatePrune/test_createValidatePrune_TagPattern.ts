@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TagPattern } from "../../structures/TagPattern";
 import { _test_validatePrune } from "../internal/_test_validatePrune";
 

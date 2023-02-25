@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { FunctionalPropertyUnion } from "../../structures/FunctionalPropertyUnion";
 import { _test_is } from "../internal/_test_is";
 

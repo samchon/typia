@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { FunctionalValueUnion } from "../../structures/FunctionalValueUnion";
 import { _test_validate } from "../internal/_test_validate";
 

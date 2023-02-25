@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 import { _test_is } from "../internal/_test_is";
 

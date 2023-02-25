@@ -1,6 +1,5 @@
-import { TestRandomGenerator } from "../internal/TestRandomGenerator";
-
 import { Spoiler } from "../internal/Spoiler";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
 
 export interface ArrayAny {
     anys: any[];
@@ -61,5 +60,6 @@ export namespace ArrayAny {
 
     export const ADDABLE = false;
 
-    const random = () => TestRandomGenerator.pick([null, true, 2, "three", {}, []]);
+    const random = () =>
+        TestRandomGenerator.pick([null, true, 2, "three", {}, []]);
 }

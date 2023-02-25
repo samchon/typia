@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { DynamicUnion } from "../../structures/DynamicUnion";
 import { _test_assertClone } from "../internal/_test_assertClone";
 

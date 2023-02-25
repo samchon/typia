@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { DynamicTree } from "../../structures/DynamicTree";
 import { _test_assert } from "../internal/_test_assert";
 

@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ClassGetter } from "../../structures/ClassGetter";
 import { _test_stringify } from "../internal/_test_stringify";
 

@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TemplateAtomic } from "../../structures/TemplateAtomic";
 import { _test_isParse } from "../internal/_test_isParse";
 

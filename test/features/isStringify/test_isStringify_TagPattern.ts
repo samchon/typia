@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TagPattern } from "../../structures/TagPattern";
 import { _test_isStringify } from "../internal/_test_isStringify";
 

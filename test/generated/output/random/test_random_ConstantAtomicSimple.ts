@@ -1,25 +1,62 @@
-import typia from "../../../src";
-import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
+import typia from "../../../../src";
+import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 import { _test_random } from "../internal/_test_random";
-export const test_random_ConstantAtomicSimple = _test_random("ConstantAtomicSimple", () => ((generator: typia.IRandomGenerator = (typia.random as any).generator) => {
-    return [
-        false,
-        true,
-        2,
-        "three"
-    ];
-})(), (input: any) => {
-    const $guard = (typia.createAssert as any).guard;
-    ((input: any, _path: string, _exceptionable: boolean): input is (boolean | 2 | "three")[] => {
-        return (Array.isArray(input) || $guard(true, {
-            path: _path + "",
-            expected: "Array<(\"three\" | 2 | boolean)>",
-            value: input
-        })) && input.every((elem: any, _index1: number) => 2 === elem || "three" === elem || "boolean" === typeof elem || $guard(true, {
-            path: _path + "[" + _index1 + "]",
-            expected: "(\"three\" | 2 | boolean)",
-            value: elem
-        }));
-    })(input, "$input", true);
-    return input as typia.Primitive<ConstantAtomicSimple>;
-});
+
+export const test_random_ConstantAtomicSimple = _test_random(
+    "ConstantAtomicSimple",
+    () =>
+        ((
+            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
+                .generator,
+        ): typia.Primitive<ConstantAtomicSimple> => {
+            return [false, true, 2, "three"];
+        })(),
+    (input: any): ConstantAtomicSimple => {
+        const $guard = (typia.createAssert as any).guard;
+        ((
+            input: any,
+            _path: string,
+            _exceptionable: boolean = true,
+        ): input is ConstantAtomicSimple => {
+            return (
+                (Array.isArray(input) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: '[false, true, 2, "three"]',
+                        value: input,
+                    })) &&
+                (input.length === 4 ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: '[false, true, 2, "three"]',
+                        value: input,
+                    })) &&
+                (false === input[0] ||
+                    $guard(true, {
+                        path: _path + "[0]",
+                        expected: "false",
+                        value: input[0],
+                    })) &&
+                (true === input[1] ||
+                    $guard(true, {
+                        path: _path + "[1]",
+                        expected: "true",
+                        value: input[1],
+                    })) &&
+                (2 === input[2] ||
+                    $guard(true, {
+                        path: _path + "[2]",
+                        expected: "2",
+                        value: input[2],
+                    })) &&
+                ("three" === input[3] ||
+                    $guard(true, {
+                        path: _path + "[3]",
+                        expected: '"three"',
+                        value: input[3],
+                    }))
+            );
+        })(input, "$input", true);
+        return input;
+    },
+);

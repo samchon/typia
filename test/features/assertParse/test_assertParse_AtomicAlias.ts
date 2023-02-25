@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { AtomicAlias } from "../../structures/AtomicAlias";
 import { _test_assertParse } from "../internal/_test_assertParse";
 

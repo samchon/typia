@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 import { _test_validatePrune } from "../internal/_test_validatePrune";
 

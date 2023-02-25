@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ToJsonUnion } from "../../structures/ToJsonUnion";
 import { _test_assertEquals } from "../internal/_test_assertEquals";
 

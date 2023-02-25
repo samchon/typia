@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 import { _test_isStringify } from "../internal/_test_isStringify";
 

@@ -1,137 +1,272 @@
-import typia from "../../../src";
-import { MapSimple } from "../../structures/MapSimple";
+import typia from "../../../../src";
+import { MapSimple } from "../../../structures/MapSimple";
 import { _test_assertStringify } from "../internal/_test_assertStringify";
-export const test_createAssertStringify_MapSimple = _test_assertStringify("MapSimple", MapSimple.generate, (input: MapSimple): string => { const assert = (input: any) => {
-    const $guard = (typia.createAssertStringify as any).guard;
-    ((input: any, _path: string, _exceptionable: boolean): input is MapSimple => {
-        const $ao0 = (input: any, _path: string, _exceptionable: boolean) => (input.boolean instanceof Map || $guard(_exceptionable, {
-            path: _path + ".boolean",
-            expected: "Map<boolean, number>",
-            value: input.boolean
-        })) && [...input.boolean].every((elem: any, _index1: number) => (Array.isArray(elem) || $guard(_exceptionable, {
-            path: _path + ".boolean[" + _index1 + "]",
-            expected: "[boolean, number]",
-            value: elem
-        })) && ((elem.length === 2 || $guard(_exceptionable, {
-            path: _path + ".boolean[" + _index1 + "]",
-            expected: "[boolean, number]",
-            value: elem
-        })) && ("boolean" === typeof elem[0] || $guard(_exceptionable, {
-            path: _path + ".boolean[" + _index1 + "][0]",
-            expected: "boolean",
-            value: elem[0]
-        })) && ("number" === typeof elem[1] && !Number.isNaN(elem[1]) || $guard(_exceptionable, {
-            path: _path + ".boolean[" + _index1 + "][1]",
-            expected: "number",
-            value: elem[1]
-        })))) && ((input.number instanceof Map || $guard(_exceptionable, {
-            path: _path + ".number",
-            expected: "Map<number, number>",
-            value: input.number
-        })) && [...input.number].every((elem: any, _index2: number) => (Array.isArray(elem) || $guard(_exceptionable, {
-            path: _path + ".number[" + _index2 + "]",
-            expected: "[number, number]",
-            value: elem
-        })) && ((elem.length === 2 || $guard(_exceptionable, {
-            path: _path + ".number[" + _index2 + "]",
-            expected: "[number, number]",
-            value: elem
-        })) && ("number" === typeof elem[0] && !Number.isNaN(elem[0]) || $guard(_exceptionable, {
-            path: _path + ".number[" + _index2 + "][0]",
-            expected: "number",
-            value: elem[0]
-        })) && ("number" === typeof elem[1] && !Number.isNaN(elem[1]) || $guard(_exceptionable, {
-            path: _path + ".number[" + _index2 + "][1]",
-            expected: "number",
-            value: elem[1]
-        }))))) && ((input.strings instanceof Map || $guard(_exceptionable, {
-            path: _path + ".strings",
-            expected: "Map<string, number>",
-            value: input.strings
-        })) && [...input.strings].every((elem: any, _index3: number) => (Array.isArray(elem) || $guard(_exceptionable, {
-            path: _path + ".strings[" + _index3 + "]",
-            expected: "[string, number]",
-            value: elem
-        })) && ((elem.length === 2 || $guard(_exceptionable, {
-            path: _path + ".strings[" + _index3 + "]",
-            expected: "[string, number]",
-            value: elem
-        })) && ("string" === typeof elem[0] || $guard(_exceptionable, {
-            path: _path + ".strings[" + _index3 + "][0]",
-            expected: "string",
-            value: elem[0]
-        })) && ("number" === typeof elem[1] && !Number.isNaN(elem[1]) || $guard(_exceptionable, {
-            path: _path + ".strings[" + _index3 + "][1]",
-            expected: "number",
-            value: elem[1]
-        }))))) && ((input.arrays instanceof Map || $guard(_exceptionable, {
-            path: _path + ".arrays",
-            expected: "Map<Array<number>, number>",
-            value: input.arrays
-        })) && [...input.arrays].every((elem: any, _index4: number) => (Array.isArray(elem) || $guard(_exceptionable, {
-            path: _path + ".arrays[" + _index4 + "]",
-            expected: "[Array<number>, number]",
-            value: elem
-        })) && ((elem.length === 2 || $guard(_exceptionable, {
-            path: _path + ".arrays[" + _index4 + "]",
-            expected: "[Array<number>, number]",
-            value: elem
-        })) && ((Array.isArray(elem[0]) || $guard(_exceptionable, {
-            path: _path + ".arrays[" + _index4 + "][0]",
-            expected: "Array<number>",
-            value: elem[0]
-        })) && elem[0].every((elem: any, _index5: number) => "number" === typeof elem && !Number.isNaN(elem) || $guard(_exceptionable, {
-            path: _path + ".arrays[" + _index4 + "][0][" + _index5 + "]",
-            expected: "number",
-            value: elem
-        }))) && ("number" === typeof elem[1] && !Number.isNaN(elem[1]) || $guard(_exceptionable, {
-            path: _path + ".arrays[" + _index4 + "][1]",
-            expected: "number",
-            value: elem[1]
-        }))))) && ((input.objects instanceof Map || $guard(_exceptionable, {
-            path: _path + ".objects",
-            expected: "Map<Resolve<MapSimple.Person>, number>",
-            value: input.objects
-        })) && [...input.objects].every((elem: any, _index6: number) => (Array.isArray(elem) || $guard(_exceptionable, {
-            path: _path + ".objects[" + _index6 + "]",
-            expected: "[Resolve<MapSimple.Person>, number]",
-            value: elem
-        })) && ((elem.length === 2 || $guard(_exceptionable, {
-            path: _path + ".objects[" + _index6 + "]",
-            expected: "[Resolve<MapSimple.Person>, number]",
-            value: elem
-        })) && (("object" === typeof elem[0] && null !== elem[0] || $guard(_exceptionable, {
-            path: _path + ".objects[" + _index6 + "][0]",
-            expected: "Resolve<MapSimple.Person>",
-            value: elem[0]
-        })) && $ao1(elem[0], _path + ".objects[" + _index6 + "][0]", true && _exceptionable)) && ("number" === typeof elem[1] && !Number.isNaN(elem[1]) || $guard(_exceptionable, {
-            path: _path + ".objects[" + _index6 + "][1]",
-            expected: "number",
-            value: elem[1]
-        })))));
-        const $ao1 = (input: any, _path: string, _exceptionable: boolean) => ("string" === typeof input.id || $guard(_exceptionable, {
-            path: _path + ".id",
-            expected: "string",
-            value: input.id
-        })) && ("string" === typeof input.name || $guard(_exceptionable, {
-            path: _path + ".name",
-            expected: "string",
-            value: input.name
-        })) && ("number" === typeof input.age && !Number.isNaN(input.age) || $guard(_exceptionable, {
-            path: _path + ".age",
-            expected: "number",
-            value: input.age
-        }));
-        return ("object" === typeof input && null !== input || $guard(true, {
-            path: _path + "",
-            expected: "Resolve<MapSimple>",
-            value: input
-        })) && $ao0(input, _path + "", true);
-    })(input, "$input", true);
-    return input as MapSimple;
-}; const stringify = (input: MapSimple): string => {
-    const $string = (typia.createAssertStringify as any).string;
-    const $io1 = (input: any) => "string" === typeof input.id && "string" === typeof input.name && "number" === typeof input.age;
-    const $so0 = (input: any) => "{\"boolean\":{},\"number\":{},\"strings\":{},\"arrays\":{},\"objects\":{}}";
-    return $so0(input);
-}; return stringify(assert(input)); }, MapSimple.SPOILERS);
+
+export const test_createAssertStringify_MapSimple = _test_assertStringify(
+    "MapSimple",
+    MapSimple.generate,
+    (input: any): string => {
+        const assert = (input: any): MapSimple => {
+            const $guard = (typia.createAssertStringify as any).guard;
+            ((
+                input: any,
+                _path: string,
+                _exceptionable: boolean = true,
+            ): input is MapSimple => {
+                const $ao0 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    (input.boolean instanceof Map ||
+                        $guard(_exceptionable, {
+                            path: _path + ".boolean",
+                            expected: "Map<boolean, number>",
+                            value: input.boolean,
+                        })) &&
+                    [...input.boolean].every(
+                        (elem: any, _index1: number) =>
+                            (Array.isArray(elem) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".boolean[" + _index1 + "]",
+                                    expected: "[boolean, number]",
+                                    value: elem,
+                                })) &&
+                            (elem.length === 2 ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".boolean[" + _index1 + "]",
+                                    expected: "[boolean, number]",
+                                    value: elem,
+                                })) &&
+                            ("boolean" === typeof elem[0] ||
+                                $guard(_exceptionable, {
+                                    path:
+                                        _path + ".boolean[" + _index1 + "][0]",
+                                    expected: "boolean",
+                                    value: elem[0],
+                                })) &&
+                            (("number" === typeof elem[1] &&
+                                Number.isFinite(elem[1])) ||
+                                $guard(_exceptionable, {
+                                    path:
+                                        _path + ".boolean[" + _index1 + "][1]",
+                                    expected: "number",
+                                    value: elem[1],
+                                })),
+                    ) &&
+                    (input.number instanceof Map ||
+                        $guard(_exceptionable, {
+                            path: _path + ".number",
+                            expected: "Map<number, number>",
+                            value: input.number,
+                        })) &&
+                    [...input.number].every(
+                        (elem: any, _index2: number) =>
+                            (Array.isArray(elem) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".number[" + _index2 + "]",
+                                    expected: "[number, number]",
+                                    value: elem,
+                                })) &&
+                            (elem.length === 2 ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".number[" + _index2 + "]",
+                                    expected: "[number, number]",
+                                    value: elem,
+                                })) &&
+                            (("number" === typeof elem[0] &&
+                                Number.isFinite(elem[0])) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".number[" + _index2 + "][0]",
+                                    expected: "number",
+                                    value: elem[0],
+                                })) &&
+                            (("number" === typeof elem[1] &&
+                                Number.isFinite(elem[1])) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".number[" + _index2 + "][1]",
+                                    expected: "number",
+                                    value: elem[1],
+                                })),
+                    ) &&
+                    (input.strings instanceof Map ||
+                        $guard(_exceptionable, {
+                            path: _path + ".strings",
+                            expected: "Map<string, number>",
+                            value: input.strings,
+                        })) &&
+                    [...input.strings].every(
+                        (elem: any, _index3: number) =>
+                            (Array.isArray(elem) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".strings[" + _index3 + "]",
+                                    expected: "[string, number]",
+                                    value: elem,
+                                })) &&
+                            (elem.length === 2 ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".strings[" + _index3 + "]",
+                                    expected: "[string, number]",
+                                    value: elem,
+                                })) &&
+                            ("string" === typeof elem[0] ||
+                                $guard(_exceptionable, {
+                                    path:
+                                        _path + ".strings[" + _index3 + "][0]",
+                                    expected: "string",
+                                    value: elem[0],
+                                })) &&
+                            (("number" === typeof elem[1] &&
+                                Number.isFinite(elem[1])) ||
+                                $guard(_exceptionable, {
+                                    path:
+                                        _path + ".strings[" + _index3 + "][1]",
+                                    expected: "number",
+                                    value: elem[1],
+                                })),
+                    ) &&
+                    (input.arrays instanceof Map ||
+                        $guard(_exceptionable, {
+                            path: _path + ".arrays",
+                            expected: "Map<Array<number>, number>",
+                            value: input.arrays,
+                        })) &&
+                    [...input.arrays].every(
+                        (elem: any, _index4: number) =>
+                            (Array.isArray(elem) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".arrays[" + _index4 + "]",
+                                    expected: "[Array<number>, number]",
+                                    value: elem,
+                                })) &&
+                            (elem.length === 2 ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".arrays[" + _index4 + "]",
+                                    expected: "[Array<number>, number]",
+                                    value: elem,
+                                })) &&
+                            (Array.isArray(elem[0]) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".arrays[" + _index4 + "][0]",
+                                    expected: "Array<number>",
+                                    value: elem[0],
+                                })) &&
+                            elem[0].every(
+                                (elem: any, _index5: number) =>
+                                    ("number" === typeof elem &&
+                                        Number.isFinite(elem)) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".arrays[" +
+                                            _index4 +
+                                            "][0][" +
+                                            _index5 +
+                                            "]",
+                                        expected: "number",
+                                        value: elem,
+                                    }),
+                            ) &&
+                            (("number" === typeof elem[1] &&
+                                Number.isFinite(elem[1])) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".arrays[" + _index4 + "][1]",
+                                    expected: "number",
+                                    value: elem[1],
+                                })),
+                    ) &&
+                    (input.objects instanceof Map ||
+                        $guard(_exceptionable, {
+                            path: _path + ".objects",
+                            expected: "Map<Resolve<MapSimple.Person>, number>",
+                            value: input.objects,
+                        })) &&
+                    [...input.objects].every(
+                        (elem: any, _index6: number) =>
+                            (Array.isArray(elem) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".objects[" + _index6 + "]",
+                                    expected:
+                                        "[Resolve<MapSimple.Person>, number]",
+                                    value: elem,
+                                })) &&
+                            (elem.length === 2 ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".objects[" + _index6 + "]",
+                                    expected:
+                                        "[Resolve<MapSimple.Person>, number]",
+                                    value: elem,
+                                })) &&
+                            (("object" === typeof elem[0] &&
+                                null !== elem[0]) ||
+                                $guard(_exceptionable, {
+                                    path:
+                                        _path + ".objects[" + _index6 + "][0]",
+                                    expected: "Resolve<MapSimple.Person>",
+                                    value: elem[0],
+                                })) &&
+                            $ao1(
+                                elem[0],
+                                _path + ".objects[" + _index6 + "][0]",
+                                true && _exceptionable,
+                            ) &&
+                            (("number" === typeof elem[1] &&
+                                Number.isFinite(elem[1])) ||
+                                $guard(_exceptionable, {
+                                    path:
+                                        _path + ".objects[" + _index6 + "][1]",
+                                    expected: "number",
+                                    value: elem[1],
+                                })),
+                    );
+                const $ao1 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("string" === typeof input.id ||
+                        $guard(_exceptionable, {
+                            path: _path + ".id",
+                            expected: "string",
+                            value: input.id,
+                        })) &&
+                    ("string" === typeof input.name ||
+                        $guard(_exceptionable, {
+                            path: _path + ".name",
+                            expected: "string",
+                            value: input.name,
+                        })) &&
+                    (("number" === typeof input.age &&
+                        Number.isFinite(input.age)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number",
+                            value: input.age,
+                        }));
+                return (
+                    (("object" === typeof input && null !== input) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "Resolve<MapSimple>",
+                            value: input,
+                        })) &&
+                    $ao0(input, _path + "", true)
+                );
+            })(input, "$input", true);
+            return input;
+        };
+        const stringify = (input: MapSimple): string => {
+            const $string = (typia.createAssertStringify as any).string;
+            const $number = (typia.createAssertStringify as any).number;
+            const $io1 = (input: any): boolean =>
+                "string" === typeof input.id &&
+                "string" === typeof input.name &&
+                "number" === typeof input.age;
+            const $so0 = (input: any): any =>
+                '{"boolean":{},"number":{},"strings":{},"arrays":{},"objects":{}}';
+            return $so0(input);
+        };
+        return stringify(assert(input));
+    },
+    MapSimple.SPOILERS,
+);

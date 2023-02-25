@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { NativeAlias } from "../../structures/NativeAlias";
 import { _test_clone } from "../internal/_test_clone";
 

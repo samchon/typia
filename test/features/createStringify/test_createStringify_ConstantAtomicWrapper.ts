@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 import { _test_stringify } from "../internal/_test_stringify";
 

@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { UltimateUnion } from "../../structures/UltimateUnion";
 import { _test_isStringify } from "../internal/_test_isStringify";
 

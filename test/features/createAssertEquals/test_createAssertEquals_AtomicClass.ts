@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { AtomicClass } from "../../structures/AtomicClass";
 import { _test_assertEquals } from "../internal/_test_assertEquals";
 

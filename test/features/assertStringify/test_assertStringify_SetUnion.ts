@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { SetUnion } from "../../structures/SetUnion";
 import { _test_assertStringify } from "../internal/_test_assertStringify";
 

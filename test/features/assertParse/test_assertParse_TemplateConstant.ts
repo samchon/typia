@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { TemplateConstant } from "../../structures/TemplateConstant";
 import { _test_assertParse } from "../internal/_test_assertParse";
 

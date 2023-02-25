@@ -1,9 +1,28 @@
-import typia from "../../../src";
-import { ClassMethod } from "../../structures/ClassMethod";
+import typia from "../../../../src";
+import { ClassMethod } from "../../../structures/ClassMethod";
 import { _test_isStringify } from "../internal/_test_isStringify";
-export const test_createIsStringify_ClassMethod = _test_isStringify("ClassMethod", ClassMethod.generate, (input: Animal): string | null => { const is = (input: any): input is Animal => {
-    return "object" === typeof input && null !== input && ("string" === typeof input.name && ("number" === typeof input.age && !Number.isNaN(input.age)));
-}; const stringify = (input: Animal): string => {
-    const $string = (typia.createIsStringify as any).string;
-    return `{"name":${$string(input.name)},"age":${input.age}}`;
-}; return is(input) ? stringify(input) : null; }, ClassMethod.SPOILERS);
+
+export const test_createIsStringify_ClassMethod = _test_isStringify(
+    "ClassMethod",
+    ClassMethod.generate,
+    (input: ClassMethod.Animal): string | null => {
+        const is = (input: any): input is ClassMethod.Animal => {
+            return (
+                "object" === typeof input &&
+                null !== input &&
+                "string" === typeof input.name &&
+                "number" === typeof input.age &&
+                Number.isFinite(input.age)
+            );
+        };
+        const stringify = (input: ClassMethod.Animal): string => {
+            const $string = (typia.createIsStringify as any).string;
+            const $number = (typia.createIsStringify as any).number;
+            return `{"name":${$string(input.name)},"age":${$number(
+                input.age,
+            )}}`;
+        };
+        return is(input) ? stringify(input) : null;
+    },
+    ClassMethod.SPOILERS,
+);

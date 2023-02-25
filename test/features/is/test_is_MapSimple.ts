@@ -1,5 +1,4 @@
 import typia from "../../../src";
-
 import { MapSimple } from "../../structures/MapSimple";
 import { _test_is } from "../internal/_test_is";
 

@@ -1,6 +1,12 @@
-import typia from "../../../src";
-import { FunctionalValue } from "../../structures/FunctionalValue";
+import typia from "../../../../src";
+import { FunctionalValue } from "../../../structures/FunctionalValue";
 import { _test_is } from "../internal/_test_is";
-export const test_is_FunctionalValue = _test_is("FunctionalValue", FunctionalValue.generate, (input) => ((input: any): input is FunctionalValue => {
-    return true;
-})(input));
+
+export const test_is_FunctionalValue = _test_is(
+    "FunctionalValue",
+    FunctionalValue.generate,
+    (input) =>
+        ((input: any): input is FunctionalValue => {
+            return "function" === typeof input;
+        })(input),
+);

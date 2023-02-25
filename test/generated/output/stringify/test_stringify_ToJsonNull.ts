@@ -1,6 +1,12 @@
-import typia from "../../../src";
-import { ToJsonNull } from "../../structures/ToJsonNull";
+import typia from "../../../../src";
+import { ToJsonNull } from "../../../structures/ToJsonNull";
 import { _test_stringify } from "../internal/_test_stringify";
-export const test_stringify_ToJsonNull = _test_stringify("ToJsonNull", ToJsonNull.generate, (input) => ((input: ToJsonNull): string => {
-    return "null";
-})(input));
+
+export const test_stringify_ToJsonNull = _test_stringify(
+    "ToJsonNull",
+    ToJsonNull.generate,
+    (input) =>
+        ((input: ToJsonNull): string => {
+            return "null";
+        })(input),
+);

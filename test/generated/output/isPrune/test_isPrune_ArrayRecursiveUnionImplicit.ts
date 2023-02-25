@@ -1,118 +1,265 @@
-import typia from "../../../src";
-import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
+import typia from "../../../../src";
+import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
 import { _test_isPrune } from "../internal/_test_isPrune";
-export const test_isPrune_ArrayRecursiveUnionImplicit = _test_isPrune("ArrayRecursiveUnionImplicit", ArrayRecursiveUnionImplicit.generate, (input) => ((input: any): input is ArrayRecursiveUnionImplicit => { const is = (input: any): input is ArrayRecursiveUnionImplicit => {
-    const $io0 = (input: any) => "number" === typeof input.id && "string" === typeof input.name && "string" === typeof input.path && (Array.isArray(input.children) && input.children.every((elem: any) => "object" === typeof elem && null !== elem && $iu0(elem)));
-    const $io1 = (input: any) => ("read" === input.access || "write" === input.access) && "number" === typeof input.id && "string" === typeof input.name && "string" === typeof input.path && (Array.isArray(input.children) && input.children.every((elem: any) => "object" === typeof elem && null !== elem && $iu0(elem)));
-    const $io2 = (input: any) => "number" === typeof input.id && "string" === typeof input.name && "string" === typeof input.path && "number" === typeof input.width && "number" === typeof input.height && "string" === typeof input.url && "number" === typeof input.size;
-    const $io3 = (input: any) => "number" === typeof input.id && "string" === typeof input.name && "string" === typeof input.path && "number" === typeof input.size && "string" === typeof input.content;
-    const $io4 = (input: any) => "number" === typeof input.id && "string" === typeof input.name && "string" === typeof input.path && "number" === typeof input.size && "number" === typeof input.count;
-    const $io5 = (input: any) => "number" === typeof input.id && "string" === typeof input.name && "string" === typeof input.path && ("object" === typeof input.target && null !== input.target && $iu0(input.target));
-    const $iu0 = (input: any) => (() => {
-        if (undefined !== input.access)
-            return $io1(input);
-        if (undefined !== input.width)
-            return $io2(input);
-        if (undefined !== input.content)
-            return $io3(input);
-        if (undefined !== input.count)
-            return $io4(input);
-        if (undefined !== input.target)
-            return $io5(input);
-        return $io0(input);
-    })();
-    return Array.isArray(input) && input.every((elem: any) => "object" === typeof elem && null !== elem && $iu0(elem));
-}; const prune = (input: ArrayRecursiveUnionImplicit): void => {
-    const $io0 = (input: any) => "number" === typeof input.id && "string" === typeof input.name && "string" === typeof input.path && (Array.isArray(input.children) && input.children.every((elem: any) => "object" === typeof elem && null !== elem && $iu0(elem)));
-    const $io1 = (input: any) => ("read" === input.access || "write" === input.access) && "number" === typeof input.id && "string" === typeof input.name && "string" === typeof input.path && (Array.isArray(input.children) && input.children.every((elem: any) => "object" === typeof elem && null !== elem && $iu0(elem)));
-    const $io2 = (input: any) => "number" === typeof input.id && "string" === typeof input.name && "string" === typeof input.path && "number" === typeof input.width && "number" === typeof input.height && "string" === typeof input.url && "number" === typeof input.size;
-    const $io3 = (input: any) => "number" === typeof input.id && "string" === typeof input.name && "string" === typeof input.path && "number" === typeof input.size && "string" === typeof input.content;
-    const $io4 = (input: any) => "number" === typeof input.id && "string" === typeof input.name && "string" === typeof input.path && "number" === typeof input.size && "number" === typeof input.count;
-    const $io5 = (input: any) => "number" === typeof input.id && "string" === typeof input.name && "string" === typeof input.path && ("object" === typeof input.target && null !== input.target && $iu0(input.target));
-    const $iu0 = (input: any) => (() => {
-        if (undefined !== input.access)
-            return $io1(input);
-        if (undefined !== input.width)
-            return $io2(input);
-        if (undefined !== input.content)
-            return $io3(input);
-        if (undefined !== input.count)
-            return $io4(input);
-        if (undefined !== input.target)
-            return $io5(input);
-        return $io0(input);
-    })();
-    const $po0 = (input: any) => {
-        if (Array.isArray(input.children))
-            input.children.forEach((elem: any) => {
-                if ("object" === typeof elem && null !== elem)
-                    $pu0(elem);
-            });
-        for (const key of Object.keys(input)) {
-            if ("id" === key || "name" === key || "path" === key || "children" === key)
-                continue;
-            delete input[key];
-        }
-    };
-    const $po1 = (input: any) => {
-        if (Array.isArray(input.children))
-            input.children.forEach((elem: any) => {
-                if ("object" === typeof elem && null !== elem)
-                    $pu0(elem);
-            });
-        for (const key of Object.keys(input)) {
-            if ("access" === key || "id" === key || "name" === key || "path" === key || "children" === key)
-                continue;
-            delete input[key];
-        }
-    };
-    const $po2 = (input: any) => {
-        for (const key of Object.keys(input)) {
-            if ("id" === key || "name" === key || "path" === key || "width" === key || "height" === key || "url" === key || "size" === key)
-                continue;
-            delete input[key];
-        }
-    };
-    const $po3 = (input: any) => {
-        for (const key of Object.keys(input)) {
-            if ("id" === key || "name" === key || "path" === key || "size" === key || "content" === key)
-                continue;
-            delete input[key];
-        }
-    };
-    const $po4 = (input: any) => {
-        for (const key of Object.keys(input)) {
-            if ("id" === key || "name" === key || "path" === key || "size" === key || "count" === key)
-                continue;
-            delete input[key];
-        }
-    };
-    const $po5 = (input: any) => {
-        if ("object" === typeof input.target && null !== input.target)
-            $pu0(input.target);
-        for (const key of Object.keys(input)) {
-            if ("id" === key || "name" === key || "path" === key || "target" === key)
-                continue;
-            delete input[key];
-        }
-    };
-    const $pu0 = (input: any) => (() => {
-        if (undefined !== input.access)
-            return $po1(input);
-        if (undefined !== input.width)
-            return $po2(input);
-        if (undefined !== input.content)
-            return $po3(input);
-        if (undefined !== input.count)
-            return $po4(input);
-        if (undefined !== input.target)
-            return $po5(input);
-        return $po0(input);
-    })();
-    if (Array.isArray(input))
-        input.forEach((elem: any) => {
-            if ("object" === typeof elem && null !== elem)
-                $pu0(elem);
-        });
-}; if (!is(input))
-    return false; prune(input); return true; })(input), ArrayRecursiveUnionImplicit.SPOILERS);
+
+export const test_isPrune_ArrayRecursiveUnionImplicit = _test_isPrune(
+    "ArrayRecursiveUnionImplicit",
+    ArrayRecursiveUnionImplicit.generate,
+    (input) =>
+        ((input: any): input is ArrayRecursiveUnionImplicit => {
+            const is = (input: any): input is ArrayRecursiveUnionImplicit => {
+                const $io0 = (input: any): boolean =>
+                    "number" === typeof input.id &&
+                    Number.isFinite(input.id) &&
+                    "string" === typeof input.name &&
+                    "string" === typeof input.path &&
+                    Array.isArray(input.children) &&
+                    input.children.every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $iu0(elem),
+                    );
+                const $io1 = (input: any): boolean =>
+                    ("read" === input.access || "write" === input.access) &&
+                    "number" === typeof input.id &&
+                    Number.isFinite(input.id) &&
+                    "string" === typeof input.name &&
+                    "string" === typeof input.path &&
+                    Array.isArray(input.children) &&
+                    input.children.every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $iu0(elem),
+                    );
+                const $io2 = (input: any): boolean =>
+                    "number" === typeof input.id &&
+                    Number.isFinite(input.id) &&
+                    "string" === typeof input.name &&
+                    "string" === typeof input.path &&
+                    "number" === typeof input.width &&
+                    Number.isFinite(input.width) &&
+                    "number" === typeof input.height &&
+                    Number.isFinite(input.height) &&
+                    "string" === typeof input.url &&
+                    "number" === typeof input.size &&
+                    Number.isFinite(input.size);
+                const $io3 = (input: any): boolean =>
+                    "number" === typeof input.id &&
+                    Number.isFinite(input.id) &&
+                    "string" === typeof input.name &&
+                    "string" === typeof input.path &&
+                    "number" === typeof input.size &&
+                    Number.isFinite(input.size) &&
+                    "string" === typeof input.content;
+                const $io4 = (input: any): boolean =>
+                    "number" === typeof input.id &&
+                    Number.isFinite(input.id) &&
+                    "string" === typeof input.name &&
+                    "string" === typeof input.path &&
+                    "number" === typeof input.size &&
+                    Number.isFinite(input.size) &&
+                    "number" === typeof input.count &&
+                    Number.isFinite(input.count);
+                const $io5 = (input: any): boolean =>
+                    "number" === typeof input.id &&
+                    Number.isFinite(input.id) &&
+                    "string" === typeof input.name &&
+                    "string" === typeof input.path &&
+                    "object" === typeof input.target &&
+                    null !== input.target &&
+                    $iu0(input.target);
+                const $iu0 = (input: any): any =>
+                    (() => {
+                        if (undefined !== input.access) return $io1(input);
+                        if (undefined !== input.width) return $io2(input);
+                        if (undefined !== input.content) return $io3(input);
+                        if (undefined !== input.count) return $io4(input);
+                        if (undefined !== input.target) return $io5(input);
+                        return $io0(input);
+                    })();
+                return (
+                    Array.isArray(input) &&
+                    input.every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $iu0(elem),
+                    )
+                );
+            };
+            const prune = (input: ArrayRecursiveUnionImplicit): void => {
+                const $io0 = (input: any): boolean =>
+                    "number" === typeof input.id &&
+                    "string" === typeof input.name &&
+                    "string" === typeof input.path &&
+                    Array.isArray(input.children) &&
+                    input.children.every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $iu0(elem),
+                    );
+                const $io1 = (input: any): boolean =>
+                    ("read" === input.access || "write" === input.access) &&
+                    "number" === typeof input.id &&
+                    "string" === typeof input.name &&
+                    "string" === typeof input.path &&
+                    Array.isArray(input.children) &&
+                    input.children.every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $iu0(elem),
+                    );
+                const $io2 = (input: any): boolean =>
+                    "number" === typeof input.id &&
+                    "string" === typeof input.name &&
+                    "string" === typeof input.path &&
+                    "number" === typeof input.width &&
+                    "number" === typeof input.height &&
+                    "string" === typeof input.url &&
+                    "number" === typeof input.size;
+                const $io3 = (input: any): boolean =>
+                    "number" === typeof input.id &&
+                    "string" === typeof input.name &&
+                    "string" === typeof input.path &&
+                    "number" === typeof input.size &&
+                    "string" === typeof input.content;
+                const $io4 = (input: any): boolean =>
+                    "number" === typeof input.id &&
+                    "string" === typeof input.name &&
+                    "string" === typeof input.path &&
+                    "number" === typeof input.size &&
+                    "number" === typeof input.count;
+                const $io5 = (input: any): boolean =>
+                    "number" === typeof input.id &&
+                    "string" === typeof input.name &&
+                    "string" === typeof input.path &&
+                    "object" === typeof input.target &&
+                    null !== input.target &&
+                    $iu0(input.target);
+                const $iu0 = (input: any): any =>
+                    (() => {
+                        if (undefined !== input.access) return $io1(input);
+                        if (undefined !== input.width) return $io2(input);
+                        if (undefined !== input.content) return $io3(input);
+                        if (undefined !== input.count) return $io4(input);
+                        if (undefined !== input.target) return $io5(input);
+                        return $io0(input);
+                    })();
+                const $po0 = (input: any): any => {
+                    if (Array.isArray(input.children))
+                        input.children.forEach((elem: any) => {
+                            if ("object" === typeof elem && null !== elem)
+                                $pu0(elem);
+                        });
+                    for (const key of Object.keys(input)) {
+                        if (
+                            "id" === key ||
+                            "name" === key ||
+                            "path" === key ||
+                            "children" === key
+                        )
+                            continue;
+                        delete input[key];
+                    }
+                };
+                const $po1 = (input: any): any => {
+                    if (Array.isArray(input.children))
+                        input.children.forEach((elem: any) => {
+                            if ("object" === typeof elem && null !== elem)
+                                $pu0(elem);
+                        });
+                    for (const key of Object.keys(input)) {
+                        if (
+                            "access" === key ||
+                            "id" === key ||
+                            "name" === key ||
+                            "path" === key ||
+                            "children" === key
+                        )
+                            continue;
+                        delete input[key];
+                    }
+                };
+                const $po2 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
+                        if (
+                            "id" === key ||
+                            "name" === key ||
+                            "path" === key ||
+                            "width" === key ||
+                            "height" === key ||
+                            "url" === key ||
+                            "size" === key
+                        )
+                            continue;
+                        delete input[key];
+                    }
+                };
+                const $po3 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
+                        if (
+                            "id" === key ||
+                            "name" === key ||
+                            "path" === key ||
+                            "size" === key ||
+                            "content" === key
+                        )
+                            continue;
+                        delete input[key];
+                    }
+                };
+                const $po4 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
+                        if (
+                            "id" === key ||
+                            "name" === key ||
+                            "path" === key ||
+                            "size" === key ||
+                            "count" === key
+                        )
+                            continue;
+                        delete input[key];
+                    }
+                };
+                const $po5 = (input: any): any => {
+                    if (
+                        "object" === typeof input.target &&
+                        null !== input.target
+                    )
+                        $pu0(input.target);
+                    for (const key of Object.keys(input)) {
+                        if (
+                            "id" === key ||
+                            "name" === key ||
+                            "path" === key ||
+                            "target" === key
+                        )
+                            continue;
+                        delete input[key];
+                    }
+                };
+                const $pu0 = (input: any): any =>
+                    (() => {
+                        if (undefined !== input.access) return $po1(input);
+                        if (undefined !== input.width) return $po2(input);
+                        if (undefined !== input.content) return $po3(input);
+                        if (undefined !== input.count) return $po4(input);
+                        if (undefined !== input.target) return $po5(input);
+                        return $po0(input);
+                    })();
+                if (Array.isArray(input))
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $pu0(elem);
+                    });
+            };
+            if (!is(input)) return false;
+            prune(input);
+            return true;
+        })(input),
+    ArrayRecursiveUnionImplicit.SPOILERS,
+);
