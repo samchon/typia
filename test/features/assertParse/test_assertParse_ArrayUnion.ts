@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { ArrayUnion } from "../../structures/ArrayUnion";
 import { _test_assertParse } from "../internal/_test_assertParse";

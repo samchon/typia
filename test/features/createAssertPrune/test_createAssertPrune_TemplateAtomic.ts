@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { TemplateAtomic } from "../../structures/TemplateAtomic";
 import { _test_assertPrune } from "../internal/_test_assertPrune";

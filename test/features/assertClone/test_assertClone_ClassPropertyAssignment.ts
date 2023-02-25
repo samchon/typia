@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 import { _test_assertClone } from "../internal/_test_assertClone";

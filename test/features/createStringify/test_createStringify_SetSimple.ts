@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { SetSimple } from "../../structures/SetSimple";
 import { _test_stringify } from "../internal/_test_stringify";

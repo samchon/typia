@@ -1,0 +1,11 @@
+import typia from "../../../src";
+import { ObjectSimple } from "../../structures/ObjectSimple";
+import { _test_isStringify } from "../internal/_test_isStringify";
+export const test_createIsStringify_ObjectSimple = _test_isStringify("ObjectSimple", ObjectSimple.generate, (input: IBox3D): string | null => { const is = (input: any): input is IBox3D => {
+    const $io0 = (input: any) => "object" === typeof input.scale && null !== input.scale && ("number" === typeof input.scale.x && !Number.isNaN(input.scale.x) && ("number" === typeof input.scale.y && !Number.isNaN(input.scale.y)) && ("number" === typeof input.scale.z && !Number.isNaN(input.scale.z))) && ("object" === typeof input.position && null !== input.position && ("number" === typeof input.position.x && !Number.isNaN(input.position.x) && ("number" === typeof input.position.y && !Number.isNaN(input.position.y)) && ("number" === typeof input.position.z && !Number.isNaN(input.position.z)))) && ("object" === typeof input.rotate && null !== input.rotate && ("number" === typeof input.rotate.x && !Number.isNaN(input.rotate.x) && ("number" === typeof input.rotate.y && !Number.isNaN(input.rotate.y)) && ("number" === typeof input.rotate.z && !Number.isNaN(input.rotate.z)))) && ("object" === typeof input.pivot && null !== input.pivot && ("number" === typeof input.pivot.x && !Number.isNaN(input.pivot.x) && ("number" === typeof input.pivot.y && !Number.isNaN(input.pivot.y)) && ("number" === typeof input.pivot.z && !Number.isNaN(input.pivot.z))));
+    return "object" === typeof input && null !== input && $io0(input);
+}; const stringify = (input: IBox3D): string => {
+    const $io1 = (input: any) => "number" === typeof input.x && "number" === typeof input.y && "number" === typeof input.z;
+    const $so0 = (input: any) => `{"scale":${`{"x":${input.scale.x},"y":${input.scale.y},"z":${input.scale.z}}`},"position":${`{"x":${input.position.x},"y":${input.position.y},"z":${input.position.z}}`},"rotate":${`{"x":${input.rotate.x},"y":${input.rotate.y},"z":${input.rotate.z}}`},"pivot":${`{"x":${input.pivot.x},"y":${input.pivot.y},"z":${input.pivot.z}}`}}`;
+    return $so0(input);
+}; return is(input) ? stringify(input) : null; }, ObjectSimple.SPOILERS);

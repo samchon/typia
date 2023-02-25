@@ -2,7 +2,10 @@ import { DynamicImportIterator } from "./internal/DynamicImportIterator";
 import { IPointer } from "./internal/IPointer";
 
 async function main(): Promise<void> {
-    // TEST FEATURES
+    console.log("-------------------------------------------------------");
+    console.log("  TRANSFORMATION TESTING");
+    console.log("-------------------------------------------------------");
+
     const counter: IPointer<number> = { value: 0 };
     const exceptions: Error[] = await DynamicImportIterator.force(
         __dirname + "/features",
@@ -11,6 +14,18 @@ async function main(): Promise<void> {
             parameters: () => [],
             counter,
         },
+    );
+
+    console.log("-------------------------------------------------------");
+    console.log("  GENERATION TESTING");
+    console.log("-------------------------------------------------------");
+
+    exceptions.push(
+        ...(await DynamicImportIterator.force(__dirname + "/generated/output", {
+            prefix: "test",
+            parameters: () => [],
+            counter,
+        })),
     );
 
     // TERMINATE

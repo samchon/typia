@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnionExplicit";
 import { _test_assertStringify } from "../internal/_test_assertStringify";

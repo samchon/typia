@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
 import { _test_isClone } from "../internal/_test_isClone";

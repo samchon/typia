@@ -1,0 +1,31 @@
+import typia from "../../../src";
+import { DynamicConstant } from "../../structures/DynamicConstant";
+import { _test_assertParse } from "../internal/_test_assertParse";
+export const test_assertParse_DynamicConstant = _test_assertParse("DynamicConstant", DynamicConstant.generate, (input) => ((input: string): typia.Primitive<DynamicConstant> => { const assert = (input: any) => {
+    const $guard = (typia.assertParse as any).guard;
+    ((input: any, _path: string, _exceptionable: boolean): input is DynamicConstant => {
+        const $ao0 = (input: any, _path: string, _exceptionable: boolean) => ("number" === typeof input.a || $guard(_exceptionable, {
+            path: _path + ".a",
+            expected: "number",
+            value: input.a
+        })) && ("number" === typeof input.b || $guard(_exceptionable, {
+            path: _path + ".b",
+            expected: "number",
+            value: input.b
+        })) && ("number" === typeof input.c || $guard(_exceptionable, {
+            path: _path + ".c",
+            expected: "number",
+            value: input.c
+        })) && ("number" === typeof input.d || $guard(_exceptionable, {
+            path: _path + ".d",
+            expected: "number",
+            value: input.d
+        }));
+        return ("object" === typeof input && null !== input || $guard(true, {
+            path: _path + "",
+            expected: "Resolve<DynamicConstant>",
+            value: input
+        })) && $ao0(input, _path + "", true);
+    })(input, "$input", true);
+    return input as DynamicConstant;
+}; input = JSON.parse(input); return assert(input); })(input), DynamicConstant.SPOILERS);

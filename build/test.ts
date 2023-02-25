@@ -66,7 +66,7 @@ function script(
 ): string {
     const common: string = `_test_${feat.method}`;
     const elements: Array<string | null> = [
-        `import typia from "typia";`,
+        `import typia from "../../../src";`,
         "",
         `import { ${struct.name} } from "../../structures/${struct.name}";`,
         `import { ${common} } from "../internal/${common}";`,
@@ -113,6 +113,8 @@ async function main(): Promise<void> {
     // FILL SCHEMA CONTENTS
     cp.execSync("npm run build:test");
     await TestApplicationGenerator.schema();
+
+    // GENERATE TRANSFORMED FEATURES
 }
 main().catch((exp) => {
     console.log(exp);

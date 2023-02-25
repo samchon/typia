@@ -1,0 +1,52 @@
+import typia from "../../../src";
+import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
+import { _test_validateStringify } from "../internal/_test_validateStringify";
+export const test_createValidateStringify_TagAtomicUnion = _test_validateStringify("TagAtomicUnion", TagAtomicUnion.generate, (input: TagAtomicUnion): typia.IValidation<string> => { const validate = (input: any): typia.IValidation<TagAtomicUnion> => {
+    const errors = [] as any[];
+    const $report = (typia.createValidateStringify as any).report(errors);
+    ((input: any, _path: string, _exceptionable: boolean): input is TagAtomicUnion => {
+        const $vo0 = (input: any, _path: string, _exceptionable: boolean) => ["string" === typeof input.value && 3 <= input.value.length && 7 >= input.value.length || "number" === typeof input.value && !Number.isNaN(input.value) && 3 <= input.value || $report(_exceptionable, {
+                path: _path + ".value",
+                expected: "(number | string)",
+                value: input.value
+            })].every((flag: boolean) => flag);
+        return (Array.isArray(input) || $report(true, {
+            path: _path + "",
+            expected: "Array<Resolve<TagAtomicUnion.Type>>",
+            value: input
+        })) && input.map((elem: any, _index1: number) => ("object" === typeof elem && null !== elem || $report(true, {
+            path: _path + "[" + _index1 + "]",
+            expected: "Resolve<TagAtomicUnion.Type>",
+            value: elem
+        })) && $vo0(elem, _path + "[" + _index1 + "]", true) || $report(true, {
+            path: _path + "[" + _index1 + "]",
+            expected: "Resolve<TagAtomicUnion.Type>",
+            value: elem
+        })).every((flag: boolean) => flag) || $report(true, {
+            path: _path + "",
+            expected: "Array<Resolve<TagAtomicUnion.Type>>",
+            value: input
+        });
+    })(input, "$input", true);
+    const success = 0 === errors.length;
+    return {
+        success,
+        errors,
+        data: success ? input : undefined
+    } as typia.IValidation<TagAtomicUnion>;
+}; const stringify = (input: TagAtomicUnion): string => {
+    const $string = (typia.createValidateStringify as any).string;
+    const $throws = (typia.createValidateStringify as any).throws;
+    const $so0 = (input: any) => `{"value":${(() => {
+        if ("string" === typeof input.value)
+            return $string(input.value);
+        if ("number" === typeof input.value)
+            return input.value;
+        $throws({
+            expected: "(number | string)",
+            value: input.value
+        });
+    })()}}`;
+    return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
+}; const output = validate(input) as any; if (output.success)
+    output.data = stringify(input); return output; }, TagAtomicUnion.SPOILERS);

@@ -1,0 +1,13 @@
+import typia from "../../../src";
+import { TagFormat } from "../../structures/TagFormat";
+import { _test_stringify } from "../internal/_test_stringify";
+export const test_createStringify_TagFormat = _test_stringify("TagFormat", TagFormat.generate, (input: TagFormat): string => {
+    const $string = (typia.createStringify as any).string;
+    const $is_uuid = (typia.createStringify as any).is_uuid;
+    const $is_email = (typia.createStringify as any).is_email;
+    const $is_url = (typia.createStringify as any).is_url;
+    const $is_ipv4 = (typia.createStringify as any).is_ipv4;
+    const $is_ipv6 = (typia.createStringify as any).is_ipv6;
+    const $so0 = (input: any) => `{"uuid":${"\"" + input.uuid + "\""},"email":${"\"" + input.email + "\""},"url":${"\"" + input.url + "\""},"ipv4":${"\"" + input.ipv4 + "\""},"ipv6":${"\"" + input.ipv6 + "\""},"custom":${$string(input.custom)}}`;
+    return $so0(input);
+});

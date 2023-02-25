@@ -1,0 +1,14 @@
+import typia from "../../../src";
+import { FunctionalPropertyUnion } from "../../structures/FunctionalPropertyUnion";
+import { _test_equals } from "../internal/_test_equals";
+export const test_equals_FunctionalPropertyUnion = _test_equals("FunctionalPropertyUnion", FunctionalPropertyUnion.generate, (input) => ((input: any, _exceptionable: boolean): input is FunctionalPropertyUnion => {
+    const $io0 = (input: any, _exceptionable: boolean) => "string" === typeof input.name && (null !== input.closure && undefined !== input.closure && ("function" === typeof input.closure || "string" === typeof input.closure || "number" === typeof input.closure)) && (2 === Object.keys(input).length || Object.keys(input).every(key => {
+        if (["name", "closure"].some(prop => key === prop))
+            return true;
+        const value = input[key];
+        if (undefined === value)
+            return true;
+        return false;
+    }));
+    return Array.isArray(input) && input.every((elem: any, _index1: number) => "object" === typeof elem && null !== elem && $io0(elem, true));
+})(input));

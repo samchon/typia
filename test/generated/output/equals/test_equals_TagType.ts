@@ -1,0 +1,14 @@
+import typia from "../../../src";
+import { TagType } from "../../structures/TagType";
+import { _test_equals } from "../internal/_test_equals";
+export const test_equals_TagType = _test_equals("TagType", TagType.generate, (input) => ((input: any, _exceptionable: boolean): input is Type[] => {
+    const $io0 = (input: any, _exceptionable: boolean) => "number" === typeof input.int && parseInt(input.int) === input.int && ("number" === typeof input.uint && parseInt(input.uint) === input.uint && 0 <= input.uint) && (2 === Object.keys(input).length || Object.keys(input).every(key => {
+        if (["int", "uint"].some(prop => key === prop))
+            return true;
+        const value = input[key];
+        if (undefined === value)
+            return true;
+        return false;
+    }));
+    return Array.isArray(input) && input.every((elem: any, _index1: number) => "object" === typeof elem && null !== elem && $io0(elem, true));
+})(input));

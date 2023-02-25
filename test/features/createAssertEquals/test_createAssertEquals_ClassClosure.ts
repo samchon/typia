@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { ClassClosure } from "../../structures/ClassClosure";
 import { _test_assertEquals } from "../internal/_test_assertEquals";

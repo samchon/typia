@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 import { _test_isParse } from "../internal/_test_isParse";

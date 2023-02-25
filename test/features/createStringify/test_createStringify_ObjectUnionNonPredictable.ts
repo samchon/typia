@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 import { _test_stringify } from "../internal/_test_stringify";

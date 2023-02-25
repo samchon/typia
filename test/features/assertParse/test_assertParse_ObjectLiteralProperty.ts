@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 import { _test_assertParse } from "../internal/_test_assertParse";

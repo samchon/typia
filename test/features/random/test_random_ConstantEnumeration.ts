@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 import { _test_random } from "../internal/_test_random";

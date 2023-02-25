@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { TupleRestArray } from "../../structures/TupleRestArray";
 import { _test_validate } from "../internal/_test_validate";

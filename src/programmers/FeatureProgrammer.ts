@@ -70,8 +70,8 @@ export namespace FeatureProgrammer {
     }
     export namespace IConfig {
         export interface ITypes {
-            input: (type: ts.Type) => ts.TypeNode;
-            output: (type: ts.Type) => ts.TypeNode;
+            input: (type: ts.Type, node?: ts.TypeNode) => ts.TypeNode;
+            output: (type: ts.Type, node?: ts.TypeNode) => ts.TypeNode;
         }
 
         export interface IObjector {
@@ -222,7 +222,7 @@ export namespace FeatureProgrammer {
                 collection: MetadataCollection,
             ) => ts.Statement[] | undefined,
         ) =>
-        (type: ts.Type) => {
+        (type: ts.Type, typeNode?: ts.TypeNode) => {
             const [collection, meta] = config.initializer(project, type);
 
             // ITERATE OVER ALL METADATA
@@ -252,10 +252,10 @@ export namespace FeatureProgrammer {
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                PARAMETERS(config)(config.types.input(type))(
+                PARAMETERS(config)(config.types.input(type, typeNode))(
                     ValueFactory.INPUT(),
                 ),
-                config.types.output(type),
+                config.types.output(type, typeNode),
                 undefined,
                 ts.factory.createBlock(
                     [

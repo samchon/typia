@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 import { _test_validatePrune } from "../internal/_test_validatePrune";

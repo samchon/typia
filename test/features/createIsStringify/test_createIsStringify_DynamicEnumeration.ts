@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 import { _test_isStringify } from "../internal/_test_isStringify";

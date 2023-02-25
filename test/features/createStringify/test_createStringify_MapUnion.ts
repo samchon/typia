@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { MapUnion } from "../../structures/MapUnion";
 import { _test_stringify } from "../internal/_test_stringify";

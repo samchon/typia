@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { ToJsonNull } from "../../structures/ToJsonNull";
 import { _test_equals } from "../internal/_test_equals";

@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { TagInfinite } from "../../structures/TagInfinite";
 import { _test_assertPrune } from "../internal/_test_assertPrune";

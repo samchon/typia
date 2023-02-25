@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { DynamicComposite } from "../../structures/DynamicComposite";
 import { _test_is } from "../internal/_test_is";

@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 import { _test_validateClone } from "../internal/_test_validateClone";

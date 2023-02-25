@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 import { _test_is } from "../internal/_test_is";

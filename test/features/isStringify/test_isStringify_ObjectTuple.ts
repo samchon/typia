@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { ObjectTuple } from "../../structures/ObjectTuple";
 import { _test_isStringify } from "../internal/_test_isStringify";

@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia from "../../../src";
 
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 import { _test_random } from "../internal/_test_random";
