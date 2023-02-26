@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_TupleRestArray = _test_stringify(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input: TupleRestArray): string => {
+    (input: [boolean, number, ...Array<string>[]]): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $rest = (typia.createStringify as any).rest;

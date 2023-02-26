@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { TemplateUnion } from "../../../structures/TemplateUnion";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_TemplateUnion = _test_equals(
     "TemplateUnion",
@@ -9,7 +9,7 @@ export const test_equals_TemplateUnion = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is TemplateUnion => {
+        ): input is Array<TemplateUnion.Type> => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

@@ -1,13 +1,13 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { TagArray } from "../../../structures/TagArray";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_TagArray = _test_random(
     "TagArray",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<TagArray> => {
+    ): typia.Primitive<Array<TagArray.Type>> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ro0 = (
@@ -40,7 +40,7 @@ export const test_createRandom_TagArray = _test_random(
         });
         return (generator.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): TagArray => {
+    (input: any): Array<TagArray.Type> => {
         const $guard = (typia.createAssert as any).guard;
         const $is_uuid = (typia.createAssert as any).is_uuid;
         ((

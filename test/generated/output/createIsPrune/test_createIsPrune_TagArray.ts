@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { TagArray } from "../../../structures/TagArray";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_createIsPrune_TagArray = _test_isPrune(
     "TagArray",
     TagArray.generate,
-    (input: any): input is TagArray => {
+    (input: any): input is Array<TagArray.Type> => {
         const is = (input: any): input is TagArray => {
             const $is_uuid = (typia.createIsPrune as any).is_uuid;
             const $io0 = (input: any): boolean =>

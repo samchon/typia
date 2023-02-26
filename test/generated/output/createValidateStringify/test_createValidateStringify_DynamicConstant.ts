@@ -1,12 +1,17 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_DynamicConstant =
     _test_validateStringify(
         "DynamicConstant",
         DynamicConstant.generate,
-        (input: DynamicConstant): typia.IValidation<string> => {
+        (input: {
+            a: number;
+            b: number;
+            c: number;
+            d: number;
+        }): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<DynamicConstant> => {

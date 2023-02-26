@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_TagObjectUnion = _test_validateClone(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<typia.Primitive<TagObjectUnion>> => {
+        ((
+            input: any,
+        ): typia.IValidation<typia.Primitive<Array<TagObjectUnion.Type>>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TagObjectUnion> => {

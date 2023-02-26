@@ -1,14 +1,14 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
     (input) =>
         ((
-            input: ArrayRecursiveUnionExplicit,
-        ): typia.Primitive<ArrayRecursiveUnionExplicit> => {
+            input: Array<ArrayRecursiveUnionExplicit.IBucket>,
+        ): typia.Primitive<Array<ArrayRecursiveUnionExplicit.IBucket>> => {
             const $throws = (typia.clone as any).throws;
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&

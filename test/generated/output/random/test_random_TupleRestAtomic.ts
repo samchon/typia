@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
-import { _test_random } from "../internal/_test_random";
 
 export const test_random_TupleRestAtomic = _test_random(
     "TupleRestAtomic",
@@ -8,7 +8,7 @@ export const test_random_TupleRestAtomic = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<TupleRestAtomic> => {
+        ): typia.Primitive<[boolean, number, ...string[]]> => {
             const $generator = (typia.random as any).generator;
             return [
                 (generator.boolean ?? $generator.boolean)(),
@@ -16,7 +16,7 @@ export const test_random_TupleRestAtomic = _test_random(
                 (generator.string ?? $generator.string)(),
             ];
         })(),
-    (input: any): TupleRestAtomic => {
+    (input: any): [boolean, number, ...string[]] => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

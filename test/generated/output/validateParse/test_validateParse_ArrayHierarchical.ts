@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_validateParse_ArrayHierarchical = _test_validateParse(
     "ArrayHierarchical",
@@ -8,7 +8,9 @@ export const test_validateParse_ArrayHierarchical = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<typia.Primitive<ArrayHierarchical>> => {
+        ): typia.IValidation<
+            typia.Primitive<Array<ArrayHierarchical.ICompany>>
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayHierarchical> => {

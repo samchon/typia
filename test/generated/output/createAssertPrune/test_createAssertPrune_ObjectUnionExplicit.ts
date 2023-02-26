@@ -1,11 +1,36 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
-    (input: any): ObjectUnionExplicit => {
+    (
+        input: any,
+    ): Array<
+        | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>
+        | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>
+        | ObjectUnionExplicit.Discriminator<
+              "triangle",
+              ObjectUnionExplicit.ITriangle
+          >
+        | ObjectUnionExplicit.Discriminator<
+              "rectangle",
+              ObjectUnionExplicit.IRectangle
+          >
+        | ObjectUnionExplicit.Discriminator<
+              "polyline",
+              ObjectUnionExplicit.IPolyline
+          >
+        | ObjectUnionExplicit.Discriminator<
+              "polygon",
+              ObjectUnionExplicit.IPolygon
+          >
+        | ObjectUnionExplicit.Discriminator<
+              "circle",
+              ObjectUnionExplicit.ICircle
+          >
+    > => {
         const assert = (input: any): ObjectUnionExplicit => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

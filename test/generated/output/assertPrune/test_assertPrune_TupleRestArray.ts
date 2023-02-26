@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_assertPrune_TupleRestArray = _test_assertPrune(
     "TupleRestArray",
     TupleRestArray.generate,
     (input) =>
-        ((input: any): TupleRestArray => {
+        ((input: any): [boolean, number, ...Array<string>[]] => {
             const assert = (input: any): TupleRestArray => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((

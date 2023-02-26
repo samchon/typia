@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_prune_TagObjectUnion = _test_prune(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input) =>
-        ((input: TagObjectUnion): void => {
+        ((input: Array<TagObjectUnion.Type>): void => {
             const $throws = (typia.prune as any).throws;
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value && 3 <= input.value;

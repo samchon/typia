@@ -1,11 +1,19 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_createAssertClone_ObjectGeneric = _test_assertClone(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (input: any): typia.Primitive<ObjectGeneric> => {
+    (
+        input: any,
+    ): typia.Primitive<
+        [
+            ObjectGeneric.ISomething<boolean>,
+            ObjectGeneric.ISomething<number>,
+            ObjectGeneric.ISomething<string>,
+        ]
+    > => {
         const assert = (input: any): ObjectGeneric => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

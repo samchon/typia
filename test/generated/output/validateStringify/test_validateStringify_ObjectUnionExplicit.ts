@@ -1,13 +1,44 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_validateStringify_ObjectUnionExplicit =
     _test_validateStringify(
         "ObjectUnionExplicit",
         ObjectUnionExplicit.generate,
         (input) =>
-            ((input: ObjectUnionExplicit): typia.IValidation<string> => {
+            ((
+                input: Array<
+                    | ObjectUnionExplicit.Discriminator<
+                          "point",
+                          ObjectUnionExplicit.IPoint
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "line",
+                          ObjectUnionExplicit.ILine
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "triangle",
+                          ObjectUnionExplicit.ITriangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "rectangle",
+                          ObjectUnionExplicit.IRectangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polyline",
+                          ObjectUnionExplicit.IPolyline
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polygon",
+                          ObjectUnionExplicit.IPolygon
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "circle",
+                          ObjectUnionExplicit.ICircle
+                      >
+                >,
+            ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<ObjectUnionExplicit> => {

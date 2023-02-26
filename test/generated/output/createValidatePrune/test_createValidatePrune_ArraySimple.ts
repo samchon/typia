@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { ArraySimple } from "../../../structures/ArraySimple";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_createValidatePrune_ArraySimple = _test_validatePrune(
     "ArraySimple",
     ArraySimple.generate,
-    (input: any): typia.IValidation<ArraySimple> => {
+    (input: any): typia.IValidation<Array<ArraySimple.IPerson>> => {
         const validate = (input: any): typia.IValidation<ArraySimple> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

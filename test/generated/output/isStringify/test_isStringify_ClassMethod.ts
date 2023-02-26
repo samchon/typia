@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ClassMethod } from "../../../structures/ClassMethod";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_ClassMethod = _test_isStringify(
     "ClassMethod",

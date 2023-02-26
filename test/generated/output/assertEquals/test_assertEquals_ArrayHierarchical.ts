@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_assertEquals_ArrayHierarchical = _test_assertEquals(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input) =>
-        ((input: any): ArrayHierarchical => {
+        ((input: any): Array<ArrayHierarchical.ICompany> => {
             const $guard = (typia.assertEquals as any).guard;
             const $join = (typia.assertEquals as any).join;
             ((

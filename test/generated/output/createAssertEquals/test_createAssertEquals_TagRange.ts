@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TagRange } from "../../../structures/TagRange";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_TagRange = _test_assertEquals(
     "TagRange",
     TagRange.generate,
-    (input: any): TagRange => {
+    (input: any): Array<TagRange.Type> => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

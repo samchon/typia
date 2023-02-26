@@ -1,12 +1,20 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_validateEquals_ToJsonAtomicSimple = _test_validateEquals(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
     (input) =>
-        ((input: any): typia.IValidation<ToJsonAtomicSimple> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            [
+                ToJsonAtomicSimple.IToJson<boolean>,
+                ToJsonAtomicSimple.IToJson<number>,
+                ToJsonAtomicSimple.IToJson<string>,
+            ]
+        > => {
             const errors = [] as any[];
             const $report = (typia.validateEquals as any).report(errors);
             const $join = (typia.validateEquals as any).join;

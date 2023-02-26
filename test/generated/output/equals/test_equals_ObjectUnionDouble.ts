@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_ObjectUnionDouble = _test_equals(
     "ObjectUnionDouble",
@@ -9,7 +9,7 @@ export const test_equals_ObjectUnionDouble = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ObjectUnionDouble => {
+        ): input is Array<ObjectUnionDouble.Union> => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

@@ -1,11 +1,17 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_createIsPrune_ObjectNullable = _test_isPrune(
     "ObjectNullable",
     ObjectNullable.generate,
-    (input: any): input is ObjectNullable => {
+    (
+        input: any,
+    ): input is [
+        ObjectNullable.IProduct,
+        ObjectNullable.IProduct,
+        ObjectNullable.IProduct,
+    ] => {
         const is = (input: any): input is ObjectNullable => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&

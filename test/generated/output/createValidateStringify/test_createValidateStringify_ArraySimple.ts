@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ArraySimple } from "../../../structures/ArraySimple";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_ArraySimple = _test_validateStringify(
     "ArraySimple",
     ArraySimple.generate,
-    (input: ArraySimple): typia.IValidation<string> => {
+    (input: Array<ArraySimple.IPerson>): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<ArraySimple> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(

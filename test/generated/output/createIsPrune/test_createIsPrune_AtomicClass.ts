@@ -1,11 +1,23 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { AtomicClass } from "../../../structures/AtomicClass";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_createIsPrune_AtomicClass = _test_isPrune(
     "AtomicClass",
     AtomicClass.generate,
-    (input: any): input is AtomicClass => {
+    (
+        input: any,
+    ): input is [
+        Boolean,
+        false | Boolean,
+        boolean | Boolean,
+        Number,
+        Number | 1,
+        number | Number,
+        String,
+        String | "characters",
+        string | String,
+    ] => {
         const is = (input: any): input is AtomicClass => {
             return (
                 Array.isArray(input) &&

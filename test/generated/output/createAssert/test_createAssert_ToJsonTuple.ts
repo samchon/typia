@@ -1,11 +1,18 @@
 import typia from "../../../../src";
+import { _test_assert } from "../../../internal/_test_assert";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_createAssert_ToJsonTuple = _test_assert(
     "ToJsonTuple",
     ToJsonTuple.generate,
-    (input: any): ToJsonTuple => {
+    (
+        input: any,
+    ): [
+        ToJsonTuple.IToJson<string>,
+        ToJsonTuple.IToJson<number>,
+        ToJsonTuple.IToJson<boolean>,
+        ToJsonTuple.IObject,
+    ] => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

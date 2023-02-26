@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_ArrayHierarchical = _test_isClone(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input) =>
-        ((input: any): typia.Primitive<ArrayHierarchical> | null => {
+        ((
+            input: any,
+        ): typia.Primitive<Array<ArrayHierarchical.ICompany>> | null => {
             const is = (input: any): input is ArrayHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&

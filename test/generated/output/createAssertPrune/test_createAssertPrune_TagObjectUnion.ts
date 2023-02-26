@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_createAssertPrune_TagObjectUnion = _test_assertPrune(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input: any): TagObjectUnion => {
+    (input: any): Array<TagObjectUnion.Type> => {
         const assert = (input: any): TagObjectUnion => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_ToJsonAtomicUnion = _test_assertEquals(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
-    (input: any): ToJsonAtomicUnion => {
+    (input: any): Array<ToJsonAtomicUnion.IToJson> => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

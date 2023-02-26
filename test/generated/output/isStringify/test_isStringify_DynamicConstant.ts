@@ -1,12 +1,17 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_DynamicConstant = _test_isStringify(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((input: DynamicConstant): string | null => {
+        ((input: {
+            a: number;
+            b: number;
+            c: number;
+            d: number;
+        }): string | null => {
             const is = (input: any): input is DynamicConstant => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.a &&

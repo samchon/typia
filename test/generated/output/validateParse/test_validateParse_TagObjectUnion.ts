@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_validateParse_TagObjectUnion = _test_validateParse(
     "TagObjectUnion",
@@ -8,7 +8,7 @@ export const test_validateParse_TagObjectUnion = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<typia.Primitive<TagObjectUnion>> => {
+        ): typia.IValidation<typia.Primitive<Array<TagObjectUnion.Type>>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TagObjectUnion> => {

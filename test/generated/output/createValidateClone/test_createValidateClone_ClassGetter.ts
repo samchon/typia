@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { ClassGetter } from "../../../structures/ClassGetter";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_createValidateClone_ClassGetter = _test_validateClone(
     "ClassGetter",

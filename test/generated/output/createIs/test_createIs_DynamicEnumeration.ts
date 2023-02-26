@@ -1,11 +1,24 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_DynamicEnumeration = _test_is(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
-    (input: any): input is DynamicEnumeration => {
+    (
+        input: any,
+    ): input is {
+        ar?: string | undefined;
+        "zh-Hans"?: string | undefined;
+        "zh-Hant"?: string | undefined;
+        en?: string | undefined;
+        fr?: string | undefined;
+        de?: string | undefined;
+        ja?: string | undefined;
+        ko?: string | undefined;
+        pt?: string | undefined;
+        ru?: string | undefined;
+    } => {
         const $io0 = (input: any): boolean =>
             (undefined === input.ar || "string" === typeof input.ar) &&
             (undefined === input["zh-Hans"] ||

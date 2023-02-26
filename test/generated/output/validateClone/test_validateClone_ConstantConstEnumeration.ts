@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_ConstantConstEnumeration = _test_validateClone(
     "ConstantConstEnumeration",
@@ -8,7 +8,9 @@ export const test_validateClone_ConstantConstEnumeration = _test_validateClone(
     (input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ConstantConstEnumeration>> => {
+        ): typia.IValidation<
+            typia.Primitive<Array<ConstantConstEnumeration.Enumeration>>
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantConstEnumeration> => {

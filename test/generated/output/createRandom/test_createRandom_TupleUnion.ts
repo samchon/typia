@@ -1,13 +1,13 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { TupleUnion } from "../../../structures/TupleUnion";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_TupleUnion = _test_random(
     "TupleUnion",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<TupleUnion> => {
+    ): typia.Primitive<Array<TupleUnion.Union>> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         return (generator.array ?? $generator.array)(() =>
@@ -25,7 +25,7 @@ export const test_createRandom_TupleUnion = _test_random(
             ])(),
         );
     },
-    (input: any): TupleUnion => {
+    (input: any): Array<TupleUnion.Union> => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

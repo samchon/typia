@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_createIsPrune_ArrayHierarchical = _test_isPrune(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input: any): input is ArrayHierarchical => {
+    (input: any): input is Array<ArrayHierarchical.ICompany> => {
         const is = (input: any): input is ArrayHierarchical => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&

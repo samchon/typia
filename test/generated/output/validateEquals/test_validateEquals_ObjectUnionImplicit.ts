@@ -1,12 +1,24 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_validateEquals_ObjectUnionImplicit = _test_validateEquals(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
     (input) =>
-        ((input: any): typia.IValidation<ObjectUnionImplicit> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            Array<
+                | ObjectUnionImplicit.IPoint
+                | ObjectUnionImplicit.ILine
+                | ObjectUnionImplicit.ITriangle
+                | ObjectUnionImplicit.IRectangle
+                | ObjectUnionImplicit.IPolyline
+                | ObjectUnionImplicit.IPolygon
+                | ObjectUnionImplicit.ICircle
+            >
+        > => {
             const errors = [] as any[];
             const $report = (typia.validateEquals as any).report(errors);
             const $join = (typia.validateEquals as any).join;

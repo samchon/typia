@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_ArrayHierarchical = _test_equals(
     "ArrayHierarchical",
@@ -8,7 +8,7 @@ export const test_createEquals_ArrayHierarchical = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is ArrayHierarchical => {
+    ): input is Array<ArrayHierarchical.ICompany> => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&

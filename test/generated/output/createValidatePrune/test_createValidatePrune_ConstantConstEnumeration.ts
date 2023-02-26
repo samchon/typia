@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_createValidatePrune_ConstantConstEnumeration =
     _test_validatePrune(
         "ConstantConstEnumeration",
         ConstantConstEnumeration.generate,
-        (input: any): typia.IValidation<ConstantConstEnumeration> => {
+        (
+            input: any,
+        ): typia.IValidation<Array<ConstantConstEnumeration.Enumeration>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantConstEnumeration> => {

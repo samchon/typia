@@ -1,12 +1,24 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_clone_ObjectGeneric = _test_clone(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((input: ObjectGeneric): typia.Primitive<ObjectGeneric> => {
+        ((
+            input: [
+                ObjectGeneric.ISomething<boolean>,
+                ObjectGeneric.ISomething<number>,
+                ObjectGeneric.ISomething<string>,
+            ],
+        ): typia.Primitive<
+            [
+                ObjectGeneric.ISomething<boolean>,
+                ObjectGeneric.ISomething<number>,
+                ObjectGeneric.ISomething<string>,
+            ]
+        > => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value &&
                 "object" === typeof input.child &&

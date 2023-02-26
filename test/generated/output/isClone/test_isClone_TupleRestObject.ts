@@ -1,12 +1,16 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_TupleRestObject = _test_isClone(
     "TupleRestObject",
     TupleRestObject.generate,
     (input) =>
-        ((input: any): typia.Primitive<TupleRestObject> | null => {
+        ((
+            input: any,
+        ): typia.Primitive<
+            [boolean, number, ...TupleRestObject.IObject[]]
+        > | null => {
             const is = (input: any): input is TupleRestObject => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;

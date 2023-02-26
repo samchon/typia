@@ -1,11 +1,36 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
-import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_ObjectUnionExplicit = _test_is(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
-    (input: any): input is ObjectUnionExplicit => {
+    (
+        input: any,
+    ): input is Array<
+        | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>
+        | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>
+        | ObjectUnionExplicit.Discriminator<
+              "triangle",
+              ObjectUnionExplicit.ITriangle
+          >
+        | ObjectUnionExplicit.Discriminator<
+              "rectangle",
+              ObjectUnionExplicit.IRectangle
+          >
+        | ObjectUnionExplicit.Discriminator<
+              "polyline",
+              ObjectUnionExplicit.IPolyline
+          >
+        | ObjectUnionExplicit.Discriminator<
+              "polygon",
+              ObjectUnionExplicit.IPolygon
+          >
+        | ObjectUnionExplicit.Discriminator<
+              "circle",
+              ObjectUnionExplicit.ICircle
+          >
+    > => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.x &&
             Number.isFinite(input.x) &&

@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_createPrune_ObjectUndefined = _test_prune(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input: ObjectUndefined): void => {
+    (input: Array<ObjectUndefined.ILecture>): void => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.id && "string" === typeof input.name;
         const $po0 = (input: any): any => {

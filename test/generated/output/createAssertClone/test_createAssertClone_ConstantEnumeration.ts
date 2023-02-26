@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_createAssertClone_ConstantEnumeration = _test_assertClone(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
-    (input: any): typia.Primitive<ConstantEnumeration> => {
+    (input: any): typia.Primitive<Array<ConstantEnumeration.Enumeration>> => {
         const assert = (input: any): ConstantEnumeration => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

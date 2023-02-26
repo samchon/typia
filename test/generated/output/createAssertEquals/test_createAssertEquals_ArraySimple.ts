@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ArraySimple } from "../../../structures/ArraySimple";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_ArraySimple = _test_assertEquals(
     "ArraySimple",
     ArraySimple.generate,
-    (input: any): ArraySimple => {
+    (input: any): Array<ArraySimple.IPerson> => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

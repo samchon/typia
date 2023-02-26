@@ -1,12 +1,18 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_ToJsonAtomicSimple = _test_isStringify(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
     (input) =>
-        ((input: ToJsonAtomicSimple): string | null => {
+        ((
+            input: [
+                ToJsonAtomicSimple.IToJson<boolean>,
+                ToJsonAtomicSimple.IToJson<number>,
+                ToJsonAtomicSimple.IToJson<string>,
+            ],
+        ): string | null => {
             const is = (input: any): input is ToJsonAtomicSimple => {
                 const $io0 = (input: any): boolean => true;
                 const $io1 = (input: any): boolean => true;

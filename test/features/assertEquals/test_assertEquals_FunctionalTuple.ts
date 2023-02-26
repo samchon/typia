@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { FunctionalTuple } from "../../structures/FunctionalTuple";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_assertEquals_FunctionalTuple = _test_assertEquals(
     "FunctionalTuple",

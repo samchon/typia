@@ -1,12 +1,23 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_ObjectPropertyNullable = _test_validate(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
     (input) =>
-        ((input: any): typia.IValidation<ObjectPropertyNullable> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            [
+                Array<ObjectPropertyNullable.IPointer<boolean>>,
+                Array<ObjectPropertyNullable.IPointer<number>>,
+                Array<ObjectPropertyNullable.IPointer<string>>,
+                Array<
+                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                >,
+            ]
+        > => {
             const errors = [] as any[];
             const $report = (typia.validate as any).report(errors);
             ((

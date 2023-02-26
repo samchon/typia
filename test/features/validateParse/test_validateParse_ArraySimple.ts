@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_validateParse } from "../../internal/_test_validateParse";
 import { ArraySimple } from "../../structures/ArraySimple";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_validateParse_ArraySimple = _test_validateParse(
     "ArraySimple",

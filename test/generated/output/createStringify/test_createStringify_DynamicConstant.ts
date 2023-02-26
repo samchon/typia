@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_DynamicConstant = _test_stringify(
     "DynamicConstant",
     DynamicConstant.generate,
-    (input: DynamicConstant): string => {
+    (input: { a: number; b: number; c: number; d: number }): string => {
         const $number = (typia.createStringify as any).number;
         const $so0 = (input: any): any =>
             `{"a":${$number(input.a)},"b":${$number(input.b)},"c":${$number(

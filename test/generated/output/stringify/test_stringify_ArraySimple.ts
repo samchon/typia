@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ArraySimple } from "../../../structures/ArraySimple";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_stringify_ArraySimple = _test_stringify(
     "ArraySimple",
     ArraySimple.generate,
     (input) =>
-        ((input: ArraySimple): string => {
+        ((input: Array<ArraySimple.IPerson>): string => {
             const $string = (typia.stringify as any).string;
             const $number = (typia.stringify as any).number;
             const $io1 = (input: any): boolean =>

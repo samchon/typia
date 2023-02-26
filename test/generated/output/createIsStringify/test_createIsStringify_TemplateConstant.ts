@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_createIsStringify_TemplateConstant = _test_isStringify(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: TemplateConstant): string | null => {
+    (input: Array<TemplateConstant.Type>): string | null => {
         const is = (input: any): input is TemplateConstant => {
             const $io0 = (input: any): boolean =>
                 ("prefix_A" === input.prefix ||

@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
-import { _test_random } from "../internal/_test_random";
 
 export const test_random_TagObjectUnion = _test_random(
     "TagObjectUnion",
@@ -8,7 +8,7 @@ export const test_random_TagObjectUnion = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<TagObjectUnion> => {
+        ): typia.Primitive<Array<TagObjectUnion.Type>> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             const $ro0 = (
@@ -29,7 +29,7 @@ export const test_random_TagObjectUnion = _test_random(
                 $pick([() => $ro0(), () => $ro1()])(),
             );
         })(),
-    (input: any): TagObjectUnion => {
+    (input: any): Array<TagObjectUnion.Type> => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

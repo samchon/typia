@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
-import { _test_random } from "../internal/_test_random";
 
 export const test_random_AtomicUnion = _test_random(
     "AtomicUnion",
@@ -8,7 +8,7 @@ export const test_random_AtomicUnion = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<AtomicUnion> => {
+        ): typia.Primitive<Array<AtomicUnion.Union>> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             return (generator.array ?? $generator.array)(() =>
@@ -20,7 +20,7 @@ export const test_random_AtomicUnion = _test_random(
                 ])(),
             );
         })(),
-    (input: any): AtomicUnion => {
+    (input: any): Array<AtomicUnion.Union> => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

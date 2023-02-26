@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_validate } from "../../internal/_test_validate";
 import { MapAlias } from "../../structures/MapAlias";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_createValidate_MapAlias = _test_validate(
     "MapAlias",

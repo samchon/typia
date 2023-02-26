@@ -1,12 +1,26 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { AtomicClass } from "../../../structures/AtomicClass";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_assertClone_AtomicClass = _test_assertClone(
     "AtomicClass",
     AtomicClass.generate,
     (input) =>
-        ((input: any): typia.Primitive<AtomicClass> => {
+        ((
+            input: any,
+        ): typia.Primitive<
+            [
+                Boolean,
+                false | Boolean,
+                boolean | Boolean,
+                Number,
+                Number | 1,
+                number | Number,
+                String,
+                String | "characters",
+                string | String,
+            ]
+        > => {
             const assert = (input: any): AtomicClass => {
                 const $guard = (typia.assertClone as any).guard;
                 ((

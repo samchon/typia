@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_assertParse } from "../../internal/_test_assertParse";
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_createAssertParse_ArrayMatrix = _test_assertParse(
     "ArrayMatrix",

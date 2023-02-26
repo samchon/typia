@@ -1,7 +1,7 @@
 import typia from "typia";
 
+import { _test_application } from "../../../internal/_test_application";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
-import { _test_application } from "../../internal/_test_application";
 
 export const test_application_swagger_ArrayAtomicSimple = _test_application(
     "swagger",

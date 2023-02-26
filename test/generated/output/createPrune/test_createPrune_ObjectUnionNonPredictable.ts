@@ -1,11 +1,15 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_createPrune_ObjectUnionNonPredictable = _test_prune(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
-    (input: ObjectUnionNonPredictable): void => {
+    (
+        input: Array<
+            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+        >,
+    ): void => {
         const $throws = (typia.createPrune as any).throws;
         const $io1 = (input: any): boolean =>
             "object" === typeof input.value &&

@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_ArrayMatrix = _test_isClone(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input) =>
-        ((input: any): typia.Primitive<ArrayMatrix> | null => {
+        ((input: any): typia.Primitive<Array<Array<Array<number>>>> | null => {
             const is = (input: any): input is ArrayMatrix => {
                 return (
                     Array.isArray(input) &&

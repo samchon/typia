@@ -1,11 +1,21 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_createValidateClone_ObjectNullable = _test_validateClone(
     "ObjectNullable",
     ObjectNullable.generate,
-    (input: any): typia.IValidation<typia.Primitive<ObjectNullable>> => {
+    (
+        input: any,
+    ): typia.IValidation<
+        typia.Primitive<
+            [
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+            ]
+        >
+    > => {
         const validate = (input: any): typia.IValidation<ObjectNullable> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

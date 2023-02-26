@@ -1,11 +1,17 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_createIsStringify_ConstantAtomicWrapper = _test_isStringify(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
-    (input: ConstantAtomicWrapper): string | null => {
+    (
+        input: [
+            ConstantAtomicWrapper.IPointer<boolean>,
+            ConstantAtomicWrapper.IPointer<number>,
+            ConstantAtomicWrapper.IPointer<string>,
+        ],
+    ): string | null => {
         const is = (input: any): input is ConstantAtomicWrapper => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value;

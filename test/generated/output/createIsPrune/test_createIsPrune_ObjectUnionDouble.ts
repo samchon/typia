@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_createIsPrune_ObjectUnionDouble = _test_isPrune(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
-    (input: any): input is ObjectUnionDouble => {
+    (input: any): input is Array<ObjectUnionDouble.Union> => {
         const is = (input: any): input is ObjectUnionDouble => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&

@@ -1,11 +1,14 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { AtomicSimple } from "../../../structures/AtomicSimple";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_AtomicSimple = _test_equals(
     "AtomicSimple",
     AtomicSimple.generate,
-    (input: any, _exceptionable: boolean = true): input is AtomicSimple => {
+    (
+        input: any,
+        _exceptionable: boolean = true,
+    ): input is [boolean, number, string] => {
         return (
             Array.isArray(input) &&
             input.length === 3 &&

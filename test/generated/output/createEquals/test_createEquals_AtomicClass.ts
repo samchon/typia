@@ -1,11 +1,24 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { AtomicClass } from "../../../structures/AtomicClass";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_AtomicClass = _test_equals(
     "AtomicClass",
     AtomicClass.generate,
-    (input: any, _exceptionable: boolean = true): input is AtomicClass => {
+    (
+        input: any,
+        _exceptionable: boolean = true,
+    ): input is [
+        Boolean,
+        false | Boolean,
+        boolean | Boolean,
+        Number,
+        Number | 1,
+        number | Number,
+        String,
+        String | "characters",
+        string | String,
+    ] => {
         return (
             Array.isArray(input) &&
             input.length === 9 &&

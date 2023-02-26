@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { TagLength } from "../../../structures/TagLength";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_createValidateParse_TagLength = _test_validateParse(
     "TagLength",
     TagLength.generate,
-    (input: string): typia.IValidation<typia.Primitive<TagLength>> => {
+    (
+        input: string,
+    ): typia.IValidation<typia.Primitive<Array<TagLength.Type>>> => {
         const validate = (input: any): typia.IValidation<TagLength> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

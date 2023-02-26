@@ -1,11 +1,23 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { AtomicClass } from "../../../structures/AtomicClass";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_AtomicClass = _test_validateStringify(
     "AtomicClass",
     AtomicClass.generate,
-    (input: AtomicClass): typia.IValidation<string> => {
+    (
+        input: [
+            Boolean,
+            false | Boolean,
+            boolean | Boolean,
+            Number,
+            Number | 1,
+            number | Number,
+            String,
+            String | "characters",
+            string | String,
+        ],
+    ): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<AtomicClass> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(

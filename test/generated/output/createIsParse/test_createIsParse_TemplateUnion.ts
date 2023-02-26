@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { TemplateUnion } from "../../../structures/TemplateUnion";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_createIsParse_TemplateUnion = _test_isParse(
     "TemplateUnion",
     TemplateUnion.generate,
-    (input: any): typia.Primitive<TemplateUnion> => {
+    (input: any): typia.Primitive<Array<TemplateUnion.Type>> => {
         const is = (input: any): input is TemplateUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&

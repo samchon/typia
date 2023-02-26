@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { TagArray } from "../../../structures/TagArray";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_createAssertParse_TagArray = _test_assertParse(
     "TagArray",
     TagArray.generate,
-    (input: string): typia.Primitive<TagArray> => {
+    (input: string): typia.Primitive<Array<TagArray.Type>> => {
         const assert = (input: any): TagArray => {
             const $guard = (typia.createAssertParse as any).guard;
             const $is_uuid = (typia.createAssertParse as any).is_uuid;

@@ -1,11 +1,15 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_ObjectUnionNonPredictable = _test_stringify(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
-    (input: ObjectUnionNonPredictable): string => {
+    (
+        input: Array<
+            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+        >,
+    ): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $throws = (typia.createStringify as any).throws;

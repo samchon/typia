@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { InstanceUnion } from "../../../structures/InstanceUnion";
-import { _test_is } from "../internal/_test_is";
 
 export const test_is_InstanceUnion = _test_is(
     "InstanceUnion",
     InstanceUnion.generate,
     (input) =>
-        ((input: any): input is InstanceUnion => {
+        ((input: any): input is Array<InstanceUnion.Union> => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&

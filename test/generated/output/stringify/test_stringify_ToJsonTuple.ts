@@ -1,12 +1,19 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_stringify_ToJsonTuple = _test_stringify(
     "ToJsonTuple",
     ToJsonTuple.generate,
     (input) =>
-        ((input: ToJsonTuple): string => {
+        ((
+            input: [
+                ToJsonTuple.IToJson<string>,
+                ToJsonTuple.IToJson<number>,
+                ToJsonTuple.IToJson<boolean>,
+                ToJsonTuple.IObject,
+            ],
+        ): string => {
             const $string = (typia.stringify as any).string;
             const $number = (typia.stringify as any).number;
             const $so0 = (input: any): any =>

@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { TagStep } from "../../../structures/TagStep";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_validateParse_TagStep = _test_validateParse(
     "TagStep",
     TagStep.generate,
     (input) =>
-        ((input: string): typia.IValidation<typia.Primitive<TagStep>> => {
+        ((
+            input: string,
+        ): typia.IValidation<typia.Primitive<Array<TagStep.Type>>> => {
             const validate = (input: any): typia.IValidation<TagStep> => {
                 const errors = [] as any[];
                 const $report = (typia.validateParse as any).report(errors);

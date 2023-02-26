@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_createValidateClone_TemplateConstant = _test_validateClone(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: any): typia.IValidation<typia.Primitive<TemplateConstant>> => {
+    (
+        input: any,
+    ): typia.IValidation<typia.Primitive<Array<TemplateConstant.Type>>> => {
         const validate = (input: any): typia.IValidation<TemplateConstant> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

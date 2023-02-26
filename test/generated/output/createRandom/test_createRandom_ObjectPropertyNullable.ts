@@ -1,13 +1,22 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_ObjectPropertyNullable = _test_random(
     "ObjectPropertyNullable",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<ObjectPropertyNullable> => {
+    ): typia.Primitive<
+        [
+            Array<ObjectPropertyNullable.IPointer<boolean>>,
+            Array<ObjectPropertyNullable.IPointer<number>>,
+            Array<ObjectPropertyNullable.IPointer<string>>,
+            Array<
+                ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+            >,
+        ]
+    > => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ro0 = (
@@ -76,7 +85,14 @@ export const test_createRandom_ObjectPropertyNullable = _test_random(
             (generator.array ?? $generator.array)(() => $ro3()),
         ];
     },
-    (input: any): ObjectPropertyNullable => {
+    (
+        input: any,
+    ): [
+        Array<ObjectPropertyNullable.IPointer<boolean>>,
+        Array<ObjectPropertyNullable.IPointer<number>>,
+        Array<ObjectPropertyNullable.IPointer<string>>,
+        Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>,
+    ] => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

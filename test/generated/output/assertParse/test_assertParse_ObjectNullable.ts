@@ -1,12 +1,20 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_assertParse_ObjectNullable = _test_assertParse(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((input: string): typia.Primitive<ObjectNullable> => {
+        ((
+            input: string,
+        ): typia.Primitive<
+            [
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+            ]
+        > => {
             const assert = (input: any): ObjectNullable => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

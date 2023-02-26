@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_createIsParse_ConstantEnumeration = _test_isParse(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
-    (input: any): typia.Primitive<ConstantEnumeration> => {
+    (input: any): typia.Primitive<Array<ConstantEnumeration.Enumeration>> => {
         const is = (input: any): input is ConstantEnumeration => {
             return (
                 Array.isArray(input) &&

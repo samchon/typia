@@ -1,13 +1,17 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_ObjectUnionNonPredictable = _test_random(
     "ObjectUnionNonPredictable",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<ObjectUnionNonPredictable> => {
+    ): typia.Primitive<
+        Array<
+            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+        >
+    > => {
         const $pick = (typia.createRandom as any).pick;
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
@@ -64,7 +68,11 @@ export const test_createRandom_ObjectUnionNonPredictable = _test_random(
         });
         return (generator.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): ObjectUnionNonPredictable => {
+    (
+        input: any,
+    ): Array<
+        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+    > => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_createValidateParse_ArrayRecursiveUnionExplicit =
     _test_validateParse(
@@ -8,7 +8,9 @@ export const test_createValidateParse_ArrayRecursiveUnionExplicit =
         ArrayRecursiveUnionExplicit.generate,
         (
             input: string,
-        ): typia.IValidation<typia.Primitive<ArrayRecursiveUnionExplicit>> => {
+        ): typia.IValidation<
+            typia.Primitive<Array<ArrayRecursiveUnionExplicit.IBucket>>
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayRecursiveUnionExplicit> => {

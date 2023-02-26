@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_ArrayHierarchical = _test_isStringify(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input) =>
-        ((input: ArrayHierarchical): string | null => {
+        ((input: Array<ArrayHierarchical.ICompany>): string | null => {
             const is = (input: any): input is ArrayHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&

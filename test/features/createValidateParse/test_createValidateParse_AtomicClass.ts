@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_validateParse } from "../../internal/_test_validateParse";
 import { AtomicClass } from "../../structures/AtomicClass";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_createValidateParse_AtomicClass = _test_validateParse(
     "AtomicClass",

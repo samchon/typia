@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_isParse } from "../../internal/_test_isParse";
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_isParse_ObjectUnionComposite = _test_isParse(
     "ObjectUnionComposite",

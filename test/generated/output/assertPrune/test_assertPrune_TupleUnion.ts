@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { TupleUnion } from "../../../structures/TupleUnion";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_assertPrune_TupleUnion = _test_assertPrune(
     "TupleUnion",
     TupleUnion.generate,
     (input) =>
-        ((input: any): TupleUnion => {
+        ((input: any): Array<TupleUnion.Union> => {
             const assert = (input: any): TupleUnion => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((

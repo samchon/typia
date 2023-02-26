@@ -1,4 +1,4 @@
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
 
 export type TupleUnion = TupleUnion.Union[];
 export namespace TupleUnion {

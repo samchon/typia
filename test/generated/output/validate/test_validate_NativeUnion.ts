@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { NativeUnion } from "../../../structures/NativeUnion";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_NativeUnion = _test_validate(
     "NativeUnion",
     NativeUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<NativeUnion> => {
+        ((input: any): typia.IValidation<Array<NativeUnion.Union>> => {
             const errors = [] as any[];
             const $report = (typia.validate as any).report(errors);
             ((

@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_isParse_TagAtomicUnion = _test_isParse(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<TagAtomicUnion> => {
+        ((input: any): typia.Primitive<Array<TagAtomicUnion.Type>> => {
             const is = (input: any): input is TagAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     ("string" === typeof input.value &&

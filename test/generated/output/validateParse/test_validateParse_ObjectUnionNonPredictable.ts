@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_validateParse_ObjectUnionNonPredictable = _test_validateParse(
     "ObjectUnionNonPredictable",
@@ -8,7 +8,13 @@ export const test_validateParse_ObjectUnionNonPredictable = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<typia.Primitive<ObjectUnionNonPredictable>> => {
+        ): typia.IValidation<
+            typia.Primitive<
+                Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                >
+            >
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionNonPredictable> => {

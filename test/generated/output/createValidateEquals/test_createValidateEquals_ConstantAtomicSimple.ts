@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_createValidateEquals_ConstantAtomicSimple =
     _test_validateEquals(
         "ConstantAtomicSimple",
         ConstantAtomicSimple.generate,
-        (input: any): typia.IValidation<ConstantAtomicSimple> => {
+        (input: any): typia.IValidation<[false, true, 2, "three"]> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             ((

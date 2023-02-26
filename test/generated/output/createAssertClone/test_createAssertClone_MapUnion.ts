@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { MapUnion } from "../../../structures/MapUnion";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_createAssertClone_MapUnion = _test_assertClone(
     "MapUnion",
     MapUnion.generate,
-    (input: any): typia.Primitive<MapUnion> => {
+    (input: any): typia.Primitive<Array<MapUnion.Union>> => {
         const assert = (input: any): MapUnion => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

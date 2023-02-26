@@ -1,12 +1,22 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
     (input) =>
-        ((input: any): ObjectUnionImplicit => {
+        ((
+            input: any,
+        ): Array<
+            | ObjectUnionImplicit.IPoint
+            | ObjectUnionImplicit.ILine
+            | ObjectUnionImplicit.ITriangle
+            | ObjectUnionImplicit.IRectangle
+            | ObjectUnionImplicit.IPolyline
+            | ObjectUnionImplicit.IPolygon
+            | ObjectUnionImplicit.ICircle
+        > => {
             const $guard = (typia.assertEquals as any).guard;
             const $join = (typia.assertEquals as any).join;
             ((

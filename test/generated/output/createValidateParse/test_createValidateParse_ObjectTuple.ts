@@ -1,11 +1,15 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_createValidateParse_ObjectTuple = _test_validateParse(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input: string): typia.IValidation<typia.Primitive<ObjectTuple>> => {
+    (
+        input: string,
+    ): typia.IValidation<
+        typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]>
+    > => {
         const validate = (input: any): typia.IValidation<ObjectTuple> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

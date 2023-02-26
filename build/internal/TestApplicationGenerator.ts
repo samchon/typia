@@ -28,7 +28,7 @@ export namespace TestApplicationGenerator {
             const content: string[] = [
                 `import typia from "typia"`,
                 `import { ${s.name} } from "../../../structures/${s.name}";`,
-                `import { _test_application } from "../../internal/_test_application";`,
+                `import { _test_application } from "../../../internal/_test_application";`,
                 "",
                 `export const test_application_${purpose}_${s.name} = `,
                 `    _test_application("${purpose}")(`,

@@ -1,12 +1,18 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_validateStringify_ObjectGeneric = _test_validateStringify(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((input: ObjectGeneric): typia.IValidation<string> => {
+        ((
+            input: [
+                ObjectGeneric.ISomething<boolean>,
+                ObjectGeneric.ISomething<number>,
+                ObjectGeneric.ISomething<string>,
+            ],
+        ): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ObjectGeneric> => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);

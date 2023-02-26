@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_ObjectNullable = _test_equals(
     "ObjectNullable",
@@ -9,7 +9,11 @@ export const test_equals_ObjectNullable = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ObjectNullable => {
+        ): input is [
+            ObjectNullable.IProduct,
+            ObjectNullable.IProduct,
+            ObjectNullable.IProduct,
+        ] => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

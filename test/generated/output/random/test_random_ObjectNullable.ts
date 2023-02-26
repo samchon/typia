@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_random } from "../internal/_test_random";
 
 export const test_random_ObjectNullable = _test_random(
     "ObjectNullable",
@@ -8,7 +8,13 @@ export const test_random_ObjectNullable = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<ObjectNullable> => {
+        ): typia.Primitive<
+            [
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+            ]
+        > => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             const $ro0 = (
@@ -46,7 +52,13 @@ export const test_random_ObjectNullable = _test_random(
             });
             return [$ro0(), $ro0(), $ro0()];
         })(),
-    (input: any): ObjectNullable => {
+    (
+        input: any,
+    ): [
+        ObjectNullable.IProduct,
+        ObjectNullable.IProduct,
+        ObjectNullable.IProduct,
+    ] => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

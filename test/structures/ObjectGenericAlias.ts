@@ -1,4 +1,4 @@
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
 
 export type ObjectGenericAlias = ObjectGenericAlias.Alias;
 export namespace ObjectGenericAlias {

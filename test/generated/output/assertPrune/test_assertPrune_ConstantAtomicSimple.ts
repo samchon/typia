@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_assertPrune_ConstantAtomicSimple = _test_assertPrune(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
     (input) =>
-        ((input: any): ConstantAtomicSimple => {
+        ((input: any): [false, true, 2, "three"] => {
             const assert = (input: any): ConstantAtomicSimple => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((

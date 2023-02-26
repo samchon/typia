@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_assertClone_TagObjectUnion = _test_assertClone(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<TagObjectUnion> => {
+        ((input: any): typia.Primitive<Array<TagObjectUnion.Type>> => {
             const assert = (input: any): TagObjectUnion => {
                 const $guard = (typia.assertClone as any).guard;
                 ((

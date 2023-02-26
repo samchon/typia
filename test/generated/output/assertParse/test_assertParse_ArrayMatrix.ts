@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_assertParse_ArrayMatrix = _test_assertParse(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input) =>
-        ((input: string): typia.Primitive<ArrayMatrix> => {
+        ((input: string): typia.Primitive<Array<Array<Array<number>>>> => {
             const assert = (input: any): ArrayMatrix => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

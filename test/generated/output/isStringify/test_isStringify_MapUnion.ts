@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { MapUnion } from "../../../structures/MapUnion";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_MapUnion = _test_isStringify(
     "MapUnion",
     MapUnion.generate,
     (input) =>
-        ((input: MapUnion): string | null => {
+        ((input: Array<MapUnion.Union>): string | null => {
             const is = (input: any): input is MapUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&

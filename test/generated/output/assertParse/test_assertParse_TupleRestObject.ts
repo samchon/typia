@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_assertParse_TupleRestObject = _test_assertParse(
     "TupleRestObject",
     TupleRestObject.generate,
     (input) =>
-        ((input: string): typia.Primitive<TupleRestObject> => {
+        ((
+            input: string,
+        ): typia.Primitive<[boolean, number, ...TupleRestObject.IObject[]]> => {
             const assert = (input: any): TupleRestObject => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

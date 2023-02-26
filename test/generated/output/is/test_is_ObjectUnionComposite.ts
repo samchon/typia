@@ -1,12 +1,23 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
-import { _test_is } from "../internal/_test_is";
 
 export const test_is_ObjectUnionComposite = _test_is(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
     (input) =>
-        ((input: any): input is ObjectUnionComposite => {
+        ((
+            input: any,
+        ): input is Array<
+            | ObjectUnionComposite.IPoint
+            | ObjectUnionComposite.ILine
+            | ObjectUnionComposite.ITriangle
+            | ObjectUnionComposite.IRectangle
+            | ObjectUnionComposite.IPolyline
+            | ObjectUnionComposite.IPolygon
+            | ObjectUnionComposite.IPointedShape
+            | ObjectUnionComposite.ICircle
+        > => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 Number.isFinite(input.x) &&

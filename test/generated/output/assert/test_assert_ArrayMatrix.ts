@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_assert_ArrayMatrix = _test_assert(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input) =>
-        ((input: any): ArrayMatrix => {
+        ((input: any): Array<Array<Array<number>>> => {
             const $guard = (typia.assert as any).guard;
             ((
                 input: any,

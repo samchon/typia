@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_assertParse_ObjectUndefined = _test_assertParse(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input) =>
-        ((input: string): typia.Primitive<ObjectUndefined> => {
+        ((input: string): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
             const assert = (input: any): ObjectUndefined => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

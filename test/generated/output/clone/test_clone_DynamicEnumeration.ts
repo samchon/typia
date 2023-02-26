@@ -1,12 +1,34 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_clone_DynamicEnumeration = _test_clone(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input) =>
-        ((input: DynamicEnumeration): typia.Primitive<DynamicEnumeration> => {
+        ((input: {
+            ar?: string | undefined;
+            "zh-Hans"?: string | undefined;
+            "zh-Hant"?: string | undefined;
+            en?: string | undefined;
+            fr?: string | undefined;
+            de?: string | undefined;
+            ja?: string | undefined;
+            ko?: string | undefined;
+            pt?: string | undefined;
+            ru?: string | undefined;
+        }): typia.Primitive<{
+            ar?: string | undefined;
+            "zh-Hans"?: string | undefined;
+            "zh-Hant"?: string | undefined;
+            en?: string | undefined;
+            fr?: string | undefined;
+            de?: string | undefined;
+            ja?: string | undefined;
+            ko?: string | undefined;
+            pt?: string | undefined;
+            ru?: string | undefined;
+        }> => {
             const $co0 = (input: any): any => ({
                 ar: input.ar as any,
                 "zh-Hans": input["zh-Hans"] as any,

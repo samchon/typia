@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_TemplateConstant =
     _test_validateStringify(
         "TemplateConstant",
         TemplateConstant.generate,
-        (input: TemplateConstant): typia.IValidation<string> => {
+        (input: Array<TemplateConstant.Type>): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TemplateConstant> => {

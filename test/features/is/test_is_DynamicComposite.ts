@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { DynamicComposite } from "../../structures/DynamicComposite";
-import { _test_is } from "../internal/_test_is";
 
 export const test_is_DynamicComposite = _test_is(
     "DynamicComposite",

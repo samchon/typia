@@ -1,12 +1,19 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_ToJsonTuple = _test_isStringify(
     "ToJsonTuple",
     ToJsonTuple.generate,
     (input) =>
-        ((input: ToJsonTuple): string | null => {
+        ((
+            input: [
+                ToJsonTuple.IToJson<string>,
+                ToJsonTuple.IToJson<number>,
+                ToJsonTuple.IToJson<boolean>,
+                ToJsonTuple.IObject,
+            ],
+        ): string | null => {
             const is = (input: any): input is ToJsonTuple => {
                 const $io0 = (input: any): boolean => true;
                 const $io1 = (input: any): boolean => true;

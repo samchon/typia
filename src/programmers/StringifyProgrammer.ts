@@ -708,9 +708,9 @@ export namespace StringifyProgrammer {
         importer: FunctionImporter,
     ): FeatureProgrammer.IConfig => ({
         types: {
-            input: (type) =>
+            input: (type, name) =>
                 ts.factory.createTypeReferenceNode(
-                    TypeFactory.getFullName(project.checker, type),
+                    name ?? TypeFactory.getFullName(project.checker, type),
                 ),
             output: () => TypeFactory.keyword("string"),
         },

@@ -1,12 +1,16 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_assertParse_ObjectIntersection = _test_assertParse(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input) =>
-        ((input: string): typia.Primitive<ObjectIntersection> => {
+        ((
+            input: string,
+        ): typia.Primitive<
+            ObjectIntersection.IEmail & ObjectIntersection.IName
+        > => {
             const assert = (input: any): ObjectIntersection => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

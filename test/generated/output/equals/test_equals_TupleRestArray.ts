@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_TupleRestArray = _test_equals(
     "TupleRestArray",
@@ -9,7 +9,7 @@ export const test_equals_TupleRestArray = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is TupleRestArray => {
+        ): input is [boolean, number, ...Array<string>[]] => {
             return (
                 Array.isArray(input) &&
                 "boolean" === typeof input[0] &&

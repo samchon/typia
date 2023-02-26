@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_DynamicEnumeration = _test_equals(
     "DynamicEnumeration",
@@ -9,7 +9,18 @@ export const test_equals_DynamicEnumeration = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is DynamicEnumeration => {
+        ): input is {
+            ar?: string | undefined;
+            "zh-Hans"?: string | undefined;
+            "zh-Hant"?: string | undefined;
+            en?: string | undefined;
+            fr?: string | undefined;
+            de?: string | undefined;
+            ja?: string | undefined;
+            ko?: string | undefined;
+            pt?: string | undefined;
+            ru?: string | undefined;
+        } => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

@@ -1,7 +1,7 @@
 import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
-import { Spoiler } from "../internal/Spoiler";
-import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export interface DynamicTemplate {
     [key: `prefix_${string}`]: string;

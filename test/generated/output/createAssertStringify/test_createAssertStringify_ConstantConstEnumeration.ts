@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_assertStringify } from "../../../internal/_test_assertStringify";
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
-import { _test_assertStringify } from "../internal/_test_assertStringify";
 
 export const test_createAssertStringify_ConstantConstEnumeration =
     _test_assertStringify(

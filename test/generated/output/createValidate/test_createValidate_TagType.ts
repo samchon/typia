@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { TagType } from "../../../structures/TagType";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_createValidate_TagType = _test_validate(
     "TagType",
     TagType.generate,
-    (input: any): typia.IValidation<TagType> => {
+    (input: any): typia.IValidation<Array<TagType.Type>> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

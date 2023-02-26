@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_createAssertParse_ObjectTuple = _test_assertParse(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input: string): typia.Primitive<ObjectTuple> => {
+    (
+        input: string,
+    ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
         const assert = (input: any): ObjectTuple => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

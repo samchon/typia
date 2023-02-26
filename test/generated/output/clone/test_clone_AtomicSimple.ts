@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { AtomicSimple } from "../../../structures/AtomicSimple";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_clone_AtomicSimple = _test_clone(
     "AtomicSimple",
     AtomicSimple.generate,
     (input) =>
-        ((input: AtomicSimple): typia.Primitive<AtomicSimple> => {
+        ((
+            input: [boolean, number, string],
+        ): typia.Primitive<[boolean, number, string]> => {
             return Array.isArray(input) &&
                 input.length === 3 &&
                 "boolean" === typeof input[0] &&

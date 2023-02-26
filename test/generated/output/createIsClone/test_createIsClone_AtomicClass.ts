@@ -1,11 +1,25 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { AtomicClass } from "../../../structures/AtomicClass";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_createIsClone_AtomicClass = _test_isClone(
     "AtomicClass",
     AtomicClass.generate,
-    (input: any): typia.Primitive<AtomicClass> | null => {
+    (
+        input: any,
+    ): typia.Primitive<
+        [
+            Boolean,
+            false | Boolean,
+            boolean | Boolean,
+            Number,
+            Number | 1,
+            number | Number,
+            String,
+            String | "characters",
+            string | String,
+        ]
+    > | null => {
         const is = (input: any): input is AtomicClass => {
             return (
                 Array.isArray(input) &&

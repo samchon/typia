@@ -1,12 +1,16 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_ObjectGenericArray = _test_isClone(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input) =>
-        ((input: any): typia.Primitive<ObjectGenericArray> | null => {
+        ((
+            input: any,
+        ): typia.Primitive<
+            ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
+        > | null => {
             const is = (input: any): input is ObjectGenericArray => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&

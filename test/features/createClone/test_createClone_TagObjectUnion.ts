@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_clone } from "../../internal/_test_clone";
 import { TagObjectUnion } from "../../structures/TagObjectUnion";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_createClone_TagObjectUnion = _test_clone(
     "TagObjectUnion",

@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_assertEquals_ObjectGenericArray = _test_assertEquals(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input) =>
-        ((input: any): ObjectGenericArray => {
+        ((input: any): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
             const $guard = (typia.assertEquals as any).guard;
             const $join = (typia.assertEquals as any).join;
             ((

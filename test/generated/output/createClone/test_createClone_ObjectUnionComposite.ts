@@ -1,11 +1,33 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_createClone_ObjectUnionComposite = _test_clone(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (input: ObjectUnionComposite): typia.Primitive<ObjectUnionComposite> => {
+    (
+        input: Array<
+            | ObjectUnionComposite.IPoint
+            | ObjectUnionComposite.ILine
+            | ObjectUnionComposite.ITriangle
+            | ObjectUnionComposite.IRectangle
+            | ObjectUnionComposite.IPolyline
+            | ObjectUnionComposite.IPolygon
+            | ObjectUnionComposite.IPointedShape
+            | ObjectUnionComposite.ICircle
+        >,
+    ): typia.Primitive<
+        Array<
+            | ObjectUnionComposite.IPoint
+            | ObjectUnionComposite.ILine
+            | ObjectUnionComposite.ITriangle
+            | ObjectUnionComposite.IRectangle
+            | ObjectUnionComposite.IPolyline
+            | ObjectUnionComposite.IPolygon
+            | ObjectUnionComposite.IPointedShape
+            | ObjectUnionComposite.ICircle
+        >
+    > => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.x && "number" === typeof input.y;
         const $io1 = (input: any): boolean =>

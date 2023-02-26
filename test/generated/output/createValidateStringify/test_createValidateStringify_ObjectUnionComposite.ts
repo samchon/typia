@@ -1,12 +1,23 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_ObjectUnionComposite =
     _test_validateStringify(
         "ObjectUnionComposite",
         ObjectUnionComposite.generate,
-        (input: ObjectUnionComposite): typia.IValidation<string> => {
+        (
+            input: Array<
+                | ObjectUnionComposite.IPoint
+                | ObjectUnionComposite.ILine
+                | ObjectUnionComposite.ITriangle
+                | ObjectUnionComposite.IRectangle
+                | ObjectUnionComposite.IPolyline
+                | ObjectUnionComposite.IPolygon
+                | ObjectUnionComposite.IPointedShape
+                | ObjectUnionComposite.ICircle
+            >,
+        ): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionComposite> => {

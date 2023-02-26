@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_TagAtomicUnion =
     _test_validateStringify(
         "TagAtomicUnion",
         TagAtomicUnion.generate,
-        (input: TagAtomicUnion): typia.IValidation<string> => {
+        (input: Array<TagAtomicUnion.Type>): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TagAtomicUnion> => {

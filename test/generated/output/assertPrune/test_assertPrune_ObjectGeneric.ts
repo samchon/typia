@@ -1,12 +1,18 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_assertPrune_ObjectGeneric = _test_assertPrune(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((input: any): ObjectGeneric => {
+        ((
+            input: any,
+        ): [
+            ObjectGeneric.ISomething<boolean>,
+            ObjectGeneric.ISomething<number>,
+            ObjectGeneric.ISomething<string>,
+        ] => {
             const assert = (input: any): ObjectGeneric => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((

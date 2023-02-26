@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_ToJsonAtomicSimple = _test_equals(
     "ToJsonAtomicSimple",
@@ -9,7 +9,11 @@ export const test_equals_ToJsonAtomicSimple = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ToJsonAtomicSimple => {
+        ): input is [
+            ToJsonAtomicSimple.IToJson<boolean>,
+            ToJsonAtomicSimple.IToJson<number>,
+            ToJsonAtomicSimple.IToJson<string>,
+        ] => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

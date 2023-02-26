@@ -1,12 +1,16 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_validatePrune_ObjectGenericArray = _test_validatePrune(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input) =>
-        ((input: any): typia.IValidation<ObjectGenericArray> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectGenericArray> => {

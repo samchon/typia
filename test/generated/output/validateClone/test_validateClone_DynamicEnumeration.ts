@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_DynamicEnumeration = _test_validateClone(
     "DynamicEnumeration",
@@ -8,7 +8,20 @@ export const test_validateClone_DynamicEnumeration = _test_validateClone(
     (input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<DynamicEnumeration>> => {
+        ): typia.IValidation<
+            typia.Primitive<{
+                ar?: string | undefined;
+                "zh-Hans"?: string | undefined;
+                "zh-Hant"?: string | undefined;
+                en?: string | undefined;
+                fr?: string | undefined;
+                de?: string | undefined;
+                ja?: string | undefined;
+                ko?: string | undefined;
+                pt?: string | undefined;
+                ru?: string | undefined;
+            }>
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<DynamicEnumeration> => {

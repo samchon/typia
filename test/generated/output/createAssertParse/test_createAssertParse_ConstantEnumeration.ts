@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_createAssertParse_ConstantEnumeration = _test_assertParse(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
-    (input: string): typia.Primitive<ConstantEnumeration> => {
+    (
+        input: string,
+    ): typia.Primitive<Array<ConstantEnumeration.Enumeration>> => {
         const assert = (input: any): ConstantEnumeration => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

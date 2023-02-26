@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
-import { _test_random } from "../internal/_test_random";
 
 export const test_random_ObjectUndefined = _test_random(
     "ObjectUndefined",
@@ -8,7 +8,7 @@ export const test_random_ObjectUndefined = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<ObjectUndefined> => {
+        ): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             const $ro0 = (
@@ -42,7 +42,7 @@ export const test_random_ObjectUndefined = _test_random(
             });
             return (generator.array ?? $generator.array)(() => $ro0());
         })(),
-    (input: any): ObjectUndefined => {
+    (input: any): Array<ObjectUndefined.ILecture> => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

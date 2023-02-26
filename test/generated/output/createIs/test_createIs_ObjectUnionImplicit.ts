@@ -1,11 +1,21 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
-import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_ObjectUnionImplicit = _test_is(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (input: any): input is ObjectUnionImplicit => {
+    (
+        input: any,
+    ): input is Array<
+        | ObjectUnionImplicit.IPoint
+        | ObjectUnionImplicit.ILine
+        | ObjectUnionImplicit.ITriangle
+        | ObjectUnionImplicit.IRectangle
+        | ObjectUnionImplicit.IPolyline
+        | ObjectUnionImplicit.IPolygon
+        | ObjectUnionImplicit.ICircle
+    > => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.x &&
             Number.isFinite(input.x) &&

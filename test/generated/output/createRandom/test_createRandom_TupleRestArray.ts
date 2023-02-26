@@ -1,13 +1,13 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_TupleRestArray = _test_random(
     "TupleRestArray",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<TupleRestArray> => {
+    ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
         const $generator = (typia.createRandom as any).generator;
         return [
             (generator.boolean ?? $generator.boolean)(),
@@ -17,7 +17,7 @@ export const test_createRandom_TupleRestArray = _test_random(
             ),
         ];
     },
-    (input: any): TupleRestArray => {
+    (input: any): [boolean, number, ...Array<string>[]] => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

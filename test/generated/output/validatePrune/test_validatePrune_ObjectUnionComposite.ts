@@ -1,12 +1,25 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_validatePrune_ObjectUnionComposite = _test_validatePrune(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
     (input) =>
-        ((input: any): typia.IValidation<ObjectUnionComposite> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            Array<
+                | ObjectUnionComposite.IPoint
+                | ObjectUnionComposite.ILine
+                | ObjectUnionComposite.ITriangle
+                | ObjectUnionComposite.IRectangle
+                | ObjectUnionComposite.IPolyline
+                | ObjectUnionComposite.IPolygon
+                | ObjectUnionComposite.IPointedShape
+                | ObjectUnionComposite.ICircle
+            >
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionComposite> => {

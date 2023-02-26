@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_isParse_ObjectUnionDouble = _test_isParse(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
     (input) =>
-        ((input: any): typia.Primitive<ObjectUnionDouble> => {
+        ((input: any): typia.Primitive<Array<ObjectUnionDouble.Union>> => {
             const is = (input: any): input is ObjectUnionDouble => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&

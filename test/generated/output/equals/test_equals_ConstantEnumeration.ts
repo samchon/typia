@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_ConstantEnumeration = _test_equals(
     "ConstantEnumeration",
@@ -9,7 +9,7 @@ export const test_equals_ConstantEnumeration = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ConstantEnumeration => {
+        ): input is Array<ConstantEnumeration.Enumeration> => {
             return (
                 Array.isArray(input) &&
                 input.every(

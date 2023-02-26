@@ -1,11 +1,21 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_createValidateClone_ObjectGeneric = _test_validateClone(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (input: any): typia.IValidation<typia.Primitive<ObjectGeneric>> => {
+    (
+        input: any,
+    ): typia.IValidation<
+        typia.Primitive<
+            [
+                ObjectGeneric.ISomething<boolean>,
+                ObjectGeneric.ISomething<number>,
+                ObjectGeneric.ISomething<string>,
+            ]
+        >
+    > => {
         const validate = (input: any): typia.IValidation<ObjectGeneric> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

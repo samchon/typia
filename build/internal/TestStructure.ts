@@ -1,4 +1,4 @@
-import { Spoiler } from "../../test/internal/Spoiler";
+import { Spoiler } from "../../test/helpers/Spoiler";
 
 export interface TestStructure<T> {
     name: string;

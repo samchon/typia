@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_assertStringify } from "../../../internal/_test_assertStringify";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
-import { _test_assertStringify } from "../internal/_test_assertStringify";
 
 export const test_assertStringify_ToJsonTuple = _test_assertStringify(
     "ToJsonTuple",

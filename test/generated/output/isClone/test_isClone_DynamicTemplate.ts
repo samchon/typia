@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_DynamicTemplate = _test_isClone(
     "DynamicTemplate",

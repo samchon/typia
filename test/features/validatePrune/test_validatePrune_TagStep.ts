@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_validatePrune } from "../../internal/_test_validatePrune";
 import { TagStep } from "../../structures/TagStep";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_validatePrune_TagStep = _test_validatePrune(
     "TagStep",

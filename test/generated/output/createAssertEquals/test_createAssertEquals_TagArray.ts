@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TagArray } from "../../../structures/TagArray";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_TagArray = _test_assertEquals(
     "TagArray",
     TagArray.generate,
-    (input: any): TagArray => {
+    (input: any): Array<TagArray.Type> => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $is_uuid = (typia.createAssertEquals as any).is_uuid;
         const $join = (typia.createAssertEquals as any).join;

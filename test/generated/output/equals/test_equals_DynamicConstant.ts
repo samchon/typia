@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_DynamicConstant = _test_equals(
     "DynamicConstant",
@@ -9,7 +9,7 @@ export const test_equals_DynamicConstant = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is DynamicConstant => {
+        ): input is { a: number; b: number; c: number; d: number } => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

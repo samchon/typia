@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { SetUnion } from "../../../structures/SetUnion";
-import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_SetUnion = _test_is(
     "SetUnion",
     SetUnion.generate,
-    (input: any): input is SetUnion => {
+    (input: any): input is Array<SetUnion.Union> => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.name &&

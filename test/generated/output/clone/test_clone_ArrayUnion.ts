@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_clone_ArrayUnion = _test_clone(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((input: ArrayUnion): typia.Primitive<ArrayUnion> => {
+        ((
+            input: Array<ArrayUnion.IUnion>,
+        ): typia.Primitive<Array<ArrayUnion.IUnion>> => {
             const $throws = (typia.clone as any).throws;
             return Array.isArray(input)
                 ? input.map((elem: any) =>

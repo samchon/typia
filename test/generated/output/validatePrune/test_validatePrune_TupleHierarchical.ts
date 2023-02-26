@@ -1,12 +1,31 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_validatePrune_TupleHierarchical = _test_validatePrune(
     "TupleHierarchical",
     TupleHierarchical.generate,
     (input) =>
-        ((input: any): typia.IValidation<TupleHierarchical> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            [
+                boolean,
+                null,
+                number,
+                [boolean, null, [number, [boolean, string]]],
+                [
+                    number,
+                    Array<
+                        [
+                            string,
+                            boolean,
+                            Array<[number, number, [boolean, string]]>,
+                        ]
+                    >,
+                ],
+            ]
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<TupleHierarchical> => {

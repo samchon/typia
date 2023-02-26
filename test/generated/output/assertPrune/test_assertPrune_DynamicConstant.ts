@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_assertPrune_DynamicConstant = _test_assertPrune(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((input: any): DynamicConstant => {
+        ((input: any): { a: number; b: number; c: number; d: number } => {
             const assert = (input: any): DynamicConstant => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((

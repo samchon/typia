@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { TagArray } from "../../../structures/TagArray";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_TagArray = _test_stringify(
     "TagArray",
     TagArray.generate,
-    (input: TagArray): string => {
+    (input: Array<TagArray.Type>): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
         const $throws = (typia.createStringify as any).throws;

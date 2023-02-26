@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_ConstantAtomicSimple =
     _test_validateStringify(
         "ConstantAtomicSimple",
         ConstantAtomicSimple.generate,
-        (input: ConstantAtomicSimple): typia.IValidation<string> => {
+        (input: [false, true, 2, "three"]): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicSimple> => {

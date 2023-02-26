@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_stringify_ObjectUnionDouble = _test_stringify(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
     (input) =>
-        ((input: ObjectUnionDouble): string => {
+        ((input: Array<ObjectUnionDouble.Union>): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             const $throws = (typia.stringify as any).throws;

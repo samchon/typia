@@ -1,11 +1,18 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_ToJsonArray = _test_stringify(
     "ToJsonArray",
     ToJsonArray.generate,
-    (input: ToJsonArray): string => {
+    (
+        input: [
+            ToJsonArray.IArray<boolean>,
+            ToJsonArray.IArray<number>,
+            ToJsonArray.IArray<string>,
+            ToJsonArray.IArray<ToJsonArray.IObject>,
+        ],
+    ): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         return `[${`[${input[0]

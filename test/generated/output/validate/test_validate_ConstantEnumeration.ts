@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_ConstantEnumeration = _test_validate(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
     (input) =>
-        ((input: any): typia.IValidation<ConstantEnumeration> => {
+        ((
+            input: any,
+        ): typia.IValidation<Array<ConstantEnumeration.Enumeration>> => {
             const errors = [] as any[];
             const $report = (typia.validate as any).report(errors);
             ((

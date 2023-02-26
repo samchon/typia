@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_assertParse_ConstantAtomicSimple = _test_assertParse(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
     (input) =>
-        ((input: string): typia.Primitive<ConstantAtomicSimple> => {
+        ((input: string): typia.Primitive<[false, true, 2, "three"]> => {
             const assert = (input: any): ConstantAtomicSimple => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

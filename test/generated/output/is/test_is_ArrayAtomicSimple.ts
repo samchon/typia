@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
-import { _test_is } from "../internal/_test_is";
 
 export const test_is_ArrayAtomicSimple = _test_is(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
     (input) =>
-        ((input: any): input is ArrayAtomicSimple => {
+        ((
+            input: any,
+        ): input is [Array<boolean>, Array<number>, Array<string>] => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&

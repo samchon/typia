@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_ObjectIntersection = _test_equals(
     "ObjectIntersection",
@@ -8,7 +8,7 @@ export const test_createEquals_ObjectIntersection = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is ObjectIntersection => {
+    ): input is ObjectIntersection.IEmail & ObjectIntersection.IName => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.email &&
             "string" === typeof input.name &&

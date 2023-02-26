@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_isClone } from "../../internal/_test_isClone";
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_createIsClone_ObjectUnionNonPredictable = _test_isClone(
     "ObjectUnionNonPredictable",

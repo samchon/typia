@@ -1,12 +1,24 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { AtomicClass } from "../../../structures/AtomicClass";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_AtomicClass = _test_isStringify(
     "AtomicClass",
     AtomicClass.generate,
     (input) =>
-        ((input: AtomicClass): string | null => {
+        ((
+            input: [
+                Boolean,
+                false | Boolean,
+                boolean | Boolean,
+                Number,
+                Number | 1,
+                number | Number,
+                String,
+                String | "characters",
+                string | String,
+            ],
+        ): string | null => {
             const is = (input: any): input is AtomicClass => {
                 return (
                     Array.isArray(input) &&

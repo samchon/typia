@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_createValidatePrune_DynamicConstant = _test_validatePrune(
     "DynamicConstant",
     DynamicConstant.generate,
-    (input: any): typia.IValidation<DynamicConstant> => {
+    (
+        input: any,
+    ): typia.IValidation<{ a: number; b: number; c: number; d: number }> => {
         const validate = (input: any): typia.IValidation<DynamicConstant> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

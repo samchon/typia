@@ -1,12 +1,18 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
-import { _test_is } from "../internal/_test_is";
 
 export const test_is_ConstantAtomicWrapper = _test_is(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
     (input) =>
-        ((input: any): input is ConstantAtomicWrapper => {
+        ((
+            input: any,
+        ): input is [
+            ConstantAtomicWrapper.IPointer<boolean>,
+            ConstantAtomicWrapper.IPointer<number>,
+            ConstantAtomicWrapper.IPointer<string>,
+        ] => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value;
             const $io1 = (input: any): boolean =>

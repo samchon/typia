@@ -1,12 +1,25 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_DynamicEnumeration = _test_validate(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input) =>
-        ((input: any): typia.IValidation<DynamicEnumeration> => {
+        ((
+            input: any,
+        ): typia.IValidation<{
+            ar?: string | undefined;
+            "zh-Hans"?: string | undefined;
+            "zh-Hant"?: string | undefined;
+            en?: string | undefined;
+            fr?: string | undefined;
+            de?: string | undefined;
+            ja?: string | undefined;
+            ko?: string | undefined;
+            pt?: string | undefined;
+            ru?: string | undefined;
+        }> => {
             const errors = [] as any[];
             const $report = (typia.validate as any).report(errors);
             ((

@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
-import { _test_random } from "../internal/_test_random";
 
 export const test_random_ObjectIntersection = _test_random(
     "ObjectIntersection",
@@ -8,7 +8,9 @@ export const test_random_ObjectIntersection = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<ObjectIntersection> => {
+        ): typia.Primitive<
+            ObjectIntersection.IEmail & ObjectIntersection.IName
+        > => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
@@ -20,7 +22,7 @@ export const test_random_ObjectIntersection = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): ObjectIntersection => {
+    (input: any): ObjectIntersection.IEmail & ObjectIntersection.IName => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

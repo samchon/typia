@@ -1,11 +1,14 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { TemplateUnion } from "../../../structures/TemplateUnion";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_TemplateUnion = _test_equals(
     "TemplateUnion",
     TemplateUnion.generate,
-    (input: any, _exceptionable: boolean = true): input is TemplateUnion => {
+    (
+        input: any,
+        _exceptionable: boolean = true,
+    ): input is Array<TemplateUnion.Type> => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.prefix &&
             (true === RegExp(/^prefix_(.*)/).test(input.prefix) ||

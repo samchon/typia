@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_assertEquals_TupleRestAtomic = _test_assertEquals(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
     (input) =>
-        ((input: any): TupleRestAtomic => {
+        ((input: any): [boolean, number, ...string[]] => {
             const $guard = (typia.assertEquals as any).guard;
             ((
                 input: any,

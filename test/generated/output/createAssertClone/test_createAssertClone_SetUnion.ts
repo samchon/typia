@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { SetUnion } from "../../../structures/SetUnion";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_createAssertClone_SetUnion = _test_assertClone(
     "SetUnion",
     SetUnion.generate,
-    (input: any): typia.Primitive<SetUnion> => {
+    (input: any): typia.Primitive<Array<SetUnion.Union>> => {
         const assert = (input: any): SetUnion => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

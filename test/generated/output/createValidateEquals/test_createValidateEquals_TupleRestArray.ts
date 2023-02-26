@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_createValidateEquals_TupleRestArray = _test_validateEquals(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input: any): typia.IValidation<TupleRestArray> => {
+    (input: any): typia.IValidation<[boolean, number, ...Array<string>[]]> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         ((

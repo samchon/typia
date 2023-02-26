@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_createIsStringify_TagObjectUnion = _test_isStringify(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input: TagObjectUnion): string | null => {
+    (input: Array<TagObjectUnion.Type>): string | null => {
         const is = (input: any): input is TagObjectUnion => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&

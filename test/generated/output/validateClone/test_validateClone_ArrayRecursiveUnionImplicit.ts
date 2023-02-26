@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_ArrayRecursiveUnionImplicit =
     _test_validateClone(
@@ -10,7 +10,7 @@ export const test_validateClone_ArrayRecursiveUnionImplicit =
             ((
                 input: any,
             ): typia.IValidation<
-                typia.Primitive<ArrayRecursiveUnionImplicit>
+                typia.Primitive<Array<ArrayRecursiveUnionImplicit.IBucket>>
             > => {
                 const validate = (
                     input: any,

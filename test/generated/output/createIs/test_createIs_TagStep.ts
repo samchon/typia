@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { TagStep } from "../../../structures/TagStep";
-import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_TagStep = _test_is(
     "TagStep",
     TagStep.generate,
-    (input: any): input is TagStep => {
+    (input: any): input is Array<TagStep.Type> => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.exclusiveMinimum &&
             0 === (input.exclusiveMinimum % 5) - 3 &&

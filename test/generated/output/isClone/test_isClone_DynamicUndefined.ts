@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_DynamicUndefined = _test_isClone(
     "DynamicUndefined",

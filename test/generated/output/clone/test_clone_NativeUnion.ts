@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { NativeUnion } from "../../../structures/NativeUnion";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_clone_NativeUnion = _test_clone(
     "NativeUnion",
     NativeUnion.generate,
     (input) =>
-        ((input: NativeUnion): typia.Primitive<NativeUnion> => {
+        ((
+            input: Array<NativeUnion.Union>,
+        ): typia.Primitive<Array<NativeUnion.Union>> => {
             const $io1 = (input: any): boolean =>
                 "Buffer" === input.type &&
                 Array.isArray(input.data) &&

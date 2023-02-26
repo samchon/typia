@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_createValidateClone_ObjectUnionNonPredictable =
     _test_validateClone(
@@ -8,7 +8,13 @@ export const test_createValidateClone_ObjectUnionNonPredictable =
         ObjectUnionNonPredictable.generate,
         (
             input: any,
-        ): typia.IValidation<typia.Primitive<ObjectUnionNonPredictable>> => {
+        ): typia.IValidation<
+            typia.Primitive<
+                Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                >
+            >
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionNonPredictable> => {

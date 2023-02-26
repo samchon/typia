@@ -1,12 +1,19 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_DynamicConstant = _test_validate(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((input: any): typia.IValidation<DynamicConstant> => {
+        ((
+            input: any,
+        ): typia.IValidation<{
+            a: number;
+            b: number;
+            c: number;
+            d: number;
+        }> => {
             const errors = [] as any[];
             const $report = (typia.validate as any).report(errors);
             ((

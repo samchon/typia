@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_createValidateParse_ArrayUnion = _test_validateParse(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input: string): typia.IValidation<typia.Primitive<ArrayUnion>> => {
+    (
+        input: string,
+    ): typia.IValidation<typia.Primitive<Array<ArrayUnion.IUnion>>> => {
         const validate = (input: any): typia.IValidation<ArrayUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

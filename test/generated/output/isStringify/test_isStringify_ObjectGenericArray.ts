@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_ObjectGenericArray = _test_isStringify(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input) =>
-        ((input: ObjectGenericArray): string | null => {
+        ((
+            input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
+        ): string | null => {
             const is = (input: any): input is ObjectGenericArray => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&

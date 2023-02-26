@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
-import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_AtomicUnion = _test_is(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input: any): input is AtomicUnion => {
+    (input: any): input is Array<AtomicUnion.Union> => {
         return (
             Array.isArray(input) &&
             input.every(

@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_createValidatePrune_ObjectRecursive = _test_validatePrune(
     "ObjectRecursive",

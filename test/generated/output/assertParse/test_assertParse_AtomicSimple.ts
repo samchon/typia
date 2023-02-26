@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { AtomicSimple } from "../../../structures/AtomicSimple";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_assertParse_AtomicSimple = _test_assertParse(
     "AtomicSimple",
     AtomicSimple.generate,
     (input) =>
-        ((input: string): typia.Primitive<AtomicSimple> => {
+        ((input: string): typia.Primitive<[boolean, number, string]> => {
             const assert = (input: any): AtomicSimple => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

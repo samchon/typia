@@ -1,11 +1,22 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_createIsStringify_DynamicEnumeration = _test_isStringify(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
-    (input: DynamicEnumeration): string | null => {
+    (input: {
+        ar?: string | undefined;
+        "zh-Hans"?: string | undefined;
+        "zh-Hant"?: string | undefined;
+        en?: string | undefined;
+        fr?: string | undefined;
+        de?: string | undefined;
+        ja?: string | undefined;
+        ko?: string | undefined;
+        pt?: string | undefined;
+        ru?: string | undefined;
+    }): string | null => {
         const is = (input: any): input is DynamicEnumeration => {
             const $io0 = (input: any): boolean =>
                 (undefined === input.ar || "string" === typeof input.ar) &&

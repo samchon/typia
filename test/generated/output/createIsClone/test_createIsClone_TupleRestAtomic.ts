@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_createIsClone_TupleRestAtomic = _test_isClone(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (input: any): typia.Primitive<TupleRestAtomic> | null => {
+    (input: any): typia.Primitive<[boolean, number, ...string[]]> | null => {
         const is = (input: any): input is TupleRestAtomic => {
             return (
                 Array.isArray(input) &&

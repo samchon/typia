@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { TagArray } from "../../../structures/TagArray";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_createValidatePrune_TagArray = _test_validatePrune(
     "TagArray",
     TagArray.generate,
-    (input: any): typia.IValidation<TagArray> => {
+    (input: any): typia.IValidation<Array<TagArray.Type>> => {
         const validate = (input: any): typia.IValidation<TagArray> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

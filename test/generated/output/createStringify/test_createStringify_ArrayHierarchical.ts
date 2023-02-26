@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_ArrayHierarchical = _test_stringify(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input: ArrayHierarchical): string => {
+    (input: Array<ArrayHierarchical.ICompany>): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $io1 = (input: any): boolean =>

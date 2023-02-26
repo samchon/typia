@@ -1,12 +1,25 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_assertParse_DynamicEnumeration = _test_assertParse(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input) =>
-        ((input: string): typia.Primitive<DynamicEnumeration> => {
+        ((
+            input: string,
+        ): typia.Primitive<{
+            ar?: string | undefined;
+            "zh-Hans"?: string | undefined;
+            "zh-Hant"?: string | undefined;
+            en?: string | undefined;
+            fr?: string | undefined;
+            de?: string | undefined;
+            ja?: string | undefined;
+            ko?: string | undefined;
+            pt?: string | undefined;
+            ru?: string | undefined;
+        }> => {
             const assert = (input: any): DynamicEnumeration => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

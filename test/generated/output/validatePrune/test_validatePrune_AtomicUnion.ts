@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_validatePrune_AtomicUnion = _test_validatePrune(
     "AtomicUnion",
     AtomicUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<AtomicUnion> => {
+        ((input: any): typia.IValidation<Array<AtomicUnion.Union>> => {
             const validate = (input: any): typia.IValidation<AtomicUnion> => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);

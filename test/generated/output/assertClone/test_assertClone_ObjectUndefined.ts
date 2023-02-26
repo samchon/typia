@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_assertClone_ObjectUndefined = _test_assertClone(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input) =>
-        ((input: any): typia.Primitive<ObjectUndefined> => {
+        ((input: any): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
             const assert = (input: any): ObjectUndefined => {
                 const $guard = (typia.assertClone as any).guard;
                 ((

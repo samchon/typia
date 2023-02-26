@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { AtomicSimple } from "../../../structures/AtomicSimple";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_AtomicSimple = _test_validateClone(
     "AtomicSimple",
     AtomicSimple.generate,
     (input) =>
-        ((input: any): typia.IValidation<typia.Primitive<AtomicSimple>> => {
+        ((
+            input: any,
+        ): typia.IValidation<typia.Primitive<[boolean, number, string]>> => {
             const validate = (input: any): typia.IValidation<AtomicSimple> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);

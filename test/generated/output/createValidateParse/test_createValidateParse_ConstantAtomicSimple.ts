@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_createValidateParse_ConstantAtomicSimple =
     _test_validateParse(
@@ -8,7 +8,7 @@ export const test_createValidateParse_ConstantAtomicSimple =
         ConstantAtomicSimple.generate,
         (
             input: string,
-        ): typia.IValidation<typia.Primitive<ConstantAtomicSimple>> => {
+        ): typia.IValidation<typia.Primitive<[false, true, 2, "three"]>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicSimple> => {

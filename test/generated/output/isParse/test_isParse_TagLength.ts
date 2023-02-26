@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { TagLength } from "../../../structures/TagLength";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_isParse_TagLength = _test_isParse(
     "TagLength",
     TagLength.generate,
     (input) =>
-        ((input: any): typia.Primitive<TagLength> => {
+        ((input: any): typia.Primitive<Array<TagLength.Type>> => {
             const is = (input: any): input is TagLength => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.fixed &&

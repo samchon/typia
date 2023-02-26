@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_ToJsonAtomicUnion = _test_equals(
     "ToJsonAtomicUnion",
@@ -8,7 +8,7 @@ export const test_createEquals_ToJsonAtomicUnion = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is ToJsonAtomicUnion => {
+    ): input is Array<ToJsonAtomicUnion.IToJson> => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "function" === typeof input.toJSON &&
             (1 === Object.keys(input).length ||

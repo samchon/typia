@@ -1,11 +1,19 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_createValidatePrune_ObjectGeneric = _test_validatePrune(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (input: any): typia.IValidation<ObjectGeneric> => {
+    (
+        input: any,
+    ): typia.IValidation<
+        [
+            ObjectGeneric.ISomething<boolean>,
+            ObjectGeneric.ISomething<number>,
+            ObjectGeneric.ISomething<string>,
+        ]
+    > => {
         const validate = (input: any): typia.IValidation<ObjectGeneric> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

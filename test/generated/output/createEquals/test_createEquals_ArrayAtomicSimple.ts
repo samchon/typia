@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_ArrayAtomicSimple = _test_equals(
     "ArrayAtomicSimple",
@@ -8,7 +8,7 @@ export const test_createEquals_ArrayAtomicSimple = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is ArrayAtomicSimple => {
+    ): input is [Array<boolean>, Array<number>, Array<string>] => {
         return (
             Array.isArray(input) &&
             input.length === 3 &&

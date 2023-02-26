@@ -1,13 +1,24 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_DynamicEnumeration = _test_random(
     "DynamicEnumeration",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<DynamicEnumeration> => {
+    ): typia.Primitive<{
+        ar?: string | undefined;
+        "zh-Hans"?: string | undefined;
+        "zh-Hant"?: string | undefined;
+        en?: string | undefined;
+        fr?: string | undefined;
+        de?: string | undefined;
+        ja?: string | undefined;
+        ko?: string | undefined;
+        pt?: string | undefined;
+        ru?: string | undefined;
+    }> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ro0 = (
@@ -57,7 +68,20 @@ export const test_createRandom_DynamicEnumeration = _test_random(
         });
         return $ro0();
     },
-    (input: any): DynamicEnumeration => {
+    (
+        input: any,
+    ): {
+        ar?: string | undefined;
+        "zh-Hans"?: string | undefined;
+        "zh-Hant"?: string | undefined;
+        en?: string | undefined;
+        fr?: string | undefined;
+        de?: string | undefined;
+        ja?: string | undefined;
+        ko?: string | undefined;
+        pt?: string | undefined;
+        ru?: string | undefined;
+    } => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { NativeUnion } from "../../../structures/NativeUnion";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_createIsClone_NativeUnion = _test_isClone(
     "NativeUnion",
     NativeUnion.generate,
-    (input: any): typia.Primitive<NativeUnion> | null => {
+    (input: any): typia.Primitive<Array<NativeUnion.Union>> | null => {
         const is = (input: any): input is NativeUnion => {
             const $io0 = (input: any): boolean =>
                 (null === input.date || input.date instanceof Date) &&

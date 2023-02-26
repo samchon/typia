@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_clone } from "../../internal/_test_clone";
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_clone_TupleHierarchical = _test_clone(
     "TupleHierarchical",

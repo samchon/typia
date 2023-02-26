@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_createIsStringify_TupleRestObject = _test_isStringify(
     "TupleRestObject",
     TupleRestObject.generate,
-    (input: TupleRestObject): string | null => {
+    (input: [boolean, number, ...TupleRestObject.IObject[]]): string | null => {
         const is = (input: any): input is TupleRestObject => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;

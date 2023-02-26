@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_createIsParse_ObjectUndefined = _test_isParse(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input: any): typia.Primitive<ObjectUndefined> => {
+    (input: any): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
         const is = (input: any): input is ObjectUndefined => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&

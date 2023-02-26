@@ -1,12 +1,21 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_stringify_ToJsonUnion = _test_stringify(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input) =>
-        ((input: ToJsonUnion): string => {
+        ((
+            input: Array<
+                | string
+                | number
+                | ToJsonUnion.ICitizen
+                | ToJsonUnion.IWrapper<boolean>
+                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+            >,
+        ): string => {
             const $string = (typia.stringify as any).string;
             const $number = (typia.stringify as any).number;
             const $throws = (typia.stringify as any).throws;

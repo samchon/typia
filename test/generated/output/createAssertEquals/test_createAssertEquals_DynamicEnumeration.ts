@@ -1,11 +1,24 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_DynamicEnumeration = _test_assertEquals(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
-    (input: any): DynamicEnumeration => {
+    (
+        input: any,
+    ): {
+        ar?: string | undefined;
+        "zh-Hans"?: string | undefined;
+        "zh-Hant"?: string | undefined;
+        en?: string | undefined;
+        fr?: string | undefined;
+        de?: string | undefined;
+        ja?: string | undefined;
+        ko?: string | undefined;
+        pt?: string | undefined;
+        ru?: string | undefined;
+    } => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

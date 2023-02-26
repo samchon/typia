@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_assertPrune_ArrayUnion = _test_assertPrune(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((input: any): ArrayUnion => {
+        ((input: any): Array<ArrayUnion.IUnion> => {
             const assert = (input: any): ArrayUnion => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((

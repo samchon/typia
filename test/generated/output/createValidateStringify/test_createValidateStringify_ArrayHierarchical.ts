@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_ArrayHierarchical =
     _test_validateStringify(
         "ArrayHierarchical",
         ArrayHierarchical.generate,
-        (input: ArrayHierarchical): typia.IValidation<string> => {
+        (
+            input: Array<ArrayHierarchical.ICompany>,
+        ): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayHierarchical> => {

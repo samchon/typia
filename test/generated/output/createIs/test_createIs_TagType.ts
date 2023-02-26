@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { TagType } from "../../../structures/TagType";
-import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_TagType = _test_is(
     "TagType",
     TagType.generate,
-    (input: any): input is TagType => {
+    (input: any): input is Array<TagType.Type> => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.int &&
             Number.isFinite(input.int) &&

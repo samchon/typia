@@ -1,11 +1,21 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_ObjectUnionImplicit = _test_stringify(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (input: ObjectUnionImplicit): string => {
+    (
+        input: Array<
+            | ObjectUnionImplicit.IPoint
+            | ObjectUnionImplicit.ILine
+            | ObjectUnionImplicit.ITriangle
+            | ObjectUnionImplicit.IRectangle
+            | ObjectUnionImplicit.IPolyline
+            | ObjectUnionImplicit.IPolygon
+            | ObjectUnionImplicit.ICircle
+        >,
+    ): string => {
         const $number = (typia.createStringify as any).number;
         const $io0 = (input: any): boolean =>
             "number" === typeof input.x &&

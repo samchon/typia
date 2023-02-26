@@ -1,12 +1,18 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_assertEquals_ObjectNullable = _test_assertEquals(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((input: any): ObjectNullable => {
+        ((
+            input: any,
+        ): [
+            ObjectNullable.IProduct,
+            ObjectNullable.IProduct,
+            ObjectNullable.IProduct,
+        ] => {
             const $guard = (typia.assertEquals as any).guard;
             const $join = (typia.assertEquals as any).join;
             ((

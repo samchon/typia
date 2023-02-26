@@ -1,12 +1,18 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_isPrune_ObjectGeneric = _test_isPrune(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((input: any): input is ObjectGeneric => {
+        ((
+            input: any,
+        ): input is [
+            ObjectGeneric.ISomething<boolean>,
+            ObjectGeneric.ISomething<number>,
+            ObjectGeneric.ISomething<string>,
+        ] => {
             const is = (input: any): input is ObjectGeneric => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&

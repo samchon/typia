@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_ObjectUndefined = _test_isClone(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input) =>
-        ((input: any): typia.Primitive<ObjectUndefined> | null => {
+        ((
+            input: any,
+        ): typia.Primitive<Array<ObjectUndefined.ILecture>> | null => {
             const is = (input: any): input is ObjectUndefined => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&

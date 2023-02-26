@@ -1,11 +1,19 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_createIsParse_ObjectNullable = _test_isParse(
     "ObjectNullable",
     ObjectNullable.generate,
-    (input: any): typia.Primitive<ObjectNullable> => {
+    (
+        input: any,
+    ): typia.Primitive<
+        [
+            ObjectNullable.IProduct,
+            ObjectNullable.IProduct,
+            ObjectNullable.IProduct,
+        ]
+    > => {
         const is = (input: any): input is ObjectNullable => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&

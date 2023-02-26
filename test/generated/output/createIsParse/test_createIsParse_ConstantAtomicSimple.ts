@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_createIsParse_ConstantAtomicSimple = _test_isParse(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
-    (input: any): typia.Primitive<ConstantAtomicSimple> => {
+    (input: any): typia.Primitive<[false, true, 2, "three"]> => {
         const is = (input: any): input is ConstantAtomicSimple => {
             return (
                 Array.isArray(input) &&

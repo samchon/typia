@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_assertStringify } from "../../../internal/_test_assertStringify";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_assertStringify } from "../internal/_test_assertStringify";
 
 export const test_assertStringify_ObjectNullable = _test_assertStringify(
     "ObjectNullable",

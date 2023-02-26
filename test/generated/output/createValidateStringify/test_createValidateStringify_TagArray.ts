@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { TagArray } from "../../../structures/TagArray";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_TagArray = _test_validateStringify(
     "TagArray",
     TagArray.generate,
-    (input: TagArray): typia.IValidation<string> => {
+    (input: Array<TagArray.Type>): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<TagArray> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(

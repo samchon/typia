@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
-import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_TemplateConstant = _test_is(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: any): input is TemplateConstant => {
+    (input: any): input is Array<TemplateConstant.Type> => {
         const $io0 = (input: any): boolean =>
             ("prefix_A" === input.prefix ||
                 "prefix_B" === input.prefix ||

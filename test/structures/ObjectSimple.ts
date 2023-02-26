@@ -1,5 +1,5 @@
-import { Spoiler } from "../internal/Spoiler";
-import { TestRandomGenerator } from "../internal/TestRandomGenerator";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ObjectSimple = ObjectSimple.IBox3D;
 export namespace ObjectSimple {

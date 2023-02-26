@@ -1,12 +1,15 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_ArrayMatrix = _test_equals(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input) =>
-        ((input: any, _exceptionable: boolean = true): input is ArrayMatrix => {
+        ((
+            input: any,
+            _exceptionable: boolean = true,
+        ): input is Array<Array<Array<number>>> => {
             return (
                 Array.isArray(input) &&
                 input.every(

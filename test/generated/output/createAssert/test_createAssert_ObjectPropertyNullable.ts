@@ -1,11 +1,18 @@
 import typia from "../../../../src";
+import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_createAssert_ObjectPropertyNullable = _test_assert(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
-    (input: any): ObjectPropertyNullable => {
+    (
+        input: any,
+    ): [
+        Array<ObjectPropertyNullable.IPointer<boolean>>,
+        Array<ObjectPropertyNullable.IPointer<number>>,
+        Array<ObjectPropertyNullable.IPointer<string>>,
+        Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>,
+    ] => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

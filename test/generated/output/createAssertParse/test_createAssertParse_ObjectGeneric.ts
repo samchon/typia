@@ -1,11 +1,19 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_createAssertParse_ObjectGeneric = _test_assertParse(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (input: string): typia.Primitive<ObjectGeneric> => {
+    (
+        input: string,
+    ): typia.Primitive<
+        [
+            ObjectGeneric.ISomething<boolean>,
+            ObjectGeneric.ISomething<number>,
+            ObjectGeneric.ISomething<string>,
+        ]
+    > => {
         const assert = (input: any): ObjectGeneric => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { TupleUnion } from "../../../structures/TupleUnion";
-import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_TupleUnion = _test_is(
     "TupleUnion",
     TupleUnion.generate,
-    (input: any): input is TupleUnion => {
+    (input: any): input is Array<TupleUnion.Union> => {
         return (
             Array.isArray(input) &&
             input.every(

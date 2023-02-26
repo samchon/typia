@@ -1,12 +1,24 @@
 import typia from "../../../../src";
+import { _test_assert } from "../../../internal/_test_assert";
 import { AtomicClass } from "../../../structures/AtomicClass";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_assert_AtomicClass = _test_assert(
     "AtomicClass",
     AtomicClass.generate,
     (input) =>
-        ((input: any): AtomicClass => {
+        ((
+            input: any,
+        ): [
+            Boolean,
+            false | Boolean,
+            boolean | Boolean,
+            Number,
+            Number | 1,
+            number | Number,
+            String,
+            String | "characters",
+            string | String,
+        ] => {
             const $guard = (typia.assert as any).guard;
             ((
                 input: any,

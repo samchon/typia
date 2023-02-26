@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_createIsParse_AtomicUnion = _test_isParse(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input: any): typia.Primitive<AtomicUnion> => {
+    (input: any): typia.Primitive<Array<AtomicUnion.Union>> => {
         const is = (input: any): input is AtomicUnion => {
             return (
                 Array.isArray(input) &&

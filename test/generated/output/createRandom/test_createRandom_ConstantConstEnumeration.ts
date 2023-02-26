@@ -1,20 +1,20 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_ConstantConstEnumeration = _test_random(
     "ConstantConstEnumeration",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<ConstantConstEnumeration> => {
+    ): typia.Primitive<Array<ConstantConstEnumeration.Enumeration>> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         return (generator.array ?? $generator.array)(() =>
             $pick([() => 0, () => 1, () => 2, () => "Three", () => "Four"])(),
         );
     },
-    (input: any): ConstantConstEnumeration => {
+    (input: any): Array<ConstantConstEnumeration.Enumeration> => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

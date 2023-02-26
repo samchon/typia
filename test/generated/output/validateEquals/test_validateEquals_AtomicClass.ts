@@ -1,12 +1,26 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { AtomicClass } from "../../../structures/AtomicClass";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_validateEquals_AtomicClass = _test_validateEquals(
     "AtomicClass",
     AtomicClass.generate,
     (input) =>
-        ((input: any): typia.IValidation<AtomicClass> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            [
+                Boolean,
+                false | Boolean,
+                boolean | Boolean,
+                Number,
+                Number | 1,
+                number | Number,
+                String,
+                String | "characters",
+                string | String,
+            ]
+        > => {
             const errors = [] as any[];
             const $report = (typia.validateEquals as any).report(errors);
             ((

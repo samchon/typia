@@ -1,12 +1,18 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_prune_ObjectNullable = _test_prune(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((input: ObjectNullable): void => {
+        ((
+            input: [
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+            ],
+        ): void => {
             const $throws = (typia.prune as any).throws;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&

@@ -1,11 +1,18 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_createAssertPrune_ObjectPropertyNullable = _test_assertPrune(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
-    (input: any): ObjectPropertyNullable => {
+    (
+        input: any,
+    ): [
+        Array<ObjectPropertyNullable.IPointer<boolean>>,
+        Array<ObjectPropertyNullable.IPointer<number>>,
+        Array<ObjectPropertyNullable.IPointer<string>>,
+        Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>,
+    ] => {
         const assert = (input: any): ObjectPropertyNullable => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_validateParse_TemplateConstant = _test_validateParse(
     "TemplateConstant",
@@ -8,7 +8,7 @@ export const test_validateParse_TemplateConstant = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<typia.Primitive<TemplateConstant>> => {
+        ): typia.IValidation<typia.Primitive<Array<TemplateConstant.Type>>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TemplateConstant> => {

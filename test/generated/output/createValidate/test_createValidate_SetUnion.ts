@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { SetUnion } from "../../../structures/SetUnion";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_createValidate_SetUnion = _test_validate(
     "SetUnion",
     SetUnion.generate,
-    (input: any): typia.IValidation<SetUnion> => {
+    (input: any): typia.IValidation<Array<SetUnion.Union>> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

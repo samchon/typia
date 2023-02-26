@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { TagTuple } from "../../structures/TagTuple";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_TagTuple = _test_assertEquals(
     "TagTuple",

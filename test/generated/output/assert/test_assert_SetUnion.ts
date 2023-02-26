@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assert } from "../../../internal/_test_assert";
 import { SetUnion } from "../../../structures/SetUnion";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_assert_SetUnion = _test_assert(
     "SetUnion",
     SetUnion.generate,
     (input) =>
-        ((input: any): SetUnion => {
+        ((input: any): Array<SetUnion.Union> => {
             const $guard = (typia.assert as any).guard;
             ((
                 input: any,

@@ -1,11 +1,15 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_createIsClone_ObjectIntersection = _test_isClone(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (input: any): typia.Primitive<ObjectIntersection> | null => {
+    (
+        input: any,
+    ): typia.Primitive<
+        ObjectIntersection.IEmail & ObjectIntersection.IName
+    > | null => {
         const is = (input: any): input is ObjectIntersection => {
             return (
                 "object" === typeof input &&

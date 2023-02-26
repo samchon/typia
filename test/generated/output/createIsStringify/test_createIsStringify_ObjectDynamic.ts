@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_createIsStringify_ObjectDynamic = _test_isStringify(
     "ObjectDynamic",

@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_validatePrune } from "../../internal/_test_validatePrune";
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_createValidatePrune_ObjectUnionComposite =
     _test_validatePrune(

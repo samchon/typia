@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { TagLength } from "../../../structures/TagLength";
-import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_TagLength = _test_is(
     "TagLength",
     TagLength.generate,
-    (input: any): input is TagLength => {
+    (input: any): input is Array<TagLength.Type> => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.fixed &&
             5 === input.fixed.length &&

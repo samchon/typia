@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_createIsParse_ArrayUnion = _test_isParse(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input: any): typia.Primitive<ArrayUnion> => {
+    (input: any): typia.Primitive<Array<ArrayUnion.IUnion>> => {
         const is = (input: any): input is ArrayUnion => {
             return (
                 Array.isArray(input) &&

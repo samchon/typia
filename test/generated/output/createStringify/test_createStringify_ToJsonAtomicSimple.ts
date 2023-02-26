@@ -1,11 +1,17 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_ToJsonAtomicSimple = _test_stringify(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
-    (input: ToJsonAtomicSimple): string => {
+    (
+        input: [
+            ToJsonAtomicSimple.IToJson<boolean>,
+            ToJsonAtomicSimple.IToJson<number>,
+            ToJsonAtomicSimple.IToJson<string>,
+        ],
+    ): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         return `[${input[0].toJSON()},${$number(input[1].toJSON())},${$string(

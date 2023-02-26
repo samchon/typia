@@ -1,11 +1,22 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_createAssertPrune_ObjectUnionComposite = _test_assertPrune(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (input: any): ObjectUnionComposite => {
+    (
+        input: any,
+    ): Array<
+        | ObjectUnionComposite.IPoint
+        | ObjectUnionComposite.ILine
+        | ObjectUnionComposite.ITriangle
+        | ObjectUnionComposite.IRectangle
+        | ObjectUnionComposite.IPolyline
+        | ObjectUnionComposite.IPolygon
+        | ObjectUnionComposite.IPointedShape
+        | ObjectUnionComposite.ICircle
+    > => {
         const assert = (input: any): ObjectUnionComposite => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

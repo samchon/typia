@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { TagRange } from "../../../structures/TagRange";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_createIsPrune_TagRange = _test_isPrune(
     "TagRange",
     TagRange.generate,
-    (input: any): input is TagRange => {
+    (input: any): input is Array<TagRange.Type> => {
         const is = (input: any): input is TagRange => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.greater &&

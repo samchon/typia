@@ -1,12 +1,22 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_ObjectUnionImplicit = _test_isStringify(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
     (input) =>
-        ((input: ObjectUnionImplicit): string | null => {
+        ((
+            input: Array<
+                | ObjectUnionImplicit.IPoint
+                | ObjectUnionImplicit.ILine
+                | ObjectUnionImplicit.ITriangle
+                | ObjectUnionImplicit.IRectangle
+                | ObjectUnionImplicit.IPolyline
+                | ObjectUnionImplicit.IPolygon
+                | ObjectUnionImplicit.ICircle
+            >,
+        ): string | null => {
             const is = (input: any): input is ObjectUnionImplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&

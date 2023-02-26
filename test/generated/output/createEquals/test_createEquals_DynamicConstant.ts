@@ -1,11 +1,14 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_DynamicConstant = _test_equals(
     "DynamicConstant",
     DynamicConstant.generate,
-    (input: any, _exceptionable: boolean = true): input is DynamicConstant => {
+    (
+        input: any,
+        _exceptionable: boolean = true,
+    ): input is { a: number; b: number; c: number; d: number } => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.a &&
             Number.isFinite(input.a) &&

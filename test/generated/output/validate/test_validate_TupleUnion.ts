@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { TupleUnion } from "../../../structures/TupleUnion";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_TupleUnion = _test_validate(
     "TupleUnion",
     TupleUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<TupleUnion> => {
+        ((input: any): typia.IValidation<Array<TupleUnion.Union>> => {
             const errors = [] as any[];
             const $report = (typia.validate as any).report(errors);
             ((

@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_validateClone } from "../../internal/_test_validateClone";
 import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_createValidateClone_ConstantAtomicWrapper =
     _test_validateClone(

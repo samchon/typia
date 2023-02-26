@@ -1,9 +1,9 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_createPrune_ConstantConstEnumeration = _test_prune(
     "ConstantConstEnumeration",
     ConstantConstEnumeration.generate,
-    (input: ConstantConstEnumeration): void => {},
+    (input: Array<ConstantConstEnumeration.Enumeration>): void => {},
 );

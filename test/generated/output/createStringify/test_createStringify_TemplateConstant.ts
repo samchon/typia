@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_TemplateConstant = _test_stringify(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: TemplateConstant): string => {
+    (input: Array<TemplateConstant.Type>): string => {
         const $string = (typia.createStringify as any).string;
         const $throws = (typia.createStringify as any).throws;
         const $so0 = (input: any): any =>

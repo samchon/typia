@@ -1,12 +1,18 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_assertEquals_ObjectGeneric = _test_assertEquals(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((input: any): ObjectGeneric => {
+        ((
+            input: any,
+        ): [
+            ObjectGeneric.ISomething<boolean>,
+            ObjectGeneric.ISomething<number>,
+            ObjectGeneric.ISomething<string>,
+        ] => {
             const $guard = (typia.assertEquals as any).guard;
             const $join = (typia.assertEquals as any).join;
             ((

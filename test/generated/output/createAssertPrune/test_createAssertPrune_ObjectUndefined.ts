@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_createAssertPrune_ObjectUndefined = _test_assertPrune(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input: any): ObjectUndefined => {
+    (input: any): Array<ObjectUndefined.ILecture> => {
         const assert = (input: any): ObjectUndefined => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

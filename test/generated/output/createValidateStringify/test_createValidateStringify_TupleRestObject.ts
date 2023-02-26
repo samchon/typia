@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_TupleRestObject =
     _test_validateStringify(
         "TupleRestObject",
         TupleRestObject.generate,
-        (input: TupleRestObject): typia.IValidation<string> => {
+        (
+            input: [boolean, number, ...TupleRestObject.IObject[]],
+        ): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TupleRestObject> => {

@@ -1,11 +1,18 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
-import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_ToJsonArray = _test_is(
     "ToJsonArray",
     ToJsonArray.generate,
-    (input: any): input is ToJsonArray => {
+    (
+        input: any,
+    ): input is [
+        ToJsonArray.IArray<boolean>,
+        ToJsonArray.IArray<number>,
+        ToJsonArray.IArray<string>,
+        ToJsonArray.IArray<ToJsonArray.IObject>,
+    ] => {
         const $io0 = (input: any): boolean =>
             "function" === typeof input.toJSON;
         const $io1 = (input: any): boolean =>
