@@ -3,6 +3,7 @@ import ts from "typescript";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { StatementFactory } from "../factories/StatementFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
 import { IMetadataTag } from "../metadata/IMetadataTag";
@@ -22,6 +23,8 @@ export namespace FeatureProgrammer {
         PARAMETERS
     ----------------------------------------------------------- */
     export interface IConfig<Output extends ts.ConciseBody = ts.ConciseBody> {
+        types: IConfig.ITypes;
+
         /**
          * Prefix name of functions for specific object types.
          */
@@ -66,6 +69,11 @@ export namespace FeatureProgrammer {
         generator?: Partial<IConfig.IGenerator>;
     }
     export namespace IConfig {
+        export interface ITypes {
+            input: (type: ts.Type, node?: ts.TypeNode) => ts.TypeNode;
+            output: (type: ts.Type, node?: ts.TypeNode) => ts.TypeNode;
+        }
+
         export interface IObjector {
             /**
              * Type checker when union object type comes.
@@ -157,6 +165,11 @@ export namespace FeatureProgrammer {
                 expected: string,
                 explore: IExplore,
             ) => ts.Expression;
+
+            /**
+             * Return type.
+             */
+            type?: ts.TypeNode;
         }
         export interface IGenerator {
             /**
@@ -214,7 +227,7 @@ export namespace FeatureProgrammer {
                 collection: MetadataCollection,
             ) => ts.Statement[] | undefined,
         ) =>
-        (type: ts.Type) => {
+        (type: ts.Type, typeNode?: ts.TypeNode) => {
             const [collection, meta] = config.initializer(project, type);
 
             // ITERATE OVER ALL METADATA
@@ -244,8 +257,10 @@ export namespace FeatureProgrammer {
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                PARAMETERS(config)(ValueFactory.INPUT()),
-                undefined,
+                PARAMETERS(config)(config.types.input(type, typeNode))(
+                    ValueFactory.INPUT(),
+                ),
+                config.types.output(type, typeNode),
                 undefined,
                 ts.factory.createBlock(
                     [
@@ -298,8 +313,10 @@ export namespace FeatureProgrammer {
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                PARAMETERS(config)(ValueFactory.INPUT()),
-                undefined,
+                PARAMETERS(config)(TypeFactory.keyword("any"))(
+                    ValueFactory.INPUT(),
+                ),
+                config.objector.type ?? TypeFactory.keyword("any"),
                 undefined,
                 config.objector.joiner(
                     ts.factory.createIdentifier("input"),
@@ -318,8 +335,10 @@ export namespace FeatureProgrammer {
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                PARAMETERS(config)(ValueFactory.INPUT()),
-                undefined,
+                PARAMETERS(config)(TypeFactory.keyword("any"))(
+                    ValueFactory.INPUT(),
+                ),
+                TypeFactory.keyword("any"),
                 undefined,
                 explorer(
                     input,
@@ -350,7 +369,12 @@ export namespace FeatureProgrammer {
         const rand: string = importer.increment().toString();
         const tail =
             config.path || config.trace
-                ? [IdentifierFactory.parameter("index" + rand)]
+                ? [
+                      IdentifierFactory.parameter(
+                          "_index" + rand,
+                          TypeFactory.keyword("number"),
+                      ),
+                  ]
                 : [];
 
         return (
@@ -362,7 +386,13 @@ export namespace FeatureProgrammer {
             const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [IdentifierFactory.parameter("elem"), ...tail],
+                [
+                    IdentifierFactory.parameter(
+                        "elem",
+                        TypeFactory.keyword("any"),
+                    ),
+                    ...tail,
+                ],
                 undefined,
                 undefined,
                 config.decoder(
@@ -441,22 +471,35 @@ const INDEX_SYMBOL =
     (start: number | null) => (prev: string) => (rand: string) => {
         const tail: string =
             start !== null
-                ? `"[" + (${start} + index${rand}) + "]"`
-                : `"[" + index${rand} + "]"`;
+                ? `"[" + (${start} + _index${rand}) + "]"`
+                : `"[" + _index${rand} + "]"`;
         if (prev === "") return tail;
         else if (prev[prev.length - 1] === `"`)
             return prev.substring(0, prev.length - 1) + tail.substring(1);
         return prev + ` + ${tail}`;
     };
-const PARAMETERS = (
-    props: Pick<CheckerProgrammer.IConfig, "path" | "trace">,
-) => {
-    const tail: ts.ParameterDeclaration[] = [];
-    if (props.path) tail.push(IdentifierFactory.parameter("_path"));
-    if (props.trace) tail.push(IdentifierFactory.parameter("_exceptionable"));
 
-    return (input: ts.Identifier) => [
-        IdentifierFactory.parameter(input),
-        ...tail,
-    ];
-};
+const PARAMETERS =
+    (props: Pick<CheckerProgrammer.IConfig, "path" | "trace">) =>
+    (type: ts.TypeNode) => {
+        const tail: ts.ParameterDeclaration[] = [];
+        if (props.path)
+            tail.push(
+                IdentifierFactory.parameter(
+                    "_path",
+                    TypeFactory.keyword("string"),
+                ),
+            );
+        if (props.trace)
+            tail.push(
+                IdentifierFactory.parameter(
+                    "_exceptionable",
+                    TypeFactory.keyword("boolean"),
+                    ts.factory.createTrue(),
+                ),
+            );
+        return (input: ts.Identifier) => [
+            IdentifierFactory.parameter(input, type),
+            ...tail,
+        ];
+    };

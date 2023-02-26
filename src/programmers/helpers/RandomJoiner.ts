@@ -1,6 +1,7 @@
 import ts from "typescript";
 
 import { StatementFactory } from "../../factories/StatementFactory";
+import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 import { Metadata } from "../../metadata/Metadata";
@@ -90,13 +91,19 @@ export namespace RandomJoiner {
             );
             return ts.factory.createBlock(
                 [
-                    StatementFactory.constant("output", literal),
+                    StatementFactory.constant(
+                        "output",
+                        ts.factory.createAsExpression(
+                            literal,
+                            TypeFactory.keyword("any"),
+                        ),
+                    ),
                     ...(obj.recursive
                         ? [
                               ts.factory.createIfStatement(
                                   ts.factory.createGreaterThanEquals(
                                       ts.factory.createNumericLiteral(5),
-                                      ts.factory.createIdentifier("depth"),
+                                      ts.factory.createIdentifier("_depth"),
                                   ),
                                   ts.factory.createBlock(properties, true),
                               ),

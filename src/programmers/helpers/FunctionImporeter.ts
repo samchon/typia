@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
+import { TypeFactory } from "../../factories/TypeFactory";
 
 export class FunctionImporter {
     private readonly used_: Set<string> = new Set();
@@ -30,7 +31,15 @@ export class FunctionImporter {
         return [...this.used_].map((name) =>
             StatementFactory.constant(
                 "$" + name,
-                IdentifierFactory.join(modulo, name),
+                IdentifierFactory.join(
+                    ts.factory.createParenthesizedExpression(
+                        ts.factory.createAsExpression(
+                            modulo,
+                            TypeFactory.keyword("any"),
+                        ),
+                    ),
+                    name,
+                ),
             ),
         );
     }

@@ -4,6 +4,7 @@ import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
 import { IMetadataTag } from "../metadata/IMetadataTag";
@@ -706,6 +707,13 @@ export namespace StringifyProgrammer {
         project: IProject,
         importer: FunctionImporter,
     ): FeatureProgrammer.IConfig => ({
+        types: {
+            input: (type) =>
+                ts.factory.createTypeReferenceNode(
+                    TypeFactory.getFullName(project.checker, type),
+                ),
+            output: () => TypeFactory.keyword("string"),
+        },
         functors: FUNCTORS,
         unioners: UNIONERS,
         trace: false,
