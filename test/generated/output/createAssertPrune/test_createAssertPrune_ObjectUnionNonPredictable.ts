@@ -1,12 +1,16 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_createAssertPrune_ObjectUnionNonPredictable =
     _test_assertPrune(
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
-        (input: any): ObjectUnionNonPredictable => {
+        (
+            input: any,
+        ): Array<
+            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+        > => {
             const assert = (input: any): ObjectUnionNonPredictable => {
                 const $guard = (typia.createAssertPrune as any).guard;
                 ((

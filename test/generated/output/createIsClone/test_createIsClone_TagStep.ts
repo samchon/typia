@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { TagStep } from "../../../structures/TagStep";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_createIsClone_TagStep = _test_isClone(
     "TagStep",
     TagStep.generate,
-    (input: any): typia.Primitive<TagStep> | null => {
+    (input: any): typia.Primitive<Array<TagStep.Type>> | null => {
         const is = (input: any): input is TagStep => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.exclusiveMinimum &&

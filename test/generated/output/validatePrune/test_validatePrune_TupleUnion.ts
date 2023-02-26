@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { TupleUnion } from "../../../structures/TupleUnion";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_validatePrune_TupleUnion = _test_validatePrune(
     "TupleUnion",
     TupleUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<TupleUnion> => {
+        ((input: any): typia.IValidation<Array<TupleUnion.Union>> => {
             const validate = (input: any): typia.IValidation<TupleUnion> => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);

@@ -12,7 +12,7 @@ import { StringifyProgrammer } from "./StringifyProgrammer";
 export namespace IsStringifyProgrammer {
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type) =>
+        (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -20,7 +20,8 @@ export namespace IsStringifyProgrammer {
                     IdentifierFactory.parameter(
                         "input",
                         ts.factory.createTypeReferenceNode(
-                            TypeFactory.getFullName(project.checker, type),
+                            name ??
+                                TypeFactory.getFullName(project.checker, type),
                         ),
                     ),
                 ],

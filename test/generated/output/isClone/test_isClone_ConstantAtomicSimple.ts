@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_ConstantAtomicSimple = _test_isClone(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
     (input) =>
-        ((input: any): typia.Primitive<ConstantAtomicSimple> | null => {
+        ((input: any): typia.Primitive<[false, true, 2, "three"]> | null => {
             const is = (input: any): input is ConstantAtomicSimple => {
                 return (
                     Array.isArray(input) &&

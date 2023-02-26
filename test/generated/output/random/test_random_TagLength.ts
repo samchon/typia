@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { TagLength } from "../../../structures/TagLength";
-import { _test_random } from "../internal/_test_random";
 
 export const test_random_TagLength = _test_random(
     "TagLength",
@@ -8,7 +8,7 @@ export const test_random_TagLength = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<TagLength> => {
+        ): typia.Primitive<Array<TagLength.Type>> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
@@ -27,7 +27,7 @@ export const test_random_TagLength = _test_random(
             });
             return (generator.array ?? $generator.array)(() => $ro0());
         })(),
-    (input: any): TagLength => {
+    (input: any): Array<TagLength.Type> => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

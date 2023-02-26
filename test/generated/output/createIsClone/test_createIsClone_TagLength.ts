@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { TagLength } from "../../../structures/TagLength";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_createIsClone_TagLength = _test_isClone(
     "TagLength",
     TagLength.generate,
-    (input: any): typia.Primitive<TagLength> | null => {
+    (input: any): typia.Primitive<Array<TagLength.Type>> | null => {
         const is = (input: any): input is TagLength => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.fixed &&

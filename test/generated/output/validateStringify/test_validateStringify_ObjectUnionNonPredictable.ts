@@ -1,13 +1,17 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_validateStringify_ObjectUnionNonPredictable =
     _test_validateStringify(
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
         (input) =>
-            ((input: ObjectUnionNonPredictable): typia.IValidation<string> => {
+            ((
+                input: Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                >,
+            ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<ObjectUnionNonPredictable> => {

@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_createValidate_ObjectUndefined = _test_validate(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input: any): typia.IValidation<ObjectUndefined> => {
+    (input: any): typia.IValidation<Array<ObjectUndefined.ILecture>> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

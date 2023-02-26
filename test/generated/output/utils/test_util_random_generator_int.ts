@@ -1,4 +1,4 @@
-import { TestRandomGenerator } from "../../../internal/TestRandomGenerator";
+import { TestRandomGenerator } from "../../../helpers/TestRandomGenerator";
 
 export function test_util_rnadom_generator_int() {
     new Array(100000).fill(0).forEach(() => {

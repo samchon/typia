@@ -1,12 +1,16 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_validateEquals_ObjectIntersection = _test_validateEquals(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input) =>
-        ((input: any): typia.IValidation<ObjectIntersection> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            ObjectIntersection.IEmail & ObjectIntersection.IName
+        > => {
             const errors = [] as any[];
             const $report = (typia.validateEquals as any).report(errors);
             const $join = (typia.validateEquals as any).join;

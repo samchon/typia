@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_createAssert_ArrayAtomicSimple = _test_assert(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    (input: any): ArrayAtomicSimple => {
+    (input: any): [Array<boolean>, Array<number>, Array<string>] => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_createValidateEquals_ArrayRecursiveUnionImplicit =
     _test_validateEquals(
         "ArrayRecursiveUnionImplicit",
         ArrayRecursiveUnionImplicit.generate,
-        (input: any): typia.IValidation<ArrayRecursiveUnionImplicit> => {
+        (
+            input: any,
+        ): typia.IValidation<Array<ArrayRecursiveUnionImplicit.IBucket>> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             const $join = (typia.createValidateEquals as any).join;

@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_assertParse_ArrayRecursiveUnionImplicit = _test_assertParse(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
     (input) =>
-        ((input: string): typia.Primitive<ArrayRecursiveUnionImplicit> => {
+        ((
+            input: string,
+        ): typia.Primitive<Array<ArrayRecursiveUnionImplicit.IBucket>> => {
             const assert = (input: any): ArrayRecursiveUnionImplicit => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_AtomicUnion = _test_isClone(
     "AtomicUnion",
     AtomicUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<AtomicUnion> | null => {
+        ((input: any): typia.Primitive<Array<AtomicUnion.Union>> | null => {
             const is = (input: any): input is AtomicUnion => {
                 return (
                     Array.isArray(input) &&

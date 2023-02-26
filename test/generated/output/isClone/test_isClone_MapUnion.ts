@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { MapUnion } from "../../../structures/MapUnion";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_MapUnion = _test_isClone(
     "MapUnion",
     MapUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<MapUnion> | null => {
+        ((input: any): typia.Primitive<Array<MapUnion.Union>> | null => {
             const is = (input: any): input is MapUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&

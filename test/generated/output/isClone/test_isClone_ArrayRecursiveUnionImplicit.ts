@@ -1,12 +1,16 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_ArrayRecursiveUnionImplicit = _test_isClone(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
     (input) =>
-        ((input: any): typia.Primitive<ArrayRecursiveUnionImplicit> | null => {
+        ((
+            input: any,
+        ): typia.Primitive<
+            Array<ArrayRecursiveUnionImplicit.IBucket>
+        > | null => {
             const is = (input: any): input is ArrayRecursiveUnionImplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&

@@ -1,12 +1,18 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_assertPrune_ObjectNullable = _test_assertPrune(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((input: any): ObjectNullable => {
+        ((
+            input: any,
+        ): [
+            ObjectNullable.IProduct,
+            ObjectNullable.IProduct,
+            ObjectNullable.IProduct,
+        ] => {
             const assert = (input: any): ObjectNullable => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((

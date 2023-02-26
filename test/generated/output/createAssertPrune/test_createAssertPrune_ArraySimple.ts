@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { ArraySimple } from "../../../structures/ArraySimple";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_createAssertPrune_ArraySimple = _test_assertPrune(
     "ArraySimple",
     ArraySimple.generate,
-    (input: any): ArraySimple => {
+    (input: any): Array<ArraySimple.IPerson> => {
         const assert = (input: any): ArraySimple => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

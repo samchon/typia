@@ -1,0 +1,47 @@
+import typia from "../../../../src";
+import { _test_assertStringify } from "../../../internal/_test_assertStringify";
+import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
+
+export const test_createAssertStringify_ObjectGenericAlias =
+    _test_assertStringify(
+        "ObjectGenericAlias",
+        ObjectGenericAlias.generate,
+        (input: any): string => {
+            const assert = (input: any): ObjectGenericAlias.Alias => {
+                const $guard = (typia.createAssertStringify as any).guard;
+                ((
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): input is ObjectGenericAlias.Alias => {
+                    const $ao0 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        "string" === typeof input.value ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "string",
+                            value: input.value,
+                        });
+                    return (
+                        (("object" === typeof input && null !== input) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "Resolve<ObjectGenericAlias.Alias>",
+                                value: input,
+                            })) &&
+                        $ao0(input, _path + "", true)
+                    );
+                })(input, "$input", true);
+                return input;
+            };
+            const stringify = (input: ObjectGenericAlias.Alias): string => {
+                const $string = (typia.createAssertStringify as any).string;
+                return `{"value":${$string(input.value)}}`;
+            };
+            return stringify(assert(input));
+        },
+        ObjectGenericAlias.SPOILERS,
+    );

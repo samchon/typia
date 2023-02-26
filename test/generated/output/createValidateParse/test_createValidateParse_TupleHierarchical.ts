@@ -1,11 +1,32 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_createValidateParse_TupleHierarchical = _test_validateParse(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (input: string): typia.IValidation<typia.Primitive<TupleHierarchical>> => {
+    (
+        input: string,
+    ): typia.IValidation<
+        typia.Primitive<
+            [
+                boolean,
+                null,
+                number,
+                [boolean, null, [number, [boolean, string]]],
+                [
+                    number,
+                    Array<
+                        [
+                            string,
+                            boolean,
+                            Array<[number, number, [boolean, string]]>,
+                        ]
+                    >,
+                ],
+            ]
+        >
+    > => {
         const validate = (input: any): typia.IValidation<TupleHierarchical> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

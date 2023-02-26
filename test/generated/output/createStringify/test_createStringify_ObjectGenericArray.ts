@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_ObjectGenericArray = _test_stringify(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (input: ObjectGenericArray): string => {
+    (input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
         const $io1 = (input: any): boolean =>

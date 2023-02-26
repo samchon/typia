@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_random } from "../../internal/_test_random";
 import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
-import { _test_random } from "../internal/_test_random";
 
 export const test_random_TagAtomicUnion = _test_random(
     "TagAtomicUnion",

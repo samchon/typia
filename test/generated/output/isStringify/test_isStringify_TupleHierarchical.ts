@@ -1,12 +1,29 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_TupleHierarchical = _test_isStringify(
     "TupleHierarchical",
     TupleHierarchical.generate,
     (input) =>
-        ((input: TupleHierarchical): string | null => {
+        ((
+            input: [
+                boolean,
+                null,
+                number,
+                [boolean, null, [number, [boolean, string]]],
+                [
+                    number,
+                    Array<
+                        [
+                            string,
+                            boolean,
+                            Array<[number, number, [boolean, string]]>,
+                        ]
+                    >,
+                ],
+            ],
+        ): string | null => {
             const is = (input: any): input is TupleHierarchical => {
                 return (
                     Array.isArray(input) &&

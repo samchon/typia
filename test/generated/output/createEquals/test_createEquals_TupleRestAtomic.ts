@@ -1,11 +1,14 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_TupleRestAtomic = _test_equals(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (input: any, _exceptionable: boolean = true): input is TupleRestAtomic => {
+    (
+        input: any,
+        _exceptionable: boolean = true,
+    ): input is [boolean, number, ...string[]] => {
         return (
             Array.isArray(input) &&
             "boolean" === typeof input[0] &&

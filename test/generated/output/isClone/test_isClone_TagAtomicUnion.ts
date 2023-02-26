@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_TagAtomicUnion = _test_isClone(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<TagAtomicUnion> | null => {
+        ((input: any): typia.Primitive<Array<TagAtomicUnion.Type>> | null => {
             const is = (input: any): input is TagAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     ("string" === typeof input.value &&

@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_ConstantAtomicWrapper = _test_validateClone(
     "ConstantAtomicWrapper",
@@ -8,7 +8,15 @@ export const test_validateClone_ConstantAtomicWrapper = _test_validateClone(
     (input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ConstantAtomicWrapper>> => {
+        ): typia.IValidation<
+            typia.Primitive<
+                [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ]
+            >
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicWrapper> => {

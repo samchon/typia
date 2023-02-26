@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_createPrune_TagAtomicUnion = _test_prune(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input: TagAtomicUnion): void => {
+    (input: Array<TagAtomicUnion.Type>): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if ("value" === key) continue;

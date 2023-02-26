@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_createIsStringify_ObjectTuple = _test_isStringify(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input: ObjectTuple): string | null => {
+    (input: [ObjectTuple.ISection, ObjectTuple.ICitizen]): string | null => {
         const is = (input: any): input is ObjectTuple => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&

@@ -1,12 +1,28 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { AtomicClass } from "../../../structures/AtomicClass";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_AtomicClass = _test_validateClone(
     "AtomicClass",
     AtomicClass.generate,
     (input) =>
-        ((input: any): typia.IValidation<typia.Primitive<AtomicClass>> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            typia.Primitive<
+                [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ]
+            >
+        > => {
             const validate = (input: any): typia.IValidation<AtomicClass> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);

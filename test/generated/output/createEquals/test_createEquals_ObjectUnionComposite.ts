@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_ObjectUnionComposite = _test_equals(
     "ObjectUnionComposite",
@@ -8,7 +8,16 @@ export const test_createEquals_ObjectUnionComposite = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is ObjectUnionComposite => {
+    ): input is Array<
+        | ObjectUnionComposite.IPoint
+        | ObjectUnionComposite.ILine
+        | ObjectUnionComposite.ITriangle
+        | ObjectUnionComposite.IRectangle
+        | ObjectUnionComposite.IPolyline
+        | ObjectUnionComposite.IPolygon
+        | ObjectUnionComposite.IPointedShape
+        | ObjectUnionComposite.ICircle
+    > => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.x &&
             Number.isFinite(input.x) &&

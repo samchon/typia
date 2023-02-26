@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_ArrayUnion = _test_validate(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<ArrayUnion> => {
+        ((input: any): typia.IValidation<Array<ArrayUnion.IUnion>> => {
             const errors = [] as any[];
             const $report = (typia.validate as any).report(errors);
             ((

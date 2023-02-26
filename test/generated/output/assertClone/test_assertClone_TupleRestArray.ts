@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_assertClone_TupleRestArray = _test_assertClone(
     "TupleRestArray",
     TupleRestArray.generate,
     (input) =>
-        ((input: any): typia.Primitive<TupleRestArray> => {
+        ((
+            input: any,
+        ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
             const assert = (input: any): TupleRestArray => {
                 const $guard = (typia.assertClone as any).guard;
                 ((

@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { TagRange } from "../../../structures/TagRange";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_createIsClone_TagRange = _test_isClone(
     "TagRange",
     TagRange.generate,
-    (input: any): typia.Primitive<TagRange> | null => {
+    (input: any): typia.Primitive<Array<TagRange.Type>> | null => {
         const is = (input: any): input is TagRange => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.greater &&

@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_isStringify } from "../../internal/_test_isStringify";
 import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_createIsStringify_ConstantAtomicSimple = _test_isStringify(
     "ConstantAtomicSimple",

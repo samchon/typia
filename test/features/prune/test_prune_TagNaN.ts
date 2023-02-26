@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_prune } from "../../internal/_test_prune";
 import { TagNaN } from "../../structures/TagNaN";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_prune_TagNaN = _test_prune(
     "TagNaN",

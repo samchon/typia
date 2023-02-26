@@ -1,12 +1,21 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_ToJsonUnion = _test_isStringify(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input) =>
-        ((input: ToJsonUnion): string | null => {
+        ((
+            input: Array<
+                | string
+                | number
+                | ToJsonUnion.ICitizen
+                | ToJsonUnion.IWrapper<boolean>
+                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+            >,
+        ): string | null => {
             const is = (input: any): input is ToJsonUnion => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&

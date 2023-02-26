@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_createIsClone_ObjectUnionDouble = _test_isClone(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
-    (input: any): typia.Primitive<ObjectUnionDouble> | null => {
+    (input: any): typia.Primitive<Array<ObjectUnionDouble.Union>> | null => {
         const is = (input: any): input is ObjectUnionDouble => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&

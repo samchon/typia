@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_TupleRestObject = _test_assertEquals(
     "TupleRestObject",
     TupleRestObject.generate,
-    (input: any): TupleRestObject => {
+    (input: any): [boolean, number, ...TupleRestObject.IObject[]] => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

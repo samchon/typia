@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_validateParse_ObjectIntersection = _test_validateParse(
     "ObjectIntersection",
@@ -8,7 +8,11 @@ export const test_validateParse_ObjectIntersection = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<typia.Primitive<ObjectIntersection>> => {
+        ): typia.IValidation<
+            typia.Primitive<
+                ObjectIntersection.IEmail & ObjectIntersection.IName
+            >
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectIntersection> => {

@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_isPrune_ArrayUnion = _test_isPrune(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((input: any): input is ArrayUnion => {
+        ((input: any): input is Array<ArrayUnion.IUnion> => {
             const is = (input: any): input is ArrayUnion => {
                 return (
                     Array.isArray(input) &&

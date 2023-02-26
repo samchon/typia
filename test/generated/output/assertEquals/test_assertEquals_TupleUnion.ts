@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TupleUnion } from "../../../structures/TupleUnion";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_assertEquals_TupleUnion = _test_assertEquals(
     "TupleUnion",
     TupleUnion.generate,
     (input) =>
-        ((input: any): TupleUnion => {
+        ((input: any): Array<TupleUnion.Union> => {
             const $guard = (typia.assertEquals as any).guard;
             ((
                 input: any,

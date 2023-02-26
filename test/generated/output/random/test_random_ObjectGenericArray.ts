@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
-import { _test_random } from "../internal/_test_random";
 
 export const test_random_ObjectGenericArray = _test_random(
     "ObjectGenericArray",
@@ -8,7 +8,9 @@ export const test_random_ObjectGenericArray = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<ObjectGenericArray> => {
+        ): typia.Primitive<
+            ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
+        > => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
@@ -37,7 +39,7 @@ export const test_random_ObjectGenericArray = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): ObjectGenericArray => {
+    (input: any): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

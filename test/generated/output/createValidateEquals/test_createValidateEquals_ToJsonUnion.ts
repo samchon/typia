@@ -1,11 +1,22 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_createValidateEquals_ToJsonUnion = _test_validateEquals(
     "ToJsonUnion",
     ToJsonUnion.generate,
-    (input: any): typia.IValidation<ToJsonUnion> => {
+    (
+        input: any,
+    ): typia.IValidation<
+        Array<
+            | string
+            | number
+            | ToJsonUnion.ICitizen
+            | ToJsonUnion.IWrapper<boolean>
+            | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+            | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+        >
+    > => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;

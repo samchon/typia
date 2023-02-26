@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_isParse_TagObjectUnion = _test_isParse(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<TagObjectUnion> => {
+        ((input: any): typia.Primitive<Array<TagObjectUnion.Type>> => {
             const is = (input: any): input is TagObjectUnion => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value &&

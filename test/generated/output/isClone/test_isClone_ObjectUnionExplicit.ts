@@ -1,12 +1,45 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_ObjectUnionExplicit = _test_isClone(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
     (input) =>
-        ((input: any): typia.Primitive<ObjectUnionExplicit> | null => {
+        ((
+            input: any,
+        ): typia.Primitive<
+            Array<
+                | ObjectUnionExplicit.Discriminator<
+                      "point",
+                      ObjectUnionExplicit.IPoint
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "line",
+                      ObjectUnionExplicit.ILine
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "triangle",
+                      ObjectUnionExplicit.ITriangle
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "rectangle",
+                      ObjectUnionExplicit.IRectangle
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "polyline",
+                      ObjectUnionExplicit.IPolyline
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "polygon",
+                      ObjectUnionExplicit.IPolygon
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "circle",
+                      ObjectUnionExplicit.ICircle
+                  >
+            >
+        > | null => {
             const is = (input: any): input is ObjectUnionExplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&

@@ -1,13 +1,13 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_ObjectTuple = _test_random(
     "ObjectTuple",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<ObjectTuple> => {
+    ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
@@ -27,7 +27,7 @@ export const test_createRandom_ObjectTuple = _test_random(
         });
         return [$ro0(), $ro1()];
     },
-    (input: any): ObjectTuple => {
+    (input: any): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

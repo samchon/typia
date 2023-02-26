@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_assertEquals_ConstantAtomicSimple = _test_assertEquals(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
     (input) =>
-        ((input: any): ConstantAtomicSimple => {
+        ((input: any): [false, true, 2, "three"] => {
             const $guard = (typia.assertEquals as any).guard;
             ((
                 input: any,

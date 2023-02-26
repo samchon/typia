@@ -1,11 +1,14 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_ObjectUndefined = _test_equals(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input: any, _exceptionable: boolean = true): input is ObjectUndefined => {
+    (
+        input: any,
+        _exceptionable: boolean = true,
+    ): input is Array<ObjectUndefined.ILecture> => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.name &&
             (undefined === input.professor ||

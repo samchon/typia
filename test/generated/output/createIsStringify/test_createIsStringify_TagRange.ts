@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { TagRange } from "../../../structures/TagRange";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_createIsStringify_TagRange = _test_isStringify(
     "TagRange",
     TagRange.generate,
-    (input: TagRange): string | null => {
+    (input: Array<TagRange.Type>): string | null => {
         const is = (input: any): input is TagRange => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.greater &&

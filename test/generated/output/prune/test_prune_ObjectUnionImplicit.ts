@@ -1,12 +1,22 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_prune_ObjectUnionImplicit = _test_prune(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
     (input) =>
-        ((input: ObjectUnionImplicit): void => {
+        ((
+            input: Array<
+                | ObjectUnionImplicit.IPoint
+                | ObjectUnionImplicit.ILine
+                | ObjectUnionImplicit.ITriangle
+                | ObjectUnionImplicit.IRectangle
+                | ObjectUnionImplicit.IPolyline
+                | ObjectUnionImplicit.IPolygon
+                | ObjectUnionImplicit.ICircle
+            >,
+        ): void => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&

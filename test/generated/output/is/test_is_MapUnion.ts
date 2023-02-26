@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { MapUnion } from "../../../structures/MapUnion";
-import { _test_is } from "../internal/_test_is";
 
 export const test_is_MapUnion = _test_is(
     "MapUnion",
     MapUnion.generate,
     (input) =>
-        ((input: any): input is MapUnion => {
+        ((input: any): input is Array<MapUnion.Union> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&

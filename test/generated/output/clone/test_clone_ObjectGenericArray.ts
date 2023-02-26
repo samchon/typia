@@ -1,12 +1,16 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_clone_ObjectGenericArray = _test_clone(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input) =>
-        ((input: ObjectGenericArray): typia.Primitive<ObjectGenericArray> => {
+        ((
+            input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
+        ): typia.Primitive<
+            ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
+        > => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.page &&
                 "number" === typeof input.limit &&

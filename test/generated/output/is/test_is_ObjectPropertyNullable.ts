@@ -1,12 +1,21 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
-import { _test_is } from "../internal/_test_is";
 
 export const test_is_ObjectPropertyNullable = _test_is(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
     (input) =>
-        ((input: any): input is ObjectPropertyNullable => {
+        ((
+            input: any,
+        ): input is [
+            Array<ObjectPropertyNullable.IPointer<boolean>>,
+            Array<ObjectPropertyNullable.IPointer<number>>,
+            Array<ObjectPropertyNullable.IPointer<string>>,
+            Array<
+                ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+            >,
+        ] => {
             const $io0 = (input: any): boolean =>
                 null === input.value || "boolean" === typeof input.value;
             const $io1 = (input: any): boolean =>

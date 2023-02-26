@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_assertStringify } from "../../internal/_test_assertStringify";
 import { MapAlias } from "../../structures/MapAlias";
-import { _test_assertStringify } from "../internal/_test_assertStringify";
 
 export const test_assertStringify_MapAlias = _test_assertStringify(
     "MapAlias",

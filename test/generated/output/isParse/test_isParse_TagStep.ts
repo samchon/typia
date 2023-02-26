@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { TagStep } from "../../../structures/TagStep";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_isParse_TagStep = _test_isParse(
     "TagStep",
     TagStep.generate,
     (input) =>
-        ((input: any): typia.Primitive<TagStep> => {
+        ((input: any): typia.Primitive<Array<TagStep.Type>> => {
             const is = (input: any): input is TagStep => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&

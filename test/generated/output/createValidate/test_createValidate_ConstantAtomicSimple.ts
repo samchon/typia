@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_createValidate_ConstantAtomicSimple = _test_validate(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
-    (input: any): typia.IValidation<ConstantAtomicSimple> => {
+    (input: any): typia.IValidation<[false, true, 2, "three"]> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

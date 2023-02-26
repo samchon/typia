@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assert } from "../../../internal/_test_assert";
 import { NativeUnion } from "../../../structures/NativeUnion";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_assert_NativeUnion = _test_assert(
     "NativeUnion",
     NativeUnion.generate,
     (input) =>
-        ((input: any): NativeUnion => {
+        ((input: any): Array<NativeUnion.Union> => {
             const $guard = (typia.assert as any).guard;
             ((
                 input: any,

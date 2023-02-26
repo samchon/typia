@@ -1,12 +1,16 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_DynamicConstant = _test_validateClone(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((input: any): typia.IValidation<typia.Primitive<DynamicConstant>> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            typia.Primitive<{ a: number; b: number; c: number; d: number }>
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<DynamicConstant> => {

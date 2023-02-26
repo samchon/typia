@@ -1,12 +1,16 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_createValidateEquals_ObjectGenericArray =
     _test_validateEquals(
         "ObjectGenericArray",
         ObjectGenericArray.generate,
-        (input: any): typia.IValidation<ObjectGenericArray> => {
+        (
+            input: any,
+        ): typia.IValidation<
+            ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
+        > => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             const $join = (typia.createValidateEquals as any).join;

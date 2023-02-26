@@ -1,11 +1,35 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { AtomicClass } from "../../../structures/AtomicClass";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_createClone_AtomicClass = _test_clone(
     "AtomicClass",
     AtomicClass.generate,
-    (input: AtomicClass): typia.Primitive<AtomicClass> => {
+    (
+        input: [
+            Boolean,
+            false | Boolean,
+            boolean | Boolean,
+            Number,
+            Number | 1,
+            number | Number,
+            String,
+            String | "characters",
+            string | String,
+        ],
+    ): typia.Primitive<
+        [
+            Boolean,
+            false | Boolean,
+            boolean | Boolean,
+            Number,
+            Number | 1,
+            number | Number,
+            String,
+            String | "characters",
+            string | String,
+        ]
+    > => {
         return Array.isArray(input) &&
             input.length === 9 &&
             ("boolean" === typeof input[0] || input[0] instanceof Boolean) &&

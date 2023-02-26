@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_validateParse } from "../../internal/_test_validateParse";
 import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_validateParse_ConstantAtomicWrapper = _test_validateParse(
     "ConstantAtomicWrapper",

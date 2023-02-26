@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { ArraySimple } from "../../../structures/ArraySimple";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_createIsParse_ArraySimple = _test_isParse(
     "ArraySimple",
     ArraySimple.generate,
-    (input: any): typia.Primitive<ArraySimple> => {
+    (input: any): typia.Primitive<Array<ArraySimple.IPerson>> => {
         const is = (input: any): input is ArraySimple => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&

@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_ObjectGenericArray =
     _test_validateStringify(
         "ObjectGenericArray",
         ObjectGenericArray.generate,
-        (input: ObjectGenericArray): typia.IValidation<string> => {
+        (
+            input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
+        ): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectGenericArray> => {

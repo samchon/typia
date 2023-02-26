@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_random } from "../../internal/_test_random";
 import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
-import { _test_random } from "../internal/_test_random";
 
 export const test_random_ObjectHierarchical = _test_random(
     "ObjectHierarchical",

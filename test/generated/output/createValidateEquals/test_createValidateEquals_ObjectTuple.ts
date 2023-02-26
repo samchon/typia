@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_createValidateEquals_ObjectTuple = _test_validateEquals(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input: any): typia.IValidation<ObjectTuple> => {
+    (
+        input: any,
+    ): typia.IValidation<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;

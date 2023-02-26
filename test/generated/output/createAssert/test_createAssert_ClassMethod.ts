@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_assert } from "../../../internal/_test_assert";
 import { ClassMethod } from "../../../structures/ClassMethod";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_createAssert_ClassMethod = _test_assert(
     "ClassMethod",

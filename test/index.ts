@@ -1,5 +1,5 @@
-import { DynamicImportIterator } from "./internal/DynamicImportIterator";
-import { IPointer } from "./internal/IPointer";
+import { DynamicImportIterator } from "./helpers/DynamicImportIterator";
+import { IPointer } from "./helpers/IPointer";
 
 async function main(): Promise<void> {
     console.log("-------------------------------------------------------");

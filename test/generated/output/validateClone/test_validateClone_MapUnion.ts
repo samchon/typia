@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { MapUnion } from "../../../structures/MapUnion";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_MapUnion = _test_validateClone(
     "MapUnion",
     MapUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<typia.Primitive<MapUnion>> => {
+        ((
+            input: any,
+        ): typia.IValidation<typia.Primitive<Array<MapUnion.Union>>> => {
             const validate = (input: any): typia.IValidation<MapUnion> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);

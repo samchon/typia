@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_assertPrune_ArrayHierarchical = _test_assertPrune(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input) =>
-        ((input: any): ArrayHierarchical => {
+        ((input: any): Array<ArrayHierarchical.ICompany> => {
             const assert = (input: any): ArrayHierarchical => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((

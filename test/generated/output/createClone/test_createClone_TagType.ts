@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { TagType } from "../../../structures/TagType";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_createClone_TagType = _test_clone(
     "TagType",
     TagType.generate,
-    (input: TagType): typia.Primitive<TagType> => {
+    (input: Array<TagType.Type>): typia.Primitive<Array<TagType.Type>> => {
         const $co0 = (input: any): any => ({
             int: input.int as any,
             uint: input.uint as any,

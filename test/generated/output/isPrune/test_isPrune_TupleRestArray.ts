@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_isPrune_TupleRestArray = _test_isPrune(
     "TupleRestArray",
     TupleRestArray.generate,
     (input) =>
-        ((input: any): input is TupleRestArray => {
+        ((input: any): input is [boolean, number, ...Array<string>[]] => {
             const is = (input: any): input is TupleRestArray => {
                 return (
                     Array.isArray(input) &&

@@ -1,12 +1,20 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_ToJsonAtomicSimple = _test_isClone(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
     (input) =>
-        ((input: any): typia.Primitive<ToJsonAtomicSimple> | null => {
+        ((
+            input: any,
+        ): typia.Primitive<
+            [
+                ToJsonAtomicSimple.IToJson<boolean>,
+                ToJsonAtomicSimple.IToJson<number>,
+                ToJsonAtomicSimple.IToJson<string>,
+            ]
+        > | null => {
             const is = (input: any): input is ToJsonAtomicSimple => {
                 const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;

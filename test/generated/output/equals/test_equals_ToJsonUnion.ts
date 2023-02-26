@@ -1,12 +1,22 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_ToJsonUnion = _test_equals(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input) =>
-        ((input: any, _exceptionable: boolean = true): input is ToJsonUnion => {
+        ((
+            input: any,
+            _exceptionable: boolean = true,
+        ): input is Array<
+            | string
+            | number
+            | ToJsonUnion.ICitizen
+            | ToJsonUnion.IWrapper<boolean>
+            | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+            | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+        > => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

@@ -1,13 +1,13 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_ArrayHierarchical = _test_random(
     "ArrayHierarchical",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<ArrayHierarchical> => {
+    ): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
@@ -52,7 +52,7 @@ export const test_createRandom_ArrayHierarchical = _test_random(
         });
         return (generator.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): ArrayHierarchical => {
+    (input: any): Array<ArrayHierarchical.ICompany> => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

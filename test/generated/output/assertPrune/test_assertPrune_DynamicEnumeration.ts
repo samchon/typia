@@ -1,12 +1,25 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_assertPrune_DynamicEnumeration = _test_assertPrune(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input) =>
-        ((input: any): DynamicEnumeration => {
+        ((
+            input: any,
+        ): {
+            ar?: string | undefined;
+            "zh-Hans"?: string | undefined;
+            "zh-Hant"?: string | undefined;
+            en?: string | undefined;
+            fr?: string | undefined;
+            de?: string | undefined;
+            ja?: string | undefined;
+            ko?: string | undefined;
+            pt?: string | undefined;
+            ru?: string | undefined;
+        } => {
             const assert = (input: any): DynamicEnumeration => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((

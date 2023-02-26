@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { TagType } from "../../../structures/TagType";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_TagType = _test_isClone(
     "TagType",

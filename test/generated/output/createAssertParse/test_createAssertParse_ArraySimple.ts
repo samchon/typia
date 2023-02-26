@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { ArraySimple } from "../../../structures/ArraySimple";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_createAssertParse_ArraySimple = _test_assertParse(
     "ArraySimple",
     ArraySimple.generate,
-    (input: string): typia.Primitive<ArraySimple> => {
+    (input: string): typia.Primitive<Array<ArraySimple.IPerson>> => {
         const assert = (input: any): ArraySimple => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

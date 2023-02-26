@@ -1,12 +1,25 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_assertParse_ObjectUnionComposite = _test_assertParse(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
     (input) =>
-        ((input: string): typia.Primitive<ObjectUnionComposite> => {
+        ((
+            input: string,
+        ): typia.Primitive<
+            Array<
+                | ObjectUnionComposite.IPoint
+                | ObjectUnionComposite.ILine
+                | ObjectUnionComposite.ITriangle
+                | ObjectUnionComposite.IRectangle
+                | ObjectUnionComposite.IPolyline
+                | ObjectUnionComposite.IPolygon
+                | ObjectUnionComposite.IPointedShape
+                | ObjectUnionComposite.ICircle
+            >
+        > => {
             const assert = (input: any): ObjectUnionComposite => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

@@ -1,13 +1,19 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_ObjectGeneric = _test_random(
     "ObjectGeneric",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<ObjectGeneric> => {
+    ): typia.Primitive<
+        [
+            ObjectGeneric.ISomething<boolean>,
+            ObjectGeneric.ISomething<number>,
+            ObjectGeneric.ISomething<string>,
+        ]
+    > => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
@@ -62,7 +68,13 @@ export const test_createRandom_ObjectGeneric = _test_random(
         });
         return [$ro0(), $ro2(), $ro4()];
     },
-    (input: any): ObjectGeneric => {
+    (
+        input: any,
+    ): [
+        ObjectGeneric.ISomething<boolean>,
+        ObjectGeneric.ISomething<number>,
+        ObjectGeneric.ISomething<string>,
+    ] => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

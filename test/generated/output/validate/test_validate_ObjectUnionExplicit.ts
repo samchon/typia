@@ -1,12 +1,45 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_ObjectUnionExplicit = _test_validate(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
     (input) =>
-        ((input: any): typia.IValidation<ObjectUnionExplicit> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            Array<
+                | ObjectUnionExplicit.Discriminator<
+                      "point",
+                      ObjectUnionExplicit.IPoint
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "line",
+                      ObjectUnionExplicit.ILine
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "triangle",
+                      ObjectUnionExplicit.ITriangle
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "rectangle",
+                      ObjectUnionExplicit.IRectangle
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "polyline",
+                      ObjectUnionExplicit.IPolyline
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "polygon",
+                      ObjectUnionExplicit.IPolygon
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "circle",
+                      ObjectUnionExplicit.ICircle
+                  >
+            >
+        > => {
             const errors = [] as any[];
             const $report = (typia.validate as any).report(errors);
             ((

@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_createAssertClone_ObjectTuple = _test_assertClone(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input: any): typia.Primitive<ObjectTuple> => {
+    (
+        input: any,
+    ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
         const assert = (input: any): ObjectTuple => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

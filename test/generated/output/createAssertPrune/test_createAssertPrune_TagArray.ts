@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { TagArray } from "../../../structures/TagArray";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_createAssertPrune_TagArray = _test_assertPrune(
     "TagArray",
     TagArray.generate,
-    (input: any): TagArray => {
+    (input: any): Array<TagArray.Type> => {
         const assert = (input: any): TagArray => {
             const $guard = (typia.createAssertPrune as any).guard;
             const $is_uuid = (typia.createAssertPrune as any).is_uuid;

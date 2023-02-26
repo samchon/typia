@@ -1,12 +1,18 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_ObjectNullable = _test_isStringify(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((input: ObjectNullable): string | null => {
+        ((
+            input: [
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+            ],
+        ): string | null => {
             const is = (input: any): input is ObjectNullable => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&

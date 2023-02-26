@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_createIsClone_TemplateConstant = _test_isClone(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: any): typia.Primitive<TemplateConstant> | null => {
+    (input: any): typia.Primitive<Array<TemplateConstant.Type>> | null => {
         const is = (input: any): input is TemplateConstant => {
             const $io0 = (input: any): boolean =>
                 ("prefix_A" === input.prefix ||

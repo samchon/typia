@@ -1,12 +1,21 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_validateEquals_ToJsonTuple = _test_validateEquals(
     "ToJsonTuple",
     ToJsonTuple.generate,
     (input) =>
-        ((input: any): typia.IValidation<ToJsonTuple> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            [
+                ToJsonTuple.IToJson<string>,
+                ToJsonTuple.IToJson<number>,
+                ToJsonTuple.IToJson<boolean>,
+                ToJsonTuple.IObject,
+            ]
+        > => {
             const errors = [] as any[];
             const $report = (typia.validateEquals as any).report(errors);
             const $join = (typia.validateEquals as any).join;

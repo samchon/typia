@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_assert } from "../../internal/_test_assert";
 import { TupleRestObject } from "../../structures/TupleRestObject";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_assert_TupleRestObject = _test_assert(
     "TupleRestObject",

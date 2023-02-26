@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { TemplateUnion } from "../../../structures/TemplateUnion";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_TemplateUnion = _test_isClone(
     "TemplateUnion",
     TemplateUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<TemplateUnion> | null => {
+        ((input: any): typia.Primitive<Array<TemplateUnion.Type>> | null => {
             const is = (input: any): input is TemplateUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&

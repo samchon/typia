@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_stringify_TupleRestObject = _test_stringify(
     "TupleRestObject",
     TupleRestObject.generate,
     (input) =>
-        ((input: TupleRestObject): string => {
+        ((input: [boolean, number, ...TupleRestObject.IObject[]]): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             const $rest = (typia.stringify as any).rest;

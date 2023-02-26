@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_ToJsonAtomicUnion = _test_isClone(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<ToJsonAtomicUnion> | null => {
+        ((
+            input: any,
+        ): typia.Primitive<Array<ToJsonAtomicUnion.IToJson>> | null => {
             const is = (input: any): input is ToJsonAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;

@@ -1,11 +1,18 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
-import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_ToJsonTuple = _test_is(
     "ToJsonTuple",
     ToJsonTuple.generate,
-    (input: any): input is ToJsonTuple => {
+    (
+        input: any,
+    ): input is [
+        ToJsonTuple.IToJson<string>,
+        ToJsonTuple.IToJson<number>,
+        ToJsonTuple.IToJson<boolean>,
+        ToJsonTuple.IObject,
+    ] => {
         const $io0 = (input: any): boolean =>
             "function" === typeof input.toJSON;
         const $io1 = (input: any): boolean =>

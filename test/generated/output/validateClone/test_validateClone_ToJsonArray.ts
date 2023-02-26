@@ -1,12 +1,23 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_ToJsonArray = _test_validateClone(
     "ToJsonArray",
     ToJsonArray.generate,
     (input) =>
-        ((input: any): typia.IValidation<typia.Primitive<ToJsonArray>> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            typia.Primitive<
+                [
+                    ToJsonArray.IArray<boolean>,
+                    ToJsonArray.IArray<number>,
+                    ToJsonArray.IArray<string>,
+                    ToJsonArray.IArray<ToJsonArray.IObject>,
+                ]
+            >
+        > => {
             const validate = (input: any): typia.IValidation<ToJsonArray> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);

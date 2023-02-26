@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { ArraySimple } from "../../../structures/ArraySimple";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_ArraySimple = _test_validateClone(
     "ArraySimple",
     ArraySimple.generate,
     (input) =>
-        ((input: any): typia.IValidation<typia.Primitive<ArraySimple>> => {
+        ((
+            input: any,
+        ): typia.IValidation<typia.Primitive<Array<ArraySimple.IPerson>>> => {
             const validate = (input: any): typia.IValidation<ArraySimple> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);

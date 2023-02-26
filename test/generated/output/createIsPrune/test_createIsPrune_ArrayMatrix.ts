@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_createIsPrune_ArrayMatrix = _test_isPrune(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: any): input is ArrayMatrix => {
+    (input: any): input is Array<Array<Array<number>>> => {
         const is = (input: any): input is ArrayMatrix => {
             return (
                 Array.isArray(input) &&

@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_stringify_TagObjectUnion = _test_stringify(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input) =>
-        ((input: TagObjectUnion): string => {
+        ((input: Array<TagObjectUnion.Type>): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             const $throws = (typia.stringify as any).throws;

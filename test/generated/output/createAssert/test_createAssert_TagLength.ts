@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assert } from "../../../internal/_test_assert";
 import { TagLength } from "../../../structures/TagLength";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_createAssert_TagLength = _test_assert(
     "TagLength",
     TagLength.generate,
-    (input: any): TagLength => {
+    (input: any): Array<TagLength.Type> => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

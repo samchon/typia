@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_assertStringify } from "../../../internal/_test_assertStringify";
 import { SetSimple } from "../../../structures/SetSimple";
-import { _test_assertStringify } from "../internal/_test_assertStringify";
 
 export const test_createAssertStringify_SetSimple = _test_assertStringify(
     "SetSimple",

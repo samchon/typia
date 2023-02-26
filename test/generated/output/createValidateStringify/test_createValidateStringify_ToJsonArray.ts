@@ -1,11 +1,18 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_ToJsonArray = _test_validateStringify(
     "ToJsonArray",
     ToJsonArray.generate,
-    (input: ToJsonArray): typia.IValidation<string> => {
+    (
+        input: [
+            ToJsonArray.IArray<boolean>,
+            ToJsonArray.IArray<number>,
+            ToJsonArray.IArray<string>,
+            ToJsonArray.IArray<ToJsonArray.IObject>,
+        ],
+    ): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<ToJsonArray> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(

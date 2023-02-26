@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_createAssert_ArrayRecursiveUnionExplicit = _test_assert(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
-    (input: any): ArrayRecursiveUnionExplicit => {
+    (input: any): Array<ArrayRecursiveUnionExplicit.IBucket> => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_assert } from "../../internal/_test_assert";
 import { ArrayAny } from "../../structures/ArrayAny";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_assert_ArrayAny = _test_assert(
     "ArrayAny",

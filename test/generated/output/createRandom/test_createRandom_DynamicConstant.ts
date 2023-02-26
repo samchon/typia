@@ -1,13 +1,13 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_DynamicConstant = _test_random(
     "DynamicConstant",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<DynamicConstant> => {
+    ): typia.Primitive<{ a: number; b: number; c: number; d: number }> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
@@ -20,7 +20,7 @@ export const test_createRandom_DynamicConstant = _test_random(
         });
         return $ro0();
     },
-    (input: any): DynamicConstant => {
+    (input: any): { a: number; b: number; c: number; d: number } => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

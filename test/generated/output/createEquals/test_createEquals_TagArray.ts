@@ -1,11 +1,14 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { TagArray } from "../../../structures/TagArray";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_TagArray = _test_equals(
     "TagArray",
     TagArray.generate,
-    (input: any, _exceptionable: boolean = true): input is TagArray => {
+    (
+        input: any,
+        _exceptionable: boolean = true,
+    ): input is Array<TagArray.Type> => {
         const $is_uuid = (typia.createEquals as any).is_uuid;
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.items) &&

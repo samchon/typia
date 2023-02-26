@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_TupleHierarchical = _test_equals(
     "TupleHierarchical",
@@ -8,7 +8,18 @@ export const test_createEquals_TupleHierarchical = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is TupleHierarchical => {
+    ): input is [
+        boolean,
+        null,
+        number,
+        [boolean, null, [number, [boolean, string]]],
+        [
+            number,
+            Array<
+                [string, boolean, Array<[number, number, [boolean, string]]>]
+            >,
+        ],
+    ] => {
         return (
             Array.isArray(input) &&
             input.length === 5 &&

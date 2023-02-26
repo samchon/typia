@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_stringify_ObjectUndefined = _test_stringify(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input) =>
-        ((input: ObjectUndefined): string => {
+        ((input: Array<ObjectUndefined.ILecture>): string => {
             const $string = (typia.stringify as any).string;
             const $number = (typia.stringify as any).number;
             const $throws = (typia.stringify as any).throws;

@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_ObjectIntersection = _test_isStringify(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input) =>
-        ((input: ObjectIntersection): string | null => {
+        ((
+            input: ObjectIntersection.IEmail & ObjectIntersection.IName,
+        ): string | null => {
             const is = (input: any): input is ObjectIntersection => {
                 return (
                     "object" === typeof input &&

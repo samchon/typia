@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_createIsStringify_ArrayMatrix = _test_isStringify(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: ArrayMatrix): string | null => {
+    (input: Array<Array<Array<number>>>): string | null => {
         const is = (input: any): input is ArrayMatrix => {
             return (
                 Array.isArray(input) &&

@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_createValidateClone_ToJsonAtomicUnion = _test_validateClone(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
-    (input: any): typia.IValidation<typia.Primitive<ToJsonAtomicUnion>> => {
+    (
+        input: any,
+    ): typia.IValidation<typia.Primitive<Array<ToJsonAtomicUnion.IToJson>>> => {
         const validate = (input: any): typia.IValidation<ToJsonAtomicUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

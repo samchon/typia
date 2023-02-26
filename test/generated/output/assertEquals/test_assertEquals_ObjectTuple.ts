@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_assertEquals_ObjectTuple = _test_assertEquals(
     "ObjectTuple",
     ObjectTuple.generate,
     (input) =>
-        ((input: any): ObjectTuple => {
+        ((input: any): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
             const $guard = (typia.assertEquals as any).guard;
             const $join = (typia.assertEquals as any).join;
             ((

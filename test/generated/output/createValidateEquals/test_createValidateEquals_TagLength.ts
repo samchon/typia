@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { TagLength } from "../../../structures/TagLength";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_createValidateEquals_TagLength = _test_validateEquals(
     "TagLength",
     TagLength.generate,
-    (input: any): typia.IValidation<TagLength> => {
+    (input: any): typia.IValidation<Array<TagLength.Type>> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;

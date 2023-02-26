@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_createIsParse_ArrayRecursiveUnionImplicit = _test_isParse(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
-    (input: any): typia.Primitive<ArrayRecursiveUnionImplicit> => {
+    (
+        input: any,
+    ): typia.Primitive<Array<ArrayRecursiveUnionImplicit.IBucket>> => {
         const is = (input: any): input is ArrayRecursiveUnionImplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&

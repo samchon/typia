@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
 
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
 
 export interface TagPattern {
     /**

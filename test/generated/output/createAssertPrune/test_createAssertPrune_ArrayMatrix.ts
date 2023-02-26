@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_createAssertPrune_ArrayMatrix = _test_assertPrune(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: any): ArrayMatrix => {
+    (input: any): Array<Array<Array<number>>> => {
         const assert = (input: any): ArrayMatrix => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

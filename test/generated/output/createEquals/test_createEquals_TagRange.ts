@@ -1,11 +1,14 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { TagRange } from "../../../structures/TagRange";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_TagRange = _test_equals(
     "TagRange",
     TagRange.generate,
-    (input: any, _exceptionable: boolean = true): input is TagRange => {
+    (
+        input: any,
+        _exceptionable: boolean = true,
+    ): input is Array<TagRange.Type> => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.greater &&
             Number.isFinite(input.greater) &&

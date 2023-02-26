@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_stringify_ArrayRecursiveUnionImplicit = _test_stringify(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
     (input) =>
-        ((input: ArrayRecursiveUnionImplicit): string => {
+        ((input: Array<ArrayRecursiveUnionImplicit.IBucket>): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             const $throws = (typia.stringify as any).throws;

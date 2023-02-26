@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ToJsonNull } from "../../../structures/ToJsonNull";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_ToJsonNull = _test_assertEquals(
     "ToJsonNull",

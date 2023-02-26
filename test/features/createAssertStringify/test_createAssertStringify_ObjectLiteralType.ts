@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_assertStringify } from "../../internal/_test_assertStringify";
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
-import { _test_assertStringify } from "../internal/_test_assertStringify";
 
 export const test_createAssertStringify_ObjectLiteralType =
     _test_assertStringify(

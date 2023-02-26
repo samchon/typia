@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
-import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_ObjectUndefined = _test_is(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input: any): input is ObjectUndefined => {
+    (input: any): input is Array<ObjectUndefined.ILecture> => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&
             (undefined === input.professor ||

@@ -1,13 +1,44 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_ObjectUnionExplicit = _test_random(
     "ObjectUnionExplicit",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<ObjectUnionExplicit> => {
+    ): typia.Primitive<
+        Array<
+            | ObjectUnionExplicit.Discriminator<
+                  "point",
+                  ObjectUnionExplicit.IPoint
+              >
+            | ObjectUnionExplicit.Discriminator<
+                  "line",
+                  ObjectUnionExplicit.ILine
+              >
+            | ObjectUnionExplicit.Discriminator<
+                  "triangle",
+                  ObjectUnionExplicit.ITriangle
+              >
+            | ObjectUnionExplicit.Discriminator<
+                  "rectangle",
+                  ObjectUnionExplicit.IRectangle
+              >
+            | ObjectUnionExplicit.Discriminator<
+                  "polyline",
+                  ObjectUnionExplicit.IPolyline
+              >
+            | ObjectUnionExplicit.Discriminator<
+                  "polygon",
+                  ObjectUnionExplicit.IPolygon
+              >
+            | ObjectUnionExplicit.Discriminator<
+                  "circle",
+                  ObjectUnionExplicit.ICircle
+              >
+        >
+    > => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ro0 = (
@@ -99,7 +130,32 @@ export const test_createRandom_ObjectUnionExplicit = _test_random(
             ])(),
         );
     },
-    (input: any): ObjectUnionExplicit => {
+    (
+        input: any,
+    ): Array<
+        | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>
+        | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>
+        | ObjectUnionExplicit.Discriminator<
+              "triangle",
+              ObjectUnionExplicit.ITriangle
+          >
+        | ObjectUnionExplicit.Discriminator<
+              "rectangle",
+              ObjectUnionExplicit.IRectangle
+          >
+        | ObjectUnionExplicit.Discriminator<
+              "polyline",
+              ObjectUnionExplicit.IPolyline
+          >
+        | ObjectUnionExplicit.Discriminator<
+              "polygon",
+              ObjectUnionExplicit.IPolygon
+          >
+        | ObjectUnionExplicit.Discriminator<
+              "circle",
+              ObjectUnionExplicit.ICircle
+          >
+    > => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

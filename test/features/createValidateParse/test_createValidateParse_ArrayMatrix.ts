@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_validateParse } from "../../internal/_test_validateParse";
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_createValidateParse_ArrayMatrix = _test_validateParse(
     "ArrayMatrix",

@@ -70,7 +70,7 @@ function script(
         `import typia from "../../../src";`,
         "",
         `import { ${struct.name} } from "../../structures/${struct.name}";`,
-        `import { ${common} } from "../internal/${common}";`,
+        `import { ${common} } from "../../internal/${common}";`,
         "",
         `export const test_${method}_${struct.name} = ${common}(`,
         `    "${struct.name}",`,
@@ -115,12 +115,17 @@ async function main(): Promise<void> {
     await TestApplicationGenerator.schema();
 
     // GENERATE TRANSFORMED FEATURES
+    cp.execSync("npx rimraf test/generated");
     cp.execSync(
-        "npx ts-node src/executable/typia generate --input test/features --output test/generated/output --project test/tsconfig.json",
+        [
+            "npx ts-node src/executable/typia generate",
+            "--input test/features",
+            "--output test/generated/output",
+            "--project test/tsconfig.json",
+        ].join(" "),
     );
-    cp.execSync("npx rimraf test/generated/output/application");
-    await __TypeRemover.remove(__dirname + "/../test/generated");
     cp.execSync("npm run prettier", { stdio: "inherit" });
+    await __TypeRemover.remove(__dirname + "/../test/generated");
 }
 main().catch((exp) => {
     console.log(exp);

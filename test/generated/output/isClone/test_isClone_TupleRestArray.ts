@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_TupleRestArray = _test_isClone(
     "TupleRestArray",
     TupleRestArray.generate,
     (input) =>
-        ((input: any): typia.Primitive<TupleRestArray> | null => {
+        ((
+            input: any,
+        ): typia.Primitive<[boolean, number, ...Array<string>[]]> | null => {
             const is = (input: any): input is TupleRestArray => {
                 return (
                     Array.isArray(input) &&

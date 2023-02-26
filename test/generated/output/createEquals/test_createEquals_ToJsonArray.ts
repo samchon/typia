@@ -1,11 +1,19 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_ToJsonArray = _test_equals(
     "ToJsonArray",
     ToJsonArray.generate,
-    (input: any, _exceptionable: boolean = true): input is ToJsonArray => {
+    (
+        input: any,
+        _exceptionable: boolean = true,
+    ): input is [
+        ToJsonArray.IArray<boolean>,
+        ToJsonArray.IArray<number>,
+        ToJsonArray.IArray<string>,
+        ToJsonArray.IArray<ToJsonArray.IObject>,
+    ] => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "function" === typeof input.toJSON &&
             (1 === Object.keys(input).length ||

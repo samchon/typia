@@ -1,12 +1,25 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_isPrune_DynamicEnumeration = _test_isPrune(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input) =>
-        ((input: any): input is DynamicEnumeration => {
+        ((
+            input: any,
+        ): input is {
+            ar?: string | undefined;
+            "zh-Hans"?: string | undefined;
+            "zh-Hant"?: string | undefined;
+            en?: string | undefined;
+            fr?: string | undefined;
+            de?: string | undefined;
+            ja?: string | undefined;
+            ko?: string | undefined;
+            pt?: string | undefined;
+            ru?: string | undefined;
+        } => {
             const is = (input: any): input is DynamicEnumeration => {
                 const $io0 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&

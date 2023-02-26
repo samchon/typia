@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_validateEquals_ToJsonAtomicUnion = _test_validateEquals(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<ToJsonAtomicUnion> => {
+        ((input: any): typia.IValidation<Array<ToJsonAtomicUnion.IToJson>> => {
             const errors = [] as any[];
             const $report = (typia.validateEquals as any).report(errors);
             const $join = (typia.validateEquals as any).join;

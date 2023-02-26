@@ -1,11 +1,17 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_createIsClone_ObjectUnionNonPredictable = _test_isClone(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
-    (input: any): typia.Primitive<ObjectUnionNonPredictable> | null => {
+    (
+        input: any,
+    ): typia.Primitive<
+        Array<
+            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+        >
+    > | null => {
         const is = (input: any): input is ObjectUnionNonPredictable => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&

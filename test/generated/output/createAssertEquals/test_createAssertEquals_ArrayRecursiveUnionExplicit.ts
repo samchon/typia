@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
     _test_assertEquals(
         "ArrayRecursiveUnionExplicit",
         ArrayRecursiveUnionExplicit.generate,
-        (input: any): ArrayRecursiveUnionExplicit => {
+        (input: any): Array<ArrayRecursiveUnionExplicit.IBucket> => {
             const $guard = (typia.createAssertEquals as any).guard;
             const $join = (typia.createAssertEquals as any).join;
             ((

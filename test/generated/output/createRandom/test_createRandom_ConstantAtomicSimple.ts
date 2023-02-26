@@ -1,16 +1,16 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_ConstantAtomicSimple = _test_random(
     "ConstantAtomicSimple",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<ConstantAtomicSimple> => {
+    ): typia.Primitive<[false, true, 2, "three"]> => {
         return [false, true, 2, "three"];
     },
-    (input: any): ConstantAtomicSimple => {
+    (input: any): [false, true, 2, "three"] => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

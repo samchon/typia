@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_validateParse_ConstantEnumeration = _test_validateParse(
     "ConstantEnumeration",
@@ -8,7 +8,9 @@ export const test_validateParse_ConstantEnumeration = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<typia.Primitive<ConstantEnumeration>> => {
+        ): typia.IValidation<
+            typia.Primitive<Array<ConstantEnumeration.Enumeration>>
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantEnumeration> => {

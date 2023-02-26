@@ -1,14 +1,20 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_clone_ObjectUnionNonPredictable = _test_clone(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
     (input) =>
         ((
-            input: ObjectUnionNonPredictable,
-        ): typia.Primitive<ObjectUnionNonPredictable> => {
+            input: Array<
+                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+            >,
+        ): typia.Primitive<
+            Array<
+                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+            >
+        > => {
             const $throws = (typia.clone as any).throws;
             const $io1 = (input: any): boolean =>
                 "object" === typeof input.value &&

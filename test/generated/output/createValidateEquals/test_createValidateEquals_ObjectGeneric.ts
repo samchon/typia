@@ -1,11 +1,19 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_createValidateEquals_ObjectGeneric = _test_validateEquals(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (input: any): typia.IValidation<ObjectGeneric> => {
+    (
+        input: any,
+    ): typia.IValidation<
+        [
+            ObjectGeneric.ISomething<boolean>,
+            ObjectGeneric.ISomething<number>,
+            ObjectGeneric.ISomething<string>,
+        ]
+    > => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;

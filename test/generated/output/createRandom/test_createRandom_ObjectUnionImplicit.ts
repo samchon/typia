@@ -1,13 +1,23 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_ObjectUnionImplicit = _test_random(
     "ObjectUnionImplicit",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<ObjectUnionImplicit> => {
+    ): typia.Primitive<
+        Array<
+            | ObjectUnionImplicit.IPoint
+            | ObjectUnionImplicit.ILine
+            | ObjectUnionImplicit.ITriangle
+            | ObjectUnionImplicit.IRectangle
+            | ObjectUnionImplicit.IPolyline
+            | ObjectUnionImplicit.IPolygon
+            | ObjectUnionImplicit.ICircle
+        >
+    > => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ro0 = (
@@ -144,7 +154,17 @@ export const test_createRandom_ObjectUnionImplicit = _test_random(
             ])(),
         );
     },
-    (input: any): ObjectUnionImplicit => {
+    (
+        input: any,
+    ): Array<
+        | ObjectUnionImplicit.IPoint
+        | ObjectUnionImplicit.ILine
+        | ObjectUnionImplicit.ITriangle
+        | ObjectUnionImplicit.IRectangle
+        | ObjectUnionImplicit.IPolyline
+        | ObjectUnionImplicit.IPolygon
+        | ObjectUnionImplicit.ICircle
+    > => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_validateParse } from "../../internal/_test_validateParse";
 import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_createValidateParse_ConstantAtomicUnion = _test_validateParse(
     "ConstantAtomicUnion",

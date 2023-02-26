@@ -1,11 +1,15 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_createValidateParse_ArrayAtomicSimple = _test_validateParse(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    (input: string): typia.IValidation<typia.Primitive<ArrayAtomicSimple>> => {
+    (
+        input: string,
+    ): typia.IValidation<
+        typia.Primitive<[Array<boolean>, Array<number>, Array<string>]>
+    > => {
         const validate = (input: any): typia.IValidation<ArrayAtomicSimple> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

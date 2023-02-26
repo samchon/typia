@@ -1,12 +1,45 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_assertParse_ObjectUnionExplicit = _test_assertParse(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
     (input) =>
-        ((input: string): typia.Primitive<ObjectUnionExplicit> => {
+        ((
+            input: string,
+        ): typia.Primitive<
+            Array<
+                | ObjectUnionExplicit.Discriminator<
+                      "point",
+                      ObjectUnionExplicit.IPoint
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "line",
+                      ObjectUnionExplicit.ILine
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "triangle",
+                      ObjectUnionExplicit.ITriangle
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "rectangle",
+                      ObjectUnionExplicit.IRectangle
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "polyline",
+                      ObjectUnionExplicit.IPolyline
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "polygon",
+                      ObjectUnionExplicit.IPolygon
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "circle",
+                      ObjectUnionExplicit.ICircle
+                  >
+            >
+        > => {
             const assert = (input: any): ObjectUnionExplicit => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

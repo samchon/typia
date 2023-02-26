@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_isStringify } from "../../internal/_test_isStringify";
 import { TagObjectUnion } from "../../structures/TagObjectUnion";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_createIsStringify_TagObjectUnion = _test_isStringify(
     "TagObjectUnion",

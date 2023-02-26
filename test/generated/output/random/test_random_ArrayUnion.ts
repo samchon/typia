@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
-import { _test_random } from "../internal/_test_random";
 
 export const test_random_ArrayUnion = _test_random(
     "ArrayUnion",
@@ -8,7 +8,7 @@ export const test_random_ArrayUnion = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<ArrayUnion> => {
+        ): typia.Primitive<Array<ArrayUnion.IUnion>> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             return (generator.array ?? $generator.array)(() =>
@@ -28,7 +28,7 @@ export const test_random_ArrayUnion = _test_random(
                 ])(),
             );
         })(),
-    (input: any): ArrayUnion => {
+    (input: any): Array<ArrayUnion.IUnion> => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

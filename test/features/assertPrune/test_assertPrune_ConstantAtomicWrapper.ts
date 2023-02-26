@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_assertPrune } from "../../internal/_test_assertPrune";
 import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_assertPrune_ConstantAtomicWrapper = _test_assertPrune(
     "ConstantAtomicWrapper",

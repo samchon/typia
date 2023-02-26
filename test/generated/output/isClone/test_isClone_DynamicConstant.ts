@@ -1,12 +1,19 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_DynamicConstant = _test_isClone(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((input: any): typia.Primitive<DynamicConstant> | null => {
+        ((
+            input: any,
+        ): typia.Primitive<{
+            a: number;
+            b: number;
+            c: number;
+            d: number;
+        }> | null => {
             const is = (input: any): input is DynamicConstant => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.a &&

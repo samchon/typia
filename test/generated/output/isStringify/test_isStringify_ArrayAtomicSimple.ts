@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_ArrayAtomicSimple = _test_isStringify(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
     (input) =>
-        ((input: ArrayAtomicSimple): string | null => {
+        ((
+            input: [Array<boolean>, Array<number>, Array<string>],
+        ): string | null => {
             const is = (input: any): input is ArrayAtomicSimple => {
                 return (
                     Array.isArray(input) &&

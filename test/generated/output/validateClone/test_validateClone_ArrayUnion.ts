@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_ArrayUnion = _test_validateClone(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<typia.Primitive<ArrayUnion>> => {
+        ((
+            input: any,
+        ): typia.IValidation<typia.Primitive<Array<ArrayUnion.IUnion>>> => {
             const validate = (input: any): typia.IValidation<ArrayUnion> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);

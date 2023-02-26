@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_prune_ConstantAtomicUnion = _test_prune(
     "ConstantAtomicUnion",
     ConstantAtomicUnion.generate,
     (input) =>
-        ((input: ConstantAtomicUnion): void => {
+        ((input: Array<ConstantAtomicUnion.Union>): void => {
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if ("key" === key) continue;

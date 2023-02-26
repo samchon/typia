@@ -1,11 +1,14 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_TemplateConstant = _test_equals(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: any, _exceptionable: boolean = true): input is TemplateConstant => {
+    (
+        input: any,
+        _exceptionable: boolean = true,
+    ): input is Array<TemplateConstant.Type> => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             ("prefix_A" === input.prefix ||
                 "prefix_B" === input.prefix ||

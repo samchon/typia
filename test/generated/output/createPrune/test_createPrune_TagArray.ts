@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { TagArray } from "../../../structures/TagArray";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_createPrune_TagArray = _test_prune(
     "TagArray",
     TagArray.generate,
-    (input: TagArray): void => {
+    (input: Array<TagArray.Type>): void => {
         const $is_uuid = (typia.createPrune as any).is_uuid;
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {

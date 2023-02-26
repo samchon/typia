@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_ConstantAtomicSimple = _test_isStringify(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
     (input) =>
-        ((input: ConstantAtomicSimple): string | null => {
+        ((input: [false, true, 2, "three"]): string | null => {
             const is = (input: any): input is ConstantAtomicSimple => {
                 return (
                     Array.isArray(input) &&

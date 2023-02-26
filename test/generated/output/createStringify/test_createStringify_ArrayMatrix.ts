@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_ArrayMatrix = _test_stringify(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: ArrayMatrix): string => {
+    (input: Array<Array<Array<number>>>): string => {
         const $number = (typia.createStringify as any).number;
         return `[${input
             .map(

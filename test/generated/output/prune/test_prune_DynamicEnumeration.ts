@@ -1,12 +1,23 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_prune_DynamicEnumeration = _test_prune(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input) =>
-        ((input: DynamicEnumeration): void => {
+        ((input: {
+            ar?: string | undefined;
+            "zh-Hans"?: string | undefined;
+            "zh-Hant"?: string | undefined;
+            en?: string | undefined;
+            fr?: string | undefined;
+            de?: string | undefined;
+            ja?: string | undefined;
+            ko?: string | undefined;
+            pt?: string | undefined;
+            ru?: string | undefined;
+        }): void => {
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if (

@@ -1,13 +1,15 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_validateStringify_ConstantConstEnumeration =
     _test_validateStringify(
         "ConstantConstEnumeration",
         ConstantConstEnumeration.generate,
         (input) =>
-            ((input: ConstantConstEnumeration): typia.IValidation<string> => {
+            ((
+                input: Array<ConstantConstEnumeration.Enumeration>,
+            ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<ConstantConstEnumeration> => {

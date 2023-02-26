@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
-    (input: ArrayRecursiveUnionExplicit): string => {
+    (input: Array<ArrayRecursiveUnionExplicit.IBucket>): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $throws = (typia.createStringify as any).throws;

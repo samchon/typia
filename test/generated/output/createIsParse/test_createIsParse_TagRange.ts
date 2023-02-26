@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { TagRange } from "../../../structures/TagRange";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_createIsParse_TagRange = _test_isParse(
     "TagRange",
     TagRange.generate,
-    (input: any): typia.Primitive<TagRange> => {
+    (input: any): typia.Primitive<Array<TagRange.Type>> => {
         const is = (input: any): input is TagRange => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.greater &&

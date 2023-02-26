@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_assertPrune } from "../../internal/_test_assertPrune";
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_createAssertPrune_ObjectLiteralType = _test_assertPrune(
     "ObjectLiteralType",

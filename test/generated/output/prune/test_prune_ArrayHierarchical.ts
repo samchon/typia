@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_prune_ArrayHierarchical = _test_prune(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input) =>
-        ((input: ArrayHierarchical): void => {
+        ((input: Array<ArrayHierarchical.ICompany>): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;

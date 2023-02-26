@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_ArrayRecursive = _test_isClone(
     "ArrayRecursive",

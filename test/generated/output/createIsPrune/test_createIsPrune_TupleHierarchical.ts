@@ -1,11 +1,24 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_createIsPrune_TupleHierarchical = _test_isPrune(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (input: any): input is TupleHierarchical => {
+    (
+        input: any,
+    ): input is [
+        boolean,
+        null,
+        number,
+        [boolean, null, [number, [boolean, string]]],
+        [
+            number,
+            Array<
+                [string, boolean, Array<[number, number, [boolean, string]]>]
+            >,
+        ],
+    ] => {
         const is = (input: any): input is TupleHierarchical => {
             return (
                 Array.isArray(input) &&

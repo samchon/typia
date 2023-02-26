@@ -1,12 +1,23 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_ToJsonUnion = _test_validate(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<ToJsonUnion> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            Array<
+                | string
+                | number
+                | ToJsonUnion.ICitizen
+                | ToJsonUnion.IWrapper<boolean>
+                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+            >
+        > => {
             const errors = [] as any[];
             const $report = (typia.validate as any).report(errors);
             ((

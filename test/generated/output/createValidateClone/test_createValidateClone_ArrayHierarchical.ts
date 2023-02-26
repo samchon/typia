@@ -1,11 +1,15 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input: any): typia.IValidation<typia.Primitive<ArrayHierarchical>> => {
+    (
+        input: any,
+    ): typia.IValidation<
+        typia.Primitive<Array<ArrayHierarchical.ICompany>>
+    > => {
         const validate = (input: any): typia.IValidation<ArrayHierarchical> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

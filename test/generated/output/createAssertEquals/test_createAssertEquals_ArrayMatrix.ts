@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_ArrayMatrix = _test_assertEquals(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: any): ArrayMatrix => {
+    (input: any): Array<Array<Array<number>>> => {
         const $guard = (typia.createAssertEquals as any).guard;
         ((
             input: any,

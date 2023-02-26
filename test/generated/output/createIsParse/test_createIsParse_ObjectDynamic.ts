@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_createIsParse_ObjectDynamic = _test_isParse(
     "ObjectDynamic",

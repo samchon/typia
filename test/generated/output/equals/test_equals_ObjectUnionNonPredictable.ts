@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_ObjectUnionNonPredictable = _test_equals(
     "ObjectUnionNonPredictable",
@@ -9,7 +9,9 @@ export const test_equals_ObjectUnionNonPredictable = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ObjectUnionNonPredictable => {
+        ): input is Array<
+            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+        > => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

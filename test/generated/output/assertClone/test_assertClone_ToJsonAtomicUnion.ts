@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_assertClone_ToJsonAtomicUnion = _test_assertClone(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<ToJsonAtomicUnion> => {
+        ((input: any): typia.Primitive<Array<ToJsonAtomicUnion.IToJson>> => {
             const assert = (input: any): ToJsonAtomicUnion => {
                 const $guard = (typia.assertClone as any).guard;
                 ((

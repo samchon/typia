@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_createValidateParse_TupleRestAtomic = _test_validateParse(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (input: string): typia.IValidation<typia.Primitive<TupleRestAtomic>> => {
+    (
+        input: string,
+    ): typia.IValidation<typia.Primitive<[boolean, number, ...string[]]>> => {
         const validate = (input: any): typia.IValidation<TupleRestAtomic> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

@@ -1,12 +1,21 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_assertClone_ToJsonArray = _test_assertClone(
     "ToJsonArray",
     ToJsonArray.generate,
     (input) =>
-        ((input: any): typia.Primitive<ToJsonArray> => {
+        ((
+            input: any,
+        ): typia.Primitive<
+            [
+                ToJsonArray.IArray<boolean>,
+                ToJsonArray.IArray<number>,
+                ToJsonArray.IArray<string>,
+                ToJsonArray.IArray<ToJsonArray.IObject>,
+            ]
+        > => {
             const assert = (input: any): ToJsonArray => {
                 const $guard = (typia.assertClone as any).guard;
                 ((

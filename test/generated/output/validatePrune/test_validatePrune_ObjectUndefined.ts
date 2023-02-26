@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_validatePrune_ObjectUndefined = _test_validatePrune(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input) =>
-        ((input: any): typia.IValidation<ObjectUndefined> => {
+        ((input: any): typia.IValidation<Array<ObjectUndefined.ILecture>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUndefined> => {

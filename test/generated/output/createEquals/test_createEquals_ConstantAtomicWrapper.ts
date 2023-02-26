@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_ConstantAtomicWrapper = _test_equals(
     "ConstantAtomicWrapper",
@@ -8,7 +8,11 @@ export const test_createEquals_ConstantAtomicWrapper = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is ConstantAtomicWrapper => {
+    ): input is [
+        ConstantAtomicWrapper.IPointer<boolean>,
+        ConstantAtomicWrapper.IPointer<number>,
+        ConstantAtomicWrapper.IPointer<string>,
+    ] => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "boolean" === typeof input.value &&
             (1 === Object.keys(input).length ||

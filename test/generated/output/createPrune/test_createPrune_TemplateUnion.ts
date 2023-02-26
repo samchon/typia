@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { TemplateUnion } from "../../../structures/TemplateUnion";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_createPrune_TemplateUnion = _test_prune(
     "TemplateUnion",
     TemplateUnion.generate,
-    (input: TemplateUnion): void => {
+    (input: Array<TemplateUnion.Type>): void => {
         const $io1 = (input: any): boolean => "string" === typeof input.name;
         const $po0 = (input: any): any => {
             if ("object" === typeof input.mixed && null !== input.mixed)

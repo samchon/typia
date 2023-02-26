@@ -1,13 +1,19 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_validateStringify_ConstantAtomicWrapper =
     _test_validateStringify(
         "ConstantAtomicWrapper",
         ConstantAtomicWrapper.generate,
         (input) =>
-            ((input: ConstantAtomicWrapper): typia.IValidation<string> => {
+            ((
+                input: [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ],
+            ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<ConstantAtomicWrapper> => {

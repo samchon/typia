@@ -1,12 +1,20 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_validatePrune_ObjectNullable = _test_validatePrune(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((input: any): typia.IValidation<ObjectNullable> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            [
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+            ]
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectNullable> => {

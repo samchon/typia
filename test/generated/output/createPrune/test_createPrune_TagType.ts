@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { TagType } from "../../../structures/TagType";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_createPrune_TagType = _test_prune(
     "TagType",
     TagType.generate,
-    (input: TagType): void => {
+    (input: Array<TagType.Type>): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if ("int" === key || "uint" === key) continue;

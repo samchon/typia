@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_assert_ObjectGenericArray = _test_assert(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input) =>
-        ((input: any): ObjectGenericArray => {
+        ((input: any): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
             const $guard = (typia.assert as any).guard;
             ((
                 input: any,

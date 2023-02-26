@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { AtomicSimple } from "../../../structures/AtomicSimple";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_AtomicSimple = _test_assertEquals(
     "AtomicSimple",
     AtomicSimple.generate,
-    (input: any): AtomicSimple => {
+    (input: any): [boolean, number, string] => {
         const $guard = (typia.createAssertEquals as any).guard;
         ((
             input: any,

@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_createPrune_ObjectUnionDouble = _test_prune(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
-    (input: ObjectUnionDouble): void => {
+    (input: Array<ObjectUnionDouble.Union>): void => {
         const $throws = (typia.createPrune as any).throws;
         const $io0 = (input: any): boolean =>
             "object" === typeof input.value &&

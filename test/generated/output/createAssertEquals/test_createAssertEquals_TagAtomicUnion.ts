@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_TagAtomicUnion = _test_assertEquals(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input: any): TagAtomicUnion => {
+    (input: any): Array<TagAtomicUnion.Type> => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

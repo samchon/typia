@@ -1,12 +1,18 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_createValidateEquals_ObjectUnionNonPredictable =
     _test_validateEquals(
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
-        (input: any): typia.IValidation<ObjectUnionNonPredictable> => {
+        (
+            input: any,
+        ): typia.IValidation<
+            Array<
+                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+            >
+        > => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             const $join = (typia.createValidateEquals as any).join;

@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_validatePrune } from "../../internal/_test_validatePrune";
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_createValidatePrune_ConstantConstEnumeration =
     _test_validatePrune(

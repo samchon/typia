@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_assertStringify } from "../../internal/_test_assertStringify";
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
-import { _test_assertStringify } from "../internal/_test_assertStringify";
 
 export const test_assertStringify_ToJsonAtomicSimple = _test_assertStringify(
     "ToJsonAtomicSimple",

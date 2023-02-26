@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_ArrayRecursiveUnionExplicit = _test_equals(
     "ArrayRecursiveUnionExplicit",
@@ -8,7 +8,7 @@ export const test_createEquals_ArrayRecursiveUnionExplicit = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is ArrayRecursiveUnionExplicit => {
+    ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&

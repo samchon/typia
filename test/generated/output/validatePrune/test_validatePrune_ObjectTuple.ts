@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_validatePrune_ObjectTuple = _test_validatePrune(
     "ObjectTuple",
     ObjectTuple.generate,
     (input) =>
-        ((input: any): typia.IValidation<ObjectTuple> => {
+        ((
+            input: any,
+        ): typia.IValidation<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
             const validate = (input: any): typia.IValidation<ObjectTuple> => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);

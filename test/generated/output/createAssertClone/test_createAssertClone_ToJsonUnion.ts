@@ -1,11 +1,22 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_createAssertClone_ToJsonUnion = _test_assertClone(
     "ToJsonUnion",
     ToJsonUnion.generate,
-    (input: any): typia.Primitive<ToJsonUnion> => {
+    (
+        input: any,
+    ): typia.Primitive<
+        Array<
+            | string
+            | number
+            | ToJsonUnion.ICitizen
+            | ToJsonUnion.IWrapper<boolean>
+            | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+            | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+        >
+    > => {
         const assert = (input: any): ToJsonUnion => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

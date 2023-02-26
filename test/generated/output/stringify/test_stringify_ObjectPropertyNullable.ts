@@ -1,12 +1,21 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_stringify_ObjectPropertyNullable = _test_stringify(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
     (input) =>
-        ((input: ObjectPropertyNullable): string => {
+        ((
+            input: [
+                Array<ObjectPropertyNullable.IPointer<boolean>>,
+                Array<ObjectPropertyNullable.IPointer<number>>,
+                Array<ObjectPropertyNullable.IPointer<string>>,
+                Array<
+                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                >,
+            ],
+        ): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             const $io4 = (input: any): boolean =>

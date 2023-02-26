@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_isParse } from "../../internal/_test_isParse";
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_isParse_ObjectIntersection = _test_isParse(
     "ObjectIntersection",

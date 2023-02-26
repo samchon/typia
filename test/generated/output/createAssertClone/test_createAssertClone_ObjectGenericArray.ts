@@ -1,11 +1,15 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_createAssertClone_ObjectGenericArray = _test_assertClone(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (input: any): typia.Primitive<ObjectGenericArray> => {
+    (
+        input: any,
+    ): typia.Primitive<
+        ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
+    > => {
         const assert = (input: any): ObjectGenericArray => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

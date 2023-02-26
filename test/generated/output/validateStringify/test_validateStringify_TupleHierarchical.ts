@@ -1,12 +1,29 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_validateStringify_TupleHierarchical = _test_validateStringify(
     "TupleHierarchical",
     TupleHierarchical.generate,
     (input) =>
-        ((input: TupleHierarchical): typia.IValidation<string> => {
+        ((
+            input: [
+                boolean,
+                null,
+                number,
+                [boolean, null, [number, [boolean, string]]],
+                [
+                    number,
+                    Array<
+                        [
+                            string,
+                            boolean,
+                            Array<[number, number, [boolean, string]]>,
+                        ]
+                    >,
+                ],
+            ],
+        ): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TupleHierarchical> => {

@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_ArrayUnion = _test_assertEquals(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input: any): ArrayUnion => {
+    (input: any): Array<ArrayUnion.IUnion> => {
         const $guard = (typia.createAssertEquals as any).guard;
         ((
             input: any,

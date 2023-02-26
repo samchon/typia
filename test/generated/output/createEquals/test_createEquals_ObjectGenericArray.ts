@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_ObjectGenericArray = _test_equals(
     "ObjectGenericArray",
@@ -8,7 +8,7 @@ export const test_createEquals_ObjectGenericArray = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is ObjectGenericArray => {
+    ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "object" === typeof input.pagination &&
             null !== input.pagination &&

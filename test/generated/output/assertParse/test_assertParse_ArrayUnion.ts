@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_assertParse_ArrayUnion = _test_assertParse(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((input: string): typia.Primitive<ArrayUnion> => {
+        ((input: string): typia.Primitive<Array<ArrayUnion.IUnion>> => {
             const assert = (input: any): ArrayUnion => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

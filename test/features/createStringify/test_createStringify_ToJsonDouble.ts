@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_stringify } from "../../internal/_test_stringify";
 import { ToJsonDouble } from "../../structures/ToJsonDouble";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_ToJsonDouble = _test_stringify(
     "ToJsonDouble",

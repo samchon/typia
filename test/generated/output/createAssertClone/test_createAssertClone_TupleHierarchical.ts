@@ -1,11 +1,30 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_createAssertClone_TupleHierarchical = _test_assertClone(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (input: any): typia.Primitive<TupleHierarchical> => {
+    (
+        input: any,
+    ): typia.Primitive<
+        [
+            boolean,
+            null,
+            number,
+            [boolean, null, [number, [boolean, string]]],
+            [
+                number,
+                Array<
+                    [
+                        string,
+                        boolean,
+                        Array<[number, number, [boolean, string]]>,
+                    ]
+                >,
+            ],
+        ]
+    > => {
         const assert = (input: any): TupleHierarchical => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

@@ -1,12 +1,26 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { AtomicClass } from "../../../structures/AtomicClass";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_validatePrune_AtomicClass = _test_validatePrune(
     "AtomicClass",
     AtomicClass.generate,
     (input) =>
-        ((input: any): typia.IValidation<AtomicClass> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            [
+                Boolean,
+                false | Boolean,
+                boolean | Boolean,
+                Number,
+                Number | 1,
+                number | Number,
+                String,
+                String | "characters",
+                string | String,
+            ]
+        > => {
             const validate = (input: any): typia.IValidation<AtomicClass> => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);

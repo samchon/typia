@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_createAssertParse_ArrayHierarchical = _test_assertParse(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input: string): typia.Primitive<ArrayHierarchical> => {
+    (input: string): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
         const assert = (input: any): ArrayHierarchical => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

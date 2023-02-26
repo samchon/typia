@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_prune_TupleRestObject = _test_prune(
     "TupleRestObject",
     TupleRestObject.generate,
     (input) =>
-        ((input: TupleRestObject): void => {
+        ((input: [boolean, number, ...TupleRestObject.IObject[]]): void => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;
             const $po0 = (input: any): any => {

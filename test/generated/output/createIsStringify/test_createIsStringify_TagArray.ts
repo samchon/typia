@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { TagArray } from "../../../structures/TagArray";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_createIsStringify_TagArray = _test_isStringify(
     "TagArray",
     TagArray.generate,
-    (input: TagArray): string | null => {
+    (input: Array<TagArray.Type>): string | null => {
         const is = (input: any): input is TagArray => {
             const $is_uuid = (typia.createIsStringify as any).is_uuid;
             const $io0 = (input: any): boolean =>

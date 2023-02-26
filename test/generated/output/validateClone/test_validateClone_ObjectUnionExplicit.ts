@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
     "ObjectUnionExplicit",
@@ -8,7 +8,40 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
     (input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ObjectUnionExplicit>> => {
+        ): typia.IValidation<
+            typia.Primitive<
+                Array<
+                    | ObjectUnionExplicit.Discriminator<
+                          "point",
+                          ObjectUnionExplicit.IPoint
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "line",
+                          ObjectUnionExplicit.ILine
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "triangle",
+                          ObjectUnionExplicit.ITriangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "rectangle",
+                          ObjectUnionExplicit.IRectangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polyline",
+                          ObjectUnionExplicit.IPolyline
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polygon",
+                          ObjectUnionExplicit.IPolygon
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "circle",
+                          ObjectUnionExplicit.ICircle
+                      >
+                >
+            >
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionExplicit> => {

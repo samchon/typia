@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_createClone_ConstantAtomicSimple = _test_clone(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
-    (input: ConstantAtomicSimple): typia.Primitive<ConstantAtomicSimple> => {
+    (
+        input: [false, true, 2, "three"],
+    ): typia.Primitive<[false, true, 2, "three"]> => {
         return Array.isArray(input) &&
             input.length === 4 &&
             false === input[0] &&

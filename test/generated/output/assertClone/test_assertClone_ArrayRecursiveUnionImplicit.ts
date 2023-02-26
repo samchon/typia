@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_assertClone_ArrayRecursiveUnionImplicit = _test_assertClone(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
     (input) =>
-        ((input: any): typia.Primitive<ArrayRecursiveUnionImplicit> => {
+        ((
+            input: any,
+        ): typia.Primitive<Array<ArrayRecursiveUnionImplicit.IBucket>> => {
             const assert = (input: any): ArrayRecursiveUnionImplicit => {
                 const $guard = (typia.assertClone as any).guard;
                 ((

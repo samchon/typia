@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_createPrune_ArrayRecursiveUnionExplicit = _test_prune(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
-    (input: ArrayRecursiveUnionExplicit): void => {
+    (input: Array<ArrayRecursiveUnionExplicit.IBucket>): void => {
         const $throws = (typia.createPrune as any).throws;
         const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&

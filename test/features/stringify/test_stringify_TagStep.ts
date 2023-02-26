@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_stringify } from "../../internal/_test_stringify";
 import { TagStep } from "../../structures/TagStep";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_stringify_TagStep = _test_stringify(
     "TagStep",

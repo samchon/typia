@@ -1,11 +1,23 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_createIsClone_ObjectUnionImplicit = _test_isClone(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (input: any): typia.Primitive<ObjectUnionImplicit> | null => {
+    (
+        input: any,
+    ): typia.Primitive<
+        Array<
+            | ObjectUnionImplicit.IPoint
+            | ObjectUnionImplicit.ILine
+            | ObjectUnionImplicit.ITriangle
+            | ObjectUnionImplicit.IRectangle
+            | ObjectUnionImplicit.IPolyline
+            | ObjectUnionImplicit.IPolygon
+            | ObjectUnionImplicit.ICircle
+        >
+    > | null => {
         const is = (input: any): input is ObjectUnionImplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&

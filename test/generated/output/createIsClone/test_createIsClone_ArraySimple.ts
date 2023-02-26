@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ArraySimple } from "../../../structures/ArraySimple";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_createIsClone_ArraySimple = _test_isClone(
     "ArraySimple",
     ArraySimple.generate,
-    (input: any): typia.Primitive<ArraySimple> | null => {
+    (input: any): typia.Primitive<Array<ArraySimple.IPerson>> | null => {
         const is = (input: any): input is ArraySimple => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&

@@ -1,12 +1,21 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_assertClone_ToJsonTuple = _test_assertClone(
     "ToJsonTuple",
     ToJsonTuple.generate,
     (input) =>
-        ((input: any): typia.Primitive<ToJsonTuple> => {
+        ((
+            input: any,
+        ): typia.Primitive<
+            [
+                ToJsonTuple.IToJson<string>,
+                ToJsonTuple.IToJson<number>,
+                ToJsonTuple.IToJson<boolean>,
+                ToJsonTuple.IObject,
+            ]
+        > => {
             const assert = (input: any): ToJsonTuple => {
                 const $guard = (typia.assertClone as any).guard;
                 ((

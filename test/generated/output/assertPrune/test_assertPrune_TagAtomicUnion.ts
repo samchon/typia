@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_assertPrune_TagAtomicUnion = _test_assertPrune(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input) =>
-        ((input: any): TagAtomicUnion => {
+        ((input: any): Array<TagAtomicUnion.Type> => {
             const assert = (input: any): TagAtomicUnion => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((

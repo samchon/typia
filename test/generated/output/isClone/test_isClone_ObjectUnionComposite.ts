@@ -1,12 +1,25 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_isClone_ObjectUnionComposite = _test_isClone(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
     (input) =>
-        ((input: any): typia.Primitive<ObjectUnionComposite> | null => {
+        ((
+            input: any,
+        ): typia.Primitive<
+            Array<
+                | ObjectUnionComposite.IPoint
+                | ObjectUnionComposite.ILine
+                | ObjectUnionComposite.ITriangle
+                | ObjectUnionComposite.IRectangle
+                | ObjectUnionComposite.IPolyline
+                | ObjectUnionComposite.IPolygon
+                | ObjectUnionComposite.IPointedShape
+                | ObjectUnionComposite.ICircle
+            >
+        > | null => {
             const is = (input: any): input is ObjectUnionComposite => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&

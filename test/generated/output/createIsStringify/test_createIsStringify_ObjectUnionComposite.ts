@@ -1,11 +1,22 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_createIsStringify_ObjectUnionComposite = _test_isStringify(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (input: ObjectUnionComposite): string | null => {
+    (
+        input: Array<
+            | ObjectUnionComposite.IPoint
+            | ObjectUnionComposite.ILine
+            | ObjectUnionComposite.ITriangle
+            | ObjectUnionComposite.IRectangle
+            | ObjectUnionComposite.IPolyline
+            | ObjectUnionComposite.IPolygon
+            | ObjectUnionComposite.IPointedShape
+            | ObjectUnionComposite.ICircle
+        >,
+    ): string | null => {
         const is = (input: any): input is ObjectUnionComposite => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&

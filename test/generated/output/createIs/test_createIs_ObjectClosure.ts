@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { ObjectClosure } from "../../../structures/ObjectClosure";
-import { _test_is } from "../internal/_test_is";
 
 export const test_createIs_ObjectClosure = _test_is(
     "ObjectClosure",

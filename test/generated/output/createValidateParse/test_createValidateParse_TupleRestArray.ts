@@ -1,11 +1,15 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_createValidateParse_TupleRestArray = _test_validateParse(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input: string): typia.IValidation<typia.Primitive<TupleRestArray>> => {
+    (
+        input: string,
+    ): typia.IValidation<
+        typia.Primitive<[boolean, number, ...Array<string>[]]>
+    > => {
         const validate = (input: any): typia.IValidation<TupleRestArray> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

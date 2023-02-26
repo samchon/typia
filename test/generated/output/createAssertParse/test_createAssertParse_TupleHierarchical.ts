@@ -1,11 +1,30 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_createAssertParse_TupleHierarchical = _test_assertParse(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (input: string): typia.Primitive<TupleHierarchical> => {
+    (
+        input: string,
+    ): typia.Primitive<
+        [
+            boolean,
+            null,
+            number,
+            [boolean, null, [number, [boolean, string]]],
+            [
+                number,
+                Array<
+                    [
+                        string,
+                        boolean,
+                        Array<[number, number, [boolean, string]]>,
+                    ]
+                >,
+            ],
+        ]
+    > => {
         const assert = (input: any): TupleHierarchical => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

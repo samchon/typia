@@ -1,12 +1,24 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { AtomicClass } from "../../../structures/AtomicClass";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_stringify_AtomicClass = _test_stringify(
     "AtomicClass",
     AtomicClass.generate,
     (input) =>
-        ((input: AtomicClass): string => {
+        ((
+            input: [
+                Boolean,
+                false | Boolean,
+                boolean | Boolean,
+                Number,
+                Number | 1,
+                number | Number,
+                String,
+                String | "characters",
+                string | String,
+            ],
+        ): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             const $throws = (typia.stringify as any).throws;

@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { ArraySimple } from "../../../structures/ArraySimple";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_ArraySimple = _test_validate(
     "ArraySimple",
     ArraySimple.generate,
     (input) =>
-        ((input: any): typia.IValidation<ArraySimple> => {
+        ((input: any): typia.IValidation<Array<ArraySimple.IPerson>> => {
             const errors = [] as any[];
             const $report = (typia.validate as any).report(errors);
             ((

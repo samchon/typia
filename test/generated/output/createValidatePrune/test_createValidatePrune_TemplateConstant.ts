@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_createValidatePrune_TemplateConstant = _test_validatePrune(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: any): typia.IValidation<TemplateConstant> => {
+    (input: any): typia.IValidation<Array<TemplateConstant.Type>> => {
         const validate = (input: any): typia.IValidation<TemplateConstant> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

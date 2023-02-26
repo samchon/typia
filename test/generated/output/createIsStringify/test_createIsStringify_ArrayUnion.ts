@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_createIsStringify_ArrayUnion = _test_isStringify(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input: ArrayUnion): string | null => {
+    (input: Array<ArrayUnion.IUnion>): string | null => {
         const is = (input: any): input is ArrayUnion => {
             return (
                 Array.isArray(input) &&

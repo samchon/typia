@@ -1,12 +1,25 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_assertClone_DynamicEnumeration = _test_assertClone(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input) =>
-        ((input: any): typia.Primitive<DynamicEnumeration> => {
+        ((
+            input: any,
+        ): typia.Primitive<{
+            ar?: string | undefined;
+            "zh-Hans"?: string | undefined;
+            "zh-Hant"?: string | undefined;
+            en?: string | undefined;
+            fr?: string | undefined;
+            de?: string | undefined;
+            ja?: string | undefined;
+            ko?: string | undefined;
+            pt?: string | undefined;
+            ru?: string | undefined;
+        }> => {
             const assert = (input: any): DynamicEnumeration => {
                 const $guard = (typia.assertClone as any).guard;
                 ((

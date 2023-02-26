@@ -1,13 +1,13 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { AtomicSimple } from "../../../structures/AtomicSimple";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_AtomicSimple = _test_random(
     "AtomicSimple",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<AtomicSimple> => {
+    ): typia.Primitive<[boolean, number, string]> => {
         const $generator = (typia.createRandom as any).generator;
         return [
             (generator.boolean ?? $generator.boolean)(),
@@ -15,7 +15,7 @@ export const test_createRandom_AtomicSimple = _test_random(
             (generator.string ?? $generator.string)(),
         ];
     },
-    (input: any): AtomicSimple => {
+    (input: any): [boolean, number, string] => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

@@ -1,12 +1,18 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_ObjectNullable =
     _test_validateStringify(
         "ObjectNullable",
         ObjectNullable.generate,
-        (input: ObjectNullable): typia.IValidation<string> => {
+        (
+            input: [
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+            ],
+        ): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectNullable> => {

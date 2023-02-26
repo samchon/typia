@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assert } from "../../../internal/_test_assert";
 import { TagArray } from "../../../structures/TagArray";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_createAssert_TagArray = _test_assert(
     "TagArray",
     TagArray.generate,
-    (input: any): TagArray => {
+    (input: any): Array<TagArray.Type> => {
         const $guard = (typia.createAssert as any).guard;
         const $is_uuid = (typia.createAssert as any).is_uuid;
         ((

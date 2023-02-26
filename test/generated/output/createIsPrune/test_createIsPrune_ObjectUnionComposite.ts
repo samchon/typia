@@ -1,11 +1,22 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_createIsPrune_ObjectUnionComposite = _test_isPrune(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (input: any): input is ObjectUnionComposite => {
+    (
+        input: any,
+    ): input is Array<
+        | ObjectUnionComposite.IPoint
+        | ObjectUnionComposite.ILine
+        | ObjectUnionComposite.ITriangle
+        | ObjectUnionComposite.IRectangle
+        | ObjectUnionComposite.IPolyline
+        | ObjectUnionComposite.IPolygon
+        | ObjectUnionComposite.IPointedShape
+        | ObjectUnionComposite.ICircle
+    > => {
         const is = (input: any): input is ObjectUnionComposite => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&

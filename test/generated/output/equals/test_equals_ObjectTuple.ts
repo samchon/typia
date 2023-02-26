@@ -1,12 +1,15 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_ObjectTuple = _test_equals(
     "ObjectTuple",
     ObjectTuple.generate,
     (input) =>
-        ((input: any, _exceptionable: boolean = true): input is ObjectTuple => {
+        ((
+            input: any,
+            _exceptionable: boolean = true,
+        ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

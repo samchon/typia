@@ -1,12 +1,20 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_isParse_ObjectGeneric = _test_isParse(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((input: any): typia.Primitive<ObjectGeneric> => {
+        ((
+            input: any,
+        ): typia.Primitive<
+            [
+                ObjectGeneric.ISomething<boolean>,
+                ObjectGeneric.ISomething<number>,
+                ObjectGeneric.ISomething<string>,
+            ]
+        > => {
             const is = (input: any): input is ObjectGeneric => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&

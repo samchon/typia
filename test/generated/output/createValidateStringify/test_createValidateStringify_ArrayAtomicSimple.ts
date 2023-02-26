@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_ArrayAtomicSimple =
     _test_validateStringify(
         "ArrayAtomicSimple",
         ArrayAtomicSimple.generate,
-        (input: ArrayAtomicSimple): typia.IValidation<string> => {
+        (
+            input: [Array<boolean>, Array<number>, Array<string>],
+        ): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayAtomicSimple> => {

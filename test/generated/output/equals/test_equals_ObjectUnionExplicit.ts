@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_ObjectUnionExplicit = _test_equals(
     "ObjectUnionExplicit",
@@ -9,7 +9,36 @@ export const test_equals_ObjectUnionExplicit = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ObjectUnionExplicit => {
+        ): input is Array<
+            | ObjectUnionExplicit.Discriminator<
+                  "point",
+                  ObjectUnionExplicit.IPoint
+              >
+            | ObjectUnionExplicit.Discriminator<
+                  "line",
+                  ObjectUnionExplicit.ILine
+              >
+            | ObjectUnionExplicit.Discriminator<
+                  "triangle",
+                  ObjectUnionExplicit.ITriangle
+              >
+            | ObjectUnionExplicit.Discriminator<
+                  "rectangle",
+                  ObjectUnionExplicit.IRectangle
+              >
+            | ObjectUnionExplicit.Discriminator<
+                  "polyline",
+                  ObjectUnionExplicit.IPolyline
+              >
+            | ObjectUnionExplicit.Discriminator<
+                  "polygon",
+                  ObjectUnionExplicit.IPolygon
+              >
+            | ObjectUnionExplicit.Discriminator<
+                  "circle",
+                  ObjectUnionExplicit.ICircle
+              >
+        > => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

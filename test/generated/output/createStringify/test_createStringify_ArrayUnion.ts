@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_ArrayUnion = _test_stringify(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input: ArrayUnion): string => {
+    (input: Array<ArrayUnion.IUnion>): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
         const $throws = (typia.createStringify as any).throws;

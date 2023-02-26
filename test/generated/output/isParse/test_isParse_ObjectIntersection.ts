@@ -1,12 +1,16 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_isParse_ObjectIntersection = _test_isParse(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input) =>
-        ((input: any): typia.Primitive<ObjectIntersection> => {
+        ((
+            input: any,
+        ): typia.Primitive<
+            ObjectIntersection.IEmail & ObjectIntersection.IName
+        > => {
             const is = (input: any): input is ObjectIntersection => {
                 return (
                     "object" === typeof input &&

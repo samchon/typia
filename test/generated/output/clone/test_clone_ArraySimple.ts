@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { ArraySimple } from "../../../structures/ArraySimple";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_clone_ArraySimple = _test_clone(
     "ArraySimple",
     ArraySimple.generate,
     (input) =>
-        ((input: ArraySimple): typia.Primitive<ArraySimple> => {
+        ((
+            input: Array<ArraySimple.IPerson>,
+        ): typia.Primitive<Array<ArraySimple.IPerson>> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.body &&

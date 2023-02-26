@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
-import { _test_is } from "../internal/_test_is";
 
 export const test_is_ObjectTuple = _test_is(
     "ObjectTuple",
     ObjectTuple.generate,
     (input) =>
-        ((input: any): input is ObjectTuple => {
+        ((
+            input: any,
+        ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&

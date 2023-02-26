@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_TagObjectUnion = _test_equals(
     "TagObjectUnion",
@@ -9,7 +9,7 @@ export const test_equals_TagObjectUnion = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is TagObjectUnion => {
+        ): input is Array<TagObjectUnion.Type> => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

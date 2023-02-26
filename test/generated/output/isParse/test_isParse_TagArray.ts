@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { TagArray } from "../../../structures/TagArray";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_isParse_TagArray = _test_isParse(
     "TagArray",
     TagArray.generate,
     (input) =>
-        ((input: any): typia.Primitive<TagArray> => {
+        ((input: any): typia.Primitive<Array<TagArray.Type>> => {
             const is = (input: any): input is TagArray => {
                 const $is_uuid = (typia.isParse as any).is_uuid;
                 const $io0 = (input: any): boolean =>

@@ -1,11 +1,20 @@
 import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
-import { _test_isClone } from "../internal/_test_isClone";
 
 export const test_createIsClone_ToJsonArray = _test_isClone(
     "ToJsonArray",
     ToJsonArray.generate,
-    (input: any): typia.Primitive<ToJsonArray> | null => {
+    (
+        input: any,
+    ): typia.Primitive<
+        [
+            ToJsonArray.IArray<boolean>,
+            ToJsonArray.IArray<number>,
+            ToJsonArray.IArray<string>,
+            ToJsonArray.IArray<ToJsonArray.IObject>,
+        ]
+    > | null => {
         const is = (input: any): input is ToJsonArray => {
             const $io0 = (input: any): boolean =>
                 "function" === typeof input.toJSON;

@@ -1,11 +1,17 @@
 import typia from "../../../../src";
+import { _test_prune } from "../../../internal/_test_prune";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
-import { _test_prune } from "../internal/_test_prune";
 
 export const test_createPrune_ConstantAtomicWrapper = _test_prune(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
-    (input: ConstantAtomicWrapper): void => {
+    (
+        input: [
+            ConstantAtomicWrapper.IPointer<boolean>,
+            ConstantAtomicWrapper.IPointer<number>,
+            ConstantAtomicWrapper.IPointer<string>,
+        ],
+    ): void => {
         const $io0 = (input: any): boolean => "boolean" === typeof input.value;
         const $io1 = (input: any): boolean => "number" === typeof input.value;
         const $io2 = (input: any): boolean => "string" === typeof input.value;

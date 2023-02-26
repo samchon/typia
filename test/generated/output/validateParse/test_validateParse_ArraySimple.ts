@@ -1,12 +1,14 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { ArraySimple } from "../../../structures/ArraySimple";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_validateParse_ArraySimple = _test_validateParse(
     "ArraySimple",
     ArraySimple.generate,
     (input) =>
-        ((input: string): typia.IValidation<typia.Primitive<ArraySimple>> => {
+        ((
+            input: string,
+        ): typia.IValidation<typia.Primitive<Array<ArraySimple.IPerson>>> => {
             const validate = (input: any): typia.IValidation<ArraySimple> => {
                 const errors = [] as any[];
                 const $report = (typia.validateParse as any).report(errors);

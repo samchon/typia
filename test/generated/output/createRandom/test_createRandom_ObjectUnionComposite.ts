@@ -1,13 +1,24 @@
 import typia from "../../../../src";
+import { _test_random } from "../../../internal/_test_random";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
-import { _test_random } from "../internal/_test_random";
 
 export const test_createRandom_ObjectUnionComposite = _test_random(
     "ObjectUnionComposite",
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<ObjectUnionComposite> => {
+    ): typia.Primitive<
+        Array<
+            | ObjectUnionComposite.IPoint
+            | ObjectUnionComposite.ILine
+            | ObjectUnionComposite.ITriangle
+            | ObjectUnionComposite.IRectangle
+            | ObjectUnionComposite.IPolyline
+            | ObjectUnionComposite.IPolygon
+            | ObjectUnionComposite.IPointedShape
+            | ObjectUnionComposite.ICircle
+        >
+    > => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ro0 = (
@@ -87,7 +98,18 @@ export const test_createRandom_ObjectUnionComposite = _test_random(
             ])(),
         );
     },
-    (input: any): ObjectUnionComposite => {
+    (
+        input: any,
+    ): Array<
+        | ObjectUnionComposite.IPoint
+        | ObjectUnionComposite.ILine
+        | ObjectUnionComposite.ITriangle
+        | ObjectUnionComposite.IRectangle
+        | ObjectUnionComposite.IPolyline
+        | ObjectUnionComposite.IPolygon
+        | ObjectUnionComposite.IPointedShape
+        | ObjectUnionComposite.ICircle
+    > => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

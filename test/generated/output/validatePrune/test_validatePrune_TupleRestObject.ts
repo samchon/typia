@@ -1,12 +1,16 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_validatePrune_TupleRestObject = _test_validatePrune(
     "TupleRestObject",
     TupleRestObject.generate,
     (input) =>
-        ((input: any): typia.IValidation<TupleRestObject> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            [boolean, number, ...TupleRestObject.IObject[]]
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<TupleRestObject> => {

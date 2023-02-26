@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertPrune } from "../../../internal/_test_assertPrune";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
-import { _test_assertPrune } from "../internal/_test_assertPrune";
 
 export const test_createAssertPrune_TemplateConstant = _test_assertPrune(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: any): TemplateConstant => {
+    (input: any): Array<TemplateConstant.Type> => {
         const assert = (input: any): TemplateConstant => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

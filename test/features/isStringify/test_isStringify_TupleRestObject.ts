@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_isStringify } from "../../internal/_test_isStringify";
 import { TupleRestObject } from "../../structures/TupleRestObject";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_TupleRestObject = _test_isStringify(
     "TupleRestObject",

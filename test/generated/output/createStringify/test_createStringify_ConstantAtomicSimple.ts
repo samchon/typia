@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_ConstantAtomicSimple = _test_stringify(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
-    (input: ConstantAtomicSimple): string => {
+    (input: [false, true, 2, "three"]): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $throws = (typia.createStringify as any).throws;

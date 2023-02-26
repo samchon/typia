@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_ObjectUnionComposite = _test_validateClone(
     "ObjectUnionComposite",
@@ -8,7 +8,20 @@ export const test_validateClone_ObjectUnionComposite = _test_validateClone(
     (input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ObjectUnionComposite>> => {
+        ): typia.IValidation<
+            typia.Primitive<
+                Array<
+                    | ObjectUnionComposite.IPoint
+                    | ObjectUnionComposite.ILine
+                    | ObjectUnionComposite.ITriangle
+                    | ObjectUnionComposite.IRectangle
+                    | ObjectUnionComposite.IPolyline
+                    | ObjectUnionComposite.IPolygon
+                    | ObjectUnionComposite.IPointedShape
+                    | ObjectUnionComposite.ICircle
+                >
+            >
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionComposite> => {

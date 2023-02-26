@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_is } from "../../../internal/_test_is";
 import { ClassNonPublic } from "../../../structures/ClassNonPublic";
-import { _test_is } from "../internal/_test_is";
 
 export const test_is_ClassNonPublic = _test_is(
     "ClassNonPublic",

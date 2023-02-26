@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_ArrayMatrix = _test_validateStringify(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: ArrayMatrix): typia.IValidation<string> => {
+    (input: Array<Array<Array<number>>>): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<ArrayMatrix> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(

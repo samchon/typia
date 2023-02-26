@@ -1,11 +1,15 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_createValidate_ObjectGenericArray = _test_validate(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (input: any): typia.IValidation<ObjectGenericArray> => {
+    (
+        input: any,
+    ): typia.IValidation<
+        ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
+    > => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

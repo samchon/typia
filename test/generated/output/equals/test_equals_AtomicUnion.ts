@@ -1,12 +1,15 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_AtomicUnion = _test_equals(
     "AtomicUnion",
     AtomicUnion.generate,
     (input) =>
-        ((input: any, _exceptionable: boolean = true): input is AtomicUnion => {
+        ((
+            input: any,
+            _exceptionable: boolean = true,
+        ): input is Array<AtomicUnion.Union> => {
             return (
                 Array.isArray(input) &&
                 input.every(

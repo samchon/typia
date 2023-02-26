@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_isPrune_TupleRestAtomic = _test_isPrune(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
     (input) =>
-        ((input: any): input is TupleRestAtomic => {
+        ((input: any): input is [boolean, number, ...string[]] => {
             const is = (input: any): input is TupleRestAtomic => {
                 return (
                     Array.isArray(input) &&

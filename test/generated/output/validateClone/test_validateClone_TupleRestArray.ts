@@ -1,12 +1,16 @@
 import typia from "../../../../src";
+import { _test_validateClone } from "../../../internal/_test_validateClone";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
-import { _test_validateClone } from "../internal/_test_validateClone";
 
 export const test_validateClone_TupleRestArray = _test_validateClone(
     "TupleRestArray",
     TupleRestArray.generate,
     (input) =>
-        ((input: any): typia.IValidation<typia.Primitive<TupleRestArray>> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            typia.Primitive<[boolean, number, ...Array<string>[]]>
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<TupleRestArray> => {

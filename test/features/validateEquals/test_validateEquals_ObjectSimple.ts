@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { ObjectSimple } from "../../structures/ObjectSimple";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_validateEquals_ObjectSimple = _test_validateEquals(
     "ObjectSimple",

@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_ArrayRecursiveUnionExplicit = _test_isStringify(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
     (input) =>
-        ((input: ArrayRecursiveUnionExplicit): string | null => {
+        ((input: Array<ArrayRecursiveUnionExplicit.IBucket>): string | null => {
             const is = (input: any): input is ArrayRecursiveUnionExplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&

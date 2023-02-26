@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_createAssertParse_TemplateConstant = _test_assertParse(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: string): typia.Primitive<TemplateConstant> => {
+    (input: string): typia.Primitive<Array<TemplateConstant.Type>> => {
         const assert = (input: any): TemplateConstant => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

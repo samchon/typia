@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assert } from "../../../internal/_test_assert";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_assert_ConstantEnumeration = _test_assert(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
     (input) =>
-        ((input: any): ConstantEnumeration => {
+        ((input: any): Array<ConstantEnumeration.Enumeration> => {
             const $guard = (typia.assert as any).guard;
             ((
                 input: any,

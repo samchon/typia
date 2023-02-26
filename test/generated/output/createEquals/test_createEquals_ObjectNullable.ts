@@ -1,11 +1,18 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_ObjectNullable = _test_equals(
     "ObjectNullable",
     ObjectNullable.generate,
-    (input: any, _exceptionable: boolean = true): input is ObjectNullable => {
+    (
+        input: any,
+        _exceptionable: boolean = true,
+    ): input is [
+        ObjectNullable.IProduct,
+        ObjectNullable.IProduct,
+        ObjectNullable.IProduct,
+    ] => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.name &&
             "object" === typeof input.manufacturer &&

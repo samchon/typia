@@ -1,12 +1,18 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_stringify_ObjectGeneric = _test_stringify(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((input: ObjectGeneric): string => {
+        ((
+            input: [
+                ObjectGeneric.ISomething<boolean>,
+                ObjectGeneric.ISomething<number>,
+                ObjectGeneric.ISomething<string>,
+            ],
+        ): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             const $io1 = (input: any): boolean =>

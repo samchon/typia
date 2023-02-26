@@ -1,11 +1,18 @@
 import typia from "../../../../src";
+import { _test_assert } from "../../../internal/_test_assert";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_createAssert_ToJsonArray = _test_assert(
     "ToJsonArray",
     ToJsonArray.generate,
-    (input: any): ToJsonArray => {
+    (
+        input: any,
+    ): [
+        ToJsonArray.IArray<boolean>,
+        ToJsonArray.IArray<number>,
+        ToJsonArray.IArray<string>,
+        ToJsonArray.IArray<ToJsonArray.IObject>,
+    ] => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

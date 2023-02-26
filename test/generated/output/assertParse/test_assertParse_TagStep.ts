@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_assertParse } from "../../../internal/_test_assertParse";
 import { TagStep } from "../../../structures/TagStep";
-import { _test_assertParse } from "../internal/_test_assertParse";
 
 export const test_assertParse_TagStep = _test_assertParse(
     "TagStep",
     TagStep.generate,
     (input) =>
-        ((input: string): typia.Primitive<TagStep> => {
+        ((input: string): typia.Primitive<Array<TagStep.Type>> => {
             const assert = (input: any): TagStep => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

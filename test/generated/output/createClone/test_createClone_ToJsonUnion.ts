@@ -1,11 +1,29 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_createClone_ToJsonUnion = _test_clone(
     "ToJsonUnion",
     ToJsonUnion.generate,
-    (input: ToJsonUnion): typia.Primitive<ToJsonUnion> => {
+    (
+        input: Array<
+            | string
+            | number
+            | ToJsonUnion.ICitizen
+            | ToJsonUnion.IWrapper<boolean>
+            | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+            | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+        >,
+    ): typia.Primitive<
+        Array<
+            | string
+            | number
+            | ToJsonUnion.ICitizen
+            | ToJsonUnion.IWrapper<boolean>
+            | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+            | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+        >
+    > => {
         const $throws = (typia.createClone as any).throws;
         const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&

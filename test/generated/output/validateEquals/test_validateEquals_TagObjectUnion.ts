@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_validateEquals_TagObjectUnion = _test_validateEquals(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<TagObjectUnion> => {
+        ((input: any): typia.IValidation<Array<TagObjectUnion.Type>> => {
             const errors = [] as any[];
             const $report = (typia.validateEquals as any).report(errors);
             const $join = (typia.validateEquals as any).join;

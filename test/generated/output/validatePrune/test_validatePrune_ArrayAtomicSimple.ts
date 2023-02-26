@@ -1,12 +1,16 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_validatePrune_ArrayAtomicSimple = _test_validatePrune(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
     (input) =>
-        ((input: any): typia.IValidation<ArrayAtomicSimple> => {
+        ((
+            input: any,
+        ): typia.IValidation<
+            [Array<boolean>, Array<number>, Array<string>]
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayAtomicSimple> => {

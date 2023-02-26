@@ -1,12 +1,24 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { AtomicClass } from "../../../structures/AtomicClass";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_assertEquals_AtomicClass = _test_assertEquals(
     "AtomicClass",
     AtomicClass.generate,
     (input) =>
-        ((input: any): AtomicClass => {
+        ((
+            input: any,
+        ): [
+            Boolean,
+            false | Boolean,
+            boolean | Boolean,
+            Number,
+            Number | 1,
+            number | Number,
+            String,
+            String | "characters",
+            string | String,
+        ] => {
             const $guard = (typia.assertEquals as any).guard;
             ((
                 input: any,

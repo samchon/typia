@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_createAssertEquals_DynamicConstant = _test_assertEquals(
     "DynamicConstant",
     DynamicConstant.generate,
-    (input: any): DynamicConstant => {
+    (input: any): { a: number; b: number; c: number; d: number } => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_validateParse_ObjectNullable = _test_validateParse(
     "ObjectNullable",
@@ -8,7 +8,15 @@ export const test_validateParse_ObjectNullable = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<typia.Primitive<ObjectNullable>> => {
+        ): typia.IValidation<
+            typia.Primitive<
+                [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ]
+            >
+        > => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectNullable> => {

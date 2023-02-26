@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_validateParse } from "../../../internal/_test_validateParse";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
-import { _test_validateParse } from "../internal/_test_validateParse";
 
 export const test_createValidateParse_TagAtomicUnion = _test_validateParse(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input: string): typia.IValidation<typia.Primitive<TagAtomicUnion>> => {
+    (
+        input: string,
+    ): typia.IValidation<typia.Primitive<Array<TagAtomicUnion.Type>>> => {
         const validate = (input: any): typia.IValidation<TagAtomicUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

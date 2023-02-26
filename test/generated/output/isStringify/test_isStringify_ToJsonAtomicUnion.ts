@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_isStringify } from "../../../internal/_test_isStringify";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_ToJsonAtomicUnion = _test_isStringify(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
     (input) =>
-        ((input: ToJsonAtomicUnion): string | null => {
+        ((input: Array<ToJsonAtomicUnion.IToJson>): string | null => {
             const is = (input: any): input is ToJsonAtomicUnion => {
                 const $io0 = (input: any): boolean => true;
                 return (

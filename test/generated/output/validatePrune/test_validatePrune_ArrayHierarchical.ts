@@ -1,12 +1,12 @@
 import typia from "../../../../src";
+import { _test_validatePrune } from "../../../internal/_test_validatePrune";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_validatePrune } from "../internal/_test_validatePrune";
 
 export const test_validatePrune_ArrayHierarchical = _test_validatePrune(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input) =>
-        ((input: any): typia.IValidation<ArrayHierarchical> => {
+        ((input: any): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayHierarchical> => {

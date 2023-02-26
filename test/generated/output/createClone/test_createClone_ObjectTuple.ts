@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_createClone_ObjectTuple = _test_clone(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input: ObjectTuple): typia.Primitive<ObjectTuple> => {
+    (
+        input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
+    ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.code &&

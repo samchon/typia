@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_clone } from "../../../internal/_test_clone";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
-import { _test_clone } from "../internal/_test_clone";
 
 export const test_createClone_TagObjectUnion = _test_clone(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input: TagObjectUnion): typia.Primitive<TagObjectUnion> => {
+    (
+        input: Array<TagObjectUnion.Type>,
+    ): typia.Primitive<Array<TagObjectUnion.Type>> => {
         const $throws = (typia.createClone as any).throws;
         const $io0 = (input: any): boolean =>
             "number" === typeof input.value && 3 <= input.value;

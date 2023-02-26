@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_isParse } from "../internal/_test_isParse";
 
 export const test_createIsParse_ArrayHierarchical = _test_isParse(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input: any): typia.Primitive<ArrayHierarchical> => {
+    (input: any): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
         const is = (input: any): input is ArrayHierarchical => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&

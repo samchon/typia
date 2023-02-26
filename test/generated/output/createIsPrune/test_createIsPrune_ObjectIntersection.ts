@@ -1,11 +1,13 @@
 import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
-import { _test_isPrune } from "../internal/_test_isPrune";
 
 export const test_createIsPrune_ObjectIntersection = _test_isPrune(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (input: any): input is ObjectIntersection => {
+    (
+        input: any,
+    ): input is ObjectIntersection.IEmail & ObjectIntersection.IName => {
         const is = (input: any): input is ObjectIntersection => {
             return (
                 "object" === typeof input &&

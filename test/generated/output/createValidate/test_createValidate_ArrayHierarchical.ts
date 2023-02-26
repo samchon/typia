@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_validate } from "../../../internal/_test_validate";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_createValidate_ArrayHierarchical = _test_validate(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input: any): typia.IValidation<ArrayHierarchical> => {
+    (input: any): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

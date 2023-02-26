@@ -1,11 +1,14 @@
 import typia from "../../../../src";
+import { _test_equals } from "../../../internal/_test_equals";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_createEquals_TupleRestObject = _test_equals(
     "TupleRestObject",
     TupleRestObject.generate,
-    (input: any, _exceptionable: boolean = true): input is TupleRestObject => {
+    (
+        input: any,
+        _exceptionable: boolean = true,
+    ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.value &&
             (1 === Object.keys(input).length ||

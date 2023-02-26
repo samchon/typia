@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_stringify } from "../../../internal/_test_stringify";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_ArrayAtomicSimple = _test_stringify(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    (input: ArrayAtomicSimple): string => {
+    (input: [Array<boolean>, Array<number>, Array<string>]): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         return `[${`[${input[0]

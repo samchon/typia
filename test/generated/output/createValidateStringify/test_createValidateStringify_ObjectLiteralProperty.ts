@@ -1,6 +1,6 @@
 import typia from "../../../../src";
+import { _test_validateStringify } from "../../../internal/_test_validateStringify";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_createValidateStringify_ObjectLiteralProperty =
     _test_validateStringify(

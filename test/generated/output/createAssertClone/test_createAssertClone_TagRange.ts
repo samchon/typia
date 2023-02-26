@@ -1,11 +1,11 @@
 import typia from "../../../../src";
+import { _test_assertClone } from "../../../internal/_test_assertClone";
 import { TagRange } from "../../../structures/TagRange";
-import { _test_assertClone } from "../internal/_test_assertClone";
 
 export const test_createAssertClone_TagRange = _test_assertClone(
     "TagRange",
     TagRange.generate,
-    (input: any): typia.Primitive<TagRange> => {
+    (input: any): typia.Primitive<Array<TagRange.Type>> => {
         const assert = (input: any): TagRange => {
             const $guard = (typia.createAssertClone as any).guard;
             ((
