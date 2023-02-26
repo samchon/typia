@@ -1,6 +1,5 @@
-import { TestRandomGenerator } from "../internal/TestRandomGenerator";
-
 import { Spoiler } from "../internal/Spoiler";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
 
 export type FunctionalObjectUnion = FunctionalObjectUnion.Union[];
 export namespace FunctionalObjectUnion {

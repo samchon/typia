@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { ObjectSimple } from "../../structures/ObjectSimple";
 import { _test_isPrune } from "../internal/_test_isPrune";
 

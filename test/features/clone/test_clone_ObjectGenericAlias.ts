@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 import { _test_clone } from "../internal/_test_clone";
 

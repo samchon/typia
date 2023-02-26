@@ -57,34 +57,55 @@ Thanks for your support.
 
 Your donation would encourage `typia` development.
 
-[![Backers](https://opencollective.com/typia/backers.svg?avatarHeight=75&width=600))](https://opencollective.com/typia)
+[![Sponsers](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600))](https://opencollective.com/typia)
 
 
 
 
 ## Setup
-### Setup Wizard
+### Transformation (stable)
 ```bash
 npx typia setup
 ```
 
-Just type `npx typia setup`, that's all.
+AOT (Ahead of Time) compilation mode.
 
-If you've installed [ttypescript](https://github.com/cevek/ttypescript) during setup, you should compile `typia` utilization code through `ttsc` command, instead of `tsc`. 
+When you write a TypeScript code calling `typia.createIs<string | null>()` function and compile it, `typia` will write optimal validation code like below, for the `string | null` type. This is the transform mode performing AOT (Ahead of Time) compilation.
+
+<!-- As long as you're using standard TypeScript compiler, I just recommend you to use this transform mode. Otherwise, you're using non-standard compiler like [SWC](https://swc.rs/) or [Babel](https://babeljs.io/) (mostly designed for frontend development), you've to use the [generation mode](#generation-beta) instead. -->
+
+```typescript
+// TYPESCRIPT CODE
+import typia from "typia";
+export const check = typia.createIs<string | null>();
+
+// COMPILED JAVASCRIPT CODE
+export const check = (input) => "string" === typeof input || null === input;
+```
+
+![Typia Setup Wizard](https://user-images.githubusercontent.com/13158709/221402176-83b1bfe8-bc8f-4fba-9d83-6adbdfce5c8c.png)
+
+By the way, to use this transform mode, you've install one onf them; [ttypescript](https://github.com/cevek/ttypescript) or [ts-patch](https://github.com/nonara/ts-patch).
+
+If [ttypescript](https://github.com/cevek/ttypescript), you should compile through `ttsc` command, instead of using `tsc`.
+
+Otherwise, you've chosen [ts-patch](https://github.com/nonara/ts-patch), you can use original `tsc` command. However, [ts-patch](https://github.com/nonara/ts-patch) hacks `node_modules/typescript` source code. Also, whenever update `typescrtip` version, you have to run `npm run prepare` command repeatedly.
+
+By the way, when using [@nest/cli](https://nestjs.com), you must just choose [ts-patch](https://github.com/nonara/ts-patch).
 
 ```bash
+#--------
+# TTYPESCRIPT
+#--------
 # COMPILE THROUGH TTYPESCRIPT
 npx ttsc
 
 # RUN TS-NODE WITH TTYPESCRIPT
 npx ts-node -C ttypescript src/index.ts
-```
 
-Otherwise, you've chosen [ts-patch](https://github.com/nonara/ts-patch), you can use original `tsc` command. However, [ts-patch](https://github.com/nonara/ts-patch) hacks `node_modules/typescript` source code. Also, whenever update `typescript` version, you've to run `npm run prepare` command repeatedly.
-
-By the way, when using `@nest/cli`, you must just choose [ts-patch](https://github.com/nonara/ts-patch)
-
-```bash
+#--------
+# TS-PATCH
+#--------
 # USE ORIGINAL TSC COMMAND
 tsc
 npx ts-node src/index.ts
@@ -94,40 +115,37 @@ npm install --save-dev typescript@latest
 npm run prepare
 ```
 
-### Manual Setup
-If you want to install and setup `typia` manually, read [Guide Documents - Setup](https://github.com/samchon/typia/wiki/Setup).
+### Generation (beta)
+```bash
+# INSTALL TYPIA
+npm install --save typia
 
-  - [Setup Wizard](https://github.com/samchon/typia/wiki/Setup#setup-wizard)
-  - [NPM Packages](https://github.com/samchon/typia/wiki/Setup#npm-packages)
-  - [`tsconfig.json`](https://github.com/samchon/typia/wiki/Setup#tsconfigjson)
-  - [vite](https://github.com/samchon/typia/wiki/Setup#vite)
-  - [webpack](https://github.com/samchon/typia/wiki/Setup#webpack)
+# GENERATE TRANSFORMED TYPESCRIPT CODES
+npx typia generate \
+    --input src/templates \
+    --output src/generated
+```
 
-### Vite
-When you want to setup `typia` on your frontend project with [`vite`](https://vitejs.dev/), just configure `vite.config.ts` like below.
+> For frontend projects.
 
-Also, don't forget running [Setup Wizard](#setup-wizard) before.
+If you're using non-standard TypeScript compiler like [SWC](https://swc.rs/) or [Babel](https://babeljs.io/), you can't use [transform mode](#transformation-stable). Instead, you can utilize the generation mode. Install `typia` through `npm install` command and run `typia generate` command like above.
 
-If you've chosen [ts-patch](https://github.com/nonara/ts-patch) compiler, just call only `typescript()` function.
+The generator of `typia` reads your TypeScript code of `--input` and writes transformed TypeScript code into the `--output` directory. However, as this feature generates duplicated TypeScript code even even not perfectly stable like [transform mode](#transformation-stable), I recommend you to use generation mode only when you're using non-standard TypeScript compiler.
 
 ```typescript
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import typescript from "@rollup/plugin-typescript";
-import ttsc from "ttypescript";
+//--------
+// src/templates/check.ts
+//--------
+import typia from "typia";
+export const check = typia.createIs<string | null>();
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    react(),
-    // when using "ttypescript"
-    typescript({
-      typescript: ttsc,
-    }),
-    // otherwise using "ts-patch"
-    typescript()
-  ]
-});
+//--------
+// src/generated/check.ts
+//--------
+import typia from "typia";
+export const check = 
+    (input: unknown): input is string | null 
+        => "string" === typeof input || null === input;
 ```
 
 
@@ -236,6 +254,8 @@ export function createAssertStringify<T>(): (input: T) => string;
 export function random<T>(): Primitive<T>; // random data generator
 export function clone<T>(input: T): Primitive<T>; // deep copy
 export function prune<T>(input: T): void; // remove superfluous properties
+    // +) isClone, assertClone, validateClone
+    // +) isPrune, assertPrune, validatePrune
 ```
 
 When you need test data, just generate it through `typia.random<T>()`.

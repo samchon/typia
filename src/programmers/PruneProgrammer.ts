@@ -4,6 +4,7 @@ import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 
 import { Metadata } from "../metadata/Metadata";
 
@@ -270,6 +271,13 @@ export namespace PruneProgrammer {
         project: IProject,
         importer: FunctionImporter,
     ): FeatureProgrammer.IConfig => ({
+        types: {
+            input: (type) =>
+                ts.factory.createTypeReferenceNode(
+                    TypeFactory.getFullName(project.checker, type),
+                ),
+            output: () => TypeFactory.keyword("void"),
+        },
         functors: FUNCTORS,
         unioners: UNIONERS,
         trace: false,

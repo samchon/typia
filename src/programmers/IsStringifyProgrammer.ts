@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 
 import { IProject } from "../transformers/IProject";
 
@@ -15,8 +16,18 @@ export namespace IsStringifyProgrammer {
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [IdentifierFactory.parameter("input")],
-                undefined,
+                [
+                    IdentifierFactory.parameter(
+                        "input",
+                        ts.factory.createTypeReferenceNode(
+                            TypeFactory.getFullName(project.checker, type),
+                        ),
+                    ),
+                ],
+                ts.factory.createUnionTypeNode([
+                    TypeFactory.keyword("string"),
+                    ts.factory.createLiteralTypeNode(ts.factory.createNull()),
+                ]),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(

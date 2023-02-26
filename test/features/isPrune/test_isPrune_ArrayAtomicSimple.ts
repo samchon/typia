@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 import { _test_isPrune } from "../internal/_test_isPrune";
 

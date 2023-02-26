@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { SetAlias } from "../../structures/SetAlias";
 import { _test_validateStringify } from "../internal/_test_validateStringify";
 

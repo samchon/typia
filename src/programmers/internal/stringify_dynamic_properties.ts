@@ -56,6 +56,7 @@ export function stringify_dynamic_properties(
                                     "value",
                                 ),
                             ]),
+                            ts.factory.createTypeReferenceNode("[string, any]"),
                         ),
                     ],
                     undefined,

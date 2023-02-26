@@ -4,6 +4,7 @@ import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 
 import { Metadata } from "../metadata/Metadata";
 
@@ -147,7 +148,16 @@ export namespace CloneProgrammer {
                 unions.push({
                     type: "native",
                     is: () => ExpressionFactory.isInstanceOf(input, native),
-                    value: () => ts.factory.createIdentifier("{}"),
+                    value: () =>
+                        native === "Boolean" ||
+                        native === "Number" ||
+                        native === "String"
+                            ? ts.factory.createCallExpression(
+                                  IdentifierFactory.join(input, "valueOf"),
+                                  undefined,
+                                  undefined,
+                              )
+                            : ts.factory.createIdentifier("{}"),
                 });
 
             // OBJECTS
@@ -176,7 +186,10 @@ export namespace CloneProgrammer {
                     undefined,
                     last,
                 );
-            return last;
+            return ts.factory.createAsExpression(
+                last,
+                TypeFactory.keyword("any"),
+            );
         };
 
     const decode_to_json =
@@ -298,6 +311,19 @@ export namespace CloneProgrammer {
         project: IProject,
         importer: FunctionImporter,
     ): FeatureProgrammer.IConfig => ({
+        types: {
+            input: (type) =>
+                ts.factory.createTypeReferenceNode(
+                    TypeFactory.getFullName(project.checker, type),
+                ),
+            output: (type) =>
+                ts.factory.createTypeReferenceNode(
+                    `typia.Primitive<${TypeFactory.getFullName(
+                        project.checker,
+                        type,
+                    )}>`,
+                ),
+        },
         functors: FUNCTORS,
         unioners: UNIONERS,
         trace: false,

@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 import { _test_isParse } from "../internal/_test_isParse";
 

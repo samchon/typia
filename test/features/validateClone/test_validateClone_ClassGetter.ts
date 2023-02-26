@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { ClassGetter } from "../../structures/ClassGetter";
 import { _test_validateClone } from "../internal/_test_validateClone";
 

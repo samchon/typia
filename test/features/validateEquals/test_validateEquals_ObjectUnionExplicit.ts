@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 import { _test_validateEquals } from "../internal/_test_validateEquals";
 

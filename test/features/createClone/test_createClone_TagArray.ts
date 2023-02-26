@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { TagArray } from "../../structures/TagArray";
 import { _test_clone } from "../internal/_test_clone";
 

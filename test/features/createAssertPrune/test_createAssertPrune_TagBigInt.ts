@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { TagBigInt } from "../../structures/TagBigInt";
 import { _test_assertPrune } from "../internal/_test_assertPrune";
 

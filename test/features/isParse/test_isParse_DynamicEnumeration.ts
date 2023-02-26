@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 import { _test_isParse } from "../internal/_test_isParse";
 

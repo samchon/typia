@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { ObjectGeneric } from "../../structures/ObjectGeneric";
 import { _test_assertEquals } from "../internal/_test_assertEquals";
 

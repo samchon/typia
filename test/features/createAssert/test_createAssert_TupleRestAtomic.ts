@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 import { _test_assert } from "../internal/_test_assert";
 

@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 
 import { IProject } from "../transformers/IProject";
 
@@ -14,8 +15,18 @@ export namespace AssertParseProgrammer {
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [IdentifierFactory.parameter("input")],
-                undefined,
+                [
+                    IdentifierFactory.parameter(
+                        "input",
+                        TypeFactory.keyword("string"),
+                    ),
+                ],
+                ts.factory.createTypeReferenceNode(
+                    `typia.Primitive<${TypeFactory.getFullName(
+                        project.checker,
+                        type,
+                    )}>`,
+                ),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(

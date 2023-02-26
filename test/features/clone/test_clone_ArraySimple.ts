@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { ArraySimple } from "../../structures/ArraySimple";
 import { _test_clone } from "../internal/_test_clone";
 

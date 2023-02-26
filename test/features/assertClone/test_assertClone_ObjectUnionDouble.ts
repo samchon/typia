@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 import { _test_assertClone } from "../internal/_test_assertClone";
 

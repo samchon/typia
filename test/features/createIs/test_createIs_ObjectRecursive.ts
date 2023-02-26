@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
 import { _test_is } from "../internal/_test_is";
 

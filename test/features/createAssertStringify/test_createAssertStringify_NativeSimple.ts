@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { NativeSimple } from "../../structures/NativeSimple";
 import { _test_assertStringify } from "../internal/_test_assertStringify";
 

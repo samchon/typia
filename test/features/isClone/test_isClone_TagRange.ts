@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { TagRange } from "../../structures/TagRange";
 import { _test_isClone } from "../internal/_test_isClone";
 

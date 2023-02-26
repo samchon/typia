@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { NativeAlias } from "../../structures/NativeAlias";
 import { _test_stringify } from "../internal/_test_stringify";
 

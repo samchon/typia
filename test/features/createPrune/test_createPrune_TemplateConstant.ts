@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { TemplateConstant } from "../../structures/TemplateConstant";
 import { _test_prune } from "../internal/_test_prune";
 

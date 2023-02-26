@@ -1,6 +1,5 @@
-import { TestRandomGenerator } from "../internal/TestRandomGenerator";
-
 import { Spoiler } from "../internal/Spoiler";
+import { TestRandomGenerator } from "../internal/TestRandomGenerator";
 
 export type ArrayAtomicSimple = [Array<boolean>, Array<number>, Array<string>];
 export namespace ArrayAtomicSimple {

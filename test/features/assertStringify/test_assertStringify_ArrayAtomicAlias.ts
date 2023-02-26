@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 import { _test_assertStringify } from "../internal/_test_assertStringify";
 

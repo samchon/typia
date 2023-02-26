@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 import { _test_assertParse } from "../internal/_test_assertParse";
 

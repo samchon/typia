@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { TagLength } from "../../structures/TagLength";
 import { _test_isPrune } from "../internal/_test_isPrune";
 

@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { DynamicUndefined } from "../../structures/DynamicUndefined";
 import { _test_assertStringify } from "../internal/_test_assertStringify";
 

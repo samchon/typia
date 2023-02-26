@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../../src";
 import { TagMatrix } from "../../structures/TagMatrix";
 import { _test_assertStringify } from "../internal/_test_assertStringify";
 
