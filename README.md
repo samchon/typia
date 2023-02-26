@@ -125,7 +125,7 @@ npx typia generate \
 
 For frontend projects.
 
-If you're using non-standard TypeScript compiler like like [SWC](https://swc.rs/) or [Babel](https://babeljs.io/), you can't use [transform mode](#transformation-stable). Instead, you can utilize the generation mode. Install `typia` through `npm install` command and run `typia generate` command like above.
+If you're using non-standard TypeScript compiler like [SWC](https://swc.rs/) or [Babel](https://babeljs.io/), you can't use [transform mode](#transformation-stable). Instead, you can utilize the generation mode. Install `typia` through `npm install` command and run `typia generate` command like above.
 
 The generator of `typia` reads your TypeScript code of `--input` and writes transformed TypeScript code into the `--output` directory. However, as this feature generates duplicated TypeScript code even even not perfectly stable like [transform mode](#transformation-stable), I recommend you to use generation mode only when you're using non-standard TypeScript compiler.
 
