@@ -123,7 +123,7 @@ npx typia generate \
     --output src/generated
 ```
 
-> For frontend projects.
+For frontend projects.
 
 If you're using non-standard TypeScript compiler like [SWC](https://swc.rs/) or [Babel](https://babeljs.io/), you can't use [transform mode](#transformation-stable). Instead, you can utilize the generation mode. Install `typia` through `npm install` command and run `typia generate` command like above.
 
