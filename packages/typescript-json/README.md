@@ -70,9 +70,9 @@ npx typia setup
 
 AOT (Ahead of Time) compilation mode.
 
-When you write a TypeScript code calling `typia.createIs<string | null>()` function and compile the file, `typia` will write optimal validation code for the `string | null` type like below. This is the transform mode performing AOT (Ahead of Time) compilation.
+When you write a TypeScript code calling `typia.createIs<string | null>()` function and compile it, `typia` will write optimal validation code like below, for the `string | null` type. This is the transform mode performing AOT (Ahead of Time) compilation.
 
-As long as you're using standard TypeScript compiler, I just recommend you to use this transform mode. Otherwise, you're using non-standard compiler like [SWC](https://swc.rs/) or [Babel](https://babeljs.io/) (mostly designed for frontend development), you've to use the generation mode instead.
+<!-- As long as you're using standard TypeScript compiler, I just recommend you to use this transform mode. Otherwise, you're using non-standard compiler like [SWC](https://swc.rs/) or [Babel](https://babeljs.io/) (mostly designed for frontend development), you've to use the [generation mode](#generation-beta) instead. -->
 
 ```typescript
 // TYPESCRIPT CODE
@@ -85,7 +85,7 @@ export const check = (input) => "string" === typeof input || null === input;
 
 ![Typia Setup Wizard](https://user-images.githubusercontent.com/13158709/221402176-83b1bfe8-bc8f-4fba-9d83-6adbdfce5c8c.png)
 
-By the way, to use the transform mode, you've install one onf them; [ttypescript](https://github.com/cevek/ttypescript) or [ts-patch](https://github.com/nonara/ts-patch).
+By the way, to use this transform mode, you've install one onf them; [ttypescript](https://github.com/cevek/ttypescript) or [ts-patch](https://github.com/nonara/ts-patch).
 
 If [ttypescript](https://github.com/cevek/ttypescript), you should compile through `ttsc` command, instead of using `tsc`.
 
@@ -94,18 +94,18 @@ Otherwise, you've chosen [ts-patch](https://github.com/nonara/ts-patch), you can
 By the way, when using [@nest/cli](https://nestjs.com), you must just choose [ts-patch](https://github.com/nonara/ts-patch).
 
 ```bash
-##########################################################
+#--------
 # TTYPESCRIPT
-##########################################################
+#--------
 # COMPILE THROUGH TTYPESCRIPT
 npx ttsc
 
 # RUN TS-NODE WITH TTYPESCRIPT
 npx ts-node -C ttypescript src/index.ts
 
-##########################################################
+#--------
 # TS-PATCH
-##########################################################
+#--------
 # USE ORIGINAL TSC COMMAND
 tsc
 npx ts-node src/index.ts
@@ -126,23 +126,27 @@ npx typia generate \
     --output src/generated
 ```
 
-If you're not using standard TypeScript compiler, you can't use [transform mode](#transformation-stable). Instead, you can utilize the generation mode. Install `typia` through `npm install` command and run `typia generate` command like above.
+> For frontend projects.
+
+If you're using non-standard TypeScript compiler like [SWC](https://swc.rs/) or [Babel](https://babeljs.io/), you can't use [transform mode](#transformation-stable). Instead, you can utilize the generation mode. Install `typia` through `npm install` command and run `typia generate` command like above.
 
 The generator of `typia` reads your TypeScript code of `--input` and writes transformed TypeScript code into the `--output` directory. However, as this feature generates duplicated TypeScript code even even not perfectly stable like [transform mode](#transformation-stable), I recommend you to use generation mode only when you're using non-standard TypeScript compiler.
 
 ```typescript
+//--------
 // src/templates/check.ts
+//--------
 import typia from "typia";
 export const check = typia.createIs<string | null>();
 
+//--------
 // src/generated/check.ts
+//--------
 import typia from "typia";
 export const check = 
     (input: unknown): input is string | null 
         => "string" === typeof input || null === input;
 ```
-
-> For reference, most of frontend projects are using non-standard TypeScript compiler like [SWC](https://swc.rs/) or [Babel](https://babeljs.io/) (mostly designed for frontend development). Therefore, I just recomend you to use the generation mode when developing frontend project.
 
 
 
