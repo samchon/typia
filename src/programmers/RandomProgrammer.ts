@@ -23,7 +23,7 @@ export namespace RandomProgrammer {
         modulo: ts.LeftHandSideExpression,
     ) {
         const importer: FunctionImporter = new FunctionImporter();
-        return (type: ts.Type) => {
+        return (type: ts.Type, name?: string) => {
             // INITIALIZE METADATA
             const collection: MetadataCollection = new MetadataCollection();
             const meta: Metadata = MetadataFactory.generate(
@@ -65,10 +65,9 @@ export namespace RandomProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    `typia.Primitive<${TypeFactory.getFullName(
-                        project.checker,
-                        type,
-                    )}>`,
+                    `typia.Primitive<${
+                        name ?? TypeFactory.getFullName(project.checker, type)
+                    }>`,
                 ),
                 undefined,
                 ts.factory.createBlock(

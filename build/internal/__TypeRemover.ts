@@ -16,8 +16,10 @@ export namespace __TypeRemover {
             if (
                 content.indexOf("__type") !== -1 ||
                 content.indexOf("__object") !== -1 ||
-                file.indexOf("Alias") !== -1 ||
-                file.indexOf("UltimateUnion") !== -1
+                content.indexOf("ObjectGenericUnion") !== -1 ||
+                content.indexOf("ObjectPrimitive") !== -1 ||
+                content.indexOf("UltimateUnion") !== -1 ||
+                content.indexOf("Functional") !== -1
             )
                 await fs.promises.rm(next);
         }

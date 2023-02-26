@@ -11,7 +11,7 @@ import { ValidateProgrammer } from "./ValidateProgrammer";
 export namespace ValidateParseProgrammer {
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type) =>
+        (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -22,10 +22,9 @@ export namespace ValidateParseProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    `typia.IValidation<typia.Primitive<${TypeFactory.getFullName(
-                        project.checker,
-                        type,
-                    )}>>`,
+                    `typia.IValidation<typia.Primitive<${
+                        name ?? TypeFactory.getFullName(project.checker, type)
+                    }>>`,
                 ),
                 undefined,
                 ts.factory.createBlock([

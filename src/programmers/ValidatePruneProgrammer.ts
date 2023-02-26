@@ -12,7 +12,7 @@ import { ValidateProgrammer } from "./ValidateProgrammer";
 export namespace ValidatePruneProgrammer {
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type) =>
+        (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -23,10 +23,9 @@ export namespace ValidatePruneProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    `typia.IValidation<${TypeFactory.getFullName(
-                        project.checker,
-                        type,
-                    )}>`,
+                    `typia.IValidation<${
+                        name ?? TypeFactory.getFullName(project.checker, type)
+                    }>`,
                 ),
                 undefined,
                 ts.factory.createBlock([

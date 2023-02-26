@@ -128,12 +128,13 @@ export namespace CheckerProgrammer {
         const output: FeatureProgrammer.IConfig = {
             types: {
                 input: () => TypeFactory.keyword("any"),
-                output: (type) =>
+                output: (type, name) =>
                     ts.factory.createTypePredicateNode(
                         undefined,
                         "input",
                         ts.factory.createTypeReferenceNode(
-                            TypeFactory.getFullName(project.checker, type),
+                            name ??
+                                TypeFactory.getFullName(project.checker, type),
                         ),
                     ),
             },

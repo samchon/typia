@@ -19,7 +19,7 @@ export namespace AssertProgrammer {
             modulo: ts.LeftHandSideExpression,
             equals: boolean = false,
         ) =>
-        (type: ts.Type) => {
+        (type: ts.Type, name?: string) => {
             const importer: FunctionImporter = new FunctionImporter();
             const program: ts.ArrowFunction = CheckerProgrammer.generate(
                 project,
@@ -47,7 +47,7 @@ export namespace AssertProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    TypeFactory.getFullName(project.checker, type),
+                    name ?? TypeFactory.getFullName(project.checker, type),
                 ),
                 undefined,
                 ts.factory.createBlock(
