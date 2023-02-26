@@ -11,7 +11,7 @@ import { IsProgrammer } from "./IsProgrammer";
 export namespace IsParseProgrammer {
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type) =>
+        (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -22,10 +22,9 @@ export namespace IsParseProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    `typia.Primitive<${TypeFactory.getFullName(
-                        project.checker,
-                        type,
-                    )}>`,
+                    `typia.Primitive<${
+                        name ?? TypeFactory.getFullName(project.checker, type)
+                    }>`,
                 ),
                 undefined,
                 ts.factory.createBlock([

@@ -312,16 +312,15 @@ export namespace CloneProgrammer {
         importer: FunctionImporter,
     ): FeatureProgrammer.IConfig => ({
         types: {
-            input: (type) =>
+            input: (type, name) =>
                 ts.factory.createTypeReferenceNode(
-                    TypeFactory.getFullName(project.checker, type),
+                    name ?? TypeFactory.getFullName(project.checker, type),
                 ),
-            output: (type) =>
+            output: (type, name) =>
                 ts.factory.createTypeReferenceNode(
-                    `typia.Primitive<${TypeFactory.getFullName(
-                        project.checker,
-                        type,
-                    )}>`,
+                    `typia.Primitive<${
+                        name ?? TypeFactory.getFullName(project.checker, type)
+                    }>`,
                 ),
         },
         functors: FUNCTORS,

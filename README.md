@@ -60,7 +60,7 @@ Your donation would encourage `typia` development.
 
 
 ## Setup
-### Transformation (stable)
+### Transformation
 ```bash
 npx typia setup
 ```
@@ -68,8 +68,6 @@ npx typia setup
 AOT (Ahead of Time) compilation mode.
 
 When you write a TypeScript code calling `typia.createIs<string | null>()` function and compile it, `typia` will write optimal validation code like below, for the `string | null` type. This is the transform mode performing AOT (Ahead of Time) compilation.
-
-<!-- As long as you're using standard TypeScript compiler, I just recommend you to use this transform mode. Otherwise, you're using non-standard compiler like [SWC](https://swc.rs/) or [Babel](https://babeljs.io/) (mostly designed for frontend development), you've to use the [generation mode](#generation-beta) instead. -->
 
 ```typescript
 // TYPESCRIPT CODE
@@ -112,7 +110,7 @@ npm install --save-dev typescript@latest
 npm run prepare
 ```
 
-### Generation (beta)
+### Generation
 ```bash
 # INSTALL TYPIA
 npm install --save typia
@@ -125,9 +123,16 @@ npx typia generate \
 
 For frontend projects.
 
-If you're using non-standard TypeScript compiler like [SWC](https://swc.rs/) or [Babel](https://babeljs.io/), you can't use [transform mode](#transformation-stable). Instead, you can utilize the generation mode. Install `typia` through `npm install` command and run `typia generate` command like above.
+If you're using non-standard TypeScript compiler, you can't use [transform mode](#transformation).
 
-The generator of `typia` reads your TypeScript code of `--input` and writes transformed TypeScript code into the `--output` directory. However, as this feature generates duplicated TypeScript code even even not perfectly stable like [transform mode](#transformation-stable), I recommend you to use generation mode only when you're using non-standard TypeScript compiler.
+  - Non-standard TypeScript compilers:
+    - [swc](https://swc.rs/) in Next.JS
+    - [esbuild](https://esbuild.github.io/) in Vite
+    - [babel](https://babeljs.io/) in Create-React-App
+
+Instead, you should utilize the generation mode. 
+
+Install `typia` through `npm install` command and run `typia generate` command. Then, generator of `typia` reads your TypeScript code of `--input`, and writes transformed TypeScript code into the `--output` directory, like below.
 
 ```typescript
 //--------

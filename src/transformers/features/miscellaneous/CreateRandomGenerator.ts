@@ -3,6 +3,7 @@ import ts from "typescript";
 import { RandomProgrammer } from "../../../programmers/RandomProgrammer";
 
 import { IProject } from "../../IProject";
+import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace CreateRandomTransformer {
     export function transform(
@@ -10,15 +11,18 @@ export namespace CreateRandomTransformer {
         modulo: ts.LeftHandSideExpression,
         expression: ts.CallExpression,
     ): ts.Expression {
+        // CHECK GENERIC ARGUMENT EXISTENCE
         if (!expression.typeArguments?.[0])
             throw new Error(ErrorMessages.NOT_SPECIFIED);
 
-        const type: ts.Type | undefined = project.checker.getTypeFromTypeNode(
-            expression.typeArguments[0],
-        );
+        // GET TYPE INFO
+        const node: ts.TypeNode = expression.typeArguments[0];
+        const type: ts.Type = project.checker.getTypeFromTypeNode(node);
+
         if (type.isTypeParameter())
             throw new Error(ErrorMessages.NO_GENERIC_ARGUMENT);
 
+        // DO TRANSFORM
         return RandomProgrammer.generate(
             {
                 ...project,
@@ -29,7 +33,7 @@ export namespace CreateRandomTransformer {
                 },
             },
             modulo,
-        )(type);
+        )(type, GenericTransformer.name(project.checker)(type)(node));
     }
 }
 

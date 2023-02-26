@@ -12,7 +12,7 @@ import { PruneProgrammer } from "./PruneProgrammer";
 export namespace AssertPruneProgrammer {
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type) =>
+        (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -23,7 +23,7 @@ export namespace AssertPruneProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    TypeFactory.getFullName(project.checker, type),
+                    name ?? TypeFactory.getFullName(project.checker, type),
                 ),
                 undefined,
                 ts.factory.createBlock([
