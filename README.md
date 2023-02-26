@@ -54,7 +54,7 @@ Thanks for your support.
 
 Your donation would encourage `typia` development.
 
-[![Sponsers](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600))](https://opencollective.com/typia)
+[![Sponsers](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
 
 
 
