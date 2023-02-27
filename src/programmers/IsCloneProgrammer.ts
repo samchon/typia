@@ -35,7 +35,7 @@ export namespace IsCloneProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "is",
-                        IsProgrammer.generate(project, modulo)(type),
+                        IsProgrammer.generate(project, modulo)(type, name),
                     ),
                     StatementFactory.constant(
                         "clone",
@@ -49,7 +49,7 @@ export namespace IsCloneProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     ts.factory.createIfStatement(
                         ts.factory.createPrefixUnaryExpression(

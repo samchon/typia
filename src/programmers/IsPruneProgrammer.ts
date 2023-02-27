@@ -33,7 +33,7 @@ export namespace IsPruneProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "is",
-                        IsProgrammer.generate(project, modulo)(type),
+                        IsProgrammer.generate(project, modulo)(type, name),
                     ),
                     StatementFactory.constant(
                         "prune",
@@ -47,7 +47,7 @@ export namespace IsPruneProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     ts.factory.createIfStatement(
                         ts.factory.createPrefixUnaryExpression(

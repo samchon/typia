@@ -21,19 +21,21 @@ export namespace GenericTransformer {
                 throw new Error(`Error on typia.${method}(): no input value.`);
 
             // GET TYPE INFO
-            const [type, node]: [ts.Type, ts.Node] =
+            const [type, node, generic]: [ts.Type, ts.Node, boolean] =
                 expression.typeArguments && expression.typeArguments[0]
                     ? [
                           project.checker.getTypeFromTypeNode(
                               expression.typeArguments[0],
                           ),
                           expression.typeArguments[0],
+                          true,
                       ]
                     : [
                           project.checker.getTypeAtLocation(
                               expression.arguments[0]!,
                           ),
                           expression.arguments[0]!,
+                          false,
                       ];
             if (type.isTypeParameter())
                 throw new Error(
@@ -44,7 +46,9 @@ export namespace GenericTransformer {
             return ts.factory.createCallExpression(
                 programmer(project, modulo)(
                     type,
-                    name(project.checker)(type)(node),
+                    generic
+                        ? node.getText()
+                        : name(project.checker)(type)(node),
                 ),
                 undefined,
                 [expression.arguments[0]!],
@@ -80,13 +84,10 @@ export namespace GenericTransformer {
                 );
 
             // DO TRANSFORM
-            return programmer(project, modulo)(
-                type,
-                name(project.checker)(type)(node),
-            );
+            return programmer(project, modulo)(type, node.getText());
         };
 
-    export const name =
+    const name =
         (checker: ts.TypeChecker) =>
         (type: ts.Type) =>
         (node: ts.Node): string =>
