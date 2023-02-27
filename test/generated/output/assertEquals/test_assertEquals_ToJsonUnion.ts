@@ -22,7 +22,14 @@ export const test_assertEquals_ToJsonUnion = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ToJsonUnion => {
+            ): input is Array<
+                | string
+                | number
+                | ToJsonUnion.ICitizen
+                | ToJsonUnion.IWrapper<boolean>
+                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+            > => {
                 const $ao0 = (
                     input: any,
                     _path: string,

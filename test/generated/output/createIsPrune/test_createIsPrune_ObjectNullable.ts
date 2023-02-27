@@ -5,13 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_createIsPrune_ObjectNullable = _test_isPrune(
     "ObjectNullable",
     ObjectNullable.generate,
-    (
-        input: any,
-    ): input is [
-        ObjectNullable.IProduct,
-        ObjectNullable.IProduct,
-        ObjectNullable.IProduct,
-    ] => {
+    (input: any): input is ObjectNullable => {
         const is = (input: any): input is ObjectNullable => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&

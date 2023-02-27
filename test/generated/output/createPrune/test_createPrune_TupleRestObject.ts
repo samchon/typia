@@ -5,7 +5,7 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 export const test_createPrune_TupleRestObject = _test_prune(
     "TupleRestObject",
     TupleRestObject.generate,
-    (input: [boolean, number, ...TupleRestObject.IObject[]]): void => {
+    (input: TupleRestObject): void => {
         const $io0 = (input: any): boolean => "string" === typeof input.value;
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {

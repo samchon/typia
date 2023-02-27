@@ -5,9 +5,7 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 export const test_createAssertClone_TupleRestObject = _test_assertClone(
     "TupleRestObject",
     TupleRestObject.generate,
-    (
-        input: any,
-    ): typia.Primitive<[boolean, number, ...TupleRestObject.IObject[]]> => {
+    (input: any): typia.Primitive<TupleRestObject> => {
         const assert = (input: any): TupleRestObject => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

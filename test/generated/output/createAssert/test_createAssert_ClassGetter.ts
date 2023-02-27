@@ -5,13 +5,13 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 export const test_createAssert_ClassGetter = _test_assert(
     "ClassGetter",
     ClassGetter.generate,
-    (input: any): ClassGetter.Person => {
+    (input: any): ClassGetter => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ClassGetter.Person => {
+        ): input is ClassGetter => {
             const $ao0 = (
                 input: any,
                 _path: string,

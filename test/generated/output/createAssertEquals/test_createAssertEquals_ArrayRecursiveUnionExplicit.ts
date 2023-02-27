@@ -6,7 +6,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
     _test_assertEquals(
         "ArrayRecursiveUnionExplicit",
         ArrayRecursiveUnionExplicit.generate,
-        (input: any): Array<ArrayRecursiveUnionExplicit.IBucket> => {
+        (input: any): ArrayRecursiveUnionExplicit => {
             const $guard = (typia.createAssertEquals as any).guard;
             const $join = (typia.createAssertEquals as any).join;
             ((

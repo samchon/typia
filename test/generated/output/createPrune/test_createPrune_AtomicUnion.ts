@@ -5,5 +5,5 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_createPrune_AtomicUnion = _test_prune(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input: Array<AtomicUnion.Union>): void => {},
+    (input: AtomicUnion): void => {},
 );

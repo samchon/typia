@@ -7,13 +7,13 @@ export const test_assertPrune_ObjectAlias = _test_assertPrune(
     ObjectAlias.generate,
     (input) =>
         ((input: any): Array<ObjectAlias.IMember> => {
-            const assert = (input: any): ObjectAlias => {
+            const assert = (input: any): Array<ObjectAlias.IMember> => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectAlias => {
+                ): input is Array<ObjectAlias.IMember> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -85,7 +85,7 @@ export const test_assertPrune_ObjectAlias = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ObjectAlias): void => {
+            const prune = (input: Array<ObjectAlias.IMember>): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (

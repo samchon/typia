@@ -5,7 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_createClone_TagStep = _test_clone(
     "TagStep",
     TagStep.generate,
-    (input: Array<TagStep.Type>): typia.Primitive<Array<TagStep.Type>> => {
+    (input: TagStep): typia.Primitive<TagStep> => {
         const $co0 = (input: any): any => ({
             exclusiveMinimum: input.exclusiveMinimum as any,
             minimum: input.minimum as any,

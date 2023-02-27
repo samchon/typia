@@ -5,18 +5,7 @@ import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullab
 export const test_createAssertClone_ObjectPropertyNullable = _test_assertClone(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        [
-            Array<ObjectPropertyNullable.IPointer<boolean>>,
-            Array<ObjectPropertyNullable.IPointer<number>>,
-            Array<ObjectPropertyNullable.IPointer<string>>,
-            Array<
-                ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-            >,
-        ]
-    > => {
+    (input: any): typia.Primitive<ObjectPropertyNullable> => {
         const assert = (input: any): ObjectPropertyNullable => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

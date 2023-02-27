@@ -6,38 +6,7 @@ export const test_createValidateStringify_ObjectUnionExplicit =
     _test_validateStringify(
         "ObjectUnionExplicit",
         ObjectUnionExplicit.generate,
-        (
-            input: Array<
-                | ObjectUnionExplicit.Discriminator<
-                      "point",
-                      ObjectUnionExplicit.IPoint
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "line",
-                      ObjectUnionExplicit.ILine
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "triangle",
-                      ObjectUnionExplicit.ITriangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "rectangle",
-                      ObjectUnionExplicit.IRectangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polyline",
-                      ObjectUnionExplicit.IPolyline
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polygon",
-                      ObjectUnionExplicit.IPolygon
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "circle",
-                      ObjectUnionExplicit.ICircle
-                  >
-            >,
-        ): typia.IValidation<string> => {
+        (input: ObjectUnionExplicit): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionExplicit> => {

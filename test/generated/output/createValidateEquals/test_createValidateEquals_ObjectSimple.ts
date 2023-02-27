@@ -5,7 +5,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_createValidateEquals_ObjectSimple = _test_validateEquals(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input: any): typia.IValidation<ObjectSimple.IBox3D> => {
+    (input: any): typia.IValidation<ObjectSimple> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;
@@ -13,7 +13,7 @@ export const test_createValidateEquals_ObjectSimple = _test_validateEquals(
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectSimple.IBox3D => {
+        ): input is ObjectSimple => {
             const $vo0 = (
                 input: any,
                 _path: string,

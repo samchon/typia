@@ -6,9 +6,7 @@ export const test_validateParse_TagLength = _test_validateParse(
     "TagLength",
     TagLength.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.IValidation<typia.Primitive<Array<TagLength.Type>>> => {
+        ((input: string): typia.IValidation<typia.Primitive<TagLength>> => {
             const validate = (input: any): typia.IValidation<TagLength> => {
                 const errors = [] as any[];
                 const $report = (typia.validateParse as any).report(errors);

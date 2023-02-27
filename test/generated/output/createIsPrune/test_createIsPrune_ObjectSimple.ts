@@ -5,8 +5,8 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_createIsPrune_ObjectSimple = _test_isPrune(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input: any): input is ObjectSimple.IBox3D => {
-        const is = (input: any): input is ObjectSimple.IBox3D => {
+    (input: any): input is ObjectSimple => {
+        const is = (input: any): input is ObjectSimple => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&
@@ -42,7 +42,7 @@ export const test_createIsPrune_ObjectSimple = _test_isPrune(
                 Number.isFinite(input.pivot.z);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const prune = (input: ObjectSimple.IBox3D): void => {
+        const prune = (input: ObjectSimple): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&

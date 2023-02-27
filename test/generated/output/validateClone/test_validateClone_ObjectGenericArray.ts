@@ -15,14 +15,16 @@ export const test_validateClone_ObjectGenericArray = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectGenericArray> => {
+            ): typia.IValidation<
+                ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericArray => {
+                ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -175,8 +177,10 @@ export const test_validateClone_ObjectGenericArray = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ObjectGenericArray,
-            ): typia.Primitive<ObjectGenericArray> => {
+                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
+            ): typia.Primitive<
+                ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
+            > => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&

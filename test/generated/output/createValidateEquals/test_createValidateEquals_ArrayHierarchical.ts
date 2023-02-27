@@ -5,7 +5,7 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 export const test_createValidateEquals_ArrayHierarchical = _test_validateEquals(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input: any): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
+    (input: any): typia.IValidation<ArrayHierarchical> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;

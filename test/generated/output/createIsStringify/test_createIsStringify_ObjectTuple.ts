@@ -5,7 +5,7 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_createIsStringify_ObjectTuple = _test_isStringify(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input: [ObjectTuple.ISection, ObjectTuple.ICitizen]): string | null => {
+    (input: ObjectTuple): string | null => {
         const is = (input: any): input is ObjectTuple => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&

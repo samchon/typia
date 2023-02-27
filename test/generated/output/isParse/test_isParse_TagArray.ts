@@ -6,7 +6,7 @@ export const test_isParse_TagArray = _test_isParse(
     "TagArray",
     TagArray.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<TagArray.Type>> => {
+        ((input: any): typia.Primitive<TagArray> => {
             const is = (input: any): input is TagArray => {
                 const $is_uuid = (typia.isParse as any).is_uuid;
                 const $io0 = (input: any): boolean =>

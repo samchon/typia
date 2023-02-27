@@ -5,14 +5,14 @@ import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 export const test_createValidate_ClassNonPublic = _test_validate(
     "ClassNonPublic",
     ClassNonPublic.generate,
-    (input: any): typia.IValidation<ClassNonPublic.Accessor> => {
+    (input: any): typia.IValidation<ClassNonPublic> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ClassNonPublic.Accessor => {
+        ): input is ClassNonPublic => {
             const $vo0 = (
                 input: any,
                 _path: string,

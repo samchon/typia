@@ -15,13 +15,23 @@ export const test_assertClone_ToJsonAtomicSimple = _test_assertClone(
                 ToJsonAtomicSimple.IToJson<string>,
             ]
         > => {
-            const assert = (input: any): ToJsonAtomicSimple => {
+            const assert = (
+                input: any,
+            ): [
+                ToJsonAtomicSimple.IToJson<boolean>,
+                ToJsonAtomicSimple.IToJson<number>,
+                ToJsonAtomicSimple.IToJson<string>,
+            ] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonAtomicSimple => {
+                ): input is [
+                    ToJsonAtomicSimple.IToJson<boolean>,
+                    ToJsonAtomicSimple.IToJson<number>,
+                    ToJsonAtomicSimple.IToJson<string>,
+                ] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -99,8 +109,18 @@ export const test_assertClone_ToJsonAtomicSimple = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ToJsonAtomicSimple,
-            ): typia.Primitive<ToJsonAtomicSimple> => {
+                input: [
+                    ToJsonAtomicSimple.IToJson<boolean>,
+                    ToJsonAtomicSimple.IToJson<number>,
+                    ToJsonAtomicSimple.IToJson<string>,
+                ],
+            ): typia.Primitive<
+                [
+                    ToJsonAtomicSimple.IToJson<boolean>,
+                    ToJsonAtomicSimple.IToJson<number>,
+                    ToJsonAtomicSimple.IToJson<string>,
+                ]
+            > => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     true &&

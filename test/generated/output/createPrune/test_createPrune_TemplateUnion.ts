@@ -5,7 +5,7 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 export const test_createPrune_TemplateUnion = _test_prune(
     "TemplateUnion",
     TemplateUnion.generate,
-    (input: Array<TemplateUnion.Type>): void => {
+    (input: TemplateUnion): void => {
         const $io1 = (input: any): boolean => "string" === typeof input.name;
         const $po0 = (input: any): any => {
             if ("object" === typeof input.mixed && null !== input.mixed)

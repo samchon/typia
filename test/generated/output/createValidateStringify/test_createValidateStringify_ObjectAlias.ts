@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_createValidateStringify_ObjectAlias = _test_validateStringify(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input: Array<ObjectAlias.IMember>): typia.IValidation<string> => {
+    (input: ObjectAlias): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<ObjectAlias> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(

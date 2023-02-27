@@ -5,7 +5,7 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_createPrune_ObjectGenericAlias = _test_prune(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
-    (input: ObjectGenericAlias.ISomething<string>): void => {
+    (input: ObjectGenericAlias): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if ("value" === key) continue;

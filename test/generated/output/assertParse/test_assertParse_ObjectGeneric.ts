@@ -6,15 +6,7 @@ export const test_assertParse_ObjectGeneric = _test_assertParse(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.Primitive<
-            [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ]
-        > => {
+        ((input: string): typia.Primitive<ObjectGeneric> => {
             const assert = (input: any): ObjectGeneric => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

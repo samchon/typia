@@ -8,18 +8,7 @@ export const test_random_DynamicEnumeration = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<{
-            ar?: string | undefined;
-            "zh-Hans"?: string | undefined;
-            "zh-Hant"?: string | undefined;
-            en?: string | undefined;
-            fr?: string | undefined;
-            de?: string | undefined;
-            ja?: string | undefined;
-            ko?: string | undefined;
-            pt?: string | undefined;
-            ru?: string | undefined;
-        }> => {
+        ): typia.Primitive<DynamicEnumeration> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             const $ro0 = (
@@ -69,20 +58,7 @@ export const test_random_DynamicEnumeration = _test_random(
             });
             return $ro0();
         })(),
-    (
-        input: any,
-    ): {
-        ar?: string | undefined;
-        "zh-Hans"?: string | undefined;
-        "zh-Hant"?: string | undefined;
-        en?: string | undefined;
-        fr?: string | undefined;
-        de?: string | undefined;
-        ja?: string | undefined;
-        ko?: string | undefined;
-        pt?: string | undefined;
-        ru?: string | undefined;
-    } => {
+    (input: any): DynamicEnumeration => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

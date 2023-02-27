@@ -5,16 +5,7 @@ import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 export const test_createStringify_ToJsonUnion = _test_stringify(
     "ToJsonUnion",
     ToJsonUnion.generate,
-    (
-        input: Array<
-            | string
-            | number
-            | ToJsonUnion.ICitizen
-            | ToJsonUnion.IWrapper<boolean>
-            | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-            | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-        >,
-    ): string => {
+    (input: ToJsonUnion): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
         const $throws = (typia.createStringify as any).throws;

@@ -5,7 +5,7 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 export const test_createValidateEquals_TupleRestAtomic = _test_validateEquals(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (input: any): typia.IValidation<[boolean, number, ...string[]]> => {
+    (input: any): typia.IValidation<TupleRestAtomic> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         ((

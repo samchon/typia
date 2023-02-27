@@ -8,18 +8,7 @@ export const test_validateParse_ObjectPropertyNullable = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<
-                [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ]
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectPropertyNullable>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectPropertyNullable> => {

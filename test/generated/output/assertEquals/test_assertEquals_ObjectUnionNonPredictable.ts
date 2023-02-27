@@ -17,7 +17,9 @@ export const test_assertEquals_ObjectUnionNonPredictable = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectUnionNonPredictable => {
+            ): input is Array<
+                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+            > => {
                 const $ao0 = (
                     input: any,
                     _path: string,

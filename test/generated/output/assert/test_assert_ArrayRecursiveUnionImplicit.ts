@@ -12,7 +12,7 @@ export const test_assert_ArrayRecursiveUnionImplicit = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayRecursiveUnionImplicit => {
+            ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

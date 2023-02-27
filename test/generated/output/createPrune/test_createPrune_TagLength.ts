@@ -5,7 +5,7 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_createPrune_TagLength = _test_prune(
     "TagLength",
     TagLength.generate,
-    (input: Array<TagLength.Type>): void => {
+    (input: TagLength): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if (

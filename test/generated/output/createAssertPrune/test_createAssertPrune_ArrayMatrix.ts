@@ -5,7 +5,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_createAssertPrune_ArrayMatrix = _test_assertPrune(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: any): Array<Array<Array<number>>> => {
+    (input: any): ArrayMatrix => {
         const assert = (input: any): ArrayMatrix => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

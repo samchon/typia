@@ -5,14 +5,14 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_createAssertEquals_ObjectSimple = _test_assertEquals(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input: any): ObjectSimple.IBox3D => {
+    (input: any): ObjectSimple => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectSimple.IBox3D => {
+        ): input is ObjectSimple => {
             const $ao0 = (
                 input: any,
                 _path: string,

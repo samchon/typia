@@ -6,15 +6,7 @@ export const test_isParse_ObjectNullable = _test_isParse(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ]
-        > => {
+        ((input: any): typia.Primitive<ObjectNullable> => {
             const is = (input: any): input is ObjectNullable => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&

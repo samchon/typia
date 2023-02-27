@@ -7,7 +7,7 @@ export const test_createRandom_ObjectSimple = _test_random(
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<ObjectSimple.IBox3D> => {
+    ): typia.Primitive<ObjectSimple> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
@@ -28,13 +28,13 @@ export const test_createRandom_ObjectSimple = _test_random(
         });
         return $ro0();
     },
-    (input: any): ObjectSimple.IBox3D => {
+    (input: any): ObjectSimple => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectSimple.IBox3D => {
+        ): input is ObjectSimple => {
             const $ao0 = (
                 input: any,
                 _path: string,

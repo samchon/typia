@@ -12,7 +12,7 @@ export const test_assert_ObjectUndefined = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectUndefined => {
+            ): input is Array<ObjectUndefined.ILecture> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

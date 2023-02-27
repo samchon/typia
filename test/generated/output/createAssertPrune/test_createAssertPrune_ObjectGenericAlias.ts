@@ -5,14 +5,14 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_createAssertPrune_ObjectGenericAlias = _test_assertPrune(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
-    (input: any): ObjectGenericAlias.ISomething<string> => {
-        const assert = (input: any): ObjectGenericAlias.Alias => {
+    (input: any): ObjectGenericAlias => {
+        const assert = (input: any): ObjectGenericAlias => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectGenericAlias.Alias => {
+            ): input is ObjectGenericAlias => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -36,7 +36,7 @@ export const test_createAssertPrune_ObjectGenericAlias = _test_assertPrune(
             })(input, "$input", true);
             return input;
         };
-        const prune = (input: ObjectGenericAlias.Alias): void => {
+        const prune = (input: ObjectGenericAlias): void => {
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if ("value" === key) continue;

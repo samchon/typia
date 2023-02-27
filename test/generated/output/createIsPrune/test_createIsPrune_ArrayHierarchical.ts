@@ -5,7 +5,7 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 export const test_createIsPrune_ArrayHierarchical = _test_isPrune(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input: any): input is Array<ArrayHierarchical.ICompany> => {
+    (input: any): input is ArrayHierarchical => {
         const is = (input: any): input is ArrayHierarchical => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&

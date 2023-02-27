@@ -6,9 +6,7 @@ export const test_isParse_TupleRestObject = _test_isParse(
     "TupleRestObject",
     TupleRestObject.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<[boolean, number, ...TupleRestObject.IObject[]]> => {
+        ((input: any): typia.Primitive<TupleRestObject> => {
             const is = (input: any): input is TupleRestObject => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;

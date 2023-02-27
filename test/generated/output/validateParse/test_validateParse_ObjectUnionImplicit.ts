@@ -8,19 +8,7 @@ export const test_validateParse_ObjectUnionImplicit = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<
-                Array<
-                    | ObjectUnionImplicit.IPoint
-                    | ObjectUnionImplicit.ILine
-                    | ObjectUnionImplicit.ITriangle
-                    | ObjectUnionImplicit.IRectangle
-                    | ObjectUnionImplicit.IPolyline
-                    | ObjectUnionImplicit.IPolygon
-                    | ObjectUnionImplicit.ICircle
-                >
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectUnionImplicit>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionImplicit> => {

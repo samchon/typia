@@ -9,7 +9,9 @@ export const test_isPrune_ObjectTuple = _test_isPrune(
         ((
             input: any,
         ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-            const is = (input: any): input is ObjectTuple => {
+            const is = (
+                input: any,
+            ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
@@ -29,7 +31,9 @@ export const test_isPrune_ObjectTuple = _test_isPrune(
                     $io1(input[1])
                 );
             };
-            const prune = (input: ObjectTuple): void => {
+            const prune = (
+                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
+            ): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&

@@ -5,15 +5,7 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_createValidatePrune_ArrayAtomicAlias = _test_validatePrune(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ]
-    > => {
+    (input: any): typia.IValidation<ArrayAtomicAlias> => {
         const validate = (input: any): typia.IValidation<ArrayAtomicAlias> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

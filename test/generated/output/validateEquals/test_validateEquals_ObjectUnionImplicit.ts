@@ -26,7 +26,15 @@ export const test_validateEquals_ObjectUnionImplicit = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectUnionImplicit => {
+            ): input is Array<
+                | ObjectUnionImplicit.IPoint
+                | ObjectUnionImplicit.ILine
+                | ObjectUnionImplicit.ITriangle
+                | ObjectUnionImplicit.IRectangle
+                | ObjectUnionImplicit.IPolyline
+                | ObjectUnionImplicit.IPolygon
+                | ObjectUnionImplicit.ICircle
+            > => {
                 const $vo0 = (
                     input: any,
                     _path: string,

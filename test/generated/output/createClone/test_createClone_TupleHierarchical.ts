@@ -5,41 +5,7 @@ import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 export const test_createClone_TupleHierarchical = _test_clone(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (
-        input: [
-            boolean,
-            null,
-            number,
-            [boolean, null, [number, [boolean, string]]],
-            [
-                number,
-                Array<
-                    [
-                        string,
-                        boolean,
-                        Array<[number, number, [boolean, string]]>,
-                    ]
-                >,
-            ],
-        ],
-    ): typia.Primitive<
-        [
-            boolean,
-            null,
-            number,
-            [boolean, null, [number, [boolean, string]]],
-            [
-                number,
-                Array<
-                    [
-                        string,
-                        boolean,
-                        Array<[number, number, [boolean, string]]>,
-                    ]
-                >,
-            ],
-        ]
-    > => {
+    (input: TupleHierarchical): typia.Primitive<TupleHierarchical> => {
         return Array.isArray(input) &&
             input.length === 5 &&
             "boolean" === typeof input[0] &&

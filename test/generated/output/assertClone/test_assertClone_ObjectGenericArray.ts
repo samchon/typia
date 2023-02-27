@@ -11,13 +11,15 @@ export const test_assertClone_ObjectGenericArray = _test_assertClone(
         ): typia.Primitive<
             ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
         > => {
-            const assert = (input: any): ObjectGenericArray => {
+            const assert = (
+                input: any,
+            ): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericArray => {
+                ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -122,8 +124,10 @@ export const test_assertClone_ObjectGenericArray = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ObjectGenericArray,
-            ): typia.Primitive<ObjectGenericArray> => {
+                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
+            ): typia.Primitive<
+                ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
+            > => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&

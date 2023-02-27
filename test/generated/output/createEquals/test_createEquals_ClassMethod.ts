@@ -5,10 +5,7 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_createEquals_ClassMethod = _test_equals(
     "ClassMethod",
     ClassMethod.generate,
-    (
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is ClassMethod.Animal => {
+    (input: any, _exceptionable: boolean = true): input is ClassMethod => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.name &&
             "number" === typeof input.age &&

@@ -18,14 +18,28 @@ export const test_validateClone_ToJsonTuple = _test_validateClone(
                 ]
             >
         > => {
-            const validate = (input: any): typia.IValidation<ToJsonTuple> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<
+                [
+                    ToJsonTuple.IToJson<string>,
+                    ToJsonTuple.IToJson<number>,
+                    ToJsonTuple.IToJson<boolean>,
+                    ToJsonTuple.IObject,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonTuple => {
+                ): input is [
+                    ToJsonTuple.IToJson<string>,
+                    ToJsonTuple.IToJson<number>,
+                    ToJsonTuple.IToJson<boolean>,
+                    ToJsonTuple.IObject,
+                ] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -171,8 +185,20 @@ export const test_validateClone_ToJsonTuple = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ToJsonTuple,
-            ): typia.Primitive<ToJsonTuple> => {
+                input: [
+                    ToJsonTuple.IToJson<string>,
+                    ToJsonTuple.IToJson<number>,
+                    ToJsonTuple.IToJson<boolean>,
+                    ToJsonTuple.IObject,
+                ],
+            ): typia.Primitive<
+                [
+                    ToJsonTuple.IToJson<string>,
+                    ToJsonTuple.IToJson<number>,
+                    ToJsonTuple.IToJson<boolean>,
+                    ToJsonTuple.IObject,
+                ]
+            > => {
                 const $co0 = (input: any): any => ({
                     code: input.code as any,
                     name: input.name as any,

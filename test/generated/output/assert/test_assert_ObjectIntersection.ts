@@ -12,7 +12,8 @@ export const test_assert_ObjectIntersection = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectIntersection => {
+            ): input is ObjectIntersection.IEmail &
+                ObjectIntersection.IName => {
                 const $ao0 = (
                     input: any,
                     _path: string,

@@ -6,9 +6,7 @@ export const test_createAssertClone_ConstantConstEnumeration =
     _test_assertClone(
         "ConstantConstEnumeration",
         ConstantConstEnumeration.generate,
-        (
-            input: any,
-        ): typia.Primitive<Array<ConstantConstEnumeration.Enumeration>> => {
+        (input: any): typia.Primitive<ConstantConstEnumeration> => {
             const assert = (input: any): ConstantConstEnumeration => {
                 const $guard = (typia.createAssertClone as any).guard;
                 ((

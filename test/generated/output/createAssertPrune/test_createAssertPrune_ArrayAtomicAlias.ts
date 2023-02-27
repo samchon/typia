@@ -5,13 +5,7 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_createAssertPrune_ArrayAtomicAlias = _test_assertPrune(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
-    (
-        input: any,
-    ): [
-        ArrayAtomicAlias.Alias<boolean>,
-        ArrayAtomicAlias.Alias<number>,
-        ArrayAtomicAlias.Alias<string>,
-    ] => {
+    (input: any): ArrayAtomicAlias => {
         const assert = (input: any): ArrayAtomicAlias => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

@@ -13,7 +13,7 @@ export const test_validate_SetUnion = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is SetUnion => {
+            ): input is Array<SetUnion.Union> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

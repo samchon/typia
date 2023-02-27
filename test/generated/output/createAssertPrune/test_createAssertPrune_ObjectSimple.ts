@@ -5,14 +5,14 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_createAssertPrune_ObjectSimple = _test_assertPrune(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input: any): ObjectSimple.IBox3D => {
-        const assert = (input: any): ObjectSimple.IBox3D => {
+    (input: any): ObjectSimple => {
+        const assert = (input: any): ObjectSimple => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectSimple.IBox3D => {
+            ): input is ObjectSimple => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -100,7 +100,7 @@ export const test_createAssertPrune_ObjectSimple = _test_assertPrune(
             })(input, "$input", true);
             return input;
         };
-        const prune = (input: ObjectSimple.IBox3D): void => {
+        const prune = (input: ObjectSimple): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&

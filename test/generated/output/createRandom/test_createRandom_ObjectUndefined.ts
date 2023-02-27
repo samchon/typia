@@ -7,7 +7,7 @@ export const test_createRandom_ObjectUndefined = _test_random(
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
+    ): typia.Primitive<ObjectUndefined> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ro0 = (
@@ -41,7 +41,7 @@ export const test_createRandom_ObjectUndefined = _test_random(
         });
         return (generator.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): Array<ObjectUndefined.ILecture> => {
+    (input: any): ObjectUndefined => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

@@ -5,7 +5,7 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_createStringify_TupleRestArray = _test_stringify(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input: [boolean, number, ...Array<string>[]]): string => {
+    (input: TupleRestArray): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $rest = (typia.createStringify as any).rest;

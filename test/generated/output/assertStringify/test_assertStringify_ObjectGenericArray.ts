@@ -7,13 +7,15 @@ export const test_assertStringify_ObjectGenericArray = _test_assertStringify(
     ObjectGenericArray.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ObjectGenericArray => {
+            const assert = (
+                input: any,
+            ): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericArray => {
+                ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -117,7 +119,9 @@ export const test_assertStringify_ObjectGenericArray = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectGenericArray): string => {
+            const stringify = (
+                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
+            ): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $number = (typia.assertStringify as any).number;
                 const $io1 = (input: any): boolean =>

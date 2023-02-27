@@ -5,7 +5,7 @@ import { SetUnion } from "../../../structures/SetUnion";
 export const test_createClone_SetUnion = _test_clone(
     "SetUnion",
     SetUnion.generate,
-    (input: Array<SetUnion.Union>): typia.Primitive<Array<SetUnion.Union>> => {
+    (input: SetUnion): typia.Primitive<SetUnion> => {
         return Array.isArray(input)
             ? input.map((elem: any) =>
                   elem instanceof Set ? {} : (elem as any),

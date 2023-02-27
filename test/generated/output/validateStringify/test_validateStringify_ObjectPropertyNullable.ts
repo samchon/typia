@@ -19,7 +19,16 @@ export const test_validateStringify_ObjectPropertyNullable =
             ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ObjectPropertyNullable> => {
+                ): typia.IValidation<
+                    [
+                        Array<ObjectPropertyNullable.IPointer<boolean>>,
+                        Array<ObjectPropertyNullable.IPointer<number>>,
+                        Array<ObjectPropertyNullable.IPointer<string>>,
+                        Array<
+                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                        >,
+                    ]
+                > => {
                     const errors = [] as any[];
                     const $report = (typia.validateStringify as any).report(
                         errors,
@@ -28,7 +37,14 @@ export const test_validateStringify_ObjectPropertyNullable =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectPropertyNullable => {
+                    ): input is [
+                        Array<ObjectPropertyNullable.IPointer<boolean>>,
+                        Array<ObjectPropertyNullable.IPointer<number>>,
+                        Array<ObjectPropertyNullable.IPointer<string>>,
+                        Array<
+                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                        >,
+                    ] => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -371,7 +387,16 @@ export const test_validateStringify_ObjectPropertyNullable =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (input: ObjectPropertyNullable): string => {
+                const stringify = (
+                    input: [
+                        Array<ObjectPropertyNullable.IPointer<boolean>>,
+                        Array<ObjectPropertyNullable.IPointer<number>>,
+                        Array<ObjectPropertyNullable.IPointer<string>>,
+                        Array<
+                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                        >,
+                    ],
+                ): string => {
                     const $number = (typia.validateStringify as any).number;
                     const $string = (typia.validateStringify as any).string;
                     const $io4 = (input: any): boolean =>

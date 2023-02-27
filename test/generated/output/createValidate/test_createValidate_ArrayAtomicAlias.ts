@@ -5,15 +5,7 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_createValidate_ArrayAtomicAlias = _test_validate(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ]
-    > => {
+    (input: any): typia.IValidation<ArrayAtomicAlias> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

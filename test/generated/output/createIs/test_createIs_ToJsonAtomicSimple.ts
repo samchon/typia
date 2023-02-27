@@ -5,13 +5,7 @@ import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 export const test_createIs_ToJsonAtomicSimple = _test_is(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
-    (
-        input: any,
-    ): input is [
-        ToJsonAtomicSimple.IToJson<boolean>,
-        ToJsonAtomicSimple.IToJson<number>,
-        ToJsonAtomicSimple.IToJson<string>,
-    ] => {
+    (input: any): input is ToJsonAtomicSimple => {
         const $io0 = (input: any): boolean =>
             "function" === typeof input.toJSON;
         const $io1 = (input: any): boolean =>

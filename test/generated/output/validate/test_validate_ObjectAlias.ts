@@ -13,7 +13,7 @@ export const test_validate_ObjectAlias = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectAlias => {
+            ): input is Array<ObjectAlias.IMember> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

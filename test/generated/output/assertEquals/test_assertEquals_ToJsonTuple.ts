@@ -20,7 +20,12 @@ export const test_assertEquals_ToJsonTuple = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ToJsonTuple => {
+            ): input is [
+                ToJsonTuple.IToJson<string>,
+                ToJsonTuple.IToJson<number>,
+                ToJsonTuple.IToJson<boolean>,
+                ToJsonTuple.IObject,
+            ] => {
                 const $ao0 = (
                     input: any,
                     _path: string,

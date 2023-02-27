@@ -5,7 +5,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_createAssertEquals_TemplateConstant = _test_assertEquals(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: any): Array<TemplateConstant.Type> => {
+    (input: any): TemplateConstant => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

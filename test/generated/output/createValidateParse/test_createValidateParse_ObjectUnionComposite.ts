@@ -8,20 +8,7 @@ export const test_createValidateParse_ObjectUnionComposite =
         ObjectUnionComposite.generate,
         (
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<
-                Array<
-                    | ObjectUnionComposite.IPoint
-                    | ObjectUnionComposite.ILine
-                    | ObjectUnionComposite.ITriangle
-                    | ObjectUnionComposite.IRectangle
-                    | ObjectUnionComposite.IPolyline
-                    | ObjectUnionComposite.IPolygon
-                    | ObjectUnionComposite.IPointedShape
-                    | ObjectUnionComposite.ICircle
-                >
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectUnionComposite>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionComposite> => {

@@ -5,7 +5,7 @@ import { NativeUnion } from "../../../structures/NativeUnion";
 export const test_createIs_NativeUnion = _test_is(
     "NativeUnion",
     NativeUnion.generate,
-    (input: any): input is Array<NativeUnion.Union> => {
+    (input: any): input is NativeUnion => {
         const $io0 = (input: any): boolean =>
             (null === input.date || input.date instanceof Date) &&
             (input.unsigned instanceof Uint8Array ||

@@ -42,14 +42,74 @@ export const test_validatePrune_ObjectUnionExplicit = _test_validatePrune(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectUnionExplicit> => {
+            ): typia.IValidation<
+                Array<
+                    | ObjectUnionExplicit.Discriminator<
+                          "point",
+                          ObjectUnionExplicit.IPoint
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "line",
+                          ObjectUnionExplicit.ILine
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "triangle",
+                          ObjectUnionExplicit.ITriangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "rectangle",
+                          ObjectUnionExplicit.IRectangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polyline",
+                          ObjectUnionExplicit.IPolyline
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polygon",
+                          ObjectUnionExplicit.IPolygon
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "circle",
+                          ObjectUnionExplicit.ICircle
+                      >
+                >
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUnionExplicit => {
+                ): input is Array<
+                    | ObjectUnionExplicit.Discriminator<
+                          "point",
+                          ObjectUnionExplicit.IPoint
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "line",
+                          ObjectUnionExplicit.ILine
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "triangle",
+                          ObjectUnionExplicit.ITriangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "rectangle",
+                          ObjectUnionExplicit.IRectangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polyline",
+                          ObjectUnionExplicit.IPolyline
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polygon",
+                          ObjectUnionExplicit.IPolygon
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "circle",
+                          ObjectUnionExplicit.ICircle
+                      >
+                > => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -646,7 +706,38 @@ export const test_validatePrune_ObjectUnionExplicit = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ObjectUnionExplicit): void => {
+            const prune = (
+                input: Array<
+                    | ObjectUnionExplicit.Discriminator<
+                          "point",
+                          ObjectUnionExplicit.IPoint
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "line",
+                          ObjectUnionExplicit.ILine
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "triangle",
+                          ObjectUnionExplicit.ITriangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "rectangle",
+                          ObjectUnionExplicit.IRectangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polyline",
+                          ObjectUnionExplicit.IPolyline
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polygon",
+                          ObjectUnionExplicit.IPolygon
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "circle",
+                          ObjectUnionExplicit.ICircle
+                      >
+                >,
+            ): void => {
                 const $throws = (typia.validatePrune as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&

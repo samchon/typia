@@ -5,14 +5,14 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 export const test_createAssertClone_ObjectLiteralProperty = _test_assertClone(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
-    (input: any): typia.Primitive<ObjectLiteralProperty.ISomething> => {
-        const assert = (input: any): ObjectLiteralProperty.ISomething => {
+    (input: any): typia.Primitive<ObjectLiteralProperty> => {
+        const assert = (input: any): ObjectLiteralProperty => {
             const $guard = (typia.createAssertClone as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectLiteralProperty.ISomething => {
+            ): input is ObjectLiteralProperty => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -48,8 +48,8 @@ export const test_createAssertClone_ObjectLiteralProperty = _test_assertClone(
             return input;
         };
         const clone = (
-            input: ObjectLiteralProperty.ISomething,
-        ): typia.Primitive<ObjectLiteralProperty.ISomething> => {
+            input: ObjectLiteralProperty,
+        ): typia.Primitive<ObjectLiteralProperty> => {
             const $co0 = (input: any): any => ({
                 "something-interesting-do-you-want?": input[
                     "something-interesting-do-you-want?"

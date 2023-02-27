@@ -17,14 +17,20 @@ export const test_validateClone_ObjectUnionNonPredictable = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectUnionNonPredictable> => {
+            ): typia.IValidation<
+                Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                >
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUnionNonPredictable => {
+                ): input is Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                > => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -252,8 +258,14 @@ export const test_validateClone_ObjectUnionNonPredictable = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ObjectUnionNonPredictable,
-            ): typia.Primitive<ObjectUnionNonPredictable> => {
+                input: Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                >,
+            ): typia.Primitive<
+                Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                >
+            > => {
                 const $throws = (typia.validateClone as any).throws;
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&

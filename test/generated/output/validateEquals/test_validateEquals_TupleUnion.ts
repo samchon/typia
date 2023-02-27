@@ -13,7 +13,7 @@ export const test_validateEquals_TupleUnion = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TupleUnion => {
+            ): input is Array<TupleUnion.Union> => {
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {

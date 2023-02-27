@@ -7,7 +7,7 @@ export const test_isClone_ObjectAlias = _test_isClone(
     ObjectAlias.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<ObjectAlias.IMember>> | null => {
-            const is = (input: any): input is ObjectAlias => {
+            const is = (input: any): input is Array<ObjectAlias.IMember> => {
                 const $io0 = (input: any): boolean =>
                     (null === input.id || "string" === typeof input.id) &&
                     "string" === typeof input.email &&
@@ -32,8 +32,8 @@ export const test_isClone_ObjectAlias = _test_isClone(
                 );
             };
             const clone = (
-                input: ObjectAlias,
-            ): typia.Primitive<ObjectAlias> => {
+                input: Array<ObjectAlias.IMember>,
+            ): typia.Primitive<Array<ObjectAlias.IMember>> => {
                 const $co0 = (input: any): any => ({
                     id: input.id as any,
                     email: input.email as any,

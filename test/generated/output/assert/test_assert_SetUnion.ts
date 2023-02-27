@@ -12,7 +12,7 @@ export const test_assert_SetUnion = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is SetUnion => {
+            ): input is Array<SetUnion.Union> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

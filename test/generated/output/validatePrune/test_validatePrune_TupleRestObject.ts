@@ -13,14 +13,16 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TupleRestObject> => {
+            ): typia.IValidation<
+                [boolean, number, ...TupleRestObject.IObject[]]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleRestObject => {
+                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -121,7 +123,9 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: TupleRestObject): void => {
+            const prune = (
+                input: [boolean, number, ...TupleRestObject.IObject[]],
+            ): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 const $po0 = (input: any): any => {

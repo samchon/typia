@@ -21,7 +21,11 @@ export const test_validate_ObjectNullable = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectNullable => {
+            ): input is [
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+            ] => {
                 const $vo0 = (
                     input: any,
                     _path: string,

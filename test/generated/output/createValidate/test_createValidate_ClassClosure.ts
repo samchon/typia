@@ -5,14 +5,14 @@ import { ClassClosure } from "../../../structures/ClassClosure";
 export const test_createValidate_ClassClosure = _test_validate(
     "ClassClosure",
     ClassClosure.generate,
-    (input: any): typia.IValidation<ClassClosure.Something> => {
+    (input: any): typia.IValidation<ClassClosure> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ClassClosure.Something => {
+        ): input is ClassClosure => {
             const $vo0 = (
                 input: any,
                 _path: string,

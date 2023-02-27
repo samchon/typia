@@ -5,7 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_createIsParse_TagAtomicUnion = _test_isParse(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input: any): typia.Primitive<Array<TagAtomicUnion.Type>> => {
+    (input: any): typia.Primitive<TagAtomicUnion> => {
         const is = (input: any): input is TagAtomicUnion => {
             const $io0 = (input: any): boolean =>
                 ("string" === typeof input.value &&

@@ -7,7 +7,7 @@ export const test_isPrune_ArraySimple = _test_isPrune(
     ArraySimple.generate,
     (input) =>
         ((input: any): input is Array<ArraySimple.IPerson> => {
-            const is = (input: any): input is ArraySimple => {
+            const is = (input: any): input is Array<ArraySimple.IPerson> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.email &&
@@ -33,7 +33,7 @@ export const test_isPrune_ArraySimple = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: ArraySimple): void => {
+            const prune = (input: Array<ArraySimple.IPerson>): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&

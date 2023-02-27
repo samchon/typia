@@ -9,14 +9,16 @@ export const test_validateClone_MapUnion = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<MapUnion.Union>>> => {
-            const validate = (input: any): typia.IValidation<MapUnion> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<MapUnion.Union>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is MapUnion => {
+                ): input is Array<MapUnion.Union> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -823,7 +825,9 @@ export const test_validateClone_MapUnion = _test_validateClone(
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone = (input: MapUnion): typia.Primitive<MapUnion> => {
+            const clone = (
+                input: Array<MapUnion.Union>,
+            ): typia.Primitive<Array<MapUnion.Union>> => {
                 return Array.isArray(input)
                     ? input.map((elem: any) =>
                           elem instanceof Map ? {} : (elem as any),

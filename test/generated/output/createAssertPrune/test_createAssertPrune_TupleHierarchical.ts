@@ -5,20 +5,7 @@ import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 export const test_createAssertPrune_TupleHierarchical = _test_assertPrune(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (
-        input: any,
-    ): [
-        boolean,
-        null,
-        number,
-        [boolean, null, [number, [boolean, string]]],
-        [
-            number,
-            Array<
-                [string, boolean, Array<[number, number, [boolean, string]]>]
-            >,
-        ],
-    ] => {
+    (input: any): TupleHierarchical => {
         const assert = (input: any): TupleHierarchical => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

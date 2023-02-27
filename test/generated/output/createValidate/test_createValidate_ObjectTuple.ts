@@ -5,9 +5,7 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_createValidate_ObjectTuple = _test_validate(
     "ObjectTuple",
     ObjectTuple.generate,
-    (
-        input: any,
-    ): typia.IValidation<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
+    (input: any): typia.IValidation<ObjectTuple> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

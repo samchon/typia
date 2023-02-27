@@ -19,14 +19,24 @@ export const test_validateClone_ConstantAtomicWrapper = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ConstantAtomicWrapper> => {
+            ): typia.IValidation<
+                [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ConstantAtomicWrapper => {
+                ): input is [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -145,8 +155,18 @@ export const test_validateClone_ConstantAtomicWrapper = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ConstantAtomicWrapper,
-            ): typia.Primitive<ConstantAtomicWrapper> => {
+                input: [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ],
+            ): typia.Primitive<
+                [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ]
+            > => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>

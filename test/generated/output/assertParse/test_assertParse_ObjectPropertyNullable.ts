@@ -6,18 +6,7 @@ export const test_assertParse_ObjectPropertyNullable = _test_assertParse(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.Primitive<
-            [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ]
-        > => {
+        ((input: string): typia.Primitive<ObjectPropertyNullable> => {
             const assert = (input: any): ObjectPropertyNullable => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

@@ -9,7 +9,9 @@ export const test_isClone_ObjectUndefined = _test_isClone(
         ((
             input: any,
         ): typia.Primitive<Array<ObjectUndefined.ILecture>> | null => {
-            const is = (input: any): input is ObjectUndefined => {
+            const is = (
+                input: any,
+            ): input is Array<ObjectUndefined.ILecture> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     (undefined === input.professor ||
@@ -42,8 +44,8 @@ export const test_isClone_ObjectUndefined = _test_isClone(
                 );
             };
             const clone = (
-                input: ObjectUndefined,
-            ): typia.Primitive<ObjectUndefined> => {
+                input: Array<ObjectUndefined.ILecture>,
+            ): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
                 const $any = (typia.isClone as any).any;
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&

@@ -8,7 +8,7 @@ export const test_createEquals_ToJsonAtomicUnion = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is Array<ToJsonAtomicUnion.IToJson> => {
+    ): input is ToJsonAtomicUnion => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "function" === typeof input.toJSON &&
             (1 === Object.keys(input).length ||

@@ -12,7 +12,9 @@ export const test_validateStringify_ConstantConstEnumeration =
             ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ConstantConstEnumeration> => {
+                ): typia.IValidation<
+                    Array<ConstantConstEnumeration.Enumeration>
+                > => {
                     const errors = [] as any[];
                     const $report = (typia.validateStringify as any).report(
                         errors,
@@ -21,7 +23,7 @@ export const test_validateStringify_ConstantConstEnumeration =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ConstantConstEnumeration => {
+                    ): input is Array<ConstantConstEnumeration.Enumeration> => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -62,7 +64,9 @@ export const test_validateStringify_ConstantConstEnumeration =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (input: ConstantConstEnumeration): string => {
+                const stringify = (
+                    input: Array<ConstantConstEnumeration.Enumeration>,
+                ): string => {
                     const $string = (typia.validateStringify as any).string;
                     const $number = (typia.validateStringify as any).number;
                     const $throws = (typia.validateStringify as any).throws;

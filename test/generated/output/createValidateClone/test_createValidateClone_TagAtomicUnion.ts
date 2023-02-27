@@ -5,9 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_createValidateClone_TagAtomicUnion = _test_validateClone(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (
-        input: any,
-    ): typia.IValidation<typia.Primitive<Array<TagAtomicUnion.Type>>> => {
+    (input: any): typia.IValidation<typia.Primitive<TagAtomicUnion>> => {
         const validate = (input: any): typia.IValidation<TagAtomicUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

@@ -12,7 +12,7 @@ export const test_assert_ConstantEnumeration = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ConstantEnumeration => {
+            ): input is Array<ConstantEnumeration.Enumeration> => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

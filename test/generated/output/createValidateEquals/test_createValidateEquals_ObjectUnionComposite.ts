@@ -6,20 +6,7 @@ export const test_createValidateEquals_ObjectUnionComposite =
     _test_validateEquals(
         "ObjectUnionComposite",
         ObjectUnionComposite.generate,
-        (
-            input: any,
-        ): typia.IValidation<
-            Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            >
-        > => {
+        (input: any): typia.IValidation<ObjectUnionComposite> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             const $join = (typia.createValidateEquals as any).join;

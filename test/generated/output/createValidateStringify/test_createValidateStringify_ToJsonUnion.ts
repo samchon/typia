@@ -5,16 +5,7 @@ import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 export const test_createValidateStringify_ToJsonUnion = _test_validateStringify(
     "ToJsonUnion",
     ToJsonUnion.generate,
-    (
-        input: Array<
-            | string
-            | number
-            | ToJsonUnion.ICitizen
-            | ToJsonUnion.IWrapper<boolean>
-            | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-            | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-        >,
-    ): typia.IValidation<string> => {
+    (input: ToJsonUnion): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<ToJsonUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(

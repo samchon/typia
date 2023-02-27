@@ -5,7 +5,7 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 export const test_createStringify_TupleRestAtomic = _test_stringify(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (input: [boolean, number, ...string[]]): string => {
+    (input: TupleRestAtomic): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $rest = (typia.createStringify as any).rest;

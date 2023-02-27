@@ -11,14 +11,14 @@ export const test_validateClone_TagAtomicUnion = _test_validateClone(
         ): typia.IValidation<typia.Primitive<Array<TagAtomicUnion.Type>>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TagAtomicUnion> => {
+            ): typia.IValidation<Array<TagAtomicUnion.Type>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TagAtomicUnion => {
+                ): input is Array<TagAtomicUnion.Type> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -84,8 +84,8 @@ export const test_validateClone_TagAtomicUnion = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: TagAtomicUnion,
-            ): typia.Primitive<TagAtomicUnion> => {
+                input: Array<TagAtomicUnion.Type>,
+            ): typia.Primitive<Array<TagAtomicUnion.Type>> => {
                 const $co0 = (input: any): any => ({
                     value: input.value as any,
                 });

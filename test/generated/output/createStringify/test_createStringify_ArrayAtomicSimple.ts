@@ -5,7 +5,7 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 export const test_createStringify_ArrayAtomicSimple = _test_stringify(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    (input: [Array<boolean>, Array<number>, Array<string>]): string => {
+    (input: ArrayAtomicSimple): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         return `[${`[${input[0]

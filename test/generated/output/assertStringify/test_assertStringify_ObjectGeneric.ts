@@ -7,13 +7,23 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
     ObjectGeneric.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ObjectGeneric => {
+            const assert = (
+                input: any,
+            ): [
+                ObjectGeneric.ISomething<boolean>,
+                ObjectGeneric.ISomething<number>,
+                ObjectGeneric.ISomething<string>,
+            ] => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGeneric => {
+                ): input is [
+                    ObjectGeneric.ISomething<boolean>,
+                    ObjectGeneric.ISomething<number>,
+                    ObjectGeneric.ISomething<string>,
+                ] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -261,7 +271,13 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectGeneric): string => {
+            const stringify = (
+                input: [
+                    ObjectGeneric.ISomething<boolean>,
+                    ObjectGeneric.ISomething<number>,
+                    ObjectGeneric.ISomething<string>,
+                ],
+            ): string => {
                 const $number = (typia.assertStringify as any).number;
                 const $string = (typia.assertStringify as any).string;
                 const $io1 = (input: any): boolean =>

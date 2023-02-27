@@ -18,13 +18,29 @@ export const test_assertClone_ObjectPropertyNullable = _test_assertClone(
                 >,
             ]
         > => {
-            const assert = (input: any): ObjectPropertyNullable => {
+            const assert = (
+                input: any,
+            ): [
+                Array<ObjectPropertyNullable.IPointer<boolean>>,
+                Array<ObjectPropertyNullable.IPointer<number>>,
+                Array<ObjectPropertyNullable.IPointer<string>>,
+                Array<
+                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                >,
+            ] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectPropertyNullable => {
+                ): input is [
+                    Array<ObjectPropertyNullable.IPointer<boolean>>,
+                    Array<ObjectPropertyNullable.IPointer<number>>,
+                    Array<ObjectPropertyNullable.IPointer<string>>,
+                    Array<
+                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                    >,
+                ] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -231,8 +247,24 @@ export const test_assertClone_ObjectPropertyNullable = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ObjectPropertyNullable,
-            ): typia.Primitive<ObjectPropertyNullable> => {
+                input: [
+                    Array<ObjectPropertyNullable.IPointer<boolean>>,
+                    Array<ObjectPropertyNullable.IPointer<number>>,
+                    Array<ObjectPropertyNullable.IPointer<string>>,
+                    Array<
+                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                    >,
+                ],
+            ): typia.Primitive<
+                [
+                    Array<ObjectPropertyNullable.IPointer<boolean>>,
+                    Array<ObjectPropertyNullable.IPointer<number>>,
+                    Array<ObjectPropertyNullable.IPointer<string>>,
+                    Array<
+                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                    >,
+                ]
+            > => {
                 const $io0 = (input: any): boolean =>
                     null === input.value || "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>

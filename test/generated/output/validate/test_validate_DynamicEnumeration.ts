@@ -26,7 +26,18 @@ export const test_validate_DynamicEnumeration = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is DynamicEnumeration => {
+            ): input is {
+                ar?: string | undefined;
+                "zh-Hans"?: string | undefined;
+                "zh-Hant"?: string | undefined;
+                en?: string | undefined;
+                fr?: string | undefined;
+                de?: string | undefined;
+                ja?: string | undefined;
+                ko?: string | undefined;
+                pt?: string | undefined;
+                ru?: string | undefined;
+            } => {
                 const $vo0 = (
                     input: any,
                     _path: string,

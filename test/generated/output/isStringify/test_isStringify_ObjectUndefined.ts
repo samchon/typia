@@ -7,7 +7,9 @@ export const test_isStringify_ObjectUndefined = _test_isStringify(
     ObjectUndefined.generate,
     (input) =>
         ((input: Array<ObjectUndefined.ILecture>): string | null => {
-            const is = (input: any): input is ObjectUndefined => {
+            const is = (
+                input: any,
+            ): input is Array<ObjectUndefined.ILecture> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     (undefined === input.professor ||
@@ -39,7 +41,9 @@ export const test_isStringify_ObjectUndefined = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: ObjectUndefined): string => {
+            const stringify = (
+                input: Array<ObjectUndefined.ILecture>,
+            ): string => {
                 const $string = (typia.isStringify as any).string;
                 const $number = (typia.isStringify as any).number;
                 const $throws = (typia.isStringify as any).throws;

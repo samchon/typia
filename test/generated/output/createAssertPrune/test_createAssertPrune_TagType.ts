@@ -5,7 +5,7 @@ import { TagType } from "../../../structures/TagType";
 export const test_createAssertPrune_TagType = _test_assertPrune(
     "TagType",
     TagType.generate,
-    (input: any): Array<TagType.Type> => {
+    (input: any): TagType => {
         const assert = (input: any): TagType => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

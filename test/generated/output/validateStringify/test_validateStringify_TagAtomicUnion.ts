@@ -9,14 +9,14 @@ export const test_validateStringify_TagAtomicUnion = _test_validateStringify(
         ((input: Array<TagAtomicUnion.Type>): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TagAtomicUnion> => {
+            ): typia.IValidation<Array<TagAtomicUnion.Type>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TagAtomicUnion => {
+                ): input is Array<TagAtomicUnion.Type> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -81,7 +81,7 @@ export const test_validateStringify_TagAtomicUnion = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: TagAtomicUnion): string => {
+            const stringify = (input: Array<TagAtomicUnion.Type>): string => {
                 const $string = (typia.validateStringify as any).string;
                 const $number = (typia.validateStringify as any).number;
                 const $throws = (typia.validateStringify as any).throws;

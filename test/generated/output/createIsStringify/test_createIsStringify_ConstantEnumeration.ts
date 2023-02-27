@@ -5,7 +5,7 @@ import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 export const test_createIsStringify_ConstantEnumeration = _test_isStringify(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
-    (input: Array<ConstantEnumeration.Enumeration>): string | null => {
+    (input: ConstantEnumeration): string | null => {
         const is = (input: any): input is ConstantEnumeration => {
             return (
                 Array.isArray(input) &&

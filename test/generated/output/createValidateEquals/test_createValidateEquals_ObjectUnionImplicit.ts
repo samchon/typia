@@ -6,19 +6,7 @@ export const test_createValidateEquals_ObjectUnionImplicit =
     _test_validateEquals(
         "ObjectUnionImplicit",
         ObjectUnionImplicit.generate,
-        (
-            input: any,
-        ): typia.IValidation<
-            Array<
-                | ObjectUnionImplicit.IPoint
-                | ObjectUnionImplicit.ILine
-                | ObjectUnionImplicit.ITriangle
-                | ObjectUnionImplicit.IRectangle
-                | ObjectUnionImplicit.IPolyline
-                | ObjectUnionImplicit.IPolygon
-                | ObjectUnionImplicit.ICircle
-            >
-        > => {
+        (input: any): typia.IValidation<ObjectUnionImplicit> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             const $join = (typia.createValidateEquals as any).join;

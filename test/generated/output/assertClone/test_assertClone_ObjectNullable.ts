@@ -15,13 +15,23 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                 ObjectNullable.IProduct,
             ]
         > => {
-            const assert = (input: any): ObjectNullable => {
+            const assert = (
+                input: any,
+            ): [
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+            ] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectNullable => {
+                ): input is [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -174,8 +184,18 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ObjectNullable,
-            ): typia.Primitive<ObjectNullable> => {
+                input: [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ],
+            ): typia.Primitive<
+                [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ]
+            > => {
                 const $throws = (typia.assertClone as any).throws;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&

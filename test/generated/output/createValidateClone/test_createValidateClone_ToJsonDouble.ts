@@ -5,17 +5,15 @@ import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 export const test_createValidateClone_ToJsonDouble = _test_validateClone(
     "ToJsonDouble",
     ToJsonDouble.generate,
-    (input: any): typia.IValidation<typia.Primitive<ToJsonDouble.Parent>> => {
-        const validate = (
-            input: any,
-        ): typia.IValidation<ToJsonDouble.Parent> => {
+    (input: any): typia.IValidation<typia.Primitive<ToJsonDouble>> => {
+        const validate = (input: any): typia.IValidation<ToJsonDouble> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ToJsonDouble.Parent => {
+            ): input is ToJsonDouble => {
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -45,9 +43,7 @@ export const test_createValidateClone_ToJsonDouble = _test_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (
-            input: ToJsonDouble.Parent,
-        ): typia.Primitive<ToJsonDouble.Parent> => {
+        const clone = (input: ToJsonDouble): typia.Primitive<ToJsonDouble> => {
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 flag: input.flag as any,

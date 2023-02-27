@@ -5,13 +5,7 @@ import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 export const test_createIsStringify_ToJsonAtomicSimple = _test_isStringify(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
-    (
-        input: [
-            ToJsonAtomicSimple.IToJson<boolean>,
-            ToJsonAtomicSimple.IToJson<number>,
-            ToJsonAtomicSimple.IToJson<string>,
-        ],
-    ): string | null => {
+    (input: ToJsonAtomicSimple): string | null => {
         const is = (input: any): input is ToJsonAtomicSimple => {
             const $io0 = (input: any): boolean => true;
             const $io1 = (input: any): boolean => true;

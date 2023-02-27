@@ -9,14 +9,16 @@ export const test_validateClone_ObjectAlias = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<ObjectAlias.IMember>>> => {
-            const validate = (input: any): typia.IValidation<ObjectAlias> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<ObjectAlias.IMember>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectAlias => {
+                ): input is Array<ObjectAlias.IMember> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -116,8 +118,8 @@ export const test_validateClone_ObjectAlias = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ObjectAlias,
-            ): typia.Primitive<ObjectAlias> => {
+                input: Array<ObjectAlias.IMember>,
+            ): typia.Primitive<Array<ObjectAlias.IMember>> => {
                 const $co0 = (input: any): any => ({
                     id: input.id as any,
                     email: input.email as any,

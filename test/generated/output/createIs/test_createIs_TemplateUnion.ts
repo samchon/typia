@@ -5,7 +5,7 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 export const test_createIs_TemplateUnion = _test_is(
     "TemplateUnion",
     TemplateUnion.generate,
-    (input: any): input is Array<TemplateUnion.Type> => {
+    (input: any): input is TemplateUnion => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.prefix &&
             (true === RegExp(/^prefix_(.*)/).test(input.prefix) ||

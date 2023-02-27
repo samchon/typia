@@ -14,7 +14,7 @@ export const test_validateEquals_TagAtomicUnion = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TagAtomicUnion => {
+            ): input is Array<TagAtomicUnion.Type> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

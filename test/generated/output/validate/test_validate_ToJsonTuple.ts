@@ -22,7 +22,12 @@ export const test_validate_ToJsonTuple = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ToJsonTuple => {
+            ): input is [
+                ToJsonTuple.IToJson<string>,
+                ToJsonTuple.IToJson<number>,
+                ToJsonTuple.IToJson<boolean>,
+                ToJsonTuple.IObject,
+            ] => {
                 const $vo0 = (
                     input: any,
                     _path: string,

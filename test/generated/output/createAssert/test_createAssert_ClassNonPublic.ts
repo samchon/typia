@@ -5,13 +5,13 @@ import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 export const test_createAssert_ClassNonPublic = _test_assert(
     "ClassNonPublic",
     ClassNonPublic.generate,
-    (input: any): ClassNonPublic.Accessor => {
+    (input: any): ClassNonPublic => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ClassNonPublic.Accessor => {
+        ): input is ClassNonPublic => {
             const $ao0 = (
                 input: any,
                 _path: string,

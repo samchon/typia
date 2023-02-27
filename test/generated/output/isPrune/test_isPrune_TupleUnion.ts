@@ -7,7 +7,7 @@ export const test_isPrune_TupleUnion = _test_isPrune(
     TupleUnion.generate,
     (input) =>
         ((input: any): input is Array<TupleUnion.Union> => {
-            const is = (input: any): input is TupleUnion => {
+            const is = (input: any): input is Array<TupleUnion.Union> => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -67,7 +67,7 @@ export const test_isPrune_TupleUnion = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: TupleUnion): void => {};
+            const prune = (input: Array<TupleUnion.Union>): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

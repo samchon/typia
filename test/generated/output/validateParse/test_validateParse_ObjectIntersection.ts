@@ -8,11 +8,7 @@ export const test_validateParse_ObjectIntersection = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<
-                ObjectIntersection.IEmail & ObjectIntersection.IName
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectIntersection>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectIntersection> => {

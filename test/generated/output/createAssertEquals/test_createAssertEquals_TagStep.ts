@@ -5,7 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_createAssertEquals_TagStep = _test_assertEquals(
     "TagStep",
     TagStep.generate,
-    (input: any): Array<TagStep.Type> => {
+    (input: any): TagStep => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

@@ -17,14 +17,26 @@ export const test_validateClone_ObjectGeneric = _test_validateClone(
                 ]
             >
         > => {
-            const validate = (input: any): typia.IValidation<ObjectGeneric> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<
+                [
+                    ObjectGeneric.ISomething<boolean>,
+                    ObjectGeneric.ISomething<number>,
+                    ObjectGeneric.ISomething<string>,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGeneric => {
+                ): input is [
+                    ObjectGeneric.ISomething<boolean>,
+                    ObjectGeneric.ISomething<number>,
+                    ObjectGeneric.ISomething<string>,
+                ] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -403,8 +415,18 @@ export const test_validateClone_ObjectGeneric = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ObjectGeneric,
-            ): typia.Primitive<ObjectGeneric> => {
+                input: [
+                    ObjectGeneric.ISomething<boolean>,
+                    ObjectGeneric.ISomething<number>,
+                    ObjectGeneric.ISomething<string>,
+                ],
+            ): typia.Primitive<
+                [
+                    ObjectGeneric.ISomething<boolean>,
+                    ObjectGeneric.ISomething<number>,
+                    ObjectGeneric.ISomething<string>,
+                ]
+            > => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&
                     "object" === typeof input.child &&

@@ -16,13 +16,25 @@ export const test_assertClone_ToJsonTuple = _test_assertClone(
                 ToJsonTuple.IObject,
             ]
         > => {
-            const assert = (input: any): ToJsonTuple => {
+            const assert = (
+                input: any,
+            ): [
+                ToJsonTuple.IToJson<string>,
+                ToJsonTuple.IToJson<number>,
+                ToJsonTuple.IToJson<boolean>,
+                ToJsonTuple.IObject,
+            ] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonTuple => {
+                ): input is [
+                    ToJsonTuple.IToJson<string>,
+                    ToJsonTuple.IToJson<number>,
+                    ToJsonTuple.IToJson<boolean>,
+                    ToJsonTuple.IObject,
+                ] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -118,8 +130,20 @@ export const test_assertClone_ToJsonTuple = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ToJsonTuple,
-            ): typia.Primitive<ToJsonTuple> => {
+                input: [
+                    ToJsonTuple.IToJson<string>,
+                    ToJsonTuple.IToJson<number>,
+                    ToJsonTuple.IToJson<boolean>,
+                    ToJsonTuple.IObject,
+                ],
+            ): typia.Primitive<
+                [
+                    ToJsonTuple.IToJson<string>,
+                    ToJsonTuple.IToJson<number>,
+                    ToJsonTuple.IToJson<boolean>,
+                    ToJsonTuple.IObject,
+                ]
+            > => {
                 const $co0 = (input: any): any => ({
                     code: input.code as any,
                     name: input.name as any,

@@ -7,7 +7,7 @@ export const test_createRandom_TupleRestAtomic = _test_random(
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<[boolean, number, ...string[]]> => {
+    ): typia.Primitive<TupleRestAtomic> => {
         const $generator = (typia.createRandom as any).generator;
         return [
             (generator.boolean ?? $generator.boolean)(),
@@ -15,7 +15,7 @@ export const test_createRandom_TupleRestAtomic = _test_random(
             (generator.string ?? $generator.string)(),
         ];
     },
-    (input: any): [boolean, number, ...string[]] => {
+    (input: any): TupleRestAtomic => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

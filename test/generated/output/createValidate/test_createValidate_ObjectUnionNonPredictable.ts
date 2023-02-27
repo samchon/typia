@@ -5,13 +5,7 @@ import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPre
 export const test_createValidate_ObjectUnionNonPredictable = _test_validate(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        Array<
-            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-        >
-    > => {
+    (input: any): typia.IValidation<ObjectUnionNonPredictable> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

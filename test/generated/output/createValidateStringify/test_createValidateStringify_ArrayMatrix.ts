@@ -5,7 +5,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_createValidateStringify_ArrayMatrix = _test_validateStringify(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: Array<Array<Array<number>>>): typia.IValidation<string> => {
+    (input: ArrayMatrix): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<ArrayMatrix> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(

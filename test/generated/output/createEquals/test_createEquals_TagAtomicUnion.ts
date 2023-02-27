@@ -5,10 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_createEquals_TagAtomicUnion = _test_equals(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is Array<TagAtomicUnion.Type> => {
+    (input: any, _exceptionable: boolean = true): input is TagAtomicUnion => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             (("string" === typeof input.value &&
                 3 <= input.value.length &&

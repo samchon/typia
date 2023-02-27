@@ -5,9 +5,7 @@ import { NativeUnion } from "../../../structures/NativeUnion";
 export const test_createClone_NativeUnion = _test_clone(
     "NativeUnion",
     NativeUnion.generate,
-    (
-        input: Array<NativeUnion.Union>,
-    ): typia.Primitive<Array<NativeUnion.Union>> => {
+    (input: NativeUnion): typia.Primitive<NativeUnion> => {
         const $io1 = (input: any): boolean =>
             "Buffer" === input.type &&
             Array.isArray(input.data) &&

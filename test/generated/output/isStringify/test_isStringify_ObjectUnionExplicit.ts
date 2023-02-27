@@ -38,7 +38,38 @@ export const test_isStringify_ObjectUnionExplicit = _test_isStringify(
                   >
             >,
         ): string | null => {
-            const is = (input: any): input is ObjectUnionExplicit => {
+            const is = (
+                input: any,
+            ): input is Array<
+                | ObjectUnionExplicit.Discriminator<
+                      "point",
+                      ObjectUnionExplicit.IPoint
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "line",
+                      ObjectUnionExplicit.ILine
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "triangle",
+                      ObjectUnionExplicit.ITriangle
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "rectangle",
+                      ObjectUnionExplicit.IRectangle
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "polyline",
+                      ObjectUnionExplicit.IPolyline
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "polygon",
+                      ObjectUnionExplicit.IPolygon
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "circle",
+                      ObjectUnionExplicit.ICircle
+                  >
+            > => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
@@ -170,7 +201,38 @@ export const test_isStringify_ObjectUnionExplicit = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: ObjectUnionExplicit): string => {
+            const stringify = (
+                input: Array<
+                    | ObjectUnionExplicit.Discriminator<
+                          "point",
+                          ObjectUnionExplicit.IPoint
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "line",
+                          ObjectUnionExplicit.ILine
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "triangle",
+                          ObjectUnionExplicit.ITriangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "rectangle",
+                          ObjectUnionExplicit.IRectangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polyline",
+                          ObjectUnionExplicit.IPolyline
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polygon",
+                          ObjectUnionExplicit.IPolygon
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "circle",
+                          ObjectUnionExplicit.ICircle
+                      >
+                >,
+            ): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 const $throws = (typia.isStringify as any).throws;

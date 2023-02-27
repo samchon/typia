@@ -5,10 +5,7 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_createEquals_TagLength = _test_equals(
     "TagLength",
     TagLength.generate,
-    (
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is Array<TagLength.Type> => {
+    (input: any, _exceptionable: boolean = true): input is TagLength => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.fixed &&
             5 === input.fixed.length &&

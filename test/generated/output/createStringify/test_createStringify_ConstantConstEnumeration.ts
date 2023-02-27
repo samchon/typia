@@ -5,7 +5,7 @@ import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnume
 export const test_createStringify_ConstantConstEnumeration = _test_stringify(
     "ConstantConstEnumeration",
     ConstantConstEnumeration.generate,
-    (input: Array<ConstantConstEnumeration.Enumeration>): string => {
+    (input: ConstantConstEnumeration): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
         const $throws = (typia.createStringify as any).throws;

@@ -6,9 +6,7 @@ export const test_createValidateEquals_ConstantEnumeration =
     _test_validateEquals(
         "ConstantEnumeration",
         ConstantEnumeration.generate,
-        (
-            input: any,
-        ): typia.IValidation<Array<ConstantEnumeration.Enumeration>> => {
+        (input: any): typia.IValidation<ConstantEnumeration> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             ((

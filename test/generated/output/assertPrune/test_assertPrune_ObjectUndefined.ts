@@ -7,13 +7,13 @@ export const test_assertPrune_ObjectUndefined = _test_assertPrune(
     ObjectUndefined.generate,
     (input) =>
         ((input: any): Array<ObjectUndefined.ILecture> => {
-            const assert = (input: any): ObjectUndefined => {
+            const assert = (input: any): Array<ObjectUndefined.ILecture> => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUndefined => {
+                ): input is Array<ObjectUndefined.ILecture> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -121,7 +121,7 @@ export const test_assertPrune_ObjectUndefined = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ObjectUndefined): void => {
+            const prune = (input: Array<ObjectUndefined.ILecture>): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;

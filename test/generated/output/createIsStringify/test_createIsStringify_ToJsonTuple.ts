@@ -5,14 +5,7 @@ import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 export const test_createIsStringify_ToJsonTuple = _test_isStringify(
     "ToJsonTuple",
     ToJsonTuple.generate,
-    (
-        input: [
-            ToJsonTuple.IToJson<string>,
-            ToJsonTuple.IToJson<number>,
-            ToJsonTuple.IToJson<boolean>,
-            ToJsonTuple.IObject,
-        ],
-    ): string | null => {
+    (input: ToJsonTuple): string | null => {
         const is = (input: any): input is ToJsonTuple => {
             const $io0 = (input: any): boolean => true;
             const $io1 = (input: any): boolean => true;

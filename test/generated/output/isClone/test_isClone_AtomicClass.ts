@@ -21,7 +21,19 @@ export const test_isClone_AtomicClass = _test_isClone(
                 string | String,
             ]
         > | null => {
-            const is = (input: any): input is AtomicClass => {
+            const is = (
+                input: any,
+            ): input is [
+                Boolean,
+                false | Boolean,
+                boolean | Boolean,
+                Number,
+                Number | 1,
+                number | Number,
+                String,
+                String | "characters",
+                string | String,
+            ] => {
                 return (
                     Array.isArray(input) &&
                     input.length === 9 &&
@@ -51,8 +63,30 @@ export const test_isClone_AtomicClass = _test_isClone(
                 );
             };
             const clone = (
-                input: AtomicClass,
-            ): typia.Primitive<AtomicClass> => {
+                input: [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ],
+            ): typia.Primitive<
+                [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ]
+            > => {
                 return Array.isArray(input) &&
                     input.length === 9 &&
                     ("boolean" === typeof input[0] ||

@@ -6,13 +6,13 @@ export const test_createAssertStringify_ClassMethod = _test_assertStringify(
     "ClassMethod",
     ClassMethod.generate,
     (input: any): string => {
-        const assert = (input: any): ClassMethod.Animal => {
+        const assert = (input: any): ClassMethod => {
             const $guard = (typia.createAssertStringify as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ClassMethod.Animal => {
+            ): input is ClassMethod => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -43,7 +43,7 @@ export const test_createAssertStringify_ClassMethod = _test_assertStringify(
             })(input, "$input", true);
             return input;
         };
-        const stringify = (input: ClassMethod.Animal): string => {
+        const stringify = (input: ClassMethod): string => {
             const $string = (typia.createAssertStringify as any).string;
             const $number = (typia.createAssertStringify as any).number;
             return `{"name":${$string(input.name)},"age":${$number(

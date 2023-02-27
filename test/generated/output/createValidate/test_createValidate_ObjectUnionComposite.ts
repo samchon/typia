@@ -5,20 +5,7 @@ import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 export const test_createValidate_ObjectUnionComposite = _test_validate(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        Array<
-            | ObjectUnionComposite.IPoint
-            | ObjectUnionComposite.ILine
-            | ObjectUnionComposite.ITriangle
-            | ObjectUnionComposite.IRectangle
-            | ObjectUnionComposite.IPolyline
-            | ObjectUnionComposite.IPolygon
-            | ObjectUnionComposite.IPointedShape
-            | ObjectUnionComposite.ICircle
-        >
-    > => {
+    (input: any): typia.IValidation<ObjectUnionComposite> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

@@ -5,9 +5,7 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 export const test_createValidateEquals_TupleRestObject = _test_validateEquals(
     "TupleRestObject",
     TupleRestObject.generate,
-    (
-        input: any,
-    ): typia.IValidation<[boolean, number, ...TupleRestObject.IObject[]]> => {
+    (input: any): typia.IValidation<TupleRestObject> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;

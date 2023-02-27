@@ -5,15 +5,7 @@ import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper
 export const test_createIsParse_ConstantAtomicWrapper = _test_isParse(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        [
-            ConstantAtomicWrapper.IPointer<boolean>,
-            ConstantAtomicWrapper.IPointer<number>,
-            ConstantAtomicWrapper.IPointer<string>,
-        ]
-    > => {
+    (input: any): typia.Primitive<ConstantAtomicWrapper> => {
         const is = (input: any): input is ConstantAtomicWrapper => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value;

@@ -7,14 +7,16 @@ export const test_validateStringify_AtomicUnion = _test_validateStringify(
     AtomicUnion.generate,
     (input) =>
         ((input: Array<AtomicUnion.Union>): typia.IValidation<string> => {
-            const validate = (input: any): typia.IValidation<AtomicUnion> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<AtomicUnion.Union>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is AtomicUnion => {
+                ): input is Array<AtomicUnion.Union> => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -54,7 +56,7 @@ export const test_validateStringify_AtomicUnion = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: AtomicUnion): string => {
+            const stringify = (input: Array<AtomicUnion.Union>): string => {
                 const $string = (typia.validateStringify as any).string;
                 const $number = (typia.validateStringify as any).number;
                 const $throws = (typia.validateStringify as any).throws;

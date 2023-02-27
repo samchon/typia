@@ -6,9 +6,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
     _test_validateStringify(
         "ArrayRecursiveUnionImplicit",
         ArrayRecursiveUnionImplicit.generate,
-        (
-            input: Array<ArrayRecursiveUnionImplicit.IBucket>,
-        ): typia.IValidation<string> => {
+        (input: ArrayRecursiveUnionImplicit): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayRecursiveUnionImplicit> => {

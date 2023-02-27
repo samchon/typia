@@ -5,7 +5,7 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_createAssert_ObjectTuple = _test_assert(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input: any): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+    (input: any): ObjectTuple => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

@@ -5,7 +5,7 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_createValidatePrune_TagRange = _test_validatePrune(
     "TagRange",
     TagRange.generate,
-    (input: any): typia.IValidation<Array<TagRange.Type>> => {
+    (input: any): typia.IValidation<TagRange> => {
         const validate = (input: any): typia.IValidation<TagRange> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

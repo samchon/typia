@@ -6,7 +6,7 @@ export const test_assertParse_TemplateConstant = _test_assertParse(
     "TemplateConstant",
     TemplateConstant.generate,
     (input) =>
-        ((input: string): typia.Primitive<Array<TemplateConstant.Type>> => {
+        ((input: string): typia.Primitive<TemplateConstant> => {
             const assert = (input: any): TemplateConstant => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

@@ -5,7 +5,7 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_createIsStringify_TagLength = _test_isStringify(
     "TagLength",
     TagLength.generate,
-    (input: Array<TagLength.Type>): string | null => {
+    (input: TagLength): string | null => {
         const is = (input: any): input is TagLength => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.fixed &&

@@ -7,13 +7,13 @@ export const test_assertClone_AtomicSimple = _test_assertClone(
     AtomicSimple.generate,
     (input) =>
         ((input: any): typia.Primitive<[boolean, number, string]> => {
-            const assert = (input: any): AtomicSimple => {
+            const assert = (input: any): [boolean, number, string] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is AtomicSimple => {
+                ): input is [boolean, number, string] => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -51,8 +51,8 @@ export const test_assertClone_AtomicSimple = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: AtomicSimple,
-            ): typia.Primitive<AtomicSimple> => {
+                input: [boolean, number, string],
+            ): typia.Primitive<[boolean, number, string]> => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     "boolean" === typeof input[0] &&

@@ -6,9 +6,7 @@ export const test_validateParse_ObjectAlias = _test_validateParse(
     "ObjectAlias",
     ObjectAlias.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.IValidation<typia.Primitive<Array<ObjectAlias.IMember>>> => {
+        ((input: string): typia.IValidation<typia.Primitive<ObjectAlias>> => {
             const validate = (input: any): typia.IValidation<ObjectAlias> => {
                 const errors = [] as any[];
                 const $report = (typia.validateParse as any).report(errors);

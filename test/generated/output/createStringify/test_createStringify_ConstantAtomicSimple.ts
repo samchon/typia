@@ -5,7 +5,7 @@ import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 export const test_createStringify_ConstantAtomicSimple = _test_stringify(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
-    (input: [false, true, 2, "three"]): string => {
+    (input: ConstantAtomicSimple): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $throws = (typia.createStringify as any).throws;

@@ -6,17 +6,7 @@ export const test_validateParse_ObjectGeneric = _test_validateParse(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.IValidation<
-            typia.Primitive<
-                [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ]
-            >
-        > => {
+        ((input: string): typia.IValidation<typia.Primitive<ObjectGeneric>> => {
             const validate = (input: any): typia.IValidation<ObjectGeneric> => {
                 const errors = [] as any[];
                 const $report = (typia.validateParse as any).report(errors);

@@ -8,13 +8,15 @@ export const test_assertStringify_ConstantConstEnumeration =
         ConstantConstEnumeration.generate,
         (input) =>
             ((input: any): string => {
-                const assert = (input: any): ConstantConstEnumeration => {
+                const assert = (
+                    input: any,
+                ): Array<ConstantConstEnumeration.Enumeration> => {
                     const $guard = (typia.assertStringify as any).guard;
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ConstantConstEnumeration => {
+                    ): input is Array<ConstantConstEnumeration.Enumeration> => {
                         return (
                             (Array.isArray(input) ||
                                 $guard(true, {
@@ -41,7 +43,9 @@ export const test_assertStringify_ConstantConstEnumeration =
                     })(input, "$input", true);
                     return input;
                 };
-                const stringify = (input: ConstantConstEnumeration): string => {
+                const stringify = (
+                    input: Array<ConstantConstEnumeration.Enumeration>,
+                ): string => {
                     const $string = (typia.assertStringify as any).string;
                     const $number = (typia.assertStringify as any).number;
                     const $throws = (typia.assertStringify as any).throws;

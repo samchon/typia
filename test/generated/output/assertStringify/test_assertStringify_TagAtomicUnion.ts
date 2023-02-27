@@ -7,13 +7,13 @@ export const test_assertStringify_TagAtomicUnion = _test_assertStringify(
     TagAtomicUnion.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): TagAtomicUnion => {
+            const assert = (input: any): Array<TagAtomicUnion.Type> => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TagAtomicUnion => {
+                ): input is Array<TagAtomicUnion.Type> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -52,7 +52,7 @@ export const test_assertStringify_TagAtomicUnion = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: TagAtomicUnion): string => {
+            const stringify = (input: Array<TagAtomicUnion.Type>): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $number = (typia.assertStringify as any).number;
                 const $throws = (typia.assertStringify as any).throws;

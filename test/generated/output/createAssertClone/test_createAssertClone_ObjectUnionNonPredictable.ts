@@ -6,13 +6,7 @@ export const test_createAssertClone_ObjectUnionNonPredictable =
     _test_assertClone(
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
-        (
-            input: any,
-        ): typia.Primitive<
-            Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            >
-        > => {
+        (input: any): typia.Primitive<ObjectUnionNonPredictable> => {
             const assert = (input: any): ObjectUnionNonPredictable => {
                 const $guard = (typia.createAssertClone as any).guard;
                 ((

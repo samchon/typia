@@ -20,7 +20,20 @@ export const test_isClone_DynamicEnumeration = _test_isClone(
             pt?: string | undefined;
             ru?: string | undefined;
         }> | null => {
-            const is = (input: any): input is DynamicEnumeration => {
+            const is = (
+                input: any,
+            ): input is {
+                ar?: string | undefined;
+                "zh-Hans"?: string | undefined;
+                "zh-Hant"?: string | undefined;
+                en?: string | undefined;
+                fr?: string | undefined;
+                de?: string | undefined;
+                ja?: string | undefined;
+                ko?: string | undefined;
+                pt?: string | undefined;
+                ru?: string | undefined;
+            } => {
                 const $io0 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
                     (undefined === input["zh-Hans"] ||
@@ -41,9 +54,29 @@ export const test_isClone_DynamicEnumeration = _test_isClone(
                     $io0(input)
                 );
             };
-            const clone = (
-                input: DynamicEnumeration,
-            ): typia.Primitive<DynamicEnumeration> => {
+            const clone = (input: {
+                ar?: string | undefined;
+                "zh-Hans"?: string | undefined;
+                "zh-Hant"?: string | undefined;
+                en?: string | undefined;
+                fr?: string | undefined;
+                de?: string | undefined;
+                ja?: string | undefined;
+                ko?: string | undefined;
+                pt?: string | undefined;
+                ru?: string | undefined;
+            }): typia.Primitive<{
+                ar?: string | undefined;
+                "zh-Hans"?: string | undefined;
+                "zh-Hant"?: string | undefined;
+                en?: string | undefined;
+                fr?: string | undefined;
+                de?: string | undefined;
+                ja?: string | undefined;
+                ko?: string | undefined;
+                pt?: string | undefined;
+                ru?: string | undefined;
+            }> => {
                 const $co0 = (input: any): any => ({
                     ar: input.ar as any,
                     "zh-Hans": input["zh-Hans"] as any,

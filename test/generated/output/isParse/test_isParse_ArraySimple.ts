@@ -6,7 +6,7 @@ export const test_isParse_ArraySimple = _test_isParse(
     "ArraySimple",
     ArraySimple.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<ArraySimple.IPerson>> => {
+        ((input: any): typia.Primitive<ArraySimple> => {
             const is = (input: any): input is ArraySimple => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&

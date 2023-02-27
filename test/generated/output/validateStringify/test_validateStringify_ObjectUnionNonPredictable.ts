@@ -14,7 +14,11 @@ export const test_validateStringify_ObjectUnionNonPredictable =
             ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ObjectUnionNonPredictable> => {
+                ): typia.IValidation<
+                    Array<
+                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                    >
+                > => {
                     const errors = [] as any[];
                     const $report = (typia.validateStringify as any).report(
                         errors,
@@ -23,7 +27,9 @@ export const test_validateStringify_ObjectUnionNonPredictable =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectUnionNonPredictable => {
+                    ): input is Array<
+                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                    > => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -255,7 +261,9 @@ export const test_validateStringify_ObjectUnionNonPredictable =
                     } as any;
                 };
                 const stringify = (
-                    input: ObjectUnionNonPredictable,
+                    input: Array<
+                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                    >,
                 ): string => {
                     const $number = (typia.validateStringify as any).number;
                     const $string = (typia.validateStringify as any).string;

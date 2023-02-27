@@ -6,10 +6,8 @@ export const test_isParse_ObjectGenericAlias = _test_isParse(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<ObjectGenericAlias.ISomething<string>> => {
-            const is = (input: any): input is ObjectGenericAlias.Alias => {
+        ((input: any): typia.Primitive<ObjectGenericAlias> => {
+            const is = (input: any): input is ObjectGenericAlias => {
                 return (
                     "object" === typeof input &&
                     null !== input &&

@@ -6,20 +6,7 @@ export const test_assertParse_ObjectUnionComposite = _test_assertParse(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.Primitive<
-            Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            >
-        > => {
+        ((input: string): typia.Primitive<ObjectUnionComposite> => {
             const assert = (input: any): ObjectUnionComposite => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

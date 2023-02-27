@@ -5,7 +5,7 @@ import { TupleUnion } from "../../../structures/TupleUnion";
 export const test_createValidateEquals_TupleUnion = _test_validateEquals(
     "TupleUnion",
     TupleUnion.generate,
-    (input: any): typia.IValidation<Array<TupleUnion.Union>> => {
+    (input: any): typia.IValidation<TupleUnion> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         ((

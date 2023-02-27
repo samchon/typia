@@ -5,7 +5,7 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 export const test_createAssertPrune_ArrayAtomicSimple = _test_assertPrune(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    (input: any): [Array<boolean>, Array<number>, Array<string>] => {
+    (input: any): ArrayAtomicSimple => {
         const assert = (input: any): ArrayAtomicSimple => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

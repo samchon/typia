@@ -5,7 +5,7 @@ import { AtomicAlias } from "../../../structures/AtomicAlias";
 export const test_createAssertParse_AtomicAlias = _test_assertParse(
     "AtomicAlias",
     AtomicAlias.generate,
-    (input: string): typia.Primitive<[boolean, number, string]> => {
+    (input: string): typia.Primitive<AtomicAlias> => {
         const assert = (input: any): AtomicAlias => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

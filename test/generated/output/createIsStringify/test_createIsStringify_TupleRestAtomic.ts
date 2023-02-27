@@ -5,7 +5,7 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 export const test_createIsStringify_TupleRestAtomic = _test_isStringify(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (input: [boolean, number, ...string[]]): string | null => {
+    (input: TupleRestAtomic): string | null => {
         const is = (input: any): input is TupleRestAtomic => {
             return (
                 Array.isArray(input) &&

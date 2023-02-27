@@ -6,7 +6,7 @@ export const test_isParse_TagType = _test_isParse(
     "TagType",
     TagType.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<TagType.Type>> => {
+        ((input: any): typia.Primitive<TagType> => {
             const is = (input: any): input is TagType => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.int &&

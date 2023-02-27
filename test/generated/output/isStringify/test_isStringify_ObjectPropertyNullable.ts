@@ -16,7 +16,16 @@ export const test_isStringify_ObjectPropertyNullable = _test_isStringify(
                 >,
             ],
         ): string | null => {
-            const is = (input: any): input is ObjectPropertyNullable => {
+            const is = (
+                input: any,
+            ): input is [
+                Array<ObjectPropertyNullable.IPointer<boolean>>,
+                Array<ObjectPropertyNullable.IPointer<number>>,
+                Array<ObjectPropertyNullable.IPointer<string>>,
+                Array<
+                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                >,
+            ] => {
                 const $io0 = (input: any): boolean =>
                     null === input.value || "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>
@@ -75,7 +84,16 @@ export const test_isStringify_ObjectPropertyNullable = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: ObjectPropertyNullable): string => {
+            const stringify = (
+                input: [
+                    Array<ObjectPropertyNullable.IPointer<boolean>>,
+                    Array<ObjectPropertyNullable.IPointer<number>>,
+                    Array<ObjectPropertyNullable.IPointer<string>>,
+                    Array<
+                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                    >,
+                ],
+            ): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 const $io4 = (input: any): boolean =>

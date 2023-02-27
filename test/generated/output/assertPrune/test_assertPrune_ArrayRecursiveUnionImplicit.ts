@@ -7,13 +7,15 @@ export const test_assertPrune_ArrayRecursiveUnionImplicit = _test_assertPrune(
     ArrayRecursiveUnionImplicit.generate,
     (input) =>
         ((input: any): Array<ArrayRecursiveUnionImplicit.IBucket> => {
-            const assert = (input: any): ArrayRecursiveUnionImplicit => {
+            const assert = (
+                input: any,
+            ): Array<ArrayRecursiveUnionImplicit.IBucket> => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayRecursiveUnionImplicit => {
+                ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -345,7 +347,9 @@ export const test_assertPrune_ArrayRecursiveUnionImplicit = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ArrayRecursiveUnionImplicit): void => {
+            const prune = (
+                input: Array<ArrayRecursiveUnionImplicit.IBucket>,
+            ): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&

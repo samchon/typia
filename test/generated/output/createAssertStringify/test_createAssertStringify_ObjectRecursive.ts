@@ -6,13 +6,13 @@ export const test_createAssertStringify_ObjectRecursive = _test_assertStringify(
     "ObjectRecursive",
     ObjectRecursive.generate,
     (input: any): string => {
-        const assert = (input: any): ObjectRecursive.IDepartment => {
+        const assert = (input: any): ObjectRecursive => {
             const $guard = (typia.createAssertStringify as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectRecursive.IDepartment => {
+            ): input is ObjectRecursive => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -101,7 +101,7 @@ export const test_createAssertStringify_ObjectRecursive = _test_assertStringify(
             })(input, "$input", true);
             return input;
         };
-        const stringify = (input: ObjectRecursive.IDepartment): string => {
+        const stringify = (input: ObjectRecursive): string => {
             const $number = (typia.createAssertStringify as any).number;
             const $string = (typia.createAssertStringify as any).string;
             const $io0 = (input: any): boolean =>

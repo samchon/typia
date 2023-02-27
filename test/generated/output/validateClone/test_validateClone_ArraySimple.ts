@@ -9,14 +9,16 @@ export const test_validateClone_ArraySimple = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<ArraySimple.IPerson>>> => {
-            const validate = (input: any): typia.IValidation<ArraySimple> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<ArraySimple.IPerson>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArraySimple => {
+                ): input is Array<ArraySimple.IPerson> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -157,8 +159,8 @@ export const test_validateClone_ArraySimple = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ArraySimple,
-            ): typia.Primitive<ArraySimple> => {
+                input: Array<ArraySimple.IPerson>,
+            ): typia.Primitive<Array<ArraySimple.IPerson>> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&

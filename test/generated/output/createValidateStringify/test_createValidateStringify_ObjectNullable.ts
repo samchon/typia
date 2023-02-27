@@ -6,13 +6,7 @@ export const test_createValidateStringify_ObjectNullable =
     _test_validateStringify(
         "ObjectNullable",
         ObjectNullable.generate,
-        (
-            input: [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ],
-        ): typia.IValidation<string> => {
+        (input: ObjectNullable): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectNullable> => {

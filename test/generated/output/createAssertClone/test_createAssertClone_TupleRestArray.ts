@@ -5,7 +5,7 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_createAssertClone_TupleRestArray = _test_assertClone(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input: any): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
+    (input: any): typia.Primitive<TupleRestArray> => {
         const assert = (input: any): TupleRestArray => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

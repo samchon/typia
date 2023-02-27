@@ -11,7 +11,11 @@ export const test_isStringify_ObjectUnionNonPredictable = _test_isStringify(
                 ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
             >,
         ): string | null => {
-            const is = (input: any): input is ObjectUnionNonPredictable => {
+            const is = (
+                input: any,
+            ): input is Array<
+                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+            > => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -50,7 +54,11 @@ export const test_isStringify_ObjectUnionNonPredictable = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: ObjectUnionNonPredictable): string => {
+            const stringify = (
+                input: Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                >,
+            ): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 const $throws = (typia.isStringify as any).throws;

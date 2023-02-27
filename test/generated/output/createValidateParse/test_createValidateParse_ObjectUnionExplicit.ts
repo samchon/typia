@@ -7,40 +7,7 @@ export const test_createValidateParse_ObjectUnionExplicit = _test_validateParse(
     ObjectUnionExplicit.generate,
     (
         input: string,
-    ): typia.IValidation<
-        typia.Primitive<
-            Array<
-                | ObjectUnionExplicit.Discriminator<
-                      "point",
-                      ObjectUnionExplicit.IPoint
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "line",
-                      ObjectUnionExplicit.ILine
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "triangle",
-                      ObjectUnionExplicit.ITriangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "rectangle",
-                      ObjectUnionExplicit.IRectangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polyline",
-                      ObjectUnionExplicit.IPolyline
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polygon",
-                      ObjectUnionExplicit.IPolygon
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "circle",
-                      ObjectUnionExplicit.ICircle
-                  >
-            >
-        >
-    > => {
+    ): typia.IValidation<typia.Primitive<ObjectUnionExplicit>> => {
         const validate = (
             input: any,
         ): typia.IValidation<ObjectUnionExplicit> => {

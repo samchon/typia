@@ -6,10 +6,8 @@ export const test_createValidateStringify_ObjectSimple =
     _test_validateStringify(
         "ObjectSimple",
         ObjectSimple.generate,
-        (input: ObjectSimple.IBox3D): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<ObjectSimple.IBox3D> => {
+        (input: ObjectSimple): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<ObjectSimple> => {
                 const errors = [] as any[];
                 const $report = (typia.createValidateStringify as any).report(
                     errors,
@@ -18,7 +16,7 @@ export const test_createValidateStringify_ObjectSimple =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectSimple.IBox3D => {
+                ): input is ObjectSimple => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -144,7 +142,7 @@ export const test_createValidateStringify_ObjectSimple =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ObjectSimple.IBox3D): string => {
+            const stringify = (input: ObjectSimple): string => {
                 const $number = (typia.createValidateStringify as any).number;
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.x &&

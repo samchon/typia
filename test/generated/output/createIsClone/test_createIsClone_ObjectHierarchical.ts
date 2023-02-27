@@ -5,8 +5,8 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_createIsClone_ObjectHierarchical = _test_isClone(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
-    (input: any): typia.Primitive<ObjectHierarchical.ICustomer> | null => {
-        const is = (input: any): input is ObjectHierarchical.ICustomer => {
+    (input: any): typia.Primitive<ObjectHierarchical> | null => {
+        const is = (input: any): input is ObjectHierarchical => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
@@ -102,8 +102,8 @@ export const test_createIsClone_ObjectHierarchical = _test_isClone(
             return "object" === typeof input && null !== input && $io0(input);
         };
         const clone = (
-            input: ObjectHierarchical.ICustomer,
-        ): typia.Primitive<ObjectHierarchical.ICustomer> => {
+            input: ObjectHierarchical,
+        ): typia.Primitive<ObjectHierarchical> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.code &&

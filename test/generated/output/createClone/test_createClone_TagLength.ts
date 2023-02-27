@@ -5,7 +5,7 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_createClone_TagLength = _test_clone(
     "TagLength",
     TagLength.generate,
-    (input: Array<TagLength.Type>): typia.Primitive<Array<TagLength.Type>> => {
+    (input: TagLength): typia.Primitive<TagLength> => {
         const $co0 = (input: any): any => ({
             fixed: input.fixed as any,
             minimum: input.minimum as any,

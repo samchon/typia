@@ -5,13 +5,13 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_createAssert_ClassMethod = _test_assert(
     "ClassMethod",
     ClassMethod.generate,
-    (input: any): ClassMethod.Animal => {
+    (input: any): ClassMethod => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ClassMethod.Animal => {
+        ): input is ClassMethod => {
             const $ao0 = (
                 input: any,
                 _path: string,

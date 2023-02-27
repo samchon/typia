@@ -5,14 +5,7 @@ import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 export const test_createStringify_ToJsonTuple = _test_stringify(
     "ToJsonTuple",
     ToJsonTuple.generate,
-    (
-        input: [
-            ToJsonTuple.IToJson<string>,
-            ToJsonTuple.IToJson<number>,
-            ToJsonTuple.IToJson<boolean>,
-            ToJsonTuple.IObject,
-        ],
-    ): string => {
+    (input: ToJsonTuple): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
         const $so0 = (input: any): any =>

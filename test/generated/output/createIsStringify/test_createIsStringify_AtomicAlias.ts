@@ -5,7 +5,7 @@ import { AtomicAlias } from "../../../structures/AtomicAlias";
 export const test_createIsStringify_AtomicAlias = _test_isStringify(
     "AtomicAlias",
     AtomicAlias.generate,
-    (input: [boolean, number, string]): string | null => {
+    (input: AtomicAlias): string | null => {
         const is = (input: any): input is AtomicAlias => {
             return (
                 Array.isArray(input) &&

@@ -5,13 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_createStringify_ObjectNullable = _test_stringify(
     "ObjectNullable",
     ObjectNullable.generate,
-    (
-        input: [
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-        ],
-    ): string => {
+    (input: ObjectNullable): string => {
         const $string = (typia.createStringify as any).string;
         const $throws = (typia.createStringify as any).throws;
         const $io1 = (input: any): boolean =>

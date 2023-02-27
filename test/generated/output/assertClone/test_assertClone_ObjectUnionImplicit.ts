@@ -19,13 +19,31 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                 | ObjectUnionImplicit.ICircle
             >
         > => {
-            const assert = (input: any): ObjectUnionImplicit => {
+            const assert = (
+                input: any,
+            ): Array<
+                | ObjectUnionImplicit.IPoint
+                | ObjectUnionImplicit.ILine
+                | ObjectUnionImplicit.ITriangle
+                | ObjectUnionImplicit.IRectangle
+                | ObjectUnionImplicit.IPolyline
+                | ObjectUnionImplicit.IPolygon
+                | ObjectUnionImplicit.ICircle
+            > => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUnionImplicit => {
+                ): input is Array<
+                    | ObjectUnionImplicit.IPoint
+                    | ObjectUnionImplicit.ILine
+                    | ObjectUnionImplicit.ITriangle
+                    | ObjectUnionImplicit.IRectangle
+                    | ObjectUnionImplicit.IPolyline
+                    | ObjectUnionImplicit.IPolygon
+                    | ObjectUnionImplicit.ICircle
+                > => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -405,8 +423,26 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ObjectUnionImplicit,
-            ): typia.Primitive<ObjectUnionImplicit> => {
+                input: Array<
+                    | ObjectUnionImplicit.IPoint
+                    | ObjectUnionImplicit.ILine
+                    | ObjectUnionImplicit.ITriangle
+                    | ObjectUnionImplicit.IRectangle
+                    | ObjectUnionImplicit.IPolyline
+                    | ObjectUnionImplicit.IPolygon
+                    | ObjectUnionImplicit.ICircle
+                >,
+            ): typia.Primitive<
+                Array<
+                    | ObjectUnionImplicit.IPoint
+                    | ObjectUnionImplicit.ILine
+                    | ObjectUnionImplicit.ITriangle
+                    | ObjectUnionImplicit.IRectangle
+                    | ObjectUnionImplicit.IPolyline
+                    | ObjectUnionImplicit.IPolygon
+                    | ObjectUnionImplicit.ICircle
+                >
+            > => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&

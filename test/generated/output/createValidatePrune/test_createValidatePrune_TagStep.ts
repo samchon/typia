@@ -5,7 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_createValidatePrune_TagStep = _test_validatePrune(
     "TagStep",
     TagStep.generate,
-    (input: any): typia.IValidation<Array<TagStep.Type>> => {
+    (input: any): typia.IValidation<TagStep> => {
         const validate = (input: any): typia.IValidation<TagStep> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

@@ -5,19 +5,7 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_createValidateStringify_AtomicClass = _test_validateStringify(
     "AtomicClass",
     AtomicClass.generate,
-    (
-        input: [
-            Boolean,
-            false | Boolean,
-            boolean | Boolean,
-            Number,
-            Number | 1,
-            number | Number,
-            String,
-            String | "characters",
-            string | String,
-        ],
-    ): typia.IValidation<string> => {
+    (input: AtomicClass): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<AtomicClass> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(

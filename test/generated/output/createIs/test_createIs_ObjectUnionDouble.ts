@@ -5,7 +5,7 @@ import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 export const test_createIs_ObjectUnionDouble = _test_is(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
-    (input: any): input is Array<ObjectUnionDouble.Union> => {
+    (input: any): input is ObjectUnionDouble => {
         const $io0 = (input: any): boolean =>
             "object" === typeof input.value &&
             null !== input.value &&

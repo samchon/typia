@@ -5,7 +5,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_createStringify_ObjectSimple = _test_stringify(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input: ObjectSimple.IBox3D): string => {
+    (input: ObjectSimple): string => {
         const $number = (typia.createStringify as any).number;
         const $io1 = (input: any): boolean =>
             "number" === typeof input.x &&

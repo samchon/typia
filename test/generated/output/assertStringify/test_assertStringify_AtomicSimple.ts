@@ -7,13 +7,13 @@ export const test_assertStringify_AtomicSimple = _test_assertStringify(
     AtomicSimple.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): AtomicSimple => {
+            const assert = (input: any): [boolean, number, string] => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is AtomicSimple => {
+                ): input is [boolean, number, string] => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -50,7 +50,7 @@ export const test_assertStringify_AtomicSimple = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: AtomicSimple): string => {
+            const stringify = (input: [boolean, number, string]): string => {
                 const $number = (typia.assertStringify as any).number;
                 const $string = (typia.assertStringify as any).string;
                 return `[${input[0]},${$number(input[1])},${$string(

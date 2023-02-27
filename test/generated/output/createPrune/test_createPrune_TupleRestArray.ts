@@ -5,5 +5,5 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_createPrune_TupleRestArray = _test_prune(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input: [boolean, number, ...Array<string>[]]): void => {},
+    (input: TupleRestArray): void => {},
 );

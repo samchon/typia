@@ -5,19 +5,7 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_createIs_AtomicClass = _test_is(
     "AtomicClass",
     AtomicClass.generate,
-    (
-        input: any,
-    ): input is [
-        Boolean,
-        false | Boolean,
-        boolean | Boolean,
-        Number,
-        Number | 1,
-        number | Number,
-        String,
-        String | "characters",
-        string | String,
-    ] => {
+    (input: any): input is AtomicClass => {
         return (
             Array.isArray(input) &&
             input.length === 9 &&

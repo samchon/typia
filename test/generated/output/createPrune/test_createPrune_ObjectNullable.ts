@@ -5,13 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_createPrune_ObjectNullable = _test_prune(
     "ObjectNullable",
     ObjectNullable.generate,
-    (
-        input: [
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-        ],
-    ): void => {
+    (input: ObjectNullable): void => {
         const $throws = (typia.createPrune as any).throws;
         const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&

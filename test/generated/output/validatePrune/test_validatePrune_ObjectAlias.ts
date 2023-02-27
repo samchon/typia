@@ -7,14 +7,16 @@ export const test_validatePrune_ObjectAlias = _test_validatePrune(
     ObjectAlias.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<ObjectAlias.IMember>> => {
-            const validate = (input: any): typia.IValidation<ObjectAlias> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<ObjectAlias.IMember>> => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectAlias => {
+                ): input is Array<ObjectAlias.IMember> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -113,7 +115,7 @@ export const test_validatePrune_ObjectAlias = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ObjectAlias): void => {
+            const prune = (input: Array<ObjectAlias.IMember>): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (

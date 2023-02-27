@@ -7,13 +7,13 @@ export const test_assertClone_ArrayUnion = _test_assertClone(
     ArrayUnion.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<ArrayUnion.IUnion>> => {
-            const assert = (input: any): ArrayUnion => {
+            const assert = (input: any): Array<ArrayUnion.IUnion> => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayUnion => {
+                ): input is Array<ArrayUnion.IUnion> => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -140,7 +140,9 @@ export const test_assertClone_ArrayUnion = _test_assertClone(
                 })(input, "$input", true);
                 return input;
             };
-            const clone = (input: ArrayUnion): typia.Primitive<ArrayUnion> => {
+            const clone = (
+                input: Array<ArrayUnion.IUnion>,
+            ): typia.Primitive<Array<ArrayUnion.IUnion>> => {
                 const $throws = (typia.assertClone as any).throws;
                 return Array.isArray(input)
                     ? input.map((elem: any) =>

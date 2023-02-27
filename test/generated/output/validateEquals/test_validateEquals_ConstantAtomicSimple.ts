@@ -13,7 +13,7 @@ export const test_validateEquals_ConstantAtomicSimple = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ConstantAtomicSimple => {
+            ): input is [false, true, 2, "three"] => {
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {

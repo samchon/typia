@@ -17,7 +17,7 @@ export const test_validate_ObjectGenericArray = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectGenericArray => {
+            ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

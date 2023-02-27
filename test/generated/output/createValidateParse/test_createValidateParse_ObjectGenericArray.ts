@@ -5,11 +5,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_createValidateParse_ObjectGenericArray = _test_validateParse(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (
-        input: string,
-    ): typia.IValidation<
-        typia.Primitive<ObjectGenericArray.IPage<ObjectGenericArray.IPerson>>
-    > => {
+    (input: string): typia.IValidation<typia.Primitive<ObjectGenericArray>> => {
         const validate = (
             input: any,
         ): typia.IValidation<ObjectGenericArray> => {

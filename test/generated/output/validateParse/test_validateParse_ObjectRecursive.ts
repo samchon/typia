@@ -8,17 +8,17 @@ export const test_validateParse_ObjectRecursive = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<typia.Primitive<ObjectRecursive.IDepartment>> => {
+        ): typia.IValidation<typia.Primitive<ObjectRecursive>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectRecursive.IDepartment> => {
+            ): typia.IValidation<ObjectRecursive> => {
                 const errors = [] as any[];
                 const $report = (typia.validateParse as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectRecursive.IDepartment => {
+                ): input is ObjectRecursive => {
                     const $vo0 = (
                         input: any,
                         _path: string,

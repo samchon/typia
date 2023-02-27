@@ -7,13 +7,13 @@ export const test_assertClone_ConstantAtomicSimple = _test_assertClone(
     ConstantAtomicSimple.generate,
     (input) =>
         ((input: any): typia.Primitive<[false, true, 2, "three"]> => {
-            const assert = (input: any): ConstantAtomicSimple => {
+            const assert = (input: any): [false, true, 2, "three"] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ConstantAtomicSimple => {
+                ): input is [false, true, 2, "three"] => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -56,8 +56,8 @@ export const test_assertClone_ConstantAtomicSimple = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ConstantAtomicSimple,
-            ): typia.Primitive<ConstantAtomicSimple> => {
+                input: [false, true, 2, "three"],
+            ): typia.Primitive<[false, true, 2, "three"]> => {
                 return Array.isArray(input) &&
                     input.length === 4 &&
                     false === input[0] &&

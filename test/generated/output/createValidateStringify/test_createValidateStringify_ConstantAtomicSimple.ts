@@ -6,7 +6,7 @@ export const test_createValidateStringify_ConstantAtomicSimple =
     _test_validateStringify(
         "ConstantAtomicSimple",
         ConstantAtomicSimple.generate,
-        (input: [false, true, 2, "three"]): typia.IValidation<string> => {
+        (input: ConstantAtomicSimple): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicSimple> => {

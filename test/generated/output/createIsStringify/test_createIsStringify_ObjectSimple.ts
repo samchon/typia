@@ -5,8 +5,8 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_createIsStringify_ObjectSimple = _test_isStringify(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input: ObjectSimple.IBox3D): string | null => {
-        const is = (input: any): input is ObjectSimple.IBox3D => {
+    (input: ObjectSimple): string | null => {
+        const is = (input: any): input is ObjectSimple => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&
@@ -42,7 +42,7 @@ export const test_createIsStringify_ObjectSimple = _test_isStringify(
                 Number.isFinite(input.pivot.z);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const stringify = (input: ObjectSimple.IBox3D): string => {
+        const stringify = (input: ObjectSimple): string => {
             const $number = (typia.createIsStringify as any).number;
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&

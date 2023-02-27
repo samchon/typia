@@ -5,19 +5,15 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_createValidateParse_ArrayRecursive = _test_validateParse(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (
-        input: string,
-    ): typia.IValidation<typia.Primitive<ArrayRecursive.ICategory>> => {
-        const validate = (
-            input: any,
-        ): typia.IValidation<ArrayRecursive.ICategory> => {
+    (input: string): typia.IValidation<typia.Primitive<ArrayRecursive>> => {
+        const validate = (input: any): typia.IValidation<ArrayRecursive> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayRecursive.ICategory => {
+            ): input is ArrayRecursive => {
                 const $vo0 = (
                     input: any,
                     _path: string,

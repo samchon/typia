@@ -8,9 +8,7 @@ export const test_validateParse_ArrayHierarchical = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<Array<ArrayHierarchical.ICompany>>
-        > => {
+        ): typia.IValidation<typia.Primitive<ArrayHierarchical>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayHierarchical> => {

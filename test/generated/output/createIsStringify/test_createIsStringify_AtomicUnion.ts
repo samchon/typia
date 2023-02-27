@@ -5,7 +5,7 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_createIsStringify_AtomicUnion = _test_isStringify(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input: Array<AtomicUnion.Union>): string | null => {
+    (input: AtomicUnion): string | null => {
         const is = (input: any): input is AtomicUnion => {
             return (
                 Array.isArray(input) &&

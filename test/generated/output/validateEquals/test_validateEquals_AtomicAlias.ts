@@ -13,7 +13,7 @@ export const test_validateEquals_AtomicAlias = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is AtomicAlias => {
+            ): input is [boolean, number, string] => {
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {

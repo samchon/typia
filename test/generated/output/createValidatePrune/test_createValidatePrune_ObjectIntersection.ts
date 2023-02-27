@@ -5,11 +5,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_createValidatePrune_ObjectIntersection = _test_validatePrune(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        ObjectIntersection.IEmail & ObjectIntersection.IName
-    > => {
+    (input: any): typia.IValidation<ObjectIntersection> => {
         const validate = (
             input: any,
         ): typia.IValidation<ObjectIntersection> => {

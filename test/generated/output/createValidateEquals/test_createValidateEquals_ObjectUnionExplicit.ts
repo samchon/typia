@@ -6,40 +6,7 @@ export const test_createValidateEquals_ObjectUnionExplicit =
     _test_validateEquals(
         "ObjectUnionExplicit",
         ObjectUnionExplicit.generate,
-        (
-            input: any,
-        ): typia.IValidation<
-            Array<
-                | ObjectUnionExplicit.Discriminator<
-                      "point",
-                      ObjectUnionExplicit.IPoint
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "line",
-                      ObjectUnionExplicit.ILine
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "triangle",
-                      ObjectUnionExplicit.ITriangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "rectangle",
-                      ObjectUnionExplicit.IRectangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polyline",
-                      ObjectUnionExplicit.IPolyline
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polygon",
-                      ObjectUnionExplicit.IPolygon
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "circle",
-                      ObjectUnionExplicit.ICircle
-                  >
-            >
-        > => {
+        (input: any): typia.IValidation<ObjectUnionExplicit> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             const $join = (typia.createValidateEquals as any).join;

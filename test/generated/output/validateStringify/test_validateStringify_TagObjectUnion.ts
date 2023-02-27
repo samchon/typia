@@ -9,14 +9,14 @@ export const test_validateStringify_TagObjectUnion = _test_validateStringify(
         ((input: Array<TagObjectUnion.Type>): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TagObjectUnion> => {
+            ): typia.IValidation<Array<TagObjectUnion.Type>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TagObjectUnion => {
+                ): input is Array<TagObjectUnion.Type> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -120,7 +120,7 @@ export const test_validateStringify_TagObjectUnion = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: TagObjectUnion): string => {
+            const stringify = (input: Array<TagObjectUnion.Type>): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $string = (typia.validateStringify as any).string;
                 const $throws = (typia.validateStringify as any).throws;

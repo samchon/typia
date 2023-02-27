@@ -5,7 +5,7 @@ import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 export const test_createIs_ClassNonPublic = _test_is(
     "ClassNonPublic",
     ClassNonPublic.generate,
-    (input: any): input is ClassNonPublic.Accessor => {
+    (input: any): input is ClassNonPublic => {
         return (
             "object" === typeof input &&
             null !== input &&

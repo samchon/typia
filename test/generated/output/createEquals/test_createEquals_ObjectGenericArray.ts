@@ -8,7 +8,7 @@ export const test_createEquals_ObjectGenericArray = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+    ): input is ObjectGenericArray => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "object" === typeof input.pagination &&
             null !== input.pagination &&

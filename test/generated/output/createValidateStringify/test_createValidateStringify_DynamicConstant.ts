@@ -6,12 +6,7 @@ export const test_createValidateStringify_DynamicConstant =
     _test_validateStringify(
         "DynamicConstant",
         DynamicConstant.generate,
-        (input: {
-            a: number;
-            b: number;
-            c: number;
-            d: number;
-        }): typia.IValidation<string> => {
+        (input: DynamicConstant): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<DynamicConstant> => {

@@ -5,7 +5,7 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 export const test_createAssertClone_ArrayHierarchical = _test_assertClone(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input: any): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
+    (input: any): typia.Primitive<ArrayHierarchical> => {
         const assert = (input: any): ArrayHierarchical => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

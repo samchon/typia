@@ -14,14 +14,28 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                 ToJsonArray.IArray<ToJsonArray.IObject>,
             ],
         ): typia.IValidation<string> => {
-            const validate = (input: any): typia.IValidation<ToJsonArray> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<
+                [
+                    ToJsonArray.IArray<boolean>,
+                    ToJsonArray.IArray<number>,
+                    ToJsonArray.IArray<string>,
+                    ToJsonArray.IArray<ToJsonArray.IObject>,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonArray => {
+                ): input is [
+                    ToJsonArray.IArray<boolean>,
+                    ToJsonArray.IArray<number>,
+                    ToJsonArray.IArray<string>,
+                    ToJsonArray.IArray<ToJsonArray.IObject>,
+                ] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -166,7 +180,14 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ToJsonArray): string => {
+            const stringify = (
+                input: [
+                    ToJsonArray.IArray<boolean>,
+                    ToJsonArray.IArray<number>,
+                    ToJsonArray.IArray<string>,
+                    ToJsonArray.IArray<ToJsonArray.IObject>,
+                ],
+            ): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $string = (typia.validateStringify as any).string;
                 return `[${`[${input[0]

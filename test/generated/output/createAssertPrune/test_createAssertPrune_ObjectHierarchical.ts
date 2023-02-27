@@ -5,14 +5,14 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_createAssertPrune_ObjectHierarchical = _test_assertPrune(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
-    (input: any): ObjectHierarchical.ICustomer => {
-        const assert = (input: any): ObjectHierarchical.ICustomer => {
+    (input: any): ObjectHierarchical => {
+        const assert = (input: any): ObjectHierarchical => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectHierarchical.ICustomer => {
+            ): input is ObjectHierarchical => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -366,7 +366,7 @@ export const test_createAssertPrune_ObjectHierarchical = _test_assertPrune(
             })(input, "$input", true);
             return input;
         };
-        const prune = (input: ObjectHierarchical.ICustomer): void => {
+        const prune = (input: ObjectHierarchical): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.code &&

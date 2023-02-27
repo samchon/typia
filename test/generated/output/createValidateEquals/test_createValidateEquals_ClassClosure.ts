@@ -5,7 +5,7 @@ import { ClassClosure } from "../../../structures/ClassClosure";
 export const test_createValidateEquals_ClassClosure = _test_validateEquals(
     "ClassClosure",
     ClassClosure.generate,
-    (input: any): typia.IValidation<ClassClosure.Something> => {
+    (input: any): typia.IValidation<ClassClosure> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;
@@ -13,7 +13,7 @@ export const test_createValidateEquals_ClassClosure = _test_validateEquals(
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ClassClosure.Something => {
+        ): input is ClassClosure => {
             const $vo0 = (
                 input: any,
                 _path: string,

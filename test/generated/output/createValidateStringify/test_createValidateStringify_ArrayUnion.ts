@@ -5,7 +5,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_createValidateStringify_ArrayUnion = _test_validateStringify(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input: Array<ArrayUnion.IUnion>): typia.IValidation<string> => {
+    (input: ArrayUnion): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<ArrayUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(

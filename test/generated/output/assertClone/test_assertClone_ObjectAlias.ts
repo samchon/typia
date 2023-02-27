@@ -7,13 +7,13 @@ export const test_assertClone_ObjectAlias = _test_assertClone(
     ObjectAlias.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<ObjectAlias.IMember>> => {
-            const assert = (input: any): ObjectAlias => {
+            const assert = (input: any): Array<ObjectAlias.IMember> => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectAlias => {
+                ): input is Array<ObjectAlias.IMember> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -86,8 +86,8 @@ export const test_assertClone_ObjectAlias = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ObjectAlias,
-            ): typia.Primitive<ObjectAlias> => {
+                input: Array<ObjectAlias.IMember>,
+            ): typia.Primitive<Array<ObjectAlias.IMember>> => {
                 const $co0 = (input: any): any => ({
                     id: input.id as any,
                     email: input.email as any,

@@ -5,28 +5,7 @@ import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 export const test_createValidateClone_TupleHierarchical = _test_validateClone(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        typia.Primitive<
-            [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ]
-        >
-    > => {
+    (input: any): typia.IValidation<typia.Primitive<TupleHierarchical>> => {
         const validate = (input: any): typia.IValidation<TupleHierarchical> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

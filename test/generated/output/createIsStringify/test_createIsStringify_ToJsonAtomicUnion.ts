@@ -5,7 +5,7 @@ import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 export const test_createIsStringify_ToJsonAtomicUnion = _test_isStringify(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
-    (input: Array<ToJsonAtomicUnion.IToJson>): string | null => {
+    (input: ToJsonAtomicUnion): string | null => {
         const is = (input: any): input is ToJsonAtomicUnion => {
             const $io0 = (input: any): boolean => true;
             return (

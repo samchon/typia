@@ -7,13 +7,13 @@ export const test_assertPrune_AtomicUnion = _test_assertPrune(
     AtomicUnion.generate,
     (input) =>
         ((input: any): Array<AtomicUnion.Union> => {
-            const assert = (input: any): AtomicUnion => {
+            const assert = (input: any): Array<AtomicUnion.Union> => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is AtomicUnion => {
+                ): input is Array<AtomicUnion.Union> => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -40,7 +40,7 @@ export const test_assertPrune_AtomicUnion = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: AtomicUnion): void => {};
+            const prune = (input: Array<AtomicUnion.Union>): void => {};
             assert(input);
             prune(input);
             return input;

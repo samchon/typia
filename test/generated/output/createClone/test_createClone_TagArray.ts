@@ -5,7 +5,7 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_createClone_TagArray = _test_clone(
     "TagArray",
     TagArray.generate,
-    (input: Array<TagArray.Type>): typia.Primitive<Array<TagArray.Type>> => {
+    (input: TagArray): typia.Primitive<TagArray> => {
         const $is_uuid = (typia.createClone as any).is_uuid;
         const $co0 = (input: any): any => ({
             items: Array.isArray(input.items)

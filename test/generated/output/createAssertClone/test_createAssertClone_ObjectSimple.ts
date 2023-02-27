@@ -5,14 +5,14 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_createAssertClone_ObjectSimple = _test_assertClone(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input: any): typia.Primitive<ObjectSimple.IBox3D> => {
-        const assert = (input: any): ObjectSimple.IBox3D => {
+    (input: any): typia.Primitive<ObjectSimple> => {
+        const assert = (input: any): ObjectSimple => {
             const $guard = (typia.createAssertClone as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectSimple.IBox3D => {
+            ): input is ObjectSimple => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -100,9 +100,7 @@ export const test_createAssertClone_ObjectSimple = _test_assertClone(
             })(input, "$input", true);
             return input;
         };
-        const clone = (
-            input: ObjectSimple.IBox3D,
-        ): typia.Primitive<ObjectSimple.IBox3D> => {
+        const clone = (input: ObjectSimple): typia.Primitive<ObjectSimple> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&

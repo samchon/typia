@@ -38,13 +38,73 @@ export const test_assertPrune_ObjectUnionExplicit = _test_assertPrune(
                   ObjectUnionExplicit.ICircle
               >
         > => {
-            const assert = (input: any): ObjectUnionExplicit => {
+            const assert = (
+                input: any,
+            ): Array<
+                | ObjectUnionExplicit.Discriminator<
+                      "point",
+                      ObjectUnionExplicit.IPoint
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "line",
+                      ObjectUnionExplicit.ILine
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "triangle",
+                      ObjectUnionExplicit.ITriangle
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "rectangle",
+                      ObjectUnionExplicit.IRectangle
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "polyline",
+                      ObjectUnionExplicit.IPolyline
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "polygon",
+                      ObjectUnionExplicit.IPolygon
+                  >
+                | ObjectUnionExplicit.Discriminator<
+                      "circle",
+                      ObjectUnionExplicit.ICircle
+                  >
+            > => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUnionExplicit => {
+                ): input is Array<
+                    | ObjectUnionExplicit.Discriminator<
+                          "point",
+                          ObjectUnionExplicit.IPoint
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "line",
+                          ObjectUnionExplicit.ILine
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "triangle",
+                          ObjectUnionExplicit.ITriangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "rectangle",
+                          ObjectUnionExplicit.IRectangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polyline",
+                          ObjectUnionExplicit.IPolyline
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polygon",
+                          ObjectUnionExplicit.IPolygon
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "circle",
+                          ObjectUnionExplicit.ICircle
+                      >
+                > => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -401,7 +461,38 @@ export const test_assertPrune_ObjectUnionExplicit = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ObjectUnionExplicit): void => {
+            const prune = (
+                input: Array<
+                    | ObjectUnionExplicit.Discriminator<
+                          "point",
+                          ObjectUnionExplicit.IPoint
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "line",
+                          ObjectUnionExplicit.ILine
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "triangle",
+                          ObjectUnionExplicit.ITriangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "rectangle",
+                          ObjectUnionExplicit.IRectangle
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polyline",
+                          ObjectUnionExplicit.IPolyline
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "polygon",
+                          ObjectUnionExplicit.IPolygon
+                      >
+                    | ObjectUnionExplicit.Discriminator<
+                          "circle",
+                          ObjectUnionExplicit.ICircle
+                      >
+                >,
+            ): void => {
                 const $throws = (typia.assertPrune as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&

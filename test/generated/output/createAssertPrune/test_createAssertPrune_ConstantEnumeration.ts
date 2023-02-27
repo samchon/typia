@@ -5,7 +5,7 @@ import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 export const test_createAssertPrune_ConstantEnumeration = _test_assertPrune(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
-    (input: any): Array<ConstantEnumeration.Enumeration> => {
+    (input: any): ConstantEnumeration => {
         const assert = (input: any): ConstantEnumeration => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

@@ -7,19 +7,7 @@ export const test_createRandom_AtomicClass = _test_random(
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<
-        [
-            Boolean,
-            false | Boolean,
-            boolean | Boolean,
-            Number,
-            Number | 1,
-            number | Number,
-            String,
-            String | "characters",
-            string | String,
-        ]
-    > => {
+    ): typia.Primitive<AtomicClass> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         return [
@@ -52,19 +40,7 @@ export const test_createRandom_AtomicClass = _test_random(
             ])(),
         ];
     },
-    (
-        input: any,
-    ): [
-        Boolean,
-        false | Boolean,
-        boolean | Boolean,
-        Number,
-        Number | 1,
-        number | Number,
-        String,
-        String | "characters",
-        string | String,
-    ] => {
+    (input: any): AtomicClass => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

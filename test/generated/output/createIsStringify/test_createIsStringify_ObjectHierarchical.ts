@@ -5,8 +5,8 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_createIsStringify_ObjectHierarchical = _test_isStringify(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
-    (input: ObjectHierarchical.ICustomer): string | null => {
-        const is = (input: any): input is ObjectHierarchical.ICustomer => {
+    (input: ObjectHierarchical): string | null => {
+        const is = (input: any): input is ObjectHierarchical => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
@@ -101,7 +101,7 @@ export const test_createIsStringify_ObjectHierarchical = _test_isStringify(
                 Number.isFinite(input.created_at.zone);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const stringify = (input: ObjectHierarchical.ICustomer): string => {
+        const stringify = (input: ObjectHierarchical): string => {
             const $number = (typia.createIsStringify as any).number;
             const $string = (typia.createIsStringify as any).string;
             const $io1 = (input: any): boolean =>

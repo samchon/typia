@@ -20,14 +20,32 @@ export const test_validateClone_ToJsonUnion = _test_validateClone(
                 >
             >
         > => {
-            const validate = (input: any): typia.IValidation<ToJsonUnion> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<
+                Array<
+                    | string
+                    | number
+                    | ToJsonUnion.ICitizen
+                    | ToJsonUnion.IWrapper<boolean>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+                >
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonUnion => {
+                ): input is Array<
+                    | string
+                    | number
+                    | ToJsonUnion.ICitizen
+                    | ToJsonUnion.IWrapper<boolean>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+                > => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -183,8 +201,24 @@ export const test_validateClone_ToJsonUnion = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ToJsonUnion,
-            ): typia.Primitive<ToJsonUnion> => {
+                input: Array<
+                    | string
+                    | number
+                    | ToJsonUnion.ICitizen
+                    | ToJsonUnion.IWrapper<boolean>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+                >,
+            ): typia.Primitive<
+                Array<
+                    | string
+                    | number
+                    | ToJsonUnion.ICitizen
+                    | ToJsonUnion.IWrapper<boolean>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+                >
+            > => {
                 const $throws = (typia.validateClone as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&

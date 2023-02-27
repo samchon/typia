@@ -12,7 +12,7 @@ export const test_assert_TagObjectUnion = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TagObjectUnion => {
+            ): input is Array<TagObjectUnion.Type> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

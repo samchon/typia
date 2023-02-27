@@ -9,14 +9,18 @@ export const test_validateStringify_ObjectTuple = _test_validateStringify(
         ((
             input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
         ): typia.IValidation<string> => {
-            const validate = (input: any): typia.IValidation<ObjectTuple> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<
+                [ObjectTuple.ISection, ObjectTuple.ICitizen]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectTuple => {
+                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -129,7 +133,9 @@ export const test_validateStringify_ObjectTuple = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ObjectTuple): string => {
+            const stringify = (
+                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
+            ): string => {
                 const $string = (typia.validateStringify as any).string;
                 return `[${`{"id":${$string(input[0].id)},"code":${$string(
                     input[0].code,

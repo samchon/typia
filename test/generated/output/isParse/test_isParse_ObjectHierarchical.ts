@@ -6,8 +6,8 @@ export const test_isParse_ObjectHierarchical = _test_isParse(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
     (input) =>
-        ((input: any): typia.Primitive<ObjectHierarchical.ICustomer> => {
-            const is = (input: any): input is ObjectHierarchical.ICustomer => {
+        ((input: any): typia.Primitive<ObjectHierarchical> => {
+            const is = (input: any): input is ObjectHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&

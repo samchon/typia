@@ -5,9 +5,7 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 export const test_createIsParse_DynamicConstant = _test_isParse(
     "DynamicConstant",
     DynamicConstant.generate,
-    (
-        input: any,
-    ): typia.Primitive<{ a: number; b: number; c: number; d: number }> => {
+    (input: any): typia.Primitive<DynamicConstant> => {
         const is = (input: any): input is DynamicConstant => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.a &&

@@ -5,9 +5,7 @@ import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnume
 export const test_createIsClone_ConstantConstEnumeration = _test_isClone(
     "ConstantConstEnumeration",
     ConstantConstEnumeration.generate,
-    (
-        input: any,
-    ): typia.Primitive<Array<ConstantConstEnumeration.Enumeration>> | null => {
+    (input: any): typia.Primitive<ConstantConstEnumeration> | null => {
         const is = (input: any): input is ConstantConstEnumeration => {
             return (
                 Array.isArray(input) &&

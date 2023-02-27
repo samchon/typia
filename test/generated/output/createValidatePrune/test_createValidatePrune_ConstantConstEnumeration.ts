@@ -6,9 +6,7 @@ export const test_createValidatePrune_ConstantConstEnumeration =
     _test_validatePrune(
         "ConstantConstEnumeration",
         ConstantConstEnumeration.generate,
-        (
-            input: any,
-        ): typia.IValidation<Array<ConstantConstEnumeration.Enumeration>> => {
+        (input: any): typia.IValidation<ConstantConstEnumeration> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantConstEnumeration> => {

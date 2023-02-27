@@ -5,7 +5,7 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 export const test_createIsStringify_ArrayAtomicSimple = _test_isStringify(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    (input: [Array<boolean>, Array<number>, Array<string>]): string | null => {
+    (input: ArrayAtomicSimple): string | null => {
         const is = (input: any): input is ArrayAtomicSimple => {
             return (
                 Array.isArray(input) &&

@@ -9,14 +9,16 @@ export const test_validateClone_SetUnion = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<SetUnion.Union>>> => {
-            const validate = (input: any): typia.IValidation<SetUnion> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<SetUnion.Union>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is SetUnion => {
+                ): input is Array<SetUnion.Union> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -412,7 +414,9 @@ export const test_validateClone_SetUnion = _test_validateClone(
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone = (input: SetUnion): typia.Primitive<SetUnion> => {
+            const clone = (
+                input: Array<SetUnion.Union>,
+            ): typia.Primitive<Array<SetUnion.Union>> => {
                 return Array.isArray(input)
                     ? input.map((elem: any) =>
                           elem instanceof Set ? {} : (elem as any),

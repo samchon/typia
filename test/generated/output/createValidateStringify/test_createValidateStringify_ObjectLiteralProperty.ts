@@ -6,12 +6,10 @@ export const test_createValidateStringify_ObjectLiteralProperty =
     _test_validateStringify(
         "ObjectLiteralProperty",
         ObjectLiteralProperty.generate,
-        (
-            input: ObjectLiteralProperty.ISomething,
-        ): typia.IValidation<string> => {
+        (input: ObjectLiteralProperty): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectLiteralProperty.ISomething> => {
+            ): typia.IValidation<ObjectLiteralProperty> => {
                 const errors = [] as any[];
                 const $report = (typia.createValidateStringify as any).report(
                     errors,
@@ -20,7 +18,7 @@ export const test_createValidateStringify_ObjectLiteralProperty =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectLiteralProperty.ISomething => {
+                ): input is ObjectLiteralProperty => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -78,9 +76,7 @@ export const test_createValidateStringify_ObjectLiteralProperty =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: ObjectLiteralProperty.ISomething,
-            ): string => {
+            const stringify = (input: ObjectLiteralProperty): string => {
                 const $string = (typia.createValidateStringify as any).string;
                 return `{"something-interesting-do-you-want?":${$string(
                     input["something-interesting-do-you-want?"],

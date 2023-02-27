@@ -5,19 +5,7 @@ import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 export const test_createIsParse_ObjectUnionImplicit = _test_isParse(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        Array<
-            | ObjectUnionImplicit.IPoint
-            | ObjectUnionImplicit.ILine
-            | ObjectUnionImplicit.ITriangle
-            | ObjectUnionImplicit.IRectangle
-            | ObjectUnionImplicit.IPolyline
-            | ObjectUnionImplicit.IPolygon
-            | ObjectUnionImplicit.ICircle
-        >
-    > => {
+    (input: any): typia.Primitive<ObjectUnionImplicit> => {
         const is = (input: any): input is ObjectUnionImplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&

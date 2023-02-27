@@ -7,13 +7,15 @@ export const test_assertPrune_ObjectTuple = _test_assertPrune(
     ObjectTuple.generate,
     (input) =>
         ((input: any): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-            const assert = (input: any): ObjectTuple => {
+            const assert = (
+                input: any,
+            ): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectTuple => {
+                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -93,7 +95,9 @@ export const test_assertPrune_ObjectTuple = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ObjectTuple): void => {
+            const prune = (
+                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
+            ): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&

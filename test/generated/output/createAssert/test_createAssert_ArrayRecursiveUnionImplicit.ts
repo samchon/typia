@@ -5,7 +5,7 @@ import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveU
 export const test_createAssert_ArrayRecursiveUnionImplicit = _test_assert(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
-    (input: any): Array<ArrayRecursiveUnionImplicit.IBucket> => {
+    (input: any): ArrayRecursiveUnionImplicit => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

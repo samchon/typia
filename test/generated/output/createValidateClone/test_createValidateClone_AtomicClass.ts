@@ -5,23 +5,7 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_createValidateClone_AtomicClass = _test_validateClone(
     "AtomicClass",
     AtomicClass.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        typia.Primitive<
-            [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ]
-        >
-    > => {
+    (input: any): typia.IValidation<typia.Primitive<AtomicClass>> => {
         const validate = (input: any): typia.IValidation<AtomicClass> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

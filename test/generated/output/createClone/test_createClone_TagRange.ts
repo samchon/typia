@@ -5,7 +5,7 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_createClone_TagRange = _test_clone(
     "TagRange",
     TagRange.generate,
-    (input: Array<TagRange.Type>): typia.Primitive<Array<TagRange.Type>> => {
+    (input: TagRange): typia.Primitive<TagRange> => {
         const $co0 = (input: any): any => ({
             greater: input.greater as any,
             greater_equal: input.greater_equal as any,

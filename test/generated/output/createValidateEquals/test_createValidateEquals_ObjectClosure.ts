@@ -5,7 +5,7 @@ import { ObjectClosure } from "../../../structures/ObjectClosure";
 export const test_createValidateEquals_ObjectClosure = _test_validateEquals(
     "ObjectClosure",
     ObjectClosure.generate,
-    (input: any): typia.IValidation<ObjectClosure.IRecord> => {
+    (input: any): typia.IValidation<ObjectClosure> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;
@@ -13,7 +13,7 @@ export const test_createValidateEquals_ObjectClosure = _test_validateEquals(
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectClosure.IRecord => {
+        ): input is ObjectClosure => {
             const $vo0 = (
                 input: any,
                 _path: string,

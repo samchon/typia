@@ -15,14 +15,17 @@ export const test_validateClone_ObjectIntersection = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectIntersection> => {
+            ): typia.IValidation<
+                ObjectIntersection.IEmail & ObjectIntersection.IName
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectIntersection => {
+                ): input is ObjectIntersection.IEmail &
+                    ObjectIntersection.IName => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -71,8 +74,10 @@ export const test_validateClone_ObjectIntersection = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ObjectIntersection,
-            ): typia.Primitive<ObjectIntersection> => {
+                input: ObjectIntersection.IEmail & ObjectIntersection.IName,
+            ): typia.Primitive<
+                ObjectIntersection.IEmail & ObjectIntersection.IName
+            > => {
                 const $co0 = (input: any): any => ({
                     email: input.email as any,
                     name: input.name as any,

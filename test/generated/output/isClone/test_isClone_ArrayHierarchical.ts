@@ -9,7 +9,9 @@ export const test_isClone_ArrayHierarchical = _test_isClone(
         ((
             input: any,
         ): typia.Primitive<Array<ArrayHierarchical.ICompany>> | null => {
-            const is = (input: any): input is ArrayHierarchical => {
+            const is = (
+                input: any,
+            ): input is Array<ArrayHierarchical.ICompany> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -73,8 +75,8 @@ export const test_isClone_ArrayHierarchical = _test_isClone(
                 );
             };
             const clone = (
-                input: ArrayHierarchical,
-            ): typia.Primitive<ArrayHierarchical> => {
+                input: Array<ArrayHierarchical.ICompany>,
+            ): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;

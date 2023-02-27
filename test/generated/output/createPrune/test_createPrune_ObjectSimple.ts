@@ -5,7 +5,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_createPrune_ObjectSimple = _test_prune(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input: ObjectSimple.IBox3D): void => {
+    (input: ObjectSimple): void => {
         const $io1 = (input: any): boolean =>
             "number" === typeof input.x &&
             "number" === typeof input.y &&

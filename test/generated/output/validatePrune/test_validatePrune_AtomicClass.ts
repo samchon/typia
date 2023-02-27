@@ -21,14 +21,38 @@ export const test_validatePrune_AtomicClass = _test_validatePrune(
                 string | String,
             ]
         > => {
-            const validate = (input: any): typia.IValidation<AtomicClass> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<
+                [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is AtomicClass => {
+                ): input is [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -160,7 +184,19 @@ export const test_validatePrune_AtomicClass = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: AtomicClass): void => {};
+            const prune = (
+                input: [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ],
+            ): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

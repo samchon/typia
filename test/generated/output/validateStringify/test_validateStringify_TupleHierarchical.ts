@@ -26,14 +26,46 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
         ): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TupleHierarchical> => {
+            ): typia.IValidation<
+                [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleHierarchical => {
+                ): input is [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -567,7 +599,24 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: TupleHierarchical): string => {
+            const stringify = (
+                input: [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ],
+            ): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $string = (typia.validateStringify as any).string;
                 return `[${input[0]},null,${$number(input[2])},${`[${

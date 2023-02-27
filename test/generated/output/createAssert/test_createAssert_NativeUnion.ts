@@ -5,7 +5,7 @@ import { NativeUnion } from "../../../structures/NativeUnion";
 export const test_createAssert_NativeUnion = _test_assert(
     "NativeUnion",
     NativeUnion.generate,
-    (input: any): Array<NativeUnion.Union> => {
+    (input: any): NativeUnion => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

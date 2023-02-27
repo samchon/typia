@@ -13,7 +13,8 @@ export const test_assertEquals_ObjectIntersection = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectIntersection => {
+            ): input is ObjectIntersection.IEmail &
+                ObjectIntersection.IName => {
                 const $ao0 = (
                     input: any,
                     _path: string,

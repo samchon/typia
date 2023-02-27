@@ -13,14 +13,14 @@ export const test_validateClone_ObjectGenericAlias = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectGenericAlias.Alias> => {
+            ): typia.IValidation<ObjectGenericAlias.ISomething<string>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericAlias.Alias => {
+                ): input is ObjectGenericAlias.ISomething<string> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -57,8 +57,8 @@ export const test_validateClone_ObjectGenericAlias = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ObjectGenericAlias.Alias,
-            ): typia.Primitive<ObjectGenericAlias.Alias> => {
+                input: ObjectGenericAlias.ISomething<string>,
+            ): typia.Primitive<ObjectGenericAlias.ISomething<string>> => {
                 const $co0 = (input: any): any => ({
                     value: input.value as any,
                 });

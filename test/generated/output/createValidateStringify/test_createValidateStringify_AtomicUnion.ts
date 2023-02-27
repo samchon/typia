@@ -5,7 +5,7 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_createValidateStringify_AtomicUnion = _test_validateStringify(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input: Array<AtomicUnion.Union>): typia.IValidation<string> => {
+    (input: AtomicUnion): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<AtomicUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(

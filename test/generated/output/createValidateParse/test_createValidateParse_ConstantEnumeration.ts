@@ -7,9 +7,7 @@ export const test_createValidateParse_ConstantEnumeration = _test_validateParse(
     ConstantEnumeration.generate,
     (
         input: string,
-    ): typia.IValidation<
-        typia.Primitive<Array<ConstantEnumeration.Enumeration>>
-    > => {
+    ): typia.IValidation<typia.Primitive<ConstantEnumeration>> => {
         const validate = (
             input: any,
         ): typia.IValidation<ConstantEnumeration> => {

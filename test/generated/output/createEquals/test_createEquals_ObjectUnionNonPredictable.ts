@@ -8,9 +8,7 @@ export const test_createEquals_ObjectUnionNonPredictable = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is Array<
-        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-    > => {
+    ): input is ObjectUnionNonPredictable => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "object" === typeof input.value &&
             null !== input.value &&

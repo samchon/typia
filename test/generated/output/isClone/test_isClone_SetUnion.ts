@@ -7,7 +7,7 @@ export const test_isClone_SetUnion = _test_isClone(
     SetUnion.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<SetUnion.Union>> | null => {
-            const is = (input: any): input is SetUnion => {
+            const is = (input: any): input is Array<SetUnion.Union> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -105,7 +105,9 @@ export const test_isClone_SetUnion = _test_isClone(
                     )
                 );
             };
-            const clone = (input: SetUnion): typia.Primitive<SetUnion> => {
+            const clone = (
+                input: Array<SetUnion.Union>,
+            ): typia.Primitive<Array<SetUnion.Union>> => {
                 return Array.isArray(input)
                     ? input.map((elem: any) =>
                           elem instanceof Set ? {} : (elem as any),

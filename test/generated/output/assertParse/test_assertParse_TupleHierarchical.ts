@@ -6,26 +6,7 @@ export const test_assertParse_TupleHierarchical = _test_assertParse(
     "TupleHierarchical",
     TupleHierarchical.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.Primitive<
-            [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ]
-        > => {
+        ((input: string): typia.Primitive<TupleHierarchical> => {
             const assert = (input: any): TupleHierarchical => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

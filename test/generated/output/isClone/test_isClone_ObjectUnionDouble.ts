@@ -9,7 +9,9 @@ export const test_isClone_ObjectUnionDouble = _test_isClone(
         ((
             input: any,
         ): typia.Primitive<Array<ObjectUnionDouble.Union>> | null => {
-            const is = (input: any): input is ObjectUnionDouble => {
+            const is = (
+                input: any,
+            ): input is Array<ObjectUnionDouble.Union> => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -77,8 +79,8 @@ export const test_isClone_ObjectUnionDouble = _test_isClone(
                 );
             };
             const clone = (
-                input: ObjectUnionDouble,
-            ): typia.Primitive<ObjectUnionDouble> => {
+                input: Array<ObjectUnionDouble.Union>,
+            ): typia.Primitive<Array<ObjectUnionDouble.Union>> => {
                 const $throws = (typia.isClone as any).throws;
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&

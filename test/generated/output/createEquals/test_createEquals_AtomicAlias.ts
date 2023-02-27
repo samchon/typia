@@ -5,10 +5,7 @@ import { AtomicAlias } from "../../../structures/AtomicAlias";
 export const test_createEquals_AtomicAlias = _test_equals(
     "AtomicAlias",
     AtomicAlias.generate,
-    (
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is [boolean, number, string] => {
+    (input: any, _exceptionable: boolean = true): input is AtomicAlias => {
         return (
             Array.isArray(input) &&
             input.length === 3 &&

@@ -5,18 +5,7 @@ import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 export const test_createAssert_ObjectUnionComposite = _test_assert(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (
-        input: any,
-    ): Array<
-        | ObjectUnionComposite.IPoint
-        | ObjectUnionComposite.ILine
-        | ObjectUnionComposite.ITriangle
-        | ObjectUnionComposite.IRectangle
-        | ObjectUnionComposite.IPolyline
-        | ObjectUnionComposite.IPolygon
-        | ObjectUnionComposite.IPointedShape
-        | ObjectUnionComposite.ICircle
-    > => {
+    (input: any): ObjectUnionComposite => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

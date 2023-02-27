@@ -5,7 +5,7 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 export const test_createAssert_ObjectUndefined = _test_assert(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input: any): Array<ObjectUndefined.ILecture> => {
+    (input: any): ObjectUndefined => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

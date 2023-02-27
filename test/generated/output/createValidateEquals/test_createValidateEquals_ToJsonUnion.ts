@@ -5,18 +5,7 @@ import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 export const test_createValidateEquals_ToJsonUnion = _test_validateEquals(
     "ToJsonUnion",
     ToJsonUnion.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        Array<
-            | string
-            | number
-            | ToJsonUnion.ICitizen
-            | ToJsonUnion.IWrapper<boolean>
-            | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-            | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-        >
-    > => {
+    (input: any): typia.IValidation<ToJsonUnion> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;

@@ -5,7 +5,7 @@ import { SetUnion } from "../../../structures/SetUnion";
 export const test_createAssertClone_SetUnion = _test_assertClone(
     "SetUnion",
     SetUnion.generate,
-    (input: any): typia.Primitive<Array<SetUnion.Union>> => {
+    (input: any): typia.Primitive<SetUnion> => {
         const assert = (input: any): SetUnion => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

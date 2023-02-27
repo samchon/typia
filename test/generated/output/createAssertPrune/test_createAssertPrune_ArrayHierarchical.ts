@@ -5,7 +5,7 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 export const test_createAssertPrune_ArrayHierarchical = _test_assertPrune(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input: any): Array<ArrayHierarchical.ICompany> => {
+    (input: any): ArrayHierarchical => {
         const assert = (input: any): ArrayHierarchical => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

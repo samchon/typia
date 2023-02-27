@@ -5,7 +5,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_createIsStringify_TemplateConstant = _test_isStringify(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: Array<TemplateConstant.Type>): string | null => {
+    (input: TemplateConstant): string | null => {
         const is = (input: any): input is TemplateConstant => {
             const $io0 = (input: any): boolean =>
                 ("prefix_A" === input.prefix ||

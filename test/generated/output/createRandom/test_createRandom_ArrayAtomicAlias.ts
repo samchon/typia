@@ -7,13 +7,7 @@ export const test_createRandom_ArrayAtomicAlias = _test_random(
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<
-        [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ]
-    > => {
+    ): typia.Primitive<ArrayAtomicAlias> => {
         const $generator = (typia.createRandom as any).generator;
         return [
             (generator.array ?? $generator.array)(() =>
@@ -27,13 +21,7 @@ export const test_createRandom_ArrayAtomicAlias = _test_random(
             ),
         ];
     },
-    (
-        input: any,
-    ): [
-        ArrayAtomicAlias.Alias<boolean>,
-        ArrayAtomicAlias.Alias<number>,
-        ArrayAtomicAlias.Alias<string>,
-    ] => {
+    (input: any): ArrayAtomicAlias => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

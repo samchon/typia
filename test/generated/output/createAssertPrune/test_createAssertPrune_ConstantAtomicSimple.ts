@@ -5,7 +5,7 @@ import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 export const test_createAssertPrune_ConstantAtomicSimple = _test_assertPrune(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
-    (input: any): [false, true, 2, "three"] => {
+    (input: any): ConstantAtomicSimple => {
         const assert = (input: any): ConstantAtomicSimple => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

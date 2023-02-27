@@ -5,9 +5,7 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 export const test_createValidateClone_TupleRestAtomic = _test_validateClone(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (
-        input: any,
-    ): typia.IValidation<typia.Primitive<[boolean, number, ...string[]]>> => {
+    (input: any): typia.IValidation<typia.Primitive<TupleRestAtomic>> => {
         const validate = (input: any): typia.IValidation<TupleRestAtomic> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

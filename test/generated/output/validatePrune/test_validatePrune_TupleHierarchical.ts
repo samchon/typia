@@ -28,14 +28,46 @@ export const test_validatePrune_TupleHierarchical = _test_validatePrune(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TupleHierarchical> => {
+            ): typia.IValidation<
+                [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleHierarchical => {
+                ): input is [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -569,7 +601,24 @@ export const test_validatePrune_TupleHierarchical = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: TupleHierarchical): void => {};
+            const prune = (
+                input: [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ],
+            ): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

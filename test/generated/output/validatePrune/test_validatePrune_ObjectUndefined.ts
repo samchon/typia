@@ -9,14 +9,14 @@ export const test_validatePrune_ObjectUndefined = _test_validatePrune(
         ((input: any): typia.IValidation<Array<ObjectUndefined.ILecture>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectUndefined> => {
+            ): typia.IValidation<Array<ObjectUndefined.ILecture>> => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUndefined => {
+                ): input is Array<ObjectUndefined.ILecture> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -159,7 +159,7 @@ export const test_validatePrune_ObjectUndefined = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ObjectUndefined): void => {
+            const prune = (input: Array<ObjectUndefined.ILecture>): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;

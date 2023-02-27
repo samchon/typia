@@ -6,7 +6,7 @@ export const test_createValidateEquals_ObjectLiteralProperty =
     _test_validateEquals(
         "ObjectLiteralProperty",
         ObjectLiteralProperty.generate,
-        (input: any): typia.IValidation<ObjectLiteralProperty.ISomething> => {
+        (input: any): typia.IValidation<ObjectLiteralProperty> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             const $join = (typia.createValidateEquals as any).join;
@@ -14,7 +14,7 @@ export const test_createValidateEquals_ObjectLiteralProperty =
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectLiteralProperty.ISomething => {
+            ): input is ObjectLiteralProperty => {
                 const $vo0 = (
                     input: any,
                     _path: string,

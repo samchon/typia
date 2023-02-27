@@ -6,7 +6,7 @@ export const test_createValidateEquals_ObjectHierarchical =
     _test_validateEquals(
         "ObjectHierarchical",
         ObjectHierarchical.generate,
-        (input: any): typia.IValidation<ObjectHierarchical.ICustomer> => {
+        (input: any): typia.IValidation<ObjectHierarchical> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             const $join = (typia.createValidateEquals as any).join;
@@ -14,7 +14,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectHierarchical.ICustomer => {
+            ): input is ObjectHierarchical => {
                 const $vo0 = (
                     input: any,
                     _path: string,

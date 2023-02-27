@@ -5,8 +5,8 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_createIsPrune_ObjectRecursive = _test_isPrune(
     "ObjectRecursive",
     ObjectRecursive.generate,
-    (input: any): input is ObjectRecursive.IDepartment => {
-        const is = (input: any): input is ObjectRecursive.IDepartment => {
+    (input: any): input is ObjectRecursive => {
+        const is = (input: any): input is ObjectRecursive => {
             const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&
@@ -26,7 +26,7 @@ export const test_createIsPrune_ObjectRecursive = _test_isPrune(
                 Number.isFinite(input.created_at.zone);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const prune = (input: ObjectRecursive.IDepartment): void => {
+        const prune = (input: ObjectRecursive): void => {
             const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&

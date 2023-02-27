@@ -5,11 +5,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_createIsParse_ObjectGenericArray = _test_isParse(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
-    > => {
+    (input: any): typia.Primitive<ObjectGenericArray> => {
         const is = (input: any): input is ObjectGenericArray => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.pagination &&

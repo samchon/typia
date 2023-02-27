@@ -6,10 +6,8 @@ export const test_createValidateStringify_ToJsonDouble =
     _test_validateStringify(
         "ToJsonDouble",
         ToJsonDouble.generate,
-        (input: ToJsonDouble.Parent): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<ToJsonDouble.Parent> => {
+        (input: ToJsonDouble): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<ToJsonDouble> => {
                 const errors = [] as any[];
                 const $report = (typia.createValidateStringify as any).report(
                     errors,
@@ -18,7 +16,7 @@ export const test_createValidateStringify_ToJsonDouble =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonDouble.Parent => {
+                ): input is ToJsonDouble => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -48,7 +46,7 @@ export const test_createValidateStringify_ToJsonDouble =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ToJsonDouble.Parent): string => {
+            const stringify = (input: ToJsonDouble): string => {
                 const $number = (typia.createValidateStringify as any).number;
                 const $so0 = (input: any): any =>
                     `{"id":${$number(input.id)},"flag":${input.flag}}`;

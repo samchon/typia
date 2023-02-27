@@ -5,7 +5,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_createPrune_TemplateConstant = _test_prune(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: Array<TemplateConstant.Type>): void => {
+    (input: TemplateConstant): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if ("prefix" === key || "postfix" === key || "combined" === key)

@@ -5,11 +5,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_createValidateClone_ObjectIntersection = _test_validateClone(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        typia.Primitive<ObjectIntersection.IEmail & ObjectIntersection.IName>
-    > => {
+    (input: any): typia.IValidation<typia.Primitive<ObjectIntersection>> => {
         const validate = (
             input: any,
         ): typia.IValidation<ObjectIntersection> => {

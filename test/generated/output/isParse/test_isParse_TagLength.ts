@@ -6,7 +6,7 @@ export const test_isParse_TagLength = _test_isParse(
     "TagLength",
     TagLength.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<TagLength.Type>> => {
+        ((input: any): typia.Primitive<TagLength> => {
             const is = (input: any): input is TagLength => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.fixed &&

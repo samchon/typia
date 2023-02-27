@@ -5,7 +5,7 @@ import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnume
 export const test_createIs_ConstantConstEnumeration = _test_is(
     "ConstantConstEnumeration",
     ConstantConstEnumeration.generate,
-    (input: any): input is Array<ConstantConstEnumeration.Enumeration> => {
+    (input: any): input is ConstantConstEnumeration => {
         return (
             Array.isArray(input) &&
             input.every(

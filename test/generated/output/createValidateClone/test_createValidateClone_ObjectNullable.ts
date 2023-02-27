@@ -5,17 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_createValidateClone_ObjectNullable = _test_validateClone(
     "ObjectNullable",
     ObjectNullable.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        typia.Primitive<
-            [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ]
-        >
-    > => {
+    (input: any): typia.IValidation<typia.Primitive<ObjectNullable>> => {
         const validate = (input: any): typia.IValidation<ObjectNullable> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

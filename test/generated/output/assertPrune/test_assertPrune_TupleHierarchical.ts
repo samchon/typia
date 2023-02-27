@@ -24,13 +24,45 @@ export const test_assertPrune_TupleHierarchical = _test_assertPrune(
                 >,
             ],
         ] => {
-            const assert = (input: any): TupleHierarchical => {
+            const assert = (
+                input: any,
+            ): [
+                boolean,
+                null,
+                number,
+                [boolean, null, [number, [boolean, string]]],
+                [
+                    number,
+                    Array<
+                        [
+                            string,
+                            boolean,
+                            Array<[number, number, [boolean, string]]>,
+                        ]
+                    >,
+                ],
+            ] => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleHierarchical => {
+                ): input is [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ] => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -329,7 +361,24 @@ export const test_assertPrune_TupleHierarchical = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: TupleHierarchical): void => {};
+            const prune = (
+                input: [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ],
+            ): void => {};
             assert(input);
             prune(input);
             return input;

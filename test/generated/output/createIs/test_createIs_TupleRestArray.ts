@@ -5,7 +5,7 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_createIs_TupleRestArray = _test_is(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input: any): input is [boolean, number, ...Array<string>[]] => {
+    (input: any): input is TupleRestArray => {
         return (
             Array.isArray(input) &&
             "boolean" === typeof input[0] &&

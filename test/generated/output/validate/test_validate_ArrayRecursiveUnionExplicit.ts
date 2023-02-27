@@ -15,7 +15,7 @@ export const test_validate_ArrayRecursiveUnionExplicit = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayRecursiveUnionExplicit => {
+            ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

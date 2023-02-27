@@ -5,14 +5,14 @@ import { ObjectClosure } from "../../../structures/ObjectClosure";
 export const test_createAssertEquals_ObjectClosure = _test_assertEquals(
     "ObjectClosure",
     ObjectClosure.generate,
-    (input: any): ObjectClosure.IRecord => {
+    (input: any): ObjectClosure => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectClosure.IRecord => {
+        ): input is ObjectClosure => {
             const $ao0 = (
                 input: any,
                 _path: string,

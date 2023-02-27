@@ -5,15 +5,7 @@ import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper
 export const test_createAssertClone_ConstantAtomicWrapper = _test_assertClone(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        [
-            ConstantAtomicWrapper.IPointer<boolean>,
-            ConstantAtomicWrapper.IPointer<number>,
-            ConstantAtomicWrapper.IPointer<string>,
-        ]
-    > => {
+    (input: any): typia.Primitive<ConstantAtomicWrapper> => {
         const assert = (input: any): ConstantAtomicWrapper => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

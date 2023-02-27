@@ -13,7 +13,7 @@ export const test_assertEquals_ObjectGenericArray = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectGenericArray => {
+            ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

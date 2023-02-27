@@ -13,7 +13,7 @@ export const test_validate_ArrayUnion = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayUnion => {
+            ): input is Array<ArrayUnion.IUnion> => {
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {

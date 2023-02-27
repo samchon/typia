@@ -5,7 +5,7 @@ import { MapUnion } from "../../../structures/MapUnion";
 export const test_createAssert_MapUnion = _test_assert(
     "MapUnion",
     MapUnion.generate,
-    (input: any): Array<MapUnion.Union> => {
+    (input: any): MapUnion => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

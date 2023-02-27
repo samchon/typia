@@ -6,7 +6,7 @@ export const test_createValidatePrune_ConstantAtomicSimple =
     _test_validatePrune(
         "ConstantAtomicSimple",
         ConstantAtomicSimple.generate,
-        (input: any): typia.IValidation<[false, true, 2, "three"]> => {
+        (input: any): typia.IValidation<ConstantAtomicSimple> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicSimple> => {

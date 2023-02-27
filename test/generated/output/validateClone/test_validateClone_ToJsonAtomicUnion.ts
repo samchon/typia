@@ -13,14 +13,14 @@ export const test_validateClone_ToJsonAtomicUnion = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ToJsonAtomicUnion> => {
+            ): typia.IValidation<Array<ToJsonAtomicUnion.IToJson>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonAtomicUnion => {
+                ): input is Array<ToJsonAtomicUnion.IToJson> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -83,8 +83,8 @@ export const test_validateClone_ToJsonAtomicUnion = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ToJsonAtomicUnion,
-            ): typia.Primitive<ToJsonAtomicUnion> => {
+                input: Array<ToJsonAtomicUnion.IToJson>,
+            ): typia.Primitive<Array<ToJsonAtomicUnion.IToJson>> => {
                 return Array.isArray(input)
                     ? input.map((elem: any) =>
                           "object" === typeof elem &&

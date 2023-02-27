@@ -6,11 +6,7 @@ export const test_createValidateEquals_ObjectIntersection =
     _test_validateEquals(
         "ObjectIntersection",
         ObjectIntersection.generate,
-        (
-            input: any,
-        ): typia.IValidation<
-            ObjectIntersection.IEmail & ObjectIntersection.IName
-        > => {
+        (input: any): typia.IValidation<ObjectIntersection> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             const $join = (typia.createValidateEquals as any).join;

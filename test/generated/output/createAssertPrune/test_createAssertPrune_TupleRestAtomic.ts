@@ -5,7 +5,7 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 export const test_createAssertPrune_TupleRestAtomic = _test_assertPrune(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (input: any): [boolean, number, ...string[]] => {
+    (input: any): TupleRestAtomic => {
         const assert = (input: any): TupleRestAtomic => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

@@ -6,15 +6,7 @@ export const test_assertParse_ObjectNullable = _test_assertParse(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.Primitive<
-            [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ]
-        > => {
+        ((input: string): typia.Primitive<ObjectNullable> => {
             const assert = (input: any): ObjectNullable => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

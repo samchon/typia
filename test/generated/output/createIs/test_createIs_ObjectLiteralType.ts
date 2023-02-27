@@ -5,7 +5,7 @@ import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 export const test_createIs_ObjectLiteralType = _test_is(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
-    (input: any): input is { id: string; name: string; age: number } => {
+    (input: any): input is ObjectLiteralType => {
         return (
             "object" === typeof input &&
             null !== input &&

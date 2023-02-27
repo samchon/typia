@@ -13,14 +13,16 @@ export const test_validatePrune_ArrayAtomicSimple = _test_validatePrune(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ArrayAtomicSimple> => {
+            ): typia.IValidation<
+                [Array<boolean>, Array<number>, Array<string>]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayAtomicSimple => {
+                ): input is [Array<boolean>, Array<number>, Array<string>] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -132,7 +134,9 @@ export const test_validatePrune_ArrayAtomicSimple = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ArrayAtomicSimple): void => {};
+            const prune = (
+                input: [Array<boolean>, Array<number>, Array<string>],
+            ): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

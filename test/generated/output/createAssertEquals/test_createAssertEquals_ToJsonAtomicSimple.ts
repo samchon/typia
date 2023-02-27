@@ -5,13 +5,7 @@ import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 export const test_createAssertEquals_ToJsonAtomicSimple = _test_assertEquals(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
-    (
-        input: any,
-    ): [
-        ToJsonAtomicSimple.IToJson<boolean>,
-        ToJsonAtomicSimple.IToJson<number>,
-        ToJsonAtomicSimple.IToJson<string>,
-    ] => {
+    (input: any): ToJsonAtomicSimple => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

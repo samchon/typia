@@ -11,14 +11,14 @@ export const test_validateStringify_ArrayHierarchical = _test_validateStringify(
         ): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ArrayHierarchical> => {
+            ): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayHierarchical => {
+                ): input is Array<ArrayHierarchical.ICompany> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -329,7 +329,9 @@ export const test_validateStringify_ArrayHierarchical = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ArrayHierarchical): string => {
+            const stringify = (
+                input: Array<ArrayHierarchical.ICompany>,
+            ): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $string = (typia.validateStringify as any).string;
                 const $io1 = (input: any): boolean =>

@@ -19,14 +19,24 @@ export const test_validateClone_ArrayAtomicAlias = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ArrayAtomicAlias> => {
+            ): typia.IValidation<
+                [
+                    ArrayAtomicAlias.Alias<boolean>,
+                    ArrayAtomicAlias.Alias<number>,
+                    ArrayAtomicAlias.Alias<string>,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayAtomicAlias => {
+                ): input is [
+                    ArrayAtomicAlias.Alias<boolean>,
+                    ArrayAtomicAlias.Alias<number>,
+                    ArrayAtomicAlias.Alias<string>,
+                ] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -139,8 +149,18 @@ export const test_validateClone_ArrayAtomicAlias = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ArrayAtomicAlias,
-            ): typia.Primitive<ArrayAtomicAlias> => {
+                input: [
+                    ArrayAtomicAlias.Alias<boolean>,
+                    ArrayAtomicAlias.Alias<number>,
+                    ArrayAtomicAlias.Alias<string>,
+                ],
+            ): typia.Primitive<
+                [
+                    ArrayAtomicAlias.Alias<boolean>,
+                    ArrayAtomicAlias.Alias<number>,
+                    ArrayAtomicAlias.Alias<string>,
+                ]
+            > => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     Array.isArray(input[0]) &&

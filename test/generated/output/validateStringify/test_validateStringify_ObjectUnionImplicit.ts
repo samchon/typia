@@ -20,7 +20,17 @@ export const test_validateStringify_ObjectUnionImplicit =
             ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ObjectUnionImplicit> => {
+                ): typia.IValidation<
+                    Array<
+                        | ObjectUnionImplicit.IPoint
+                        | ObjectUnionImplicit.ILine
+                        | ObjectUnionImplicit.ITriangle
+                        | ObjectUnionImplicit.IRectangle
+                        | ObjectUnionImplicit.IPolyline
+                        | ObjectUnionImplicit.IPolygon
+                        | ObjectUnionImplicit.ICircle
+                    >
+                > => {
                     const errors = [] as any[];
                     const $report = (typia.validateStringify as any).report(
                         errors,
@@ -29,7 +39,15 @@ export const test_validateStringify_ObjectUnionImplicit =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectUnionImplicit => {
+                    ): input is Array<
+                        | ObjectUnionImplicit.IPoint
+                        | ObjectUnionImplicit.ILine
+                        | ObjectUnionImplicit.ITriangle
+                        | ObjectUnionImplicit.IRectangle
+                        | ObjectUnionImplicit.IPolyline
+                        | ObjectUnionImplicit.IPolygon
+                        | ObjectUnionImplicit.ICircle
+                    > => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -622,7 +640,17 @@ export const test_validateStringify_ObjectUnionImplicit =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (input: ObjectUnionImplicit): string => {
+                const stringify = (
+                    input: Array<
+                        | ObjectUnionImplicit.IPoint
+                        | ObjectUnionImplicit.ILine
+                        | ObjectUnionImplicit.ITriangle
+                        | ObjectUnionImplicit.IRectangle
+                        | ObjectUnionImplicit.IPolyline
+                        | ObjectUnionImplicit.IPolygon
+                        | ObjectUnionImplicit.ICircle
+                    >,
+                ): string => {
                     const $number = (typia.validateStringify as any).number;
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.x &&

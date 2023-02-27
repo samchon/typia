@@ -5,15 +5,7 @@ import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper
 export const test_createValidate_ConstantAtomicWrapper = _test_validate(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        [
-            ConstantAtomicWrapper.IPointer<boolean>,
-            ConstantAtomicWrapper.IPointer<number>,
-            ConstantAtomicWrapper.IPointer<string>,
-        ]
-    > => {
+    (input: any): typia.IValidation<ConstantAtomicWrapper> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

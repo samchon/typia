@@ -7,7 +7,7 @@ export const test_isClone_AtomicSimple = _test_isClone(
     AtomicSimple.generate,
     (input) =>
         ((input: any): typia.Primitive<[boolean, number, string]> | null => {
-            const is = (input: any): input is AtomicSimple => {
+            const is = (input: any): input is [boolean, number, string] => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -18,8 +18,8 @@ export const test_isClone_AtomicSimple = _test_isClone(
                 );
             };
             const clone = (
-                input: AtomicSimple,
-            ): typia.Primitive<AtomicSimple> => {
+                input: [boolean, number, string],
+            ): typia.Primitive<[boolean, number, string]> => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     "boolean" === typeof input[0] &&

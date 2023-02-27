@@ -5,7 +5,7 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 export const test_createIs_ArrayHierarchical = _test_is(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input: any): input is Array<ArrayHierarchical.ICompany> => {
+    (input: any): input is ArrayHierarchical => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&

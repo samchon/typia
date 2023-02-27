@@ -5,16 +5,7 @@ import { ToJsonArray } from "../../../structures/ToJsonArray";
 export const test_createValidateEquals_ToJsonArray = _test_validateEquals(
     "ToJsonArray",
     ToJsonArray.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        [
-            ToJsonArray.IArray<boolean>,
-            ToJsonArray.IArray<number>,
-            ToJsonArray.IArray<string>,
-            ToJsonArray.IArray<ToJsonArray.IObject>,
-        ]
-    > => {
+    (input: any): typia.IValidation<ToJsonArray> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;

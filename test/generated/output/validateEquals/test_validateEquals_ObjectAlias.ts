@@ -14,7 +14,7 @@ export const test_validateEquals_ObjectAlias = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectAlias => {
+            ): input is Array<ObjectAlias.IMember> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

@@ -8,12 +8,10 @@ export const test_createValidateParse_ObjectLiteralProperty =
         ObjectLiteralProperty.generate,
         (
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<ObjectLiteralProperty.ISomething>
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectLiteralProperty>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectLiteralProperty.ISomething> => {
+            ): typia.IValidation<ObjectLiteralProperty> => {
                 const errors = [] as any[];
                 const $report = (typia.createValidateParse as any).report(
                     errors,
@@ -22,7 +20,7 @@ export const test_createValidateParse_ObjectLiteralProperty =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectLiteralProperty.ISomething => {
+                ): input is ObjectLiteralProperty => {
                     const $vo0 = (
                         input: any,
                         _path: string,

@@ -6,7 +6,7 @@ export const test_assertParse_AtomicSimple = _test_assertParse(
     "AtomicSimple",
     AtomicSimple.generate,
     (input) =>
-        ((input: string): typia.Primitive<[boolean, number, string]> => {
+        ((input: string): typia.Primitive<AtomicSimple> => {
             const assert = (input: any): AtomicSimple => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

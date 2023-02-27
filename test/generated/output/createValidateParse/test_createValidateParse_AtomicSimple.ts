@@ -5,9 +5,7 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 export const test_createValidateParse_AtomicSimple = _test_validateParse(
     "AtomicSimple",
     AtomicSimple.generate,
-    (
-        input: string,
-    ): typia.IValidation<typia.Primitive<[boolean, number, string]>> => {
+    (input: string): typia.IValidation<typia.Primitive<AtomicSimple>> => {
         const validate = (input: any): typia.IValidation<AtomicSimple> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

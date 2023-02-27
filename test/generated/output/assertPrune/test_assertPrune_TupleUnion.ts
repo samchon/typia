@@ -7,13 +7,13 @@ export const test_assertPrune_TupleUnion = _test_assertPrune(
     TupleUnion.generate,
     (input) =>
         ((input: any): Array<TupleUnion.Union> => {
-            const assert = (input: any): TupleUnion => {
+            const assert = (input: any): Array<TupleUnion.Union> => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleUnion => {
+                ): input is Array<TupleUnion.Union> => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -168,7 +168,7 @@ export const test_assertPrune_TupleUnion = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: TupleUnion): void => {};
+            const prune = (input: Array<TupleUnion.Union>): void => {};
             assert(input);
             prune(input);
             return input;

@@ -6,11 +6,7 @@ export const test_createAssertPrune_ObjectUnionNonPredictable =
     _test_assertPrune(
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
-        (
-            input: any,
-        ): Array<
-            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-        > => {
+        (input: any): ObjectUnionNonPredictable => {
             const assert = (input: any): ObjectUnionNonPredictable => {
                 const $guard = (typia.createAssertPrune as any).guard;
                 ((

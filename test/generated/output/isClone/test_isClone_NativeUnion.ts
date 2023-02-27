@@ -7,7 +7,7 @@ export const test_isClone_NativeUnion = _test_isClone(
     NativeUnion.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<NativeUnion.Union>> | null => {
-            const is = (input: any): input is NativeUnion => {
+            const is = (input: any): input is Array<NativeUnion.Union> => {
                 const $io0 = (input: any): boolean =>
                     (null === input.date || input.date instanceof Date) &&
                     (input.unsigned instanceof Uint8Array ||
@@ -38,8 +38,8 @@ export const test_isClone_NativeUnion = _test_isClone(
                 );
             };
             const clone = (
-                input: NativeUnion,
-            ): typia.Primitive<NativeUnion> => {
+                input: Array<NativeUnion.Union>,
+            ): typia.Primitive<Array<NativeUnion.Union>> => {
                 const $io1 = (input: any): boolean =>
                     "Buffer" === input.type &&
                     Array.isArray(input.data) &&

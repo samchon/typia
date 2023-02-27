@@ -5,7 +5,7 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 export const test_createStringify_ArraySimple = _test_stringify(
     "ArraySimple",
     ArraySimple.generate,
-    (input: Array<ArraySimple.IPerson>): string => {
+    (input: ArraySimple): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
         const $io1 = (input: any): boolean =>

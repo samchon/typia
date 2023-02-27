@@ -19,7 +19,19 @@ export const test_isStringify_AtomicClass = _test_isStringify(
                 string | String,
             ],
         ): string | null => {
-            const is = (input: any): input is AtomicClass => {
+            const is = (
+                input: any,
+            ): input is [
+                Boolean,
+                false | Boolean,
+                boolean | Boolean,
+                Number,
+                Number | 1,
+                number | Number,
+                String,
+                String | "characters",
+                string | String,
+            ] => {
                 return (
                     Array.isArray(input) &&
                     input.length === 9 &&
@@ -48,7 +60,19 @@ export const test_isStringify_AtomicClass = _test_isStringify(
                     ("string" === typeof input[8] || input[8] instanceof String)
                 );
             };
-            const stringify = (input: AtomicClass): string => {
+            const stringify = (
+                input: [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ],
+            ): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 const $throws = (typia.isStringify as any).throws;

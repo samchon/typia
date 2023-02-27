@@ -5,13 +5,7 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 export const test_createAssert_ObjectGeneric = _test_assert(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (
-        input: any,
-    ): [
-        ObjectGeneric.ISomething<boolean>,
-        ObjectGeneric.ISomething<number>,
-        ObjectGeneric.ISomething<string>,
-    ] => {
+    (input: any): ObjectGeneric => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

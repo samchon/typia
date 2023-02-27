@@ -5,7 +5,7 @@ import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 export const test_createIsPrune_ConstantAtomicUnion = _test_isPrune(
     "ConstantAtomicUnion",
     ConstantAtomicUnion.generate,
-    (input: any): input is Array<ConstantAtomicUnion.Union> => {
+    (input: any): input is ConstantAtomicUnion => {
         const is = (input: any): input is ConstantAtomicUnion => {
             const $io0 = (input: any): boolean => "key" === input.key;
             return (

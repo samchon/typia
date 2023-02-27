@@ -7,7 +7,9 @@ export const test_isPrune_ArrayHierarchical = _test_isPrune(
     ArrayHierarchical.generate,
     (input) =>
         ((input: any): input is Array<ArrayHierarchical.ICompany> => {
-            const is = (input: any): input is ArrayHierarchical => {
+            const is = (
+                input: any,
+            ): input is Array<ArrayHierarchical.ICompany> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -70,7 +72,7 @@ export const test_isPrune_ArrayHierarchical = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: ArrayHierarchical): void => {
+            const prune = (input: Array<ArrayHierarchical.ICompany>): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;

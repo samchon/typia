@@ -5,14 +5,14 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 export const test_createAssertClone_ClassGetter = _test_assertClone(
     "ClassGetter",
     ClassGetter.generate,
-    (input: any): typia.Primitive<ClassGetter.Person> => {
-        const assert = (input: any): ClassGetter.Person => {
+    (input: any): typia.Primitive<ClassGetter> => {
+        const assert = (input: any): ClassGetter => {
             const $guard = (typia.createAssertClone as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ClassGetter.Person => {
+            ): input is ClassGetter => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -49,9 +49,7 @@ export const test_createAssertClone_ClassGetter = _test_assertClone(
             })(input, "$input", true);
             return input;
         };
-        const clone = (
-            input: ClassGetter.Person,
-        ): typia.Primitive<ClassGetter.Person> => {
+        const clone = (input: ClassGetter): typia.Primitive<ClassGetter> => {
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,

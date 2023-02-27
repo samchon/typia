@@ -18,7 +18,11 @@ export const test_assert_ObjectGeneric = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectGeneric => {
+            ): input is [
+                ObjectGeneric.ISomething<boolean>,
+                ObjectGeneric.ISomething<number>,
+                ObjectGeneric.ISomething<string>,
+            ] => {
                 const $ao0 = (
                     input: any,
                     _path: string,

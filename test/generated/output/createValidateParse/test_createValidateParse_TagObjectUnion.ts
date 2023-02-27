@@ -5,9 +5,7 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_createValidateParse_TagObjectUnion = _test_validateParse(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (
-        input: string,
-    ): typia.IValidation<typia.Primitive<Array<TagObjectUnion.Type>>> => {
+    (input: string): typia.IValidation<typia.Primitive<TagObjectUnion>> => {
         const validate = (input: any): typia.IValidation<TagObjectUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

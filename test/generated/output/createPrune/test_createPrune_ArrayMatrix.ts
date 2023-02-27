@@ -5,5 +5,5 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_createPrune_ArrayMatrix = _test_prune(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: Array<Array<Array<number>>>): void => {},
+    (input: ArrayMatrix): void => {},
 );

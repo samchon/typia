@@ -5,7 +5,7 @@ import { TupleUnion } from "../../../structures/TupleUnion";
 export const test_createAssert_TupleUnion = _test_assert(
     "TupleUnion",
     TupleUnion.generate,
-    (input: any): Array<TupleUnion.Union> => {
+    (input: any): TupleUnion => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

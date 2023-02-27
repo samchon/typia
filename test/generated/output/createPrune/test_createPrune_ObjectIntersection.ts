@@ -5,7 +5,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_createPrune_ObjectIntersection = _test_prune(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (input: ObjectIntersection.IEmail & ObjectIntersection.IName): void => {
+    (input: ObjectIntersection): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if ("email" === key || "name" === key || "vulnerable" === key)

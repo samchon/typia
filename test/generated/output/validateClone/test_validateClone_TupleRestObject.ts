@@ -13,14 +13,16 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TupleRestObject> => {
+            ): typia.IValidation<
+                [boolean, number, ...TupleRestObject.IObject[]]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleRestObject => {
+                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -122,8 +124,10 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: TupleRestObject,
-            ): typia.Primitive<TupleRestObject> => {
+                input: [boolean, number, ...TupleRestObject.IObject[]],
+            ): typia.Primitive<
+                [boolean, number, ...TupleRestObject.IObject[]]
+            > => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 const $co0 = (input: any): any => ({

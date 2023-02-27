@@ -22,7 +22,11 @@ export const test_validateEquals_ConstantAtomicWrapper = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ConstantAtomicWrapper => {
+            ): input is [
+                ConstantAtomicWrapper.IPointer<boolean>,
+                ConstantAtomicWrapper.IPointer<number>,
+                ConstantAtomicWrapper.IPointer<string>,
+            ] => {
                 const $vo0 = (
                     input: any,
                     _path: string,

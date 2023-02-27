@@ -5,9 +5,7 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 export const test_createValidateClone_ArraySimple = _test_validateClone(
     "ArraySimple",
     ArraySimple.generate,
-    (
-        input: any,
-    ): typia.IValidation<typia.Primitive<Array<ArraySimple.IPerson>>> => {
+    (input: any): typia.IValidation<typia.Primitive<ArraySimple>> => {
         const validate = (input: any): typia.IValidation<ArraySimple> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

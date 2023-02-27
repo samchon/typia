@@ -14,7 +14,7 @@ export const test_validateEquals_ArraySimple = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArraySimple => {
+            ): input is Array<ArraySimple.IPerson> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

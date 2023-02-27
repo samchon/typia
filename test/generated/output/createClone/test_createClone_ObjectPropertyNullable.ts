@@ -6,24 +6,8 @@ export const test_createClone_ObjectPropertyNullable = _test_clone(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
     (
-        input: [
-            Array<ObjectPropertyNullable.IPointer<boolean>>,
-            Array<ObjectPropertyNullable.IPointer<number>>,
-            Array<ObjectPropertyNullable.IPointer<string>>,
-            Array<
-                ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-            >,
-        ],
-    ): typia.Primitive<
-        [
-            Array<ObjectPropertyNullable.IPointer<boolean>>,
-            Array<ObjectPropertyNullable.IPointer<number>>,
-            Array<ObjectPropertyNullable.IPointer<string>>,
-            Array<
-                ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-            >,
-        ]
-    > => {
+        input: ObjectPropertyNullable,
+    ): typia.Primitive<ObjectPropertyNullable> => {
         const $io0 = (input: any): boolean =>
             null === input.value || "boolean" === typeof input.value;
         const $io1 = (input: any): boolean =>

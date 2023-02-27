@@ -7,13 +7,31 @@ export const test_assertStringify_ObjectUnionImplicit = _test_assertStringify(
     ObjectUnionImplicit.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ObjectUnionImplicit => {
+            const assert = (
+                input: any,
+            ): Array<
+                | ObjectUnionImplicit.IPoint
+                | ObjectUnionImplicit.ILine
+                | ObjectUnionImplicit.ITriangle
+                | ObjectUnionImplicit.IRectangle
+                | ObjectUnionImplicit.IPolyline
+                | ObjectUnionImplicit.IPolygon
+                | ObjectUnionImplicit.ICircle
+            > => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUnionImplicit => {
+                ): input is Array<
+                    | ObjectUnionImplicit.IPoint
+                    | ObjectUnionImplicit.ILine
+                    | ObjectUnionImplicit.ITriangle
+                    | ObjectUnionImplicit.IRectangle
+                    | ObjectUnionImplicit.IPolyline
+                    | ObjectUnionImplicit.IPolygon
+                    | ObjectUnionImplicit.ICircle
+                > => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -392,7 +410,17 @@ export const test_assertStringify_ObjectUnionImplicit = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectUnionImplicit): string => {
+            const stringify = (
+                input: Array<
+                    | ObjectUnionImplicit.IPoint
+                    | ObjectUnionImplicit.ILine
+                    | ObjectUnionImplicit.ITriangle
+                    | ObjectUnionImplicit.IRectangle
+                    | ObjectUnionImplicit.IPolyline
+                    | ObjectUnionImplicit.IPolygon
+                    | ObjectUnionImplicit.ICircle
+                >,
+            ): string => {
                 const $number = (typia.assertStringify as any).number;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&

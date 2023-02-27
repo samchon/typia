@@ -5,14 +5,7 @@ import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullab
 export const test_createAssertPrune_ObjectPropertyNullable = _test_assertPrune(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
-    (
-        input: any,
-    ): [
-        Array<ObjectPropertyNullable.IPointer<boolean>>,
-        Array<ObjectPropertyNullable.IPointer<number>>,
-        Array<ObjectPropertyNullable.IPointer<string>>,
-        Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>,
-    ] => {
+    (input: any): ObjectPropertyNullable => {
         const assert = (input: any): ObjectPropertyNullable => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

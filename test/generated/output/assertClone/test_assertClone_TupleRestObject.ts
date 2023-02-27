@@ -9,13 +9,15 @@ export const test_assertClone_TupleRestObject = _test_assertClone(
         ((
             input: any,
         ): typia.Primitive<[boolean, number, ...TupleRestObject.IObject[]]> => {
-            const assert = (input: any): TupleRestObject => {
+            const assert = (
+                input: any,
+            ): [boolean, number, ...TupleRestObject.IObject[]] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleRestObject => {
+                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -75,8 +77,10 @@ export const test_assertClone_TupleRestObject = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: TupleRestObject,
-            ): typia.Primitive<TupleRestObject> => {
+                input: [boolean, number, ...TupleRestObject.IObject[]],
+            ): typia.Primitive<
+                [boolean, number, ...TupleRestObject.IObject[]]
+            > => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 const $co0 = (input: any): any => ({

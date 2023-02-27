@@ -8,13 +8,7 @@ export const test_validateParse_ObjectUnionNonPredictable = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<
-                Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectUnionNonPredictable>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionNonPredictable> => {

@@ -5,7 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_createAssertClone_TagStep = _test_assertClone(
     "TagStep",
     TagStep.generate,
-    (input: any): typia.Primitive<Array<TagStep.Type>> => {
+    (input: any): typia.Primitive<TagStep> => {
         const assert = (input: any): TagStep => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

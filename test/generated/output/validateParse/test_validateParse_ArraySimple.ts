@@ -6,9 +6,7 @@ export const test_validateParse_ArraySimple = _test_validateParse(
     "ArraySimple",
     ArraySimple.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.IValidation<typia.Primitive<Array<ArraySimple.IPerson>>> => {
+        ((input: string): typia.IValidation<typia.Primitive<ArraySimple>> => {
             const validate = (input: any): typia.IValidation<ArraySimple> => {
                 const errors = [] as any[];
                 const $report = (typia.validateParse as any).report(errors);

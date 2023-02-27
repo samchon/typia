@@ -7,13 +7,15 @@ export const test_assertPrune_ObjectGenericArray = _test_assertPrune(
     ObjectGenericArray.generate,
     (input) =>
         ((input: any): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
-            const assert = (input: any): ObjectGenericArray => {
+            const assert = (
+                input: any,
+            ): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericArray => {
+                ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -117,7 +119,9 @@ export const test_assertPrune_ObjectGenericArray = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ObjectGenericArray): void => {
+            const prune = (
+                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
+            ): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&

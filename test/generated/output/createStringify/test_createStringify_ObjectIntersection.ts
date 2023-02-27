@@ -5,7 +5,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_createStringify_ObjectIntersection = _test_stringify(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (input: ObjectIntersection.IEmail & ObjectIntersection.IName): string => {
+    (input: ObjectIntersection): string => {
         const $string = (typia.createStringify as any).string;
         return `{"email":${$string(input.email)},"name":${$string(
             input.name,

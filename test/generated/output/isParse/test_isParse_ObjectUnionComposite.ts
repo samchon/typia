@@ -6,20 +6,7 @@ export const test_isParse_ObjectUnionComposite = _test_isParse(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            >
-        > => {
+        ((input: any): typia.Primitive<ObjectUnionComposite> => {
             const is = (input: any): input is ObjectUnionComposite => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&

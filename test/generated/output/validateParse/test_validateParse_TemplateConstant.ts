@@ -8,7 +8,7 @@ export const test_validateParse_TemplateConstant = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<typia.Primitive<Array<TemplateConstant.Type>>> => {
+        ): typia.IValidation<typia.Primitive<TemplateConstant>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TemplateConstant> => {

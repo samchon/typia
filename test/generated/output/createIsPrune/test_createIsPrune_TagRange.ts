@@ -5,7 +5,7 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_createIsPrune_TagRange = _test_isPrune(
     "TagRange",
     TagRange.generate,
-    (input: any): input is Array<TagRange.Type> => {
+    (input: any): input is TagRange => {
         const is = (input: any): input is TagRange => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.greater &&

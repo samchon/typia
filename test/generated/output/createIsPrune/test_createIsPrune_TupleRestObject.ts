@@ -5,7 +5,7 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 export const test_createIsPrune_TupleRestObject = _test_isPrune(
     "TupleRestObject",
     TupleRestObject.generate,
-    (input: any): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+    (input: any): input is TupleRestObject => {
         const is = (input: any): input is TupleRestObject => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;

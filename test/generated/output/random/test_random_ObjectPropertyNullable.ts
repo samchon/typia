@@ -8,16 +8,7 @@ export const test_random_ObjectPropertyNullable = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<
-            [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ]
-        > => {
+        ): typia.Primitive<ObjectPropertyNullable> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             const $ro0 = (
@@ -86,14 +77,7 @@ export const test_random_ObjectPropertyNullable = _test_random(
                 (generator.array ?? $generator.array)(() => $ro3()),
             ];
         })(),
-    (
-        input: any,
-    ): [
-        Array<ObjectPropertyNullable.IPointer<boolean>>,
-        Array<ObjectPropertyNullable.IPointer<number>>,
-        Array<ObjectPropertyNullable.IPointer<string>>,
-        Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>,
-    ] => {
+    (input: any): ObjectPropertyNullable => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

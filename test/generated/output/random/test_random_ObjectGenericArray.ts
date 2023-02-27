@@ -8,9 +8,7 @@ export const test_random_ObjectGenericArray = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<
-            ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
-        > => {
+        ): typia.Primitive<ObjectGenericArray> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
@@ -39,7 +37,7 @@ export const test_random_ObjectGenericArray = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+    (input: any): ObjectGenericArray => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

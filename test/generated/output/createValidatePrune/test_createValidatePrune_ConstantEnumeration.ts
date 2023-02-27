@@ -5,7 +5,7 @@ import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 export const test_createValidatePrune_ConstantEnumeration = _test_validatePrune(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
-    (input: any): typia.IValidation<Array<ConstantEnumeration.Enumeration>> => {
+    (input: any): typia.IValidation<ConstantEnumeration> => {
         const validate = (
             input: any,
         ): typia.IValidation<ConstantEnumeration> => {

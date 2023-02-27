@@ -13,7 +13,7 @@ export const test_validateEquals_AtomicUnion = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is AtomicUnion => {
+            ): input is Array<AtomicUnion.Union> => {
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {

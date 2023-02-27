@@ -5,7 +5,7 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_createAssertParse_TagLength = _test_assertParse(
     "TagLength",
     TagLength.generate,
-    (input: string): typia.Primitive<Array<TagLength.Type>> => {
+    (input: string): typia.Primitive<TagLength> => {
         const assert = (input: any): TagLength => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

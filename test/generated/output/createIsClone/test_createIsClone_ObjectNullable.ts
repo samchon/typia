@@ -5,15 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_createIsClone_ObjectNullable = _test_isClone(
     "ObjectNullable",
     ObjectNullable.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        [
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-        ]
-    > | null => {
+    (input: any): typia.Primitive<ObjectNullable> | null => {
         const is = (input: any): input is ObjectNullable => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&

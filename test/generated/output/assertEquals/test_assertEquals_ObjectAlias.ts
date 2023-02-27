@@ -13,7 +13,7 @@ export const test_assertEquals_ObjectAlias = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectAlias => {
+            ): input is Array<ObjectAlias.IMember> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

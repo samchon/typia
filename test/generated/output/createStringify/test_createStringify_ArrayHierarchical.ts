@@ -5,7 +5,7 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 export const test_createStringify_ArrayHierarchical = _test_stringify(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input: Array<ArrayHierarchical.ICompany>): string => {
+    (input: ArrayHierarchical): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $io1 = (input: any): boolean =>

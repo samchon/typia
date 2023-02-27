@@ -6,8 +6,8 @@ export const test_createClone_ArrayRecursiveUnionImplicit = _test_clone(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
     (
-        input: Array<ArrayRecursiveUnionImplicit.IBucket>,
-    ): typia.Primitive<Array<ArrayRecursiveUnionImplicit.IBucket>> => {
+        input: ArrayRecursiveUnionImplicit,
+    ): typia.Primitive<ArrayRecursiveUnionImplicit> => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.name &&

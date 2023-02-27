@@ -7,7 +7,7 @@ export const test_isClone_TemplateUnion = _test_isClone(
     TemplateUnion.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<TemplateUnion.Type>> | null => {
-            const is = (input: any): input is TemplateUnion => {
+            const is = (input: any): input is Array<TemplateUnion.Type> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&
                     (true === RegExp(/^prefix_(.*)/).test(input.prefix) ||
@@ -56,8 +56,8 @@ export const test_isClone_TemplateUnion = _test_isClone(
                 );
             };
             const clone = (
-                input: TemplateUnion,
-            ): typia.Primitive<TemplateUnion> => {
+                input: Array<TemplateUnion.Type>,
+            ): typia.Primitive<Array<TemplateUnion.Type>> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name;
                 const $co0 = (input: any): any => ({

@@ -5,7 +5,7 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 export const test_createIsClone_TemplateUnion = _test_isClone(
     "TemplateUnion",
     TemplateUnion.generate,
-    (input: any): typia.Primitive<Array<TemplateUnion.Type>> | null => {
+    (input: any): typia.Primitive<TemplateUnion> | null => {
         const is = (input: any): input is TemplateUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&

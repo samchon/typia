@@ -3,7 +3,6 @@ import ts from "typescript";
 import { RandomProgrammer } from "../../../programmers/RandomProgrammer";
 
 import { IProject } from "../../IProject";
-import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace CreateRandomTransformer {
     export function transform(
@@ -33,7 +32,7 @@ export namespace CreateRandomTransformer {
                 },
             },
             modulo,
-        )(type, GenericTransformer.name(project.checker)(type)(node));
+        )(type, node.getText());
     }
 }
 

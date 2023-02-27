@@ -5,7 +5,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_createIsParse_ArrayMatrix = _test_isParse(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: any): typia.Primitive<Array<Array<Array<number>>>> => {
+    (input: any): typia.Primitive<ArrayMatrix> => {
         const is = (input: any): input is ArrayMatrix => {
             return (
                 Array.isArray(input) &&

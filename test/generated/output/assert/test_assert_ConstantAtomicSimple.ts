@@ -12,7 +12,7 @@ export const test_assert_ConstantAtomicSimple = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ConstantAtomicSimple => {
+            ): input is [false, true, 2, "three"] => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

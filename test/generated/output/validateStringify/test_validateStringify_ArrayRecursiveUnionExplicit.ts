@@ -12,7 +12,9 @@ export const test_validateStringify_ArrayRecursiveUnionExplicit =
             ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ArrayRecursiveUnionExplicit> => {
+                ): typia.IValidation<
+                    Array<ArrayRecursiveUnionExplicit.IBucket>
+                > => {
                     const errors = [] as any[];
                     const $report = (typia.validateStringify as any).report(
                         errors,
@@ -21,7 +23,7 @@ export const test_validateStringify_ArrayRecursiveUnionExplicit =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ArrayRecursiveUnionExplicit => {
+                    ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -423,7 +425,7 @@ export const test_validateStringify_ArrayRecursiveUnionExplicit =
                     } as any;
                 };
                 const stringify = (
-                    input: ArrayRecursiveUnionExplicit,
+                    input: Array<ArrayRecursiveUnionExplicit.IBucket>,
                 ): string => {
                     const $number = (typia.validateStringify as any).number;
                     const $string = (typia.validateStringify as any).string;

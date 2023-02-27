@@ -5,9 +5,7 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 export const test_createValidateParse_ObjectUndefined = _test_validateParse(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (
-        input: string,
-    ): typia.IValidation<typia.Primitive<Array<ObjectUndefined.ILecture>>> => {
+    (input: string): typia.IValidation<typia.Primitive<ObjectUndefined>> => {
         const validate = (input: any): typia.IValidation<ObjectUndefined> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

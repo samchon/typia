@@ -40,7 +40,7 @@ export namespace ValidateParseProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     ts.factory.createExpressionStatement(
                         ts.factory.createBinaryExpression(

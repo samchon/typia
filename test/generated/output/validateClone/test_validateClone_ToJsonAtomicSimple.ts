@@ -19,14 +19,24 @@ export const test_validateClone_ToJsonAtomicSimple = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ToJsonAtomicSimple> => {
+            ): typia.IValidation<
+                [
+                    ToJsonAtomicSimple.IToJson<boolean>,
+                    ToJsonAtomicSimple.IToJson<number>,
+                    ToJsonAtomicSimple.IToJson<string>,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonAtomicSimple => {
+                ): input is [
+                    ToJsonAtomicSimple.IToJson<boolean>,
+                    ToJsonAtomicSimple.IToJson<number>,
+                    ToJsonAtomicSimple.IToJson<string>,
+                ] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -144,8 +154,18 @@ export const test_validateClone_ToJsonAtomicSimple = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ToJsonAtomicSimple,
-            ): typia.Primitive<ToJsonAtomicSimple> => {
+                input: [
+                    ToJsonAtomicSimple.IToJson<boolean>,
+                    ToJsonAtomicSimple.IToJson<number>,
+                    ToJsonAtomicSimple.IToJson<string>,
+                ],
+            ): typia.Primitive<
+                [
+                    ToJsonAtomicSimple.IToJson<boolean>,
+                    ToJsonAtomicSimple.IToJson<number>,
+                    ToJsonAtomicSimple.IToJson<string>,
+                ]
+            > => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     true &&

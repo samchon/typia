@@ -5,18 +5,7 @@ import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 export const test_createPrune_DynamicEnumeration = _test_prune(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
-    (input: {
-        ar?: string | undefined;
-        "zh-Hans"?: string | undefined;
-        "zh-Hant"?: string | undefined;
-        en?: string | undefined;
-        fr?: string | undefined;
-        de?: string | undefined;
-        ja?: string | undefined;
-        ko?: string | undefined;
-        pt?: string | undefined;
-        ru?: string | undefined;
-    }): void => {
+    (input: DynamicEnumeration): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if (

@@ -7,13 +7,13 @@ export const test_createAssertStringify_ObjectLiteralProperty =
         "ObjectLiteralProperty",
         ObjectLiteralProperty.generate,
         (input: any): string => {
-            const assert = (input: any): ObjectLiteralProperty.ISomething => {
+            const assert = (input: any): ObjectLiteralProperty => {
                 const $guard = (typia.createAssertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectLiteralProperty.ISomething => {
+                ): input is ObjectLiteralProperty => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -54,9 +54,7 @@ export const test_createAssertStringify_ObjectLiteralProperty =
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: ObjectLiteralProperty.ISomething,
-            ): string => {
+            const stringify = (input: ObjectLiteralProperty): string => {
                 const $string = (typia.createAssertStringify as any).string;
                 return `{"something-interesting-do-you-want?":${$string(
                     input["something-interesting-do-you-want?"],

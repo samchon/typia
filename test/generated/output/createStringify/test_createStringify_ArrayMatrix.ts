@@ -5,7 +5,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_createStringify_ArrayMatrix = _test_stringify(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: Array<Array<Array<number>>>): string => {
+    (input: ArrayMatrix): string => {
         const $number = (typia.createStringify as any).number;
         return `[${input
             .map(

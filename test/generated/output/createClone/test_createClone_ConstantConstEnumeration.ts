@@ -6,8 +6,8 @@ export const test_createClone_ConstantConstEnumeration = _test_clone(
     "ConstantConstEnumeration",
     ConstantConstEnumeration.generate,
     (
-        input: Array<ConstantConstEnumeration.Enumeration>,
-    ): typia.Primitive<Array<ConstantConstEnumeration.Enumeration>> => {
+        input: ConstantConstEnumeration,
+    ): typia.Primitive<ConstantConstEnumeration> => {
         return Array.isArray(input)
             ? input.map((elem: any) => elem as any)
             : (input as any);

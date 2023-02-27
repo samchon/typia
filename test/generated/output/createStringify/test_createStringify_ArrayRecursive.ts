@@ -5,7 +5,7 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_createStringify_ArrayRecursive = _test_stringify(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input: ArrayRecursive.ICategory): string => {
+    (input: ArrayRecursive): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $io0 = (input: any): boolean =>

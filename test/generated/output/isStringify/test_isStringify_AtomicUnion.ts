@@ -7,7 +7,7 @@ export const test_isStringify_AtomicUnion = _test_isStringify(
     AtomicUnion.generate,
     (input) =>
         ((input: Array<AtomicUnion.Union>): string | null => {
-            const is = (input: any): input is AtomicUnion => {
+            const is = (input: any): input is Array<AtomicUnion.Union> => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -20,7 +20,7 @@ export const test_isStringify_AtomicUnion = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: AtomicUnion): string => {
+            const stringify = (input: Array<AtomicUnion.Union>): string => {
                 const $string = (typia.isStringify as any).string;
                 const $number = (typia.isStringify as any).number;
                 const $throws = (typia.isStringify as any).throws;

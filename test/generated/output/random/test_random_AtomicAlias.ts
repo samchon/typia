@@ -8,7 +8,7 @@ export const test_random_AtomicAlias = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<[boolean, number, string]> => {
+        ): typia.Primitive<AtomicAlias> => {
             const $generator = (typia.random as any).generator;
             return [
                 (generator.boolean ?? $generator.boolean)(),
@@ -16,7 +16,7 @@ export const test_random_AtomicAlias = _test_random(
                 (generator.string ?? $generator.string)(),
             ];
         })(),
-    (input: any): [boolean, number, string] => {
+    (input: any): AtomicAlias => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

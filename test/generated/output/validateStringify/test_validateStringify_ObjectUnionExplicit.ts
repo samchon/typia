@@ -41,7 +41,38 @@ export const test_validateStringify_ObjectUnionExplicit =
             ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ObjectUnionExplicit> => {
+                ): typia.IValidation<
+                    Array<
+                        | ObjectUnionExplicit.Discriminator<
+                              "point",
+                              ObjectUnionExplicit.IPoint
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "line",
+                              ObjectUnionExplicit.ILine
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "triangle",
+                              ObjectUnionExplicit.ITriangle
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "rectangle",
+                              ObjectUnionExplicit.IRectangle
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "polyline",
+                              ObjectUnionExplicit.IPolyline
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "polygon",
+                              ObjectUnionExplicit.IPolygon
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "circle",
+                              ObjectUnionExplicit.ICircle
+                          >
+                    >
+                > => {
                     const errors = [] as any[];
                     const $report = (typia.validateStringify as any).report(
                         errors,
@@ -50,7 +81,36 @@ export const test_validateStringify_ObjectUnionExplicit =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectUnionExplicit => {
+                    ): input is Array<
+                        | ObjectUnionExplicit.Discriminator<
+                              "point",
+                              ObjectUnionExplicit.IPoint
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "line",
+                              ObjectUnionExplicit.ILine
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "triangle",
+                              ObjectUnionExplicit.ITriangle
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "rectangle",
+                              ObjectUnionExplicit.IRectangle
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "polyline",
+                              ObjectUnionExplicit.IPolyline
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "polygon",
+                              ObjectUnionExplicit.IPolygon
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "circle",
+                              ObjectUnionExplicit.ICircle
+                          >
+                    > => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -651,7 +711,38 @@ export const test_validateStringify_ObjectUnionExplicit =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (input: ObjectUnionExplicit): string => {
+                const stringify = (
+                    input: Array<
+                        | ObjectUnionExplicit.Discriminator<
+                              "point",
+                              ObjectUnionExplicit.IPoint
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "line",
+                              ObjectUnionExplicit.ILine
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "triangle",
+                              ObjectUnionExplicit.ITriangle
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "rectangle",
+                              ObjectUnionExplicit.IRectangle
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "polyline",
+                              ObjectUnionExplicit.IPolyline
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "polygon",
+                              ObjectUnionExplicit.IPolygon
+                          >
+                        | ObjectUnionExplicit.Discriminator<
+                              "circle",
+                              ObjectUnionExplicit.ICircle
+                          >
+                    >,
+                ): string => {
                     const $number = (typia.validateStringify as any).number;
                     const $string = (typia.validateStringify as any).string;
                     const $throws = (typia.validateStringify as any).throws;

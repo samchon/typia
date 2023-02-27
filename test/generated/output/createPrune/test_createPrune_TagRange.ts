@@ -5,7 +5,7 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_createPrune_TagRange = _test_prune(
     "TagRange",
     TagRange.generate,
-    (input: Array<TagRange.Type>): void => {
+    (input: TagRange): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if (

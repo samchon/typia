@@ -6,13 +6,13 @@ export const test_createAssertStringify_ArrayRecursive = _test_assertStringify(
     "ArrayRecursive",
     ArrayRecursive.generate,
     (input: any): string => {
-        const assert = (input: any): ArrayRecursive.ICategory => {
+        const assert = (input: any): ArrayRecursive => {
             const $guard = (typia.createAssertStringify as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayRecursive.ICategory => {
+            ): input is ArrayRecursive => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -103,7 +103,7 @@ export const test_createAssertStringify_ArrayRecursive = _test_assertStringify(
             })(input, "$input", true);
             return input;
         };
-        const stringify = (input: ArrayRecursive.ICategory): string => {
+        const stringify = (input: ArrayRecursive): string => {
             const $number = (typia.createAssertStringify as any).number;
             const $string = (typia.createAssertStringify as any).string;
             const $io0 = (input: any): boolean =>

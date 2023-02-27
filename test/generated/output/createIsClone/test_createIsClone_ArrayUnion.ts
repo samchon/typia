@@ -5,7 +5,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_createIsClone_ArrayUnion = _test_isClone(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input: any): typia.Primitive<Array<ArrayUnion.IUnion>> | null => {
+    (input: any): typia.Primitive<ArrayUnion> | null => {
         const is = (input: any): input is ArrayUnion => {
             return (
                 Array.isArray(input) &&

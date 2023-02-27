@@ -5,7 +5,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_createValidatePrune_ArrayMatrix = _test_validatePrune(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: any): typia.IValidation<Array<Array<Array<number>>>> => {
+    (input: any): typia.IValidation<ArrayMatrix> => {
         const validate = (input: any): typia.IValidation<ArrayMatrix> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

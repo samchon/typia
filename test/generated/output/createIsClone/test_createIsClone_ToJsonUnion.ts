@@ -5,18 +5,7 @@ import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 export const test_createIsClone_ToJsonUnion = _test_isClone(
     "ToJsonUnion",
     ToJsonUnion.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        Array<
-            | string
-            | number
-            | ToJsonUnion.ICitizen
-            | ToJsonUnion.IWrapper<boolean>
-            | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-            | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-        >
-    > | null => {
+    (input: any): typia.Primitive<ToJsonUnion> | null => {
         const is = (input: any): input is ToJsonUnion => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&

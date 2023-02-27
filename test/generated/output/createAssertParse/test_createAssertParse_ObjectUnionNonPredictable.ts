@@ -6,13 +6,7 @@ export const test_createAssertParse_ObjectUnionNonPredictable =
     _test_assertParse(
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
-        (
-            input: string,
-        ): typia.Primitive<
-            Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            >
-        > => {
+        (input: string): typia.Primitive<ObjectUnionNonPredictable> => {
             const assert = (input: any): ObjectUnionNonPredictable => {
                 const $guard = (typia.createAssertParse as any).guard;
                 ((

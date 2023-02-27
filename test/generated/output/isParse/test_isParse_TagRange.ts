@@ -6,7 +6,7 @@ export const test_isParse_TagRange = _test_isParse(
     "TagRange",
     TagRange.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<TagRange.Type>> => {
+        ((input: any): typia.Primitive<TagRange> => {
             const is = (input: any): input is TagRange => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.greater &&

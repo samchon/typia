@@ -5,18 +5,7 @@ import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 export const test_createStringify_ObjectUnionComposite = _test_stringify(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (
-        input: Array<
-            | ObjectUnionComposite.IPoint
-            | ObjectUnionComposite.ILine
-            | ObjectUnionComposite.ITriangle
-            | ObjectUnionComposite.IRectangle
-            | ObjectUnionComposite.IPolyline
-            | ObjectUnionComposite.IPolygon
-            | ObjectUnionComposite.IPointedShape
-            | ObjectUnionComposite.ICircle
-        >,
-    ): string => {
+    (input: ObjectUnionComposite): string => {
         const $number = (typia.createStringify as any).number;
         const $io0 = (input: any): boolean =>
             "number" === typeof input.x && "number" === typeof input.y;

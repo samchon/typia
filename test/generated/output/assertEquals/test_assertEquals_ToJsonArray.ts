@@ -20,7 +20,12 @@ export const test_assertEquals_ToJsonArray = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ToJsonArray => {
+            ): input is [
+                ToJsonArray.IArray<boolean>,
+                ToJsonArray.IArray<number>,
+                ToJsonArray.IArray<string>,
+                ToJsonArray.IArray<ToJsonArray.IObject>,
+            ] => {
                 const $ao0 = (
                     input: any,
                     _path: string,

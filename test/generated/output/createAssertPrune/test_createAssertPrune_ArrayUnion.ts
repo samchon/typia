@@ -5,7 +5,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_createAssertPrune_ArrayUnion = _test_assertPrune(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input: any): Array<ArrayUnion.IUnion> => {
+    (input: any): ArrayUnion => {
         const assert = (input: any): ArrayUnion => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

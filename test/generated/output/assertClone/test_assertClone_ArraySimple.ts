@@ -7,13 +7,13 @@ export const test_assertClone_ArraySimple = _test_assertClone(
     ArraySimple.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<ArraySimple.IPerson>> => {
-            const assert = (input: any): ArraySimple => {
+            const assert = (input: any): Array<ArraySimple.IPerson> => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArraySimple => {
+                ): input is Array<ArraySimple.IPerson> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -99,8 +99,8 @@ export const test_assertClone_ArraySimple = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ArraySimple,
-            ): typia.Primitive<ArraySimple> => {
+                input: Array<ArraySimple.IPerson>,
+            ): typia.Primitive<Array<ArraySimple.IPerson>> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&

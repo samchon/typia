@@ -5,7 +5,7 @@ import { MapUnion } from "../../../structures/MapUnion";
 export const test_createValidate_MapUnion = _test_validate(
     "MapUnion",
     MapUnion.generate,
-    (input: any): typia.IValidation<Array<MapUnion.Union>> => {
+    (input: any): typia.IValidation<MapUnion> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

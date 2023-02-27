@@ -8,18 +8,7 @@ export const test_random_ObjectUnionComposite = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<
-            Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            >
-        > => {
+        ): typia.Primitive<ObjectUnionComposite> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             const $ro0 = (
@@ -99,18 +88,7 @@ export const test_random_ObjectUnionComposite = _test_random(
                 ])(),
             );
         })(),
-    (
-        input: any,
-    ): Array<
-        | ObjectUnionComposite.IPoint
-        | ObjectUnionComposite.ILine
-        | ObjectUnionComposite.ITriangle
-        | ObjectUnionComposite.IRectangle
-        | ObjectUnionComposite.IPolyline
-        | ObjectUnionComposite.IPolygon
-        | ObjectUnionComposite.IPointedShape
-        | ObjectUnionComposite.ICircle
-    > => {
+    (input: any): ObjectUnionComposite => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

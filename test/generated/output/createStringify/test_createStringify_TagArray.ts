@@ -5,7 +5,7 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_createStringify_TagArray = _test_stringify(
     "TagArray",
     TagArray.generate,
-    (input: Array<TagArray.Type>): string => {
+    (input: TagArray): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
         const $throws = (typia.createStringify as any).throws;

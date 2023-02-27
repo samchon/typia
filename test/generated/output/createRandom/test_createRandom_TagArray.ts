@@ -7,7 +7,7 @@ export const test_createRandom_TagArray = _test_random(
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<Array<TagArray.Type>> => {
+    ): typia.Primitive<TagArray> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ro0 = (
@@ -40,7 +40,7 @@ export const test_createRandom_TagArray = _test_random(
         });
         return (generator.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): Array<TagArray.Type> => {
+    (input: any): TagArray => {
         const $guard = (typia.createAssert as any).guard;
         const $is_uuid = (typia.createAssert as any).is_uuid;
         ((

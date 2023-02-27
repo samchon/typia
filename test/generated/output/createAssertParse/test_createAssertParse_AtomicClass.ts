@@ -5,21 +5,7 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_createAssertParse_AtomicClass = _test_assertParse(
     "AtomicClass",
     AtomicClass.generate,
-    (
-        input: string,
-    ): typia.Primitive<
-        [
-            Boolean,
-            false | Boolean,
-            boolean | Boolean,
-            Number,
-            Number | 1,
-            number | Number,
-            String,
-            String | "characters",
-            string | String,
-        ]
-    > => {
+    (input: string): typia.Primitive<AtomicClass> => {
         const assert = (input: any): AtomicClass => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

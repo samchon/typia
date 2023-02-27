@@ -6,18 +6,7 @@ export const test_createValidateStringify_DynamicEnumeration =
     _test_validateStringify(
         "DynamicEnumeration",
         DynamicEnumeration.generate,
-        (input: {
-            ar?: string | undefined;
-            "zh-Hans"?: string | undefined;
-            "zh-Hant"?: string | undefined;
-            en?: string | undefined;
-            fr?: string | undefined;
-            de?: string | undefined;
-            ja?: string | undefined;
-            ko?: string | undefined;
-            pt?: string | undefined;
-            ru?: string | undefined;
-        }): typia.IValidation<string> => {
+        (input: DynamicEnumeration): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<DynamicEnumeration> => {

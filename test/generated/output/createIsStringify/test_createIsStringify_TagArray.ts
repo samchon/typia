@@ -5,7 +5,7 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_createIsStringify_TagArray = _test_isStringify(
     "TagArray",
     TagArray.generate,
-    (input: Array<TagArray.Type>): string | null => {
+    (input: TagArray): string | null => {
         const is = (input: any): input is TagArray => {
             const $is_uuid = (typia.createIsStringify as any).is_uuid;
             const $io0 = (input: any): boolean =>

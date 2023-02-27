@@ -16,13 +16,25 @@ export const test_assertClone_ToJsonArray = _test_assertClone(
                 ToJsonArray.IArray<ToJsonArray.IObject>,
             ]
         > => {
-            const assert = (input: any): ToJsonArray => {
+            const assert = (
+                input: any,
+            ): [
+                ToJsonArray.IArray<boolean>,
+                ToJsonArray.IArray<number>,
+                ToJsonArray.IArray<string>,
+                ToJsonArray.IArray<ToJsonArray.IObject>,
+            ] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonArray => {
+                ): input is [
+                    ToJsonArray.IArray<boolean>,
+                    ToJsonArray.IArray<number>,
+                    ToJsonArray.IArray<string>,
+                    ToJsonArray.IArray<ToJsonArray.IObject>,
+                ] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -117,8 +129,20 @@ export const test_assertClone_ToJsonArray = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ToJsonArray,
-            ): typia.Primitive<ToJsonArray> => {
+                input: [
+                    ToJsonArray.IArray<boolean>,
+                    ToJsonArray.IArray<number>,
+                    ToJsonArray.IArray<string>,
+                    ToJsonArray.IArray<ToJsonArray.IObject>,
+                ],
+            ): typia.Primitive<
+                [
+                    ToJsonArray.IArray<boolean>,
+                    ToJsonArray.IArray<number>,
+                    ToJsonArray.IArray<string>,
+                    ToJsonArray.IArray<ToJsonArray.IObject>,
+                ]
+            > => {
                 const $co0 = (input: any): any => ({
                     id: input.id as any,
                 });

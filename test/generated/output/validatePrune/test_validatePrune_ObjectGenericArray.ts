@@ -13,14 +13,16 @@ export const test_validatePrune_ObjectGenericArray = _test_validatePrune(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectGenericArray> => {
+            ): typia.IValidation<
+                ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericArray => {
+                ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -172,7 +174,9 @@ export const test_validatePrune_ObjectGenericArray = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ObjectGenericArray): void => {
+            const prune = (
+                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
+            ): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&

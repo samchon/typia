@@ -6,7 +6,7 @@ export const test_isParse_ObjectUnionDouble = _test_isParse(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<ObjectUnionDouble.Union>> => {
+        ((input: any): typia.Primitive<ObjectUnionDouble> => {
             const is = (input: any): input is ObjectUnionDouble => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&

@@ -5,7 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_createStringify_TagAtomicUnion = _test_stringify(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input: Array<TagAtomicUnion.Type>): string => {
+    (input: TagAtomicUnion): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
         const $throws = (typia.createStringify as any).throws;

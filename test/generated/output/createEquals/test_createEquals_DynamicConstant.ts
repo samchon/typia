@@ -5,10 +5,7 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 export const test_createEquals_DynamicConstant = _test_equals(
     "DynamicConstant",
     DynamicConstant.generate,
-    (
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is { a: number; b: number; c: number; d: number } => {
+    (input: any, _exceptionable: boolean = true): input is DynamicConstant => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.a &&
             Number.isFinite(input.a) &&

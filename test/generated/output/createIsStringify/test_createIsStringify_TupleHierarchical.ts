@@ -5,24 +5,7 @@ import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 export const test_createIsStringify_TupleHierarchical = _test_isStringify(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (
-        input: [
-            boolean,
-            null,
-            number,
-            [boolean, null, [number, [boolean, string]]],
-            [
-                number,
-                Array<
-                    [
-                        string,
-                        boolean,
-                        Array<[number, number, [boolean, string]]>,
-                    ]
-                >,
-            ],
-        ],
-    ): string | null => {
+    (input: TupleHierarchical): string | null => {
         const is = (input: any): input is TupleHierarchical => {
             return (
                 Array.isArray(input) &&

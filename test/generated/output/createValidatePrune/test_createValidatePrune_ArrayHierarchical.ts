@@ -5,7 +5,7 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 export const test_createValidatePrune_ArrayHierarchical = _test_validatePrune(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input: any): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
+    (input: any): typia.IValidation<ArrayHierarchical> => {
         const validate = (input: any): typia.IValidation<ArrayHierarchical> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

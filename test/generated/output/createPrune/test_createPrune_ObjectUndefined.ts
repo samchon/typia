@@ -5,7 +5,7 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 export const test_createPrune_ObjectUndefined = _test_prune(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input: Array<ObjectUndefined.ILecture>): void => {
+    (input: ObjectUndefined): void => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.id && "string" === typeof input.name;
         const $po0 = (input: any): any => {

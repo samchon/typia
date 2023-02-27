@@ -13,14 +13,14 @@ export const test_validateClone_ArrayHierarchical = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ArrayHierarchical> => {
+            ): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayHierarchical => {
+                ): input is Array<ArrayHierarchical.ICompany> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -332,8 +332,8 @@ export const test_validateClone_ArrayHierarchical = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ArrayHierarchical,
-            ): typia.Primitive<ArrayHierarchical> => {
+                input: Array<ArrayHierarchical.ICompany>,
+            ): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;

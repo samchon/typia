@@ -5,7 +5,7 @@ import { SetUnion } from "../../../structures/SetUnion";
 export const test_createAssert_SetUnion = _test_assert(
     "SetUnion",
     SetUnion.generate,
-    (input: any): Array<SetUnion.Union> => {
+    (input: any): SetUnion => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

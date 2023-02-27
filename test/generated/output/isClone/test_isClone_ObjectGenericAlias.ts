@@ -9,7 +9,9 @@ export const test_isClone_ObjectGenericAlias = _test_isClone(
         ((
             input: any,
         ): typia.Primitive<ObjectGenericAlias.ISomething<string>> | null => {
-            const is = (input: any): input is ObjectGenericAlias.Alias => {
+            const is = (
+                input: any,
+            ): input is ObjectGenericAlias.ISomething<string> => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -17,8 +19,8 @@ export const test_isClone_ObjectGenericAlias = _test_isClone(
                 );
             };
             const clone = (
-                input: ObjectGenericAlias.Alias,
-            ): typia.Primitive<ObjectGenericAlias.Alias> => {
+                input: ObjectGenericAlias.ISomething<string>,
+            ): typia.Primitive<ObjectGenericAlias.ISomething<string>> => {
                 const $co0 = (input: any): any => ({
                     value: input.value as any,
                 });

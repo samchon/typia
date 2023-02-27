@@ -7,7 +7,7 @@ export const test_createRandom_ArrayHierarchical = _test_random(
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
+    ): typia.Primitive<ArrayHierarchical> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
@@ -52,7 +52,7 @@ export const test_createRandom_ArrayHierarchical = _test_random(
         });
         return (generator.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): Array<ArrayHierarchical.ICompany> => {
+    (input: any): ArrayHierarchical => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

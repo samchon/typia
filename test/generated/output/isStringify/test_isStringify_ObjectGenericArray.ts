@@ -9,7 +9,9 @@ export const test_isStringify_ObjectGenericArray = _test_isStringify(
         ((
             input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
         ): string | null => {
-            const is = (input: any): input is ObjectGenericArray => {
+            const is = (
+                input: any,
+            ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&
                     null !== input.pagination &&
@@ -38,7 +40,9 @@ export const test_isStringify_ObjectGenericArray = _test_isStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (input: ObjectGenericArray): string => {
+            const stringify = (
+                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
+            ): string => {
                 const $string = (typia.isStringify as any).string;
                 const $number = (typia.isStringify as any).number;
                 const $io1 = (input: any): boolean =>

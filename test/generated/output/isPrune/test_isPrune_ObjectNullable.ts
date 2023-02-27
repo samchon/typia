@@ -13,7 +13,13 @@ export const test_isPrune_ObjectNullable = _test_isPrune(
             ObjectNullable.IProduct,
             ObjectNullable.IProduct,
         ] => {
-            const is = (input: any): input is ObjectNullable => {
+            const is = (
+                input: any,
+            ): input is [
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+            ] => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&
@@ -52,7 +58,13 @@ export const test_isPrune_ObjectNullable = _test_isPrune(
                     $io0(input[2])
                 );
             };
-            const prune = (input: ObjectNullable): void => {
+            const prune = (
+                input: [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ],
+            ): void => {
                 const $throws = (typia.isPrune as any).throws;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&

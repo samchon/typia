@@ -14,14 +14,16 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
             > => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ArrayRecursiveUnionImplicit> => {
+                ): typia.IValidation<
+                    Array<ArrayRecursiveUnionImplicit.IBucket>
+                > => {
                     const errors = [] as any[];
                     const $report = (typia.validatePrune as any).report(errors);
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ArrayRecursiveUnionImplicit => {
+                    ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -448,7 +450,9 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const prune = (input: ArrayRecursiveUnionImplicit): void => {
+                const prune = (
+                    input: Array<ArrayRecursiveUnionImplicit.IBucket>,
+                ): void => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "string" === typeof input.name &&

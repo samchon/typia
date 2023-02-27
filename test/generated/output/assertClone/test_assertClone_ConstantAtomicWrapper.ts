@@ -15,13 +15,23 @@ export const test_assertClone_ConstantAtomicWrapper = _test_assertClone(
                 ConstantAtomicWrapper.IPointer<string>,
             ]
         > => {
-            const assert = (input: any): ConstantAtomicWrapper => {
+            const assert = (
+                input: any,
+            ): [
+                ConstantAtomicWrapper.IPointer<boolean>,
+                ConstantAtomicWrapper.IPointer<number>,
+                ConstantAtomicWrapper.IPointer<string>,
+            ] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ConstantAtomicWrapper => {
+                ): input is [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -100,8 +110,18 @@ export const test_assertClone_ConstantAtomicWrapper = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ConstantAtomicWrapper,
-            ): typia.Primitive<ConstantAtomicWrapper> => {
+                input: [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ],
+            ): typia.Primitive<
+                [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ]
+            > => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>

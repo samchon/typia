@@ -19,7 +19,11 @@ export const test_assertEquals_ObjectGeneric = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectGeneric => {
+            ): input is [
+                ObjectGeneric.ISomething<boolean>,
+                ObjectGeneric.ISomething<number>,
+                ObjectGeneric.ISomething<string>,
+            ] => {
                 const $ao0 = (
                     input: any,
                     _path: string,

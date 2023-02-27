@@ -18,7 +18,16 @@ export const test_isClone_ToJsonUnion = _test_isClone(
                 | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
             >
         > | null => {
-            const is = (input: any): input is ToJsonUnion => {
+            const is = (
+                input: any,
+            ): input is Array<
+                | string
+                | number
+                | ToJsonUnion.ICitizen
+                | ToJsonUnion.IWrapper<boolean>
+                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+            > => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -56,8 +65,24 @@ export const test_isClone_ToJsonUnion = _test_isClone(
                 );
             };
             const clone = (
-                input: ToJsonUnion,
-            ): typia.Primitive<ToJsonUnion> => {
+                input: Array<
+                    | string
+                    | number
+                    | ToJsonUnion.ICitizen
+                    | ToJsonUnion.IWrapper<boolean>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+                >,
+            ): typia.Primitive<
+                Array<
+                    | string
+                    | number
+                    | ToJsonUnion.ICitizen
+                    | ToJsonUnion.IWrapper<boolean>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+                >
+            > => {
                 const $throws = (typia.isClone as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&

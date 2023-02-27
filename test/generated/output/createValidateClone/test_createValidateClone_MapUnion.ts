@@ -5,7 +5,7 @@ import { MapUnion } from "../../../structures/MapUnion";
 export const test_createValidateClone_MapUnion = _test_validateClone(
     "MapUnion",
     MapUnion.generate,
-    (input: any): typia.IValidation<typia.Primitive<Array<MapUnion.Union>>> => {
+    (input: any): typia.IValidation<typia.Primitive<MapUnion>> => {
         const validate = (input: any): typia.IValidation<MapUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

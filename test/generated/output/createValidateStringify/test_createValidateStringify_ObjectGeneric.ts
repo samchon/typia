@@ -6,13 +6,7 @@ export const test_createValidateStringify_ObjectGeneric =
     _test_validateStringify(
         "ObjectGeneric",
         ObjectGeneric.generate,
-        (
-            input: [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ],
-        ): typia.IValidation<string> => {
+        (input: ObjectGeneric): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ObjectGeneric> => {
                 const errors = [] as any[];
                 const $report = (typia.createValidateStringify as any).report(

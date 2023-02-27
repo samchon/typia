@@ -6,18 +6,7 @@ export const test_isParse_ObjectPropertyNullable = _test_isParse(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ]
-        > => {
+        ((input: any): typia.Primitive<ObjectPropertyNullable> => {
             const is = (input: any): input is ObjectPropertyNullable => {
                 const $io0 = (input: any): boolean =>
                     null === input.value || "boolean" === typeof input.value;

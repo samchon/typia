@@ -7,13 +7,15 @@ export const test_assertStringify_DynamicConstant = _test_assertStringify(
     DynamicConstant.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): DynamicConstant => {
+            const assert = (
+                input: any,
+            ): { a: number; b: number; c: number; d: number } => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is DynamicConstant => {
+                ): input is { a: number; b: number; c: number; d: number } => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -59,7 +61,12 @@ export const test_assertStringify_DynamicConstant = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: DynamicConstant): string => {
+            const stringify = (input: {
+                a: number;
+                b: number;
+                c: number;
+                d: number;
+            }): string => {
                 const $number = (typia.assertStringify as any).number;
                 const $so0 = (input: any): any =>
                     `{"a":${$number(input.a)},"b":${$number(

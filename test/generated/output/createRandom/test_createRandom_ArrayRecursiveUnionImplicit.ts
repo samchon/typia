@@ -7,7 +7,7 @@ export const test_createRandom_ArrayRecursiveUnionImplicit = _test_random(
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<Array<ArrayRecursiveUnionImplicit.IBucket>> => {
+    ): typia.Primitive<ArrayRecursiveUnionImplicit> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
@@ -115,7 +115,7 @@ export const test_createRandom_ArrayRecursiveUnionImplicit = _test_random(
             ])(),
         );
     },
-    (input: any): Array<ArrayRecursiveUnionImplicit.IBucket> => {
+    (input: any): ArrayRecursiveUnionImplicit => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

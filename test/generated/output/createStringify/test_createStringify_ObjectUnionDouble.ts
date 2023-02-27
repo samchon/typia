@@ -5,7 +5,7 @@ import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 export const test_createStringify_ObjectUnionDouble = _test_stringify(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
-    (input: Array<ObjectUnionDouble.Union>): string => {
+    (input: ObjectUnionDouble): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $throws = (typia.createStringify as any).throws;

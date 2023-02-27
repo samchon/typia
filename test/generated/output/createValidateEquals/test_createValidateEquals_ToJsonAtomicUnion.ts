@@ -5,7 +5,7 @@ import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 export const test_createValidateEquals_ToJsonAtomicUnion = _test_validateEquals(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
-    (input: any): typia.IValidation<Array<ToJsonAtomicUnion.IToJson>> => {
+    (input: any): typia.IValidation<ToJsonAtomicUnion> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;

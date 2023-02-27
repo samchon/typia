@@ -6,18 +6,7 @@ export const test_createValidateStringify_ObjectUnionComposite =
     _test_validateStringify(
         "ObjectUnionComposite",
         ObjectUnionComposite.generate,
-        (
-            input: Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            >,
-        ): typia.IValidation<string> => {
+        (input: ObjectUnionComposite): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionComposite> => {

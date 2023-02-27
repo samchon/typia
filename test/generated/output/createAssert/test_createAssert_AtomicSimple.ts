@@ -5,7 +5,7 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 export const test_createAssert_AtomicSimple = _test_assert(
     "AtomicSimple",
     AtomicSimple.generate,
-    (input: any): [boolean, number, string] => {
+    (input: any): AtomicSimple => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

@@ -5,7 +5,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_createAssertClone_TemplateConstant = _test_assertClone(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: any): typia.Primitive<Array<TemplateConstant.Type>> => {
+    (input: any): typia.Primitive<TemplateConstant> => {
         const assert = (input: any): TemplateConstant => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

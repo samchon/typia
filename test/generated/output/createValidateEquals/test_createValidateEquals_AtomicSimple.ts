@@ -5,7 +5,7 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 export const test_createValidateEquals_AtomicSimple = _test_validateEquals(
     "AtomicSimple",
     AtomicSimple.generate,
-    (input: any): typia.IValidation<[boolean, number, string]> => {
+    (input: any): typia.IValidation<AtomicSimple> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         ((

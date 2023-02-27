@@ -15,7 +15,13 @@ export const test_isClone_ArrayAtomicAlias = _test_isClone(
                 ArrayAtomicAlias.Alias<string>,
             ]
         > | null => {
-            const is = (input: any): input is ArrayAtomicAlias => {
+            const is = (
+                input: any,
+            ): input is [
+                ArrayAtomicAlias.Alias<boolean>,
+                ArrayAtomicAlias.Alias<number>,
+                ArrayAtomicAlias.Alias<string>,
+            ] => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -31,8 +37,18 @@ export const test_isClone_ArrayAtomicAlias = _test_isClone(
                 );
             };
             const clone = (
-                input: ArrayAtomicAlias,
-            ): typia.Primitive<ArrayAtomicAlias> => {
+                input: [
+                    ArrayAtomicAlias.Alias<boolean>,
+                    ArrayAtomicAlias.Alias<number>,
+                    ArrayAtomicAlias.Alias<string>,
+                ],
+            ): typia.Primitive<
+                [
+                    ArrayAtomicAlias.Alias<boolean>,
+                    ArrayAtomicAlias.Alias<number>,
+                    ArrayAtomicAlias.Alias<string>,
+                ]
+            > => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     Array.isArray(input[0]) &&

@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_createStringify_ObjectAlias = _test_stringify(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input: Array<ObjectAlias.IMember>): string => {
+    (input: ObjectAlias): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
         const $throws = (typia.createStringify as any).throws;

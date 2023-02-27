@@ -5,9 +5,7 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_createValidateClone_AtomicUnion = _test_validateClone(
     "AtomicUnion",
     AtomicUnion.generate,
-    (
-        input: any,
-    ): typia.IValidation<typia.Primitive<Array<AtomicUnion.Union>>> => {
+    (input: any): typia.IValidation<typia.Primitive<AtomicUnion>> => {
         const validate = (input: any): typia.IValidation<AtomicUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

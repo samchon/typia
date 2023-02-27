@@ -5,7 +5,7 @@ import { TagType } from "../../../structures/TagType";
 export const test_createIsStringify_TagType = _test_isStringify(
     "TagType",
     TagType.generate,
-    (input: Array<TagType.Type>): string | null => {
+    (input: TagType): string | null => {
         const is = (input: any): input is TagType => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.int &&

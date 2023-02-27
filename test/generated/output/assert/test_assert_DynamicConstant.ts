@@ -12,7 +12,7 @@ export const test_assert_DynamicConstant = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is DynamicConstant => {
+            ): input is { a: number; b: number; c: number; d: number } => {
                 const $ao0 = (
                     input: any,
                     _path: string,

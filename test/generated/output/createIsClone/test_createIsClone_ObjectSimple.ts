@@ -5,8 +5,8 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_createIsClone_ObjectSimple = _test_isClone(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input: any): typia.Primitive<ObjectSimple.IBox3D> | null => {
-        const is = (input: any): input is ObjectSimple.IBox3D => {
+    (input: any): typia.Primitive<ObjectSimple> | null => {
+        const is = (input: any): input is ObjectSimple => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&
@@ -42,9 +42,7 @@ export const test_createIsClone_ObjectSimple = _test_isClone(
                 Number.isFinite(input.pivot.z);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const clone = (
-            input: ObjectSimple.IBox3D,
-        ): typia.Primitive<ObjectSimple.IBox3D> => {
+        const clone = (input: ObjectSimple): typia.Primitive<ObjectSimple> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&

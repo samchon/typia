@@ -9,14 +9,14 @@ export const test_validatePrune_TagAtomicUnion = _test_validatePrune(
         ((input: any): typia.IValidation<Array<TagAtomicUnion.Type>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TagAtomicUnion> => {
+            ): typia.IValidation<Array<TagAtomicUnion.Type>> => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TagAtomicUnion => {
+                ): input is Array<TagAtomicUnion.Type> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -81,7 +81,7 @@ export const test_validatePrune_TagAtomicUnion = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: TagAtomicUnion): void => {
+            const prune = (input: Array<TagAtomicUnion.Type>): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if ("value" === key) continue;

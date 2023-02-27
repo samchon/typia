@@ -19,7 +19,17 @@ export const test_isClone_ObjectUnionImplicit = _test_isClone(
                 | ObjectUnionImplicit.ICircle
             >
         > | null => {
-            const is = (input: any): input is ObjectUnionImplicit => {
+            const is = (
+                input: any,
+            ): input is Array<
+                | ObjectUnionImplicit.IPoint
+                | ObjectUnionImplicit.ILine
+                | ObjectUnionImplicit.ITriangle
+                | ObjectUnionImplicit.IRectangle
+                | ObjectUnionImplicit.IPolyline
+                | ObjectUnionImplicit.IPolygon
+                | ObjectUnionImplicit.ICircle
+            > => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
@@ -153,8 +163,26 @@ export const test_isClone_ObjectUnionImplicit = _test_isClone(
                 );
             };
             const clone = (
-                input: ObjectUnionImplicit,
-            ): typia.Primitive<ObjectUnionImplicit> => {
+                input: Array<
+                    | ObjectUnionImplicit.IPoint
+                    | ObjectUnionImplicit.ILine
+                    | ObjectUnionImplicit.ITriangle
+                    | ObjectUnionImplicit.IRectangle
+                    | ObjectUnionImplicit.IPolyline
+                    | ObjectUnionImplicit.IPolygon
+                    | ObjectUnionImplicit.ICircle
+                >,
+            ): typia.Primitive<
+                Array<
+                    | ObjectUnionImplicit.IPoint
+                    | ObjectUnionImplicit.ILine
+                    | ObjectUnionImplicit.ITriangle
+                    | ObjectUnionImplicit.IRectangle
+                    | ObjectUnionImplicit.IPolyline
+                    | ObjectUnionImplicit.IPolygon
+                    | ObjectUnionImplicit.ICircle
+                >
+            > => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&

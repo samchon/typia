@@ -5,17 +5,17 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_createValidatePrune_ObjectHierarchical = _test_validatePrune(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
-    (input: any): typia.IValidation<ObjectHierarchical.ICustomer> => {
+    (input: any): typia.IValidation<ObjectHierarchical> => {
         const validate = (
             input: any,
-        ): typia.IValidation<ObjectHierarchical.ICustomer> => {
+        ): typia.IValidation<ObjectHierarchical> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectHierarchical.ICustomer => {
+            ): input is ObjectHierarchical => {
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -484,7 +484,7 @@ export const test_createValidatePrune_ObjectHierarchical = _test_validatePrune(
                 data: success ? input : undefined,
             } as any;
         };
-        const prune = (input: ObjectHierarchical.ICustomer): void => {
+        const prune = (input: ObjectHierarchical): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.code &&

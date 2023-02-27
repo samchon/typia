@@ -5,14 +5,14 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_createValidate_ClassMethod = _test_validate(
     "ClassMethod",
     ClassMethod.generate,
-    (input: any): typia.IValidation<ClassMethod.Animal> => {
+    (input: any): typia.IValidation<ClassMethod> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ClassMethod.Animal => {
+        ): input is ClassMethod => {
             const $vo0 = (
                 input: any,
                 _path: string,

@@ -7,13 +7,45 @@ export const test_assertStringify_TupleHierarchical = _test_assertStringify(
     TupleHierarchical.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): TupleHierarchical => {
+            const assert = (
+                input: any,
+            ): [
+                boolean,
+                null,
+                number,
+                [boolean, null, [number, [boolean, string]]],
+                [
+                    number,
+                    Array<
+                        [
+                            string,
+                            boolean,
+                            Array<[number, number, [boolean, string]]>,
+                        ]
+                    >,
+                ],
+            ] => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleHierarchical => {
+                ): input is [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ] => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -312,7 +344,24 @@ export const test_assertStringify_TupleHierarchical = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: TupleHierarchical): string => {
+            const stringify = (
+                input: [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ],
+            ): string => {
                 const $number = (typia.assertStringify as any).number;
                 const $string = (typia.assertStringify as any).string;
                 return `[${input[0]},null,${$number(input[2])},${`[${

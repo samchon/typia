@@ -9,13 +9,15 @@ export const test_assertClone_DynamicConstant = _test_assertClone(
         ((
             input: any,
         ): typia.Primitive<{ a: number; b: number; c: number; d: number }> => {
-            const assert = (input: any): DynamicConstant => {
+            const assert = (
+                input: any,
+            ): { a: number; b: number; c: number; d: number } => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is DynamicConstant => {
+                ): input is { a: number; b: number; c: number; d: number } => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -61,9 +63,17 @@ export const test_assertClone_DynamicConstant = _test_assertClone(
                 })(input, "$input", true);
                 return input;
             };
-            const clone = (
-                input: DynamicConstant,
-            ): typia.Primitive<DynamicConstant> => {
+            const clone = (input: {
+                a: number;
+                b: number;
+                c: number;
+                d: number;
+            }): typia.Primitive<{
+                a: number;
+                b: number;
+                c: number;
+                d: number;
+            }> => {
                 const $co0 = (input: any): any => ({
                     a: input.a as any,
                     b: input.b as any,

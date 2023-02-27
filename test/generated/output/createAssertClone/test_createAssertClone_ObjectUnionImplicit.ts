@@ -5,19 +5,7 @@ import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 export const test_createAssertClone_ObjectUnionImplicit = _test_assertClone(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        Array<
-            | ObjectUnionImplicit.IPoint
-            | ObjectUnionImplicit.ILine
-            | ObjectUnionImplicit.ITriangle
-            | ObjectUnionImplicit.IRectangle
-            | ObjectUnionImplicit.IPolyline
-            | ObjectUnionImplicit.IPolygon
-            | ObjectUnionImplicit.ICircle
-        >
-    > => {
+    (input: any): typia.Primitive<ObjectUnionImplicit> => {
         const assert = (input: any): ObjectUnionImplicit => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

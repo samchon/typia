@@ -6,13 +6,7 @@ export const test_createValidateStringify_ToJsonAtomicSimple =
     _test_validateStringify(
         "ToJsonAtomicSimple",
         ToJsonAtomicSimple.generate,
-        (
-            input: [
-                ToJsonAtomicSimple.IToJson<boolean>,
-                ToJsonAtomicSimple.IToJson<number>,
-                ToJsonAtomicSimple.IToJson<string>,
-            ],
-        ): typia.IValidation<string> => {
+        (input: ToJsonAtomicSimple): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ToJsonAtomicSimple> => {

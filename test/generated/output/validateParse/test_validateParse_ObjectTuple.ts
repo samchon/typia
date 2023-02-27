@@ -6,11 +6,7 @@ export const test_validateParse_ObjectTuple = _test_validateParse(
     "ObjectTuple",
     ObjectTuple.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.IValidation<
-            typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]>
-        > => {
+        ((input: string): typia.IValidation<typia.Primitive<ObjectTuple>> => {
             const validate = (input: any): typia.IValidation<ObjectTuple> => {
                 const errors = [] as any[];
                 const $report = (typia.validateParse as any).report(errors);

@@ -14,12 +14,13 @@ export namespace __TypeRemover {
 
             const content: string = await fs.promises.readFile(next, "utf8");
             if (
-                content.indexOf("__type") !== -1 ||
-                content.indexOf("__object") !== -1 ||
-                content.indexOf("ObjectGenericUnion") !== -1 ||
                 content.indexOf("ObjectPrimitive") !== -1 ||
                 content.indexOf("UltimateUnion") !== -1 ||
-                content.indexOf("Functional") !== -1
+                (file.indexOf("test_create") === -1 &&
+                    (content.indexOf("ObjectGenericUnion") !== -1 ||
+                        content.indexOf("__type") !== -1 ||
+                        content.indexOf("__object") !== -1 ||
+                        content.indexOf("Functional") !== -1))
             )
                 await fs.promises.rm(next);
         }

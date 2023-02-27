@@ -5,7 +5,7 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_createValidate_TupleRestArray = _test_validate(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input: any): typia.IValidation<[boolean, number, ...Array<string>[]]> => {
+    (input: any): typia.IValidation<TupleRestArray> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

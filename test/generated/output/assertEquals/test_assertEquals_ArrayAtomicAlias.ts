@@ -18,7 +18,11 @@ export const test_assertEquals_ArrayAtomicAlias = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayAtomicAlias => {
+            ): input is [
+                ArrayAtomicAlias.Alias<boolean>,
+                ArrayAtomicAlias.Alias<number>,
+                ArrayAtomicAlias.Alias<string>,
+            ] => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

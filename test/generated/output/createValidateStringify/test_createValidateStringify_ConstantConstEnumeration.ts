@@ -6,9 +6,7 @@ export const test_createValidateStringify_ConstantConstEnumeration =
     _test_validateStringify(
         "ConstantConstEnumeration",
         ConstantConstEnumeration.generate,
-        (
-            input: Array<ConstantConstEnumeration.Enumeration>,
-        ): typia.IValidation<string> => {
+        (input: ConstantConstEnumeration): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantConstEnumeration> => {

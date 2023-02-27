@@ -7,14 +7,16 @@ export const test_validateStringify_AtomicAlias = _test_validateStringify(
     AtomicAlias.generate,
     (input) =>
         ((input: [boolean, number, string]): typia.IValidation<string> => {
-            const validate = (input: any): typia.IValidation<AtomicAlias> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<[boolean, number, string]> => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is AtomicAlias => {
+                ): input is [boolean, number, string] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -63,7 +65,7 @@ export const test_validateStringify_AtomicAlias = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: AtomicAlias): string => {
+            const stringify = (input: [boolean, number, string]): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $string = (typia.validateStringify as any).string;
                 return `[${input[0]},${$number(input[1])},${$string(

@@ -6,15 +6,7 @@ export const test_isParse_ObjectGeneric = _test_isParse(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ]
-        > => {
+        ((input: any): typia.Primitive<ObjectGeneric> => {
             const is = (input: any): input is ObjectGeneric => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&

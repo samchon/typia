@@ -5,7 +5,7 @@ import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveU
 export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
-    (input: Array<ArrayRecursiveUnionExplicit.IBucket>): string => {
+    (input: ArrayRecursiveUnionExplicit): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $throws = (typia.createStringify as any).throws;

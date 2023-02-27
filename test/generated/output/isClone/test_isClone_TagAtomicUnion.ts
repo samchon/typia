@@ -7,7 +7,7 @@ export const test_isClone_TagAtomicUnion = _test_isClone(
     TagAtomicUnion.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<TagAtomicUnion.Type>> | null => {
-            const is = (input: any): input is TagAtomicUnion => {
+            const is = (input: any): input is Array<TagAtomicUnion.Type> => {
                 const $io0 = (input: any): boolean =>
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
@@ -26,8 +26,8 @@ export const test_isClone_TagAtomicUnion = _test_isClone(
                 );
             };
             const clone = (
-                input: TagAtomicUnion,
-            ): typia.Primitive<TagAtomicUnion> => {
+                input: Array<TagAtomicUnion.Type>,
+            ): typia.Primitive<Array<TagAtomicUnion.Type>> => {
                 const $co0 = (input: any): any => ({
                     value: input.value as any,
                 });

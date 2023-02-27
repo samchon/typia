@@ -5,32 +5,7 @@ import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 export const test_createIsPrune_ObjectUnionExplicit = _test_isPrune(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
-    (
-        input: any,
-    ): input is Array<
-        | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>
-        | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>
-        | ObjectUnionExplicit.Discriminator<
-              "triangle",
-              ObjectUnionExplicit.ITriangle
-          >
-        | ObjectUnionExplicit.Discriminator<
-              "rectangle",
-              ObjectUnionExplicit.IRectangle
-          >
-        | ObjectUnionExplicit.Discriminator<
-              "polyline",
-              ObjectUnionExplicit.IPolyline
-          >
-        | ObjectUnionExplicit.Discriminator<
-              "polygon",
-              ObjectUnionExplicit.IPolygon
-          >
-        | ObjectUnionExplicit.Discriminator<
-              "circle",
-              ObjectUnionExplicit.ICircle
-          >
-    > => {
+    (input: any): input is ObjectUnionExplicit => {
         const is = (input: any): input is ObjectUnionExplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&

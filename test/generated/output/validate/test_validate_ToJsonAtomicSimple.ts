@@ -21,7 +21,11 @@ export const test_validate_ToJsonAtomicSimple = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ToJsonAtomicSimple => {
+            ): input is [
+                ToJsonAtomicSimple.IToJson<boolean>,
+                ToJsonAtomicSimple.IToJson<number>,
+                ToJsonAtomicSimple.IToJson<string>,
+            ] => {
                 const $vo0 = (
                     input: any,
                     _path: string,

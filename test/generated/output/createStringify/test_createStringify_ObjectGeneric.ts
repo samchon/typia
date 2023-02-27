@@ -5,13 +5,7 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 export const test_createStringify_ObjectGeneric = _test_stringify(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (
-        input: [
-            ObjectGeneric.ISomething<boolean>,
-            ObjectGeneric.ISomething<number>,
-            ObjectGeneric.ISomething<string>,
-        ],
-    ): string => {
+    (input: ObjectGeneric): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $io1 = (input: any): boolean =>

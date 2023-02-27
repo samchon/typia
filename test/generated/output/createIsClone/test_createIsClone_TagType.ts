@@ -5,7 +5,7 @@ import { TagType } from "../../../structures/TagType";
 export const test_createIsClone_TagType = _test_isClone(
     "TagType",
     TagType.generate,
-    (input: any): typia.Primitive<Array<TagType.Type>> | null => {
+    (input: any): typia.Primitive<TagType> | null => {
         const is = (input: any): input is TagType => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.int &&

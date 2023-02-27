@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_createPrune_ObjectAlias = _test_prune(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input: Array<ObjectAlias.IMember>): void => {
+    (input: ObjectAlias): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if (

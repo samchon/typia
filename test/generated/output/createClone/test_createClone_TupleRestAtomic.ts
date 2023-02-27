@@ -5,9 +5,7 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 export const test_createClone_TupleRestAtomic = _test_clone(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (
-        input: [boolean, number, ...string[]],
-    ): typia.Primitive<[boolean, number, ...string[]]> => {
+    (input: TupleRestAtomic): typia.Primitive<TupleRestAtomic> => {
         return Array.isArray(input) &&
             "boolean" === typeof input[0] &&
             "number" === typeof input[1] &&

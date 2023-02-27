@@ -8,7 +8,7 @@ export const test_random_ArrayRecursive = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<ArrayRecursive.ICategory> => {
+        ): typia.Primitive<ArrayRecursive> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = true,
@@ -34,13 +34,13 @@ export const test_random_ArrayRecursive = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): ArrayRecursive.ICategory => {
+    (input: any): ArrayRecursive => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ArrayRecursive.ICategory => {
+        ): input is ArrayRecursive => {
             const $ao0 = (
                 input: any,
                 _path: string,

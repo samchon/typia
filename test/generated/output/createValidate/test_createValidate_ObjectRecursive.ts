@@ -5,14 +5,14 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_createValidate_ObjectRecursive = _test_validate(
     "ObjectRecursive",
     ObjectRecursive.generate,
-    (input: any): typia.IValidation<ObjectRecursive.IDepartment> => {
+    (input: any): typia.IValidation<ObjectRecursive> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectRecursive.IDepartment => {
+        ): input is ObjectRecursive => {
             const $vo0 = (
                 input: any,
                 _path: string,

@@ -26,7 +26,24 @@ export const test_isClone_TupleHierarchical = _test_isClone(
                 ],
             ]
         > | null => {
-            const is = (input: any): input is TupleHierarchical => {
+            const is = (
+                input: any,
+            ): input is [
+                boolean,
+                null,
+                number,
+                [boolean, null, [number, [boolean, string]]],
+                [
+                    number,
+                    Array<
+                        [
+                            string,
+                            boolean,
+                            Array<[number, number, [boolean, string]]>,
+                        ]
+                    >,
+                ],
+            ] => {
                 return (
                     Array.isArray(input) &&
                     input.length === 5 &&
@@ -77,8 +94,40 @@ export const test_isClone_TupleHierarchical = _test_isClone(
                 );
             };
             const clone = (
-                input: TupleHierarchical,
-            ): typia.Primitive<TupleHierarchical> => {
+                input: [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ],
+            ): typia.Primitive<
+                [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ]
+            > => {
                 return Array.isArray(input) &&
                     input.length === 5 &&
                     "boolean" === typeof input[0] &&

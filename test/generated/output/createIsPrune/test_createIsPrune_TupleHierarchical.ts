@@ -5,20 +5,7 @@ import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 export const test_createIsPrune_TupleHierarchical = _test_isPrune(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (
-        input: any,
-    ): input is [
-        boolean,
-        null,
-        number,
-        [boolean, null, [number, [boolean, string]]],
-        [
-            number,
-            Array<
-                [string, boolean, Array<[number, number, [boolean, string]]>]
-            >,
-        ],
-    ] => {
+    (input: any): input is TupleHierarchical => {
         const is = (input: any): input is TupleHierarchical => {
             return (
                 Array.isArray(input) &&

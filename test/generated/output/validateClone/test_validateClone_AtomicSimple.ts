@@ -9,14 +9,16 @@ export const test_validateClone_AtomicSimple = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<[boolean, number, string]>> => {
-            const validate = (input: any): typia.IValidation<AtomicSimple> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<[boolean, number, string]> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is AtomicSimple => {
+                ): input is [boolean, number, string] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -66,8 +68,8 @@ export const test_validateClone_AtomicSimple = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: AtomicSimple,
-            ): typia.Primitive<AtomicSimple> => {
+                input: [boolean, number, string],
+            ): typia.Primitive<[boolean, number, string]> => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     "boolean" === typeof input[0] &&

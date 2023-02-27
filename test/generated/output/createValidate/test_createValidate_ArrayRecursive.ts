@@ -5,14 +5,14 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_createValidate_ArrayRecursive = _test_validate(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input: any): typia.IValidation<ArrayRecursive.ICategory> => {
+    (input: any): typia.IValidation<ArrayRecursive> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ArrayRecursive.ICategory => {
+        ): input is ArrayRecursive => {
             const $vo0 = (
                 input: any,
                 _path: string,

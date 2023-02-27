@@ -5,21 +5,7 @@ import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 export const test_createValidateClone_ObjectUnionImplicit = _test_validateClone(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        typia.Primitive<
-            Array<
-                | ObjectUnionImplicit.IPoint
-                | ObjectUnionImplicit.ILine
-                | ObjectUnionImplicit.ITriangle
-                | ObjectUnionImplicit.IRectangle
-                | ObjectUnionImplicit.IPolyline
-                | ObjectUnionImplicit.IPolygon
-                | ObjectUnionImplicit.ICircle
-            >
-        >
-    > => {
+    (input: any): typia.IValidation<typia.Primitive<ObjectUnionImplicit>> => {
         const validate = (
             input: any,
         ): typia.IValidation<ObjectUnionImplicit> => {

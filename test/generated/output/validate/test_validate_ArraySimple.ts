@@ -13,7 +13,7 @@ export const test_validate_ArraySimple = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArraySimple => {
+            ): input is Array<ArraySimple.IPerson> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

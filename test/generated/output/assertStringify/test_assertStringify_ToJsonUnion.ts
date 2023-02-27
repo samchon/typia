@@ -7,13 +7,29 @@ export const test_assertStringify_ToJsonUnion = _test_assertStringify(
     ToJsonUnion.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ToJsonUnion => {
+            const assert = (
+                input: any,
+            ): Array<
+                | string
+                | number
+                | ToJsonUnion.ICitizen
+                | ToJsonUnion.IWrapper<boolean>
+                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+            > => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonUnion => {
+                ): input is Array<
+                    | string
+                    | number
+                    | ToJsonUnion.ICitizen
+                    | ToJsonUnion.IWrapper<boolean>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+                > => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -140,7 +156,16 @@ export const test_assertStringify_ToJsonUnion = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ToJsonUnion): string => {
+            const stringify = (
+                input: Array<
+                    | string
+                    | number
+                    | ToJsonUnion.ICitizen
+                    | ToJsonUnion.IWrapper<boolean>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
+                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
+                >,
+            ): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $number = (typia.assertStringify as any).number;
                 const $throws = (typia.assertStringify as any).throws;

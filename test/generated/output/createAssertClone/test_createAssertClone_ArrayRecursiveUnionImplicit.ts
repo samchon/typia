@@ -6,9 +6,7 @@ export const test_createAssertClone_ArrayRecursiveUnionImplicit =
     _test_assertClone(
         "ArrayRecursiveUnionImplicit",
         ArrayRecursiveUnionImplicit.generate,
-        (
-            input: any,
-        ): typia.Primitive<Array<ArrayRecursiveUnionImplicit.IBucket>> => {
+        (input: any): typia.Primitive<ArrayRecursiveUnionImplicit> => {
             const assert = (input: any): ArrayRecursiveUnionImplicit => {
                 const $guard = (typia.createAssertClone as any).guard;
                 ((

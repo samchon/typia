@@ -6,9 +6,7 @@ export const test_createAssertParse_ConstantConstEnumeration =
     _test_assertParse(
         "ConstantConstEnumeration",
         ConstantConstEnumeration.generate,
-        (
-            input: string,
-        ): typia.Primitive<Array<ConstantConstEnumeration.Enumeration>> => {
+        (input: string): typia.Primitive<ConstantConstEnumeration> => {
             const assert = (input: any): ConstantConstEnumeration => {
                 const $guard = (typia.createAssertParse as any).guard;
                 ((

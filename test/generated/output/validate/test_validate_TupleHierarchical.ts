@@ -32,7 +32,22 @@ export const test_validate_TupleHierarchical = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TupleHierarchical => {
+            ): input is [
+                boolean,
+                null,
+                number,
+                [boolean, null, [number, [boolean, string]]],
+                [
+                    number,
+                    Array<
+                        [
+                            string,
+                            boolean,
+                            Array<[number, number, [boolean, string]]>,
+                        ]
+                    >,
+                ],
+            ] => {
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {

@@ -5,7 +5,7 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 export const test_createIs_TupleRestObject = _test_is(
     "TupleRestObject",
     TupleRestObject.generate,
-    (input: any): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+    (input: any): input is TupleRestObject => {
         const $io0 = (input: any): boolean => "string" === typeof input.value;
         return (
             Array.isArray(input) &&

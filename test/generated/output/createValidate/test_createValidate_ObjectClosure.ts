@@ -5,14 +5,14 @@ import { ObjectClosure } from "../../../structures/ObjectClosure";
 export const test_createValidate_ObjectClosure = _test_validate(
     "ObjectClosure",
     ObjectClosure.generate,
-    (input: any): typia.IValidation<ObjectClosure.IRecord> => {
+    (input: any): typia.IValidation<ObjectClosure> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectClosure.IRecord => {
+        ): input is ObjectClosure => {
             const $vo0 = (
                 input: any,
                 _path: string,

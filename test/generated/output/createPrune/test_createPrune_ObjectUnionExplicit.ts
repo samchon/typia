@@ -5,38 +5,7 @@ import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 export const test_createPrune_ObjectUnionExplicit = _test_prune(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
-    (
-        input: Array<
-            | ObjectUnionExplicit.Discriminator<
-                  "point",
-                  ObjectUnionExplicit.IPoint
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "line",
-                  ObjectUnionExplicit.ILine
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "triangle",
-                  ObjectUnionExplicit.ITriangle
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "rectangle",
-                  ObjectUnionExplicit.IRectangle
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "polyline",
-                  ObjectUnionExplicit.IPolyline
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "polygon",
-                  ObjectUnionExplicit.IPolygon
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "circle",
-                  ObjectUnionExplicit.ICircle
-              >
-        >,
-    ): void => {
+    (input: ObjectUnionExplicit): void => {
         const $throws = (typia.createPrune as any).throws;
         const $io0 = (input: any): boolean =>
             "number" === typeof input.x &&

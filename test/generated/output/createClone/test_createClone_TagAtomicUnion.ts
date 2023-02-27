@@ -5,9 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_createClone_TagAtomicUnion = _test_clone(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (
-        input: Array<TagAtomicUnion.Type>,
-    ): typia.Primitive<Array<TagAtomicUnion.Type>> => {
+    (input: TagAtomicUnion): typia.Primitive<TagAtomicUnion> => {
         const $co0 = (input: any): any => ({
             value: input.value as any,
         });

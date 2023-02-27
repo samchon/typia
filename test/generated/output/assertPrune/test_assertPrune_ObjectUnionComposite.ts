@@ -18,13 +18,33 @@ export const test_assertPrune_ObjectUnionComposite = _test_assertPrune(
             | ObjectUnionComposite.IPointedShape
             | ObjectUnionComposite.ICircle
         > => {
-            const assert = (input: any): ObjectUnionComposite => {
+            const assert = (
+                input: any,
+            ): Array<
+                | ObjectUnionComposite.IPoint
+                | ObjectUnionComposite.ILine
+                | ObjectUnionComposite.ITriangle
+                | ObjectUnionComposite.IRectangle
+                | ObjectUnionComposite.IPolyline
+                | ObjectUnionComposite.IPolygon
+                | ObjectUnionComposite.IPointedShape
+                | ObjectUnionComposite.ICircle
+            > => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUnionComposite => {
+                ): input is Array<
+                    | ObjectUnionComposite.IPoint
+                    | ObjectUnionComposite.ILine
+                    | ObjectUnionComposite.ITriangle
+                    | ObjectUnionComposite.IRectangle
+                    | ObjectUnionComposite.IPolyline
+                    | ObjectUnionComposite.IPolygon
+                    | ObjectUnionComposite.IPointedShape
+                    | ObjectUnionComposite.ICircle
+                > => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -363,7 +383,18 @@ export const test_assertPrune_ObjectUnionComposite = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ObjectUnionComposite): void => {
+            const prune = (
+                input: Array<
+                    | ObjectUnionComposite.IPoint
+                    | ObjectUnionComposite.ILine
+                    | ObjectUnionComposite.ITriangle
+                    | ObjectUnionComposite.IRectangle
+                    | ObjectUnionComposite.IPolyline
+                    | ObjectUnionComposite.IPolygon
+                    | ObjectUnionComposite.IPointedShape
+                    | ObjectUnionComposite.ICircle
+                >,
+            ): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x && "number" === typeof input.y;
                 const $io1 = (input: any): boolean =>

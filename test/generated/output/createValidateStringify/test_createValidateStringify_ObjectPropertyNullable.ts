@@ -6,16 +6,7 @@ export const test_createValidateStringify_ObjectPropertyNullable =
     _test_validateStringify(
         "ObjectPropertyNullable",
         ObjectPropertyNullable.generate,
-        (
-            input: [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ],
-        ): typia.IValidation<string> => {
+        (input: ObjectPropertyNullable): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectPropertyNullable> => {

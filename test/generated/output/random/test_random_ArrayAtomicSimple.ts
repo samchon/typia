@@ -8,7 +8,7 @@ export const test_random_ArrayAtomicSimple = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<[Array<boolean>, Array<number>, Array<string>]> => {
+        ): typia.Primitive<ArrayAtomicSimple> => {
             const $generator = (typia.random as any).generator;
             return [
                 (generator.array ?? $generator.array)(() =>
@@ -22,7 +22,7 @@ export const test_random_ArrayAtomicSimple = _test_random(
                 ),
             ];
         })(),
-    (input: any): [Array<boolean>, Array<number>, Array<string>] => {
+    (input: any): ArrayAtomicSimple => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

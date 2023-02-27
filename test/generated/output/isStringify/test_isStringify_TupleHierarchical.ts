@@ -24,7 +24,24 @@ export const test_isStringify_TupleHierarchical = _test_isStringify(
                 ],
             ],
         ): string | null => {
-            const is = (input: any): input is TupleHierarchical => {
+            const is = (
+                input: any,
+            ): input is [
+                boolean,
+                null,
+                number,
+                [boolean, null, [number, [boolean, string]]],
+                [
+                    number,
+                    Array<
+                        [
+                            string,
+                            boolean,
+                            Array<[number, number, [boolean, string]]>,
+                        ]
+                    >,
+                ],
+            ] => {
                 return (
                     Array.isArray(input) &&
                     input.length === 5 &&
@@ -74,7 +91,24 @@ export const test_isStringify_TupleHierarchical = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: TupleHierarchical): string => {
+            const stringify = (
+                input: [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ],
+            ): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 return `[${input[0]},null,${$number(input[2])},${`[${

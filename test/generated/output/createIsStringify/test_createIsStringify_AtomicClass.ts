@@ -5,19 +5,7 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_createIsStringify_AtomicClass = _test_isStringify(
     "AtomicClass",
     AtomicClass.generate,
-    (
-        input: [
-            Boolean,
-            false | Boolean,
-            boolean | Boolean,
-            Number,
-            Number | 1,
-            number | Number,
-            String,
-            String | "characters",
-            string | String,
-        ],
-    ): string | null => {
+    (input: AtomicClass): string | null => {
         const is = (input: any): input is AtomicClass => {
             return (
                 Array.isArray(input) &&

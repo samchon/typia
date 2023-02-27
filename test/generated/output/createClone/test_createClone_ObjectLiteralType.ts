@@ -5,11 +5,7 @@ import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 export const test_createClone_ObjectLiteralType = _test_clone(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
-    (input: {
-        id: string;
-        name: string;
-        age: number;
-    }): typia.Primitive<{ id: string; name: string; age: number }> => {
+    (input: ObjectLiteralType): typia.Primitive<ObjectLiteralType> => {
         const $co0 = (input: any): any => ({
             id: input.id as any,
             name: input.name as any,

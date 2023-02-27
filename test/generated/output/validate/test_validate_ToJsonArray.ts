@@ -22,7 +22,12 @@ export const test_validate_ToJsonArray = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ToJsonArray => {
+            ): input is [
+                ToJsonArray.IArray<boolean>,
+                ToJsonArray.IArray<number>,
+                ToJsonArray.IArray<string>,
+                ToJsonArray.IArray<ToJsonArray.IObject>,
+            ] => {
                 const $vo0 = (
                     input: any,
                     _path: string,

@@ -5,7 +5,7 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 export const test_createAssert_TupleRestAtomic = _test_assert(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (input: any): [boolean, number, ...string[]] => {
+    (input: any): TupleRestAtomic => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

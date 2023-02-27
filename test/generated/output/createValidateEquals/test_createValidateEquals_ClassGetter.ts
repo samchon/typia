@@ -5,7 +5,7 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 export const test_createValidateEquals_ClassGetter = _test_validateEquals(
     "ClassGetter",
     ClassGetter.generate,
-    (input: any): typia.IValidation<ClassGetter.Person> => {
+    (input: any): typia.IValidation<ClassGetter> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;
@@ -13,7 +13,7 @@ export const test_createValidateEquals_ClassGetter = _test_validateEquals(
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ClassGetter.Person => {
+        ): input is ClassGetter => {
             const $vo0 = (
                 input: any,
                 _path: string,

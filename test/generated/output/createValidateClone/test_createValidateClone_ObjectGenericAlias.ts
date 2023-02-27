@@ -5,21 +5,17 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_createValidateClone_ObjectGenericAlias = _test_validateClone(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        typia.Primitive<ObjectGenericAlias.ISomething<string>>
-    > => {
+    (input: any): typia.IValidation<typia.Primitive<ObjectGenericAlias>> => {
         const validate = (
             input: any,
-        ): typia.IValidation<ObjectGenericAlias.Alias> => {
+        ): typia.IValidation<ObjectGenericAlias> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectGenericAlias.Alias => {
+            ): input is ObjectGenericAlias => {
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -56,8 +52,8 @@ export const test_createValidateClone_ObjectGenericAlias = _test_validateClone(
             } as any;
         };
         const clone = (
-            input: ObjectGenericAlias.Alias,
-        ): typia.Primitive<ObjectGenericAlias.Alias> => {
+            input: ObjectGenericAlias,
+        ): typia.Primitive<ObjectGenericAlias> => {
             const $co0 = (input: any): any => ({
                 value: input.value as any,
             });

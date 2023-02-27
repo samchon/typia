@@ -6,9 +6,7 @@ export const test_validateParse_AtomicUnion = _test_validateParse(
     "AtomicUnion",
     AtomicUnion.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.IValidation<typia.Primitive<Array<AtomicUnion.Union>>> => {
+        ((input: string): typia.IValidation<typia.Primitive<AtomicUnion>> => {
             const validate = (input: any): typia.IValidation<AtomicUnion> => {
                 const errors = [] as any[];
                 const $report = (typia.validateParse as any).report(errors);

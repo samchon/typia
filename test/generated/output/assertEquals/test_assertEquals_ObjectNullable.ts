@@ -19,7 +19,11 @@ export const test_assertEquals_ObjectNullable = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectNullable => {
+            ): input is [
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+            ] => {
                 const $ao0 = (
                     input: any,
                     _path: string,

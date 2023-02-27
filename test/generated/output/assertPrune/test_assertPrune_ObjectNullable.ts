@@ -13,13 +13,23 @@ export const test_assertPrune_ObjectNullable = _test_assertPrune(
             ObjectNullable.IProduct,
             ObjectNullable.IProduct,
         ] => {
-            const assert = (input: any): ObjectNullable => {
+            const assert = (
+                input: any,
+            ): [
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+            ] => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectNullable => {
+                ): input is [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -171,7 +181,13 @@ export const test_assertPrune_ObjectNullable = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ObjectNullable): void => {
+            const prune = (
+                input: [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ],
+            ): void => {
                 const $throws = (typia.assertPrune as any).throws;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&

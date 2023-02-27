@@ -8,7 +8,7 @@ export const test_random_ConstantConstEnumeration = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<Array<ConstantConstEnumeration.Enumeration>> => {
+        ): typia.Primitive<ConstantConstEnumeration> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             return (generator.array ?? $generator.array)(() =>
@@ -21,7 +21,7 @@ export const test_random_ConstantConstEnumeration = _test_random(
                 ])(),
             );
         })(),
-    (input: any): Array<ConstantConstEnumeration.Enumeration> => {
+    (input: any): ConstantConstEnumeration => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

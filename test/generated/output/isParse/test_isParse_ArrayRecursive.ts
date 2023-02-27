@@ -6,8 +6,8 @@ export const test_isParse_ArrayRecursive = _test_isParse(
     "ArrayRecursive",
     ArrayRecursive.generate,
     (input) =>
-        ((input: any): typia.Primitive<ArrayRecursive.ICategory> => {
-            const is = (input: any): input is ArrayRecursive.ICategory => {
+        ((input: any): typia.Primitive<ArrayRecursive> => {
+            const is = (input: any): input is ArrayRecursive => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
                     input.children.every(

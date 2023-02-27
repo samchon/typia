@@ -5,8 +5,8 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_createIsClone_ClassMethod = _test_isClone(
     "ClassMethod",
     ClassMethod.generate,
-    (input: any): typia.Primitive<ClassMethod.Animal> | null => {
-        const is = (input: any): input is ClassMethod.Animal => {
+    (input: any): typia.Primitive<ClassMethod> | null => {
+        const is = (input: any): input is ClassMethod => {
             return (
                 "object" === typeof input &&
                 null !== input &&
@@ -15,9 +15,7 @@ export const test_createIsClone_ClassMethod = _test_isClone(
                 Number.isFinite(input.age)
             );
         };
-        const clone = (
-            input: ClassMethod.Animal,
-        ): typia.Primitive<ClassMethod.Animal> => {
+        const clone = (input: ClassMethod): typia.Primitive<ClassMethod> => {
             const $co0 = (input: any): any => ({
                 name: input.name as any,
                 age: input.age as any,

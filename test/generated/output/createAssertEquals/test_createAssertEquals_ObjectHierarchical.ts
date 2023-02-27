@@ -5,14 +5,14 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_createAssertEquals_ObjectHierarchical = _test_assertEquals(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
-    (input: any): ObjectHierarchical.ICustomer => {
+    (input: any): ObjectHierarchical => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectHierarchical.ICustomer => {
+        ): input is ObjectHierarchical => {
             const $ao0 = (
                 input: any,
                 _path: string,

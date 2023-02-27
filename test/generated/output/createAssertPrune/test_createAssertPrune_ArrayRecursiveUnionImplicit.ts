@@ -6,7 +6,7 @@ export const test_createAssertPrune_ArrayRecursiveUnionImplicit =
     _test_assertPrune(
         "ArrayRecursiveUnionImplicit",
         ArrayRecursiveUnionImplicit.generate,
-        (input: any): Array<ArrayRecursiveUnionImplicit.IBucket> => {
+        (input: any): ArrayRecursiveUnionImplicit => {
             const assert = (input: any): ArrayRecursiveUnionImplicit => {
                 const $guard = (typia.createAssertPrune as any).guard;
                 ((

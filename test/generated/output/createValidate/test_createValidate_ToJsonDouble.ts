@@ -5,14 +5,14 @@ import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 export const test_createValidate_ToJsonDouble = _test_validate(
     "ToJsonDouble",
     ToJsonDouble.generate,
-    (input: any): typia.IValidation<ToJsonDouble.Parent> => {
+    (input: any): typia.IValidation<ToJsonDouble> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ToJsonDouble.Parent => {
+        ): input is ToJsonDouble => {
             const $vo0 = (
                 input: any,
                 _path: string,

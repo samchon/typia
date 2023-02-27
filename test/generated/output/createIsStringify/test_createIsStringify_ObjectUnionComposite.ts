@@ -5,18 +5,7 @@ import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 export const test_createIsStringify_ObjectUnionComposite = _test_isStringify(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (
-        input: Array<
-            | ObjectUnionComposite.IPoint
-            | ObjectUnionComposite.ILine
-            | ObjectUnionComposite.ITriangle
-            | ObjectUnionComposite.IRectangle
-            | ObjectUnionComposite.IPolyline
-            | ObjectUnionComposite.IPolygon
-            | ObjectUnionComposite.IPointedShape
-            | ObjectUnionComposite.ICircle
-        >,
-    ): string | null => {
+    (input: ObjectUnionComposite): string | null => {
         const is = (input: any): input is ObjectUnionComposite => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&

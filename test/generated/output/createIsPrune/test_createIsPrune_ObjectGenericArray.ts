@@ -5,9 +5,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_createIsPrune_ObjectGenericArray = _test_isPrune(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (
-        input: any,
-    ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+    (input: any): input is ObjectGenericArray => {
         const is = (input: any): input is ObjectGenericArray => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.pagination &&

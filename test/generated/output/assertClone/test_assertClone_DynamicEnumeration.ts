@@ -20,13 +20,37 @@ export const test_assertClone_DynamicEnumeration = _test_assertClone(
             pt?: string | undefined;
             ru?: string | undefined;
         }> => {
-            const assert = (input: any): DynamicEnumeration => {
+            const assert = (
+                input: any,
+            ): {
+                ar?: string | undefined;
+                "zh-Hans"?: string | undefined;
+                "zh-Hant"?: string | undefined;
+                en?: string | undefined;
+                fr?: string | undefined;
+                de?: string | undefined;
+                ja?: string | undefined;
+                ko?: string | undefined;
+                pt?: string | undefined;
+                ru?: string | undefined;
+            } => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is DynamicEnumeration => {
+                ): input is {
+                    ar?: string | undefined;
+                    "zh-Hans"?: string | undefined;
+                    "zh-Hant"?: string | undefined;
+                    en?: string | undefined;
+                    fr?: string | undefined;
+                    de?: string | undefined;
+                    ja?: string | undefined;
+                    ko?: string | undefined;
+                    pt?: string | undefined;
+                    ru?: string | undefined;
+                } => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -116,9 +140,29 @@ export const test_assertClone_DynamicEnumeration = _test_assertClone(
                 })(input, "$input", true);
                 return input;
             };
-            const clone = (
-                input: DynamicEnumeration,
-            ): typia.Primitive<DynamicEnumeration> => {
+            const clone = (input: {
+                ar?: string | undefined;
+                "zh-Hans"?: string | undefined;
+                "zh-Hant"?: string | undefined;
+                en?: string | undefined;
+                fr?: string | undefined;
+                de?: string | undefined;
+                ja?: string | undefined;
+                ko?: string | undefined;
+                pt?: string | undefined;
+                ru?: string | undefined;
+            }): typia.Primitive<{
+                ar?: string | undefined;
+                "zh-Hans"?: string | undefined;
+                "zh-Hant"?: string | undefined;
+                en?: string | undefined;
+                fr?: string | undefined;
+                de?: string | undefined;
+                ja?: string | undefined;
+                ko?: string | undefined;
+                pt?: string | undefined;
+                ru?: string | undefined;
+            }> => {
                 const $co0 = (input: any): any => ({
                     ar: input.ar as any,
                     "zh-Hans": input["zh-Hans"] as any,

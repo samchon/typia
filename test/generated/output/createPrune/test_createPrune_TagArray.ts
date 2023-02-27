@@ -5,7 +5,7 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_createPrune_TagArray = _test_prune(
     "TagArray",
     TagArray.generate,
-    (input: Array<TagArray.Type>): void => {
+    (input: TagArray): void => {
         const $is_uuid = (typia.createPrune as any).is_uuid;
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {

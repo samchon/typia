@@ -6,15 +6,7 @@ export const test_createValidatePrune_ConstantAtomicWrapper =
     _test_validatePrune(
         "ConstantAtomicWrapper",
         ConstantAtomicWrapper.generate,
-        (
-            input: any,
-        ): typia.IValidation<
-            [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ]
-        > => {
+        (input: any): typia.IValidation<ConstantAtomicWrapper> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicWrapper> => {

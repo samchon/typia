@@ -21,7 +21,11 @@ export const test_validateEquals_ArrayAtomicAlias = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayAtomicAlias => {
+            ): input is [
+                ArrayAtomicAlias.Alias<boolean>,
+                ArrayAtomicAlias.Alias<number>,
+                ArrayAtomicAlias.Alias<string>,
+            ] => {
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {

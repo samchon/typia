@@ -5,9 +5,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_createClone_ArrayMatrix = _test_clone(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (
-        input: Array<Array<Array<number>>>,
-    ): typia.Primitive<Array<Array<Array<number>>>> => {
+    (input: ArrayMatrix): typia.Primitive<ArrayMatrix> => {
         return Array.isArray(input)
             ? input.map((elem: any) =>
                   Array.isArray(elem)

@@ -5,11 +5,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_createAssertClone_ObjectIntersection = _test_assertClone(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        ObjectIntersection.IEmail & ObjectIntersection.IName
-    > => {
+    (input: any): typia.Primitive<ObjectIntersection> => {
         const assert = (input: any): ObjectIntersection => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

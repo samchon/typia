@@ -5,10 +5,7 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_createEquals_TagRange = _test_equals(
     "TagRange",
     TagRange.generate,
-    (
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is Array<TagRange.Type> => {
+    (input: any, _exceptionable: boolean = true): input is TagRange => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.greater &&
             Number.isFinite(input.greater) &&

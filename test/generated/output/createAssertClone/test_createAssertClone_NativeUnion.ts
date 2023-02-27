@@ -5,7 +5,7 @@ import { NativeUnion } from "../../../structures/NativeUnion";
 export const test_createAssertClone_NativeUnion = _test_assertClone(
     "NativeUnion",
     NativeUnion.generate,
-    (input: any): typia.Primitive<Array<NativeUnion.Union>> => {
+    (input: any): typia.Primitive<NativeUnion> => {
         const assert = (input: any): NativeUnion => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

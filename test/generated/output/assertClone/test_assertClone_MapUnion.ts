@@ -7,13 +7,13 @@ export const test_assertClone_MapUnion = _test_assertClone(
     MapUnion.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<MapUnion.Union>> => {
-            const assert = (input: any): MapUnion => {
+            const assert = (input: any): Array<MapUnion.Union> => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is MapUnion => {
+                ): input is Array<MapUnion.Union> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -494,7 +494,9 @@ export const test_assertClone_MapUnion = _test_assertClone(
                 })(input, "$input", true);
                 return input;
             };
-            const clone = (input: MapUnion): typia.Primitive<MapUnion> => {
+            const clone = (
+                input: Array<MapUnion.Union>,
+            ): typia.Primitive<Array<MapUnion.Union>> => {
                 return Array.isArray(input)
                     ? input.map((elem: any) =>
                           elem instanceof Map ? {} : (elem as any),

@@ -5,7 +5,7 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 export const test_createAssertEquals_ArrayAtomicSimple = _test_assertEquals(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    (input: any): [Array<boolean>, Array<number>, Array<string>] => {
+    (input: any): ArrayAtomicSimple => {
         const $guard = (typia.createAssertEquals as any).guard;
         ((
             input: any,

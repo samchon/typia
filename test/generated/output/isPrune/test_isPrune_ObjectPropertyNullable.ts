@@ -16,7 +16,16 @@ export const test_isPrune_ObjectPropertyNullable = _test_isPrune(
                 ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
             >,
         ] => {
-            const is = (input: any): input is ObjectPropertyNullable => {
+            const is = (
+                input: any,
+            ): input is [
+                Array<ObjectPropertyNullable.IPointer<boolean>>,
+                Array<ObjectPropertyNullable.IPointer<number>>,
+                Array<ObjectPropertyNullable.IPointer<string>>,
+                Array<
+                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                >,
+            ] => {
                 const $io0 = (input: any): boolean =>
                     null === input.value || "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>
@@ -75,7 +84,16 @@ export const test_isPrune_ObjectPropertyNullable = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: ObjectPropertyNullable): void => {
+            const prune = (
+                input: [
+                    Array<ObjectPropertyNullable.IPointer<boolean>>,
+                    Array<ObjectPropertyNullable.IPointer<number>>,
+                    Array<ObjectPropertyNullable.IPointer<string>>,
+                    Array<
+                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                    >,
+                ],
+            ): void => {
                 const $io0 = (input: any): boolean =>
                     null === input.value || "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>

@@ -13,7 +13,7 @@ export const test_validate_AtomicSimple = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is AtomicSimple => {
+            ): input is [boolean, number, string] => {
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {
