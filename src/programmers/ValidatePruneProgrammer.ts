@@ -41,7 +41,7 @@ export namespace ValidatePruneProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     StatementFactory.constant(
                         "prune",
@@ -55,7 +55,7 @@ export namespace ValidatePruneProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     StatementFactory.constant(
                         "output",

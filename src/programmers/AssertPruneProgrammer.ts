@@ -29,7 +29,7 @@ export namespace AssertPruneProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "assert",
-                        AssertProgrammer.generate(project, modulo)(type),
+                        AssertProgrammer.generate(project, modulo)(type, name),
                     ),
                     StatementFactory.constant(
                         "prune",
@@ -43,7 +43,7 @@ export namespace AssertPruneProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     ts.factory.createExpressionStatement(
                         ts.factory.createCallExpression(

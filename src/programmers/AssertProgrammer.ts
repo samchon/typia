@@ -35,7 +35,7 @@ export namespace AssertProgrammer {
                     success: ts.factory.createTrue(),
                 },
                 importer,
-            )(type);
+            )(type, name);
 
             return ts.factory.createArrowFunction(
                 undefined,

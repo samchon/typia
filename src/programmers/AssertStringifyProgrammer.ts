@@ -12,7 +12,7 @@ import { StringifyProgrammer } from "./StringifyProgrammer";
 export namespace AssertStringifyProgrammer {
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type) =>
+        (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -37,7 +37,7 @@ export namespace AssertStringifyProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     StatementFactory.constant(
                         "stringify",
@@ -51,7 +51,7 @@ export namespace AssertStringifyProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     ts.factory.createReturnStatement(
                         ts.factory.createCallExpression(

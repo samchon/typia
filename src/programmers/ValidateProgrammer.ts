@@ -36,7 +36,7 @@ export namespace ValidateProgrammer {
                     success: ts.factory.createTrue(),
                 },
                 importer,
-            )(type);
+            )(type, name);
 
             return ts.factory.createArrowFunction(
                 undefined,

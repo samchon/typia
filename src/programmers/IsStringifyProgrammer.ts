@@ -43,7 +43,7 @@ export namespace IsStringifyProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     StatementFactory.constant(
                         "stringify",
@@ -57,7 +57,7 @@ export namespace IsStringifyProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     ts.factory.createReturnStatement(
                         ts.factory.createConditionalExpression(

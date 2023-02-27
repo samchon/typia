@@ -40,7 +40,7 @@ export namespace ValidateStringifyProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     StatementFactory.constant(
                         "stringify",
@@ -54,7 +54,7 @@ export namespace ValidateStringifyProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     StatementFactory.constant(
                         "output",
