@@ -190,18 +190,18 @@ export const test_createAssertStringify_ObjectGenericUnion =
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        ("string" === typeof input.name ||
-                            $guard(_exceptionable, {
-                                path: _path + ".name",
-                                expected: "string",
-                                value: input.name,
-                            })) &&
                         (null === input.extension ||
                             "string" === typeof input.extension ||
                             $guard(_exceptionable, {
                                 path: _path + ".extension",
                                 expected: "(null | string)",
                                 value: input.extension,
+                            })) &&
+                        ("string" === typeof input.name ||
+                            $guard(_exceptionable, {
+                                path: _path + ".name",
+                                expected: "string",
+                                value: input.name,
                             })) &&
                         ("string" === typeof input.url ||
                             $guard(_exceptionable, {
@@ -407,9 +407,9 @@ export const test_createAssertStringify_ObjectGenericUnion =
                             $io3(elem),
                     );
                 const $io3 = (input: any): boolean =>
-                    "string" === typeof input.name &&
                     (null === input.extension ||
                         "string" === typeof input.extension) &&
+                    "string" === typeof input.name &&
                     "string" === typeof input.url;
                 const $io4 = (input: any): boolean =>
                     "string" === typeof input.writer &&
@@ -468,11 +468,13 @@ export const test_createAssertStringify_ObjectGenericUnion =
                         .map((elem: any) => $so3(elem))
                         .join(",")}]`}}`;
                 const $so3 = (input: any): any =>
-                    `{"name":${$string(input.name)},"extension":${
+                    `{"extension":${
                         null !== input.extension
                             ? $string(input.extension)
                             : "null"
-                    },"url":${$string(input.url)}}`;
+                    },"name":${$string(input.name)},"url":${$string(
+                        input.url,
+                    )}}`;
                 const $so4 = (input: any): any =>
                     `{"writer":${$string(input.writer)},"answer":${
                         null !== input.answer ? $so1(input.answer) : "null"

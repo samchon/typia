@@ -53,11 +53,11 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            name: (generator.string ?? $generator.string)(),
             extension: $pick([
                 () => null,
                 () => (generator.string ?? $generator.string)(),
             ])(),
+            name: (generator.string ?? $generator.string)(),
             url: (generator.string ?? $generator.string)(),
         });
         const $ro4 = (
@@ -266,18 +266,18 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): boolean =>
-                ("string" === typeof input.name ||
-                    $guard(_exceptionable, {
-                        path: _path + ".name",
-                        expected: "string",
-                        value: input.name,
-                    })) &&
                 (null === input.extension ||
                     "string" === typeof input.extension ||
                     $guard(_exceptionable, {
                         path: _path + ".extension",
                         expected: "(null | string)",
                         value: input.extension,
+                    })) &&
+                ("string" === typeof input.name ||
+                    $guard(_exceptionable, {
+                        path: _path + ".name",
+                        expected: "string",
+                        value: input.name,
                     })) &&
                 ("string" === typeof input.url ||
                     $guard(_exceptionable, {

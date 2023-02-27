@@ -92,13 +92,13 @@ export const test_createEquals_ObjectGenericUnion = _test_equals(
                     return false;
                 }));
         const $io3 = (input: any, _exceptionable: boolean = true): boolean =>
-            "string" === typeof input.name &&
             (null === input.extension || "string" === typeof input.extension) &&
+            "string" === typeof input.name &&
             "string" === typeof input.url &&
             (3 === Object.keys(input).length ||
                 Object.keys(input).every((key) => {
                     if (
-                        ["name", "extension", "url"].some(
+                        ["extension", "name", "url"].some(
                             (prop) => key === prop,
                         )
                     )

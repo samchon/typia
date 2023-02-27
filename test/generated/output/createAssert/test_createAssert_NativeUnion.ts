@@ -52,10 +52,10 @@ export const test_createAssert_NativeUnion = _test_assert(
                         expected: "(Float32Array | Float64Array)",
                         value: input.float,
                     })) &&
-                (input.buffer instanceof Buffer ||
-                    input.buffer instanceof ArrayBuffer ||
+                (input.buffer instanceof ArrayBuffer ||
                     input.buffer instanceof SharedArrayBuffer ||
                     input.buffer instanceof DataView ||
+                    input.buffer instanceof Buffer ||
                     $guard(_exceptionable, {
                         path: _path + ".buffer",
                         expected:
