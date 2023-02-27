@@ -1846,7 +1846,7 @@ export function createPrune<T extends object>(): (input: T) => void {
 Object.assign(createPrune, prune);
 
 /**
- * Creates a reusable {@link isPrune} function.
+ * Creates a reusable {@link assertPrune} function.
  *
  * @danger You have to specify the generic argument `T`
  * @return Nothing until specifying the generic argument `T`
@@ -1857,7 +1857,7 @@ Object.assign(createPrune, prune);
 export function createAssertPrune(): never;
 
 /**
- * Creates a resuable {@link isPrune} function.
+ * Creates a resuable {@link assertPrune} function.
  *
  * @template T Type of the input value
  * @returns A reusable `isPrune` function
