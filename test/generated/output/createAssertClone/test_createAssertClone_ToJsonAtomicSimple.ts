@@ -5,15 +5,7 @@ import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 export const test_createAssertClone_ToJsonAtomicSimple = _test_assertClone(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        [
-            ToJsonAtomicSimple.IToJson<boolean>,
-            ToJsonAtomicSimple.IToJson<number>,
-            ToJsonAtomicSimple.IToJson<string>,
-        ]
-    > => {
+    (input: any): typia.Primitive<ToJsonAtomicSimple> => {
         const assert = (input: any): ToJsonAtomicSimple => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

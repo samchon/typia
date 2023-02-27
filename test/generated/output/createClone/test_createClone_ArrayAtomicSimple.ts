@@ -5,9 +5,7 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 export const test_createClone_ArrayAtomicSimple = _test_clone(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    (
-        input: [Array<boolean>, Array<number>, Array<string>],
-    ): typia.Primitive<[Array<boolean>, Array<number>, Array<string>]> => {
+    (input: ArrayAtomicSimple): typia.Primitive<ArrayAtomicSimple> => {
         return Array.isArray(input) &&
             input.length === 3 &&
             Array.isArray(input[0]) &&

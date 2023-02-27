@@ -5,7 +5,7 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_createAssertParse_AtomicUnion = _test_assertParse(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input: string): typia.Primitive<Array<AtomicUnion.Union>> => {
+    (input: string): typia.Primitive<AtomicUnion> => {
         const assert = (input: any): AtomicUnion => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

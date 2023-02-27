@@ -6,7 +6,7 @@ export const test_isParse_AtomicSimple = _test_isParse(
     "AtomicSimple",
     AtomicSimple.generate,
     (input) =>
-        ((input: any): typia.Primitive<[boolean, number, string]> => {
+        ((input: any): typia.Primitive<AtomicSimple> => {
             const is = (input: any): input is AtomicSimple => {
                 return (
                     Array.isArray(input) &&

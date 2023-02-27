@@ -5,7 +5,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_createIsStringify_ArrayUnion = _test_isStringify(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input: Array<ArrayUnion.IUnion>): string | null => {
+    (input: ArrayUnion): string | null => {
         const is = (input: any): input is ArrayUnion => {
             return (
                 Array.isArray(input) &&

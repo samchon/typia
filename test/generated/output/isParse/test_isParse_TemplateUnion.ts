@@ -6,7 +6,7 @@ export const test_isParse_TemplateUnion = _test_isParse(
     "TemplateUnion",
     TemplateUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<TemplateUnion.Type>> => {
+        ((input: any): typia.Primitive<TemplateUnion> => {
             const is = (input: any): input is TemplateUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&

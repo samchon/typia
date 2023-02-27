@@ -5,20 +5,7 @@ import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 export const test_createIsClone_DynamicEnumeration = _test_isClone(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
-    (
-        input: any,
-    ): typia.Primitive<{
-        ar?: string | undefined;
-        "zh-Hans"?: string | undefined;
-        "zh-Hant"?: string | undefined;
-        en?: string | undefined;
-        fr?: string | undefined;
-        de?: string | undefined;
-        ja?: string | undefined;
-        ko?: string | undefined;
-        pt?: string | undefined;
-        ru?: string | undefined;
-    }> | null => {
+    (input: any): typia.Primitive<DynamicEnumeration> | null => {
         const is = (input: any): input is DynamicEnumeration => {
             const $io0 = (input: any): boolean =>
                 (undefined === input.ar || "string" === typeof input.ar) &&

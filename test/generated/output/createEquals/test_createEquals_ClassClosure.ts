@@ -5,10 +5,7 @@ import { ClassClosure } from "../../../structures/ClassClosure";
 export const test_createEquals_ClassClosure = _test_equals(
     "ClassClosure",
     ClassClosure.generate,
-    (
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is ClassClosure.Something => {
+    (input: any, _exceptionable: boolean = true): input is ClassClosure => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
             "something" === input.type &&

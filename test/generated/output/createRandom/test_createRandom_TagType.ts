@@ -7,7 +7,7 @@ export const test_createRandom_TagType = _test_random(
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<Array<TagType.Type>> => {
+    ): typia.Primitive<TagType> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
@@ -18,7 +18,7 @@ export const test_createRandom_TagType = _test_random(
         });
         return (generator.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): Array<TagType.Type> => {
+    (input: any): TagType => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

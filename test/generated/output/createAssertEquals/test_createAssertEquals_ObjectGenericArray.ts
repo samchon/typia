@@ -5,7 +5,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_createAssertEquals_ObjectGenericArray = _test_assertEquals(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (input: any): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+    (input: any): ObjectGenericArray => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

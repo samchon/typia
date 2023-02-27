@@ -5,19 +5,7 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_createAssertPrune_AtomicClass = _test_assertPrune(
     "AtomicClass",
     AtomicClass.generate,
-    (
-        input: any,
-    ): [
-        Boolean,
-        false | Boolean,
-        boolean | Boolean,
-        Number,
-        Number | 1,
-        number | Number,
-        String,
-        String | "characters",
-        string | String,
-    ] => {
+    (input: any): AtomicClass => {
         const assert = (input: any): AtomicClass => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

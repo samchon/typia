@@ -5,7 +5,7 @@ import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 export const test_createPrune_ObjectUnionDouble = _test_prune(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
-    (input: Array<ObjectUnionDouble.Union>): void => {
+    (input: ObjectUnionDouble): void => {
         const $throws = (typia.createPrune as any).throws;
         const $io0 = (input: any): boolean =>
             "object" === typeof input.value &&

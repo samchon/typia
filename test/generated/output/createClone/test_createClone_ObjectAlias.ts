@@ -5,9 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_createClone_ObjectAlias = _test_clone(
     "ObjectAlias",
     ObjectAlias.generate,
-    (
-        input: Array<ObjectAlias.IMember>,
-    ): typia.Primitive<Array<ObjectAlias.IMember>> => {
+    (input: ObjectAlias): typia.Primitive<ObjectAlias> => {
         const $co0 = (input: any): any => ({
             id: input.id as any,
             email: input.email as any,

@@ -5,11 +5,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_createAssertParse_ObjectGenericArray = _test_assertParse(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (
-        input: string,
-    ): typia.Primitive<
-        ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
-    > => {
+    (input: string): typia.Primitive<ObjectGenericArray> => {
         const assert = (input: any): ObjectGenericArray => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

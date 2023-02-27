@@ -8,12 +8,7 @@ export const test_createEquals_ObjectPropertyNullable = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is [
-        Array<ObjectPropertyNullable.IPointer<boolean>>,
-        Array<ObjectPropertyNullable.IPointer<number>>,
-        Array<ObjectPropertyNullable.IPointer<string>>,
-        Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>,
-    ] => {
+    ): input is ObjectPropertyNullable => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             (null === input.value || "boolean" === typeof input.value) &&
             (1 === Object.keys(input).length ||

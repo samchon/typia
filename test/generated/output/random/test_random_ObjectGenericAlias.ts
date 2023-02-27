@@ -8,7 +8,7 @@ export const test_random_ObjectGenericAlias = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<ObjectGenericAlias.ISomething<string>> => {
+        ): typia.Primitive<ObjectGenericAlias> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
@@ -18,13 +18,13 @@ export const test_random_ObjectGenericAlias = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): ObjectGenericAlias.ISomething<string> => {
+    (input: any): ObjectGenericAlias => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectGenericAlias.Alias => {
+        ): input is ObjectGenericAlias => {
             const $ao0 = (
                 input: any,
                 _path: string,

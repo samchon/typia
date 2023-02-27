@@ -15,7 +15,7 @@ export const test_validate_TupleRestArray = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TupleRestArray => {
+            ): input is [boolean, number, ...Array<string>[]] => {
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {

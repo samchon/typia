@@ -7,13 +7,13 @@ export const test_assertStringify_ObjectAlias = _test_assertStringify(
     ObjectAlias.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ObjectAlias => {
+            const assert = (input: any): Array<ObjectAlias.IMember> => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectAlias => {
+                ): input is Array<ObjectAlias.IMember> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -85,7 +85,7 @@ export const test_assertStringify_ObjectAlias = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectAlias): string => {
+            const stringify = (input: Array<ObjectAlias.IMember>): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $number = (typia.assertStringify as any).number;
                 const $throws = (typia.assertStringify as any).throws;

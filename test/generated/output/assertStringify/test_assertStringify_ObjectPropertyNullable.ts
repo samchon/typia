@@ -8,13 +8,29 @@ export const test_assertStringify_ObjectPropertyNullable =
         ObjectPropertyNullable.generate,
         (input) =>
             ((input: any): string => {
-                const assert = (input: any): ObjectPropertyNullable => {
+                const assert = (
+                    input: any,
+                ): [
+                    Array<ObjectPropertyNullable.IPointer<boolean>>,
+                    Array<ObjectPropertyNullable.IPointer<number>>,
+                    Array<ObjectPropertyNullable.IPointer<string>>,
+                    Array<
+                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                    >,
+                ] => {
                     const $guard = (typia.assertStringify as any).guard;
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectPropertyNullable => {
+                    ): input is [
+                        Array<ObjectPropertyNullable.IPointer<boolean>>,
+                        Array<ObjectPropertyNullable.IPointer<number>>,
+                        Array<ObjectPropertyNullable.IPointer<string>>,
+                        Array<
+                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                        >,
+                    ] => {
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -228,7 +244,16 @@ export const test_assertStringify_ObjectPropertyNullable =
                     })(input, "$input", true);
                     return input;
                 };
-                const stringify = (input: ObjectPropertyNullable): string => {
+                const stringify = (
+                    input: [
+                        Array<ObjectPropertyNullable.IPointer<boolean>>,
+                        Array<ObjectPropertyNullable.IPointer<number>>,
+                        Array<ObjectPropertyNullable.IPointer<string>>,
+                        Array<
+                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                        >,
+                    ],
+                ): string => {
                     const $number = (typia.assertStringify as any).number;
                     const $string = (typia.assertStringify as any).string;
                     const $io4 = (input: any): boolean =>

@@ -11,7 +11,9 @@ export const test_isClone_ObjectGenericArray = _test_isClone(
         ): typia.Primitive<
             ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
         > | null => {
-            const is = (input: any): input is ObjectGenericArray => {
+            const is = (
+                input: any,
+            ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&
                     null !== input.pagination &&
@@ -41,8 +43,10 @@ export const test_isClone_ObjectGenericArray = _test_isClone(
                 );
             };
             const clone = (
-                input: ObjectGenericArray,
-            ): typia.Primitive<ObjectGenericArray> => {
+                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
+            ): typia.Primitive<
+                ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
+            > => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&

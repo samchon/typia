@@ -5,11 +5,7 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_createValidateClone_ObjectTuple = _test_validateClone(
     "ObjectTuple",
     ObjectTuple.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]>
-    > => {
+    (input: any): typia.IValidation<typia.Primitive<ObjectTuple>> => {
         const validate = (input: any): typia.IValidation<ObjectTuple> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

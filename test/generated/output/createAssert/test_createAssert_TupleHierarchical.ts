@@ -5,20 +5,7 @@ import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 export const test_createAssert_TupleHierarchical = _test_assert(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (
-        input: any,
-    ): [
-        boolean,
-        null,
-        number,
-        [boolean, null, [number, [boolean, string]]],
-        [
-            number,
-            Array<
-                [string, boolean, Array<[number, number, [boolean, string]]>]
-            >,
-        ],
-    ] => {
+    (input: any): TupleHierarchical => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

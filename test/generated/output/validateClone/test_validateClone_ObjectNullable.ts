@@ -19,14 +19,24 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectNullable> => {
+            ): typia.IValidation<
+                [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectNullable => {
+                ): input is [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -240,8 +250,18 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ObjectNullable,
-            ): typia.Primitive<ObjectNullable> => {
+                input: [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ],
+            ): typia.Primitive<
+                [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ]
+            > => {
                 const $throws = (typia.validateClone as any).throws;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&

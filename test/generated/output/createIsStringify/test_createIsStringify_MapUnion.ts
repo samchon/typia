@@ -5,7 +5,7 @@ import { MapUnion } from "../../../structures/MapUnion";
 export const test_createIsStringify_MapUnion = _test_isStringify(
     "MapUnion",
     MapUnion.generate,
-    (input: Array<MapUnion.Union>): string | null => {
+    (input: MapUnion): string | null => {
         const is = (input: any): input is MapUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&

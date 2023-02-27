@@ -8,7 +8,7 @@ export const test_createEquals_ArrayRecursiveUnionExplicit = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+    ): input is ArrayRecursiveUnionExplicit => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&

@@ -6,10 +6,8 @@ export const test_isParse_ObjectLiteralProperty = _test_isParse(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
     (input) =>
-        ((input: any): typia.Primitive<ObjectLiteralProperty.ISomething> => {
-            const is = (
-                input: any,
-            ): input is ObjectLiteralProperty.ISomething => {
+        ((input: any): typia.Primitive<ObjectLiteralProperty> => {
+            const is = (input: any): input is ObjectLiteralProperty => {
                 return (
                     "object" === typeof input &&
                     null !== input &&

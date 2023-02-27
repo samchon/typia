@@ -5,7 +5,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_createIsStringify_ArrayMatrix = _test_isStringify(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: Array<Array<Array<number>>>): string | null => {
+    (input: ArrayMatrix): string | null => {
         const is = (input: any): input is ArrayMatrix => {
             return (
                 Array.isArray(input) &&

@@ -5,9 +5,7 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 export const test_createClone_ArraySimple = _test_clone(
     "ArraySimple",
     ArraySimple.generate,
-    (
-        input: Array<ArraySimple.IPerson>,
-    ): typia.Primitive<Array<ArraySimple.IPerson>> => {
+    (input: ArraySimple): typia.Primitive<ArraySimple> => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.name &&
             "string" === typeof input.body &&

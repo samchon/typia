@@ -5,19 +5,7 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_createIsPrune_AtomicClass = _test_isPrune(
     "AtomicClass",
     AtomicClass.generate,
-    (
-        input: any,
-    ): input is [
-        Boolean,
-        false | Boolean,
-        boolean | Boolean,
-        Number,
-        Number | 1,
-        number | Number,
-        String,
-        String | "characters",
-        string | String,
-    ] => {
+    (input: any): input is AtomicClass => {
         const is = (input: any): input is AtomicClass => {
             return (
                 Array.isArray(input) &&

@@ -5,7 +5,7 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_createIsStringify_TagObjectUnion = _test_isStringify(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input: Array<TagObjectUnion.Type>): string | null => {
+    (input: TagObjectUnion): string | null => {
         const is = (input: any): input is TagObjectUnion => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&

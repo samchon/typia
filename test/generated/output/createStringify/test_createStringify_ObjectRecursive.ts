@@ -5,7 +5,7 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_createStringify_ObjectRecursive = _test_stringify(
     "ObjectRecursive",
     ObjectRecursive.generate,
-    (input: ObjectRecursive.IDepartment): string => {
+    (input: ObjectRecursive): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $io0 = (input: any): boolean =>

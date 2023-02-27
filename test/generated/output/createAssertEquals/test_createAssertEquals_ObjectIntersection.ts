@@ -5,7 +5,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_createAssertEquals_ObjectIntersection = _test_assertEquals(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (input: any): ObjectIntersection.IEmail & ObjectIntersection.IName => {
+    (input: any): ObjectIntersection => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

@@ -6,7 +6,7 @@ export const test_createValidateStringify_TupleRestAtomic =
     _test_validateStringify(
         "TupleRestAtomic",
         TupleRestAtomic.generate,
-        (input: [boolean, number, ...string[]]): typia.IValidation<string> => {
+        (input: TupleRestAtomic): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TupleRestAtomic> => {

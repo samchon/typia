@@ -5,7 +5,7 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 export const test_createAssertPrune_TupleRestObject = _test_assertPrune(
     "TupleRestObject",
     TupleRestObject.generate,
-    (input: any): [boolean, number, ...TupleRestObject.IObject[]] => {
+    (input: any): TupleRestObject => {
         const assert = (input: any): TupleRestObject => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

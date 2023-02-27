@@ -5,7 +5,7 @@ import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 export const test_createIsPrune_ConstantEnumeration = _test_isPrune(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
-    (input: any): input is Array<ConstantEnumeration.Enumeration> => {
+    (input: any): input is ConstantEnumeration => {
         const is = (input: any): input is ConstantEnumeration => {
             return (
                 Array.isArray(input) &&

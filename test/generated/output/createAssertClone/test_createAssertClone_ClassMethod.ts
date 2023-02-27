@@ -5,14 +5,14 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_createAssertClone_ClassMethod = _test_assertClone(
     "ClassMethod",
     ClassMethod.generate,
-    (input: any): typia.Primitive<ClassMethod.Animal> => {
-        const assert = (input: any): ClassMethod.Animal => {
+    (input: any): typia.Primitive<ClassMethod> => {
+        const assert = (input: any): ClassMethod => {
             const $guard = (typia.createAssertClone as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ClassMethod.Animal => {
+            ): input is ClassMethod => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -43,9 +43,7 @@ export const test_createAssertClone_ClassMethod = _test_assertClone(
             })(input, "$input", true);
             return input;
         };
-        const clone = (
-            input: ClassMethod.Animal,
-        ): typia.Primitive<ClassMethod.Animal> => {
+        const clone = (input: ClassMethod): typia.Primitive<ClassMethod> => {
             const $co0 = (input: any): any => ({
                 name: input.name as any,
                 age: input.age as any,

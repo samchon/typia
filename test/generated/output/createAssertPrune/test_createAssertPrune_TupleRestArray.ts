@@ -5,7 +5,7 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_createAssertPrune_TupleRestArray = _test_assertPrune(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input: any): [boolean, number, ...Array<string>[]] => {
+    (input: any): TupleRestArray => {
         const assert = (input: any): TupleRestArray => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

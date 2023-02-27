@@ -7,13 +7,15 @@ export const test_assertPrune_ObjectGenericAlias = _test_assertPrune(
     ObjectGenericAlias.generate,
     (input) =>
         ((input: any): ObjectGenericAlias.ISomething<string> => {
-            const assert = (input: any): ObjectGenericAlias.Alias => {
+            const assert = (
+                input: any,
+            ): ObjectGenericAlias.ISomething<string> => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericAlias.Alias => {
+                ): input is ObjectGenericAlias.ISomething<string> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -37,7 +39,9 @@ export const test_assertPrune_ObjectGenericAlias = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ObjectGenericAlias.Alias): void => {
+            const prune = (
+                input: ObjectGenericAlias.ISomething<string>,
+            ): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if ("value" === key) continue;

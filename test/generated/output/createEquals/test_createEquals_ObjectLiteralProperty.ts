@@ -8,7 +8,7 @@ export const test_createEquals_ObjectLiteralProperty = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is ObjectLiteralProperty.ISomething => {
+    ): input is ObjectLiteralProperty => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input["something-interesting-do-you-want?"] &&
             "string" === typeof input["or-something-crazy-do-you-want?"] &&

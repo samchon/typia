@@ -6,9 +6,7 @@ export const test_createValidatePrune_ArrayRecursiveUnionImplicit =
     _test_validatePrune(
         "ArrayRecursiveUnionImplicit",
         ArrayRecursiveUnionImplicit.generate,
-        (
-            input: any,
-        ): typia.IValidation<Array<ArrayRecursiveUnionImplicit.IBucket>> => {
+        (input: any): typia.IValidation<ArrayRecursiveUnionImplicit> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayRecursiveUnionImplicit> => {

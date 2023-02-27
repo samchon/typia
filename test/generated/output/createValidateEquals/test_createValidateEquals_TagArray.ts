@@ -5,7 +5,7 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_createValidateEquals_TagArray = _test_validateEquals(
     "TagArray",
     TagArray.generate,
-    (input: any): typia.IValidation<Array<TagArray.Type>> => {
+    (input: any): typia.IValidation<TagArray> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $is_uuid = (typia.createValidateEquals as any).is_uuid;

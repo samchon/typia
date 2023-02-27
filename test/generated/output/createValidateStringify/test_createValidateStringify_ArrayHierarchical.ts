@@ -6,9 +6,7 @@ export const test_createValidateStringify_ArrayHierarchical =
     _test_validateStringify(
         "ArrayHierarchical",
         ArrayHierarchical.generate,
-        (
-            input: Array<ArrayHierarchical.ICompany>,
-        ): typia.IValidation<string> => {
+        (input: ArrayHierarchical): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayHierarchical> => {

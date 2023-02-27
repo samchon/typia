@@ -5,10 +5,7 @@ import { TupleUnion } from "../../../structures/TupleUnion";
 export const test_createEquals_TupleUnion = _test_equals(
     "TupleUnion",
     TupleUnion.generate,
-    (
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is Array<TupleUnion.Union> => {
+    (input: any, _exceptionable: boolean = true): input is TupleUnion => {
         return (
             Array.isArray(input) &&
             input.every(

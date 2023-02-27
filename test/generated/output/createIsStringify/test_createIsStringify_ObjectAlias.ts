@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_createIsStringify_ObjectAlias = _test_isStringify(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input: Array<ObjectAlias.IMember>): string | null => {
+    (input: ObjectAlias): string | null => {
         const is = (input: any): input is ObjectAlias => {
             const $io0 = (input: any): boolean =>
                 (null === input.id || "string" === typeof input.id) &&

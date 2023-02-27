@@ -19,14 +19,38 @@ export const test_validateStringify_AtomicClass = _test_validateStringify(
                 string | String,
             ],
         ): typia.IValidation<string> => {
-            const validate = (input: any): typia.IValidation<AtomicClass> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<
+                [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is AtomicClass => {
+                ): input is [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -158,7 +182,19 @@ export const test_validateStringify_AtomicClass = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: AtomicClass): string => {
+            const stringify = (
+                input: [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ],
+            ): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $string = (typia.validateStringify as any).string;
                 const $throws = (typia.validateStringify as any).throws;

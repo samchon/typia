@@ -5,7 +5,7 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 export const test_createIsPrune_TemplateUnion = _test_isPrune(
     "TemplateUnion",
     TemplateUnion.generate,
-    (input: any): input is Array<TemplateUnion.Type> => {
+    (input: any): input is TemplateUnion => {
         const is = (input: any): input is TemplateUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&

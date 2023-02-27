@@ -5,10 +5,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_createEquals_ArrayUnion = _test_equals(
     "ArrayUnion",
     ArrayUnion.generate,
-    (
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is Array<ArrayUnion.IUnion> => {
+    (input: any, _exceptionable: boolean = true): input is ArrayUnion => {
         return (
             Array.isArray(input) &&
             input.every(

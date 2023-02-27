@@ -5,7 +5,7 @@ import { AtomicAlias } from "../../../structures/AtomicAlias";
 export const test_createValidateStringify_AtomicAlias = _test_validateStringify(
     "AtomicAlias",
     AtomicAlias.generate,
-    (input: [boolean, number, string]): typia.IValidation<string> => {
+    (input: AtomicAlias): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<AtomicAlias> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(

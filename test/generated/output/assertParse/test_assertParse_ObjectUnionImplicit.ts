@@ -6,19 +6,7 @@ export const test_assertParse_ObjectUnionImplicit = _test_assertParse(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.Primitive<
-            Array<
-                | ObjectUnionImplicit.IPoint
-                | ObjectUnionImplicit.ILine
-                | ObjectUnionImplicit.ITriangle
-                | ObjectUnionImplicit.IRectangle
-                | ObjectUnionImplicit.IPolyline
-                | ObjectUnionImplicit.IPolygon
-                | ObjectUnionImplicit.ICircle
-            >
-        > => {
+        ((input: string): typia.Primitive<ObjectUnionImplicit> => {
             const assert = (input: any): ObjectUnionImplicit => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

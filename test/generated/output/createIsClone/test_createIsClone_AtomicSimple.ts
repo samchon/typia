@@ -5,7 +5,7 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 export const test_createIsClone_AtomicSimple = _test_isClone(
     "AtomicSimple",
     AtomicSimple.generate,
-    (input: any): typia.Primitive<[boolean, number, string]> | null => {
+    (input: any): typia.Primitive<AtomicSimple> | null => {
         const is = (input: any): input is AtomicSimple => {
             return (
                 Array.isArray(input) &&

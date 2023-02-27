@@ -5,9 +5,7 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 export const test_createValidateClone_AtomicSimple = _test_validateClone(
     "AtomicSimple",
     AtomicSimple.generate,
-    (
-        input: any,
-    ): typia.IValidation<typia.Primitive<[boolean, number, string]>> => {
+    (input: any): typia.IValidation<typia.Primitive<AtomicSimple>> => {
         const validate = (input: any): typia.IValidation<AtomicSimple> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

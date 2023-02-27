@@ -5,7 +5,7 @@ import { TupleUnion } from "../../../structures/TupleUnion";
 export const test_createIs_TupleUnion = _test_is(
     "TupleUnion",
     TupleUnion.generate,
-    (input: any): input is Array<TupleUnion.Union> => {
+    (input: any): input is TupleUnion => {
         return (
             Array.isArray(input) &&
             input.every(

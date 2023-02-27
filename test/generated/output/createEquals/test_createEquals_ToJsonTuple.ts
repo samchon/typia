@@ -5,15 +5,7 @@ import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 export const test_createEquals_ToJsonTuple = _test_equals(
     "ToJsonTuple",
     ToJsonTuple.generate,
-    (
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is [
-        ToJsonTuple.IToJson<string>,
-        ToJsonTuple.IToJson<number>,
-        ToJsonTuple.IToJson<boolean>,
-        ToJsonTuple.IObject,
-    ] => {
+    (input: any, _exceptionable: boolean = true): input is ToJsonTuple => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "function" === typeof input.toJSON &&
             (1 === Object.keys(input).length ||

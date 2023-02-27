@@ -6,9 +6,7 @@ export const test_assertParse_TupleRestArray = _test_assertParse(
     "TupleRestArray",
     TupleRestArray.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
+        ((input: string): typia.Primitive<TupleRestArray> => {
             const assert = (input: any): TupleRestArray => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

@@ -5,7 +5,7 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 export const test_createAssertEquals_ArraySimple = _test_assertEquals(
     "ArraySimple",
     ArraySimple.generate,
-    (input: any): Array<ArraySimple.IPerson> => {
+    (input: any): ArraySimple => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

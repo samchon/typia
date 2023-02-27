@@ -8,17 +8,17 @@ export const test_validateParse_ObjectHierarchical = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<typia.Primitive<ObjectHierarchical.ICustomer>> => {
+        ): typia.IValidation<typia.Primitive<ObjectHierarchical>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectHierarchical.ICustomer> => {
+            ): typia.IValidation<ObjectHierarchical> => {
                 const errors = [] as any[];
                 const $report = (typia.validateParse as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectHierarchical.ICustomer => {
+                ): input is ObjectHierarchical => {
                     const $vo0 = (
                         input: any,
                         _path: string,

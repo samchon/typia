@@ -8,7 +8,7 @@ export const test_createValidateClone_ConstantAtomicSimple =
         ConstantAtomicSimple.generate,
         (
             input: any,
-        ): typia.IValidation<typia.Primitive<[false, true, 2, "three"]>> => {
+        ): typia.IValidation<typia.Primitive<ConstantAtomicSimple>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicSimple> => {

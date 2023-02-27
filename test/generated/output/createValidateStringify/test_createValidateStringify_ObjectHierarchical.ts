@@ -6,10 +6,10 @@ export const test_createValidateStringify_ObjectHierarchical =
     _test_validateStringify(
         "ObjectHierarchical",
         ObjectHierarchical.generate,
-        (input: ObjectHierarchical.ICustomer): typia.IValidation<string> => {
+        (input: ObjectHierarchical): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectHierarchical.ICustomer> => {
+            ): typia.IValidation<ObjectHierarchical> => {
                 const errors = [] as any[];
                 const $report = (typia.createValidateStringify as any).report(
                     errors,
@@ -18,7 +18,7 @@ export const test_createValidateStringify_ObjectHierarchical =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectHierarchical.ICustomer => {
+                ): input is ObjectHierarchical => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -490,7 +490,7 @@ export const test_createValidateStringify_ObjectHierarchical =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ObjectHierarchical.ICustomer): string => {
+            const stringify = (input: ObjectHierarchical): string => {
                 const $number = (typia.createValidateStringify as any).number;
                 const $string = (typia.createValidateStringify as any).string;
                 const $io1 = (input: any): boolean =>

@@ -7,13 +7,33 @@ export const test_assertStringify_ObjectUnionComposite = _test_assertStringify(
     ObjectUnionComposite.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ObjectUnionComposite => {
+            const assert = (
+                input: any,
+            ): Array<
+                | ObjectUnionComposite.IPoint
+                | ObjectUnionComposite.ILine
+                | ObjectUnionComposite.ITriangle
+                | ObjectUnionComposite.IRectangle
+                | ObjectUnionComposite.IPolyline
+                | ObjectUnionComposite.IPolygon
+                | ObjectUnionComposite.IPointedShape
+                | ObjectUnionComposite.ICircle
+            > => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUnionComposite => {
+                ): input is Array<
+                    | ObjectUnionComposite.IPoint
+                    | ObjectUnionComposite.ILine
+                    | ObjectUnionComposite.ITriangle
+                    | ObjectUnionComposite.IRectangle
+                    | ObjectUnionComposite.IPolyline
+                    | ObjectUnionComposite.IPolygon
+                    | ObjectUnionComposite.IPointedShape
+                    | ObjectUnionComposite.ICircle
+                > => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -352,7 +372,18 @@ export const test_assertStringify_ObjectUnionComposite = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectUnionComposite): string => {
+            const stringify = (
+                input: Array<
+                    | ObjectUnionComposite.IPoint
+                    | ObjectUnionComposite.ILine
+                    | ObjectUnionComposite.ITriangle
+                    | ObjectUnionComposite.IRectangle
+                    | ObjectUnionComposite.IPolyline
+                    | ObjectUnionComposite.IPolygon
+                    | ObjectUnionComposite.IPointedShape
+                    | ObjectUnionComposite.ICircle
+                >,
+            ): string => {
                 const $number = (typia.assertStringify as any).number;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x && "number" === typeof input.y;

@@ -14,7 +14,14 @@ export const test_isStringify_ToJsonArray = _test_isStringify(
                 ToJsonArray.IArray<ToJsonArray.IObject>,
             ],
         ): string | null => {
-            const is = (input: any): input is ToJsonArray => {
+            const is = (
+                input: any,
+            ): input is [
+                ToJsonArray.IArray<boolean>,
+                ToJsonArray.IArray<number>,
+                ToJsonArray.IArray<string>,
+                ToJsonArray.IArray<ToJsonArray.IObject>,
+            ] => {
                 const $io0 = (input: any): boolean => true;
                 const $io1 = (input: any): boolean => true;
                 const $io2 = (input: any): boolean => true;
@@ -36,7 +43,14 @@ export const test_isStringify_ToJsonArray = _test_isStringify(
                     $io3(input[3])
                 );
             };
-            const stringify = (input: ToJsonArray): string => {
+            const stringify = (
+                input: [
+                    ToJsonArray.IArray<boolean>,
+                    ToJsonArray.IArray<number>,
+                    ToJsonArray.IArray<string>,
+                    ToJsonArray.IArray<ToJsonArray.IObject>,
+                ],
+            ): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 return `[${`[${input[0]

@@ -5,19 +5,7 @@ import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper
 export const test_createClone_ConstantAtomicWrapper = _test_clone(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
-    (
-        input: [
-            ConstantAtomicWrapper.IPointer<boolean>,
-            ConstantAtomicWrapper.IPointer<number>,
-            ConstantAtomicWrapper.IPointer<string>,
-        ],
-    ): typia.Primitive<
-        [
-            ConstantAtomicWrapper.IPointer<boolean>,
-            ConstantAtomicWrapper.IPointer<number>,
-            ConstantAtomicWrapper.IPointer<string>,
-        ]
-    > => {
+    (input: ConstantAtomicWrapper): typia.Primitive<ConstantAtomicWrapper> => {
         const $io0 = (input: any): boolean => "boolean" === typeof input.value;
         const $io1 = (input: any): boolean => "number" === typeof input.value;
         const $io2 = (input: any): boolean => "string" === typeof input.value;

@@ -5,19 +5,15 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_createValidateParse_ObjectSimple = _test_validateParse(
     "ObjectSimple",
     ObjectSimple.generate,
-    (
-        input: string,
-    ): typia.IValidation<typia.Primitive<ObjectSimple.IBox3D>> => {
-        const validate = (
-            input: any,
-        ): typia.IValidation<ObjectSimple.IBox3D> => {
+    (input: string): typia.IValidation<typia.Primitive<ObjectSimple>> => {
+        const validate = (input: any): typia.IValidation<ObjectSimple> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectSimple.IBox3D => {
+            ): input is ObjectSimple => {
                 const $vo0 = (
                     input: any,
                     _path: string,

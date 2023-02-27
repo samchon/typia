@@ -17,13 +17,31 @@ export const test_assertPrune_ObjectUnionImplicit = _test_assertPrune(
             | ObjectUnionImplicit.IPolygon
             | ObjectUnionImplicit.ICircle
         > => {
-            const assert = (input: any): ObjectUnionImplicit => {
+            const assert = (
+                input: any,
+            ): Array<
+                | ObjectUnionImplicit.IPoint
+                | ObjectUnionImplicit.ILine
+                | ObjectUnionImplicit.ITriangle
+                | ObjectUnionImplicit.IRectangle
+                | ObjectUnionImplicit.IPolyline
+                | ObjectUnionImplicit.IPolygon
+                | ObjectUnionImplicit.ICircle
+            > => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUnionImplicit => {
+                ): input is Array<
+                    | ObjectUnionImplicit.IPoint
+                    | ObjectUnionImplicit.ILine
+                    | ObjectUnionImplicit.ITriangle
+                    | ObjectUnionImplicit.IRectangle
+                    | ObjectUnionImplicit.IPolyline
+                    | ObjectUnionImplicit.IPolygon
+                    | ObjectUnionImplicit.ICircle
+                > => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -402,7 +420,17 @@ export const test_assertPrune_ObjectUnionImplicit = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ObjectUnionImplicit): void => {
+            const prune = (
+                input: Array<
+                    | ObjectUnionImplicit.IPoint
+                    | ObjectUnionImplicit.ILine
+                    | ObjectUnionImplicit.ITriangle
+                    | ObjectUnionImplicit.IRectangle
+                    | ObjectUnionImplicit.IPolyline
+                    | ObjectUnionImplicit.IPolygon
+                    | ObjectUnionImplicit.ICircle
+                >,
+            ): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&

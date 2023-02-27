@@ -7,13 +7,13 @@ export const test_createAssertStringify_ObjectHierarchical =
         "ObjectHierarchical",
         ObjectHierarchical.generate,
         (input: any): string => {
-            const assert = (input: any): ObjectHierarchical.ICustomer => {
+            const assert = (input: any): ObjectHierarchical => {
                 const $guard = (typia.createAssertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectHierarchical.ICustomer => {
+                ): input is ObjectHierarchical => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -376,7 +376,7 @@ export const test_createAssertStringify_ObjectHierarchical =
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectHierarchical.ICustomer): string => {
+            const stringify = (input: ObjectHierarchical): string => {
                 const $number = (typia.createAssertStringify as any).number;
                 const $string = (typia.createAssertStringify as any).string;
                 const $io1 = (input: any): boolean =>

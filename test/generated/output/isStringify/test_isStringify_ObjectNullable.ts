@@ -13,7 +13,13 @@ export const test_isStringify_ObjectNullable = _test_isStringify(
                 ObjectNullable.IProduct,
             ],
         ): string | null => {
-            const is = (input: any): input is ObjectNullable => {
+            const is = (
+                input: any,
+            ): input is [
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+            ] => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&
@@ -52,7 +58,13 @@ export const test_isStringify_ObjectNullable = _test_isStringify(
                     $io0(input[2])
                 );
             };
-            const stringify = (input: ObjectNullable): string => {
+            const stringify = (
+                input: [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ],
+            ): string => {
                 const $string = (typia.isStringify as any).string;
                 const $throws = (typia.isStringify as any).throws;
                 const $io1 = (input: any): boolean =>

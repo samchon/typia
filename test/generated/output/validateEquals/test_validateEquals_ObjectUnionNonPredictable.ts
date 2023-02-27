@@ -21,7 +21,9 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUnionNonPredictable => {
+                ): input is Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                > => {
                     const $vo0 = (
                         input: any,
                         _path: string,

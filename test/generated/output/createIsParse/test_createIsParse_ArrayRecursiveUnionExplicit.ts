@@ -5,9 +5,7 @@ import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveU
 export const test_createIsParse_ArrayRecursiveUnionExplicit = _test_isParse(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
-    (
-        input: any,
-    ): typia.Primitive<Array<ArrayRecursiveUnionExplicit.IBucket>> => {
+    (input: any): typia.Primitive<ArrayRecursiveUnionExplicit> => {
         const is = (input: any): input is ArrayRecursiveUnionExplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&

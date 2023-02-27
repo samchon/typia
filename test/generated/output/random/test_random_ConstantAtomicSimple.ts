@@ -8,10 +8,10 @@ export const test_random_ConstantAtomicSimple = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<[false, true, 2, "three"]> => {
+        ): typia.Primitive<ConstantAtomicSimple> => {
             return [false, true, 2, "three"];
         })(),
-    (input: any): [false, true, 2, "three"] => {
+    (input: any): ConstantAtomicSimple => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

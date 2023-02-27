@@ -5,14 +5,14 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_createAssertParse_ObjectRecursive = _test_assertParse(
     "ObjectRecursive",
     ObjectRecursive.generate,
-    (input: string): typia.Primitive<ObjectRecursive.IDepartment> => {
-        const assert = (input: any): ObjectRecursive.IDepartment => {
+    (input: string): typia.Primitive<ObjectRecursive> => {
+        const assert = (input: any): ObjectRecursive => {
             const $guard = (typia.createAssertParse as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectRecursive.IDepartment => {
+            ): input is ObjectRecursive => {
                 const $ao0 = (
                     input: any,
                     _path: string,

@@ -6,9 +6,7 @@ export const test_createValidateStringify_ObjectIntersection =
     _test_validateStringify(
         "ObjectIntersection",
         ObjectIntersection.generate,
-        (
-            input: ObjectIntersection.IEmail & ObjectIntersection.IName,
-        ): typia.IValidation<string> => {
+        (input: ObjectIntersection): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectIntersection> => {

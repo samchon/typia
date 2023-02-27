@@ -7,7 +7,9 @@ export const test_isPrune_ObjectUndefined = _test_isPrune(
     ObjectUndefined.generate,
     (input) =>
         ((input: any): input is Array<ObjectUndefined.ILecture> => {
-            const is = (input: any): input is ObjectUndefined => {
+            const is = (
+                input: any,
+            ): input is Array<ObjectUndefined.ILecture> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     (undefined === input.professor ||
@@ -39,7 +41,7 @@ export const test_isPrune_ObjectUndefined = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: ObjectUndefined): void => {
+            const prune = (input: Array<ObjectUndefined.ILecture>): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;

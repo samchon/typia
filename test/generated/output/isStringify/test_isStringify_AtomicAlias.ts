@@ -7,7 +7,7 @@ export const test_isStringify_AtomicAlias = _test_isStringify(
     AtomicAlias.generate,
     (input) =>
         ((input: [boolean, number, string]): string | null => {
-            const is = (input: any): input is AtomicAlias => {
+            const is = (input: any): input is [boolean, number, string] => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -17,7 +17,7 @@ export const test_isStringify_AtomicAlias = _test_isStringify(
                     "string" === typeof input[2]
                 );
             };
-            const stringify = (input: AtomicAlias): string => {
+            const stringify = (input: [boolean, number, string]): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 return `[${input[0]},${$number(input[1])},${$string(

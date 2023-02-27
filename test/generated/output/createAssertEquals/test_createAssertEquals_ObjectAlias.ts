@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_createAssertEquals_ObjectAlias = _test_assertEquals(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input: any): Array<ObjectAlias.IMember> => {
+    (input: any): ObjectAlias => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

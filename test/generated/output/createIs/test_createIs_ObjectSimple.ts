@@ -5,7 +5,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_createIs_ObjectSimple = _test_is(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input: any): input is ObjectSimple.IBox3D => {
+    (input: any): input is ObjectSimple => {
         const $io0 = (input: any): boolean =>
             "object" === typeof input.scale &&
             null !== input.scale &&

@@ -13,7 +13,7 @@ export const test_validate_NativeUnion = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is NativeUnion => {
+            ): input is Array<NativeUnion.Union> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

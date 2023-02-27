@@ -5,9 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_createValidateParse_TagStep = _test_validateParse(
     "TagStep",
     TagStep.generate,
-    (
-        input: string,
-    ): typia.IValidation<typia.Primitive<Array<TagStep.Type>>> => {
+    (input: string): typia.IValidation<typia.Primitive<TagStep>> => {
         const validate = (input: any): typia.IValidation<TagStep> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

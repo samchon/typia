@@ -8,9 +8,7 @@ export const test_validateParse_DynamicConstant = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<{ a: number; b: number; c: number; d: number }>
-        > => {
+        ): typia.IValidation<typia.Primitive<DynamicConstant>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<DynamicConstant> => {

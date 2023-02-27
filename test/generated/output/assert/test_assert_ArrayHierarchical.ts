@@ -12,7 +12,7 @@ export const test_assert_ArrayHierarchical = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayHierarchical => {
+            ): input is Array<ArrayHierarchical.ICompany> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

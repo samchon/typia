@@ -9,14 +9,14 @@ export const test_validatePrune_TagObjectUnion = _test_validatePrune(
         ((input: any): typia.IValidation<Array<TagObjectUnion.Type>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TagObjectUnion> => {
+            ): typia.IValidation<Array<TagObjectUnion.Type>> => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TagObjectUnion => {
+                ): input is Array<TagObjectUnion.Type> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -120,7 +120,7 @@ export const test_validatePrune_TagObjectUnion = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: TagObjectUnion): void => {
+            const prune = (input: Array<TagObjectUnion.Type>): void => {
                 const $throws = (typia.validatePrune as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value && 3 <= input.value;

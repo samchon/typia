@@ -6,9 +6,7 @@ export const test_createValidateEquals_ObjectGenericAlias =
     _test_validateEquals(
         "ObjectGenericAlias",
         ObjectGenericAlias.generate,
-        (
-            input: any,
-        ): typia.IValidation<ObjectGenericAlias.ISomething<string>> => {
+        (input: any): typia.IValidation<ObjectGenericAlias> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             const $join = (typia.createValidateEquals as any).join;
@@ -16,7 +14,7 @@ export const test_createValidateEquals_ObjectGenericAlias =
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectGenericAlias.Alias => {
+            ): input is ObjectGenericAlias => {
                 const $vo0 = (
                     input: any,
                     _path: string,

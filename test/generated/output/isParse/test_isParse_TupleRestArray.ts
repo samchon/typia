@@ -6,9 +6,7 @@ export const test_isParse_TupleRestArray = _test_isParse(
     "TupleRestArray",
     TupleRestArray.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
+        ((input: any): typia.Primitive<TupleRestArray> => {
             const is = (input: any): input is TupleRestArray => {
                 return (
                     Array.isArray(input) &&

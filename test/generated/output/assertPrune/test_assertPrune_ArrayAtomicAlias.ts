@@ -13,13 +13,23 @@ export const test_assertPrune_ArrayAtomicAlias = _test_assertPrune(
             ArrayAtomicAlias.Alias<number>,
             ArrayAtomicAlias.Alias<string>,
         ] => {
-            const assert = (input: any): ArrayAtomicAlias => {
+            const assert = (
+                input: any,
+            ): [
+                ArrayAtomicAlias.Alias<boolean>,
+                ArrayAtomicAlias.Alias<number>,
+                ArrayAtomicAlias.Alias<string>,
+            ] => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayAtomicAlias => {
+                ): input is [
+                    ArrayAtomicAlias.Alias<boolean>,
+                    ArrayAtomicAlias.Alias<number>,
+                    ArrayAtomicAlias.Alias<string>,
+                ] => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -85,7 +95,13 @@ export const test_assertPrune_ArrayAtomicAlias = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ArrayAtomicAlias): void => {};
+            const prune = (
+                input: [
+                    ArrayAtomicAlias.Alias<boolean>,
+                    ArrayAtomicAlias.Alias<number>,
+                    ArrayAtomicAlias.Alias<string>,
+                ],
+            ): void => {};
             assert(input);
             prune(input);
             return input;

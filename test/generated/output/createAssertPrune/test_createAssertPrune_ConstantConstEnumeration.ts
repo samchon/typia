@@ -6,7 +6,7 @@ export const test_createAssertPrune_ConstantConstEnumeration =
     _test_assertPrune(
         "ConstantConstEnumeration",
         ConstantConstEnumeration.generate,
-        (input: any): Array<ConstantConstEnumeration.Enumeration> => {
+        (input: any): ConstantConstEnumeration => {
             const assert = (input: any): ConstantConstEnumeration => {
                 const $guard = (typia.createAssertPrune as any).guard;
                 ((

@@ -5,7 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_createPrune_TagAtomicUnion = _test_prune(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input: Array<TagAtomicUnion.Type>): void => {
+    (input: TagAtomicUnion): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if ("value" === key) continue;

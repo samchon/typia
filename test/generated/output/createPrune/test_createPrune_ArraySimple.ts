@@ -5,7 +5,7 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 export const test_createPrune_ArraySimple = _test_prune(
     "ArraySimple",
     ArraySimple.generate,
-    (input: Array<ArraySimple.IPerson>): void => {
+    (input: ArraySimple): void => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.name &&
             "string" === typeof input.body &&

@@ -16,7 +16,13 @@ export const test_validateStringify_ConstantAtomicWrapper =
             ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ConstantAtomicWrapper> => {
+                ): typia.IValidation<
+                    [
+                        ConstantAtomicWrapper.IPointer<boolean>,
+                        ConstantAtomicWrapper.IPointer<number>,
+                        ConstantAtomicWrapper.IPointer<string>,
+                    ]
+                > => {
                     const errors = [] as any[];
                     const $report = (typia.validateStringify as any).report(
                         errors,
@@ -25,7 +31,11 @@ export const test_validateStringify_ConstantAtomicWrapper =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ConstantAtomicWrapper => {
+                    ): input is [
+                        ConstantAtomicWrapper.IPointer<boolean>,
+                        ConstantAtomicWrapper.IPointer<number>,
+                        ConstantAtomicWrapper.IPointer<string>,
+                    ] => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -143,7 +153,13 @@ export const test_validateStringify_ConstantAtomicWrapper =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (input: ConstantAtomicWrapper): string => {
+                const stringify = (
+                    input: [
+                        ConstantAtomicWrapper.IPointer<boolean>,
+                        ConstantAtomicWrapper.IPointer<number>,
+                        ConstantAtomicWrapper.IPointer<string>,
+                    ],
+                ): string => {
                     const $number = (typia.validateStringify as any).number;
                     const $string = (typia.validateStringify as any).string;
                     return `[${`{"value":${input[0].value}}`},${`{"value":${$number(

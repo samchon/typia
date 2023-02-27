@@ -18,7 +18,11 @@ export const test_assert_ConstantAtomicWrapper = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ConstantAtomicWrapper => {
+            ): input is [
+                ConstantAtomicWrapper.IPointer<boolean>,
+                ConstantAtomicWrapper.IPointer<number>,
+                ConstantAtomicWrapper.IPointer<string>,
+            ] => {
                 const $ao0 = (
                     input: any,
                     _path: string,

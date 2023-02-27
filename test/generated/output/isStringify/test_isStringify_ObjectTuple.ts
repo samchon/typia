@@ -9,7 +9,9 @@ export const test_isStringify_ObjectTuple = _test_isStringify(
         ((
             input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
         ): string | null => {
-            const is = (input: any): input is ObjectTuple => {
+            const is = (
+                input: any,
+            ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
@@ -29,7 +31,9 @@ export const test_isStringify_ObjectTuple = _test_isStringify(
                     $io1(input[1])
                 );
             };
-            const stringify = (input: ObjectTuple): string => {
+            const stringify = (
+                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
+            ): string => {
                 const $string = (typia.isStringify as any).string;
                 return `[${`{"id":${$string(input[0].id)},"code":${$string(
                     input[0].code,

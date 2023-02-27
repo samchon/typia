@@ -5,7 +5,7 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 export const test_createIsStringify_ObjectUndefined = _test_isStringify(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input: Array<ObjectUndefined.ILecture>): string | null => {
+    (input: ObjectUndefined): string | null => {
         const is = (input: any): input is ObjectUndefined => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&

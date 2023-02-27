@@ -13,14 +13,14 @@ export const test_validateClone_TupleRestAtomic = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TupleRestAtomic> => {
+            ): typia.IValidation<[boolean, number, ...string[]]> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleRestAtomic => {
+                ): input is [boolean, number, ...string[]] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -85,8 +85,8 @@ export const test_validateClone_TupleRestAtomic = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: TupleRestAtomic,
-            ): typia.Primitive<TupleRestAtomic> => {
+                input: [boolean, number, ...string[]],
+            ): typia.Primitive<[boolean, number, ...string[]]> => {
                 return Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
                     "number" === typeof input[1] &&

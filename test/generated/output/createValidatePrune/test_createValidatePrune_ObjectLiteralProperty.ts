@@ -6,10 +6,10 @@ export const test_createValidatePrune_ObjectLiteralProperty =
     _test_validatePrune(
         "ObjectLiteralProperty",
         ObjectLiteralProperty.generate,
-        (input: any): typia.IValidation<ObjectLiteralProperty.ISomething> => {
+        (input: any): typia.IValidation<ObjectLiteralProperty> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectLiteralProperty.ISomething> => {
+            ): typia.IValidation<ObjectLiteralProperty> => {
                 const errors = [] as any[];
                 const $report = (typia.createValidatePrune as any).report(
                     errors,
@@ -18,7 +18,7 @@ export const test_createValidatePrune_ObjectLiteralProperty =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectLiteralProperty.ISomething => {
+                ): input is ObjectLiteralProperty => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -76,7 +76,7 @@ export const test_createValidatePrune_ObjectLiteralProperty =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ObjectLiteralProperty.ISomething): void => {
+            const prune = (input: ObjectLiteralProperty): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (

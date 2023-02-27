@@ -5,7 +5,7 @@ import { TagType } from "../../../structures/TagType";
 export const test_createValidateClone_TagType = _test_validateClone(
     "TagType",
     TagType.generate,
-    (input: any): typia.IValidation<typia.Primitive<Array<TagType.Type>>> => {
+    (input: any): typia.IValidation<typia.Primitive<TagType>> => {
         const validate = (input: any): typia.IValidation<TagType> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

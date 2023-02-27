@@ -19,13 +19,35 @@ export const test_assertPrune_AtomicClass = _test_assertPrune(
             String | "characters",
             string | String,
         ] => {
-            const assert = (input: any): AtomicClass => {
+            const assert = (
+                input: any,
+            ): [
+                Boolean,
+                false | Boolean,
+                boolean | Boolean,
+                Number,
+                Number | 1,
+                number | Number,
+                String,
+                String | "characters",
+                string | String,
+            ] => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is AtomicClass => {
+                ): input is [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ] => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -144,7 +166,19 @@ export const test_assertPrune_AtomicClass = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: AtomicClass): void => {};
+            const prune = (
+                input: [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ],
+            ): void => {};
             assert(input);
             prune(input);
             return input;

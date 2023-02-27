@@ -5,24 +5,7 @@ import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 export const test_createStringify_TupleHierarchical = _test_stringify(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (
-        input: [
-            boolean,
-            null,
-            number,
-            [boolean, null, [number, [boolean, string]]],
-            [
-                number,
-                Array<
-                    [
-                        string,
-                        boolean,
-                        Array<[number, number, [boolean, string]]>,
-                    ]
-                >,
-            ],
-        ],
-    ): string => {
+    (input: TupleHierarchical): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         return `[${input[0]},null,${$number(input[2])},${`[${

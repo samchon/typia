@@ -18,7 +18,7 @@ export const test_validateEquals_ConstantConstEnumeration =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ConstantConstEnumeration => {
+                ): input is Array<ConstantConstEnumeration.Enumeration> => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {

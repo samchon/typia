@@ -6,7 +6,7 @@ export const test_assertParse_TagRange = _test_assertParse(
     "TagRange",
     TagRange.generate,
     (input) =>
-        ((input: string): typia.Primitive<Array<TagRange.Type>> => {
+        ((input: string): typia.Primitive<TagRange> => {
             const assert = (input: any): TagRange => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

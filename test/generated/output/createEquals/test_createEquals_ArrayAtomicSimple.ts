@@ -8,7 +8,7 @@ export const test_createEquals_ArrayAtomicSimple = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is [Array<boolean>, Array<number>, Array<string>] => {
+    ): input is ArrayAtomicSimple => {
         return (
             Array.isArray(input) &&
             input.length === 3 &&

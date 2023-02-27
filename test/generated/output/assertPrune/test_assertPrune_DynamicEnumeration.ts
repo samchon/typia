@@ -20,13 +20,37 @@ export const test_assertPrune_DynamicEnumeration = _test_assertPrune(
             pt?: string | undefined;
             ru?: string | undefined;
         } => {
-            const assert = (input: any): DynamicEnumeration => {
+            const assert = (
+                input: any,
+            ): {
+                ar?: string | undefined;
+                "zh-Hans"?: string | undefined;
+                "zh-Hant"?: string | undefined;
+                en?: string | undefined;
+                fr?: string | undefined;
+                de?: string | undefined;
+                ja?: string | undefined;
+                ko?: string | undefined;
+                pt?: string | undefined;
+                ru?: string | undefined;
+            } => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is DynamicEnumeration => {
+                ): input is {
+                    ar?: string | undefined;
+                    "zh-Hans"?: string | undefined;
+                    "zh-Hant"?: string | undefined;
+                    en?: string | undefined;
+                    fr?: string | undefined;
+                    de?: string | undefined;
+                    ja?: string | undefined;
+                    ko?: string | undefined;
+                    pt?: string | undefined;
+                    ru?: string | undefined;
+                } => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -116,7 +140,18 @@ export const test_assertPrune_DynamicEnumeration = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: DynamicEnumeration): void => {
+            const prune = (input: {
+                ar?: string | undefined;
+                "zh-Hans"?: string | undefined;
+                "zh-Hant"?: string | undefined;
+                en?: string | undefined;
+                fr?: string | undefined;
+                de?: string | undefined;
+                ja?: string | undefined;
+                ko?: string | undefined;
+                pt?: string | undefined;
+                ru?: string | undefined;
+            }): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (

@@ -5,7 +5,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_createAssertPrune_ObjectGenericArray = _test_assertPrune(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (input: any): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+    (input: any): ObjectGenericArray => {
         const assert = (input: any): ObjectGenericArray => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

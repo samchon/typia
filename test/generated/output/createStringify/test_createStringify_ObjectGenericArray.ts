@@ -5,7 +5,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_createStringify_ObjectGenericArray = _test_stringify(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>): string => {
+    (input: ObjectGenericArray): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
         const $io1 = (input: any): boolean =>

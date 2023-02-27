@@ -7,7 +7,7 @@ export const test_createRandom_ObjectLiteralProperty = _test_random(
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<ObjectLiteralProperty.ISomething> => {
+    ): typia.Primitive<ObjectLiteralProperty> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
@@ -22,13 +22,13 @@ export const test_createRandom_ObjectLiteralProperty = _test_random(
         });
         return $ro0();
     },
-    (input: any): ObjectLiteralProperty.ISomething => {
+    (input: any): ObjectLiteralProperty => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectLiteralProperty.ISomething => {
+        ): input is ObjectLiteralProperty => {
             const $ao0 = (
                 input: any,
                 _path: string,

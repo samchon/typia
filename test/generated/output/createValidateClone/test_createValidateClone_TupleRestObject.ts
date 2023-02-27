@@ -5,11 +5,7 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 export const test_createValidateClone_TupleRestObject = _test_validateClone(
     "TupleRestObject",
     TupleRestObject.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        typia.Primitive<[boolean, number, ...TupleRestObject.IObject[]]>
-    > => {
+    (input: any): typia.IValidation<typia.Primitive<TupleRestObject>> => {
         const validate = (input: any): typia.IValidation<TupleRestObject> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

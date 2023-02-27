@@ -11,13 +11,16 @@ export const test_assertClone_ObjectIntersection = _test_assertClone(
         ): typia.Primitive<
             ObjectIntersection.IEmail & ObjectIntersection.IName
         > => {
-            const assert = (input: any): ObjectIntersection => {
+            const assert = (
+                input: any,
+            ): ObjectIntersection.IEmail & ObjectIntersection.IName => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectIntersection => {
+                ): input is ObjectIntersection.IEmail &
+                    ObjectIntersection.IName => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -54,8 +57,10 @@ export const test_assertClone_ObjectIntersection = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ObjectIntersection,
-            ): typia.Primitive<ObjectIntersection> => {
+                input: ObjectIntersection.IEmail & ObjectIntersection.IName,
+            ): typia.Primitive<
+                ObjectIntersection.IEmail & ObjectIntersection.IName
+            > => {
                 const $co0 = (input: any): any => ({
                     email: input.email as any,
                     name: input.name as any,

@@ -26,13 +26,45 @@ export const test_assertClone_TupleHierarchical = _test_assertClone(
                 ],
             ]
         > => {
-            const assert = (input: any): TupleHierarchical => {
+            const assert = (
+                input: any,
+            ): [
+                boolean,
+                null,
+                number,
+                [boolean, null, [number, [boolean, string]]],
+                [
+                    number,
+                    Array<
+                        [
+                            string,
+                            boolean,
+                            Array<[number, number, [boolean, string]]>,
+                        ]
+                    >,
+                ],
+            ] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleHierarchical => {
+                ): input is [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ] => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -332,8 +364,40 @@ export const test_assertClone_TupleHierarchical = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: TupleHierarchical,
-            ): typia.Primitive<TupleHierarchical> => {
+                input: [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ],
+            ): typia.Primitive<
+                [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ]
+            > => {
                 return Array.isArray(input) &&
                     input.length === 5 &&
                     "boolean" === typeof input[0] &&

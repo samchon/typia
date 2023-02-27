@@ -11,7 +11,11 @@ export const test_isPrune_ObjectUnionNonPredictable = _test_isPrune(
         ): input is Array<
             ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
         > => {
-            const is = (input: any): input is ObjectUnionNonPredictable => {
+            const is = (
+                input: any,
+            ): input is Array<
+                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+            > => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -50,7 +54,11 @@ export const test_isPrune_ObjectUnionNonPredictable = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: ObjectUnionNonPredictable): void => {
+            const prune = (
+                input: Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                >,
+            ): void => {
                 const $throws = (typia.isPrune as any).throws;
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&

@@ -17,14 +17,24 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectNullable> => {
+            ): typia.IValidation<
+                [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectNullable => {
+                ): input is [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -237,7 +247,13 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ObjectNullable): void => {
+            const prune = (
+                input: [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ],
+            ): void => {
                 const $throws = (typia.validatePrune as any).throws;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&

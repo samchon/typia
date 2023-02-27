@@ -5,10 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_createEquals_TagStep = _test_equals(
     "TagStep",
     TagStep.generate,
-    (
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is Array<TagStep.Type> => {
+    (input: any, _exceptionable: boolean = true): input is TagStep => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.exclusiveMinimum &&
             0 === (input.exclusiveMinimum % 5) - 3 &&

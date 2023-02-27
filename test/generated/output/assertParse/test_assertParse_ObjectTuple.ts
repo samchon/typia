@@ -6,9 +6,7 @@ export const test_assertParse_ObjectTuple = _test_assertParse(
     "ObjectTuple",
     ObjectTuple.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
+        ((input: string): typia.Primitive<ObjectTuple> => {
             const assert = (input: any): ObjectTuple => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

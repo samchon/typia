@@ -18,7 +18,11 @@ export const test_assert_ToJsonAtomicSimple = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ToJsonAtomicSimple => {
+            ): input is [
+                ToJsonAtomicSimple.IToJson<boolean>,
+                ToJsonAtomicSimple.IToJson<number>,
+                ToJsonAtomicSimple.IToJson<string>,
+            ] => {
                 const $ao0 = (
                     input: any,
                     _path: string,

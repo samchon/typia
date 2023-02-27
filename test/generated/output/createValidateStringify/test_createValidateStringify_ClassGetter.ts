@@ -5,10 +5,8 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 export const test_createValidateStringify_ClassGetter = _test_validateStringify(
     "ClassGetter",
     ClassGetter.generate,
-    (input: ClassGetter.Person): typia.IValidation<string> => {
-        const validate = (
-            input: any,
-        ): typia.IValidation<ClassGetter.Person> => {
+    (input: ClassGetter): typia.IValidation<string> => {
+        const validate = (input: any): typia.IValidation<ClassGetter> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(
                 errors,
@@ -17,7 +15,7 @@ export const test_createValidateStringify_ClassGetter = _test_validateStringify(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ClassGetter.Person => {
+            ): input is ClassGetter => {
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -66,7 +64,7 @@ export const test_createValidateStringify_ClassGetter = _test_validateStringify(
                 data: success ? input : undefined,
             } as any;
         };
-        const stringify = (input: ClassGetter.Person): string => {
+        const stringify = (input: ClassGetter): string => {
             const $string = (typia.createValidateStringify as any).string;
             const $so0 = (input: any): any =>
                 `{"id":${$string(input.id)},"name":${$string(

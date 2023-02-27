@@ -5,7 +5,7 @@ import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 export const test_createPrune_ConstantAtomicUnion = _test_prune(
     "ConstantAtomicUnion",
     ConstantAtomicUnion.generate,
-    (input: Array<ConstantAtomicUnion.Union>): void => {
+    (input: ConstantAtomicUnion): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if ("key" === key) continue;

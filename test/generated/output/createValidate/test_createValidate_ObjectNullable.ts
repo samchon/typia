@@ -5,15 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_createValidate_ObjectNullable = _test_validate(
     "ObjectNullable",
     ObjectNullable.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        [
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-        ]
-    > => {
+    (input: any): typia.IValidation<ObjectNullable> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

@@ -5,7 +5,7 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_createValidateEquals_ObjectRecursive = _test_validateEquals(
     "ObjectRecursive",
     ObjectRecursive.generate,
-    (input: any): typia.IValidation<ObjectRecursive.IDepartment> => {
+    (input: any): typia.IValidation<ObjectRecursive> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;
@@ -13,7 +13,7 @@ export const test_createValidateEquals_ObjectRecursive = _test_validateEquals(
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectRecursive.IDepartment => {
+        ): input is ObjectRecursive => {
             const $vo0 = (
                 input: any,
                 _path: string,

@@ -8,9 +8,7 @@ export const test_validateParse_ObjectUndefined = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<Array<ObjectUndefined.ILecture>>
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectUndefined>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUndefined> => {

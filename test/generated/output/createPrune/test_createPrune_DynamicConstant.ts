@@ -5,7 +5,7 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 export const test_createPrune_DynamicConstant = _test_prune(
     "DynamicConstant",
     DynamicConstant.generate,
-    (input: { a: number; b: number; c: number; d: number }): void => {
+    (input: DynamicConstant): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if ("a" === key || "b" === key || "c" === key || "d" === key)

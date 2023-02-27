@@ -12,7 +12,7 @@ export const test_assert_AtomicUnion = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is AtomicUnion => {
+            ): input is Array<AtomicUnion.Union> => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

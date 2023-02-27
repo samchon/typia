@@ -14,14 +14,16 @@ export const test_validateClone_ArrayRecursiveUnionExplicit =
             > => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ArrayRecursiveUnionExplicit> => {
+                ): typia.IValidation<
+                    Array<ArrayRecursiveUnionExplicit.IBucket>
+                > => {
                     const errors = [] as any[];
                     const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ArrayRecursiveUnionExplicit => {
+                    ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -423,8 +425,10 @@ export const test_validateClone_ArrayRecursiveUnionExplicit =
                     } as any;
                 };
                 const clone = (
-                    input: ArrayRecursiveUnionExplicit,
-                ): typia.Primitive<ArrayRecursiveUnionExplicit> => {
+                    input: Array<ArrayRecursiveUnionExplicit.IBucket>,
+                ): typia.Primitive<
+                    Array<ArrayRecursiveUnionExplicit.IBucket>
+                > => {
                     const $throws = (typia.validateClone as any).throws;
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&

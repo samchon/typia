@@ -6,11 +6,7 @@ export const test_assertParse_ObjectGenericArray = _test_assertParse(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.Primitive<
-            ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
-        > => {
+        ((input: string): typia.Primitive<ObjectGenericArray> => {
             const assert = (input: any): ObjectGenericArray => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

@@ -5,17 +5,7 @@ import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 export const test_createAssertEquals_ObjectUnionImplicit = _test_assertEquals(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (
-        input: any,
-    ): Array<
-        | ObjectUnionImplicit.IPoint
-        | ObjectUnionImplicit.ILine
-        | ObjectUnionImplicit.ITriangle
-        | ObjectUnionImplicit.IRectangle
-        | ObjectUnionImplicit.IPolyline
-        | ObjectUnionImplicit.IPolygon
-        | ObjectUnionImplicit.ICircle
-    > => {
+    (input: any): ObjectUnionImplicit => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

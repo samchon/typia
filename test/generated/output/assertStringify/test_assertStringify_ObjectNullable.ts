@@ -7,13 +7,23 @@ export const test_assertStringify_ObjectNullable = _test_assertStringify(
     ObjectNullable.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ObjectNullable => {
+            const assert = (
+                input: any,
+            ): [
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+                ObjectNullable.IProduct,
+            ] => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectNullable => {
+                ): input is [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -165,7 +175,13 @@ export const test_assertStringify_ObjectNullable = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectNullable): string => {
+            const stringify = (
+                input: [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ],
+            ): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $throws = (typia.assertStringify as any).throws;
                 const $io1 = (input: any): boolean =>

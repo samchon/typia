@@ -5,7 +5,7 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_createStringify_AtomicUnion = _test_stringify(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input: Array<AtomicUnion.Union>): string => {
+    (input: AtomicUnion): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
         const $throws = (typia.createStringify as any).throws;

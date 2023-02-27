@@ -5,7 +5,7 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 export const test_createAssertEquals_ObjectUndefined = _test_assertEquals(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input: any): Array<ObjectUndefined.ILecture> => {
+    (input: any): ObjectUndefined => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

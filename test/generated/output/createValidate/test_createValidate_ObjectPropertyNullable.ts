@@ -5,18 +5,7 @@ import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullab
 export const test_createValidate_ObjectPropertyNullable = _test_validate(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        [
-            Array<ObjectPropertyNullable.IPointer<boolean>>,
-            Array<ObjectPropertyNullable.IPointer<number>>,
-            Array<ObjectPropertyNullable.IPointer<string>>,
-            Array<
-                ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-            >,
-        ]
-    > => {
+    (input: any): typia.IValidation<ObjectPropertyNullable> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

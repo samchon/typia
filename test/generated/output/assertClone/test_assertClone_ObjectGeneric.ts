@@ -15,13 +15,23 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                 ObjectGeneric.ISomething<string>,
             ]
         > => {
-            const assert = (input: any): ObjectGeneric => {
+            const assert = (
+                input: any,
+            ): [
+                ObjectGeneric.ISomething<boolean>,
+                ObjectGeneric.ISomething<number>,
+                ObjectGeneric.ISomething<string>,
+            ] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGeneric => {
+                ): input is [
+                    ObjectGeneric.ISomething<boolean>,
+                    ObjectGeneric.ISomething<number>,
+                    ObjectGeneric.ISomething<string>,
+                ] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -270,8 +280,18 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ObjectGeneric,
-            ): typia.Primitive<ObjectGeneric> => {
+                input: [
+                    ObjectGeneric.ISomething<boolean>,
+                    ObjectGeneric.ISomething<number>,
+                    ObjectGeneric.ISomething<string>,
+                ],
+            ): typia.Primitive<
+                [
+                    ObjectGeneric.ISomething<boolean>,
+                    ObjectGeneric.ISomething<number>,
+                    ObjectGeneric.ISomething<string>,
+                ]
+            > => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&
                     "object" === typeof input.child &&

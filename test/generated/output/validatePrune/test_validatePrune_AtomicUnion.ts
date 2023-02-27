@@ -7,14 +7,16 @@ export const test_validatePrune_AtomicUnion = _test_validatePrune(
     AtomicUnion.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<AtomicUnion.Union>> => {
-            const validate = (input: any): typia.IValidation<AtomicUnion> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<AtomicUnion.Union>> => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is AtomicUnion => {
+                ): input is Array<AtomicUnion.Union> => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -54,7 +56,7 @@ export const test_validatePrune_AtomicUnion = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: AtomicUnion): void => {};
+            const prune = (input: Array<AtomicUnion.Union>): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

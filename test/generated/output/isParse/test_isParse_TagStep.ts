@@ -6,7 +6,7 @@ export const test_isParse_TagStep = _test_isParse(
     "TagStep",
     TagStep.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<TagStep.Type>> => {
+        ((input: any): typia.Primitive<TagStep> => {
             const is = (input: any): input is TagStep => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&

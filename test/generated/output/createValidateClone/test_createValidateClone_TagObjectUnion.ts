@@ -5,9 +5,7 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_createValidateClone_TagObjectUnion = _test_validateClone(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (
-        input: any,
-    ): typia.IValidation<typia.Primitive<Array<TagObjectUnion.Type>>> => {
+    (input: any): typia.IValidation<typia.Primitive<TagObjectUnion>> => {
         const validate = (input: any): typia.IValidation<TagObjectUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

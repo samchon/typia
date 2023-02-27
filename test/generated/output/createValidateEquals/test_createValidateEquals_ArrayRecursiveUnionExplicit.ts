@@ -6,9 +6,7 @@ export const test_createValidateEquals_ArrayRecursiveUnionExplicit =
     _test_validateEquals(
         "ArrayRecursiveUnionExplicit",
         ArrayRecursiveUnionExplicit.generate,
-        (
-            input: any,
-        ): typia.IValidation<Array<ArrayRecursiveUnionExplicit.IBucket>> => {
+        (input: any): typia.IValidation<ArrayRecursiveUnionExplicit> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             const $join = (typia.createValidateEquals as any).join;

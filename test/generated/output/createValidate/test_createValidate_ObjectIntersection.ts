@@ -5,11 +5,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_createValidate_ObjectIntersection = _test_validate(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        ObjectIntersection.IEmail & ObjectIntersection.IName
-    > => {
+    (input: any): typia.IValidation<ObjectIntersection> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

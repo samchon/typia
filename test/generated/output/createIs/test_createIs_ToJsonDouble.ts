@@ -5,7 +5,7 @@ import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 export const test_createIs_ToJsonDouble = _test_is(
     "ToJsonDouble",
     ToJsonDouble.generate,
-    (input: any): input is ToJsonDouble.Parent => {
+    (input: any): input is ToJsonDouble => {
         return "object" === typeof input && null !== input && true;
     },
 );

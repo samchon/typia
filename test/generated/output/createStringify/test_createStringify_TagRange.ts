@@ -5,7 +5,7 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_createStringify_TagRange = _test_stringify(
     "TagRange",
     TagRange.generate,
-    (input: Array<TagRange.Type>): string => {
+    (input: TagRange): string => {
         const $number = (typia.createStringify as any).number;
         const $so0 = (input: any): any =>
             `{"greater":${$number(input.greater)},"greater_equal":${$number(

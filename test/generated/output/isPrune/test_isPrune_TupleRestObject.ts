@@ -9,7 +9,9 @@ export const test_isPrune_TupleRestObject = _test_isPrune(
         ((
             input: any,
         ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
-            const is = (input: any): input is TupleRestObject => {
+            const is = (
+                input: any,
+            ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 return (
@@ -28,7 +30,9 @@ export const test_isPrune_TupleRestObject = _test_isPrune(
                         )
                 );
             };
-            const prune = (input: TupleRestObject): void => {
+            const prune = (
+                input: [boolean, number, ...TupleRestObject.IObject[]],
+            ): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 const $po0 = (input: any): any => {

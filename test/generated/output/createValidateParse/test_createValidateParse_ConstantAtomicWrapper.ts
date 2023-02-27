@@ -8,15 +8,7 @@ export const test_createValidateParse_ConstantAtomicWrapper =
         ConstantAtomicWrapper.generate,
         (
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<
-                [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ]
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<ConstantAtomicWrapper>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicWrapper> => {

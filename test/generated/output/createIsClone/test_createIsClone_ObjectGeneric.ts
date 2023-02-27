@@ -5,15 +5,7 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 export const test_createIsClone_ObjectGeneric = _test_isClone(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        [
-            ObjectGeneric.ISomething<boolean>,
-            ObjectGeneric.ISomething<number>,
-            ObjectGeneric.ISomething<string>,
-        ]
-    > | null => {
+    (input: any): typia.Primitive<ObjectGeneric> | null => {
         const is = (input: any): input is ObjectGeneric => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value &&

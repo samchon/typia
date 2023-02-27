@@ -5,9 +5,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_createValidateClone_ArrayUnion = _test_validateClone(
     "ArrayUnion",
     ArrayUnion.generate,
-    (
-        input: any,
-    ): typia.IValidation<typia.Primitive<Array<ArrayUnion.IUnion>>> => {
+    (input: any): typia.IValidation<typia.Primitive<ArrayUnion>> => {
         const validate = (input: any): typia.IValidation<ArrayUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

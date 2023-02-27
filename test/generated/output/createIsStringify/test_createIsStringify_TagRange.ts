@@ -5,7 +5,7 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_createIsStringify_TagRange = _test_isStringify(
     "TagRange",
     TagRange.generate,
-    (input: Array<TagRange.Type>): string | null => {
+    (input: TagRange): string | null => {
         const is = (input: any): input is TagRange => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.greater &&

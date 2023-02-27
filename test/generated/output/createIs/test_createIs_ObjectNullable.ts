@@ -5,13 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_createIs_ObjectNullable = _test_is(
     "ObjectNullable",
     ObjectNullable.generate,
-    (
-        input: any,
-    ): input is [
-        ObjectNullable.IProduct,
-        ObjectNullable.IProduct,
-        ObjectNullable.IProduct,
-    ] => {
+    (input: any): input is ObjectNullable => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&
             "object" === typeof input.manufacturer &&

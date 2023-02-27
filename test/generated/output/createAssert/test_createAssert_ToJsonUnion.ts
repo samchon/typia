@@ -5,16 +5,7 @@ import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 export const test_createAssert_ToJsonUnion = _test_assert(
     "ToJsonUnion",
     ToJsonUnion.generate,
-    (
-        input: any,
-    ): Array<
-        | string
-        | number
-        | ToJsonUnion.ICitizen
-        | ToJsonUnion.IWrapper<boolean>
-        | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-        | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-    > => {
+    (input: any): ToJsonUnion => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

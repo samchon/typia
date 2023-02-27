@@ -24,7 +24,14 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectPropertyNullable => {
+            ): input is [
+                Array<ObjectPropertyNullable.IPointer<boolean>>,
+                Array<ObjectPropertyNullable.IPointer<number>>,
+                Array<ObjectPropertyNullable.IPointer<string>>,
+                Array<
+                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
+                >,
+            ] => {
                 const $vo0 = (
                     input: any,
                     _path: string,

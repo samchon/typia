@@ -5,7 +5,7 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_createIs_ObjectHierarchical = _test_is(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
-    (input: any): input is ObjectHierarchical.ICustomer => {
+    (input: any): input is ObjectHierarchical => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&

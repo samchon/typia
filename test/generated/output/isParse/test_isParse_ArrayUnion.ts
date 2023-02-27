@@ -6,7 +6,7 @@ export const test_isParse_ArrayUnion = _test_isParse(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<ArrayUnion.IUnion>> => {
+        ((input: any): typia.Primitive<ArrayUnion> => {
             const is = (input: any): input is ArrayUnion => {
                 return (
                     Array.isArray(input) &&

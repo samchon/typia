@@ -5,14 +5,14 @@ import { ClassClosure } from "../../../structures/ClassClosure";
 export const test_createAssertEquals_ClassClosure = _test_assertEquals(
     "ClassClosure",
     ClassClosure.generate,
-    (input: any): ClassClosure.Something => {
+    (input: any): ClassClosure => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ClassClosure.Something => {
+        ): input is ClassClosure => {
             const $ao0 = (
                 input: any,
                 _path: string,

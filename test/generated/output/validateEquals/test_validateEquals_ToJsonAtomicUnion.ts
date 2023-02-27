@@ -14,7 +14,7 @@ export const test_validateEquals_ToJsonAtomicUnion = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ToJsonAtomicUnion => {
+            ): input is Array<ToJsonAtomicUnion.IToJson> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

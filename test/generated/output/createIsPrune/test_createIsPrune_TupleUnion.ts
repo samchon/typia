@@ -5,7 +5,7 @@ import { TupleUnion } from "../../../structures/TupleUnion";
 export const test_createIsPrune_TupleUnion = _test_isPrune(
     "TupleUnion",
     TupleUnion.generate,
-    (input: any): input is Array<TupleUnion.Union> => {
+    (input: any): input is TupleUnion => {
         const is = (input: any): input is TupleUnion => {
             return (
                 Array.isArray(input) &&

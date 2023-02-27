@@ -5,18 +5,7 @@ import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 export const test_createAssertEquals_ObjectUnionComposite = _test_assertEquals(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (
-        input: any,
-    ): Array<
-        | ObjectUnionComposite.IPoint
-        | ObjectUnionComposite.ILine
-        | ObjectUnionComposite.ITriangle
-        | ObjectUnionComposite.IRectangle
-        | ObjectUnionComposite.IPolyline
-        | ObjectUnionComposite.IPolygon
-        | ObjectUnionComposite.IPointedShape
-        | ObjectUnionComposite.ICircle
-    > => {
+    (input: any): ObjectUnionComposite => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

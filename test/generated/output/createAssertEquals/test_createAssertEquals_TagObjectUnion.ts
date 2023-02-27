@@ -5,7 +5,7 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_createAssertEquals_TagObjectUnion = _test_assertEquals(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input: any): Array<TagObjectUnion.Type> => {
+    (input: any): TagObjectUnion => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

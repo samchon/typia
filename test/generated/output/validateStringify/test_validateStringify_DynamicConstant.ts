@@ -14,14 +14,19 @@ export const test_validateStringify_DynamicConstant = _test_validateStringify(
         }): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<DynamicConstant> => {
+            ): typia.IValidation<{
+                a: number;
+                b: number;
+                c: number;
+                d: number;
+            }> => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is DynamicConstant => {
+                ): input is { a: number; b: number; c: number; d: number } => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -79,7 +84,12 @@ export const test_validateStringify_DynamicConstant = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: DynamicConstant): string => {
+            const stringify = (input: {
+                a: number;
+                b: number;
+                c: number;
+                d: number;
+            }): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $so0 = (input: any): any =>
                     `{"a":${$number(input.a)},"b":${$number(

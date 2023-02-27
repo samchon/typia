@@ -7,13 +7,13 @@ export const test_assertStringify_ObjectUndefined = _test_assertStringify(
     ObjectUndefined.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ObjectUndefined => {
+            const assert = (input: any): Array<ObjectUndefined.ILecture> => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUndefined => {
+                ): input is Array<ObjectUndefined.ILecture> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -121,7 +121,9 @@ export const test_assertStringify_ObjectUndefined = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectUndefined): string => {
+            const stringify = (
+                input: Array<ObjectUndefined.ILecture>,
+            ): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $number = (typia.assertStringify as any).number;
                 const $throws = (typia.assertStringify as any).throws;

@@ -5,7 +5,7 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_createIs_TagRange = _test_is(
     "TagRange",
     TagRange.generate,
-    (input: any): input is Array<TagRange.Type> => {
+    (input: any): input is TagRange => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.greater &&
             Number.isFinite(input.greater) &&

@@ -5,7 +5,7 @@ import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnume
 export const test_createAssert_ConstantConstEnumeration = _test_assert(
     "ConstantConstEnumeration",
     ConstantConstEnumeration.generate,
-    (input: any): Array<ConstantConstEnumeration.Enumeration> => {
+    (input: any): ConstantConstEnumeration => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

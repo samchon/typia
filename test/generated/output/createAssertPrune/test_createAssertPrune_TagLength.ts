@@ -5,7 +5,7 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_createAssertPrune_TagLength = _test_assertPrune(
     "TagLength",
     TagLength.generate,
-    (input: any): Array<TagLength.Type> => {
+    (input: any): TagLength => {
         const assert = (input: any): TagLength => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

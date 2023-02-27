@@ -5,7 +5,7 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 export const test_createIsParse_AtomicSimple = _test_isParse(
     "AtomicSimple",
     AtomicSimple.generate,
-    (input: any): typia.Primitive<[boolean, number, string]> => {
+    (input: any): typia.Primitive<AtomicSimple> => {
         const is = (input: any): input is AtomicSimple => {
             return (
                 Array.isArray(input) &&

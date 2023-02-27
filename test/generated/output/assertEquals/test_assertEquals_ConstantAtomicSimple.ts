@@ -12,7 +12,7 @@ export const test_assertEquals_ConstantAtomicSimple = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ConstantAtomicSimple => {
+            ): input is [false, true, 2, "three"] => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

@@ -8,7 +8,7 @@ export const test_random_TemplateConstant = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<Array<TemplateConstant.Type>> => {
+        ): typia.Primitive<TemplateConstant> => {
             const $pick = (typia.random as any).pick;
             const $generator = (typia.random as any).generator;
             const $ro0 = (
@@ -39,7 +39,7 @@ export const test_random_TemplateConstant = _test_random(
             });
             return (generator.array ?? $generator.array)(() => $ro0());
         })(),
-    (input: any): Array<TemplateConstant.Type> => {
+    (input: any): TemplateConstant => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

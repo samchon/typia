@@ -5,16 +5,7 @@ import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullab
 export const test_createStringify_ObjectPropertyNullable = _test_stringify(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
-    (
-        input: [
-            Array<ObjectPropertyNullable.IPointer<boolean>>,
-            Array<ObjectPropertyNullable.IPointer<number>>,
-            Array<ObjectPropertyNullable.IPointer<string>>,
-            Array<
-                ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-            >,
-        ],
-    ): string => {
+    (input: ObjectPropertyNullable): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $io4 = (input: any): boolean =>

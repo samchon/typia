@@ -16,7 +16,13 @@ export const test_validateStringify_ToJsonAtomicSimple =
             ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ToJsonAtomicSimple> => {
+                ): typia.IValidation<
+                    [
+                        ToJsonAtomicSimple.IToJson<boolean>,
+                        ToJsonAtomicSimple.IToJson<number>,
+                        ToJsonAtomicSimple.IToJson<string>,
+                    ]
+                > => {
                     const errors = [] as any[];
                     const $report = (typia.validateStringify as any).report(
                         errors,
@@ -25,7 +31,11 @@ export const test_validateStringify_ToJsonAtomicSimple =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ToJsonAtomicSimple => {
+                    ): input is [
+                        ToJsonAtomicSimple.IToJson<boolean>,
+                        ToJsonAtomicSimple.IToJson<number>,
+                        ToJsonAtomicSimple.IToJson<string>,
+                    ] => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -142,7 +152,13 @@ export const test_validateStringify_ToJsonAtomicSimple =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (input: ToJsonAtomicSimple): string => {
+                const stringify = (
+                    input: [
+                        ToJsonAtomicSimple.IToJson<boolean>,
+                        ToJsonAtomicSimple.IToJson<number>,
+                        ToJsonAtomicSimple.IToJson<string>,
+                    ],
+                ): string => {
                     const $number = (typia.validateStringify as any).number;
                     const $string = (typia.validateStringify as any).string;
                     return `[${input[0].toJSON()},${$number(

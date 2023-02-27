@@ -17,7 +17,7 @@ export const test_validate_ArrayAtomicSimple = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayAtomicSimple => {
+            ): input is [Array<boolean>, Array<number>, Array<string>] => {
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {

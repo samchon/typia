@@ -9,13 +9,15 @@ export const test_assertClone_TupleRestArray = _test_assertClone(
         ((
             input: any,
         ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
-            const assert = (input: any): TupleRestArray => {
+            const assert = (
+                input: any,
+            ): [boolean, number, ...Array<string>[]] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleRestArray => {
+                ): input is [boolean, number, ...Array<string>[]] => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -71,8 +73,8 @@ export const test_assertClone_TupleRestArray = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: TupleRestArray,
-            ): typia.Primitive<TupleRestArray> => {
+                input: [boolean, number, ...Array<string>[]],
+            ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
                 return Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
                     "number" === typeof input[1] &&

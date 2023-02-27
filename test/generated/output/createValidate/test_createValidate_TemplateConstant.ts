@@ -5,7 +5,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_createValidate_TemplateConstant = _test_validate(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: any): typia.IValidation<Array<TemplateConstant.Type>> => {
+    (input: any): typia.IValidation<TemplateConstant> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

@@ -124,8 +124,8 @@ async function main(): Promise<void> {
             "--project test/tsconfig.json",
         ].join(" "),
     );
-    cp.execSync("npm run prettier", { stdio: "inherit" });
     await __TypeRemover.remove(__dirname + "/../test/generated");
+    cp.execSync("npm run prettier", { stdio: "inherit" });
 }
 main().catch((exp) => {
     console.log(exp);

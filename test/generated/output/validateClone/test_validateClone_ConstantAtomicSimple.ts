@@ -11,14 +11,14 @@ export const test_validateClone_ConstantAtomicSimple = _test_validateClone(
         ): typia.IValidation<typia.Primitive<[false, true, 2, "three"]>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ConstantAtomicSimple> => {
+            ): typia.IValidation<[false, true, 2, "three"]> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ConstantAtomicSimple => {
+                ): input is [false, true, 2, "three"] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -73,8 +73,8 @@ export const test_validateClone_ConstantAtomicSimple = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ConstantAtomicSimple,
-            ): typia.Primitive<ConstantAtomicSimple> => {
+                input: [false, true, 2, "three"],
+            ): typia.Primitive<[false, true, 2, "three"]> => {
                 return Array.isArray(input) &&
                     input.length === 4 &&
                     false === input[0] &&

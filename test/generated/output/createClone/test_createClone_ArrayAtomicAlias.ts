@@ -5,19 +5,7 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_createClone_ArrayAtomicAlias = _test_clone(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
-    (
-        input: [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ],
-    ): typia.Primitive<
-        [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ]
-    > => {
+    (input: ArrayAtomicAlias): typia.Primitive<ArrayAtomicAlias> => {
         return Array.isArray(input) &&
             input.length === 3 &&
             Array.isArray(input[0]) &&

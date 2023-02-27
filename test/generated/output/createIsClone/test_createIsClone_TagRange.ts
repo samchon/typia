@@ -5,7 +5,7 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_createIsClone_TagRange = _test_isClone(
     "TagRange",
     TagRange.generate,
-    (input: any): typia.Primitive<Array<TagRange.Type>> | null => {
+    (input: any): typia.Primitive<TagRange> | null => {
         const is = (input: any): input is TagRange => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.greater &&

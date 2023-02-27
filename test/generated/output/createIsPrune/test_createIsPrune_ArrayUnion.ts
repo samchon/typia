@@ -5,7 +5,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_createIsPrune_ArrayUnion = _test_isPrune(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input: any): input is Array<ArrayUnion.IUnion> => {
+    (input: any): input is ArrayUnion => {
         const is = (input: any): input is ArrayUnion => {
             return (
                 Array.isArray(input) &&

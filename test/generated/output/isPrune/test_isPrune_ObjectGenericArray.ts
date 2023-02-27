@@ -9,7 +9,9 @@ export const test_isPrune_ObjectGenericArray = _test_isPrune(
         ((
             input: any,
         ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
-            const is = (input: any): input is ObjectGenericArray => {
+            const is = (
+                input: any,
+            ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&
                     null !== input.pagination &&
@@ -38,7 +40,9 @@ export const test_isPrune_ObjectGenericArray = _test_isPrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (input: ObjectGenericArray): void => {
+            const prune = (
+                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
+            ): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&

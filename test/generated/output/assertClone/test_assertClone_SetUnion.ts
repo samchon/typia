@@ -7,13 +7,13 @@ export const test_assertClone_SetUnion = _test_assertClone(
     SetUnion.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<SetUnion.Union>> => {
-            const assert = (input: any): SetUnion => {
+            const assert = (input: any): Array<SetUnion.Union> => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is SetUnion => {
+                ): input is Array<SetUnion.Union> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -260,7 +260,9 @@ export const test_assertClone_SetUnion = _test_assertClone(
                 })(input, "$input", true);
                 return input;
             };
-            const clone = (input: SetUnion): typia.Primitive<SetUnion> => {
+            const clone = (
+                input: Array<SetUnion.Union>,
+            ): typia.Primitive<Array<SetUnion.Union>> => {
                 return Array.isArray(input)
                     ? input.map((elem: any) =>
                           elem instanceof Set ? {} : (elem as any),

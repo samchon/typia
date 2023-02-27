@@ -7,7 +7,7 @@ export const test_isClone_ArrayUnion = _test_isClone(
     ArrayUnion.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<ArrayUnion.IUnion>> | null => {
-            const is = (input: any): input is ArrayUnion => {
+            const is = (input: any): input is Array<ArrayUnion.IUnion> => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -65,7 +65,9 @@ export const test_isClone_ArrayUnion = _test_isClone(
                     )
                 );
             };
-            const clone = (input: ArrayUnion): typia.Primitive<ArrayUnion> => {
+            const clone = (
+                input: Array<ArrayUnion.IUnion>,
+            ): typia.Primitive<Array<ArrayUnion.IUnion>> => {
                 const $throws = (typia.isClone as any).throws;
                 return Array.isArray(input)
                     ? input.map((elem: any) =>

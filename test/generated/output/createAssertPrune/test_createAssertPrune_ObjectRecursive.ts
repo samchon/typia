@@ -5,14 +5,14 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_createAssertPrune_ObjectRecursive = _test_assertPrune(
     "ObjectRecursive",
     ObjectRecursive.generate,
-    (input: any): ObjectRecursive.IDepartment => {
-        const assert = (input: any): ObjectRecursive.IDepartment => {
+    (input: any): ObjectRecursive => {
+        const assert = (input: any): ObjectRecursive => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectRecursive.IDepartment => {
+            ): input is ObjectRecursive => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -101,7 +101,7 @@ export const test_createAssertPrune_ObjectRecursive = _test_assertPrune(
             })(input, "$input", true);
             return input;
         };
-        const prune = (input: ObjectRecursive.IDepartment): void => {
+        const prune = (input: ObjectRecursive): void => {
             const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&

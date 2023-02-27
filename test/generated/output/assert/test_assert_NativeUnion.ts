@@ -12,7 +12,7 @@ export const test_assert_NativeUnion = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is NativeUnion => {
+            ): input is Array<NativeUnion.Union> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

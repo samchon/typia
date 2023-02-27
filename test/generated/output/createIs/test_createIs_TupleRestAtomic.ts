@@ -5,7 +5,7 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 export const test_createIs_TupleRestAtomic = _test_is(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (input: any): input is [boolean, number, ...string[]] => {
+    (input: any): input is TupleRestAtomic => {
         return (
             Array.isArray(input) &&
             "boolean" === typeof input[0] &&

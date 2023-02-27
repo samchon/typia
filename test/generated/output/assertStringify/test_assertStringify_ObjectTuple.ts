@@ -7,13 +7,15 @@ export const test_assertStringify_ObjectTuple = _test_assertStringify(
     ObjectTuple.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ObjectTuple => {
+            const assert = (
+                input: any,
+            ): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectTuple => {
+                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -93,7 +95,9 @@ export const test_assertStringify_ObjectTuple = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectTuple): string => {
+            const stringify = (
+                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
+            ): string => {
                 const $string = (typia.assertStringify as any).string;
                 return `[${`{"id":${$string(input[0].id)},"code":${$string(
                     input[0].code,

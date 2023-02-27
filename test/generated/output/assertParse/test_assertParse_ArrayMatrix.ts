@@ -6,7 +6,7 @@ export const test_assertParse_ArrayMatrix = _test_assertParse(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input) =>
-        ((input: string): typia.Primitive<Array<Array<Array<number>>>> => {
+        ((input: string): typia.Primitive<ArrayMatrix> => {
             const assert = (input: any): ArrayMatrix => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

@@ -10,7 +10,7 @@ export const test_validateParse_ArrayRecursiveUnionExplicit =
             ((
                 input: string,
             ): typia.IValidation<
-                typia.Primitive<Array<ArrayRecursiveUnionExplicit.IBucket>>
+                typia.Primitive<ArrayRecursiveUnionExplicit>
             > => {
                 const validate = (
                     input: any,

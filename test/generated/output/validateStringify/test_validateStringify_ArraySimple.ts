@@ -7,14 +7,16 @@ export const test_validateStringify_ArraySimple = _test_validateStringify(
     ArraySimple.generate,
     (input) =>
         ((input: Array<ArraySimple.IPerson>): typia.IValidation<string> => {
-            const validate = (input: any): typia.IValidation<ArraySimple> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<ArraySimple.IPerson>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArraySimple => {
+                ): input is Array<ArraySimple.IPerson> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -154,7 +156,7 @@ export const test_validateStringify_ArraySimple = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ArraySimple): string => {
+            const stringify = (input: Array<ArraySimple.IPerson>): string => {
                 const $string = (typia.validateStringify as any).string;
                 const $number = (typia.validateStringify as any).number;
                 const $io1 = (input: any): boolean =>

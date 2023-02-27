@@ -7,13 +7,13 @@ export const test_assertPrune_ArrayHierarchical = _test_assertPrune(
     ArrayHierarchical.generate,
     (input) =>
         ((input: any): Array<ArrayHierarchical.ICompany> => {
-            const assert = (input: any): ArrayHierarchical => {
+            const assert = (input: any): Array<ArrayHierarchical.ICompany> => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayHierarchical => {
+                ): input is Array<ArrayHierarchical.ICompany> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -229,7 +229,7 @@ export const test_assertPrune_ArrayHierarchical = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ArrayHierarchical): void => {
+            const prune = (input: Array<ArrayHierarchical.ICompany>): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;

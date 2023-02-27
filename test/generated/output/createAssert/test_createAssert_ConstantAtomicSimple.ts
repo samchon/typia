@@ -5,7 +5,7 @@ import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 export const test_createAssert_ConstantAtomicSimple = _test_assert(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
-    (input: any): [false, true, 2, "three"] => {
+    (input: any): ConstantAtomicSimple => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

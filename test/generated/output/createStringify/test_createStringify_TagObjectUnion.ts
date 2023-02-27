@@ -5,7 +5,7 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_createStringify_TagObjectUnion = _test_stringify(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input: Array<TagObjectUnion.Type>): string => {
+    (input: TagObjectUnion): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         const $throws = (typia.createStringify as any).throws;

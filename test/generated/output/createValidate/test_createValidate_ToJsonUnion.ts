@@ -5,18 +5,7 @@ import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 export const test_createValidate_ToJsonUnion = _test_validate(
     "ToJsonUnion",
     ToJsonUnion.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        Array<
-            | string
-            | number
-            | ToJsonUnion.ICitizen
-            | ToJsonUnion.IWrapper<boolean>
-            | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-            | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-        >
-    > => {
+    (input: any): typia.IValidation<ToJsonUnion> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

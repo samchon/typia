@@ -16,7 +16,7 @@ export const test_validateEquals_ObjectTuple = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectTuple => {
+            ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
                 const $vo0 = (
                     input: any,
                     _path: string,

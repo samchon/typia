@@ -12,7 +12,7 @@ export const test_assert_ObjectTuple = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectTuple => {
+            ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
                 const $ao0 = (
                     input: any,
                     _path: string,

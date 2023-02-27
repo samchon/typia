@@ -5,13 +5,13 @@ import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 export const test_createAssert_ToJsonDouble = _test_assert(
     "ToJsonDouble",
     ToJsonDouble.generate,
-    (input: any): ToJsonDouble.Parent => {
+    (input: any): ToJsonDouble => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ToJsonDouble.Parent => {
+        ): input is ToJsonDouble => {
             const $ao0 = (
                 input: any,
                 _path: string,

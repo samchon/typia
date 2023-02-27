@@ -8,7 +8,7 @@ export const test_random_ArrayMatrix = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<Array<Array<Array<number>>>> => {
+        ): typia.Primitive<ArrayMatrix> => {
             const $generator = (typia.random as any).generator;
             return (generator.array ?? $generator.array)(() =>
                 (generator.array ?? $generator.array)(() =>
@@ -18,7 +18,7 @@ export const test_random_ArrayMatrix = _test_random(
                 ),
             );
         })(),
-    (input: any): Array<Array<Array<number>>> => {
+    (input: any): ArrayMatrix => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

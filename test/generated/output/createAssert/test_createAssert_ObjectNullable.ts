@@ -5,13 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_createAssert_ObjectNullable = _test_assert(
     "ObjectNullable",
     ObjectNullable.generate,
-    (
-        input: any,
-    ): [
-        ObjectNullable.IProduct,
-        ObjectNullable.IProduct,
-        ObjectNullable.IProduct,
-    ] => {
+    (input: any): ObjectNullable => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

@@ -13,14 +13,14 @@ export const test_validateClone_ObjectUndefined = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectUndefined> => {
+            ): typia.IValidation<Array<ObjectUndefined.ILecture>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUndefined => {
+                ): input is Array<ObjectUndefined.ILecture> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -164,8 +164,8 @@ export const test_validateClone_ObjectUndefined = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ObjectUndefined,
-            ): typia.Primitive<ObjectUndefined> => {
+                input: Array<ObjectUndefined.ILecture>,
+            ): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
                 const $any = (typia.validateClone as any).any;
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&

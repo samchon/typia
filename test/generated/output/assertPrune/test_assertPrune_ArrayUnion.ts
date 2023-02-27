@@ -7,13 +7,13 @@ export const test_assertPrune_ArrayUnion = _test_assertPrune(
     ArrayUnion.generate,
     (input) =>
         ((input: any): Array<ArrayUnion.IUnion> => {
-            const assert = (input: any): ArrayUnion => {
+            const assert = (input: any): Array<ArrayUnion.IUnion> => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayUnion => {
+                ): input is Array<ArrayUnion.IUnion> => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -140,7 +140,7 @@ export const test_assertPrune_ArrayUnion = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ArrayUnion): void => {};
+            const prune = (input: Array<ArrayUnion.IUnion>): void => {};
             assert(input);
             prune(input);
             return input;

@@ -5,7 +5,7 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 export const test_createAssertEquals_TupleRestObject = _test_assertEquals(
     "TupleRestObject",
     TupleRestObject.generate,
-    (input: any): [boolean, number, ...TupleRestObject.IObject[]] => {
+    (input: any): TupleRestObject => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

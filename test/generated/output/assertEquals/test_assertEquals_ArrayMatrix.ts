@@ -12,7 +12,7 @@ export const test_assertEquals_ArrayMatrix = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayMatrix => {
+            ): input is Array<Array<Array<number>>> => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

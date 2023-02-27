@@ -5,14 +5,14 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
-    (input: any): typia.Primitive<ObjectHierarchical.ICustomer> => {
-        const assert = (input: any): ObjectHierarchical.ICustomer => {
+    (input: any): typia.Primitive<ObjectHierarchical> => {
+        const assert = (input: any): ObjectHierarchical => {
             const $guard = (typia.createAssertClone as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectHierarchical.ICustomer => {
+            ): input is ObjectHierarchical => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -367,8 +367,8 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
             return input;
         };
         const clone = (
-            input: ObjectHierarchical.ICustomer,
-        ): typia.Primitive<ObjectHierarchical.ICustomer> => {
+            input: ObjectHierarchical,
+        ): typia.Primitive<ObjectHierarchical> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.code &&

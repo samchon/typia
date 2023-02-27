@@ -7,7 +7,7 @@ export const test_isStringify_TagObjectUnion = _test_isStringify(
     TagObjectUnion.generate,
     (input) =>
         ((input: Array<TagObjectUnion.Type>): string | null => {
-            const is = (input: any): input is TagObjectUnion => {
+            const is = (input: any): input is Array<TagObjectUnion.Type> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value &&
                     Number.isFinite(input.value) &&
@@ -36,7 +36,7 @@ export const test_isStringify_TagObjectUnion = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: TagObjectUnion): string => {
+            const stringify = (input: Array<TagObjectUnion.Type>): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 const $throws = (typia.isStringify as any).throws;

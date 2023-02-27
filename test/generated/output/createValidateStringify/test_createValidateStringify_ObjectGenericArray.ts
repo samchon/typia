@@ -6,9 +6,7 @@ export const test_createValidateStringify_ObjectGenericArray =
     _test_validateStringify(
         "ObjectGenericArray",
         ObjectGenericArray.generate,
-        (
-            input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-        ): typia.IValidation<string> => {
+        (input: ObjectGenericArray): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectGenericArray> => {

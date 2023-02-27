@@ -5,7 +5,7 @@ import { SetUnion } from "../../../structures/SetUnion";
 export const test_createValidate_SetUnion = _test_validate(
     "SetUnion",
     SetUnion.generate,
-    (input: any): typia.IValidation<Array<SetUnion.Union>> => {
+    (input: any): typia.IValidation<SetUnion> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

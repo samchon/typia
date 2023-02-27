@@ -5,7 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_createIsClone_TagAtomicUnion = _test_isClone(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input: any): typia.Primitive<Array<TagAtomicUnion.Type>> | null => {
+    (input: any): typia.Primitive<TagAtomicUnion> | null => {
         const is = (input: any): input is TagAtomicUnion => {
             const $io0 = (input: any): boolean =>
                 ("string" === typeof input.value &&

@@ -7,13 +7,13 @@ export const test_assertStringify_TagObjectUnion = _test_assertStringify(
     TagObjectUnion.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): TagObjectUnion => {
+            const assert = (input: any): Array<TagObjectUnion.Type> => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TagObjectUnion => {
+                ): input is Array<TagObjectUnion.Type> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -88,7 +88,7 @@ export const test_assertStringify_TagObjectUnion = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: TagObjectUnion): string => {
+            const stringify = (input: Array<TagObjectUnion.Type>): string => {
                 const $number = (typia.assertStringify as any).number;
                 const $string = (typia.assertStringify as any).string;
                 const $throws = (typia.assertStringify as any).throws;

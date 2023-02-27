@@ -5,16 +5,7 @@ import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 export const test_createIsClone_ToJsonTuple = _test_isClone(
     "ToJsonTuple",
     ToJsonTuple.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        [
-            ToJsonTuple.IToJson<string>,
-            ToJsonTuple.IToJson<number>,
-            ToJsonTuple.IToJson<boolean>,
-            ToJsonTuple.IObject,
-        ]
-    > | null => {
+    (input: any): typia.Primitive<ToJsonTuple> | null => {
         const is = (input: any): input is ToJsonTuple => {
             const $io0 = (input: any): boolean =>
                 "function" === typeof input.toJSON;

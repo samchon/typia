@@ -7,13 +7,15 @@ export const test_assertStringify_ObjectGenericAlias = _test_assertStringify(
     ObjectGenericAlias.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ObjectGenericAlias.Alias => {
+            const assert = (
+                input: any,
+            ): ObjectGenericAlias.ISomething<string> => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericAlias.Alias => {
+                ): input is ObjectGenericAlias.ISomething<string> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -37,7 +39,9 @@ export const test_assertStringify_ObjectGenericAlias = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectGenericAlias.Alias): string => {
+            const stringify = (
+                input: ObjectGenericAlias.ISomething<string>,
+            ): string => {
                 const $string = (typia.assertStringify as any).string;
                 return `{"value":${$string(input.value)}}`;
             };

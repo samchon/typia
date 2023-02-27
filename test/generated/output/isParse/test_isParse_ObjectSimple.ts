@@ -6,8 +6,8 @@ export const test_isParse_ObjectSimple = _test_isParse(
     "ObjectSimple",
     ObjectSimple.generate,
     (input) =>
-        ((input: any): typia.Primitive<ObjectSimple.IBox3D> => {
-            const is = (input: any): input is ObjectSimple.IBox3D => {
+        ((input: any): typia.Primitive<ObjectSimple> => {
+            const is = (input: any): input is ObjectSimple => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.scale &&
                     null !== input.scale &&

@@ -5,7 +5,7 @@ import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveU
 export const test_createPrune_ArrayRecursiveUnionExplicit = _test_prune(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
-    (input: Array<ArrayRecursiveUnionExplicit.IBucket>): void => {
+    (input: ArrayRecursiveUnionExplicit): void => {
         const $throws = (typia.createPrune as any).throws;
         const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&

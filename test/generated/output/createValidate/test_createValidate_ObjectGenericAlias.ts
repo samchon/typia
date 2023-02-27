@@ -5,14 +5,14 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_createValidate_ObjectGenericAlias = _test_validate(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
-    (input: any): typia.IValidation<ObjectGenericAlias.ISomething<string>> => {
+    (input: any): typia.IValidation<ObjectGenericAlias> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectGenericAlias.Alias => {
+        ): input is ObjectGenericAlias => {
             const $vo0 = (
                 input: any,
                 _path: string,

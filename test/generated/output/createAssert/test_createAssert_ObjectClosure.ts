@@ -5,13 +5,13 @@ import { ObjectClosure } from "../../../structures/ObjectClosure";
 export const test_createAssert_ObjectClosure = _test_assert(
     "ObjectClosure",
     ObjectClosure.generate,
-    (input: any): ObjectClosure.IRecord => {
+    (input: any): ObjectClosure => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectClosure.IRecord => {
+        ): input is ObjectClosure => {
             const $ao0 = (
                 input: any,
                 _path: string,

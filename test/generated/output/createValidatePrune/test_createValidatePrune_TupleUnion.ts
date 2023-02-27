@@ -5,7 +5,7 @@ import { TupleUnion } from "../../../structures/TupleUnion";
 export const test_createValidatePrune_TupleUnion = _test_validatePrune(
     "TupleUnion",
     TupleUnion.generate,
-    (input: any): typia.IValidation<Array<TupleUnion.Union>> => {
+    (input: any): typia.IValidation<TupleUnion> => {
         const validate = (input: any): typia.IValidation<TupleUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

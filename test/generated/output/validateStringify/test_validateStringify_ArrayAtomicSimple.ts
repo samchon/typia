@@ -11,14 +11,16 @@ export const test_validateStringify_ArrayAtomicSimple = _test_validateStringify(
         ): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ArrayAtomicSimple> => {
+            ): typia.IValidation<
+                [Array<boolean>, Array<number>, Array<string>]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayAtomicSimple => {
+                ): input is [Array<boolean>, Array<number>, Array<string>] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -130,7 +132,9 @@ export const test_validateStringify_ArrayAtomicSimple = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ArrayAtomicSimple): string => {
+            const stringify = (
+                input: [Array<boolean>, Array<number>, Array<string>],
+            ): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $string = (typia.validateStringify as any).string;
                 return `[${`[${input[0]

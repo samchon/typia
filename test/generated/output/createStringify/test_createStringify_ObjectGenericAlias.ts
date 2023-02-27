@@ -5,7 +5,7 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_createStringify_ObjectGenericAlias = _test_stringify(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
-    (input: ObjectGenericAlias.ISomething<string>): string => {
+    (input: ObjectGenericAlias): string => {
         const $string = (typia.createStringify as any).string;
         return `{"value":${$string(input.value)}}`;
     },

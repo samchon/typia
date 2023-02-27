@@ -8,15 +8,7 @@ export const test_validateParse_ArrayAtomicAlias = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<
-                [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ]
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<ArrayAtomicAlias>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayAtomicAlias> => {

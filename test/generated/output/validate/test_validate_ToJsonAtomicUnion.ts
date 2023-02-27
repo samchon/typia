@@ -13,7 +13,7 @@ export const test_validate_ToJsonAtomicUnion = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ToJsonAtomicUnion => {
+            ): input is Array<ToJsonAtomicUnion.IToJson> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

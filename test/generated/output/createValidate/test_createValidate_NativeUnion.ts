@@ -5,7 +5,7 @@ import { NativeUnion } from "../../../structures/NativeUnion";
 export const test_createValidate_NativeUnion = _test_validate(
     "NativeUnion",
     NativeUnion.generate,
-    (input: any): typia.IValidation<Array<NativeUnion.Union>> => {
+    (input: any): typia.IValidation<NativeUnion> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

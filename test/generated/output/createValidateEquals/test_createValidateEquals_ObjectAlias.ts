@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_createValidateEquals_ObjectAlias = _test_validateEquals(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input: any): typia.IValidation<Array<ObjectAlias.IMember>> => {
+    (input: any): typia.IValidation<ObjectAlias> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;

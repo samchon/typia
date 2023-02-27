@@ -5,7 +5,7 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_createAssertClone_TagLength = _test_assertClone(
     "TagLength",
     TagLength.generate,
-    (input: any): typia.Primitive<Array<TagLength.Type>> => {
+    (input: any): typia.Primitive<TagLength> => {
         const assert = (input: any): TagLength => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

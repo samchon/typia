@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_createIsClone_ObjectAlias = _test_isClone(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input: any): typia.Primitive<Array<ObjectAlias.IMember>> | null => {
+    (input: any): typia.Primitive<ObjectAlias> | null => {
         const is = (input: any): input is ObjectAlias => {
             const $io0 = (input: any): boolean =>
                 (null === input.id || "string" === typeof input.id) &&

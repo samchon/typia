@@ -11,13 +11,19 @@ export const test_assertPrune_ObjectUnionNonPredictable = _test_assertPrune(
         ): Array<
             ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
         > => {
-            const assert = (input: any): ObjectUnionNonPredictable => {
+            const assert = (
+                input: any,
+            ): Array<
+                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+            > => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUnionNonPredictable => {
+                ): input is Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                > => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -179,7 +185,11 @@ export const test_assertPrune_ObjectUnionNonPredictable = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ObjectUnionNonPredictable): void => {
+            const prune = (
+                input: Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                >,
+            ): void => {
                 const $throws = (typia.assertPrune as any).throws;
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&

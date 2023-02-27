@@ -5,7 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_createIsStringify_TagAtomicUnion = _test_isStringify(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input: Array<TagAtomicUnion.Type>): string | null => {
+    (input: TagAtomicUnion): string | null => {
         const is = (input: any): input is TagAtomicUnion => {
             const $io0 = (input: any): boolean =>
                 ("string" === typeof input.value &&

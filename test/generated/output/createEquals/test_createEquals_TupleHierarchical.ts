@@ -8,18 +8,7 @@ export const test_createEquals_TupleHierarchical = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is [
-        boolean,
-        null,
-        number,
-        [boolean, null, [number, [boolean, string]]],
-        [
-            number,
-            Array<
-                [string, boolean, Array<[number, number, [boolean, string]]>]
-            >,
-        ],
-    ] => {
+    ): input is TupleHierarchical => {
         return (
             Array.isArray(input) &&
             input.length === 5 &&

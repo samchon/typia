@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_createValidatePrune_ObjectAlias = _test_validatePrune(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input: any): typia.IValidation<Array<ObjectAlias.IMember>> => {
+    (input: any): typia.IValidation<ObjectAlias> => {
         const validate = (input: any): typia.IValidation<ObjectAlias> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

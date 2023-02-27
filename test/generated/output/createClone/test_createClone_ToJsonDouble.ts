@@ -5,7 +5,7 @@ import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 export const test_createClone_ToJsonDouble = _test_clone(
     "ToJsonDouble",
     ToJsonDouble.generate,
-    (input: ToJsonDouble.Parent): typia.Primitive<ToJsonDouble.Parent> => {
+    (input: ToJsonDouble): typia.Primitive<ToJsonDouble> => {
         const $co0 = (input: any): any => ({
             id: input.id as any,
             flag: input.flag as any,

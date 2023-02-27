@@ -13,14 +13,26 @@ export const test_validateStringify_ObjectGeneric = _test_validateStringify(
                 ObjectGeneric.ISomething<string>,
             ],
         ): typia.IValidation<string> => {
-            const validate = (input: any): typia.IValidation<ObjectGeneric> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<
+                [
+                    ObjectGeneric.ISomething<boolean>,
+                    ObjectGeneric.ISomething<number>,
+                    ObjectGeneric.ISomething<string>,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGeneric => {
+                ): input is [
+                    ObjectGeneric.ISomething<boolean>,
+                    ObjectGeneric.ISomething<number>,
+                    ObjectGeneric.ISomething<string>,
+                ] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -398,7 +410,13 @@ export const test_validateStringify_ObjectGeneric = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ObjectGeneric): string => {
+            const stringify = (
+                input: [
+                    ObjectGeneric.ISomething<boolean>,
+                    ObjectGeneric.ISomething<number>,
+                    ObjectGeneric.ISomething<string>,
+                ],
+            ): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $string = (typia.validateStringify as any).string;
                 const $io1 = (input: any): boolean =>

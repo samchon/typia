@@ -6,9 +6,7 @@ export const test_createValidateStringify_ToJsonAtomicUnion =
     _test_validateStringify(
         "ToJsonAtomicUnion",
         ToJsonAtomicUnion.generate,
-        (
-            input: Array<ToJsonAtomicUnion.IToJson>,
-        ): typia.IValidation<string> => {
+        (input: ToJsonAtomicUnion): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ToJsonAtomicUnion> => {

@@ -6,9 +6,7 @@ export const test_createValidateStringify_TupleRestArray =
     _test_validateStringify(
         "TupleRestArray",
         TupleRestArray.generate,
-        (
-            input: [boolean, number, ...Array<string>[]],
-        ): typia.IValidation<string> => {
+        (input: TupleRestArray): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TupleRestArray> => {

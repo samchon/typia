@@ -13,7 +13,7 @@ export const test_assertEquals_ArraySimple = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArraySimple => {
+            ): input is Array<ArraySimple.IPerson> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

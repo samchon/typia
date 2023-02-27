@@ -5,13 +5,7 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_createStringify_ArrayAtomicAlias = _test_stringify(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
-    (
-        input: [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ],
-    ): string => {
+    (input: ArrayAtomicAlias): string => {
         const $number = (typia.createStringify as any).number;
         const $string = (typia.createStringify as any).string;
         return `[${`[${input[0]

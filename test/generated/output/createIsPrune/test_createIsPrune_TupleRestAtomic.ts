@@ -5,7 +5,7 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 export const test_createIsPrune_TupleRestAtomic = _test_isPrune(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (input: any): input is [boolean, number, ...string[]] => {
+    (input: any): input is TupleRestAtomic => {
         const is = (input: any): input is TupleRestAtomic => {
             return (
                 Array.isArray(input) &&

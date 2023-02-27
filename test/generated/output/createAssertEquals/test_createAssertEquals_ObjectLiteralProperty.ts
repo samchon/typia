@@ -5,14 +5,14 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 export const test_createAssertEquals_ObjectLiteralProperty = _test_assertEquals(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
-    (input: any): ObjectLiteralProperty.ISomething => {
+    (input: any): ObjectLiteralProperty => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectLiteralProperty.ISomething => {
+        ): input is ObjectLiteralProperty => {
             const $ao0 = (
                 input: any,
                 _path: string,

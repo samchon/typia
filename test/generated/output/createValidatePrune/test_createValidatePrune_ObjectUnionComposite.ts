@@ -6,20 +6,7 @@ export const test_createValidatePrune_ObjectUnionComposite =
     _test_validatePrune(
         "ObjectUnionComposite",
         ObjectUnionComposite.generate,
-        (
-            input: any,
-        ): typia.IValidation<
-            Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            >
-        > => {
+        (input: any): typia.IValidation<ObjectUnionComposite> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionComposite> => {

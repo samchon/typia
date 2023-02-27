@@ -5,13 +5,13 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_createAssert_ObjectSimple = _test_assert(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input: any): ObjectSimple.IBox3D => {
+    (input: any): ObjectSimple => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectSimple.IBox3D => {
+        ): input is ObjectSimple => {
             const $ao0 = (
                 input: any,
                 _path: string,

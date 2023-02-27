@@ -6,7 +6,7 @@ export const test_createValidateEquals_ConstantAtomicSimple =
     _test_validateEquals(
         "ConstantAtomicSimple",
         ConstantAtomicSimple.generate,
-        (input: any): typia.IValidation<[false, true, 2, "three"]> => {
+        (input: any): typia.IValidation<ConstantAtomicSimple> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             ((

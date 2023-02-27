@@ -5,7 +5,7 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 export const test_createIsPrune_ArraySimple = _test_isPrune(
     "ArraySimple",
     ArraySimple.generate,
-    (input: any): input is Array<ArraySimple.IPerson> => {
+    (input: any): input is ArraySimple => {
         const is = (input: any): input is ArraySimple => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&

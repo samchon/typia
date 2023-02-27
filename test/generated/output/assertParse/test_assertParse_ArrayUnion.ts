@@ -6,7 +6,7 @@ export const test_assertParse_ArrayUnion = _test_assertParse(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((input: string): typia.Primitive<Array<ArrayUnion.IUnion>> => {
+        ((input: string): typia.Primitive<ArrayUnion> => {
             const assert = (input: any): ArrayUnion => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

@@ -7,13 +7,13 @@ export const test_assertClone_ArrayHierarchical = _test_assertClone(
     ArrayHierarchical.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
-            const assert = (input: any): ArrayHierarchical => {
+            const assert = (input: any): Array<ArrayHierarchical.ICompany> => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayHierarchical => {
+                ): input is Array<ArrayHierarchical.ICompany> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -230,8 +230,8 @@ export const test_assertClone_ArrayHierarchical = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ArrayHierarchical,
-            ): typia.Primitive<ArrayHierarchical> => {
+                input: Array<ArrayHierarchical.ICompany>,
+            ): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;

@@ -15,14 +15,20 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectUnionNonPredictable> => {
+            ): typia.IValidation<
+                Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                >
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUnionNonPredictable => {
+                ): input is Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                > => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -249,7 +255,11 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ObjectUnionNonPredictable): void => {
+            const prune = (
+                input: Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                >,
+            ): void => {
                 const $throws = (typia.validatePrune as any).throws;
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&

@@ -5,7 +5,7 @@ import { AtomicAlias } from "../../../structures/AtomicAlias";
 export const test_createValidateEquals_AtomicAlias = _test_validateEquals(
     "AtomicAlias",
     AtomicAlias.generate,
-    (input: any): typia.IValidation<[boolean, number, string]> => {
+    (input: any): typia.IValidation<AtomicAlias> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         ((

@@ -23,7 +23,16 @@ export const test_assert_ObjectUnionComposite = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectUnionComposite => {
+            ): input is Array<
+                | ObjectUnionComposite.IPoint
+                | ObjectUnionComposite.ILine
+                | ObjectUnionComposite.ITriangle
+                | ObjectUnionComposite.IRectangle
+                | ObjectUnionComposite.IPolyline
+                | ObjectUnionComposite.IPolygon
+                | ObjectUnionComposite.IPointedShape
+                | ObjectUnionComposite.ICircle
+            > => {
                 const $ao0 = (
                     input: any,
                     _path: string,

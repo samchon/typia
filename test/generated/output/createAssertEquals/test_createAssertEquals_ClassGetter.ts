@@ -5,14 +5,14 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 export const test_createAssertEquals_ClassGetter = _test_assertEquals(
     "ClassGetter",
     ClassGetter.generate,
-    (input: any): ClassGetter.Person => {
+    (input: any): ClassGetter => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ClassGetter.Person => {
+        ): input is ClassGetter => {
             const $ao0 = (
                 input: any,
                 _path: string,

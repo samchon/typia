@@ -5,13 +5,7 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 export const test_createAssertPrune_ObjectGeneric = _test_assertPrune(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (
-        input: any,
-    ): [
-        ObjectGeneric.ISomething<boolean>,
-        ObjectGeneric.ISomething<number>,
-        ObjectGeneric.ISomething<string>,
-    ] => {
+    (input: any): ObjectGeneric => {
         const assert = (input: any): ObjectGeneric => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

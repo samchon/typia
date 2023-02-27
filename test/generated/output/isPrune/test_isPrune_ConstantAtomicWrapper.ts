@@ -13,7 +13,13 @@ export const test_isPrune_ConstantAtomicWrapper = _test_isPrune(
             ConstantAtomicWrapper.IPointer<number>,
             ConstantAtomicWrapper.IPointer<string>,
         ] => {
-            const is = (input: any): input is ConstantAtomicWrapper => {
+            const is = (
+                input: any,
+            ): input is [
+                ConstantAtomicWrapper.IPointer<boolean>,
+                ConstantAtomicWrapper.IPointer<number>,
+                ConstantAtomicWrapper.IPointer<string>,
+            ] => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>
@@ -35,7 +41,13 @@ export const test_isPrune_ConstantAtomicWrapper = _test_isPrune(
                     $io2(input[2])
                 );
             };
-            const prune = (input: ConstantAtomicWrapper): void => {
+            const prune = (
+                input: [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ],
+            ): void => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>

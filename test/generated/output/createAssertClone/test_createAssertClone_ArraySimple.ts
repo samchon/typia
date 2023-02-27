@@ -5,7 +5,7 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 export const test_createAssertClone_ArraySimple = _test_assertClone(
     "ArraySimple",
     ArraySimple.generate,
-    (input: any): typia.Primitive<Array<ArraySimple.IPerson>> => {
+    (input: any): typia.Primitive<ArraySimple> => {
         const assert = (input: any): ArraySimple => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

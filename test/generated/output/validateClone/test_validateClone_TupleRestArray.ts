@@ -13,14 +13,14 @@ export const test_validateClone_TupleRestArray = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TupleRestArray> => {
+            ): typia.IValidation<[boolean, number, ...Array<string>[]]> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleRestArray => {
+                ): input is [boolean, number, ...Array<string>[]] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -119,8 +119,8 @@ export const test_validateClone_TupleRestArray = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: TupleRestArray,
-            ): typia.Primitive<TupleRestArray> => {
+                input: [boolean, number, ...Array<string>[]],
+            ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
                 return Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
                     "number" === typeof input[1] &&

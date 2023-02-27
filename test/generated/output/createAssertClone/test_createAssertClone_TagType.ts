@@ -5,7 +5,7 @@ import { TagType } from "../../../structures/TagType";
 export const test_createAssertClone_TagType = _test_assertClone(
     "TagType",
     TagType.generate,
-    (input: any): typia.Primitive<Array<TagType.Type>> => {
+    (input: any): typia.Primitive<TagType> => {
         const assert = (input: any): TagType => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

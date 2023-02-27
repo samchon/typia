@@ -15,7 +15,13 @@ export const test_isClone_ConstantAtomicWrapper = _test_isClone(
                 ConstantAtomicWrapper.IPointer<string>,
             ]
         > | null => {
-            const is = (input: any): input is ConstantAtomicWrapper => {
+            const is = (
+                input: any,
+            ): input is [
+                ConstantAtomicWrapper.IPointer<boolean>,
+                ConstantAtomicWrapper.IPointer<number>,
+                ConstantAtomicWrapper.IPointer<string>,
+            ] => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>
@@ -38,8 +44,18 @@ export const test_isClone_ConstantAtomicWrapper = _test_isClone(
                 );
             };
             const clone = (
-                input: ConstantAtomicWrapper,
-            ): typia.Primitive<ConstantAtomicWrapper> => {
+                input: [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ],
+            ): typia.Primitive<
+                [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ]
+            > => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>

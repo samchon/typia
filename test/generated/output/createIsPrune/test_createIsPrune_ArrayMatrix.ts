@@ -5,7 +5,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_createIsPrune_ArrayMatrix = _test_isPrune(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: any): input is Array<Array<Array<number>>> => {
+    (input: any): input is ArrayMatrix => {
         const is = (input: any): input is ArrayMatrix => {
             return (
                 Array.isArray(input) &&

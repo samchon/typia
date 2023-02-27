@@ -7,14 +7,16 @@ export const test_validatePrune_ArrayMatrix = _test_validatePrune(
     ArrayMatrix.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<Array<Array<number>>>> => {
-            const validate = (input: any): typia.IValidation<ArrayMatrix> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<Array<Array<number>>>> => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayMatrix => {
+                ): input is Array<Array<Array<number>>> => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -123,7 +125,7 @@ export const test_validatePrune_ArrayMatrix = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ArrayMatrix): void => {};
+            const prune = (input: Array<Array<Array<number>>>): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

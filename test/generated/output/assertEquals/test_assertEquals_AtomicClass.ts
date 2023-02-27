@@ -24,7 +24,17 @@ export const test_assertEquals_AtomicClass = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is AtomicClass => {
+            ): input is [
+                Boolean,
+                false | Boolean,
+                boolean | Boolean,
+                Number,
+                Number | 1,
+                number | Number,
+                String,
+                String | "characters",
+                string | String,
+            ] => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

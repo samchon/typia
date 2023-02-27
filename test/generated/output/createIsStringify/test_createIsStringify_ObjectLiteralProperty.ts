@@ -5,8 +5,8 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 export const test_createIsStringify_ObjectLiteralProperty = _test_isStringify(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
-    (input: ObjectLiteralProperty.ISomething): string | null => {
-        const is = (input: any): input is ObjectLiteralProperty.ISomething => {
+    (input: ObjectLiteralProperty): string | null => {
+        const is = (input: any): input is ObjectLiteralProperty => {
             return (
                 "object" === typeof input &&
                 null !== input &&
@@ -15,7 +15,7 @@ export const test_createIsStringify_ObjectLiteralProperty = _test_isStringify(
                 "string" === typeof input["or-something-crazy-do-you-want?"]
             );
         };
-        const stringify = (input: ObjectLiteralProperty.ISomething): string => {
+        const stringify = (input: ObjectLiteralProperty): string => {
             const $string = (typia.createIsStringify as any).string;
             return `{"something-interesting-do-you-want?":${$string(
                 input["something-interesting-do-you-want?"],

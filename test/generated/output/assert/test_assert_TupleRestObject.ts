@@ -12,7 +12,7 @@ export const test_assert_TupleRestObject = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TupleRestObject => {
+            ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
                 const $ao0 = (
                     input: any,
                     _path: string,

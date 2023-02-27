@@ -6,9 +6,7 @@ export const test_createValidateStringify_ArrayAtomicSimple =
     _test_validateStringify(
         "ArrayAtomicSimple",
         ArrayAtomicSimple.generate,
-        (
-            input: [Array<boolean>, Array<number>, Array<string>],
-        ): typia.IValidation<string> => {
+        (input: ArrayAtomicSimple): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayAtomicSimple> => {

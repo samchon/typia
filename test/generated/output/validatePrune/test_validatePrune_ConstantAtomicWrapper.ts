@@ -17,14 +17,24 @@ export const test_validatePrune_ConstantAtomicWrapper = _test_validatePrune(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ConstantAtomicWrapper> => {
+            ): typia.IValidation<
+                [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ConstantAtomicWrapper => {
+                ): input is [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -142,7 +152,13 @@ export const test_validatePrune_ConstantAtomicWrapper = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ConstantAtomicWrapper): void => {
+            const prune = (
+                input: [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ],
+            ): void => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>

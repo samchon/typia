@@ -5,7 +5,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_createIsParse_TemplateConstant = _test_isParse(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: any): typia.Primitive<Array<TemplateConstant.Type>> => {
+    (input: any): typia.Primitive<TemplateConstant> => {
         const is = (input: any): input is TemplateConstant => {
             const $io0 = (input: any): boolean =>
                 ("prefix_A" === input.prefix ||

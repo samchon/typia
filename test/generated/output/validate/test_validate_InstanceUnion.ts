@@ -13,7 +13,7 @@ export const test_validate_InstanceUnion = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is InstanceUnion => {
+            ): input is Array<InstanceUnion.Union> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

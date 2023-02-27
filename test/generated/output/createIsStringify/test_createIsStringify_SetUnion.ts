@@ -5,7 +5,7 @@ import { SetUnion } from "../../../structures/SetUnion";
 export const test_createIsStringify_SetUnion = _test_isStringify(
     "SetUnion",
     SetUnion.generate,
-    (input: Array<SetUnion.Union>): string | null => {
+    (input: SetUnion): string | null => {
         const is = (input: any): input is SetUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&

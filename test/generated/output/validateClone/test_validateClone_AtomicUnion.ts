@@ -9,14 +9,16 @@ export const test_validateClone_AtomicUnion = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<AtomicUnion.Union>>> => {
-            const validate = (input: any): typia.IValidation<AtomicUnion> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<AtomicUnion.Union>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is AtomicUnion => {
+                ): input is Array<AtomicUnion.Union> => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -57,8 +59,8 @@ export const test_validateClone_AtomicUnion = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: AtomicUnion,
-            ): typia.Primitive<AtomicUnion> => {
+                input: Array<AtomicUnion.Union>,
+            ): typia.Primitive<Array<AtomicUnion.Union>> => {
                 return Array.isArray(input)
                     ? input.map((elem: any) => elem as any)
                     : (input as any);

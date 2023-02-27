@@ -5,11 +5,7 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 export const test_createValidateParse_DynamicConstant = _test_validateParse(
     "DynamicConstant",
     DynamicConstant.generate,
-    (
-        input: string,
-    ): typia.IValidation<
-        typia.Primitive<{ a: number; b: number; c: number; d: number }>
-    > => {
+    (input: string): typia.IValidation<typia.Primitive<DynamicConstant>> => {
         const validate = (input: any): typia.IValidation<DynamicConstant> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

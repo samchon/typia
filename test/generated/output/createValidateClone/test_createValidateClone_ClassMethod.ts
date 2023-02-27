@@ -5,17 +5,15 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_createValidateClone_ClassMethod = _test_validateClone(
     "ClassMethod",
     ClassMethod.generate,
-    (input: any): typia.IValidation<typia.Primitive<ClassMethod.Animal>> => {
-        const validate = (
-            input: any,
-        ): typia.IValidation<ClassMethod.Animal> => {
+    (input: any): typia.IValidation<typia.Primitive<ClassMethod>> => {
+        const validate = (input: any): typia.IValidation<ClassMethod> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ClassMethod.Animal => {
+            ): input is ClassMethod => {
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -58,9 +56,7 @@ export const test_createValidateClone_ClassMethod = _test_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (
-            input: ClassMethod.Animal,
-        ): typia.Primitive<ClassMethod.Animal> => {
+        const clone = (input: ClassMethod): typia.Primitive<ClassMethod> => {
             const $co0 = (input: any): any => ({
                 name: input.name as any,
                 age: input.age as any,

@@ -7,13 +7,13 @@ export const test_assertPrune_ConstantAtomicSimple = _test_assertPrune(
     ConstantAtomicSimple.generate,
     (input) =>
         ((input: any): [false, true, 2, "three"] => {
-            const assert = (input: any): ConstantAtomicSimple => {
+            const assert = (input: any): [false, true, 2, "three"] => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ConstantAtomicSimple => {
+                ): input is [false, true, 2, "three"] => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -55,7 +55,7 @@ export const test_assertPrune_ConstantAtomicSimple = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ConstantAtomicSimple): void => {};
+            const prune = (input: [false, true, 2, "three"]): void => {};
             assert(input);
             prune(input);
             return input;

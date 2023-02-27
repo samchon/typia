@@ -5,7 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_createStringify_TagStep = _test_stringify(
     "TagStep",
     TagStep.generate,
-    (input: Array<TagStep.Type>): string => {
+    (input: TagStep): string => {
         const $number = (typia.createStringify as any).number;
         const $so0 = (input: any): any =>
             `{"exclusiveMinimum":${$number(

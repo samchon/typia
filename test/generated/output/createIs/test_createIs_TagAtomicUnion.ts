@@ -5,7 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_createIs_TagAtomicUnion = _test_is(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input: any): input is Array<TagAtomicUnion.Type> => {
+    (input: any): input is TagAtomicUnion => {
         const $io0 = (input: any): boolean =>
             ("string" === typeof input.value &&
                 3 <= input.value.length &&

@@ -5,7 +5,7 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 export const test_createAssertClone_TupleRestAtomic = _test_assertClone(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (input: any): typia.Primitive<[boolean, number, ...string[]]> => {
+    (input: any): typia.Primitive<TupleRestAtomic> => {
         const assert = (input: any): TupleRestAtomic => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

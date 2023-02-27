@@ -8,9 +8,7 @@ export const test_validateParse_TupleRestAtomic = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<[boolean, number, ...string[]]>
-        > => {
+        ): typia.IValidation<typia.Primitive<TupleRestAtomic>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TupleRestAtomic> => {

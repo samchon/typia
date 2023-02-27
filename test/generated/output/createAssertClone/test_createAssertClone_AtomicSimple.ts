@@ -5,7 +5,7 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 export const test_createAssertClone_AtomicSimple = _test_assertClone(
     "AtomicSimple",
     AtomicSimple.generate,
-    (input: any): typia.Primitive<[boolean, number, string]> => {
+    (input: any): typia.Primitive<AtomicSimple> => {
         const assert = (input: any): AtomicSimple => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

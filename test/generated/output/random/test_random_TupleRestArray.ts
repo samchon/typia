@@ -8,7 +8,7 @@ export const test_random_TupleRestArray = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
+        ): typia.Primitive<TupleRestArray> => {
             const $generator = (typia.random as any).generator;
             return [
                 (generator.boolean ?? $generator.boolean)(),
@@ -18,7 +18,7 @@ export const test_random_TupleRestArray = _test_random(
                 ),
             ];
         })(),
-    (input: any): [boolean, number, ...Array<string>[]] => {
+    (input: any): TupleRestArray => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

@@ -5,7 +5,7 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_createPrune_ArrayRecursive = _test_prune(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input: ArrayRecursive.ICategory): void => {
+    (input: ArrayRecursive): void => {
         const $io0 = (input: any): boolean =>
             Array.isArray(input.children) &&
             input.children.every(

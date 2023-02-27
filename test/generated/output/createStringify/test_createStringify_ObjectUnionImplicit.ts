@@ -5,17 +5,7 @@ import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 export const test_createStringify_ObjectUnionImplicit = _test_stringify(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (
-        input: Array<
-            | ObjectUnionImplicit.IPoint
-            | ObjectUnionImplicit.ILine
-            | ObjectUnionImplicit.ITriangle
-            | ObjectUnionImplicit.IRectangle
-            | ObjectUnionImplicit.IPolyline
-            | ObjectUnionImplicit.IPolygon
-            | ObjectUnionImplicit.ICircle
-        >,
-    ): string => {
+    (input: ObjectUnionImplicit): string => {
         const $number = (typia.createStringify as any).number;
         const $io0 = (input: any): boolean =>
             "number" === typeof input.x &&

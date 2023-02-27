@@ -5,7 +5,7 @@ import { InstanceUnion } from "../../../structures/InstanceUnion";
 export const test_createValidate_InstanceUnion = _test_validate(
     "InstanceUnion",
     InstanceUnion.generate,
-    (input: any): typia.IValidation<Array<InstanceUnion.Union>> => {
+    (input: any): typia.IValidation<InstanceUnion> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

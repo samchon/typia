@@ -5,7 +5,7 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_createIsPrune_AtomicUnion = _test_isPrune(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input: any): input is Array<AtomicUnion.Union> => {
+    (input: any): input is AtomicUnion => {
         const is = (input: any): input is AtomicUnion => {
             return (
                 Array.isArray(input) &&

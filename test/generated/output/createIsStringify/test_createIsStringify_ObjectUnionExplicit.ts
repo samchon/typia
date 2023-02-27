@@ -5,38 +5,7 @@ import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 export const test_createIsStringify_ObjectUnionExplicit = _test_isStringify(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
-    (
-        input: Array<
-            | ObjectUnionExplicit.Discriminator<
-                  "point",
-                  ObjectUnionExplicit.IPoint
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "line",
-                  ObjectUnionExplicit.ILine
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "triangle",
-                  ObjectUnionExplicit.ITriangle
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "rectangle",
-                  ObjectUnionExplicit.IRectangle
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "polyline",
-                  ObjectUnionExplicit.IPolyline
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "polygon",
-                  ObjectUnionExplicit.IPolygon
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "circle",
-                  ObjectUnionExplicit.ICircle
-              >
-        >,
-    ): string | null => {
+    (input: ObjectUnionExplicit): string | null => {
         const is = (input: any): input is ObjectUnionExplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&

@@ -6,7 +6,7 @@ export const test_assertParse_ObjectUndefined = _test_assertParse(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input) =>
-        ((input: string): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
+        ((input: string): typia.Primitive<ObjectUndefined> => {
             const assert = (input: any): ObjectUndefined => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

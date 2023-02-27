@@ -8,7 +8,7 @@ export const test_random_ObjectTuple = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
+        ): typia.Primitive<ObjectTuple> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
@@ -28,7 +28,7 @@ export const test_random_ObjectTuple = _test_random(
             });
             return [$ro0(), $ro1()];
         })(),
-    (input: any): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+    (input: any): ObjectTuple => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

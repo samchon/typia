@@ -5,7 +5,7 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_createIsParse_TupleRestArray = _test_isParse(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input: any): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
+    (input: any): typia.Primitive<TupleRestArray> => {
         const is = (input: any): input is TupleRestArray => {
             return (
                 Array.isArray(input) &&

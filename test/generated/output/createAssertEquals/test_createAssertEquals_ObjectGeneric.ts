@@ -5,13 +5,7 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 export const test_createAssertEquals_ObjectGeneric = _test_assertEquals(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (
-        input: any,
-    ): [
-        ObjectGeneric.ISomething<boolean>,
-        ObjectGeneric.ISomething<number>,
-        ObjectGeneric.ISomething<string>,
-    ] => {
+    (input: any): ObjectGeneric => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

@@ -7,13 +7,13 @@ export const test_assertClone_ArrayMatrix = _test_assertClone(
     ArrayMatrix.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<Array<Array<number>>>> => {
-            const assert = (input: any): ArrayMatrix => {
+            const assert = (input: any): Array<Array<Array<number>>> => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayMatrix => {
+                ): input is Array<Array<Array<number>>> => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -68,8 +68,8 @@ export const test_assertClone_ArrayMatrix = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ArrayMatrix,
-            ): typia.Primitive<ArrayMatrix> => {
+                input: Array<Array<Array<number>>>,
+            ): typia.Primitive<Array<Array<Array<number>>>> => {
                 return Array.isArray(input)
                     ? input.map((elem: any) =>
                           Array.isArray(elem)

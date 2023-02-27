@@ -5,7 +5,7 @@ import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 export const test_createIsClone_ToJsonAtomicUnion = _test_isClone(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
-    (input: any): typia.Primitive<Array<ToJsonAtomicUnion.IToJson>> | null => {
+    (input: any): typia.Primitive<ToJsonAtomicUnion> | null => {
         const is = (input: any): input is ToJsonAtomicUnion => {
             const $io0 = (input: any): boolean =>
                 "function" === typeof input.toJSON;

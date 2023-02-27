@@ -5,15 +5,7 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_createIsParse_ArrayAtomicAlias = _test_isParse(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ]
-    > => {
+    (input: any): typia.Primitive<ArrayAtomicAlias> => {
         const is = (input: any): input is ArrayAtomicAlias => {
             return (
                 Array.isArray(input) &&

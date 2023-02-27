@@ -5,19 +5,7 @@ import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 export const test_createClone_ToJsonAtomicSimple = _test_clone(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
-    (
-        input: [
-            ToJsonAtomicSimple.IToJson<boolean>,
-            ToJsonAtomicSimple.IToJson<number>,
-            ToJsonAtomicSimple.IToJson<string>,
-        ],
-    ): typia.Primitive<
-        [
-            ToJsonAtomicSimple.IToJson<boolean>,
-            ToJsonAtomicSimple.IToJson<number>,
-            ToJsonAtomicSimple.IToJson<string>,
-        ]
-    > => {
+    (input: ToJsonAtomicSimple): typia.Primitive<ToJsonAtomicSimple> => {
         return Array.isArray(input) &&
             input.length === 3 &&
             true &&

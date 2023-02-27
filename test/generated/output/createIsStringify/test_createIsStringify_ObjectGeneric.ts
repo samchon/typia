@@ -5,13 +5,7 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 export const test_createIsStringify_ObjectGeneric = _test_isStringify(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (
-        input: [
-            ObjectGeneric.ISomething<boolean>,
-            ObjectGeneric.ISomething<number>,
-            ObjectGeneric.ISomething<string>,
-        ],
-    ): string | null => {
+    (input: ObjectGeneric): string | null => {
         const is = (input: any): input is ObjectGeneric => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value &&

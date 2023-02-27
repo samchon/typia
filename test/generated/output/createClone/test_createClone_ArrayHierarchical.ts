@@ -5,9 +5,7 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 export const test_createClone_ArrayHierarchical = _test_clone(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (
-        input: Array<ArrayHierarchical.ICompany>,
-    ): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
+    (input: ArrayHierarchical): typia.Primitive<ArrayHierarchical> => {
         const $io1 = (input: any): boolean =>
             "number" === typeof input.time && "number" === typeof input.zone;
         const $io2 = (input: any): boolean =>

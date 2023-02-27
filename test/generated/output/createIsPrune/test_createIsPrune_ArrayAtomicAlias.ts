@@ -5,13 +5,7 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_createIsPrune_ArrayAtomicAlias = _test_isPrune(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
-    (
-        input: any,
-    ): input is [
-        ArrayAtomicAlias.Alias<boolean>,
-        ArrayAtomicAlias.Alias<number>,
-        ArrayAtomicAlias.Alias<string>,
-    ] => {
+    (input: any): input is ArrayAtomicAlias => {
         const is = (input: any): input is ArrayAtomicAlias => {
             return (
                 Array.isArray(input) &&

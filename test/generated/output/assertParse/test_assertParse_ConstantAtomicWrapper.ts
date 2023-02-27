@@ -6,15 +6,7 @@ export const test_assertParse_ConstantAtomicWrapper = _test_assertParse(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.Primitive<
-            [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ]
-        > => {
+        ((input: string): typia.Primitive<ConstantAtomicWrapper> => {
             const assert = (input: any): ConstantAtomicWrapper => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

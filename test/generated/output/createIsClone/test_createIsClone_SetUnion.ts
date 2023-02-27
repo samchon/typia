@@ -5,7 +5,7 @@ import { SetUnion } from "../../../structures/SetUnion";
 export const test_createIsClone_SetUnion = _test_isClone(
     "SetUnion",
     SetUnion.generate,
-    (input: any): typia.Primitive<Array<SetUnion.Union>> | null => {
+    (input: any): typia.Primitive<SetUnion> | null => {
         const is = (input: any): input is SetUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&

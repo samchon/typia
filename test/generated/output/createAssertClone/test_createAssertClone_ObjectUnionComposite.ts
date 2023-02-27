@@ -5,20 +5,7 @@ import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 export const test_createAssertClone_ObjectUnionComposite = _test_assertClone(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        Array<
-            | ObjectUnionComposite.IPoint
-            | ObjectUnionComposite.ILine
-            | ObjectUnionComposite.ITriangle
-            | ObjectUnionComposite.IRectangle
-            | ObjectUnionComposite.IPolyline
-            | ObjectUnionComposite.IPolygon
-            | ObjectUnionComposite.IPointedShape
-            | ObjectUnionComposite.ICircle
-        >
-    > => {
+    (input: any): typia.Primitive<ObjectUnionComposite> => {
         const assert = (input: any): ObjectUnionComposite => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

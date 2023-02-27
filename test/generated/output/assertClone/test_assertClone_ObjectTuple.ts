@@ -9,13 +9,15 @@ export const test_assertClone_ObjectTuple = _test_assertClone(
         ((
             input: any,
         ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
-            const assert = (input: any): ObjectTuple => {
+            const assert = (
+                input: any,
+            ): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectTuple => {
+                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -96,8 +98,10 @@ export const test_assertClone_ObjectTuple = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ObjectTuple,
-            ): typia.Primitive<ObjectTuple> => {
+                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
+            ): typia.Primitive<
+                [ObjectTuple.ISection, ObjectTuple.ICitizen]
+            > => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&

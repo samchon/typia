@@ -7,13 +7,15 @@ export const test_assertStringify_TupleRestArray = _test_assertStringify(
     TupleRestArray.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): TupleRestArray => {
+            const assert = (
+                input: any,
+            ): [boolean, number, ...Array<string>[]] => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleRestArray => {
+                ): input is [boolean, number, ...Array<string>[]] => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -68,7 +70,9 @@ export const test_assertStringify_TupleRestArray = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: TupleRestArray): string => {
+            const stringify = (
+                input: [boolean, number, ...Array<string>[]],
+            ): string => {
                 const $number = (typia.assertStringify as any).number;
                 const $string = (typia.assertStringify as any).string;
                 const $rest = (typia.assertStringify as any).rest;

@@ -7,7 +7,7 @@ export const test_isStringify_TagAtomicUnion = _test_isStringify(
     TagAtomicUnion.generate,
     (input) =>
         ((input: Array<TagAtomicUnion.Type>): string | null => {
-            const is = (input: any): input is TagAtomicUnion => {
+            const is = (input: any): input is Array<TagAtomicUnion.Type> => {
                 const $io0 = (input: any): boolean =>
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
@@ -25,7 +25,7 @@ export const test_isStringify_TagAtomicUnion = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: TagAtomicUnion): string => {
+            const stringify = (input: Array<TagAtomicUnion.Type>): string => {
                 const $string = (typia.isStringify as any).string;
                 const $number = (typia.isStringify as any).number;
                 const $throws = (typia.isStringify as any).throws;

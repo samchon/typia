@@ -18,14 +18,28 @@ export const test_validateClone_ToJsonArray = _test_validateClone(
                 ]
             >
         > => {
-            const validate = (input: any): typia.IValidation<ToJsonArray> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<
+                [
+                    ToJsonArray.IArray<boolean>,
+                    ToJsonArray.IArray<number>,
+                    ToJsonArray.IArray<string>,
+                    ToJsonArray.IArray<ToJsonArray.IObject>,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonArray => {
+                ): input is [
+                    ToJsonArray.IArray<boolean>,
+                    ToJsonArray.IArray<number>,
+                    ToJsonArray.IArray<string>,
+                    ToJsonArray.IArray<ToJsonArray.IObject>,
+                ] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -171,8 +185,20 @@ export const test_validateClone_ToJsonArray = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ToJsonArray,
-            ): typia.Primitive<ToJsonArray> => {
+                input: [
+                    ToJsonArray.IArray<boolean>,
+                    ToJsonArray.IArray<number>,
+                    ToJsonArray.IArray<string>,
+                    ToJsonArray.IArray<ToJsonArray.IObject>,
+                ],
+            ): typia.Primitive<
+                [
+                    ToJsonArray.IArray<boolean>,
+                    ToJsonArray.IArray<number>,
+                    ToJsonArray.IArray<string>,
+                    ToJsonArray.IArray<ToJsonArray.IObject>,
+                ]
+            > => {
                 const $co0 = (input: any): any => ({
                     id: input.id as any,
                 });

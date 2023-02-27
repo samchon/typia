@@ -14,7 +14,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayHierarchical => {
+            ): input is Array<ArrayHierarchical.ICompany> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

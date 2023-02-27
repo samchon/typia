@@ -6,7 +6,7 @@ export const test_assertParse_AtomicAlias = _test_assertParse(
     "AtomicAlias",
     AtomicAlias.generate,
     (input) =>
-        ((input: string): typia.Primitive<[boolean, number, string]> => {
+        ((input: string): typia.Primitive<AtomicAlias> => {
             const assert = (input: any): AtomicAlias => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

@@ -5,18 +5,7 @@ import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 export const test_createAssertClone_ToJsonUnion = _test_assertClone(
     "ToJsonUnion",
     ToJsonUnion.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        Array<
-            | string
-            | number
-            | ToJsonUnion.ICitizen
-            | ToJsonUnion.IWrapper<boolean>
-            | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-            | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-        >
-    > => {
+    (input: any): typia.Primitive<ToJsonUnion> => {
         const assert = (input: any): ToJsonUnion => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

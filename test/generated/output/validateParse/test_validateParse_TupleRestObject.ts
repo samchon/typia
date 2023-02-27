@@ -8,9 +8,7 @@ export const test_validateParse_TupleRestObject = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<[boolean, number, ...TupleRestObject.IObject[]]>
-        > => {
+        ): typia.IValidation<typia.Primitive<TupleRestObject>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TupleRestObject> => {

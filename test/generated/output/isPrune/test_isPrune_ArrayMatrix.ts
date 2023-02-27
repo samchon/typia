@@ -7,7 +7,7 @@ export const test_isPrune_ArrayMatrix = _test_isPrune(
     ArrayMatrix.generate,
     (input) =>
         ((input: any): input is Array<Array<Array<number>>> => {
-            const is = (input: any): input is ArrayMatrix => {
+            const is = (input: any): input is Array<Array<Array<number>>> => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -25,7 +25,7 @@ export const test_isPrune_ArrayMatrix = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: ArrayMatrix): void => {};
+            const prune = (input: Array<Array<Array<number>>>): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

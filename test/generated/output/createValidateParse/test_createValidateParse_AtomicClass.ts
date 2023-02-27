@@ -5,23 +5,7 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_createValidateParse_AtomicClass = _test_validateParse(
     "AtomicClass",
     AtomicClass.generate,
-    (
-        input: string,
-    ): typia.IValidation<
-        typia.Primitive<
-            [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ]
-        >
-    > => {
+    (input: string): typia.IValidation<typia.Primitive<AtomicClass>> => {
         const validate = (input: any): typia.IValidation<AtomicClass> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

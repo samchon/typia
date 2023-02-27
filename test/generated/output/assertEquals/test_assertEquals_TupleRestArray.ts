@@ -12,7 +12,7 @@ export const test_assertEquals_TupleRestArray = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TupleRestArray => {
+            ): input is [boolean, number, ...Array<string>[]] => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

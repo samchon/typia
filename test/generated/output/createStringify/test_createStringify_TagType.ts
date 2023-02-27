@@ -5,7 +5,7 @@ import { TagType } from "../../../structures/TagType";
 export const test_createStringify_TagType = _test_stringify(
     "TagType",
     TagType.generate,
-    (input: Array<TagType.Type>): string => {
+    (input: TagType): string => {
         const $number = (typia.createStringify as any).number;
         return `[${input
             .map(

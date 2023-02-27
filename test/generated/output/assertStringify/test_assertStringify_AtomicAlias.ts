@@ -7,13 +7,13 @@ export const test_assertStringify_AtomicAlias = _test_assertStringify(
     AtomicAlias.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): AtomicAlias => {
+            const assert = (input: any): [boolean, number, string] => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is AtomicAlias => {
+                ): input is [boolean, number, string] => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -50,7 +50,7 @@ export const test_assertStringify_AtomicAlias = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: AtomicAlias): string => {
+            const stringify = (input: [boolean, number, string]): string => {
                 const $number = (typia.assertStringify as any).number;
                 const $string = (typia.assertStringify as any).string;
                 return `[${input[0]},${$number(input[1])},${$string(

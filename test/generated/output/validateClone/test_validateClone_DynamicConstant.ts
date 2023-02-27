@@ -13,14 +13,19 @@ export const test_validateClone_DynamicConstant = _test_validateClone(
         > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<DynamicConstant> => {
+            ): typia.IValidation<{
+                a: number;
+                b: number;
+                c: number;
+                d: number;
+            }> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is DynamicConstant => {
+                ): input is { a: number; b: number; c: number; d: number } => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -78,9 +83,17 @@ export const test_validateClone_DynamicConstant = _test_validateClone(
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone = (
-                input: DynamicConstant,
-            ): typia.Primitive<DynamicConstant> => {
+            const clone = (input: {
+                a: number;
+                b: number;
+                c: number;
+                d: number;
+            }): typia.Primitive<{
+                a: number;
+                b: number;
+                c: number;
+                d: number;
+            }> => {
                 const $co0 = (input: any): any => ({
                     a: input.a as any,
                     b: input.b as any,

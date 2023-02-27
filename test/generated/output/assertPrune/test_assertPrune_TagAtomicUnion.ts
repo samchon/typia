@@ -7,13 +7,13 @@ export const test_assertPrune_TagAtomicUnion = _test_assertPrune(
     TagAtomicUnion.generate,
     (input) =>
         ((input: any): Array<TagAtomicUnion.Type> => {
-            const assert = (input: any): TagAtomicUnion => {
+            const assert = (input: any): Array<TagAtomicUnion.Type> => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TagAtomicUnion => {
+                ): input is Array<TagAtomicUnion.Type> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -52,7 +52,7 @@ export const test_assertPrune_TagAtomicUnion = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: TagAtomicUnion): void => {
+            const prune = (input: Array<TagAtomicUnion.Type>): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if ("value" === key) continue;

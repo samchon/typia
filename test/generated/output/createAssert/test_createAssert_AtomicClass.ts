@@ -5,19 +5,7 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_createAssert_AtomicClass = _test_assert(
     "AtomicClass",
     AtomicClass.generate,
-    (
-        input: any,
-    ): [
-        Boolean,
-        false | Boolean,
-        boolean | Boolean,
-        Number,
-        Number | 1,
-        number | Number,
-        String,
-        String | "characters",
-        string | String,
-    ] => {
+    (input: any): AtomicClass => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

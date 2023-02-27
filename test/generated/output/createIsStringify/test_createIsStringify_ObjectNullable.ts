@@ -5,13 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_createIsStringify_ObjectNullable = _test_isStringify(
     "ObjectNullable",
     ObjectNullable.generate,
-    (
-        input: [
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-        ],
-    ): string | null => {
+    (input: ObjectNullable): string | null => {
         const is = (input: any): input is ObjectNullable => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&

@@ -5,7 +5,7 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 export const test_createValidatePrune_AtomicSimple = _test_validatePrune(
     "AtomicSimple",
     AtomicSimple.generate,
-    (input: any): typia.IValidation<[boolean, number, string]> => {
+    (input: any): typia.IValidation<AtomicSimple> => {
         const validate = (input: any): typia.IValidation<AtomicSimple> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

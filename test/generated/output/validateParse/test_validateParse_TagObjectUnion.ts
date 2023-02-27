@@ -8,7 +8,7 @@ export const test_validateParse_TagObjectUnion = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<typia.Primitive<Array<TagObjectUnion.Type>>> => {
+        ): typia.IValidation<typia.Primitive<TagObjectUnion>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TagObjectUnion> => {

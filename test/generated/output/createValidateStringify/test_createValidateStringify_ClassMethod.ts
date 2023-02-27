@@ -5,10 +5,8 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_createValidateStringify_ClassMethod = _test_validateStringify(
     "ClassMethod",
     ClassMethod.generate,
-    (input: ClassMethod.Animal): typia.IValidation<string> => {
-        const validate = (
-            input: any,
-        ): typia.IValidation<ClassMethod.Animal> => {
+    (input: ClassMethod): typia.IValidation<string> => {
+        const validate = (input: any): typia.IValidation<ClassMethod> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(
                 errors,
@@ -17,7 +15,7 @@ export const test_createValidateStringify_ClassMethod = _test_validateStringify(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ClassMethod.Animal => {
+            ): input is ClassMethod => {
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -60,7 +58,7 @@ export const test_createValidateStringify_ClassMethod = _test_validateStringify(
                 data: success ? input : undefined,
             } as any;
         };
-        const stringify = (input: ClassMethod.Animal): string => {
+        const stringify = (input: ClassMethod): string => {
             const $string = (typia.createValidateStringify as any).string;
             const $number = (typia.createValidateStringify as any).number;
             return `{"name":${$string(input.name)},"age":${$number(

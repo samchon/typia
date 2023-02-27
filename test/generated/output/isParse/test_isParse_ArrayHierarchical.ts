@@ -6,7 +6,7 @@ export const test_isParse_ArrayHierarchical = _test_isParse(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
+        ((input: any): typia.Primitive<ArrayHierarchical> => {
             const is = (input: any): input is ArrayHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&

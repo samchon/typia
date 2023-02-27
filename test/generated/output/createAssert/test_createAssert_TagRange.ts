@@ -5,7 +5,7 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_createAssert_TagRange = _test_assert(
     "TagRange",
     TagRange.generate,
-    (input: any): Array<TagRange.Type> => {
+    (input: any): TagRange => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

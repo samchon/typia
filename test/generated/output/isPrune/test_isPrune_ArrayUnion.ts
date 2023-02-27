@@ -7,7 +7,7 @@ export const test_isPrune_ArrayUnion = _test_isPrune(
     ArrayUnion.generate,
     (input) =>
         ((input: any): input is Array<ArrayUnion.IUnion> => {
-            const is = (input: any): input is ArrayUnion => {
+            const is = (input: any): input is Array<ArrayUnion.IUnion> => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -65,7 +65,7 @@ export const test_isPrune_ArrayUnion = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: ArrayUnion): void => {};
+            const prune = (input: Array<ArrayUnion.IUnion>): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

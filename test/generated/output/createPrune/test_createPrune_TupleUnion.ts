@@ -5,5 +5,5 @@ import { TupleUnion } from "../../../structures/TupleUnion";
 export const test_createPrune_TupleUnion = _test_prune(
     "TupleUnion",
     TupleUnion.generate,
-    (input: Array<TupleUnion.Union>): void => {},
+    (input: TupleUnion): void => {},
 );

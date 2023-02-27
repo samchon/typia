@@ -5,11 +5,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_createValidateClone_ObjectGenericArray = _test_validateClone(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        typia.Primitive<ObjectGenericArray.IPage<ObjectGenericArray.IPerson>>
-    > => {
+    (input: any): typia.IValidation<typia.Primitive<ObjectGenericArray>> => {
         const validate = (
             input: any,
         ): typia.IValidation<ObjectGenericArray> => {

@@ -6,9 +6,7 @@ export const test_validateParse_ArrayMatrix = _test_validateParse(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.IValidation<typia.Primitive<Array<Array<Array<number>>>>> => {
+        ((input: string): typia.IValidation<typia.Primitive<ArrayMatrix>> => {
             const validate = (input: any): typia.IValidation<ArrayMatrix> => {
                 const errors = [] as any[];
                 const $report = (typia.validateParse as any).report(errors);

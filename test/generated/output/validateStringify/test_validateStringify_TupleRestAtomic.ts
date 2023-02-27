@@ -9,14 +9,14 @@ export const test_validateStringify_TupleRestAtomic = _test_validateStringify(
         ((input: [boolean, number, ...string[]]): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TupleRestAtomic> => {
+            ): typia.IValidation<[boolean, number, ...string[]]> => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleRestAtomic => {
+                ): input is [boolean, number, ...string[]] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -80,7 +80,9 @@ export const test_validateStringify_TupleRestAtomic = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: TupleRestAtomic): string => {
+            const stringify = (
+                input: [boolean, number, ...string[]],
+            ): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $string = (typia.validateStringify as any).string;
                 const $rest = (typia.validateStringify as any).rest;

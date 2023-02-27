@@ -5,7 +5,7 @@ import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 export const test_createStringify_ObjectLiteralType = _test_stringify(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
-    (input: { id: string; name: string; age: number }): string => {
+    (input: ObjectLiteralType): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
         return `{"id":${$string(input.id)},"name":${$string(

@@ -5,9 +5,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_createIsStringify_ObjectGenericArray = _test_isStringify(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (
-        input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-    ): string | null => {
+    (input: ObjectGenericArray): string | null => {
         const is = (input: any): input is ObjectGenericArray => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.pagination &&

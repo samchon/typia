@@ -14,7 +14,7 @@ export const test_validateEquals_ObjectUndefined = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectUndefined => {
+            ): input is Array<ObjectUndefined.ILecture> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

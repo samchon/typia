@@ -7,7 +7,9 @@ export const test_isStringify_ToJsonAtomicUnion = _test_isStringify(
     ToJsonAtomicUnion.generate,
     (input) =>
         ((input: Array<ToJsonAtomicUnion.IToJson>): string | null => {
-            const is = (input: any): input is ToJsonAtomicUnion => {
+            const is = (
+                input: any,
+            ): input is Array<ToJsonAtomicUnion.IToJson> => {
                 const $io0 = (input: any): boolean => true;
                 return (
                     Array.isArray(input) &&
@@ -19,7 +21,9 @@ export const test_isStringify_ToJsonAtomicUnion = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: ToJsonAtomicUnion): string => {
+            const stringify = (
+                input: Array<ToJsonAtomicUnion.IToJson>,
+            ): string => {
                 const $string = (typia.isStringify as any).string;
                 const $number = (typia.isStringify as any).number;
                 const $throws = (typia.isStringify as any).throws;

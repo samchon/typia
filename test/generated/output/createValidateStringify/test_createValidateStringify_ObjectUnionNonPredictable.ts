@@ -6,11 +6,7 @@ export const test_createValidateStringify_ObjectUnionNonPredictable =
     _test_validateStringify(
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
-        (
-            input: Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            >,
-        ): typia.IValidation<string> => {
+        (input: ObjectUnionNonPredictable): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionNonPredictable> => {

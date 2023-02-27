@@ -5,14 +5,14 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_createAssertEquals_ObjectRecursive = _test_assertEquals(
     "ObjectRecursive",
     ObjectRecursive.generate,
-    (input: any): ObjectRecursive.IDepartment => {
+    (input: any): ObjectRecursive => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectRecursive.IDepartment => {
+        ): input is ObjectRecursive => {
             const $ao0 = (
                 input: any,
                 _path: string,

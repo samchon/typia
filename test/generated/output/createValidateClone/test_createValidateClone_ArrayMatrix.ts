@@ -5,9 +5,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_createValidateClone_ArrayMatrix = _test_validateClone(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (
-        input: any,
-    ): typia.IValidation<typia.Primitive<Array<Array<Array<number>>>>> => {
+    (input: any): typia.IValidation<typia.Primitive<ArrayMatrix>> => {
         const validate = (input: any): typia.IValidation<ArrayMatrix> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

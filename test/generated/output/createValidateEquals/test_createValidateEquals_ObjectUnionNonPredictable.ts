@@ -6,13 +6,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
     _test_validateEquals(
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
-        (
-            input: any,
-        ): typia.IValidation<
-            Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            >
-        > => {
+        (input: any): typia.IValidation<ObjectUnionNonPredictable> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             const $join = (typia.createValidateEquals as any).join;

@@ -7,7 +7,9 @@ export const test_isPrune_ConstantEnumeration = _test_isPrune(
     ConstantEnumeration.generate,
     (input) =>
         ((input: any): input is Array<ConstantEnumeration.Enumeration> => {
-            const is = (input: any): input is ConstantEnumeration => {
+            const is = (
+                input: any,
+            ): input is Array<ConstantEnumeration.Enumeration> => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -20,7 +22,9 @@ export const test_isPrune_ConstantEnumeration = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: ConstantEnumeration): void => {};
+            const prune = (
+                input: Array<ConstantEnumeration.Enumeration>,
+            ): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

@@ -7,13 +7,13 @@ export const test_assertClone_NativeUnion = _test_assertClone(
     NativeUnion.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<NativeUnion.Union>> => {
-            const assert = (input: any): NativeUnion => {
+            const assert = (input: any): Array<NativeUnion.Union> => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is NativeUnion => {
+                ): input is Array<NativeUnion.Union> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -93,8 +93,8 @@ export const test_assertClone_NativeUnion = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: NativeUnion,
-            ): typia.Primitive<NativeUnion> => {
+                input: Array<NativeUnion.Union>,
+            ): typia.Primitive<Array<NativeUnion.Union>> => {
                 const $io1 = (input: any): boolean =>
                     "Buffer" === input.type &&
                     Array.isArray(input.data) &&

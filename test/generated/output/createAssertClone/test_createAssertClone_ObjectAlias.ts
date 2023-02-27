@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_createAssertClone_ObjectAlias = _test_assertClone(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input: any): typia.Primitive<Array<ObjectAlias.IMember>> => {
+    (input: any): typia.Primitive<ObjectAlias> => {
         const assert = (input: any): ObjectAlias => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

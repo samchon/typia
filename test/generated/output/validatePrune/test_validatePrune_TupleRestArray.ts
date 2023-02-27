@@ -11,14 +11,14 @@ export const test_validatePrune_TupleRestArray = _test_validatePrune(
         ): typia.IValidation<[boolean, number, ...Array<string>[]]> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TupleRestArray> => {
+            ): typia.IValidation<[boolean, number, ...Array<string>[]]> => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleRestArray => {
+                ): input is [boolean, number, ...Array<string>[]] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -116,7 +116,9 @@ export const test_validatePrune_TupleRestArray = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: TupleRestArray): void => {};
+            const prune = (
+                input: [boolean, number, ...Array<string>[]],
+            ): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

@@ -7,13 +7,25 @@ export const test_assertStringify_ToJsonTuple = _test_assertStringify(
     ToJsonTuple.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ToJsonTuple => {
+            const assert = (
+                input: any,
+            ): [
+                ToJsonTuple.IToJson<string>,
+                ToJsonTuple.IToJson<number>,
+                ToJsonTuple.IToJson<boolean>,
+                ToJsonTuple.IObject,
+            ] => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonTuple => {
+                ): input is [
+                    ToJsonTuple.IToJson<string>,
+                    ToJsonTuple.IToJson<number>,
+                    ToJsonTuple.IToJson<boolean>,
+                    ToJsonTuple.IObject,
+                ] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -108,7 +120,14 @@ export const test_assertStringify_ToJsonTuple = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ToJsonTuple): string => {
+            const stringify = (
+                input: [
+                    ToJsonTuple.IToJson<string>,
+                    ToJsonTuple.IToJson<number>,
+                    ToJsonTuple.IToJson<boolean>,
+                    ToJsonTuple.IObject,
+                ],
+            ): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $number = (typia.assertStringify as any).number;
                 const $so0 = (input: any): any =>

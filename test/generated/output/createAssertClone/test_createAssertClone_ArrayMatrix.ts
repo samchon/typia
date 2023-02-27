@@ -5,7 +5,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_createAssertClone_ArrayMatrix = _test_assertClone(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: any): typia.Primitive<Array<Array<Array<number>>>> => {
+    (input: any): typia.Primitive<ArrayMatrix> => {
         const assert = (input: any): ArrayMatrix => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

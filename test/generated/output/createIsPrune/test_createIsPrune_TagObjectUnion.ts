@@ -5,7 +5,7 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_createIsPrune_TagObjectUnion = _test_isPrune(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input: any): input is Array<TagObjectUnion.Type> => {
+    (input: any): input is TagObjectUnion => {
         const is = (input: any): input is TagObjectUnion => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&

@@ -5,7 +5,7 @@ import { TagType } from "../../../structures/TagType";
 export const test_createPrune_TagType = _test_prune(
     "TagType",
     TagType.generate,
-    (input: Array<TagType.Type>): void => {
+    (input: TagType): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if ("int" === key || "uint" === key) continue;

@@ -7,7 +7,9 @@ export const test_isStringify_ObjectUnionDouble = _test_isStringify(
     ObjectUnionDouble.generate,
     (input) =>
         ((input: Array<ObjectUnionDouble.Union>): string | null => {
-            const is = (input: any): input is ObjectUnionDouble => {
+            const is = (
+                input: any,
+            ): input is Array<ObjectUnionDouble.Union> => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -74,7 +76,9 @@ export const test_isStringify_ObjectUnionDouble = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: ObjectUnionDouble): string => {
+            const stringify = (
+                input: Array<ObjectUnionDouble.Union>,
+            ): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 const $throws = (typia.isStringify as any).throws;

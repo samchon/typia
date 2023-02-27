@@ -41,7 +41,7 @@ export namespace ValidateCloneProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     StatementFactory.constant(
                         "clone",
@@ -55,7 +55,7 @@ export namespace ValidateCloneProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     StatementFactory.constant(
                         "output",

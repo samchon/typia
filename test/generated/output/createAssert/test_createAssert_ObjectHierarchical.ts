@@ -5,13 +5,13 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_createAssert_ObjectHierarchical = _test_assert(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
-    (input: any): ObjectHierarchical.ICustomer => {
+    (input: any): ObjectHierarchical => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectHierarchical.ICustomer => {
+        ): input is ObjectHierarchical => {
             const $ao0 = (
                 input: any,
                 _path: string,

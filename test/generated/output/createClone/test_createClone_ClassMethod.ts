@@ -5,7 +5,7 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_createClone_ClassMethod = _test_clone(
     "ClassMethod",
     ClassMethod.generate,
-    (input: ClassMethod.Animal): typia.Primitive<ClassMethod.Animal> => {
+    (input: ClassMethod): typia.Primitive<ClassMethod> => {
         const $co0 = (input: any): any => ({
             name: input.name as any,
             age: input.age as any,

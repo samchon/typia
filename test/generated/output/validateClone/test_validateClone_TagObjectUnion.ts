@@ -11,14 +11,14 @@ export const test_validateClone_TagObjectUnion = _test_validateClone(
         ): typia.IValidation<typia.Primitive<Array<TagObjectUnion.Type>>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TagObjectUnion> => {
+            ): typia.IValidation<Array<TagObjectUnion.Type>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TagObjectUnion => {
+                ): input is Array<TagObjectUnion.Type> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -123,8 +123,8 @@ export const test_validateClone_TagObjectUnion = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: TagObjectUnion,
-            ): typia.Primitive<TagObjectUnion> => {
+                input: Array<TagObjectUnion.Type>,
+            ): typia.Primitive<Array<TagObjectUnion.Type>> => {
                 const $throws = (typia.validateClone as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value && 3 <= input.value;

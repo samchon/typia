@@ -5,8 +5,8 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_createIsStringify_ArrayRecursive = _test_isStringify(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input: ArrayRecursive.ICategory): string | null => {
-        const is = (input: any): input is ArrayRecursive.ICategory => {
+    (input: ArrayRecursive): string | null => {
+        const is = (input: any): input is ArrayRecursive => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(
@@ -26,7 +26,7 @@ export const test_createIsStringify_ArrayRecursive = _test_isStringify(
                 Number.isFinite(input.created_at.zone);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const stringify = (input: ArrayRecursive.ICategory): string => {
+        const stringify = (input: ArrayRecursive): string => {
             const $number = (typia.createIsStringify as any).number;
             const $string = (typia.createIsStringify as any).string;
             const $io0 = (input: any): boolean =>

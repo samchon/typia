@@ -6,13 +6,13 @@ export const test_createAssertStringify_ClassGetter = _test_assertStringify(
     "ClassGetter",
     ClassGetter.generate,
     (input: any): string => {
-        const assert = (input: any): ClassGetter.Person => {
+        const assert = (input: any): ClassGetter => {
             const $guard = (typia.createAssertStringify as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ClassGetter.Person => {
+            ): input is ClassGetter => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -49,7 +49,7 @@ export const test_createAssertStringify_ClassGetter = _test_assertStringify(
             })(input, "$input", true);
             return input;
         };
-        const stringify = (input: ClassGetter.Person): string => {
+        const stringify = (input: ClassGetter): string => {
             const $string = (typia.createAssertStringify as any).string;
             const $so0 = (input: any): any =>
                 `{"id":${$string(input.id)},"name":${$string(

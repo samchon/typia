@@ -8,19 +8,17 @@ export const test_validateParse_ObjectGenericAlias = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<ObjectGenericAlias.ISomething<string>>
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectGenericAlias>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectGenericAlias.Alias> => {
+            ): typia.IValidation<ObjectGenericAlias> => {
                 const errors = [] as any[];
                 const $report = (typia.validateParse as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericAlias.Alias => {
+                ): input is ObjectGenericAlias => {
                     const $vo0 = (
                         input: any,
                         _path: string,

@@ -7,14 +7,16 @@ export const test_validatePrune_TupleUnion = _test_validatePrune(
     TupleUnion.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<TupleUnion.Union>> => {
-            const validate = (input: any): typia.IValidation<TupleUnion> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<TupleUnion.Union>> => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleUnion => {
+                ): input is Array<TupleUnion.Union> => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -274,7 +276,7 @@ export const test_validatePrune_TupleUnion = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: TupleUnion): void => {};
+            const prune = (input: Array<TupleUnion.Union>): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

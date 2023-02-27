@@ -5,7 +5,7 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_createAssert_TagArray = _test_assert(
     "TagArray",
     TagArray.generate,
-    (input: any): Array<TagArray.Type> => {
+    (input: any): TagArray => {
         const $guard = (typia.createAssert as any).guard;
         const $is_uuid = (typia.createAssert as any).is_uuid;
         ((

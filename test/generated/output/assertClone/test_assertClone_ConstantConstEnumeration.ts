@@ -9,13 +9,15 @@ export const test_assertClone_ConstantConstEnumeration = _test_assertClone(
         ((
             input: any,
         ): typia.Primitive<Array<ConstantConstEnumeration.Enumeration>> => {
-            const assert = (input: any): ConstantConstEnumeration => {
+            const assert = (
+                input: any,
+            ): Array<ConstantConstEnumeration.Enumeration> => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ConstantConstEnumeration => {
+                ): input is Array<ConstantConstEnumeration.Enumeration> => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -42,8 +44,8 @@ export const test_assertClone_ConstantConstEnumeration = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ConstantConstEnumeration,
-            ): typia.Primitive<ConstantConstEnumeration> => {
+                input: Array<ConstantConstEnumeration.Enumeration>,
+            ): typia.Primitive<Array<ConstantConstEnumeration.Enumeration>> => {
                 return Array.isArray(input)
                     ? input.map((elem: any) => elem as any)
                     : (input as any);

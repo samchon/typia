@@ -5,14 +5,14 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 export const test_createValidate_ObjectLiteralProperty = _test_validate(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
-    (input: any): typia.IValidation<ObjectLiteralProperty.ISomething> => {
+    (input: any): typia.IValidation<ObjectLiteralProperty> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectLiteralProperty.ISomething => {
+        ): input is ObjectLiteralProperty => {
             const $vo0 = (
                 input: any,
                 _path: string,

@@ -6,24 +6,7 @@ export const test_createValidateStringify_TupleHierarchical =
     _test_validateStringify(
         "TupleHierarchical",
         TupleHierarchical.generate,
-        (
-            input: [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ],
-        ): typia.IValidation<string> => {
+        (input: TupleHierarchical): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TupleHierarchical> => {

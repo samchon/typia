@@ -21,7 +21,18 @@ export const test_validateStringify_DynamicEnumeration =
             }): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<DynamicEnumeration> => {
+                ): typia.IValidation<{
+                    ar?: string | undefined;
+                    "zh-Hans"?: string | undefined;
+                    "zh-Hant"?: string | undefined;
+                    en?: string | undefined;
+                    fr?: string | undefined;
+                    de?: string | undefined;
+                    ja?: string | undefined;
+                    ko?: string | undefined;
+                    pt?: string | undefined;
+                    ru?: string | undefined;
+                }> => {
                     const errors = [] as any[];
                     const $report = (typia.validateStringify as any).report(
                         errors,
@@ -30,7 +41,18 @@ export const test_validateStringify_DynamicEnumeration =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is DynamicEnumeration => {
+                    ): input is {
+                        ar?: string | undefined;
+                        "zh-Hans"?: string | undefined;
+                        "zh-Hant"?: string | undefined;
+                        en?: string | undefined;
+                        fr?: string | undefined;
+                        de?: string | undefined;
+                        ja?: string | undefined;
+                        ko?: string | undefined;
+                        pt?: string | undefined;
+                        ru?: string | undefined;
+                    } => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -132,7 +154,18 @@ export const test_validateStringify_DynamicEnumeration =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (input: DynamicEnumeration): string => {
+                const stringify = (input: {
+                    ar?: string | undefined;
+                    "zh-Hans"?: string | undefined;
+                    "zh-Hant"?: string | undefined;
+                    en?: string | undefined;
+                    fr?: string | undefined;
+                    de?: string | undefined;
+                    ja?: string | undefined;
+                    ko?: string | undefined;
+                    pt?: string | undefined;
+                    ru?: string | undefined;
+                }): string => {
                     const $string = (typia.validateStringify as any).string;
                     const $tail = (typia.validateStringify as any).tail;
                     const $so0 = (input: any): any =>

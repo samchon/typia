@@ -5,7 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_createIsStringify_TagStep = _test_isStringify(
     "TagStep",
     TagStep.generate,
-    (input: Array<TagStep.Type>): string | null => {
+    (input: TagStep): string | null => {
         const is = (input: any): input is TagStep => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.exclusiveMinimum &&

@@ -5,13 +5,7 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 export const test_createPrune_ObjectGeneric = _test_prune(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (
-        input: [
-            ObjectGeneric.ISomething<boolean>,
-            ObjectGeneric.ISomething<number>,
-            ObjectGeneric.ISomething<string>,
-        ],
-    ): void => {
+    (input: ObjectGeneric): void => {
         const $io0 = (input: any): boolean =>
             "boolean" === typeof input.value &&
             "object" === typeof input.child &&

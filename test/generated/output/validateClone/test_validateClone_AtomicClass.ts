@@ -23,14 +23,38 @@ export const test_validateClone_AtomicClass = _test_validateClone(
                 ]
             >
         > => {
-            const validate = (input: any): typia.IValidation<AtomicClass> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<
+                [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is AtomicClass => {
+                ): input is [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ] => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -163,8 +187,30 @@ export const test_validateClone_AtomicClass = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: AtomicClass,
-            ): typia.Primitive<AtomicClass> => {
+                input: [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ],
+            ): typia.Primitive<
+                [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ]
+            > => {
                 return Array.isArray(input) &&
                     input.length === 9 &&
                     ("boolean" === typeof input[0] ||

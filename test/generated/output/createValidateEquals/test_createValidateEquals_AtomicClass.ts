@@ -5,21 +5,7 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_createValidateEquals_AtomicClass = _test_validateEquals(
     "AtomicClass",
     AtomicClass.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        [
-            Boolean,
-            false | Boolean,
-            boolean | Boolean,
-            Number,
-            Number | 1,
-            number | Number,
-            String,
-            String | "characters",
-            string | String,
-        ]
-    > => {
+    (input: any): typia.IValidation<AtomicClass> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         ((

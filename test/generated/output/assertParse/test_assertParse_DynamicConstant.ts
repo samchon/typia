@@ -6,9 +6,7 @@ export const test_assertParse_DynamicConstant = _test_assertParse(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.Primitive<{ a: number; b: number; c: number; d: number }> => {
+        ((input: string): typia.Primitive<DynamicConstant> => {
             const assert = (input: any): DynamicConstant => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

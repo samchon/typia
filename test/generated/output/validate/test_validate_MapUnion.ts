@@ -13,7 +13,7 @@ export const test_validate_MapUnion = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is MapUnion => {
+            ): input is Array<MapUnion.Union> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

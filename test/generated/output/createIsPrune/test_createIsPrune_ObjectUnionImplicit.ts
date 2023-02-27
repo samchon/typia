@@ -5,17 +5,7 @@ import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 export const test_createIsPrune_ObjectUnionImplicit = _test_isPrune(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (
-        input: any,
-    ): input is Array<
-        | ObjectUnionImplicit.IPoint
-        | ObjectUnionImplicit.ILine
-        | ObjectUnionImplicit.ITriangle
-        | ObjectUnionImplicit.IRectangle
-        | ObjectUnionImplicit.IPolyline
-        | ObjectUnionImplicit.IPolygon
-        | ObjectUnionImplicit.ICircle
-    > => {
+    (input: any): input is ObjectUnionImplicit => {
         const is = (input: any): input is ObjectUnionImplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&

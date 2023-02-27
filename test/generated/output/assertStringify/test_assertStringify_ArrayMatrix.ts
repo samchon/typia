@@ -7,13 +7,13 @@ export const test_assertStringify_ArrayMatrix = _test_assertStringify(
     ArrayMatrix.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ArrayMatrix => {
+            const assert = (input: any): Array<Array<Array<number>>> => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayMatrix => {
+                ): input is Array<Array<Array<number>>> => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -67,7 +67,7 @@ export const test_assertStringify_ArrayMatrix = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ArrayMatrix): string => {
+            const stringify = (input: Array<Array<Array<number>>>): string => {
                 const $number = (typia.assertStringify as any).number;
                 return `[${input
                     .map(

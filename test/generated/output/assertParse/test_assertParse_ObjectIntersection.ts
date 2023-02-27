@@ -6,11 +6,7 @@ export const test_assertParse_ObjectIntersection = _test_assertParse(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.Primitive<
-            ObjectIntersection.IEmail & ObjectIntersection.IName
-        > => {
+        ((input: string): typia.Primitive<ObjectIntersection> => {
             const assert = (input: any): ObjectIntersection => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

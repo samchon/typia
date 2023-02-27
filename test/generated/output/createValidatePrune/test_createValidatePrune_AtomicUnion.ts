@@ -5,7 +5,7 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_createValidatePrune_AtomicUnion = _test_validatePrune(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input: any): typia.IValidation<Array<AtomicUnion.Union>> => {
+    (input: any): typia.IValidation<AtomicUnion> => {
         const validate = (input: any): typia.IValidation<AtomicUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

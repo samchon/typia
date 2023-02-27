@@ -15,14 +15,24 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
         ): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectNullable> => {
+            ): typia.IValidation<
+                [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectNullable => {
+                ): input is [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -235,7 +245,13 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ObjectNullable): string => {
+            const stringify = (
+                input: [
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                    ObjectNullable.IProduct,
+                ],
+            ): string => {
                 const $string = (typia.validateStringify as any).string;
                 const $throws = (typia.validateStringify as any).throws;
                 const $io1 = (input: any): boolean =>

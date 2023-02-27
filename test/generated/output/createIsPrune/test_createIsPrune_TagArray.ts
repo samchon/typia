@@ -5,7 +5,7 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_createIsPrune_TagArray = _test_isPrune(
     "TagArray",
     TagArray.generate,
-    (input: any): input is Array<TagArray.Type> => {
+    (input: any): input is TagArray => {
         const is = (input: any): input is TagArray => {
             const $is_uuid = (typia.createIsPrune as any).is_uuid;
             const $io0 = (input: any): boolean =>

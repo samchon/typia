@@ -5,9 +5,7 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_createIsParse_ObjectTuple = _test_isParse(
     "ObjectTuple",
     ObjectTuple.generate,
-    (
-        input: any,
-    ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
+    (input: any): typia.Primitive<ObjectTuple> => {
         const is = (input: any): input is ObjectTuple => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&

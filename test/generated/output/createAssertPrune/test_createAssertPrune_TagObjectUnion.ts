@@ -5,7 +5,7 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_createAssertPrune_TagObjectUnion = _test_assertPrune(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input: any): Array<TagObjectUnion.Type> => {
+    (input: any): TagObjectUnion => {
         const assert = (input: any): TagObjectUnion => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

@@ -5,14 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_createEquals_ObjectNullable = _test_equals(
     "ObjectNullable",
     ObjectNullable.generate,
-    (
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is [
-        ObjectNullable.IProduct,
-        ObjectNullable.IProduct,
-        ObjectNullable.IProduct,
-    ] => {
+    (input: any, _exceptionable: boolean = true): input is ObjectNullable => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.name &&
             "object" === typeof input.manufacturer &&

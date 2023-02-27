@@ -5,9 +5,7 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_createIsClone_TupleRestArray = _test_isClone(
     "TupleRestArray",
     TupleRestArray.generate,
-    (
-        input: any,
-    ): typia.Primitive<[boolean, number, ...Array<string>[]]> | null => {
+    (input: any): typia.Primitive<TupleRestArray> | null => {
         const is = (input: any): input is TupleRestArray => {
             return (
                 Array.isArray(input) &&

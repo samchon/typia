@@ -7,14 +7,16 @@ export const test_validateStringify_ArrayMatrix = _test_validateStringify(
     ArrayMatrix.generate,
     (input) =>
         ((input: Array<Array<Array<number>>>): typia.IValidation<string> => {
-            const validate = (input: any): typia.IValidation<ArrayMatrix> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<Array<Array<number>>>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayMatrix => {
+                ): input is Array<Array<Array<number>>> => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -123,7 +125,7 @@ export const test_validateStringify_ArrayMatrix = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ArrayMatrix): string => {
+            const stringify = (input: Array<Array<Array<number>>>): string => {
                 const $number = (typia.validateStringify as any).number;
                 return `[${input
                     .map(

@@ -5,7 +5,7 @@ import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 export const test_createStringify_ToJsonDouble = _test_stringify(
     "ToJsonDouble",
     ToJsonDouble.generate,
-    (input: ToJsonDouble.Parent): string => {
+    (input: ToJsonDouble): string => {
         const $number = (typia.createStringify as any).number;
         const $so0 = (input: any): any =>
             `{"id":${$number(input.id)},"flag":${input.flag}}`;

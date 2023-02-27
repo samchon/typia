@@ -7,13 +7,13 @@ export const test_assertPrune_ArraySimple = _test_assertPrune(
     ArraySimple.generate,
     (input) =>
         ((input: any): Array<ArraySimple.IPerson> => {
-            const assert = (input: any): ArraySimple => {
+            const assert = (input: any): Array<ArraySimple.IPerson> => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArraySimple => {
+                ): input is Array<ArraySimple.IPerson> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -98,7 +98,7 @@ export const test_assertPrune_ArraySimple = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ArraySimple): void => {
+            const prune = (input: Array<ArraySimple.IPerson>): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&

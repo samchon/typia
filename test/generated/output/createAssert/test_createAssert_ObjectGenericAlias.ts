@@ -5,13 +5,13 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_createAssert_ObjectGenericAlias = _test_assert(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
-    (input: any): ObjectGenericAlias.ISomething<string> => {
+    (input: any): ObjectGenericAlias => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectGenericAlias.Alias => {
+        ): input is ObjectGenericAlias => {
             const $ao0 = (
                 input: any,
                 _path: string,

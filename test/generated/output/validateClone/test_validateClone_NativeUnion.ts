@@ -9,14 +9,16 @@ export const test_validateClone_NativeUnion = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<NativeUnion.Union>>> => {
-            const validate = (input: any): typia.IValidation<NativeUnion> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<NativeUnion.Union>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is NativeUnion => {
+                ): input is Array<NativeUnion.Union> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -123,8 +125,8 @@ export const test_validateClone_NativeUnion = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: NativeUnion,
-            ): typia.Primitive<NativeUnion> => {
+                input: Array<NativeUnion.Union>,
+            ): typia.Primitive<Array<NativeUnion.Union>> => {
                 const $io1 = (input: any): boolean =>
                     "Buffer" === input.type &&
                     Array.isArray(input.data) &&

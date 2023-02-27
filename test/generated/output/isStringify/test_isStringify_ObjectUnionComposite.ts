@@ -18,7 +18,18 @@ export const test_isStringify_ObjectUnionComposite = _test_isStringify(
                 | ObjectUnionComposite.ICircle
             >,
         ): string | null => {
-            const is = (input: any): input is ObjectUnionComposite => {
+            const is = (
+                input: any,
+            ): input is Array<
+                | ObjectUnionComposite.IPoint
+                | ObjectUnionComposite.ILine
+                | ObjectUnionComposite.ITriangle
+                | ObjectUnionComposite.IRectangle
+                | ObjectUnionComposite.IPolyline
+                | ObjectUnionComposite.IPolygon
+                | ObjectUnionComposite.IPointedShape
+                | ObjectUnionComposite.ICircle
+            > => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
@@ -160,7 +171,18 @@ export const test_isStringify_ObjectUnionComposite = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: ObjectUnionComposite): string => {
+            const stringify = (
+                input: Array<
+                    | ObjectUnionComposite.IPoint
+                    | ObjectUnionComposite.ILine
+                    | ObjectUnionComposite.ITriangle
+                    | ObjectUnionComposite.IRectangle
+                    | ObjectUnionComposite.IPolyline
+                    | ObjectUnionComposite.IPolygon
+                    | ObjectUnionComposite.IPointedShape
+                    | ObjectUnionComposite.ICircle
+                >,
+            ): string => {
                 const $number = (typia.isStringify as any).number;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x && "number" === typeof input.y;

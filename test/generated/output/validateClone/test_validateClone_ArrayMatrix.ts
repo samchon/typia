@@ -9,14 +9,16 @@ export const test_validateClone_ArrayMatrix = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<Array<Array<number>>>>> => {
-            const validate = (input: any): typia.IValidation<ArrayMatrix> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<Array<Array<number>>>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayMatrix => {
+                ): input is Array<Array<Array<number>>> => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -126,8 +128,8 @@ export const test_validateClone_ArrayMatrix = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ArrayMatrix,
-            ): typia.Primitive<ArrayMatrix> => {
+                input: Array<Array<Array<number>>>,
+            ): typia.Primitive<Array<Array<Array<number>>>> => {
                 return Array.isArray(input)
                     ? input.map((elem: any) =>
                           Array.isArray(elem)

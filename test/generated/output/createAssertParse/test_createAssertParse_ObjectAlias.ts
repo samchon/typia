@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_createAssertParse_ObjectAlias = _test_assertParse(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input: string): typia.Primitive<Array<ObjectAlias.IMember>> => {
+    (input: string): typia.Primitive<ObjectAlias> => {
         const assert = (input: any): ObjectAlias => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

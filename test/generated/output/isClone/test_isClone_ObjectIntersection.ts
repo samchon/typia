@@ -11,7 +11,10 @@ export const test_isClone_ObjectIntersection = _test_isClone(
         ): typia.Primitive<
             ObjectIntersection.IEmail & ObjectIntersection.IName
         > | null => {
-            const is = (input: any): input is ObjectIntersection => {
+            const is = (
+                input: any,
+            ): input is ObjectIntersection.IEmail &
+                ObjectIntersection.IName => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -21,8 +24,10 @@ export const test_isClone_ObjectIntersection = _test_isClone(
                 );
             };
             const clone = (
-                input: ObjectIntersection,
-            ): typia.Primitive<ObjectIntersection> => {
+                input: ObjectIntersection.IEmail & ObjectIntersection.IName,
+            ): typia.Primitive<
+                ObjectIntersection.IEmail & ObjectIntersection.IName
+            > => {
                 const $co0 = (input: any): any => ({
                     email: input.email as any,
                     name: input.name as any,

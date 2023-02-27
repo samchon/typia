@@ -5,17 +5,7 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 export const test_createValidateParse_ObjectGeneric = _test_validateParse(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (
-        input: string,
-    ): typia.IValidation<
-        typia.Primitive<
-            [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ]
-        >
-    > => {
+    (input: string): typia.IValidation<typia.Primitive<ObjectGeneric>> => {
         const validate = (input: any): typia.IValidation<ObjectGeneric> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

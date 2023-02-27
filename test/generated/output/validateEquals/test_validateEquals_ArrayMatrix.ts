@@ -13,7 +13,7 @@ export const test_validateEquals_ArrayMatrix = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayMatrix => {
+            ): input is Array<Array<Array<number>>> => {
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {

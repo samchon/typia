@@ -5,7 +5,7 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 export const test_createIsPrune_ArrayAtomicSimple = _test_isPrune(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    (input: any): input is [Array<boolean>, Array<number>, Array<string>] => {
+    (input: any): input is ArrayAtomicSimple => {
         const is = (input: any): input is ArrayAtomicSimple => {
             return (
                 Array.isArray(input) &&

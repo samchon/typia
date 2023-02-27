@@ -5,9 +5,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_createIsPrune_ObjectIntersection = _test_isPrune(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (
-        input: any,
-    ): input is ObjectIntersection.IEmail & ObjectIntersection.IName => {
+    (input: any): input is ObjectIntersection => {
         const is = (input: any): input is ObjectIntersection => {
             return (
                 "object" === typeof input &&

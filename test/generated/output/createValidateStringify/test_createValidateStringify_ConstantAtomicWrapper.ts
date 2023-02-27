@@ -6,13 +6,7 @@ export const test_createValidateStringify_ConstantAtomicWrapper =
     _test_validateStringify(
         "ConstantAtomicWrapper",
         ConstantAtomicWrapper.generate,
-        (
-            input: [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ],
-        ): typia.IValidation<string> => {
+        (input: ConstantAtomicWrapper): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicWrapper> => {

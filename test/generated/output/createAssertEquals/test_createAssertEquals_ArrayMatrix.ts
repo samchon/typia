@@ -5,7 +5,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_createAssertEquals_ArrayMatrix = _test_assertEquals(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input: any): Array<Array<Array<number>>> => {
+    (input: any): ArrayMatrix => {
         const $guard = (typia.createAssertEquals as any).guard;
         ((
             input: any,

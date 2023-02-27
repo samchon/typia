@@ -5,7 +5,7 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 export const test_createStringify_ObjectUndefined = _test_stringify(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input: Array<ObjectUndefined.ILecture>): string => {
+    (input: ObjectUndefined): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
         const $throws = (typia.createStringify as any).throws;

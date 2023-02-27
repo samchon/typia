@@ -5,17 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_createValidateParse_ObjectNullable = _test_validateParse(
     "ObjectNullable",
     ObjectNullable.generate,
-    (
-        input: string,
-    ): typia.IValidation<
-        typia.Primitive<
-            [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ]
-        >
-    > => {
+    (input: string): typia.IValidation<typia.Primitive<ObjectNullable>> => {
         const validate = (input: any): typia.IValidation<ObjectNullable> => {
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);

@@ -6,16 +6,7 @@ export const test_createAssertEquals_ObjectPropertyNullable =
     _test_assertEquals(
         "ObjectPropertyNullable",
         ObjectPropertyNullable.generate,
-        (
-            input: any,
-        ): [
-            Array<ObjectPropertyNullable.IPointer<boolean>>,
-            Array<ObjectPropertyNullable.IPointer<number>>,
-            Array<ObjectPropertyNullable.IPointer<string>>,
-            Array<
-                ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-            >,
-        ] => {
+        (input: any): ObjectPropertyNullable => {
             const $guard = (typia.createAssertEquals as any).guard;
             const $join = (typia.createAssertEquals as any).join;
             ((

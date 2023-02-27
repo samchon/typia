@@ -6,7 +6,7 @@ export const test_isParse_TupleRestAtomic = _test_isParse(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
     (input) =>
-        ((input: any): typia.Primitive<[boolean, number, ...string[]]> => {
+        ((input: any): typia.Primitive<TupleRestAtomic> => {
             const is = (input: any): input is TupleRestAtomic => {
                 return (
                     Array.isArray(input) &&

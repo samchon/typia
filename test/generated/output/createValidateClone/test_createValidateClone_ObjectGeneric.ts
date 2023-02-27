@@ -5,17 +5,7 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 export const test_createValidateClone_ObjectGeneric = _test_validateClone(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (
-        input: any,
-    ): typia.IValidation<
-        typia.Primitive<
-            [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ]
-        >
-    > => {
+    (input: any): typia.IValidation<typia.Primitive<ObjectGeneric>> => {
         const validate = (input: any): typia.IValidation<ObjectGeneric> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

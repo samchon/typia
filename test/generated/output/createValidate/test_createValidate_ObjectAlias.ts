@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_createValidate_ObjectAlias = _test_validate(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input: any): typia.IValidation<Array<ObjectAlias.IMember>> => {
+    (input: any): typia.IValidation<ObjectAlias> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

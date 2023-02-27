@@ -7,7 +7,9 @@ export const test_isStringify_ArrayHierarchical = _test_isStringify(
     ArrayHierarchical.generate,
     (input) =>
         ((input: Array<ArrayHierarchical.ICompany>): string | null => {
-            const is = (input: any): input is ArrayHierarchical => {
+            const is = (
+                input: any,
+            ): input is Array<ArrayHierarchical.ICompany> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -70,7 +72,9 @@ export const test_isStringify_ArrayHierarchical = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: ArrayHierarchical): string => {
+            const stringify = (
+                input: Array<ArrayHierarchical.ICompany>,
+            ): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 const $io1 = (input: any): boolean =>

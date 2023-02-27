@@ -8,9 +8,7 @@ export const test_createValidateClone_ConstantConstEnumeration =
         ConstantConstEnumeration.generate,
         (
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<Array<ConstantConstEnumeration.Enumeration>>
-        > => {
+        ): typia.IValidation<typia.Primitive<ConstantConstEnumeration>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantConstEnumeration> => {

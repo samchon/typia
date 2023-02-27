@@ -5,7 +5,7 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_createPrune_ObjectTuple = _test_prune(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input: [ObjectTuple.ISection, ObjectTuple.ICitizen]): void => {
+    (input: ObjectTuple): void => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.code &&

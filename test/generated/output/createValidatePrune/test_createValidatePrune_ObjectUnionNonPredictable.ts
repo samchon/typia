@@ -6,13 +6,7 @@ export const test_createValidatePrune_ObjectUnionNonPredictable =
     _test_validatePrune(
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
-        (
-            input: any,
-        ): typia.IValidation<
-            Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            >
-        > => {
+        (input: any): typia.IValidation<ObjectUnionNonPredictable> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionNonPredictable> => {

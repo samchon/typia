@@ -7,13 +7,7 @@ export const test_createRandom_ConstantAtomicWrapper = _test_random(
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<
-        [
-            ConstantAtomicWrapper.IPointer<boolean>,
-            ConstantAtomicWrapper.IPointer<number>,
-            ConstantAtomicWrapper.IPointer<string>,
-        ]
-    > => {
+    ): typia.Primitive<ConstantAtomicWrapper> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
@@ -35,13 +29,7 @@ export const test_createRandom_ConstantAtomicWrapper = _test_random(
         });
         return [$ro0(), $ro1(), $ro2()];
     },
-    (
-        input: any,
-    ): [
-        ConstantAtomicWrapper.IPointer<boolean>,
-        ConstantAtomicWrapper.IPointer<number>,
-        ConstantAtomicWrapper.IPointer<string>,
-    ] => {
+    (input: any): ConstantAtomicWrapper => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

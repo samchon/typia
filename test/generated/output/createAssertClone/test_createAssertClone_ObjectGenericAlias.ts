@@ -5,14 +5,14 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_createAssertClone_ObjectGenericAlias = _test_assertClone(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
-    (input: any): typia.Primitive<ObjectGenericAlias.ISomething<string>> => {
-        const assert = (input: any): ObjectGenericAlias.Alias => {
+    (input: any): typia.Primitive<ObjectGenericAlias> => {
+        const assert = (input: any): ObjectGenericAlias => {
             const $guard = (typia.createAssertClone as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectGenericAlias.Alias => {
+            ): input is ObjectGenericAlias => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -37,8 +37,8 @@ export const test_createAssertClone_ObjectGenericAlias = _test_assertClone(
             return input;
         };
         const clone = (
-            input: ObjectGenericAlias.Alias,
-        ): typia.Primitive<ObjectGenericAlias.Alias> => {
+            input: ObjectGenericAlias,
+        ): typia.Primitive<ObjectGenericAlias> => {
             const $co0 = (input: any): any => ({
                 value: input.value as any,
             });

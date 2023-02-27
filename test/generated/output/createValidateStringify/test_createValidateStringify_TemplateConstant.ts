@@ -6,7 +6,7 @@ export const test_createValidateStringify_TemplateConstant =
     _test_validateStringify(
         "TemplateConstant",
         TemplateConstant.generate,
-        (input: Array<TemplateConstant.Type>): typia.IValidation<string> => {
+        (input: TemplateConstant): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TemplateConstant> => {

@@ -12,7 +12,9 @@ export const test_validateStringify_ObjectIntersection =
             ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ObjectIntersection> => {
+                ): typia.IValidation<
+                    ObjectIntersection.IEmail & ObjectIntersection.IName
+                > => {
                     const errors = [] as any[];
                     const $report = (typia.validateStringify as any).report(
                         errors,
@@ -21,7 +23,8 @@ export const test_validateStringify_ObjectIntersection =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectIntersection => {
+                    ): input is ObjectIntersection.IEmail &
+                        ObjectIntersection.IName => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -69,7 +72,9 @@ export const test_validateStringify_ObjectIntersection =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (input: ObjectIntersection): string => {
+                const stringify = (
+                    input: ObjectIntersection.IEmail & ObjectIntersection.IName,
+                ): string => {
                     const $string = (typia.validateStringify as any).string;
                     return `{"email":${$string(input.email)},"name":${$string(
                         input.name,

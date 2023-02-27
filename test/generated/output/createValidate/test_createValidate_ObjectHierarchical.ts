@@ -5,14 +5,14 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_createValidate_ObjectHierarchical = _test_validate(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
-    (input: any): typia.IValidation<ObjectHierarchical.ICustomer> => {
+    (input: any): typia.IValidation<ObjectHierarchical> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectHierarchical.ICustomer => {
+        ): input is ObjectHierarchical => {
             const $vo0 = (
                 input: any,
                 _path: string,

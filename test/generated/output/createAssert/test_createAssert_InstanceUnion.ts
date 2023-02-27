@@ -5,7 +5,7 @@ import { InstanceUnion } from "../../../structures/InstanceUnion";
 export const test_createAssert_InstanceUnion = _test_assert(
     "InstanceUnion",
     InstanceUnion.generate,
-    (input: any): Array<InstanceUnion.Union> => {
+    (input: any): InstanceUnion => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

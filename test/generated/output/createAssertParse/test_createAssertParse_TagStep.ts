@@ -5,7 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_createAssertParse_TagStep = _test_assertParse(
     "TagStep",
     TagStep.generate,
-    (input: string): typia.Primitive<Array<TagStep.Type>> => {
+    (input: string): typia.Primitive<TagStep> => {
         const assert = (input: any): TagStep => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

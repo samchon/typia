@@ -5,7 +5,7 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_createIsClone_AtomicUnion = _test_isClone(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input: any): typia.Primitive<Array<AtomicUnion.Union>> | null => {
+    (input: any): typia.Primitive<AtomicUnion> | null => {
         const is = (input: any): input is AtomicUnion => {
             return (
                 Array.isArray(input) &&

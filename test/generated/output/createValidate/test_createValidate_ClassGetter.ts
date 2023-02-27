@@ -5,14 +5,14 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 export const test_createValidate_ClassGetter = _test_validate(
     "ClassGetter",
     ClassGetter.generate,
-    (input: any): typia.IValidation<ClassGetter.Person> => {
+    (input: any): typia.IValidation<ClassGetter> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ClassGetter.Person => {
+        ): input is ClassGetter => {
             const $vo0 = (
                 input: any,
                 _path: string,

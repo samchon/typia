@@ -5,7 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_createIsPrune_TagStep = _test_isPrune(
     "TagStep",
     TagStep.generate,
-    (input: any): input is Array<TagStep.Type> => {
+    (input: any): input is TagStep => {
         const is = (input: any): input is TagStep => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.exclusiveMinimum &&

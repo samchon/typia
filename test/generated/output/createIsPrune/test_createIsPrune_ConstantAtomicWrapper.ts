@@ -5,13 +5,7 @@ import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper
 export const test_createIsPrune_ConstantAtomicWrapper = _test_isPrune(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
-    (
-        input: any,
-    ): input is [
-        ConstantAtomicWrapper.IPointer<boolean>,
-        ConstantAtomicWrapper.IPointer<number>,
-        ConstantAtomicWrapper.IPointer<string>,
-    ] => {
+    (input: any): input is ConstantAtomicWrapper => {
         const is = (input: any): input is ConstantAtomicWrapper => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value;

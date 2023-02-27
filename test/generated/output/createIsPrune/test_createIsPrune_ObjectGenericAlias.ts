@@ -5,15 +5,15 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_createIsPrune_ObjectGenericAlias = _test_isPrune(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
-    (input: any): input is ObjectGenericAlias.ISomething<string> => {
-        const is = (input: any): input is ObjectGenericAlias.Alias => {
+    (input: any): input is ObjectGenericAlias => {
+        const is = (input: any): input is ObjectGenericAlias => {
             return (
                 "object" === typeof input &&
                 null !== input &&
                 "string" === typeof input.value
             );
         };
-        const prune = (input: ObjectGenericAlias.Alias): void => {
+        const prune = (input: ObjectGenericAlias): void => {
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if ("value" === key) continue;

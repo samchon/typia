@@ -24,7 +24,24 @@ export const test_isPrune_TupleHierarchical = _test_isPrune(
                 >,
             ],
         ] => {
-            const is = (input: any): input is TupleHierarchical => {
+            const is = (
+                input: any,
+            ): input is [
+                boolean,
+                null,
+                number,
+                [boolean, null, [number, [boolean, string]]],
+                [
+                    number,
+                    Array<
+                        [
+                            string,
+                            boolean,
+                            Array<[number, number, [boolean, string]]>,
+                        ]
+                    >,
+                ],
+            ] => {
                 return (
                     Array.isArray(input) &&
                     input.length === 5 &&
@@ -74,7 +91,24 @@ export const test_isPrune_TupleHierarchical = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: TupleHierarchical): void => {};
+            const prune = (
+                input: [
+                    boolean,
+                    null,
+                    number,
+                    [boolean, null, [number, [boolean, string]]],
+                    [
+                        number,
+                        Array<
+                            [
+                                string,
+                                boolean,
+                                Array<[number, number, [boolean, string]]>,
+                            ]
+                        >,
+                    ],
+                ],
+            ): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

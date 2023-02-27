@@ -6,7 +6,7 @@ export const test_isParse_ObjectAlias = _test_isParse(
     "ObjectAlias",
     ObjectAlias.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<ObjectAlias.IMember>> => {
+        ((input: any): typia.Primitive<ObjectAlias> => {
             const is = (input: any): input is ObjectAlias => {
                 const $io0 = (input: any): boolean =>
                     (null === input.id || "string" === typeof input.id) &&

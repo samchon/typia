@@ -5,14 +5,14 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_createAssertEquals_ArrayRecursive = _test_assertEquals(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input: any): ArrayRecursive.ICategory => {
+    (input: any): ArrayRecursive => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ArrayRecursive.ICategory => {
+        ): input is ArrayRecursive => {
             const $ao0 = (
                 input: any,
                 _path: string,

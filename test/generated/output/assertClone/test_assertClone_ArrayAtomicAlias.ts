@@ -15,13 +15,23 @@ export const test_assertClone_ArrayAtomicAlias = _test_assertClone(
                 ArrayAtomicAlias.Alias<string>,
             ]
         > => {
-            const assert = (input: any): ArrayAtomicAlias => {
+            const assert = (
+                input: any,
+            ): [
+                ArrayAtomicAlias.Alias<boolean>,
+                ArrayAtomicAlias.Alias<number>,
+                ArrayAtomicAlias.Alias<string>,
+            ] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayAtomicAlias => {
+                ): input is [
+                    ArrayAtomicAlias.Alias<boolean>,
+                    ArrayAtomicAlias.Alias<number>,
+                    ArrayAtomicAlias.Alias<string>,
+                ] => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -88,8 +98,18 @@ export const test_assertClone_ArrayAtomicAlias = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ArrayAtomicAlias,
-            ): typia.Primitive<ArrayAtomicAlias> => {
+                input: [
+                    ArrayAtomicAlias.Alias<boolean>,
+                    ArrayAtomicAlias.Alias<number>,
+                    ArrayAtomicAlias.Alias<string>,
+                ],
+            ): typia.Primitive<
+                [
+                    ArrayAtomicAlias.Alias<boolean>,
+                    ArrayAtomicAlias.Alias<number>,
+                    ArrayAtomicAlias.Alias<string>,
+                ]
+            > => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     Array.isArray(input[0]) &&

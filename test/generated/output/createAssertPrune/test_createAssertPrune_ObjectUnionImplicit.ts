@@ -5,17 +5,7 @@ import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 export const test_createAssertPrune_ObjectUnionImplicit = _test_assertPrune(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (
-        input: any,
-    ): Array<
-        | ObjectUnionImplicit.IPoint
-        | ObjectUnionImplicit.ILine
-        | ObjectUnionImplicit.ITriangle
-        | ObjectUnionImplicit.IRectangle
-        | ObjectUnionImplicit.IPolyline
-        | ObjectUnionImplicit.IPolygon
-        | ObjectUnionImplicit.ICircle
-    > => {
+    (input: any): ObjectUnionImplicit => {
         const assert = (input: any): ObjectUnionImplicit => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

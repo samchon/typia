@@ -8,13 +8,19 @@ export const test_assertStringify_ObjectUnionNonPredictable =
         ObjectUnionNonPredictable.generate,
         (input) =>
             ((input: any): string => {
-                const assert = (input: any): ObjectUnionNonPredictable => {
+                const assert = (
+                    input: any,
+                ): Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                > => {
                     const $guard = (typia.assertStringify as any).guard;
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectUnionNonPredictable => {
+                    ): input is Array<
+                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                    > => {
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -182,7 +188,9 @@ export const test_assertStringify_ObjectUnionNonPredictable =
                     return input;
                 };
                 const stringify = (
-                    input: ObjectUnionNonPredictable,
+                    input: Array<
+                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                    >,
                 ): string => {
                     const $number = (typia.assertStringify as any).number;
                     const $string = (typia.assertStringify as any).string;

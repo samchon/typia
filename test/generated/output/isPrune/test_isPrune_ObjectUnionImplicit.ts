@@ -17,7 +17,17 @@ export const test_isPrune_ObjectUnionImplicit = _test_isPrune(
             | ObjectUnionImplicit.IPolygon
             | ObjectUnionImplicit.ICircle
         > => {
-            const is = (input: any): input is ObjectUnionImplicit => {
+            const is = (
+                input: any,
+            ): input is Array<
+                | ObjectUnionImplicit.IPoint
+                | ObjectUnionImplicit.ILine
+                | ObjectUnionImplicit.ITriangle
+                | ObjectUnionImplicit.IRectangle
+                | ObjectUnionImplicit.IPolyline
+                | ObjectUnionImplicit.IPolygon
+                | ObjectUnionImplicit.ICircle
+            > => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
@@ -150,7 +160,17 @@ export const test_isPrune_ObjectUnionImplicit = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: ObjectUnionImplicit): void => {
+            const prune = (
+                input: Array<
+                    | ObjectUnionImplicit.IPoint
+                    | ObjectUnionImplicit.ILine
+                    | ObjectUnionImplicit.ITriangle
+                    | ObjectUnionImplicit.IRectangle
+                    | ObjectUnionImplicit.IPolyline
+                    | ObjectUnionImplicit.IPolygon
+                    | ObjectUnionImplicit.ICircle
+                >,
+            ): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&

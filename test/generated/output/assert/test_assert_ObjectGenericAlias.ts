@@ -12,7 +12,7 @@ export const test_assert_ObjectGenericAlias = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectGenericAlias.Alias => {
+            ): input is ObjectGenericAlias.ISomething<string> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

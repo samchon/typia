@@ -5,13 +5,7 @@ import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper
 export const test_createAssert_ConstantAtomicWrapper = _test_assert(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
-    (
-        input: any,
-    ): [
-        ConstantAtomicWrapper.IPointer<boolean>,
-        ConstantAtomicWrapper.IPointer<number>,
-        ConstantAtomicWrapper.IPointer<string>,
-    ] => {
+    (input: any): ConstantAtomicWrapper => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

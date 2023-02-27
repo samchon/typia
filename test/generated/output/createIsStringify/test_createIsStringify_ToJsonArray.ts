@@ -5,14 +5,7 @@ import { ToJsonArray } from "../../../structures/ToJsonArray";
 export const test_createIsStringify_ToJsonArray = _test_isStringify(
     "ToJsonArray",
     ToJsonArray.generate,
-    (
-        input: [
-            ToJsonArray.IArray<boolean>,
-            ToJsonArray.IArray<number>,
-            ToJsonArray.IArray<string>,
-            ToJsonArray.IArray<ToJsonArray.IObject>,
-        ],
-    ): string | null => {
+    (input: ToJsonArray): string | null => {
         const is = (input: any): input is ToJsonArray => {
             const $io0 = (input: any): boolean => true;
             const $io1 = (input: any): boolean => true;

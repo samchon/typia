@@ -5,8 +5,8 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_createIsClone_ArrayRecursive = _test_isClone(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input: any): typia.Primitive<ArrayRecursive.ICategory> | null => {
-        const is = (input: any): input is ArrayRecursive.ICategory => {
+    (input: any): typia.Primitive<ArrayRecursive> | null => {
+        const is = (input: any): input is ArrayRecursive => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(
@@ -27,8 +27,8 @@ export const test_createIsClone_ArrayRecursive = _test_isClone(
             return "object" === typeof input && null !== input && $io0(input);
         };
         const clone = (
-            input: ArrayRecursive.ICategory,
-        ): typia.Primitive<ArrayRecursive.ICategory> => {
+            input: ArrayRecursive,
+        ): typia.Primitive<ArrayRecursive> => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(

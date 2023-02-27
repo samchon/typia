@@ -5,15 +5,7 @@ import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 export const test_createIsClone_ToJsonAtomicSimple = _test_isClone(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        [
-            ToJsonAtomicSimple.IToJson<boolean>,
-            ToJsonAtomicSimple.IToJson<number>,
-            ToJsonAtomicSimple.IToJson<string>,
-        ]
-    > | null => {
+    (input: any): typia.Primitive<ToJsonAtomicSimple> | null => {
         const is = (input: any): input is ToJsonAtomicSimple => {
             const $io0 = (input: any): boolean =>
                 "function" === typeof input.toJSON;

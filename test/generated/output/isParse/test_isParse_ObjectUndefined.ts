@@ -6,7 +6,7 @@ export const test_isParse_ObjectUndefined = _test_isParse(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
+        ((input: any): typia.Primitive<ObjectUndefined> => {
             const is = (input: any): input is ObjectUndefined => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&

@@ -5,7 +5,7 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_createPrune_TagObjectUnion = _test_prune(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input: Array<TagObjectUnion.Type>): void => {
+    (input: TagObjectUnion): void => {
         const $throws = (typia.createPrune as any).throws;
         const $io0 = (input: any): boolean =>
             "number" === typeof input.value && 3 <= input.value;

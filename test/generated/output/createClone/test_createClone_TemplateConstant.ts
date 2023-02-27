@@ -5,9 +5,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_createClone_TemplateConstant = _test_clone(
     "TemplateConstant",
     TemplateConstant.generate,
-    (
-        input: Array<TemplateConstant.Type>,
-    ): typia.Primitive<Array<TemplateConstant.Type>> => {
+    (input: TemplateConstant): typia.Primitive<TemplateConstant> => {
         const $co0 = (input: any): any => ({
             prefix: input.prefix as any,
             postfix: input.postfix as any,

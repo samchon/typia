@@ -12,7 +12,9 @@ export const test_validateStringify_ObjectGenericArray =
             ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ObjectGenericArray> => {
+                ): typia.IValidation<
+                    ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
+                > => {
                     const errors = [] as any[];
                     const $report = (typia.validateStringify as any).report(
                         errors,
@@ -21,7 +23,7 @@ export const test_validateStringify_ObjectGenericArray =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectGenericArray => {
+                    ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -173,7 +175,9 @@ export const test_validateStringify_ObjectGenericArray =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (input: ObjectGenericArray): string => {
+                const stringify = (
+                    input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
+                ): string => {
                     const $string = (typia.validateStringify as any).string;
                     const $number = (typia.validateStringify as any).number;
                     const $io1 = (input: any): boolean =>

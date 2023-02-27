@@ -6,26 +6,7 @@ export const test_isParse_TupleHierarchical = _test_isParse(
     "TupleHierarchical",
     TupleHierarchical.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ]
-        > => {
+        ((input: any): typia.Primitive<TupleHierarchical> => {
             const is = (input: any): input is TupleHierarchical => {
                 return (
                     Array.isArray(input) &&

@@ -19,7 +19,7 @@ export const test_validateEquals_ArrayRecursiveUnionImplicit =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayRecursiveUnionImplicit => {
+                ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
                     const $vo0 = (
                         input: any,
                         _path: string,

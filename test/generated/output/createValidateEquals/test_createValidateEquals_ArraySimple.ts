@@ -5,7 +5,7 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 export const test_createValidateEquals_ArraySimple = _test_validateEquals(
     "ArraySimple",
     ArraySimple.generate,
-    (input: any): typia.IValidation<Array<ArraySimple.IPerson>> => {
+    (input: any): typia.IValidation<ArraySimple> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;

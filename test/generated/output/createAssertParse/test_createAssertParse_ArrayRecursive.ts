@@ -5,14 +5,14 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_createAssertParse_ArrayRecursive = _test_assertParse(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input: string): typia.Primitive<ArrayRecursive.ICategory> => {
-        const assert = (input: any): ArrayRecursive.ICategory => {
+    (input: string): typia.Primitive<ArrayRecursive> => {
+        const assert = (input: any): ArrayRecursive => {
             const $guard = (typia.createAssertParse as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayRecursive.ICategory => {
+            ): input is ArrayRecursive => {
                 const $ao0 = (
                     input: any,
                     _path: string,

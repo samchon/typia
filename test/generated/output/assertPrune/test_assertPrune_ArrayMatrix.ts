@@ -7,13 +7,13 @@ export const test_assertPrune_ArrayMatrix = _test_assertPrune(
     ArrayMatrix.generate,
     (input) =>
         ((input: any): Array<Array<Array<number>>> => {
-            const assert = (input: any): ArrayMatrix => {
+            const assert = (input: any): Array<Array<Array<number>>> => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayMatrix => {
+                ): input is Array<Array<Array<number>>> => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -67,7 +67,7 @@ export const test_assertPrune_ArrayMatrix = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ArrayMatrix): void => {};
+            const prune = (input: Array<Array<Array<number>>>): void => {};
             assert(input);
             prune(input);
             return input;

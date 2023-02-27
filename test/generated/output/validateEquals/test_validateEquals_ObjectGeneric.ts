@@ -22,7 +22,11 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectGeneric => {
+            ): input is [
+                ObjectGeneric.ISomething<boolean>,
+                ObjectGeneric.ISomething<number>,
+                ObjectGeneric.ISomething<string>,
+            ] => {
                 const $vo0 = (
                     input: any,
                     _path: string,

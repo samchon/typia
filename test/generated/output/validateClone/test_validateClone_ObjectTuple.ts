@@ -11,14 +11,18 @@ export const test_validateClone_ObjectTuple = _test_validateClone(
         ): typia.IValidation<
             typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]>
         > => {
-            const validate = (input: any): typia.IValidation<ObjectTuple> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<
+                [ObjectTuple.ISection, ObjectTuple.ICitizen]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectTuple => {
+                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -132,8 +136,10 @@ export const test_validateClone_ObjectTuple = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ObjectTuple,
-            ): typia.Primitive<ObjectTuple> => {
+                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
+            ): typia.Primitive<
+                [ObjectTuple.ISection, ObjectTuple.ICitizen]
+            > => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&

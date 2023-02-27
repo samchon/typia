@@ -6,18 +6,7 @@ export const test_createValidateEquals_ObjectPropertyNullable =
     _test_validateEquals(
         "ObjectPropertyNullable",
         ObjectPropertyNullable.generate,
-        (
-            input: any,
-        ): typia.IValidation<
-            [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ]
-        > => {
+        (input: any): typia.IValidation<ObjectPropertyNullable> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             const $join = (typia.createValidateEquals as any).join;

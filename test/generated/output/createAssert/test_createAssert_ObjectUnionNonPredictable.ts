@@ -5,11 +5,7 @@ import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPre
 export const test_createAssert_ObjectUnionNonPredictable = _test_assert(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
-    (
-        input: any,
-    ): Array<
-        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-    > => {
+    (input: any): ObjectUnionNonPredictable => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

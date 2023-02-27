@@ -6,14 +6,8 @@ export const test_createClone_ObjectUnionNonPredictable = _test_clone(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
     (
-        input: Array<
-            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-        >,
-    ): typia.Primitive<
-        Array<
-            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-        >
-    > => {
+        input: ObjectUnionNonPredictable,
+    ): typia.Primitive<ObjectUnionNonPredictable> => {
         const $throws = (typia.createClone as any).throws;
         const $io1 = (input: any): boolean =>
             "object" === typeof input.value &&

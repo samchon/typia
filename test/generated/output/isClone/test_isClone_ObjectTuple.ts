@@ -11,7 +11,9 @@ export const test_isClone_ObjectTuple = _test_isClone(
         ): typia.Primitive<
             [ObjectTuple.ISection, ObjectTuple.ICitizen]
         > | null => {
-            const is = (input: any): input is ObjectTuple => {
+            const is = (
+                input: any,
+            ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
@@ -32,8 +34,10 @@ export const test_isClone_ObjectTuple = _test_isClone(
                 );
             };
             const clone = (
-                input: ObjectTuple,
-            ): typia.Primitive<ObjectTuple> => {
+                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
+            ): typia.Primitive<
+                [ObjectTuple.ISection, ObjectTuple.ICitizen]
+            > => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&

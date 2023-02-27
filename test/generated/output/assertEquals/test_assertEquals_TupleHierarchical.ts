@@ -29,7 +29,22 @@ export const test_assertEquals_TupleHierarchical = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TupleHierarchical => {
+            ): input is [
+                boolean,
+                null,
+                number,
+                [boolean, null, [number, [boolean, string]]],
+                [
+                    number,
+                    Array<
+                        [
+                            string,
+                            boolean,
+                            Array<[number, number, [boolean, string]]>,
+                        ]
+                    >,
+                ],
+            ] => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

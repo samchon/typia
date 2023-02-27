@@ -5,7 +5,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_createIs_TemplateConstant = _test_is(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: any): input is Array<TemplateConstant.Type> => {
+    (input: any): input is TemplateConstant => {
         const $io0 = (input: any): boolean =>
             ("prefix_A" === input.prefix ||
                 "prefix_B" === input.prefix ||

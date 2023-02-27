@@ -13,7 +13,13 @@ export const test_isStringify_ConstantAtomicWrapper = _test_isStringify(
                 ConstantAtomicWrapper.IPointer<string>,
             ],
         ): string | null => {
-            const is = (input: any): input is ConstantAtomicWrapper => {
+            const is = (
+                input: any,
+            ): input is [
+                ConstantAtomicWrapper.IPointer<boolean>,
+                ConstantAtomicWrapper.IPointer<number>,
+                ConstantAtomicWrapper.IPointer<string>,
+            ] => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>
@@ -35,7 +41,13 @@ export const test_isStringify_ConstantAtomicWrapper = _test_isStringify(
                     $io2(input[2])
                 );
             };
-            const stringify = (input: ConstantAtomicWrapper): string => {
+            const stringify = (
+                input: [
+                    ConstantAtomicWrapper.IPointer<boolean>,
+                    ConstantAtomicWrapper.IPointer<number>,
+                    ConstantAtomicWrapper.IPointer<string>,
+                ],
+            ): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 return `[${`{"value":${input[0].value}}`},${`{"value":${$number(

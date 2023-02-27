@@ -8,16 +8,7 @@ export const test_createEquals_ObjectUnionComposite = _test_equals(
     (
         input: any,
         _exceptionable: boolean = true,
-    ): input is Array<
-        | ObjectUnionComposite.IPoint
-        | ObjectUnionComposite.ILine
-        | ObjectUnionComposite.ITriangle
-        | ObjectUnionComposite.IRectangle
-        | ObjectUnionComposite.IPolyline
-        | ObjectUnionComposite.IPolygon
-        | ObjectUnionComposite.IPointedShape
-        | ObjectUnionComposite.ICircle
-    > => {
+    ): input is ObjectUnionComposite => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.x &&
             Number.isFinite(input.x) &&

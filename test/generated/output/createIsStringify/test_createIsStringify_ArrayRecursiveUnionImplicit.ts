@@ -6,7 +6,7 @@ export const test_createIsStringify_ArrayRecursiveUnionImplicit =
     _test_isStringify(
         "ArrayRecursiveUnionImplicit",
         ArrayRecursiveUnionImplicit.generate,
-        (input: Array<ArrayRecursiveUnionImplicit.IBucket>): string | null => {
+        (input: ArrayRecursiveUnionImplicit): string | null => {
             const is = (input: any): input is ArrayRecursiveUnionImplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&

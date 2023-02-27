@@ -5,7 +5,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_createAssertPrune_ObjectIntersection = _test_assertPrune(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (input: any): ObjectIntersection.IEmail & ObjectIntersection.IName => {
+    (input: any): ObjectIntersection => {
         const assert = (input: any): ObjectIntersection => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

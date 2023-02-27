@@ -6,10 +6,10 @@ export const test_createValidateStringify_ArrayRecursive =
     _test_validateStringify(
         "ArrayRecursive",
         ArrayRecursive.generate,
-        (input: ArrayRecursive.ICategory): typia.IValidation<string> => {
+        (input: ArrayRecursive): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ArrayRecursive.ICategory> => {
+            ): typia.IValidation<ArrayRecursive> => {
                 const errors = [] as any[];
                 const $report = (typia.createValidateStringify as any).report(
                     errors,
@@ -18,7 +18,7 @@ export const test_createValidateStringify_ArrayRecursive =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayRecursive.ICategory => {
+                ): input is ArrayRecursive => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -156,7 +156,7 @@ export const test_createValidateStringify_ArrayRecursive =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ArrayRecursive.ICategory): string => {
+            const stringify = (input: ArrayRecursive): string => {
                 const $number = (typia.createValidateStringify as any).number;
                 const $string = (typia.createValidateStringify as any).string;
                 const $io0 = (input: any): boolean =>

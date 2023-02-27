@@ -5,14 +5,14 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_createValidate_ObjectSimple = _test_validate(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input: any): typia.IValidation<ObjectSimple.IBox3D> => {
+    (input: any): typia.IValidation<ObjectSimple> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectSimple.IBox3D => {
+        ): input is ObjectSimple => {
             const $vo0 = (
                 input: any,
                 _path: string,

@@ -7,7 +7,7 @@ export const test_isStringify_ArraySimple = _test_isStringify(
     ArraySimple.generate,
     (input) =>
         ((input: Array<ArraySimple.IPerson>): string | null => {
-            const is = (input: any): input is ArraySimple => {
+            const is = (input: any): input is Array<ArraySimple.IPerson> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.email &&
@@ -33,7 +33,7 @@ export const test_isStringify_ArraySimple = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: ArraySimple): string => {
+            const stringify = (input: Array<ArraySimple.IPerson>): string => {
                 const $string = (typia.isStringify as any).string;
                 const $number = (typia.isStringify as any).number;
                 const $io1 = (input: any): boolean =>

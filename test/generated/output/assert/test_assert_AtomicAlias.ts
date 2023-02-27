@@ -12,7 +12,7 @@ export const test_assert_AtomicAlias = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is AtomicAlias => {
+            ): input is [boolean, number, string] => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

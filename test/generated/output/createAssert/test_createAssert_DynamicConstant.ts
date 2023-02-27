@@ -5,7 +5,7 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 export const test_createAssert_DynamicConstant = _test_assert(
     "DynamicConstant",
     DynamicConstant.generate,
-    (input: any): { a: number; b: number; c: number; d: number } => {
+    (input: any): DynamicConstant => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

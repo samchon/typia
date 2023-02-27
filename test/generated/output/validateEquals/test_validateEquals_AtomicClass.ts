@@ -27,7 +27,17 @@ export const test_validateEquals_AtomicClass = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is AtomicClass => {
+            ): input is [
+                Boolean,
+                false | Boolean,
+                boolean | Boolean,
+                Number,
+                Number | 1,
+                number | Number,
+                String,
+                String | "characters",
+                string | String,
+            ] => {
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {

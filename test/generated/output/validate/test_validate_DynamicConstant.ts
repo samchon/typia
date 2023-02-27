@@ -20,7 +20,7 @@ export const test_validate_DynamicConstant = _test_validate(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is DynamicConstant => {
+            ): input is { a: number; b: number; c: number; d: number } => {
                 const $vo0 = (
                     input: any,
                     _path: string,

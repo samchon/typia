@@ -5,9 +5,7 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_createClone_TagObjectUnion = _test_clone(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (
-        input: Array<TagObjectUnion.Type>,
-    ): typia.Primitive<Array<TagObjectUnion.Type>> => {
+    (input: TagObjectUnion): typia.Primitive<TagObjectUnion> => {
         const $throws = (typia.createClone as any).throws;
         const $io0 = (input: any): boolean =>
             "number" === typeof input.value && 3 <= input.value;

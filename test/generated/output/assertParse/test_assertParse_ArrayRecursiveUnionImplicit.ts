@@ -6,9 +6,7 @@ export const test_assertParse_ArrayRecursiveUnionImplicit = _test_assertParse(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.Primitive<Array<ArrayRecursiveUnionImplicit.IBucket>> => {
+        ((input: string): typia.Primitive<ArrayRecursiveUnionImplicit> => {
             const assert = (input: any): ArrayRecursiveUnionImplicit => {
                 const $guard = (typia.assertParse as any).guard;
                 ((

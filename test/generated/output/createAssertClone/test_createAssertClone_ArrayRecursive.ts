@@ -5,14 +5,14 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_createAssertClone_ArrayRecursive = _test_assertClone(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input: any): typia.Primitive<ArrayRecursive.ICategory> => {
-        const assert = (input: any): ArrayRecursive.ICategory => {
+    (input: any): typia.Primitive<ArrayRecursive> => {
+        const assert = (input: any): ArrayRecursive => {
             const $guard = (typia.createAssertClone as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayRecursive.ICategory => {
+            ): input is ArrayRecursive => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -104,8 +104,8 @@ export const test_createAssertClone_ArrayRecursive = _test_assertClone(
             return input;
         };
         const clone = (
-            input: ArrayRecursive.ICategory,
-        ): typia.Primitive<ArrayRecursive.ICategory> => {
+            input: ArrayRecursive,
+        ): typia.Primitive<ArrayRecursive> => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(

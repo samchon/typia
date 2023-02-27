@@ -9,13 +9,15 @@ export const test_assertClone_ArrayRecursiveUnionExplicit = _test_assertClone(
         ((
             input: any,
         ): typia.Primitive<Array<ArrayRecursiveUnionExplicit.IBucket>> => {
-            const assert = (input: any): ArrayRecursiveUnionExplicit => {
+            const assert = (
+                input: any,
+            ): Array<ArrayRecursiveUnionExplicit.IBucket> => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayRecursiveUnionExplicit => {
+                ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -350,8 +352,8 @@ export const test_assertClone_ArrayRecursiveUnionExplicit = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ArrayRecursiveUnionExplicit,
-            ): typia.Primitive<ArrayRecursiveUnionExplicit> => {
+                input: Array<ArrayRecursiveUnionExplicit.IBucket>,
+            ): typia.Primitive<Array<ArrayRecursiveUnionExplicit.IBucket>> => {
                 const $throws = (typia.assertClone as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&

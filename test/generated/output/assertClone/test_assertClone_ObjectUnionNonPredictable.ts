@@ -13,13 +13,19 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                 ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
             >
         > => {
-            const assert = (input: any): ObjectUnionNonPredictable => {
+            const assert = (
+                input: any,
+            ): Array<
+                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+            > => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectUnionNonPredictable => {
+                ): input is Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                > => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -182,8 +188,14 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ObjectUnionNonPredictable,
-            ): typia.Primitive<ObjectUnionNonPredictable> => {
+                input: Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                >,
+            ): typia.Primitive<
+                Array<
+                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
+                >
+            > => {
                 const $throws = (typia.assertClone as any).throws;
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&

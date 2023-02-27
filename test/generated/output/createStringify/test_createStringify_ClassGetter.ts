@@ -5,7 +5,7 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 export const test_createStringify_ClassGetter = _test_stringify(
     "ClassGetter",
     ClassGetter.generate,
-    (input: ClassGetter.Person): string => {
+    (input: ClassGetter): string => {
         const $string = (typia.createStringify as any).string;
         const $so0 = (input: any): any =>
             `{"id":${$string(input.id)},"name":${$string(input.name)},"dead":${

@@ -5,10 +5,7 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_createEquals_AtomicUnion = _test_equals(
     "AtomicUnion",
     AtomicUnion.generate,
-    (
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is Array<AtomicUnion.Union> => {
+    (input: any, _exceptionable: boolean = true): input is AtomicUnion => {
         return (
             Array.isArray(input) &&
             input.every(

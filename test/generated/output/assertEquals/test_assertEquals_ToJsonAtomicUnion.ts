@@ -13,7 +13,7 @@ export const test_assertEquals_ToJsonAtomicUnion = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ToJsonAtomicUnion => {
+            ): input is Array<ToJsonAtomicUnion.IToJson> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

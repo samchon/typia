@@ -5,14 +5,14 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 export const test_createAssertParse_ObjectLiteralProperty = _test_assertParse(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
-    (input: string): typia.Primitive<ObjectLiteralProperty.ISomething> => {
-        const assert = (input: any): ObjectLiteralProperty.ISomething => {
+    (input: string): typia.Primitive<ObjectLiteralProperty> => {
+        const assert = (input: any): ObjectLiteralProperty => {
             const $guard = (typia.createAssertParse as any).guard;
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectLiteralProperty.ISomething => {
+            ): input is ObjectLiteralProperty => {
                 const $ao0 = (
                     input: any,
                     _path: string,

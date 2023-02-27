@@ -7,13 +7,23 @@ export const test_assertStringify_ToJsonAtomicSimple = _test_assertStringify(
     ToJsonAtomicSimple.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ToJsonAtomicSimple => {
+            const assert = (
+                input: any,
+            ): [
+                ToJsonAtomicSimple.IToJson<boolean>,
+                ToJsonAtomicSimple.IToJson<number>,
+                ToJsonAtomicSimple.IToJson<string>,
+            ] => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonAtomicSimple => {
+                ): input is [
+                    ToJsonAtomicSimple.IToJson<boolean>,
+                    ToJsonAtomicSimple.IToJson<number>,
+                    ToJsonAtomicSimple.IToJson<string>,
+                ] => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -90,7 +100,13 @@ export const test_assertStringify_ToJsonAtomicSimple = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ToJsonAtomicSimple): string => {
+            const stringify = (
+                input: [
+                    ToJsonAtomicSimple.IToJson<boolean>,
+                    ToJsonAtomicSimple.IToJson<number>,
+                    ToJsonAtomicSimple.IToJson<string>,
+                ],
+            ): string => {
                 const $number = (typia.assertStringify as any).number;
                 const $string = (typia.assertStringify as any).string;
                 return `[${input[0].toJSON()},${$number(

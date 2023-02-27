@@ -11,14 +11,14 @@ export const test_validateStringify_ToJsonAtomicUnion = _test_validateStringify(
         ): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ToJsonAtomicUnion> => {
+            ): typia.IValidation<Array<ToJsonAtomicUnion.IToJson>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonAtomicUnion => {
+                ): input is Array<ToJsonAtomicUnion.IToJson> => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -80,7 +80,9 @@ export const test_validateStringify_ToJsonAtomicUnion = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ToJsonAtomicUnion): string => {
+            const stringify = (
+                input: Array<ToJsonAtomicUnion.IToJson>,
+            ): string => {
                 const $string = (typia.validateStringify as any).string;
                 const $number = (typia.validateStringify as any).number;
                 const $throws = (typia.validateStringify as any).throws;

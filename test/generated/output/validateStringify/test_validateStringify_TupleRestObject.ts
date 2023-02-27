@@ -11,14 +11,16 @@ export const test_validateStringify_TupleRestObject = _test_validateStringify(
         ): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<TupleRestObject> => {
+            ): typia.IValidation<
+                [boolean, number, ...TupleRestObject.IObject[]]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is TupleRestObject => {
+                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -119,7 +121,9 @@ export const test_validateStringify_TupleRestObject = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: TupleRestObject): string => {
+            const stringify = (
+                input: [boolean, number, ...TupleRestObject.IObject[]],
+            ): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $string = (typia.validateStringify as any).string;
                 const $rest = (typia.validateStringify as any).rest;

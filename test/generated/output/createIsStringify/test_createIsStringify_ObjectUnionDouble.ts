@@ -5,7 +5,7 @@ import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 export const test_createIsStringify_ObjectUnionDouble = _test_isStringify(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
-    (input: Array<ObjectUnionDouble.Union>): string | null => {
+    (input: ObjectUnionDouble): string | null => {
         const is = (input: any): input is ObjectUnionDouble => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&

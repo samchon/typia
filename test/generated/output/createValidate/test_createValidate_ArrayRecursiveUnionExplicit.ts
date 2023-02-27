@@ -5,9 +5,7 @@ import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveU
 export const test_createValidate_ArrayRecursiveUnionExplicit = _test_validate(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
-    (
-        input: any,
-    ): typia.IValidation<Array<ArrayRecursiveUnionExplicit.IBucket>> => {
+    (input: any): typia.IValidation<ArrayRecursiveUnionExplicit> => {
         const errors = [] as any[];
         const $report = (typia.createValidate as any).report(errors);
         ((

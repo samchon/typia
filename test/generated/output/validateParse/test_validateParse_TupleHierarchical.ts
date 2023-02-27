@@ -8,26 +8,7 @@ export const test_validateParse_TupleHierarchical = _test_validateParse(
     (input) =>
         ((
             input: string,
-        ): typia.IValidation<
-            typia.Primitive<
-                [
-                    boolean,
-                    null,
-                    number,
-                    [boolean, null, [number, [boolean, string]]],
-                    [
-                        number,
-                        Array<
-                            [
-                                string,
-                                boolean,
-                                Array<[number, number, [boolean, string]]>,
-                            ]
-                        >,
-                    ],
-                ]
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<TupleHierarchical>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TupleHierarchical> => {

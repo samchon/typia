@@ -8,7 +8,7 @@ export const test_random_TagObjectUnion = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<Array<TagObjectUnion.Type>> => {
+        ): typia.Primitive<TagObjectUnion> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             const $ro0 = (
@@ -29,7 +29,7 @@ export const test_random_TagObjectUnion = _test_random(
                 $pick([() => $ro0(), () => $ro1()])(),
             );
         })(),
-    (input: any): Array<TagObjectUnion.Type> => {
+    (input: any): TagObjectUnion => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

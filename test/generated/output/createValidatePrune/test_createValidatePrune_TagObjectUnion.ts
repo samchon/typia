@@ -5,7 +5,7 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_createValidatePrune_TagObjectUnion = _test_validatePrune(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input: any): typia.IValidation<Array<TagObjectUnion.Type>> => {
+    (input: any): typia.IValidation<TagObjectUnion> => {
         const validate = (input: any): typia.IValidation<TagObjectUnion> => {
             const errors = [] as any[];
             const $report = (typia.createValidatePrune as any).report(errors);

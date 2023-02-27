@@ -9,14 +9,18 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
         ((
             input: any,
         ): typia.IValidation<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
-            const validate = (input: any): typia.IValidation<ObjectTuple> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<
+                [ObjectTuple.ISection, ObjectTuple.ICitizen]
+            > => {
                 const errors = [] as any[];
                 const $report = (typia.validatePrune as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectTuple => {
+                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -129,7 +133,9 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ObjectTuple): void => {
+            const prune = (
+                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
+            ): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&

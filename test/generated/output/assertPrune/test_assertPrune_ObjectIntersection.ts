@@ -7,13 +7,16 @@ export const test_assertPrune_ObjectIntersection = _test_assertPrune(
     ObjectIntersection.generate,
     (input) =>
         ((input: any): ObjectIntersection.IEmail & ObjectIntersection.IName => {
-            const assert = (input: any): ObjectIntersection => {
+            const assert = (
+                input: any,
+            ): ObjectIntersection.IEmail & ObjectIntersection.IName => {
                 const $guard = (typia.assertPrune as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectIntersection => {
+                ): input is ObjectIntersection.IEmail &
+                    ObjectIntersection.IName => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -49,7 +52,9 @@ export const test_assertPrune_ObjectIntersection = _test_assertPrune(
                 })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ObjectIntersection): void => {
+            const prune = (
+                input: ObjectIntersection.IEmail & ObjectIntersection.IName,
+            ): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (

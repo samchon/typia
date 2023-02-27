@@ -7,7 +7,7 @@ export const test_isStringify_ObjectAlias = _test_isStringify(
     ObjectAlias.generate,
     (input) =>
         ((input: Array<ObjectAlias.IMember>): string | null => {
-            const is = (input: any): input is ObjectAlias => {
+            const is = (input: any): input is Array<ObjectAlias.IMember> => {
                 const $io0 = (input: any): boolean =>
                     (null === input.id || "string" === typeof input.id) &&
                     "string" === typeof input.email &&
@@ -31,7 +31,7 @@ export const test_isStringify_ObjectAlias = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: ObjectAlias): string => {
+            const stringify = (input: Array<ObjectAlias.IMember>): string => {
                 const $string = (typia.isStringify as any).string;
                 const $number = (typia.isStringify as any).number;
                 const $throws = (typia.isStringify as any).throws;

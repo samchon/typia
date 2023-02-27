@@ -5,10 +5,7 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_createEquals_TagArray = _test_equals(
     "TagArray",
     TagArray.generate,
-    (
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is Array<TagArray.Type> => {
+    (input: any, _exceptionable: boolean = true): input is TagArray => {
         const $is_uuid = (typia.createEquals as any).is_uuid;
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.items) &&

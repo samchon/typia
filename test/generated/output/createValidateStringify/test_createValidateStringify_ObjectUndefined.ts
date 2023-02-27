@@ -6,7 +6,7 @@ export const test_createValidateStringify_ObjectUndefined =
     _test_validateStringify(
         "ObjectUndefined",
         ObjectUndefined.generate,
-        (input: Array<ObjectUndefined.ILecture>): typia.IValidation<string> => {
+        (input: ObjectUndefined): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUndefined> => {

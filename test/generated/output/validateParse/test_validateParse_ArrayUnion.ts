@@ -6,9 +6,7 @@ export const test_validateParse_ArrayUnion = _test_validateParse(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((
-            input: string,
-        ): typia.IValidation<typia.Primitive<Array<ArrayUnion.IUnion>>> => {
+        ((input: string): typia.IValidation<typia.Primitive<ArrayUnion>> => {
             const validate = (input: any): typia.IValidation<ArrayUnion> => {
                 const errors = [] as any[];
                 const $report = (typia.validateParse as any).report(errors);

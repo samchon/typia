@@ -8,12 +8,10 @@ export const test_createValidateClone_ObjectLiteralProperty =
         ObjectLiteralProperty.generate,
         (
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<ObjectLiteralProperty.ISomething>
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectLiteralProperty>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectLiteralProperty.ISomething> => {
+            ): typia.IValidation<ObjectLiteralProperty> => {
                 const errors = [] as any[];
                 const $report = (typia.createValidateClone as any).report(
                     errors,
@@ -22,7 +20,7 @@ export const test_createValidateClone_ObjectLiteralProperty =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectLiteralProperty.ISomething => {
+                ): input is ObjectLiteralProperty => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -81,8 +79,8 @@ export const test_createValidateClone_ObjectLiteralProperty =
                 } as any;
             };
             const clone = (
-                input: ObjectLiteralProperty.ISomething,
-            ): typia.Primitive<ObjectLiteralProperty.ISomething> => {
+                input: ObjectLiteralProperty,
+            ): typia.Primitive<ObjectLiteralProperty> => {
                 const $co0 = (input: any): any => ({
                     "something-interesting-do-you-want?": input[
                         "something-interesting-do-you-want?"

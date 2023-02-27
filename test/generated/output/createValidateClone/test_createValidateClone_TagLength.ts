@@ -5,7 +5,7 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_createValidateClone_TagLength = _test_validateClone(
     "TagLength",
     TagLength.generate,
-    (input: any): typia.IValidation<typia.Primitive<Array<TagLength.Type>>> => {
+    (input: any): typia.IValidation<typia.Primitive<TagLength>> => {
         const validate = (input: any): typia.IValidation<TagLength> => {
             const errors = [] as any[];
             const $report = (typia.createValidateClone as any).report(errors);

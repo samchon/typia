@@ -6,7 +6,7 @@ export const test_createValidateStringify_TagAtomicUnion =
     _test_validateStringify(
         "TagAtomicUnion",
         TagAtomicUnion.generate,
-        (input: Array<TagAtomicUnion.Type>): typia.IValidation<string> => {
+        (input: TagAtomicUnion): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TagAtomicUnion> => {

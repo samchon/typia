@@ -5,7 +5,7 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_createIsStringify_TupleRestArray = _test_isStringify(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input: [boolean, number, ...Array<string>[]]): string | null => {
+    (input: TupleRestArray): string | null => {
         const is = (input: any): input is TupleRestArray => {
             return (
                 Array.isArray(input) &&

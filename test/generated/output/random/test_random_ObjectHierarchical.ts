@@ -8,7 +8,7 @@ export const test_random_ObjectHierarchical = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<ObjectHierarchical.ICustomer> => {
+        ): typia.Primitive<ObjectHierarchical> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             const $ro0 = (
@@ -90,13 +90,13 @@ export const test_random_ObjectHierarchical = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): ObjectHierarchical.ICustomer => {
+    (input: any): ObjectHierarchical => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
-        ): input is ObjectHierarchical.ICustomer => {
+        ): input is ObjectHierarchical => {
             const $ao0 = (
                 input: any,
                 _path: string,

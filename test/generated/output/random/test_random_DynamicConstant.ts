@@ -8,7 +8,7 @@ export const test_random_DynamicConstant = _test_random(
         ((
             generator: Partial<typia.IRandomGenerator> = (typia.random as any)
                 .generator,
-        ): typia.Primitive<{ a: number; b: number; c: number; d: number }> => {
+        ): typia.Primitive<DynamicConstant> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
@@ -21,7 +21,7 @@ export const test_random_DynamicConstant = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): { a: number; b: number; c: number; d: number } => {
+    (input: any): DynamicConstant => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

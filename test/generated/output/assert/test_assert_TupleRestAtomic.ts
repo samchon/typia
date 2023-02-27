@@ -12,7 +12,7 @@ export const test_assert_TupleRestAtomic = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TupleRestAtomic => {
+            ): input is [boolean, number, ...string[]] => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

@@ -5,7 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_createPrune_TagStep = _test_prune(
     "TagStep",
     TagStep.generate,
-    (input: Array<TagStep.Type>): void => {
+    (input: TagStep): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if (

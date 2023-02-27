@@ -7,24 +7,7 @@ export const test_createRandom_TupleHierarchical = _test_random(
     (
         generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
             .generator,
-    ): typia.Primitive<
-        [
-            boolean,
-            null,
-            number,
-            [boolean, null, [number, [boolean, string]]],
-            [
-                number,
-                Array<
-                    [
-                        string,
-                        boolean,
-                        Array<[number, number, [boolean, string]]>,
-                    ]
-                >,
-            ],
-        ]
-    > => {
+    ): typia.Primitive<TupleHierarchical> => {
         const $generator = (typia.createRandom as any).generator;
         return [
             (generator.boolean ?? $generator.boolean)(),
@@ -58,20 +41,7 @@ export const test_createRandom_TupleHierarchical = _test_random(
             ],
         ];
     },
-    (
-        input: any,
-    ): [
-        boolean,
-        null,
-        number,
-        [boolean, null, [number, [boolean, string]]],
-        [
-            number,
-            Array<
-                [string, boolean, Array<[number, number, [boolean, string]]>]
-            >,
-        ],
-    ] => {
+    (input: any): TupleHierarchical => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

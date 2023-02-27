@@ -12,7 +12,7 @@ export const test_assert_MapUnion = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is MapUnion => {
+            ): input is Array<MapUnion.Union> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

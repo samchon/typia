@@ -5,7 +5,7 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_createValidateStringify_TagRange = _test_validateStringify(
     "TagRange",
     TagRange.generate,
-    (input: Array<TagRange.Type>): typia.IValidation<string> => {
+    (input: TagRange): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<TagRange> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(

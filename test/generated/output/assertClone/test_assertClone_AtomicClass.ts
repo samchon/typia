@@ -21,13 +21,35 @@ export const test_assertClone_AtomicClass = _test_assertClone(
                 string | String,
             ]
         > => {
-            const assert = (input: any): AtomicClass => {
+            const assert = (
+                input: any,
+            ): [
+                Boolean,
+                false | Boolean,
+                boolean | Boolean,
+                Number,
+                Number | 1,
+                number | Number,
+                String,
+                String | "characters",
+                string | String,
+            ] => {
                 const $guard = (typia.assertClone as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is AtomicClass => {
+                ): input is [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ] => {
                     return (
                         (Array.isArray(input) ||
                             $guard(true, {
@@ -147,8 +169,30 @@ export const test_assertClone_AtomicClass = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: AtomicClass,
-            ): typia.Primitive<AtomicClass> => {
+                input: [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ],
+            ): typia.Primitive<
+                [
+                    Boolean,
+                    false | Boolean,
+                    boolean | Boolean,
+                    Number,
+                    Number | 1,
+                    number | Number,
+                    String,
+                    String | "characters",
+                    string | String,
+                ]
+            > => {
                 return Array.isArray(input) &&
                     input.length === 9 &&
                     ("boolean" === typeof input[0] ||

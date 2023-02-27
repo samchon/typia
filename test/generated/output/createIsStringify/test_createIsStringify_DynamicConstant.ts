@@ -5,7 +5,7 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 export const test_createIsStringify_DynamicConstant = _test_isStringify(
     "DynamicConstant",
     DynamicConstant.generate,
-    (input: { a: number; b: number; c: number; d: number }): string | null => {
+    (input: DynamicConstant): string | null => {
         const is = (input: any): input is DynamicConstant => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.a &&

@@ -9,7 +9,9 @@ export const test_isStringify_TupleRestObject = _test_isStringify(
         ((
             input: [boolean, number, ...TupleRestObject.IObject[]],
         ): string | null => {
-            const is = (input: any): input is TupleRestObject => {
+            const is = (
+                input: any,
+            ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 return (
@@ -28,7 +30,9 @@ export const test_isStringify_TupleRestObject = _test_isStringify(
                         )
                 );
             };
-            const stringify = (input: TupleRestObject): string => {
+            const stringify = (
+                input: [boolean, number, ...TupleRestObject.IObject[]],
+            ): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 const $rest = (typia.isStringify as any).rest;

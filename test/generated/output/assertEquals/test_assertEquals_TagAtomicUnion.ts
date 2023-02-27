@@ -13,7 +13,7 @@ export const test_assertEquals_TagAtomicUnion = _test_assertEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TagAtomicUnion => {
+            ): input is Array<TagAtomicUnion.Type> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

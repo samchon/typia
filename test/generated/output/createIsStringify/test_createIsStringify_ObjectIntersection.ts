@@ -5,9 +5,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_createIsStringify_ObjectIntersection = _test_isStringify(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (
-        input: ObjectIntersection.IEmail & ObjectIntersection.IName,
-    ): string | null => {
+    (input: ObjectIntersection): string | null => {
         const is = (input: any): input is ObjectIntersection => {
             return (
                 "object" === typeof input &&

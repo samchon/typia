@@ -5,15 +5,7 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_createAssertClone_ArrayAtomicAlias = _test_assertClone(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ]
-    > => {
+    (input: any): typia.Primitive<ArrayAtomicAlias> => {
         const assert = (input: any): ArrayAtomicAlias => {
             const $guard = (typia.createAssertClone as any).guard;
             ((

@@ -5,9 +5,7 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 export const test_createAssertParse_ArrayAtomicSimple = _test_assertParse(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    (
-        input: string,
-    ): typia.Primitive<[Array<boolean>, Array<number>, Array<string>]> => {
+    (input: string): typia.Primitive<ArrayAtomicSimple> => {
         const assert = (input: any): ArrayAtomicSimple => {
             const $guard = (typia.createAssertParse as any).guard;
             ((

@@ -5,13 +5,7 @@ import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPre
 export const test_createIsClone_ObjectUnionNonPredictable = _test_isClone(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
-    (
-        input: any,
-    ): typia.Primitive<
-        Array<
-            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-        >
-    > | null => {
+    (input: any): typia.Primitive<ObjectUnionNonPredictable> | null => {
         const is = (input: any): input is ObjectUnionNonPredictable => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&

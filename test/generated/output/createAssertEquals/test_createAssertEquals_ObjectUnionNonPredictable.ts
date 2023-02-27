@@ -6,11 +6,7 @@ export const test_createAssertEquals_ObjectUnionNonPredictable =
     _test_assertEquals(
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
-        (
-            input: any,
-        ): Array<
-            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-        > => {
+        (input: any): ObjectUnionNonPredictable => {
             const $guard = (typia.createAssertEquals as any).guard;
             const $join = (typia.createAssertEquals as any).join;
             ((

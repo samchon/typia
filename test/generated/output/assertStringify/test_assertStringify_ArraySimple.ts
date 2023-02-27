@@ -7,13 +7,13 @@ export const test_assertStringify_ArraySimple = _test_assertStringify(
     ArraySimple.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ArraySimple => {
+            const assert = (input: any): Array<ArraySimple.IPerson> => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArraySimple => {
+                ): input is Array<ArraySimple.IPerson> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -98,7 +98,7 @@ export const test_assertStringify_ArraySimple = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ArraySimple): string => {
+            const stringify = (input: Array<ArraySimple.IPerson>): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $number = (typia.assertStringify as any).number;
                 const $io1 = (input: any): boolean =>

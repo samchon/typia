@@ -16,7 +16,7 @@ export const test_validateEquals_ObjectGenericAlias = _test_validateEquals(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectGenericAlias.Alias => {
+            ): input is ObjectGenericAlias.ISomething<string> => {
                 const $vo0 = (
                     input: any,
                     _path: string,

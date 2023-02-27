@@ -5,21 +5,7 @@ import { ToJsonArray } from "../../../structures/ToJsonArray";
 export const test_createClone_ToJsonArray = _test_clone(
     "ToJsonArray",
     ToJsonArray.generate,
-    (
-        input: [
-            ToJsonArray.IArray<boolean>,
-            ToJsonArray.IArray<number>,
-            ToJsonArray.IArray<string>,
-            ToJsonArray.IArray<ToJsonArray.IObject>,
-        ],
-    ): typia.Primitive<
-        [
-            ToJsonArray.IArray<boolean>,
-            ToJsonArray.IArray<number>,
-            ToJsonArray.IArray<string>,
-            ToJsonArray.IArray<ToJsonArray.IObject>,
-        ]
-    > => {
+    (input: ToJsonArray): typia.Primitive<ToJsonArray> => {
         const $co0 = (input: any): any => ({
             id: input.id as any,
         });

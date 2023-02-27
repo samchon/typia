@@ -6,13 +6,7 @@ export const test_createValidateStringify_ArrayAtomicAlias =
     _test_validateStringify(
         "ArrayAtomicAlias",
         ArrayAtomicAlias.generate,
-        (
-            input: [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ],
-        ): typia.IValidation<string> => {
+        (input: ArrayAtomicAlias): typia.IValidation<string> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayAtomicAlias> => {

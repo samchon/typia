@@ -5,32 +5,7 @@ import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 export const test_createAssertEquals_ObjectUnionExplicit = _test_assertEquals(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
-    (
-        input: any,
-    ): Array<
-        | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>
-        | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>
-        | ObjectUnionExplicit.Discriminator<
-              "triangle",
-              ObjectUnionExplicit.ITriangle
-          >
-        | ObjectUnionExplicit.Discriminator<
-              "rectangle",
-              ObjectUnionExplicit.IRectangle
-          >
-        | ObjectUnionExplicit.Discriminator<
-              "polyline",
-              ObjectUnionExplicit.IPolyline
-          >
-        | ObjectUnionExplicit.Discriminator<
-              "polygon",
-              ObjectUnionExplicit.IPolygon
-          >
-        | ObjectUnionExplicit.Discriminator<
-              "circle",
-              ObjectUnionExplicit.ICircle
-          >
-    > => {
+    (input: any): ObjectUnionExplicit => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         ((

@@ -7,13 +7,13 @@ export const test_createAssertStringify_ObjectGenericAlias =
         "ObjectGenericAlias",
         ObjectGenericAlias.generate,
         (input: any): string => {
-            const assert = (input: any): ObjectGenericAlias.Alias => {
+            const assert = (input: any): ObjectGenericAlias => {
                 const $guard = (typia.createAssertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericAlias.Alias => {
+                ): input is ObjectGenericAlias => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -37,7 +37,7 @@ export const test_createAssertStringify_ObjectGenericAlias =
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectGenericAlias.Alias): string => {
+            const stringify = (input: ObjectGenericAlias): string => {
                 const $string = (typia.createAssertStringify as any).string;
                 return `{"value":${$string(input.value)}}`;
             };

@@ -5,9 +5,7 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 export const test_createClone_ObjectLiteralProperty = _test_clone(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
-    (
-        input: ObjectLiteralProperty.ISomething,
-    ): typia.Primitive<ObjectLiteralProperty.ISomething> => {
+    (input: ObjectLiteralProperty): typia.Primitive<ObjectLiteralProperty> => {
         const $co0 = (input: any): any => ({
             "something-interesting-do-you-want?": input[
                 "something-interesting-do-you-want?"

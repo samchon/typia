@@ -6,15 +6,7 @@ export const test_createValidateEquals_ConstantAtomicWrapper =
     _test_validateEquals(
         "ConstantAtomicWrapper",
         ConstantAtomicWrapper.generate,
-        (
-            input: any,
-        ): typia.IValidation<
-            [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ]
-        > => {
+        (input: any): typia.IValidation<ConstantAtomicWrapper> => {
             const errors = [] as any[];
             const $report = (typia.createValidateEquals as any).report(errors);
             const $join = (typia.createValidateEquals as any).join;

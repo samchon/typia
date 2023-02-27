@@ -6,11 +6,7 @@ export const test_isParse_ObjectIntersection = _test_isParse(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            ObjectIntersection.IEmail & ObjectIntersection.IName
-        > => {
+        ((input: any): typia.Primitive<ObjectIntersection> => {
             const is = (input: any): input is ObjectIntersection => {
                 return (
                     "object" === typeof input &&

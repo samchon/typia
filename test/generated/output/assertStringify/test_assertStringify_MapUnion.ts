@@ -7,13 +7,13 @@ export const test_assertStringify_MapUnion = _test_assertStringify(
     MapUnion.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): MapUnion => {
+            const assert = (input: any): Array<MapUnion.Union> => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is MapUnion => {
+                ): input is Array<MapUnion.Union> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -494,7 +494,7 @@ export const test_assertStringify_MapUnion = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: MapUnion): string => {
+            const stringify = (input: Array<MapUnion.Union>): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $number = (typia.assertStringify as any).number;
                 return `[${input.map((elem: any) => "{}").join(",")}]`;

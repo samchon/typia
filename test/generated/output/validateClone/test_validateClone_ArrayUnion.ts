@@ -9,14 +9,16 @@ export const test_validateClone_ArrayUnion = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<ArrayUnion.IUnion>>> => {
-            const validate = (input: any): typia.IValidation<ArrayUnion> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<Array<ArrayUnion.IUnion>> => {
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayUnion => {
+                ): input is Array<ArrayUnion.IUnion> => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -210,7 +212,9 @@ export const test_validateClone_ArrayUnion = _test_validateClone(
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone = (input: ArrayUnion): typia.Primitive<ArrayUnion> => {
+            const clone = (
+                input: Array<ArrayUnion.IUnion>,
+            ): typia.Primitive<Array<ArrayUnion.IUnion>> => {
                 const $throws = (typia.validateClone as any).throws;
                 return Array.isArray(input)
                     ? input.map((elem: any) =>

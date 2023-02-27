@@ -5,7 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_createValidateStringify_TagStep = _test_validateStringify(
     "TagStep",
     TagStep.generate,
-    (input: Array<TagStep.Type>): typia.IValidation<string> => {
+    (input: TagStep): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<TagStep> => {
             const errors = [] as any[];
             const $report = (typia.createValidateStringify as any).report(

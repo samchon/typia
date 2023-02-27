@@ -5,7 +5,7 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_createStringify_TagLength = _test_stringify(
     "TagLength",
     TagLength.generate,
-    (input: Array<TagLength.Type>): string => {
+    (input: TagLength): string => {
         const $string = (typia.createStringify as any).string;
         const $so0 = (input: any): any =>
             `{"fixed":${$string(input.fixed)},"minimum":${$string(

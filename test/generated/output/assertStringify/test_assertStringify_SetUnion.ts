@@ -7,13 +7,13 @@ export const test_assertStringify_SetUnion = _test_assertStringify(
     SetUnion.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): SetUnion => {
+            const assert = (input: any): Array<SetUnion.Union> => {
                 const $guard = (typia.assertStringify as any).guard;
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is SetUnion => {
+                ): input is Array<SetUnion.Union> => {
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -260,7 +260,7 @@ export const test_assertStringify_SetUnion = _test_assertStringify(
                 })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: SetUnion): string => {
+            const stringify = (input: Array<SetUnion.Union>): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $number = (typia.assertStringify as any).number;
                 return `[${input.map((elem: any) => "{}").join(",")}]`;

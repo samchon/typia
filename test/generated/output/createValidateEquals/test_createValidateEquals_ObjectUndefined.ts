@@ -5,7 +5,7 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 export const test_createValidateEquals_ObjectUndefined = _test_validateEquals(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input: any): typia.IValidation<Array<ObjectUndefined.ILecture>> => {
+    (input: any): typia.IValidation<ObjectUndefined> => {
         const errors = [] as any[];
         const $report = (typia.createValidateEquals as any).report(errors);
         const $join = (typia.createValidateEquals as any).join;

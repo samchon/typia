@@ -5,7 +5,7 @@ import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 export const test_createIsClone_ConstantAtomicUnion = _test_isClone(
     "ConstantAtomicUnion",
     ConstantAtomicUnion.generate,
-    (input: any): typia.Primitive<Array<ConstantAtomicUnion.Union>> | null => {
+    (input: any): typia.Primitive<ConstantAtomicUnion> | null => {
         const is = (input: any): input is ConstantAtomicUnion => {
             const $io0 = (input: any): boolean => "key" === input.key;
             return (

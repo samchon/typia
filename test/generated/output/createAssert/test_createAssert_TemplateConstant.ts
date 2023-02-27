@@ -5,7 +5,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_createAssert_TemplateConstant = _test_assert(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input: any): Array<TemplateConstant.Type> => {
+    (input: any): TemplateConstant => {
         const $guard = (typia.createAssert as any).guard;
         ((
             input: any,

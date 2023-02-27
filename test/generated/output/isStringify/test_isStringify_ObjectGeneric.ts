@@ -13,7 +13,13 @@ export const test_isStringify_ObjectGeneric = _test_isStringify(
                 ObjectGeneric.ISomething<string>,
             ],
         ): string | null => {
-            const is = (input: any): input is ObjectGeneric => {
+            const is = (
+                input: any,
+            ): input is [
+                ObjectGeneric.ISomething<boolean>,
+                ObjectGeneric.ISomething<number>,
+                ObjectGeneric.ISomething<string>,
+            ] => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&
                     "object" === typeof input.child &&
@@ -81,7 +87,13 @@ export const test_isStringify_ObjectGeneric = _test_isStringify(
                     $io4(input[2])
                 );
             };
-            const stringify = (input: ObjectGeneric): string => {
+            const stringify = (
+                input: [
+                    ObjectGeneric.ISomething<boolean>,
+                    ObjectGeneric.ISomething<number>,
+                    ObjectGeneric.ISomething<string>,
+                ],
+            ): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 const $io1 = (input: any): boolean =>

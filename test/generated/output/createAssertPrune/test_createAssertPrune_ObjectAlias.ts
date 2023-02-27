@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_createAssertPrune_ObjectAlias = _test_assertPrune(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input: any): Array<ObjectAlias.IMember> => {
+    (input: any): ObjectAlias => {
         const assert = (input: any): ObjectAlias => {
             const $guard = (typia.createAssertPrune as any).guard;
             ((

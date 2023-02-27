@@ -5,7 +5,7 @@ import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 export const test_createIsPrune_ConstantAtomicSimple = _test_isPrune(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
-    (input: any): input is [false, true, 2, "three"] => {
+    (input: any): input is ConstantAtomicSimple => {
         const is = (input: any): input is ConstantAtomicSimple => {
             return (
                 Array.isArray(input) &&

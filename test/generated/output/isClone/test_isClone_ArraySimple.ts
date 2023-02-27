@@ -7,7 +7,7 @@ export const test_isClone_ArraySimple = _test_isClone(
     ArraySimple.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<ArraySimple.IPerson>> | null => {
-            const is = (input: any): input is ArraySimple => {
+            const is = (input: any): input is Array<ArraySimple.IPerson> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.email &&
@@ -34,8 +34,8 @@ export const test_isClone_ArraySimple = _test_isClone(
                 );
             };
             const clone = (
-                input: ArraySimple,
-            ): typia.Primitive<ArraySimple> => {
+                input: Array<ArraySimple.IPerson>,
+            ): typia.Primitive<Array<ArraySimple.IPerson>> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&

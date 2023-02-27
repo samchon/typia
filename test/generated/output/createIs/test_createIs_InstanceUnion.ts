@@ -5,7 +5,7 @@ import { InstanceUnion } from "../../../structures/InstanceUnion";
 export const test_createIs_InstanceUnion = _test_is(
     "InstanceUnion",
     InstanceUnion.generate,
-    (input: any): input is Array<InstanceUnion.Union> => {
+    (input: any): input is InstanceUnion => {
         const $io0 = (input: any): boolean =>
             "object" === typeof input.scale &&
             null !== input.scale &&
