@@ -43,9 +43,9 @@ export const test_createIsStringify_ObjectGenericUnion = _test_isStringify(
                         "object" === typeof elem && null !== elem && $io3(elem),
                 );
             const $io3 = (input: any): boolean =>
-                "string" === typeof input.name &&
                 (null === input.extension ||
                     "string" === typeof input.extension) &&
+                "string" === typeof input.name &&
                 "string" === typeof input.url;
             const $io4 = (input: any): boolean =>
                 "string" === typeof input.writer &&
@@ -120,9 +120,9 @@ export const test_createIsStringify_ObjectGenericUnion = _test_isStringify(
                         "object" === typeof elem && null !== elem && $io3(elem),
                 );
             const $io3 = (input: any): boolean =>
-                "string" === typeof input.name &&
                 (null === input.extension ||
                     "string" === typeof input.extension) &&
+                "string" === typeof input.name &&
                 "string" === typeof input.url;
             const $io4 = (input: any): boolean =>
                 "string" === typeof input.writer &&
@@ -173,9 +173,9 @@ export const test_createIsStringify_ObjectGenericUnion = _test_isStringify(
                     .map((elem: any) => $so3(elem))
                     .join(",")}]`}}`;
             const $so3 = (input: any): any =>
-                `{"name":${$string(input.name)},"extension":${
+                `{"extension":${
                     null !== input.extension ? $string(input.extension) : "null"
-                },"url":${$string(input.url)}}`;
+                },"name":${$string(input.name)},"url":${$string(input.url)}}`;
             const $so4 = (input: any): any =>
                 `{"writer":${$string(input.writer)},"answer":${
                     null !== input.answer ? $so1(input.answer) : "null"

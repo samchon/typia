@@ -1,5 +1,4 @@
-import { Primitive } from "typia/lib/Primitive";
-
+import { Primitive } from "../../src";
 import { Spoiler } from "../helpers/Spoiler";
 import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 

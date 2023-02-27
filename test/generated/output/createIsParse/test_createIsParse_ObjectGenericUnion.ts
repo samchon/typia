@@ -43,9 +43,9 @@ export const test_createIsParse_ObjectGenericUnion = _test_isParse(
                         "object" === typeof elem && null !== elem && $io3(elem),
                 );
             const $io3 = (input: any): boolean =>
-                "string" === typeof input.name &&
                 (null === input.extension ||
                     "string" === typeof input.extension) &&
+                "string" === typeof input.name &&
                 "string" === typeof input.url;
             const $io4 = (input: any): boolean =>
                 "string" === typeof input.writer &&

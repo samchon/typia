@@ -275,18 +275,18 @@ export const test_createValidatePrune_ObjectGenericUnion = _test_validatePrune(
                     _exceptionable: boolean = true,
                 ): boolean =>
                     [
-                        "string" === typeof input.name ||
-                            $report(_exceptionable, {
-                                path: _path + ".name",
-                                expected: "string",
-                                value: input.name,
-                            }),
                         null === input.extension ||
                             "string" === typeof input.extension ||
                             $report(_exceptionable, {
                                 path: _path + ".extension",
                                 expected: "(null | string)",
                                 value: input.extension,
+                            }),
+                        "string" === typeof input.name ||
+                            $report(_exceptionable, {
+                                path: _path + ".name",
+                                expected: "string",
+                                value: input.name,
                             }),
                         "string" === typeof input.url ||
                             $report(_exceptionable, {
@@ -548,9 +548,9 @@ export const test_createValidatePrune_ObjectGenericUnion = _test_validatePrune(
                         "object" === typeof elem && null !== elem && $io3(elem),
                 );
             const $io3 = (input: any): boolean =>
-                "string" === typeof input.name &&
                 (null === input.extension ||
                     "string" === typeof input.extension) &&
+                "string" === typeof input.name &&
                 "string" === typeof input.url;
             const $io4 = (input: any): boolean =>
                 "string" === typeof input.writer &&
@@ -636,7 +636,7 @@ export const test_createValidatePrune_ObjectGenericUnion = _test_validatePrune(
             };
             const $po3 = (input: any): any => {
                 for (const key of Object.keys(input)) {
-                    if ("name" === key || "extension" === key || "url" === key)
+                    if ("extension" === key || "name" === key || "url" === key)
                         continue;
                     delete input[key];
                 }

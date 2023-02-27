@@ -181,18 +181,18 @@ export const test_createAssertParse_ObjectGenericUnion = _test_assertParse(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    ("string" === typeof input.name ||
-                        $guard(_exceptionable, {
-                            path: _path + ".name",
-                            expected: "string",
-                            value: input.name,
-                        })) &&
                     (null === input.extension ||
                         "string" === typeof input.extension ||
                         $guard(_exceptionable, {
                             path: _path + ".extension",
                             expected: "(null | string)",
                             value: input.extension,
+                        })) &&
+                    ("string" === typeof input.name ||
+                        $guard(_exceptionable, {
+                            path: _path + ".name",
+                            expected: "string",
+                            value: input.name,
                         })) &&
                     ("string" === typeof input.url ||
                         $guard(_exceptionable, {

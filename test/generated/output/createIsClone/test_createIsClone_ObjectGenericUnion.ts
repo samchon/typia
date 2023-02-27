@@ -43,9 +43,9 @@ export const test_createIsClone_ObjectGenericUnion = _test_isClone(
                         "object" === typeof elem && null !== elem && $io3(elem),
                 );
             const $io3 = (input: any): boolean =>
-                "string" === typeof input.name &&
                 (null === input.extension ||
                     "string" === typeof input.extension) &&
+                "string" === typeof input.name &&
                 "string" === typeof input.url;
             const $io4 = (input: any): boolean =>
                 "string" === typeof input.writer &&
@@ -120,9 +120,9 @@ export const test_createIsClone_ObjectGenericUnion = _test_isClone(
                         "object" === typeof elem && null !== elem && $io3(elem),
                 );
             const $io3 = (input: any): boolean =>
-                "string" === typeof input.name &&
                 (null === input.extension ||
                     "string" === typeof input.extension) &&
+                "string" === typeof input.name &&
                 "string" === typeof input.url;
             const $io4 = (input: any): boolean =>
                 "string" === typeof input.writer &&
@@ -193,8 +193,8 @@ export const test_createIsClone_ObjectGenericUnion = _test_isClone(
                     : (input.files as any),
             });
             const $co3 = (input: any): any => ({
-                name: input.name as any,
                 extension: input.extension as any,
+                name: input.name as any,
                 url: input.url as any,
             });
             const $co4 = (input: any): any => ({
