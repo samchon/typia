@@ -4,6 +4,7 @@
 [![Downloads](https://img.shields.io/npm/dm/typia.svg)](https://www.npmjs.com/package/typia)
 [![Build Status](https://github.com/samchon/typia/workflows/build/badge.svg)](https://github.com/samchon/typia/actions?query=workflow%3Abuild)
 [![Guide Documents](https://img.shields.io/badge/wiki-documentation-forestgreen)](https://github.com/samchon/typia/wiki)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsamchon%2Ftypia.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsamchon%2Ftypia?ref=badge_shield)
 
 ```typescript
 // RUNTIME VALIDATORS
@@ -338,3 +339,7 @@ ReactDOM.render(
     document.body
 );
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsamchon%2Ftypia.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsamchon%2Ftypia?ref=badge_large)
