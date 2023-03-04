@@ -35,14 +35,10 @@ export const emplace_metadata_object =
                   return (
                       kind !== ts.SyntaxKind.PrivateKeyword &&
                       kind !== ts.SyntaxKind.ProtectedKeyword &&
-                      (ts.isParameter(node) || ts.isPropertyDeclaration(node))
+                      (ts.isParameter(node) || isProperty(node))
                   );
               }
-            : (node) =>
-                  ts.isPropertyDeclaration(node) ||
-                  ts.isPropertyAssignment(node) ||
-                  ts.isPropertySignature(node) ||
-                  ts.isTypeLiteralNode(node);
+            : (node) => isProperty(node);
 
         const insert =
             (key: Metadata) =>
@@ -138,3 +134,9 @@ export const emplace_metadata_object =
 
         return obj;
     };
+
+const isProperty = (node: ts.Declaration) =>
+    ts.isPropertyDeclaration(node) ||
+    ts.isPropertyAssignment(node) ||
+    ts.isPropertySignature(node) ||
+    ts.isTypeLiteralNode(node);
