@@ -121,7 +121,8 @@ npm install --save typia
 # GENERATE TRANSFORMED TYPESCRIPT CODES
 npx typia generate \
     --input src/templates \
-    --output src/generated
+    --output src/generated \
+    --project tsconfig.json
 ```
 
 For frontend projects.
