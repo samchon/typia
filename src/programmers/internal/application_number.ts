@@ -41,7 +41,7 @@ export const application_number = (
         if (output.minimum === undefined || output.minimum < 0)
             output.minimum = 0;
         else if (
-            output.exclusiveMinimum === undefined ||
+            output.exclusiveMinimum !== undefined &&
             output.exclusiveMinimum < 0
         ) {
             delete output.exclusiveMinimum;
