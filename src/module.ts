@@ -1438,7 +1438,7 @@ export function createValidateEquals(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateEquals<T>(): (input: unknown) => IValidation;
+export function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
 
 /**
  * @internal
