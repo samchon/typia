@@ -1,6 +1,5 @@
+import { IJsonApplication, IJsonComponents, IJsonSchema } from "typia";
 import { z } from "zod";
-
-import { IJsonApplication, IJsonComponents, IJsonSchema } from "../../../src";
 
 const Schema: z.ZodType<IJsonSchema> = z.lazy(
     () =>

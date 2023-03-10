@@ -4,10 +4,9 @@ import * as tr from "class-transformer";
 import { ClassConstructor } from "class-transformer";
 import * as cv from "class-validator";
 import * as t from "io-ts";
-import "reflect-metadata";
+import typia from "typia";
 import { z } from "zod";
 
-import typia from "../../src";
 // PURE TYPESCRIPT TYPES
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";

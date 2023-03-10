@@ -4,6 +4,7 @@ import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
 import { IMetadataTag } from "../metadata/IMetadataTag";
@@ -13,6 +14,7 @@ import { MetadataObject } from "../metadata/MetadataObject";
 import { IProject } from "../transformers/IProject";
 
 import { FeatureProgrammer } from "./FeatureProgrammer";
+import { AtomicPredicator } from "./helpers/AtomicPredicator";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
@@ -36,7 +38,7 @@ export namespace CheckerProgrammer {
         equals: boolean;
         numeric: boolean;
         combiner: IConfig.Combiner;
-        decoder?: FeatureProgrammer.Decoder<Metadata>;
+        decoder?: FeatureProgrammer.Decoder<Metadata, ts.Expression>;
         joiner: IConfig.IJoiner;
         success: ts.Expression;
     }
@@ -53,7 +55,10 @@ export namespace CheckerProgrammer {
             };
         }
         export interface IJoiner {
-            object(entries: IExpressionEntry[]): ts.Expression;
+            object(
+                input: ts.Expression,
+                entries: IExpressionEntry[],
+            ): ts.Expression;
             array(input: ts.Expression, arrow: ts.ArrowFunction): ts.Expression;
             tuple?(exprs: ts.Expression[]): ts.Expression;
 
@@ -102,8 +107,7 @@ export namespace CheckerProgrammer {
         config: IConfig,
         importer: FunctionImporter,
     ) =>
-        FeatureProgrammer.generate_functors(
-            CONFIG(project, config, importer),
+        FeatureProgrammer.generate_functors(CONFIG(project, config, importer))(
             importer,
         );
 
@@ -114,7 +118,7 @@ export namespace CheckerProgrammer {
     ) =>
         FeatureProgrammer.generate_unioners(
             CONFIG(project, { ...config, numeric: false }, importer),
-        );
+        )(importer);
 
     function CONFIG(
         project: IProject,
@@ -122,6 +126,18 @@ export namespace CheckerProgrammer {
         importer: FunctionImporter,
     ): FeatureProgrammer.IConfig {
         const output: FeatureProgrammer.IConfig = {
+            types: {
+                input: () => TypeFactory.keyword("any"),
+                output: (type, name) =>
+                    ts.factory.createTypePredicateNode(
+                        undefined,
+                        "input",
+                        ts.factory.createTypeReferenceNode(
+                            name ??
+                                TypeFactory.getFullName(project.checker, type),
+                        ),
+                    ),
+            },
             trace: config.trace,
             path: config.path,
             functors: config.functors,
@@ -142,12 +158,12 @@ export namespace CheckerProgrammer {
             decoder: config.decoder || decode(project, config, importer),
             objector: {
                 checker: config.decoder || decode(project, config, importer),
-                decoder: decode_object(config),
+                decoder: decode_object(config)(importer),
                 joiner: config.joiner.object,
                 unionizer: config.equals
-                    ? decode_union_object(decode_object(config))(
+                    ? decode_union_object(decode_object(config)(importer))(
                           (input, obj, explore) =>
-                              decode_object(config)(input, obj, {
+                              decode_object(config)(importer)(input, obj, {
                                   ...explore,
                                   tracable: true,
                               }),
@@ -161,7 +177,7 @@ export namespace CheckerProgrammer {
                           config.combiner(explore)("or")(
                               input,
                               targets.map((obj) => ({
-                                  expression: decode_object(config)(
+                                  expression: decode_object(config)(importer)(
                                       input,
                                       obj,
                                       explore,
@@ -177,13 +193,14 @@ export namespace CheckerProgrammer {
                 is: config.joiner.is,
                 required: config.joiner.required,
                 full: config.joiner.full,
+                type: TypeFactory.keyword("boolean"),
             },
         };
         if (config.numeric === true)
             output.generator = {
                 unioners: FeatureProgrammer.generate_unioners(
                     CONFIG(project, { ...config, numeric: false }, importer),
-                ),
+                )(importer),
             };
         return output;
     }
@@ -246,6 +263,7 @@ export namespace CheckerProgrammer {
             //----
             // CHECK OPTIONAL
             //----
+            // @todo -> should be elaborated
             const checkOptional: boolean = meta.empty() || meta.isUnionBucket();
 
             // NULLABLE
@@ -288,12 +306,14 @@ export namespace CheckerProgrammer {
             //----
             // CONSTANT VALUES
             for (const constant of meta.constants)
-                for (const val of constant.values)
-                    add(true, getConstantValue(val));
+                if (AtomicPredicator.constant(meta)(constant.type))
+                    for (const val of constant.values)
+                        add(true, getConstantValue(val));
 
             // ATOMIC VALUES
             for (const type of meta.atomics)
-                if (type === "number")
+                if (AtomicPredicator.atomic(meta)(type) === false) continue;
+                else if (type === "number")
                     binaries.push({
                         expression: check_number(project, config.numeric)(
                             input,
@@ -320,14 +340,15 @@ export namespace CheckerProgrammer {
 
             // TEMPLATE LITERAL VALUES
             if (meta.templates.length)
-                binaries.push({
-                    expression: check_template(importer)(
-                        input,
-                        meta.templates,
-                        tags,
-                    ),
-                    combined: false,
-                });
+                if (AtomicPredicator.template(meta))
+                    binaries.push({
+                        expression: check_template(importer)(
+                            input,
+                            meta.templates,
+                            tags,
+                        ),
+                        combined: false,
+                    });
 
             // NATIVE CLASSES
             for (const native of meta.natives)
@@ -469,7 +490,7 @@ export namespace CheckerProgrammer {
                         .map((obj) => `Resolve<${obj.name}>`)
                         .join(" | "),
                 )(
-                    explore_objects(config)(input, meta, {
+                    explore_objects(config)(importer)(input, meta, {
                         ...explore,
                         from: "object",
                     }),
@@ -664,17 +685,18 @@ export namespace CheckerProgrammer {
         );
     }
 
-    export function decode_object(config: IConfig) {
-        const func = FeatureProgrammer.decode_object(config);
-        return function (
-            input: ts.Expression,
-            obj: MetadataObject,
-            explore: IExplore,
-        ) {
-            obj.validated = true;
-            return func(input, obj, explore);
+    export const decode_object =
+        (config: IConfig) => (importer: FunctionImporter) => {
+            const func = FeatureProgrammer.decode_object(config)(importer);
+            return function (
+                input: ts.Expression,
+                obj: MetadataObject,
+                explore: IExplore,
+            ) {
+                obj.validated = true;
+                return func(input, obj, explore);
+            };
         };
-    }
 
     const explore_sets = (
         project: IProject,
@@ -826,22 +848,31 @@ export namespace CheckerProgrammer {
                 ),
         });
 
-    const explore_objects = (config: IConfig) => {
-        const objector = decode_object(config);
+    const explore_objects =
+        (config: IConfig) => (importer: FunctionImporter) => {
+            const objector = decode_object(config)(importer);
 
-        return (input: ts.Expression, meta: Metadata, explore: IExplore) => {
-            if (meta.objects.length === 1)
-                return objector(input, meta.objects[0]!, explore);
+            return (
+                input: ts.Expression,
+                meta: Metadata,
+                explore: IExplore,
+            ) => {
+                if (meta.objects.length === 1)
+                    return objector(input, meta.objects[0]!, explore);
 
-            return ts.factory.createCallExpression(
-                ts.factory.createIdentifier(
-                    `${config.unioners}${meta.union_index!}`,
-                ),
-                undefined,
-                FeatureProgrammer.get_object_arguments(config)(explore)(input),
-            );
+                return ts.factory.createCallExpression(
+                    ts.factory.createIdentifier(
+                        importer.useLocal(
+                            `${config.unioners}${meta.union_index!}`,
+                        ),
+                    ),
+                    undefined,
+                    FeatureProgrammer.get_object_arguments(config)(explore)(
+                        input,
+                    ),
+                );
+            };
         };
-    };
 }
 
 const create_add =

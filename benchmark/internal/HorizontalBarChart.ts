@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import { JSDOM } from "jsdom";
 
-import { ArrayUtil } from "../../src/utils/ArrayUtil";
+import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
 export namespace HorizontalBarChart {
     export interface IMeasure<Components extends string> {

@@ -1,27 +1,29 @@
 {
   "name": "typescript-json",
-  "version": "3.5.0-dev.20230126",
-  "description": "Runtime type checkers and 5x faster JSON.stringify() function",
+  "version": "3.7.0-dev.20230310",
+  "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
     "benchmark": "npm run build:benchmark && node measure/benchmark",
     "build": "rimraf lib && ttsc --removeComments --declaration false && ttsc --emitDeclarationOnly",
-    "build:test": "rimraf bin && ttsc -p tsconfig.test.json",
-    "build:benchmark": "rimraf measure && ttsc -p tsconfig.benchmark.json",
+    "build:test": "rimraf bin && ttsc -p test/tsconfig.json",
+    "build:benchmark": "rimraf measure && ttsc -p benchmark/tsconfig.json",
     "build:test:prettier": "npm run build:test && prettier --write ./bin/**/*.js",
     "dev": "rimraf lib && ttsc --watch",
-    "dev:test": "rimraf bin && ttsc -p tsconfig.test.json --watch",
+    "dev:test": "rimraf bin && ttsc -p test/tsconfig.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "issue": "node test/issue",
+    "issue:generate": "ts-node src/executable/typia generate --input test/issues/input --output test/issues/output --project test/tsconfig.json",
     "package:latest": "ts-node build/publish.ts latest",
     "package:next": "ts-node build/publish.ts next",
     "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
     "prettier": "prettier  --write ./**/*.ts",
     "test": "node bin/test",
-    "test:generate": "ts-node -P tsconfig.test.json build/test.ts",
-    "test:manual": "node test/manual"
+    "test:generate": "ts-node -P build/tsconfig.json -C ttypescript build/test.ts",
+    "test:manual": "node test/manual",
+    "test:application:replace": "node test/features/application/replace && npm run prettier"
   },
   "repository": {
     "type": "git",
@@ -49,7 +51,9 @@
     "checker",
     "validator",
     "safe",
-    "parse"
+    "parse",
+    "prune",
+    "random"
   ],
   "author": "Jeongho Nam",
   "license": "MIT",
@@ -58,8 +62,7 @@
   },
   "homepage": "https://github.com/samchon/typia#readme",
   "peerDependencies": {
-    "ttypescript": ">= 1.5.15",
-    "typescript": ">= 4.5.2"
+    "typescript": ">= 4.5.2 && < 5.0.0"
   },
   "files": [
     "LICENSE",
@@ -69,6 +72,6 @@
     "src"
   ],
   "dependencies": {
-    "typia": "3.5.0-dev.20230126"
+    "typia": "3.7.0-dev.20230310"
   }
 }

@@ -10,7 +10,7 @@ import { metadata_to_pattern } from "./metadata_to_pattern";
  * @internal
  */
 export function stringify_dynamic_properties(
-    dynamic: IExpressionEntry[],
+    dynamic: IExpressionEntry<ts.Expression>[],
     regular: string[],
 ): ts.Expression {
     // BASIC STATMEMENT, CHECK UNDEFINED
@@ -56,6 +56,7 @@ export function stringify_dynamic_properties(
                                     "value",
                                 ),
                             ]),
+                            ts.factory.createTypeReferenceNode("[string, any]"),
                         ),
                     ],
                     undefined,
@@ -149,7 +150,7 @@ export function stringify_dynamic_properties(
     return output();
 }
 
-function stringify(entry: IExpressionEntry): ts.ReturnStatement {
+function stringify(entry: IExpressionEntry<ts.Expression>): ts.ReturnStatement {
     return ts.factory.createReturnStatement(
         TemplateFactory.generate([
             ts.factory.createCallExpression(

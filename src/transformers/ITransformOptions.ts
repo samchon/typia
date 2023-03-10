@@ -44,4 +44,19 @@ export interface ITransformOptions {
      * @default false
      */
     functional?: boolean;
+
+    /**
+     * Whether to check undefined value or not.
+     *
+     * JavaScript can assign `undefined` value to a specific property and it is an
+     * issue when validating without allowing superfluous properties. Should undefined
+     * value assigned superfluous property be allowed or not?
+     *
+     * Note that, this option only works on {@link equals} function. Other function
+     * like {@link assertEquals} or {@link validateEquals} would ignore this option
+     * value and always allow the `undefined` value.
+     *
+     * @default true
+     */
+    undefined?: boolean;
 }

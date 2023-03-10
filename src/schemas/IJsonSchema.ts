@@ -10,6 +10,7 @@ export namespace IJsonSchema {
         | IEnumeration<"number">
         | IEnumeration<"string">
         | IBoolean
+        | IInteger
         | INumber
         | IString
         | IArray
@@ -32,16 +33,38 @@ export namespace IJsonSchema {
         default?: Atomic.Mapper[Literal];
     }
     export interface IString extends IAtomic<"string"> {
+        /**
+         * @type uint
+         */
         minLength?: number;
+        /**
+         * @type uint
+         */
         maxLength?: number;
         pattern?: string;
         format?: string;
     }
-    export interface INumber extends IAtomic<"number" | "integer"> {
+    export interface INumber extends IAtomic<"number"> {
         minimum?: number;
         maximum?: number;
-        exclusiveMinimum?: number;
-        exclusiveMaximum?: number;
+        exclusiveMinimum?: boolean;
+        exclusiveMaximum?: boolean;
+        multipleOf?: number;
+    }
+    export interface IInteger extends IAtomic<"integer"> {
+        /**
+         * @type int
+         */
+        minimum?: number;
+        /**
+         * @type int
+         */
+        maximum?: number;
+        exclusiveMinimum?: boolean;
+        exclusiveMaximum?: boolean;
+        /**
+         * @type int
+         */
         multipleOf?: number;
     }
     export interface IBoolean extends IAtomic<"boolean"> {}
@@ -51,7 +74,13 @@ export namespace IJsonSchema {
     ----------------------------------------------------------- */
     export interface IArray extends ISignificant<"array"> {
         items: IJsonSchema;
+        /**
+         * @type uint
+         */
         minItems?: number;
+        /**
+         * @type uint
+         */
         maxItems?: number;
         "x-typia-tuple"?: ITuple;
     }

@@ -1,7 +1,7 @@
 import { TSchema } from "@sinclair/typebox";
 import { TypeCheck } from "@sinclair/typebox/compiler";
+import typia from "typia";
 
-import typia from "../../src";
 // PURE TYPESCRIPT TYPES
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";

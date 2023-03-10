@@ -16,7 +16,7 @@ export namespace TestMessageGenerator {
             const content: string[] = [
                 `import typia from "../../../src";`,
                 `import { ${s.name} } from "../../structures/${s.name}";`,
-                `import { _test_message } from "../internal/_test_message";`,
+                `import { _test_message } from "../../internal/_test_message";`,
                 "",
                 `export const test_message_${s.name} = _test_message(`,
                 `    "${s.name}",`,
@@ -53,30 +53,30 @@ export namespace TestMessageGenerator {
             );
         }
 
-        const current: string = process.cwd();
-        process.chdir(protobuf);
-        {
-            const root: string = `../../..`;
-            await fs.promises.copyFile(
-                `${root}/assets/protoc.exe`,
-                "protoc.exe",
-            );
-            await fs.promises.mkdir("references");
+        // const current: string = process.cwd();
+        // process.chdir(protobuf);
+        // {
+        //     const root: string = `../../..`;
+        //     await fs.promises.copyFile(
+        //         `${root}/assets/protoc.exe`,
+        //         "protoc.exe",
+        //     );
+        //     await fs.promises.mkdir("references");
 
-            for (const schema of schemaList)
-                try {
-                    const command: string = [
-                        "protoc",
-                        `--plugin=${root}/node_modules/.bin/protoc-gen-ts_proto.cmd`,
-                        `--ts_proto_out=./references`,
-                        `./${schema}.proto`,
-                    ].join(" ");
-                    cp.execSync(command);
-                } catch {
-                    console.log("failed", schema);
-                }
-        }
-        process.chdir(current);
+        //     for (const schema of schemaList)
+        //         try {
+        //             const command: string = [
+        //                 "protoc",
+        //                 `--plugin=${root}/node_modules/.bin/protoc-gen-ts_proto.cmd`,
+        //                 `--ts_proto_out=./references`,
+        //                 `./${schema}.proto`,
+        //             ].join(" ");
+        //             cp.execSync(command);
+        //         } catch {
+        //             console.log("failed", schema);
+        //         }
+        // }
+        // process.chdir(current);
     }
 
     async function read(file: string): Promise<string> {
