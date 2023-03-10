@@ -1,9 +1,9 @@
-import typia from "../../../../src";
-import { TagLength } from "../../../structures/TagLength";
-import { _test_application } from "../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_ajv_TagLength = 
-    _test_application("ajv")(
-        "TagLength",
-        typia.application<[TagLength], "ajv">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { TagLength } from "../../../structures/TagLength";
+
+export const test_application_ajv_TagLength = _test_application("ajv")(
+    "TagLength",
+    typia.application<[TagLength], "ajv">(),
+);

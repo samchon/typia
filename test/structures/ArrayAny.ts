@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export interface ArrayAny {
     anys: any[];
@@ -15,15 +15,15 @@ export interface ArrayAny {
 export namespace ArrayAny {
     export function generate(): ArrayAny {
         return {
-            anys: RandomGenerator.array(random),
-            undefindable1: RandomGenerator.array(random),
+            anys: TestRandomGenerator.array(random),
+            undefindable1: TestRandomGenerator.array(random),
             undefindable2: undefined,
-            nullables1: RandomGenerator.array(random),
+            nullables1: TestRandomGenerator.array(random),
             nullables2: null,
-            both1: RandomGenerator.array(random),
+            both1: TestRandomGenerator.array(random),
             both2: undefined,
             both3: null,
-            union: RandomGenerator.array(random),
+            union: TestRandomGenerator.array(random),
         };
     }
 
@@ -61,5 +61,6 @@ export namespace ArrayAny {
     export const ADDABLE = false;
     export const BINARABLE = false;
 
-    const random = () => RandomGenerator.pick([null, true, 2, "three", {}, []]);
+    const random = () =>
+        TestRandomGenerator.pick([null, true, 2, "three", {}, []]);
 }

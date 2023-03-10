@@ -1,9 +1,8 @@
-import typia from "../../../../src";
-import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
-import { _test_application } from "../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_swagger_TagAtomicUnion = 
-    _test_application("swagger")(
-        "TagAtomicUnion",
-        typia.application<[TagAtomicUnion], "swagger">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
+
+export const test_application_swagger_TagAtomicUnion = _test_application(
+    "swagger",
+)("TagAtomicUnion", typia.application<[TagAtomicUnion], "swagger">());

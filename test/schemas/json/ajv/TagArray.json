@@ -22,14 +22,7 @@
               "x-typia-metaTags": [
                 {
                   "kind": "items",
-                  "minimum": {
-                    "include": true,
-                    "value": 3
-                  },
-                  "maximum": {
-                    "include": false,
-                    "value": 7
-                  }
+                  "value": 3
                 },
                 {
                   "kind": "format",
@@ -41,7 +34,7 @@
                   "name": "items",
                   "text": [
                     {
-                      "text": "[3, 7)",
+                      "text": "3",
                       "kind": "text"
                     }
                   ]
@@ -63,14 +56,7 @@
             "x-typia-metaTags": [
               {
                 "kind": "items",
-                "minimum": {
-                  "include": true,
-                  "value": 3
-                },
-                "maximum": {
-                  "include": false,
-                  "value": 7
-                }
+                "value": 3
               },
               {
                 "kind": "format",
@@ -82,7 +68,7 @@
                 "name": "items",
                 "text": [
                   {
-                    "text": "[3, 7)",
+                    "text": "3",
                     "kind": "text"
                   }
                 ]
@@ -97,9 +83,7 @@
                 ]
               }
             ],
-            "x-typia-required": true,
-            "minItems": 3,
-            "maxItems": 6
+            "x-typia-required": true
           },
           "minItems": {
             "type": "array",

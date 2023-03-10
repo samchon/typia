@@ -1,9 +1,9 @@
-import typia from "../../../../src";
-import { MapAlias } from "../../../structures/MapAlias";
-import { _test_application } from "../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_swagger_MapAlias = 
-    _test_application("swagger")(
-        "MapAlias",
-        typia.application<[MapAlias], "swagger">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { MapAlias } from "../../../structures/MapAlias";
+
+export const test_application_swagger_MapAlias = _test_application("swagger")(
+    "MapAlias",
+    typia.application<[MapAlias], "swagger">(),
+);

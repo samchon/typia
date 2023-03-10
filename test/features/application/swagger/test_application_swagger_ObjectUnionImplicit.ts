@@ -1,9 +1,8 @@
-import typia from "../../../../src";
-import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
-import { _test_application } from "../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_swagger_ObjectUnionImplicit = 
-    _test_application("swagger")(
-        "ObjectUnionImplicit",
-        typia.application<[ObjectUnionImplicit], "swagger">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
+
+export const test_application_swagger_ObjectUnionImplicit = _test_application(
+    "swagger",
+)("ObjectUnionImplicit", typia.application<[ObjectUnionImplicit], "swagger">());

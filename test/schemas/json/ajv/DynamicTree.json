@@ -21,7 +21,7 @@
             "x-typia-required": true
           },
           "children": {
-            "$ref": "components#/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
+            "$recursiveRef": "components#/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
             "x-typia-required": true
           }
         },
@@ -35,6 +35,7 @@
       },
       "Record_lt_string_comma__space_DynamicTree_gt_": {
         "$id": "components#/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
+        "$recursiveAnchor": true,
         "type": "object",
         "properties": {},
         "nullable": false,

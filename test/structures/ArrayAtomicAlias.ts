@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ArrayAtomicAlias = [
     ArrayAtomicAlias.Alias<boolean>,
@@ -10,9 +10,9 @@ export namespace ArrayAtomicAlias {
     export type Alias<T> = T[];
     export function generate(): ArrayAtomicAlias {
         return [
-            RandomGenerator.array(RandomGenerator.boolean),
-            RandomGenerator.array(RandomGenerator.integer),
-            RandomGenerator.array(RandomGenerator.string),
+            TestRandomGenerator.array(TestRandomGenerator.boolean),
+            TestRandomGenerator.array(TestRandomGenerator.integer),
+            TestRandomGenerator.array(TestRandomGenerator.string),
         ];
     }
 

@@ -24,6 +24,13 @@ export function assertDecode<T>(buffer: Buffer): T; // safe decoder
 export function assertEncode<T>(input: T): Uint8Array; // safe encoder
     // +) decode, isDecode, validateDecode
     // +) encode, isEncode, validateEncode
+    
+// MISC
+export function random<T>(): Primitive<T>; // generate random data
+export function clone<T>(input: T): Primitive<T>; // deep clone
+export function prune<T extends object>(input: T): void; // erase extra props
+    // +) isClone, assertClone, validateClone
+    // +) isPrune, assertPrune, validatePrune
 ```
 
 `typia` is a transformer library of TypeScript, supporting below features:
@@ -32,6 +39,7 @@ export function assertEncode<T>(input: T): Uint8Array; // safe encoder
   - Safe JSON parse and fast stringify functions
   - Protocol Buffer encoder and decoder
   - Protobuf/JSON schema generator
+  - Random data generator
 
 All functions in `typia` require **only one line**. You don't need any extra dedication like JSON schema definitions or decorator function calls. Just call `typia` function with only one line like `typia.assert<T>(input)`.
 
@@ -49,71 +57,101 @@ Thanks for your support.
 
 Your donation would encourage `typia` development.
 
-[![Backers](https://opencollective.com/typia/backers.svg?width=1000)](https://opencollective.com/typia)
+[![Sponsers](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
 
 
 
 
 ## Setup
-### Setup Wizard
+### Transformation
 ```bash
 npx typia setup
 ```
 
-Just type `npx typia setup`, that's all.
+AOT (Ahead of Time) compilation mode.
 
-Also, you can specify package manager or target `tsconfig.json` file like below:
+When you write a TypeScript code calling `typia.createIs<string | null>()` function and compile it, `typia` will write optimal validation code like below, for the `string | null` type. This is the transform mode performing AOT (Ahead of Time) compilation.
 
-```bash
-npx typia setup --manager npm
-npx typia setup --manager pnpm
-npx typia setup --manager yarn
+```typescript
+// TYPESCRIPT CODE
+import typia from "typia";
+export const check = typia.createIs<string | null>();
 
-npx typia setup --project tsconfig.json
-npx typia setup --project tsconfig.test.json
+// COMPILED JAVASCRIPT CODE
+export const check = (input) => "string" === typeof input || null === input;
 ```
 
-After the setup, you can compile `typia` utilization code by using `ttsc` ([`ttypescript`](https://github.com/cevek/ttypescript)) command. If you want to run your TypeScript file directly through `ts-node`, add `-C ttypescript` argument like below:
+![Typia Setup Wizard](https://user-images.githubusercontent.com/13158709/221402176-83b1bfe8-bc8f-4fba-9d83-6adbdfce5c8c.png)
+
+For reference, to use this transform mode, you've install one onf them; [ttypescript](https://github.com/cevek/ttypescript) or [ts-patch](https://github.com/nonara/ts-patch).
+
+If [ttypescript](https://github.com/cevek/ttypescript), you should compile through `ttsc` command, instead of using `tsc`.
+
+Otherwise, you've chosen [ts-patch](https://github.com/nonara/ts-patch), you can use original `tsc` command. However, [ts-patch](https://github.com/nonara/ts-patch) hacks `node_modules/typescript` source code. Also, whenever update `typescrtip` version, you have to run `npm run prepare` command repeatedly.
+
+By the way, when using [@nest/cli](https://nestjs.com), you must just choose [ts-patch](https://github.com/nonara/ts-patch).
 
 ```bash
+#--------
+# TTYPESCRIPT
+#--------
 # COMPILE THROUGH TTYPESCRIPT
 npx ttsc
 
 # RUN TS-NODE WITH TTYPESCRIPT
 npx ts-node -C ttypescript src/index.ts
+
+#--------
+# TS-PATCH
+#--------
+# USE ORIGINAL TSC COMMAND
+tsc
+npx ts-node src/index.ts
+
+# WHENVER UPDATE
+npm install --save-dev typescript@latest
+npm run prepare
 ```
 
-### Manual Setup
-If you want to install and setup `typia` manually, read [Guide Documents - Setup](https://github.com/samchon/typia/wiki/Setup).
+### Generation
+```bash
+# INSTALL TYPIA
+npm install --save typia
 
-  - [Setup Wizard](https://github.com/samchon/typia/wiki/Setup#setup-wizard)
-  - [NPM Packages](https://github.com/samchon/typia/wiki/Setup#npm-packages)
-  - [`tsconfig.json`](https://github.com/samchon/typia/wiki/Setup#tsconfigjson)
-  - [vite](https://github.com/samchon/typia/wiki/Setup#vite)
-  - [webpack](https://github.com/samchon/typia/wiki/Setup#webpack)
+# GENERATE TRANSFORMED TYPESCRIPT CODES
+npx typia generate \
+    --input src/templates \
+    --output src/generated \
+    --project tsconfig.json
+```
 
-Also, by [Guide Documents - Setup](https://github.com/samchon/typia/wiki/Setup) section, you can learn how to use pure TypeScript compiler `tsc` through [`ts-patch`](https://github.com/nonara/ts-patch), instead of using the `ttypescript` compiler with `ttsc` command.
+For frontend projects.
 
-### Vite
-When you want to setup `typia` on your frontend project with [`vite`](https://vitejs.dev/), just configure `vite.config.ts` like below.
+If you're using non-standard TypeScript compiler, you can't use [transform mode](#transformation).
 
-For reference, don't forget running [Setup Wizard](#setup-wizard) before.
+  - Non-standard TypeScript compilers:
+    - [swc](https://swc.rs/) in Next.JS
+    - [esbuild](https://esbuild.github.io/) in Vite
+    - [babel](https://babeljs.io/) in Create-React-App
+
+Instead, you should utilize the generation mode. 
+
+Install `typia` through `npm install` command and run `typia generate` command. Then, generator of `typia` reads your TypeScript code of `--input`, and writes transformed TypeScript code into the `--output` directory, like below.
 
 ```typescript
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import typescript from "@rollup/plugin-typescript";
-import ttsc from "ttypescript";
+//--------
+// src/templates/check.ts
+//--------
+import typia from "typia";
+export const check = typia.createIs<string | null>();
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    react(),
-    typescript({
-      typescript: ttsc,
-    })
-  ]
-});
+//--------
+// src/generated/check.ts
+//--------
+import typia from "typia";
+export const check = 
+    (input: unknown): input is string | null 
+        => "string" === typeof input || null === input;
 ```
 
 
@@ -145,6 +183,10 @@ For more details, refer to the [Guide Documents (wiki)](https://github.com/samch
 >   - [`encode()` functions](https://github.com/samchon/typia/wiki/Protocol-Buffer#encode-functions)
 >   - [comment tags](https://github.com/samchon/typia/wiki/Protocol-Buffer#comment-tags)
 >   - [weaknesses](https://github.com/samchon/typia/wiki/Protocol-Buffer#weaknesses)
+> - **Miscellaneous**
+>   - [`random()` function](https://github.com/samchon/typia/wiki/Miscellaneous#random-function)
+>   - [`clone()` functions](https://github.com/samchon/typia/wiki/Miscellaneous#clone-functions)
+>   - [`prune()` functions](https://github.com/samchon/typia/wiki/Miscellaneous#prune-functions)
 
 ### Runtime Validators
 ```typescript
@@ -215,9 +257,9 @@ export function createAssertStringify<T>(): (input: T) => string;
   - `assertParse()`: parse JSON string safely with type validation
   - `isStringify()`: maximum 10x faster JSON stringify fuction even type safe
 
-![JSON string conversion speed](https://github.com/samchon/typia/raw/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics/images/stringify.svg)
+![JSON string conversion speed](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/AMD%20Ryzen%207%206800HS%20with%20Radeon%20Graphics/images/stringify.svg)
 
-> Measured on [AMD R7 5800H](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%207%205800H%20with%20Radeon%20Graphics#stringify)
+> Measured on [AMD R7 6800HS](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%207%206800HS%20with%20Radeon%20Graphics)
 
 ### Protocol Buffer
 ```typescript
@@ -265,29 +307,63 @@ If you want to add special type like `float32`, you can do it through **comment 
 
 [Nestia](https://github.com/samchon/nestia) is a set of helper libraries for `NestJS`, supporting below features:
 
-  - [`@nestia/core`](https://github.com/samchon/nestia#nestiacore): **15,000x times faster** validation decorator using `typia`
-  - [`@nestia/sdk`](https://github.com/samchon/nestia#nestiasdk): evolved **SDK** and **Swagger** generator for `@nestia/core`
+  - `@nestia/core`: **15,000x times faster** validation decorators
+  - `@nestia/sdk`: evolved **SDK** and **Swagger** generators
+    - SDK (Software Development Kit)
+      - interaction library for client developers
+      - almost same with [tRPC](https://github.com/trpc/trpc)
   - `nestia`: just CLI (command line interface) tool
 
-```typescript
-import { Controller } from "@nestjs/common";
-import { TypedBody, TypedRoute } from "@nestia/core";
+![nestia-sdk-demo](https://user-images.githubusercontent.com/13158709/215004990-368c589d-7101-404e-b81b-fbc936382f05.gif)
 
-import type { IBbsArticle } from "@bbs-api/structures/IBbsArticle";
+### Reactia
+> Not published yet, but soon
 
-@Controller("bbs/articles")
-export class BbsArticlesController {
-    /** 
-     * Store a new content.
-     * 
-     * @param inupt Content to store
-     * @returns Newly archived article
-     */
-    @TypedRoute.Post() // 10x faster and safer JSON.stringify()
-    public async store(
-        @TypedBody() input: IBbsArticle.IStore // super-fast validator
-    ): Promise<IBbsArticle>; 
-        // do not need DTO class definition, 
-        // just fine with interface
-}
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/reactia/blob/master/LICENSE)
+[![Build Status](https://github.com/samchon/reactia/workflows/build/badge.svg)](https://github.com/samchon/reactia/actions?query=workflow%3Abuild)
+[![Guide Documents](https://img.shields.io/badge/wiki-documentation-forestgreen)](https://github.com/samchon/reactia/wiki)
+
+[Reactia](https://github.com/samchon/reactia) is an automatic React components generator, just by analyzing TypeScript type.
+
+  - `@reactia/core`: Core Library analyzing TypeScript type
+  - `@reactia/mui`: Material UI Theme for `core` and `nest`
+  - `@reactia/nest`: Automatic Frontend Application Builder for `NestJS`
+
+![Sample](https://user-images.githubusercontent.com/13158709/199074008-46b2dd67-02be-40b1-aa0f-74ac41f3e0a7.png)
+
+When you want to automate an individual component, just use `@reactia/core`.
+
+```tsx
+import ReactDOM from "react-dom";
+
+import typia from "typia";
+import { ReactiaComponent } from "@reactia/core";
+import { MuiInputTheme } from "@reactia/mui";
+
+const RequestInput = ReactiaComponent<IRequestDto>(MuiInputTheme());
+const input: IRequestDto = { ... };
+
+ReactDOM.render(
+    <RequestInput input={input} />,
+    document.body
+);
+```
+
+Otherwise, you can fully automate frontend application development through `@reactia/nest`.
+
+```tsx
+import React from "react";
+import ReactDOM from "react-dom";
+
+import { ISwagger } "@nestia/swagger";
+import { MuiApplicationTheme } from "@reactia/mui";
+import { ReactiaApplication } from "@reactia/nest";
+
+const swagger: ISwagger = await import("./swagger.json");
+const App: React.FC = ReactiaApplication(MuiApplicationTheme())(swagger);
+
+ReactDOM.render(
+    <App />,
+    document.body
+);
 ```

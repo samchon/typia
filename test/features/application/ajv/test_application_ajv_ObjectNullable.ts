@@ -1,9 +1,9 @@
-import typia from "../../../../src";
-import { ObjectNullable } from "../../../structures/ObjectNullable";
-import { _test_application } from "../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_ajv_ObjectNullable = 
-    _test_application("ajv")(
-        "ObjectNullable",
-        typia.application<[ObjectNullable], "ajv">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { ObjectNullable } from "../../../structures/ObjectNullable";
+
+export const test_application_ajv_ObjectNullable = _test_application("ajv")(
+    "ObjectNullable",
+    typia.application<[ObjectNullable], "ajv">(),
+);

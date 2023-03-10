@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ArrayRecursiveUnionImplicit = ArrayRecursiveUnionImplicit.IBucket[];
 export namespace ArrayRecursiveUnionImplicit {
@@ -94,21 +94,21 @@ export namespace ArrayRecursiveUnionImplicit {
     }
     function generate_image_file(): IImageFile {
         return {
-            width: RandomGenerator.integer(),
-            height: RandomGenerator.integer(),
-            url: RandomGenerator.string(),
+            width: TestRandomGenerator.integer(),
+            height: TestRandomGenerator.integer(),
+            url: TestRandomGenerator.string(),
             ...generate_file(),
         };
     }
     function generate_text_file(): ITextFile {
         return {
-            content: RandomGenerator.string(),
+            content: TestRandomGenerator.string(),
             ...generate_file(),
         };
     }
     function generate_zip_file(): IZipFile {
         return {
-            count: RandomGenerator.integer(),
+            count: TestRandomGenerator.integer(),
             ...generate_file(),
         };
     }
@@ -121,15 +121,15 @@ export namespace ArrayRecursiveUnionImplicit {
 
     function generate_bucket() {
         return {
-            id: RandomGenerator.integer(),
-            name: RandomGenerator.string(),
-            path: RandomGenerator.string(),
+            id: TestRandomGenerator.integer(),
+            name: TestRandomGenerator.string(),
+            path: TestRandomGenerator.string(),
         };
     }
     function generate_file() {
         return {
             ...generate_bucket(),
-            size: RandomGenerator.integer(),
+            size: TestRandomGenerator.integer(),
         };
     }
 

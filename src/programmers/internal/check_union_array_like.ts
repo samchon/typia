@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
+import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 
@@ -40,7 +41,12 @@ export const check_union_array_like =
                             ts.factory.createArrowFunction(
                                 undefined,
                                 undefined,
-                                [IdentifierFactory.parameter("top")],
+                                [
+                                    IdentifierFactory.parameter(
+                                        "top",
+                                        TypeFactory.keyword("any"),
+                                    ),
+                                ],
                                 undefined,
                                 undefined,
                                 props.checker(
@@ -58,7 +64,12 @@ export const check_union_array_like =
                             ts.factory.createArrowFunction(
                                 undefined,
                                 undefined,
-                                [IdentifierFactory.parameter("top")],
+                                [
+                                    IdentifierFactory.parameter(
+                                        "top",
+                                        TypeFactory.keyword("any"),
+                                    ),
+                                ],
                                 undefined,
                                 undefined,
                                 props.decoder(
@@ -140,7 +151,12 @@ export const check_union_array_like =
                         ts.factory.createArrowFunction(
                             undefined,
                             undefined,
-                            [IdentifierFactory.parameter("value")],
+                            [
+                                IdentifierFactory.parameter(
+                                    "value",
+                                    TypeFactory.keyword("any"),
+                                ),
+                            ],
                             undefined,
                             undefined,
                             ts.factory.createStrictEquality(
@@ -180,7 +196,9 @@ export const check_union_array_like =
                               ts.factory.createNumericLiteral(0),
                               accessor.size(input),
                           ),
-                          ts.factory.createReturnStatement(props.empty),
+                          ts.isReturnStatement(props.empty)
+                              ? props.empty
+                              : ts.factory.createReturnStatement(props.empty),
                       ),
                   ]
                 : []),
@@ -224,7 +242,7 @@ export namespace check_union_array_like {
             array: ts.Expression,
         ): ts.Expression;
         decoder: UnionExplorer.Decoder<T>;
-        empty: ts.Expression;
+        empty: ts.ReturnStatement | ts.Expression;
         success: ts.Expression;
         failure(
             input: ts.Expression,

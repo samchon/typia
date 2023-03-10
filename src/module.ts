@@ -1,29 +1,20 @@
-import { $every } from "./functional/$every";
-import { $guard } from "./functional/$guard";
-import { $is_email } from "./functional/$is_email";
-import { $is_ipv4 } from "./functional/$is_ipv4";
-import { $is_ipv6 } from "./functional/$is_ipv6";
-import { $is_url } from "./functional/$is_url";
-import { $is_uuid } from "./functional/$is_uuid";
-import { $join } from "./functional/$join";
-import { $number } from "./functional/$number";
-import { $report } from "./functional/$report";
-import { $rest } from "./functional/$rest";
-import { $string } from "./functional/$string";
-import { $tail } from "./functional/$tail";
+import { Namespace } from "./functional/Namespace";
 
 import { IMetadataApplication } from "./metadata/IMetadataApplication";
 import { IJsonApplication } from "./schemas/IJsonApplication";
 
+import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
+import { Primitive } from "./Primitive";
 import { TypeGuardError } from "./TypeGuardError";
 
 export * from "./schemas/IJsonApplication";
 export * from "./schemas/IJsonComponents";
 export * from "./schemas/IJsonSchema";
+export * from "./IRandomGenerator";
+export * from "./IValidation";
 export * from "./Primitive";
 export * from "./TypeGuardError";
-export * from "./IValidation";
 
 /* ===========================================================
     SINGLE FUNCTIONS
@@ -31,7 +22,7 @@ export * from "./IValidation";
         - STRICT VALIDATORS
         - PROTOCOL BUFFER FUNCTIONS
         - JSON FUNCTIONS
-        - MISC
+        - MISCELLANEOUS
 ==============================================================
     BASIC VALIDATORS
 ----------------------------------------------------------- */
@@ -87,21 +78,7 @@ export function assert<T>(input: unknown): T;
 export function assert(): never {
     halt("assert");
 }
-
-/**
- * @internal
- */
-export namespace assert {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-
-    export const join = $join;
-    export const every = $every;
-    export const guard = $guard("typia.assert");
-}
+Object.assign(assert, Namespace.assert("assert"));
 
 /**
  * Asserts a value type.
@@ -139,26 +116,7 @@ export function assertType<T>(input: unknown): T;
 export function assertType(): never {
     halt("assertType");
 }
-
-/**
- * @internal
- */
-export namespace assertType {
-    // FOR LEGACY FUNCTIONS
-    export function predicate(
-        matched: boolean,
-        exceptionable: boolean,
-        closure: () => Omit<TypeGuardError.IProps, "method">,
-    ): boolean {
-        if (matched === false && exceptionable === true)
-            throw new TypeGuardError({
-                method: "typia.assertType",
-                ...closure(),
-            });
-        return matched;
-    }
-}
-Object.assign(assertType, assert);
+Object.assign(assertType, Namespace.assert("assertType"));
 
 /**
  * Tests a value type.
@@ -214,17 +172,7 @@ export function is<T>(input: unknown): input is T;
 export function is(): never {
     halt("is");
 }
-
-/**
- * @internal
- */
-export namespace is {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-}
+Object.assign(is, Namespace.assert("is"));
 
 /**
  * Validates a value type.
@@ -282,50 +230,7 @@ export function validate<T>(input: unknown): IValidation<T>;
 export function validate(): never {
     halt("validate");
 }
-
-/**
- * @internal
- */
-export namespace validate {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-
-    export const join = $join;
-    export const report = $report;
-
-    // FOR LEGACY FUNCTIONS
-    export const predicate =
-        (res: IValidation) =>
-        (
-            matched: boolean,
-            exceptionable: boolean,
-            closure: () => IValidation.IError,
-        ) => {
-            // CHECK FAILURE
-            if (matched === false && exceptionable === true)
-                (() => {
-                    res.success &&= false;
-                    const errorList = (res as IValidation.IFailure).errors;
-
-                    // TRACE ERROR
-                    const error = closure();
-                    if (errorList.length) {
-                        const last = errorList[errorList.length - 1]!.path;
-                        if (
-                            last.length >= error.path.length &&
-                            last.substring(0, error.path.length) === error.path
-                        )
-                            return;
-                    }
-                    errorList.push(error);
-                    return;
-                })();
-            return matched;
-        };
-}
+Object.assign(validate, Namespace.validate());
 
 /* -----------------------------------------------------------
     STRICT VALIDATORS
@@ -383,39 +288,10 @@ export function assertEquals<T>(input: unknown): T;
 /**
  * @internal
  */
-export function assertEquals<T>(): never {
+export function assertEquals(): never {
     halt("assertEquals");
 }
-
-/**
- * @internal
- */
-export namespace assertEquals {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-
-    export const join = $join;
-    export const every = $every;
-    // export const guardV2 = $guardV2("typia.assertEquals");
-    export const guard = $guard("typia.assertEquals");
-
-    // FOR LEGACY FUNCTIONS
-    export function predicate(
-        matched: boolean,
-        exceptionable: boolean,
-        closure: () => Omit<TypeGuardError.IProps, "method">,
-    ): boolean {
-        if (matched === false && exceptionable === true)
-            throw new TypeGuardError({
-                method: "typia.assertEquals",
-                ...closure(),
-            });
-        return matched;
-    }
-}
+Object.assign(assertEquals, Namespace.assert("assertEquals"));
 
 /**
  * Tests equality between a value and its type.
@@ -473,18 +349,7 @@ export function equals<T>(input: unknown): input is T;
 export function equals(): never {
     halt("equals");
 }
-
-/**
- * @internal
- */
-export namespace equals {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const join = $join;
-}
+Object.assign(equals, Namespace.is());
 
 /**
  * Validates equality between a value and its type.
@@ -544,50 +409,7 @@ export function validateEquals<T>(input: unknown): IValidation<T>;
 export function validateEquals(): never {
     halt("validateEquals");
 }
-
-/**
- * @internal
- */
-export namespace validateEquals {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-    export const join = $join;
-
-    export const report = validate.report;
-
-    // FOR LEGACY FUNCTIONS
-    export const predicate =
-        (res: IValidation) =>
-        (
-            matched: boolean,
-            exceptionable: boolean,
-            closure: () => IValidation.IError,
-        ) => {
-            // CHECK FAILURE
-            if (matched === false && exceptionable === true)
-                (() => {
-                    res.success &&= false;
-                    const errorList = (res as IValidation.IFailure).errors;
-
-                    // TRACE ERROR
-                    const error = closure();
-                    if (errorList.length) {
-                        const last = errorList[errorList.length - 1]!.path;
-                        if (
-                            last.length >= error.path.length &&
-                            last.substring(0, error.path.length) === error.path
-                        )
-                            return;
-                    }
-                    errorList.push(error);
-                    return;
-                })();
-            return matched;
-        };
-}
+Object.assign(validateEquals, Namespace.validate());
 
 /* -----------------------------------------------------------
     PROTOCOL BUFFER FUNCTIONS
@@ -711,21 +533,7 @@ export function assertParse<T>(input: string): T;
 export function assertParse<T>(): T {
     halt("assertParse");
 }
-
-/**
- * @internal
- */
-export namespace assertParse {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-
-    export const join = $join;
-    export const every = $every;
-    export const guard = $guard("typia.assertParse");
-}
+Object.assign(assertParse, Namespace.assert("assertParse"));
 
 /**
  * > You must configure the generic argument `T`.
@@ -832,8 +640,8 @@ Object.assign(validateParse, validate);
  * than the native `JSON.stringify()` function. The 5x faster principle is because
  * it writes an optimized JSON conversion plan, only for the type `T`.
  *
- * For reference, this `typia.stringify()` does not validate the input value type. It
- * just believes that the input value is following the type `T`. Therefore, if you
+ * For reference, this `typia.stringify()` does not validate the input value type.
+ * It just believes that the input value is following the type `T`. Therefore, if you
  * can't ensure the input value type, it would be better to call one of below functions
  * instead.
  *
@@ -855,25 +663,7 @@ export function stringify<T>(input: T): string;
 export function stringify(): never {
     halt("stringify");
 }
-
-/**
- * @internal
- */
-export namespace stringify {
-    export const number = $number;
-    export const string = $string;
-    export const tail = $tail;
-    export const rest = $rest;
-
-    export function throws(
-        props: Pick<TypeGuardError.IProps, "expected" | "value">,
-    ): void {
-        throw new TypeGuardError({
-            ...props,
-            method: "typia.stringify",
-        });
-    }
-}
+Object.assign(stringify, Namespace.stringify("stringify"));
 
 /**
  * 5x faster `JSON.stringify()` function with type assertion.
@@ -927,41 +717,8 @@ export function assertStringify<T>(input: T): unknown;
 export function assertStringify(): string {
     halt("assertStringify");
 }
-
-/**
- * @internal
- */
-export namespace assertStringify {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-
-    export const number = $number;
-    export const string = $string;
-    export const tail = $tail;
-    export const rest = $rest;
-
-    export const join = $join;
-    export const guard = $guard("typia.assertStringify");
-    export const every = $every;
-    export const throws = () => {};
-
-    // FOR LEGACY FUNCTIONS
-    export function predicate(
-        matched: boolean,
-        exceptionable: boolean,
-        closure: () => Omit<TypeGuardError.IProps, "method">,
-    ): boolean {
-        if (matched === false && exceptionable === true)
-            throw new TypeGuardError({
-                method: "typia.assertStringify",
-                ...closure(),
-            });
-        return matched;
-    }
-}
+Object.assign(assertStringify, Namespace.assert("assertStringify"));
+Object.assign(assertStringify, Namespace.stringify("assertStringify"));
 
 /**
  * 7x faster `JSON.stringify()` function with type checking.
@@ -992,7 +749,7 @@ export function isStringify<T>(input: T): string | null;
  * `typia.isStringify()` is a combination function of {@link is} and
  * {@link stringify}. Therefore, it converts an input value to JSON
  * (JavaScript Object Notation) string, with type checking.
- *
+ *f
  * In such reason, when `input` value is not matched with the type `T`, it returns
  * `null` value. Otherwise, there's no problem on the `input` value, JSON string would
  * be returned.
@@ -1012,27 +769,12 @@ export function isStringify<T>(input: unknown): string | null;
 /**
  * @internal
  */
-export function isStringify<T>(): string | null {
+export function isStringify(): string | null {
     halt("isStringify");
 }
 
-/**
- * @internal
- */
-export namespace isStringify {
-    export const is_uuid = $is_uuid;
-    export const is_email = $is_email;
-    export const is_url = $is_url;
-    export const is_ipv4 = $is_ipv4;
-    export const is_ipv6 = $is_ipv6;
-
-    export const number = $number;
-    export const string = $string;
-    export const tail = $tail;
-    export const rest = $rest;
-
-    export const throws = () => {};
-}
+Object.assign(isStringify, Namespace.is());
+Object.assign(isStringify, Namespace.stringify("isStringify"));
 
 /**
  * 5x faster `JSON.stringify()` function with detailed type validation.
@@ -1088,8 +830,413 @@ export function validateStringify<T>(input: unknown): IValidation<string>;
 export function validateStringify(): IValidation<string> {
     halt("validateStringify");
 }
-Object.assign(validateStringify, validate);
-Object.assign(validateStringify, stringify);
+Object.assign(validateStringify, Namespace.validate());
+Object.assign(validateStringify, Namespace.stringify("validateStringify"));
+
+/* -----------------------------------------------------------
+    MISCELLANEOUS
+----------------------------------------------------------- */
+/**
+ * @internal
+ */
+export function metadata(): never;
+
+/**
+ * @internal
+ */
+export function metadata<Types extends unknown[]>(): IMetadataApplication;
+
+/**
+ * @internal
+ */
+export function metadata(): never {
+    halt("metadata");
+}
+
+/**
+ * > You must configure the generic argument `T`.
+ *
+ * Generate random data.
+ *
+ * Generates a random data following type the `T`.
+ *
+ * For reference, this `typia.random()` function generates only primitive type.
+ * If there're some methods in the type `T` or its nested instances, those would
+ * be ignored. Also, when the type `T` has a `toJSON()` method, its return type
+ * would be generated instead.
+ *
+ * @template T Type of data to generate
+ * @param generator Random data generator
+ * @return Randomly generated data
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function random(generator?: Partial<IRandomGenerator>): never;
+
+/**
+ * Generate random data.
+ *
+ * Generates a random data following type the `T`.
+ *
+ * For reference, this `typia.random()` function generates only primitive type.
+ * If there're some methods in the type `T` or its nested instances, those would
+ * be ignored. Also, when the type `T` has a `toJSON()` method, its return type
+ * would be generated instead.
+ *
+ * @template T Type of data to generate
+ * @param generator Random data generator
+ * @return Randomly generated data
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function random<T>(generator?: Partial<IRandomGenerator>): Primitive<T>;
+
+/**
+ * @internal
+ */
+export function random(): never {
+    halt("random");
+}
+Object.assign(random, Namespace.random());
+
+/**
+ * Clone a data.
+ *
+ * Clones an instance following type `T`. If the target *input* value or its member
+ * variable contains a class instance that is having a `toJSON()` method, its return
+ * value would be cloned.
+ *
+ * For reference, this `typia.clone()` function does not validate the input value type.
+ * It just believes that the input value is following the type `T`. Therefore, if you
+ * can't ensure the input value type, it would be better to call {@link assertClone}
+ * function instead.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function clone<T>(input: T): Primitive<T>;
+
+/**
+ * @internal
+ */
+export function clone(): never {
+    halt("clone");
+}
+Object.assign(clone, Namespace.clone("clone"));
+
+/**
+ * Clone a data with type assertion.
+ *
+ * Clones an instance following type `T`, with type assertion. If the target `input`
+ * value or its member variable contains a class instance that is having a `toJSON()`
+ * method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it throws an
+ * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, cloned
+ * data would be returned.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertClone<T>(input: T): Primitive<T>;
+
+/**
+ * Clone a data with type assertion.
+ *
+ * Clones an instance following type `T`, with type assertion. If the target `input`
+ * value or its member variable contains a class instance that is having a `toJSON()`
+ * method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it throws an
+ * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, cloned
+ * data would be returned.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertClone<T>(input: unknown): Primitive<T>;
+
+/**
+ * @internal
+ */
+export function assertClone(): never {
+    halt("assertClone");
+}
+Object.assign(assertClone, Namespace.assert("assertClone"));
+Object.assign(assertClone, Namespace.clone("assertClone"));
+
+/**
+ * Clone a data with type checking.
+ *
+ * Clones an instance following type `T`, with type checking. If the target `input`
+ * value or its member variable contains a class instance that is having a `toJSON()`
+ * method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * `null` value instead. Otherwise, there's no problem on the `input` value, cloned
+ * data would be returned.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data when exact type, otherwise null
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function isClone<T>(input: T): Primitive<T> | null;
+
+/**
+ * Clone a data with type checking.
+ *
+ * Clones an instance following type `T`, with type checking. If the target `input`
+ * value or its member variable contains a class instance that is having a `toJSON()`
+ * method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * `null` value instead. Otherwise, there's no problem on the `input` value, cloned
+ * data would be returned.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @return Cloned data when exact type, otherwise null
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function isClone<T>(input: unknown): Primitive<T> | null;
+
+/**
+ * @internal
+ */
+export function isClone(): never {
+    halt("isClone");
+}
+Object.assign(isClone, Namespace.is());
+Object.assign(isClone, Namespace.clone("isClone"));
+
+/**
+ * Clone a data with detailed type validation.
+ *
+ * Clones an instance following type `T`, with detailed type validation. If the target
+ * `input` value or its member variable contains a class instance that is having a
+ * `toJSON()` method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * {@link IValidation.Failure} value. Otherwise, there's no problem on the `input`
+ * value, cloned data would be stored in `data` property of the output
+ * {@link IValidation.Success} instance.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @returns Validation result with cloned value
+ */
+export function validateClone<T>(input: T): IValidation<Primitive<T>>;
+
+/**
+ * Clone a data with detailed type validation.
+ *
+ * Clones an instance following type `T`, with detailed type validation. If the target
+ * `input` value or its member variable contains a class instance that is having a
+ * `toJSON()` method, its return value would be cloned.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * {@link IValidation.Failure} value. Otherwise, there's no problem on the `input`
+ * value, cloned data would be stored in `data` property of the output
+ * {@link IValidation.Success} instance.
+ *
+ * @template T Type of the input value
+ * @param input A value to be cloned
+ * @returns Validation result with cloned value
+ */
+export function validateClone<T>(input: unknown): IValidation<Primitive<T>>;
+
+/**
+ * @internal
+ */
+export function validateClone(): never {
+    halt("validateClone");
+}
+Object.assign(validateClone, Namespace.validate());
+Object.assign(validateClone, Namespace.clone("validateClone"));
+
+/**
+ * Prune, erase superfluous properties.
+ *
+ * Remove every superfluous properties from the `input` object, even including nested
+ * objects. Note that, as every superfluous properties would be deleted, you never can
+ * read those superfluous properties after calling this `prune()` function.
+ *
+ * For reference, this `typia.prune()` function does not validate the input value type.
+ * It just believes that the input value is following the type `T`. Therefore, if you
+ * can't ensure the input value type, it would better to call one of below functions
+ * instead.
+ *
+ *   - {@link assertPrune}
+ *   - {@link isPrune}
+ *   - {@link validatePrune}
+ *
+ * @template T Type of the input value
+ * @param input Target instance to prune
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function prune<T extends object>(input: T): void;
+
+/**
+ * @internal
+ */
+export function prune(): never {
+    halt("prune");
+}
+Object.assign(prune, Namespace.prune("prune"));
+
+/**
+ * Prune, erase superfluous properties, with type assertion.
+ *
+ * `typia.assertPrune()` is a combination function of {@link assert} and {@link prune}.
+ * Therefore, it removes every superfluous properties from the `input` object including
+ * nested objects, with type assertion.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it throws an
+ * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, its
+ * every superfluous properties would be removed, including nested objects.
+ *
+ * @template T Type of the input value
+ * @param input Target instance to assert and prune
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertPrune<T>(input: T): T;
+
+/**
+ * Prune, erase superfluous properties, with type assertion.
+ *
+ * `typia.assertPrune()` is a combination function of {@link assert} and {@link prune}.
+ * Therefore, it removes every superfluous properties from the `input` object including
+ * nested objects, with type assertion.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it throws an
+ * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, its
+ * every superfluous properties would be removed, including nested objects.
+ *
+ * @template T Type of the input value
+ * @param input Target instance to assert and prune
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertPrune<T>(input: unknown): T;
+
+/**
+ * @internal
+ */
+export function assertPrune(): unknown {
+    halt("assertPrune");
+}
+Object.assign(assertPrune, Namespace.assert("assertPrune"));
+Object.assign(assertPrune, Namespace.prune("assertPrune"));
+
+/**
+ * Prune, erase superfluous properties, with type checking.
+ *
+ * `typia.assertPrune()` is a combination function of {@link is} and {@link prune}.
+ * Therefore, it removes every superfluous properties from the `input` object including
+ * nested objects, with type checking.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * `false` value. Otherwise, there's no problem on the `input` value, it returns
+ * `true` after removing every superfluous properties, including nested objects.
+ *
+ * @template T Type of the input value
+ * @param input Target instance to check and prune
+ * @returns Whether the parametric value is following the type `T` or not
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function isPrune<T>(input: T): input is T;
+
+/**
+ * Prune, erase superfluous properties, with type checking.
+ *
+ * `typia.assertPrune()` is a combination function of {@link is} and {@link prune}.
+ * Therefore, it removes every superfluous properties from the `input` object including
+ * nested objects, with type checking.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * `false` value. Otherwise, there's no problem on the `input` value, it returns
+ * `true` after removing every superfluous properties, including nested objects.
+ *
+ * @template T Type of the input value
+ * @param input Target instance to check and prune
+ * @returns Whether the parametric value is following the type `T` or not
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function isPrune<T>(input: unknown): input is T;
+
+/**
+ * @internal
+ */
+export function isPrune(): never {
+    halt("isPrune");
+}
+Object.assign(isPrune, Namespace.is());
+Object.assign(isPrune, Namespace.prune("isPrune"));
+
+/**
+ * Prune, erase superfluous properties, with type validation.
+ *
+ * `typia.validatePrune()` is a combination function of {@link validate} and {@link prune}.
+ * Therefore, it removes every superfluous properties from the `input` object including
+ * nested objects, with type validation.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * {@link IValidation.IFailure} value with detailed error reasons. Otherwise, there's
+ * no problem on the `input` value, it returns {@link IValidation.ISucess} value after
+ * removing every superfluous properties, including nested objects.
+ *
+ * @template T Type of the input value
+ * @param input Target instance to validate and prune
+ * @returns Validation result
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function validatePrune<T>(input: T): IValidation<T>;
+
+/**
+ * Prune, erase superfluous properties, with type validation.
+ *
+ * `typia.validatePrune()` is a combination function of {@link validate} and {@link prune}.
+ * Therefore, it removes every superfluous properties from the `input` object including
+ * nested objects, with type validation.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * {@link IValidation.IFailure} value with detailed error reasons. Otherwise, there's
+ * no problem on the `input` value, it returns {@link IValidation.ISucess} value after
+ * removing every superfluous properties, including nested objects.
+ *
+ * @template T Type of the input value
+ * @param input Target instance to validate and prune
+ * @returns Validation result
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function validatePrune<T>(input: unknown): IValidation<T>;
+
+/**
+ * @internal
+ */
+export function validatePrune<T>(): IValidation<T> {
+    halt("validatePrune");
+}
+Object.assign(validatePrune, Namespace.prune("validatePrune"));
+Object.assign(validatePrune, Namespace.validate());
 
 /* ===========================================================
     FACTORY FUNCTIONS
@@ -1302,7 +1449,7 @@ export function createValidateEquals(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateEquals<T>(): (input: unknown) => IValidation;
+export function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
 
 /**
  * @internal
@@ -1334,12 +1481,12 @@ export function createIsParse(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsParse<T>(): (input: string) => T | null;
+export function createIsParse<T>(): (input: string) => Primitive<T> | null;
 
 /**
  * @internal
  */
-export function createIsParse<T>(): (input: string) => T | null {
+export function createIsParse<T>(): (input: string) => Primitive<T> | null {
     halt("createIsParse");
 }
 Object.assign(createIsParse, isParse);
@@ -1363,12 +1510,12 @@ export function createAssertParse(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertParse<T>(): (input: string) => T;
+export function createAssertParse<T>(): (input: string) => Primitive<T>;
 
 /**
  * @internal
  */
-export function createAssertParse<T>(): (input: string) => T {
+export function createAssertParse<T>(): (input: string) => Primitive<T> {
     halt("createAssertParse");
 }
 Object.assign(createAssertParse, assertParse);
@@ -1392,12 +1539,16 @@ export function createValidateParse(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateParse<T>(): (input: string) => IValidation<T>;
+export function createValidateParse<T>(): (
+    input: string,
+) => IValidation<Primitive<T>>;
 
 /**
  * @internal
  */
-export function createValidateParse<T>(): (input: string) => IValidation<T> {
+export function createValidateParse<T>(): (
+    input: string,
+) => IValidation<Primitive<T>> {
     halt("createValidateParse");
 }
 Object.assign(createValidateParse, validateParse);
@@ -1505,7 +1656,7 @@ export function createValidateStringify(): never;
  *
  * @template T Type of the input value
  * @returns A reusable `validateStringify` function
- *
+
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidateStringify<T>(): (
@@ -1526,16 +1677,275 @@ Object.assign(createValidateStringify, validateStringify);
     MISCELLANEOUS
 ----------------------------------------------------------- */
 /**
- * @internal
+ * Creates a reusable {@link random} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @param generator Random data generator
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
-export function metadata<Types extends unknown[]>(): IMetadataApplication;
+export function createRandom(generator?: Partial<IRandomGenerator>): never;
+
+/**
+ * Creates a resuable {@link random} function.
+ *
+ * @template T Type of the input value
+ * @param generator Random data generator
+ * @returns A reusable `random` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createRandom<T>(
+    generator?: Partial<IRandomGenerator>,
+): () => Primitive<T>;
 
 /**
  * @internal
  */
-export function metadata(): never {
-    halt("metadata");
+export function createRandom(): never {
+    halt("createRandom");
 }
+Object.assign(createRandom, random);
+
+/**
+ * Creates a reusable {@link clone} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createClone(): never;
+
+/**
+ * Creates a resuable {@link clone} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `clone` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createClone<T>(): (input: T) => Primitive<T>;
+
+/**
+ * @internal
+ */
+export function createClone(): never {
+    halt("createClone");
+}
+Object.assign(createClone, clone);
+
+/**
+ * Creates a reusable {@link assertClone} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertClone(): never;
+
+/**
+ * Creates a resuable {@link assertClone} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `clone` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertClone<T>(): (input: unknown) => Primitive<T>;
+
+/**
+ * @internal
+ */
+export function createAssertClone(): never {
+    halt("createAssertClone");
+}
+Object.assign(createAssertClone, assertClone);
+
+/**
+ * Creates a reusable {@link isClone} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createIsClone(): never;
+
+/**
+ * Creates a resuable {@link isClone} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `clone` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createIsClone<T>(): (input: unknown) => Primitive<T> | null;
+
+/**
+ * @internal
+ */
+export function createIsClone(): never {
+    halt("createIsClone");
+}
+Object.assign(createIsClone, isClone);
+
+/**
+ * Creates a reusable {@link validateClone} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidateClone(): never;
+
+/**
+ * Creates a resuable {@link validateClone} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `clone` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidateClone<T>(): (
+    input: unknown,
+) => IValidation<Primitive<T>>;
+
+/**
+ * @internal
+ */
+export function createValidateClone(): never {
+    halt("createValidateClone");
+}
+Object.assign(createValidateClone, validateClone);
+
+/**
+ * Creates a reusable {@link prune} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createPrune(): never;
+
+/**
+ * Creates a resuable {@link prune} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `prune` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createPrune<T extends object>(): (input: T) => void;
+
+/**
+ * @internal
+ */
+export function createPrune<T extends object>(): (input: T) => void {
+    halt("createPrune");
+}
+Object.assign(createPrune, prune);
+
+/**
+ * Creates a reusable {@link assertPrune} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertPrune(): never;
+
+/**
+ * Creates a resuable {@link assertPrune} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `isPrune` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertPrune<T extends object>(): (input: T) => T;
+
+/**
+ * @internal
+ */
+export function createAssertPrune<T extends object>(): (input: T) => T {
+    halt("createAssertPrune");
+}
+Object.assign(createAssertPrune, assertPrune);
+
+/**
+ * Creates a reusable {@link isPrune} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createIsPrune(): never;
+
+/**
+ * Creates a resuable {@link isPrune} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `isPrune` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createIsPrune<T extends object>(): (input: T) => input is T;
+
+/**
+ * @internal
+ */
+export function createIsPrune<T extends object>(): (input: T) => input is T {
+    halt("createIsPrune");
+}
+Object.assign(createIsPrune, isPrune);
+
+/**
+ * Creates a reusable {@link validatePrune} function.
+ *
+ * @danger You have to specify the generic argument `T`
+ * @return Nothing until specifying the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidatePrune(): never;
+
+/**
+ * Creates a resuable {@link validatePrune} function.
+ *
+ * @template T Type of the input value
+ * @returns A reusable `validatePrune` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createValidatePrune<T extends object>(): (
+    input: T,
+) => IValidation<T>;
+
+/**
+ * @internal
+ */
+export function createValidatePrune<T extends object>(): (
+    input: T,
+) => IValidation<T> {
+    halt("createValidatePrune");
+}
+Object.assign(createValidatePrune, validatePrune);
 
 /**
  * @internal

@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export interface ObjectDynamic {
     [key: string]: number | string | boolean;
@@ -7,9 +7,9 @@ export interface ObjectDynamic {
 export namespace ObjectDynamic {
     export function generate(): ObjectDynamic {
         return {
-            [RandomGenerator.string()]: RandomGenerator.integer(),
-            [RandomGenerator.string()]: RandomGenerator.string(),
-            [RandomGenerator.string()]: RandomGenerator.boolean(),
+            [TestRandomGenerator.string()]: TestRandomGenerator.integer(),
+            [TestRandomGenerator.string()]: TestRandomGenerator.string(),
+            [TestRandomGenerator.string()]: TestRandomGenerator.boolean(),
         };
     }
 

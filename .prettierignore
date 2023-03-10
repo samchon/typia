@@ -1,2 +1,4 @@
 lib
 node_modules
+
+test/features/generate/input/generate_assert_clone.ts

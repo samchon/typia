@@ -1,9 +1,10 @@
 import typia from "../../../src";
+import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
-export const test_createValidateEquals_DynamicEnumeration = _test_validateEquals(
-    "DynamicEnumeration",
-    DynamicEnumeration.generate,
-    typia.createValidateEquals<DynamicEnumeration>(),
-);
+export const test_createValidateEquals_DynamicEnumeration =
+    _test_validateEquals(
+        "DynamicEnumeration",
+        DynamicEnumeration.generate,
+        typia.createValidateEquals<DynamicEnumeration>(),
+    );

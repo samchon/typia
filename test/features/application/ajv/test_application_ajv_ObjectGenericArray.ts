@@ -1,9 +1,9 @@
-import typia from "../../../../src";
-import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
-import { _test_application } from "../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_ajv_ObjectGenericArray = 
-    _test_application("ajv")(
-        "ObjectGenericArray",
-        typia.application<[ObjectGenericArray], "ajv">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
+
+export const test_application_ajv_ObjectGenericArray = _test_application("ajv")(
+    "ObjectGenericArray",
+    typia.application<[ObjectGenericArray], "ajv">(),
+);

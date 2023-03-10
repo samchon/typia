@@ -1,4 +1,4 @@
-import typia from "../../src";
+import typia from "typia";
 
 interface OneOfA_Expr {
     A_Expr: A_Expr;

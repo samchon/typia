@@ -1,11 +1,14 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export interface TagTuple {
     /**
-     * @items [3, 7]
-     * @range [3, 7]
-     * @length [3, 7]
+     * @minItems 3
+     * @maxItems 7
+     * @minimum 3
+     * @maximum 7
+     * @minLength 3
+     * @maxLength 7
      */
     tuple: [string, number, string[], number[]];
 }
@@ -42,11 +45,11 @@ export namespace TagTuple {
             return ["$input.tuple[2][0]"];
         },
         (input) => {
-            input.tuple[2] = RandomGenerator.array(() => "123", 2);
+            input.tuple[2] = TestRandomGenerator.array(() => "123", 2);
             return ["$input.tuple[2]"];
         },
         (input) => {
-            input.tuple[2] = RandomGenerator.array(() => "123", 8);
+            input.tuple[2] = TestRandomGenerator.array(() => "123", 8);
             return ["$input.tuple[2]"];
         },
         (input) => {
@@ -54,11 +57,11 @@ export namespace TagTuple {
             return ["$input.tuple[3][0]"];
         },
         (input) => {
-            input.tuple[3] = RandomGenerator.array(() => 3, 2);
+            input.tuple[3] = TestRandomGenerator.array(() => 3, 2);
             return ["$input.tuple[3]"];
         },
         (input) => {
-            input.tuple[3] = RandomGenerator.array(() => 3, 8);
+            input.tuple[3] = TestRandomGenerator.array(() => 3, 8);
             return ["$input.tuple[3]"];
         },
     ];

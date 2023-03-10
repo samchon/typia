@@ -20,14 +20,7 @@
                 "x-typia-metaTags": [
                   {
                     "kind": "items",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 3
-                    }
+                    "value": 3
                   },
                   {
                     "kind": "format",
@@ -62,14 +55,7 @@
               "x-typia-metaTags": [
                 {
                   "kind": "items",
-                  "minimum": {
-                    "include": true,
-                    "value": 3
-                  },
-                  "maximum": {
-                    "include": true,
-                    "value": 3
-                  }
+                  "value": 3
                 },
                 {
                   "kind": "format",
@@ -96,23 +82,14 @@
                   ]
                 }
               ],
-              "x-typia-required": true,
-              "minItems": 3,
-              "maxItems": 3
+              "x-typia-required": true
             },
             "nullable": false,
             "description": "Doubled array.",
             "x-typia-metaTags": [
               {
                 "kind": "items",
-                "minimum": {
-                  "include": true,
-                  "value": 3
-                },
-                "maximum": {
-                  "include": true,
-                  "value": 3
-                }
+                "value": 3
               },
               {
                 "kind": "format",
@@ -139,9 +116,7 @@
                 ]
               }
             ],
-            "x-typia-required": true,
-            "minItems": 3,
-            "maxItems": 3
+            "x-typia-required": true
           }
         },
         "nullable": false,

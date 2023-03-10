@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_message } from "../../internal/_test_message";
 import { TagArray } from "../../structures/TagArray";
-import { _test_message } from "../internal/_test_message";
 
 export const test_message_TagArray = _test_message(
     "TagArray",

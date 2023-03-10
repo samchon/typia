@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ObjectTuple = [ObjectTuple.ISection, ObjectTuple.ICitizen];
 export namespace ObjectTuple {
@@ -17,14 +17,14 @@ export namespace ObjectTuple {
     export function generate(): ObjectTuple {
         return [
             {
-                id: RandomGenerator.string(),
-                code: RandomGenerator.string(),
-                name: RandomGenerator.string(),
+                id: TestRandomGenerator.string(),
+                code: TestRandomGenerator.string(),
+                name: TestRandomGenerator.string(),
             },
             {
-                id: RandomGenerator.string(),
-                mobile: RandomGenerator.string(),
-                name: RandomGenerator.string(),
+                id: TestRandomGenerator.string(),
+                mobile: TestRandomGenerator.string(),
+                name: TestRandomGenerator.string(),
             },
         ];
     }

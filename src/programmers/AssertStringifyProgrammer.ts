@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 
 import { IProject } from "../transformers/IProject";
 
@@ -11,12 +12,17 @@ import { StringifyProgrammer } from "./StringifyProgrammer";
 export namespace AssertStringifyProgrammer {
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type) =>
+        (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [IdentifierFactory.parameter("input")],
-                undefined,
+                [
+                    IdentifierFactory.parameter(
+                        "input",
+                        TypeFactory.keyword("any"),
+                    ),
+                ],
+                TypeFactory.keyword("string"),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(
@@ -31,7 +37,7 @@ export namespace AssertStringifyProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     StatementFactory.constant(
                         "stringify",
@@ -45,7 +51,7 @@ export namespace AssertStringifyProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     ts.factory.createReturnStatement(
                         ts.factory.createCallExpression(

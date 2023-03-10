@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 
 import { IProject } from "../transformers/IProject";
 
@@ -10,12 +11,21 @@ import { AssertProgrammer } from "./AssertProgrammer";
 export namespace AssertParseProgrammer {
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type) =>
+        (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [IdentifierFactory.parameter("input")],
-                undefined,
+                [
+                    IdentifierFactory.parameter(
+                        "input",
+                        TypeFactory.keyword("string"),
+                    ),
+                ],
+                ts.factory.createTypeReferenceNode(
+                    `typia.Primitive<${
+                        name ?? TypeFactory.getFullName(project.checker, type)
+                    }>`,
+                ),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(
@@ -30,7 +40,7 @@ export namespace AssertParseProgrammer {
                                 },
                             },
                             modulo,
-                        )(type),
+                        )(type, name),
                     ),
                     ts.factory.createExpressionStatement(
                         ts.factory.createBinaryExpression(

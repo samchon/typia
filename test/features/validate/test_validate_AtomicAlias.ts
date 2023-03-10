@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_validate } from "../../internal/_test_validate";
 import { AtomicAlias } from "../../structures/AtomicAlias";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_AtomicAlias = _test_validate(
     "AtomicAlias",

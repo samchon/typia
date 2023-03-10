@@ -1,9 +1,8 @@
-import typia from "../../../../src";
-import { DynamicNever } from "../../../structures/DynamicNever";
-import { _test_application } from "../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_swagger_DynamicNever = 
-    _test_application("swagger")(
-        "DynamicNever",
-        typia.application<[DynamicNever], "swagger">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { DynamicNever } from "../../../structures/DynamicNever";
+
+export const test_application_swagger_DynamicNever = _test_application(
+    "swagger",
+)("DynamicNever", typia.application<[DynamicNever], "swagger">());

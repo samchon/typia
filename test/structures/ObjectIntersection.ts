@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ObjectIntersection = ObjectIntersection.IEmail &
     ObjectIntersection.IName;
@@ -14,9 +14,9 @@ export namespace ObjectIntersection {
 
     export function generate(): ObjectIntersection {
         return {
-            email: RandomGenerator.string(),
-            name: RandomGenerator.string(),
-            vulnerable: RandomGenerator.boolean(),
+            email: TestRandomGenerator.string(),
+            name: TestRandomGenerator.string(),
+            vulnerable: TestRandomGenerator.boolean(),
         };
     }
 

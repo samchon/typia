@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_isStringify } from "../../internal/_test_isStringify";
 import { DynamicTree } from "../../structures/DynamicTree";
-import { _test_isStringify } from "../internal/_test_isStringify";
 
 export const test_isStringify_DynamicTree = _test_isStringify(
     "DynamicTree",

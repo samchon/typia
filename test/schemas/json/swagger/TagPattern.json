@@ -55,29 +55,6 @@
             "x-typia-required": true,
             "pattern": "^(([^<>()[\\]\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@(([^<>()[\\]\\.,;:\\s@\\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\\"]{2,})$"
           },
-          "url": {
-            "type": "string",
-            "nullable": false,
-            "x-typia-metaTags": [
-              {
-                "kind": "pattern",
-                "value": "^[a-zA-Z0-9]+:\\/\\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)"
-              }
-            ],
-            "x-typia-jsDocTags": [
-              {
-                "name": "pattern",
-                "text": [
-                  {
-                    "text": "^[a-zA-Z0-9]+:\\/\\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ],
-            "x-typia-required": true,
-            "pattern": "^[a-zA-Z0-9]+:\\/\\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)"
-          },
           "ipv4": {
             "type": "string",
             "nullable": false,
@@ -129,7 +106,6 @@
         "required": [
           "uuid",
           "email",
-          "url",
           "ipv4",
           "ipv6"
         ],

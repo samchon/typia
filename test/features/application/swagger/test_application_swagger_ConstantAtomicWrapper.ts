@@ -1,9 +1,11 @@
-import typia from "../../../../src";
-import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
-import { _test_application } from "../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_swagger_ConstantAtomicWrapper = 
-    _test_application("swagger")(
-        "ConstantAtomicWrapper",
-        typia.application<[ConstantAtomicWrapper], "swagger">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
+
+export const test_application_swagger_ConstantAtomicWrapper = _test_application(
+    "swagger",
+)(
+    "ConstantAtomicWrapper",
+    typia.application<[ConstantAtomicWrapper], "swagger">(),
+);

@@ -24,15 +24,12 @@
                     "value": 3
                   },
                   {
-                    "kind": "length",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 7
-                    }
+                    "kind": "minLength",
+                    "value": 3
+                  },
+                  {
+                    "kind": "maxLength",
+                    "value": 7
                   }
                 ],
                 "x-typia-jsDocTags": [
@@ -46,10 +43,19 @@
                     ]
                   },
                   {
-                    "name": "length",
+                    "name": "minLength",
                     "text": [
                       {
-                        "text": "[3, 7]",
+                        "text": "3",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "maxLength",
+                    "text": [
+                      {
+                        "text": "7",
                         "kind": "text"
                       }
                     ]
@@ -68,15 +74,12 @@
                     "value": 3
                   },
                   {
-                    "kind": "length",
-                    "minimum": {
-                      "include": true,
-                      "value": 3
-                    },
-                    "maximum": {
-                      "include": true,
-                      "value": 7
-                    }
+                    "kind": "minLength",
+                    "value": 3
+                  },
+                  {
+                    "kind": "maxLength",
+                    "value": 7
                   }
                 ],
                 "x-typia-jsDocTags": [
@@ -90,10 +93,19 @@
                     ]
                   },
                   {
-                    "name": "length",
+                    "name": "minLength",
                     "text": [
                       {
-                        "text": "[3, 7]",
+                        "text": "3",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "maxLength",
+                    "text": [
+                      {
+                        "text": "7",
                         "kind": "text"
                       }
                     ]
@@ -109,15 +121,12 @@
                 "value": 3
               },
               {
-                "kind": "length",
-                "minimum": {
-                  "include": true,
-                  "value": 3
-                },
-                "maximum": {
-                  "include": true,
-                  "value": 7
-                }
+                "kind": "minLength",
+                "value": 3
+              },
+              {
+                "kind": "maxLength",
+                "value": 7
               }
             ],
             "x-typia-jsDocTags": [
@@ -131,10 +140,19 @@
                 ]
               },
               {
-                "name": "length",
+                "name": "minLength",
                 "text": [
                   {
-                    "text": "[3, 7]",
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "maxLength",
+                "text": [
+                  {
+                    "text": "7",
                     "kind": "text"
                   }
                 ]

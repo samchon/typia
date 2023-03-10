@@ -4,36 +4,13 @@ message ArraySimple {
     message IPerson {
         string name = 1;
         string email = 2;
-        oneof hobbies {
-            Array.Wrapper_lt_string_gt_ hobbies_o0 = 3;
-            Array.Wrapper_lt_ArraySimple.IHobby_gt_ hobbies_o1 = 4;
-            Array.Wrapper_lt_ArraySimple.IContent_gt_ hobbies_o2 = 5;
-        }
+        repeated ArraySimple.IHobby hobbies = 3;
     }
 
     message IHobby {
         string name = 1;
-        double rank = 2;
-    }
-
-    message IContent {
-        string body = 1;
-    }
-}
-
-message Array {
-    message Wrapper_lt_string_gt_ {
-        repeated string value = 1;
-    }
-
-    message Wrapper_lt_ArraySimple {
-        message IHobby_gt_ {
-            repeated ArraySimple.IHobby value = 1;
-        }
-    
-        message IContent_gt_ {
-            repeated ArraySimple.IContent value = 1;
-        }
+        string body = 2;
+        double rank = 3;
     }
 }
 

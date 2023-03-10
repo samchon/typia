@@ -1,9 +1,9 @@
-import typia from "../../../../src";
-import { ArraySimple } from "../../../structures/ArraySimple";
-import { _test_application } from "../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_ajv_ArraySimple = 
-    _test_application("ajv")(
-        "ArraySimple",
-        typia.application<[ArraySimple], "ajv">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { ArraySimple } from "../../../structures/ArraySimple";
+
+export const test_application_ajv_ArraySimple = _test_application("ajv")(
+    "ArraySimple",
+    typia.application<[ArraySimple], "ajv">(),
+);

@@ -1,9 +1,9 @@
-import typia from "../../../../src";
-import { ToJsonDouble } from "../../../structures/ToJsonDouble";
-import { _test_application } from "../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_ajv_ToJsonDouble = 
-    _test_application("ajv")(
-        "ToJsonDouble",
-        typia.application<[ToJsonDouble], "ajv">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { ToJsonDouble } from "../../../structures/ToJsonDouble";
+
+export const test_application_ajv_ToJsonDouble = _test_application("ajv")(
+    "ToJsonDouble",
+    typia.application<[ToJsonDouble], "ajv">(),
+);

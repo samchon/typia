@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_validateStringify } from "../../internal/_test_validateStringify";
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
-import { _test_validateStringify } from "../internal/_test_validateStringify";
 
 export const test_validateStringify_ArrayAtomicSimple = _test_validateStringify(
     "ArrayAtomicSimple",

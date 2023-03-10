@@ -1,6 +1,7 @@
+import * as ct from "class-transformer";
 import ajv from "fast-json-stringify";
+import typia from "typia";
 
-import typia from "../../src";
 import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
 import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
 import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
@@ -10,6 +11,13 @@ import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
 import { ObjectSimple } from "../../test/structures/ObjectSimple";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { StringifyBenchmarker } from "../internal/StringifyBenchmarker";
+import { CvArrayHierarchical } from "../structures/class-validator/CvArrayHierarchical";
+import { CvArrayRecursive } from "../structures/class-validator/CvArrayRecursive";
+import { CvArrayRecursiveUnionExplicit } from "../structures/class-validator/CvArrayRecursiveUnionExplicit";
+import { CvObjectHierarchical } from "../structures/class-validator/CvObjectHierarchical";
+import { CvObjectRecursive } from "../structures/class-validator/CvObjectRecursive";
+import { CvObjectSimple } from "../structures/class-validator/CvObjectSimple";
+import { CvObjectUnionImplicit } from "../structures/class-validator/CvObjectUnionImplicit";
 
 function build<T>(app: typia.IJsonApplication): null | ((input: T) => string) {
     try {
@@ -24,11 +32,17 @@ function build<T>(app: typia.IJsonApplication): null | ((input: T) => string) {
     }
 }
 
+const serialize = <T extends object>(schema: ct.ClassConstructor<any>) => ({
+    transform: (input: T) => ct.plainToClass(schema, input),
+    stringify: (input: T) => JSON.stringify(ct.classToPlain(input)),
+});
+
 const prepare = StringifyBenchmarker.prepare([
     "typia.stringify()",
     "typia.assertStringify()",
     "typia.isStringify()",
     "fast-json-stringify",
+    "class-transformer",
     "JSON.stringify",
 ]);
 
@@ -43,6 +57,7 @@ const stringify = () => [
         "fast-json-stringify": build(
             typia.application<[ObjectSimple], "ajv">(),
         ),
+        "class-transformer": serialize(CvObjectSimple),
         "JSON.stringify": JSON.stringify,
     }),
     prepare("object (hierarchical)", () => ObjectHierarchical.generate(), {
@@ -53,6 +68,7 @@ const stringify = () => [
         "fast-json-stringify": build(
             typia.application<[ObjectHierarchical], "ajv">(),
         ),
+        "class-transformer": serialize(CvObjectHierarchical),
         "JSON.stringify": JSON.stringify,
     }),
     prepare("object (recursive)", () => ObjectRecursive.generate(), {
@@ -63,6 +79,7 @@ const stringify = () => [
         "fast-json-stringify": build(
             typia.application<[ObjectRecursive], "ajv">(),
         ),
+        "class-transformer": serialize(CvObjectRecursive),
         "JSON.stringify": JSON.stringify,
     }),
     prepare("object (union)", () => ObjectUnionImplicit.generate(), {
@@ -73,6 +90,7 @@ const stringify = () => [
         "fast-json-stringify": build(
             typia.application<[ObjectUnionImplicit], "ajv">(),
         ),
+        "class-transformer": serialize(CvObjectUnionImplicit),
         "JSON.stringify": JSON.stringify,
     }),
 
@@ -84,6 +102,7 @@ const stringify = () => [
         "typia.assertStringify()": typia.createAssertStringify<ArraySimple>(),
         "typia.isStringify()": typia.createIsStringify<ArraySimple>(),
         "fast-json-stringify": build(typia.application<[ArraySimple], "ajv">()),
+        "class-transformer": null,
         "JSON.stringify": JSON.stringify,
     }),
     prepare("array (hierarchical)", () => ArrayHierarchical.generate(), {
@@ -94,6 +113,7 @@ const stringify = () => [
         "fast-json-stringify": build(
             typia.application<[ArrayHierarchical], "ajv">(),
         ),
+        "class-transformer": serialize(CvArrayHierarchical),
         "JSON.stringify": JSON.stringify,
     }),
     prepare("array (recursive)", () => ArrayRecursive.generate(), {
@@ -104,6 +124,7 @@ const stringify = () => [
         "fast-json-stringify": build(
             typia.application<[ArrayRecursive], "ajv">(),
         ),
+        "class-transformer": serialize(CvArrayRecursive),
         "JSON.stringify": JSON.stringify,
     }),
     prepare("array (union)", () => ArrayRecursiveUnionExplicit.generate(), {
@@ -116,6 +137,7 @@ const stringify = () => [
         "fast-json-stringify": build(
             typia.application<[ArrayRecursiveUnionExplicit], "ajv">(),
         ),
+        "class-transformer": serialize(CvArrayRecursiveUnionExplicit),
         "JSON.stringify": JSON.stringify,
     }),
 ];

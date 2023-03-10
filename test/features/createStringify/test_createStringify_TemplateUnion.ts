@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_stringify } from "../../internal/_test_stringify";
 import { TemplateUnion } from "../../structures/TemplateUnion";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_TemplateUnion = _test_stringify(
     "TemplateUnion",

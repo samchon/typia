@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type FunctionalArray = Array<(...args: any[]) => any>;
 export namespace FunctionalArray {
@@ -7,7 +7,7 @@ export namespace FunctionalArray {
     export const JSONABLE = false;
 
     export function generate(): FunctionalArray {
-        return RandomGenerator.array(() => console.log);
+        return TestRandomGenerator.array(() => console.log);
     }
 
     export const SPOILERS: Spoiler<FunctionalArray>[] = [

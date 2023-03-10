@@ -1,3 +1,5 @@
+import "reflect-metadata";
+
 import { benchmark_assert_equals_iterate } from "./features/benchmark_assert_equals_iterate";
 import { benchmark_assert_equals_throw } from "./features/benchmark_assert_equals_throw";
 import { benchmark_assert_iterate } from "./features/benchmark_assert_iterate";

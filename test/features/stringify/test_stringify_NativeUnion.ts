@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_stringify } from "../../internal/_test_stringify";
 import { NativeUnion } from "../../structures/NativeUnion";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_stringify_NativeUnion = _test_stringify(
     "NativeUnion",

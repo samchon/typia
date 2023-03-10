@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export interface DynamicArray {
     [key: string]: string[];
@@ -8,8 +8,8 @@ export namespace DynamicArray {
     export function generate(): DynamicArray {
         const output: DynamicArray = {};
         for (let i: number = 0; i < 10; ++i) {
-            const key: string = RandomGenerator.string();
-            output[key] = RandomGenerator.array(RandomGenerator.string);
+            const key: string = TestRandomGenerator.string();
+            output[key] = TestRandomGenerator.array(TestRandomGenerator.string);
         }
         return output;
     }

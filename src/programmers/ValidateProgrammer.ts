@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 
 import { IProject } from "../transformers/IProject";
 
@@ -19,7 +20,7 @@ export namespace ValidateProgrammer {
             modulo: ts.LeftHandSideExpression,
             equals: boolean = false,
         ) =>
-        (type: ts.Type) => {
+        (type: ts.Type, name?: string) => {
             const importer: FunctionImporter = new FunctionImporter();
             const program: ts.ArrowFunction = CheckerProgrammer.generate(
                 project,
@@ -35,24 +36,46 @@ export namespace ValidateProgrammer {
                     success: ts.factory.createTrue(),
                 },
                 importer,
-            )(type);
+            )(type, name);
 
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [IdentifierFactory.parameter("input")],
-                undefined,
+                [
+                    IdentifierFactory.parameter(
+                        "input",
+                        TypeFactory.keyword("any"),
+                    ),
+                ],
+                ts.factory.createTypeReferenceNode(
+                    `typia.IValidation<${
+                        name ?? TypeFactory.getFullName(project.checker, type)
+                    }>`,
+                ),
                 undefined,
                 ts.factory.createBlock(
                     [
                         StatementFactory.constant(
                             "errors",
-                            ts.factory.createArrayLiteralExpression([]),
+                            ts.factory.createAsExpression(
+                                ts.factory.createArrayLiteralExpression([]),
+                                ts.factory.createArrayTypeNode(
+                                    TypeFactory.keyword("any"),
+                                ),
+                            ),
                         ),
                         StatementFactory.constant(
                             "$report",
                             ts.factory.createCallExpression(
-                                IdentifierFactory.join(modulo, "report"),
+                                IdentifierFactory.join(
+                                    ts.factory.createParenthesizedExpression(
+                                        ts.factory.createAsExpression(
+                                            modulo,
+                                            TypeFactory.keyword("any"),
+                                        ),
+                                    ),
+                                    "report",
+                                ),
                                 [],
                                 [ts.factory.createIdentifier("errors")],
                             ),
@@ -76,7 +99,12 @@ export namespace ValidateProgrammer {
                                 ts.factory.createIdentifier("errors.length"),
                             ),
                         ),
-                        ts.factory.createReturnStatement(create_output()),
+                        ts.factory.createReturnStatement(
+                            ts.factory.createAsExpression(
+                                create_output(),
+                                TypeFactory.keyword("any"),
+                            ),
+                        ),
                     ],
                     true,
                 ),
@@ -92,11 +120,11 @@ const combine =
             return IsProgrammer.CONFIG({
                 object: validate_object(equals)(importer),
                 numeric: true,
-            }).combiner(explore);
+            })(importer).combiner(explore);
 
         const path: string = explore.postfix
-            ? `path + ${explore.postfix}`
-            : "path";
+            ? `_path + ${explore.postfix}`
+            : "_path";
         return (logic) => (input, binaries, expected) =>
             logic === "and"
                 ? binaries
@@ -109,7 +137,7 @@ const combine =
                                         explore.source === "top"
                                             ? ts.factory.createTrue()
                                             : ts.factory.createIdentifier(
-                                                  "exceptionable",
+                                                  "_exceptionable",
                                               ),
                                     )(
                                         ts.factory.createIdentifier(path),
@@ -126,7 +154,7 @@ const combine =
                       create_report_call(
                           explore.source === "top"
                               ? ts.factory.createTrue()
-                              : ts.factory.createIdentifier("exceptionable"),
+                              : ts.factory.createIdentifier("_exceptionable"),
                       )(ts.factory.createIdentifier(path), expected, input),
                   );
     };
@@ -134,13 +162,14 @@ const combine =
 const validate_object = (equals: boolean) => (importer: FunctionImporter) =>
     check_object({
         equals,
+        undefined: true,
         assert: false,
         reduce: ts.factory.createLogicalAnd,
         positive: ts.factory.createTrue(),
         superfluous: (value) =>
             create_report_call()(
                 ts.factory.createAdd(
-                    ts.factory.createIdentifier("path"),
+                    ts.factory.createIdentifier("_path"),
                     ts.factory.createCallExpression(
                         importer.use("join"),
                         undefined,
@@ -154,11 +183,11 @@ const validate_object = (equals: boolean) => (importer: FunctionImporter) =>
             ts.factory.createLogicalOr(
                 ts.factory.createStrictEquality(
                     ts.factory.createFalse(),
-                    ts.factory.createIdentifier("exceptionable"),
+                    ts.factory.createIdentifier("_exceptionable"),
                 ),
                 expr,
             ),
-    });
+    })(importer);
 
 const joiner =
     (equals: boolean) =>
@@ -176,10 +205,10 @@ const joiner =
             create_report_call(
                 explore?.from === "top"
                     ? ts.factory.createTrue()
-                    : ts.factory.createIdentifier("exceptionable"),
+                    : ts.factory.createIdentifier("_exceptionable"),
             )(
                 ts.factory.createIdentifier(
-                    explore?.postfix ? `path + ${explore.postfix}` : "path",
+                    explore?.postfix ? `_path + ${explore.postfix}` : "_path",
                 ),
                 expected,
                 value,
@@ -221,7 +250,7 @@ const create_report_call =
             ts.factory.createIdentifier("$report"),
             undefined,
             [
-                exceptionable || ts.factory.createIdentifier("exceptionable"),
+                exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
                 ts.factory.createObjectLiteralExpression(
                     [
                         ts.factory.createPropertyAssignment("path", path),

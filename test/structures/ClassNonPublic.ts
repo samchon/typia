@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ClassNonPublic = ClassNonPublic.Accessor;
 export namespace ClassNonPublic {
@@ -19,10 +19,10 @@ export namespace ClassNonPublic {
 
     export function generate(): ClassNonPublic {
         return new Accessor(
-            RandomGenerator.string(),
-            RandomGenerator.string(),
-            RandomGenerator.integer(),
-            RandomGenerator.boolean(),
+            TestRandomGenerator.string(),
+            TestRandomGenerator.string(),
+            TestRandomGenerator.integer(),
+            TestRandomGenerator.boolean(),
         );
     }
 

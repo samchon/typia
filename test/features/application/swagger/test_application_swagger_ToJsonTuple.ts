@@ -1,9 +1,8 @@
-import typia from "../../../../src";
-import { ToJsonTuple } from "../../../structures/ToJsonTuple";
-import { _test_application } from "../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_swagger_ToJsonTuple = 
-    _test_application("swagger")(
-        "ToJsonTuple",
-        typia.application<[ToJsonTuple], "swagger">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { ToJsonTuple } from "../../../structures/ToJsonTuple";
+
+export const test_application_swagger_ToJsonTuple = _test_application(
+    "swagger",
+)("ToJsonTuple", typia.application<[ToJsonTuple], "swagger">());

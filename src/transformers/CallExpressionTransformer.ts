@@ -3,7 +3,25 @@ import ts from "typescript";
 
 import { IProject } from "./IProject";
 import { ApplicationTransformer } from "./features/miscellaneous/ApplicationTransformer";
+import { AssertCloneTransformer } from "./features/miscellaneous/AssertCloneTransformer";
+import { AssertPruneTransformer } from "./features/miscellaneous/AssertPruneTransformer";
+import { CloneTransformer } from "./features/miscellaneous/CloneTransformer";
+import { CreateAssertCloneTransformer } from "./features/miscellaneous/CreateAssertCloneTransformer";
+import { CreateAssertPruneTransformer } from "./features/miscellaneous/CreateAssertPruneTransformer";
+import { CreateCloneTransformer } from "./features/miscellaneous/CreateCloneTransformer";
+import { CreateIsCloneTransformer } from "./features/miscellaneous/CreateIsCloneTransformer";
+import { CreateIsPruneTransformer } from "./features/miscellaneous/CreateIsPruneTransformer";
+import { CreatePruneTransformer } from "./features/miscellaneous/CreatePruneTransformer";
+import { CreateRandomTransformer } from "./features/miscellaneous/CreateRandomGenerator";
+import { CreateValidateCloneTransformer } from "./features/miscellaneous/CreateValidateCloneTransformer";
+import { CreateValidatePruneTransformer } from "./features/miscellaneous/CreateValidatePruneTransformer";
+import { IsCloneTransformer } from "./features/miscellaneous/IsCloneTransformer";
+import { IsPruneTransformer } from "./features/miscellaneous/IsPruneTransformer";
 import { MetadataTransformer } from "./features/miscellaneous/MetadataTransformer";
+import { PruneTransformer } from "./features/miscellaneous/PruneTransformer";
+import { RandomTransformer } from "./features/miscellaneous/RandomTransformer";
+import { ValidateCloneTransformer } from "./features/miscellaneous/ValidateCloneTransformer";
+import { ValidatePruneTransformer } from "./features/miscellaneous/ValidatePruneTransformer";
 import { AssertParseTransformer } from "./features/parsers/AssertParseTransformer";
 import { CreateAssertParseTransformer } from "./features/parsers/CreateAssertParseTransformer";
 import { CreateIsParseTransformer } from "./features/parsers/CreateIsParseTransformer";
@@ -41,7 +59,11 @@ export namespace CallExpressionTransformer {
 
         // FILE PATH
         const file: string = path.resolve(declaration.getSourceFile().fileName);
-        if (file.indexOf(LIB_PATH) === -1 && file !== SRC_PATH)
+        if (
+            file.indexOf(LIB_PATH) === -1 &&
+            file !== SRC_PATH &&
+            file !== CLI_PATH
+        )
             return expression;
 
         //----
@@ -67,6 +89,9 @@ type Task = (
 
 const LIB_PATH = path.join("node_modules", "typia", "lib", "module.d.ts");
 const SRC_PATH = path.resolve(path.join(__dirname, "..", "module.ts"));
+const CLI_PATH = path.resolve(
+    path.join(__dirname, "..", "..", "..", "src", "module.ts"),
+);
 
 const FUNCTORS: Record<string, () => Task> = {
     //----
@@ -107,6 +132,17 @@ const FUNCTORS: Record<string, () => Task> = {
 
     // MISC
     metadata: () => MetadataTransformer.transform,
+    random: () => RandomTransformer.transform,
+
+    clone: () => CloneTransformer.transform,
+    assertClone: () => AssertCloneTransformer.transform,
+    isClone: () => IsCloneTransformer.transform,
+    validateClone: () => ValidateCloneTransformer.transform,
+
+    prune: () => PruneTransformer.transform,
+    assertPrune: () => AssertPruneTransformer.transform,
+    isPrune: () => IsPruneTransformer.transform,
+    validatePrune: () => ValidatePruneTransformer.transform,
 
     //----
     // FACTORY FUNCTIONS
@@ -128,4 +164,16 @@ const FUNCTORS: Record<string, () => Task> = {
     createAssertStringify: () => CreateAssertStringifyTransformer.transform,
     createIsStringify: () => CreateIsStringifyTransformer.transform,
     createValidateStringify: () => CreateValidateStringifyTransformer.transform,
+
+    // MISC
+    createRandom: () => CreateRandomTransformer.transform,
+    createClone: () => CreateCloneTransformer.transform,
+    createAssertClone: () => CreateAssertCloneTransformer.transform,
+    createIsClone: () => CreateIsCloneTransformer.transform,
+    createValidateClone: () => CreateValidateCloneTransformer.transform,
+
+    createPrune: () => CreatePruneTransformer.transform,
+    createAssertPrune: () => CreateAssertPruneTransformer.transform,
+    createIsPrune: () => CreateIsPruneTransformer.transform,
+    createValidatePrune: () => CreateValidatePruneTransformer.transform,
 };

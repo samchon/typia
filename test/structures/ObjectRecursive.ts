@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ObjectRecursive = ObjectRecursive.IDepartment;
 export namespace ObjectRecursive {
@@ -21,13 +21,13 @@ export namespace ObjectRecursive {
         index: number = 0,
     ): ObjectRecursive {
         return {
-            id: RandomGenerator.integer(),
-            name: RandomGenerator.string(),
-            code: RandomGenerator.string(),
-            sequence: RandomGenerator.integer(),
+            id: TestRandomGenerator.integer(),
+            name: TestRandomGenerator.string(),
+            code: TestRandomGenerator.string(),
+            sequence: TestRandomGenerator.integer(),
             created_at: {
-                time: RandomGenerator.integer(),
-                zone: RandomGenerator.integer(),
+                time: TestRandomGenerator.integer(),
+                zone: TestRandomGenerator.integer(),
             },
             parent: index < limit ? generate(limit, index + 1) : null,
         };

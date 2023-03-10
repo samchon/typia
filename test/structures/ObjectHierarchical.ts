@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ObjectHierarchical = ObjectHierarchical.ICustomer;
 export namespace ObjectHierarchical {
@@ -54,28 +54,28 @@ export namespace ObjectHierarchical {
         const account = authorized ? () => generate_account() : () => null;
         const enterprise: IEnterprise | null = employeed
             ? {
-                  id: RandomGenerator.integer(),
+                  id: TestRandomGenerator.integer(),
                   account: generate_account(),
-                  name: RandomGenerator.string(),
-                  grade: RandomGenerator.integer(),
+                  name: TestRandomGenerator.string(),
+                  grade: TestRandomGenerator.integer(),
                   created_at: generate_timestamp(),
               }
             : null;
         return {
-            id: RandomGenerator.integer(),
+            id: TestRandomGenerator.integer(),
             channel: {
-                id: RandomGenerator.integer(),
-                code: RandomGenerator.string(),
-                name: RandomGenerator.string(),
-                sequence: RandomGenerator.integer(),
-                exclusive: RandomGenerator.boolean(),
-                priority: RandomGenerator.integer(),
+                id: TestRandomGenerator.integer(),
+                code: TestRandomGenerator.string(),
+                name: TestRandomGenerator.string(),
+                sequence: TestRandomGenerator.integer(),
+                exclusive: TestRandomGenerator.boolean(),
+                priority: TestRandomGenerator.integer(),
                 created_at: generate_timestamp(),
             },
             account: account(),
             member: account()
                 ? {
-                      id: RandomGenerator.integer(),
+                      id: TestRandomGenerator.integer(),
                       account: account()!,
                       emails: [
                           "samchon.github@gmail.com",
@@ -105,8 +105,8 @@ export namespace ObjectHierarchical {
     });
 
     const generate_account: () => IAccount = () => ({
-        id: RandomGenerator.integer(),
-        code: RandomGenerator.string(),
+        id: TestRandomGenerator.integer(),
+        code: TestRandomGenerator.string(),
         created_at: generate_timestamp(),
     });
 

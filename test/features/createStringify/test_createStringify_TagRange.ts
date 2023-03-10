@@ -1,6 +1,6 @@
 import typia from "../../../src";
+import { _test_stringify } from "../../internal/_test_stringify";
 import { TagRange } from "../../structures/TagRange";
-import { _test_stringify } from "../internal/_test_stringify";
 
 export const test_createStringify_TagRange = _test_stringify(
     "TagRange",

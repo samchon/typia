@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ArrayRecursive = ArrayRecursive.ICategory;
 export namespace ArrayRecursive {
@@ -20,16 +20,19 @@ export namespace ArrayRecursive {
         index: number = 0,
     ): ArrayRecursive {
         return {
-            id: RandomGenerator.integer(),
-            code: RandomGenerator.string(),
-            sequence: RandomGenerator.integer(),
+            id: TestRandomGenerator.integer(),
+            code: TestRandomGenerator.string(),
+            sequence: TestRandomGenerator.integer(),
             created_at: {
-                time: RandomGenerator.integer(),
-                zone: RandomGenerator.integer(),
+                time: TestRandomGenerator.integer(),
+                zone: TestRandomGenerator.integer(),
             },
             children:
                 index < limit
-                    ? RandomGenerator.array(() => generate(limit, index + 1), 2)
+                    ? TestRandomGenerator.array(
+                          () => generate(limit, index + 1),
+                          2,
+                      )
                     : [],
         };
     }

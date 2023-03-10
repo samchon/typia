@@ -1,9 +1,9 @@
-import typia from "../../../../src";
-import { AtomicSimple } from "../../../structures/AtomicSimple";
-import { _test_application } from "../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_ajv_AtomicSimple = 
-    _test_application("ajv")(
-        "AtomicSimple",
-        typia.application<[AtomicSimple], "ajv">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { AtomicSimple } from "../../../structures/AtomicSimple";
+
+export const test_application_ajv_AtomicSimple = _test_application("ajv")(
+    "AtomicSimple",
+    typia.application<[AtomicSimple], "ajv">(),
+);

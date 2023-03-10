@@ -1,9 +1,9 @@
-import typia from "../../../../src";
-import { AtomicAlias } from "../../../structures/AtomicAlias";
-import { _test_application } from "../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_ajv_AtomicAlias = 
-    _test_application("ajv")(
-        "AtomicAlias",
-        typia.application<[AtomicAlias], "ajv">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { AtomicAlias } from "../../../structures/AtomicAlias";
+
+export const test_application_ajv_AtomicAlias = _test_application("ajv")(
+    "AtomicAlias",
+    typia.application<[AtomicAlias], "ajv">(),
+);

@@ -26,9 +26,9 @@ export namespace TestApplicationGenerator {
             if (s.JSONABLE === false) continue;
 
             const content: string[] = [
-                `import typia from "../../../../src";`,
+                `import typia from "typia"`,
                 `import { ${s.name} } from "../../../structures/${s.name}";`,
-                `import { _test_application } from "../../internal/_test_application";`,
+                `import { _test_application } from "../../../internal/_test_application";`,
                 "",
                 `export const test_application_${purpose}_${s.name} = `,
                 `    _test_application("${purpose}")(`,
@@ -73,16 +73,13 @@ export namespace TestApplicationGenerator {
                 `test_application_${type}_`.length,
                 file.length - 3,
             );
-            const location: string = `${__dirname}/../../test/features/application/${type}/${file}`;
-            const jsLocation: string =
+            const location: string =
                 __dirname +
                 `/../../bin/test/features/application/${type}/${file.slice(
                     0,
                     -3,
                 )}.js`;
-            const schema: object = getSchema(
-                fs.readFileSync(jsLocation, "utf8"),
-            );
+            const schema: object = getSchema(fs.readFileSync(location, "utf8"));
             await fs.promises.writeFile(
                 `${schemaPath}/${name}.json`,
                 JSON.stringify(schema, null, 2),

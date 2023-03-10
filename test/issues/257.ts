@@ -1,7 +1,6 @@
 import { Type } from "@sinclair/typebox";
 import { TypeCompiler } from "@sinclair/typebox/compiler";
-
-import typia from "../../src";
+import typia from "typia";
 
 export function by_typescript_json() {
     interface Point2D {

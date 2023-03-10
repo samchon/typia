@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type TupleRestArray = [boolean, number, ...string[][]];
 export namespace TupleRestArray {
@@ -9,7 +9,9 @@ export namespace TupleRestArray {
             1,
             ...new Array(3)
                 .fill("")
-                .map(() => RandomGenerator.array(RandomGenerator.string)),
+                .map(() =>
+                    TestRandomGenerator.array(TestRandomGenerator.string),
+                ),
         ];
     }
 

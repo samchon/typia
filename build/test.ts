@@ -5,6 +5,13 @@ import { TestApplicationGenerator } from "./internal/TestApplicationGenerator";
 import { TestFeature } from "./internal/TestFeature";
 import { TestMessageGenerator } from "./internal/TestMessageGenerator";
 import { TestStructure } from "./internal/TestStructure";
+import { __TypeRemover } from "./internal/__TypeRemover";
+
+const emit = process.emit;
+(process as any).emit = function (name: string, ...args: any[]) {
+    if (name === "warning") return false;
+    return emit.apply(process, [name, ...args] as any);
+};
 
 async function load(): Promise<TestStructure<any>[]> {
     const path: string = `${__dirname}/../test/structures`;
@@ -29,7 +36,7 @@ async function generate(
     create: boolean,
 ): Promise<void> {
     const method: string = create
-        ? `create${feat.method[0].toUpperCase()}${feat.method.substring(1)}`
+        ? `create${feat.method[0]!.toUpperCase()}${feat.method.substring(1)}`
         : feat.method;
     const path: string = `${__dirname}/../test/features/${method}`;
 
@@ -41,6 +48,8 @@ async function generate(
         else if (feat.jsonable && s.JSONABLE === false) continue;
         else if (feat.primitive && s.PRIMITIVE === false) continue;
         else if (feat.strict && s.ADDABLE === false) continue;
+        else if (feat.method === "random" && s.name === "UltimateUnion")
+            continue;
 
         const location: string = `${path}/test_${method}_${s.name}.ts`;
         await fs.promises.writeFile(
@@ -60,27 +69,32 @@ function script(
     const common: string = `_test_${feat.method}`;
     const elements: Array<string | null> = [
         `import typia from "../../../src";`,
+        "",
         `import { ${struct.name} } from "../../structures/${struct.name}";`,
-        `import { ${common} } from "../internal/${common}";`,
+        `import { ${common} } from "../../internal/${common}";`,
         "",
         `export const test_${method}_${struct.name} = ${common}(`,
         `    "${struct.name}",`,
-        `    ${struct.name}.generate,`,
+        feat.random ? null : `    ${struct.name}.generate,`,
         create
             ? `    typia.${method}<${struct.name}>(),`
+            : feat.random
+            ? `    () => typia.${method}<${struct.name}>(),`
             : `    (input) => typia.${method}${
                   feat.explicit ? `<${struct.name}>` : ""
               }(input),`,
         feat.spoilable && struct.SPOILERS
             ? `    ${struct.name}.SPOILERS,`
             : null,
-        `);`,
+        feat.random ? `typia.createAssert<${struct.name}>(),` : null,
+        `);\n`,
     ];
     return elements.filter((e) => e !== null).join("\n");
 }
 
 async function main(): Promise<void> {
     process.chdir(__dirname + "/..");
+    cp.execSync("npx rimraf test/generated");
 
     const structures: TestStructure<any>[] = await load();
 
@@ -101,7 +115,22 @@ async function main(): Promise<void> {
     // FILL SCHEMA CONTENTS
     cp.execSync("npm run build:test");
     await TestApplicationGenerator.schema();
-    await TestMessageGenerator.schema();
+    try {
+        await TestMessageGenerator.schema();
+    } catch {}
+
+    // GENERATE TRANSFORMED FEATURES
+    cp.execSync("npx rimraf test/generated");
+    cp.execSync(
+        [
+            "npx ts-node src/executable/typia generate",
+            "--input test/features",
+            "--output test/generated/output",
+            "--project test/tsconfig.json",
+        ].join(" "),
+    );
+    await __TypeRemover.remove(__dirname + "/../test/generated");
+    cp.execSync("npm run prettier", { stdio: "inherit" });
 }
 main().catch((exp) => {
     console.log(exp);
