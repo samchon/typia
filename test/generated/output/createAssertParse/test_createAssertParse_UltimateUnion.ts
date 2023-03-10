@@ -948,23 +948,17 @@ export const test_createAssertParse_UltimateUnion = _test_assertParse(
                             value: input.maximum,
                         })) &&
                     (undefined === input.exclusiveMinimum ||
-                        ("number" === typeof input.exclusiveMinimum &&
-                            Number.isFinite(input.exclusiveMinimum) &&
-                            parseInt(input.exclusiveMinimum) ===
-                                input.exclusiveMinimum) ||
+                        "boolean" === typeof input.exclusiveMinimum ||
                         $guard(_exceptionable, {
                             path: _path + ".exclusiveMinimum",
-                            expected: "(number | undefined)",
+                            expected: "(boolean | undefined)",
                             value: input.exclusiveMinimum,
                         })) &&
                     (undefined === input.exclusiveMaximum ||
-                        ("number" === typeof input.exclusiveMaximum &&
-                            Number.isFinite(input.exclusiveMaximum) &&
-                            parseInt(input.exclusiveMaximum) ===
-                                input.exclusiveMaximum) ||
+                        "boolean" === typeof input.exclusiveMaximum ||
                         $guard(_exceptionable, {
                             path: _path + ".exclusiveMaximum",
-                            expected: "(number | undefined)",
+                            expected: "(boolean | undefined)",
                             value: input.exclusiveMaximum,
                         })) &&
                     (undefined === input.multipleOf ||
@@ -1114,19 +1108,17 @@ export const test_createAssertParse_UltimateUnion = _test_assertParse(
                             value: input.maximum,
                         })) &&
                     (undefined === input.exclusiveMinimum ||
-                        ("number" === typeof input.exclusiveMinimum &&
-                            Number.isFinite(input.exclusiveMinimum)) ||
+                        "boolean" === typeof input.exclusiveMinimum ||
                         $guard(_exceptionable, {
                             path: _path + ".exclusiveMinimum",
-                            expected: "(number | undefined)",
+                            expected: "(boolean | undefined)",
                             value: input.exclusiveMinimum,
                         })) &&
                     (undefined === input.exclusiveMaximum ||
-                        ("number" === typeof input.exclusiveMaximum &&
-                            Number.isFinite(input.exclusiveMaximum)) ||
+                        "boolean" === typeof input.exclusiveMaximum ||
                         $guard(_exceptionable, {
                             path: _path + ".exclusiveMaximum",
-                            expected: "(number | undefined)",
+                            expected: "(boolean | undefined)",
                             value: input.exclusiveMaximum,
                         })) &&
                     (undefined === input.multipleOf ||

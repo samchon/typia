@@ -948,23 +948,17 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                             value: input.maximum,
                         })) &&
                     (undefined === input.exclusiveMinimum ||
-                        ("number" === typeof input.exclusiveMinimum &&
-                            Number.isFinite(input.exclusiveMinimum) &&
-                            parseInt(input.exclusiveMinimum) ===
-                                input.exclusiveMinimum) ||
+                        "boolean" === typeof input.exclusiveMinimum ||
                         $guard(_exceptionable, {
                             path: _path + ".exclusiveMinimum",
-                            expected: "(number | undefined)",
+                            expected: "(boolean | undefined)",
                             value: input.exclusiveMinimum,
                         })) &&
                     (undefined === input.exclusiveMaximum ||
-                        ("number" === typeof input.exclusiveMaximum &&
-                            Number.isFinite(input.exclusiveMaximum) &&
-                            parseInt(input.exclusiveMaximum) ===
-                                input.exclusiveMaximum) ||
+                        "boolean" === typeof input.exclusiveMaximum ||
                         $guard(_exceptionable, {
                             path: _path + ".exclusiveMaximum",
-                            expected: "(number | undefined)",
+                            expected: "(boolean | undefined)",
                             value: input.exclusiveMaximum,
                         })) &&
                     (undefined === input.multipleOf ||
@@ -1114,19 +1108,17 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                             value: input.maximum,
                         })) &&
                     (undefined === input.exclusiveMinimum ||
-                        ("number" === typeof input.exclusiveMinimum &&
-                            Number.isFinite(input.exclusiveMinimum)) ||
+                        "boolean" === typeof input.exclusiveMinimum ||
                         $guard(_exceptionable, {
                             path: _path + ".exclusiveMinimum",
-                            expected: "(number | undefined)",
+                            expected: "(boolean | undefined)",
                             value: input.exclusiveMinimum,
                         })) &&
                     (undefined === input.exclusiveMaximum ||
-                        ("number" === typeof input.exclusiveMaximum &&
-                            Number.isFinite(input.exclusiveMaximum)) ||
+                        "boolean" === typeof input.exclusiveMaximum ||
                         $guard(_exceptionable, {
                             path: _path + ".exclusiveMaximum",
-                            expected: "(number | undefined)",
+                            expected: "(boolean | undefined)",
                             value: input.exclusiveMaximum,
                         })) &&
                     (undefined === input.multipleOf ||
@@ -2833,13 +2825,9 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                     ("number" === typeof input.maximum &&
                         parseInt(input.maximum) === input.maximum)) &&
                 (undefined === input.exclusiveMinimum ||
-                    ("number" === typeof input.exclusiveMinimum &&
-                        parseInt(input.exclusiveMinimum) ===
-                            input.exclusiveMinimum)) &&
+                    "boolean" === typeof input.exclusiveMinimum) &&
                 (undefined === input.exclusiveMaximum ||
-                    ("number" === typeof input.exclusiveMaximum &&
-                        parseInt(input.exclusiveMaximum) ===
-                            input.exclusiveMaximum)) &&
+                    "boolean" === typeof input.exclusiveMaximum) &&
                 (undefined === input.multipleOf ||
                     ("number" === typeof input.multipleOf &&
                         parseInt(input.multipleOf) === input.multipleOf)) &&
@@ -2879,9 +2867,9 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                 (undefined === input.maximum ||
                     "number" === typeof input.maximum) &&
                 (undefined === input.exclusiveMinimum ||
-                    "number" === typeof input.exclusiveMinimum) &&
+                    "boolean" === typeof input.exclusiveMinimum) &&
                 (undefined === input.exclusiveMaximum ||
-                    "number" === typeof input.exclusiveMaximum) &&
+                    "boolean" === typeof input.exclusiveMaximum) &&
                 (undefined === input.multipleOf ||
                     "number" === typeof input.multipleOf) &&
                 (undefined === input["default"] ||
@@ -3925,7 +3913,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                         ? ""
                         : `"exclusiveMinimum":${
                               undefined !== input.exclusiveMinimum
-                                  ? $number(input.exclusiveMinimum)
+                                  ? input.exclusiveMinimum
                                   : undefined
                           },`
                 }${
@@ -3933,7 +3921,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                         ? ""
                         : `"exclusiveMaximum":${
                               undefined !== input.exclusiveMaximum
-                                  ? $number(input.exclusiveMaximum)
+                                  ? input.exclusiveMaximum
                                   : undefined
                           },`
                 }${
@@ -4044,7 +4032,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                         ? ""
                         : `"exclusiveMinimum":${
                               undefined !== input.exclusiveMinimum
-                                  ? $number(input.exclusiveMinimum)
+                                  ? input.exclusiveMinimum
                                   : undefined
                           },`
                 }${
@@ -4052,7 +4040,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                         ? ""
                         : `"exclusiveMaximum":${
                               undefined !== input.exclusiveMaximum
-                                  ? $number(input.exclusiveMaximum)
+                                  ? input.exclusiveMaximum
                                   : undefined
                           },`
                 }${

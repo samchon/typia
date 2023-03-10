@@ -1159,47 +1159,13 @@
             "x-typia-required": false
           },
           "exclusiveMinimum": {
-            "type": "integer",
+            "type": "boolean",
             "nullable": false,
-            "x-typia-metaTags": [
-              {
-                "kind": "type",
-                "value": "int"
-              }
-            ],
-            "x-typia-jsDocTags": [
-              {
-                "name": "type",
-                "text": [
-                  {
-                    "text": "int",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ],
             "x-typia-required": false
           },
           "exclusiveMaximum": {
-            "type": "integer",
+            "type": "boolean",
             "nullable": false,
-            "x-typia-metaTags": [
-              {
-                "kind": "type",
-                "value": "int"
-              }
-            ],
-            "x-typia-jsDocTags": [
-              {
-                "name": "type",
-                "text": [
-                  {
-                    "text": "int",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ],
             "x-typia-required": false
           },
           "multipleOf": {
@@ -1369,12 +1335,12 @@
             "x-typia-required": false
           },
           "exclusiveMinimum": {
-            "type": "number",
+            "type": "boolean",
             "nullable": false,
             "x-typia-required": false
           },
           "exclusiveMaximum": {
-            "type": "number",
+            "type": "boolean",
             "nullable": false,
             "x-typia-required": false
           },

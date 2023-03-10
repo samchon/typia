@@ -47,7 +47,8 @@
               }
             ],
             "x-typia-required": true,
-            "exclusiveMinimum": 3
+            "minimum": 3,
+            "exclusiveMinimum": true
           },
           "minimum": {
             "type": "number",
@@ -132,8 +133,10 @@
               }
             ],
             "x-typia-required": true,
-            "exclusiveMinimum": 0,
-            "exclusiveMaximum": 100
+            "minimum": 0,
+            "exclusiveMinimum": true,
+            "maximum": 100,
+            "exclusiveMaximum": true
           },
           "multipleOf": {
             "type": "number",

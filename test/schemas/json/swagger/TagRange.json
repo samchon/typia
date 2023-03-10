@@ -34,7 +34,8 @@
               }
             ],
             "x-typia-required": true,
-            "exclusiveMinimum": 3
+            "minimum": 3,
+            "exclusiveMinimum": true
           },
           "greater_equal": {
             "type": "number",
@@ -80,7 +81,8 @@
               }
             ],
             "x-typia-required": true,
-            "exclusiveMaximum": 7
+            "maximum": 7,
+            "exclusiveMaximum": true
           },
           "less_equal": {
             "type": "number",
@@ -139,8 +141,10 @@
               }
             ],
             "x-typia-required": true,
-            "exclusiveMinimum": 3,
-            "exclusiveMaximum": 7
+            "minimum": 3,
+            "exclusiveMinimum": true,
+            "maximum": 7,
+            "exclusiveMaximum": true
           },
           "greater_equal_less": {
             "type": "number",
@@ -177,7 +181,8 @@
             ],
             "x-typia-required": true,
             "minimum": 3,
-            "exclusiveMaximum": 7
+            "maximum": 7,
+            "exclusiveMaximum": true
           },
           "greater_less_equal": {
             "type": "number",
@@ -213,7 +218,8 @@
               }
             ],
             "x-typia-required": true,
-            "exclusiveMinimum": 3,
+            "minimum": 3,
+            "exclusiveMinimum": true,
             "maximum": 7
           },
           "greater_equal_less_equal": {
