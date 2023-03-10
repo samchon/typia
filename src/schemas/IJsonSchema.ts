@@ -47,8 +47,8 @@ export namespace IJsonSchema {
     export interface INumber extends IAtomic<"number"> {
         minimum?: number;
         maximum?: number;
-        exclusiveMinimum?: number;
-        exclusiveMaximum?: number;
+        exclusiveMinimum?: boolean;
+        exclusiveMaximum?: boolean;
         multipleOf?: number;
     }
     export interface IInteger extends IAtomic<"integer"> {
@@ -60,14 +60,8 @@ export namespace IJsonSchema {
          * @type int
          */
         maximum?: number;
-        /**
-         * @type int
-         */
-        exclusiveMinimum?: number;
-        /**
-         * @type int
-         */
-        exclusiveMaximum?: number;
+        exclusiveMinimum?: boolean;
+        exclusiveMaximum?: boolean;
         /**
          * @type int
          */

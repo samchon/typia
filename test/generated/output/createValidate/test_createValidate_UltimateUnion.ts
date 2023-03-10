@@ -1209,23 +1209,17 @@ export const test_createValidate_UltimateUnion = _test_validate(
                             value: input.maximum,
                         }),
                     undefined === input.exclusiveMinimum ||
-                        ("number" === typeof input.exclusiveMinimum &&
-                            Number.isFinite(input.exclusiveMinimum) &&
-                            parseInt(input.exclusiveMinimum) ===
-                                input.exclusiveMinimum) ||
+                        "boolean" === typeof input.exclusiveMinimum ||
                         $report(_exceptionable, {
                             path: _path + ".exclusiveMinimum",
-                            expected: "(number | undefined)",
+                            expected: "(boolean | undefined)",
                             value: input.exclusiveMinimum,
                         }),
                     undefined === input.exclusiveMaximum ||
-                        ("number" === typeof input.exclusiveMaximum &&
-                            Number.isFinite(input.exclusiveMaximum) &&
-                            parseInt(input.exclusiveMaximum) ===
-                                input.exclusiveMaximum) ||
+                        "boolean" === typeof input.exclusiveMaximum ||
                         $report(_exceptionable, {
                             path: _path + ".exclusiveMaximum",
-                            expected: "(number | undefined)",
+                            expected: "(boolean | undefined)",
                             value: input.exclusiveMaximum,
                         }),
                     undefined === input.multipleOf ||
@@ -1413,19 +1407,17 @@ export const test_createValidate_UltimateUnion = _test_validate(
                             value: input.maximum,
                         }),
                     undefined === input.exclusiveMinimum ||
-                        ("number" === typeof input.exclusiveMinimum &&
-                            Number.isFinite(input.exclusiveMinimum)) ||
+                        "boolean" === typeof input.exclusiveMinimum ||
                         $report(_exceptionable, {
                             path: _path + ".exclusiveMinimum",
-                            expected: "(number | undefined)",
+                            expected: "(boolean | undefined)",
                             value: input.exclusiveMinimum,
                         }),
                     undefined === input.exclusiveMaximum ||
-                        ("number" === typeof input.exclusiveMaximum &&
-                            Number.isFinite(input.exclusiveMaximum)) ||
+                        "boolean" === typeof input.exclusiveMaximum ||
                         $report(_exceptionable, {
                             path: _path + ".exclusiveMaximum",
-                            expected: "(number | undefined)",
+                            expected: "(boolean | undefined)",
                             value: input.exclusiveMaximum,
                         }),
                     undefined === input.multipleOf ||

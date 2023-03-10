@@ -200,13 +200,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     ("number" === typeof input.maximum &&
                         parseInt(input.maximum) === input.maximum)) &&
                 (undefined === input.exclusiveMinimum ||
-                    ("number" === typeof input.exclusiveMinimum &&
-                        parseInt(input.exclusiveMinimum) ===
-                            input.exclusiveMinimum)) &&
+                    "boolean" === typeof input.exclusiveMinimum) &&
                 (undefined === input.exclusiveMaximum ||
-                    ("number" === typeof input.exclusiveMaximum &&
-                        parseInt(input.exclusiveMaximum) ===
-                            input.exclusiveMaximum)) &&
+                    "boolean" === typeof input.exclusiveMaximum) &&
                 (undefined === input.multipleOf ||
                     ("number" === typeof input.multipleOf &&
                         parseInt(input.multipleOf) === input.multipleOf)) &&
@@ -246,9 +242,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input.maximum ||
                     "number" === typeof input.maximum) &&
                 (undefined === input.exclusiveMinimum ||
-                    "number" === typeof input.exclusiveMinimum) &&
+                    "boolean" === typeof input.exclusiveMinimum) &&
                 (undefined === input.exclusiveMaximum ||
-                    "number" === typeof input.exclusiveMaximum) &&
+                    "boolean" === typeof input.exclusiveMaximum) &&
                 (undefined === input.multipleOf ||
                     "number" === typeof input.multipleOf) &&
                 (undefined === input["default"] ||
@@ -1292,7 +1288,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         ? ""
                         : `"exclusiveMinimum":${
                               undefined !== input.exclusiveMinimum
-                                  ? $number(input.exclusiveMinimum)
+                                  ? input.exclusiveMinimum
                                   : undefined
                           },`
                 }${
@@ -1300,7 +1296,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         ? ""
                         : `"exclusiveMaximum":${
                               undefined !== input.exclusiveMaximum
-                                  ? $number(input.exclusiveMaximum)
+                                  ? input.exclusiveMaximum
                                   : undefined
                           },`
                 }${
@@ -1411,7 +1407,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         ? ""
                         : `"exclusiveMinimum":${
                               undefined !== input.exclusiveMinimum
-                                  ? $number(input.exclusiveMinimum)
+                                  ? input.exclusiveMinimum
                                   : undefined
                           },`
                 }${
@@ -1419,7 +1415,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         ? ""
                         : `"exclusiveMaximum":${
                               undefined !== input.exclusiveMaximum
-                                  ? $number(input.exclusiveMaximum)
+                                  ? input.exclusiveMaximum
                                   : undefined
                           },`
                 }${

@@ -246,15 +246,9 @@ export const test_isClone_UltimateUnion = _test_isClone(
                             Number.isFinite(input.maximum) &&
                             parseInt(input.maximum) === input.maximum)) &&
                     (undefined === input.exclusiveMinimum ||
-                        ("number" === typeof input.exclusiveMinimum &&
-                            Number.isFinite(input.exclusiveMinimum) &&
-                            parseInt(input.exclusiveMinimum) ===
-                                input.exclusiveMinimum)) &&
+                        "boolean" === typeof input.exclusiveMinimum) &&
                     (undefined === input.exclusiveMaximum ||
-                        ("number" === typeof input.exclusiveMaximum &&
-                            Number.isFinite(input.exclusiveMaximum) &&
-                            parseInt(input.exclusiveMaximum) ===
-                                input.exclusiveMaximum)) &&
+                        "boolean" === typeof input.exclusiveMaximum) &&
                     (undefined === input.multipleOf ||
                         ("number" === typeof input.multipleOf &&
                             Number.isFinite(input.multipleOf) &&
@@ -298,11 +292,9 @@ export const test_isClone_UltimateUnion = _test_isClone(
                         ("number" === typeof input.maximum &&
                             Number.isFinite(input.maximum))) &&
                     (undefined === input.exclusiveMinimum ||
-                        ("number" === typeof input.exclusiveMinimum &&
-                            Number.isFinite(input.exclusiveMinimum))) &&
+                        "boolean" === typeof input.exclusiveMinimum) &&
                     (undefined === input.exclusiveMaximum ||
-                        ("number" === typeof input.exclusiveMaximum &&
-                            Number.isFinite(input.exclusiveMaximum))) &&
+                        "boolean" === typeof input.exclusiveMaximum) &&
                     (undefined === input.multipleOf ||
                         ("number" === typeof input.multipleOf &&
                             Number.isFinite(input.multipleOf))) &&
@@ -1018,13 +1010,9 @@ export const test_isClone_UltimateUnion = _test_isClone(
                         ("number" === typeof input.maximum &&
                             parseInt(input.maximum) === input.maximum)) &&
                     (undefined === input.exclusiveMinimum ||
-                        ("number" === typeof input.exclusiveMinimum &&
-                            parseInt(input.exclusiveMinimum) ===
-                                input.exclusiveMinimum)) &&
+                        "boolean" === typeof input.exclusiveMinimum) &&
                     (undefined === input.exclusiveMaximum ||
-                        ("number" === typeof input.exclusiveMaximum &&
-                            parseInt(input.exclusiveMaximum) ===
-                                input.exclusiveMaximum)) &&
+                        "boolean" === typeof input.exclusiveMaximum) &&
                     (undefined === input.multipleOf ||
                         ("number" === typeof input.multipleOf &&
                             parseInt(input.multipleOf) === input.multipleOf)) &&
@@ -1064,9 +1052,9 @@ export const test_isClone_UltimateUnion = _test_isClone(
                     (undefined === input.maximum ||
                         "number" === typeof input.maximum) &&
                     (undefined === input.exclusiveMinimum ||
-                        "number" === typeof input.exclusiveMinimum) &&
+                        "boolean" === typeof input.exclusiveMinimum) &&
                     (undefined === input.exclusiveMaximum ||
-                        "number" === typeof input.exclusiveMaximum) &&
+                        "boolean" === typeof input.exclusiveMaximum) &&
                     (undefined === input.multipleOf ||
                         "number" === typeof input.multipleOf) &&
                     (undefined === input["default"] ||

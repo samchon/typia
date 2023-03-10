@@ -244,15 +244,9 @@ export const test_isParse_UltimateUnion = _test_isParse(
                             Number.isFinite(input.maximum) &&
                             parseInt(input.maximum) === input.maximum)) &&
                     (undefined === input.exclusiveMinimum ||
-                        ("number" === typeof input.exclusiveMinimum &&
-                            Number.isFinite(input.exclusiveMinimum) &&
-                            parseInt(input.exclusiveMinimum) ===
-                                input.exclusiveMinimum)) &&
+                        "boolean" === typeof input.exclusiveMinimum) &&
                     (undefined === input.exclusiveMaximum ||
-                        ("number" === typeof input.exclusiveMaximum &&
-                            Number.isFinite(input.exclusiveMaximum) &&
-                            parseInt(input.exclusiveMaximum) ===
-                                input.exclusiveMaximum)) &&
+                        "boolean" === typeof input.exclusiveMaximum) &&
                     (undefined === input.multipleOf ||
                         ("number" === typeof input.multipleOf &&
                             Number.isFinite(input.multipleOf) &&
@@ -296,11 +290,9 @@ export const test_isParse_UltimateUnion = _test_isParse(
                         ("number" === typeof input.maximum &&
                             Number.isFinite(input.maximum))) &&
                     (undefined === input.exclusiveMinimum ||
-                        ("number" === typeof input.exclusiveMinimum &&
-                            Number.isFinite(input.exclusiveMinimum))) &&
+                        "boolean" === typeof input.exclusiveMinimum) &&
                     (undefined === input.exclusiveMaximum ||
-                        ("number" === typeof input.exclusiveMaximum &&
-                            Number.isFinite(input.exclusiveMaximum))) &&
+                        "boolean" === typeof input.exclusiveMaximum) &&
                     (undefined === input.multipleOf ||
                         ("number" === typeof input.multipleOf &&
                             Number.isFinite(input.multipleOf))) &&
