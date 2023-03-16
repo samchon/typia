@@ -32,7 +32,7 @@ export namespace CreateRandomTransformer {
                 },
             },
             modulo,
-        )(type, node.getText());
+        )(type, node.getFullText().trim());
     }
 }
 

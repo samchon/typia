@@ -25,7 +25,7 @@ export namespace TypiaSetupWizard {
         );
 
         // INSTALL TYPESCRIPT
-        pack.install({ dev: true, modulo: "typescript" });
+        pack.install({ dev: true, modulo: "typescript", version: "4.9.5" });
         args.project ??= (() => {
             CommandExecutor.run("npx tsc --init", false);
             return (args.project = "tsconfig.json");
@@ -85,11 +85,21 @@ export namespace TypiaSetupWizard {
         const configure = async () => {
             const fileList: string[] = await (
                 await fs.promises.readdir(process.cwd())
-            ).filter(
-                (str) =>
-                    str.substring(0, 8) === "tsconfig" &&
-                    str.substring(str.length - 5) === ".json",
-            );
+            )
+                .filter(
+                    (str) =>
+                        str.substring(0, 8) === "tsconfig" &&
+                        str.substring(str.length - 5) === ".json",
+                )
+                .sort((x, y) =>
+                    x === "tsconfig.json"
+                        ? -1
+                        : y === "tsconfig.json"
+                        ? 1
+                        : x < y
+                        ? -1
+                        : 1,
+                );
             if (fileList.length === 0) {
                 if (process.cwd() !== pack.directory)
                     throw new Error(`Unable to find "tsconfig.json" file.`);
