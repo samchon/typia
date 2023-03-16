@@ -47,7 +47,7 @@ export namespace GenericTransformer {
                 programmer(project, modulo)(
                     type,
                     generic
-                        ? node.getText()
+                        ? node.getFullText().trim()
                         : name(project.checker)(type)(node),
                 ),
                 undefined,
@@ -84,7 +84,7 @@ export namespace GenericTransformer {
                 );
 
             // DO TRANSFORM
-            return programmer(project, modulo)(type, node.getText());
+            return programmer(project, modulo)(type, node.getFullText().trim());
         };
 
     const name =

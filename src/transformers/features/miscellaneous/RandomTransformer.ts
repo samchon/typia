@@ -33,7 +33,7 @@ export namespace RandomTransformer {
                     },
                 },
                 modulo,
-            )(type, node.getText()),
+            )(type, node.getFullText().trim()),
             undefined,
             expression.arguments.length
                 ? [expression.arguments[0]!]
