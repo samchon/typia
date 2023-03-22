@@ -84,7 +84,13 @@ export namespace RandomGenerator {
 
     export function date(min?: number, max?: number): string {
         min ??= 0;
-        max ??= Date.now();
-        return new Date(number(min, max)).toString();
+        max ??= Date.now() * 2;
+        return new Date(number(min, max)).toISOString().substring(0, 10);
+    }
+
+    export function datetime(min?: number, max?: number): string {
+        min ??= 0;
+        max ??= Date.now() * 2;
+        return new Date(number(min, max)).toISOString();
     }
 }

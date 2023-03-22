@@ -15,6 +15,8 @@ export const test_validateClone_TagFormat = _test_validateClone(
                 const $is_url = (typia.validateClone as any).is_url;
                 const $is_ipv4 = (typia.validateClone as any).is_ipv4;
                 const $is_ipv6 = (typia.validateClone as any).is_ipv6;
+                const $is_date = (typia.validateClone as any).is_date;
+                const $is_datetime = (typia.validateClone as any).is_datetime;
                 ((
                     input: any,
                     _path: string,
@@ -61,6 +63,34 @@ export const test_validateClone_TagFormat = _test_validateClone(
                                     expected: "string",
                                     value: input.ipv6,
                                 }),
+                            ("string" === typeof input.date &&
+                                true === $is_date(input.date)) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".date",
+                                    expected: "string",
+                                    value: input.date,
+                                }),
+                            ("string" === typeof input.date_time &&
+                                true === $is_datetime(input.date_time)) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".date_time",
+                                    expected: "string",
+                                    value: input.date_time,
+                                }),
+                            ("string" === typeof input.datetime &&
+                                true === $is_datetime(input.datetime)) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".datetime",
+                                    expected: "string",
+                                    value: input.datetime,
+                                }),
+                            ("string" === typeof input.dateTime &&
+                                true === $is_datetime(input.dateTime)) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".dateTime",
+                                    expected: "string",
+                                    value: input.dateTime,
+                                }),
                             "string" === typeof input.custom ||
                                 $report(_exceptionable, {
                                     path: _path + ".custom",
@@ -96,12 +126,18 @@ export const test_validateClone_TagFormat = _test_validateClone(
                 const $is_url = (typia.validateClone as any).is_url;
                 const $is_ipv4 = (typia.validateClone as any).is_ipv4;
                 const $is_ipv6 = (typia.validateClone as any).is_ipv6;
+                const $is_date = (typia.validateClone as any).is_date;
+                const $is_datetime = (typia.validateClone as any).is_datetime;
                 const $co0 = (input: any): any => ({
                     uuid: input.uuid as any,
                     email: input.email as any,
                     url: input.url as any,
                     ipv4: input.ipv4 as any,
                     ipv6: input.ipv6 as any,
+                    date: input.date as any,
+                    date_time: input.date_time as any,
+                    datetime: input.datetime as any,
+                    dateTime: input.dateTime as any,
                     custom: input.custom as any,
                 });
                 return "object" === typeof input && null !== input

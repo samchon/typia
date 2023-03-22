@@ -208,153 +208,6 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    ("items" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"items"',
-                            value: input.kind,
-                        })) &&
-                    (("number" === typeof input.value &&
-                        Number.isFinite(input.value)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "number",
-                            value: input.value,
-                        }));
-                const $ao3 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("minItems" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"minItems"',
-                            value: input.kind,
-                        })) &&
-                    (("number" === typeof input.value &&
-                        Number.isFinite(input.value)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "number",
-                            value: input.value,
-                        }));
-                const $ao4 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("maxItems" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"maxItems"',
-                            value: input.kind,
-                        })) &&
-                    (("number" === typeof input.value &&
-                        Number.isFinite(input.value)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "number",
-                            value: input.value,
-                        }));
-                const $ao5 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("format" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"format"',
-                            value: input.kind,
-                        })) &&
-                    ("url" === input.value ||
-                        "uuid" === input.value ||
-                        "email" === input.value ||
-                        "ipv4" === input.value ||
-                        "ipv6" === input.value ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected:
-                                '("email" | "ipv4" | "ipv6" | "url" | "uuid")',
-                            value: input.value,
-                        }));
-                const $ao6 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("pattern" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"pattern"',
-                            value: input.kind,
-                        })) &&
-                    ("string" === typeof input.value ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "string",
-                            value: input.value,
-                        }));
-                const $ao7 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("length" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"length"',
-                            value: input.kind,
-                        })) &&
-                    (("number" === typeof input.value &&
-                        Number.isFinite(input.value)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "number",
-                            value: input.value,
-                        }));
-                const $ao8 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("minLength" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"minLength"',
-                            value: input.kind,
-                        })) &&
-                    (("number" === typeof input.value &&
-                        Number.isFinite(input.value)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "number",
-                            value: input.value,
-                        }));
-                const $ao9 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("maxLength" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"maxLength"',
-                            value: input.kind,
-                        })) &&
-                    (("number" === typeof input.value &&
-                        Number.isFinite(input.value)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "number",
-                            value: input.value,
-                        }));
-                const $ao10 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
                     ("type" === input.kind ||
                         $guard(_exceptionable, {
                             path: _path + ".kind",
@@ -368,7 +221,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                             expected: '("int" | "uint")',
                             value: input.value,
                         }));
-                const $ao11 = (
+                const $ao3 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -386,7 +239,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                             expected: "number",
                             value: input.value,
                         }));
-                const $ao12 = (
+                const $ao4 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -404,7 +257,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                             expected: "number",
                             value: input.value,
                         }));
-                const $ao13 = (
+                const $ao5 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -422,7 +275,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                             expected: "number",
                             value: input.value,
                         }));
-                const $ao14 = (
+                const $ao6 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -440,7 +293,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                             expected: "number",
                             value: input.value,
                         }));
-                const $ao15 = (
+                const $ao7 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -458,7 +311,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                             expected: "number",
                             value: input.value,
                         }));
-                const $ao16 = (
+                const $ao8 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -467,6 +320,155 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                         $guard(_exceptionable, {
                             path: _path + ".kind",
                             expected: '"step"',
+                            value: input.kind,
+                        })) &&
+                    (("number" === typeof input.value &&
+                        Number.isFinite(input.value)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "number",
+                            value: input.value,
+                        }));
+                const $ao9 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("format" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"format"',
+                            value: input.kind,
+                        })) &&
+                    ("url" === input.value ||
+                        "uuid" === input.value ||
+                        "email" === input.value ||
+                        "ipv4" === input.value ||
+                        "ipv6" === input.value ||
+                        "date" === input.value ||
+                        "datetime" === input.value ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected:
+                                '("date" | "datetime" | "email" | "ipv4" | "ipv6" | "url" | "uuid")',
+                            value: input.value,
+                        }));
+                const $ao10 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("pattern" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"pattern"',
+                            value: input.kind,
+                        })) &&
+                    ("string" === typeof input.value ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "string",
+                            value: input.value,
+                        }));
+                const $ao11 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("length" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"length"',
+                            value: input.kind,
+                        })) &&
+                    (("number" === typeof input.value &&
+                        Number.isFinite(input.value)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "number",
+                            value: input.value,
+                        }));
+                const $ao12 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("minLength" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"minLength"',
+                            value: input.kind,
+                        })) &&
+                    (("number" === typeof input.value &&
+                        Number.isFinite(input.value)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "number",
+                            value: input.value,
+                        }));
+                const $ao13 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("maxLength" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"maxLength"',
+                            value: input.kind,
+                        })) &&
+                    (("number" === typeof input.value &&
+                        Number.isFinite(input.value)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "number",
+                            value: input.value,
+                        }));
+                const $ao14 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("items" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"items"',
+                            value: input.kind,
+                        })) &&
+                    (("number" === typeof input.value &&
+                        Number.isFinite(input.value)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "number",
+                            value: input.value,
+                        }));
+                const $ao15 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("minItems" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"minItems"',
+                            value: input.kind,
+                        })) &&
+                    (("number" === typeof input.value &&
+                        Number.isFinite(input.value)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "number",
+                            value: input.value,
+                        }));
+                const $ao16 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("maxItems" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"maxItems"',
                             value: input.kind,
                         })) &&
                     (("number" === typeof input.value &&
@@ -2399,40 +2401,40 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                     _exceptionable: boolean = true,
                 ): any =>
                     (() => {
-                        if ("items" === input.kind)
-                            return $ao2(input, _path, true && _exceptionable);
-                        if ("minItems" === input.kind)
-                            return $ao3(input, _path, true && _exceptionable);
-                        if ("maxItems" === input.kind)
-                            return $ao4(input, _path, true && _exceptionable);
-                        if ("format" === input.kind)
-                            return $ao5(input, _path, true && _exceptionable);
-                        if ("pattern" === input.kind)
-                            return $ao6(input, _path, true && _exceptionable);
-                        if ("length" === input.kind)
-                            return $ao7(input, _path, true && _exceptionable);
-                        if ("minLength" === input.kind)
-                            return $ao8(input, _path, true && _exceptionable);
-                        if ("maxLength" === input.kind)
-                            return $ao9(input, _path, true && _exceptionable);
                         if ("type" === input.kind)
-                            return $ao10(input, _path, true && _exceptionable);
+                            return $ao2(input, _path, true && _exceptionable);
                         if ("minimum" === input.kind)
-                            return $ao11(input, _path, true && _exceptionable);
+                            return $ao3(input, _path, true && _exceptionable);
                         if ("maximum" === input.kind)
-                            return $ao12(input, _path, true && _exceptionable);
+                            return $ao4(input, _path, true && _exceptionable);
                         if ("exclusiveMinimum" === input.kind)
-                            return $ao13(input, _path, true && _exceptionable);
+                            return $ao5(input, _path, true && _exceptionable);
                         if ("exclusiveMaximum" === input.kind)
-                            return $ao14(input, _path, true && _exceptionable);
+                            return $ao6(input, _path, true && _exceptionable);
                         if ("multipleOf" === input.kind)
-                            return $ao15(input, _path, true && _exceptionable);
+                            return $ao7(input, _path, true && _exceptionable);
                         if ("step" === input.kind)
+                            return $ao8(input, _path, true && _exceptionable);
+                        if ("format" === input.kind)
+                            return $ao9(input, _path, true && _exceptionable);
+                        if ("pattern" === input.kind)
+                            return $ao10(input, _path, true && _exceptionable);
+                        if ("length" === input.kind)
+                            return $ao11(input, _path, true && _exceptionable);
+                        if ("minLength" === input.kind)
+                            return $ao12(input, _path, true && _exceptionable);
+                        if ("maxLength" === input.kind)
+                            return $ao13(input, _path, true && _exceptionable);
+                        if ("items" === input.kind)
+                            return $ao14(input, _path, true && _exceptionable);
+                        if ("minItems" === input.kind)
+                            return $ao15(input, _path, true && _exceptionable);
+                        if ("maxItems" === input.kind)
                             return $ao16(input, _path, true && _exceptionable);
                         return $guard(_exceptionable, {
                             path: _path,
                             expected:
-                                "(IMetadataTag.IItems | IMetadataTag.IMinItems | IMetadataTag.IMaxItems | IMetadataTag.IFormat | IMetadataTag.IPattern | IMetadataTag.ILength | IMetadataTag.IMinLength | IMetadataTag.IMaxLength | IMetadataTag.IType | IMetadataTag.IMinimum | IMetadataTag.IMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IExclusiveMaximum | IMetadataTag.IMultipleOf | IMetadataTag.IStep)",
+                                "(IMetadataTag.IType | IMetadataTag.IMinimum | IMetadataTag.IMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IExclusiveMaximum | IMetadataTag.IMultipleOf | IMetadataTag.IStep | IMetadataTag.IFormat | IMetadataTag.IPattern | IMetadataTag.ILength | IMetadataTag.IMinLength | IMetadataTag.IMaxLength | IMetadataTag.IItems | IMetadataTag.IMinItems | IMetadataTag.IMaxItems)",
                             value: input,
                         });
                     })();
@@ -2670,43 +2672,45 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                 (undefined === input["x-typia-rest"] ||
                     "boolean" === typeof input["x-typia-rest"]);
             const $io2 = (input: any): boolean =>
-                "items" === input.kind && "number" === typeof input.value;
+                "type" === input.kind &&
+                ("int" === input.value || "uint" === input.value);
             const $io3 = (input: any): boolean =>
-                "minItems" === input.kind && "number" === typeof input.value;
+                "minimum" === input.kind && "number" === typeof input.value;
             const $io4 = (input: any): boolean =>
-                "maxItems" === input.kind && "number" === typeof input.value;
+                "maximum" === input.kind && "number" === typeof input.value;
             const $io5 = (input: any): boolean =>
+                "exclusiveMinimum" === input.kind &&
+                "number" === typeof input.value;
+            const $io6 = (input: any): boolean =>
+                "exclusiveMaximum" === input.kind &&
+                "number" === typeof input.value;
+            const $io7 = (input: any): boolean =>
+                "multipleOf" === input.kind && "number" === typeof input.value;
+            const $io8 = (input: any): boolean =>
+                "step" === input.kind && "number" === typeof input.value;
+            const $io9 = (input: any): boolean =>
                 "format" === input.kind &&
                 ("url" === input.value ||
                     "uuid" === input.value ||
                     "email" === input.value ||
                     "ipv4" === input.value ||
-                    "ipv6" === input.value);
-            const $io6 = (input: any): boolean =>
-                "pattern" === input.kind && "string" === typeof input.value;
-            const $io7 = (input: any): boolean =>
-                "length" === input.kind && "number" === typeof input.value;
-            const $io8 = (input: any): boolean =>
-                "minLength" === input.kind && "number" === typeof input.value;
-            const $io9 = (input: any): boolean =>
-                "maxLength" === input.kind && "number" === typeof input.value;
+                    "ipv6" === input.value ||
+                    "date" === input.value ||
+                    "datetime" === input.value);
             const $io10 = (input: any): boolean =>
-                "type" === input.kind &&
-                ("int" === input.value || "uint" === input.value);
+                "pattern" === input.kind && "string" === typeof input.value;
             const $io11 = (input: any): boolean =>
-                "minimum" === input.kind && "number" === typeof input.value;
+                "length" === input.kind && "number" === typeof input.value;
             const $io12 = (input: any): boolean =>
-                "maximum" === input.kind && "number" === typeof input.value;
+                "minLength" === input.kind && "number" === typeof input.value;
             const $io13 = (input: any): boolean =>
-                "exclusiveMinimum" === input.kind &&
-                "number" === typeof input.value;
+                "maxLength" === input.kind && "number" === typeof input.value;
             const $io14 = (input: any): boolean =>
-                "exclusiveMaximum" === input.kind &&
-                "number" === typeof input.value;
+                "items" === input.kind && "number" === typeof input.value;
             const $io15 = (input: any): boolean =>
-                "multipleOf" === input.kind && "number" === typeof input.value;
+                "minItems" === input.kind && "number" === typeof input.value;
             const $io16 = (input: any): boolean =>
-                "step" === input.kind && "number" === typeof input.value;
+                "maxItems" === input.kind && "number" === typeof input.value;
             const $io17 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 (undefined === input.text ||
@@ -3229,21 +3233,21 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                 });
             const $iu0 = (input: any): any =>
                 (() => {
-                    if ("items" === input.kind) return $io2(input);
-                    if ("minItems" === input.kind) return $io3(input);
-                    if ("maxItems" === input.kind) return $io4(input);
-                    if ("format" === input.kind) return $io5(input);
-                    if ("pattern" === input.kind) return $io6(input);
-                    if ("length" === input.kind) return $io7(input);
-                    if ("minLength" === input.kind) return $io8(input);
-                    if ("maxLength" === input.kind) return $io9(input);
-                    if ("type" === input.kind) return $io10(input);
-                    if ("minimum" === input.kind) return $io11(input);
-                    if ("maximum" === input.kind) return $io12(input);
-                    if ("exclusiveMinimum" === input.kind) return $io13(input);
-                    if ("exclusiveMaximum" === input.kind) return $io14(input);
-                    if ("multipleOf" === input.kind) return $io15(input);
-                    if ("step" === input.kind) return $io16(input);
+                    if ("type" === input.kind) return $io2(input);
+                    if ("minimum" === input.kind) return $io3(input);
+                    if ("maximum" === input.kind) return $io4(input);
+                    if ("exclusiveMinimum" === input.kind) return $io5(input);
+                    if ("exclusiveMaximum" === input.kind) return $io6(input);
+                    if ("multipleOf" === input.kind) return $io7(input);
+                    if ("step" === input.kind) return $io8(input);
+                    if ("format" === input.kind) return $io9(input);
+                    if ("pattern" === input.kind) return $io10(input);
+                    if ("length" === input.kind) return $io11(input);
+                    if ("minLength" === input.kind) return $io12(input);
+                    if ("maxLength" === input.kind) return $io13(input);
+                    if ("items" === input.kind) return $io14(input);
+                    if ("minItems" === input.kind) return $io15(input);
+                    if ("maxItems" === input.kind) return $io16(input);
                     return false;
                 })();
             const $iu1 = (input: any): any =>
@@ -3454,10 +3458,19 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                     if ("string" === typeof input.kind)
                         return '"' + input.kind + '"';
                     $throws({
-                        expected: '"items"',
+                        expected: '"type"',
                         value: input.kind,
                     });
-                })()},"value":${$number(input.value)}}`;
+                })()},"value":${(() => {
+                    if ("string" === typeof input.value)
+                        return $string(input.value);
+                    if ("string" === typeof input.value)
+                        return '"' + input.value + '"';
+                    $throws({
+                        expected: '("int" | "uint")',
+                        value: input.value,
+                    });
+                })()}}`;
             const $so3 = (input: any): any =>
                 `{"kind":${(() => {
                     if ("string" === typeof input.kind)
@@ -3465,7 +3478,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                     if ("string" === typeof input.kind)
                         return '"' + input.kind + '"';
                     $throws({
-                        expected: '"minItems"',
+                        expected: '"minimum"',
                         value: input.kind,
                     });
                 })()},"value":${$number(input.value)}}`;
@@ -3476,11 +3489,55 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                     if ("string" === typeof input.kind)
                         return '"' + input.kind + '"';
                     $throws({
-                        expected: '"maxItems"',
+                        expected: '"maximum"',
                         value: input.kind,
                     });
                 })()},"value":${$number(input.value)}}`;
             const $so5 = (input: any): any =>
+                `{"kind":${(() => {
+                    if ("string" === typeof input.kind)
+                        return $string(input.kind);
+                    if ("string" === typeof input.kind)
+                        return '"' + input.kind + '"';
+                    $throws({
+                        expected: '"exclusiveMinimum"',
+                        value: input.kind,
+                    });
+                })()},"value":${$number(input.value)}}`;
+            const $so6 = (input: any): any =>
+                `{"kind":${(() => {
+                    if ("string" === typeof input.kind)
+                        return $string(input.kind);
+                    if ("string" === typeof input.kind)
+                        return '"' + input.kind + '"';
+                    $throws({
+                        expected: '"exclusiveMaximum"',
+                        value: input.kind,
+                    });
+                })()},"value":${$number(input.value)}}`;
+            const $so7 = (input: any): any =>
+                `{"kind":${(() => {
+                    if ("string" === typeof input.kind)
+                        return $string(input.kind);
+                    if ("string" === typeof input.kind)
+                        return '"' + input.kind + '"';
+                    $throws({
+                        expected: '"multipleOf"',
+                        value: input.kind,
+                    });
+                })()},"value":${$number(input.value)}}`;
+            const $so8 = (input: any): any =>
+                `{"kind":${(() => {
+                    if ("string" === typeof input.kind)
+                        return $string(input.kind);
+                    if ("string" === typeof input.kind)
+                        return '"' + input.kind + '"';
+                    $throws({
+                        expected: '"step"',
+                        value: input.kind,
+                    });
+                })()},"value":${$number(input.value)}}`;
+            const $so9 = (input: any): any =>
                 `{"kind":${(() => {
                     if ("string" === typeof input.kind)
                         return $string(input.kind);
@@ -3497,11 +3554,11 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                         return '"' + input.value + '"';
                     $throws({
                         expected:
-                            '("email" | "ipv4" | "ipv6" | "url" | "uuid")',
+                            '("date" | "datetime" | "email" | "ipv4" | "ipv6" | "url" | "uuid")',
                         value: input.value,
                     });
                 })()}}`;
-            const $so6 = (input: any): any =>
+            const $so10 = (input: any): any =>
                 `{"kind":${(() => {
                     if ("string" === typeof input.kind)
                         return $string(input.kind);
@@ -3512,7 +3569,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                         value: input.kind,
                     });
                 })()},"value":${$string(input.value)}}`;
-            const $so7 = (input: any): any =>
+            const $so11 = (input: any): any =>
                 `{"kind":${(() => {
                     if ("string" === typeof input.kind)
                         return $string(input.kind);
@@ -3523,7 +3580,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                         value: input.kind,
                     });
                 })()},"value":${$number(input.value)}}`;
-            const $so8 = (input: any): any =>
+            const $so12 = (input: any): any =>
                 `{"kind":${(() => {
                     if ("string" === typeof input.kind)
                         return $string(input.kind);
@@ -3534,7 +3591,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                         value: input.kind,
                     });
                 })()},"value":${$number(input.value)}}`;
-            const $so9 = (input: any): any =>
+            const $so13 = (input: any): any =>
                 `{"kind":${(() => {
                     if ("string" === typeof input.kind)
                         return $string(input.kind);
@@ -3545,59 +3602,6 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                         value: input.kind,
                     });
                 })()},"value":${$number(input.value)}}`;
-            const $so10 = (input: any): any =>
-                `{"kind":${(() => {
-                    if ("string" === typeof input.kind)
-                        return $string(input.kind);
-                    if ("string" === typeof input.kind)
-                        return '"' + input.kind + '"';
-                    $throws({
-                        expected: '"type"',
-                        value: input.kind,
-                    });
-                })()},"value":${(() => {
-                    if ("string" === typeof input.value)
-                        return $string(input.value);
-                    if ("string" === typeof input.value)
-                        return '"' + input.value + '"';
-                    $throws({
-                        expected: '("int" | "uint")',
-                        value: input.value,
-                    });
-                })()}}`;
-            const $so11 = (input: any): any =>
-                `{"kind":${(() => {
-                    if ("string" === typeof input.kind)
-                        return $string(input.kind);
-                    if ("string" === typeof input.kind)
-                        return '"' + input.kind + '"';
-                    $throws({
-                        expected: '"minimum"',
-                        value: input.kind,
-                    });
-                })()},"value":${$number(input.value)}}`;
-            const $so12 = (input: any): any =>
-                `{"kind":${(() => {
-                    if ("string" === typeof input.kind)
-                        return $string(input.kind);
-                    if ("string" === typeof input.kind)
-                        return '"' + input.kind + '"';
-                    $throws({
-                        expected: '"maximum"',
-                        value: input.kind,
-                    });
-                })()},"value":${$number(input.value)}}`;
-            const $so13 = (input: any): any =>
-                `{"kind":${(() => {
-                    if ("string" === typeof input.kind)
-                        return $string(input.kind);
-                    if ("string" === typeof input.kind)
-                        return '"' + input.kind + '"';
-                    $throws({
-                        expected: '"exclusiveMinimum"',
-                        value: input.kind,
-                    });
-                })()},"value":${$number(input.value)}}`;
             const $so14 = (input: any): any =>
                 `{"kind":${(() => {
                     if ("string" === typeof input.kind)
@@ -3605,7 +3609,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                     if ("string" === typeof input.kind)
                         return '"' + input.kind + '"';
                     $throws({
-                        expected: '"exclusiveMaximum"',
+                        expected: '"items"',
                         value: input.kind,
                     });
                 })()},"value":${$number(input.value)}}`;
@@ -3616,7 +3620,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                     if ("string" === typeof input.kind)
                         return '"' + input.kind + '"';
                     $throws({
-                        expected: '"multipleOf"',
+                        expected: '"minItems"',
                         value: input.kind,
                     });
                 })()},"value":${$number(input.value)}}`;
@@ -3627,7 +3631,7 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                     if ("string" === typeof input.kind)
                         return '"' + input.kind + '"';
                     $throws({
-                        expected: '"step"',
+                        expected: '"maxItems"',
                         value: input.kind,
                     });
                 })()},"value":${$number(input.value)}}`;
@@ -4778,24 +4782,24 @@ export const test_createAssertStringify_UltimateUnion = _test_assertStringify(
                     .join(",")}}`;
             const $su0 = (input: any): any =>
                 (() => {
-                    if ("items" === input.kind) return $so2(input);
-                    if ("minItems" === input.kind) return $so3(input);
-                    if ("maxItems" === input.kind) return $so4(input);
-                    if ("format" === input.kind) return $so5(input);
-                    if ("pattern" === input.kind) return $so6(input);
-                    if ("length" === input.kind) return $so7(input);
-                    if ("minLength" === input.kind) return $so8(input);
-                    if ("maxLength" === input.kind) return $so9(input);
-                    if ("type" === input.kind) return $so10(input);
-                    if ("minimum" === input.kind) return $so11(input);
-                    if ("maximum" === input.kind) return $so12(input);
-                    if ("exclusiveMinimum" === input.kind) return $so13(input);
-                    if ("exclusiveMaximum" === input.kind) return $so14(input);
-                    if ("multipleOf" === input.kind) return $so15(input);
-                    if ("step" === input.kind) return $so16(input);
+                    if ("type" === input.kind) return $so2(input);
+                    if ("minimum" === input.kind) return $so3(input);
+                    if ("maximum" === input.kind) return $so4(input);
+                    if ("exclusiveMinimum" === input.kind) return $so5(input);
+                    if ("exclusiveMaximum" === input.kind) return $so6(input);
+                    if ("multipleOf" === input.kind) return $so7(input);
+                    if ("step" === input.kind) return $so8(input);
+                    if ("format" === input.kind) return $so9(input);
+                    if ("pattern" === input.kind) return $so10(input);
+                    if ("length" === input.kind) return $so11(input);
+                    if ("minLength" === input.kind) return $so12(input);
+                    if ("maxLength" === input.kind) return $so13(input);
+                    if ("items" === input.kind) return $so14(input);
+                    if ("minItems" === input.kind) return $so15(input);
+                    if ("maxItems" === input.kind) return $so16(input);
                     $throws({
                         expected:
-                            "(IMetadataTag.IItems | IMetadataTag.IMinItems | IMetadataTag.IMaxItems | IMetadataTag.IFormat | IMetadataTag.IPattern | IMetadataTag.ILength | IMetadataTag.IMinLength | IMetadataTag.IMaxLength | IMetadataTag.IType | IMetadataTag.IMinimum | IMetadataTag.IMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IExclusiveMaximum | IMetadataTag.IMultipleOf | IMetadataTag.IStep)",
+                            "(IMetadataTag.IType | IMetadataTag.IMinimum | IMetadataTag.IMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IExclusiveMaximum | IMetadataTag.IMultipleOf | IMetadataTag.IStep | IMetadataTag.IFormat | IMetadataTag.IPattern | IMetadataTag.ILength | IMetadataTag.IMinLength | IMetadataTag.IMaxLength | IMetadataTag.IItems | IMetadataTag.IMinItems | IMetadataTag.IMaxItems)",
                         value: input,
                     });
                 })();

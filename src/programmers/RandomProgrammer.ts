@@ -344,10 +344,7 @@ export namespace RandomProgrammer {
         (importer: FunctionImporter) =>
         (tags: IMetadataTag[]): ts.Expression => {
             for (const t of tags)
-                if (
-                    t.kind === "format" &&
-                    ["uuid", "email", "url", "ipv4", "ipv6"].includes(t.value)
-                )
+                if (t.kind === "format")
                     return ts.factory.createCallExpression(
                         COALESCE(importer)(t.value),
                         undefined,

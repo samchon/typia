@@ -160,38 +160,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
-                },
-                {
                   "$ref": "components#/schemas/IMetadataTag.IType",
                   "x-typia-required": false
                 },
@@ -217,6 +185,38 @@
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IFormat",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IPattern",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.ILength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
                   "x-typia-required": false
                 }
               ],
@@ -250,213 +250,6 @@
           "enum",
           "type",
           "nullable"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "IMetadataTag.IItems": {
-        "$id": "components#/schemas/IMetadataTag.IItems",
-        "type": "object",
-        "properties": {
-          "kind": {
-            "type": "string",
-            "enum": [
-              "items"
-            ],
-            "nullable": false,
-            "x-typia-required": true
-          },
-          "value": {
-            "type": "number",
-            "nullable": false,
-            "x-typia-required": true
-          }
-        },
-        "nullable": false,
-        "required": [
-          "kind",
-          "value"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "IMetadataTag.IMinItems": {
-        "$id": "components#/schemas/IMetadataTag.IMinItems",
-        "type": "object",
-        "properties": {
-          "kind": {
-            "type": "string",
-            "enum": [
-              "minItems"
-            ],
-            "nullable": false,
-            "x-typia-required": true
-          },
-          "value": {
-            "type": "number",
-            "nullable": false,
-            "x-typia-required": true
-          }
-        },
-        "nullable": false,
-        "required": [
-          "kind",
-          "value"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "IMetadataTag.IMaxItems": {
-        "$id": "components#/schemas/IMetadataTag.IMaxItems",
-        "type": "object",
-        "properties": {
-          "kind": {
-            "type": "string",
-            "enum": [
-              "maxItems"
-            ],
-            "nullable": false,
-            "x-typia-required": true
-          },
-          "value": {
-            "type": "number",
-            "nullable": false,
-            "x-typia-required": true
-          }
-        },
-        "nullable": false,
-        "required": [
-          "kind",
-          "value"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "IMetadataTag.IFormat": {
-        "$id": "components#/schemas/IMetadataTag.IFormat",
-        "type": "object",
-        "properties": {
-          "kind": {
-            "type": "string",
-            "enum": [
-              "format"
-            ],
-            "nullable": false,
-            "x-typia-required": true
-          },
-          "value": {
-            "type": "string",
-            "enum": [
-              "uuid",
-              "email",
-              "url",
-              "ipv4",
-              "ipv6"
-            ],
-            "nullable": false,
-            "x-typia-required": true
-          }
-        },
-        "nullable": false,
-        "required": [
-          "kind",
-          "value"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "IMetadataTag.IPattern": {
-        "$id": "components#/schemas/IMetadataTag.IPattern",
-        "type": "object",
-        "properties": {
-          "kind": {
-            "type": "string",
-            "enum": [
-              "pattern"
-            ],
-            "nullable": false,
-            "x-typia-required": true
-          },
-          "value": {
-            "type": "string",
-            "nullable": false,
-            "x-typia-required": true
-          }
-        },
-        "nullable": false,
-        "required": [
-          "kind",
-          "value"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "IMetadataTag.ILength": {
-        "$id": "components#/schemas/IMetadataTag.ILength",
-        "type": "object",
-        "properties": {
-          "kind": {
-            "type": "string",
-            "enum": [
-              "length"
-            ],
-            "nullable": false,
-            "x-typia-required": true
-          },
-          "value": {
-            "type": "number",
-            "nullable": false,
-            "x-typia-required": true
-          }
-        },
-        "nullable": false,
-        "required": [
-          "kind",
-          "value"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "IMetadataTag.IMinLength": {
-        "$id": "components#/schemas/IMetadataTag.IMinLength",
-        "type": "object",
-        "properties": {
-          "kind": {
-            "type": "string",
-            "enum": [
-              "minLength"
-            ],
-            "nullable": false,
-            "x-typia-required": true
-          },
-          "value": {
-            "type": "number",
-            "nullable": false,
-            "x-typia-required": true
-          }
-        },
-        "nullable": false,
-        "required": [
-          "kind",
-          "value"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "IMetadataTag.IMaxLength": {
-        "$id": "components#/schemas/IMetadataTag.IMaxLength",
-        "type": "object",
-        "properties": {
-          "kind": {
-            "type": "string",
-            "enum": [
-              "maxLength"
-            ],
-            "nullable": false,
-            "x-typia-required": true
-          },
-          "value": {
-            "type": "number",
-            "nullable": false,
-            "x-typia-required": true
-          }
-        },
-        "nullable": false,
-        "required": [
-          "kind",
-          "value"
         ],
         "x-typia-jsDocTags": []
       },
@@ -639,6 +432,215 @@
         ],
         "x-typia-jsDocTags": []
       },
+      "IMetadataTag.IFormat": {
+        "$id": "components#/schemas/IMetadataTag.IFormat",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "format"
+            ],
+            "nullable": false,
+            "x-typia-required": true
+          },
+          "value": {
+            "type": "string",
+            "enum": [
+              "uuid",
+              "email",
+              "url",
+              "ipv4",
+              "ipv6",
+              "date",
+              "datetime"
+            ],
+            "nullable": false,
+            "x-typia-required": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "kind",
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "IMetadataTag.IPattern": {
+        "$id": "components#/schemas/IMetadataTag.IPattern",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "pattern"
+            ],
+            "nullable": false,
+            "x-typia-required": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": false,
+            "x-typia-required": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "kind",
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "IMetadataTag.ILength": {
+        "$id": "components#/schemas/IMetadataTag.ILength",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "length"
+            ],
+            "nullable": false,
+            "x-typia-required": true
+          },
+          "value": {
+            "type": "number",
+            "nullable": false,
+            "x-typia-required": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "kind",
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "IMetadataTag.IMinLength": {
+        "$id": "components#/schemas/IMetadataTag.IMinLength",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "minLength"
+            ],
+            "nullable": false,
+            "x-typia-required": true
+          },
+          "value": {
+            "type": "number",
+            "nullable": false,
+            "x-typia-required": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "kind",
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "IMetadataTag.IMaxLength": {
+        "$id": "components#/schemas/IMetadataTag.IMaxLength",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "maxLength"
+            ],
+            "nullable": false,
+            "x-typia-required": true
+          },
+          "value": {
+            "type": "number",
+            "nullable": false,
+            "x-typia-required": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "kind",
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "IMetadataTag.IItems": {
+        "$id": "components#/schemas/IMetadataTag.IItems",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "items"
+            ],
+            "nullable": false,
+            "x-typia-required": true
+          },
+          "value": {
+            "type": "number",
+            "nullable": false,
+            "x-typia-required": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "kind",
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "IMetadataTag.IMinItems": {
+        "$id": "components#/schemas/IMetadataTag.IMinItems",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "minItems"
+            ],
+            "nullable": false,
+            "x-typia-required": true
+          },
+          "value": {
+            "type": "number",
+            "nullable": false,
+            "x-typia-required": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "kind",
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "IMetadataTag.IMaxItems": {
+        "$id": "components#/schemas/IMetadataTag.IMaxItems",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "maxItems"
+            ],
+            "nullable": false,
+            "x-typia-required": true
+          },
+          "value": {
+            "type": "number",
+            "nullable": false,
+            "x-typia-required": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "kind",
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
       "IJsDocTagInfo": {
         "$id": "components#/schemas/IJsDocTagInfo",
         "type": "object",
@@ -738,38 +740,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
-                },
-                {
                   "$ref": "components#/schemas/IMetadataTag.IType",
                   "x-typia-required": false
                 },
@@ -795,6 +765,38 @@
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IFormat",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IPattern",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.ILength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
                   "x-typia-required": false
                 }
               ],
@@ -883,38 +885,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
-                },
-                {
                   "$ref": "components#/schemas/IMetadataTag.IType",
                   "x-typia-required": false
                 },
@@ -940,6 +910,38 @@
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IFormat",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IPattern",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.ILength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
                   "x-typia-required": false
                 }
               ],
@@ -1018,38 +1020,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
-                },
-                {
                   "$ref": "components#/schemas/IMetadataTag.IType",
                   "x-typia-required": false
                 },
@@ -1075,6 +1045,38 @@
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IFormat",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IPattern",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.ILength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
                   "x-typia-required": false
                 }
               ],
@@ -1228,38 +1230,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
-                },
-                {
                   "$ref": "components#/schemas/IMetadataTag.IType",
                   "x-typia-required": false
                 },
@@ -1285,6 +1255,38 @@
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IFormat",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IPattern",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.ILength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
                   "x-typia-required": false
                 }
               ],
@@ -1387,38 +1389,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
-                },
-                {
                   "$ref": "components#/schemas/IMetadataTag.IType",
                   "x-typia-required": false
                 },
@@ -1444,6 +1414,38 @@
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IFormat",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IPattern",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.ILength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
                   "x-typia-required": false
                 }
               ],
@@ -1577,38 +1579,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
-                },
-                {
                   "$ref": "components#/schemas/IMetadataTag.IType",
                   "x-typia-required": false
                 },
@@ -1634,6 +1604,38 @@
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IFormat",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IPattern",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.ILength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
                   "x-typia-required": false
                 }
               ],
@@ -1818,38 +1820,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
-                },
-                {
                   "$ref": "components#/schemas/IMetadataTag.IType",
                   "x-typia-required": false
                 },
@@ -1875,6 +1845,38 @@
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IFormat",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IPattern",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.ILength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
                   "x-typia-required": false
                 }
               ],
@@ -2015,38 +2017,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
-                },
-                {
                   "$ref": "components#/schemas/IMetadataTag.IType",
                   "x-typia-required": false
                 },
@@ -2072,6 +2042,38 @@
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IFormat",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IPattern",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.ILength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
                   "x-typia-required": false
                 }
               ],
@@ -2199,38 +2201,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
-                },
-                {
                   "$ref": "components#/schemas/IMetadataTag.IType",
                   "x-typia-required": false
                 },
@@ -2256,6 +2226,38 @@
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IFormat",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IPattern",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.ILength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
                   "x-typia-required": false
                 }
               ],
@@ -2319,38 +2321,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
-                },
-                {
                   "$ref": "components#/schemas/IMetadataTag.IType",
                   "x-typia-required": false
                 },
@@ -2376,6 +2346,38 @@
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IFormat",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IPattern",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.ILength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
                   "x-typia-required": false
                 }
               ],
@@ -2439,38 +2441,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
-                },
-                {
                   "$ref": "components#/schemas/IMetadataTag.IType",
                   "x-typia-required": false
                 },
@@ -2496,6 +2466,38 @@
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IFormat",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IPattern",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.ILength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
                   "x-typia-required": false
                 }
               ],
@@ -2562,38 +2564,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
-                },
-                {
-                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
-                },
-                {
                   "$ref": "components#/schemas/IMetadataTag.IType",
                   "x-typia-required": false
                 },
@@ -2619,6 +2589,38 @@
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IFormat",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IPattern",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.ILength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
                   "x-typia-required": false
                 }
               ],

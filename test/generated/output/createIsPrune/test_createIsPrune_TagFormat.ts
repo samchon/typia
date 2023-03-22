@@ -12,6 +12,8 @@ export const test_createIsPrune_TagFormat = _test_isPrune(
             const $is_url = (typia.createIsPrune as any).is_url;
             const $is_ipv4 = (typia.createIsPrune as any).is_ipv4;
             const $is_ipv6 = (typia.createIsPrune as any).is_ipv6;
+            const $is_date = (typia.createIsPrune as any).is_date;
+            const $is_datetime = (typia.createIsPrune as any).is_datetime;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.uuid &&
                 true === $is_uuid(input.uuid) &&
@@ -23,6 +25,14 @@ export const test_createIsPrune_TagFormat = _test_isPrune(
                 true === $is_ipv4(input.ipv4) &&
                 "string" === typeof input.ipv6 &&
                 true === $is_ipv6(input.ipv6) &&
+                "string" === typeof input.date &&
+                true === $is_date(input.date) &&
+                "string" === typeof input.date_time &&
+                true === $is_datetime(input.date_time) &&
+                "string" === typeof input.datetime &&
+                true === $is_datetime(input.datetime) &&
+                "string" === typeof input.dateTime &&
+                true === $is_datetime(input.dateTime) &&
                 "string" === typeof input.custom;
             return "object" === typeof input && null !== input && $io0(input);
         };
@@ -32,6 +42,8 @@ export const test_createIsPrune_TagFormat = _test_isPrune(
             const $is_url = (typia.createIsPrune as any).is_url;
             const $is_ipv4 = (typia.createIsPrune as any).is_ipv4;
             const $is_ipv6 = (typia.createIsPrune as any).is_ipv6;
+            const $is_date = (typia.createIsPrune as any).is_date;
+            const $is_datetime = (typia.createIsPrune as any).is_datetime;
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if (
@@ -40,6 +52,10 @@ export const test_createIsPrune_TagFormat = _test_isPrune(
                         "url" === key ||
                         "ipv4" === key ||
                         "ipv6" === key ||
+                        "date" === key ||
+                        "date_time" === key ||
+                        "datetime" === key ||
+                        "dateTime" === key ||
                         "custom" === key
                     )
                         continue;

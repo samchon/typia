@@ -13,6 +13,8 @@ export const test_isParse_TagFormat = _test_isParse(
                 const $is_url = (typia.isParse as any).is_url;
                 const $is_ipv4 = (typia.isParse as any).is_ipv4;
                 const $is_ipv6 = (typia.isParse as any).is_ipv6;
+                const $is_date = (typia.isParse as any).is_date;
+                const $is_datetime = (typia.isParse as any).is_datetime;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
                     true === $is_uuid(input.uuid) &&
@@ -24,6 +26,14 @@ export const test_isParse_TagFormat = _test_isParse(
                     true === $is_ipv4(input.ipv4) &&
                     "string" === typeof input.ipv6 &&
                     true === $is_ipv6(input.ipv6) &&
+                    "string" === typeof input.date &&
+                    true === $is_date(input.date) &&
+                    "string" === typeof input.date_time &&
+                    true === $is_datetime(input.date_time) &&
+                    "string" === typeof input.datetime &&
+                    true === $is_datetime(input.datetime) &&
+                    "string" === typeof input.dateTime &&
+                    true === $is_datetime(input.dateTime) &&
                     "string" === typeof input.custom;
                 return (
                     "object" === typeof input && null !== input && $io0(input)

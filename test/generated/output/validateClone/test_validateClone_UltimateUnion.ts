@@ -301,169 +301,6 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                         _exceptionable: boolean = true,
                     ): boolean =>
                         [
-                            "items" === input.kind ||
-                                $report(_exceptionable, {
-                                    path: _path + ".kind",
-                                    expected: '"items"',
-                                    value: input.kind,
-                                }),
-                            ("number" === typeof input.value &&
-                                Number.isFinite(input.value)) ||
-                                $report(_exceptionable, {
-                                    path: _path + ".value",
-                                    expected: "number",
-                                    value: input.value,
-                                }),
-                        ].every((flag: boolean) => flag);
-                    const $vo3 = (
-                        input: any,
-                        _path: string,
-                        _exceptionable: boolean = true,
-                    ): boolean =>
-                        [
-                            "minItems" === input.kind ||
-                                $report(_exceptionable, {
-                                    path: _path + ".kind",
-                                    expected: '"minItems"',
-                                    value: input.kind,
-                                }),
-                            ("number" === typeof input.value &&
-                                Number.isFinite(input.value)) ||
-                                $report(_exceptionable, {
-                                    path: _path + ".value",
-                                    expected: "number",
-                                    value: input.value,
-                                }),
-                        ].every((flag: boolean) => flag);
-                    const $vo4 = (
-                        input: any,
-                        _path: string,
-                        _exceptionable: boolean = true,
-                    ): boolean =>
-                        [
-                            "maxItems" === input.kind ||
-                                $report(_exceptionable, {
-                                    path: _path + ".kind",
-                                    expected: '"maxItems"',
-                                    value: input.kind,
-                                }),
-                            ("number" === typeof input.value &&
-                                Number.isFinite(input.value)) ||
-                                $report(_exceptionable, {
-                                    path: _path + ".value",
-                                    expected: "number",
-                                    value: input.value,
-                                }),
-                        ].every((flag: boolean) => flag);
-                    const $vo5 = (
-                        input: any,
-                        _path: string,
-                        _exceptionable: boolean = true,
-                    ): boolean =>
-                        [
-                            "format" === input.kind ||
-                                $report(_exceptionable, {
-                                    path: _path + ".kind",
-                                    expected: '"format"',
-                                    value: input.kind,
-                                }),
-                            "url" === input.value ||
-                                "uuid" === input.value ||
-                                "email" === input.value ||
-                                "ipv4" === input.value ||
-                                "ipv6" === input.value ||
-                                $report(_exceptionable, {
-                                    path: _path + ".value",
-                                    expected:
-                                        '("email" | "ipv4" | "ipv6" | "url" | "uuid")',
-                                    value: input.value,
-                                }),
-                        ].every((flag: boolean) => flag);
-                    const $vo6 = (
-                        input: any,
-                        _path: string,
-                        _exceptionable: boolean = true,
-                    ): boolean =>
-                        [
-                            "pattern" === input.kind ||
-                                $report(_exceptionable, {
-                                    path: _path + ".kind",
-                                    expected: '"pattern"',
-                                    value: input.kind,
-                                }),
-                            "string" === typeof input.value ||
-                                $report(_exceptionable, {
-                                    path: _path + ".value",
-                                    expected: "string",
-                                    value: input.value,
-                                }),
-                        ].every((flag: boolean) => flag);
-                    const $vo7 = (
-                        input: any,
-                        _path: string,
-                        _exceptionable: boolean = true,
-                    ): boolean =>
-                        [
-                            "length" === input.kind ||
-                                $report(_exceptionable, {
-                                    path: _path + ".kind",
-                                    expected: '"length"',
-                                    value: input.kind,
-                                }),
-                            ("number" === typeof input.value &&
-                                Number.isFinite(input.value)) ||
-                                $report(_exceptionable, {
-                                    path: _path + ".value",
-                                    expected: "number",
-                                    value: input.value,
-                                }),
-                        ].every((flag: boolean) => flag);
-                    const $vo8 = (
-                        input: any,
-                        _path: string,
-                        _exceptionable: boolean = true,
-                    ): boolean =>
-                        [
-                            "minLength" === input.kind ||
-                                $report(_exceptionable, {
-                                    path: _path + ".kind",
-                                    expected: '"minLength"',
-                                    value: input.kind,
-                                }),
-                            ("number" === typeof input.value &&
-                                Number.isFinite(input.value)) ||
-                                $report(_exceptionable, {
-                                    path: _path + ".value",
-                                    expected: "number",
-                                    value: input.value,
-                                }),
-                        ].every((flag: boolean) => flag);
-                    const $vo9 = (
-                        input: any,
-                        _path: string,
-                        _exceptionable: boolean = true,
-                    ): boolean =>
-                        [
-                            "maxLength" === input.kind ||
-                                $report(_exceptionable, {
-                                    path: _path + ".kind",
-                                    expected: '"maxLength"',
-                                    value: input.kind,
-                                }),
-                            ("number" === typeof input.value &&
-                                Number.isFinite(input.value)) ||
-                                $report(_exceptionable, {
-                                    path: _path + ".value",
-                                    expected: "number",
-                                    value: input.value,
-                                }),
-                        ].every((flag: boolean) => flag);
-                    const $vo10 = (
-                        input: any,
-                        _path: string,
-                        _exceptionable: boolean = true,
-                    ): boolean =>
-                        [
                             "type" === input.kind ||
                                 $report(_exceptionable, {
                                     path: _path + ".kind",
@@ -478,7 +315,7 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo11 = (
+                    const $vo3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -498,7 +335,7 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo12 = (
+                    const $vo4 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -518,7 +355,7 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo13 = (
+                    const $vo5 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -538,7 +375,7 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo14 = (
+                    const $vo6 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -558,7 +395,7 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo15 = (
+                    const $vo7 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -578,7 +415,7 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo16 = (
+                    const $vo8 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -588,6 +425,171 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                 $report(_exceptionable, {
                                     path: _path + ".kind",
                                     expected: '"step"',
+                                    value: input.kind,
+                                }),
+                            ("number" === typeof input.value &&
+                                Number.isFinite(input.value)) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "number",
+                                    value: input.value,
+                                }),
+                        ].every((flag: boolean) => flag);
+                    const $vo9 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        [
+                            "format" === input.kind ||
+                                $report(_exceptionable, {
+                                    path: _path + ".kind",
+                                    expected: '"format"',
+                                    value: input.kind,
+                                }),
+                            "url" === input.value ||
+                                "uuid" === input.value ||
+                                "email" === input.value ||
+                                "ipv4" === input.value ||
+                                "ipv6" === input.value ||
+                                "date" === input.value ||
+                                "datetime" === input.value ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected:
+                                        '("date" | "datetime" | "email" | "ipv4" | "ipv6" | "url" | "uuid")',
+                                    value: input.value,
+                                }),
+                        ].every((flag: boolean) => flag);
+                    const $vo10 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        [
+                            "pattern" === input.kind ||
+                                $report(_exceptionable, {
+                                    path: _path + ".kind",
+                                    expected: '"pattern"',
+                                    value: input.kind,
+                                }),
+                            "string" === typeof input.value ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "string",
+                                    value: input.value,
+                                }),
+                        ].every((flag: boolean) => flag);
+                    const $vo11 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        [
+                            "length" === input.kind ||
+                                $report(_exceptionable, {
+                                    path: _path + ".kind",
+                                    expected: '"length"',
+                                    value: input.kind,
+                                }),
+                            ("number" === typeof input.value &&
+                                Number.isFinite(input.value)) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "number",
+                                    value: input.value,
+                                }),
+                        ].every((flag: boolean) => flag);
+                    const $vo12 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        [
+                            "minLength" === input.kind ||
+                                $report(_exceptionable, {
+                                    path: _path + ".kind",
+                                    expected: '"minLength"',
+                                    value: input.kind,
+                                }),
+                            ("number" === typeof input.value &&
+                                Number.isFinite(input.value)) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "number",
+                                    value: input.value,
+                                }),
+                        ].every((flag: boolean) => flag);
+                    const $vo13 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        [
+                            "maxLength" === input.kind ||
+                                $report(_exceptionable, {
+                                    path: _path + ".kind",
+                                    expected: '"maxLength"',
+                                    value: input.kind,
+                                }),
+                            ("number" === typeof input.value &&
+                                Number.isFinite(input.value)) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "number",
+                                    value: input.value,
+                                }),
+                        ].every((flag: boolean) => flag);
+                    const $vo14 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        [
+                            "items" === input.kind ||
+                                $report(_exceptionable, {
+                                    path: _path + ".kind",
+                                    expected: '"items"',
+                                    value: input.kind,
+                                }),
+                            ("number" === typeof input.value &&
+                                Number.isFinite(input.value)) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "number",
+                                    value: input.value,
+                                }),
+                        ].every((flag: boolean) => flag);
+                    const $vo15 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        [
+                            "minItems" === input.kind ||
+                                $report(_exceptionable, {
+                                    path: _path + ".kind",
+                                    expected: '"minItems"',
+                                    value: input.kind,
+                                }),
+                            ("number" === typeof input.value &&
+                                Number.isFinite(input.value)) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "number",
+                                    value: input.value,
+                                }),
+                        ].every((flag: boolean) => flag);
+                    const $vo16 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        [
+                            "maxItems" === input.kind ||
+                                $report(_exceptionable, {
+                                    path: _path + ".kind",
+                                    expected: '"maxItems"',
                                     value: input.kind,
                                 }),
                             ("number" === typeof input.value &&
@@ -3236,91 +3238,91 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                         _exceptionable: boolean = true,
                     ): any =>
                         (() => {
-                            if ("items" === input.kind)
+                            if ("type" === input.kind)
                                 return $vo2(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("minItems" === input.kind)
+                            if ("minimum" === input.kind)
                                 return $vo3(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("maxItems" === input.kind)
+                            if ("maximum" === input.kind)
                                 return $vo4(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("format" === input.kind)
+                            if ("exclusiveMinimum" === input.kind)
                                 return $vo5(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("pattern" === input.kind)
+                            if ("exclusiveMaximum" === input.kind)
                                 return $vo6(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("length" === input.kind)
+                            if ("multipleOf" === input.kind)
                                 return $vo7(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("minLength" === input.kind)
+                            if ("step" === input.kind)
                                 return $vo8(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("maxLength" === input.kind)
+                            if ("format" === input.kind)
                                 return $vo9(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("type" === input.kind)
+                            if ("pattern" === input.kind)
                                 return $vo10(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("minimum" === input.kind)
+                            if ("length" === input.kind)
                                 return $vo11(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("maximum" === input.kind)
+                            if ("minLength" === input.kind)
                                 return $vo12(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("exclusiveMinimum" === input.kind)
+                            if ("maxLength" === input.kind)
                                 return $vo13(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("exclusiveMaximum" === input.kind)
+                            if ("items" === input.kind)
                                 return $vo14(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("multipleOf" === input.kind)
+                            if ("minItems" === input.kind)
                                 return $vo15(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("step" === input.kind)
+                            if ("maxItems" === input.kind)
                                 return $vo16(
                                     input,
                                     _path,
@@ -3329,7 +3331,7 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                             return $report(_exceptionable, {
                                 path: _path,
                                 expected:
-                                    "(IMetadataTag.IItems | IMetadataTag.IMinItems | IMetadataTag.IMaxItems | IMetadataTag.IFormat | IMetadataTag.IPattern | IMetadataTag.ILength | IMetadataTag.IMinLength | IMetadataTag.IMaxLength | IMetadataTag.IType | IMetadataTag.IMinimum | IMetadataTag.IMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IExclusiveMaximum | IMetadataTag.IMultipleOf | IMetadataTag.IStep)",
+                                    "(IMetadataTag.IType | IMetadataTag.IMinimum | IMetadataTag.IMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IExclusiveMaximum | IMetadataTag.IMultipleOf | IMetadataTag.IStep | IMetadataTag.IFormat | IMetadataTag.IPattern | IMetadataTag.ILength | IMetadataTag.IMinLength | IMetadataTag.IMaxLength | IMetadataTag.IItems | IMetadataTag.IMinItems | IMetadataTag.IMaxItems)",
                                 value: input,
                             });
                         })();
@@ -3675,48 +3677,50 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                     (undefined === input["x-typia-rest"] ||
                         "boolean" === typeof input["x-typia-rest"]);
                 const $io2 = (input: any): boolean =>
-                    "items" === input.kind && "number" === typeof input.value;
+                    "type" === input.kind &&
+                    ("int" === input.value || "uint" === input.value);
                 const $io3 = (input: any): boolean =>
-                    "minItems" === input.kind &&
-                    "number" === typeof input.value;
+                    "minimum" === input.kind && "number" === typeof input.value;
                 const $io4 = (input: any): boolean =>
-                    "maxItems" === input.kind &&
-                    "number" === typeof input.value;
+                    "maximum" === input.kind && "number" === typeof input.value;
                 const $io5 = (input: any): boolean =>
+                    "exclusiveMinimum" === input.kind &&
+                    "number" === typeof input.value;
+                const $io6 = (input: any): boolean =>
+                    "exclusiveMaximum" === input.kind &&
+                    "number" === typeof input.value;
+                const $io7 = (input: any): boolean =>
+                    "multipleOf" === input.kind &&
+                    "number" === typeof input.value;
+                const $io8 = (input: any): boolean =>
+                    "step" === input.kind && "number" === typeof input.value;
+                const $io9 = (input: any): boolean =>
                     "format" === input.kind &&
                     ("url" === input.value ||
                         "uuid" === input.value ||
                         "email" === input.value ||
                         "ipv4" === input.value ||
-                        "ipv6" === input.value);
-                const $io6 = (input: any): boolean =>
+                        "ipv6" === input.value ||
+                        "date" === input.value ||
+                        "datetime" === input.value);
+                const $io10 = (input: any): boolean =>
                     "pattern" === input.kind && "string" === typeof input.value;
-                const $io7 = (input: any): boolean =>
+                const $io11 = (input: any): boolean =>
                     "length" === input.kind && "number" === typeof input.value;
-                const $io8 = (input: any): boolean =>
+                const $io12 = (input: any): boolean =>
                     "minLength" === input.kind &&
                     "number" === typeof input.value;
-                const $io9 = (input: any): boolean =>
+                const $io13 = (input: any): boolean =>
                     "maxLength" === input.kind &&
                     "number" === typeof input.value;
-                const $io10 = (input: any): boolean =>
-                    "type" === input.kind &&
-                    ("int" === input.value || "uint" === input.value);
-                const $io11 = (input: any): boolean =>
-                    "minimum" === input.kind && "number" === typeof input.value;
-                const $io12 = (input: any): boolean =>
-                    "maximum" === input.kind && "number" === typeof input.value;
-                const $io13 = (input: any): boolean =>
-                    "exclusiveMinimum" === input.kind &&
-                    "number" === typeof input.value;
                 const $io14 = (input: any): boolean =>
-                    "exclusiveMaximum" === input.kind &&
-                    "number" === typeof input.value;
+                    "items" === input.kind && "number" === typeof input.value;
                 const $io15 = (input: any): boolean =>
-                    "multipleOf" === input.kind &&
+                    "minItems" === input.kind &&
                     "number" === typeof input.value;
                 const $io16 = (input: any): boolean =>
-                    "step" === input.kind && "number" === typeof input.value;
+                    "maxItems" === input.kind &&
+                    "number" === typeof input.value;
                 const $io17 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     (undefined === input.text ||
@@ -4248,23 +4252,23 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                     });
                 const $iu0 = (input: any): any =>
                     (() => {
-                        if ("items" === input.kind) return $io2(input);
-                        if ("minItems" === input.kind) return $io3(input);
-                        if ("maxItems" === input.kind) return $io4(input);
-                        if ("format" === input.kind) return $io5(input);
-                        if ("pattern" === input.kind) return $io6(input);
-                        if ("length" === input.kind) return $io7(input);
-                        if ("minLength" === input.kind) return $io8(input);
-                        if ("maxLength" === input.kind) return $io9(input);
-                        if ("type" === input.kind) return $io10(input);
-                        if ("minimum" === input.kind) return $io11(input);
-                        if ("maximum" === input.kind) return $io12(input);
+                        if ("type" === input.kind) return $io2(input);
+                        if ("minimum" === input.kind) return $io3(input);
+                        if ("maximum" === input.kind) return $io4(input);
                         if ("exclusiveMinimum" === input.kind)
-                            return $io13(input);
+                            return $io5(input);
                         if ("exclusiveMaximum" === input.kind)
-                            return $io14(input);
-                        if ("multipleOf" === input.kind) return $io15(input);
-                        if ("step" === input.kind) return $io16(input);
+                            return $io6(input);
+                        if ("multipleOf" === input.kind) return $io7(input);
+                        if ("step" === input.kind) return $io8(input);
+                        if ("format" === input.kind) return $io9(input);
+                        if ("pattern" === input.kind) return $io10(input);
+                        if ("length" === input.kind) return $io11(input);
+                        if ("minLength" === input.kind) return $io12(input);
+                        if ("maxLength" === input.kind) return $io13(input);
+                        if ("items" === input.kind) return $io14(input);
+                        if ("minItems" === input.kind) return $io15(input);
+                        if ("maxItems" === input.kind) return $io16(input);
                         return false;
                     })();
                 const $iu1 = (input: any): any =>
@@ -4922,26 +4926,26 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                 };
                 const $cu0 = (input: any): any =>
                     (() => {
-                        if ("items" === input.kind) return $co2(input);
-                        if ("minItems" === input.kind) return $co3(input);
-                        if ("maxItems" === input.kind) return $co4(input);
-                        if ("format" === input.kind) return $co5(input);
-                        if ("pattern" === input.kind) return $co6(input);
-                        if ("length" === input.kind) return $co7(input);
-                        if ("minLength" === input.kind) return $co8(input);
-                        if ("maxLength" === input.kind) return $co9(input);
-                        if ("type" === input.kind) return $co10(input);
-                        if ("minimum" === input.kind) return $co11(input);
-                        if ("maximum" === input.kind) return $co12(input);
+                        if ("type" === input.kind) return $co2(input);
+                        if ("minimum" === input.kind) return $co3(input);
+                        if ("maximum" === input.kind) return $co4(input);
                         if ("exclusiveMinimum" === input.kind)
-                            return $co13(input);
+                            return $co5(input);
                         if ("exclusiveMaximum" === input.kind)
-                            return $co14(input);
-                        if ("multipleOf" === input.kind) return $co15(input);
-                        if ("step" === input.kind) return $co16(input);
+                            return $co6(input);
+                        if ("multipleOf" === input.kind) return $co7(input);
+                        if ("step" === input.kind) return $co8(input);
+                        if ("format" === input.kind) return $co9(input);
+                        if ("pattern" === input.kind) return $co10(input);
+                        if ("length" === input.kind) return $co11(input);
+                        if ("minLength" === input.kind) return $co12(input);
+                        if ("maxLength" === input.kind) return $co13(input);
+                        if ("items" === input.kind) return $co14(input);
+                        if ("minItems" === input.kind) return $co15(input);
+                        if ("maxItems" === input.kind) return $co16(input);
                         $throws({
                             expected:
-                                "(IMetadataTag.IItems | IMetadataTag.IMinItems | IMetadataTag.IMaxItems | IMetadataTag.IFormat | IMetadataTag.IPattern | IMetadataTag.ILength | IMetadataTag.IMinLength | IMetadataTag.IMaxLength | IMetadataTag.IType | IMetadataTag.IMinimum | IMetadataTag.IMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IExclusiveMaximum | IMetadataTag.IMultipleOf | IMetadataTag.IStep)",
+                                "(IMetadataTag.IType | IMetadataTag.IMinimum | IMetadataTag.IMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IExclusiveMaximum | IMetadataTag.IMultipleOf | IMetadataTag.IStep | IMetadataTag.IFormat | IMetadataTag.IPattern | IMetadataTag.ILength | IMetadataTag.IMinLength | IMetadataTag.IMaxLength | IMetadataTag.IItems | IMetadataTag.IMinItems | IMetadataTag.IMaxItems)",
                             value: input,
                         });
                     })();

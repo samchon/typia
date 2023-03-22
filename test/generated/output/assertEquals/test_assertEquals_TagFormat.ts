@@ -13,6 +13,8 @@ export const test_assertEquals_TagFormat = _test_assertEquals(
             const $is_url = (typia.assertEquals as any).is_url;
             const $is_ipv4 = (typia.assertEquals as any).is_ipv4;
             const $is_ipv6 = (typia.assertEquals as any).is_ipv6;
+            const $is_date = (typia.assertEquals as any).is_date;
+            const $is_datetime = (typia.assertEquals as any).is_datetime;
             const $join = (typia.assertEquals as any).join;
             ((
                 input: any,
@@ -59,13 +61,41 @@ export const test_assertEquals_TagFormat = _test_assertEquals(
                             expected: "string",
                             value: input.ipv6,
                         })) &&
+                    (("string" === typeof input.date &&
+                        true === $is_date(input.date)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".date",
+                            expected: "string",
+                            value: input.date,
+                        })) &&
+                    (("string" === typeof input.date_time &&
+                        true === $is_datetime(input.date_time)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".date_time",
+                            expected: "string",
+                            value: input.date_time,
+                        })) &&
+                    (("string" === typeof input.datetime &&
+                        true === $is_datetime(input.datetime)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".datetime",
+                            expected: "string",
+                            value: input.datetime,
+                        })) &&
+                    (("string" === typeof input.dateTime &&
+                        true === $is_datetime(input.dateTime)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".dateTime",
+                            expected: "string",
+                            value: input.dateTime,
+                        })) &&
                     ("string" === typeof input.custom ||
                         $guard(_exceptionable, {
                             path: _path + ".custom",
                             expected: "string",
                             value: input.custom,
                         })) &&
-                    (6 === Object.keys(input).length ||
+                    (10 === Object.keys(input).length ||
                         false === _exceptionable ||
                         Object.keys(input).every((key) => {
                             if (
@@ -75,6 +105,10 @@ export const test_assertEquals_TagFormat = _test_assertEquals(
                                     "url",
                                     "ipv4",
                                     "ipv6",
+                                    "date",
+                                    "date_time",
+                                    "datetime",
+                                    "dateTime",
                                     "custom",
                                 ].some((prop) => key === prop)
                             )

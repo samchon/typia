@@ -14,6 +14,8 @@ export const test_createValidatePrune_TagFormat = _test_validatePrune(
             const $is_url = (typia.createValidatePrune as any).is_url;
             const $is_ipv4 = (typia.createValidatePrune as any).is_ipv4;
             const $is_ipv6 = (typia.createValidatePrune as any).is_ipv6;
+            const $is_date = (typia.createValidatePrune as any).is_date;
+            const $is_datetime = (typia.createValidatePrune as any).is_datetime;
             ((
                 input: any,
                 _path: string,
@@ -60,6 +62,34 @@ export const test_createValidatePrune_TagFormat = _test_validatePrune(
                                 expected: "string",
                                 value: input.ipv6,
                             }),
+                        ("string" === typeof input.date &&
+                            true === $is_date(input.date)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".date",
+                                expected: "string",
+                                value: input.date,
+                            }),
+                        ("string" === typeof input.date_time &&
+                            true === $is_datetime(input.date_time)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".date_time",
+                                expected: "string",
+                                value: input.date_time,
+                            }),
+                        ("string" === typeof input.datetime &&
+                            true === $is_datetime(input.datetime)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".datetime",
+                                expected: "string",
+                                value: input.datetime,
+                            }),
+                        ("string" === typeof input.dateTime &&
+                            true === $is_datetime(input.dateTime)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".dateTime",
+                                expected: "string",
+                                value: input.dateTime,
+                            }),
                         "string" === typeof input.custom ||
                             $report(_exceptionable, {
                                 path: _path + ".custom",
@@ -95,6 +125,8 @@ export const test_createValidatePrune_TagFormat = _test_validatePrune(
             const $is_url = (typia.createValidatePrune as any).is_url;
             const $is_ipv4 = (typia.createValidatePrune as any).is_ipv4;
             const $is_ipv6 = (typia.createValidatePrune as any).is_ipv6;
+            const $is_date = (typia.createValidatePrune as any).is_date;
+            const $is_datetime = (typia.createValidatePrune as any).is_datetime;
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if (
@@ -103,6 +135,10 @@ export const test_createValidatePrune_TagFormat = _test_validatePrune(
                         "url" === key ||
                         "ipv4" === key ||
                         "ipv6" === key ||
+                        "date" === key ||
+                        "date_time" === key ||
+                        "datetime" === key ||
+                        "dateTime" === key ||
                         "custom" === key
                     )
                         continue;

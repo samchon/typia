@@ -16,6 +16,9 @@ export const test_createValidateStringify_TagFormat = _test_validateStringify(
             const $is_url = (typia.createValidateStringify as any).is_url;
             const $is_ipv4 = (typia.createValidateStringify as any).is_ipv4;
             const $is_ipv6 = (typia.createValidateStringify as any).is_ipv6;
+            const $is_date = (typia.createValidateStringify as any).is_date;
+            const $is_datetime = (typia.createValidateStringify as any)
+                .is_datetime;
             ((
                 input: any,
                 _path: string,
@@ -62,6 +65,34 @@ export const test_createValidateStringify_TagFormat = _test_validateStringify(
                                 expected: "string",
                                 value: input.ipv6,
                             }),
+                        ("string" === typeof input.date &&
+                            true === $is_date(input.date)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".date",
+                                expected: "string",
+                                value: input.date,
+                            }),
+                        ("string" === typeof input.date_time &&
+                            true === $is_datetime(input.date_time)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".date_time",
+                                expected: "string",
+                                value: input.date_time,
+                            }),
+                        ("string" === typeof input.datetime &&
+                            true === $is_datetime(input.datetime)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".datetime",
+                                expected: "string",
+                                value: input.datetime,
+                            }),
+                        ("string" === typeof input.dateTime &&
+                            true === $is_datetime(input.dateTime)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".dateTime",
+                                expected: "string",
+                                value: input.dateTime,
+                            }),
                         "string" === typeof input.custom ||
                             $report(_exceptionable, {
                                 path: _path + ".custom",
@@ -98,12 +129,19 @@ export const test_createValidateStringify_TagFormat = _test_validateStringify(
             const $is_url = (typia.createValidateStringify as any).is_url;
             const $is_ipv4 = (typia.createValidateStringify as any).is_ipv4;
             const $is_ipv6 = (typia.createValidateStringify as any).is_ipv6;
+            const $is_date = (typia.createValidateStringify as any).is_date;
+            const $is_datetime = (typia.createValidateStringify as any)
+                .is_datetime;
             const $so0 = (input: any): any =>
                 `{"uuid":${'"' + input.uuid + '"'},"email":${
                     '"' + input.email + '"'
                 },"url":${'"' + input.url + '"'},"ipv4":${
                     '"' + input.ipv4 + '"'
-                },"ipv6":${'"' + input.ipv6 + '"'},"custom":${$string(
+                },"ipv6":${'"' + input.ipv6 + '"'},"date":${
+                    '"' + input.date + '"'
+                },"date_time":${'"' + input.date_time + '"'},"datetime":${
+                    '"' + input.datetime + '"'
+                },"dateTime":${'"' + input.dateTime + '"'},"custom":${$string(
                     input.custom,
                 )}}`;
             return $so0(input);

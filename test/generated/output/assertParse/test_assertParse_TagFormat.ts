@@ -14,6 +14,8 @@ export const test_assertParse_TagFormat = _test_assertParse(
                 const $is_url = (typia.assertParse as any).is_url;
                 const $is_ipv4 = (typia.assertParse as any).is_ipv4;
                 const $is_ipv6 = (typia.assertParse as any).is_ipv6;
+                const $is_date = (typia.assertParse as any).is_date;
+                const $is_datetime = (typia.assertParse as any).is_datetime;
                 ((
                     input: any,
                     _path: string,
@@ -58,6 +60,34 @@ export const test_assertParse_TagFormat = _test_assertParse(
                                 path: _path + ".ipv6",
                                 expected: "string",
                                 value: input.ipv6,
+                            })) &&
+                        (("string" === typeof input.date &&
+                            true === $is_date(input.date)) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".date",
+                                expected: "string",
+                                value: input.date,
+                            })) &&
+                        (("string" === typeof input.date_time &&
+                            true === $is_datetime(input.date_time)) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".date_time",
+                                expected: "string",
+                                value: input.date_time,
+                            })) &&
+                        (("string" === typeof input.datetime &&
+                            true === $is_datetime(input.datetime)) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".datetime",
+                                expected: "string",
+                                value: input.datetime,
+                            })) &&
+                        (("string" === typeof input.dateTime &&
+                            true === $is_datetime(input.dateTime)) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".dateTime",
+                                expected: "string",
+                                value: input.dateTime,
                             })) &&
                         ("string" === typeof input.custom ||
                             $guard(_exceptionable, {

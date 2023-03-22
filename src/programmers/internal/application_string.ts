@@ -1,3 +1,4 @@
+import { IMetadataTag } from "../../metadata/IMetadataTag";
 import { Metadata } from "../../metadata/Metadata";
 import { IJsonSchema } from "../../schemas/IJsonSchema";
 
@@ -24,12 +25,12 @@ export const application_string = (
         output.format = formatJsdocTag?.text.map((t) => t.text).join(" ");
 
     // REGULAR TAGS COMPATIBLE WITH JSON-SCHEMA
-    for (const tag of attribute["x-typia-metaTags"] || []) {
+    for (const tag of attribute["x-typia-metaTags"] ?? []) {
         // RANGE
         if (tag.kind === "minLength") output.minLength = tag.value;
         else if (tag.kind === "maxLength") output.maxLength = tag.value;
         // FORMAT AND PATTERN
-        else if (tag.kind === "format") output.format = tag.value;
+        else if (tag.kind === "format") output.format = emendFormat(tag.value);
         else if (tag.kind === "pattern") output.pattern = tag.value;
     }
 
@@ -39,3 +40,6 @@ export const application_string = (
     // RETURNS
     return output;
 };
+
+const emendFormat = (tag: IMetadataTag.IFormat["value"]) =>
+    tag === "datetime" ? "date-time" : tag;
