@@ -12,6 +12,8 @@ export const test_prune_TagFormat = _test_prune(
             const $is_url = (typia.prune as any).is_url;
             const $is_ipv4 = (typia.prune as any).is_ipv4;
             const $is_ipv6 = (typia.prune as any).is_ipv6;
+            const $is_date = (typia.prune as any).is_date;
+            const $is_datetime = (typia.prune as any).is_datetime;
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if (
@@ -20,6 +22,10 @@ export const test_prune_TagFormat = _test_prune(
                         "url" === key ||
                         "ipv4" === key ||
                         "ipv6" === key ||
+                        "date" === key ||
+                        "date_time" === key ||
+                        "datetime" === key ||
+                        "dateTime" === key ||
                         "custom" === key
                     )
                         continue;

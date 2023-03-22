@@ -14,6 +14,8 @@ export const test_validateEquals_TagFormat = _test_validateEquals(
             const $is_url = (typia.validateEquals as any).is_url;
             const $is_ipv4 = (typia.validateEquals as any).is_ipv4;
             const $is_ipv6 = (typia.validateEquals as any).is_ipv6;
+            const $is_date = (typia.validateEquals as any).is_date;
+            const $is_datetime = (typia.validateEquals as any).is_datetime;
             const $join = (typia.validateEquals as any).join;
             ((
                 input: any,
@@ -61,13 +63,41 @@ export const test_validateEquals_TagFormat = _test_validateEquals(
                                 expected: "string",
                                 value: input.ipv6,
                             }),
+                        ("string" === typeof input.date &&
+                            true === $is_date(input.date)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".date",
+                                expected: "string",
+                                value: input.date,
+                            }),
+                        ("string" === typeof input.date_time &&
+                            true === $is_datetime(input.date_time)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".date_time",
+                                expected: "string",
+                                value: input.date_time,
+                            }),
+                        ("string" === typeof input.datetime &&
+                            true === $is_datetime(input.datetime)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".datetime",
+                                expected: "string",
+                                value: input.datetime,
+                            }),
+                        ("string" === typeof input.dateTime &&
+                            true === $is_datetime(input.dateTime)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".dateTime",
+                                expected: "string",
+                                value: input.dateTime,
+                            }),
                         "string" === typeof input.custom ||
                             $report(_exceptionable, {
                                 path: _path + ".custom",
                                 expected: "string",
                                 value: input.custom,
                             }),
-                        6 === Object.keys(input).length ||
+                        10 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
                                 .map((key) => {
@@ -78,6 +108,10 @@ export const test_validateEquals_TagFormat = _test_validateEquals(
                                             "url",
                                             "ipv4",
                                             "ipv6",
+                                            "date",
+                                            "date_time",
+                                            "datetime",
+                                            "dateTime",
                                             "custom",
                                         ].some((prop) => key === prop)
                                     )

@@ -149,16 +149,17 @@ const PARSER: Record<
     /* -----------------------------------------------------------
         STRING
     ----------------------------------------------------------- */
-    format: (identifier, metadata, value, output) => {
+    format: (identifier, metadata, str, output) => {
         validate(identifier, metadata, output, "format", "string", ["pattern"]);
 
         // Ignore arbitrary @format values in the internal metadata,
         // these are currently only supported on the typia.application() API.
-        if (FORMATS.has(value) === false) return null;
-
+        const value: IMetadataTag.IFormat["value"] | undefined =
+            FORMATS.get(str);
+        if (value === undefined) return null;
         return {
             kind: "format",
-            value: value as "uuid",
+            value,
         };
     },
     pattern: (identifier, metadata, value, output) => {
@@ -206,7 +207,17 @@ function parse_number(identifier: () => string, str: string): number {
 }
 
 const LABEL = "Error on typia.MetadataTagFactory.generate()";
-const FORMATS = new Set(["uuid", "email", "url", "mobile", "ipv4", "ipv6"]);
+const FORMATS: Map<string, IMetadataTag.IFormat["value"]> = new Map([
+    ["uuid", "uuid"],
+    ["email", "email"],
+    ["url", "url"],
+    ["ipv4", "ipv4"],
+    ["ipv6", "ipv6"],
+    ["date", "date"],
+    ["datetime", "datetime"],
+    ["date-time", "datetime"],
+    ["dateTime", "datetime"],
+]);
 
 const WRONG_TYPE = (
     tag: string,

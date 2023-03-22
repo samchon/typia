@@ -12,12 +12,18 @@ export const test_clone_TagFormat = _test_clone(
             const $is_url = (typia.clone as any).is_url;
             const $is_ipv4 = (typia.clone as any).is_ipv4;
             const $is_ipv6 = (typia.clone as any).is_ipv6;
+            const $is_date = (typia.clone as any).is_date;
+            const $is_datetime = (typia.clone as any).is_datetime;
             const $co0 = (input: any): any => ({
                 uuid: input.uuid as any,
                 email: input.email as any,
                 url: input.url as any,
                 ipv4: input.ipv4 as any,
                 ipv6: input.ipv6 as any,
+                date: input.date as any,
+                date_time: input.date_time as any,
+                datetime: input.datetime as any,
+                dateTime: input.dateTime as any,
                 custom: input.custom as any,
             });
             return "object" === typeof input && null !== input

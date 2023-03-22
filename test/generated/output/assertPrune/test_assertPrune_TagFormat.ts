@@ -14,6 +14,8 @@ export const test_assertPrune_TagFormat = _test_assertPrune(
                 const $is_url = (typia.assertPrune as any).is_url;
                 const $is_ipv4 = (typia.assertPrune as any).is_ipv4;
                 const $is_ipv6 = (typia.assertPrune as any).is_ipv6;
+                const $is_date = (typia.assertPrune as any).is_date;
+                const $is_datetime = (typia.assertPrune as any).is_datetime;
                 ((
                     input: any,
                     _path: string,
@@ -59,6 +61,34 @@ export const test_assertPrune_TagFormat = _test_assertPrune(
                                 expected: "string",
                                 value: input.ipv6,
                             })) &&
+                        (("string" === typeof input.date &&
+                            true === $is_date(input.date)) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".date",
+                                expected: "string",
+                                value: input.date,
+                            })) &&
+                        (("string" === typeof input.date_time &&
+                            true === $is_datetime(input.date_time)) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".date_time",
+                                expected: "string",
+                                value: input.date_time,
+                            })) &&
+                        (("string" === typeof input.datetime &&
+                            true === $is_datetime(input.datetime)) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".datetime",
+                                expected: "string",
+                                value: input.datetime,
+                            })) &&
+                        (("string" === typeof input.dateTime &&
+                            true === $is_datetime(input.dateTime)) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".dateTime",
+                                expected: "string",
+                                value: input.dateTime,
+                            })) &&
                         ("string" === typeof input.custom ||
                             $guard(_exceptionable, {
                                 path: _path + ".custom",
@@ -83,6 +113,8 @@ export const test_assertPrune_TagFormat = _test_assertPrune(
                 const $is_url = (typia.assertPrune as any).is_url;
                 const $is_ipv4 = (typia.assertPrune as any).is_ipv4;
                 const $is_ipv6 = (typia.assertPrune as any).is_ipv6;
+                const $is_date = (typia.assertPrune as any).is_date;
+                const $is_datetime = (typia.assertPrune as any).is_datetime;
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (
@@ -91,6 +123,10 @@ export const test_assertPrune_TagFormat = _test_assertPrune(
                             "url" === key ||
                             "ipv4" === key ||
                             "ipv6" === key ||
+                            "date" === key ||
+                            "date_time" === key ||
+                            "datetime" === key ||
+                            "dateTime" === key ||
                             "custom" === key
                         )
                             continue;

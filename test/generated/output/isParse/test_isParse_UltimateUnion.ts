@@ -59,63 +59,65 @@ export const test_isParse_UltimateUnion = _test_isParse(
                     (undefined === input["x-typia-rest"] ||
                         "boolean" === typeof input["x-typia-rest"]);
                 const $io2 = (input: any): boolean =>
-                    "items" === input.kind &&
-                    "number" === typeof input.value &&
-                    Number.isFinite(input.value);
+                    "type" === input.kind &&
+                    ("int" === input.value || "uint" === input.value);
                 const $io3 = (input: any): boolean =>
-                    "minItems" === input.kind &&
+                    "minimum" === input.kind &&
                     "number" === typeof input.value &&
                     Number.isFinite(input.value);
                 const $io4 = (input: any): boolean =>
-                    "maxItems" === input.kind &&
+                    "maximum" === input.kind &&
                     "number" === typeof input.value &&
                     Number.isFinite(input.value);
                 const $io5 = (input: any): boolean =>
+                    "exclusiveMinimum" === input.kind &&
+                    "number" === typeof input.value &&
+                    Number.isFinite(input.value);
+                const $io6 = (input: any): boolean =>
+                    "exclusiveMaximum" === input.kind &&
+                    "number" === typeof input.value &&
+                    Number.isFinite(input.value);
+                const $io7 = (input: any): boolean =>
+                    "multipleOf" === input.kind &&
+                    "number" === typeof input.value &&
+                    Number.isFinite(input.value);
+                const $io8 = (input: any): boolean =>
+                    "step" === input.kind &&
+                    "number" === typeof input.value &&
+                    Number.isFinite(input.value);
+                const $io9 = (input: any): boolean =>
                     "format" === input.kind &&
                     ("url" === input.value ||
                         "uuid" === input.value ||
                         "email" === input.value ||
                         "ipv4" === input.value ||
-                        "ipv6" === input.value);
-                const $io6 = (input: any): boolean =>
+                        "ipv6" === input.value ||
+                        "date" === input.value ||
+                        "datetime" === input.value);
+                const $io10 = (input: any): boolean =>
                     "pattern" === input.kind && "string" === typeof input.value;
-                const $io7 = (input: any): boolean =>
+                const $io11 = (input: any): boolean =>
                     "length" === input.kind &&
                     "number" === typeof input.value &&
                     Number.isFinite(input.value);
-                const $io8 = (input: any): boolean =>
+                const $io12 = (input: any): boolean =>
                     "minLength" === input.kind &&
                     "number" === typeof input.value &&
                     Number.isFinite(input.value);
-                const $io9 = (input: any): boolean =>
+                const $io13 = (input: any): boolean =>
                     "maxLength" === input.kind &&
                     "number" === typeof input.value &&
                     Number.isFinite(input.value);
-                const $io10 = (input: any): boolean =>
-                    "type" === input.kind &&
-                    ("int" === input.value || "uint" === input.value);
-                const $io11 = (input: any): boolean =>
-                    "minimum" === input.kind &&
-                    "number" === typeof input.value &&
-                    Number.isFinite(input.value);
-                const $io12 = (input: any): boolean =>
-                    "maximum" === input.kind &&
-                    "number" === typeof input.value &&
-                    Number.isFinite(input.value);
-                const $io13 = (input: any): boolean =>
-                    "exclusiveMinimum" === input.kind &&
-                    "number" === typeof input.value &&
-                    Number.isFinite(input.value);
                 const $io14 = (input: any): boolean =>
-                    "exclusiveMaximum" === input.kind &&
+                    "items" === input.kind &&
                     "number" === typeof input.value &&
                     Number.isFinite(input.value);
                 const $io15 = (input: any): boolean =>
-                    "multipleOf" === input.kind &&
+                    "minItems" === input.kind &&
                     "number" === typeof input.value &&
                     Number.isFinite(input.value);
                 const $io16 = (input: any): boolean =>
-                    "step" === input.kind &&
+                    "maxItems" === input.kind &&
                     "number" === typeof input.value &&
                     Number.isFinite(input.value);
                 const $io17 = (input: any): boolean =>
@@ -663,23 +665,23 @@ export const test_isParse_UltimateUnion = _test_isParse(
                     });
                 const $iu0 = (input: any): any =>
                     (() => {
-                        if ("items" === input.kind) return $io2(input);
-                        if ("minItems" === input.kind) return $io3(input);
-                        if ("maxItems" === input.kind) return $io4(input);
-                        if ("format" === input.kind) return $io5(input);
-                        if ("pattern" === input.kind) return $io6(input);
-                        if ("length" === input.kind) return $io7(input);
-                        if ("minLength" === input.kind) return $io8(input);
-                        if ("maxLength" === input.kind) return $io9(input);
-                        if ("type" === input.kind) return $io10(input);
-                        if ("minimum" === input.kind) return $io11(input);
-                        if ("maximum" === input.kind) return $io12(input);
+                        if ("type" === input.kind) return $io2(input);
+                        if ("minimum" === input.kind) return $io3(input);
+                        if ("maximum" === input.kind) return $io4(input);
                         if ("exclusiveMinimum" === input.kind)
-                            return $io13(input);
+                            return $io5(input);
                         if ("exclusiveMaximum" === input.kind)
-                            return $io14(input);
-                        if ("multipleOf" === input.kind) return $io15(input);
-                        if ("step" === input.kind) return $io16(input);
+                            return $io6(input);
+                        if ("multipleOf" === input.kind) return $io7(input);
+                        if ("step" === input.kind) return $io8(input);
+                        if ("format" === input.kind) return $io9(input);
+                        if ("pattern" === input.kind) return $io10(input);
+                        if ("length" === input.kind) return $io11(input);
+                        if ("minLength" === input.kind) return $io12(input);
+                        if ("maxLength" === input.kind) return $io13(input);
+                        if ("items" === input.kind) return $io14(input);
+                        if ("minItems" === input.kind) return $io15(input);
+                        if ("maxItems" === input.kind) return $io16(input);
                         return false;
                     })();
                 const $iu1 = (input: any): any =>

@@ -208,153 +208,6 @@ export const test_createAssertParse_UltimateUnion = _test_assertParse(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    ("items" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"items"',
-                            value: input.kind,
-                        })) &&
-                    (("number" === typeof input.value &&
-                        Number.isFinite(input.value)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "number",
-                            value: input.value,
-                        }));
-                const $ao3 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("minItems" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"minItems"',
-                            value: input.kind,
-                        })) &&
-                    (("number" === typeof input.value &&
-                        Number.isFinite(input.value)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "number",
-                            value: input.value,
-                        }));
-                const $ao4 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("maxItems" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"maxItems"',
-                            value: input.kind,
-                        })) &&
-                    (("number" === typeof input.value &&
-                        Number.isFinite(input.value)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "number",
-                            value: input.value,
-                        }));
-                const $ao5 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("format" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"format"',
-                            value: input.kind,
-                        })) &&
-                    ("url" === input.value ||
-                        "uuid" === input.value ||
-                        "email" === input.value ||
-                        "ipv4" === input.value ||
-                        "ipv6" === input.value ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected:
-                                '("email" | "ipv4" | "ipv6" | "url" | "uuid")',
-                            value: input.value,
-                        }));
-                const $ao6 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("pattern" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"pattern"',
-                            value: input.kind,
-                        })) &&
-                    ("string" === typeof input.value ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "string",
-                            value: input.value,
-                        }));
-                const $ao7 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("length" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"length"',
-                            value: input.kind,
-                        })) &&
-                    (("number" === typeof input.value &&
-                        Number.isFinite(input.value)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "number",
-                            value: input.value,
-                        }));
-                const $ao8 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("minLength" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"minLength"',
-                            value: input.kind,
-                        })) &&
-                    (("number" === typeof input.value &&
-                        Number.isFinite(input.value)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "number",
-                            value: input.value,
-                        }));
-                const $ao9 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("maxLength" === input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: '"maxLength"',
-                            value: input.kind,
-                        })) &&
-                    (("number" === typeof input.value &&
-                        Number.isFinite(input.value)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "number",
-                            value: input.value,
-                        }));
-                const $ao10 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
                     ("type" === input.kind ||
                         $guard(_exceptionable, {
                             path: _path + ".kind",
@@ -368,7 +221,7 @@ export const test_createAssertParse_UltimateUnion = _test_assertParse(
                             expected: '("int" | "uint")',
                             value: input.value,
                         }));
-                const $ao11 = (
+                const $ao3 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -386,7 +239,7 @@ export const test_createAssertParse_UltimateUnion = _test_assertParse(
                             expected: "number",
                             value: input.value,
                         }));
-                const $ao12 = (
+                const $ao4 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -404,7 +257,7 @@ export const test_createAssertParse_UltimateUnion = _test_assertParse(
                             expected: "number",
                             value: input.value,
                         }));
-                const $ao13 = (
+                const $ao5 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -422,7 +275,7 @@ export const test_createAssertParse_UltimateUnion = _test_assertParse(
                             expected: "number",
                             value: input.value,
                         }));
-                const $ao14 = (
+                const $ao6 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -440,7 +293,7 @@ export const test_createAssertParse_UltimateUnion = _test_assertParse(
                             expected: "number",
                             value: input.value,
                         }));
-                const $ao15 = (
+                const $ao7 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -458,7 +311,7 @@ export const test_createAssertParse_UltimateUnion = _test_assertParse(
                             expected: "number",
                             value: input.value,
                         }));
-                const $ao16 = (
+                const $ao8 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -467,6 +320,155 @@ export const test_createAssertParse_UltimateUnion = _test_assertParse(
                         $guard(_exceptionable, {
                             path: _path + ".kind",
                             expected: '"step"',
+                            value: input.kind,
+                        })) &&
+                    (("number" === typeof input.value &&
+                        Number.isFinite(input.value)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "number",
+                            value: input.value,
+                        }));
+                const $ao9 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("format" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"format"',
+                            value: input.kind,
+                        })) &&
+                    ("url" === input.value ||
+                        "uuid" === input.value ||
+                        "email" === input.value ||
+                        "ipv4" === input.value ||
+                        "ipv6" === input.value ||
+                        "date" === input.value ||
+                        "datetime" === input.value ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected:
+                                '("date" | "datetime" | "email" | "ipv4" | "ipv6" | "url" | "uuid")',
+                            value: input.value,
+                        }));
+                const $ao10 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("pattern" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"pattern"',
+                            value: input.kind,
+                        })) &&
+                    ("string" === typeof input.value ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "string",
+                            value: input.value,
+                        }));
+                const $ao11 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("length" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"length"',
+                            value: input.kind,
+                        })) &&
+                    (("number" === typeof input.value &&
+                        Number.isFinite(input.value)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "number",
+                            value: input.value,
+                        }));
+                const $ao12 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("minLength" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"minLength"',
+                            value: input.kind,
+                        })) &&
+                    (("number" === typeof input.value &&
+                        Number.isFinite(input.value)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "number",
+                            value: input.value,
+                        }));
+                const $ao13 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("maxLength" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"maxLength"',
+                            value: input.kind,
+                        })) &&
+                    (("number" === typeof input.value &&
+                        Number.isFinite(input.value)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "number",
+                            value: input.value,
+                        }));
+                const $ao14 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("items" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"items"',
+                            value: input.kind,
+                        })) &&
+                    (("number" === typeof input.value &&
+                        Number.isFinite(input.value)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "number",
+                            value: input.value,
+                        }));
+                const $ao15 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("minItems" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"minItems"',
+                            value: input.kind,
+                        })) &&
+                    (("number" === typeof input.value &&
+                        Number.isFinite(input.value)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "number",
+                            value: input.value,
+                        }));
+                const $ao16 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("maxItems" === input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: '"maxItems"',
                             value: input.kind,
                         })) &&
                     (("number" === typeof input.value &&
@@ -2399,40 +2401,40 @@ export const test_createAssertParse_UltimateUnion = _test_assertParse(
                     _exceptionable: boolean = true,
                 ): any =>
                     (() => {
-                        if ("items" === input.kind)
-                            return $ao2(input, _path, true && _exceptionable);
-                        if ("minItems" === input.kind)
-                            return $ao3(input, _path, true && _exceptionable);
-                        if ("maxItems" === input.kind)
-                            return $ao4(input, _path, true && _exceptionable);
-                        if ("format" === input.kind)
-                            return $ao5(input, _path, true && _exceptionable);
-                        if ("pattern" === input.kind)
-                            return $ao6(input, _path, true && _exceptionable);
-                        if ("length" === input.kind)
-                            return $ao7(input, _path, true && _exceptionable);
-                        if ("minLength" === input.kind)
-                            return $ao8(input, _path, true && _exceptionable);
-                        if ("maxLength" === input.kind)
-                            return $ao9(input, _path, true && _exceptionable);
                         if ("type" === input.kind)
-                            return $ao10(input, _path, true && _exceptionable);
+                            return $ao2(input, _path, true && _exceptionable);
                         if ("minimum" === input.kind)
-                            return $ao11(input, _path, true && _exceptionable);
+                            return $ao3(input, _path, true && _exceptionable);
                         if ("maximum" === input.kind)
-                            return $ao12(input, _path, true && _exceptionable);
+                            return $ao4(input, _path, true && _exceptionable);
                         if ("exclusiveMinimum" === input.kind)
-                            return $ao13(input, _path, true && _exceptionable);
+                            return $ao5(input, _path, true && _exceptionable);
                         if ("exclusiveMaximum" === input.kind)
-                            return $ao14(input, _path, true && _exceptionable);
+                            return $ao6(input, _path, true && _exceptionable);
                         if ("multipleOf" === input.kind)
-                            return $ao15(input, _path, true && _exceptionable);
+                            return $ao7(input, _path, true && _exceptionable);
                         if ("step" === input.kind)
+                            return $ao8(input, _path, true && _exceptionable);
+                        if ("format" === input.kind)
+                            return $ao9(input, _path, true && _exceptionable);
+                        if ("pattern" === input.kind)
+                            return $ao10(input, _path, true && _exceptionable);
+                        if ("length" === input.kind)
+                            return $ao11(input, _path, true && _exceptionable);
+                        if ("minLength" === input.kind)
+                            return $ao12(input, _path, true && _exceptionable);
+                        if ("maxLength" === input.kind)
+                            return $ao13(input, _path, true && _exceptionable);
+                        if ("items" === input.kind)
+                            return $ao14(input, _path, true && _exceptionable);
+                        if ("minItems" === input.kind)
+                            return $ao15(input, _path, true && _exceptionable);
+                        if ("maxItems" === input.kind)
                             return $ao16(input, _path, true && _exceptionable);
                         return $guard(_exceptionable, {
                             path: _path,
                             expected:
-                                "(IMetadataTag.IItems | IMetadataTag.IMinItems | IMetadataTag.IMaxItems | IMetadataTag.IFormat | IMetadataTag.IPattern | IMetadataTag.ILength | IMetadataTag.IMinLength | IMetadataTag.IMaxLength | IMetadataTag.IType | IMetadataTag.IMinimum | IMetadataTag.IMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IExclusiveMaximum | IMetadataTag.IMultipleOf | IMetadataTag.IStep)",
+                                "(IMetadataTag.IType | IMetadataTag.IMinimum | IMetadataTag.IMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IExclusiveMaximum | IMetadataTag.IMultipleOf | IMetadataTag.IStep | IMetadataTag.IFormat | IMetadataTag.IPattern | IMetadataTag.ILength | IMetadataTag.IMinLength | IMetadataTag.IMaxLength | IMetadataTag.IItems | IMetadataTag.IMinItems | IMetadataTag.IMaxItems)",
                             value: input,
                         });
                     })();
