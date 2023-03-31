@@ -18,6 +18,7 @@ export namespace UnionExplorer {
             target: T,
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
+            jsDocTags: ts.JSDocTagInfo[],
         ): ts.Expression;
     }
     export type ObjectCombiner = Decoder<MetadataObject[]>;
@@ -32,6 +33,7 @@ export namespace UnionExplorer {
             targets: MetadataObject[],
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
+            jsDocTags: ts.JSDocTagInfo[],
         ): ts.Expression => {
             // BREAKER
             if (targets.length === 1)
@@ -40,6 +42,7 @@ export namespace UnionExplorer {
                     targets[0]!,
                     explore,
                     tags,
+                    jsDocTags,
                 );
 
             const expected: string = `(${targets
@@ -57,6 +60,7 @@ export namespace UnionExplorer {
                         tracable: false,
                     },
                     tags,
+                    jsDocTags,
                 );
                 return config.objector.full
                     ? config.objector.full(condition)(input, expected, explore)
@@ -85,6 +89,7 @@ export namespace UnionExplorer {
                                   postfix: IdentifierFactory.postfix(key),
                               },
                               tags,
+                              jsDocTags,
                           )
                         : (config.objector.required || ((exp) => exp))(
                               ExpressionFactory.isRequired(accessor),
@@ -97,6 +102,7 @@ export namespace UnionExplorer {
                                 spec.object,
                                 explore,
                                 tags,
+                                jsDocTags,
                             ),
                         ),
                     );
@@ -120,6 +126,7 @@ export namespace UnionExplorer {
                                           remained,
                                           explore,
                                           tags,
+                                          jsDocTags,
                                       ),
                                   )
                                 : config.objector.failure(

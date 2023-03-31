@@ -1,0 +1,95 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/TagCustom"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "TagCustom": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": false,
+            "description": "Regular feature supported by typia",
+            "x-typia-metaTags": [
+              {
+                "kind": "format",
+                "value": "uuid"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "format",
+                "text": [
+                  {
+                    "text": "uuid",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "format": "uuid"
+          },
+          "dolloar": {
+            "type": "string",
+            "nullable": false,
+            "description": "Custom feature composed with \"$\" + number",
+            "x-typia-jsDocTags": [
+              {
+                "name": "dollar"
+              }
+            ],
+            "x-typia-required": true
+          },
+          "postfix": {
+            "type": "string",
+            "nullable": false,
+            "description": "Custom feature composed with string + \"abcd\"",
+            "x-typia-jsDocTags": [
+              {
+                "name": "postfix",
+                "text": [
+                  {
+                    "text": "abcd",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true
+          },
+          "log": {
+            "type": "number",
+            "nullable": false,
+            "description": "Custom feature meaning x^y",
+            "x-typia-jsDocTags": [
+              {
+                "name": "powerOf",
+                "text": [
+                  {
+                    "text": "10",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "dolloar",
+          "postfix",
+          "log"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}
