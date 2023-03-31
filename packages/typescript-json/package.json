@@ -1,11 +1,13 @@
 {
   "name": "typescript-json",
-  "version": "3.6.9",
+  "version": "3.6.10",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
     "benchmark": "npm run build:benchmark && node measure/benchmark",
+    "test:generate": "ts-node -P build/tsconfig.json -C ttypescript build/test.ts",
+    "----------------------------------------------": "",
     "build": "rimraf lib && ttsc --removeComments --declaration false && ttsc --emitDeclarationOnly",
     "build:test": "rimraf bin && ttsc -p test/tsconfig.json",
     "build:benchmark": "rimraf measure && ttsc -p benchmark/tsconfig.json",
@@ -14,16 +16,16 @@
     "dev:test": "rimraf bin && ttsc -p test/tsconfig.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
+    "prettier": "prettier  --write ./**/*.ts",
+    "-----------------------------------------------": "",
     "issue": "node test/issue",
-    "issue:generate": "ts-node src/executable/typia generate --input test/issues/input --output test/issues/output --project test/tsconfig.json",
+    "issue:generate": "ts-node src/executable/typia generate --input test/issues/generate --output test/issues/generate/output --project test/tsconfig.json",
+    "test": "node bin/test",
+    "test:manual": "node test/manual",
+    "------------------------------------------------": "",
     "package:latest": "ts-node build/publish.ts latest",
     "package:next": "ts-node build/publish.ts next",
-    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
-    "prettier": "prettier  --write ./**/*.ts",
-    "test": "node bin/test",
-    "test:generate": "ts-node -P build/tsconfig.json -C ttypescript build/test.ts",
-    "test:manual": "node test/manual",
-    "test:application:replace": "node test/features/application/replace && npm run prettier"
+    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
   },
   "repository": {
     "type": "git",
@@ -72,6 +74,6 @@
     "src"
   ],
   "dependencies": {
-    "typia": "3.6.9"
+    "typia": "3.6.10"
   }
 }
