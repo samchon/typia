@@ -18,6 +18,7 @@ export const check_union_array_like =
         targets: T[],
         explore: FeatureProgrammer.IExplore,
         tags: IMetadataTag[],
+        jsDocTags: ts.JSDocTagInfo[],
     ) => {
         // ONLY ONE TYPE
         if (targets.length === 1)
@@ -26,6 +27,7 @@ export const check_union_array_like =
                 targets[0]!,
                 explore,
                 tags,
+                jsDocTags,
             );
 
         //----
@@ -58,6 +60,7 @@ export const check_union_array_like =
                                         postfix: `"[0]"`,
                                     },
                                     tags,
+                                    jsDocTags,
                                     input,
                                 ),
                             ),
@@ -80,6 +83,7 @@ export const check_union_array_like =
                                         tracable: true,
                                     },
                                     tags,
+                                    jsDocTags,
                                 ),
                             ),
                         ]),
@@ -239,6 +243,7 @@ export namespace check_union_array_like {
             target: T,
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
+            jsDocTags: ts.JSDocTagInfo[],
             array: ts.Expression,
         ): ts.Expression;
         decoder: UnionExplorer.Decoder<T>;

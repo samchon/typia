@@ -4,14 +4,21 @@ import { IMetadataTag } from "../../metadata/IMetadataTag";
 
 import { IProject } from "../../transformers/IProject";
 
+import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { OptionPredicator } from "../helpers/OptionPredicator";
+import { check_custom } from "./check_custom";
 
 /**
  * @internal
  */
 export const check_number =
     ({ options }: IProject, numeric: boolean) =>
-    (input: ts.Expression, tagList: IMetadataTag[]) => {
+    (importer: FunctionImporter) =>
+    (
+        input: ts.Expression,
+        metaTags: IMetadataTag[],
+        jsDocTags: ts.JSDocTagInfo[],
+    ) => {
         // TYPEOF STATEMENT
         const conditions: ts.Expression[] = [
             ts.factory.createStrictEquality(
@@ -22,16 +29,16 @@ export const check_number =
 
         // CHECK FINITE AND NAN
         const finite: boolean =
-            (!!tagList.find(
+            (!!metaTags.find(
                 (tag) =>
                     tag.kind === "minimum" || tag.kind === "exclusiveMinimum",
             ) &&
-                !!tagList.find(
+                !!metaTags.find(
                     (tag) =>
                         tag.kind === "maximum" ||
                         tag.kind === "exclusiveMaximum",
                 )) ||
-            !!tagList.find(
+            !!metaTags.find(
                 (tag) => tag.kind === "step" || tag.kind === "multipleOf",
             );
 
@@ -56,7 +63,7 @@ export const check_number =
                 );
 
         // TAG (RANGE)
-        for (const tag of tagList)
+        for (const tag of metaTags)
             if (tag.kind === "type") {
                 conditions.push(
                     ts.factory.createStrictEquality(
@@ -92,7 +99,7 @@ export const check_number =
                         ts.factory.createNumericLiteral(tag.value),
                     );
                 const minimum = (() => {
-                    for (const tag of tagList)
+                    for (const tag of metaTags)
                         if (tag.kind === "minimum") return tag.value;
                         else if (tag.kind === "exclusiveMinimum")
                             return tag.value;
@@ -137,6 +144,9 @@ export const check_number =
                         input,
                     ),
                 );
+
+        // CUSTOM TAGS
+        conditions.push(...check_custom("number")(importer)(input, jsDocTags));
 
         // COMBINATION
         return conditions.length === 1

@@ -23,6 +23,7 @@ export const check_union_tuple =
         elements: Metadata[],
         explore: CheckerProgrammer.IExplore,
         tags: IMetadataTag[],
+        jsDocTags: ts.JSDocTagInfo[],
         array: ts.Expression,
     ) =>
         CheckerProgrammer.decode_tuple(project, config, importer, true)(
@@ -30,4 +31,5 @@ export const check_union_tuple =
             elements,
             explore,
             tags,
+            jsDocTags,
         );

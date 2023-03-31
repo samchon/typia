@@ -54,6 +54,7 @@ export const feature_object_entries =
                                   })(),
                     },
                     prop.tags,
+                    prop.jsDocTags,
                 ),
             };
         });

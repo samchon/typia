@@ -172,6 +172,7 @@ export namespace StringifyProgrammer {
                                     partial,
                                     explore,
                                     [],
+                                    [],
                                 ),
                             value: () =>
                                 decode_atomic(project, importer)(
@@ -200,6 +201,7 @@ export namespace StringifyProgrammer {
                                 })(),
                                 explore,
                                 [],
+                                [],
                             ),
                         value: () =>
                             decode_atomic(project, importer)(
@@ -221,6 +223,7 @@ export namespace StringifyProgrammer {
                                     return partial;
                                 })(),
                                 explore,
+                                [],
                                 [],
                             ),
                         value: () =>
@@ -245,6 +248,7 @@ export namespace StringifyProgrammer {
                                     return partial;
                                 })(),
                                 explore,
+                                [],
                                 [],
                             ),
                         value: () =>
@@ -274,6 +278,7 @@ export namespace StringifyProgrammer {
                                 return partial;
                             })(),
                             explore,
+                            [],
                             [],
                         ),
                     value: () =>
@@ -310,6 +315,7 @@ export namespace StringifyProgrammer {
                                   ...explore,
                                   from: "array",
                               },
+                              [],
                               [],
                           );
 
