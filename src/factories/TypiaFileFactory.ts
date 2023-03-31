@@ -40,7 +40,7 @@ export namespace TypiaFileFactory {
         const program: ts.Program = ts.createProgram(
             await (async () => {
                 const container: string[] = [];
-                await gather(container)(props.input)(props.output);
+                await gather(props)(container)(props.input)(props.output);
                 return container;
             })(),
             config.compilerOptions,
@@ -99,19 +99,22 @@ export namespace TypiaFileFactory {
     };
 
     const gather =
-        (container: string[]) => (from: string) => async (to: string) => {
-            if (fs.existsSync(to) === false) await fs.promises.mkdir(to);
-            const directory: string[] = await fs.promises.readdir(from);
-            for (const file of directory) {
+        (props: IProps) =>
+        (container: string[]) =>
+        (from: string) =>
+        async (to: string) => {
+            if (from === props.output) return;
+            else if (fs.existsSync(to) === false) await fs.promises.mkdir(to);
+
+            for (const file of await fs.promises.readdir(from)) {
                 const next: string = path.join(from, file);
                 const stat: fs.Stats = await fs.promises.stat(next);
 
                 if (stat.isDirectory()) {
-                    await gather(container)(next)(path.join(to, file));
+                    await gather(props)(container)(next)(path.join(to, file));
                     continue;
                 } else if (file.substring(file.length - 3) === ".ts")
                     container.push(next);
             }
-            return container;
         };
 }
