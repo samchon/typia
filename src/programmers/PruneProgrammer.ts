@@ -88,6 +88,7 @@ export namespace PruneProgrammer {
                             })(),
                             explore,
                             [],
+                            [],
                         ),
                     value: () =>
                         decode_tuple(project, importer)(input, tuple, explore),
@@ -106,6 +107,7 @@ export namespace PruneProgrammer {
                                 ...explore,
                                 from: "array",
                             },
+                            [],
                             [],
                         ),
                 });

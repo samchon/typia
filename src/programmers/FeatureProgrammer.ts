@@ -6,6 +6,7 @@ import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
+import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
 import { IMetadataTag } from "../metadata/IMetadataTag";
 import { Metadata } from "../metadata/Metadata";
 import { MetadataObject } from "../metadata/MetadataObject";
@@ -202,7 +203,8 @@ export namespace FeatureProgrammer {
             input: ts.Expression,
             target: T,
             explore: IExplore,
-            tags: IMetadataTag[],
+            metaTags: IMetadataTag[],
+            jsDocTags: ts.JSDocTagInfo[],
         ): Output;
     }
 
@@ -240,6 +242,7 @@ export namespace FeatureProgrammer {
                     from: "top",
                     postfix: '""',
                 },
+                [],
                 [],
             );
 
@@ -350,6 +353,7 @@ export namespace FeatureProgrammer {
                         postfix: "",
                     },
                     [],
+                    [],
                 ),
             );
     }
@@ -363,7 +367,8 @@ export namespace FeatureProgrammer {
         combiner: (
             input: ts.Expression,
             arrow: ts.ArrowFunction,
-            tags: IMetadataTag[],
+            metaTags: IMetadataTag[],
+            jsDocTags: ts.JSDocTagInfo[],
         ) => ts.Expression,
     ) {
         const rand: string = importer.increment().toString();
@@ -381,7 +386,8 @@ export namespace FeatureProgrammer {
             input: ts.Expression,
             meta: Metadata,
             explore: IExplore,
-            tags: IMetadataTag[],
+            metaTags: IMetadataTag[],
+            jsDocTags: IJsDocTagInfo[],
         ) => {
             const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
                 undefined,
@@ -406,10 +412,11 @@ export namespace FeatureProgrammer {
                             explore.postfix,
                         )(rand),
                     },
-                    tags,
+                    metaTags,
+                    jsDocTags,
                 ),
             );
-            return combiner(input, arrow, tags);
+            return combiner(input, arrow, metaTags, jsDocTags);
         };
     }
 

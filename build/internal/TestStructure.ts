@@ -7,4 +7,5 @@ export interface TestStructure<T> {
     ADDABLE?: boolean;
     JSONABLE?: boolean;
     PRIMITIVE?: boolean;
+    RANDOM?: boolean;
 }

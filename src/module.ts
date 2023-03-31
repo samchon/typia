@@ -1,7 +1,10 @@
+import { $dictionary } from "./functional/$dictionary";
 import { Namespace } from "./functional/Namespace";
 
 import { IMetadataApplication } from "./metadata/IMetadataApplication";
 import { IJsonApplication } from "./schemas/IJsonApplication";
+
+import { Customizable } from "./typings/Customizable";
 
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
@@ -409,6 +412,43 @@ export function validateEquals(): never {
     halt("validateEquals");
 }
 Object.assign(validateEquals, Namespace.validate());
+
+/**
+ * Add validation tag.
+ *
+ * If you want to add a custom validation logic, you can use this function.
+ *
+ * ```ts
+ * typia.addValidationTag("powerOf")("number")(
+ *     (text: string) => {
+ *         const denominator: number = Math.log(Number(text));
+ *         return (value: number) => {
+ *             value = Math.log(value) / denominator;
+ *             return value === Math.floor(value);
+ *         };
+ *     }
+ * );
+ * typia.addValidationTag("dollar")("string")(
+ *     () => (value: string) => value.startsWith("$"),
+ * );
+ * ```
+ *
+ * @param name Name of tag (`@name`)
+ * @returns Currying function
+ */
+export const addValidationTag =
+    (name: string) =>
+    /**
+     * @param type Type of target value
+     */
+    <Type extends keyof Customizable>(type: Type) =>
+    /**
+     * @param closure Closure function for custom validation
+     */
+    (closure: (text: string) => (value: Customizable[Type]) => boolean) => {
+        const key = `${name}:${type}` as const;
+        if (!$dictionary.has(key)) $dictionary.set(key, closure);
+    };
 
 /* -----------------------------------------------------------
     JSON FUNCTIONS
