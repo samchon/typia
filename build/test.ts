@@ -47,8 +47,7 @@ async function generate(
         else if (feat.jsonable && s.JSONABLE === false) continue;
         else if (feat.primitive && s.PRIMITIVE === false) continue;
         else if (feat.strict && s.ADDABLE === false) continue;
-        else if (feat.method === "random" && s.name === "UltimateUnion")
-            continue;
+        else if (feat.method === "random" && s.RANDOM === false) continue;
 
         const location: string = `${path}/test_${method}_${s.name}.ts`;
         await fs.promises.writeFile(

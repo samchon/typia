@@ -105,7 +105,7 @@ export namespace IsProgrammer {
         })(importer);
         config.trace = equals;
 
-        config.decoder = (input, target, explore, tags) => {
+        config.decoder = (input, target, explore, tags, jsDocTags) => {
             if (
                 target.size() === 1 &&
                 target.objects.length === 1 &&
@@ -137,6 +137,7 @@ export namespace IsProgrammer {
                 target,
                 explore,
                 tags,
+                jsDocTags,
             );
         };
 
