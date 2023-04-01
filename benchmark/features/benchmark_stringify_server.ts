@@ -5,9 +5,10 @@ import { ServerBenchmarker } from "../internal/ServerBenchmarker";
 let forked: cp.ChildProcess | null = null;
 const prepare = ServerBenchmarker.prepare({
     "express (pure)": 22222,
-    "express (typia.stringify)": 33333,
-    "express (typia.isStringify)": 33334,
-    "express (typia.assertStringify)": 33335,
+    "express (class-transformer)": 33331,
+    "express (typia.stringify)": 33332,
+    "express (typia.isStringify)": 33333,
+    "express (typia.assertStringify)": 33334,
     fastify: 44444,
 });
 

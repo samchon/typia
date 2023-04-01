@@ -32,10 +32,10 @@ function build<T>(app: typia.IJsonApplication): null | ((input: T) => string) {
     }
 }
 
-const serialize = <T extends object>(schema: ct.ClassConstructor<any>) => ({
-    transform: (input: T) => ct.plainToClass(schema, input),
-    stringify: (input: T) => JSON.stringify(ct.classToPlain(input)),
-});
+const serialize =
+    (schema: ct.ClassConstructor<any>) =>
+    <T extends object>(input: T) =>
+        JSON.stringify(ct.classToPlain(ct.plainToClass(schema, input)));
 
 const prepare = StringifyBenchmarker.prepare([
     "typia.stringify()",

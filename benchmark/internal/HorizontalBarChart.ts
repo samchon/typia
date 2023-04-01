@@ -105,27 +105,27 @@ export namespace HorizontalBarChart {
 
             // LEGEND
             svg.append("rect")
-                .attr("x", style.width - style.margin.right + 40 + 5)
+                .attr("x", style.width - style.margin.right + 10 + 5)
                 .attr("y", style.margin.top + columns.length * 20)
-                .attr("width", 200)
+                .attr("width", 230)
                 .attr("height", 5)
                 .attr("fill", "gray");
             svg.append("rect")
-                .attr("x", style.width - style.margin.right + 40)
+                .attr("x", style.width - style.margin.right + 10)
                 .attr("y", style.margin.top - 10)
-                .attr("width", 200)
+                .attr("width", 230)
                 .attr("height", columns.length * 20 + 10)
                 .attr("fill", "none")
                 .attr("stroke", "black");
             columns.forEach((col, i) => {
                 svg.append("rect")
-                    .attr("x", style.width - style.margin.right + 40 + 10)
+                    .attr("x", style.width - style.margin.right + 10 + 10)
                     .attr("y", style.margin.top + 20 * i)
                     .attr("width", 10)
                     .attr("height", 10)
                     .style("fill", style.colors[i]);
                 svg.append("text")
-                    .attr("x", style.width - style.margin.right + 40 + 25)
+                    .attr("x", style.width - style.margin.right + 10 + 25)
                     .attr("y", style.margin.top + 20 * i + 10)
                     .style("font-size", "12px")
                     .text(col);
