@@ -127,6 +127,7 @@ export namespace BenchmarkReporter {
             ).toLocaleString()} MB`,
         );
         await stream.write(`> - OS: ${os.platform()}`);
+        await stream.write(`> - NodeJS version: ${process.version}`);
         await stream.write(`> - Typia version: ${await get_package_version()}`);
         await stream.write("\n");
         return stream;
