@@ -10,6 +10,7 @@
 export function is<T>(input: unknown | T): input is T; // returns boolean
 export function assert<T>(input: unknown | T): T; // throws TypeGuardError
 export function validate<T>(input: unknown | T): IValidation<T>; // detailed
+export const customValidators: CustomValidatorMap; // can add custom validators
 
 // STRICT VALIDATORS
 export function equals<T>(input: unknown | T): input is T;
@@ -169,6 +170,7 @@ For more details, refer to the [Guide Documents (wiki)](https://github.com/samch
 >   - [strict validators](https://github.com/samchon/typia/wiki/Runtime-Validators#strict-validators)
 >   - [factory functions](https://github.com/samchon/typia/wiki/Runtime-Validators#factory-functions)
 >   - [comment tags](https://github.com/samchon/typia/wiki/Runtime-Validators#comment-tags)
+>   - [custom validators](https://github.com/samchon/typia/wiki/Runtime-Validators#custom-validators)
 > - **Enhanced JSON**
 >   - [JSON schema](https://github.com/samchon/typia/wiki/Enhanced-JSON#json-schema)
 >   - [`parse()` functions](https://github.com/samchon/typia/wiki/Enhanced-JSON#parse-functions)
@@ -198,6 +200,9 @@ export function createValidate<T>(): (input: unknown) => IValidation<T>;
 export function createEquals<T>(): (input: unknown) => input is T;
 export function createAssertEquals<T>(): (input: unknown) => T;
 export function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
+
+// YOU CAN ADD CUSTOM VALIDATORS
+export const customValidators: CustomValidatorMap;
 ```
 
 `typia` supports three type of validator functions:
@@ -210,7 +215,10 @@ export function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
 
 Also, if you want more strict validator functions that even do not allowing superfluous properties not written in the type `T`, you can use those functions instead; `equals()`, `assertEquals()`, `validateEquals()`. Otherwise you want to create resuable validator functions,  you can utilize factory functions like `createIs()` instead.
 
-When you want to add special validation logics, like limiting range of numeric values, you can do it through comment tags. If you want to know about it, visit the Guide Documents ([Features > Runtime Validators > Comment Tags](https://github.com/samchon/typia/wiki/Runtime-Validators#comment-tags)).
+When you want to add special validation logics, like limiting range of numeric values, you can do it through comment tags. Furthermore, you can add your custom validator logics. If you want to know about them, visit the Guide Documents:
+
+  - [Features > Runtime Validators > Comment Tags](https://github.com/samchon/typia/wiki/Runtime-Validators#comment-tags)
+  - [Features > Runtime Validators > Custom Validators](https://github.com/samchon/typia/wiki/Runtime-Validators#comment-tags).
 
 ### Enhanced JSON
 ```typescript
