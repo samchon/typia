@@ -459,7 +459,7 @@ export const addValidationTag =
      */
     (closure: (text: string) => (value: Customizable[Type]) => boolean) => {
         const key = `${name}:${type}` as const;
-        if (!$dictionary.has(key)) return false;
+        if ($dictionary.has(key)) return false;
 
         $dictionary.set(key, closure);
         return true;
