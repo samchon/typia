@@ -25,7 +25,12 @@ export const test_validateStringify_TagObjectUnion = _test_validateStringify(
                         [
                             ("number" === typeof input.value &&
                                 Number.isFinite(input.value) &&
-                                3 <= input.value) ||
+                                (3 <= input.value ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "number (@minimum 3)",
+                                        value: input.value,
+                                    }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
                                     expected: "number",
@@ -39,8 +44,18 @@ export const test_validateStringify_TagObjectUnion = _test_validateStringify(
                     ): boolean =>
                         [
                             ("string" === typeof input.value &&
-                                3 <= input.value.length &&
-                                7 >= input.value.length) ||
+                                (3 <= input.value.length ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "string (@minLength 3)",
+                                        value: input.value,
+                                    })) &&
+                                (7 >= input.value.length ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "string (@maxLength 7)",
+                                        value: input.value,
+                                    }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
                                     expected: "string",

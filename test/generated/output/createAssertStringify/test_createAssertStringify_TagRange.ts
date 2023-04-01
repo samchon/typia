@@ -20,7 +20,12 @@ export const test_createAssertStringify_TagRange = _test_assertStringify(
                 ): boolean =>
                     (("number" === typeof input.greater &&
                         Number.isFinite(input.greater) &&
-                        3 < input.greater) ||
+                        (3 < input.greater ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater",
+                                expected: "number (@exclusiveMinimum 3)",
+                                value: input.greater,
+                            }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".greater",
                             expected: "number",
@@ -28,7 +33,12 @@ export const test_createAssertStringify_TagRange = _test_assertStringify(
                         })) &&
                     (("number" === typeof input.greater_equal &&
                         Number.isFinite(input.greater_equal) &&
-                        3 <= input.greater_equal) ||
+                        (3 <= input.greater_equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_equal",
+                                expected: "number (@minimum 3)",
+                                value: input.greater_equal,
+                            }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".greater_equal",
                             expected: "number",
@@ -36,7 +46,12 @@ export const test_createAssertStringify_TagRange = _test_assertStringify(
                         })) &&
                     (("number" === typeof input.less &&
                         Number.isFinite(input.less) &&
-                        7 > input.less) ||
+                        (7 > input.less ||
+                            $guard(_exceptionable, {
+                                path: _path + ".less",
+                                expected: "number (@exclusiveMaximum 7)",
+                                value: input.less,
+                            }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".less",
                             expected: "number",
@@ -44,39 +59,84 @@ export const test_createAssertStringify_TagRange = _test_assertStringify(
                         })) &&
                     (("number" === typeof input.less_equal &&
                         Number.isFinite(input.less_equal) &&
-                        7 >= input.less_equal) ||
+                        (7 >= input.less_equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".less_equal",
+                                expected: "number (@maximum 7)",
+                                value: input.less_equal,
+                            }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".less_equal",
                             expected: "number",
                             value: input.less_equal,
                         })) &&
                     (("number" === typeof input.greater_less &&
-                        3 < input.greater_less &&
-                        7 > input.greater_less) ||
+                        (3 < input.greater_less ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_less",
+                                expected: "number (@exclusiveMinimum 3)",
+                                value: input.greater_less,
+                            })) &&
+                        (7 > input.greater_less ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_less",
+                                expected: "number (@exclusiveMaximum 7)",
+                                value: input.greater_less,
+                            }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".greater_less",
                             expected: "number",
                             value: input.greater_less,
                         })) &&
                     (("number" === typeof input.greater_equal_less &&
-                        3 <= input.greater_equal_less &&
-                        7 > input.greater_equal_less) ||
+                        (3 <= input.greater_equal_less ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_equal_less",
+                                expected: "number (@minimum 3)",
+                                value: input.greater_equal_less,
+                            })) &&
+                        (7 > input.greater_equal_less ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_equal_less",
+                                expected: "number (@exclusiveMaximum 7)",
+                                value: input.greater_equal_less,
+                            }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".greater_equal_less",
                             expected: "number",
                             value: input.greater_equal_less,
                         })) &&
                     (("number" === typeof input.greater_less_equal &&
-                        3 < input.greater_less_equal &&
-                        7 >= input.greater_less_equal) ||
+                        (3 < input.greater_less_equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_less_equal",
+                                expected: "number (@exclusiveMinimum 3)",
+                                value: input.greater_less_equal,
+                            })) &&
+                        (7 >= input.greater_less_equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_less_equal",
+                                expected: "number (@maximum 7)",
+                                value: input.greater_less_equal,
+                            }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".greater_less_equal",
                             expected: "number",
                             value: input.greater_less_equal,
                         })) &&
                     (("number" === typeof input.greater_equal_less_equal &&
-                        3 <= input.greater_equal_less_equal &&
-                        7 >= input.greater_equal_less_equal) ||
+                        (3 <= input.greater_equal_less_equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_equal_less_equal",
+                                expected: "number (@minimum 3)",
+                                value: input.greater_equal_less_equal,
+                            })) &&
+                        (7 >= input.greater_equal_less_equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_equal_less_equal",
+                                expected: "number (@maximum 7)",
+                                value: input.greater_equal_less_equal,
+                            }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".greater_equal_less_equal",
                             expected: "number",

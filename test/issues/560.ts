@@ -1,31 +1,31 @@
 import typia from "typia";
-import { v4 } from "uuid";
 
 import { TagCustom } from "../structures/TagCustom";
 
-TagCustom.generate;
+const validate = (title: string) => (action?: (custom: TagCustom) => void) => {
+    const custom: TagCustom = TagCustom.generate();
+    if (action) action(custom);
 
-console.log(
-    typia.createIs<TagCustom>()({
-        id: v4(),
-        dolloar: "1234",
-        postfix: "abcdabcd",
-        log: 100,
-    }),
-);
+    try {
+        typia.assert(custom);
+        console.log("assert:", title, "OK");
+    } catch (exp) {
+        const guard: typia.TypeGuardError = exp as typia.TypeGuardError;
+        console.log("assert:", title, guard.expected);
+    }
 
-// (input) => {
-//     const $is_uuid = typia_1.default.createIs.is_uuid;
-//     const $is_custom = typia_1.default.createIs.is_custom;
-//     const $io0 = (input) =>
-//         "string" === typeof input.id &&
-//         true === $is_uuid(input.id) &&
-//         "string" === typeof input.dolloar &&
-//         $is_custom("dolloar", "string", "", input.dolloar) &&
-//         "string" === typeof input.postfix &&
-//         $is_custom("postfix", "string", "abcd", input.postfix) &&
-//         "number" === typeof input.log &&
-//         Number.isFinite(input.log) &&
-//         $is_custom("powerOf", "number", "10", input.log);
-//     return "object" === typeof input && null !== input && $io0(input);
-// };
+    const result: typia.IValidation = typia.validate(custom);
+    if (result.success) console.log("validate:", title, "OK");
+    else
+        console.log(
+            "validate:",
+            title,
+            result.errors.map((e) => e.expected),
+        );
+};
+
+validate("success")();
+validate("id")((custom) => (custom.id = "1234"));
+validate("dolloar")((custom) => (custom.dollar = "1234"));
+validate("postfix")((custom) => (custom.postfix = "abcdabc"));
+validate("log")((custom) => (custom.log = 101));

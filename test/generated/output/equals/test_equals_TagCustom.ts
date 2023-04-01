@@ -15,8 +15,8 @@ export const test_equals_TagCustom = _test_equals(
             ): boolean =>
                 "string" === typeof input.id &&
                 true === $is_uuid(input.id) &&
-                "string" === typeof input.dolloar &&
-                $is_custom("dollar", "string", "", input.dolloar) &&
+                "string" === typeof input.dollar &&
+                $is_custom("dollar", "string", "", input.dollar) &&
                 "string" === typeof input.postfix &&
                 $is_custom("postfix", "string", "abcd", input.postfix) &&
                 "number" === typeof input.log &&
@@ -25,7 +25,7 @@ export const test_equals_TagCustom = _test_equals(
                 (4 === Object.keys(input).length ||
                     Object.keys(input).every((key) => {
                         if (
-                            ["id", "dolloar", "postfix", "log"].some(
+                            ["id", "dollar", "postfix", "log"].some(
                                 (prop) => key === prop,
                             )
                         )

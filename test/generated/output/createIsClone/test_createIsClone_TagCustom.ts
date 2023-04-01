@@ -12,8 +12,8 @@ export const test_createIsClone_TagCustom = _test_isClone(
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 true === $is_uuid(input.id) &&
-                "string" === typeof input.dolloar &&
-                $is_custom("dollar", "string", "", input.dolloar) &&
+                "string" === typeof input.dollar &&
+                $is_custom("dollar", "string", "", input.dollar) &&
                 "string" === typeof input.postfix &&
                 $is_custom("postfix", "string", "abcd", input.postfix) &&
                 "number" === typeof input.log &&
@@ -26,7 +26,7 @@ export const test_createIsClone_TagCustom = _test_isClone(
             const $is_custom = (typia.createIsClone as any).is_custom;
             const $co0 = (input: any): any => ({
                 id: input.id as any,
-                dolloar: input.dolloar as any,
+                dollar: input.dollar as any,
                 postfix: input.postfix as any,
                 log: input.log as any,
             });

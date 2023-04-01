@@ -18,7 +18,7 @@ export interface TagCustom {
      *
      * @dollar
      */
-    dolloar: string;
+    dollar: string;
 
     /**
      * Custom feature composed with string + "abcd"
@@ -38,7 +38,7 @@ export namespace TagCustom {
     export function generate(): TagCustom {
         return {
             id: v4(),
-            dolloar: "$" + RandomGenerator.integer(),
+            dollar: "$" + RandomGenerator.integer(),
             postfix: RandomGenerator.string() + "abcd",
             log: 100,
         };
@@ -50,8 +50,8 @@ export namespace TagCustom {
             return ["$input.id"];
         },
         (input) => {
-            input.dolloar = RandomGenerator.integer().toString();
-            return ["$input.dolloar"];
+            input.dollar = RandomGenerator.integer().toString();
+            return ["$input.dollar"];
         },
         (input) => {
             input.postfix = RandomGenerator.string() + "dcba";

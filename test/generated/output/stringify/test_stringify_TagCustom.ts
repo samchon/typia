@@ -12,8 +12,8 @@ export const test_stringify_TagCustom = _test_stringify(
             const $is_uuid = (typia.stringify as any).is_uuid;
             const $is_custom = (typia.stringify as any).is_custom;
             const $so0 = (input: any): any =>
-                `{"id":${'"' + input.id + '"'},"dolloar":${$string(
-                    input.dolloar,
+                `{"id":${'"' + input.id + '"'},"dollar":${$string(
+                    input.dollar,
                 )},"postfix":${$string(input.postfix)},"log":${$number(
                     input.log,
                 )}}`;

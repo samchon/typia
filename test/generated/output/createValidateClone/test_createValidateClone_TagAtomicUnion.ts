@@ -21,11 +21,26 @@ export const test_createValidateClone_TagAtomicUnion = _test_validateClone(
                 ): boolean =>
                     [
                         ("string" === typeof input.value &&
-                            3 <= input.value.length &&
-                            7 >= input.value.length) ||
+                            (3 <= input.value.length ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "string (@minLength 3)",
+                                    value: input.value,
+                                })) &&
+                            (7 >= input.value.length ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "string (@maxLength 7)",
+                                    value: input.value,
+                                }))) ||
                             ("number" === typeof input.value &&
                                 Number.isFinite(input.value) &&
-                                3 <= input.value) ||
+                                (3 <= input.value ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "number (@minimum 3)",
+                                        value: input.value,
+                                    }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".value",
                                 expected: "(number | string)",

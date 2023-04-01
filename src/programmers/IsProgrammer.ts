@@ -27,6 +27,11 @@ export namespace IsProgrammer {
             numeric: OptionPredicator.numeric({
                 numeric: options?.numeric,
             }),
+            atomist: () => (entry) => () =>
+                [
+                    entry.expression,
+                    ...entry.tags.map((tag) => tag.expression),
+                ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
             combiner: () => (type: "and" | "or") => {
                 const initial: ts.TrueLiteral | ts.FalseLiteral =
                     type === "and"

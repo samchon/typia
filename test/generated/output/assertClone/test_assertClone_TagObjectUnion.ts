@@ -21,7 +21,12 @@ export const test_assertClone_TagObjectUnion = _test_assertClone(
                     ): boolean =>
                         ("number" === typeof input.value &&
                             Number.isFinite(input.value) &&
-                            3 <= input.value) ||
+                            (3 <= input.value ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "number (@minimum 3)",
+                                    value: input.value,
+                                }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected: "number",
@@ -33,8 +38,18 @@ export const test_assertClone_TagObjectUnion = _test_assertClone(
                         _exceptionable: boolean = true,
                     ): boolean =>
                         ("string" === typeof input.value &&
-                            3 <= input.value.length &&
-                            7 >= input.value.length) ||
+                            (3 <= input.value.length ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "string (@minLength 3)",
+                                    value: input.value,
+                                })) &&
+                            (7 >= input.value.length ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "string (@maxLength 7)",
+                                    value: input.value,
+                                }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected: "string",

@@ -5,17 +5,20 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 
 import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { ICheckEntry } from "../helpers/ICheckEntry";
 
 /**
  * @internal
  */
 export const check_string_tags =
     (importer: FunctionImporter) =>
-    (input: ts.Expression, tagList: IMetadataTag[]) => {
-        const conditions: ts.Expression[] = [];
+    (tagList: IMetadataTag[]) =>
+    (input: ts.Expression): ICheckEntry.ITag[] => {
+        const conditions: [IMetadataTag, ts.Expression][] = [];
         for (const tag of tagList)
             if (tag.kind === "format")
-                conditions.push(
+                conditions.push([
+                    tag,
                     ts.factory.createStrictEquality(
                         ts.factory.createTrue(),
                         ts.factory.createCallExpression(
@@ -24,9 +27,10 @@ export const check_string_tags =
                             [input],
                         ),
                     ),
-                );
+                ]);
             else if (tag.kind === "pattern")
-                conditions.push(
+                conditions.push([
+                    tag,
                     ts.factory.createStrictEquality(
                         ts.factory.createTrue(),
                         ts.factory.createCallExpression(
@@ -37,27 +41,33 @@ export const check_string_tags =
                             [input],
                         ),
                     ),
-                );
+                ]);
             else if (tag.kind === "length")
-                conditions.push(
+                conditions.push([
+                    tag,
                     ts.factory.createStrictEquality(
                         ts.factory.createNumericLiteral(tag.value),
                         IdentifierFactory.join(input, "length"),
                     ),
-                );
+                ]);
             else if (tag.kind === "minLength")
-                conditions.push(
+                conditions.push([
+                    tag,
                     ts.factory.createLessThanEquals(
                         ts.factory.createNumericLiteral(tag.value),
                         IdentifierFactory.join(input, "length"),
                     ),
-                );
+                ]);
             else if (tag.kind === "maxLength")
-                conditions.push(
+                conditions.push([
+                    tag,
                     ts.factory.createGreaterThanEquals(
                         ts.factory.createNumericLiteral(tag.value),
                         IdentifierFactory.join(input, "length"),
                     ),
-                );
-        return conditions;
+                ]);
+        return conditions.map(([tag, expression]) => ({
+            expected: `string (@${tag.kind} ${tag.value})`,
+            expression,
+        }));
     };

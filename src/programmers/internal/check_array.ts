@@ -6,6 +6,7 @@ import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 
 import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { ICheckEntry } from "../helpers/ICheckEntry";
 import { check_array_length } from "./check_array_length";
 import { check_custom } from "./check_custom";
 
@@ -14,18 +15,12 @@ import { check_custom } from "./check_custom";
  */
 export const check_array =
     (importer: FunctionImporter) =>
-    (
-        input: ts.Expression,
-        metaTags: IMetadataTag[],
-        jsDocTags: IJsDocTagInfo[],
-    ): ts.Expression => {
-        const conditions: ts.Expression[] = [ExpressionFactory.isArray(input)];
-
-        const length: ts.Expression | null = check_array_length(
-            input,
-            metaTags,
-        );
-        if (length !== null) conditions.push(length);
-        conditions.push(...check_custom("array")(importer)(input, jsDocTags));
-        return conditions.reduce((x, y) => ts.factory.createLogicalAnd(x, y));
-    };
+    (metaTags: IMetadataTag[]) =>
+    (jsDocTags: IJsDocTagInfo[]) =>
+    (input: ts.Expression): ICheckEntry => ({
+        expression: ExpressionFactory.isArray(input),
+        tags: [
+            ...check_array_length(metaTags)(input),
+            ...check_custom("array", "Array")(importer)(jsDocTags)(input),
+        ],
+    });

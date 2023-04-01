@@ -19,7 +19,13 @@ export const test_createAssertStringify_TagArray = _test_assertStringify(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    ((Array.isArray(input.items) && 3 === input.items.length) ||
+                    ((Array.isArray(input.items) &&
+                        (3 === input.items.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".items",
+                                expected: "Array.length (@items 3)",
+                                value: input.items,
+                            }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".items",
                             expected: "Array<string>",
@@ -28,7 +34,12 @@ export const test_createAssertStringify_TagArray = _test_assertStringify(
                     input.items.every(
                         (elem: any, _index2: number) =>
                             ("string" === typeof elem &&
-                                true === $is_uuid(elem)) ||
+                                (true === $is_uuid(elem) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".items[" + _index2 + "]",
+                                        expected: "string (@format uuid)",
+                                        value: elem,
+                                    }))) ||
                             $guard(_exceptionable, {
                                 path: _path + ".items[" + _index2 + "]",
                                 expected: "string",
@@ -36,7 +47,12 @@ export const test_createAssertStringify_TagArray = _test_assertStringify(
                             }),
                     ) &&
                     ((Array.isArray(input.minItems) &&
-                        3 <= input.minItems.length) ||
+                        (3 <= input.minItems.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".minItems",
+                                expected: "Array.length (@minItems 3)",
+                                value: input.minItems,
+                            }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".minItems",
                             expected: "Array<number>",
@@ -46,7 +62,16 @@ export const test_createAssertStringify_TagArray = _test_assertStringify(
                         (elem: any, _index3: number) =>
                             ("number" === typeof elem &&
                                 Number.isFinite(elem) &&
-                                3 <= elem) ||
+                                (3 <= elem ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".minItems[" +
+                                            _index3 +
+                                            "]",
+                                        expected: "number (@minimum 3)",
+                                        value: elem,
+                                    }))) ||
                             $guard(_exceptionable, {
                                 path: _path + ".minItems[" + _index3 + "]",
                                 expected: "number",
@@ -54,7 +79,12 @@ export const test_createAssertStringify_TagArray = _test_assertStringify(
                             }),
                     ) &&
                     ((Array.isArray(input.maxItems) &&
-                        7 >= input.maxItems.length) ||
+                        (7 >= input.maxItems.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".maxItems",
+                                expected: "Array.length (@maxItems 7)",
+                                value: input.maxItems,
+                            }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".maxItems",
                             expected: "Array<(number | string)>",
@@ -62,10 +92,29 @@ export const test_createAssertStringify_TagArray = _test_assertStringify(
                         })) &&
                     input.maxItems.every(
                         (elem: any, _index4: number) =>
-                            ("string" === typeof elem && 7 >= elem.length) ||
+                            ("string" === typeof elem &&
+                                (7 >= elem.length ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".maxItems[" +
+                                            _index4 +
+                                            "]",
+                                        expected: "string (@maxLength 7)",
+                                        value: elem,
+                                    }))) ||
                             ("number" === typeof elem &&
                                 Number.isFinite(elem) &&
-                                7 >= elem) ||
+                                (7 >= elem ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".maxItems[" +
+                                            _index4 +
+                                            "]",
+                                        expected: "number (@maximum 7)",
+                                        value: elem,
+                                    }))) ||
                             $guard(_exceptionable, {
                                 path: _path + ".maxItems[" + _index4 + "]",
                                 expected: "(number | string)",
@@ -73,8 +122,18 @@ export const test_createAssertStringify_TagArray = _test_assertStringify(
                             }),
                     ) &&
                     ((Array.isArray(input.both) &&
-                        3 <= input.both.length &&
-                        7 >= input.both.length) ||
+                        (3 <= input.both.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".both",
+                                expected: "Array.length (@minItems 3)",
+                                value: input.both,
+                            })) &&
+                        (7 >= input.both.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".both",
+                                expected: "Array.length (@maxItems 7)",
+                                value: input.both,
+                            }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".both",
                             expected: "Array<string>",
@@ -83,7 +142,12 @@ export const test_createAssertStringify_TagArray = _test_assertStringify(
                     input.both.every(
                         (elem: any, _index5: number) =>
                             ("string" === typeof elem &&
-                                true === $is_uuid(elem)) ||
+                                (true === $is_uuid(elem) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".both[" + _index5 + "]",
+                                        expected: "string (@format uuid)",
+                                        value: elem,
+                                    }))) ||
                             $guard(_exceptionable, {
                                 path: _path + ".both[" + _index5 + "]",
                                 expected: "string",

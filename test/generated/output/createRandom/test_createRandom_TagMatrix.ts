@@ -37,7 +37,13 @@ export const test_createRandom_TagMatrix = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): boolean =>
-                ((Array.isArray(input.matrix) && 3 === input.matrix.length) ||
+                ((Array.isArray(input.matrix) &&
+                    (3 === input.matrix.length ||
+                        $guard(_exceptionable, {
+                            path: _path + ".matrix",
+                            expected: "Array.length (@items 3)",
+                            value: input.matrix,
+                        }))) ||
                     $guard(_exceptionable, {
                         path: _path + ".matrix",
                         expected: "Array<Array<string>>",
@@ -45,7 +51,13 @@ export const test_createRandom_TagMatrix = _test_random(
                     })) &&
                 input.matrix.every(
                     (elem: any, _index1: number) =>
-                        ((Array.isArray(elem) && 3 === elem.length) ||
+                        ((Array.isArray(elem) &&
+                            (3 === elem.length ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".matrix[" + _index1 + "]",
+                                    expected: "Array.length (@items 3)",
+                                    value: elem,
+                                }))) ||
                             $guard(_exceptionable, {
                                 path: _path + ".matrix[" + _index1 + "]",
                                 expected: "Array<string>",
@@ -54,7 +66,18 @@ export const test_createRandom_TagMatrix = _test_random(
                         elem.every(
                             (elem: any, _index2: number) =>
                                 ("string" === typeof elem &&
-                                    true === $is_uuid(elem)) ||
+                                    (true === $is_uuid(elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".matrix[" +
+                                                _index1 +
+                                                "][" +
+                                                _index2 +
+                                                "]",
+                                            expected: "string (@format uuid)",
+                                            value: elem,
+                                        }))) ||
                                 $guard(_exceptionable, {
                                     path:
                                         _path +

@@ -13,7 +13,7 @@ export const test_prune_TagCustom = _test_prune(
                 for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
-                        "dolloar" === key ||
+                        "dollar" === key ||
                         "postfix" === key ||
                         "log" === key
                     )
