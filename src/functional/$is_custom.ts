@@ -8,7 +8,7 @@ export function $is_custom<Type extends keyof Customizable>(
     text: string,
     value: Customizable[Type],
 ): boolean {
-    const validator = $dictionary.get(`${name}:${type}`);
+    const validator = $dictionary.get(name)?.get(type);
     if (validator === undefined) return true;
     return validator(text)(value);
 }

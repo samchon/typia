@@ -3,8 +3,11 @@ import { Customizable } from "../typings/Customizable";
 export const $dictionary = (() => {
     const glob: {
         __typia_custom_validator: Map<
-            `${string}:${keyof Customizable}`,
-            (tagText: string) => (value: any) => boolean
+            `${string}`,
+            Map<
+                keyof Customizable,
+                (tagText: string) => (value: any) => boolean
+            >
         >;
     } =
         typeof global === "object" &&
