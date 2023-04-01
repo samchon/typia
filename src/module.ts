@@ -4,8 +4,9 @@ import { Namespace } from "./functional/Namespace";
 import { IMetadataApplication } from "./metadata/IMetadataApplication";
 import { IJsonApplication } from "./schemas/IJsonApplication";
 
-import { Customizable } from "./typings/Customizable";
+import { MapUtil } from "./utils/MapUtil";
 
+import { CustomValidatorMap } from "./CustomValidatorMap";
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
 import { Primitive } from "./Primitive";
@@ -414,12 +415,14 @@ export function validateEquals(): never {
 Object.assign(validateEquals, Namespace.validate());
 
 /**
- * Add validation tag.
+ * Custom validators.
  *
- * If you want to add a custom validation logic, you can use this function.
+ * If you want to add a custom validation logic utilizing comment tags,
+ * add a closure function with its tag and type name. Below example code
+ * would helpful to understand how to use this instance.
  *
  * ```ts
- * typia.addValidationTag("powerOf")("number")(
+ * typia.customValidators.insert("powerOf")("number")(
  *     (text: string) => {
  *         const denominator: number = Math.log(Number(text));
  *         return (value: number) => {
@@ -428,7 +431,7 @@ Object.assign(validateEquals, Namespace.validate());
  *         };
  *     }
  * );
- * typia.addValidationTag("dollar")("string")(
+ * typia.customValidators.insert("dollar")("string")(
  *     () => (value: string) => value.startsWith("$"),
  * );
  *
@@ -445,25 +448,21 @@ Object.assign(validateEquals, Namespace.validate());
  * }
  * ```
  *
- * @param name Name of tag (`@name`)
- * @returns Currying function
+ * @author Jeongho Nam - https://github.com/samchon
  */
-export const addValidationTag =
-    (name: string) =>
-    /**
-     * @param type Type of target value
-     */
-    <Type extends keyof Customizable>(type: Type) =>
-    /**
-     * @param closure Closure function for custom validation
-     */
-    (closure: (text: string) => (value: Customizable[Type]) => boolean) => {
-        const key = `${name}:${type}` as const;
-        if ($dictionary.has(key)) return false;
-
-        $dictionary.set(key, closure);
+export const customValidators: CustomValidatorMap = {
+    size: (name?: string) =>
+        name ? $dictionary.get(name)?.size ?? 0 : $dictionary.size,
+    has: (name) => (type) => $dictionary.get(name)?.has(type) ?? false,
+    get: (name) => (type) => $dictionary.get(name)?.get(type),
+    insert: (name) => (type) => (closure) => {
+        const internal = MapUtil.take($dictionary, name, () => new Map());
+        if (internal.has(type)) return false;
+        internal.set(type, closure);
         return true;
-    };
+    },
+    erase: (name) => (type) => $dictionary.get(name)?.delete(type) ?? false,
+};
 
 /* -----------------------------------------------------------
     JSON FUNCTIONS
