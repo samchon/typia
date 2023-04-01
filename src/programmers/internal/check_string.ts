@@ -9,22 +9,17 @@ import { check_string_tags } from "./check_string_tags";
 /**
  * @internal
  */
-export function check_string(importer: FunctionImporter) {
-    return function (
-        input: ts.Expression,
-        metaTags: IMetadataTag[],
-        jsDocTags: ts.JSDocTagInfo[],
-    ) {
-        const conditions: ts.Expression[] = [
-            ts.factory.createStrictEquality(
-                ts.factory.createStringLiteral("string"),
-                ts.factory.createTypeOfExpression(input),
-            ),
-            ...check_string_tags(importer)(input, metaTags),
-            ...check_custom("string")(importer)(input, jsDocTags),
-        ];
-        return conditions.length === 1
-            ? conditions[0]!
-            : conditions.reduce((x, y) => ts.factory.createLogicalAnd(x, y));
-    };
-}
+export const check_string =
+    (importer: FunctionImporter) =>
+    (metaTags: IMetadataTag[]) =>
+    (jsDocTags: ts.JSDocTagInfo[]) =>
+    (input: ts.Expression) => ({
+        expression: ts.factory.createStrictEquality(
+            ts.factory.createStringLiteral("string"),
+            ts.factory.createTypeOfExpression(input),
+        ),
+        tags: [
+            ...check_string_tags(importer)(metaTags)(input),
+            ...check_custom("string")(importer)(jsDocTags)(input),
+        ],
+    });

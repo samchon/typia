@@ -16,6 +16,7 @@ import { IProject } from "../transformers/IProject";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { AtomicPredicator } from "./helpers/AtomicPredicator";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { ICheckEntry } from "./helpers/ICheckEntry";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { UnionExplorer } from "./helpers/UnionExplorer";
@@ -39,6 +40,9 @@ export namespace CheckerProgrammer {
         numeric: boolean;
         combiner: IConfig.Combiner;
         decoder?: FeatureProgrammer.Decoder<Metadata, ts.Expression>;
+        atomist: (
+            explore: IExplore,
+        ) => (check: ICheckEntry) => (input: ts.Expression) => ts.Expression;
         joiner: IConfig.IJoiner;
         success: ts.Expression;
     }
@@ -318,28 +322,25 @@ export namespace CheckerProgrammer {
                 if (AtomicPredicator.atomic(meta)(type) === false) continue;
                 else if (type === "number")
                     binaries.push({
-                        expression: check_number(
-                            project,
-                            config.numeric,
-                        )(importer)(input, metaTags, jsDocTags),
+                        expression: config.atomist(explore)(
+                            check_number(project, config.numeric)(importer)(
+                                metaTags,
+                            )(jsDocTags)(input),
+                        )(input),
                         combined: false,
                     });
                 else if (type === "bigint")
                     binaries.push({
-                        expression: check_bigint(importer)(
-                            input,
-                            metaTags,
-                            jsDocTags,
-                        ),
+                        expression: config.atomist(explore)(
+                            check_bigint(importer)(metaTags)(jsDocTags)(input),
+                        )(input),
                         combined: false,
                     });
                 else if (type === "string")
                     binaries.push({
-                        expression: check_string(importer)(
-                            input,
-                            metaTags,
-                            jsDocTags,
-                        ),
+                        expression: config.atomist(explore)(
+                            check_string(importer)(metaTags)(jsDocTags)(input),
+                        )(input),
                         combined: false,
                     });
                 else
@@ -353,11 +354,11 @@ export namespace CheckerProgrammer {
             if (meta.templates.length)
                 if (AtomicPredicator.template(meta))
                     binaries.push({
-                        expression: check_template(importer)(
-                            input,
-                            meta.templates,
-                            metaTags,
-                        ),
+                        expression: config.atomist(explore)(
+                            check_template(importer)(metaTags)(jsDocTags)(
+                                meta.templates,
+                            )(input),
+                        )(input),
                         combined: false,
                     });
 
@@ -438,11 +439,11 @@ export namespace CheckerProgrammer {
             // ARRAYS AND TUPLES
             if (meta.tuples.length + meta.arrays.length > 0) {
                 const install = prepare(
-                    check_array(importer)(
-                        input,
-                        meta.tuples.length === 0 ? metaTags : [],
-                        jsDocTags,
-                    ),
+                    config.atomist(explore)(
+                        check_array(importer)(
+                            meta.tuples.length === 0 ? metaTags : [],
+                        )(jsDocTags)(input),
+                    )(input),
                     [...meta.tuples, ...meta.arrays]
                         .map((elem) =>
                             Array.isArray(elem)
@@ -832,28 +833,26 @@ export namespace CheckerProgrammer {
         importer: FunctionImporter,
     ) =>
         UnionExplorer.array_or_tuple({
-            checker: (front, target, explore, tags, jsDocTags, array) => {
-                if (Array.isArray(target))
-                    return check_union_tuple(project, config, importer)(
-                        front,
-                        target,
-                        explore,
-                        tags,
-                        jsDocTags,
-                        array,
-                    );
-                const condition = decode(project, config, importer)(
-                    front,
-                    target,
-                    explore,
-                    tags,
-                    jsDocTags,
-                );
-                const length = check_array_length(array, tags);
-                return length !== null
-                    ? ts.factory.createBitwiseAnd(condition, length)
-                    : condition;
-            },
+            checker: (front, target, explore, tags, jsDocTags, array) =>
+                Array.isArray(target)
+                    ? check_union_tuple(project, config, importer)(
+                          front,
+                          target,
+                          explore,
+                          tags,
+                          jsDocTags,
+                          array,
+                      )
+                    : config.atomist(explore)({
+                          expression: decode(project, config, importer)(
+                              front,
+                              target,
+                              explore,
+                              tags,
+                              jsDocTags,
+                          ),
+                          tags: check_array_length(tags)(array),
+                      })(array),
             decoder: (input, target, explore, tags, jsDocTags) =>
                 Array.isArray(target)
                     ? decode_tuple(project, config, importer, true)(
