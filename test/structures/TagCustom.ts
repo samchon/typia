@@ -66,15 +66,15 @@ export namespace TagCustom {
     export const RANDOM = false;
 }
 
-typia.addValidationTag("dollar")("string")(
+typia.customValidators.insert("dollar")("string")(
     () => (value: string) =>
         value.startsWith("$") &&
         !isNaN(Number(value.substring(1).split(",").join(""))),
 );
-typia.addValidationTag("postfix")("string")(
+typia.customValidators.insert("postfix")("string")(
     (text: string) => (value: string) => value.endsWith(text),
 );
-typia.addValidationTag("powerOf")("number")((text: string) => {
+typia.customValidators.insert("powerOf")("number")((text: string) => {
     const denominator: number = Math.log(Number(text));
     return (value: number) => {
         value = Math.log(value) / denominator;
