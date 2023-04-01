@@ -25,31 +25,41 @@ export const test_createValidateStringify_TagCustom = _test_validateStringify(
                 ): boolean =>
                     [
                         ("string" === typeof input.id &&
-                            true === $is_uuid(input.id)) ||
+                            (true === $is_uuid(input.id) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".id",
+                                    expected: "string (@format uuid)",
+                                    value: input.id,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".id",
                                 expected: "string",
                                 value: input.id,
                             }),
-                        ("string" === typeof input.dolloar &&
-                            $is_custom(
-                                "dollar",
-                                "string",
-                                "",
-                                input.dolloar,
-                            )) ||
+                        ("string" === typeof input.dollar &&
+                            ($is_custom("dollar", "string", "", input.dollar) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".dollar",
+                                    expected: "string (@dollar)",
+                                    value: input.dollar,
+                                }))) ||
                             $report(_exceptionable, {
-                                path: _path + ".dolloar",
+                                path: _path + ".dollar",
                                 expected: "string",
-                                value: input.dolloar,
+                                value: input.dollar,
                             }),
                         ("string" === typeof input.postfix &&
-                            $is_custom(
+                            ($is_custom(
                                 "postfix",
                                 "string",
                                 "abcd",
                                 input.postfix,
-                            )) ||
+                            ) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".postfix",
+                                    expected: "string (@postfix abcd)",
+                                    value: input.postfix,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".postfix",
                                 expected: "string",
@@ -57,7 +67,12 @@ export const test_createValidateStringify_TagCustom = _test_validateStringify(
                             }),
                         ("number" === typeof input.log &&
                             Number.isFinite(input.log) &&
-                            $is_custom("powerOf", "number", "10", input.log)) ||
+                            ($is_custom("powerOf", "number", "10", input.log) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".log",
+                                    expected: "number (@powerOf 10)",
+                                    value: input.log,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".log",
                                 expected: "number",
@@ -92,8 +107,8 @@ export const test_createValidateStringify_TagCustom = _test_validateStringify(
             const $is_uuid = (typia.createValidateStringify as any).is_uuid;
             const $is_custom = (typia.createValidateStringify as any).is_custom;
             const $so0 = (input: any): any =>
-                `{"id":${'"' + input.id + '"'},"dolloar":${$string(
-                    input.dolloar,
+                `{"id":${'"' + input.id + '"'},"dollar":${$string(
+                    input.dollar,
                 )},"postfix":${$string(input.postfix)},"log":${$number(
                     input.log,
                 )}}`;

@@ -19,7 +19,12 @@ export const test_createAssert_TagType = _test_assert(
             ): boolean =>
                 (("number" === typeof input.int &&
                     Number.isFinite(input.int) &&
-                    parseInt(input.int) === input.int) ||
+                    (parseInt(input.int) === input.int ||
+                        $guard(_exceptionable, {
+                            path: _path + ".int",
+                            expected: "number (@type int)",
+                            value: input.int,
+                        }))) ||
                     $guard(_exceptionable, {
                         path: _path + ".int",
                         expected: "number",
@@ -27,8 +32,18 @@ export const test_createAssert_TagType = _test_assert(
                     })) &&
                 (("number" === typeof input.uint &&
                     Number.isFinite(input.uint) &&
-                    parseInt(input.uint) === input.uint &&
-                    0 <= input.uint) ||
+                    (parseInt(input.uint) === input.uint ||
+                        $guard(_exceptionable, {
+                            path: _path + ".uint",
+                            expected: "number (@type uint)",
+                            value: input.uint,
+                        })) &&
+                    (0 <= input.uint ||
+                        $guard(_exceptionable, {
+                            path: _path + ".uint",
+                            expected: "number (@type uint)",
+                            value: input.uint,
+                        }))) ||
                     $guard(_exceptionable, {
                         path: _path + ".uint",
                         expected: "number",

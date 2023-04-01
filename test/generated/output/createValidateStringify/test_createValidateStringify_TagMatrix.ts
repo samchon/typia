@@ -24,7 +24,12 @@ export const test_createValidateStringify_TagMatrix = _test_validateStringify(
                 ): boolean =>
                     [
                         (((Array.isArray(input.matrix) &&
-                            3 === input.matrix.length) ||
+                            (3 === input.matrix.length ||
+                                $report(_exceptionable, {
+                                    path: _path + ".matrix",
+                                    expected: "Array.length (@items 3)",
+                                    value: input.matrix,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".matrix",
                                 expected: "Array<Array<string>>",
@@ -34,7 +39,17 @@ export const test_createValidateStringify_TagMatrix = _test_validateStringify(
                                 .map(
                                     (elem: any, _index1: number) =>
                                         (((Array.isArray(elem) &&
-                                            3 === elem.length) ||
+                                            (3 === elem.length ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".matrix[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected:
+                                                        "Array.length (@items 3)",
+                                                    value: elem,
+                                                }))) ||
                                             $report(_exceptionable, {
                                                 path:
                                                     _path +
@@ -52,10 +67,25 @@ export const test_createValidateStringify_TagMatrix = _test_validateStringify(
                                                     ) =>
                                                         ("string" ===
                                                             typeof elem &&
-                                                            true ===
+                                                            (true ===
                                                                 $is_uuid(
                                                                     elem,
-                                                                )) ||
+                                                                ) ||
+                                                                $report(
+                                                                    _exceptionable,
+                                                                    {
+                                                                        path:
+                                                                            _path +
+                                                                            ".matrix[" +
+                                                                            _index1 +
+                                                                            "][" +
+                                                                            _index2 +
+                                                                            "]",
+                                                                        expected:
+                                                                            "string (@format uuid)",
+                                                                        value: elem,
+                                                                    },
+                                                                ))) ||
                                                         $report(
                                                             _exceptionable,
                                                             {

@@ -30,6 +30,30 @@ export namespace AssertProgrammer {
                     trace: true,
                     numeric: OptionPredicator.numeric(project.options),
                     equals,
+                    atomist: (explore) => (tuple) => (input) =>
+                        [
+                            tuple.expression,
+                            ...tuple.tags.map((tag) =>
+                                ts.factory.createLogicalOr(
+                                    tag.expression,
+                                    create_guard_call(importer)(
+                                        explore.from === "top"
+                                            ? ts.factory.createTrue()
+                                            : ts.factory.createIdentifier(
+                                                  "_exceptionable",
+                                              ),
+                                    )(
+                                        ts.factory.createIdentifier(
+                                            explore.postfix
+                                                ? `_path + ${explore.postfix}`
+                                                : "_path",
+                                        ),
+                                        tag.expected,
+                                        input,
+                                    ),
+                                ),
+                            ),
+                        ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
                     combiner: combiner(equals)(importer),
                     joiner: joiner(equals)(importer),
                     success: ts.factory.createTrue(),

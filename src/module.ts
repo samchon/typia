@@ -431,6 +431,18 @@ Object.assign(validateEquals, Namespace.validate());
  * typia.addValidationTag("dollar")("string")(
  *     () => (value: string) => value.startsWith("$"),
  * );
+ *
+ * interface TagCustom {
+ *    /**
+ *     * @powerOf 10
+ *     *\/
+ *    powerOf: number;
+ *
+ *    /**
+ *     * @dollar
+ *     *\/
+ *    dollar: string;
+ * }
  * ```
  *
  * @param name Name of tag (`@name`)
@@ -447,7 +459,10 @@ export const addValidationTag =
      */
     (closure: (text: string) => (value: Customizable[Type]) => boolean) => {
         const key = `${name}:${type}` as const;
-        if (!$dictionary.has(key)) $dictionary.set(key, closure);
+        if ($dictionary.has(key)) return false;
+
+        $dictionary.set(key, closure);
+        return true;
     };
 
 /* -----------------------------------------------------------

@@ -27,29 +27,54 @@ export const test_createValidatePrune_TagBigInt = _test_validatePrune(
                                 value: input.value,
                             }),
                         ("bigint" === typeof input.ranged &&
-                            0n <= input.ranged &&
-                            100n >= input.ranged) ||
+                            (0n <= input.ranged ||
+                                $report(_exceptionable, {
+                                    path: _path + ".ranged",
+                                    expected: "bigint (@minimum 0)",
+                                    value: input.ranged,
+                                })) &&
+                            (100n >= input.ranged ||
+                                $report(_exceptionable, {
+                                    path: _path + ".ranged",
+                                    expected: "bigint (@maximum 100)",
+                                    value: input.ranged,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".ranged",
                                 expected: "bigint",
                                 value: input.ranged,
                             }),
                         ("bigint" === typeof input.minimum &&
-                            0n <= input.minimum) ||
+                            (0n <= input.minimum ||
+                                $report(_exceptionable, {
+                                    path: _path + ".minimum",
+                                    expected: "bigint (@minimum 0)",
+                                    value: input.minimum,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".minimum",
                                 expected: "bigint",
                                 value: input.minimum,
                             }),
                         ("bigint" === typeof input.maximum &&
-                            100n >= input.maximum) ||
+                            (100n >= input.maximum ||
+                                $report(_exceptionable, {
+                                    path: _path + ".maximum",
+                                    expected: "bigint (@maximum 100)",
+                                    value: input.maximum,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".maximum",
                                 expected: "bigint",
                                 value: input.maximum,
                             }),
                         ("bigint" === typeof input.multipleOf &&
-                            0n === input.multipleOf % 3n) ||
+                            (0n === input.multipleOf % 3n ||
+                                $report(_exceptionable, {
+                                    path: _path + ".multipleOf",
+                                    expected: "bigint (@multipleOf 3)",
+                                    value: input.multipleOf,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".multipleOf",
                                 expected: "bigint",

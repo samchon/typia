@@ -34,7 +34,7 @@
             "x-typia-required": true,
             "format": "uuid"
           },
-          "dolloar": {
+          "dollar": {
             "type": "string",
             "nullable": false,
             "description": "Custom feature composed with \"$\" + number",
@@ -83,7 +83,7 @@
         "nullable": false,
         "required": [
           "id",
-          "dolloar",
+          "dollar",
           "postfix",
           "log"
         ],

@@ -28,8 +28,18 @@ export const test_validate_TagNaN = _test_validate(
                                 value: input.value,
                             }),
                         ("number" === typeof input.ranged &&
-                            0 <= input.ranged &&
-                            100 >= input.ranged) ||
+                            (0 <= input.ranged ||
+                                $report(_exceptionable, {
+                                    path: _path + ".ranged",
+                                    expected: "number (@minimum 0)",
+                                    value: input.ranged,
+                                })) &&
+                            (100 >= input.ranged ||
+                                $report(_exceptionable, {
+                                    path: _path + ".ranged",
+                                    expected: "number (@maximum 100)",
+                                    value: input.ranged,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".ranged",
                                 expected: "number",
@@ -37,7 +47,12 @@ export const test_validate_TagNaN = _test_validate(
                             }),
                         ("number" === typeof input.minimum &&
                             Number.isFinite(input.minimum) &&
-                            0 <= input.minimum) ||
+                            (0 <= input.minimum ||
+                                $report(_exceptionable, {
+                                    path: _path + ".minimum",
+                                    expected: "number (@minimum 0)",
+                                    value: input.minimum,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".minimum",
                                 expected: "number",
@@ -45,14 +60,24 @@ export const test_validate_TagNaN = _test_validate(
                             }),
                         ("number" === typeof input.maximum &&
                             Number.isFinite(input.maximum) &&
-                            100 >= input.maximum) ||
+                            (100 >= input.maximum ||
+                                $report(_exceptionable, {
+                                    path: _path + ".maximum",
+                                    expected: "number (@maximum 100)",
+                                    value: input.maximum,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".maximum",
                                 expected: "number",
                                 value: input.maximum,
                             }),
                         ("number" === typeof input.multipleOf &&
-                            0 === input.multipleOf % 3) ||
+                            (0 === input.multipleOf % 3 ||
+                                $report(_exceptionable, {
+                                    path: _path + ".multipleOf",
+                                    expected: "number (@multipleOf 3)",
+                                    value: input.multipleOf,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".multipleOf",
                                 expected: "number",
@@ -60,7 +85,12 @@ export const test_validate_TagNaN = _test_validate(
                             }),
                         ("number" === typeof input.typed &&
                             Number.isFinite(input.typed) &&
-                            parseInt(input.typed) === input.typed) ||
+                            (parseInt(input.typed) === input.typed ||
+                                $report(_exceptionable, {
+                                    path: _path + ".typed",
+                                    expected: "number (@type int)",
+                                    value: input.typed,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".typed",
                                 expected: "number",

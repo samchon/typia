@@ -1220,8 +1220,13 @@ export const test_validateStringify_UltimateUnion = _test_validateStringify(
                             undefined === input.minimum ||
                                 ("number" === typeof input.minimum &&
                                     Number.isFinite(input.minimum) &&
-                                    parseInt(input.minimum) ===
-                                        input.minimum) ||
+                                    (parseInt(input.minimum) ===
+                                        input.minimum ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".minimum",
+                                            expected: "number (@type int)",
+                                            value: input.minimum,
+                                        }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".minimum",
                                     expected: "(number | undefined)",
@@ -1230,8 +1235,13 @@ export const test_validateStringify_UltimateUnion = _test_validateStringify(
                             undefined === input.maximum ||
                                 ("number" === typeof input.maximum &&
                                     Number.isFinite(input.maximum) &&
-                                    parseInt(input.maximum) ===
-                                        input.maximum) ||
+                                    (parseInt(input.maximum) ===
+                                        input.maximum ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".maximum",
+                                            expected: "number (@type int)",
+                                            value: input.maximum,
+                                        }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".maximum",
                                     expected: "(number | undefined)",
@@ -1254,8 +1264,13 @@ export const test_validateStringify_UltimateUnion = _test_validateStringify(
                             undefined === input.multipleOf ||
                                 ("number" === typeof input.multipleOf &&
                                     Number.isFinite(input.multipleOf) &&
-                                    parseInt(input.multipleOf) ===
-                                        input.multipleOf) ||
+                                    (parseInt(input.multipleOf) ===
+                                        input.multipleOf ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".multipleOf",
+                                            expected: "number (@type int)",
+                                            value: input.multipleOf,
+                                        }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".multipleOf",
                                     expected: "(number | undefined)",
@@ -1624,9 +1639,19 @@ export const test_validateStringify_UltimateUnion = _test_validateStringify(
                             undefined === input.minLength ||
                                 ("number" === typeof input.minLength &&
                                     Number.isFinite(input.minLength) &&
-                                    parseInt(input.minLength) ===
-                                        input.minLength &&
-                                    0 <= input.minLength) ||
+                                    (parseInt(input.minLength) ===
+                                        input.minLength ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".minLength",
+                                            expected: "number (@type uint)",
+                                            value: input.minLength,
+                                        })) &&
+                                    (0 <= input.minLength ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".minLength",
+                                            expected: "number (@type uint)",
+                                            value: input.minLength,
+                                        }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".minLength",
                                     expected: "(number | undefined)",
@@ -1635,9 +1660,19 @@ export const test_validateStringify_UltimateUnion = _test_validateStringify(
                             undefined === input.maxLength ||
                                 ("number" === typeof input.maxLength &&
                                     Number.isFinite(input.maxLength) &&
-                                    parseInt(input.maxLength) ===
-                                        input.maxLength &&
-                                    0 <= input.maxLength) ||
+                                    (parseInt(input.maxLength) ===
+                                        input.maxLength ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".maxLength",
+                                            expected: "number (@type uint)",
+                                            value: input.maxLength,
+                                        })) &&
+                                    (0 <= input.maxLength ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".maxLength",
+                                            expected: "number (@type uint)",
+                                            value: input.maxLength,
+                                        }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".maxLength",
                                     expected: "(number | undefined)",
@@ -1840,9 +1875,19 @@ export const test_validateStringify_UltimateUnion = _test_validateStringify(
                             undefined === input.minItems ||
                                 ("number" === typeof input.minItems &&
                                     Number.isFinite(input.minItems) &&
-                                    parseInt(input.minItems) ===
-                                        input.minItems &&
-                                    0 <= input.minItems) ||
+                                    (parseInt(input.minItems) ===
+                                        input.minItems ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".minItems",
+                                            expected: "number (@type uint)",
+                                            value: input.minItems,
+                                        })) &&
+                                    (0 <= input.minItems ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".minItems",
+                                            expected: "number (@type uint)",
+                                            value: input.minItems,
+                                        }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".minItems",
                                     expected: "(number | undefined)",
@@ -1851,9 +1896,19 @@ export const test_validateStringify_UltimateUnion = _test_validateStringify(
                             undefined === input.maxItems ||
                                 ("number" === typeof input.maxItems &&
                                     Number.isFinite(input.maxItems) &&
-                                    parseInt(input.maxItems) ===
-                                        input.maxItems &&
-                                    0 <= input.maxItems) ||
+                                    (parseInt(input.maxItems) ===
+                                        input.maxItems ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".maxItems",
+                                            expected: "number (@type uint)",
+                                            value: input.maxItems,
+                                        })) &&
+                                    (0 <= input.maxItems ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".maxItems",
+                                            expected: "number (@type uint)",
+                                            value: input.maxItems,
+                                        }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".maxItems",
                                     expected: "(number | undefined)",

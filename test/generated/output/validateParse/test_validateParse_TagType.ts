@@ -23,7 +23,12 @@ export const test_validateParse_TagType = _test_validateParse(
                         [
                             ("number" === typeof input.int &&
                                 Number.isFinite(input.int) &&
-                                parseInt(input.int) === input.int) ||
+                                (parseInt(input.int) === input.int ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".int",
+                                        expected: "number (@type int)",
+                                        value: input.int,
+                                    }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".int",
                                     expected: "number",
@@ -31,8 +36,18 @@ export const test_validateParse_TagType = _test_validateParse(
                                 }),
                             ("number" === typeof input.uint &&
                                 Number.isFinite(input.uint) &&
-                                parseInt(input.uint) === input.uint &&
-                                0 <= input.uint) ||
+                                (parseInt(input.uint) === input.uint ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".uint",
+                                        expected: "number (@type uint)",
+                                        value: input.uint,
+                                    })) &&
+                                (0 <= input.uint ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".uint",
+                                        expected: "number (@type uint)",
+                                        value: input.uint,
+                                    }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".uint",
                                     expected: "number",

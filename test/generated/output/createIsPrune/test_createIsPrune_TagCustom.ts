@@ -12,8 +12,8 @@ export const test_createIsPrune_TagCustom = _test_isPrune(
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 true === $is_uuid(input.id) &&
-                "string" === typeof input.dolloar &&
-                $is_custom("dollar", "string", "", input.dolloar) &&
+                "string" === typeof input.dollar &&
+                $is_custom("dollar", "string", "", input.dollar) &&
                 "string" === typeof input.postfix &&
                 $is_custom("postfix", "string", "abcd", input.postfix) &&
                 "number" === typeof input.log &&
@@ -28,7 +28,7 @@ export const test_createIsPrune_TagCustom = _test_isPrune(
                 for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
-                        "dolloar" === key ||
+                        "dollar" === key ||
                         "postfix" === key ||
                         "log" === key
                     )

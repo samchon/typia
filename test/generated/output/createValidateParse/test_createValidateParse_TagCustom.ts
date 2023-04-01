@@ -23,31 +23,41 @@ export const test_createValidateParse_TagCustom = _test_validateParse(
                 ): boolean =>
                     [
                         ("string" === typeof input.id &&
-                            true === $is_uuid(input.id)) ||
+                            (true === $is_uuid(input.id) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".id",
+                                    expected: "string (@format uuid)",
+                                    value: input.id,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".id",
                                 expected: "string",
                                 value: input.id,
                             }),
-                        ("string" === typeof input.dolloar &&
-                            $is_custom(
-                                "dollar",
-                                "string",
-                                "",
-                                input.dolloar,
-                            )) ||
+                        ("string" === typeof input.dollar &&
+                            ($is_custom("dollar", "string", "", input.dollar) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".dollar",
+                                    expected: "string (@dollar)",
+                                    value: input.dollar,
+                                }))) ||
                             $report(_exceptionable, {
-                                path: _path + ".dolloar",
+                                path: _path + ".dollar",
                                 expected: "string",
-                                value: input.dolloar,
+                                value: input.dollar,
                             }),
                         ("string" === typeof input.postfix &&
-                            $is_custom(
+                            ($is_custom(
                                 "postfix",
                                 "string",
                                 "abcd",
                                 input.postfix,
-                            )) ||
+                            ) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".postfix",
+                                    expected: "string (@postfix abcd)",
+                                    value: input.postfix,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".postfix",
                                 expected: "string",
@@ -55,7 +65,12 @@ export const test_createValidateParse_TagCustom = _test_validateParse(
                             }),
                         ("number" === typeof input.log &&
                             Number.isFinite(input.log) &&
-                            $is_custom("powerOf", "number", "10", input.log)) ||
+                            ($is_custom("powerOf", "number", "10", input.log) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".log",
+                                    expected: "number (@powerOf 10)",
+                                    value: input.log,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".log",
                                 expected: "number",

@@ -10,7 +10,7 @@ export const test_createClone_TagCustom = _test_clone(
         const $is_custom = (typia.createClone as any).is_custom;
         const $co0 = (input: any): any => ({
             id: input.id as any,
-            dolloar: input.dolloar as any,
+            dollar: input.dollar as any,
             postfix: input.postfix as any,
             log: input.log as any,
         });

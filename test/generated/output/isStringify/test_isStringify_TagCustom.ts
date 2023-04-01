@@ -13,8 +13,8 @@ export const test_isStringify_TagCustom = _test_isStringify(
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     true === $is_uuid(input.id) &&
-                    "string" === typeof input.dolloar &&
-                    $is_custom("dollar", "string", "", input.dolloar) &&
+                    "string" === typeof input.dollar &&
+                    $is_custom("dollar", "string", "", input.dollar) &&
                     "string" === typeof input.postfix &&
                     $is_custom("postfix", "string", "abcd", input.postfix) &&
                     "number" === typeof input.log &&
@@ -30,8 +30,8 @@ export const test_isStringify_TagCustom = _test_isStringify(
                 const $is_uuid = (typia.isStringify as any).is_uuid;
                 const $is_custom = (typia.isStringify as any).is_custom;
                 const $so0 = (input: any): any =>
-                    `{"id":${'"' + input.id + '"'},"dolloar":${$string(
-                        input.dolloar,
+                    `{"id":${'"' + input.id + '"'},"dollar":${$string(
+                        input.dollar,
                     )},"postfix":${$string(input.postfix)},"log":${$number(
                         input.log,
                     )}}`;

@@ -24,34 +24,87 @@ export const test_validatePrune_TagStep = _test_validatePrune(
                     ): boolean =>
                         [
                             ("number" === typeof input.exclusiveMinimum &&
-                                0 === (input.exclusiveMinimum % 5) - 3 &&
-                                3 < input.exclusiveMinimum) ||
+                                (0 === (input.exclusiveMinimum % 5) - 3 ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".exclusiveMinimum",
+                                        expected: "number (@step 5)",
+                                        value: input.exclusiveMinimum,
+                                    })) &&
+                                (3 < input.exclusiveMinimum ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".exclusiveMinimum",
+                                        expected:
+                                            "number (@exclusiveMinimum 3)",
+                                        value: input.exclusiveMinimum,
+                                    }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".exclusiveMinimum",
                                     expected: "number",
                                     value: input.exclusiveMinimum,
                                 }),
                             ("number" === typeof input.minimum &&
-                                0 === (input.minimum % 5) - 3 &&
-                                3 <= input.minimum) ||
+                                (0 === (input.minimum % 5) - 3 ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".minimum",
+                                        expected: "number (@step 5)",
+                                        value: input.minimum,
+                                    })) &&
+                                (3 <= input.minimum ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".minimum",
+                                        expected: "number (@minimum 3)",
+                                        value: input.minimum,
+                                    }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".minimum",
                                     expected: "number",
                                     value: input.minimum,
                                 }),
                             ("number" === typeof input.range &&
-                                0 === (input.range % 5) - 0 &&
-                                0 < input.range &&
-                                100 > input.range) ||
+                                (0 === (input.range % 5) - 0 ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".range",
+                                        expected: "number (@step 5)",
+                                        value: input.range,
+                                    })) &&
+                                (0 < input.range ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".range",
+                                        expected:
+                                            "number (@exclusiveMinimum 0)",
+                                        value: input.range,
+                                    })) &&
+                                (100 > input.range ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".range",
+                                        expected:
+                                            "number (@exclusiveMaximum 100)",
+                                        value: input.range,
+                                    }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".range",
                                     expected: "number",
                                     value: input.range,
                                 }),
                             ("number" === typeof input.multipleOf &&
-                                0 === input.multipleOf % 5 &&
-                                3 <= input.multipleOf &&
-                                99 >= input.multipleOf) ||
+                                (0 === input.multipleOf % 5 ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".multipleOf",
+                                        expected: "number (@multipleOf 5)",
+                                        value: input.multipleOf,
+                                    })) &&
+                                (3 <= input.multipleOf ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".multipleOf",
+                                        expected: "number (@minimum 3)",
+                                        value: input.multipleOf,
+                                    })) &&
+                                (99 >= input.multipleOf ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".multipleOf",
+                                        expected: "number (@maximum 99)",
+                                        value: input.multipleOf,
+                                    }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".multipleOf",
                                     expected: "number",

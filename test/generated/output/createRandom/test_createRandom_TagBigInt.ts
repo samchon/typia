@@ -57,27 +57,54 @@ export const test_createRandom_TagBigInt = _test_random(
                         value: input.value,
                     })) &&
                 (("bigint" === typeof input.ranged &&
-                    0n <= input.ranged &&
-                    100n >= input.ranged) ||
+                    (0n <= input.ranged ||
+                        $guard(_exceptionable, {
+                            path: _path + ".ranged",
+                            expected: "bigint (@minimum 0)",
+                            value: input.ranged,
+                        })) &&
+                    (100n >= input.ranged ||
+                        $guard(_exceptionable, {
+                            path: _path + ".ranged",
+                            expected: "bigint (@maximum 100)",
+                            value: input.ranged,
+                        }))) ||
                     $guard(_exceptionable, {
                         path: _path + ".ranged",
                         expected: "bigint",
                         value: input.ranged,
                     })) &&
-                (("bigint" === typeof input.minimum && 0n <= input.minimum) ||
+                (("bigint" === typeof input.minimum &&
+                    (0n <= input.minimum ||
+                        $guard(_exceptionable, {
+                            path: _path + ".minimum",
+                            expected: "bigint (@minimum 0)",
+                            value: input.minimum,
+                        }))) ||
                     $guard(_exceptionable, {
                         path: _path + ".minimum",
                         expected: "bigint",
                         value: input.minimum,
                     })) &&
-                (("bigint" === typeof input.maximum && 100n >= input.maximum) ||
+                (("bigint" === typeof input.maximum &&
+                    (100n >= input.maximum ||
+                        $guard(_exceptionable, {
+                            path: _path + ".maximum",
+                            expected: "bigint (@maximum 100)",
+                            value: input.maximum,
+                        }))) ||
                     $guard(_exceptionable, {
                         path: _path + ".maximum",
                         expected: "bigint",
                         value: input.maximum,
                     })) &&
                 (("bigint" === typeof input.multipleOf &&
-                    0n === input.multipleOf % 3n) ||
+                    (0n === input.multipleOf % 3n ||
+                        $guard(_exceptionable, {
+                            path: _path + ".multipleOf",
+                            expected: "bigint (@multipleOf 3)",
+                            value: input.multipleOf,
+                        }))) ||
                     $guard(_exceptionable, {
                         path: _path + ".multipleOf",
                         expected: "bigint",
