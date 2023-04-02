@@ -30,4 +30,8 @@ stringify_po_server_pc.terminator = async () => {
     if (forked !== null) forked.kill();
 };
 
+// DON'T KNOW EXACT REASON, BUT CLASS-TRANSFORMER BREAKS IT
+stringify_po_server_pc.filter = (category: string) =>
+    category !== "array (recursive)";
+
 export { stringify_po_server_pc as benchmark_stringify_server };

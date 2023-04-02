@@ -15,18 +15,21 @@ import { ServerStorage } from "../ServerStorage";
 const server: express.Express = express();
 const reply =
     (schema: ct.ClassConstructor<any>) =>
-    <T extends object>(input: T[]) =>
-    (_req: express.Request, res: express.Response) =>
-        res
-            .status(200)
-            .header("Content-Type", "application/json")
-            .send(
-                JSON.stringify(
-                    input.map((elem) =>
-                        ct.classToPlain(ct.plainToClass(schema, elem)),
+    <T extends object>(data: T[]) => {
+        // CLASS-TRANSFORMER SPOILS ORIGINAL DATA
+        data = JSON.parse(JSON.stringify(data));
+        return (_req: express.Request, res: express.Response) =>
+            res
+                .status(200)
+                .header("Content-Type", "application/json")
+                .send(
+                    JSON.stringify(
+                        data.map((elem) =>
+                            ct.classToPlain(ct.plainToClass(schema, elem)),
+                        ),
                     ),
-                ),
-            );
+                );
+    };
 
 const storage = ServerStorage();
 

@@ -21,6 +21,7 @@ export namespace BenchmarkReporter {
         functor: () => Array<(() => T) | (() => Promise<T>)>,
         starter?: () => Promise<void>,
         terminator?: () => Promise<void>,
+        filter?: (category: string) => boolean,
     ): Promise<void> {
         if (starter) await starter();
 
@@ -34,14 +35,13 @@ export namespace BenchmarkReporter {
         console.log("  - " + name);
 
         // MEASURE PERFORMANCE
-        const measurements: Measurement<any>[] = await map(
-            functor(),
-            async (f) => {
+        const measurements: Measurement<any>[] = (
+            await map(functor(), async (f) => {
                 const m: Measurement<any> = await f();
                 console.log("    - " + m.category);
                 return m;
-            },
-        );
+            })
+        ).filter(({ category }) => (filter ?? (() => true))(category));
         const columns = Object.keys(measurements[0].result) as Components[];
         const relatives = measurements.map((measured) => {
             // COALESCING
