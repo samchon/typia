@@ -20,7 +20,7 @@ const stringify_po_server_pc = () => [
     prepare("array (simple)", "ArraySimple"),
     prepare("array (hierarchical)", "ArrayHierarchical"),
     prepare("array (recursive)", "ArrayRecursive"),
-    prepare("array (union)", "ArrayRecursiveUnionExplicit"),
+    prepare("array (recursive union)", "ArrayRecursiveUnionExplicit"),
 ];
 stringify_po_server_pc.starter = () => {
     forked = cp.fork(__dirname + "/../servers/stringify/index.js");

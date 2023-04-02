@@ -127,18 +127,22 @@ const stringify = () => [
         "class-transformer": serialize(CvArrayRecursive),
         "JSON.stringify": JSON.stringify,
     }),
-    prepare("array (union)", () => ArrayRecursiveUnionExplicit.generate(), {
-        "typia.stringify()":
-            typia.createStringify<ArrayRecursiveUnionExplicit>(),
-        "typia.assertStringify()":
-            typia.createAssertStringify<ArrayRecursiveUnionExplicit>(),
-        "typia.isStringify()":
-            typia.createIsStringify<ArrayRecursiveUnionExplicit>(),
-        "fast-json-stringify": build(
-            typia.application<[ArrayRecursiveUnionExplicit], "ajv">(),
-        ),
-        "class-transformer": serialize(CvArrayRecursiveUnionExplicit),
-        "JSON.stringify": JSON.stringify,
-    }),
+    prepare(
+        "array (recursive union)",
+        () => ArrayRecursiveUnionExplicit.generate(),
+        {
+            "typia.stringify()":
+                typia.createStringify<ArrayRecursiveUnionExplicit>(),
+            "typia.assertStringify()":
+                typia.createAssertStringify<ArrayRecursiveUnionExplicit>(),
+            "typia.isStringify()":
+                typia.createIsStringify<ArrayRecursiveUnionExplicit>(),
+            "fast-json-stringify": build(
+                typia.application<[ArrayRecursiveUnionExplicit], "ajv">(),
+            ),
+            "class-transformer": serialize(CvArrayRecursiveUnionExplicit),
+            "JSON.stringify": JSON.stringify,
+        },
+    ),
 ];
 export { stringify as benchmark_stringify };
