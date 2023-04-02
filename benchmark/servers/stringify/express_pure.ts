@@ -8,7 +8,7 @@ const reply =
     (_req: express.Request, res: express.Response) =>
         res.json(data);
 
-const storage = ServerStorage(true);
+const storage = ServerStorage();
 
 server.get("/ObjectSimple", reply(storage.ObjectSimple));
 server.get("/ObjectHierarchical", reply(storage.ObjectHierarchical));

@@ -21,7 +21,7 @@ const reply =
             .header("Content-Type", "application/json")
             .send(stringify(data));
 
-const storage = ServerStorage(true);
+const storage = ServerStorage();
 
 server.get(
     "/ObjectSimple",

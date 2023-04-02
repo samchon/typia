@@ -7,39 +7,20 @@ import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
 import { ObjectSimple } from "../../test/structures/ObjectSimple";
 import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 
-const repeat = <T>(generator: () => T) =>
-    new Array(100).fill("").map(generator);
-const failure = <T>(generator: () => T, trail: () => T) => {
-    const data: T[] = repeat(generator);
-    data.push(trail());
-    return data;
-};
+const repeat = <T>(generator: () => T, count: number = 100) =>
+    new Array(count).fill("").map(generator);
 
-export const ServerStorage = (success: boolean) => {
-    const wrapper = success ? repeat : failure;
+export const ServerStorage = () => {
     return {
-        ObjectSimple: wrapper(ObjectSimple.generate, ObjectSimple.trail),
-        ObjectHierarchical: wrapper(
-            ObjectHierarchical.generate,
-            ObjectHierarchical.trail,
-        ),
-        ObjectRecursive: wrapper(
-            ObjectRecursive.generate,
-            ObjectRecursive.trail,
-        ),
-        ObjectUnionExplicit: wrapper(
-            ObjectUnionExplicit.generate,
-            ObjectUnionExplicit.trail,
-        ),
-        ArraySimple: wrapper(ArraySimple.generate, ArraySimple.trail),
-        ArrayHierarchical: wrapper(
-            ArrayHierarchical.generate,
-            ArrayHierarchical.trail,
-        ),
-        ArrayRecursive: wrapper(ArrayRecursive.generate, ArrayRecursive.trail),
-        ArrayRecursiveUnionExplicit: wrapper(
+        ObjectSimple: repeat(ObjectSimple.generate),
+        ObjectHierarchical: repeat(ObjectHierarchical.generate),
+        ObjectRecursive: repeat(ObjectRecursive.generate),
+        ObjectUnionExplicit: repeat(ObjectUnionExplicit.generate),
+        ArraySimple: repeat(ArraySimple.generate),
+        ArrayHierarchical: repeat(ArrayHierarchical.generate),
+        ArrayRecursive: repeat(ArrayRecursive.generate, 80),
+        ArrayRecursiveUnionExplicit: repeat(
             ArrayRecursiveUnionExplicit.generate,
-            ArrayRecursiveUnionExplicit.trail,
         ),
     };
 };
