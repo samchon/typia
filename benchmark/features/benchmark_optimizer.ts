@@ -81,14 +81,18 @@ const optimizer = () => [
         typebox: () => buildTypebox(__TypeBoxArrayRecursive),
     }),
     // SPECIAL UNION STRUCTURES
-    prepare("array (union)", () => ArrayRecursiveUnionExplicit.generate(), {
-        typia: () => (input) => typia.is(input),
-        ajv: () => (input) =>
-            buildAjv(typia.application<[ArrayRecursiveUnionExplicit], "ajv">())(
-                input,
-            ),
-        typebox: () => buildTypebox(__TypeBoxArrayRecursiveUnionExplicit),
-    }),
+    prepare(
+        "array (recursive union)",
+        () => ArrayRecursiveUnionExplicit.generate(),
+        {
+            typia: () => (input) => typia.is(input),
+            ajv: () => (input) =>
+                buildAjv(
+                    typia.application<[ArrayRecursiveUnionExplicit], "ajv">(),
+                )(input),
+            typebox: () => buildTypebox(__TypeBoxArrayRecursiveUnionExplicit),
+        },
+    ),
 
     //----
     // ULTIMATE UNION
