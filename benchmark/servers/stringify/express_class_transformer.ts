@@ -28,7 +28,7 @@ const reply =
                 ),
             );
 
-const storage = ServerStorage(true);
+const storage = ServerStorage();
 
 server.get("/ObjectSimple", reply(CvObjectSimple)(storage.ObjectSimple));
 server.get(
