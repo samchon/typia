@@ -5,9 +5,10 @@ import { ServerBenchmarker } from "../internal/ServerBenchmarker";
 let forked: cp.ChildProcess | null = null;
 const prepare = ServerBenchmarker.prepare({
     "express (pure)": 22222,
-    "express (typia.stringify)": 33333,
-    "express (typia.isStringify)": 33334,
-    "express (typia.assertStringify)": 33335,
+    "express (class-transformer)": 33331,
+    "express (typia.stringify)": 33332,
+    "express (typia.isStringify)": 33333,
+    "express (typia.assertStringify)": 33334,
     fastify: 44444,
 });
 
@@ -19,7 +20,7 @@ const stringify_po_server_pc = () => [
     prepare("array (simple)", "ArraySimple"),
     prepare("array (hierarchical)", "ArrayHierarchical"),
     prepare("array (recursive)", "ArrayRecursive"),
-    prepare("array (union)", "ArrayRecursiveUnionExplicit"),
+    prepare("array (recursive union)", "ArrayRecursiveUnionExplicit"),
 ];
 stringify_po_server_pc.starter = () => {
     forked = cp.fork(__dirname + "/../servers/stringify/index.js");
@@ -28,5 +29,9 @@ stringify_po_server_pc.starter = () => {
 stringify_po_server_pc.terminator = async () => {
     if (forked !== null) forked.kill();
 };
+
+// DON'T KNOW EXACT REASON, BUT CLASS-TRANSFORMER BREAKS IT
+stringify_po_server_pc.filter = (category: string) =>
+    category !== "array (recursive)";
 
 export { stringify_po_server_pc as benchmark_stringify_server };

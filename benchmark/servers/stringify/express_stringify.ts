@@ -21,7 +21,7 @@ const reply =
             .header("Content-Type", "application/json")
             .send(stringify(data));
 
-const storage = ServerStorage(true);
+const storage = ServerStorage();
 
 server.get(
     "/ObjectSimple",
@@ -65,4 +65,4 @@ server.get(
     ),
 );
 
-server.listen({ port: 33_333 });
+server.listen({ port: 33_332 });

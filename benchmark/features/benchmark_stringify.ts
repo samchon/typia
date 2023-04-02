@@ -32,10 +32,10 @@ function build<T>(app: typia.IJsonApplication): null | ((input: T) => string) {
     }
 }
 
-const serialize = <T extends object>(schema: ct.ClassConstructor<any>) => ({
-    transform: (input: T) => ct.plainToClass(schema, input),
-    stringify: (input: T) => JSON.stringify(ct.classToPlain(input)),
-});
+const serialize =
+    (schema: ct.ClassConstructor<any>) =>
+    <T extends object>(input: T) =>
+        JSON.stringify(ct.classToPlain(ct.plainToClass(schema, input)));
 
 const prepare = StringifyBenchmarker.prepare([
     "typia.stringify()",
@@ -127,18 +127,22 @@ const stringify = () => [
         "class-transformer": serialize(CvArrayRecursive),
         "JSON.stringify": JSON.stringify,
     }),
-    prepare("array (union)", () => ArrayRecursiveUnionExplicit.generate(), {
-        "typia.stringify()":
-            typia.createStringify<ArrayRecursiveUnionExplicit>(),
-        "typia.assertStringify()":
-            typia.createAssertStringify<ArrayRecursiveUnionExplicit>(),
-        "typia.isStringify()":
-            typia.createIsStringify<ArrayRecursiveUnionExplicit>(),
-        "fast-json-stringify": build(
-            typia.application<[ArrayRecursiveUnionExplicit], "ajv">(),
-        ),
-        "class-transformer": serialize(CvArrayRecursiveUnionExplicit),
-        "JSON.stringify": JSON.stringify,
-    }),
+    prepare(
+        "array (recursive union)",
+        () => ArrayRecursiveUnionExplicit.generate(),
+        {
+            "typia.stringify()":
+                typia.createStringify<ArrayRecursiveUnionExplicit>(),
+            "typia.assertStringify()":
+                typia.createAssertStringify<ArrayRecursiveUnionExplicit>(),
+            "typia.isStringify()":
+                typia.createIsStringify<ArrayRecursiveUnionExplicit>(),
+            "fast-json-stringify": build(
+                typia.application<[ArrayRecursiveUnionExplicit], "ajv">(),
+            ),
+            "class-transformer": serialize(CvArrayRecursiveUnionExplicit),
+            "JSON.stringify": JSON.stringify,
+        },
+    ),
 ];
 export { stringify as benchmark_stringify };

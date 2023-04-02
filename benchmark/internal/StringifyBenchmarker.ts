@@ -8,12 +8,7 @@ export namespace StringifyBenchmarker {
     }
     export type IParameters<Components extends string, T> = Record<
         Components,
-        | null
-        | ((input: T) => string | null)
-        | {
-              transform: (input: T) => T;
-              stringify: (input: T) => string;
-          }
+        null | ((input: T) => string | null)
     >;
 
     export const prepare =
@@ -30,19 +25,13 @@ export namespace StringifyBenchmarker {
 
             const suite: benchmark.Suite = new benchmark.Suite();
             for (const key of components) {
-                const props = parameters[key];
-                if (props === null) continue;
-
-                const [a, b, c] = [x, y, z].map((elem) =>
-                    props instanceof Function ? elem : props.transform(elem),
-                );
-                const stringify: (input: T) => string | null =
-                    props instanceof Function ? props : props.stringify;
+                const stringify = parameters[key];
+                if (stringify === null) continue;
 
                 const task = () => {
-                    stringify(a);
-                    stringify(b);
-                    stringify(c);
+                    stringify(x);
+                    stringify(y);
+                    stringify(z);
                 };
                 suite.add(key, task);
             }
