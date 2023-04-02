@@ -18,7 +18,7 @@ export const ServerStorage = () => {
         ObjectUnionExplicit: repeat(ObjectUnionExplicit.generate),
         ArraySimple: repeat(ArraySimple.generate),
         ArrayHierarchical: repeat(ArrayHierarchical.generate),
-        ArrayRecursive: repeat(ArrayRecursive.generate, 80),
+        ArrayRecursive: repeat(ArrayRecursive.generate),
         ArrayRecursiveUnionExplicit: repeat(
             ArrayRecursiveUnionExplicit.generate,
         ),

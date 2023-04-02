@@ -19,6 +19,7 @@ interface Functor {
     (): Array<() => Measurement> | Array<() => Promise<Measurement>>;
     starter?: () => Promise<void>;
     terminator?: () => Promise<void>;
+    filter?: (category: string) => boolean;
 }
 
 async function main(): Promise<void> {
@@ -43,6 +44,7 @@ async function main(): Promise<void> {
             func,
             func.starter,
             func.terminator,
+            func.filter,
         );
     }
     await stream.close();
