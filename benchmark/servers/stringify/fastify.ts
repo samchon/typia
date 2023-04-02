@@ -31,7 +31,7 @@ const schema = (app: typia.IJsonApplication) => {
 const reply = (data: object) => (_i: FastifyRequest, o: FastifyReply) =>
     o.send(data);
 
-const storage = ServerStorage(true);
+const storage = ServerStorage();
 
 server.get(
     "/ObjectSimple",

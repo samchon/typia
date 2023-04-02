@@ -61,7 +61,7 @@ export namespace ServerBenchmarker {
                     url: `http://127.0.0.1:${port}/${request.path}`,
                     method: request.method,
                     body: request.body,
-                    connections: 128,
+                    connections: 100,
                     workers: Math.min(1, Math.ceil(PHYSICAL_CPU_COUNT / 2)),
                 },
                 (err, result) => {
