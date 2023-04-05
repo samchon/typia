@@ -7,15 +7,10 @@
 
 ```typescript
 // RUNTIME VALIDATORS
-export function is<T>(input: unknown | T): input is T; // returns boolean
-export function assert<T>(input: unknown | T): T; // throws TypeGuardError
-export function validate<T>(input: unknown | T): IValidation<T>; // detailed
+export function is<T>(input: unknown): input is T; // returns boolean
+export function assert<T>(input: unknown): T; // throws TypeGuardError
+export function validate<T>(input: unknown): IValidation<T>; // detailed
 export const customValidators: CustomValidatorMap; // can add custom validators
-
-// STRICT VALIDATORS
-export function equals<T>(input: unknown | T): input is T;
-export function assertEquals<T>(input: unknown | T): T;
-export function validateEquals<T>(input: unknown | T): IValidation<T>;
 
 // JSON
 export function application<T>(): IJsonApplication; // JSON schema
@@ -25,7 +20,7 @@ export function assertStringify<T>(input: T): string; // safe and faster
     // +) stringify, isStringify, validateStringify
 
 // MISC
-export function random<T>(): Primitive<T>; // generate random data
+export function random<T>(g?: Partial<IRandomGenerator>): Primitive<T>;
 export function clone<T>(input: T): Primitive<T>; // deep clone
 export function prune<T extends object>(input: T): void; // erase extra props
     // +) isClone, assertClone, validateClone
@@ -41,7 +36,7 @@ export function prune<T extends object>(input: T): void; // erase extra props
 
 All functions in `typia` require **only one line**. You don't need any extra dedication like JSON schema definitions or decorator function calls. Just call `typia` function with only one line like `typia.assert<T>(input)`.
 
-Also, as `typia` performs AOT (Ahead of Time) compilation skill, its performance is much faster than other competitive libaries. For an example, when comparing validate function `is()` with other competitive libraries, `typia` is maximum **15,000x times faster** than `class-validator`.
+Also, as `typia` performs AOT (Ahead of Time) compilation skill, its performance is much faster than other competitive libaries. For an example, when comparing validate function `is()` with other competitive libraries, `typia` is maximum **15,000x faster** than `class-validator`.
 
 ![Is Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/is.svg)
 
@@ -172,26 +167,26 @@ For more details, refer to the [Guide Documents (wiki)](https://github.com/samch
 >   - [comment tags](https://github.com/samchon/typia/wiki/Runtime-Validators#comment-tags)
 >   - [custom validators](https://github.com/samchon/typia/wiki/Runtime-Validators#custom-validators)
 > - **Enhanced JSON**
->   - [JSON schema](https://github.com/samchon/typia/wiki/Enhanced-JSON#json-schema)
->   - [`parse()` functions](https://github.com/samchon/typia/wiki/Enhanced-JSON#parse-functions)
 >   - [`stringify()` functions](https://github.com/samchon/typia/wiki/Enhanced-JSON#stringify-functions)
+>   - [`parse()` functions](https://github.com/samchon/typia/wiki/Enhanced-JSON#parse-functions)
+>   - [JSON schema](https://github.com/samchon/typia/wiki/Enhanced-JSON#json-schema)
 >   - [comment tags](https://github.com/samchon/typia/wiki/Enhanced-JSON#comment-tags)
-> - **Miscellaneous**
->   - [`random()` function](https://github.com/samchon/typia/wiki/Miscellaneous#random-function)
->   - [`clone()` functions](https://github.com/samchon/typia/wiki/Miscellaneous#clone-functions)
->   - [`prune()` functions](https://github.com/samchon/typia/wiki/Miscellaneous#prune-functions)
+> - **Random Generator**
+>   - [`random()` function](https://github.com/samchon/typia/wiki/Random-Generator#random-function)
+>   - [comment tags](https://github.com/samchon/typia/wiki/Random-Geneerator#comment-tags)
+>   - [customization](https://github.com/samchon/typia/wiki/Random-Generator#customization)
 
 ### Runtime Validators
 ```typescript
 // ALLOW SUPERFLUOUS PROPERTIES
-export function is<T>(input: T | unknown): input is T; // returns boolean
-export function assert<T>(input: T | unknown): T; // throws `TypeGuardError`
-export function validate<T>(input: T | unknown): IValidation<T>; // detailed
+export function is<T>(input: unknown): input is T; // returns boolean
+export function assert<T>(input: unknown): T; // throws `TypeGuardError`
+export function validate<T>(input: unknown): IValidation<T>; // detailed
 
 // DO NOT ALLOW SUPERFLUOUS PROPERTIES
-export function equals<T>(input: T | unknown): input is T;
-export function assertEquals<T>(input: T | unknown): T;
-export function validateEquals<T>(input: T | unknown): IValidation<T>;
+export function equals<T>(input: unknown): input is T;
+export function assertEquals<T>(input: unknown): T;
+export function validateEquals<T>(input: unknown): IValidation<T>;
 
 // REUSABLE FACTORY FUNCTIONS
 export function createIs<T>(): (input: unknown) => input is T;
@@ -211,14 +206,14 @@ export const customValidators: CustomValidatorMap;
   - `assert()`: throws a [`TypeGuardError`](https://github.com/samchon/typia/blob/master/src/TypeGuardError.ts) when not matched
   - `validate()`
     - when matched, returns [`IValidation.ISuccess<T>`](https://github.com/samchon/typia/blob/master/src/IValidation.ts) with `value` property
-    - when not matched, returns [`IValidation.IFailure`](https://github.com/samchon/typia/blob/master/src/IValidation.ts) with `errors` property
+    - otherwise not matched, returns [`IValidation.IFailure`](https://github.com/samchon/typia/blob/master/src/IValidation.ts) with `errors` property
 
 Also, if you want more strict validator functions that even do not allowing superfluous properties not written in the type `T`, you can use those functions instead; `equals()`, `assertEquals()`, `validateEquals()`. Otherwise you want to create resuable validator functions,  you can utilize factory functions like `createIs()` instead.
 
 When you want to add special validation logics, like limiting range of numeric values, you can do it through comment tags. Furthermore, you can add your custom validator logics. If you want to know about them, visit the Guide Documents:
 
   - [Features > Runtime Validators > Comment Tags](https://github.com/samchon/typia/wiki/Runtime-Validators#comment-tags)
-  - [Features > Runtime Validators > Custom Validators](https://github.com/samchon/typia/wiki/Runtime-Validators#comment-tags).
+  - [Features > Runtime Validators > Custom Validators](https://github.com/samchon/typia/wiki/Runtime-Validators#custom-validators).
 
 ### Enhanced JSON
 ```typescript
@@ -262,17 +257,19 @@ export function createAssertStringify<T>(): (input: T) => string;
 
 ### Miscellaneous
 ```typescript
-export function random<T>(): Primitive<T>; // random data generator
+export function random<T>(g?: Partial<IRandomGenerator>): Primitive<T>; 
 export function clone<T>(input: T): Primitive<T>; // deep copy
 export function prune<T>(input: T): void; // remove superfluous properties
     // +) isClone, assertClone, validateClone
     // +) isPrune, assertPrune, validatePrune
 ```
 
-When you need test data, just generate it through `typia.random<T>()`.
+When you need random data, just call only `typia.random<T>()` function.
 
-If a little bit special data being required, use ([Features > Runtime Validators > Comment Tags](https://github.com/samchon/typia/wiki/Runtime-Validators#comment-tags))
+If you need specific random data generation, utilize comment tags or do customize.
 
+  - [Features > Random Generator > comment tags](https://github.com/samchon/typia/wiki/Random-Generator#random-function)
+  - [Features > Random Generator > customization](https://github.com/samchon/typia/wiki/Random-Generator#customization)
 
 
 
@@ -286,7 +283,9 @@ If a little bit special data being required, use ([Features > Runtime Validators
 
 [Nestia](https://github.com/samchon/nestia) is a set of helper libraries for `NestJS`, supporting below features:
 
-  - `@nestia/core`: **15,000x times faster** validation decorators
+  - `@nestia/core`: superfast decorators using `typia`
+    - **15,000x faster** validation
+    - **100x faster** JSON serialization
   - `@nestia/sdk`: evolved **SDK** and **Swagger** generators
     - SDK (Software Development Kit)
       - interaction library for client developers
