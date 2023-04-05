@@ -6,8 +6,7 @@ export const test_random_ObjectUnionComposite = _test_random(
     "ObjectUnionComposite",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectUnionComposite> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
@@ -15,8 +14,12 @@ export const test_random_ObjectUnionComposite = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                x: (generator.number ?? $generator.number)(0, 100),
-                y: (generator.number ?? $generator.number)(0, 100),
+                x:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                y:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             });
             const $ro1 = (
                 _recursive: boolean = false,
@@ -46,7 +49,7 @@ export const test_random_ObjectUnionComposite = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                points: (generator.array ?? $generator.array)(() =>
+                points: (generator?.array ?? $generator.array)(() =>
                     $ro0(_recursive, _recursive ? 1 + _depth : _depth),
                 ),
             });
@@ -55,7 +58,7 @@ export const test_random_ObjectUnionComposite = _test_random(
                 _depth: number = 0,
             ): any => ({
                 outer: $ro4(_recursive, _recursive ? 1 + _depth : _depth),
-                inner: (generator.array ?? $generator.array)(() =>
+                inner: (generator?.array ?? $generator.array)(() =>
                     $ro4(_recursive, _recursive ? 1 + _depth : _depth),
                 ),
             });
@@ -63,7 +66,7 @@ export const test_random_ObjectUnionComposite = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                outer: (generator.array ?? $generator.array)(() =>
+                outer: (generator?.array ?? $generator.array)(() =>
                     $ro0(_recursive, _recursive ? 1 + _depth : _depth),
                 ),
                 inner: $ro0(_recursive, _recursive ? 1 + _depth : _depth),
@@ -73,9 +76,11 @@ export const test_random_ObjectUnionComposite = _test_random(
                 _depth: number = 0,
             ): any => ({
                 centroid: $ro0(_recursive, _recursive ? 1 + _depth : _depth),
-                radius: (generator.number ?? $generator.number)(0, 100),
+                radius:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             });
-            return (generator.array ?? $generator.array)(() =>
+            return (generator?.array ?? $generator.array)(() =>
                 $pick([
                     () => $ro0(),
                     () => $ro1(),

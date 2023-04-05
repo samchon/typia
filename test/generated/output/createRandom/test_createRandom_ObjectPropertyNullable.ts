@@ -5,8 +5,7 @@ import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullab
 export const test_createRandom_ObjectPropertyNullable = _test_random(
     "ObjectPropertyNullable",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectPropertyNullable> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
@@ -16,7 +15,7 @@ export const test_createRandom_ObjectPropertyNullable = _test_random(
         ): any => ({
             value: $pick([
                 () => null,
-                () => (generator.boolean ?? $generator.boolean)(),
+                () => (generator?.boolean ?? $generator.boolean)(),
             ])(),
         });
         const $ro1 = (
@@ -25,7 +24,9 @@ export const test_createRandom_ObjectPropertyNullable = _test_random(
         ): any => ({
             value: $pick([
                 () => null,
-                () => (generator.number ?? $generator.number)(0, 100),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             ])(),
         });
         const $ro2 = (
@@ -34,7 +35,9 @@ export const test_createRandom_ObjectPropertyNullable = _test_random(
         ): any => ({
             value: $pick([
                 () => null,
-                () => (generator.string ?? $generator.string)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ])(),
         });
         const $ro3 = (
@@ -50,30 +53,38 @@ export const test_createRandom_ObjectPropertyNullable = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            id: (generator.string ?? $generator.string)(),
+            id:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
             name: $pick([
                 () => null,
-                () => (generator.string ?? $generator.string)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ])(),
             grade: $pick([
                 () => undefined,
-                () => (generator.number ?? $generator.number)(0, 100),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             ])(),
             serial: $pick([
                 () => undefined,
                 () => null,
-                () => (generator.number ?? $generator.number)(0, 100),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             ])(),
             activated: $pick([
                 () => null,
-                () => (generator.boolean ?? $generator.boolean)(),
+                () => (generator?.boolean ?? $generator.boolean)(),
             ])(),
         });
         return [
-            (generator.array ?? $generator.array)(() => $ro0()),
-            (generator.array ?? $generator.array)(() => $ro1()),
-            (generator.array ?? $generator.array)(() => $ro2()),
-            (generator.array ?? $generator.array)(() => $ro3()),
+            (generator?.array ?? $generator.array)(() => $ro0()),
+            (generator?.array ?? $generator.array)(() => $ro1()),
+            (generator?.array ?? $generator.array)(() => $ro2()),
+            (generator?.array ?? $generator.array)(() => $ro3()),
         ];
     },
     (input: any): ObjectPropertyNullable => {

@@ -5,14 +5,15 @@ import { AtomicAlias } from "../../../structures/AtomicAlias";
 export const test_createRandom_AtomicAlias = _test_random(
     "AtomicAlias",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<AtomicAlias> => {
         const $generator = (typia.createRandom as any).generator;
         return [
-            (generator.boolean ?? $generator.boolean)(),
-            (generator.number ?? $generator.number)(0, 100),
-            (generator.string ?? $generator.string)(),
+            (generator?.boolean ?? $generator.boolean)(),
+            (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
         ];
     },
     (input: any): AtomicAlias => {

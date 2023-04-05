@@ -5,20 +5,55 @@ import { TagInfinite } from "../../../structures/TagInfinite";
 export const test_createRandom_TagInfinite = _test_random(
     "TagInfinite",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TagInfinite> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            value: (generator.number ?? $generator.number)(0, 100),
-            ranged: (generator.number ?? $generator.number)(0, 100),
-            minimum: (generator.number ?? $generator.number)(0, 10),
-            maximum: (generator.number ?? $generator.number)(90, 100),
-            multipleOf: 3 * (generator.integer ?? $generator.integer)(0, 10),
-            typed: (generator.integer ?? $generator.integer)(0, 100),
+            value:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            ranged:
+                (generator?.customs ?? $generator.customs)?.number?.([
+                    {
+                        name: "minimum",
+                        value: "0",
+                    },
+                    {
+                        name: "maximum",
+                        value: "100",
+                    },
+                ]) ?? (generator?.number ?? $generator.number)(0, 100),
+            minimum:
+                (generator?.customs ?? $generator.customs)?.number?.([
+                    {
+                        name: "minimum",
+                        value: "0",
+                    },
+                ]) ?? (generator?.number ?? $generator.number)(0, 10),
+            maximum:
+                (generator?.customs ?? $generator.customs)?.number?.([
+                    {
+                        name: "maximum",
+                        value: "100",
+                    },
+                ]) ?? (generator?.number ?? $generator.number)(90, 100),
+            multipleOf:
+                (generator?.customs ?? $generator.customs)?.number?.([
+                    {
+                        name: "multipleOf",
+                        value: "3",
+                    },
+                ]) ?? 3 * (generator?.integer ?? $generator.integer)(0, 10),
+            typed:
+                (generator?.customs ?? $generator.customs)?.number?.([
+                    {
+                        name: "type",
+                        value: "int",
+                    },
+                ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
         });
         return $ro0();
     },

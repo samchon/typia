@@ -5,8 +5,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_createRandom_TemplateConstant = _test_random(
     "TemplateConstant",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TemplateConstant> => {
         const $pick = (typia.createRandom as any).pick;
         const $generator = (typia.createRandom as any).generator;
@@ -36,7 +35,7 @@ export const test_createRandom_TemplateConstant = _test_random(
                 () => "the_2_value_with_label_C",
             ])(),
         });
-        return (generator.array ?? $generator.array)(() => $ro0());
+        return (generator?.array ?? $generator.array)(() => $ro0());
     },
     (input: any): TemplateConstant => {
         const $guard = (typia.createAssert as any).guard;

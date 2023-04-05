@@ -25,16 +25,20 @@ export namespace IdentifierFactory {
     export function parameter(
         name: string | ts.BindingName,
         type?: ts.TypeNode,
-        init?: ts.Expression,
+        init?: ts.Expression | ts.PunctuationToken<ts.SyntaxKind.QuestionToken>,
     ) {
         if (ts.version >= "4.8")
             return ts.factory.createParameterDeclaration(
                 undefined,
                 undefined,
                 name,
-                undefined,
+                init?.kind === ts.SyntaxKind.QuestionToken
+                    ? ts.factory.createToken(ts.SyntaxKind.QuestionToken)
+                    : undefined,
                 type,
-                init,
+                init && init.kind !== ts.SyntaxKind.QuestionToken
+                    ? init
+                    : undefined,
             );
         // eslint-disable-next-line
         return ts.factory.createParameterDeclaration(
@@ -42,9 +46,13 @@ export namespace IdentifierFactory {
             undefined,
             undefined,
             name,
-            undefined,
+            init?.kind === ts.SyntaxKind.QuestionToken
+                ? ts.factory.createToken(ts.SyntaxKind.QuestionToken)
+                : undefined,
             type,
-            init,
+            init && init.kind !== ts.SyntaxKind.QuestionToken
+                ? init
+                : undefined,
         );
     }
 

@@ -150,6 +150,9 @@ export function stringify_dynamic_properties(
     return output();
 }
 
+/**
+ * @internal
+ */
 function stringify(entry: IExpressionEntry<ts.Expression>): ts.ReturnStatement {
     return ts.factory.createReturnStatement(
         TemplateFactory.generate([

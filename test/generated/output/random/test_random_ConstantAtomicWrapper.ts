@@ -6,27 +6,30 @@ export const test_random_ConstantAtomicWrapper = _test_random(
     "ConstantAtomicWrapper",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ConstantAtomicWrapper> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                value: (generator.boolean ?? $generator.boolean)(),
+                value: (generator?.boolean ?? $generator.boolean)(),
             });
             const $ro1 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                value: (generator.number ?? $generator.number)(0, 100),
+                value:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             });
             const $ro2 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                value: (generator.string ?? $generator.string)(),
+                value:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             });
             return [$ro0(), $ro1(), $ro2()];
         })(),

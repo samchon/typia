@@ -5,19 +5,22 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_createRandom_ArrayAtomicAlias = _test_random(
     "ArrayAtomicAlias",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ArrayAtomicAlias> => {
         const $generator = (typia.createRandom as any).generator;
         return [
-            (generator.array ?? $generator.array)(() =>
-                (generator.boolean ?? $generator.boolean)(),
+            (generator?.array ?? $generator.array)(() =>
+                (generator?.boolean ?? $generator.boolean)(),
             ),
-            (generator.array ?? $generator.array)(() =>
-                (generator.number ?? $generator.number)(0, 100),
+            (generator?.array ?? $generator.array)(
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             ),
-            (generator.array ?? $generator.array)(() =>
-                (generator.string ?? $generator.string)(),
+            (generator?.array ?? $generator.array)(
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ),
         ];
     },

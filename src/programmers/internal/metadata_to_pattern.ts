@@ -5,6 +5,9 @@ import { PatternUtil } from "../../utils/PatternUtil";
 
 import { template_to_pattern } from "./template_to_pattern";
 
+/**
+ * @internal
+ */
 export const metadata_to_pattern =
     (top: boolean) =>
     (meta: Metadata): string => {

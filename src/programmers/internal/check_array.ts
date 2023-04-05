@@ -1,6 +1,7 @@
 import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
+import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
 import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
 import { IMetadataTag } from "../../metadata/IMetadataTag";
@@ -20,7 +21,10 @@ export const check_array =
     (input: ts.Expression): ICheckEntry => ({
         expression: ExpressionFactory.isArray(input),
         tags: [
-            ...check_array_length(metaTags)(input),
+            ...check_array_length(metaTags)(
+                IdentifierFactory.join(input, "length"),
+            ),
             ...check_custom("array", "Array")(importer)(jsDocTags)(input),
+            // check custom array for legacy (3.7.0)
         ],
     });

@@ -5,16 +5,19 @@ import { ObjectInternal } from "../../../structures/ObjectInternal";
 export const test_createRandom_ObjectInternal = _test_random(
     "ObjectInternal",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectInternal> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            id: (generator.string ?? $generator.string)(),
-            name: (generator.string ?? $generator.string)(),
+            id:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
         });
         return $ro0();
     },

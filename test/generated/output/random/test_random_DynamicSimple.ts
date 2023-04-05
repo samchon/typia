@@ -6,8 +6,7 @@ export const test_random_DynamicSimple = _test_random(
     "DynamicSimple",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<DynamicSimple> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
@@ -15,12 +14,19 @@ export const test_random_DynamicSimple = _test_random(
                 _depth: number = 0,
             ): any => {
                 const output = {} as any;
-                (generator.array ?? $generator.array)(
+                (generator?.array ?? $generator.array)(
                     () =>
-                        (output[(generator.string ?? $generator.string)()] = (
-                            generator.number ?? $generator.number
-                        )(0, 100)),
-                    (generator.integer ?? $generator.integer)(0, 3),
+                        (output[
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.string?.([]) ??
+                                (generator?.string ?? $generator.string)()
+                        ] =
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.number?.([]) ??
+                            (generator?.number ?? $generator.number)(0, 100)),
+                    (generator?.integer ?? $generator.integer)(0, 3),
                 );
                 return output;
             };

@@ -5,8 +5,7 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_createRandom_TagObjectUnion = _test_random(
     "TagObjectUnion",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TagObjectUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
@@ -14,17 +13,34 @@ export const test_createRandom_TagObjectUnion = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            value: (generator.number ?? $generator.number)(3, 13),
+            value:
+                (generator?.customs ?? $generator.customs)?.number?.([
+                    {
+                        name: "minimum",
+                        value: "3",
+                    },
+                ]) ?? (generator?.number ?? $generator.number)(3, 13),
         });
         const $ro1 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            value: (generator.string ?? $generator.string)(
-                (generator.integer ?? $generator.integer)(3, 7),
-            ),
+            value:
+                (generator?.customs ?? $generator.customs)?.string?.([
+                    {
+                        name: "minLength",
+                        value: "3",
+                    },
+                    {
+                        name: "maxLength",
+                        value: "7",
+                    },
+                ]) ??
+                (generator?.string ?? $generator.string)(
+                    (generator?.integer ?? $generator.integer)(3, 7),
+                ),
         });
-        return (generator.array ?? $generator.array)(() =>
+        return (generator?.array ?? $generator.array)(() =>
             $pick([() => $ro0(), () => $ro1()])(),
         );
     },

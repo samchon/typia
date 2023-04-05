@@ -6,8 +6,7 @@ export const test_random_TagArray = _test_random(
     "TagArray",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagArray> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
@@ -15,35 +14,101 @@ export const test_random_TagArray = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                items: (generator.array ?? $generator.array)(
-                    () => (generator.uuid ?? $generator.uuid)(),
+                items: (generator?.array ?? $generator.array)(
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.string?.([
+                            {
+                                name: "items",
+                                value: "3",
+                            },
+                            {
+                                name: "format",
+                                value: "uuid",
+                            },
+                        ]) ?? (generator?.uuid ?? $generator.uuid)(),
                     3,
                 ),
-                minItems: (generator.array ?? $generator.array)(
-                    () => (generator.number ?? $generator.number)(3, 13),
-                    (generator.integer ?? $generator.integer)(3, 6),
+                minItems: (generator?.array ?? $generator.array)(
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.number?.([
+                            {
+                                name: "minItems",
+                                value: "3",
+                            },
+                            {
+                                name: "minimum",
+                                value: "3",
+                            },
+                        ]) ?? (generator?.number ?? $generator.number)(3, 13),
+                    (generator?.integer ?? $generator.integer)(3, 6),
                 ),
-                maxItems: (generator.array ?? $generator.array)(
+                maxItems: (generator?.array ?? $generator.array)(
                     () =>
                         $pick([
                             () =>
-                                (generator.string ?? $generator.string)(
-                                    (generator.integer ?? $generator.integer)(
+                                (
+                                    generator?.customs ?? $generator.customs
+                                )?.string?.([
+                                    {
+                                        name: "maxItems",
+                                        value: "7",
+                                    },
+                                    {
+                                        name: "maxLength",
+                                        value: "7",
+                                    },
+                                    {
+                                        name: "maximum",
+                                        value: "7",
+                                    },
+                                ]) ??
+                                (generator?.string ?? $generator.string)(
+                                    (generator?.integer ?? $generator.integer)(
                                         5,
                                         7,
                                     ),
                                 ),
                             () =>
-                                (generator.number ?? $generator.number)(-3, 7),
+                                (
+                                    generator?.customs ?? $generator.customs
+                                )?.number?.([
+                                    {
+                                        name: "maxItems",
+                                        value: "7",
+                                    },
+                                    {
+                                        name: "maxLength",
+                                        value: "7",
+                                    },
+                                    {
+                                        name: "maximum",
+                                        value: "7",
+                                    },
+                                ]) ??
+                                (generator?.number ?? $generator.number)(-3, 7),
                         ])(),
-                    (generator.integer ?? $generator.integer)(0, 7),
+                    (generator?.integer ?? $generator.integer)(0, 7),
                 ),
-                both: (generator.array ?? $generator.array)(
-                    () => (generator.uuid ?? $generator.uuid)(),
-                    (generator.integer ?? $generator.integer)(3, 7),
+                both: (generator?.array ?? $generator.array)(
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.string?.([
+                            {
+                                name: "minItems",
+                                value: "3",
+                            },
+                            {
+                                name: "maxItems",
+                                value: "7",
+                            },
+                            {
+                                name: "format",
+                                value: "uuid",
+                            },
+                        ]) ?? (generator?.uuid ?? $generator.uuid)(),
+                    (generator?.integer ?? $generator.integer)(3, 7),
                 ),
             });
-            return (generator.array ?? $generator.array)(() => $ro0());
+            return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
     (input: any): TagArray => {
         const $guard = (typia.createAssert as any).guard;

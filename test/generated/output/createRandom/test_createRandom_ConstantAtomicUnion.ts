@@ -5,8 +5,7 @@ import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 export const test_createRandom_ConstantAtomicUnion = _test_random(
     "ConstantAtomicUnion",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ConstantAtomicUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
@@ -16,7 +15,7 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
         ): any => ({
             key: "key",
         });
-        return (generator.array ?? $generator.array)(() =>
+        return (generator?.array ?? $generator.array)(() =>
             $pick([
                 () => false,
                 () => 1,

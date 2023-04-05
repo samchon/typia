@@ -5,17 +5,22 @@ import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 export const test_createRandom_ObjectLiteralType = _test_random(
     "ObjectLiteralType",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectLiteralType> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            id: (generator.string ?? $generator.string)(),
-            name: (generator.string ?? $generator.string)(),
-            age: (generator.number ?? $generator.number)(0, 100),
+            id:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            age:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
         });
         return $ro0();
     },

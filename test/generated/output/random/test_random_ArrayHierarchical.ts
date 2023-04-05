@@ -6,22 +6,27 @@ export const test_random_ArrayHierarchical = _test_random(
     "ArrayHierarchical",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ArrayHierarchical> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                id: (generator.number ?? $generator.number)(0, 100),
-                serial: (generator.number ?? $generator.number)(0, 100),
-                name: (generator.string ?? $generator.string)(),
+                id:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                serial:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                name:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
                 established_at: $ro1(
                     _recursive,
                     _recursive ? 1 + _depth : _depth,
                 ),
-                departments: (generator.array ?? $generator.array)(() =>
+                departments: (generator?.array ?? $generator.array)(() =>
                     $ro2(_recursive, _recursive ? 1 + _depth : _depth),
                 ),
             });
@@ -29,18 +34,28 @@ export const test_random_ArrayHierarchical = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                time: (generator.number ?? $generator.number)(0, 100),
-                zone: (generator.number ?? $generator.number)(0, 100),
+                time:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                zone:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             });
             const $ro2 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                id: (generator.number ?? $generator.number)(0, 100),
-                code: (generator.string ?? $generator.string)(),
-                sales: (generator.number ?? $generator.number)(0, 100),
+                id:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                code:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                sales:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
                 created_at: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
-                employees: (generator.array ?? $generator.array)(() =>
+                employees: (generator?.array ?? $generator.array)(() =>
                     $ro3(_recursive, _recursive ? 1 + _depth : _depth),
                 ),
             });
@@ -48,16 +63,24 @@ export const test_random_ArrayHierarchical = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                id: (generator.number ?? $generator.number)(0, 100),
-                name: (generator.string ?? $generator.string)(),
-                age: (generator.number ?? $generator.number)(0, 100),
-                grade: (generator.number ?? $generator.number)(0, 100),
+                id:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                name:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                age:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                grade:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
                 employeed_at: $ro1(
                     _recursive,
                     _recursive ? 1 + _depth : _depth,
                 ),
             });
-            return (generator.array ?? $generator.array)(() => $ro0());
+            return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
     (input: any): ArrayHierarchical => {
         const $guard = (typia.createAssert as any).guard;

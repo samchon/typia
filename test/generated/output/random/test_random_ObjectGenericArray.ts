@@ -6,8 +6,7 @@ export const test_random_ObjectGenericArray = _test_random(
     "ObjectGenericArray",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectGenericArray> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
@@ -15,7 +14,7 @@ export const test_random_ObjectGenericArray = _test_random(
                 _depth: number = 0,
             ): any => ({
                 pagination: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
-                data: (generator.array ?? $generator.array)(() =>
+                data: (generator?.array ?? $generator.array)(() =>
                     $ro2(_recursive, _recursive ? 1 + _depth : _depth),
                 ),
             });
@@ -23,17 +22,29 @@ export const test_random_ObjectGenericArray = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                page: (generator.number ?? $generator.number)(0, 100),
-                limit: (generator.number ?? $generator.number)(0, 100),
-                total_count: (generator.number ?? $generator.number)(0, 100),
-                total_pages: (generator.number ?? $generator.number)(0, 100),
+                page:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                limit:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                total_count:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                total_pages:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             });
             const $ro2 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                name: (generator.string ?? $generator.string)(),
-                age: (generator.number ?? $generator.number)(0, 100),
+                name:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                age:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
         })(),

@@ -1,35 +1,30 @@
 import ts from "typescript";
 
-import { IdentifierFactory } from "../../factories/IdentifierFactory";
-
 import { IMetadataTag } from "../../metadata/IMetadataTag";
-
-import { ICheckEntry } from "../helpers/ICheckEntry";
 
 /**
  * @internal
  */
 export const check_array_length =
-    (tagList: IMetadataTag[]) =>
-    (input: ts.Expression): ICheckEntry.ITag[] =>
-        tagList
+    (metaTags: IMetadataTag[]) => (input: ts.Expression) =>
+        metaTags
             .map((tag) => ({
                 tag,
                 expression:
                     tag.kind === "items"
                         ? ts.factory.createStrictEquality(
                               ts.factory.createNumericLiteral(tag.value),
-                              IdentifierFactory.join(input, "length"),
+                              input,
                           )
                         : tag.kind === "minItems"
                         ? ts.factory.createLessThanEquals(
                               ts.factory.createNumericLiteral(tag.value),
-                              IdentifierFactory.join(input, "length"),
+                              input,
                           )
                         : tag.kind === "maxItems"
                         ? ts.factory.createGreaterThanEquals(
                               ts.factory.createNumericLiteral(tag.value),
-                              IdentifierFactory.join(input, "length"),
+                              input,
                           )
                         : null!,
             }))

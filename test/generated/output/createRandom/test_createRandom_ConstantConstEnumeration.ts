@@ -5,12 +5,11 @@ import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnume
 export const test_createRandom_ConstantConstEnumeration = _test_random(
     "ConstantConstEnumeration",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ConstantConstEnumeration> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
-        return (generator.array ?? $generator.array)(() =>
+        return (generator?.array ?? $generator.array)(() =>
             $pick([() => 0, () => 1, () => 2, () => "Three", () => "Four"])(),
         );
     },

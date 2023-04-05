@@ -6,8 +6,7 @@ export const test_random_ObjectOptional = _test_random(
     "ObjectOptional",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectOptional> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
@@ -17,19 +16,31 @@ export const test_random_ObjectOptional = _test_random(
             ): any => ({
                 id: $pick([
                     () => undefined,
-                    () => (generator.string ?? $generator.string)(),
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.string?.(
+                            [],
+                        ) ?? (generator?.string ?? $generator.string)(),
                 ])(),
                 name: $pick([
                     () => undefined,
-                    () => (generator.string ?? $generator.string)(),
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.string?.(
+                            [],
+                        ) ?? (generator?.string ?? $generator.string)(),
                 ])(),
                 email: $pick([
                     () => undefined,
-                    () => (generator.string ?? $generator.string)(),
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.string?.(
+                            [],
+                        ) ?? (generator?.string ?? $generator.string)(),
                 ])(),
                 sequence: $pick([
                     () => undefined,
-                    () => (generator.number ?? $generator.number)(0, 100),
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.number?.(
+                            [],
+                        ) ?? (generator?.number ?? $generator.number)(0, 100),
                 ])(),
             });
             return $ro0();

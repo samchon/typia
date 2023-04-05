@@ -6,17 +6,16 @@ export const test_random_ObjectGeneric = _test_random(
     "ObjectGeneric",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectGeneric> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                value: (generator.boolean ?? $generator.boolean)(),
+                value: (generator?.boolean ?? $generator.boolean)(),
                 child: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
-                elements: (generator.array ?? $generator.array)(() =>
+                elements: (generator?.array ?? $generator.array)(() =>
                     $ro1(_recursive, _recursive ? 1 + _depth : _depth),
                 ),
             });
@@ -24,16 +23,18 @@ export const test_random_ObjectGeneric = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                child_value: (generator.boolean ?? $generator.boolean)(),
-                child_next: (generator.boolean ?? $generator.boolean)(),
+                child_value: (generator?.boolean ?? $generator.boolean)(),
+                child_next: (generator?.boolean ?? $generator.boolean)(),
             });
             const $ro2 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                value: (generator.number ?? $generator.number)(0, 100),
+                value:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
                 child: $ro3(_recursive, _recursive ? 1 + _depth : _depth),
-                elements: (generator.array ?? $generator.array)(() =>
+                elements: (generator?.array ?? $generator.array)(() =>
                     $ro3(_recursive, _recursive ? 1 + _depth : _depth),
                 ),
             });
@@ -41,16 +42,22 @@ export const test_random_ObjectGeneric = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                child_value: (generator.number ?? $generator.number)(0, 100),
-                child_next: (generator.number ?? $generator.number)(0, 100),
+                child_value:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                child_next:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             });
             const $ro4 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                value: (generator.string ?? $generator.string)(),
+                value:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
                 child: $ro5(_recursive, _recursive ? 1 + _depth : _depth),
-                elements: (generator.array ?? $generator.array)(() =>
+                elements: (generator?.array ?? $generator.array)(() =>
                     $ro5(_recursive, _recursive ? 1 + _depth : _depth),
                 ),
             });
@@ -58,8 +65,12 @@ export const test_random_ObjectGeneric = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                child_value: (generator.string ?? $generator.string)(),
-                child_next: (generator.string ?? $generator.string)(),
+                child_value:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                child_next:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             });
             return [$ro0(), $ro2(), $ro4()];
         })(),

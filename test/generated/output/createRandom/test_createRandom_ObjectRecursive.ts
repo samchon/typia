@@ -5,8 +5,7 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_createRandom_ObjectRecursive = _test_random(
     "ObjectRecursive",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectRecursive> => {
         const $pick = (typia.createRandom as any).pick;
         const $generator = (typia.createRandom as any).generator;
@@ -15,18 +14,30 @@ export const test_createRandom_ObjectRecursive = _test_random(
                 () => null,
                 () => $ro0(true, _recursive ? 1 + _depth : _depth),
             ])(),
-            id: (generator.number ?? $generator.number)(0, 100),
-            code: (generator.string ?? $generator.string)(),
-            name: (generator.string ?? $generator.string)(),
-            sequence: (generator.number ?? $generator.number)(0, 100),
+            id:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            code:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            sequence:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
             created_at: $ro1(true, _recursive ? 1 + _depth : _depth),
         });
         const $ro1 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            time: (generator.number ?? $generator.number)(0, 100),
-            zone: (generator.number ?? $generator.number)(0, 100),
+            time:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            zone:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
         });
         return $ro0();
     },

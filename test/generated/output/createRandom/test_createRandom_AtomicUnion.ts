@@ -5,17 +5,20 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_createRandom_AtomicUnion = _test_random(
     "AtomicUnion",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<AtomicUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
-        return (generator.array ?? $generator.array)(() =>
+        return (generator?.array ?? $generator.array)(() =>
             $pick([
                 () => null,
-                () => (generator.string ?? $generator.string)(),
-                () => (generator.number ?? $generator.number)(0, 100),
-                () => (generator.boolean ?? $generator.boolean)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                () => (generator?.boolean ?? $generator.boolean)(),
             ])(),
         );
     },

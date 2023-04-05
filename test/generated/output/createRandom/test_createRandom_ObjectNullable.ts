@@ -5,8 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_createRandom_ObjectNullable = _test_random(
     "ObjectNullable",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectNullable> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
@@ -14,7 +13,9 @@ export const test_createRandom_ObjectNullable = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            name: (generator.string ?? $generator.string)(),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
             manufacturer: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
             brand: $pick([
                 () => null,
@@ -31,14 +32,18 @@ export const test_createRandom_ObjectNullable = _test_random(
             _depth: number = 0,
         ): any => ({
             type: "manufacturer",
-            name: (generator.string ?? $generator.string)(),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
         });
         const $ro2 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
             type: "brand",
-            name: (generator.string ?? $generator.string)(),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
         });
         return [$ro0(), $ro0(), $ro0()];
     },

@@ -6,8 +6,7 @@ export const test_random_ObjectUndefined = _test_random(
     "ObjectUndefined",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectUndefined> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
@@ -15,11 +14,19 @@ export const test_random_ObjectUndefined = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                name: (generator.string ?? $generator.string)(),
+                name:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
                 professor: $pick([
                     () => undefined,
-                    () => (generator.string ?? $generator.string)(),
-                    () => (generator.number ?? $generator.number)(0, 100),
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.string?.(
+                            [],
+                        ) ?? (generator?.string ?? $generator.string)(),
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.number?.(
+                            [],
+                        ) ?? (generator?.number ?? $generator.number)(0, 100),
                 ])(),
                 classroom: $pick([
                     () => undefined,
@@ -27,7 +34,10 @@ export const test_random_ObjectUndefined = _test_random(
                 ])(),
                 grade: $pick([
                     () => undefined,
-                    () => (generator.number ?? $generator.number)(0, 100),
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.number?.(
+                            [],
+                        ) ?? (generator?.number ?? $generator.number)(0, 100),
                 ])(),
                 nothing: undefined,
                 unknown: "fucking any type exists...",
@@ -37,10 +47,14 @@ export const test_random_ObjectUndefined = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                id: (generator.string ?? $generator.string)(),
-                name: (generator.string ?? $generator.string)(),
+                id:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                name:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             });
-            return (generator.array ?? $generator.array)(() => $ro0());
+            return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
     (input: any): ObjectUndefined => {
         const $guard = (typia.createAssert as any).guard;

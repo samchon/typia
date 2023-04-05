@@ -6,8 +6,7 @@ export const test_random_TagStep = _test_random(
     "TagStep",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagStep> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
@@ -15,14 +14,62 @@ export const test_random_TagStep = _test_random(
                 _depth: number = 0,
             ): any => ({
                 exclusiveMinimum:
-                    3 + 5 * (generator.integer ?? $generator.integer)(1, 10),
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "step",
+                            value: "5",
+                        },
+                        {
+                            name: "exclusiveMinimum",
+                            value: "3",
+                        },
+                    ]) ??
+                    3 + 5 * (generator?.integer ?? $generator.integer)(1, 10),
                 minimum:
-                    3 + 5 * (generator.integer ?? $generator.integer)(0, 10),
-                range: 0 + 5 * (generator.integer ?? $generator.integer)(1, 19),
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "step",
+                            value: "5",
+                        },
+                        {
+                            name: "minimum",
+                            value: "3",
+                        },
+                    ]) ??
+                    3 + 5 * (generator?.integer ?? $generator.integer)(0, 10),
+                range:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "step",
+                            value: "5",
+                        },
+                        {
+                            name: "exclusiveMinimum",
+                            value: "0",
+                        },
+                        {
+                            name: "exclusiveMaximum",
+                            value: "100",
+                        },
+                    ]) ??
+                    0 + 5 * (generator?.integer ?? $generator.integer)(1, 19),
                 multipleOf:
-                    5 * (generator.integer ?? $generator.integer)(1, 19),
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "multipleOf",
+                            value: "5",
+                        },
+                        {
+                            name: "minimum",
+                            value: "3",
+                        },
+                        {
+                            name: "maximum",
+                            value: "99",
+                        },
+                    ]) ?? 5 * (generator?.integer ?? $generator.integer)(1, 19),
             });
-            return (generator.array ?? $generator.array)(() => $ro0());
+            return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
     (input: any): TagStep => {
         const $guard = (typia.createAssert as any).guard;

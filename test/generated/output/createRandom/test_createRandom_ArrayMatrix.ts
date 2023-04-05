@@ -5,14 +5,16 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_createRandom_ArrayMatrix = _test_random(
     "ArrayMatrix",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ArrayMatrix> => {
         const $generator = (typia.createRandom as any).generator;
-        return (generator.array ?? $generator.array)(() =>
-            (generator.array ?? $generator.array)(() =>
-                (generator.array ?? $generator.array)(() =>
-                    (generator.number ?? $generator.number)(0, 100),
+        return (generator?.array ?? $generator.array)(() =>
+            (generator?.array ?? $generator.array)(() =>
+                (generator?.array ?? $generator.array)(
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.number?.(
+                            [],
+                        ) ?? (generator?.number ?? $generator.number)(0, 100),
                 ),
             ),
         );

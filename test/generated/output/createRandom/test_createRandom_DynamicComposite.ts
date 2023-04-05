@@ -5,62 +5,101 @@ import { DynamicComposite } from "../../../structures/DynamicComposite";
 export const test_createRandom_DynamicComposite = _test_random(
     "DynamicComposite",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<DynamicComposite> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => {
             const output = {
-                id: (generator.string ?? $generator.string)(),
-                name: (generator.string ?? $generator.string)(),
+                id:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                name:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             } as any;
-            (generator.array ?? $generator.array)(
-                () =>
-                    (output[(generator.number ?? $generator.number)(0, 100)] = (
-                        generator.number ?? $generator.number
-                    )(0, 100)),
-                (generator.integer ?? $generator.integer)(0, 3),
-            );
-            (generator.array ?? $generator.array)(
+            (generator?.array ?? $generator.array)(
                 () =>
                     (output[
-                        `prefix_${(generator.string ?? $generator.string)()}`
-                    ] = (generator.string ?? $generator.string)()),
-                (generator.integer ?? $generator.integer)(0, 3),
+                        (generator?.customs ?? $generator.customs)?.number?.(
+                            [],
+                        ) ?? (generator?.number ?? $generator.number)(0, 100)
+                    ] =
+                        (generator?.customs ?? $generator.customs)?.number?.(
+                            [],
+                        ) ?? (generator?.number ?? $generator.number)(0, 100)),
+                (generator?.integer ?? $generator.integer)(0, 3),
             );
-            (generator.array ?? $generator.array)(
+            (generator?.array ?? $generator.array)(
                 () =>
                     (output[
-                        `${(generator.string ?? $generator.string)()}_postfix`
-                    ] = (generator.string ?? $generator.string)()),
-                (generator.integer ?? $generator.integer)(0, 3),
+                        `prefix_${
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.string?.([]) ??
+                            (generator?.string ?? $generator.string)()
+                        }`
+                    ] =
+                        (generator?.customs ?? $generator.customs)?.string?.(
+                            [],
+                        ) ?? (generator?.string ?? $generator.string)()),
+                (generator?.integer ?? $generator.integer)(0, 3),
             );
-            (generator.array ?? $generator.array)(
+            (generator?.array ?? $generator.array)(
                 () =>
                     (output[
-                        `value_${(generator.number ?? $generator.number)(
-                            0,
-                            100,
-                        )}`
+                        `${
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.string?.([]) ??
+                            (generator?.string ?? $generator.string)()
+                        }_postfix`
+                    ] =
+                        (generator?.customs ?? $generator.customs)?.string?.(
+                            [],
+                        ) ?? (generator?.string ?? $generator.string)()),
+                (generator?.integer ?? $generator.integer)(0, 3),
+            );
+            (generator?.array ?? $generator.array)(
+                () =>
+                    (output[
+                        `value_${
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.number?.([]) ??
+                            (generator?.number ?? $generator.number)(0, 100)
+                        }`
                     ] = $pick([
-                        () => (generator.string ?? $generator.string)(),
-                        () => (generator.number ?? $generator.number)(0, 100),
-                        () => (generator.boolean ?? $generator.boolean)(),
+                        () =>
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.string?.([]) ??
+                            (generator?.string ?? $generator.string)(),
+                        () =>
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.number?.([]) ??
+                            (generator?.number ?? $generator.number)(0, 100),
+                        () => (generator?.boolean ?? $generator.boolean)(),
                     ])()),
-                (generator.integer ?? $generator.integer)(0, 3),
+                (generator?.integer ?? $generator.integer)(0, 3),
             );
-            (generator.array ?? $generator.array)(
+            (generator?.array ?? $generator.array)(
                 () =>
                     (output[
-                        `between_${(
-                            generator.string ?? $generator.string
-                        )()}_and_${(generator.number ?? $generator.number)(
-                            0,
-                            100,
-                        )}`
-                    ] = (generator.boolean ?? $generator.boolean)()),
-                (generator.integer ?? $generator.integer)(0, 3),
+                        `between_${
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.string?.([]) ??
+                            (generator?.string ?? $generator.string)()
+                        }_and_${
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.number?.([]) ??
+                            (generator?.number ?? $generator.number)(0, 100)
+                        }`
+                    ] = (generator?.boolean ?? $generator.boolean)()),
+                (generator?.integer ?? $generator.integer)(0, 3),
             );
             return output;
         };

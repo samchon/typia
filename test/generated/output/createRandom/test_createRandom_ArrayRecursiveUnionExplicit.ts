@@ -5,19 +5,24 @@ import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveU
 export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
     "ArrayRecursiveUnionExplicit",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ArrayRecursiveUnionExplicit> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
-            id: (generator.number ?? $generator.number)(0, 100),
-            name: (generator.string ?? $generator.string)(),
-            path: (generator.string ?? $generator.string)(),
+            id:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            path:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
             children:
                 _recursive && 5 < _depth
                     ? []
-                    : (generator.array ?? $generator.array)(() =>
+                    : (generator?.array ?? $generator.array)(() =>
                           $pick([
                               () =>
                                   $ro0(true, _recursive ? 1 + _depth : _depth),
@@ -37,13 +42,27 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            id: (generator.number ?? $generator.number)(0, 100),
-            name: (generator.string ?? $generator.string)(),
-            path: (generator.string ?? $generator.string)(),
-            width: (generator.number ?? $generator.number)(0, 100),
-            height: (generator.number ?? $generator.number)(0, 100),
-            url: (generator.string ?? $generator.string)(),
-            size: (generator.number ?? $generator.number)(0, 100),
+            id:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            path:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            width:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            height:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            url:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            size:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
             type: "file",
             extension: "jpg",
         });
@@ -51,11 +70,21 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            id: (generator.number ?? $generator.number)(0, 100),
-            name: (generator.string ?? $generator.string)(),
-            path: (generator.string ?? $generator.string)(),
-            size: (generator.number ?? $generator.number)(0, 100),
-            content: (generator.string ?? $generator.string)(),
+            id:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            path:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            size:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            content:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
             type: "file",
             extension: "txt",
         });
@@ -63,18 +92,34 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            id: (generator.number ?? $generator.number)(0, 100),
-            name: (generator.string ?? $generator.string)(),
-            path: (generator.string ?? $generator.string)(),
-            size: (generator.number ?? $generator.number)(0, 100),
-            count: (generator.number ?? $generator.number)(0, 100),
+            id:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            path:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            size:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            count:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
             type: "file",
             extension: "zip",
         });
         const $ro4 = (_recursive: boolean = true, _depth: number = 0): any => ({
-            id: (generator.number ?? $generator.number)(0, 100),
-            name: (generator.string ?? $generator.string)(),
-            path: (generator.string ?? $generator.string)(),
+            id:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            path:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
             target: $pick([
                 () => $ro0(true, _recursive ? 1 + _depth : _depth),
                 () => $ro1(true, _recursive ? 1 + _depth : _depth),
@@ -85,7 +130,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
             type: "file",
             extension: "lnk",
         });
-        return (generator.array ?? $generator.array)(() =>
+        return (generator?.array ?? $generator.array)(() =>
             $pick([
                 () => $ro0(),
                 () => $ro1(),

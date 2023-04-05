@@ -6,8 +6,7 @@ export const test_random_ObjectPrimitive = _test_random(
     "ObjectPrimitive",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectPrimitive> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
@@ -15,25 +14,43 @@ export const test_random_ObjectPrimitive = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                id: (generator.string ?? $generator.string)(),
+                id:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
                 extension: $pick([() => "md", () => "html", () => "txt"])(),
-                title: (generator.string ?? $generator.string)(),
-                body: (generator.string ?? $generator.string)(),
-                files: (generator.array ?? $generator.array)(() =>
+                title:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                body:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                files: (generator?.array ?? $generator.array)(() =>
                     $ro1(_recursive, _recursive ? 1 + _depth : _depth),
                 ),
-                secret: (generator.boolean ?? $generator.boolean)(),
-                created_at: (generator.string ?? $generator.string)(),
+                secret: (generator?.boolean ?? $generator.boolean)(),
+                created_at:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             });
             const $ro1 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                id: (generator.string ?? $generator.string)(),
-                name: (generator.string ?? $generator.string)(),
-                extension: (generator.string ?? $generator.string)(),
-                url: (generator.string ?? $generator.string)(),
-                created_at: (generator.string ?? $generator.string)(),
+                id:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                name:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                extension:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                url:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                created_at:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             });
             return $ro0();
         })(),

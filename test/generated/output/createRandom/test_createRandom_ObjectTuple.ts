@@ -5,25 +5,36 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_createRandom_ObjectTuple = _test_random(
     "ObjectTuple",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectTuple> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            id: (generator.string ?? $generator.string)(),
-            code: (generator.string ?? $generator.string)(),
-            name: (generator.string ?? $generator.string)(),
+            id:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            code:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
         });
         const $ro1 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            id: (generator.string ?? $generator.string)(),
-            mobile: (generator.string ?? $generator.string)(),
-            name: (generator.string ?? $generator.string)(),
+            id:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            mobile:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
         });
         return [$ro0(), $ro1()];
     },

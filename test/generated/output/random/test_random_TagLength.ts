@@ -6,26 +6,56 @@ export const test_random_TagLength = _test_random(
     "TagLength",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagLength> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                fixed: (generator.string ?? $generator.string)(5),
-                minimum: (generator.string ?? $generator.string)(
-                    (generator.integer ?? $generator.integer)(3, 25),
-                ),
-                maximum: (generator.string ?? $generator.string)(
-                    (generator.integer ?? $generator.integer)(5, 7),
-                ),
-                minimum_and_maximum: (generator.string ?? $generator.string)(
-                    (generator.integer ?? $generator.integer)(3, 7),
-                ),
+                fixed:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "length",
+                            value: "5",
+                        },
+                    ]) ?? (generator?.string ?? $generator.string)(5),
+                minimum:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "minLength",
+                            value: "3",
+                        },
+                    ]) ??
+                    (generator?.string ?? $generator.string)(
+                        (generator?.integer ?? $generator.integer)(3, 25),
+                    ),
+                maximum:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "maxLength",
+                            value: "7",
+                        },
+                    ]) ??
+                    (generator?.string ?? $generator.string)(
+                        (generator?.integer ?? $generator.integer)(5, 7),
+                    ),
+                minimum_and_maximum:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "minLength",
+                            value: "3",
+                        },
+                        {
+                            name: "maxLength",
+                            value: "7",
+                        },
+                    ]) ??
+                    (generator?.string ?? $generator.string)(
+                        (generator?.integer ?? $generator.integer)(3, 7),
+                    ),
             });
-            return (generator.array ?? $generator.array)(() => $ro0());
+            return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
     (input: any): TagLength => {
         const $guard = (typia.createAssert as any).guard;

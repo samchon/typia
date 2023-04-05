@@ -63,7 +63,26 @@ export namespace TagCustom {
         },
     ];
 
-    export const RANDOM = false;
+    export const RANDOM: typia.IRandomGenerator = {
+        ...RandomGenerator,
+        customs: {
+            string: (tags) => {
+                if (tags.find((t) => t.name === "dollar") !== undefined)
+                    return "$" + RandomGenerator.integer();
+                const postfix = tags.find((t) => t.name === "postfix");
+                if (postfix !== undefined)
+                    return RandomGenerator.string() + postfix.value;
+            },
+            number: (tags) => {
+                const powerOf = tags.find((t) => t.name === "powerOf");
+                if (powerOf !== undefined)
+                    return Math.pow(
+                        Number(powerOf.value),
+                        RandomGenerator.integer(1, 4),
+                    );
+            },
+        },
+    };
 }
 
 typia.customValidators.insert("dollar")("string")(
@@ -78,6 +97,6 @@ typia.customValidators.insert("powerOf")("number")((text: string) => {
     const denominator: number = Math.log(Number(text));
     return (value: number) => {
         value = Math.log(value) / denominator;
-        return value === Math.floor(value);
+        return Math.abs(value - Math.round(value)) < 0.00000001;
     };
 });

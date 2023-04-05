@@ -6,8 +6,7 @@ export const test_random_DynamicUnion = _test_random(
     "DynamicUnion",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<DynamicUnion> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
@@ -15,41 +14,72 @@ export const test_random_DynamicUnion = _test_random(
                 _depth: number = 0,
             ): any => {
                 const output = {} as any;
-                (generator.array ?? $generator.array)(
+                (generator?.array ?? $generator.array)(
                     () =>
                         (output[
-                            (generator.number ?? $generator.number)(0, 100)
-                        ] = (generator.string ?? $generator.string)()),
-                    (generator.integer ?? $generator.integer)(0, 3),
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.number?.([]) ??
+                                (generator?.number ?? $generator.number)(0, 100)
+                        ] =
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.string?.([]) ??
+                            (generator?.string ?? $generator.string)()),
+                    (generator?.integer ?? $generator.integer)(0, 3),
                 );
-                (generator.array ?? $generator.array)(
+                (generator?.array ?? $generator.array)(
                     () =>
                         (output[
-                            `prefix_${(
-                                generator.string ?? $generator.string
-                            )()}`
-                        ] = (generator.string ?? $generator.string)()),
-                    (generator.integer ?? $generator.integer)(0, 3),
+                            `prefix_${
+                                (
+                                    generator?.customs ?? $generator.customs
+                                )?.string?.([]) ??
+                                (generator?.string ?? $generator.string)()
+                            }`
+                        ] =
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.string?.([]) ??
+                            (generator?.string ?? $generator.string)()),
+                    (generator?.integer ?? $generator.integer)(0, 3),
                 );
-                (generator.array ?? $generator.array)(
+                (generator?.array ?? $generator.array)(
                     () =>
                         (output[
-                            `${(
-                                generator.string ?? $generator.string
-                            )()}_postfix`
-                        ] = (generator.string ?? $generator.string)()),
-                    (generator.integer ?? $generator.integer)(0, 3),
+                            `${
+                                (
+                                    generator?.customs ?? $generator.customs
+                                )?.string?.([]) ??
+                                (generator?.string ?? $generator.string)()
+                            }_postfix`
+                        ] =
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.string?.([]) ??
+                            (generator?.string ?? $generator.string)()),
+                    (generator?.integer ?? $generator.integer)(0, 3),
                 );
-                (generator.array ?? $generator.array)(
+                (generator?.array ?? $generator.array)(
                     () =>
                         (output[
-                            `value_between_${(
-                                generator.number ?? $generator.number
-                            )(0, 100)}_and_${(
-                                generator.number ?? $generator.number
-                            )(0, 100)}`
-                        ] = (generator.number ?? $generator.number)(0, 100)),
-                    (generator.integer ?? $generator.integer)(0, 3),
+                            `value_between_${
+                                (
+                                    generator?.customs ?? $generator.customs
+                                )?.number?.([]) ??
+                                (generator?.number ?? $generator.number)(0, 100)
+                            }_and_${
+                                (
+                                    generator?.customs ?? $generator.customs
+                                )?.number?.([]) ??
+                                (generator?.number ?? $generator.number)(0, 100)
+                            }`
+                        ] =
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.number?.([]) ??
+                            (generator?.number ?? $generator.number)(0, 100)),
+                    (generator?.integer ?? $generator.integer)(0, 3),
                 );
                 return output;
             };

@@ -5,21 +5,23 @@ import { TupleUnion } from "../../../structures/TupleUnion";
 export const test_createRandom_TupleUnion = _test_random(
     "TupleUnion",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TupleUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
-        return (generator.array ?? $generator.array)(() =>
+        return (generator?.array ?? $generator.array)(() =>
             $pick([
                 () => [
-                    (generator.number ?? $generator.number)(0, 100),
-                    (generator.string ?? $generator.string)(),
-                    (generator.boolean ?? $generator.boolean)(),
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                        (generator?.number ?? $generator.number)(0, 100),
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                        (generator?.string ?? $generator.string)(),
+                    (generator?.boolean ?? $generator.boolean)(),
                 ],
                 () => [
-                    (generator.boolean ?? $generator.boolean)(),
-                    (generator.number ?? $generator.number)(0, 100),
+                    (generator?.boolean ?? $generator.boolean)(),
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                        (generator?.number ?? $generator.number)(0, 100),
                 ],
                 () => [],
             ])(),

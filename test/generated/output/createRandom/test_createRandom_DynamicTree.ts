@@ -5,26 +5,33 @@ import { DynamicTree } from "../../../structures/DynamicTree";
 export const test_createRandom_DynamicTree = _test_random(
     "DynamicTree",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<DynamicTree> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            id: (generator.string ?? $generator.string)(),
-            sequence: (generator.number ?? $generator.number)(0, 100),
+            id:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            sequence:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
             children: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
         });
         const $ro1 = (_recursive: boolean = true, _depth: number = 0): any => {
             const output = {} as any;
             if (5 >= _depth) {
-                (generator.array ?? $generator.array)(
+                (generator?.array ?? $generator.array)(
                     () =>
-                        (output[(generator.string ?? $generator.string)()] =
-                            $ro0(true, _recursive ? 1 + _depth : _depth)),
-                    (generator.integer ?? $generator.integer)(0, 3),
+                        (output[
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.string?.([]) ??
+                                (generator?.string ?? $generator.string)()
+                        ] = $ro0(true, _recursive ? 1 + _depth : _depth)),
+                    (generator?.integer ?? $generator.integer)(0, 3),
                 );
             }
             return output;

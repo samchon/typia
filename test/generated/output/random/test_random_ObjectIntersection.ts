@@ -6,17 +6,20 @@ export const test_random_ObjectIntersection = _test_random(
     "ObjectIntersection",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectIntersection> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                email: (generator.string ?? $generator.string)(),
-                name: (generator.string ?? $generator.string)(),
-                vulnerable: (generator.boolean ?? $generator.boolean)(),
+                email:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                name:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                vulnerable: (generator?.boolean ?? $generator.boolean)(),
             });
             return $ro0();
         })(),

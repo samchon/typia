@@ -6,8 +6,7 @@ export const test_random_TagAtomicUnion = _test_random(
     "TagAtomicUnion",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagAtomicUnion> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
@@ -17,13 +16,41 @@ export const test_random_TagAtomicUnion = _test_random(
             ): any => ({
                 value: $pick([
                     () =>
-                        (generator.string ?? $generator.string)(
-                            (generator.integer ?? $generator.integer)(3, 7),
+                        (generator?.customs ?? $generator.customs)?.string?.([
+                            {
+                                name: "minimum",
+                                value: "3",
+                            },
+                            {
+                                name: "minLength",
+                                value: "3",
+                            },
+                            {
+                                name: "maxLength",
+                                value: "7",
+                            },
+                        ]) ??
+                        (generator?.string ?? $generator.string)(
+                            (generator?.integer ?? $generator.integer)(3, 7),
                         ),
-                    () => (generator.number ?? $generator.number)(3, 13),
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.number?.([
+                            {
+                                name: "minimum",
+                                value: "3",
+                            },
+                            {
+                                name: "minLength",
+                                value: "3",
+                            },
+                            {
+                                name: "maxLength",
+                                value: "7",
+                            },
+                        ]) ?? (generator?.number ?? $generator.number)(3, 13),
                 ])(),
             });
-            return (generator.array ?? $generator.array)(() => $ro0());
+            return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
     (input: any): TagAtomicUnion => {
         const $guard = (typia.createAssert as any).guard;

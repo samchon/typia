@@ -6,8 +6,7 @@ export const test_random_ObjectDynamic = _test_random(
     "ObjectDynamic",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectDynamic> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
@@ -16,20 +15,30 @@ export const test_random_ObjectDynamic = _test_random(
                 _depth: number = 0,
             ): any => {
                 const output = {} as any;
-                (generator.array ?? $generator.array)(
+                (generator?.array ?? $generator.array)(
                     () =>
-                        (output[(generator.string ?? $generator.string)()] =
-                            $pick([
-                                () => (generator.string ?? $generator.string)(),
-                                () =>
-                                    (generator.number ?? $generator.number)(
-                                        0,
-                                        100,
-                                    ),
-                                () =>
-                                    (generator.boolean ?? $generator.boolean)(),
-                            ])()),
-                    (generator.integer ?? $generator.integer)(0, 3),
+                        (output[
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.string?.([]) ??
+                                (generator?.string ?? $generator.string)()
+                        ] = $pick([
+                            () =>
+                                (
+                                    generator?.customs ?? $generator.customs
+                                )?.string?.([]) ??
+                                (generator?.string ?? $generator.string)(),
+                            () =>
+                                (
+                                    generator?.customs ?? $generator.customs
+                                )?.number?.([]) ??
+                                (generator?.number ?? $generator.number)(
+                                    0,
+                                    100,
+                                ),
+                            () => (generator?.boolean ?? $generator.boolean)(),
+                        ])()),
+                    (generator?.integer ?? $generator.integer)(0, 3),
                 );
                 return output;
             };

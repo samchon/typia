@@ -5,8 +5,7 @@ import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 export const test_createRandom_ConstantAtomicSimple = _test_random(
     "ConstantAtomicSimple",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ConstantAtomicSimple> => {
         return [false, true, 2, "three"];
     },
