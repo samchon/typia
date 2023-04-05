@@ -5,8 +5,7 @@ import { ArrayAny } from "../../../structures/ArrayAny";
 export const test_createRandom_ArrayAny = _test_random(
     "ArrayAny",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ArrayAny> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
@@ -14,34 +13,34 @@ export const test_createRandom_ArrayAny = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            anys: (generator.array ?? $generator.array)(
+            anys: (generator?.array ?? $generator.array)(
                 () => "fucking any type exists...",
             ),
             undefindable1: $pick([
                 () => undefined,
                 () =>
-                    (generator.array ?? $generator.array)(
+                    (generator?.array ?? $generator.array)(
                         () => "fucking any type exists...",
                     ),
             ])(),
             undefindable2: $pick([
                 () => undefined,
                 () =>
-                    (generator.array ?? $generator.array)(
+                    (generator?.array ?? $generator.array)(
                         () => "fucking any type exists...",
                     ),
             ])(),
             nullables1: $pick([
                 () => null,
                 () =>
-                    (generator.array ?? $generator.array)(
+                    (generator?.array ?? $generator.array)(
                         () => "fucking any type exists...",
                     ),
             ])(),
             nullables2: $pick([
                 () => null,
                 () =>
-                    (generator.array ?? $generator.array)(
+                    (generator?.array ?? $generator.array)(
                         () => "fucking any type exists...",
                     ),
             ])(),
@@ -49,7 +48,7 @@ export const test_createRandom_ArrayAny = _test_random(
                 () => undefined,
                 () => null,
                 () =>
-                    (generator.array ?? $generator.array)(
+                    (generator?.array ?? $generator.array)(
                         () => "fucking any type exists...",
                     ),
             ])(),
@@ -57,7 +56,7 @@ export const test_createRandom_ArrayAny = _test_random(
                 () => undefined,
                 () => null,
                 () =>
-                    (generator.array ?? $generator.array)(
+                    (generator?.array ?? $generator.array)(
                         () => "fucking any type exists...",
                     ),
             ])(),
@@ -65,11 +64,11 @@ export const test_createRandom_ArrayAny = _test_random(
                 () => undefined,
                 () => null,
                 () =>
-                    (generator.array ?? $generator.array)(
+                    (generator?.array ?? $generator.array)(
                         () => "fucking any type exists...",
                     ),
             ])(),
-            union: (generator.array ?? $generator.array)(
+            union: (generator?.array ?? $generator.array)(
                 () => "fucking any type exists...",
             ),
         });

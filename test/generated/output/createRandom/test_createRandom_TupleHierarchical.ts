@@ -5,36 +5,48 @@ import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 export const test_createRandom_TupleHierarchical = _test_random(
     "TupleHierarchical",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TupleHierarchical> => {
         const $generator = (typia.createRandom as any).generator;
         return [
-            (generator.boolean ?? $generator.boolean)(),
+            (generator?.boolean ?? $generator.boolean)(),
             null,
-            (generator.number ?? $generator.number)(0, 100),
+            (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
             [
-                (generator.boolean ?? $generator.boolean)(),
+                (generator?.boolean ?? $generator.boolean)(),
                 null,
                 [
-                    (generator.number ?? $generator.number)(0, 100),
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                        (generator?.number ?? $generator.number)(0, 100),
                     [
-                        (generator.boolean ?? $generator.boolean)(),
-                        (generator.string ?? $generator.string)(),
+                        (generator?.boolean ?? $generator.boolean)(),
+                        (generator?.customs ?? $generator.customs)?.string?.(
+                            [],
+                        ) ?? (generator?.string ?? $generator.string)(),
                     ],
                 ],
             ],
             [
-                (generator.number ?? $generator.number)(0, 100),
-                (generator.array ?? $generator.array)(() => [
-                    (generator.string ?? $generator.string)(),
-                    (generator.boolean ?? $generator.boolean)(),
-                    (generator.array ?? $generator.array)(() => [
-                        (generator.number ?? $generator.number)(0, 100),
-                        (generator.number ?? $generator.number)(0, 100),
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                (generator?.array ?? $generator.array)(() => [
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                        (generator?.string ?? $generator.string)(),
+                    (generator?.boolean ?? $generator.boolean)(),
+                    (generator?.array ?? $generator.array)(() => [
+                        (generator?.customs ?? $generator.customs)?.number?.(
+                            [],
+                        ) ?? (generator?.number ?? $generator.number)(0, 100),
+                        (generator?.customs ?? $generator.customs)?.number?.(
+                            [],
+                        ) ?? (generator?.number ?? $generator.number)(0, 100),
                         [
-                            (generator.boolean ?? $generator.boolean)(),
-                            (generator.string ?? $generator.string)(),
+                            (generator?.boolean ?? $generator.boolean)(),
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.string?.([]) ??
+                                (generator?.string ?? $generator.string)(),
                         ],
                     ]),
                 ]),

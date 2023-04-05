@@ -5,8 +5,7 @@ import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 export const test_createRandom_DynamicEnumeration = _test_random(
     "DynamicEnumeration",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<DynamicEnumeration> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
@@ -16,43 +15,63 @@ export const test_createRandom_DynamicEnumeration = _test_random(
         ): any => ({
             ar: $pick([
                 () => undefined,
-                () => (generator.string ?? $generator.string)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ])(),
             "zh-Hans": $pick([
                 () => undefined,
-                () => (generator.string ?? $generator.string)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ])(),
             "zh-Hant": $pick([
                 () => undefined,
-                () => (generator.string ?? $generator.string)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ])(),
             en: $pick([
                 () => undefined,
-                () => (generator.string ?? $generator.string)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ])(),
             fr: $pick([
                 () => undefined,
-                () => (generator.string ?? $generator.string)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ])(),
             de: $pick([
                 () => undefined,
-                () => (generator.string ?? $generator.string)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ])(),
             ja: $pick([
                 () => undefined,
-                () => (generator.string ?? $generator.string)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ])(),
             ko: $pick([
                 () => undefined,
-                () => (generator.string ?? $generator.string)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ])(),
             pt: $pick([
                 () => undefined,
-                () => (generator.string ?? $generator.string)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ])(),
             ru: $pick([
                 () => undefined,
-                () => (generator.string ?? $generator.string)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ])(),
         });
         return $ro0();

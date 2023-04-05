@@ -5,8 +5,7 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 export const test_createRandom_TemplateUnion = _test_random(
     "TemplateUnion",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TemplateUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
@@ -15,37 +14,56 @@ export const test_createRandom_TemplateUnion = _test_random(
             _depth: number = 0,
         ): any => ({
             prefix: $pick([
-                () => `prefix_${(generator.string ?? $generator.string)()}`,
                 () =>
-                    `prefix_${(generator.number ?? $generator.number)(0, 100)}`,
+                    `prefix_${
+                        (generator?.customs ?? $generator.customs)?.string?.(
+                            [],
+                        ) ?? (generator?.string ?? $generator.string)()
+                    }`,
+                () =>
+                    `prefix_${
+                        (generator?.customs ?? $generator.customs)?.number?.(
+                            [],
+                        ) ?? (generator?.number ?? $generator.number)(0, 100)
+                    }`,
             ])(),
             postfix: $pick([
-                () => `${(generator.string ?? $generator.string)()}_postfix`,
                 () =>
-                    `${(generator.number ?? $generator.number)(
-                        0,
-                        100,
-                    )}_postfix`,
+                    `${
+                        (generator?.customs ?? $generator.customs)?.string?.(
+                            [],
+                        ) ?? (generator?.string ?? $generator.string)()
+                    }_postfix`,
+                () =>
+                    `${
+                        (generator?.customs ?? $generator.customs)?.number?.(
+                            [],
+                        ) ?? (generator?.number ?? $generator.number)(0, 100)
+                    }_postfix`,
             ])(),
             middle: $pick([
                 () => "the_false_value",
                 () => "the_true_value",
                 () =>
-                    `the_${(generator.number ?? $generator.number)(
-                        0,
-                        100,
-                    )}_value`,
+                    `the_${
+                        (generator?.customs ?? $generator.customs)?.number?.(
+                            [],
+                        ) ?? (generator?.number ?? $generator.number)(0, 100)
+                    }_value`,
             ])(),
             mixed: $pick([
                 () => "the_A_value",
                 () => "the_B_value",
                 () =>
-                    `the_${(generator.number ?? $generator.number)(
-                        0,
-                        100,
-                    )}_value`,
-                () => (generator.number ?? $generator.number)(0, 100),
-                () => (generator.boolean ?? $generator.boolean)(),
+                    `the_${
+                        (generator?.customs ?? $generator.customs)?.number?.(
+                            [],
+                        ) ?? (generator?.number ?? $generator.number)(0, 100)
+                    }_value`,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                () => (generator?.boolean ?? $generator.boolean)(),
                 () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
             ])(),
         });
@@ -53,9 +71,11 @@ export const test_createRandom_TemplateUnion = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            name: (generator.string ?? $generator.string)(),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
         });
-        return (generator.array ?? $generator.array)(() => $ro0());
+        return (generator?.array ?? $generator.array)(() => $ro0());
     },
     (input: any): TemplateUnion => {
         const $guard = (typia.createAssert as any).guard;

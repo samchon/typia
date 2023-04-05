@@ -5,8 +5,7 @@ import { ObjectGenericUnion } from "../../../structures/ObjectGenericUnion";
 export const test_createRandom_ObjectGenericUnion = _test_random(
     "ObjectGenericUnion",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectGenericUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
@@ -14,38 +13,60 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            writer: (generator.string ?? $generator.string)(),
+            writer:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
             answer: $pick([
                 () => null,
                 () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
             ])(),
-            id: (generator.string ?? $generator.string)(),
-            hit: (generator.number ?? $generator.number)(0, 100),
-            contents: (generator.array ?? $generator.array)(() =>
+            id:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            hit:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            contents: (generator?.array ?? $generator.array)(() =>
                 $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
-            created_at: (generator.string ?? $generator.string)(),
+            created_at:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
         });
         const $ro1 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            id: (generator.string ?? $generator.string)(),
-            hit: (generator.number ?? $generator.number)(0, 100),
-            contents: (generator.array ?? $generator.array)(() =>
+            id:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            hit:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            contents: (generator?.array ?? $generator.array)(() =>
                 $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
-            created_at: (generator.string ?? $generator.string)(),
+            created_at:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
         });
         const $ro2 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            id: (generator.string ?? $generator.string)(),
-            created_at: (generator.string ?? $generator.string)(),
-            title: (generator.string ?? $generator.string)(),
-            body: (generator.string ?? $generator.string)(),
-            files: (generator.array ?? $generator.array)(() =>
+            id:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            created_at:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            title:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            body:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            files: (generator?.array ?? $generator.array)(() =>
                 $ro3(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         });
@@ -55,37 +76,61 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
         ): any => ({
             extension: $pick([
                 () => null,
-                () => (generator.string ?? $generator.string)(),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ])(),
-            name: (generator.string ?? $generator.string)(),
-            url: (generator.string ?? $generator.string)(),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            url:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
         });
         const $ro4 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            writer: (generator.string ?? $generator.string)(),
+            writer:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
             answer: $pick([
                 () => null,
                 () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
             ])(),
-            id: (generator.string ?? $generator.string)(),
-            hit: (generator.number ?? $generator.number)(0, 100),
-            contents: (generator.array ?? $generator.array)(() =>
+            id:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            hit:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            contents: (generator?.array ?? $generator.array)(() =>
                 $ro5(_recursive, _recursive ? 1 + _depth : _depth),
             ),
-            created_at: (generator.string ?? $generator.string)(),
+            created_at:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
         });
         const $ro5 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            score: (generator.number ?? $generator.number)(0, 100),
-            id: (generator.string ?? $generator.string)(),
-            created_at: (generator.string ?? $generator.string)(),
-            title: (generator.string ?? $generator.string)(),
-            body: (generator.string ?? $generator.string)(),
-            files: (generator.array ?? $generator.array)(() =>
+            score:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            id:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            created_at:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            title:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            body:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            files: (generator?.array ?? $generator.array)(() =>
                 $ro3(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         });

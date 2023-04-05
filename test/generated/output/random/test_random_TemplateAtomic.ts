@@ -6,8 +6,7 @@ export const test_random_TemplateAtomic = _test_random(
     "TemplateAtomic",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TemplateAtomic> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
@@ -15,31 +14,53 @@ export const test_random_TemplateAtomic = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                prefix: `prefix_${(generator.string ?? $generator.string)()}`,
-                postfix: `${(generator.string ?? $generator.string)()}_postfix`,
-                middle_string: `the_${(
-                    generator.string ?? $generator.string
-                )()}_value`,
-                middle_string_empty: `the_${(
-                    generator.string ?? $generator.string
-                )()}_value`,
-                middle_numeric: `the_${(generator.number ?? $generator.number)(
-                    0,
-                    100,
-                )}_value`,
+                prefix: `prefix_${
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)()
+                }`,
+                postfix: `${
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)()
+                }_postfix`,
+                middle_string: `the_${
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)()
+                }_value`,
+                middle_string_empty: `the_${
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)()
+                }_value`,
+                middle_numeric: `the_${
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100)
+                }_value`,
                 middle_boolean: $pick([
                     () => "the_false_value",
                     () => "the_true_value",
                 ])(),
-                ipv4: `${(generator.number ?? $generator.number)(0, 100)}.${(
-                    generator.number ?? $generator.number
-                )(0, 100)}.${(generator.number ?? $generator.number)(
-                    0,
-                    100,
-                )}.${(generator.number ?? $generator.number)(0, 100)}`,
-                email: `${(generator.string ?? $generator.string)()}@${(
-                    generator.string ?? $generator.string
-                )()}.${(generator.string ?? $generator.string)()}`,
+                ipv4: `${
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100)
+                }.${
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100)
+                }.${
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100)
+                }.${
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100)
+                }`,
+                email: `${
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)()
+                }@${
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)()
+                }.${
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)()
+                }`,
             });
             return $ro0();
         })(),

@@ -6,14 +6,17 @@ export const test_random_ArrayMatrix = _test_random(
     "ArrayMatrix",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ArrayMatrix> => {
             const $generator = (typia.random as any).generator;
-            return (generator.array ?? $generator.array)(() =>
-                (generator.array ?? $generator.array)(() =>
-                    (generator.array ?? $generator.array)(() =>
-                        (generator.number ?? $generator.number)(0, 100),
+            return (generator?.array ?? $generator.array)(() =>
+                (generator?.array ?? $generator.array)(() =>
+                    (generator?.array ?? $generator.array)(
+                        () =>
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.number?.([]) ??
+                            (generator?.number ?? $generator.number)(0, 100),
                     ),
                 ),
             );

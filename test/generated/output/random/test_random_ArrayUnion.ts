@@ -6,24 +6,34 @@ export const test_random_ArrayUnion = _test_random(
     "ArrayUnion",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ArrayUnion> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
-            return (generator.array ?? $generator.array)(() =>
+            return (generator?.array ?? $generator.array)(() =>
                 $pick([
                     () =>
-                        (generator.array ?? $generator.array)(() =>
-                            (generator.string ?? $generator.string)(),
+                        (generator?.array ?? $generator.array)(
+                            () =>
+                                (
+                                    generator?.customs ?? $generator.customs
+                                )?.string?.([]) ??
+                                (generator?.string ?? $generator.string)(),
                         ),
                     () =>
-                        (generator.array ?? $generator.array)(() =>
-                            (generator.boolean ?? $generator.boolean)(),
+                        (generator?.array ?? $generator.array)(() =>
+                            (generator?.boolean ?? $generator.boolean)(),
                         ),
                     () =>
-                        (generator.array ?? $generator.array)(() =>
-                            (generator.number ?? $generator.number)(0, 100),
+                        (generator?.array ?? $generator.array)(
+                            () =>
+                                (
+                                    generator?.customs ?? $generator.customs
+                                )?.number?.([]) ??
+                                (generator?.number ?? $generator.number)(
+                                    0,
+                                    100,
+                                ),
                         ),
                 ])(),
             );

@@ -6,8 +6,7 @@ export const test_random_ObjectAlias = _test_random(
     "ObjectAlias",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectAlias> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
@@ -17,10 +16,17 @@ export const test_random_ObjectAlias = _test_random(
             ): any => ({
                 id: $pick([
                     () => null,
-                    () => (generator.string ?? $generator.string)(),
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.string?.(
+                            [],
+                        ) ?? (generator?.string ?? $generator.string)(),
                 ])(),
-                email: (generator.string ?? $generator.string)(),
-                name: (generator.string ?? $generator.string)(),
+                email:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                name:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
                 sex: $pick([
                     () => null,
                     () => 1,
@@ -30,14 +36,17 @@ export const test_random_ObjectAlias = _test_random(
                 ])(),
                 age: $pick([
                     () => null,
-                    () => (generator.number ?? $generator.number)(0, 100),
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.number?.(
+                            [],
+                        ) ?? (generator?.number ?? $generator.number)(0, 100),
                 ])(),
                 dead: $pick([
                     () => null,
-                    () => (generator.boolean ?? $generator.boolean)(),
+                    () => (generator?.boolean ?? $generator.boolean)(),
                 ])(),
             });
-            return (generator.array ?? $generator.array)(() => $ro0());
+            return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
     (input: any): ObjectAlias => {
         const $guard = (typia.createAssert as any).guard;

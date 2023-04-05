@@ -6,8 +6,7 @@ export const test_random_ObjectHierarchical = _test_random(
     "ObjectHierarchical",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectHierarchical> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
@@ -15,7 +14,9 @@ export const test_random_ObjectHierarchical = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                id: (generator.number ?? $generator.number)(0, 100),
+                id:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
                 channel: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
                 member: $pick([
                     () => null,
@@ -25,13 +26,21 @@ export const test_random_ObjectHierarchical = _test_random(
                     () => null,
                     () => $ro4(_recursive, _recursive ? 1 + _depth : _depth),
                 ])(),
-                href: (generator.string ?? $generator.string)(),
-                referrer: (generator.string ?? $generator.string)(),
+                href:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                referrer:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
                 ip: [
-                    (generator.number ?? $generator.number)(0, 100),
-                    (generator.number ?? $generator.number)(0, 100),
-                    (generator.number ?? $generator.number)(0, 100),
-                    (generator.number ?? $generator.number)(0, 100),
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                        (generator?.number ?? $generator.number)(0, 100),
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                        (generator?.number ?? $generator.number)(0, 100),
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                        (generator?.number ?? $generator.number)(0, 100),
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                        (generator?.number ?? $generator.number)(0, 100),
                 ],
                 created_at: $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             });
@@ -39,53 +48,82 @@ export const test_random_ObjectHierarchical = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                id: (generator.number ?? $generator.number)(0, 100),
-                code: (generator.string ?? $generator.string)(),
-                name: (generator.string ?? $generator.string)(),
-                sequence: (generator.number ?? $generator.number)(0, 100),
-                exclusive: (generator.boolean ?? $generator.boolean)(),
-                priority: (generator.number ?? $generator.number)(0, 100),
+                id:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                code:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                name:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                sequence:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                exclusive: (generator?.boolean ?? $generator.boolean)(),
+                priority:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
                 created_at: $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             });
             const $ro2 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                time: (generator.number ?? $generator.number)(0, 100),
-                zone: (generator.number ?? $generator.number)(0, 100),
+                time:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                zone:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             });
             const $ro3 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                id: (generator.number ?? $generator.number)(0, 100),
+                id:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
                 account: $ro4(_recursive, _recursive ? 1 + _depth : _depth),
                 enterprise: $pick([
                     () => null,
                     () => $ro5(_recursive, _recursive ? 1 + _depth : _depth),
                 ])(),
-                emails: (generator.array ?? $generator.array)(() =>
-                    (generator.string ?? $generator.string)(),
+                emails: (generator?.array ?? $generator.array)(
+                    () =>
+                        (generator?.customs ?? $generator.customs)?.string?.(
+                            [],
+                        ) ?? (generator?.string ?? $generator.string)(),
                 ),
                 created_at: $ro2(_recursive, _recursive ? 1 + _depth : _depth),
-                authorized: (generator.boolean ?? $generator.boolean)(),
+                authorized: (generator?.boolean ?? $generator.boolean)(),
             });
             const $ro4 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                id: (generator.number ?? $generator.number)(0, 100),
-                code: (generator.string ?? $generator.string)(),
+                id:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                code:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
                 created_at: $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             });
             const $ro5 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                id: (generator.number ?? $generator.number)(0, 100),
+                id:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
                 account: $ro4(_recursive, _recursive ? 1 + _depth : _depth),
-                name: (generator.string ?? $generator.string)(),
-                grade: (generator.number ?? $generator.number)(0, 100),
+                name:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                grade:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
                 created_at: $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             });
             return $ro0();

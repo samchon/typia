@@ -27,6 +27,10 @@ export const check_object =
         );
         return reduce(props)(flags);
     };
+
+/**
+ * @internal
+ */
 export namespace check_object {
     export interface IProps {
         equals: boolean;
@@ -40,6 +44,9 @@ export namespace check_object {
     }
 }
 
+/**
+ * @internal
+ */
 const reduce = (props: check_object.IProps) => (expressions: ts.Expression[]) =>
     props.assert
         ? expressions.reduce(props.reduce)

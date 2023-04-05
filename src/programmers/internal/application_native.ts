@@ -3,6 +3,9 @@ import { IJsonComponents } from "../../schemas/IJsonComponents";
 import { IJsonSchema } from "../../module";
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
 
+/**
+ * @internal
+ */
 export const application_native =
     (options: ApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>

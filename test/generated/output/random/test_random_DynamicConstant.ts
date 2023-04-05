@@ -6,18 +6,25 @@ export const test_random_DynamicConstant = _test_random(
     "DynamicConstant",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<DynamicConstant> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                a: (generator.number ?? $generator.number)(0, 100),
-                b: (generator.number ?? $generator.number)(0, 100),
-                c: (generator.number ?? $generator.number)(0, 100),
-                d: (generator.number ?? $generator.number)(0, 100),
+                a:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                b:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                c:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                d:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
         })(),

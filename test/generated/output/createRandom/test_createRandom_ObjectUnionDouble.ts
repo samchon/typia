@@ -5,8 +5,7 @@ import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 export const test_createRandom_ObjectUnionDouble = _test_random(
     "ObjectUnionDouble",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectUnionDouble> => {
         const $pick = (typia.createRandom as any).pick;
         const $generator = (typia.createRandom as any).generator;
@@ -24,7 +23,9 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            x: (generator.number ?? $generator.number)(0, 100),
+            x:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
         });
         const $ro2 = (
             _recursive: boolean = false,
@@ -36,7 +37,7 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            y: (generator.boolean ?? $generator.boolean)(),
+            y: (generator?.boolean ?? $generator.boolean)(),
         });
         const $ro4 = (
             _recursive: boolean = false,
@@ -48,7 +49,9 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            y: (generator.number ?? $generator.number)(0, 100),
+            y:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
         });
         const $ro6 = (
             _recursive: boolean = false,
@@ -64,7 +67,9 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            x: (generator.string ?? $generator.string)(),
+            x:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
         });
         const $ro8 = (
             _recursive: boolean = false,
@@ -76,7 +81,9 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            y: (generator.string ?? $generator.string)(),
+            y:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
         });
         const $ro10 = (
             _recursive: boolean = false,
@@ -88,11 +95,13 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            y: (generator.array ?? $generator.array)(() =>
-                (generator.number ?? $generator.number)(0, 100),
+            y: (generator?.array ?? $generator.array)(
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             ),
         });
-        return (generator.array ?? $generator.array)(() =>
+        return (generator?.array ?? $generator.array)(() =>
             $pick([() => $ro0(), () => $ro6()])(),
         );
     },

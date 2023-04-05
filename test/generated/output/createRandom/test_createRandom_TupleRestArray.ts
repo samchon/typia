@@ -5,15 +5,17 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_createRandom_TupleRestArray = _test_random(
     "TupleRestArray",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TupleRestArray> => {
         const $generator = (typia.createRandom as any).generator;
         return [
-            (generator.boolean ?? $generator.boolean)(),
-            (generator.number ?? $generator.number)(0, 100),
-            (generator.array ?? $generator.array)(() =>
-                (generator.string ?? $generator.string)(),
+            (generator?.boolean ?? $generator.boolean)(),
+            (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            (generator?.array ?? $generator.array)(
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ),
         ];
     },

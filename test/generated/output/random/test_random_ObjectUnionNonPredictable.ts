@@ -6,8 +6,7 @@ export const test_random_ObjectUnionNonPredictable = _test_random(
     "ObjectUnionNonPredictable",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectUnionNonPredictable> => {
             const $pick = (typia.random as any).pick;
             const $generator = (typia.random as any).generator;
@@ -37,7 +36,7 @@ export const test_random_ObjectUnionNonPredictable = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                value: (generator.boolean ?? $generator.boolean)(),
+                value: (generator?.boolean ?? $generator.boolean)(),
             });
             const $ro4 = (
                 _recursive: boolean = false,
@@ -49,7 +48,9 @@ export const test_random_ObjectUnionNonPredictable = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                value: (generator.number ?? $generator.number)(0, 100),
+                value:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             });
             const $ro6 = (
                 _recursive: boolean = false,
@@ -61,9 +62,11 @@ export const test_random_ObjectUnionNonPredictable = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                value: (generator.string ?? $generator.string)(),
+                value:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             });
-            return (generator.array ?? $generator.array)(() => $ro0());
+            return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
     (input: any): ObjectUnionNonPredictable => {
         const $guard = (typia.createAssert as any).guard;

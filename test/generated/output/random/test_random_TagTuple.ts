@@ -6,8 +6,7 @@ export const test_random_TagTuple = _test_random(
     "TagTuple",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagTuple> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
@@ -15,20 +14,131 @@ export const test_random_TagTuple = _test_random(
                 _depth: number = 0,
             ): any => ({
                 tuple: [
-                    (generator.string ?? $generator.string)(
-                        (generator.integer ?? $generator.integer)(3, 7),
-                    ),
-                    (generator.number ?? $generator.number)(3, 7),
-                    (generator.array ?? $generator.array)(
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "minItems",
+                            value: "3",
+                        },
+                        {
+                            name: "maxItems",
+                            value: "7",
+                        },
+                        {
+                            name: "minimum",
+                            value: "3",
+                        },
+                        {
+                            name: "maximum",
+                            value: "7",
+                        },
+                        {
+                            name: "minLength",
+                            value: "3",
+                        },
+                        {
+                            name: "maxLength",
+                            value: "7",
+                        },
+                    ]) ??
+                        (generator?.string ?? $generator.string)(
+                            (generator?.integer ?? $generator.integer)(3, 7),
+                        ),
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "minItems",
+                            value: "3",
+                        },
+                        {
+                            name: "maxItems",
+                            value: "7",
+                        },
+                        {
+                            name: "minimum",
+                            value: "3",
+                        },
+                        {
+                            name: "maximum",
+                            value: "7",
+                        },
+                        {
+                            name: "minLength",
+                            value: "3",
+                        },
+                        {
+                            name: "maxLength",
+                            value: "7",
+                        },
+                    ]) ?? (generator?.number ?? $generator.number)(3, 7),
+                    (generator?.array ?? $generator.array)(
                         () =>
-                            (generator.string ?? $generator.string)(
-                                (generator.integer ?? $generator.integer)(3, 7),
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.string?.([
+                                {
+                                    name: "minItems",
+                                    value: "3",
+                                },
+                                {
+                                    name: "maxItems",
+                                    value: "7",
+                                },
+                                {
+                                    name: "minimum",
+                                    value: "3",
+                                },
+                                {
+                                    name: "maximum",
+                                    value: "7",
+                                },
+                                {
+                                    name: "minLength",
+                                    value: "3",
+                                },
+                                {
+                                    name: "maxLength",
+                                    value: "7",
+                                },
+                            ]) ??
+                            (generator?.string ?? $generator.string)(
+                                (generator?.integer ?? $generator.integer)(
+                                    3,
+                                    7,
+                                ),
                             ),
-                        (generator.integer ?? $generator.integer)(3, 7),
+                        (generator?.integer ?? $generator.integer)(3, 7),
                     ),
-                    (generator.array ?? $generator.array)(
-                        () => (generator.number ?? $generator.number)(3, 7),
-                        (generator.integer ?? $generator.integer)(3, 7),
+                    (generator?.array ?? $generator.array)(
+                        () =>
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.number?.([
+                                {
+                                    name: "minItems",
+                                    value: "3",
+                                },
+                                {
+                                    name: "maxItems",
+                                    value: "7",
+                                },
+                                {
+                                    name: "minimum",
+                                    value: "3",
+                                },
+                                {
+                                    name: "maximum",
+                                    value: "7",
+                                },
+                                {
+                                    name: "minLength",
+                                    value: "3",
+                                },
+                                {
+                                    name: "maxLength",
+                                    value: "7",
+                                },
+                            ]) ??
+                            (generator?.number ?? $generator.number)(3, 7),
+                        (generator?.integer ?? $generator.integer)(3, 7),
                     ),
                 ],
             });

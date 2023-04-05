@@ -5,8 +5,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_createRandom_ObjectSimple = _test_random(
     "ObjectSimple",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectSimple> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
@@ -22,9 +21,15 @@ export const test_createRandom_ObjectSimple = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            x: (generator.number ?? $generator.number)(0, 100),
-            y: (generator.number ?? $generator.number)(0, 100),
-            z: (generator.number ?? $generator.number)(0, 100),
+            x:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            y:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+            z:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
         });
         return $ro0();
     },

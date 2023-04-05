@@ -32,6 +32,7 @@ export namespace CreateRandomTransformer {
                 },
             },
             modulo,
+            expression.arguments?.[0],
         )(type, node.getFullText().trim());
     }
 }

@@ -6,20 +6,19 @@ export const test_random_ObjectLiteralProperty = _test_random(
     "ObjectLiteralProperty",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectLiteralProperty> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                "something-interesting-do-you-want?": (
-                    generator.string ?? $generator.string
-                )(),
-                "or-something-crazy-do-you-want?": (
-                    generator.string ?? $generator.string
-                )(),
+                "something-interesting-do-you-want?":
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                "or-something-crazy-do-you-want?":
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             });
             return $ro0();
         })(),

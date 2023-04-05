@@ -5,19 +5,22 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 export const test_createRandom_ArrayAtomicSimple = _test_random(
     "ArrayAtomicSimple",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ArrayAtomicSimple> => {
         const $generator = (typia.createRandom as any).generator;
         return [
-            (generator.array ?? $generator.array)(() =>
-                (generator.boolean ?? $generator.boolean)(),
+            (generator?.array ?? $generator.array)(() =>
+                (generator?.boolean ?? $generator.boolean)(),
             ),
-            (generator.array ?? $generator.array)(() =>
-                (generator.number ?? $generator.number)(0, 100),
+            (generator?.array ?? $generator.array)(
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             ),
-            (generator.array ?? $generator.array)(() =>
-                (generator.string ?? $generator.string)(),
+            (generator?.array ?? $generator.array)(
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ),
         ];
     },

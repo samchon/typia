@@ -6,24 +6,83 @@ export const test_random_TagFormat = _test_random(
     "TagFormat",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagFormat> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                uuid: (generator.uuid ?? $generator.uuid)(),
-                email: (generator.email ?? $generator.email)(),
-                url: (generator.url ?? $generator.url)(),
-                ipv4: (generator.ipv4 ?? $generator.ipv4)(),
-                ipv6: (generator.ipv6 ?? $generator.ipv6)(),
-                date: (generator.date ?? $generator.date)(),
-                date_time: (generator.datetime ?? $generator.datetime)(),
-                datetime: (generator.datetime ?? $generator.datetime)(),
-                dateTime: (generator.datetime ?? $generator.datetime)(),
-                custom: (generator.string ?? $generator.string)(),
+                uuid:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "format",
+                            value: "uuid",
+                        },
+                    ]) ?? (generator?.uuid ?? $generator.uuid)(),
+                email:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "format",
+                            value: "email",
+                        },
+                    ]) ?? (generator?.email ?? $generator.email)(),
+                url:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "format",
+                            value: "url",
+                        },
+                    ]) ?? (generator?.url ?? $generator.url)(),
+                ipv4:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "format",
+                            value: "ipv4",
+                        },
+                    ]) ?? (generator?.ipv4 ?? $generator.ipv4)(),
+                ipv6:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "format",
+                            value: "ipv6",
+                        },
+                    ]) ?? (generator?.ipv6 ?? $generator.ipv6)(),
+                date:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "format",
+                            value: "date",
+                        },
+                    ]) ?? (generator?.date ?? $generator.date)(),
+                date_time:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "format",
+                            value: "date-time",
+                        },
+                    ]) ?? (generator?.datetime ?? $generator.datetime)(),
+                datetime:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "format",
+                            value: "datetime",
+                        },
+                    ]) ?? (generator?.datetime ?? $generator.datetime)(),
+                dateTime:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "format",
+                            value: "dateTime",
+                        },
+                    ]) ?? (generator?.datetime ?? $generator.datetime)(),
+                custom:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "format",
+                            value: "my-custom-format",
+                        },
+                    ]) ?? (generator?.string ?? $generator.string)(),
             });
             return $ro0();
         })(),

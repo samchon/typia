@@ -6,15 +6,16 @@ export const test_random_ObjectGenericAlias = _test_random(
     "ObjectGenericAlias",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectGenericAlias> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                value: (generator.string ?? $generator.string)(),
+                value:
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             });
             return $ro0();
         })(),

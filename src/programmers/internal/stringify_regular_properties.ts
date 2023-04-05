@@ -76,6 +76,9 @@ export function stringify_regular_properties(
     return output;
 }
 
+/**
+ * @internal
+ */
 function sequence(meta: Metadata): number {
     return meta.any || !meta.required || meta.functional ? 0 : 1;
 }

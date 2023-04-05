@@ -12,7 +12,7 @@ import { CreateCloneTransformer } from "./features/miscellaneous/CreateCloneTran
 import { CreateIsCloneTransformer } from "./features/miscellaneous/CreateIsCloneTransformer";
 import { CreateIsPruneTransformer } from "./features/miscellaneous/CreateIsPruneTransformer";
 import { CreatePruneTransformer } from "./features/miscellaneous/CreatePruneTransformer";
-import { CreateRandomTransformer } from "./features/miscellaneous/CreateRandomGenerator";
+import { CreateRandomTransformer } from "./features/miscellaneous/CreateRandomTransformer";
 import { CreateValidateCloneTransformer } from "./features/miscellaneous/CreateValidateCloneTransformer";
 import { CreateValidatePruneTransformer } from "./features/miscellaneous/CreateValidatePruneTransformer";
 import { IsCloneTransformer } from "./features/miscellaneous/IsCloneTransformer";

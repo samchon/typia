@@ -29,3 +29,9 @@ validate("id")((custom) => (custom.id = "1234"));
 validate("dolloar")((custom) => (custom.dollar = "1234"));
 validate("postfix")((custom) => (custom.postfix = "abcdabc"));
 validate("log")((custom) => (custom.log = 101));
+
+console.log(
+    typia
+        .metadata<[TagCustom]>()
+        .collection[0].properties.map((p) => p.jsDocTags),
+);

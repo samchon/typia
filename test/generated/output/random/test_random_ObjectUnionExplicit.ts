@@ -6,8 +6,7 @@ export const test_random_ObjectUnionExplicit = _test_random(
     "ObjectUnionExplicit",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectUnionExplicit> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
@@ -15,8 +14,12 @@ export const test_random_ObjectUnionExplicit = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                x: (generator.number ?? $generator.number)(0, 100),
-                y: (generator.number ?? $generator.number)(0, 100),
+                x:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                y:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
                 type: "point",
             });
             const $ro1 = (
@@ -31,8 +34,12 @@ export const test_random_ObjectUnionExplicit = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                x: (generator.number ?? $generator.number)(0, 100),
-                y: (generator.number ?? $generator.number)(0, 100),
+                x:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                y:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
             });
             const $ro3 = (
                 _recursive: boolean = false,
@@ -57,7 +64,7 @@ export const test_random_ObjectUnionExplicit = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                points: (generator.array ?? $generator.array)(() =>
+                points: (generator?.array ?? $generator.array)(() =>
                     $ro2(_recursive, _recursive ? 1 + _depth : _depth),
                 ),
                 type: "polyline",
@@ -67,7 +74,7 @@ export const test_random_ObjectUnionExplicit = _test_random(
                 _depth: number = 0,
             ): any => ({
                 outer: $ro7(_recursive, _recursive ? 1 + _depth : _depth),
-                inner: (generator.array ?? $generator.array)(() =>
+                inner: (generator?.array ?? $generator.array)(() =>
                     $ro7(_recursive, _recursive ? 1 + _depth : _depth),
                 ),
                 type: "polygon",
@@ -76,7 +83,7 @@ export const test_random_ObjectUnionExplicit = _test_random(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                points: (generator.array ?? $generator.array)(() =>
+                points: (generator?.array ?? $generator.array)(() =>
                     $ro2(_recursive, _recursive ? 1 + _depth : _depth),
                 ),
             });
@@ -85,10 +92,12 @@ export const test_random_ObjectUnionExplicit = _test_random(
                 _depth: number = 0,
             ): any => ({
                 centroid: $ro2(_recursive, _recursive ? 1 + _depth : _depth),
-                radius: (generator.number ?? $generator.number)(0, 100),
+                radius:
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
                 type: "circle",
             });
-            return (generator.array ?? $generator.array)(() =>
+            return (generator?.array ?? $generator.array)(() =>
                 $pick([
                     () => $ro0(),
                     () => $ro1(),

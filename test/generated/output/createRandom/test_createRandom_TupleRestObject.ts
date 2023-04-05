@@ -5,19 +5,21 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 export const test_createRandom_TupleRestObject = _test_random(
     "TupleRestObject",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TupleRestObject> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            value: (generator.string ?? $generator.string)(),
+            value:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
         });
         return [
-            (generator.boolean ?? $generator.boolean)(),
-            (generator.number ?? $generator.number)(0, 100),
+            (generator?.boolean ?? $generator.boolean)(),
+            (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
             $ro0(),
         ];
     },

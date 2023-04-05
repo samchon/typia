@@ -6,18 +6,29 @@ export const test_random_TagMatrix = _test_random(
     "TagMatrix",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagMatrix> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                matrix: (generator.array ?? $generator.array)(
+                matrix: (generator?.array ?? $generator.array)(
                     () =>
-                        (generator.array ?? $generator.array)(
-                            () => (generator.uuid ?? $generator.uuid)(),
+                        (generator?.array ?? $generator.array)(
+                            () =>
+                                (
+                                    generator?.customs ?? $generator.customs
+                                )?.string?.([
+                                    {
+                                        name: "items",
+                                        value: "3",
+                                    },
+                                    {
+                                        name: "format",
+                                        value: "uuid",
+                                    },
+                                ]) ?? (generator?.uuid ?? $generator.uuid)(),
                             3,
                         ),
                     3,

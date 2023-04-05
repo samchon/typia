@@ -6,32 +6,87 @@ export const test_random_TagRange = _test_random(
     "TagRange",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagRange> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                greater: (generator.number ?? $generator.number)(3, 13),
-                greater_equal: (generator.number ?? $generator.number)(3, 13),
-                less: (generator.number ?? $generator.number)(-3, 7),
-                less_equal: (generator.number ?? $generator.number)(-3, 7),
-                greater_less: (generator.number ?? $generator.number)(3, 7),
-                greater_equal_less: (generator.number ?? $generator.number)(
-                    3,
-                    7,
-                ),
-                greater_less_equal: (generator.number ?? $generator.number)(
-                    3,
-                    7,
-                ),
-                greater_equal_less_equal: (
-                    generator.number ?? $generator.number
-                )(3, 7),
+                greater:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "exclusiveMinimum",
+                            value: "3",
+                        },
+                    ]) ?? (generator?.number ?? $generator.number)(3, 13),
+                greater_equal:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "minimum",
+                            value: "3",
+                        },
+                    ]) ?? (generator?.number ?? $generator.number)(3, 13),
+                less:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "exclusiveMaximum",
+                            value: "7",
+                        },
+                    ]) ?? (generator?.number ?? $generator.number)(-3, 7),
+                less_equal:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "maximum",
+                            value: "7",
+                        },
+                    ]) ?? (generator?.number ?? $generator.number)(-3, 7),
+                greater_less:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "exclusiveMinimum",
+                            value: "3",
+                        },
+                        {
+                            name: "exclusiveMaximum",
+                            value: "7",
+                        },
+                    ]) ?? (generator?.number ?? $generator.number)(3, 7),
+                greater_equal_less:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "minimum",
+                            value: "3",
+                        },
+                        {
+                            name: "exclusiveMaximum",
+                            value: "7",
+                        },
+                    ]) ?? (generator?.number ?? $generator.number)(3, 7),
+                greater_less_equal:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "exclusiveMinimum",
+                            value: "3",
+                        },
+                        {
+                            name: "maximum",
+                            value: "7",
+                        },
+                    ]) ?? (generator?.number ?? $generator.number)(3, 7),
+                greater_equal_less_equal:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "minimum",
+                            value: "3",
+                        },
+                        {
+                            name: "maximum",
+                            value: "7",
+                        },
+                    ]) ?? (generator?.number ?? $generator.number)(3, 7),
             });
-            return (generator.array ?? $generator.array)(() => $ro0());
+            return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
     (input: any): TagRange => {
         const $guard = (typia.createAssert as any).guard;

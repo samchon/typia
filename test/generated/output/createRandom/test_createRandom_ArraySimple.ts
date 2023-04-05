@@ -5,17 +5,20 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 export const test_createRandom_ArraySimple = _test_random(
     "ArraySimple",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ArraySimple> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            name: (generator.string ?? $generator.string)(),
-            email: (generator.string ?? $generator.string)(),
-            hobbies: (generator.array ?? $generator.array)(() =>
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            email:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            hobbies: (generator?.array ?? $generator.array)(() =>
                 $ro1(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         });
@@ -23,11 +26,17 @@ export const test_createRandom_ArraySimple = _test_random(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
-            name: (generator.string ?? $generator.string)(),
-            body: (generator.string ?? $generator.string)(),
-            rank: (generator.number ?? $generator.number)(0, 100),
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            body:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            rank:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
         });
-        return (generator.array ?? $generator.array)(() => $ro0());
+        return (generator?.array ?? $generator.array)(() => $ro0());
     },
     (input: any): ArraySimple => {
         const $guard = (typia.createAssert as any).guard;

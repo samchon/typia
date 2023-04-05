@@ -6,36 +6,68 @@ export const test_random_TagBigInt = _test_random(
     "TagBigInt",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagBigInt> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                value: (generator.bigint ?? $generator.bigint)(
-                    BigInt("0"),
-                    BigInt("100"),
-                ),
-                ranged: (generator.bigint ?? $generator.bigint)(
-                    BigInt("0"),
-                    BigInt("100"),
-                ),
-                minimum: (generator.bigint ?? $generator.bigint)(
-                    BigInt("0"),
-                    BigInt("10"),
-                ),
-                maximum: (generator.bigint ?? $generator.bigint)(
-                    BigInt("90"),
-                    BigInt("100"),
-                ),
-                multipleOf:
-                    BigInt("3") *
-                    (generator.bigint ?? $generator.bigint)(
+                value:
+                    (generator?.customs ?? $generator.customs)?.bigint?.([]) ??
+                    (generator?.bigint ?? $generator.bigint)(
+                        BigInt("0"),
+                        BigInt("100"),
+                    ),
+                ranged:
+                    (generator?.customs ?? $generator.customs)?.bigint?.([
+                        {
+                            name: "minimum",
+                            value: "0",
+                        },
+                        {
+                            name: "maximum",
+                            value: "100",
+                        },
+                    ]) ??
+                    (generator?.bigint ?? $generator.bigint)(
+                        BigInt("0"),
+                        BigInt("100"),
+                    ),
+                minimum:
+                    (generator?.customs ?? $generator.customs)?.bigint?.([
+                        {
+                            name: "minimum",
+                            value: "0",
+                        },
+                    ]) ??
+                    (generator?.bigint ?? $generator.bigint)(
                         BigInt("0"),
                         BigInt("10"),
                     ),
+                maximum:
+                    (generator?.customs ?? $generator.customs)?.bigint?.([
+                        {
+                            name: "maximum",
+                            value: "100",
+                        },
+                    ]) ??
+                    (generator?.bigint ?? $generator.bigint)(
+                        BigInt("90"),
+                        BigInt("100"),
+                    ),
+                multipleOf:
+                    (generator?.customs ?? $generator.customs)?.bigint?.([
+                        {
+                            name: "multipleOf",
+                            value: "3",
+                        },
+                    ]) ??
+                    BigInt("3") *
+                        (generator?.bigint ?? $generator.bigint)(
+                            BigInt("0"),
+                            BigInt("10"),
+                        ),
             });
             return $ro0();
         })(),
