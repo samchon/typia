@@ -10,6 +10,9 @@ import { CheckerProgrammer } from "../CheckerProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { UnionExplorer } from "../helpers/UnionExplorer";
 
+/**
+ * @internal
+ */
 export const check_union_array_like =
     <T>(accessor: check_union_array_like.IAccessor<T>) =>
     (props: check_union_array_like.IProps<T>) =>
@@ -236,6 +239,10 @@ export const check_union_array_like =
             undefined,
         );
     };
+
+/**
+ * @internal
+ */
 export namespace check_union_array_like {
     export interface IProps<T> {
         checker(

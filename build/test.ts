@@ -75,9 +75,15 @@ function script(
         `    "${struct.name}",`,
         feat.random ? null : `    ${struct.name}.generate,`,
         create
-            ? `    typia.${method}<${struct.name}>(),`
+            ? feat.random
+                ? `    typia.createRandom<${struct.name}>(${
+                      struct.RANDOM ? `${struct.name}.RANDOM` : ""
+                  }),`
+                : `    typia.${method}<${struct.name}>(),`
             : feat.random
-            ? `    () => typia.${method}<${struct.name}>(),`
+            ? `    () => typia.random<${struct.name}>(${
+                  struct.RANDOM ? `${struct.name}.RANDOM` : ""
+              }),`
             : `    (input) => typia.${method}${
                   feat.explicit ? `<${struct.name}>` : ""
               }(input),`,

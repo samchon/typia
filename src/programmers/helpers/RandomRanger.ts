@@ -13,7 +13,7 @@ export namespace RandomRanger {
         (coalesce: (method: string) => ts.Expression) =>
         (defs: IDefaults) =>
         (acc: length.IAccessors) =>
-        (tags: IMetadataTag[]) => {
+        (tags: IMetadataTag[]): ts.Expression | undefined => {
             const props = {
                 fixed: getter(tags)(acc.fixed),
                 minimum: getter(tags)(acc.minimum),

@@ -120,6 +120,9 @@ export const check_number =
         };
     };
 
+/**
+ * @internal
+ */
 const is_number =
     ({ options }: IProject, numeric: boolean) =>
     (metaTags: IMetadataTag[]) =>

@@ -51,8 +51,8 @@ export namespace MetadataTagFactory {
         ) => IMetadataTag | null
     > = {
         /* -----------------------------------------------------------
-        ARRAY
-    ----------------------------------------------------------- */
+            ARRAY
+        ----------------------------------------------------------- */
         items: (identifier, metadata, text, output) => {
             validate(identifier, metadata, output, "items", "array", [
                 "minItems",
@@ -82,8 +82,8 @@ export namespace MetadataTagFactory {
         },
 
         /* -----------------------------------------------------------
-        NUMBER
-    ----------------------------------------------------------- */
+            NUMBER
+        ----------------------------------------------------------- */
         type: (identifier, metadata, text, output) => {
             validate(identifier, metadata, output, "type", "number", []);
             if (text !== "int" && text !== "uint")
@@ -168,8 +168,8 @@ export namespace MetadataTagFactory {
         },
 
         /* -----------------------------------------------------------
-        STRING
-    ----------------------------------------------------------- */
+            STRING
+        ----------------------------------------------------------- */
         format: (identifier, metadata, str, output) => {
             validate(identifier, metadata, output, "format", "string", [
                 "pattern",
