@@ -42,12 +42,18 @@ export namespace ImportTransformer {
             const location: string = path.resolve(from, text);
             if (location.indexOf(top) === 0) return node;
 
+            const replaced: string = (() => {
+                const simple: string = path
+                    .relative(to, location)
+                    .split(path.sep)
+                    .join("/");
+                return simple[0] === "." ? simple : `./${simple}`;
+            })();
+
             return ts.factory.createImportDeclaration(
                 undefined,
                 node.importClause,
-                ts.factory.createStringLiteral(
-                    path.relative(to, location).split(path.sep).join("/"),
-                ),
+                ts.factory.createStringLiteral(replaced),
                 node.assertClause,
             );
         };
