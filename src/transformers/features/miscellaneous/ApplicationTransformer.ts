@@ -18,7 +18,7 @@ export namespace ApplicationTransformer {
         expression: ts.CallExpression,
     ): ts.Expression {
         if (!expression.typeArguments?.length)
-            throw new Error(ErrorMessages.NO_GENERIC_ARGUMENT);
+            throw new Error(NO_GENERIC_ARGUMENT);
 
         //----
         // GET ARGUMENTS
@@ -34,7 +34,7 @@ export namespace ApplicationTransformer {
             checker.getTypeFromTypeNode(child as ts.TypeNode),
         );
         if (types.some((t) => t.isTypeParameter()))
-            throw new Error(ErrorMessages.GENERIC_ARGUMENT);
+            throw new Error(GENERIC_ARGUMENT);
 
         // ADDITIONAL PARAMETERS
         const purpose: "swagger" | "ajv" = get_parameter(
@@ -68,7 +68,7 @@ export namespace ApplicationTransformer {
                 constant: true,
                 validate: (meta) => {
                     if (meta.atomics.find((str) => str === "bigint"))
-                        throw new Error(ErrorMessages.NO_BIGIT);
+                        throw new Error(NO_BIGIT);
                 },
             }),
         );
@@ -112,9 +112,8 @@ export namespace ApplicationTransformer {
     }
 }
 
-const enum ErrorMessages {
-    NO_GENERIC_ARGUMENT = "Error on typia.application(): no generic argument.",
-    GENERIC_ARGUMENT = "Error on typia.application(): non-specified generic argument(s).",
-    NO_BIGIT = "Error on typia.application(): does not allow bigint type.",
-    NO_ZERO_LENGTH_TUPLE = "Error on typia.application(): swagger does not support zero length tuple type.",
-}
+const NO_GENERIC_ARGUMENT =
+    "Error on typia.application(): no generic argument.";
+const GENERIC_ARGUMENT =
+    "Error on typia.application(): non-specified generic argument(s).";
+const NO_BIGIT = "Error on typia.application(): does not allow bigint type.";

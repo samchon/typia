@@ -17,6 +17,7 @@ import { CreateValidateCloneTransformer } from "./features/miscellaneous/CreateV
 import { CreateValidatePruneTransformer } from "./features/miscellaneous/CreateValidatePruneTransformer";
 import { IsCloneTransformer } from "./features/miscellaneous/IsCloneTransformer";
 import { IsPruneTransformer } from "./features/miscellaneous/IsPruneTransformer";
+import { LiteralsTransformer } from "./features/miscellaneous/LiteralsTransformer";
 import { MetadataTransformer } from "./features/miscellaneous/MetadataTransformer";
 import { PruneTransformer } from "./features/miscellaneous/PruneTransformer";
 import { RandomTransformer } from "./features/miscellaneous/RandomTransformer";
@@ -122,6 +123,7 @@ const FUNCTORS: Record<string, () => Task> = {
     // MISC
     metadata: () => MetadataTransformer.transform,
     random: () => RandomTransformer.transform,
+    literals: () => LiteralsTransformer.transform,
 
     clone: () => CloneTransformer.transform,
     assertClone: () => AssertCloneTransformer.transform,

@@ -16,7 +16,7 @@ export namespace MetadataTransformer {
         expression: ts.CallExpression,
     ): ts.Expression {
         if (!expression.typeArguments?.length)
-            throw new Error(ErrorMessages.NO_GENERIC_ARGUMENT);
+            throw new Error(NO_GENERIC_ARGUMENT);
 
         // VALIDATE TUPLE ARGUMENTS
         const top: ts.Node = expression.typeArguments[0]!;
@@ -29,7 +29,7 @@ export namespace MetadataTransformer {
             checker.getTypeFromTypeNode(child as ts.TypeNode),
         );
         if (types.some((t) => t.isTypeParameter()))
-            throw new Error(ErrorMessages.GENERIC_ARGUMENT);
+            throw new Error(GENERIC_ARGUMENT);
 
         // METADATA
         const collection: MetadataCollection = new MetadataCollection();
@@ -49,7 +49,6 @@ export namespace MetadataTransformer {
     }
 }
 
-const enum ErrorMessages {
-    NO_GENERIC_ARGUMENT = "Error on typia.metadata(): no generic argument.",
-    GENERIC_ARGUMENT = "Error on typia.metadata(): non-specified generic argument(s).",
-}
+const NO_GENERIC_ARGUMENT = "Error on typia.metadata(): no generic argument.";
+const GENERIC_ARGUMENT =
+    "Error on typia.metadata(): non-specified generic argument(s).";
