@@ -24,6 +24,7 @@ export function assertStringify<T>(input: T): string; // safe and faster
 
 // MISC
 export function random<T>(g?: Partial<IRandomGenerator>): Primitive<T>;
+export function literals<T extends Atomic.Type>(): T[];
 export function clone<T>(input: T): Primitive<T>; // deep clone
 export function prune<T extends object>(input: T): void; // erase extra props
     // +) isClone, assertClone, validateClone
@@ -260,7 +261,8 @@ export function createAssertStringify<T>(): (input: T) => string;
 
 ### Miscellaneous
 ```typescript
-export function random<T>(g?: Partial<IRandomGenerator>): Primitive<T>; 
+export function random<T>(g?: Partial<IRandomGenerator>): Primitive<T>;
+export function literals<T extends Atomic.Type>(): T[];
 export function clone<T>(input: T): Primitive<T>; // deep copy
 export function prune<T>(input: T): void; // remove superfluous properties
     // +) isClone, assertClone, validateClone
