@@ -4,6 +4,8 @@ import { Namespace } from "./functional/Namespace";
 import { IMetadataApplication } from "./metadata/IMetadataApplication";
 import { IJsonApplication } from "./schemas/IJsonApplication";
 
+import { Atomic } from "./typings/Atomic";
+
 import { MapUtil } from "./utils/MapUtil";
 
 import { CustomValidatorMap } from "./CustomValidatorMap";
@@ -941,6 +943,47 @@ export function random(): never {
     halt("random");
 }
 Object.assign(random, Namespace.random());
+
+/**
+ * > You must configure the generic argument `T`.
+ *
+ * Union literal type to array.
+ *
+ * Converts a union literal type to an array of its members.
+ *
+ * ```typescript
+ * literals<"A" | "B" | 1>; // [1, 2, 3] as const
+ * ```
+ *
+ * @template T Union literal type
+ * @return Array of union literal type's members
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function literals(): never;
+
+/**
+ * Union literal type to array.
+ *
+ * Converts a union literal type to an array of its members.
+ *
+ * ```typescript
+ * literals<"A" | "B" | 1>; // [1, 2, 3] as const
+ * ```
+ *
+ * @template T Union literal type
+ * @return Array of union literal type's members
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function literals<T extends Atomic.Type>(): T[];
+
+/**
+ * @internal
+ */
+export function literals(): never {
+    halt("literals");
+}
 
 /**
  * Clone a data.
