@@ -12,7 +12,7 @@ export const createOptimizerClassValidatorBenchmarkProgram = <
         const cla: Schema = plainToInstance(schema, input);
         return validateSync(cla).length === 0;
     };
-    return createBenchmarkProgram(validator)(
+    return createBenchmarkProgram(1)(validator)(
         (input: unknown) => validator(input),
         (name) => !name.includes("implicit") && !name.includes("ultimiate"),
     );

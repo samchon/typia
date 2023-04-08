@@ -29,7 +29,7 @@ const LIBRARIES: BenchmarkProgrammer.ILibrary[] = [
     {
         name: "class-validator",
         body: (type) => {
-            const schema = `ClassValidator${pascal(type)}`;
+            const schema = `ClassValidator${BenchmarkProgrammer.pascal(type)}`;
             const program = `createOptimizerClassValidatorBenchmarkProgram`;
 
             return [
@@ -43,9 +43,11 @@ const LIBRARIES: BenchmarkProgrammer.ILibrary[] = [
     ...["typebox", "ajv"].map((name) => ({
         name,
         body: (type: string) => {
-            const file = `Typebox${pascal(type)}`;
+            const file = `Typebox${BenchmarkProgrammer.pascal(type)}`;
             const schema = `__${file}`;
-            const program = `createOptimizer${pascal(name)}BenchmarkProgram`;
+            const program = `createOptimizer${BenchmarkProgrammer.pascal(
+                name,
+            )}BenchmarkProgram`;
 
             return [
                 `import { ${schema} } from "../../../structures/typebox/${file}";`,
@@ -69,5 +71,3 @@ main().catch((exp) => {
     console.error(exp);
     process.exit(-1);
 });
-
-const pascal = (str: string) => str[0].toUpperCase() + str.slice(1);

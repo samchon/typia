@@ -16,7 +16,9 @@ const LIBRARIES = (category: string): BenchmarkProgrammer.ILibrary[] => [
     {
         name: "typia",
         body: (type) => {
-            const program = `create${pascal(category)}BenchmarkProgram`;
+            const program = `create${BenchmarkProgrammer.pascal(
+                category,
+            )}BenchmarkProgram`;
             return [
                 `import typia from "typia";`,
                 ``,
@@ -24,7 +26,9 @@ const LIBRARIES = (category: string): BenchmarkProgrammer.ILibrary[] => [
                 `import { ${program} } from "../${program}";`,
                 ``,
                 `${program}(`,
-                `    typia.create${pascal(category)}<${pascal(type)}>()`,
+                `    typia.create${BenchmarkProgrammer.pascal(
+                    category,
+                )}<${BenchmarkProgrammer.pascal(type)}>()`,
                 `);`,
             ].join("\n");
         },
@@ -32,10 +36,10 @@ const LIBRARIES = (category: string): BenchmarkProgrammer.ILibrary[] => [
     ...["typebox", "ajv", "io-ts", "zod", "class-validator"].map((name) => ({
         name,
         body: (type: string) => {
-            const schema: string = `${pascal(name)}${type}`;
-            const program: string = `create${pascal(category)}${pascal(
-                name,
-            )}BenchmarkProgram`;
+            const schema: string = `${BenchmarkProgrammer.pascal(name)}${type}`;
+            const program: string = `create${BenchmarkProgrammer.pascal(
+                category,
+            )}${BenchmarkProgrammer.pascal(name)}BenchmarkProgram`;
 
             return [
                 `import { ${schema} } from "../../../structures/${name}/${schema}";`,
@@ -70,9 +74,3 @@ main().catch((exp) => {
     console.error(exp);
     process.exit(-1);
 });
-
-const pascal = (name: string) =>
-    name
-        .split("-")
-        .map((str) => str[0].toUpperCase() + str.slice(1))
-        .join("");

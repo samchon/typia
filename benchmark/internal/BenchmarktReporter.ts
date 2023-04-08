@@ -33,11 +33,18 @@ export namespace BenchmarkReporter {
                 const label: string = DICTIONARY[type];
                 const record: string[] = report.libraries.map((library) => {
                     const value = report.result[type][library];
-                    if (value === null) return " - ";
-                    else return (value.count / value.time).toLocaleString();
+                    if (value === null || isNaN(value.amount)) return " - ";
+
+                    const space: number = Math.floor(
+                        value.amount / value.time / 1_024,
+                    );
+                    return space.toLocaleString();
                 });
                 await stream.write(` ${label} | ${record.join(" | ")} `);
             }
+            await stream.write("");
+            await stream.write("> Unit: Kilobytes/sec");
+            await stream.write("\n\n\n");
 
             // GENERATE CHART
             const relatives: HorizontalBarChart.IMeasure[] = report.types.map(
@@ -53,7 +60,7 @@ export namespace BenchmarkReporter {
                             value === null
                                 ? 0
                                 : value.time
-                                ? value.count / value.time
+                                ? value.amount / value.time
                                 : 0;
                     }
 
@@ -110,7 +117,7 @@ export namespace BenchmarkReporter {
     export async function terminate(stream: BenchmarkStream): Promise<void> {
         await stream.write("\n\n");
         await stream.write(
-            `> Total elapsed time: ${stream.elapsed().toLocaleString()} ms`,
+            `Total elapsed time: ${stream.elapsed().toLocaleString()} ms`,
         );
         await stream.close();
     }

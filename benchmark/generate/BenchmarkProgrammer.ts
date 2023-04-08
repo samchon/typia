@@ -23,8 +23,8 @@ export namespace BenchmarkProgrammer {
                 __dirname,
                 "..",
                 "programs",
-                directory(category.name),
-                library.name,
+                emend(category.name),
+                emend(library.name),
             ].join("/");
             for (const file of await fs.promises.readdir(location))
                 if (!file.includes("create"))
@@ -41,8 +41,8 @@ export namespace BenchmarkProgrammer {
 
                 const file: string = [
                     "benchmark",
-                    category.name,
-                    library.name,
+                    emend(category.name.split("/")[0]),
+                    emend(library.name),
                     feature,
                 ].join("-");
 
@@ -54,6 +54,16 @@ export namespace BenchmarkProgrammer {
             }
         }
     }
-}
 
-const directory = (name: string) => name.split("-").join("").toLowerCase();
+    export const emend = (name: string) =>
+        name
+            .replace("(", "")
+            .replaceAll(")", "")
+            .replaceAll(" ", "-")
+            .toLowerCase();
+    export const pascal = (name: string) =>
+        name
+            .split("-")
+            .map((str) => str[0].toUpperCase() + str.slice(1))
+            .join("");
+}
