@@ -4,5 +4,5 @@ import { ObjectHierarchical } from "../../../../test/structures/ObjectHierarchic
 import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";
 
 createStringifyBenchmarkProgram(
-    typia.createAssertStringify<ObjectHierarchical>()
+    typia.createAssertStringify<ObjectHierarchical>(),
 );

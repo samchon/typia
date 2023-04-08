@@ -8,78 +8,25 @@ export const test_createAssertEquals_TagBigInt = _test_assertEquals(
     (input: any): TagBigInt => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
-        ((
+        const __is = (
             input: any,
-            _path: string,
             _exceptionable: boolean = true,
         ): input is TagBigInt => {
-            const $ao0 = (
+            const $io0 = (
                 input: any,
-                _path: string,
                 _exceptionable: boolean = true,
             ): boolean =>
-                ("bigint" === typeof input.value ||
-                    $guard(_exceptionable, {
-                        path: _path + ".value",
-                        expected: "bigint",
-                        value: input.value,
-                    })) &&
-                (("bigint" === typeof input.ranged &&
-                    (0n <= input.ranged ||
-                        $guard(_exceptionable, {
-                            path: _path + ".ranged",
-                            expected: "bigint (@minimum 0)",
-                            value: input.ranged,
-                        })) &&
-                    (100n >= input.ranged ||
-                        $guard(_exceptionable, {
-                            path: _path + ".ranged",
-                            expected: "bigint (@maximum 100)",
-                            value: input.ranged,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".ranged",
-                        expected: "bigint",
-                        value: input.ranged,
-                    })) &&
-                (("bigint" === typeof input.minimum &&
-                    (0n <= input.minimum ||
-                        $guard(_exceptionable, {
-                            path: _path + ".minimum",
-                            expected: "bigint (@minimum 0)",
-                            value: input.minimum,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".minimum",
-                        expected: "bigint",
-                        value: input.minimum,
-                    })) &&
-                (("bigint" === typeof input.maximum &&
-                    (100n >= input.maximum ||
-                        $guard(_exceptionable, {
-                            path: _path + ".maximum",
-                            expected: "bigint (@maximum 100)",
-                            value: input.maximum,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".maximum",
-                        expected: "bigint",
-                        value: input.maximum,
-                    })) &&
-                (("bigint" === typeof input.multipleOf &&
-                    (0n === input.multipleOf % 3n ||
-                        $guard(_exceptionable, {
-                            path: _path + ".multipleOf",
-                            expected: "bigint (@multipleOf 3)",
-                            value: input.multipleOf,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".multipleOf",
-                        expected: "bigint",
-                        value: input.multipleOf,
-                    })) &&
+                "bigint" === typeof input.value &&
+                "bigint" === typeof input.ranged &&
+                0n <= input.ranged &&
+                100n >= input.ranged &&
+                "bigint" === typeof input.minimum &&
+                0n <= input.minimum &&
+                "bigint" === typeof input.maximum &&
+                100n >= input.maximum &&
+                "bigint" === typeof input.multipleOf &&
+                0n === input.multipleOf % 3n &&
                 (5 === Object.keys(input).length ||
-                    false === _exceptionable ||
                     Object.keys(input).every((key) => {
                         if (
                             [
@@ -93,22 +40,114 @@ export const test_createAssertEquals_TagBigInt = _test_assertEquals(
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
-                        return $guard(_exceptionable, {
-                            path: _path + $join(key),
-                            expected: "undefined",
-                            value: value,
-                        });
+                        return false;
                     }));
             return (
-                (("object" === typeof input && null !== input) ||
-                    $guard(true, {
-                        path: _path + "",
-                        expected: "Resolve<TagBigInt>",
-                        value: input,
-                    })) &&
-                $ao0(input, _path + "", true)
+                "object" === typeof input && null !== input && $io0(input, true)
             );
-        })(input, "$input", true);
+        };
+        if (false === __is(input))
+            ((
+                input: any,
+                _path: string,
+                _exceptionable: boolean = true,
+            ): input is TagBigInt => {
+                const $ao0 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("bigint" === typeof input.value ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "bigint",
+                            value: input.value,
+                        })) &&
+                    (("bigint" === typeof input.ranged &&
+                        (0n <= input.ranged ||
+                            $guard(_exceptionable, {
+                                path: _path + ".ranged",
+                                expected: "bigint (@minimum 0)",
+                                value: input.ranged,
+                            })) &&
+                        (100n >= input.ranged ||
+                            $guard(_exceptionable, {
+                                path: _path + ".ranged",
+                                expected: "bigint (@maximum 100)",
+                                value: input.ranged,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".ranged",
+                            expected: "bigint",
+                            value: input.ranged,
+                        })) &&
+                    (("bigint" === typeof input.minimum &&
+                        (0n <= input.minimum ||
+                            $guard(_exceptionable, {
+                                path: _path + ".minimum",
+                                expected: "bigint (@minimum 0)",
+                                value: input.minimum,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".minimum",
+                            expected: "bigint",
+                            value: input.minimum,
+                        })) &&
+                    (("bigint" === typeof input.maximum &&
+                        (100n >= input.maximum ||
+                            $guard(_exceptionable, {
+                                path: _path + ".maximum",
+                                expected: "bigint (@maximum 100)",
+                                value: input.maximum,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".maximum",
+                            expected: "bigint",
+                            value: input.maximum,
+                        })) &&
+                    (("bigint" === typeof input.multipleOf &&
+                        (0n === input.multipleOf % 3n ||
+                            $guard(_exceptionable, {
+                                path: _path + ".multipleOf",
+                                expected: "bigint (@multipleOf 3)",
+                                value: input.multipleOf,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".multipleOf",
+                            expected: "bigint",
+                            value: input.multipleOf,
+                        })) &&
+                    (5 === Object.keys(input).length ||
+                        false === _exceptionable ||
+                        Object.keys(input).every((key) => {
+                            if (
+                                [
+                                    "value",
+                                    "ranged",
+                                    "minimum",
+                                    "maximum",
+                                    "multipleOf",
+                                ].some((prop) => key === prop)
+                            )
+                                return true;
+                            const value = input[key];
+                            if (undefined === value) return true;
+                            return $guard(_exceptionable, {
+                                path: _path + $join(key),
+                                expected: "undefined",
+                                value: value,
+                            });
+                        }));
+                return (
+                    (("object" === typeof input && null !== input) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "Resolve<TagBigInt>",
+                            value: input,
+                        })) &&
+                    $ao0(input, _path + "", true)
+                );
+            })(input, "$input", true);
         return input;
     },
 );
