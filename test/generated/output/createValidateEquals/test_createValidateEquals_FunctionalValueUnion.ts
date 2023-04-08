@@ -7,50 +7,70 @@ export const test_createValidateEquals_FunctionalValueUnion =
         "FunctionalValueUnion",
         FunctionalValueUnion.generate,
         (input: any): typia.IValidation<FunctionalValueUnion> => {
-            const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
-            ((
+            const __is = (
                 input: any,
-                _path: string,
                 _exceptionable: boolean = true,
             ): input is FunctionalValueUnion => {
                 return (
-                    ((Array.isArray(input) ||
+                    Array.isArray(input) &&
+                    input.every(
+                        (elem: any, _index1: number) =>
+                            undefined !== elem &&
+                            (null === elem ||
+                                "function" === typeof elem ||
+                                "string" === typeof elem ||
+                                ("number" === typeof elem &&
+                                    Number.isFinite(elem))),
+                    )
+                );
+            };
+            const errors = [] as any[];
+            const $report = (typia.createValidateEquals as any).report(errors);
+            if (false === __is(input))
+                ((
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): input is FunctionalValueUnion => {
+                    return (
+                        ((Array.isArray(input) ||
+                            $report(true, {
+                                path: _path + "",
+                                expected: "Array<(null | number | string)>",
+                                value: input,
+                            })) &&
+                            input
+                                .map(
+                                    (elem: any, _index1: number) =>
+                                        (undefined !== elem ||
+                                            $report(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "(null | number | string)",
+                                                value: elem,
+                                            })) &&
+                                        (null === elem ||
+                                            "function" === typeof elem ||
+                                            "string" === typeof elem ||
+                                            ("number" === typeof elem &&
+                                                Number.isFinite(elem)) ||
+                                            $report(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "(null | number | string)",
+                                                value: elem,
+                                            })),
+                                )
+                                .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
                             expected: "Array<(null | number | string)>",
                             value: input,
-                        })) &&
-                        input
-                            .map(
-                                (elem: any, _index1: number) =>
-                                    (undefined !== elem ||
-                                        $report(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "(null | number | string)",
-                                            value: elem,
-                                        })) &&
-                                    (null === elem ||
-                                        "function" === typeof elem ||
-                                        "string" === typeof elem ||
-                                        ("number" === typeof elem &&
-                                            Number.isFinite(elem)) ||
-                                        $report(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "(null | number | string)",
-                                            value: elem,
-                                        })),
-                            )
-                            .every((flag: boolean) => flag)) ||
-                    $report(true, {
-                        path: _path + "",
-                        expected: "Array<(null | number | string)>",
-                        value: input,
-                    })
-                );
-            })(input, "$input", true);
+                        })
+                    );
+                })(input, "$input", true);
             const success = 0 === errors.length;
             return {
                 success,

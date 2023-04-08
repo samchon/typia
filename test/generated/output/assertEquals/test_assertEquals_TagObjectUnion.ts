@@ -9,116 +9,183 @@ export const test_assertEquals_TagObjectUnion = _test_assertEquals(
         ((input: any): Array<TagObjectUnion.Type> => {
             const $guard = (typia.assertEquals as any).guard;
             const $join = (typia.assertEquals as any).join;
-            ((
+            const __is = (
                 input: any,
-                _path: string,
                 _exceptionable: boolean = true,
             ): input is Array<TagObjectUnion.Type> => {
-                const $ao0 = (
+                const $io0 = (
                     input: any,
-                    _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("number" === typeof input.value &&
-                        Number.isFinite(input.value) &&
-                        (3 <= input.value ||
-                            $guard(_exceptionable, {
-                                path: _path + ".value",
-                                expected: "number (@minimum 3)",
-                                value: input.value,
-                            }))) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "number",
-                            value: input.value,
-                        })) &&
+                    "number" === typeof input.value &&
+                    Number.isFinite(input.value) &&
+                    3 <= input.value &&
                     (1 === Object.keys(input).length ||
-                        false === _exceptionable ||
                         Object.keys(input).every((key) => {
                             if (["value"].some((prop) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
-                            return $guard(_exceptionable, {
-                                path: _path + $join(key),
-                                expected: "undefined",
-                                value: value,
-                            });
+                            return false;
                         }));
-                const $ao1 = (
+                const $io1 = (
                     input: any,
-                    _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("string" === typeof input.value &&
-                        (3 <= input.value.length ||
-                            $guard(_exceptionable, {
-                                path: _path + ".value",
-                                expected: "string (@minLength 3)",
-                                value: input.value,
-                            })) &&
-                        (7 >= input.value.length ||
-                            $guard(_exceptionable, {
-                                path: _path + ".value",
-                                expected: "string (@maxLength 7)",
-                                value: input.value,
-                            }))) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".value",
-                            expected: "string",
-                            value: input.value,
-                        })) &&
+                    "string" === typeof input.value &&
+                    3 <= input.value.length &&
+                    7 >= input.value.length &&
                     (1 === Object.keys(input).length ||
-                        false === _exceptionable ||
                         Object.keys(input).every((key) => {
                             if (["value"].some((prop) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
-                            return $guard(_exceptionable, {
-                                path: _path + $join(key),
-                                expected: "undefined",
-                                value: value,
-                            });
+                            return false;
                         }));
-                const $au0 = (
+                const $iu0 = (
                     input: any,
-                    _path: string,
                     _exceptionable: boolean = true,
                 ): any =>
                     (() => {
-                        if ("number" === typeof input.value)
-                            return $ao0(input, _path, true && _exceptionable);
+                        if (
+                            "number" === typeof input.value &&
+                            Number.isFinite(input.value)
+                        )
+                            return $io0(input, true && _exceptionable);
                         if ("string" === typeof input.value)
-                            return $ao1(input, _path, true && _exceptionable);
-                        return $guard(_exceptionable, {
-                            path: _path,
-                            expected:
-                                "(TagObjectUnion.Numeric | TagObjectUnion.Literal)",
-                            value: input,
-                        });
+                            return $io1(input, true && _exceptionable);
+                        return false;
                     })();
                 return (
-                    (Array.isArray(input) ||
-                        $guard(true, {
-                            path: _path + "",
-                            expected:
-                                "Array<(Resolve<TagObjectUnion.Literal> | Resolve<TagObjectUnion.Numeric>)>",
-                            value: input,
-                        })) &&
+                    Array.isArray(input) &&
                     input.every(
                         (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
-                                $guard(true, {
-                                    path: _path + "[" + _index1 + "]",
-                                    expected:
-                                        "(Resolve<TagObjectUnion.Literal> | Resolve<TagObjectUnion.Numeric>)",
-                                    value: elem,
-                                })) &&
-                            $au0(elem, _path + "[" + _index1 + "]", true),
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $iu0(elem, true),
                     )
                 );
-            })(input, "$input", true);
+            };
+            if (false === __is(input))
+                ((
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): input is Array<TagObjectUnion.Type> => {
+                    const $ao0 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        (("number" === typeof input.value &&
+                            Number.isFinite(input.value) &&
+                            (3 <= input.value ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "number (@minimum 3)",
+                                    value: input.value,
+                                }))) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "number",
+                                value: input.value,
+                            })) &&
+                        (1 === Object.keys(input).length ||
+                            false === _exceptionable ||
+                            Object.keys(input).every((key) => {
+                                if (["value"].some((prop) => key === prop))
+                                    return true;
+                                const value = input[key];
+                                if (undefined === value) return true;
+                                return $guard(_exceptionable, {
+                                    path: _path + $join(key),
+                                    expected: "undefined",
+                                    value: value,
+                                });
+                            }));
+                    const $ao1 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        (("string" === typeof input.value &&
+                            (3 <= input.value.length ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "string (@minLength 3)",
+                                    value: input.value,
+                                })) &&
+                            (7 >= input.value.length ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "string (@maxLength 7)",
+                                    value: input.value,
+                                }))) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "string",
+                                value: input.value,
+                            })) &&
+                        (1 === Object.keys(input).length ||
+                            false === _exceptionable ||
+                            Object.keys(input).every((key) => {
+                                if (["value"].some((prop) => key === prop))
+                                    return true;
+                                const value = input[key];
+                                if (undefined === value) return true;
+                                return $guard(_exceptionable, {
+                                    path: _path + $join(key),
+                                    expected: "undefined",
+                                    value: value,
+                                });
+                            }));
+                    const $au0 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): any =>
+                        (() => {
+                            if ("number" === typeof input.value)
+                                return $ao0(
+                                    input,
+                                    _path,
+                                    true && _exceptionable,
+                                );
+                            if ("string" === typeof input.value)
+                                return $ao1(
+                                    input,
+                                    _path,
+                                    true && _exceptionable,
+                                );
+                            return $guard(_exceptionable, {
+                                path: _path,
+                                expected:
+                                    "(TagObjectUnion.Numeric | TagObjectUnion.Literal)",
+                                value: input,
+                            });
+                        })();
+                    return (
+                        (Array.isArray(input) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected:
+                                    "Array<(Resolve<TagObjectUnion.Literal> | Resolve<TagObjectUnion.Numeric>)>",
+                                value: input,
+                            })) &&
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                (("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            "(Resolve<TagObjectUnion.Literal> | Resolve<TagObjectUnion.Numeric>)",
+                                        value: elem,
+                                    })) &&
+                                $au0(elem, _path + "[" + _index1 + "]", true),
+                        )
+                    );
+                })(input, "$input", true);
             return input;
         })(input),
 );

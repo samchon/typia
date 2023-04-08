@@ -8,33 +8,51 @@ export const test_assertEquals_ConstantEnumeration = _test_assertEquals(
     (input) =>
         ((input: any): Array<ConstantEnumeration.Enumeration> => {
             const $guard = (typia.assertEquals as any).guard;
-            ((
+            const __is = (
                 input: any,
-                _path: string,
                 _exceptionable: boolean = true,
             ): input is Array<ConstantEnumeration.Enumeration> => {
                 return (
-                    (Array.isArray(input) ||
-                        $guard(true, {
-                            path: _path + "",
-                            expected: 'Array<("Four" | "Three" | 0 | 1 | 2)>',
-                            value: input,
-                        })) &&
+                    Array.isArray(input) &&
                     input.every(
                         (elem: any, _index1: number) =>
                             0 === elem ||
                             1 === elem ||
                             2 === elem ||
                             "Three" === elem ||
-                            "Four" === elem ||
-                            $guard(true, {
-                                path: _path + "[" + _index1 + "]",
-                                expected: '("Four" | "Three" | 0 | 1 | 2)',
-                                value: elem,
-                            }),
+                            "Four" === elem,
                     )
                 );
-            })(input, "$input", true);
+            };
+            if (false === __is(input))
+                ((
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): input is Array<ConstantEnumeration.Enumeration> => {
+                    return (
+                        (Array.isArray(input) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected:
+                                    'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                                value: input,
+                            })) &&
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                0 === elem ||
+                                1 === elem ||
+                                2 === elem ||
+                                "Three" === elem ||
+                                "Four" === elem ||
+                                $guard(true, {
+                                    path: _path + "[" + _index1 + "]",
+                                    expected: '("Four" | "Three" | 0 | 1 | 2)',
+                                    value: elem,
+                                }),
+                        )
+                    );
+                })(input, "$input", true);
             return input;
         })(input),
 );

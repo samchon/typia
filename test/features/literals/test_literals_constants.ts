@@ -3,9 +3,7 @@ import { primitive_equal_to } from "../../helpers/primitive_equal_to";
 
 export function test_literals_constants(): void {
     const values = typia.literals<Values>();
-    values.sort();
-
-    if (!primitive_equal_to(values, ["A", "B", 1, 2, 3].sort()))
+    if (!primitive_equal_to(values.slice().sort(), ["A", "B", 1, 2, 3].sort()))
         throw Error(
             "Bug on typia.literals(): failed to understand constant type.",
         );

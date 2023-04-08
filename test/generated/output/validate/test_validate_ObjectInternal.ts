@@ -7,47 +7,56 @@ export const test_validate_ObjectInternal = _test_validate(
     ObjectInternal.generate,
     (input) =>
         ((input: any): typia.IValidation<ObjectInternal> => {
+            const __is = (input: any): input is ObjectInternal => {
+                return (
+                    "object" === typeof input &&
+                    null !== input &&
+                    "string" === typeof input.id &&
+                    "string" === typeof input.name
+                );
+            };
             const errors = [] as any[];
             const $report = (typia.validate as any).report(errors);
-            ((
-                input: any,
-                _path: string,
-                _exceptionable: boolean = true,
-            ): input is ObjectInternal => {
-                const $vo0 = (
+            if (false === __is(input))
+                ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): boolean =>
-                    [
-                        "string" === typeof input.id ||
-                            $report(_exceptionable, {
-                                path: _path + ".id",
-                                expected: "string",
-                                value: input.id,
-                            }),
-                        "string" === typeof input.name ||
-                            $report(_exceptionable, {
-                                path: _path + ".name",
-                                expected: "string",
-                                value: input.name,
-                            }),
-                    ].every((flag: boolean) => flag);
-                return (
-                    ((("object" === typeof input && null !== input) ||
+                ): input is ObjectInternal => {
+                    const $vo0 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        [
+                            "string" === typeof input.id ||
+                                $report(_exceptionable, {
+                                    path: _path + ".id",
+                                    expected: "string",
+                                    value: input.id,
+                                }),
+                            "string" === typeof input.name ||
+                                $report(_exceptionable, {
+                                    path: _path + ".name",
+                                    expected: "string",
+                                    value: input.name,
+                                }),
+                        ].every((flag: boolean) => flag);
+                    return (
+                        ((("object" === typeof input && null !== input) ||
+                            $report(true, {
+                                path: _path + "",
+                                expected: "Resolve<ObjectInternal>",
+                                value: input,
+                            })) &&
+                            $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
                             expected: "Resolve<ObjectInternal>",
                             value: input,
-                        })) &&
-                        $vo0(input, _path + "", true)) ||
-                    $report(true, {
-                        path: _path + "",
-                        expected: "Resolve<ObjectInternal>",
-                        value: input,
-                    })
-                );
-            })(input, "$input", true);
+                        })
+                    );
+                })(input, "$input", true);
             const success = 0 === errors.length;
             return {
                 success,
