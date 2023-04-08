@@ -1,5 +1,6 @@
 import { Type } from "@sinclair/typebox";
 import { TypeCompiler } from "@sinclair/typebox/compiler";
+import { TypeSystem } from "@sinclair/typebox/system";
 
 const Point3D = Type.Object({
     x: Type.Number(),
@@ -14,5 +15,8 @@ const Box3D = Type.Object({
     pivot: Point3D,
 });
 
-export const __TypeBoxObjectSimple = Box3D;
-export const TypeBoxObjectSimple = TypeCompiler.Compile(__TypeBoxObjectSimple);
+TypeSystem.AllowArrayObjects = true;
+TypeSystem.AllowNaN = true;
+
+export const __TypeboxObjectSimple = Box3D;
+export const TypeboxObjectSimple = TypeCompiler.Compile(__TypeboxObjectSimple);

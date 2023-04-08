@@ -1,5 +1,6 @@
 import { Type } from "@sinclair/typebox";
 import { TypeCompiler } from "@sinclair/typebox/compiler";
+import { TypeSystem } from "@sinclair/typebox/system";
 
 const Point = Type.Object({
     x: Type.Number(),
@@ -53,7 +54,10 @@ const Union = Type.Union([
     Circle,
 ]);
 
-export const __TypeBoxObjectUnionImplicit = Type.Array(Union);
-export const TypeBoxObjectUnionImplicit = TypeCompiler.Compile(
-    __TypeBoxObjectUnionImplicit,
+TypeSystem.AllowArrayObjects = true;
+TypeSystem.AllowNaN = true;
+
+export const __TypeboxObjectUnionImplicit = Type.Array(Union);
+export const TypeboxObjectUnionImplicit = TypeCompiler.Compile(
+    __TypeboxObjectUnionImplicit,
 );
