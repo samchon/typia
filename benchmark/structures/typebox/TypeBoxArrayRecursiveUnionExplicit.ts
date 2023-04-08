@@ -1,5 +1,6 @@
 import { TSchema, Type } from "@sinclair/typebox";
 import { TypeCompiler } from "@sinclair/typebox/compiler";
+import { TypeSystem } from "@sinclair/typebox/system";
 
 const ImageFile = Type.Object({
     id: Type.Number(),
@@ -62,7 +63,10 @@ const Bucket = Type.Recursive((Bucket) =>
     ]),
 );
 
-export const __TypeBoxArrayRecursiveUnionExplicit = Type.Array(Bucket);
-export const TypeBoxArrayRecursiveUnionExplicit = TypeCompiler.Compile(
-    __TypeBoxArrayRecursiveUnionExplicit,
+TypeSystem.AllowArrayObjects = true;
+TypeSystem.AllowNaN = true;
+
+export const __TypeboxArrayRecursiveUnionExplicit = Type.Array(Bucket);
+export const TypeboxArrayRecursiveUnionExplicit = TypeCompiler.Compile(
+    __TypeboxArrayRecursiveUnionExplicit,
 );

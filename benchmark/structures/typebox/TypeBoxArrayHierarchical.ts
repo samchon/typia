@@ -1,4 +1,6 @@
 import { Type } from "@sinclair/typebox";
+import { TypeCompiler } from "@sinclair/typebox/compiler";
+import { TypeSystem } from "@sinclair/typebox/system";
 
 const Timestamp = Type.Object({
     time: Type.Number(),
@@ -29,4 +31,10 @@ const Company = Type.Object({
     departments: Type.Array(Department),
 });
 
-export const __TypeBoxArrayHierarchical = Type.Array(Company);
+TypeSystem.AllowArrayObjects = true;
+TypeSystem.AllowNaN = true;
+
+export const __TypeboxArrayHierarchical = Type.Array(Company);
+export const TypeboxArrayHierarchical = TypeCompiler.Compile(
+    __TypeboxArrayHierarchical,
+);
