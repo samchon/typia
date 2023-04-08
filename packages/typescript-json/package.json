@@ -1,11 +1,12 @@
 {
   "name": "typescript-json",
-  "version": "3.7.2",
+  "version": "3.7.3",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
     "benchmark": "npm run build:benchmark && node measure/benchmark",
+    "benchmark:generate": "ts-node benchmark/generate && npm run build:benchmark",
     "test:generate": "ts-node -P build/tsconfig.json -C ttypescript build/test.ts",
     "----------------------------------------------": "",
     "build": "rimraf lib && ttsc --removeComments --declaration false && ttsc --emitDeclarationOnly",
@@ -74,6 +75,6 @@
     "src"
   ],
   "dependencies": {
-    "typia": "3.7.2"
+    "typia": "3.7.3"
   }
 }
