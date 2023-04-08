@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.7.3-dev.20230408",
+  "version": "3.7.3",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -75,6 +75,6 @@
     "src"
   ],
   "dependencies": {
-    "typia": "3.7.3-dev.20230408"
+    "typia": "3.7.3"
   }
 }
