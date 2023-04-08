@@ -14,7 +14,6 @@ import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
 import { UltimateUnion } from "../../test/structures/UltimateUnion";
 import { IBenchmarkProgram } from "../programs/IBenchmarkProgram";
-import { IMeasurement } from "../structures/IMeasurement";
 
 const EXTENSION = __filename.substr(-2);
 
@@ -23,7 +22,10 @@ export namespace BenchmarkServer {
         category: string;
         libraries: string[];
         types: string[];
-        result: Record<string, Record<string, IMeasurement | null>>;
+        result: Record<
+            string,
+            Record<string, IBenchmarkProgram.IMeasurement | null>
+        >;
     }
 
     export async function measure(category: string): Promise<IAggregation> {
@@ -36,7 +38,10 @@ export namespace BenchmarkServer {
         const types: string[] = await findTypes(
             libraries.map((str) => `${location}/${str}`),
         );
-        const result: Record<string, Record<string, IMeasurement | null>> = {};
+        const result: Record<
+            string,
+            Record<string, IBenchmarkProgram.IMeasurement | null>
+        > = {};
 
         for (const type of types)
             result[type] = await measureType({
@@ -58,14 +63,15 @@ export namespace BenchmarkServer {
         category: string;
         type: string;
         libraries: string[];
-    }): Promise<Record<string, IMeasurement | null>> => {
+    }): Promise<Record<string, IBenchmarkProgram.IMeasurement | null>> => {
         console.log(`  - ${props.type}`);
 
-        const result: Record<string, IMeasurement | null> = {};
+        const result: Record<string, IBenchmarkProgram.IMeasurement | null> =
+            {};
         for (const library of props.libraries) {
             const file: string = `${__dirname}/../programs/${props.category}/${library}/benchmark-${props.category}-${library}-${props.type}.${EXTENSION}`;
             result[library] = fs.existsSync(file)
-                ? await measureFunction(props.type)(file)
+                ? await measureFunction(props.category)(props.type)(file)
                 : null;
 
             console.log(`    - ${library}:`, result[library] !== null);
@@ -74,8 +80,11 @@ export namespace BenchmarkServer {
     };
 
     const measureFunction =
+        (category: string) =>
         (type: string) =>
-        async (file: string): Promise<IMeasurement | null> => {
+        async (
+            file: string,
+        ): Promise<IBenchmarkProgram.IMeasurement | null> => {
             const factory = FACTORIES[type];
             const connector = new tgrid.protocols.workers.WorkerConnector(
                 null,
@@ -95,14 +104,15 @@ export namespace BenchmarkServer {
                 return true;
             };
             const input: any = factory.generate();
-            const result: IMeasurement | null = await (async () => {
-                const success = () => controller.measure(input);
-                if (await controller.skip(type)) return success();
-                else if ((await controller.validate(input)) === false)
-                    return null;
-                else if ((await tolerable()) === false) return null;
-                return success();
-            })();
+            const result: IBenchmarkProgram.IMeasurement | null =
+                await (async () => {
+                    const success = () => controller.measure(input);
+                    if (await controller.skip(type)) return success();
+                    else if ((await controller.validate(input)) === false)
+                        return null;
+                    else if ((await tolerable()) === false) return null;
+                    return success();
+                })();
             await connector.close();
             return result;
         };
@@ -110,6 +120,7 @@ export namespace BenchmarkServer {
     async function findLibaries(path: string): Promise<string[]> {
         const directory: string[] = [];
         for (const file of await fs.promises.readdir(path)) {
+            if (file === "internal") continue;
             const stats: fs.Stats = await fs.promises.stat(`${path}/${file}`);
             if (stats.isDirectory()) directory.push(file);
         }
@@ -163,5 +174,10 @@ export namespace BenchmarkServer {
         "fast-json-stringify",
         "JSON.stringify",
         "class-transformer",
+        //
+        "express-typia",
+        "fastify",
+        "express-pure",
+        "express-class-transformer",
     ];
 }

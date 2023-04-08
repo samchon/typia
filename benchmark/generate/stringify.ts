@@ -23,7 +23,9 @@ const LIBRARIES: BenchmarkProgrammer.ILibrary[] = [
                     `import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";`,
                     ``,
                     `createStringifyBenchmarkProgram(`,
-                    `    typia.create${pascal(name.split(".")[1])}<${type}>()`,
+                    `    typia.create${BenchmarkProgrammer.pascal(
+                        name.split(".")[1],
+                    )}<${type}>()`,
                     `);`,
                 ].join("\n"),
         }),
@@ -57,7 +59,7 @@ const LIBRARIES: BenchmarkProgrammer.ILibrary[] = [
     {
         name: "class-transformer",
         body: (type) => {
-            const schema = `ClassValidator${pascal(type)}`;
+            const schema = `ClassValidator${BenchmarkProgrammer.pascal(type)}`;
             const program = `createStringifyClassTransformerBenchmarkProgram`;
 
             return [
@@ -82,5 +84,3 @@ main().catch((exp) => {
     console.error(exp);
     process.exit(-1);
 });
-
-const pascal = (str: string) => str[0].toUpperCase() + str.slice(1);

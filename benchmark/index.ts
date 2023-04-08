@@ -12,6 +12,7 @@ async function main(): Promise<void> {
         "validate",
         "optimizer",
         "stringify",
+        "server",
     ])
         await BenchmarkReporter.write(stream)(
             await BenchmarkServer.measure(category),

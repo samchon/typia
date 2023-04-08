@@ -1,23 +1,26 @@
 import benchmark from "benchmark";
 import tgrid from "tgrid";
 
-import { IMeasurement } from "../structures/IMeasurement";
 import { IBenchmarkProgram } from "./IBenchmarkProgram";
 
 export const createBenchmarkProgram =
+    (multiplier: number) =>
     <T>(process: (input: T) => any) =>
     async (
         validate: (input: T) => boolean,
         skip?: (name: string) => boolean,
     ) => {
         const provider: IBenchmarkProgram<T> = {
-            measure: (input: T): IMeasurement => {
+            measure: (input: T): IBenchmarkProgram.IMeasurement => {
                 const suite = new benchmark.Suite();
                 suite.add("main", () => process(input));
                 suite.run();
 
                 return suite.map((elem: benchmark) => ({
-                    count: elem.count,
+                    amount:
+                        multiplier *
+                        Buffer.from(JSON.stringify(input)).byteLength *
+                        elem.count,
                     time: elem.times.elapsed,
                 }))[0];
             },

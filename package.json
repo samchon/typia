@@ -9,7 +9,7 @@
   },
   "scripts": {
     "benchmark": "npm run build:benchmark && node measure/benchmark",
-    "benchmark:generate": "ts-node benchmark/generate",
+    "benchmark:generate": "ts-node benchmark/generate && npm run build:benchmark",
     "test:generate": "ts-node -P build/tsconfig.json -C ttypescript build/test.ts",
     "----------------------------------------------": "",
     "build": "rimraf lib && ttsc --removeComments --declaration false && ttsc --emitDeclarationOnly",

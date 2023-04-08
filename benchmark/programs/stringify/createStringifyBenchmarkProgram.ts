@@ -4,7 +4,7 @@ export const createStringifyBenchmarkProgram = <T>(
     closure: null | ((input: T) => string | null),
 ) => {
     if (closure === null)
-        return createBenchmarkProgram(() => null)(() => false);
+        return createBenchmarkProgram(0)(() => null)(() => false);
 
     const wrapper = (input: T) => {
         closure(input);
@@ -12,7 +12,7 @@ export const createStringifyBenchmarkProgram = <T>(
         closure(input);
         closure(input);
     };
-    return createBenchmarkProgram(wrapper)(
+    return createBenchmarkProgram(4)(wrapper)(
         () => true,
         () => true,
     );
