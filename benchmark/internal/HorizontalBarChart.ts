@@ -4,15 +4,13 @@ import { JSDOM } from "jsdom";
 import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
 export namespace HorizontalBarChart {
-    export interface IMeasure<Components extends string> {
-        category: string;
-        result: Record<Components, number>;
+    export interface IMeasure {
+        label: string;
+        result: Record<string, number>;
     }
 
     export const generate =
-        (title: string) =>
-        <Column extends string>(columns: Column[]) =>
-        (data: IMeasure<Column>[]) => {
+        (title: string) => (columns: string[]) => (data: IMeasure[]) => {
             //----
             // PREPARE ASSETS
             //----
@@ -21,7 +19,7 @@ export namespace HorizontalBarChart {
             const maximum: number = compute_maximum(data) * 1.1;
             const calc = {
                 width: (v: number) => values(Math.min(v, maximum)),
-                height: (category: string) => (column: Column) =>
+                height: (category: string) => (column: string) =>
                     categories(category)! +
                     components(column)! +
                     style.margin.top,
@@ -30,7 +28,7 @@ export namespace HorizontalBarChart {
             // LIST UP CHART ELEMENTS
             const categories: d3.ScaleBand<string> = d3
                 .scaleBand()
-                .domain(data.map((elem) => elem.category))
+                .domain(data.map((elem) => elem.label))
                 .range([0, height - style.margin.top - style.margin.bottom])
                 .padding(style.padding);
             const components: d3.ScaleBand<string> = d3
@@ -145,7 +143,7 @@ export namespace HorizontalBarChart {
                 .data((d) =>
                     columns.map((column) => ({
                         column,
-                        category: d.category,
+                        category: d.label,
                         value:
                             d.result[column] !== 0 &&
                             Object.values(d.result).filter((val) => val !== 0)
@@ -197,7 +195,7 @@ export namespace HorizontalBarChart {
             return svg;
         };
 
-    const compute_maximum = <Column extends string>(data: IMeasure<Column>[]) =>
+    const compute_maximum = (data: IMeasure[]) =>
         Math.max(
             ...ArrayUtil.flat(
                 data.map((elem) => Object.values(elem.result) as number[]),
@@ -224,7 +222,16 @@ const style = {
         right: 165,
         bottom: 30,
     },
-    colors: ["#4472c4", "#ed7d31", "#a5a5a5", "#ffc000", "#5b9bd5", "#70ad47"],
+    colors: [
+        "#4472c4",
+        "#ed7d31",
+        "#a5a5a5",
+        "#ffc000",
+        "#5b9bd5",
+        "#70ad47",
+        "#8a2be2",
+        "#7c0a02",
+    ],
     padding: 0.1,
 };
 const HTML = `<html><body /></html>`;

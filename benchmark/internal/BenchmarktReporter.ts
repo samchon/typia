@@ -1,108 +1,89 @@
 import fs from "fs";
 import os from "os";
 
+import { BenchmarkServer } from "./BenchmarkServer";
 import { BenchmarkStream } from "./BenhmarkStream";
 import { HorizontalBarChart } from "./HorizontalBarChart";
 
 const EXTENSION = __filename.substring(-2);
 
 export namespace BenchmarkReporter {
-    export interface Measurement<Components extends string> {
-        category: string;
-        result: Record<Components, number | null>;
+    export interface Measurement {
+        type: string;
+        result: Record<string, number | null>;
         unit: string;
     }
 
-    export async function measure<
-        Components extends string,
-        T extends Measurement<any>,
-    >(
-        stream: BenchmarkStream,
-        functor: () => Array<(() => T) | (() => Promise<T>)>,
-        starter?: () => Promise<void>,
-        terminator?: () => Promise<void>,
-        filter?: (category: string) => boolean,
-    ): Promise<void> {
-        if (starter) await starter();
-
-        const name: string = functor.name
-            .split("po_")
-            .join("(")
-            .split("_pc")
-            .join(")")
-            .split("_")
-            .join(" ");
-        console.log("  - " + name);
-
-        // MEASURE PERFORMANCE
-        const measurements: Measurement<any>[] = (
-            await map(functor(), async (f) => {
-                const m: Measurement<any> = await f();
-                console.log("    - " + m.category);
-                return m;
-            })
-        ).filter(({ category }) => (filter ?? (() => true))(category));
-        const columns = Object.keys(measurements[0].result) as Components[];
-        const relatives = measurements.map((measured) => {
-            // COALESCING
-            const ratio: HorizontalBarChart.IMeasure<Components> = {
-                category: measured.category,
-                result: {} as any,
-            };
-            for (const key of columns)
-                ratio.result[key] = measured.result[key] || 0;
-
-            // CONVERT TO RATIO
-            const minimum: number = Math.min(
-                ...(Object.values(ratio.result) as number[]).filter(
-                    (value) => value !== 0,
-                ),
-            );
-            for (const key of columns) ratio.result[key] /= minimum;
-            return ratio;
-        });
-
-        // TITLE
-        await stream.write(`## ${name}\n`);
-
-        // INSERT CHART
-        const svg = HorizontalBarChart.generate(`${name} benchmark`)(columns)(
-            relatives,
-        );
-        await fs.promises.writeFile(
-            `${stream.path}/images/${functor.name}.svg`,
-            svg.node()?.outerHTML ?? "",
-            "utf8",
-        );
-        await stream.write(
-            `![${name} benchmark](images/${functor.name}.svg)\n`,
-        );
-
-        // TABLE CONTENT
-        await stream.write(` Components | ${columns.join(" | ")} `);
-        await stream.write(
-            "-".repeat(12) +
-                "|" +
-                columns.map((str) => "-".repeat(str.length + 2)).join("|"),
-        );
-        for (const measured of measurements)
+    export const write =
+        (stream: BenchmarkStream) =>
+        async (report: BenchmarkServer.IAggregation): Promise<void> => {
+            // TITLE AND IMAGE TAG
+            await stream.write(`## ${report.category}`);
             await stream.write(
-                [
-                    measured.category +
-                        " | " +
-                        columns
-                            .map((key) => measured.result[key] || "Failed")
-                            .join(" | "),
-                ].join(" | "),
+                `![${report.category} benchmark](images/${report.category}.svg)`,
             );
-        if (measurements.length !== 0)
-            await stream.write(
-                `\n<p style="text-align: right"> Unit: ${measurements[0].unit} </p>`,
-            );
-        await stream.write("\n\n");
+            await stream.write("");
 
-        if (terminator) await terminator();
-    }
+            // THE TABLE
+            await stream.write(` Types | ${report.libraries.join(" | ")} `);
+            await stream.write(
+                "-------|" + report.libraries.map(() => "------").join("|"),
+            );
+            for (const type of report.types) {
+                const label: string = DICTIONARY[type];
+                const record: string[] = report.libraries.map((library) => {
+                    const value = report.result[type][library];
+                    if (value === null || isNaN(value.amount)) return " - ";
+
+                    const space: number = Math.floor(
+                        value.amount / value.time / 1_024,
+                    );
+                    return space.toLocaleString();
+                });
+                await stream.write(` ${label} | ${record.join(" | ")} `);
+            }
+            await stream.write("");
+            await stream.write("> Unit: Kilobytes/sec");
+            await stream.write("\n\n\n");
+
+            // GENERATE CHART
+            const relatives: HorizontalBarChart.IMeasure[] = report.types.map(
+                (type) => {
+                    const label: string = DICTIONARY[type];
+                    const record: HorizontalBarChart.IMeasure = {
+                        label,
+                        result: {},
+                    };
+                    for (const library of report.libraries) {
+                        const value = report.result[type][library];
+                        record.result[library] =
+                            value === null
+                                ? 0
+                                : value.time
+                                ? value.amount / value.time
+                                : 0;
+                    }
+
+                    const minimum: number = Math.min(
+                        ...(Object.values(record.result) as number[]).filter(
+                            (value) => value !== 0,
+                        ),
+                    );
+                    for (const library of report.libraries)
+                        record.result[library] /= minimum;
+                    return record;
+                },
+            );
+
+            const svg = HorizontalBarChart.generate(
+                `${report.category} benchmark`,
+            )(report.libraries)(relatives);
+            await fs.promises.writeFile(
+                `${stream.path}/images/${report.category}.svg`,
+                svg.node()?.outerHTML ?? "",
+                "utf8",
+            );
+        };
 
     export async function initialize(): Promise<BenchmarkStream> {
         const results: string =
@@ -136,7 +117,7 @@ export namespace BenchmarkReporter {
     export async function terminate(stream: BenchmarkStream): Promise<void> {
         await stream.write("\n\n");
         await stream.write(
-            `> Total elapsed time: ${stream.elapsed().toLocaleString()} ms`,
+            `Total elapsed time: ${stream.elapsed().toLocaleString()} ms`,
         );
         await stream.close();
     }
@@ -166,4 +147,18 @@ export namespace BenchmarkReporter {
         for (const value of array) result.push(await closure(value));
         return result;
     }
+
+    const DICTIONARY: Record<string, string> = {
+        ObjectSimple: "object (simple)",
+        ObjectHierarchical: "object (hierarchical)",
+        ObjectRecursive: "object (recursive)",
+        ObjectUnionExplicit: "object (union, explicit)",
+        ObjectUnionImplicit: "object (union, implicit)",
+        ArraySimple: "array (simple)",
+        ArrayHierarchical: "array (hierarchical)",
+        ArrayRecursive: "array (recursive)",
+        ArrayRecursiveUnionExplicit: "array (union, explicit)",
+        ArrayRecursiveUnionImplicit: "array (union, implicit)",
+        UltimateUnion: "ultimate union",
+    };
 }
