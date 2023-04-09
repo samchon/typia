@@ -40,7 +40,7 @@ export function prune<T extends object>(input: T): void; // erase extra props
 
 All functions in `typia` require **only one line**. You don't need any extra dedication like JSON schema definitions or decorator function calls. Just call `typia` function with only one line like `typia.assert<T>(input)`.
 
-Also, as `typia` performs AOT (Ahead of Time) compilation skill, its performance is much faster than other competitive libaries. For an example, when comparing validate function `is()` with other competitive libraries, `typia` is maximum **15,000x faster** than `class-validator`.
+Also, as `typia` performs AOT (Ahead of Time) compilation skill, its performance is much faster than other competitive libaries. For an example, when comparing validate function `is()` with other competitive libraries, `typia` is maximum **20,000x faster** than `class-validator`.
 
 ![Is Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/is.svg)
 
@@ -253,7 +253,7 @@ export function createAssertStringify<T>(): (input: T) => string;
   - `application()`: generate JSON schema with only one line
     - you can complement JSON schema contents through [comment tags](https://github.com/samchon/typia/wiki/Enhanced-JSON#comment-tags)
   - `assertParse()`: parse JSON string safely with type validation
-  - `isStringify()`: maximum 10x faster JSON stringify fuction even type safe
+  - `isStringify()`: maximum 160x faster JSON stringify fuction even type safe
 
 ![JSON string conversion speed](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/AMD%20Ryzen%207%206800HS%20with%20Radeon%20Graphics/images/stringify.svg)
 
@@ -289,8 +289,8 @@ If you need specific random data generation, utilize comment tags or do customiz
 [Nestia](https://github.com/samchon/nestia) is a set of helper libraries for `NestJS`, supporting below features:
 
   - `@nestia/core`: superfast decorators using `typia`
-    - **15,000x faster** validation
-    - **100x faster** JSON serialization
+    - **20,000x faster** validation
+    - **200x faster** JSON serialization
   - `@nestia/sdk`: evolved **SDK** and **Swagger** generators
     - SDK (Software Development Kit)
       - interaction library for client developers
