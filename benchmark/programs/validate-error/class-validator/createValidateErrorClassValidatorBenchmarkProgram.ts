@@ -18,5 +18,5 @@ export const createValidateErrorClassValidatorBenchmarkProgram = <
                     return validateSync(cla);
                 }),
             ),
-        (name) => !name.includes("Implicit") && !name.includes("Ultimiate"),
+        // (name) => !name.includes("Implicit") && !name.includes("Ultimiate"),
     );
