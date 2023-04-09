@@ -21,5 +21,5 @@ export const createAssertErrorClassValidatorBenchmarkProgram = <
             if (result.length) throw new Error(JSON.stringify(result[0]));
             return input;
         },
-        (name) => !name.includes("Implicit") && !name.includes("Ultimiate"),
+        // (name) => !name.includes("Implicit") && !name.includes("Ultimiate"),
     );

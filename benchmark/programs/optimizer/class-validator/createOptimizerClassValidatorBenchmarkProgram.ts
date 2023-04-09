@@ -1,7 +1,7 @@
 import { ClassConstructor, plainToInstance } from "class-transformer";
 import { validateSync } from "class-validator";
 
-import { createSuccessBenchmarkProgram } from "../../createSuccessBenchmarkProgram";
+import { createOptimizerBenchmarkProgram } from "../createOptimizerBenchmarkProgram";
 
 export const createOptimizerClassValidatorBenchmarkProgram = <
     Schema extends object,
@@ -12,8 +12,5 @@ export const createOptimizerClassValidatorBenchmarkProgram = <
         const cla: Schema = plainToInstance(schema, input);
         return validateSync(cla).length === 0;
     };
-    return createSuccessBenchmarkProgram(1)(validator)(
-        (input: unknown) => validator(input),
-        (name) => !name.includes("Implicit") && !name.includes("Ultimiate"),
-    );
+    return createOptimizerBenchmarkProgram(validator);
 };

@@ -13,5 +13,5 @@ export const createValidateClassValidatorBenchmarkProgram = <
             const cla: Schema = plainToInstance(schema, input);
             return validateSync(cla);
         },
-        (name) => !name.includes("Implicit") && !name.includes("Ultimiate"),
+        // (name) => !name.includes("Implicit") && !name.includes("Ultimiate"),
     );
