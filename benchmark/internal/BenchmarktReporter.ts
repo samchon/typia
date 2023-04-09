@@ -33,11 +33,12 @@ export namespace BenchmarkReporter {
                 const label: string = DICTIONARY[type];
                 const record: string[] = report.libraries.map((library) => {
                     const value = report.result[type][library];
-                    if (value === null || isNaN(value.amount)) return " - ";
+                    if (value === null) return " - ";
 
                     const space: number = Math.floor(
                         value.amount / value.time / 1_024,
                     );
+                    if (isNaN(space)) return " - ";
                     return space.toLocaleString();
                 });
                 await stream.write(` ${label} | ${record.join(" | ")} `);
@@ -75,7 +76,7 @@ export namespace BenchmarkReporter {
                 },
             );
 
-            const svg = HorizontalBarChart.generate(
+            const svg = HorizontalBarChart.generate(stream.environments)(
                 `${report.category} benchmark`,
             )(report.libraries)(relatives);
             await fs.promises.writeFile(
@@ -91,7 +92,6 @@ export namespace BenchmarkReporter {
                 ? `${__dirname}/../results`
                 : `${__dirname}/../../../benchmark/results`;
 
-        const memory: number = os.totalmem();
         const cpu: string = os.cpus()[0].model.trim();
         const location: string = `${results}/${cpu}`;
 
@@ -99,17 +99,23 @@ export namespace BenchmarkReporter {
         await mkdir(location);
         await mkdir(`${location}/images`);
 
-        const stream: BenchmarkStream = new BenchmarkStream(location);
+        const stream: BenchmarkStream = new BenchmarkStream(location, {
+            cpu,
+            memory: os.totalmem(),
+            os: os.platform(),
+            node: process.version,
+            typia: await get_package_version(),
+        });
         await stream.write("# Benchmark of `typia`");
         await stream.write(`> - CPU: ${cpu}`);
         await stream.write(
             `> - Memory: ${Math.round(
-                memory / 1024 / 1024,
+                stream.environments.memory / 1024 / 1024,
             ).toLocaleString()} MB`,
         );
-        await stream.write(`> - OS: ${os.platform()}`);
-        await stream.write(`> - NodeJS version: ${process.version}`);
-        await stream.write(`> - Typia version: ${await get_package_version()}`);
+        await stream.write(`> - OS: ${stream.environments.os}`);
+        await stream.write(`> - NodeJS version: ${stream.environments.node}`);
+        await stream.write(`> - Typia version: v${stream.environments.typia}`);
         await stream.write("\n");
         return stream;
     }

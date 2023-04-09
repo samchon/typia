@@ -1,5 +1,5 @@
-import { createBenchmarkProgram } from "../createBenchmarkProgram";
+import { createSuccessBenchmarkProgram } from "../createSuccessBenchmarkProgram";
 
 export const createOptimizerBenchmarkProgram = <T>(
     validator: (input: T) => boolean,
-) => createBenchmarkProgram(1)(validator)(validator, () => true);
+) => createSuccessBenchmarkProgram(1)(validator)(validator, () => true);

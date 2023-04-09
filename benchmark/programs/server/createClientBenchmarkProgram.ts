@@ -9,9 +9,10 @@ export const createClientBenchmarkProgram = async <T>(
     location: string,
 ): Promise<void> => {
     const provider: IBenchmarkProgram<T> = {
+        type: () => "success",
         validate: () => true,
         skip: () => true,
-        measure: async (input: T): Promise<IBenchmarkProgram.IMeasurement> => {
+        success: async (input: T): Promise<IBenchmarkProgram.IMeasurement> => {
             const connector = new tgrid.protocols.workers.WorkerConnector(
                 null,
                 null,

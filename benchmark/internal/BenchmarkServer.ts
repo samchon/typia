@@ -1,5 +1,6 @@
 import fs from "fs";
 import tgrid from "tgrid";
+import { Driver } from "tgrid/components/Driver";
 
 import { Spoiler } from "../../test/helpers/Spoiler";
 import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
@@ -71,7 +72,7 @@ export namespace BenchmarkServer {
         for (const library of props.libraries) {
             const file: string = `${__dirname}/../programs/${props.category}/${library}/benchmark-${props.category}-${library}-${props.type}.${EXTENSION}`;
             result[library] = fs.existsSync(file)
-                ? await measureFunction(props.category)(props.type)(file)
+                ? await measureFunction(props.type)(file)
                 : null;
 
             console.log(`    - ${library}:`, result[library] !== null);
@@ -80,8 +81,7 @@ export namespace BenchmarkServer {
     };
 
     const measureFunction =
-        (category: string) =>
-        (type: string) =>
+        <T>(type: string) =>
         async (
             file: string,
         ): Promise<IBenchmarkProgram.IMeasurement | null> => {
@@ -93,28 +93,49 @@ export namespace BenchmarkServer {
             );
             await connector.connect(file);
 
-            const controller = connector.getDriver<IBenchmarkProgram<any>>();
+            const base = connector.getDriver<IBenchmarkProgram<T>>();
+            const result: IBenchmarkProgram.IMeasurement | null =
+                (await base.type()) === "success"
+                    ? await measureSuccess(type)(factory)(connector.getDriver())
+                    : await measureFailure(factory)(connector.getDriver());
+
+            await connector.close();
+            return result;
+        };
+
+    const measureSuccess =
+        (type: string) =>
+        <T>(factory: IFactory<T>) =>
+        async (controller: Driver<IBenchmarkProgram.ISuccessProgram<T>>) => {
+            const input: any = factory.generate();
             const tolerable = async () => {
+                if (await controller.skip(type)) return true;
                 for (const s of factory.SPOILERS) {
                     const fake: any = factory.generate();
                     s(fake);
-                    if ((await controller.validate(fake)) === true)
-                        return false;
+                    if (await controller.validate(fake)) return false;
                 }
-                return true;
+                return controller.validate(input);
             };
-            const input: any = factory.generate();
-            const result: IBenchmarkProgram.IMeasurement | null =
-                await (async () => {
-                    const success = () => controller.measure(input);
-                    if (await controller.skip(type)) return success();
-                    else if ((await controller.validate(input)) === false)
-                        return null;
-                    else if ((await tolerable()) === false) return null;
-                    return success();
-                })();
-            await connector.close();
-            return result;
+            return (await tolerable()) ? controller.success(input) : null;
+        };
+
+    const measureFailure =
+        <T>(factory: IFactory<T>) =>
+        async (controller: Driver<IBenchmarkProgram.IFailureProgram<T>>) => {
+            const data: T[] = [
+                ...new Array(99).fill(0).map(() => factory.generate()),
+                factory.trail(),
+            ];
+            const tolerable = async () => {
+                for (const s of factory.SPOILERS) {
+                    const fake: T = factory.generate();
+                    s(fake);
+                    if (await controller.validate([fake])) return false;
+                }
+                return controller.validate(data.slice(0, 99));
+            };
+            return (await tolerable()) ? controller.failure(data) : null;
         };
 
     async function findLibaries(path: string): Promise<string[]> {
@@ -145,6 +166,7 @@ export namespace BenchmarkServer {
 
     interface IFactory<T> {
         generate(): T;
+        trail(): T;
         SPOILERS: Spoiler<T>[];
     }
     const FACTORIES: Record<string, IFactory<any>> = {
