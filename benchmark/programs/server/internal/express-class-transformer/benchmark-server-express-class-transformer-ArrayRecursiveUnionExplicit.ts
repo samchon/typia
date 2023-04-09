@@ -4,15 +4,10 @@ import { ArrayRecursiveUnionExplicit } from "../../../../../test/structures/Arra
 import { ClassValidatorArrayRecursiveUnionExplicit } from "../../../../structures/class-validator/ClassValidatorArrayRecursiveUnionExplicit";
 import { createExpressServerBenchmarkProgram } from "../createExpressServerBenchmarkProgram";
 
-createExpressServerBenchmarkProgram<ArrayRecursiveUnionExplicit>((input) =>
-    JSON.stringify(
-        input.map((elem) =>
-            instanceToPlain(
-                plainToInstance(
-                    ClassValidatorArrayRecursiveUnionExplicit,
-                    elem,
-                ),
-            ),
-        ),
+createExpressServerBenchmarkProgram<ArrayRecursiveUnionExplicit>(
+    (input) => JSON.stringify(
+        input.map((elem) => instanceToPlain(
+            plainToInstance(ClassValidatorArrayRecursiveUnionExplicit, elem),
+        )),
     ),
 );

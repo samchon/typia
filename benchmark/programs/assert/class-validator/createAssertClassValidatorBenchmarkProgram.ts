@@ -1,7 +1,6 @@
 import { ClassConstructor, plainToInstance } from "class-transformer";
 import { ValidationError, validateSync } from "class-validator";
 
-import { createBenchmarkProgram } from "../../createBenchmarkProgram";
 import { createAssertBenchmarkProgram } from "../createAssertBenchmarkProgram";
 
 export const createAssertClassValidatorBenchmarkProgram = <
@@ -17,5 +16,5 @@ export const createAssertClassValidatorBenchmarkProgram = <
             if (result.length) throw new Error(JSON.stringify(result[0]));
             return input;
         },
-        (name) => !name.includes("implicit") && !name.includes("ultimiate"),
+        (name) => !name.includes("Implicit") && !name.includes("Ultimiate"),
     );
