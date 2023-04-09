@@ -3,7 +3,7 @@ import tgrid from "tgrid";
 
 import { IBenchmarkProgram } from "./IBenchmarkProgram";
 
-export const createBenchmarkProgram =
+export const createSuccessBenchmarkProgram =
     (multiplier: number) =>
     <T>(process: (input: T) => any) =>
     async (
@@ -11,7 +11,8 @@ export const createBenchmarkProgram =
         skip?: (name: string) => boolean,
     ) => {
         const provider: IBenchmarkProgram<T> = {
-            measure: (input: T): IBenchmarkProgram.IMeasurement => {
+            type: () => "success",
+            success: (input: T): IBenchmarkProgram.IMeasurement => {
                 const suite = new benchmark.Suite();
                 suite.add("main", () => process(input));
                 suite.run();
@@ -27,7 +28,6 @@ export const createBenchmarkProgram =
             validate,
             skip: skip ?? (() => false),
         };
-
         const worker = new tgrid.protocols.workers.WorkerServer();
         await worker.open(provider);
     };

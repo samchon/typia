@@ -4,10 +4,12 @@ import { TypeCheck } from "@sinclair/typebox/compiler";
 import { createAssertBenchmarkProgram } from "../createAssertBenchmarkProgram";
 
 export const createAssertTypeboxBenchmarkProgram = <S extends TSchema>(
-    schema: TypeCheck<S>,
+    program: TypeCheck<S>,
 ) =>
     createAssertBenchmarkProgram((input) => {
-        const first = schema.Errors(input).First();
-        if (first) throw first;
+        if (program.Check(input) === false) {
+            const first = program.Errors(input).First();
+            if (first) throw first;
+        }
         return input;
     });

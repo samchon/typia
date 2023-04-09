@@ -10,6 +10,8 @@ async function main(): Promise<void> {
         "is",
         "assert",
         "validate",
+        "assert-error",
+        "validate-error",
         "optimizer",
         "stringify",
         "server",

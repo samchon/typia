@@ -3,6 +3,8 @@ import { JSDOM } from "jsdom";
 
 import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
+import { BenchmarkStream } from "./BenhmarkStream";
+
 export namespace HorizontalBarChart {
     export interface IMeasure {
         label: string;
@@ -10,10 +12,24 @@ export namespace HorizontalBarChart {
     }
 
     export const generate =
-        (title: string) => (columns: string[]) => (data: IMeasure[]) => {
+        (env: BenchmarkStream["environments"]) =>
+        (title: string) =>
+        (columns: string[]) =>
+        (data: IMeasure[]) => {
             //----
             // PREPARE ASSETS
             //----
+            // ENVIRONMENTS
+            const environments: string[] = [
+                `CPU: ${env.cpu}`,
+                `OS: ${env.os}`,
+                `RAM: ${Math.round(
+                    env.memory / 1024 / 1024 / 1024,
+                ).toLocaleString()} GB`,
+                `NodeJS version: ${env.node}`,
+                `Typia version: v${env.typia}`,
+            ];
+
             // COMPUTATIONS
             const height: number = style.height(data.length)(columns.length);
             const maximum: number = compute_maximum(data) * 1.1;
@@ -51,7 +67,10 @@ export namespace HorizontalBarChart {
                 .range(style.colors.slice(0, columns.length));
 
             // DEFAULT WHITE SVG FILE
-            const svg = create_svg_dom(style.width, height);
+            const svg = create_svg_dom(
+                style.width,
+                height + (2 + environments.length) * ENV_HEIGHT,
+            );
             svg.style("background-color", "white");
 
             //----
@@ -128,6 +147,16 @@ export namespace HorizontalBarChart {
                     .style("font-size", "12px")
                     .text(col);
             });
+
+            // ENVIRONMENTS
+            environments.forEach((text, i) =>
+                svg
+                    .append("text")
+                    .attr("x", 20)
+                    .attr("y", height + ENV_HEIGHT * (i + 2))
+                    .style("font-size", "12px")
+                    .text(`  - ${text}`),
+            );
 
             //----
             // BAR CHARTS
@@ -234,4 +263,5 @@ const style = {
     ],
     padding: 0.1,
 };
+const ENV_HEIGHT = 17;
 const HTML = `<html><body /></html>`;

@@ -5,4 +5,8 @@ import { createValidateBenchmarkProgram } from "../createValidateBenchmarkProgra
 
 export const createValidateTypeboxBenchmarkProgram = <S extends TSchema>(
     schema: TypeCheck<S>,
-) => createValidateBenchmarkProgram((input) => [...schema.Errors(input)]);
+) =>
+    createValidateBenchmarkProgram((input) => {
+        if (schema.Check(input) === true) return [];
+        return [...schema.Errors(input)];
+    });
