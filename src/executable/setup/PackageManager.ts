@@ -37,21 +37,9 @@ export class PackageManager {
 
     public install(props: {
         dev: boolean;
-        silent?: boolean;
         modulo: string;
         version?: string;
     }): boolean {
-        const container = props.dev
-            ? this.data.devDependencies
-            : this.data.dependencies;
-        if (
-            !!container?.[props.modulo] &&
-            FileRetriever.file(path.join("node_modules", props.modulo))(
-                this.directory,
-            ) !== null
-        )
-            return false;
-
         const middle: string =
             this.manager === "yarn"
                 ? `add${props.dev ? " -D" : ""}`
@@ -60,17 +48,8 @@ export class PackageManager {
             `${this.manager} ${middle} ${props.modulo}${
                 props.version ? `@${props.version}` : ""
             }`,
-            !!props.silent,
         );
         return true;
-    }
-
-    public erase(props: { modulo: string; silent?: boolean }): void {
-        const middle: string = this.manager === "yarn" ? "remove" : "uninstall";
-        CommandExecutor.run(
-            `${this.manager} ${middle} ${props.modulo}`,
-            !!props.silent,
-        );
     }
 
     private constructor(

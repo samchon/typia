@@ -1,58 +1,18 @@
-import type Comment from "comment-json";
+import comments from "comment-json";
 import fs from "fs";
-import path from "path";
 
 import { TypiaSetupWizard } from "../TypiaSetupWizard";
-import { FileRetriever } from "./FileRetriever";
-import { PackageManager } from "./PackageManager";
 
 export namespace PluginConfigurator {
     export async function configure(
-        pack: PackageManager,
-        args: TypiaSetupWizard.IArguments,
-    ): Promise<void> {
-        // INSTALL COMMENT-JSON
-        const installed: boolean = pack.install({
-            dev: true,
-            modulo: "comment-json",
-            version: "4.2.3",
-            silent: true,
-        });
-
-        // DO CONFIGURE
-        const error: Error | null = await (async () => {
-            try {
-                await _Configure(pack, args);
-                return null;
-            } catch (exp) {
-                return exp as Error;
-            }
-        })();
-
-        // REMOVE IT
-        if (installed)
-            pack.erase({
-                modulo: "comment-json",
-                silent: true,
-            });
-        if (error !== null) throw error;
-    }
-
-    async function _Configure(
-        pack: PackageManager,
         args: TypiaSetupWizard.IArguments,
     ): Promise<void> {
         // GET COMPILER-OPTIONS
-        const Comment: typeof import("comment-json") =
-            await FileRetriever.require(
-                path.join("node_modules", "comment-json"),
-            )(pack.directory);
-
-        const config: Comment.CommentObject = Comment.parse(
+        const config: comments.CommentObject = comments.parse(
             await fs.promises.readFile(args.project!, "utf8"),
-        ) as Comment.CommentObject;
+        ) as comments.CommentObject;
         const compilerOptions = config.compilerOptions as
-            | Comment.CommentObject
+            | comments.CommentObject
             | undefined;
         if (compilerOptions === undefined)
             throw new Error(
@@ -60,9 +20,9 @@ export namespace PluginConfigurator {
             );
 
         // PREPARE PLUGINS
-        const plugins: Comment.CommentArray<Comment.CommentObject> = (() => {
+        const plugins: comments.CommentArray<comments.CommentObject> = (() => {
             const plugins = compilerOptions.plugins as
-                | Comment.CommentArray<Comment.CommentObject>
+                | comments.CommentArray<comments.CommentObject>
                 | undefined;
             if (plugins === undefined)
                 return (compilerOptions.plugins = [] as any);
@@ -74,7 +34,7 @@ export namespace PluginConfigurator {
         })();
 
         const strict: boolean = compilerOptions.strict === true;
-        const oldbie: Comment.CommentObject | undefined = plugins.find(
+        const oldbie: comments.CommentObject | undefined = plugins.find(
             (p) =>
                 typeof p === "object" &&
                 p !== null &&
@@ -86,14 +46,14 @@ export namespace PluginConfigurator {
         compilerOptions.strict = true;
         if (oldbie === undefined)
             plugins.push(
-                Comment.parse(`
+                comments.parse(`
                         {
                             "transform": "typia/lib/transform"
-                        }`) as Comment.CommentObject,
+                        }`) as comments.CommentObject,
             );
         await fs.promises.writeFile(
             args.project!,
-            Comment.stringify(config, null, 2),
+            comments.stringify(config, null, 2),
         );
     }
 }
