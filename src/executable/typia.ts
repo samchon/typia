@@ -1,7 +1,4 @@
 #!/usr/bin/env node
-import { TypiaGenerateWizard } from "./TypiaGenerateWizard";
-import { TypiaSetupWizard } from "./TypiaSetupWizard";
-
 const USAGE = `Wrong command has been detected. Use like below:
 
   npx typia setup \\
@@ -27,10 +24,29 @@ function halt(desc: string): never {
 }
 
 async function main(): Promise<void> {
+    try {
+        await import("comment-json");
+        await import("inquirer");
+        await import("commander");
+    } catch {
+        halt(`typia has not been installed. Run "npm i typia" before.`);
+    }
+
     const type: string | undefined = process.argv[2];
-    if (type === "setup") await TypiaSetupWizard.setup();
-    else if (type === "generate") await TypiaGenerateWizard.generate();
-    else halt(USAGE);
+    if (type === "setup") {
+        const { TypiaSetupWizard } = await import("./TypiaSetupWizard");
+        await TypiaSetupWizard.setup();
+    } else if (type === "generate") {
+        try {
+            await import("typescript");
+        } catch {
+            halt(
+                `typescript has not been installed. Run "npm i -D typescript" before.`,
+            );
+        }
+        const { TypiaGenerateWizard } = await import("./TypiaGenerateWizard");
+        await TypiaGenerateWizard.generate();
+    } else halt(USAGE);
 }
 main().catch((exp) => {
     console.error(exp);
