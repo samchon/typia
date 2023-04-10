@@ -59,6 +59,7 @@ Your donation would encourage `typia` development.
 ## Setup
 ### Transformation
 ```bash
+npm install --save typia
 npx typia setup
 ```
 
@@ -111,6 +112,7 @@ npm run prepare
 ```bash
 # INSTALL TYPIA
 npm install --save typia
+npm install --save-dev typescript
 
 # GENERATE TRANSFORMED TYPESCRIPT CODES
 npx typia generate \

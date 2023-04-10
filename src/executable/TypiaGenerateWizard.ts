@@ -13,9 +13,7 @@ export namespace TypiaGenerateWizard {
 
         // LOAD PACKAGE.JSON INFO
         const pack: PackageManager = await PackageManager.mount();
-        const options: IArguments = await ArgumentParser.parse(pack)(false)(
-            inquiry,
-        );
+        const options: IArguments = await ArgumentParser.parse(pack)(inquiry);
         await TypiaFileFactory.generate(options);
     }
 
@@ -58,17 +56,17 @@ export namespace TypiaGenerateWizard {
                 )[name];
             };
         const configure = async () => {
-            const fileList: string[] = await (
+            const files: string[] = await (
                 await fs.promises.readdir(process.cwd())
             ).filter(
                 (str) =>
                     str.substring(0, 8) === "tsconfig" &&
                     str.substring(str.length - 5) === ".json",
             );
-            if (fileList.length === 0)
+            if (files.length === 0)
                 throw new Error(`Unable to find "tsconfig.json" file.`);
-            else if (fileList.length === 1) return fileList[0];
-            return select("tsconfig")("TS Config File")(fileList);
+            else if (files.length === 1) return files[0];
+            return select("tsconfig")("TS Config File")(files);
         };
 
         return action(async (options) => {

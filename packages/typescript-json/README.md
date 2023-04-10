@@ -62,6 +62,7 @@ Your donation would encourage `typia` development.
 ## Setup
 ### Transformation
 ```bash
+npm install --save typia
 npx typia setup
 ```
 
@@ -114,6 +115,7 @@ npm run prepare
 ```bash
 # INSTALL TYPIA
 npm install --save typia
+npm install --save-dev typescript
 
 # GENERATE TRANSFORMED TYPESCRIPT CODES
 npx typia generate \
@@ -298,55 +300,3 @@ If you need specific random data generation, utilize comment tags or do customiz
   - `nestia`: just CLI (command line interface) tool
 
 ![nestia-sdk-demo](https://user-images.githubusercontent.com/13158709/215004990-368c589d-7101-404e-b81b-fbc936382f05.gif)
-
-### Reactia
-> Not published yet, but soon
-
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/reactia/blob/master/LICENSE)
-[![Build Status](https://github.com/samchon/reactia/workflows/build/badge.svg)](https://github.com/samchon/reactia/actions?query=workflow%3Abuild)
-[![Guide Documents](https://img.shields.io/badge/wiki-documentation-forestgreen)](https://github.com/samchon/reactia/wiki)
-
-[Reactia](https://github.com/samchon/reactia) is an automatic React components generator, just by analyzing TypeScript type.
-
-  - `@reactia/core`: Core Library analyzing TypeScript type
-  - `@reactia/mui`: Material UI Theme for `core` and `nest`
-  - `@reactia/nest`: Automatic Frontend Application Builder for `NestJS`
-
-![Sample](https://user-images.githubusercontent.com/13158709/199074008-46b2dd67-02be-40b1-aa0f-74ac41f3e0a7.png)
-
-When you want to automate an individual component, just use `@reactia/core`.
-
-```tsx
-import ReactDOM from "react-dom";
-
-import typia from "typia";
-import { ReactiaComponent } from "@reactia/core";
-import { MuiInputTheme } from "@reactia/mui";
-
-const RequestInput = ReactiaComponent<IRequestDto>(MuiInputTheme());
-const input: IRequestDto = { ... };
-
-ReactDOM.render(
-    <RequestInput input={input} />,
-    document.body
-);
-```
-
-Otherwise, you can fully automate frontend application development through `@reactia/nest`.
-
-```tsx
-import React from "react";
-import ReactDOM from "react-dom";
-
-import { ISwagger } "@nestia/swagger";
-import { MuiApplicationTheme } from "@reactia/mui";
-import { ReactiaApplication } from "@reactia/nest";
-
-const swagger: ISwagger = await import("./swagger.json");
-const App: React.FC = ReactiaApplication(MuiApplicationTheme())(swagger);
-
-ReactDOM.render(
-    <App />,
-    document.body
-);
-```
