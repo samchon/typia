@@ -79,38 +79,6 @@ export const check = typia.createIs<string | null>();
 export const check = (input) => "string" === typeof input || null === input;
 ```
 
-![Typia Setup Wizard](https://user-images.githubusercontent.com/13158709/221402176-83b1bfe8-bc8f-4fba-9d83-6adbdfce5c8c.png)
-
-For reference, to use this transform mode, you've install one onf them; [ttypescript](https://github.com/cevek/ttypescript) or [ts-patch](https://github.com/nonara/ts-patch).
-
-If [ttypescript](https://github.com/cevek/ttypescript), you should compile through `ttsc` command, instead of using `tsc`.
-
-Otherwise, you've chosen [ts-patch](https://github.com/nonara/ts-patch), you can use original `tsc` command. However, [ts-patch](https://github.com/nonara/ts-patch) hacks `node_modules/typescript` source code. Also, whenever update `typescript` version, you have to run `npm run prepare` command repeatedly.
-
-By the way, when using [@nest/cli](https://nestjs.com), you must just choose [ts-patch](https://github.com/nonara/ts-patch).
-
-```bash
-#--------
-# TTYPESCRIPT
-#--------
-# COMPILE THROUGH TTYPESCRIPT
-npx ttsc
-
-# RUN TS-NODE WITH TTYPESCRIPT
-npx ts-node -C ttypescript src/index.ts
-
-#--------
-# TS-PATCH
-#--------
-# USE ORIGINAL TSC COMMAND
-tsc
-npx ts-node src/index.ts
-
-# WHENVER UPDATE
-npm install --save-dev typescript@latest
-npm run prepare
-```
-
 ### Generation
 ```bash
 # INSTALL TYPIA

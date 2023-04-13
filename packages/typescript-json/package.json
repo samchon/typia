@@ -1,20 +1,20 @@
 {
   "name": "typescript-json",
-  "version": "3.7.4",
+  "version": "3.8.0-dev.20230413",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
     "benchmark": "npm run build:benchmark && node measure/benchmark",
     "benchmark:generate": "ts-node benchmark/generate && npm run build:benchmark",
-    "test:generate": "ts-node -P build/tsconfig.json -C ttypescript build/test.ts",
+    "test:generate": "ts-node -P build/tsconfig.json build/test.ts",
     "----------------------------------------------": "",
-    "build": "rimraf lib && ttsc --removeComments --declaration false && ttsc --emitDeclarationOnly",
-    "build:test": "rimraf bin && ttsc -p test/tsconfig.json",
-    "build:benchmark": "rimraf measure && ttsc -p benchmark/tsconfig.json",
+    "build": "rimraf lib && tsc --removeComments --declaration false && tsc --emitDeclarationOnly",
+    "build:test": "rimraf bin && tsc -p test/tsconfig.json",
+    "build:benchmark": "rimraf measure && tsc -p benchmark/tsconfig.json",
     "build:test:prettier": "npm run build:test && prettier --write ./bin/**/*.js",
-    "dev": "rimraf lib && ttsc --watch",
-    "dev:test": "rimraf bin && ttsc -p test/tsconfig.json --watch",
+    "dev": "rimraf lib && tsc --watch",
+    "dev:test": "rimraf bin && tsc -p test/tsconfig.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "prettier": "prettier  --write ./**/*.ts",
@@ -26,7 +26,8 @@
     "------------------------------------------------": "",
     "package:latest": "ts-node build/publish.ts latest",
     "package:next": "ts-node build/publish.ts next",
-    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
+    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
+    "prepare": "ts-patch install"
   },
   "repository": {
     "type": "git",
@@ -65,10 +66,10 @@
   },
   "homepage": "https://github.com/samchon/typia#readme",
   "dependencies": {
-    "typia": "3.7.4"
+    "typia": "3.8.0-dev.20230413"
   },
   "peerDependencies": {
-    "typescript": ">= 4.5.2 && < 5.0.0"
+    "typescript": ">= 4.5.2"
   },
   "files": [
     "LICENSE",

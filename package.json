@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "3.7.4",
+  "version": "3.8.0-dev.20230413",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -10,14 +10,14 @@
   "scripts": {
     "benchmark": "npm run build:benchmark && node measure/benchmark",
     "benchmark:generate": "ts-node benchmark/generate && npm run build:benchmark",
-    "test:generate": "ts-node -P build/tsconfig.json -C ttypescript build/test.ts",
+    "test:generate": "ts-node -P build/tsconfig.json build/test.ts",
     "----------------------------------------------": "",
-    "build": "rimraf lib && ttsc --removeComments --declaration false && ttsc --emitDeclarationOnly",
-    "build:test": "rimraf bin && ttsc -p test/tsconfig.json",
-    "build:benchmark": "rimraf measure && ttsc -p benchmark/tsconfig.json",
+    "build": "rimraf lib && tsc --removeComments --declaration false && tsc --emitDeclarationOnly",
+    "build:test": "rimraf bin && tsc -p test/tsconfig.json",
+    "build:benchmark": "rimraf measure && tsc -p benchmark/tsconfig.json",
     "build:test:prettier": "npm run build:test && prettier --write ./bin/**/*.js",
-    "dev": "rimraf lib && ttsc --watch",
-    "dev:test": "rimraf bin && ttsc -p test/tsconfig.json --watch",
+    "dev": "rimraf lib && tsc --watch",
+    "dev:test": "rimraf bin && tsc -p test/tsconfig.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "prettier": "prettier  --write ./**/*.ts",
@@ -29,7 +29,8 @@
     "------------------------------------------------": "",
     "package:latest": "ts-node build/publish.ts latest",
     "package:next": "ts-node build/publish.ts next",
-    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
+    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
+    "prepare": "ts-patch install"
   },
   "repository": {
     "type": "git",
@@ -74,7 +75,7 @@
     "randexp": "^0.5.3"
   },
   "peerDependencies": {
-    "typescript": ">= 4.5.2 && < 5.0.0"
+    "typescript": ">= 4.5.2"
   },
   "devDependencies": {
     "@fastify/type-provider-typebox": "^3.0.0",
@@ -116,8 +117,8 @@
     "suppress-warnings": "^1.0.2",
     "tgrid": "^0.8.7",
     "ts-node": "^10.9.1",
-    "ttypescript": "^1.5.15",
-    "typescript": "^4.9.5",
+    "ts-patch": "^3.0.0-beta2",
+    "typescript": "^5.0.4",
     "typescript-transform-paths": "^3.4.6",
     "uuid": "^8.3.2",
     "zod": "^3.19.1"
