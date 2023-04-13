@@ -13,8 +13,11 @@ function publish(tag: string): void {
     const pack: any = JSON.parse(
         fs.readFileSync(`${__dirname}/../package.json`, "utf8"),
     );
-    if (tag === "next" && pack.version.includes("-dev.") === -1)
+    const dev: boolean = pack.version.includes("-dev.");
+    if (tag === "next" && !dev)
         throw new Error("next tag can only be used for dev versions.");
+    else if (tag === "latest" && dev)
+        throw new Error("latest tag can only be used for non-dev versions.");
 
     // REMOVE PRIVATE FOR PUBLISHING
     delete pack.private;
