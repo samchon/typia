@@ -24,7 +24,7 @@ interface IMember {
     email: string;
 
     /**
-     * @minimum 19
+     * @exclusiveMinimum 19
      * @maximum 100
      */
     age: number;

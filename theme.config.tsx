@@ -10,6 +10,11 @@ const config: DocsThemeConfig = {
   footer: {
     text: 'Typia Guide Documents',
   },
+  useNextSeoProps() {
+    return {
+      titleTemplate: "%s – Typia",
+    };
+  },
 }
 
 export default config

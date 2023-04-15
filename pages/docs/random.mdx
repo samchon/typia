@@ -1,0 +1,271 @@
+## `random()` function
+```typescript
+export function random<T>(g?: IRandomGenerator): T;
+export function createRandom<T>(): (g?: IRandomGenerator) => T;
+
+export interface IRandomGenerator {
+    boolean(): boolean;
+    integer(minimum?: number, maximum?: number): number;
+    number(minimum?: number, maximum?: number): number;
+    bigint(minimum?: bigint, maximum?: bigint): bigint;
+    string(length?: number): string;
+    array<T>(closure: (index: number) => T, count?: number): T[];
+
+    uuid(): string;
+    email(): string;
+    url(): string;
+    ipv4(): string;
+    ipv6(): string;
+    pattern(regex: RegExp): string;
+    date(minimum?: number, maximum?: number): string;
+    datetime(minimum?: number, maximum?: number): string;
+
+    customs?: IRandomGenerator.CustomMap;
+}
+export namespace IRandomGenerator {
+    export type CustomMap = {
+        [Type in keyof Customizable]?: 
+            (tags: ICommentTag[]) => (Customizable[Type] | undefined);
+    };
+
+    export interface ICommentTag {
+        name: string;
+        value?: string;
+    }
+}
+```
+
+
+
+## Comment Tags
+Tag Kind | Target Type
+------------|-----------------
+`@type {"int"\|"uint"}` | number
+`@minimum {number}` | number
+`@maximum {number}` | number
+`@exclusiveMinimum {number}` | number
+`@exclusiveMaximum {number}` | number
+`@multipleOf {number}` | number
+`@step {number}` | number
+`@length {number}` | string
+`@minLength {number}` | string
+`@maxLength {number}` | string
+`@format {"email"\|"uuid"\|"url"\|"ipv4"\|"ipv6"\|"date"\|"date-time"}` | string
+`@pattern {string}` | string
+`@items {number}` | array
+`@minItems {number}` | array
+`@maxItems {number}` | array
+
+```typescript
+export interface TagExample {
+    /* -----------------------------------------------------------
+        ARRAYS
+    ----------------------------------------------------------- */
+    /**
+     * You can limit array length like below.
+     * 
+     * @minItems 3
+     * @maxItems 10
+     * 
+     * Also, you can use `@items` tag to fix length.
+     * 
+     * @items 5
+     * 
+     * Furthermore, you can use additional tags for each item.
+     * 
+     * @type uint
+     * @format uuid
+     */
+    array: Array<string|number>;
+
+    /**
+     * If two-dimensional array comes, length limit would work for 
+     * both 1st and 2nd level arrays. Also using additional tags 
+     * for each item (string) would still work.
+     * 
+     * @minItems 5
+     * @maxItems 10
+     * @format url
+     */
+    matrix: string[][];
+
+    /* -----------------------------------------------------------
+        NUMBERS
+    ----------------------------------------------------------- */
+    /**
+     * Type of number.
+     * 
+     * It must be one of integer or unsigned integer.
+     * 
+     * @type int
+     * @type uint
+     */
+    type: number;
+
+    /**
+     * You can limit range of numeric value like below.
+     * 
+     * @minimum 5
+     * @maximum 10
+     * 
+     * Also, you can use exclusive tags instead
+     * 
+     * @exclusiveMinimum 4
+     * @exclusiveMaximum 11
+     */
+    range: number;
+
+    /**
+     * Step tag requires minimum or exclusiveMinimum tag.
+     * 
+     * 3, 13, 23, 33, ...
+     * 
+     * @step 10
+     * @exclusiveMinimum 3
+     */
+    step: number;
+
+    /**
+     * Value must be multiple of the given number.
+     * 
+     * -5, 0, 5, 10, 15, ...
+     * 
+     * @multipleOf 5
+     */
+    multipleOf: number;
+
+    /* -----------------------------------------------------------
+        STRINGS
+    ----------------------------------------------------------- */
+    /**
+     * You can limit string length like below.
+     * 
+     * @minLength 3
+     * @maxLength 10
+     * 
+     * Also, you can use `@length` tag to fix length.
+     * 
+     * @length 7
+     */
+    length: string;
+
+    /**
+     * Mobile number composed by only numbers.
+     * 
+     * Note that, `typia` does not support flag of regex,
+     * because JSON schema definition does not support it either.
+     * Therefore, write regex pattern without `/` characters and flag.
+     * 
+     * @pattern ^0[0-9]{7,16} 
+     *     -> RegExp(/[0-9]{7,16}/).test("01012345678")
+     */
+    mobile: string;
+
+    /**
+     * E-mail address.
+     * 
+     * @format email
+     */
+    email: string;
+
+    /**
+     * UUID value.
+     * 
+     * @format uuid
+     */
+    uuid: string;
+
+    /**
+     * URL address.
+     * 
+     * @format url
+     */
+    url: string;
+
+    /**
+     * IPv4 address.
+     * 
+     * @format ipv4
+     */
+    ipv4: string;
+
+    /**
+     * IPv6 address.
+     * 
+     * @format ipv6
+     */
+    ipv6: string;
+
+    /**
+     * YYYY-MM-DD
+     *
+     * @format date
+     */
+    date: string;
+
+    /**
+     * `Date.toISOString()`
+     *
+     * @format date-time
+     */
+    datetime: string;
+}
+
+
+
+
+## Customization
+```typescript
+import typia from "typia";
+
+export interface TagCustom {
+    /**
+     * Regular feature supported by typia
+     *
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * Custom feature composed with "$" + number
+     *
+     * @dollar
+     */
+    dollar: string;
+
+    /**
+     * Custom feature composed with string + "abcd"
+     *
+     * @postfix abcd
+     */
+    postfix: string;
+
+    /**
+     * Custom feature meaning x^y
+     *
+     * @powerOf 10
+     */
+    power: number;
+}
+
+const data: TagCustom = typia.random<TagCustom>({
+    customs: {
+        string: (tags: typia.IRandomGenerator.ICommentTag[]) => {
+            if (tags.find((t) => t.name === "dollar") !== undefined)
+                return "$" + RandomGenerator.integer();
+
+            const postfix = tags.find((t) => t.name === "postfix");
+            if (postfix !== undefined)
+                return RandomGenerator.string() + postfix.value;
+        },
+        number: (tags: typia.IRandomGenerator.ICommentTag[]) => {
+            const powerOf = tags.find((t) => t.name === "powerOf");
+            if (powerOf !== undefined)
+                return Math.pow(
+                    Number(powerOf.value),
+                    RandomGenerator.integer(1, 4),
+                );
+        },
+    }
+});
+```

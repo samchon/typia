@@ -1,0 +1,69 @@
+## `parse()` functions
+```typescript filename="typia"
+export function isParse<T>(input: string): T | null;
+export function assertParse<T>(input: string): T;
+export function validateParse<T>(input: string): IValidation<T>;
+
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+
+## Reusable functions
+```typescript filename="typia"
+export function createIsParse<T>(): (input: string) => T | null;
+export function createAssertParse<T>(): (input: string) => T;
+export function createValidateParse<T>(): (input: string) => IValidation<T>;
+
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+
+
+
+## Difference

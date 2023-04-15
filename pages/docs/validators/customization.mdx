@@ -1,0 +1,61 @@
+```typescript filename="typia"
+export const customValidators: CustomValidatorMap;
+
+export interface CustomValidatorMap {
+    size(): number;
+    size(name: string): number;
+
+    has: (name: string) => (type: keyof Customizable) => boolean;
+    get(
+        name: string,
+    ): <Type extends keyof Customizable>(
+        type: Type,
+    ) => CustomValidatorMap.Closure<Type> | undefined;
+
+    insert(
+        name: string,
+    ): <Type extends keyof Customizable>(
+        type: Type,
+    ) => (closure: CustomValidatorMap.Closure<Type>) => boolean;
+    erase(name: string): (type: keyof Customizable) => boolean;
+}
+export namespace CustomValidatorMap {
+    export type Closure<Type extends keyof Customizable> = 
+        (text: string) => (value: Customizable[Type]) => boolean;
+}
+
+export type Customizable = {
+    number: number;
+    string: string;
+    bigint: bigint;
+};
+```
+
+```typescript showLineNumbers
+import typia from "typia";
+
+typia.customValidators.insert("powerOf")("number")(
+    (text: string) => {
+        const denominator: number = Math.log(Number(text));
+        return (value: number) => {
+            value = Math.log(value) / denominator;
+            return Math.abs(value - Math.floor(value)) < .000001;
+        };
+    }
+);
+typia.customValidators.insert("dollar")("string")(
+    () => (value: string) => value.startsWith("$"),
+);
+
+interface TagCustom {
+   /**
+    * @powerOf 10
+    */
+   powerOf: number;
+
+   /**
+    * @dollar
+    */
+   dollar: string;
+}
+```

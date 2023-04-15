@@ -1,0 +1,50 @@
+## `application()` function
+```typescript filename="typia"
+export function application<
+    Types extends unknown[],
+    Purpose extends "ajv" | "swagger",
+    Prefix extends string = Purpose extends "ajv"
+        ? "components#/schemas"
+        : "#/components/schemas",
+>(): IJsonApplication;
+
+export interface IJsonApplication {
+    schemas: IJsonSchema[];
+    components: IJsonComponents;
+    purpose: "swagger" | "ajv";
+    prefix: string;
+}
+```
+
+## Comment Tags
+You can utilize comments and comment tags to constructing special fields of JSON schema. 
+
+If you write any comment on a property, it would fill `IJsonSchema.description` field. When you write a comment tag starting with `@` symbol, it would be converted to proper special fields of JSON schema considering its type. Also, all of such comment tags would be stored in the `x-tson-jsDocTags` for 3rd party libraries.
+
+Let's read [`IJsonSchema`](https://github.com/samchon/typia/blob/master/src/schemas/IJsonSchema.ts) type again and try to guess where each comment tags would be stored in. I think it may not such hard.
+
+  - Supported comment tags
+    - common
+      - `@deprecated`
+      - `@title {string}`
+    - number
+      - `@type {"int"|"uint"}`
+      - `@minimum {number}`
+      - `@maximum {number}`
+      - `@exclusiveMinimum {number}`
+      - `@exclusiveMaximum {number}`
+      - `@multipleOf {number}`
+    - string
+      - `@minLength {number}`
+      - `@maxLength {number}`
+      - `@pattern {regex}`
+      - `@format {keyword}`
+        - `email`
+        - `uuid`
+        - `ipv4`
+        - `ipv6`
+        - `date`: YYYY-MM-DD
+        - `date-time`: `Date.toISOString()`
+    - array
+      - `@minItems {number}`
+      - `@maxItems {number}`

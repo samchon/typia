@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Callout, Tabs, Tab } from 'nextra-theme-docs'
 
 ## `is()` function
 ```typescript filename="typia"
@@ -6,11 +6,20 @@ export function is<T>(input: unknown): input is T;
 export function is<T>(input: T): input is T;
 ```
 
+Tests a value type.
+
 When you need to test an instance type, just call `typia.is<T>()` function.
 
-If the instance is following type `T`, `true` value would be returned. Otherwise, `false` would be returned.
+If the `input` value is following type `T`, `true` value would be returned. Otherwise, `false` would be returned.
 
-For reference, if you'd used other competitive validator libraries like `zod` or `class-validator`, you may found that `typia` does not require extra schema definition. Yeah, `typia` needs only pure TypeScript type. `typia` can analyze TypeScript type in the compiiation level, and enable to write the optimal validation code like below:
+<Callout>
+> If you'd used other competitive validator libraries like `ajv` or `class-validator`, you may found that `typia` does not require any extra schema definition. If you have not experienced them, I can sure that you may get shocked after reading below extra schema definition files.
+> 
+> - `ajv` requires [JSON schema definition](https://github.com/samchon/typia/blob/master/test/schemas/json/swagger/ObjectHierarchical.json).
+> - `class-validator` requires [DTO class with decorator function calls](https://github.com/samchon/typia/blob/master/benchmark/structures/class-validator/ClassValidatorObjectHierarchical.ts).
+>
+> Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library, it can analyze TypeScript type by itself, and possible to write the optimal validation code like below. This is the secret of `typia`, which needs only one line with pure TypeScript type.
+</Callout>
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
@@ -20,7 +29,7 @@ import { v4 } from "uuid";
 
 const matched: boolean = typia.is<IMember>({
     id: v4(),
-    email: "samchon.github@gmail.com",
+    email: "samchon.github@gmai19l.com",
     age: 30,
 });
 
@@ -38,7 +47,7 @@ interface IMember {
     email: string;
 
     /**
-     * @minimum 19
+     * @exclusiveMinimum 19
      * @maximum 100
      */
     age: number;
@@ -58,7 +67,7 @@ const matched = (input => {
         (
             "string" === typeof input.id && true === $is_uuid(input.id) && 
             ("string" === typeof input.email && $is_email(input.email)) && 
-            ("number" === typeof input.age && 19 <= input.age && 100 >= input.age)
+            ("number" === typeof input.age && 19 < input.age && 100 >= input.age)
         );
 })({
     id: (0, uuid_1.v4)(),
@@ -73,7 +82,7 @@ console.log(matched); // true
 
 Also, `typia.is<T>()` function can be used for type casting.
 
-When target instance is following the type `T`, therefore `true` value be returned, `typia.is<T>()` function automatically casts the instance to the type `T`. Threfore, you can utilize the `typia.is<T>()` function for safe type casting tool like below:
+When target `input` value is following the type `T`, therefore `true` value be returned, `typia.is<T>()` function automatically casts the `input` value to the type `T`. Threfore, you can utilize the `typia.is<T>()` function for safe type casting tool like below:
 
 ```typescript filename="src/is-cast.ts" showLineNumbers {6-7}
 const input: unknown = {
@@ -128,7 +137,7 @@ interface IMember {
     email: string;
 
     /**
-     * @minimum 19
+     * @exclusiveMinimum 19
      * @maximum 100
      */
     age: number;
@@ -155,7 +164,7 @@ const is = ((input) => {
         null !== input &&
         "string" === typeof input.id && $is_uuid(input.id) &&
         "string" === typeof input.email && $is_email(input.email) &&
-        "number" === typeof input.age && 19 <= input.age && 100 >= input.age
+        "number" === typeof input.age && 19 < input.age && 100 >= input.age
     );
 })(input);
 const equals = ((input, _exceptionable = true) => {
@@ -164,7 +173,7 @@ const equals = ((input, _exceptionable = true) => {
     const $io0 = (input, _exceptionable = true) =>
         "string" === typeof input.id && $is_uuid(input.id) &&
         "string" === typeof input.email && $is_email(input.email) &&
-        "number" === typeof input.age && 19 <= input.age && 100 >= input.age &&
+        "number" === typeof input.age && 19 < input.age && 100 >= input.age &&
         (3 === Object.keys(input).length ||
             Object.keys(input).every((key) => {
                 if (["id", "email", "age"].some((prop) => key === prop))
@@ -196,9 +205,9 @@ export function createEquals<T>(): (input: unknown) => input is T;
 ## Benchmark
 Super-fast and super-safe.
 
-Comparing `typia.is<T>()` function with competitive libraries, maximum 20,000x faster than others. 
+Comparing `typia.is<T>()` function with other competitive libraries, maximum 20,000x faster. 
 
-Furthremore, only `typia` can validate complicate union types.
+Furthermore, only `typia` can validate complicate union types.
 
 ![Is Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/is.svg)
 

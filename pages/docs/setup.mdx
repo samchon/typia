@@ -32,7 +32,7 @@ interface IMember {
     email: string;
 
     /**
-     * @minimum 19
+     * @exclusiveMinimum 19
      * @maximum 100
      */
     age: number;
@@ -50,7 +50,7 @@ export const check = input => {
         (
             "string" === typeof input.id && $is_uuid(input.id) && 
             ("string" === typeof input.email && $is_email(input.email)) && 
-            ("number" === typeof input.age && 19 <= input.age && 100 >= input.age)
+            ("number" === typeof input.age && 19 < input.age && 100 >= input.age)
         );
 };
 ```

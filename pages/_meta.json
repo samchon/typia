@@ -1,24 +1,23 @@
 {
-    "index": "Introduction",
-    "setup": "Setup",
-
-    "-- features": {
-        "type": "separator",
-        "title": "Features"
+    "index": {
+        "title": "Introduction",
+        "type": "page",
+        "hidden": true,
+        "display": "hidden"
     },
-    "validators": "Runtime Validators",
-    "json": "Enhanced JSON",
-    "random": "Random Generator",
-
-    "-- appendix": {
-        "type": "separator",
-        "title": "Appendix"
+    "docs": {
+        "title": "Guide Documents",
+        "type": "page"
     },
-    "utilization": "Utilization Cases",
-    "benchmark": "Benchmark",
-    "articles": {
-        "title": "dev.to Articles",
-        "href": "https://dev.to/samchon/series/22474",
+    "playground": {
+        "title": "Playground",
+        "type": "page",
+        "href": "https://stackblitz.com/edit/node-qssdpq?file=src/index.ts&view=editor",
         "newWindow": true
+    },
+    "contact": {
+        "title": "Contant Me",
+        "type": "page",
+        "href": "mailto:samchon.github@gmail.com"
     }
 }
