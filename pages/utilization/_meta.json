@@ -1,0 +1,6 @@
+{
+    "nestjs": "NestJS",
+    "trpc": "tRPC",
+    "fastify": "Fastify",
+    "react:": "React"
+}
