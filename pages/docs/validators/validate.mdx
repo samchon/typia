@@ -37,6 +37,21 @@ export namespace IValidation {
     </Tab>
 </Tabs>
 
+Validates a value type.
+
+`typia.validate<T>()` function validates `input` value type, and archives every type errors detaily into `IValidation.IFailure.errors` array, when the `input` value is not following the promised type `T`. Of course, if the parametric `input` value is following the type `T`, `IValidation.ISuccess` instance would be returned.
+
+In the below example case, as `id` and `age` values are different with its definition of `IMember`, such errors would be archived into the `IValidation.IFailure.errors` array.
+
+  - `errors[0]`
+    - `path`: `input.id`
+    - `expected`: `string`
+    - `value`: 5
+  - `errors[1]`
+    - `path`: `input.age`
+    - `expected`: `number (@type int)`
+    - `value`: 20.75
+
 <br/>
 <Alert severity="success">
     <AlertTitle> 
@@ -228,6 +243,21 @@ export namespace IValidation {
     </Tab>
 </Tabs>
 
+More strict validatae function prohibiting superfluous properties.
+
+`typia.validate<T>` function detects every type errors of `input` value, however, it can't detect superfluous properties. If you want to prohibit those superfluous properties, so that archive them into `IValidation.IFailure.errors` array, use `typia.validateEquals<T>()` function instead.
+
+In the below example case, as `id` property is different with its type definition and `sex` property is not defined in the `IMember` type, such errors would be archived into the `IValidation.IFailure.errors` array:
+
+  - `errors[0]`
+    - `path`: `input.id`
+    - `expected`: `string (@format uuid)`
+    - `value`: `something`
+  - `errors[1]`
+    - `path`: `input.sex`
+    - `expected`: `undefined`
+    - `value`: `1`
+
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
 ```typescript filename="examples/src/validateEquals.ts" showLineNumbers {3-8, 10}
@@ -236,7 +266,7 @@ import typia from "typia";
 const res: typia.IValidation<IMember> = typia.validateEquals<IMember>({
     age: 30,
     email: "samchon.github@gmail.com",
-    id: 5, // wrong, must be string (uuid)
+    id: "something", // wrong, must be string (uuid)
     sex: 1, // extra property
 });
 
@@ -389,7 +419,7 @@ const res = ((input) => {
 })({
     age: 30,
     email: "samchon.github@gmail.com",
-    id: 5, // wrong, must be string (uuid)
+    id: "something", // wrong, must be string (uuid)
     sex: 1, // extra property
 });
 
@@ -470,7 +500,7 @@ interface IMember {
 ```
     </Tab>
     <Tab>
-```javascript filename="examples/bin/createValidate.js" showLineNumbers {}
+```javascript filename="examples/bin/createValidate.js" showLineNumbers {3-97}
 import typia from "typia";
 
 export const validateMember = (input) => {
@@ -572,6 +602,10 @@ export const validateMember = (input) => {
     </Tab>
 </Tabs>
 
+
+
+
+## Discriminated Union
 
 
 

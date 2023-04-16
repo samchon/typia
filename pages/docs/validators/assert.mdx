@@ -27,13 +27,13 @@ export class TypeGuardError extends Error {
 
 Asserts a value type.
 
-The `typia.assert<T>()` function throws a `TypeGuardError` when wrong type comes. 
+`typia.assert<T>()` function throws a `TypeGuardError` when wrong type comes. 
 
-The `TypeGuardError` instance has only the first type error, with access path and expected type. In the below example code case, as the `age` property is wrong with its definition (`@exclusiveMinimum`), such `TypeGuardError` instance would be thrown:
+The `TypeGuardError` instance has only the first type error info, with access path and expected type. In the below example case, as the `age` property is wrong with its definition (`@exclusiveMinimum`), such `TypeGuardError` would be thrown:
 
   - `method`: `typia.assert()`
   - `path`: `input.age`
-  - `value`: 18,
+  - `value`: `18`,
   - `expected`: `number (@exclusiveMinimum 19)`
 
 <br/>
@@ -201,6 +201,17 @@ export class TypeGuardError extends Error {
     </Tab>
 </Tabs>
 
+More strict assert function prohibiting superfluous properties.
+
+`typia.assert<T>()` function inspects `input` value type and throws `TypeGuardError` when mismatched, however, it can't detect superfluous properties. If you want to prohibit those superfluous properties, therefore throws an `TypeGuardError` when superfluous property exists, use `typia.assertEquals<T()>` function instead.
+
+In the below example case, as `sex` property is not defined in the `IMember` type, such `TypeGuardError` would be thrown:
+
+  - `method: `typia.assertEquals()`
+  - `path`: `input.sex`
+  - `value`: `1`,
+  ` expected`: `undefined`
+
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
 ```typescript filename="examples/src/assert.ts" showLineNumbers {4-9}
@@ -327,6 +338,7 @@ import { v4 } from "uuid";
 
 
 
+
 ## Reusable functions
 <Tabs items={[
     <code>typia</code>, 
@@ -349,6 +361,12 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
 </Tabs>
+
+Reusable `typia.assert<T>()` function generators.
+
+If you repeat to call `typia.assert<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.createAssert<T>()` function.
+
+Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>

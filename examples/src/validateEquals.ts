@@ -3,7 +3,7 @@ import typia from "typia";
 const res: typia.IValidation<IMember> = typia.validateEquals<IMember>({
     age: 30,
     email: "samchon.github@gmail.com",
-    id: 5, // wrong, must be string (uuid)
+    id: "something", // wrong, must be string (uuid)
     sex: 1, // extra property
 });
 

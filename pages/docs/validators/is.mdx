@@ -203,6 +203,7 @@ console.log(is, equals); // true, false
 export function createIs<T>(): (input: unknown) => input is T;
 export function createEquals<T>(): (input: unknown) => input is T;
 ```
+
 Reusable `typia.is<T>()` function generators.
 
 If you repeat to call `typia.is<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.createIs<T>()` function.
@@ -255,7 +256,6 @@ export const check = (input) => {
 ```
     </Tab>
 </Tabs>
-
 
 
 

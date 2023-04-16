@@ -1,172 +1,244 @@
-Tag Kind | Target Type
-------------|-----------------
-`@type {"int"\|"uint"}` | number
-`@minimum {number}` | number
-`@maximum {number}` | number
-`@exclusiveMinimum {number}` | number
-`@exclusiveMaximum {number}` | number
-`@multipleOf {number}` | number
-`@step {number}` | number
-`@length {number}` | string
-`@minLength {number}` | string
-`@maxLength {number}` | string
-`@format {"email"\|"uuid"\|"url"\|"ipv4"\|"ipv6"\|"date"\|"date-time"}` | string
-`@pattern {string}` | string
-`@items {number}` | array
-`@minItems {number}` | array
-`@maxItems {number}` | array
+import { Tabs, Tab } from 'nextra-theme-docs'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
-```typescript
-export interface TagExample {
-    /* -----------------------------------------------------------
-        ARRAYS
-    ----------------------------------------------------------- */
-    /**
-     * You can limit array length like below.
-     * 
-     * @minItems 3
-     * @maxItems 10
-     * 
-     * Also, you can use `@items` tag to fix length.
-     * 
-     * @items 5
-     * 
-     * Furthermore, you can use additional tags for each item.
-     * 
-     * @type int
-     * @format uuid
-     */
-    array: Array<string|number>;
+## Outline
+`typia` can use comment tags for type validation.
 
-    /**
-     * If two-dimensional array comes, length limit would work for 
-     * both 1st and 2nd level arrays. Also using additional tags 
-     * for each item (string) would still work.
-     * 
-     * @minItems 5
-     * @maxItems 10
-     * @format url
-     */
-    matrix: string[][];
+In TypeScript (and JavaScript), writing `@` character in comment is called "Comment Tag", and `typia` utilizes such comment tags for enhancing type validation logic. As you can see from below example code, `typia` analyzes `@tagName value` patterned comment tags, and generates optimal validation logic in the compilation level.
 
-    /* -----------------------------------------------------------
-        NUMBERS
-    ----------------------------------------------------------- */
+Therefore, don't be afraid `typia` uses only pure TypeScript types for type validation schema. Don't be afraid about TypeScript does not support `integer` type. With those comment tags, you can express any type that exists in the world.
+
+  - Q: How to validate integer type? TypeScript does not support it
+  - A: Write a comment tag `@type int` on the target property
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/is-comment-tags.ts" showLineNumbers {3}
+import typia from "typia";
+
+export const checkCommentTag = typia.createIs<CommentTag>();
+
+interface CommentTag {
     /**
-     * Type of number.
-     * 
-     * It must be one of integer or unsigned integer.
-     * 
-     * @type int
      * @type int
      */
     type: number;
 
     /**
-     * You can limit range of numeric value like below.
-     * 
-     * @minimum 5
-     * @maximum 10
-     * 
-     * Also, you can use exclusive tags instead
-     * 
-     * @exclusiveMinimum 4
-     * @exclusiveMaximum 11
+     * @exclusiveMinimum 19
+     * @maximum 100
      */
-    range: number;
+    number?: number;
 
     /**
-     * Step tag requires minimum or exclusiveMinimum tag.
-     * 
-     * 3, 13, 23, 33, ...
-     * 
-     * @step 10
-     * @exclusiveMinimum 3
-     */
-    step: number;
-
-    /**
-     * Value must be multiple of the given number.
-     * 
-     * -5, 0, 5, 10, 15, ...
-     * 
-     * @multipleOf 5
-     */
-    multipleOf: number;
-
-    /* -----------------------------------------------------------
-        STRINGS
-    ----------------------------------------------------------- */
-    /**
-     * You can limit string length like below.
-     * 
      * @minLength 3
-     * @maxLength 10
-     * 
-     * Also, you can use `@length` tag to fix length.
-     * 
-     * @length 7
      */
-    length: string;
+    string: string;
 
     /**
-     * Mobile number composed by only numbers.
-     * 
-     * Note that, `typia` does not support flag of regex,
-     * because JSON schema definition does not support it either.
-     * Therefore, write regex pattern without `/` characters and flag.
-     * 
-     * @pattern ^0[0-9]{7,16} 
-     *     -> RegExp(/[0-9]{7,16}/).test("01012345678")
+     * @pattern ^[a-z]+$
      */
-    mobile: string;
+    pattern: string;
 
     /**
-     * E-mail address.
-     * 
-     * @format email
-     */
-    email: string;
-
-    /**
-     * UUID value.
-     * 
-     * @format uuid
-     */
-    uuid: string;
-
-    /**
-     * URL address.
-     * 
-     * @format url
-     */
-    url: string;
-
-    /**
-     * IPv4 address.
-     * 
-     * @format ipv4
-     */
-    ipv4: string;
-
-    /**
-     * IPv6 address.
-     * 
-     * @format ipv6
-     */
-    ipv6: string;
-
-    /**
-     * YYYY-MM-DD
-     *
-     * @format date
-     */
-    date: string;
-
-    /**
-     * Every datetime format passing `!isNaN(new Date(str).getTime())`
-     *
      * @format date-time
      */
-    datetime: string;
+    format: string | null;
+
+    /**
+     * In the Array case, possible to restrict its elements.
+     *
+     * @minItems 3
+     * @maxItems 100
+     * @format uuid
+     */
+    array: string[];
 }
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/is-comment-tags.js" showLineNumbers {3-24}
+import typia from "typia";
+
+export const checkCommentTag = (input) => {
+    const $is_datetime = typia.createIs.is_datetime;
+    const $is_uuid = typia.createIs.is_uuid;
+    const $io0 = (input) =>
+        "number" === typeof input.type &&
+        parseInt(input.type) === input.type &&
+        (undefined === input.number ||
+            ("number" === typeof input.number &&
+                19 < input.number &&
+                100 >= input.number)) &&
+        "string" === typeof input.string &&
+        3 <= input.string.length &&
+        "string" === typeof input.pattern &&
+        RegExp(/^[a-z]+$/).test(input.pattern) &&
+        (null === input.format ||
+            ("string" === typeof input.format && $is_datetime(input.format))) &&
+        Array.isArray(input.array) &&
+        3 <= input.array.length &&
+        100 >= input.array.length &&
+        input.array.every((elem) => "string" === typeof elem && $is_uuid(elem));
+    return "object" === typeof input && null !== input && $io0(input);
+};
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## Supported Tags
+`typia` supports those comment tags.
+
+I think below list is not hard to understand.
+
+  - number
+    - `@type {"int"|"uint"}`
+    - `@minimum {number}`
+    - `@maximum {number}`
+    - `@exclusiveMinimum {number}`
+    - `@exclusiveMaximum {number}`
+    - `@multipleOf {number}`
+  - string
+    - `@minLength {number}`
+    - `@maxLength {number}`
+    - `@pattern {regex}`
+    - `@format {keyword}`
+      - `email`
+      - `uuid`
+      - `ipv4`
+      - `ipv6`
+      - `date`: YYYY-MM-DD
+      - `date-time`: `Date.toISOString()`
+  - array
+    - `@minItems {number}`
+    - `@maxItems {number}`
+
+
+
+
+## Customization
+<Tabs items={[
+    <code>typia</code>, 
+    <code>CustomValidatorMap.ts</code>, 
+    <code>Customizable.ts</code>
+]}>
+    <Tab>
+```typescript
+export function is<T>(input: unknown): input is T;
+export function assert<T>(input: unknown): T;
+export function validate<T>(input: unknown): IValidation<T>;
+
+export const customValidators: CustomValidatorMap;
+```
+    </Tab>
+    <Tab>
+```typescript
+export interface CustomValidatorMap {
+    size(): number;
+    size(name: string): number;
+    has: (name: string) => (type: keyof Customizable) => boolean;
+    get(
+        name: string,
+    ): <Type extends keyof Customizable>(
+        type: Type,
+    ) => CustomValidatorMap.Closure<Type> | undefined;
+    erase(name: string): (type: keyof Customizable) => boolean;
+    insert(
+        name: string, // tag name
+    ): <Type extends keyof Customizable>(
+        type: Type, // instance type -> boolean | number | bigint | string
+    ) => (closure: CustomValidatorMap.Closure<Type>) => boolean;
+}
+export namespace CustomValidatorMap {
+    export type Closure<Type extends keyof Customizable> = 
+        (text: string) => // tag name
+        (value: Customizable[Type]) => boolean; // instance value
+}
+```
+    </Tab>
+    <Tab>
+```typescript
+export interface Customizable {
+    number: number;
+    string: string;
+    bigint: bigint;
+}
+```
+    </Tab>
+</Tabs>
+
+You can add custom comment tags for type validation.
+
+If you need addtional comment tag for type validation, just define it by yourself. Write your custom validation logic as a closure function, and register it through `typia.customValidationMap.insert()` function, reading above `CustomValidatorMap` type definition.
+
+Note that, 1st parameter of `typia.customValidationMap.insert()` function means tag name, and 2nd parameter means instance type (`boolean|nubmer|bigint|string`). Also, when defining closure currying function of validation logic, 1st parameter means tag name and 2nd means input value.
+
+If you're not familiar with functional programming, just read below example code:  
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/is-customization.ts" showLineNumbers {3}
+import typia from "typia";
+
+export const checkTagCustom = typia.createIs<TagCustom>();
+
+typia.customValidators.insert("powerOf")("number")(
+    (text: string) => { // tag name
+        const denominator: number = Math.log(Number(text));
+        return (value: number) => { // input value
+            value = Math.log(value) / denominator;
+            return Math.abs(value - Math.floor(value)) < .000001;
+        };
+    }
+);
+typia.customValidators.insert("dollar")("string")(
+    () => (value: string) => value.startsWith("$"),
+);
+
+interface TagCustom {
+   /**
+    * @powerOf 10
+    */
+   powerOf: number;
+
+   /**
+    * @dollar
+    */
+   dollar: string;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/is-customization.js" showLineNumbers {3-12}
+import typia from "typia";
+
+export const checkTagCustom = (input) => {
+    const $is_custom = typia.createIs.is_custom;
+    return (
+        "object" === typeof input && null !== input &&
+        "number" === typeof input.powerOf &&
+            $is_custom("powerOf", "number", "10", input.powerOf) &&
+        "string" === typeof input.dollar &&
+            $is_custom("dollar", "string", "", input.dollar)
+    );
+};
+
+typia.customValidators.insert("powerOf")("number")(
+    (text) => {
+        const denominator = Math.log(Number(text));
+        return (value) => {
+            value = Math.log(value) / denominator;
+            return Math.abs(value - Math.floor(value)) < 0.000001;
+        };
+    }
+);
+typia.customValidators.insert("dollar")("string")(
+    () => (value) => value.startsWith("$"),
+);
+```
+    </Tab>
+</Tabs>
