@@ -1,4 +1,6 @@
-import { Callout, Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs, Tab } from 'nextra-theme-docs'
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 ## Outline
 
@@ -10,7 +12,7 @@ export function validate<T>(input: unknown | T): IValidation<T>; // detailed
 export const customValidators: CustomValidatorMap; // customizable
 
 // ENHANCED JSON
-export function application<T>(): IJsonApplication; // JSON schema
+export function application<...Args>(): IJsonApplication; // JSON schema
 export function assertParse<T>(input: string): T; // type safe parser
 export function assertStringify<T>(input: T): string; // safe and faster
     // +) isParse, validateParse 
@@ -27,18 +29,18 @@ Typia is a transformer library, supporting those features:
   - JSON schema generator
   - Random data generator
 
-<Callout type="info">
-    Only one line required
-</Callout>
-
-<Callout type="warning">
-    Runtime validator is 20,000x faster than `class-validator`
-</Callout>
-
-<Callout type="default">
-    JSON serialization is 200x faster than `class-transformer`
-</Callout>
-
+<br/>
+<Stack spacing={1}>
+    <Alert severity="warning">
+        Only **one line** required, with pure TypeScript type
+    </Alert>
+    <Alert severity="success">
+        Runtime validator is **20,000x** faster than `class-validator`
+    </Alert>
+    <Alert severity="info">
+        JSON serialization is **200x faster** than `class-transformer`
+    </Alert>
+</Stack>
 
 
 

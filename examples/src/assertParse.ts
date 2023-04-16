@@ -1,11 +1,9 @@
 import typia from "typia";
-import { v4 } from "uuid";
 
-typia.assert<IMember>({
-    id: v4(),
-    email: "samchon.github@gmail.com",
-    age: 30,
-});
+const json: string = JSON.stringify(typia.random<IMember>());
+const parsed: IMember = typia.assertParse<IMember>(json);
+
+console.log(json === JSON.stringify(parsed)); // true
 
 interface IMember {
     /**

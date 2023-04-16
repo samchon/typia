@@ -19,6 +19,7 @@ interface IMember {
     email: string;
 
     /**
+     * @type int
      * @exclusiveMinimum 19
      * @maximum 100
      */

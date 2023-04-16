@@ -8,7 +8,14 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase: 'https://github.com/samchon/typia/tree/gh-pages',
   footer: {
-    text: 'Typia Guide Documents',
+    text: () => <span>
+      Made by{" "}
+      <a href="https://github.com/samchon" 
+         target="_blank" 
+         style={{ color: "blue" }}>
+        <u> Samchon </u>
+      </a>
+    </span>
   },
   useNextSeoProps() {
     return {

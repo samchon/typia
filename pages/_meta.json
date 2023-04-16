@@ -6,17 +6,17 @@
         "display": "hidden"
     },
     "docs": {
-        "title": "Guide Documents",
+        "title": "📖 Guide Documents",
         "type": "page"
     },
     "playground": {
-        "title": "Playground",
+        "title": "💻 Playground",
         "type": "page",
         "href": "https://stackblitz.com/edit/node-qssdpq?file=src/index.ts&view=editor",
         "newWindow": true
     },
     "contact": {
-        "title": "Contant Me",
+        "title": "✉ Contant Me",
         "type": "page",
         "href": "mailto:samchon.github@gmail.com"
     }

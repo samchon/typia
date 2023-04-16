@@ -5,7 +5,7 @@ const input: unknown = {
     id: v4(),
     email: "samchon.github@gmail.com",
     age: 30,
-    extra: "superfluous property", // error
+    extra: "superfluous property", // extra
 };
 const is: boolean = typia.is<IMember>(input);
 const equals: boolean = typia.equals<IMember>(input);
@@ -24,6 +24,7 @@ interface IMember {
     email: string;
 
     /**
+     * @type int
      * @exclusiveMinimum 19
      * @maximum 100
      */

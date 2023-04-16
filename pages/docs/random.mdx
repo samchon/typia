@@ -1,8 +1,20 @@
+import { Tabs, Tab } from 'nextra-theme-docs'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
 ## `random()` function
+<Tabs items={[
+    <code>typia</code>, 
+    <code>IRandomGenerator.ts</code>, 
+    <code>Customizable.ts</code>
+]}>
+    <Tab>
 ```typescript
 export function random<T>(g?: IRandomGenerator): T;
-export function createRandom<T>(): (g?: IRandomGenerator) => T;
-
+```
+    </Tab>
+    <Tab>
+```typescript filename="typia/IRandomGenerator.ts"
 export interface IRandomGenerator {
     boolean(): boolean;
     integer(minimum?: number, maximum?: number): number;
@@ -25,7 +37,7 @@ export interface IRandomGenerator {
 export namespace IRandomGenerator {
     export type CustomMap = {
         [Type in keyof Customizable]?: 
-            (tags: ICommentTag[]) => (Customizable[Type] | undefined);
+            (tags: ICommentTag[]) => Customizable[Type] | undefined;
     };
 
     export interface ICommentTag {
@@ -34,191 +46,472 @@ export namespace IRandomGenerator {
     }
 }
 ```
-
-
-
-## Comment Tags
-Tag Kind | Target Type
-------------|-----------------
-`@type {"int"\|"uint"}` | number
-`@minimum {number}` | number
-`@maximum {number}` | number
-`@exclusiveMinimum {number}` | number
-`@exclusiveMaximum {number}` | number
-`@multipleOf {number}` | number
-`@step {number}` | number
-`@length {number}` | string
-`@minLength {number}` | string
-`@maxLength {number}` | string
-`@format {"email"\|"uuid"\|"url"\|"ipv4"\|"ipv6"\|"date"\|"date-time"}` | string
-`@pattern {string}` | string
-`@items {number}` | array
-`@minItems {number}` | array
-`@maxItems {number}` | array
-
+    </Tab>
+    <Tab>
 ```typescript
-export interface TagExample {
-    /* -----------------------------------------------------------
-        ARRAYS
-    ----------------------------------------------------------- */
+export interface Customizable {
+    number: number;
+    string: string;
+    bigint: bigint;
+}
+```
+    </Tab>
+</Tabs>
+
+You can make every random data just by calling `typia.random<T>()` function.
+
+When you call the `typia.random<T>()` function, `typia` will analyze your type `T`, and writes optimal random generation code for the type `T`, in the compilation level. This is called AOT (Ahead of Time) compliation, and you may understand what it is just by reading below example code. 
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/.ts" showLineNumbers {3}
+import typia from "typia";
+
+const member: IMember = typia.random<IMember>();
+
+console.log(member);
+
+interface IMember {
     /**
-     * You can limit array length like below.
-     * 
-     * @minItems 3
-     * @maxItems 10
-     * 
-     * Also, you can use `@items` tag to fix length.
-     * 
-     * @items 5
-     * 
-     * Furthermore, you can use additional tags for each item.
-     * 
-     * @type uint
      * @format uuid
      */
-    array: Array<string|number>;
+    id: string;
 
     /**
-     * If two-dimensional array comes, length limit would work for 
-     * both 1st and 2nd level arrays. Also using additional tags 
-     * for each item (string) would still work.
-     * 
-     * @minItems 5
-     * @maxItems 10
-     * @format url
-     */
-    matrix: string[][];
-
-    /* -----------------------------------------------------------
-        NUMBERS
-    ----------------------------------------------------------- */
-    /**
-     * Type of number.
-     * 
-     * It must be one of integer or unsigned integer.
-     * 
-     * @type int
-     * @type uint
-     */
-    type: number;
-
-    /**
-     * You can limit range of numeric value like below.
-     * 
-     * @minimum 5
-     * @maximum 10
-     * 
-     * Also, you can use exclusive tags instead
-     * 
-     * @exclusiveMinimum 4
-     * @exclusiveMaximum 11
-     */
-    range: number;
-
-    /**
-     * Step tag requires minimum or exclusiveMinimum tag.
-     * 
-     * 3, 13, 23, 33, ...
-     * 
-     * @step 10
-     * @exclusiveMinimum 3
-     */
-    step: number;
-
-    /**
-     * Value must be multiple of the given number.
-     * 
-     * -5, 0, 5, 10, 15, ...
-     * 
-     * @multipleOf 5
-     */
-    multipleOf: number;
-
-    /* -----------------------------------------------------------
-        STRINGS
-    ----------------------------------------------------------- */
-    /**
-     * You can limit string length like below.
-     * 
-     * @minLength 3
-     * @maxLength 10
-     * 
-     * Also, you can use `@length` tag to fix length.
-     * 
-     * @length 7
-     */
-    length: string;
-
-    /**
-     * Mobile number composed by only numbers.
-     * 
-     * Note that, `typia` does not support flag of regex,
-     * because JSON schema definition does not support it either.
-     * Therefore, write regex pattern without `/` characters and flag.
-     * 
-     * @pattern ^0[0-9]{7,16} 
-     *     -> RegExp(/[0-9]{7,16}/).test("01012345678")
-     */
-    mobile: string;
-
-    /**
-     * E-mail address.
-     * 
      * @format email
      */
     email: string;
 
     /**
-     * UUID value.
-     * 
-     * @format uuid
+     * @type int
+     * @exclusiveMinimum 19
+     * @maximum 100
      */
-    uuid: string;
+    age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/.js" showLineNumbers {3-33}
+import typia from "typia";
+
+const member = ((generator) => {
+    const $generator = typia.random.generator;
+    const $ro0 = (_recursive = false, _depth = 0) => ({
+        id:
+            (generator?.customs ?? $generator.customs)?.string?.([
+                {
+                    name: "format",
+                    value: "uuid",
+                },
+            ]) ?? (generator?.uuid ?? $generator.uuid)(),
+        email:
+            (generator?.customs ?? $generator.customs)?.string?.([
+                {
+                    name: "format",
+                    value: "email",
+                },
+            ]) ?? (generator?.email ?? $generator.email)(),
+        age:
+            (generator?.customs ?? $generator.customs)?.number?.([
+                {
+                    name: "exclusiveMinimum",
+                    value: "19",
+                },
+                {
+                    name: "maximum",
+                    value: "100",
+                },
+            ]) ?? (generator?.number ?? $generator.number)(19, 100),
+    });
+    return $ro0();
+})();
+
+console.log(member);
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## Reusable function
+<Tabs items={[
+    <code>typia</code>, 
+    <code>IRandomGenerator.ts</code>, 
+    <code>Customizable.ts</code>
+]}>
+    <Tab>
+```typescript
+export function createRandom<T>(): (g?: IRandomGenerator) => T;
+```
+    </Tab>
+    <Tab>
+```typescript filename="typia/IRandomGenerator.ts"
+export interface IRandomGenerator {
+    boolean(): boolean;
+    integer(minimum?: number, maximum?: number): number;
+    number(minimum?: number, maximum?: number): number;
+    bigint(minimum?: bigint, maximum?: bigint): bigint;
+    string(length?: number): string;
+    array<T>(closure: (index: number) => T, count?: number): T[];
+
+    uuid(): string;
+    email(): string;
+    url(): string;
+    ipv4(): string;
+    ipv6(): string;
+    pattern(regex: RegExp): string;
+    date(minimum?: number, maximum?: number): string;
+    datetime(minimum?: number, maximum?: number): string;
+
+    customs?: IRandomGenerator.CustomMap;
+}
+export namespace IRandomGenerator {
+    export type CustomMap = {
+        [Type in keyof Customizable]?: 
+            (tags: ICommentTag[]) => Customizable[Type] | undefined;
+    };
+
+    export interface ICommentTag {
+        name: string;
+        value?: string;
+    }
+}
+```
+    </Tab>
+    <Tab>
+```typescript
+export interface Customizable {
+    number: number;
+    string: string;
+    bigint: bigint;
+}
+```
+    </Tab>
+</Tabs>
+
+Reusable `typia.random<T>()` function generators.
+
+If you repeat to call `typia.random<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.createRandom<T>()` function.
+
+Just look at the code below, then you may understand how to use it.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/createRandom.ts" showLineNumbers {3}
+import typia from "typia";
+
+export const createRandomMember = typia.createRandom<IMember>();
+
+interface IMember {
+  /**
+   * @format uuid
+   */
+  id: string;
+
+  /**
+   * @format email
+   */
+  email: string;
+
+  /**
+   * @type int
+   * @exclusiveMinimum 19
+   * @maximum 100
+   */
+  age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/createRandom.js" showLineNumbers {3-34}
+import typia from "typia";
+
+export const createRandomMember = generator => {
+    const $generator = typia.createRandom.generator;
+    const $ro0 = (_recursive = false, _depth = 0) => ({
+        id: (generator?.customs ?? $generator.customs)?.string?.([
+            {
+                name: "format",
+                value: "uuid"
+            }
+        ]) ?? (generator?.uuid ?? $generator.uuid)(),
+        email: (generator?.customs ?? $generator.customs)?.string?.([
+            {
+                name: "format",
+                value: "email"
+            }
+        ]) ?? (generator?.email ?? $generator.email)(),
+        age: (generator?.customs ?? $generator.customs)?.number?.([
+            {
+                name: "type",
+                value: "int"
+            },
+            {
+                name: "exclusiveMinimum",
+                value: "19"
+            },
+            {
+                name: "maximum",
+                value: "100"
+            }
+        ]) ?? (generator?.integer ?? $generator.integer)(20, 100)
+    });
+    return $ro0();
+};
+```
+    </Tab>
+</Tabs>
+
+
+
+
+
+## Comment Tags
+You can specialize the behavior of `typia.random<T>()` function by using comment tags.
+
+Below list shows which comment tags are supported in the `typia.random<T>()` function.
+
+Let's see how those comment tags work with example code.
+
+  - Supported comment tags
+    - number
+      - `@type {"int"|"uint"}`
+      - `@minimum {number}`
+      - `@maximum {number}`
+      - `@exclusiveMinimum {number}`
+      - `@exclusiveMaximum {number}`
+      - `@multipleOf {number}`
+    - string
+      - `@minLength {number}`
+      - `@maxLength {number}`
+      - `@pattern {regex}`
+      - `@format {keyword}`
+        - `email`
+        - `uuid`
+        - `ipv4`
+        - `ipv6`
+        - `date`: YYYY-MM-DD
+        - `date-time`: `Date.toISOString()`
+    - array
+      - `@minItems {number}`
+      - `@maxItems {number}`
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/application-comment-tags.ts" showLineNumbers {3}
+import typia from "typia";
+
+const data: CommentTag = typia.random<CommentTag>();
+
+console.log(data);
+
+interface CommentTag {
+    /**
+     * @type int
+     */
+    type: number;
 
     /**
-     * URL address.
-     * 
-     * @format url
+     * @exclusiveMinimum 19
+     * @maximum 100
      */
-    url: string;
+    number?: number;
 
     /**
-     * IPv4 address.
-     * 
-     * @format ipv4
+     * @minLength 3
      */
-    ipv4: string;
+    string: string;
 
     /**
-     * IPv6 address.
-     * 
-     * @format ipv6
+     * @pattern ^[a-z]+$
      */
-    ipv6: string;
+    pattern: string;
 
     /**
-     * YYYY-MM-DD
-     *
-     * @format date
-     */
-    date: string;
-
-    /**
-     * `Date.toISOString()`
-     *
      * @format date-time
      */
-    datetime: string;
+    format: string | null;
+
+    /**
+     * In the Array case, possible to restrict its elements.
+     *
+     * @minItems 3
+     * @maxItems 100
+     * @format uuid
+     */
+    array: string[];
 }
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/application-comment-tags.js" showLineNumbers {3-63}
+import typia from "typia";
+
+const data = (generator => {
+    const $generator = typia.random.generator;
+    const $pick = typia.random.pick;
+    const $ro0 = (_recursive = false, _depth = 0) => ({
+        type: (generator?.customs ?? $generator.customs)?.number?.([
+            {
+                name: "type",
+                value: "uint"
+            }
+        ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
+        number: $pick([
+            () => undefined,
+            () => (generator?.customs ?? $generator.customs)?.number?.([
+                {
+                    name: "exclusiveMinimum",
+                    value: "19"
+                },
+                {
+                    name: "maximum",
+                    value: "100"
+                }
+            ]) ?? (generator?.number ?? $generator.number)(19, 100)
+        ])(),
+        string: (generator?.customs ?? $generator.customs)?.string?.([
+            {
+                name: "minLength",
+                value: "3"
+            }
+        ]) ?? (generator?.string ?? $generator.string)((generator?.integer ?? $generator.integer)(3, 25)),
+        pattern: (generator?.customs ?? $generator.customs)?.string?.([
+            {
+                name: "pattern",
+                value: "^[a-z]+$"
+            }
+        ]) ?? (generator?.pattern ?? $generator.pattern)(/^[a-z]+$/),
+        format: $pick([
+            () => null,
+            () => (generator?.customs ?? $generator.customs)?.string?.([
+                {
+                    name: "format",
+                    value: "date-time"
+                }
+            ]) ?? (generator?.datetime ?? $generator.datetime)()
+        ])(),
+        array: (generator?.array ?? $generator.array)(() => (generator?.customs ?? $generator.customs)?.string?.([
+            {
+                name: "minItems",
+                value: "3"
+            },
+            {
+                name: "maxItems",
+                value: "100"
+            },
+            {
+                name: "format",
+                value: "uuid"
+            }
+        ]) ?? (generator?.uuid ?? $generator.uuid)(), (generator?.integer ?? $generator.integer)(3, 100))
+    });
+    return $ro0();
+})();
+
+console.log(data);
+```
+    </Tab>
+</Tabs>
 
 
 
 
 ## Customization
+<Tabs items={[
+    <code>typia</code>, 
+    <code>IRandomGenerator.ts</code>, 
+    <code>Customizable.ts</code>
+]}>
+    <Tab>
 ```typescript
-import typia from "typia";
+export function random<T>(g?: IRandomGenerator): T;
+export function createRandom<T>: (g?: IRandomGenerator) => T;
+```
+    </Tab>
+    <Tab>
+```typescript filename="typia/IRandomGenerator.ts" showLineNumbers {18, 21-24}
+export interface IRandomGenerator {
+    boolean(): boolean;
+    integer(minimum?: number, maximum?: number): number;
+    number(minimum?: number, maximum?: number): number;
+    bigint(minimum?: bigint, maximum?: bigint): bigint;
+    string(length?: number): string;
+    array<T>(closure: (index: number) => T, count?: number): T[];
 
-export interface TagCustom {
+    uuid(): string;
+    email(): string;
+    url(): string;
+    ipv4(): string;
+    ipv6(): string;
+    pattern(regex: RegExp): string;
+    date(minimum?: number, maximum?: number): string;
+    datetime(minimum?: number, maximum?: number): string;
+
+    customs?: IRandomGenerator.CustomMap;
+}
+export namespace IRandomGenerator {
+    export type CustomMap = {
+        [Type in keyof Customizable]?: 
+            (tags: ICommentTag[]) => Customizable[Type] | undefined;
+    };
+
+    export interface ICommentTag {
+        name: string;
+        value?: string;
+    }
+}
+```
+    </Tab>
+    <Tab>
+```typescript
+export interface Customizable {
+    number: number;
+    string: string;
+    bigint: bigint;
+}
+```
+    </Tab>
+</Tabs>
+
+You can add custom comment tags for random data generation.
+
+As above `IRandomGenerator.CustomMap` has complicate currying function type, it may hard to understand for newcomers. However, such newcomers may easily understand, how to customize the random generation, after reading the following example.
+
+Just define custom comment tags like below, then everything would be done.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/random-customization.ts" showLineNumbers {4-23}
+import typia from "typia";
+import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
+
+const data: TagCustom = typia.random<TagCustom>({
+    customs: {
+        string: (tags: typia.IRandomGenerator.ICommentTag[]) => {
+            if (tags.find((t) => t.name === "dollar") !== undefined)
+                return "$" + RandomGenerator.integer();
+
+            const postfix = tags.find((t) => t.name === "postfix");
+            if (postfix !== undefined)
+                return RandomGenerator.string() + postfix.value;
+        },
+        number: (tags: typia.IRandomGenerator.ICommentTag[]) => {
+            const powerOf = tags.find((t) => t.name === "powerOf");
+            if (powerOf !== undefined)
+                return Math.pow(
+                    Number(powerOf.value),
+                    RandomGenerator.integer(1, 4),
+                );
+        },
+    }
+});
+
+console.log(data);
+
+interface TagCustom {
     /**
      * Regular feature supported by typia
      *
@@ -247,25 +540,59 @@ export interface TagCustom {
      */
     power: number;
 }
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/random-customization.js" showLineNumbers {4-47}
+import typia from "typia";
+import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
 
-const data: TagCustom = typia.random<TagCustom>({
+const data = (generator => {
+    const $generator = typia.random.generator;
+    const $ro0 = (_recursive = false, _depth = 0) => ({
+        id: (generator?.customs ?? $generator.customs)?.string?.([
+            {
+                name: "format",
+                value: "uuid"
+            }
+        ]) ?? (generator?.uuid ?? $generator.uuid)(),
+        dollar: (generator?.customs ?? $generator.customs)?.string?.([
+            {
+                name: "dollar"
+            }
+        ]) ?? (generator?.string ?? $generator.string)(),
+        postfix: (generator?.customs ?? $generator.customs)?.string?.([
+            {
+                name: "postfix",
+                value: "abcd"
+            }
+        ]) ?? (generator?.string ?? $generator.string)(),
+        power: (generator?.customs ?? $generator.customs)?.number?.([
+            {
+                name: "powerOf",
+                value: "10"
+            }
+        ]) ?? (generator?.number ?? $generator.number)(0, 100)
+    });
+    return $ro0();
+})({
     customs: {
-        string: (tags: typia.IRandomGenerator.ICommentTag[]) => {
+        string: (tags) => {
             if (tags.find((t) => t.name === "dollar") !== undefined)
                 return "$" + RandomGenerator.integer();
-
             const postfix = tags.find((t) => t.name === "postfix");
             if (postfix !== undefined)
                 return RandomGenerator.string() + postfix.value;
         },
-        number: (tags: typia.IRandomGenerator.ICommentTag[]) => {
+        number: (tags) => {
             const powerOf = tags.find((t) => t.name === "powerOf");
             if (powerOf !== undefined)
-                return Math.pow(
-                    Number(powerOf.value),
-                    RandomGenerator.integer(1, 4),
-                );
+                return Math.pow(Number(powerOf.value), RandomGenerator.integer(1, 4));
         },
-    }
+    },
 });
+
+console.log(data);
 ```
+    </Tab>
+</Tabs>

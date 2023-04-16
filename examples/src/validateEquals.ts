@@ -1,11 +1,13 @@
 import typia from "typia";
-import { v4 } from "uuid";
 
-typia.assert<IMember>({
-    id: v4(),
-    email: "samchon.github@gmail.com",
+const res: typia.IValidation<IMember> = typia.validateEquals<IMember>({
     age: 30,
+    email: "samchon.github@gmail.com",
+    id: 5, // wrong, must be string (uuid)
+    sex: 1, // extra property
 });
+
+if (!res.success) console.log(res.errors);
 
 interface IMember {
     /**

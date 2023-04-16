@@ -15,7 +15,7 @@ This is the transform mode performing AOT (Ahead of Time) compilation.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="src/check.ts" showLineNumbers {3}
+```typescript filename="examples/src/check.ts" showLineNumbers {3}
 import typia from "typia";
 
 export const check = typia.createIs<IMember>();
@@ -40,7 +40,7 @@ interface IMember {
 ```
     </Tab>
     <Tab>
-```javascript filename="bin/check.js" showLineNumbers {2-12}
+```javascript filename="examples/bin/check.js" showLineNumbers {2-12}
 import typia from "typia";
 export const check = input => {
     const $is_uuid = typia.createIs.is_uuid;
@@ -87,7 +87,7 @@ Install `typia` through `npm install` command and run `typia generate` command. 
 
 <Tabs items={['TypeScript Source Code', 'Generated TypeScript File']}>
     <Tab>
-```typescript filename="src/templates/check.ts" showLineNumbers {5}
+```typescript filename="examples/src/templates/check.ts" showLineNumbers {5}
 import typia from "typia";
 
 import { IMember } from "../structures/IMember";
@@ -96,7 +96,7 @@ export const check = typia.createIs<IMember>();
 ```
     </Tab>
     <Tab>
-```typescript filename="src/generated/check.ts" showLineNumbers {3-13}
+```typescript filename="examples/src/generated/check.ts" showLineNumbers {3-13}
 import typia from "typia";
 import { IMember } from "../structures/IMember";
 export const check = (input: any): input is IMember => {

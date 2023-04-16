@@ -12,7 +12,7 @@ export function validate<T>(input: unknown | T): IValidation<T>; // detailed
 export const customValidators: CustomValidatorMap; // customizable
 
 // ENHANCED JSON
-export function application<T>(): IJsonApplication; // JSON schema
+export function application<...Args>(): IJsonApplication; // JSON schema
 export function assertParse<T>(input: string): T; // type safe parser
 export function assertStringify<T>(input: T): string; // safe and faster
     // +) isParse, validateParse 
