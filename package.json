@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "rimraf docs && next build && next export && mv out docs && cp CNAME docs/CNAME && cp docs/docs.html docs/docs/index.html",
     "start": "next start"
   },
   "repository": {
@@ -31,6 +31,7 @@
   "devDependencies": {
     "@types/node": "18.11.10",
     "@types/react": "^18.0.35",
+    "rimraf": "^5.0.0",
     "typescript": "^4.9.3"
   }
 }
