@@ -28,16 +28,13 @@ export const check_template =
         ];
 
         // TEMPLATES
-        const internal = templates.map((tpl) =>
-            ts.factory.createStrictEquality(
-                ts.factory.createTrue(),
-                ts.factory.createCallExpression(
-                    ts.factory.createIdentifier(
-                        `RegExp(/${template_to_pattern(true)(tpl)}/).test`,
-                    ),
-                    undefined,
-                    [input],
+        const internal: ts.Expression[] = templates.map((tpl) =>
+            ts.factory.createCallExpression(
+                ts.factory.createIdentifier(
+                    `RegExp(/${template_to_pattern(true)(tpl)}/).test`,
                 ),
+                undefined,
+                [input],
             ),
         );
         conditions.push(

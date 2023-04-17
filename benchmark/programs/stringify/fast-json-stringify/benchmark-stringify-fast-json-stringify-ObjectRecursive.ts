@@ -4,5 +4,5 @@ import { ObjectRecursive } from "../../../../test/structures/ObjectRecursive";
 import { createStringifyFastBenchmarkProgram } from "./createStringifyFastBenchmarkProgram";
 
 createStringifyFastBenchmarkProgram(
-    typia.application<[ObjectRecursive], "ajv">()
+    typia.application<[ObjectRecursive], "ajv">(),
 );
