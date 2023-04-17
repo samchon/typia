@@ -58,7 +58,7 @@ export const test_validateClone_ArrayRecursive = _test_validateClone(
                                     $report(_exceptionable, {
                                         path: _path + ".children",
                                         expected:
-                                            "Array<Resolve<ArrayRecursive.ICategory>>",
+                                            "Array<ArrayRecursive.ICategory>",
                                         value: input.children,
                                     })) &&
                                     input.children
@@ -73,7 +73,7 @@ export const test_validateClone_ArrayRecursive = _test_validateClone(
                                                             _index1 +
                                                             "]",
                                                         expected:
-                                                            "Resolve<ArrayRecursive.ICategory>",
+                                                            "ArrayRecursive.ICategory",
                                                         value: elem,
                                                     })) &&
                                                     $vo0(
@@ -91,7 +91,7 @@ export const test_validateClone_ArrayRecursive = _test_validateClone(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<ArrayRecursive.ICategory>",
+                                                        "ArrayRecursive.ICategory",
                                                     value: elem,
                                                 }),
                                         )
@@ -99,7 +99,7 @@ export const test_validateClone_ArrayRecursive = _test_validateClone(
                                     $report(_exceptionable, {
                                         path: _path + ".children",
                                         expected:
-                                            "Array<Resolve<ArrayRecursive.ICategory>>",
+                                            "Array<ArrayRecursive.ICategory>",
                                         value: input.children,
                                     }),
                                 ("number" === typeof input.id &&
@@ -126,8 +126,7 @@ export const test_validateClone_ArrayRecursive = _test_validateClone(
                                     null !== input.created_at) ||
                                     $report(_exceptionable, {
                                         path: _path + ".created_at",
-                                        expected:
-                                            "Resolve<ArrayRecursive.ITimestamp>",
+                                        expected: "ArrayRecursive.ITimestamp",
                                         value: input.created_at,
                                     })) &&
                                     $vo1(
@@ -137,8 +136,7 @@ export const test_validateClone_ArrayRecursive = _test_validateClone(
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".created_at",
-                                        expected:
-                                            "Resolve<ArrayRecursive.ITimestamp>",
+                                        expected: "ArrayRecursive.ITimestamp",
                                         value: input.created_at,
                                     }),
                             ].every((flag: boolean) => flag);
@@ -167,14 +165,13 @@ export const test_validateClone_ArrayRecursive = _test_validateClone(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Resolve<ArrayRecursive.ICategory>",
+                                    expected: "ArrayRecursive.ICategory",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ArrayRecursive.ICategory>",
+                                expected: "ArrayRecursive.ICategory",
                                 value: input,
                             })
                         );

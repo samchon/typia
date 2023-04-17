@@ -67,7 +67,7 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
                                 $report(true, {
                                     path: _path + "",
                                     expected:
-                                        "[boolean, number, ...Resolve<TupleRestObject.IObject>]",
+                                        "[boolean, number, ...TupleRestObject.IObject]",
                                     value: input,
                                 })) &&
                                 [
@@ -89,7 +89,7 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
                                     $report(true, {
                                         path: _path + "",
                                         expected:
-                                            "Array<Resolve<TupleRestObject.IObject>>",
+                                            "Array<TupleRestObject.IObject>",
                                         value: input.slice(2),
                                     })) &&
                                     input
@@ -105,7 +105,7 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
                                                             (2 + _index1) +
                                                             "]",
                                                         expected:
-                                                            "Resolve<TupleRestObject.IObject>",
+                                                            "TupleRestObject.IObject",
                                                         value: elem,
                                                     })) &&
                                                     $vo0(
@@ -123,7 +123,7 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
                                                         (2 + _index1) +
                                                         "]",
                                                     expected:
-                                                        "Resolve<TupleRestObject.IObject>",
+                                                        "TupleRestObject.IObject",
                                                     value: elem,
                                                 }),
                                         )
@@ -131,13 +131,13 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
                                     $report(true, {
                                         path: _path + "",
                                         expected:
-                                            "Array<Resolve<TupleRestObject.IObject>>",
+                                            "Array<TupleRestObject.IObject>",
                                         value: input.slice(2),
                                     }))) ||
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    "[boolean, number, ...Resolve<TupleRestObject.IObject>]",
+                                    "[boolean, number, ...TupleRestObject.IObject]",
                                 value: input,
                             })
                         );

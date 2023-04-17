@@ -70,8 +70,7 @@ export const test_assertPrune_TagAtomicUnion = _test_assertPrune(
                             (Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<Resolve<TagAtomicUnion.Type>>",
+                                    expected: "Array<TagAtomicUnion.Type>",
                                     value: input,
                                 })) &&
                             input.every(
@@ -80,8 +79,7 @@ export const test_assertPrune_TagAtomicUnion = _test_assertPrune(
                                         null !== elem) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "Resolve<TagAtomicUnion.Type>",
+                                            expected: "TagAtomicUnion.Type",
                                             value: elem,
                                         })) &&
                                     $ao0(

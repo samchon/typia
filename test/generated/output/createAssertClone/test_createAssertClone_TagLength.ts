@@ -98,7 +98,7 @@ export const test_createAssertClone_TagLength = _test_assertClone(
                         (Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<TagLength.Type>>",
+                                expected: "Array<TagLength.Type>",
                                 value: input,
                             })) &&
                         input.every(
@@ -106,7 +106,7 @@ export const test_createAssertClone_TagLength = _test_assertClone(
                                 (("object" === typeof elem && null !== elem) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
-                                        expected: "Resolve<TagLength.Type>",
+                                        expected: "TagLength.Type",
                                         value: elem,
                                     })) &&
                                 $ao0(elem, _path + "[" + _index1 + "]", true),

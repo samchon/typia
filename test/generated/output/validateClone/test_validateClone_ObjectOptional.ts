@@ -78,13 +78,13 @@ export const test_validateClone_ObjectOptional = _test_validateClone(
                                 false === Array.isArray(input)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<ObjectOptional>",
+                                    expected: "ObjectOptional",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ObjectOptional>",
+                                expected: "ObjectOptional",
                                 value: input,
                             })
                         );

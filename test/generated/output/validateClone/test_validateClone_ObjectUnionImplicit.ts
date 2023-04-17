@@ -233,8 +233,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     null !== input.p1) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p1",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p1,
                                     })) &&
                                     $vo0(
@@ -244,16 +243,14 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p1",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p1,
                                     }),
                                 ((("object" === typeof input.p2 &&
                                     null !== input.p2) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p2",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p2,
                                     })) &&
                                     $vo0(
@@ -263,8 +260,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p2",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p2,
                                     }),
                                 null === input.width ||
@@ -296,8 +292,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     null !== input.p1) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p1",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p1,
                                     })) &&
                                     $vo0(
@@ -307,16 +302,14 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p1",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p1,
                                     }),
                                 ((("object" === typeof input.p2 &&
                                     null !== input.p2) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p2",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p2,
                                     })) &&
                                     $vo0(
@@ -326,16 +319,14 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p2",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p2,
                                     }),
                                 ((("object" === typeof input.p3 &&
                                     null !== input.p3) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p3",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p3,
                                     })) &&
                                     $vo0(
@@ -345,8 +336,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p3",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p3,
                                     }),
                                 null === input.width ||
@@ -387,8 +377,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     null !== input.p1) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p1",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p1,
                                     })) &&
                                     $vo0(
@@ -398,16 +387,14 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p1",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p1,
                                     }),
                                 ((("object" === typeof input.p2 &&
                                     null !== input.p2) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p2",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p2,
                                     })) &&
                                     $vo0(
@@ -417,16 +404,14 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p2",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p2,
                                     }),
                                 ((("object" === typeof input.p3 &&
                                     null !== input.p3) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p3",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p3,
                                     })) &&
                                     $vo0(
@@ -436,16 +421,14 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p3",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p3,
                                     }),
                                 ((("object" === typeof input.p4 &&
                                     null !== input.p4) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p4",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p4,
                                     })) &&
                                     $vo0(
@@ -455,8 +438,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".p4",
-                                        expected:
-                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                        expected: "ObjectUnionImplicit.IPoint",
                                         value: input.p4,
                                     }),
                                 null === input.width ||
@@ -497,7 +479,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     $report(_exceptionable, {
                                         path: _path + ".points",
                                         expected:
-                                            "Array<Resolve<ObjectUnionImplicit.IPoint>>",
+                                            "Array<ObjectUnionImplicit.IPoint>",
                                         value: input.points,
                                     })) &&
                                     input.points
@@ -512,7 +494,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                                             _index2 +
                                                             "]",
                                                         expected:
-                                                            "Resolve<ObjectUnionImplicit.IPoint>",
+                                                            "ObjectUnionImplicit.IPoint",
                                                         value: elem,
                                                     })) &&
                                                     $vo0(
@@ -530,7 +512,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                                         _index2 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<ObjectUnionImplicit.IPoint>",
+                                                        "ObjectUnionImplicit.IPoint",
                                                     value: elem,
                                                 }),
                                         )
@@ -538,7 +520,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     $report(_exceptionable, {
                                         path: _path + ".points",
                                         expected:
-                                            "Array<Resolve<ObjectUnionImplicit.IPoint>>",
+                                            "Array<ObjectUnionImplicit.IPoint>",
                                         value: input.points,
                                     }),
                                 null === input.length ||
@@ -562,7 +544,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     $report(_exceptionable, {
                                         path: _path + ".outer",
                                         expected:
-                                            "Resolve<ObjectUnionImplicit.IPolyline>",
+                                            "ObjectUnionImplicit.IPolyline",
                                         value: input.outer,
                                     })) &&
                                     $vo4(
@@ -573,7 +555,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     $report(_exceptionable, {
                                         path: _path + ".outer",
                                         expected:
-                                            "Resolve<ObjectUnionImplicit.IPolyline>",
+                                            "ObjectUnionImplicit.IPolyline",
                                         value: input.outer,
                                     }),
                                 undefined === input.inner ||
@@ -581,7 +563,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                         $report(_exceptionable, {
                                             path: _path + ".inner",
                                             expected:
-                                                "(Array<Resolve<ObjectUnionImplicit.IPolyline>> | undefined)",
+                                                "(Array<ObjectUnionImplicit.IPolyline> | undefined)",
                                             value: input.inner,
                                         })) &&
                                         input.inner
@@ -599,7 +581,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                                                     _index3 +
                                                                     "]",
                                                                 expected:
-                                                                    "Resolve<ObjectUnionImplicit.IPolyline>",
+                                                                    "ObjectUnionImplicit.IPolyline",
                                                                 value: elem,
                                                             },
                                                         )) &&
@@ -619,7 +601,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                                             _index3 +
                                                             "]",
                                                         expected:
-                                                            "Resolve<ObjectUnionImplicit.IPolyline>",
+                                                            "ObjectUnionImplicit.IPolyline",
                                                         value: elem,
                                                     }),
                                             )
@@ -627,7 +609,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     $report(_exceptionable, {
                                         path: _path + ".inner",
                                         expected:
-                                            "(Array<Resolve<ObjectUnionImplicit.IPolyline>> | undefined)",
+                                            "(Array<ObjectUnionImplicit.IPolyline> | undefined)",
                                         value: input.inner,
                                     }),
                                 null === input.area ||
@@ -652,7 +634,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                         $report(_exceptionable, {
                                             path: _path + ".centroid",
                                             expected:
-                                                "(Resolve<ObjectUnionImplicit.IPoint> | undefined)",
+                                                "(ObjectUnionImplicit.IPoint | undefined)",
                                             value: input.centroid,
                                         })) &&
                                         $vo0(
@@ -663,7 +645,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                     $report(_exceptionable, {
                                         path: _path + ".centroid",
                                         expected:
-                                            "(Resolve<ObjectUnionImplicit.IPoint> | undefined)",
+                                            "(ObjectUnionImplicit.IPoint | undefined)",
                                         value: input.centroid,
                                     }),
                                 ("number" === typeof input.radius &&
@@ -738,7 +720,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                 $report(true, {
                                     path: _path + "",
                                     expected:
-                                        "Array<(Resolve<ObjectUnionImplicit.ICircle> | Resolve<ObjectUnionImplicit.ILine> | Resolve<ObjectUnionImplicit.IPoint> | Resolve<ObjectUnionImplicit.IPolygon> | Resolve<ObjectUnionImplicit.IPolyline> | Resolve<ObjectUnionImplicit.IRectangle> | Resolve<ObjectUnionImplicit.ITriangle>)>",
+                                        "Array<(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)>",
                                     value: input,
                                 })) &&
                                 input
@@ -753,7 +735,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "(Resolve<ObjectUnionImplicit.ICircle> | Resolve<ObjectUnionImplicit.ILine> | Resolve<ObjectUnionImplicit.IPoint> | Resolve<ObjectUnionImplicit.IPolygon> | Resolve<ObjectUnionImplicit.IPolyline> | Resolve<ObjectUnionImplicit.IRectangle> | Resolve<ObjectUnionImplicit.ITriangle>)",
+                                                        "(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)",
                                                     value: elem,
                                                 })) &&
                                                 $vu0(
@@ -765,7 +747,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
-                                                    "(Resolve<ObjectUnionImplicit.ICircle> | Resolve<ObjectUnionImplicit.ILine> | Resolve<ObjectUnionImplicit.IPoint> | Resolve<ObjectUnionImplicit.IPolygon> | Resolve<ObjectUnionImplicit.IPolyline> | Resolve<ObjectUnionImplicit.IRectangle> | Resolve<ObjectUnionImplicit.ITriangle>)",
+                                                    "(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)",
                                                 value: elem,
                                             }),
                                     )
@@ -773,7 +755,7 @@ export const test_validateClone_ObjectUnionImplicit = _test_validateClone(
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    "Array<(Resolve<ObjectUnionImplicit.ICircle> | Resolve<ObjectUnionImplicit.ILine> | Resolve<ObjectUnionImplicit.IPoint> | Resolve<ObjectUnionImplicit.IPolygon> | Resolve<ObjectUnionImplicit.IPolyline> | Resolve<ObjectUnionImplicit.IRectangle> | Resolve<ObjectUnionImplicit.ITriangle>)>",
+                                    "Array<(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)>",
                                 value: input,
                             })
                         );

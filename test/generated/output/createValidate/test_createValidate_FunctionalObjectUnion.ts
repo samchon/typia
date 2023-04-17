@@ -95,8 +95,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                         ((("object" === typeof input.p1 && null !== input.p1) ||
                             $report(_exceptionable, {
                                 path: _path + ".p1",
-                                expected:
-                                    "Resolve<FunctionalObjectUnion.IPoint>",
+                                expected: "FunctionalObjectUnion.IPoint",
                                 value: input.p1,
                             })) &&
                             $vo0(
@@ -106,15 +105,13 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                             )) ||
                             $report(_exceptionable, {
                                 path: _path + ".p1",
-                                expected:
-                                    "Resolve<FunctionalObjectUnion.IPoint>",
+                                expected: "FunctionalObjectUnion.IPoint",
                                 value: input.p1,
                             }),
                         ((("object" === typeof input.p2 && null !== input.p2) ||
                             $report(_exceptionable, {
                                 path: _path + ".p2",
-                                expected:
-                                    "Resolve<FunctionalObjectUnion.IPoint>",
+                                expected: "FunctionalObjectUnion.IPoint",
                                 value: input.p2,
                             })) &&
                             $vo0(
@@ -124,8 +121,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                             )) ||
                             $report(_exceptionable, {
                                 path: _path + ".p2",
-                                expected:
-                                    "Resolve<FunctionalObjectUnion.IPoint>",
+                                expected: "FunctionalObjectUnion.IPoint",
                                 value: input.p2,
                             }),
                         "function" === typeof input.length ||
@@ -144,8 +140,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                         ((Array.isArray(input.points) ||
                             $report(_exceptionable, {
                                 path: _path + ".points",
-                                expected:
-                                    "Array<Resolve<FunctionalObjectUnion.IPoint>>",
+                                expected: "Array<FunctionalObjectUnion.IPoint>",
                                 value: input.points,
                             })) &&
                             input.points
@@ -160,7 +155,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                                                     _index2 +
                                                     "]",
                                                 expected:
-                                                    "Resolve<FunctionalObjectUnion.IPoint>",
+                                                    "FunctionalObjectUnion.IPoint",
                                                 value: elem,
                                             })) &&
                                             $vo0(
@@ -178,15 +173,14 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                                                 _index2 +
                                                 "]",
                                             expected:
-                                                "Resolve<FunctionalObjectUnion.IPoint>",
+                                                "FunctionalObjectUnion.IPoint",
                                             value: elem,
                                         }),
                                 )
                                 .every((flag: boolean) => flag)) ||
                             $report(_exceptionable, {
                                 path: _path + ".points",
-                                expected:
-                                    "Array<Resolve<FunctionalObjectUnion.IPoint>>",
+                                expected: "Array<FunctionalObjectUnion.IPoint>",
                                 value: input.points,
                             }),
                         "function" === typeof input.length ||
@@ -205,8 +199,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                         ((Array.isArray(input.points) ||
                             $report(_exceptionable, {
                                 path: _path + ".points",
-                                expected:
-                                    "Array<Resolve<FunctionalObjectUnion.IPoint>>",
+                                expected: "Array<FunctionalObjectUnion.IPoint>",
                                 value: input.points,
                             })) &&
                             input.points
@@ -221,7 +214,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                                                     _index3 +
                                                     "]",
                                                 expected:
-                                                    "Resolve<FunctionalObjectUnion.IPoint>",
+                                                    "FunctionalObjectUnion.IPoint",
                                                 value: elem,
                                             })) &&
                                             $vo0(
@@ -239,15 +232,14 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                                                 _index3 +
                                                 "]",
                                             expected:
-                                                "Resolve<FunctionalObjectUnion.IPoint>",
+                                                "FunctionalObjectUnion.IPoint",
                                             value: elem,
                                         }),
                                 )
                                 .every((flag: boolean) => flag)) ||
                             $report(_exceptionable, {
                                 path: _path + ".points",
-                                expected:
-                                    "Array<Resolve<FunctionalObjectUnion.IPoint>>",
+                                expected: "Array<FunctionalObjectUnion.IPoint>",
                                 value: input.points,
                             }),
                         "function" === typeof input.length ||
@@ -282,7 +274,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                         $report(true, {
                             path: _path + "",
                             expected:
-                                "Array<(Resolve<FunctionalObjectUnion.ILine> | Resolve<FunctionalObjectUnion.IPoint> | Resolve<FunctionalObjectUnion.IPolygon> | Resolve<FunctionalObjectUnion.IPolyline>)>",
+                                "Array<(FunctionalObjectUnion.ILine | FunctionalObjectUnion.IPoint | FunctionalObjectUnion.IPolygon | FunctionalObjectUnion.IPolyline)>",
                             value: input,
                         })) &&
                         input
@@ -293,7 +285,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "(Resolve<FunctionalObjectUnion.ILine> | Resolve<FunctionalObjectUnion.IPoint> | Resolve<FunctionalObjectUnion.IPolygon> | Resolve<FunctionalObjectUnion.IPolyline>)",
+                                                "(FunctionalObjectUnion.ILine | FunctionalObjectUnion.IPoint | FunctionalObjectUnion.IPolygon | FunctionalObjectUnion.IPolyline)",
                                             value: elem,
                                         })) &&
                                         $vu0(
@@ -304,7 +296,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                                     $report(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
-                                            "(Resolve<FunctionalObjectUnion.ILine> | Resolve<FunctionalObjectUnion.IPoint> | Resolve<FunctionalObjectUnion.IPolygon> | Resolve<FunctionalObjectUnion.IPolyline>)",
+                                            "(FunctionalObjectUnion.ILine | FunctionalObjectUnion.IPoint | FunctionalObjectUnion.IPolygon | FunctionalObjectUnion.IPolyline)",
                                         value: elem,
                                     }),
                             )
@@ -312,7 +304,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                     $report(true, {
                         path: _path + "",
                         expected:
-                            "Array<(Resolve<FunctionalObjectUnion.ILine> | Resolve<FunctionalObjectUnion.IPoint> | Resolve<FunctionalObjectUnion.IPolygon> | Resolve<FunctionalObjectUnion.IPolyline>)>",
+                            "Array<(FunctionalObjectUnion.ILine | FunctionalObjectUnion.IPoint | FunctionalObjectUnion.IPolygon | FunctionalObjectUnion.IPolyline)>",
                         value: input,
                     })
                 );

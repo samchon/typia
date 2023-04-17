@@ -493,7 +493,7 @@ export const test_validateStringify_MapAlias = _test_validateStringify(
                                     $report(_exceptionable, {
                                         path: _path + ".objects",
                                         expected:
-                                            "Map<Resolve<MapAlias.Person>, number>",
+                                            "Map<MapAlias.Person, number>",
                                         value: input.objects,
                                     })) &&
                                     [...input.objects]
@@ -507,7 +507,7 @@ export const test_validateStringify_MapAlias = _test_validateStringify(
                                                             _index6 +
                                                             "]",
                                                         expected:
-                                                            "[Resolve<MapAlias.Person>, number]",
+                                                            "[MapAlias.Person, number]",
                                                         value: elem,
                                                     })) &&
                                                     (elem.length === 2 ||
@@ -520,7 +520,7 @@ export const test_validateStringify_MapAlias = _test_validateStringify(
                                                                     _index6 +
                                                                     "]",
                                                                 expected:
-                                                                    "[Resolve<MapAlias.Person>, number]",
+                                                                    "[MapAlias.Person, number]",
                                                                 value: elem,
                                                             },
                                                         )) &&
@@ -537,7 +537,7 @@ export const test_validateStringify_MapAlias = _test_validateStringify(
                                                                         _index6 +
                                                                         "][0]",
                                                                     expected:
-                                                                        "Resolve<MapAlias.Person>",
+                                                                        "MapAlias.Person",
                                                                     value: elem[0],
                                                                 },
                                                             )) &&
@@ -559,7 +559,7 @@ export const test_validateStringify_MapAlias = _test_validateStringify(
                                                                         _index6 +
                                                                         "][0]",
                                                                     expected:
-                                                                        "Resolve<MapAlias.Person>",
+                                                                        "MapAlias.Person",
                                                                     value: elem[0],
                                                                 },
                                                             ),
@@ -591,7 +591,7 @@ export const test_validateStringify_MapAlias = _test_validateStringify(
                                                         _index6 +
                                                         "]",
                                                     expected:
-                                                        "[Resolve<MapAlias.Person>, number]",
+                                                        "[MapAlias.Person, number]",
                                                     value: elem,
                                                 }),
                                         )
@@ -599,7 +599,7 @@ export const test_validateStringify_MapAlias = _test_validateStringify(
                                     $report(_exceptionable, {
                                         path: _path + ".objects",
                                         expected:
-                                            "Map<Resolve<MapAlias.Person>, number>",
+                                            "Map<MapAlias.Person, number>",
                                         value: input.objects,
                                     }),
                             ].every((flag: boolean) => flag);
@@ -633,13 +633,13 @@ export const test_validateStringify_MapAlias = _test_validateStringify(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<MapAlias>",
+                                    expected: "MapAlias",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<MapAlias>",
+                                expected: "MapAlias",
                                 value: input,
                             })
                         );

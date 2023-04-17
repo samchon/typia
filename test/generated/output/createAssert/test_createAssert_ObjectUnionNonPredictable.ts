@@ -60,7 +60,7 @@ export const test_createAssert_ObjectUnionNonPredictable = _test_assert(
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected:
-                                "Resolve<ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>>",
+                                "ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>",
                             value: input.value,
                         })) &&
                     $ao1(input.value, _path + ".value", true && _exceptionable);
@@ -74,7 +74,7 @@ export const test_createAssert_ObjectUnionNonPredictable = _test_assert(
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected:
-                                "(Resolve<ObjectUnionNonPredictable.IWrapper<boolean>> | Resolve<ObjectUnionNonPredictable.IWrapper<number>> | Resolve<ObjectUnionNonPredictable.IWrapper<string>>)",
+                                "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
                             value: input.value,
                         })) &&
                     $au0(input.value, _path + ".value", true && _exceptionable);
@@ -88,7 +88,7 @@ export const test_createAssert_ObjectUnionNonPredictable = _test_assert(
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected:
-                                "Resolve<ObjectUnionNonPredictable.IPointer<boolean>>",
+                                "ObjectUnionNonPredictable.IPointer<boolean>",
                             value: input.value,
                         })) &&
                     $ao3(input.value, _path + ".value", true && _exceptionable);
@@ -113,7 +113,7 @@ export const test_createAssert_ObjectUnionNonPredictable = _test_assert(
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected:
-                                "Resolve<ObjectUnionNonPredictable.IPointer<number>>",
+                                "ObjectUnionNonPredictable.IPointer<number>",
                             value: input.value,
                         })) &&
                     $ao5(input.value, _path + ".value", true && _exceptionable);
@@ -139,7 +139,7 @@ export const test_createAssert_ObjectUnionNonPredictable = _test_assert(
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected:
-                                "Resolve<ObjectUnionNonPredictable.IPointer<string>>",
+                                "ObjectUnionNonPredictable.IPointer<string>",
                             value: input.value,
                         })) &&
                     $ao7(input.value, _path + ".value", true && _exceptionable);
@@ -173,7 +173,7 @@ export const test_createAssert_ObjectUnionNonPredictable = _test_assert(
                         $guard(true, {
                             path: _path + "",
                             expected:
-                                "Array<Resolve<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>>",
+                                "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
                             value: input,
                         })) &&
                     input.every(
@@ -182,7 +182,7 @@ export const test_createAssert_ObjectUnionNonPredictable = _test_assert(
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
-                                        "Resolve<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
+                                        "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
                                     value: elem,
                                 })) &&
                             $ao0(elem, _path + "[" + _index1 + "]", true),

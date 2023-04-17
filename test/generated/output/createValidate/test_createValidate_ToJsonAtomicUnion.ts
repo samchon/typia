@@ -42,8 +42,7 @@ export const test_createValidate_ToJsonAtomicUnion = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<Resolve<ToJsonAtomicUnion.IToJson>>",
+                            expected: "Array<ToJsonAtomicUnion.IToJson>",
                             value: input,
                         })) &&
                         input
@@ -54,7 +53,7 @@ export const test_createValidate_ToJsonAtomicUnion = _test_validate(
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "Resolve<ToJsonAtomicUnion.IToJson>",
+                                                "ToJsonAtomicUnion.IToJson",
                                             value: elem,
                                         })) &&
                                         $vo0(
@@ -64,15 +63,14 @@ export const test_createValidate_ToJsonAtomicUnion = _test_validate(
                                         )) ||
                                     $report(true, {
                                         path: _path + "[" + _index1 + "]",
-                                        expected:
-                                            "Resolve<ToJsonAtomicUnion.IToJson>",
+                                        expected: "ToJsonAtomicUnion.IToJson",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Array<Resolve<ToJsonAtomicUnion.IToJson>>",
+                        expected: "Array<ToJsonAtomicUnion.IToJson>",
                         value: input,
                     })
                 );

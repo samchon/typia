@@ -107,7 +107,7 @@ export const test_createAssertEquals_ObjectUndefined = _test_assertEquals(
                             $guard(_exceptionable, {
                                 path: _path + ".classroom",
                                 expected:
-                                    "(Resolve<ObjectUndefined.IClassroom> | undefined)",
+                                    "(ObjectUndefined.IClassroom | undefined)",
                                 value: input.classroom,
                             })) &&
                             $ao1(
@@ -205,8 +205,7 @@ export const test_createAssertEquals_ObjectUndefined = _test_assertEquals(
                     (Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected:
-                                "Array<Resolve<ObjectUndefined.ILecture>>",
+                            expected: "Array<ObjectUndefined.ILecture>",
                             value: input,
                         })) &&
                     input.every(
@@ -214,8 +213,7 @@ export const test_createAssertEquals_ObjectUndefined = _test_assertEquals(
                             (("object" === typeof elem && null !== elem) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
-                                    expected:
-                                        "Resolve<ObjectUndefined.ILecture>",
+                                    expected: "ObjectUndefined.ILecture",
                                     value: elem,
                                 })) &&
                             $ao0(elem, _path + "[" + _index1 + "]", true),

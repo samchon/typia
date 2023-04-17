@@ -65,7 +65,7 @@ export const test_assertClone_DynamicUndefined = _test_assertClone(
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicUndefined>",
+                                    expected: "DynamicUndefined",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

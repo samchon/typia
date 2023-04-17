@@ -75,8 +75,7 @@ export const test_validateStringify_TagAtomicUnion = _test_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<Resolve<TagAtomicUnion.Type>>",
+                                    expected: "Array<TagAtomicUnion.Type>",
                                     value: input,
                                 })) &&
                                 input
@@ -91,7 +90,7 @@ export const test_validateStringify_TagAtomicUnion = _test_validateStringify(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<TagAtomicUnion.Type>",
+                                                        "TagAtomicUnion.Type",
                                                     value: elem,
                                                 })) &&
                                                 $vo0(
@@ -102,15 +101,14 @@ export const test_validateStringify_TagAtomicUnion = _test_validateStringify(
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "Resolve<TagAtomicUnion.Type>",
+                                                expected: "TagAtomicUnion.Type",
                                                 value: elem,
                                             }),
                                     )
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<TagAtomicUnion.Type>>",
+                                expected: "Array<TagAtomicUnion.Type>",
                                 value: input,
                             })
                         );

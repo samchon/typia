@@ -105,7 +105,7 @@ export const test_createAssertClone_NativeUnion = _test_assertClone(
                         (Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<NativeUnion.Union>>",
+                                expected: "Array<NativeUnion.Union>",
                                 value: input,
                             })) &&
                         input.every(
@@ -113,7 +113,7 @@ export const test_createAssertClone_NativeUnion = _test_assertClone(
                                 (("object" === typeof elem && null !== elem) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
-                                        expected: "Resolve<NativeUnion.Union>",
+                                        expected: "NativeUnion.Union",
                                         value: elem,
                                     })) &&
                                 $ao0(elem, _path + "[" + _index1 + "]", true),

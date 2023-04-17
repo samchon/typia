@@ -62,13 +62,13 @@ export const test_validateClone_ClassGetter = _test_validateClone(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<ClassGetter.Person>",
+                                    expected: "ClassGetter.Person",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ClassGetter.Person>",
+                                expected: "ClassGetter.Person",
                                 value: input,
                             })
                         );

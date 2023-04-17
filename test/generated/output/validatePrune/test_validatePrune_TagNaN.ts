@@ -127,13 +127,13 @@ export const test_validatePrune_TagNaN = _test_validatePrune(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<TagNaN>",
+                                    expected: "TagNaN",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<TagNaN>",
+                                expected: "TagNaN",
                                 value: input,
                             })
                         );

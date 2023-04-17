@@ -172,13 +172,13 @@ export const test_validateClone_DynamicComposite = _test_validateClone(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicComposite>",
+                                    expected: "DynamicComposite",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<DynamicComposite>",
+                                expected: "DynamicComposite",
                                 value: input,
                             })
                         );

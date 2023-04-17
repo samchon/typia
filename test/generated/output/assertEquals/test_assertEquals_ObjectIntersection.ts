@@ -90,7 +90,7 @@ export const test_assertEquals_ObjectIntersection = _test_assertEquals(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<ObjectIntersection>",
+                                expected: "ObjectIntersection",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

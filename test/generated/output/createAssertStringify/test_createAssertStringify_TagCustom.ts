@@ -97,7 +97,7 @@ export const test_createAssertStringify_TagCustom = _test_assertStringify(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<TagCustom>",
+                                expected: "TagCustom",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

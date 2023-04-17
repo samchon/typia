@@ -55,13 +55,13 @@ export const test_createValidateClone_ObjectIntersection = _test_validateClone(
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ObjectIntersection>",
+                                expected: "ObjectIntersection",
                                 value: input,
                             })) &&
                             $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<ObjectIntersection>",
+                            expected: "ObjectIntersection",
                             value: input,
                         })
                     );

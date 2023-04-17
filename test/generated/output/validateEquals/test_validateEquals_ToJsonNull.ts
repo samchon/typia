@@ -75,13 +75,13 @@ export const test_validateEquals_ToJsonNull = _test_validateEquals(
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ToJsonNull>",
+                                expected: "ToJsonNull",
                                 value: input,
                             })) &&
                             $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<ToJsonNull>",
+                            expected: "ToJsonNull",
                             value: input,
                         })
                     );

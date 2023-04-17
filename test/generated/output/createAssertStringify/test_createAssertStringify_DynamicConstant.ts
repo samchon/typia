@@ -65,7 +65,7 @@ export const test_createAssertStringify_DynamicConstant = _test_assertStringify(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<DynamicConstant>",
+                                expected: "DynamicConstant",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

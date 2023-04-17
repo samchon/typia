@@ -105,22 +105,21 @@ export const test_assertStringify_ToJsonTuple = _test_assertStringify(
                                 $guard(true, {
                                     path: _path + "",
                                     expected:
-                                        "[Resolve<ToJsonTuple.IToJson<string>>, Resolve<ToJsonTuple.IToJson<number>>, Resolve<ToJsonTuple.IToJson<boolean>>, Resolve<ToJsonTuple.IObject>]",
+                                        "[ToJsonTuple.IToJson<string>, ToJsonTuple.IToJson<number>, ToJsonTuple.IToJson<boolean>, ToJsonTuple.IObject]",
                                     value: input,
                                 })) &&
                             (input.length === 4 ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected:
-                                        "[Resolve<ToJsonTuple.IToJson<string>>, Resolve<ToJsonTuple.IToJson<number>>, Resolve<ToJsonTuple.IToJson<boolean>>, Resolve<ToJsonTuple.IObject>]",
+                                        "[ToJsonTuple.IToJson<string>, ToJsonTuple.IToJson<number>, ToJsonTuple.IToJson<boolean>, ToJsonTuple.IObject]",
                                     value: input,
                                 })) &&
                             (("object" === typeof input[0] &&
                                 null !== input[0]) ||
                                 $guard(true, {
                                     path: _path + "[0]",
-                                    expected:
-                                        "Resolve<ToJsonTuple.IToJson<string>>",
+                                    expected: "ToJsonTuple.IToJson<string>",
                                     value: input[0],
                                 })) &&
                             $ao0(input[0], _path + "[0]", true) &&
@@ -128,8 +127,7 @@ export const test_assertStringify_ToJsonTuple = _test_assertStringify(
                                 null !== input[1]) ||
                                 $guard(true, {
                                     path: _path + "[1]",
-                                    expected:
-                                        "Resolve<ToJsonTuple.IToJson<number>>",
+                                    expected: "ToJsonTuple.IToJson<number>",
                                     value: input[1],
                                 })) &&
                             $ao1(input[1], _path + "[1]", true) &&
@@ -137,8 +135,7 @@ export const test_assertStringify_ToJsonTuple = _test_assertStringify(
                                 null !== input[2]) ||
                                 $guard(true, {
                                     path: _path + "[2]",
-                                    expected:
-                                        "Resolve<ToJsonTuple.IToJson<boolean>>",
+                                    expected: "ToJsonTuple.IToJson<boolean>",
                                     value: input[2],
                                 })) &&
                             $ao2(input[2], _path + "[2]", true) &&
@@ -146,7 +143,7 @@ export const test_assertStringify_ToJsonTuple = _test_assertStringify(
                                 null !== input[3]) ||
                                 $guard(true, {
                                     path: _path + "[3]",
-                                    expected: "Resolve<ToJsonTuple.IObject>",
+                                    expected: "ToJsonTuple.IObject",
                                     value: input[3],
                                 })) &&
                             $ao3(input[3], _path + "[3]", true)

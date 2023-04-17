@@ -221,8 +221,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 null !== input.p1) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p1",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p1,
                                 })) &&
                                 $vo0(
@@ -232,16 +231,14 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p1",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p1,
                                 }),
                             ((("object" === typeof input.p2 &&
                                 null !== input.p2) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p2",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p2,
                                 })) &&
                                 $vo0(
@@ -251,8 +248,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p2",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p2,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -266,8 +262,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 null !== input.p1) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p1",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p1,
                                 })) &&
                                 $vo0(
@@ -277,16 +272,14 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p1",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p1,
                                 }),
                             ((("object" === typeof input.p2 &&
                                 null !== input.p2) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p2",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p2,
                                 })) &&
                                 $vo0(
@@ -296,16 +289,14 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p2",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p2,
                                 }),
                             ((("object" === typeof input.p3 &&
                                 null !== input.p3) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p3",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p3,
                                 })) &&
                                 $vo0(
@@ -315,8 +306,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p3",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p3,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -330,8 +320,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 null !== input.p1) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p1",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p1,
                                 })) &&
                                 $vo0(
@@ -341,16 +330,14 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p1",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p1,
                                 }),
                             ((("object" === typeof input.p2 &&
                                 null !== input.p2) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p2",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p2,
                                 })) &&
                                 $vo0(
@@ -360,16 +347,14 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p2",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p2,
                                 }),
                             ((("object" === typeof input.p3 &&
                                 null !== input.p3) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p3",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p3,
                                 })) &&
                                 $vo0(
@@ -379,16 +364,14 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p3",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p3,
                                 }),
                             ((("object" === typeof input.p4 &&
                                 null !== input.p4) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p4",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p4,
                                 })) &&
                                 $vo0(
@@ -398,8 +381,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".p4",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p4,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -413,7 +395,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 $report(_exceptionable, {
                                     path: _path + ".points",
                                     expected:
-                                        "Array<Resolve<ObjectUnionComposite.IPoint>>",
+                                        "Array<ObjectUnionComposite.IPoint>",
                                     value: input.points,
                                 })) &&
                                 input.points
@@ -428,7 +410,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                                         _index2 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                                        "ObjectUnionComposite.IPoint",
                                                     value: elem,
                                                 })) &&
                                                 $vo0(
@@ -446,7 +428,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                                     _index2 +
                                                     "]",
                                                 expected:
-                                                    "Resolve<ObjectUnionComposite.IPoint>",
+                                                    "ObjectUnionComposite.IPoint",
                                                 value: elem,
                                             }),
                                     )
@@ -454,7 +436,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 $report(_exceptionable, {
                                     path: _path + ".points",
                                     expected:
-                                        "Array<Resolve<ObjectUnionComposite.IPoint>>",
+                                        "Array<ObjectUnionComposite.IPoint>",
                                     value: input.points,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -468,8 +450,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 null !== input.outer) ||
                                 $report(_exceptionable, {
                                     path: _path + ".outer",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPolyline>",
+                                    expected: "ObjectUnionComposite.IPolyline",
                                     value: input.outer,
                                 })) &&
                                 $vo4(
@@ -479,15 +460,14 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".outer",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPolyline>",
+                                    expected: "ObjectUnionComposite.IPolyline",
                                     value: input.outer,
                                 }),
                             ((Array.isArray(input.inner) ||
                                 $report(_exceptionable, {
                                     path: _path + ".inner",
                                     expected:
-                                        "Array<Resolve<ObjectUnionComposite.IPolyline>>",
+                                        "Array<ObjectUnionComposite.IPolyline>",
                                     value: input.inner,
                                 })) &&
                                 input.inner
@@ -502,7 +482,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                                         _index3 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<ObjectUnionComposite.IPolyline>",
+                                                        "ObjectUnionComposite.IPolyline",
                                                     value: elem,
                                                 })) &&
                                                 $vo4(
@@ -520,7 +500,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                                     _index3 +
                                                     "]",
                                                 expected:
-                                                    "Resolve<ObjectUnionComposite.IPolyline>",
+                                                    "ObjectUnionComposite.IPolyline",
                                                 value: elem,
                                             }),
                                     )
@@ -528,7 +508,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 $report(_exceptionable, {
                                     path: _path + ".inner",
                                     expected:
-                                        "Array<Resolve<ObjectUnionComposite.IPolyline>>",
+                                        "Array<ObjectUnionComposite.IPolyline>",
                                     value: input.inner,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -542,7 +522,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 $report(_exceptionable, {
                                     path: _path + ".outer",
                                     expected:
-                                        "Array<Resolve<ObjectUnionComposite.IPoint>>",
+                                        "Array<ObjectUnionComposite.IPoint>",
                                     value: input.outer,
                                 })) &&
                                 input.outer
@@ -557,7 +537,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                                         _index4 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                                        "ObjectUnionComposite.IPoint",
                                                     value: elem,
                                                 })) &&
                                                 $vo0(
@@ -575,7 +555,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                                     _index4 +
                                                     "]",
                                                 expected:
-                                                    "Resolve<ObjectUnionComposite.IPoint>",
+                                                    "ObjectUnionComposite.IPoint",
                                                 value: elem,
                                             }),
                                     )
@@ -583,15 +563,14 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 $report(_exceptionable, {
                                     path: _path + ".outer",
                                     expected:
-                                        "Array<Resolve<ObjectUnionComposite.IPoint>>",
+                                        "Array<ObjectUnionComposite.IPoint>",
                                     value: input.outer,
                                 }),
                             ((("object" === typeof input.inner &&
                                 null !== input.inner) ||
                                 $report(_exceptionable, {
                                     path: _path + ".inner",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.inner,
                                 })) &&
                                 $vo0(
@@ -601,8 +580,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".inner",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.inner,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -616,8 +594,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 null !== input.centroid) ||
                                 $report(_exceptionable, {
                                     path: _path + ".centroid",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.centroid,
                                 })) &&
                                 $vo0(
@@ -627,8 +604,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".centroid",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.centroid,
                                 }),
                             ("number" === typeof input.radius &&
@@ -725,7 +701,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    "Array<(Resolve<ObjectUnionComposite.ICircle> | Resolve<ObjectUnionComposite.ILine> | Resolve<ObjectUnionComposite.IPoint> | Resolve<ObjectUnionComposite.IPointedShape> | Resolve<ObjectUnionComposite.IPolygon> | Resolve<ObjectUnionComposite.IPolyline> | Resolve<ObjectUnionComposite.IRectangle> | Resolve<ObjectUnionComposite.ITriangle>)>",
+                                    "Array<(ObjectUnionComposite.ICircle | ObjectUnionComposite.ILine | ObjectUnionComposite.IPoint | ObjectUnionComposite.IPointedShape | ObjectUnionComposite.IPolygon | ObjectUnionComposite.IPolyline | ObjectUnionComposite.IRectangle | ObjectUnionComposite.ITriangle)>",
                                 value: input,
                             })) &&
                             input
@@ -737,7 +713,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
-                                                    "(Resolve<ObjectUnionComposite.ICircle> | Resolve<ObjectUnionComposite.ILine> | Resolve<ObjectUnionComposite.IPoint> | Resolve<ObjectUnionComposite.IPointedShape> | Resolve<ObjectUnionComposite.IPolygon> | Resolve<ObjectUnionComposite.IPolyline> | Resolve<ObjectUnionComposite.IRectangle> | Resolve<ObjectUnionComposite.ITriangle>)",
+                                                    "(ObjectUnionComposite.ICircle | ObjectUnionComposite.ILine | ObjectUnionComposite.IPoint | ObjectUnionComposite.IPointedShape | ObjectUnionComposite.IPolygon | ObjectUnionComposite.IPolyline | ObjectUnionComposite.IRectangle | ObjectUnionComposite.ITriangle)",
                                                 value: elem,
                                             })) &&
                                             $vu0(
@@ -748,7 +724,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "(Resolve<ObjectUnionComposite.ICircle> | Resolve<ObjectUnionComposite.ILine> | Resolve<ObjectUnionComposite.IPoint> | Resolve<ObjectUnionComposite.IPointedShape> | Resolve<ObjectUnionComposite.IPolygon> | Resolve<ObjectUnionComposite.IPolyline> | Resolve<ObjectUnionComposite.IRectangle> | Resolve<ObjectUnionComposite.ITriangle>)",
+                                                "(ObjectUnionComposite.ICircle | ObjectUnionComposite.ILine | ObjectUnionComposite.IPoint | ObjectUnionComposite.IPointedShape | ObjectUnionComposite.IPolygon | ObjectUnionComposite.IPolyline | ObjectUnionComposite.IRectangle | ObjectUnionComposite.ITriangle)",
                                             value: elem,
                                         }),
                                 )
@@ -756,7 +732,7 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                         $report(true, {
                             path: _path + "",
                             expected:
-                                "Array<(Resolve<ObjectUnionComposite.ICircle> | Resolve<ObjectUnionComposite.ILine> | Resolve<ObjectUnionComposite.IPoint> | Resolve<ObjectUnionComposite.IPointedShape> | Resolve<ObjectUnionComposite.IPolygon> | Resolve<ObjectUnionComposite.IPolyline> | Resolve<ObjectUnionComposite.IRectangle> | Resolve<ObjectUnionComposite.ITriangle>)>",
+                                "Array<(ObjectUnionComposite.ICircle | ObjectUnionComposite.ILine | ObjectUnionComposite.IPoint | ObjectUnionComposite.IPointedShape | ObjectUnionComposite.IPolygon | ObjectUnionComposite.IPolyline | ObjectUnionComposite.IRectangle | ObjectUnionComposite.ITriangle)>",
                             value: input,
                         })
                     );

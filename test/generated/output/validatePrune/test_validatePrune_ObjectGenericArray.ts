@@ -68,7 +68,7 @@ export const test_validatePrune_ObjectGenericArray = _test_validatePrune(
                                     $report(_exceptionable, {
                                         path: _path + ".pagination",
                                         expected:
-                                            "Resolve<ObjectGenericArray.IPagination>",
+                                            "ObjectGenericArray.IPagination",
                                         value: input.pagination,
                                     })) &&
                                     $vo1(
@@ -79,14 +79,14 @@ export const test_validatePrune_ObjectGenericArray = _test_validatePrune(
                                     $report(_exceptionable, {
                                         path: _path + ".pagination",
                                         expected:
-                                            "Resolve<ObjectGenericArray.IPagination>",
+                                            "ObjectGenericArray.IPagination",
                                         value: input.pagination,
                                     }),
                                 ((Array.isArray(input.data) ||
                                     $report(_exceptionable, {
                                         path: _path + ".data",
                                         expected:
-                                            "Array<Resolve<ObjectGenericArray.IPerson>>",
+                                            "Array<ObjectGenericArray.IPerson>",
                                         value: input.data,
                                     })) &&
                                     input.data
@@ -101,7 +101,7 @@ export const test_validatePrune_ObjectGenericArray = _test_validatePrune(
                                                             _index1 +
                                                             "]",
                                                         expected:
-                                                            "Resolve<ObjectGenericArray.IPerson>",
+                                                            "ObjectGenericArray.IPerson",
                                                         value: elem,
                                                     })) &&
                                                     $vo2(
@@ -119,7 +119,7 @@ export const test_validatePrune_ObjectGenericArray = _test_validatePrune(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<ObjectGenericArray.IPerson>",
+                                                        "ObjectGenericArray.IPerson",
                                                     value: elem,
                                                 }),
                                         )
@@ -127,7 +127,7 @@ export const test_validatePrune_ObjectGenericArray = _test_validatePrune(
                                     $report(_exceptionable, {
                                         path: _path + ".data",
                                         expected:
-                                            "Array<Resolve<ObjectGenericArray.IPerson>>",
+                                            "Array<ObjectGenericArray.IPerson>",
                                         value: input.data,
                                     }),
                             ].every((flag: boolean) => flag);
@@ -190,13 +190,13 @@ export const test_validatePrune_ObjectGenericArray = _test_validatePrune(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<ObjectGenericArray>",
+                                    expected: "ObjectGenericArray",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ObjectGenericArray>",
+                                expected: "ObjectGenericArray",
                                 value: input,
                             })
                         );

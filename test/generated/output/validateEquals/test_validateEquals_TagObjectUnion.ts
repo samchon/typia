@@ -187,7 +187,7 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    "Array<(Resolve<TagObjectUnion.Literal> | Resolve<TagObjectUnion.Numeric>)>",
+                                    "Array<(TagObjectUnion.Literal | TagObjectUnion.Numeric)>",
                                 value: input,
                             })) &&
                             input
@@ -199,7 +199,7 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
-                                                    "(Resolve<TagObjectUnion.Literal> | Resolve<TagObjectUnion.Numeric>)",
+                                                    "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                                                 value: elem,
                                             })) &&
                                             $vu0(
@@ -210,7 +210,7 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "(Resolve<TagObjectUnion.Literal> | Resolve<TagObjectUnion.Numeric>)",
+                                                "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                                             value: elem,
                                         }),
                                 )
@@ -218,7 +218,7 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
                         $report(true, {
                             path: _path + "",
                             expected:
-                                "Array<(Resolve<TagObjectUnion.Literal> | Resolve<TagObjectUnion.Numeric>)>",
+                                "Array<(TagObjectUnion.Literal | TagObjectUnion.Numeric)>",
                             value: input,
                         })
                     );

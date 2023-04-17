@@ -119,7 +119,7 @@ export const test_createAssertClone_ObjectGenericUnion = _test_assertClone(
                                 $guard(_exceptionable, {
                                     path: _path + ".answer",
                                     expected:
-                                        "(Resolve<ObjectGenericUnion.ISaleAnswer> | null)",
+                                        "(ObjectGenericUnion.ISaleAnswer | null)",
                                     value: input.answer,
                                 })) &&
                                 $ao1(
@@ -144,7 +144,7 @@ export const test_createAssertClone_ObjectGenericUnion = _test_assertClone(
                             $guard(_exceptionable, {
                                 path: _path + ".contents",
                                 expected:
-                                    "Array<Resolve<ObjectGenericUnion.ISaleArticle.IContent>>",
+                                    "Array<ObjectGenericUnion.ISaleArticle.IContent>",
                                 value: input.contents,
                             })) &&
                         input.contents.every(
@@ -157,7 +157,7 @@ export const test_createAssertClone_ObjectGenericUnion = _test_assertClone(
                                             _index1 +
                                             "]",
                                         expected:
-                                            "Resolve<ObjectGenericUnion.ISaleArticle.IContent>",
+                                            "ObjectGenericUnion.ISaleArticle.IContent",
                                         value: elem,
                                     })) &&
                                 $ao2(
@@ -194,7 +194,7 @@ export const test_createAssertClone_ObjectGenericUnion = _test_assertClone(
                             $guard(_exceptionable, {
                                 path: _path + ".contents",
                                 expected:
-                                    "Array<Resolve<ObjectGenericUnion.ISaleArticle.IContent>>",
+                                    "Array<ObjectGenericUnion.ISaleArticle.IContent>",
                                 value: input.contents,
                             })) &&
                         input.contents.every(
@@ -207,7 +207,7 @@ export const test_createAssertClone_ObjectGenericUnion = _test_assertClone(
                                             _index2 +
                                             "]",
                                         expected:
-                                            "Resolve<ObjectGenericUnion.ISaleArticle.IContent>",
+                                            "ObjectGenericUnion.ISaleArticle.IContent",
                                         value: elem,
                                     })) &&
                                 $ao2(
@@ -255,7 +255,7 @@ export const test_createAssertClone_ObjectGenericUnion = _test_assertClone(
                             $guard(_exceptionable, {
                                 path: _path + ".files",
                                 expected:
-                                    'Array<Resolve<Omit<ObjectGenericUnion.IAttachmentFile, "id">>>',
+                                    'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
                                 value: input.files,
                             })) &&
                         input.files.every(
@@ -264,7 +264,7 @@ export const test_createAssertClone_ObjectGenericUnion = _test_assertClone(
                                     $guard(_exceptionable, {
                                         path: _path + ".files[" + _index3 + "]",
                                         expected:
-                                            'Resolve<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                                            'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
                                         value: elem,
                                     })) &&
                                 $ao3(
@@ -314,7 +314,7 @@ export const test_createAssertClone_ObjectGenericUnion = _test_assertClone(
                                 $guard(_exceptionable, {
                                     path: _path + ".answer",
                                     expected:
-                                        "(Resolve<ObjectGenericUnion.ISaleAnswer> | null)",
+                                        "(ObjectGenericUnion.ISaleAnswer | null)",
                                     value: input.answer,
                                 })) &&
                                 $ao1(
@@ -339,7 +339,7 @@ export const test_createAssertClone_ObjectGenericUnion = _test_assertClone(
                             $guard(_exceptionable, {
                                 path: _path + ".contents",
                                 expected:
-                                    "Array<Resolve<ObjectGenericUnion.ISaleReview.IContent>>",
+                                    "Array<ObjectGenericUnion.ISaleReview.IContent>",
                                 value: input.contents,
                             })) &&
                         input.contents.every(
@@ -352,7 +352,7 @@ export const test_createAssertClone_ObjectGenericUnion = _test_assertClone(
                                             _index4 +
                                             "]",
                                         expected:
-                                            "Resolve<ObjectGenericUnion.ISaleReview.IContent>",
+                                            "ObjectGenericUnion.ISaleReview.IContent",
                                         value: elem,
                                     })) &&
                                 $ao5(
@@ -407,7 +407,7 @@ export const test_createAssertClone_ObjectGenericUnion = _test_assertClone(
                             $guard(_exceptionable, {
                                 path: _path + ".files",
                                 expected:
-                                    'Array<Resolve<Omit<ObjectGenericUnion.IAttachmentFile, "id">>>',
+                                    'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
                                 value: input.files,
                             })) &&
                         input.files.every(
@@ -416,7 +416,7 @@ export const test_createAssertClone_ObjectGenericUnion = _test_assertClone(
                                     $guard(_exceptionable, {
                                         path: _path + ".files[" + _index5 + "]",
                                         expected:
-                                            'Resolve<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                                            'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
                                         value: elem,
                                     })) &&
                                 $ao3(
@@ -443,7 +443,7 @@ export const test_createAssertClone_ObjectGenericUnion = _test_assertClone(
                             $guard(true, {
                                 path: _path + "",
                                 expected:
-                                    "(Resolve<ObjectGenericUnion.ISaleQuestion> | Resolve<ObjectGenericUnion.ISaleReview>)",
+                                    "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
                                 value: input,
                             })) &&
                         $au0(input, _path + "", true)

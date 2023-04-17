@@ -76,7 +76,7 @@ export const test_validate_ObjectUndefined = _test_validate(
                                     $report(_exceptionable, {
                                         path: _path + ".classroom",
                                         expected:
-                                            "(Resolve<ObjectUndefined.IClassroom> | undefined)",
+                                            "(ObjectUndefined.IClassroom | undefined)",
                                         value: input.classroom,
                                     })) &&
                                     $vo1(
@@ -87,7 +87,7 @@ export const test_validate_ObjectUndefined = _test_validate(
                                 $report(_exceptionable, {
                                     path: _path + ".classroom",
                                     expected:
-                                        "(Resolve<ObjectUndefined.IClassroom> | undefined)",
+                                        "(ObjectUndefined.IClassroom | undefined)",
                                     value: input.classroom,
                                 }),
                             undefined === input.grade ||
@@ -147,8 +147,7 @@ export const test_validate_ObjectUndefined = _test_validate(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<Resolve<ObjectUndefined.ILecture>>",
+                                expected: "Array<ObjectUndefined.ILecture>",
                                 value: input,
                             })) &&
                             input
@@ -160,7 +159,7 @@ export const test_validate_ObjectUndefined = _test_validate(
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
-                                                    "Resolve<ObjectUndefined.ILecture>",
+                                                    "ObjectUndefined.ILecture",
                                                 value: elem,
                                             })) &&
                                             $vo0(
@@ -171,15 +170,14 @@ export const test_validate_ObjectUndefined = _test_validate(
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "Resolve<ObjectUndefined.ILecture>",
+                                                "ObjectUndefined.ILecture",
                                             value: elem,
                                         }),
                                 )
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<Resolve<ObjectUndefined.ILecture>>",
+                            expected: "Array<ObjectUndefined.ILecture>",
                             value: input,
                         })
                     );

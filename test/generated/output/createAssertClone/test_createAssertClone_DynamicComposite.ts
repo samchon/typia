@@ -130,7 +130,7 @@ export const test_createAssertClone_DynamicComposite = _test_assertClone(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<DynamicComposite>",
+                                expected: "DynamicComposite",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

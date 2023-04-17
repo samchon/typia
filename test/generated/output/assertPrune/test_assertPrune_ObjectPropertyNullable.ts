@@ -158,7 +158,7 @@ export const test_assertPrune_ObjectPropertyNullable = _test_assertPrune(
                                 $guard(_exceptionable, {
                                     path: _path + ".value",
                                     expected:
-                                        "(Resolve<ObjectPropertyNullable.IMember> | null)",
+                                        "(ObjectPropertyNullable.IMember | null)",
                                     value: input.value,
                                 })) &&
                                 $ao4(
@@ -213,21 +213,21 @@ export const test_assertPrune_ObjectPropertyNullable = _test_assertPrune(
                                 $guard(true, {
                                     path: _path + "",
                                     expected:
-                                        "[Array<Resolve<ObjectPropertyNullable.IPointer<boolean>>>, Array<Resolve<ObjectPropertyNullable.IPointer<number>>>, Array<Resolve<ObjectPropertyNullable.IPointer<string>>>, Array<Resolve<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>>]",
+                                        "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
                                     value: input,
                                 })) &&
                             (input.length === 4 ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected:
-                                        "[Array<Resolve<ObjectPropertyNullable.IPointer<boolean>>>, Array<Resolve<ObjectPropertyNullable.IPointer<number>>>, Array<Resolve<ObjectPropertyNullable.IPointer<string>>>, Array<Resolve<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>>]",
+                                        "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
                                     value: input,
                                 })) &&
                             (Array.isArray(input[0]) ||
                                 $guard(true, {
                                     path: _path + "[0]",
                                     expected:
-                                        "Array<Resolve<ObjectPropertyNullable.IPointer<boolean>>>",
+                                        "Array<ObjectPropertyNullable.IPointer<boolean>>",
                                     value: input[0],
                                 })) &&
                             input[0].every(
@@ -238,7 +238,7 @@ export const test_assertPrune_ObjectPropertyNullable = _test_assertPrune(
                                             path:
                                                 _path + "[0][" + _index1 + "]",
                                             expected:
-                                                "Resolve<ObjectPropertyNullable.IPointer<boolean>>",
+                                                "ObjectPropertyNullable.IPointer<boolean>",
                                             value: elem,
                                         })) &&
                                     $ao0(
@@ -251,7 +251,7 @@ export const test_assertPrune_ObjectPropertyNullable = _test_assertPrune(
                                 $guard(true, {
                                     path: _path + "[1]",
                                     expected:
-                                        "Array<Resolve<ObjectPropertyNullable.IPointer<number>>>",
+                                        "Array<ObjectPropertyNullable.IPointer<number>>",
                                     value: input[1],
                                 })) &&
                             input[1].every(
@@ -262,7 +262,7 @@ export const test_assertPrune_ObjectPropertyNullable = _test_assertPrune(
                                             path:
                                                 _path + "[1][" + _index2 + "]",
                                             expected:
-                                                "Resolve<ObjectPropertyNullable.IPointer<number>>",
+                                                "ObjectPropertyNullable.IPointer<number>",
                                             value: elem,
                                         })) &&
                                     $ao1(
@@ -275,7 +275,7 @@ export const test_assertPrune_ObjectPropertyNullable = _test_assertPrune(
                                 $guard(true, {
                                     path: _path + "[2]",
                                     expected:
-                                        "Array<Resolve<ObjectPropertyNullable.IPointer<string>>>",
+                                        "Array<ObjectPropertyNullable.IPointer<string>>",
                                     value: input[2],
                                 })) &&
                             input[2].every(
@@ -286,7 +286,7 @@ export const test_assertPrune_ObjectPropertyNullable = _test_assertPrune(
                                             path:
                                                 _path + "[2][" + _index3 + "]",
                                             expected:
-                                                "Resolve<ObjectPropertyNullable.IPointer<string>>",
+                                                "ObjectPropertyNullable.IPointer<string>",
                                             value: elem,
                                         })) &&
                                     $ao2(
@@ -299,7 +299,7 @@ export const test_assertPrune_ObjectPropertyNullable = _test_assertPrune(
                                 $guard(true, {
                                     path: _path + "[3]",
                                     expected:
-                                        "Array<Resolve<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>>",
+                                        "Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>",
                                     value: input[3],
                                 })) &&
                             input[3].every(
@@ -310,7 +310,7 @@ export const test_assertPrune_ObjectPropertyNullable = _test_assertPrune(
                                             path:
                                                 _path + "[3][" + _index4 + "]",
                                             expected:
-                                                "Resolve<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>",
+                                                "ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>",
                                             value: elem,
                                         })) &&
                                     $ao3(

@@ -101,7 +101,7 @@ export const test_createValidateClone_TagLength = _test_validateClone(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<TagLength.Type>>",
+                                expected: "Array<TagLength.Type>",
                                 value: input,
                             })) &&
                             input
@@ -112,8 +112,7 @@ export const test_createValidateClone_TagLength = _test_validateClone(
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "Resolve<TagLength.Type>",
+                                                expected: "TagLength.Type",
                                                 value: elem,
                                             })) &&
                                             $vo0(
@@ -123,14 +122,14 @@ export const test_createValidateClone_TagLength = _test_validateClone(
                                             )) ||
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected: "Resolve<TagLength.Type>",
+                                            expected: "TagLength.Type",
                                             value: elem,
                                         }),
                                 )
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<Resolve<TagLength.Type>>",
+                            expected: "Array<TagLength.Type>",
                             value: input,
                         })
                     );

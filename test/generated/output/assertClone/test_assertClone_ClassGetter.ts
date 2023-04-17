@@ -55,7 +55,7 @@ export const test_assertClone_ClassGetter = _test_assertClone(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<ClassGetter.Person>",
+                                    expected: "ClassGetter.Person",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

@@ -103,7 +103,7 @@ export const test_createValidateStringify_TagLength = _test_validateStringify(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<TagLength.Type>>",
+                                expected: "Array<TagLength.Type>",
                                 value: input,
                             })) &&
                             input
@@ -114,8 +114,7 @@ export const test_createValidateStringify_TagLength = _test_validateStringify(
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "Resolve<TagLength.Type>",
+                                                expected: "TagLength.Type",
                                                 value: elem,
                                             })) &&
                                             $vo0(
@@ -125,14 +124,14 @@ export const test_createValidateStringify_TagLength = _test_validateStringify(
                                             )) ||
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected: "Resolve<TagLength.Type>",
+                                            expected: "TagLength.Type",
                                             value: elem,
                                         }),
                                 )
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<Resolve<TagLength.Type>>",
+                            expected: "Array<TagLength.Type>",
                             value: input,
                         })
                     );

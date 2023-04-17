@@ -46,7 +46,7 @@ export const test_createValidate_ObjectRecursive = _test_validate(
                                 $report(_exceptionable, {
                                     path: _path + ".parent",
                                     expected:
-                                        "(Resolve<ObjectRecursive.IDepartment> | null)",
+                                        "(ObjectRecursive.IDepartment | null)",
                                     value: input.parent,
                                 })) &&
                                 $vo0(
@@ -57,7 +57,7 @@ export const test_createValidate_ObjectRecursive = _test_validate(
                             $report(_exceptionable, {
                                 path: _path + ".parent",
                                 expected:
-                                    "(Resolve<ObjectRecursive.IDepartment> | null)",
+                                    "(ObjectRecursive.IDepartment | null)",
                                 value: input.parent,
                             }),
                         ("number" === typeof input.id &&
@@ -90,7 +90,7 @@ export const test_createValidate_ObjectRecursive = _test_validate(
                             null !== input.created_at) ||
                             $report(_exceptionable, {
                                 path: _path + ".created_at",
-                                expected: "Resolve<ObjectRecursive.ITimestamp>",
+                                expected: "ObjectRecursive.ITimestamp",
                                 value: input.created_at,
                             })) &&
                             $vo1(
@@ -100,7 +100,7 @@ export const test_createValidate_ObjectRecursive = _test_validate(
                             )) ||
                             $report(_exceptionable, {
                                 path: _path + ".created_at",
-                                expected: "Resolve<ObjectRecursive.ITimestamp>",
+                                expected: "ObjectRecursive.ITimestamp",
                                 value: input.created_at,
                             }),
                     ].every((flag: boolean) => flag);
@@ -129,13 +129,13 @@ export const test_createValidate_ObjectRecursive = _test_validate(
                     ((("object" === typeof input && null !== input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<ObjectRecursive.IDepartment>",
+                            expected: "ObjectRecursive.IDepartment",
                             value: input,
                         })) &&
                         $vo0(input, _path + "", true)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Resolve<ObjectRecursive.IDepartment>",
+                        expected: "ObjectRecursive.IDepartment",
                         value: input,
                     })
                 );

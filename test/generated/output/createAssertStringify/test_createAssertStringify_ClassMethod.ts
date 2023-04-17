@@ -45,7 +45,7 @@ export const test_createAssertStringify_ClassMethod = _test_assertStringify(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<ClassMethod.Animal>",
+                                expected: "ClassMethod.Animal",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

@@ -151,13 +151,13 @@ export const test_validatePrune_TagMatrix = _test_validatePrune(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<TagMatrix>",
+                                    expected: "TagMatrix",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<TagMatrix>",
+                                expected: "TagMatrix",
                                 value: input,
                             })
                         );

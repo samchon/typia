@@ -134,13 +134,13 @@ export const test_validateParse_DynamicTemplate = _test_validateParse(
                                 false === Array.isArray(input)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicTemplate>",
+                                    expected: "DynamicTemplate",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<DynamicTemplate>",
+                                expected: "DynamicTemplate",
                                 value: input,
                             })
                         );

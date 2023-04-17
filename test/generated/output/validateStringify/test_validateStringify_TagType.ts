@@ -80,7 +80,7 @@ export const test_validateStringify_TagType = _test_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<Resolve<TagType.Type>>",
+                                    expected: "Array<TagType.Type>",
                                     value: input,
                                 })) &&
                                 input
@@ -94,8 +94,7 @@ export const test_validateStringify_TagType = _test_validateStringify(
                                                         "[" +
                                                         _index1 +
                                                         "]",
-                                                    expected:
-                                                        "Resolve<TagType.Type>",
+                                                    expected: "TagType.Type",
                                                     value: elem,
                                                 })) &&
                                                 $vo0(
@@ -106,15 +105,14 @@ export const test_validateStringify_TagType = _test_validateStringify(
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "Resolve<TagType.Type>",
+                                                expected: "TagType.Type",
                                                 value: elem,
                                             }),
                                     )
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<TagType.Type>>",
+                                expected: "Array<TagType.Type>",
                                 value: input,
                             })
                         );

@@ -182,7 +182,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                                 $report(true, {
                                     path: _path + "",
                                     expected:
-                                        "Array<(Resolve<ToJsonUnion.ICitizen> | Resolve<ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>> | Resolve<ToJsonUnion.IWrapper<ToJsonUnion.IProduct>> | Resolve<ToJsonUnion.IWrapper<boolean>> | number | string)>",
+                                        "Array<(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)>",
                                     value: input,
                                 })) &&
                                 input
@@ -196,7 +196,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "(Resolve<ToJsonUnion.ICitizen> | Resolve<ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>> | Resolve<ToJsonUnion.IWrapper<ToJsonUnion.IProduct>> | Resolve<ToJsonUnion.IWrapper<boolean>> | number | string)",
+                                                        "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
                                                     value: elem,
                                                 })) &&
                                             (undefined !== elem ||
@@ -207,7 +207,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "(Resolve<ToJsonUnion.ICitizen> | Resolve<ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>> | Resolve<ToJsonUnion.IWrapper<ToJsonUnion.IProduct>> | Resolve<ToJsonUnion.IWrapper<boolean>> | number | string)",
+                                                        "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
                                                     value: elem,
                                                 })) &&
                                             ("string" === typeof elem ||
@@ -222,7 +222,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                                                             _index1 +
                                                             "]",
                                                         expected:
-                                                            "(Resolve<ToJsonUnion.ICitizen> | Resolve<ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>> | Resolve<ToJsonUnion.IWrapper<ToJsonUnion.IProduct>> | Resolve<ToJsonUnion.IWrapper<boolean>> | number | string)",
+                                                            "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
                                                         value: elem,
                                                     })) &&
                                                     $vu0(
@@ -240,7 +240,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "(Resolve<ToJsonUnion.ICitizen> | Resolve<ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>> | Resolve<ToJsonUnion.IWrapper<ToJsonUnion.IProduct>> | Resolve<ToJsonUnion.IWrapper<boolean>> | number | string)",
+                                                        "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
                                                     value: elem,
                                                 })),
                                     )
@@ -248,7 +248,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    "Array<(Resolve<ToJsonUnion.ICitizen> | Resolve<ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>> | Resolve<ToJsonUnion.IWrapper<ToJsonUnion.IProduct>> | Resolve<ToJsonUnion.IWrapper<boolean>> | number | string)>",
+                                    "Array<(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)>",
                                 value: input,
                             })
                         );
@@ -324,7 +324,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                                 return $su0(elem);
                             $throws({
                                 expected:
-                                    "(Resolve<ToJsonUnion.ICitizen> | Resolve<ToJsonUnion.IProduct> | boolean | number | string | unknown)",
+                                    "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct | boolean | number | string | unknown)",
                                 value: elem,
                             });
                         })(),

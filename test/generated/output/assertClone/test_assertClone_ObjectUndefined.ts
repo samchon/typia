@@ -75,7 +75,7 @@ export const test_assertClone_ObjectUndefined = _test_assertClone(
                                     $guard(_exceptionable, {
                                         path: _path + ".classroom",
                                         expected:
-                                            "(Resolve<ObjectUndefined.IClassroom> | undefined)",
+                                            "(ObjectUndefined.IClassroom | undefined)",
                                         value: input.classroom,
                                     })) &&
                                     $ao1(
@@ -137,8 +137,7 @@ export const test_assertClone_ObjectUndefined = _test_assertClone(
                             (Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<Resolve<ObjectUndefined.ILecture>>",
+                                    expected: "Array<ObjectUndefined.ILecture>",
                                     value: input,
                                 })) &&
                             input.every(
@@ -148,7 +147,7 @@ export const test_assertClone_ObjectUndefined = _test_assertClone(
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "Resolve<ObjectUndefined.ILecture>",
+                                                "ObjectUndefined.ILecture",
                                             value: elem,
                                         })) &&
                                     $ao0(

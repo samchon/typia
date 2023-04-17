@@ -183,16 +183,14 @@ export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
                         (("object" === typeof input.p1 && null !== input.p1) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p1",
-                                expected:
-                                    "Resolve<ObjectUnionComposite.IPoint>",
+                                expected: "ObjectUnionComposite.IPoint",
                                 value: input.p1,
                             })) &&
                         $ao0(input.p1, _path + ".p1", true && _exceptionable) &&
                         (("object" === typeof input.p2 && null !== input.p2) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p2",
-                                expected:
-                                    "Resolve<ObjectUnionComposite.IPoint>",
+                                expected: "ObjectUnionComposite.IPoint",
                                 value: input.p2,
                             })) &&
                         $ao0(input.p2, _path + ".p2", true && _exceptionable);
@@ -204,24 +202,21 @@ export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
                         (("object" === typeof input.p1 && null !== input.p1) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p1",
-                                expected:
-                                    "Resolve<ObjectUnionComposite.IPoint>",
+                                expected: "ObjectUnionComposite.IPoint",
                                 value: input.p1,
                             })) &&
                         $ao0(input.p1, _path + ".p1", true && _exceptionable) &&
                         (("object" === typeof input.p2 && null !== input.p2) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p2",
-                                expected:
-                                    "Resolve<ObjectUnionComposite.IPoint>",
+                                expected: "ObjectUnionComposite.IPoint",
                                 value: input.p2,
                             })) &&
                         $ao0(input.p2, _path + ".p2", true && _exceptionable) &&
                         (("object" === typeof input.p3 && null !== input.p3) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p3",
-                                expected:
-                                    "Resolve<ObjectUnionComposite.IPoint>",
+                                expected: "ObjectUnionComposite.IPoint",
                                 value: input.p3,
                             })) &&
                         $ao0(input.p3, _path + ".p3", true && _exceptionable);
@@ -233,32 +228,28 @@ export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
                         (("object" === typeof input.p1 && null !== input.p1) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p1",
-                                expected:
-                                    "Resolve<ObjectUnionComposite.IPoint>",
+                                expected: "ObjectUnionComposite.IPoint",
                                 value: input.p1,
                             })) &&
                         $ao0(input.p1, _path + ".p1", true && _exceptionable) &&
                         (("object" === typeof input.p2 && null !== input.p2) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p2",
-                                expected:
-                                    "Resolve<ObjectUnionComposite.IPoint>",
+                                expected: "ObjectUnionComposite.IPoint",
                                 value: input.p2,
                             })) &&
                         $ao0(input.p2, _path + ".p2", true && _exceptionable) &&
                         (("object" === typeof input.p3 && null !== input.p3) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p3",
-                                expected:
-                                    "Resolve<ObjectUnionComposite.IPoint>",
+                                expected: "ObjectUnionComposite.IPoint",
                                 value: input.p3,
                             })) &&
                         $ao0(input.p3, _path + ".p3", true && _exceptionable) &&
                         (("object" === typeof input.p4 && null !== input.p4) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p4",
-                                expected:
-                                    "Resolve<ObjectUnionComposite.IPoint>",
+                                expected: "ObjectUnionComposite.IPoint",
                                 value: input.p4,
                             })) &&
                         $ao0(input.p4, _path + ".p4", true && _exceptionable);
@@ -270,8 +261,7 @@ export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
                         (Array.isArray(input.points) ||
                             $guard(_exceptionable, {
                                 path: _path + ".points",
-                                expected:
-                                    "Array<Resolve<ObjectUnionComposite.IPoint>>",
+                                expected: "Array<ObjectUnionComposite.IPoint>",
                                 value: input.points,
                             })) &&
                         input.points.every(
@@ -280,8 +270,7 @@ export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
                                     $guard(_exceptionable, {
                                         path:
                                             _path + ".points[" + _index2 + "]",
-                                        expected:
-                                            "Resolve<ObjectUnionComposite.IPoint>",
+                                        expected: "ObjectUnionComposite.IPoint",
                                         value: elem,
                                     })) &&
                                 $ao0(
@@ -299,8 +288,7 @@ export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
                             null !== input.outer) ||
                             $guard(_exceptionable, {
                                 path: _path + ".outer",
-                                expected:
-                                    "Resolve<ObjectUnionComposite.IPolyline>",
+                                expected: "ObjectUnionComposite.IPolyline",
                                 value: input.outer,
                             })) &&
                         $ao4(
@@ -312,7 +300,7 @@ export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
                             $guard(_exceptionable, {
                                 path: _path + ".inner",
                                 expected:
-                                    "Array<Resolve<ObjectUnionComposite.IPolyline>>",
+                                    "Array<ObjectUnionComposite.IPolyline>",
                                 value: input.inner,
                             })) &&
                         input.inner.every(
@@ -321,7 +309,7 @@ export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
                                     $guard(_exceptionable, {
                                         path: _path + ".inner[" + _index3 + "]",
                                         expected:
-                                            "Resolve<ObjectUnionComposite.IPolyline>",
+                                            "ObjectUnionComposite.IPolyline",
                                         value: elem,
                                     })) &&
                                 $ao4(
@@ -338,8 +326,7 @@ export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
                         (Array.isArray(input.outer) ||
                             $guard(_exceptionable, {
                                 path: _path + ".outer",
-                                expected:
-                                    "Array<Resolve<ObjectUnionComposite.IPoint>>",
+                                expected: "Array<ObjectUnionComposite.IPoint>",
                                 value: input.outer,
                             })) &&
                         input.outer.every(
@@ -347,8 +334,7 @@ export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
                                 (("object" === typeof elem && null !== elem) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".outer[" + _index4 + "]",
-                                        expected:
-                                            "Resolve<ObjectUnionComposite.IPoint>",
+                                        expected: "ObjectUnionComposite.IPoint",
                                         value: elem,
                                     })) &&
                                 $ao0(
@@ -361,8 +347,7 @@ export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
                             null !== input.inner) ||
                             $guard(_exceptionable, {
                                 path: _path + ".inner",
-                                expected:
-                                    "Resolve<ObjectUnionComposite.IPoint>",
+                                expected: "ObjectUnionComposite.IPoint",
                                 value: input.inner,
                             })) &&
                         $ao0(
@@ -379,8 +364,7 @@ export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
                             null !== input.centroid) ||
                             $guard(_exceptionable, {
                                 path: _path + ".centroid",
-                                expected:
-                                    "Resolve<ObjectUnionComposite.IPoint>",
+                                expected: "ObjectUnionComposite.IPoint",
                                 value: input.centroid,
                             })) &&
                         $ao0(
@@ -476,7 +460,7 @@ export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
                             $guard(true, {
                                 path: _path + "",
                                 expected:
-                                    "Array<(Resolve<ObjectUnionComposite.ICircle> | Resolve<ObjectUnionComposite.ILine> | Resolve<ObjectUnionComposite.IPoint> | Resolve<ObjectUnionComposite.IPointedShape> | Resolve<ObjectUnionComposite.IPolygon> | Resolve<ObjectUnionComposite.IPolyline> | Resolve<ObjectUnionComposite.IRectangle> | Resolve<ObjectUnionComposite.ITriangle>)>",
+                                    "Array<(ObjectUnionComposite.ICircle | ObjectUnionComposite.ILine | ObjectUnionComposite.IPoint | ObjectUnionComposite.IPointedShape | ObjectUnionComposite.IPolygon | ObjectUnionComposite.IPolyline | ObjectUnionComposite.IRectangle | ObjectUnionComposite.ITriangle)>",
                                 value: input,
                             })) &&
                         input.every(
@@ -485,7 +469,7 @@ export const test_createAssertParse_ObjectUnionComposite = _test_assertParse(
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
-                                            "(Resolve<ObjectUnionComposite.ICircle> | Resolve<ObjectUnionComposite.ILine> | Resolve<ObjectUnionComposite.IPoint> | Resolve<ObjectUnionComposite.IPointedShape> | Resolve<ObjectUnionComposite.IPolygon> | Resolve<ObjectUnionComposite.IPolyline> | Resolve<ObjectUnionComposite.IRectangle> | Resolve<ObjectUnionComposite.ITriangle>)",
+                                            "(ObjectUnionComposite.ICircle | ObjectUnionComposite.ILine | ObjectUnionComposite.IPoint | ObjectUnionComposite.IPointedShape | ObjectUnionComposite.IPolygon | ObjectUnionComposite.IPolyline | ObjectUnionComposite.IRectangle | ObjectUnionComposite.ITriangle)",
                                         value: elem,
                                     })) &&
                                 $au0(elem, _path + "[" + _index1 + "]", true),

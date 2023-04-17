@@ -87,8 +87,7 @@ export const test_assertStringify_ObjectNullable = _test_assertStringify(
                                 null !== input.manufacturer) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".manufacturer",
-                                    expected:
-                                        "Resolve<ObjectNullable.IManufacturer>",
+                                    expected: "ObjectNullable.IManufacturer",
                                     value: input.manufacturer,
                                 })) &&
                             $ao1(
@@ -102,7 +101,7 @@ export const test_assertStringify_ObjectNullable = _test_assertStringify(
                                     $guard(_exceptionable, {
                                         path: _path + ".brand",
                                         expected:
-                                            "(Resolve<ObjectNullable.IBrand> | null)",
+                                            "(ObjectNullable.IBrand | null)",
                                         value: input.brand,
                                     })) &&
                                     $ao2(
@@ -116,7 +115,7 @@ export const test_assertStringify_ObjectNullable = _test_assertStringify(
                                     $guard(_exceptionable, {
                                         path: _path + ".similar",
                                         expected:
-                                            "(Resolve<ObjectNullable.IBrand> | Resolve<ObjectNullable.IManufacturer> | null)",
+                                            "(ObjectNullable.IBrand | ObjectNullable.IManufacturer | null)",
                                         value: input.similar,
                                     })) &&
                                     $au0(
@@ -188,22 +187,21 @@ export const test_assertStringify_ObjectNullable = _test_assertStringify(
                                 $guard(true, {
                                     path: _path + "",
                                     expected:
-                                        "[Resolve<ObjectNullable.IProduct>, Resolve<ObjectNullable.IProduct>, Resolve<ObjectNullable.IProduct>]",
+                                        "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
                                     value: input,
                                 })) &&
                             (input.length === 3 ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected:
-                                        "[Resolve<ObjectNullable.IProduct>, Resolve<ObjectNullable.IProduct>, Resolve<ObjectNullable.IProduct>]",
+                                        "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
                                     value: input,
                                 })) &&
                             (("object" === typeof input[0] &&
                                 null !== input[0]) ||
                                 $guard(true, {
                                     path: _path + "[0]",
-                                    expected:
-                                        "Resolve<ObjectNullable.IProduct>",
+                                    expected: "ObjectNullable.IProduct",
                                     value: input[0],
                                 })) &&
                             $ao0(input[0], _path + "[0]", true) &&
@@ -211,8 +209,7 @@ export const test_assertStringify_ObjectNullable = _test_assertStringify(
                                 null !== input[1]) ||
                                 $guard(true, {
                                     path: _path + "[1]",
-                                    expected:
-                                        "Resolve<ObjectNullable.IProduct>",
+                                    expected: "ObjectNullable.IProduct",
                                     value: input[1],
                                 })) &&
                             $ao0(input[1], _path + "[1]", true) &&
@@ -220,8 +217,7 @@ export const test_assertStringify_ObjectNullable = _test_assertStringify(
                                 null !== input[2]) ||
                                 $guard(true, {
                                     path: _path + "[2]",
-                                    expected:
-                                        "Resolve<ObjectNullable.IProduct>",
+                                    expected: "ObjectNullable.IProduct",
                                     value: input[2],
                                 })) &&
                             $ao0(input[2], _path + "[2]", true)

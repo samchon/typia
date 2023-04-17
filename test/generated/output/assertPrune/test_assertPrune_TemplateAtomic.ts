@@ -120,7 +120,7 @@ export const test_assertPrune_TemplateAtomic = _test_assertPrune(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<TemplateAtomic>",
+                                    expected: "TemplateAtomic",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

@@ -100,7 +100,7 @@ export const test_createValidateEquals_FunctionalPropertyUnion =
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    "Array<Resolve<FunctionalPropertyUnion.IUnion>>",
+                                    "Array<FunctionalPropertyUnion.IUnion>",
                                 value: input,
                             })) &&
                             input
@@ -112,7 +112,7 @@ export const test_createValidateEquals_FunctionalPropertyUnion =
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
-                                                    "Resolve<FunctionalPropertyUnion.IUnion>",
+                                                    "FunctionalPropertyUnion.IUnion",
                                                 value: elem,
                                             })) &&
                                             $vo0(
@@ -123,15 +123,14 @@ export const test_createValidateEquals_FunctionalPropertyUnion =
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "Resolve<FunctionalPropertyUnion.IUnion>",
+                                                "FunctionalPropertyUnion.IUnion",
                                             value: elem,
                                         }),
                                 )
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<Resolve<FunctionalPropertyUnion.IUnion>>",
+                            expected: "Array<FunctionalPropertyUnion.IUnion>",
                             value: input,
                         })
                     );

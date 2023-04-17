@@ -176,8 +176,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                 null !== input.established_at) ||
                                 $report(_exceptionable, {
                                     path: _path + ".established_at",
-                                    expected:
-                                        "Resolve<ArrayHierarchical.ITimestamp>",
+                                    expected: "ArrayHierarchical.ITimestamp",
                                     value: input.established_at,
                                 })) &&
                                 $vo1(
@@ -187,15 +186,14 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".established_at",
-                                    expected:
-                                        "Resolve<ArrayHierarchical.ITimestamp>",
+                                    expected: "ArrayHierarchical.ITimestamp",
                                     value: input.established_at,
                                 }),
                             ((Array.isArray(input.departments) ||
                                 $report(_exceptionable, {
                                     path: _path + ".departments",
                                     expected:
-                                        "Array<Resolve<ArrayHierarchical.IDepartment>>",
+                                        "Array<ArrayHierarchical.IDepartment>",
                                     value: input.departments,
                                 })) &&
                                 input.departments
@@ -210,7 +208,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                                         _index2 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<ArrayHierarchical.IDepartment>",
+                                                        "ArrayHierarchical.IDepartment",
                                                     value: elem,
                                                 })) &&
                                                 $vo2(
@@ -228,7 +226,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                                     _index2 +
                                                     "]",
                                                 expected:
-                                                    "Resolve<ArrayHierarchical.IDepartment>",
+                                                    "ArrayHierarchical.IDepartment",
                                                 value: elem,
                                             }),
                                     )
@@ -236,7 +234,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                 $report(_exceptionable, {
                                     path: _path + ".departments",
                                     expected:
-                                        "Array<Resolve<ArrayHierarchical.IDepartment>>",
+                                        "Array<ArrayHierarchical.IDepartment>",
                                     value: input.departments,
                                 }),
                             5 === Object.keys(input).length ||
@@ -333,8 +331,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                 null !== input.created_at) ||
                                 $report(_exceptionable, {
                                     path: _path + ".created_at",
-                                    expected:
-                                        "Resolve<ArrayHierarchical.ITimestamp>",
+                                    expected: "ArrayHierarchical.ITimestamp",
                                     value: input.created_at,
                                 })) &&
                                 $vo1(
@@ -344,15 +341,14 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".created_at",
-                                    expected:
-                                        "Resolve<ArrayHierarchical.ITimestamp>",
+                                    expected: "ArrayHierarchical.ITimestamp",
                                     value: input.created_at,
                                 }),
                             ((Array.isArray(input.employees) ||
                                 $report(_exceptionable, {
                                     path: _path + ".employees",
                                     expected:
-                                        "Array<Resolve<ArrayHierarchical.IEmployee>>",
+                                        "Array<ArrayHierarchical.IEmployee>",
                                     value: input.employees,
                                 })) &&
                                 input.employees
@@ -367,7 +363,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                                         _index3 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<ArrayHierarchical.IEmployee>",
+                                                        "ArrayHierarchical.IEmployee",
                                                     value: elem,
                                                 })) &&
                                                 $vo3(
@@ -385,7 +381,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                                     _index3 +
                                                     "]",
                                                 expected:
-                                                    "Resolve<ArrayHierarchical.IEmployee>",
+                                                    "ArrayHierarchical.IEmployee",
                                                 value: elem,
                                             }),
                                     )
@@ -393,7 +389,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                 $report(_exceptionable, {
                                     path: _path + ".employees",
                                     expected:
-                                        "Array<Resolve<ArrayHierarchical.IEmployee>>",
+                                        "Array<ArrayHierarchical.IEmployee>",
                                     value: input.employees,
                                 }),
                             5 === Object.keys(input).length ||
@@ -457,8 +453,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                 null !== input.employeed_at) ||
                                 $report(_exceptionable, {
                                     path: _path + ".employeed_at",
-                                    expected:
-                                        "Resolve<ArrayHierarchical.ITimestamp>",
+                                    expected: "ArrayHierarchical.ITimestamp",
                                     value: input.employeed_at,
                                 })) &&
                                 $vo1(
@@ -468,8 +463,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".employeed_at",
-                                    expected:
-                                        "Resolve<ArrayHierarchical.ITimestamp>",
+                                    expected: "ArrayHierarchical.ITimestamp",
                                     value: input.employeed_at,
                                 }),
                             5 === Object.keys(input).length ||
@@ -500,8 +494,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<Resolve<ArrayHierarchical.ICompany>>",
+                                expected: "Array<ArrayHierarchical.ICompany>",
                                 value: input,
                             })) &&
                             input
@@ -513,7 +506,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
-                                                    "Resolve<ArrayHierarchical.ICompany>",
+                                                    "ArrayHierarchical.ICompany",
                                                 value: elem,
                                             })) &&
                                             $vo0(
@@ -524,15 +517,14 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "Resolve<ArrayHierarchical.ICompany>",
+                                                "ArrayHierarchical.ICompany",
                                             value: elem,
                                         }),
                                 )
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<Resolve<ArrayHierarchical.ICompany>>",
+                            expected: "Array<ArrayHierarchical.ICompany>",
                             value: input,
                         })
                     );

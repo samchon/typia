@@ -142,7 +142,7 @@ export const test_validatePrune_TagStep = _test_validatePrune(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<Resolve<TagStep.Type>>",
+                                    expected: "Array<TagStep.Type>",
                                     value: input,
                                 })) &&
                                 input
@@ -156,8 +156,7 @@ export const test_validatePrune_TagStep = _test_validatePrune(
                                                         "[" +
                                                         _index1 +
                                                         "]",
-                                                    expected:
-                                                        "Resolve<TagStep.Type>",
+                                                    expected: "TagStep.Type",
                                                     value: elem,
                                                 })) &&
                                                 $vo0(
@@ -168,15 +167,14 @@ export const test_validatePrune_TagStep = _test_validatePrune(
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "Resolve<TagStep.Type>",
+                                                expected: "TagStep.Type",
                                                 value: elem,
                                             }),
                                     )
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<TagStep.Type>>",
+                                expected: "Array<TagStep.Type>",
                                 value: input,
                             })
                         );

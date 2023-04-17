@@ -169,14 +169,14 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                     (("object" === typeof input.p1 && null !== input.p1) ||
                         $guard(_exceptionable, {
                             path: _path + ".p1",
-                            expected: "Resolve<FunctionalObjectUnion.IPoint>",
+                            expected: "FunctionalObjectUnion.IPoint",
                             value: input.p1,
                         })) &&
                     $ao0(input.p1, _path + ".p1", true && _exceptionable) &&
                     (("object" === typeof input.p2 && null !== input.p2) ||
                         $guard(_exceptionable, {
                             path: _path + ".p2",
-                            expected: "Resolve<FunctionalObjectUnion.IPoint>",
+                            expected: "FunctionalObjectUnion.IPoint",
                             value: input.p2,
                         })) &&
                     $ao0(input.p2, _path + ".p2", true && _exceptionable) &&
@@ -211,8 +211,7 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                     (Array.isArray(input.points) ||
                         $guard(_exceptionable, {
                             path: _path + ".points",
-                            expected:
-                                "Array<Resolve<FunctionalObjectUnion.IPoint>>",
+                            expected: "Array<FunctionalObjectUnion.IPoint>",
                             value: input.points,
                         })) &&
                     input.points.every(
@@ -220,8 +219,7 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                             (("object" === typeof elem && null !== elem) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".points[" + _index2 + "]",
-                                    expected:
-                                        "Resolve<FunctionalObjectUnion.IPoint>",
+                                    expected: "FunctionalObjectUnion.IPoint",
                                     value: elem,
                                 })) &&
                             $ao0(
@@ -261,8 +259,7 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                     (Array.isArray(input.points) ||
                         $guard(_exceptionable, {
                             path: _path + ".points",
-                            expected:
-                                "Array<Resolve<FunctionalObjectUnion.IPoint>>",
+                            expected: "Array<FunctionalObjectUnion.IPoint>",
                             value: input.points,
                         })) &&
                     input.points.every(
@@ -270,8 +267,7 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                             (("object" === typeof elem && null !== elem) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".points[" + _index3 + "]",
-                                    expected:
-                                        "Resolve<FunctionalObjectUnion.IPoint>",
+                                    expected: "FunctionalObjectUnion.IPoint",
                                     value: elem,
                                 })) &&
                             $ao0(
@@ -328,7 +324,7 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                         $guard(true, {
                             path: _path + "",
                             expected:
-                                "Array<(Resolve<FunctionalObjectUnion.ILine> | Resolve<FunctionalObjectUnion.IPoint> | Resolve<FunctionalObjectUnion.IPolygon> | Resolve<FunctionalObjectUnion.IPolyline>)>",
+                                "Array<(FunctionalObjectUnion.ILine | FunctionalObjectUnion.IPoint | FunctionalObjectUnion.IPolygon | FunctionalObjectUnion.IPolyline)>",
                             value: input,
                         })) &&
                     input.every(
@@ -337,7 +333,7 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
-                                        "(Resolve<FunctionalObjectUnion.ILine> | Resolve<FunctionalObjectUnion.IPoint> | Resolve<FunctionalObjectUnion.IPolygon> | Resolve<FunctionalObjectUnion.IPolyline>)",
+                                        "(FunctionalObjectUnion.ILine | FunctionalObjectUnion.IPoint | FunctionalObjectUnion.IPolygon | FunctionalObjectUnion.IPolyline)",
                                     value: elem,
                                 })) &&
                             $au0(elem, _path + "[" + _index1 + "]", true),

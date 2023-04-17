@@ -71,13 +71,13 @@ export const test_createValidateClone_DynamicUndefined = _test_validateClone(
                             false === Array.isArray(input)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<DynamicUndefined>",
+                                expected: "DynamicUndefined",
                                 value: input,
                             })) &&
                             $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<DynamicUndefined>",
+                            expected: "DynamicUndefined",
                             value: input,
                         })
                     );

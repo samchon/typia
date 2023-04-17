@@ -68,7 +68,7 @@ export const test_stringify_ToJsonUnion = _test_stringify(
                             return $su0(elem);
                         $throws({
                             expected:
-                                "(Resolve<ToJsonUnion.ICitizen> | Resolve<ToJsonUnion.IProduct> | boolean | number | string | unknown)",
+                                "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct | boolean | number | string | unknown)",
                             value: elem,
                         });
                     })(),

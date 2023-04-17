@@ -134,8 +134,7 @@ export const test_assertClone_ObjectHierarchical = _test_assertClone(
                                 null !== input.channel) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".channel",
-                                    expected:
-                                        "Resolve<ObjectHierarchical.IChannel>",
+                                    expected: "ObjectHierarchical.IChannel",
                                     value: input.channel,
                                 })) &&
                             $ao1(
@@ -149,7 +148,7 @@ export const test_assertClone_ObjectHierarchical = _test_assertClone(
                                     $guard(_exceptionable, {
                                         path: _path + ".member",
                                         expected:
-                                            "(Resolve<ObjectHierarchical.IMember> | null)",
+                                            "(ObjectHierarchical.IMember | null)",
                                         value: input.member,
                                     })) &&
                                     $ao3(
@@ -163,7 +162,7 @@ export const test_assertClone_ObjectHierarchical = _test_assertClone(
                                     $guard(_exceptionable, {
                                         path: _path + ".account",
                                         expected:
-                                            "(Resolve<ObjectHierarchical.IAccount> | null)",
+                                            "(ObjectHierarchical.IAccount | null)",
                                         value: input.account,
                                     })) &&
                                     $ao4(
@@ -229,8 +228,7 @@ export const test_assertClone_ObjectHierarchical = _test_assertClone(
                                 null !== input.created_at) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".created_at",
-                                    expected:
-                                        "Resolve<ObjectHierarchical.ITimestamp>",
+                                    expected: "ObjectHierarchical.ITimestamp",
                                     value: input.created_at,
                                 })) &&
                             $ao2(
@@ -286,8 +284,7 @@ export const test_assertClone_ObjectHierarchical = _test_assertClone(
                                 null !== input.created_at) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".created_at",
-                                    expected:
-                                        "Resolve<ObjectHierarchical.ITimestamp>",
+                                    expected: "ObjectHierarchical.ITimestamp",
                                     value: input.created_at,
                                 })) &&
                             $ao2(
@@ -330,8 +327,7 @@ export const test_assertClone_ObjectHierarchical = _test_assertClone(
                                 null !== input.account) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".account",
-                                    expected:
-                                        "Resolve<ObjectHierarchical.IAccount>",
+                                    expected: "ObjectHierarchical.IAccount",
                                     value: input.account,
                                 })) &&
                             $ao4(
@@ -345,7 +341,7 @@ export const test_assertClone_ObjectHierarchical = _test_assertClone(
                                     $guard(_exceptionable, {
                                         path: _path + ".enterprise",
                                         expected:
-                                            "(Resolve<ObjectHierarchical.IEnterprise> | null)",
+                                            "(ObjectHierarchical.IEnterprise | null)",
                                         value: input.enterprise,
                                     })) &&
                                     $ao5(
@@ -373,8 +369,7 @@ export const test_assertClone_ObjectHierarchical = _test_assertClone(
                                 null !== input.created_at) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".created_at",
-                                    expected:
-                                        "Resolve<ObjectHierarchical.ITimestamp>",
+                                    expected: "ObjectHierarchical.ITimestamp",
                                     value: input.created_at,
                                 })) &&
                             $ao2(
@@ -410,8 +405,7 @@ export const test_assertClone_ObjectHierarchical = _test_assertClone(
                                 null !== input.created_at) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".created_at",
-                                    expected:
-                                        "Resolve<ObjectHierarchical.ITimestamp>",
+                                    expected: "ObjectHierarchical.ITimestamp",
                                     value: input.created_at,
                                 })) &&
                             $ao2(
@@ -435,8 +429,7 @@ export const test_assertClone_ObjectHierarchical = _test_assertClone(
                                 null !== input.account) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".account",
-                                    expected:
-                                        "Resolve<ObjectHierarchical.IAccount>",
+                                    expected: "ObjectHierarchical.IAccount",
                                     value: input.account,
                                 })) &&
                             $ao4(
@@ -461,8 +454,7 @@ export const test_assertClone_ObjectHierarchical = _test_assertClone(
                                 null !== input.created_at) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".created_at",
-                                    expected:
-                                        "Resolve<ObjectHierarchical.ITimestamp>",
+                                    expected: "ObjectHierarchical.ITimestamp",
                                     value: input.created_at,
                                 })) &&
                             $ao2(
@@ -474,8 +466,7 @@ export const test_assertClone_ObjectHierarchical = _test_assertClone(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Resolve<ObjectHierarchical.ICustomer>",
+                                    expected: "ObjectHierarchical.ICustomer",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

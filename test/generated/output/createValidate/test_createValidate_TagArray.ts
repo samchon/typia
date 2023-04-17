@@ -257,7 +257,7 @@ export const test_createValidate_TagArray = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<Resolve<TagArray.Type>>",
+                            expected: "Array<TagArray.Type>",
                             value: input,
                         })) &&
                         input
@@ -267,7 +267,7 @@ export const test_createValidate_TagArray = _test_validate(
                                         null !== elem) ||
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected: "Resolve<TagArray.Type>",
+                                            expected: "TagArray.Type",
                                             value: elem,
                                         })) &&
                                         $vo0(
@@ -277,14 +277,14 @@ export const test_createValidate_TagArray = _test_validate(
                                         )) ||
                                     $report(true, {
                                         path: _path + "[" + _index1 + "]",
-                                        expected: "Resolve<TagArray.Type>",
+                                        expected: "TagArray.Type",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Array<Resolve<TagArray.Type>>",
+                        expected: "Array<TagArray.Type>",
                         value: input,
                     })
                 );
