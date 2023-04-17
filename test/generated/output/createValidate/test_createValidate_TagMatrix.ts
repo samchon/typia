@@ -17,8 +17,7 @@ export const test_createValidate_TagMatrix = _test_validate(
                         3 === elem.length &&
                         elem.every(
                             (elem: any) =>
-                                "string" === typeof elem &&
-                                true === $is_uuid(elem),
+                                "string" === typeof elem && $is_uuid(elem),
                         ),
                 );
             return "object" === typeof input && null !== input && $io0(input);
@@ -82,10 +81,7 @@ export const test_createValidate_TagMatrix = _test_validate(
                                                     ) =>
                                                         ("string" ===
                                                             typeof elem &&
-                                                            (true ===
-                                                                $is_uuid(
-                                                                    elem,
-                                                                ) ||
+                                                            ($is_uuid(elem) ||
                                                                 $report(
                                                                     _exceptionable,
                                                                     {

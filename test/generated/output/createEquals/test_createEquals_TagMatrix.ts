@@ -16,7 +16,7 @@ export const test_createEquals_TagMatrix = _test_equals(
                     3 === elem.length &&
                     elem.every(
                         (elem: any, _index2: number) =>
-                            "string" === typeof elem && true === $is_uuid(elem),
+                            "string" === typeof elem && $is_uuid(elem),
                     ),
             ) &&
             (1 === Object.keys(input).length ||

@@ -10,7 +10,7 @@ export const test_createEquals_TagCustom = _test_equals(
         const $is_custom = (typia.createEquals as any).is_custom;
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
-            true === $is_uuid(input.id) &&
+            $is_uuid(input.id) &&
             "string" === typeof input.dollar &&
             $is_custom("dollar", "string", "", input.dollar) &&
             "string" === typeof input.postfix &&

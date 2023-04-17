@@ -11,7 +11,7 @@ export const test_createIsParse_TagCustom = _test_isParse(
             const $is_custom = (typia.createIsParse as any).is_custom;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
-                true === $is_uuid(input.id) &&
+                $is_uuid(input.id) &&
                 "string" === typeof input.dollar &&
                 $is_custom("dollar", "string", "", input.dollar) &&
                 "string" === typeof input.postfix &&

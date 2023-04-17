@@ -14,7 +14,7 @@ export const test_validateStringify_TagCustom = _test_validateStringify(
                         .is_custom;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
-                        true === $is_uuid(input.id) &&
+                        $is_uuid(input.id) &&
                         "string" === typeof input.dollar &&
                         $is_custom("dollar", "string", "", input.dollar) &&
                         "string" === typeof input.postfix &&
@@ -50,7 +50,7 @@ export const test_validateStringify_TagCustom = _test_validateStringify(
                         ): boolean =>
                             [
                                 ("string" === typeof input.id &&
-                                    (true === $is_uuid(input.id) ||
+                                    ($is_uuid(input.id) ||
                                         $report(_exceptionable, {
                                             path: _path + ".id",
                                             expected: "string (@format uuid)",

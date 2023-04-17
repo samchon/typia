@@ -16,7 +16,7 @@ export const test_assertParse_TagCustom = _test_assertParse(
                     const $is_custom = (typia.assertParse as any).is_custom;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
-                        true === $is_uuid(input.id) &&
+                        $is_uuid(input.id) &&
                         "string" === typeof input.dollar &&
                         $is_custom("dollar", "string", "", input.dollar) &&
                         "string" === typeof input.postfix &&
@@ -47,7 +47,7 @@ export const test_assertParse_TagCustom = _test_assertParse(
                             _exceptionable: boolean = true,
                         ): boolean =>
                             (("string" === typeof input.id &&
-                                (true === $is_uuid(input.id) ||
+                                ($is_uuid(input.id) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".id",
                                         expected: "string (@format uuid)",

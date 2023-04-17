@@ -20,7 +20,7 @@ export const test_validateEquals_TagArray = _test_validateEquals(
                     3 === input.items.length &&
                     input.items.every(
                         (elem: any, _index2: number) =>
-                            "string" === typeof elem && true === $is_uuid(elem),
+                            "string" === typeof elem && $is_uuid(elem),
                     ) &&
                     Array.isArray(input.minItems) &&
                     3 <= input.minItems.length &&
@@ -44,7 +44,7 @@ export const test_validateEquals_TagArray = _test_validateEquals(
                     7 >= input.both.length &&
                     input.both.every(
                         (elem: any, _index5: number) =>
-                            "string" === typeof elem && true === $is_uuid(elem),
+                            "string" === typeof elem && $is_uuid(elem),
                     ) &&
                     (4 === Object.keys(input).length ||
                         Object.keys(input).every((key) => {
@@ -100,7 +100,7 @@ export const test_validateEquals_TagArray = _test_validateEquals(
                                     .map(
                                         (elem: any, _index2: number) =>
                                             ("string" === typeof elem &&
-                                                (true === $is_uuid(elem) ||
+                                                ($is_uuid(elem) ||
                                                     $report(_exceptionable, {
                                                         path:
                                                             _path +
@@ -249,7 +249,7 @@ export const test_validateEquals_TagArray = _test_validateEquals(
                                     .map(
                                         (elem: any, _index5: number) =>
                                             ("string" === typeof elem &&
-                                                (true === $is_uuid(elem) ||
+                                                ($is_uuid(elem) ||
                                                     $report(_exceptionable, {
                                                         path:
                                                             _path +
