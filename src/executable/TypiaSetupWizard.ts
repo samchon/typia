@@ -28,20 +28,21 @@ export namespace TypiaSetupWizard {
             CommandExecutor.run("npx tsc --init");
             return (args.project = "tsconfig.json");
         })();
-        pack.install({ dev: true, modulo: "ts-node" });
+        pack.install({ dev: true, modulo: "ts-node", version: "latest" });
 
         // INSTALL COMPILER
-        pack.install({ dev: true, modulo: args.compiler });
+        pack.install({ dev: true, modulo: args.compiler, version: "latest" });
         if (args.compiler === "ts-patch") {
             await pack.save((data) => {
                 data.scripts ??= {};
                 if (
                     typeof data.scripts.prepare === "string" &&
-                    data.scripts.prepare.indexOf("ts-patch install") === -1
-                )
-                    data.scripts.prepare =
-                        "ts-patch install && " + data.scripts.prepare;
-                else data.scripts.prepare = "ts-patch install";
+                    data.scripts.prepare.length
+                ) {
+                    if (data.scripts.prepare.indexOf("ts-patch install") === -1)
+                        data.scripts.prepare =
+                            "ts-patch install && " + data.scripts.prepare;
+                } else data.scripts.prepare = "ts-patch install";
             });
             CommandExecutor.run("npm run prepare");
         }
