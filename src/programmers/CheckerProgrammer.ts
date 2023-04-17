@@ -507,9 +507,7 @@ export namespace CheckerProgrammer {
                             ),
                         ),
                     }),
-                    meta.objects
-                        .map((obj) => `Resolve<${obj.name}>`)
-                        .join(" | "),
+                    meta.objects.map((obj) => obj.name).join(" | "),
                 )(
                     explore_objects(config)(importer)(input, meta, {
                         ...explore,

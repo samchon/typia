@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.8.0-dev.20230413",
+  "version": "3.8.0-dev.20230418",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -66,11 +66,7 @@
   },
   "homepage": "https://github.com/samchon/typia#readme",
   "dependencies": {
-<<<<<<< HEAD
-    "typia": "3.8.0-dev.20230413"
-=======
-    "typia": "3.7.6"
->>>>>>> master
+    "typia": "3.8.0-dev.20230418"
   },
   "peerDependencies": {
     "typescript": ">= 4.5.2"
