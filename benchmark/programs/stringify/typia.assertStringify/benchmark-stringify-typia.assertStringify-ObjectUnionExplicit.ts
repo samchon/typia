@@ -4,5 +4,5 @@ import { ObjectUnionExplicit } from "../../../../test/structures/ObjectUnionExpl
 import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";
 
 createStringifyBenchmarkProgram(
-    typia.createAssertStringify<ObjectUnionExplicit>()
+    typia.createAssertStringify<ObjectUnionExplicit>(),
 );
