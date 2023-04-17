@@ -19,27 +19,21 @@ export const check_string_tags =
             if (tag.kind === "format")
                 conditions.push([
                     tag,
-                    ts.factory.createStrictEquality(
-                        ts.factory.createTrue(),
-                        ts.factory.createCallExpression(
-                            importer.use(`is_${tag.value}`),
-                            undefined,
-                            [input],
-                        ),
+                    ts.factory.createCallExpression(
+                        importer.use(`is_${tag.value}`),
+                        undefined,
+                        [input],
                     ),
                 ]);
             else if (tag.kind === "pattern")
                 conditions.push([
                     tag,
-                    ts.factory.createStrictEquality(
-                        ts.factory.createTrue(),
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier(
-                                `RegExp(/${tag.value}/).test`,
-                            ),
-                            undefined,
-                            [input],
+                    ts.factory.createCallExpression(
+                        ts.factory.createIdentifier(
+                            `RegExp(/${tag.value}/).test`,
                         ),
+                        undefined,
+                        [input],
                     ),
                 ]);
             else if (tag.kind === "length")

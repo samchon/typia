@@ -43,8 +43,8 @@ export namespace TypiaFileFactory {
                 readDirectory: ts.sys.readDirectory,
                 useCaseSensitiveFileNames: ts.sys.useCaseSensitiveFileNames,
             },
-            path.dirname(props.project)
-        )
+            path.dirname(props.project),
+        );
 
         const program: ts.Program = ts.createProgram(
             await (async () => {
@@ -68,7 +68,7 @@ export namespace TypiaFileFactory {
                 ImportTransformer.transform(props.input)(props.output),
                 transform(
                     program,
-                    (compilerOptions.plugins as any[] ?? []).find(
+                    ((compilerOptions.plugins as any[]) ?? []).find(
                         (p: any) =>
                             p.transform === "typia/lib/transform" ||
                             p.transform === "../src/transform.ts",
