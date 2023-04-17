@@ -22,7 +22,7 @@ export const test_assertClone_TagMatrix = _test_assertClone(
                                 elem.every(
                                     (elem: any) =>
                                         "string" === typeof elem &&
-                                        true === $is_uuid(elem),
+                                        $is_uuid(elem),
                                 ),
                         );
                     return (
@@ -80,7 +80,7 @@ export const test_assertClone_TagMatrix = _test_assertClone(
                                     elem.every(
                                         (elem: any, _index2: number) =>
                                             ("string" === typeof elem &&
-                                                (true === $is_uuid(elem) ||
+                                                ($is_uuid(elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +

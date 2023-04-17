@@ -35,7 +35,16 @@ export namespace TypiaFileFactory {
         }
 
         // CREATE PROGRAM
-        const { config } = ts.readConfigFile(props.project, ts.sys.readFile);
+        const { options: compilerOptions } = ts.parseJsonConfigFileContent(
+            ts.readConfigFile(props.project, ts.sys.readFile).config,
+            {
+                fileExists: ts.sys.fileExists,
+                readFile: ts.sys.readFile,
+                readDirectory: ts.sys.readDirectory,
+                useCaseSensitiveFileNames: ts.sys.useCaseSensitiveFileNames,
+            },
+            path.dirname(props.project),
+        );
 
         const program: ts.Program = ts.createProgram(
             await (async () => {
@@ -43,7 +52,7 @@ export namespace TypiaFileFactory {
                 await gather(props)(container)(props.input)(props.output);
                 return container;
             })(),
-            config.compilerOptions,
+            compilerOptions,
         );
 
         // DO TRANSFORM
@@ -59,7 +68,7 @@ export namespace TypiaFileFactory {
                 ImportTransformer.transform(props.input)(props.output),
                 transform(
                     program,
-                    (config.compilerOptions.plugins ?? []).find(
+                    ((compilerOptions.plugins as any[]) ?? []).find(
                         (p: any) =>
                             p.transform === "typia/lib/transform" ||
                             p.transform === "../src/transform.ts",

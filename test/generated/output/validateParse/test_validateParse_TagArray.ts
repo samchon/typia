@@ -15,8 +15,7 @@ export const test_validateParse_TagArray = _test_validateParse(
                         3 === input.items.length &&
                         input.items.every(
                             (elem: any) =>
-                                "string" === typeof elem &&
-                                true === $is_uuid(elem),
+                                "string" === typeof elem && $is_uuid(elem),
                         ) &&
                         Array.isArray(input.minItems) &&
                         3 <= input.minItems.length &&
@@ -41,8 +40,7 @@ export const test_validateParse_TagArray = _test_validateParse(
                         7 >= input.both.length &&
                         input.both.every(
                             (elem: any) =>
-                                "string" === typeof elem &&
-                                true === $is_uuid(elem),
+                                "string" === typeof elem && $is_uuid(elem),
                         );
                     return (
                         Array.isArray(input) &&
@@ -85,7 +83,7 @@ export const test_validateParse_TagArray = _test_validateParse(
                                         .map(
                                             (elem: any, _index2: number) =>
                                                 ("string" === typeof elem &&
-                                                    (true === $is_uuid(elem) ||
+                                                    ($is_uuid(elem) ||
                                                         $report(
                                                             _exceptionable,
                                                             {
@@ -251,7 +249,7 @@ export const test_validateParse_TagArray = _test_validateParse(
                                         .map(
                                             (elem: any, _index5: number) =>
                                                 ("string" === typeof elem &&
-                                                    (true === $is_uuid(elem) ||
+                                                    ($is_uuid(elem) ||
                                                         $report(
                                                             _exceptionable,
                                                             {

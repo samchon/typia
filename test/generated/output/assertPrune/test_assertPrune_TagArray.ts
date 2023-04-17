@@ -17,8 +17,7 @@ export const test_assertPrune_TagArray = _test_assertPrune(
                         3 === input.items.length &&
                         input.items.every(
                             (elem: any) =>
-                                "string" === typeof elem &&
-                                true === $is_uuid(elem),
+                                "string" === typeof elem && $is_uuid(elem),
                         ) &&
                         Array.isArray(input.minItems) &&
                         3 <= input.minItems.length &&
@@ -43,8 +42,7 @@ export const test_assertPrune_TagArray = _test_assertPrune(
                         7 >= input.both.length &&
                         input.both.every(
                             (elem: any) =>
-                                "string" === typeof elem &&
-                                true === $is_uuid(elem),
+                                "string" === typeof elem && $is_uuid(elem),
                         );
                     return (
                         Array.isArray(input) &&
@@ -82,7 +80,7 @@ export const test_assertPrune_TagArray = _test_assertPrune(
                             input.items.every(
                                 (elem: any, _index2: number) =>
                                     ("string" === typeof elem &&
-                                        (true === $is_uuid(elem) ||
+                                        ($is_uuid(elem) ||
                                             $guard(_exceptionable, {
                                                 path:
                                                     _path +
@@ -204,7 +202,7 @@ export const test_assertPrune_TagArray = _test_assertPrune(
                             input.both.every(
                                 (elem: any, _index5: number) =>
                                     ("string" === typeof elem &&
-                                        (true === $is_uuid(elem) ||
+                                        ($is_uuid(elem) ||
                                             $guard(_exceptionable, {
                                                 path:
                                                     _path +

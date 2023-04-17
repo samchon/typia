@@ -19,23 +19,23 @@ export const test_equals_TagFormat = _test_equals(
                 _exceptionable: boolean = true,
             ): boolean =>
                 "string" === typeof input.uuid &&
-                true === $is_uuid(input.uuid) &&
+                $is_uuid(input.uuid) &&
                 "string" === typeof input.email &&
-                true === $is_email(input.email) &&
+                $is_email(input.email) &&
                 "string" === typeof input.url &&
-                true === $is_url(input.url) &&
+                $is_url(input.url) &&
                 "string" === typeof input.ipv4 &&
-                true === $is_ipv4(input.ipv4) &&
+                $is_ipv4(input.ipv4) &&
                 "string" === typeof input.ipv6 &&
-                true === $is_ipv6(input.ipv6) &&
+                $is_ipv6(input.ipv6) &&
                 "string" === typeof input.date &&
-                true === $is_date(input.date) &&
+                $is_date(input.date) &&
                 "string" === typeof input.date_time &&
-                true === $is_datetime(input.date_time) &&
+                $is_datetime(input.date_time) &&
                 "string" === typeof input.datetime &&
-                true === $is_datetime(input.datetime) &&
+                $is_datetime(input.datetime) &&
                 "string" === typeof input.dateTime &&
-                true === $is_datetime(input.dateTime) &&
+                $is_datetime(input.dateTime) &&
                 "string" === typeof input.custom &&
                 (10 === Object.keys(input).length ||
                     Object.keys(input).every((key) => {

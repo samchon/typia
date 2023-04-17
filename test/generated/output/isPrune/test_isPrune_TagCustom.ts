@@ -12,7 +12,7 @@ export const test_isPrune_TagCustom = _test_isPrune(
                 const $is_custom = (typia.isPrune as any).is_custom;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
-                    true === $is_uuid(input.id) &&
+                    $is_uuid(input.id) &&
                     "string" === typeof input.dollar &&
                     $is_custom("dollar", "string", "", input.dollar) &&
                     "string" === typeof input.postfix &&

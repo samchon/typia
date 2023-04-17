@@ -9,20 +9,17 @@ export const test_createValidate_TemplateUnion = _test_validate(
         const __is = (input: any): input is TemplateUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
-                (true === RegExp(/^prefix_(.*)/).test(input.prefix) ||
-                    true ===
-                        RegExp(/^prefix_-?\d+\.?\d*$/).test(input.prefix)) &&
+                (RegExp(/^prefix_(.*)/).test(input.prefix) ||
+                    RegExp(/^prefix_-?\d+\.?\d*$/).test(input.prefix)) &&
                 "string" === typeof input.postfix &&
-                (true === RegExp(/(.*)_postfix$/).test(input.postfix) ||
-                    true ===
-                        RegExp(/^-?\d+\.?\d*_postfix$/).test(input.postfix)) &&
+                (RegExp(/(.*)_postfix$/).test(input.postfix) ||
+                    RegExp(/^-?\d+\.?\d*_postfix$/).test(input.postfix)) &&
                 ("the_false_value" === input.middle ||
                     "the_true_value" === input.middle ||
                     ("string" === typeof input.middle &&
-                        true ===
-                            RegExp(/^the_-?\d+\.?\d*_value$/).test(
-                                input.middle,
-                            ))) &&
+                        RegExp(/^the_-?\d+\.?\d*_value$/).test(
+                            input.middle,
+                        ))) &&
                 null !== input.mixed &&
                 undefined !== input.mixed &&
                 ("the_A_value" === input.mixed ||
@@ -31,10 +28,7 @@ export const test_createValidate_TemplateUnion = _test_validate(
                         Number.isFinite(input.mixed)) ||
                     "boolean" === typeof input.mixed ||
                     ("string" === typeof input.mixed &&
-                        true ===
-                            RegExp(/^the_-?\d+\.?\d*_value$/).test(
-                                input.mixed,
-                            )) ||
+                        RegExp(/^the_-?\d+\.?\d*_value$/).test(input.mixed)) ||
                     ("object" === typeof input.mixed &&
                         null !== input.mixed &&
                         $io1(input.mixed)));
@@ -63,12 +57,10 @@ export const test_createValidate_TemplateUnion = _test_validate(
                 ): boolean =>
                     [
                         ("string" === typeof input.prefix &&
-                            (true ===
-                                RegExp(/^prefix_(.*)/).test(input.prefix) ||
-                                true ===
-                                    RegExp(/^prefix_-?\d+\.?\d*$/).test(
-                                        input.prefix,
-                                    ))) ||
+                            (RegExp(/^prefix_(.*)/).test(input.prefix) ||
+                                RegExp(/^prefix_-?\d+\.?\d*$/).test(
+                                    input.prefix,
+                                ))) ||
                             $report(_exceptionable, {
                                 path: _path + ".prefix",
                                 expected:
@@ -76,12 +68,10 @@ export const test_createValidate_TemplateUnion = _test_validate(
                                 value: input.prefix,
                             }),
                         ("string" === typeof input.postfix &&
-                            (true ===
-                                RegExp(/(.*)_postfix$/).test(input.postfix) ||
-                                true ===
-                                    RegExp(/^-?\d+\.?\d*_postfix$/).test(
-                                        input.postfix,
-                                    ))) ||
+                            (RegExp(/(.*)_postfix$/).test(input.postfix) ||
+                                RegExp(/^-?\d+\.?\d*_postfix$/).test(
+                                    input.postfix,
+                                ))) ||
                             $report(_exceptionable, {
                                 path: _path + ".postfix",
                                 expected:
@@ -91,10 +81,9 @@ export const test_createValidate_TemplateUnion = _test_validate(
                         "the_false_value" === input.middle ||
                             "the_true_value" === input.middle ||
                             ("string" === typeof input.middle &&
-                                true ===
-                                    RegExp(/^the_-?\d+\.?\d*_value$/).test(
-                                        input.middle,
-                                    )) ||
+                                RegExp(/^the_-?\d+\.?\d*_value$/).test(
+                                    input.middle,
+                                )) ||
                             $report(_exceptionable, {
                                 path: _path + ".middle",
                                 expected:
@@ -121,10 +110,9 @@ export const test_createValidate_TemplateUnion = _test_validate(
                                     Number.isFinite(input.mixed)) ||
                                 "boolean" === typeof input.mixed ||
                                 ("string" === typeof input.mixed &&
-                                    true ===
-                                        RegExp(/^the_-?\d+\.?\d*_value$/).test(
-                                            input.mixed,
-                                        )) ||
+                                    RegExp(/^the_-?\d+\.?\d*_value$/).test(
+                                        input.mixed,
+                                    )) ||
                                 ((("object" === typeof input.mixed &&
                                     null !== input.mixed) ||
                                     $report(_exceptionable, {

@@ -20,7 +20,7 @@ export const test_validateStringify_TagMatrix = _test_validateStringify(
                                 elem.every(
                                     (elem: any) =>
                                         "string" === typeof elem &&
-                                        true === $is_uuid(elem),
+                                        $is_uuid(elem),
                                 ),
                         );
                     return (
@@ -92,10 +92,9 @@ export const test_validateStringify_TagMatrix = _test_validateStringify(
                                                             ) =>
                                                                 ("string" ===
                                                                     typeof elem &&
-                                                                    (true ===
-                                                                        $is_uuid(
-                                                                            elem,
-                                                                        ) ||
+                                                                    ($is_uuid(
+                                                                        elem,
+                                                                    ) ||
                                                                         $report(
                                                                             _exceptionable,
                                                                             {

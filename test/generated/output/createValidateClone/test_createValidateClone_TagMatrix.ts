@@ -18,8 +18,7 @@ export const test_createValidateClone_TagMatrix = _test_validateClone(
                             3 === elem.length &&
                             elem.every(
                                 (elem: any) =>
-                                    "string" === typeof elem &&
-                                    true === $is_uuid(elem),
+                                    "string" === typeof elem && $is_uuid(elem),
                             ),
                     );
                 return (
@@ -85,10 +84,9 @@ export const test_createValidateClone_TagMatrix = _test_validateClone(
                                                         ) =>
                                                             ("string" ===
                                                                 typeof elem &&
-                                                                (true ===
-                                                                    $is_uuid(
-                                                                        elem,
-                                                                    ) ||
+                                                                ($is_uuid(
+                                                                    elem,
+                                                                ) ||
                                                                     $report(
                                                                         _exceptionable,
                                                                         {

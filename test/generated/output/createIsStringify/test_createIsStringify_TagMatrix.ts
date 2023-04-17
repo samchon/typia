@@ -17,8 +17,7 @@ export const test_createIsStringify_TagMatrix = _test_isStringify(
                         3 === elem.length &&
                         elem.every(
                             (elem: any) =>
-                                "string" === typeof elem &&
-                                true === $is_uuid(elem),
+                                "string" === typeof elem && $is_uuid(elem),
                         ),
                 );
             return "object" === typeof input && null !== input && $io0(input);

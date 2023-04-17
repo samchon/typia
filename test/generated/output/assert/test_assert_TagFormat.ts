@@ -25,23 +25,23 @@ export const test_assert_TagFormat = _test_assert(
                 const $is_datetime = (typia.assert as any).is_datetime;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
-                    true === $is_uuid(input.uuid) &&
+                    $is_uuid(input.uuid) &&
                     "string" === typeof input.email &&
-                    true === $is_email(input.email) &&
+                    $is_email(input.email) &&
                     "string" === typeof input.url &&
-                    true === $is_url(input.url) &&
+                    $is_url(input.url) &&
                     "string" === typeof input.ipv4 &&
-                    true === $is_ipv4(input.ipv4) &&
+                    $is_ipv4(input.ipv4) &&
                     "string" === typeof input.ipv6 &&
-                    true === $is_ipv6(input.ipv6) &&
+                    $is_ipv6(input.ipv6) &&
                     "string" === typeof input.date &&
-                    true === $is_date(input.date) &&
+                    $is_date(input.date) &&
                     "string" === typeof input.date_time &&
-                    true === $is_datetime(input.date_time) &&
+                    $is_datetime(input.date_time) &&
                     "string" === typeof input.datetime &&
-                    true === $is_datetime(input.datetime) &&
+                    $is_datetime(input.datetime) &&
                     "string" === typeof input.dateTime &&
-                    true === $is_datetime(input.dateTime) &&
+                    $is_datetime(input.dateTime) &&
                     "string" === typeof input.custom;
                 return (
                     "object" === typeof input && null !== input && $io0(input)
@@ -59,7 +59,7 @@ export const test_assert_TagFormat = _test_assert(
                         _exceptionable: boolean = true,
                     ): boolean =>
                         (("string" === typeof input.uuid &&
-                            (true === $is_uuid(input.uuid) ||
+                            ($is_uuid(input.uuid) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".uuid",
                                     expected: "string (@format uuid)",
@@ -71,7 +71,7 @@ export const test_assert_TagFormat = _test_assert(
                                 value: input.uuid,
                             })) &&
                         (("string" === typeof input.email &&
-                            (true === $is_email(input.email) ||
+                            ($is_email(input.email) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".email",
                                     expected: "string (@format email)",
@@ -83,7 +83,7 @@ export const test_assert_TagFormat = _test_assert(
                                 value: input.email,
                             })) &&
                         (("string" === typeof input.url &&
-                            (true === $is_url(input.url) ||
+                            ($is_url(input.url) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".url",
                                     expected: "string (@format url)",
@@ -95,7 +95,7 @@ export const test_assert_TagFormat = _test_assert(
                                 value: input.url,
                             })) &&
                         (("string" === typeof input.ipv4 &&
-                            (true === $is_ipv4(input.ipv4) ||
+                            ($is_ipv4(input.ipv4) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".ipv4",
                                     expected: "string (@format ipv4)",
@@ -107,7 +107,7 @@ export const test_assert_TagFormat = _test_assert(
                                 value: input.ipv4,
                             })) &&
                         (("string" === typeof input.ipv6 &&
-                            (true === $is_ipv6(input.ipv6) ||
+                            ($is_ipv6(input.ipv6) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".ipv6",
                                     expected: "string (@format ipv6)",
@@ -119,7 +119,7 @@ export const test_assert_TagFormat = _test_assert(
                                 value: input.ipv6,
                             })) &&
                         (("string" === typeof input.date &&
-                            (true === $is_date(input.date) ||
+                            ($is_date(input.date) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".date",
                                     expected: "string (@format date)",
@@ -131,7 +131,7 @@ export const test_assert_TagFormat = _test_assert(
                                 value: input.date,
                             })) &&
                         (("string" === typeof input.date_time &&
-                            (true === $is_datetime(input.date_time) ||
+                            ($is_datetime(input.date_time) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".date_time",
                                     expected: "string (@format datetime)",
@@ -143,7 +143,7 @@ export const test_assert_TagFormat = _test_assert(
                                 value: input.date_time,
                             })) &&
                         (("string" === typeof input.datetime &&
-                            (true === $is_datetime(input.datetime) ||
+                            ($is_datetime(input.datetime) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".datetime",
                                     expected: "string (@format datetime)",
@@ -155,7 +155,7 @@ export const test_assert_TagFormat = _test_assert(
                                 value: input.datetime,
                             })) &&
                         (("string" === typeof input.dateTime &&
-                            (true === $is_datetime(input.dateTime) ||
+                            ($is_datetime(input.dateTime) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".dateTime",
                                     expected: "string (@format datetime)",
