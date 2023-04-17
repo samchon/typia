@@ -4,5 +4,5 @@ import { ObjectHierarchical } from "../../../../test/structures/ObjectHierarchic
 import { createValidateErrorBenchmarkProgram } from "../createValidateErrorBenchmarkProgram";
 
 createValidateErrorBenchmarkProgram(
-    typia.createValidate<ObjectHierarchical[]>()
+    typia.createValidate<ObjectHierarchical[]>(),
 );

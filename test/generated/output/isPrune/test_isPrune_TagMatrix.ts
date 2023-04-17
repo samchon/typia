@@ -18,8 +18,7 @@ export const test_isPrune_TagMatrix = _test_isPrune(
                             3 === elem.length &&
                             elem.every(
                                 (elem: any) =>
-                                    "string" === typeof elem &&
-                                    true === $is_uuid(elem),
+                                    "string" === typeof elem && $is_uuid(elem),
                             ),
                     );
                 return (

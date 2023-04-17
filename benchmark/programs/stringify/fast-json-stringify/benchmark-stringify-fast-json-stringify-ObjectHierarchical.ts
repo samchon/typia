@@ -4,5 +4,5 @@ import { ObjectHierarchical } from "../../../../test/structures/ObjectHierarchic
 import { createStringifyFastBenchmarkProgram } from "./createStringifyFastBenchmarkProgram";
 
 createStringifyFastBenchmarkProgram(
-    typia.application<[ObjectHierarchical], "ajv">()
+    typia.application<[ObjectHierarchical], "ajv">(),
 );

@@ -20,8 +20,7 @@ export const test_createAssertPrune_TagMatrix = _test_assertPrune(
                             3 === elem.length &&
                             elem.every(
                                 (elem: any) =>
-                                    "string" === typeof elem &&
-                                    true === $is_uuid(elem),
+                                    "string" === typeof elem && $is_uuid(elem),
                             ),
                     );
                 return (
@@ -73,7 +72,7 @@ export const test_createAssertPrune_TagMatrix = _test_assertPrune(
                                 elem.every(
                                     (elem: any, _index2: number) =>
                                         ("string" === typeof elem &&
-                                            (true === $is_uuid(elem) ||
+                                            ($is_uuid(elem) ||
                                                 $guard(_exceptionable, {
                                                     path:
                                                         _path +

@@ -23,23 +23,23 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                 _exceptionable: boolean = true,
             ): boolean =>
                 "string" === typeof input.uuid &&
-                true === $is_uuid(input.uuid) &&
+                $is_uuid(input.uuid) &&
                 "string" === typeof input.email &&
-                true === $is_email(input.email) &&
+                $is_email(input.email) &&
                 "string" === typeof input.url &&
-                true === $is_url(input.url) &&
+                $is_url(input.url) &&
                 "string" === typeof input.ipv4 &&
-                true === $is_ipv4(input.ipv4) &&
+                $is_ipv4(input.ipv4) &&
                 "string" === typeof input.ipv6 &&
-                true === $is_ipv6(input.ipv6) &&
+                $is_ipv6(input.ipv6) &&
                 "string" === typeof input.date &&
-                true === $is_date(input.date) &&
+                $is_date(input.date) &&
                 "string" === typeof input.date_time &&
-                true === $is_datetime(input.date_time) &&
+                $is_datetime(input.date_time) &&
                 "string" === typeof input.datetime &&
-                true === $is_datetime(input.datetime) &&
+                $is_datetime(input.datetime) &&
                 "string" === typeof input.dateTime &&
-                true === $is_datetime(input.dateTime) &&
+                $is_datetime(input.dateTime) &&
                 "string" === typeof input.custom &&
                 (10 === Object.keys(input).length ||
                     Object.keys(input).every((key) => {
@@ -89,7 +89,7 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                 ): boolean =>
                     [
                         ("string" === typeof input.uuid &&
-                            (true === $is_uuid(input.uuid) ||
+                            ($is_uuid(input.uuid) ||
                                 $report(_exceptionable, {
                                     path: _path + ".uuid",
                                     expected: "string (@format uuid)",
@@ -101,7 +101,7 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                                 value: input.uuid,
                             }),
                         ("string" === typeof input.email &&
-                            (true === $is_email(input.email) ||
+                            ($is_email(input.email) ||
                                 $report(_exceptionable, {
                                     path: _path + ".email",
                                     expected: "string (@format email)",
@@ -113,7 +113,7 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                                 value: input.email,
                             }),
                         ("string" === typeof input.url &&
-                            (true === $is_url(input.url) ||
+                            ($is_url(input.url) ||
                                 $report(_exceptionable, {
                                     path: _path + ".url",
                                     expected: "string (@format url)",
@@ -125,7 +125,7 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                                 value: input.url,
                             }),
                         ("string" === typeof input.ipv4 &&
-                            (true === $is_ipv4(input.ipv4) ||
+                            ($is_ipv4(input.ipv4) ||
                                 $report(_exceptionable, {
                                     path: _path + ".ipv4",
                                     expected: "string (@format ipv4)",
@@ -137,7 +137,7 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                                 value: input.ipv4,
                             }),
                         ("string" === typeof input.ipv6 &&
-                            (true === $is_ipv6(input.ipv6) ||
+                            ($is_ipv6(input.ipv6) ||
                                 $report(_exceptionable, {
                                     path: _path + ".ipv6",
                                     expected: "string (@format ipv6)",
@@ -149,7 +149,7 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                                 value: input.ipv6,
                             }),
                         ("string" === typeof input.date &&
-                            (true === $is_date(input.date) ||
+                            ($is_date(input.date) ||
                                 $report(_exceptionable, {
                                     path: _path + ".date",
                                     expected: "string (@format date)",
@@ -161,7 +161,7 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                                 value: input.date,
                             }),
                         ("string" === typeof input.date_time &&
-                            (true === $is_datetime(input.date_time) ||
+                            ($is_datetime(input.date_time) ||
                                 $report(_exceptionable, {
                                     path: _path + ".date_time",
                                     expected: "string (@format datetime)",
@@ -173,7 +173,7 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                                 value: input.date_time,
                             }),
                         ("string" === typeof input.datetime &&
-                            (true === $is_datetime(input.datetime) ||
+                            ($is_datetime(input.datetime) ||
                                 $report(_exceptionable, {
                                     path: _path + ".datetime",
                                     expected: "string (@format datetime)",
@@ -185,7 +185,7 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                                 value: input.datetime,
                             }),
                         ("string" === typeof input.dateTime &&
-                            (true === $is_datetime(input.dateTime) ||
+                            ($is_datetime(input.dateTime) ||
                                 $report(_exceptionable, {
                                     path: _path + ".dateTime",
                                     expected: "string (@format datetime)",
