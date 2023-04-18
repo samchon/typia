@@ -4,8 +4,8 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 ## `is()` function
 ```typescript filename="typia"
-export function is<T>(input: unknown): input is T;
 export function is<T>(input: T): input is T;
+export function is<T>(input: unknown): input is T;
 ```
 
 Tests a value type.
@@ -98,8 +98,8 @@ console.log(matched); // true
 
 ## `equals()` function
 ```typescript filename="typia"
-export function equals<T>(input: unknown): input is T;
 export function equals<T>(input: T): input is T;
+export function equals<T>(input: unknown): input is T;
 ```
 
 More strict checker prohibiting superfluous properties.

@@ -1,23 +1,7 @@
 import React from 'react'
-import { DocsThemeConfig, useConfig } from 'nextra-theme-docs'
-
-const Head = () => (
-  <>
-    {[
-      ["android-chrome", "192x192"], 
-      ["android-chrome", "512x512"], 
-      ["apple-touch-icon", "180x180"], 
-      ["favicon", "16x16"], 
-      ["favicon", "32x32"], 
-    ].map(([name, size]) => (
-      <link rel={name} sizes={size} href={`/favicon/${name}-${size}.png`} />
-    ))}
-    <link rel="manifest" href="/favicon/site.webmanifest" />
-  </>
-)
+import { DocsThemeConfig } from 'nextra-theme-docs'
 
 const config: DocsThemeConfig = {
-  head: <Head />,
   logo: () => (
     <>
       <img src="/favicon/favicon-32x32.png" />
@@ -35,7 +19,7 @@ const config: DocsThemeConfig = {
   project: {
     link: 'https://github.com/samchon/typia',
   },
-  docsRepositoryBase: 'https://github.com/samchon/typia/tree/gh-pages',
+  docsRepositoryBase: 'https://github.com/samchon/typia',
   footer: {
     text: () => <span>
       Made by{" "}
