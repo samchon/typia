@@ -19,7 +19,7 @@ const config: DocsThemeConfig = {
   project: {
     link: 'https://github.com/samchon/typia',
   },
-  docsRepositoryBase: 'https://github.com/samchon/typia',
+  docsRepositoryBase: 'https://github.com/samchon/typia/blob/master/docs',
   footer: {
     text: () => <span>
       Made by{" "}
