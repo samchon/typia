@@ -16,6 +16,7 @@ module.exports = {
     },
     ignorePatterns: [
         "bin", 
+        "docs",
         "lib/**/*.d.ts", 
         "node_modules"
     ],
