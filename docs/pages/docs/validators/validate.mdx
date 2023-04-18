@@ -9,8 +9,8 @@ import AlertTitle from '@mui/material/AlertTitle';
 ]}>
     <Tab>
 ```typescript
-export function validate<T>(input: unknown): IValidation<T>;
 export function validate<T>(input: T): IValidation<T>;
+export function validate<T>(input: unknown): IValidation<T>;
 ```
     </Tab>
     <Tab>
@@ -215,8 +215,8 @@ if (!res.success) console.log(res.errors);
 ]}>
     <Tab>
 ```typescript
-export function validateEquals<T>(input: unknown): IValidation<T>;
 export function validateEquals<T>(input: T): IValidation<T>;
+export function validateEquals<T>(input: unknown): IValidation<T>;
 ```
     </Tab>
     <Tab>
@@ -606,6 +606,66 @@ export const validateMember = (input) => {
 
 
 ## Discriminated Union
+<Tabs items={[
+        <code>typia</code>, 
+        <code>IValidation.ts</code>,
+    ]}
+    defaultIndex={1}
+>
+    <Tab>
+```typescript
+export function validate<T>(input: T): IValidation<T>;
+export function validate<T>(input: unknown): IValidation<T>;
+export function createValidate<T>(): (input: unknown) => IValidation<T>;
+```
+    </Tab>
+    <Tab>
+```typescript
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+Specify type through if condition.
+
+`typia.IValidation<T>` is an union type of `typia.IValidation.ISuccess<T>` and `typia.IValidation.IFailure`. Also, they have a common property `success` of boolean type, but different literal values. In that case, if you write a `if condition` about the `success` property, you can specify the union type like below.
+
+In TypeScript, such union type specification through common property (of different literal value() is called "Discriminated Union". Therefore, when using `typia.validate<T>()` function, let's utilize such discriminated union specification for convenience.
+
+```typescript
+import typia from "typia";
+
+const something: unknown = ...;
+const result: typia.IValidation<string> = typia.validate<string>(something);
+
+if (results.success) {
+    // become typia.IValidation.Success<string> type
+    result.data; // accessible
+}
+else {
+    // become typia.IValidation.Failure type
+    result.errors; //accessible
+}
+```
+
+
 
 
 
