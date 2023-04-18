@@ -1,0 +1,436 @@
+import { Tabs, Tab } from 'nextra-theme-docs'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
+## `application()` function
+<Tabs items={[
+    <code>typia</code>, 
+    <code>IJsonApplication.ts</code>, 
+    <code>IJsonComponents.ts</code>,
+    <code>IJsonSchema.ts</code>
+]}>
+    <Tab>
+```typescript
+export function application<
+    Schemas extends unknown[],
+    Purpose extends "ajv" | "swagger",
+    Prefix extends string = Purpose extends "ajv"
+        ? "components#/schemas"
+        : "#/components/schemas",
+>(): IJsonApplication;
+```
+    </Tab>
+    <Tab>
+```typescript
+export interface IJsonApplication {
+    schemas: IJsonSchema[];
+    components: IJsonComponents;
+    purpose: "swagger" | "ajv";
+    prefix: string;
+}
+```
+    </Tab>
+    <Tab>
+```typescript
+export interface IJsonComponents {
+    schemas: Record<string, IJsonComponents.IObject>;
+}
+export namespace IJsonComponents {
+    export interface IObject {
+        $id?: string;
+        $recursiveAnchor?: boolean;
+
+        type: "object";
+        nullable: boolean;
+
+        properties: Record<string, IJsonSchema>;
+        patternProperties?: Record<string, IJsonSchema>;
+        additionalProperties?: IJsonSchema;
+
+        required?: string[];
+        description?: string;
+        "x-typia-jsDocTags"?: IJsDocTagInfo[];
+        "x-typia-patternProperties"?: Record<string, IJsonSchema>;
+        "x-typia-additionalProperties"?: IJsonSchema;
+    }
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+export type IJsonSchema = IJsonSchema.NotUnknown | IJsonSchema.IUnknown;
+export namespace IJsonSchema {
+    export type NotUnknown =
+        | IEnumeration<"boolean">
+        | IEnumeration<"number">
+        | IEnumeration<"string">
+        | IBoolean
+        | IInteger
+        | INumber
+        | IString
+        | IArray
+        | ITuple
+        | IOneOf
+        | IReference
+        | IRecursiveReference
+        | INullOnly;
+
+    /* -----------------------------------------------------------
+        ATOMICS
+    ----------------------------------------------------------- */
+    export interface IEnumeration<
+        Literal extends Exclude<Atomic.Literal, "bigint">,
+    > extends IAtomic<Literal> {
+        enum: Array<Atomic.Mapper[Literal]>;
+    }
+    export interface IAtomic<Literal extends Exclude<Atomic.Literal, "bigint">>
+        extends ISignificant<Literal> {
+        default?: Atomic.Mapper[Literal];
+    }
+    export interface IString extends IAtomic<"string"> {
+        /**
+         * @type uint
+         */
+        minLength?: number;
+        /**
+         * @type uint
+         */
+        maxLength?: number;
+        pattern?: string;
+        format?: string;
+    }
+    export interface INumber extends IAtomic<"number"> {
+        minimum?: number;
+        maximum?: number;
+        exclusiveMinimum?: boolean;
+        exclusiveMaximum?: boolean;
+        multipleOf?: number;
+    }
+    export interface IInteger extends IAtomic<"integer"> {
+        /**
+         * @type int
+         */
+        minimum?: number;
+        /**
+         * @type int
+         */
+        maximum?: number;
+        exclusiveMinimum?: boolean;
+        exclusiveMaximum?: boolean;
+        /**
+         * @type int
+         */
+        multipleOf?: number;
+    }
+    export interface IBoolean extends IAtomic<"boolean"> {}
+
+    /* -----------------------------------------------------------
+        OBJECTS
+    ----------------------------------------------------------- */
+    export interface IArray extends ISignificant<"array"> {
+        items: IJsonSchema;
+        /**
+         * @type uint
+         */
+        minItems?: number;
+        /**
+         * @type uint
+         */
+        maxItems?: number;
+        "x-typia-tuple"?: ITuple;
+    }
+    export interface ITuple extends ISignificant<"array"> {
+        items: IJsonSchema[];
+    }
+    export interface IReference extends IAttribute {
+        $ref: string;
+    }
+    export interface IRecursiveReference extends IAttribute {
+        $recursiveRef: string;
+    }
+    export interface INullOnly extends IAttribute {
+        type: "null";
+    }
+
+    /* -----------------------------------------------------------
+        MISCELLANEOUS
+    ----------------------------------------------------------- */
+    export interface IOneOf extends IAttribute {
+        oneOf: IJsonSchema[];
+    }
+    export interface IUnknown {}
+
+    export interface ISignificant<Literal extends string> extends IAttribute {
+        type: Literal;
+        nullable: boolean;
+    }
+    export interface IAttribute {
+        deprecated?: boolean;
+        title?: string;
+        description?: string;
+        "x-typia-metaTags"?: IMetadataTag[];
+        "x-typia-jsDocTags"?: IJsDocTagInfo[];
+        "x-typia-required"?: boolean;
+        "x-typia-rest"?: boolean;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+JSON schema generator.
+
+  - Definitions:
+    - [`IJsonApplication`](https://github.com/samchon/typia/blob/master/src/schemas/IJsonApplication.ts)
+    - [`IJsonComponents`](https://github.com/samchon/typia/blob/master/src/schemas/IJsonComponents.ts)
+    - [`IJsonSchema`](https://github.com/samchon/typia/blob/master/src/schemas/IJsonSchema.ts)
+
+When you need JSON schema, do not write it by yourself, but just call `typia.application()` function. 
+
+If you call the `typia.application()` with specialization of target `Schemas`, `typia` will analyze your `Schemas` and generate JSON schema definition in the compilation level. However, note that, JSON schema definitions of AJV and Swagger are a little bit different. Therefore, you have to consider which value to assign in the `Purpose` argument.
+
+  - Swagger can't express tuple type
+  - Swagger can't express pattern property
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/application.ts" showLineNumbers {3}
+import typia from "typia";
+
+export const MemberSchema = typia.application<[IMember], "ajv">();
+
+interface IMember {
+    /**
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * @format email
+     */
+    email: string;
+
+    /**
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/application.js" showLineNumbers {3-40}
+import typia from "typia";
+
+export const MemberSchema = {
+    schemas: [
+        {
+            $ref: "components#/schemas/IMember",
+        },
+    ],
+    components: {
+        schemas: {
+            IMember: {
+                $id: "components#/schemas/IMember",
+                type: "object",
+                properties: {
+                    id: {
+                        type: "string",
+                        nullable: false,
+                        format: "uuid",
+                    },
+                    email: {
+                        type: "string",
+                        nullable: false,
+                        format: "email",
+                    },
+                    age: {
+                        type: "number",
+                        nullable: false,
+                        minimum: 19,
+                        exclusiveMinimum: true,
+                        maximum: 100,
+                    },
+                },
+                nullable: false,
+                required: ["id", "email", "age"],
+            },
+        },
+    },
+    purpose: "ajv",
+    prefix: "components#/schemas",
+};
+```
+    </Tab>
+</Tabs>
+
+
+
+
+
+
+## Comment Tags
+You can utilize comments and comment tags to constructing special fields of JSON schema. 
+
+If you write any comment on a property, it would fill the `IJsonSchema.description` value. When you write some comment tags starting with `@` symbol, they would be placed into the proper properties of `IJsonSchema`. Below is the list of supported comment tags in the `typia.application()` function.
+
+Let's see how those comment tags works with example code.
+
+  - Supported comment tags
+    - common
+      - `@deprecated`
+      - `@title {string}`
+      - `@default {value}`
+    - number
+      - `@type {"int"|"uint"}`
+      - `@minimum {number}`
+      - `@maximum {number}`
+      - `@exclusiveMinimum {number}`
+      - `@exclusiveMaximum {number}`
+      - `@multipleOf {number}`
+    - string
+      - `@minLength {number}`
+      - `@maxLength {number}`
+      - `@pattern {regex}`
+      - `@format {keyword}`
+        - `email`
+        - `uuid`
+        - `ipv4`
+        - `ipv6`
+        - `date`: YYYY-MM-DD
+        - `date-time`: `Date.toISOString()`
+    - array
+      - `@minItems {number}`
+      - `@maxItems {number}`
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/application-comment-tags.ts" showLineNumbers {3}
+import typia from "typia";
+
+export const CommentTagSchema = typia.application<[CommentTag], "ajv">();
+
+/**
+ * @title Example schema for comment tags
+ * @deprecated
+ */
+interface CommentTag {
+    /**
+     * @title Unsigned integer
+     * @type uint
+     * @deprecated
+     */
+    type: number;
+
+    /**
+     * @exclusiveMinimum 19
+     * @maximum 100
+     * @default 30
+     */
+    number?: number;
+
+    /**
+     * @minLength 3
+     */
+    string: string;
+
+    /**
+     * @pattern ^[a-z]+$
+     */
+    pattern: string;
+
+    /**
+     * @format date-time
+     */
+    format: string | null;
+    
+    /**
+     * In the Array case, possible to restrict its elements.
+     * 
+     * @minItems 3
+     * @maxItems 100
+     * @format uuid
+     */
+    array: string[];
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/application-comment-tags.js" showLineNumbers {18-20, 25-28, 33, 38, 43, 50-52, 55-58}
+import typia from "typia";
+
+export const CommentTagSchema = {
+    schemas: [
+        {
+            $ref: "components#/schemas/CommentTag",
+        },
+    ],
+    components: {
+        schemas: {
+            CommentTag: {
+                $id: "components#/schemas/CommentTag",
+                type: "object",
+                properties: {
+                    type: {
+                        type: "integer",
+                        nullable: false,
+                        deprecated: true,
+                        title: "Unsigned integer",
+                        minimum: 0,
+                    },
+                    number: {
+                        type: "number",
+                        nullable: false,
+                        minimum: 19,
+                        exclusiveMinimum: true,
+                        maximum: 100,
+                        default: 30,
+                    },
+                    string: {
+                        type: "string",
+                        nullable: false,
+                        minLength: 3,
+                    },
+                    pattern: {
+                        type: "string",
+                        nullable: false,
+                        pattern: "^[a-z]+$",
+                    },
+                    format: {
+                        type: "string",
+                        nullable: true,
+                        format: "date-time",
+                    },
+                    array: {
+                        type: "array",
+                        items: {
+                            type: "string",
+                            nullable: false,
+                            description:
+                                "In the Array case, possible to restrict its elements.",
+                            format: "uuid",
+                        },
+                        nullable: false,
+                        description:
+                            "In the Array case, possible to restrict its elements.",
+                        minItems: 3,
+                        maxItems: 100,
+                    },
+                },
+                nullable: false,
+                required: [
+                    "type",
+                    "string",
+                    "pattern",
+                    "format",
+                    "array",
+                ]
+            },
+        },
+    },
+    purpose: "ajv",
+    prefix: "components#/schemas",
+};
+```
+    </Tab>
+</Tabs>

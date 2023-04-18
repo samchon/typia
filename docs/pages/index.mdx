@@ -1,0 +1,52 @@
+import { Callout, Tabs, Tab } from 'nextra-theme-docs'
+
+<meta http-equiv="refresh" content="0; url=/docs" />
+
+## Outline
+
+```typescript
+// RUNTIME VALIDATORS
+export function is<T>(input: unknown | T): input is T; // returns boolean
+export function assert<T>(input: unknown | T): T; // throws TypeGuardError
+export function validate<T>(input: unknown | T): IValidation<T>; // detailed
+export const customValidators: CustomValidatorMap; // customizable
+
+// ENHANCED JSON
+export function application<...Args>(): IJsonApplication; // JSON schema
+export function assertParse<T>(input: string): T; // type safe parser
+export function assertStringify<T>(input: T): string; // safe and faster
+    // +) isParse, validateParse 
+    // +) stringify, isStringify, validateStringify
+
+// RANDOM DATA GENERATOR
+export function random<T>(g?: Partial<IRandomGenerator>): Primitive<T>;
+```
+
+Typia is a transformer library, supporting those features:
+
+  - Super-fast Runtime Validators
+  - Safe JSON parse and fast stringify
+  - JSON schema generator
+  - Random data generator
+
+<Callout type="info">
+    Only one line required
+</Callout>
+
+<Callout type="warning">
+    Runtime validator is 20,000x faster than `class-validator`
+</Callout>
+
+<Callout type="default">
+    JSON serialization is 200x faster than `class-transformer`
+</Callout>
+
+
+
+
+## Sponsors
+Thanks for your support.
+
+Your donation would encourage `typia` development.
+
+[![Backers](https://opencollective.com/typia/backers.svg?width=1000)](https://opencollective.com/typia)
