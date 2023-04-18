@@ -1,0 +1,518 @@
+import { Tabs, Tab } from 'nextra-theme-docs'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
+## `assert()` function
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>,
+]}>
+    <Tab>
+```typescript
+export function assert<T>(input: unknown): T;
+export function assert<T>(input: T): T;
+```
+    </Tab>
+    <Tab>
+```typescript
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+</Tabs>
+
+Asserts a value type.
+
+`typia.assert<T>()` function throws a `TypeGuardError` when wrong type comes. 
+
+The `TypeGuardError` instance has only the first type error info, with access path and expected type. In the below example case, as the `age` property is wrong with its definition (`@exclusiveMinimum`), such `TypeGuardError` would be thrown:
+
+  - `method`: `typia.assert()`
+  - `path`: `input.age`
+  - `value`: `18`,
+  - `expected`: `number (@exclusiveMinimum 19)`
+
+<br/>
+<Alert severity="success">
+    <AlertTitle> 
+        **AOT compliation** 
+    </AlertTitle>
+
+If you'd used other competitive validator libraries like `ajv` or `class-validator`, you may found that `typia` does not require any extra schema definition. If you have not experienced them, I can sure that you may get shocked after reading below extra schema definition files.
+
+ - `ajv` requires [JSON schema definition](https://github.com/samchon/typia/blob/master/test/schemas/json/swagger/ObjectHierarchical.json).
+ - `class-validator` requires [DTO class with decorator function calls](https://github.com/samchon/typia/blob/master/benchmark/structures/class-validator/ClassValidatorObjectHierarchical.ts).
+
+Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library, it can analyze TypeScript type by itself, and possible to write the optimal validation code like below. This is the key principle of `typia`, which needs only one line with pure TypeScript type.
+
+</Alert>
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/assert.ts" showLineNumbers {4-8}
+import typia from "typia";
+import { v4 } from "uuid";
+
+typia.assert<IMember>({
+    id: v4(),
+    email: "samchon.github@gmail.com",
+    age: 18, // wrong, must be greater than 19
+});
+
+interface IMember {
+    /**
+     * @format uuid
+     */
+    id: string;
+    
+    /**
+     * @format email
+     */
+    email: string;
+
+    /**
+     * @type int
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/assert.js" showLineNumbers {4-86}
+import typia from "typia";
+import { v4 } from "uuid";
+
+((input) => {
+    const $guard = typia.assert.guard;
+    const $is_uuid = typia.assert.is_uuid;
+    const $is_email = typia.assert.is_email;
+    const __is = (input) => {
+        const $is_uuid = typia.assert.is_uuid;
+        const $is_email = typia.assert.is_email;
+        return (
+            "object" === typeof input && null !== input &&
+            "string" === typeof input.id && $is_uuid(input.id) &&
+            "string" === typeof input.email && $is_email(input.email) &&
+            "number" === typeof input.age && 
+                parseInt(input.age) === input.age && 
+                19 < input.age && 100 >= input.age
+        );
+    };
+    if (false === __is(input))
+        ((input, _path, _exceptionable = true) => {
+            const $ao0 = (input, _path, _exceptionable = true) =>
+                (("string" === typeof input.id &&
+                    ($is_uuid(input.id) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".id",
+                            expected: "string (@format uuid)",
+                            value: input.id,
+                        }))) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".id",
+                        expected: "string",
+                        value: input.id,
+                    })) &&
+                (("string" === typeof input.email &&
+                    ($is_email(input.email) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".email",
+                            expected: "string (@format email)",
+                            value: input.email,
+                        }))) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".email",
+                        expected: "string",
+                        value: input.email,
+                    })) &&
+                (("number" === typeof input.age &&
+                    (parseInt(input.age) === input.age ||
+                        $guard(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number (@type int)",
+                            value: input.age,
+                        })) &&
+                    (19 < input.age ||
+                        $guard(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number (@exclusiveMinimum 19)",
+                            value: input.age,
+                        })) &&
+                    (100 >= input.age ||
+                        $guard(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number (@maximum 100)",
+                            value: input.age,
+                        }))) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".age",
+                        expected: "number",
+                        value: input.age,
+                    }));
+            return (
+                (("object" === typeof input && null !== input) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "IMember",
+                        value: input,
+                    })) &&
+                $ao0(input, _path + "", true)
+            );
+        })(input, "$input", true);
+    return input;
+})({
+    id: v4(),
+    email: "samchon.github@gmail.com",
+    age: 30,
+});
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## `assertEquals()` function
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>,
+]}>
+    <Tab>
+```typescript
+export function assertEquals<T>(input: unknown): T;
+export function assertEquals<T>(input: T): T;
+```
+    </Tab>
+    <Tab>
+```typescript
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+</Tabs>
+
+More strict assert function prohibiting superfluous properties.
+
+`typia.assert<T>()` function inspects `input` value type and throws `TypeGuardError` when mismatched, however, it can't detect superfluous properties. If you want to prohibit those superfluous properties, therefore throws an `TypeGuardError` when superfluous property exists, use `typia.assertEquals<T()>` function instead.
+
+In the below example case, as `sex` property is not defined in the `IMember` type, such `TypeGuardError` would be thrown:
+
+  - `method: `typia.assertEquals()`
+  - `path`: `input.sex`
+  - `value`: `1`,
+  ` expected`: `undefined`
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/assert.ts" showLineNumbers {4-9}
+import typia from "typia";
+import { v4 } from "uuid";
+
+typia.assert<IMember>({
+    id: v4(),
+    email: "samchon.github@gmail.com",
+    age: 30,
+    sex: 1, // extra
+});
+
+interface IMember {
+    /**
+     * @format uuid
+     */
+    id: string;
+    
+    /**
+     * @format email
+     */
+    email: string;
+
+    /**
+     * @type int
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/assertEquals.js" showLineNumbers {4-85}
+import typia from "typia";
+import { v4 } from "uuid";
+
+((input) => {
+    const $guard = typia.assert.guard;
+    const $is_uuid = typia.assert.is_uuid;
+    const $is_email = typia.assert.is_email;
+    const __is = (input) => {
+        return (
+            "object" === typeof input && null !== input &&
+            "string" === typeof input.id && $is_uuid(input.id) &&
+            "string" === typeof input.email && $is_email(input.email) &&
+            "number" === typeof input.age &&
+                parseInt(input.age) === input.age &&
+                19 < input.age && 100 >= input.age
+        );
+    };
+    if (false === __is(input))
+        ((input, _path, _exceptionable = true) => {
+            const $ao0 = (input, _path, _exceptionable = true) =>
+                (("string" === typeof input.id &&
+                    ($is_uuid(input.id) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".id",
+                            expected: "string (@format uuid)",
+                            value: input.id,
+                        }))) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".id",
+                        expected: "string",
+                        value: input.id,
+                    })) &&
+                (("string" === typeof input.email &&
+                    ($is_email(input.email) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".email",
+                            expected: "string (@format email)",
+                            value: input.email,
+                        }))) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".email",
+                        expected: "string",
+                        value: input.email,
+                    })) &&
+                (("number" === typeof input.age &&
+                    (parseInt(input.age) === input.age ||
+                        $guard(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number (@type int)",
+                            value: input.age,
+                        })) &&
+                    (19 < input.age ||
+                        $guard(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number (@exclusiveMinimum 19)",
+                            value: input.age,
+                        })) &&
+                    (100 >= input.age ||
+                        $guard(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number (@maximum 100)",
+                            value: input.age,
+                        }))) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".age",
+                        expected: "number",
+                        value: input.age,
+                    }));
+            return (
+                (("object" === typeof input && null !== input) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "IMember",
+                        value: input,
+                    })) &&
+                $ao0(input, _path + "", true)
+            );
+        })(input, "$input", true);
+    return input;
+})({
+    id: v4(),
+    email: "samchon.github@gmail.com",
+    age: 30,
+    sex: 1, // extra
+});
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## Reusable functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>,
+]}>
+    <Tab>
+```typescript
+export function createAssert<T>(): (input: unknown) => T;
+export function createAssertEquals<T>(): (input: unknown) => T;
+```
+    </Tab>
+    <Tab>
+```typescript
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+</Tabs>
+
+Reusable `typia.assert<T>()` function generators.
+
+If you repeat to call `typia.assert<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.createAssert<T>()` function.
+
+Just look at the code below, then you may understand how to use it.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/createAssert.ts" showLineNumbers {3}
+import typia from "typia";
+
+export const assertMember = typia.createAssert<IMember>();
+
+interface IMember {
+    /**
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * @format email
+     */
+    email: string;
+
+    /**
+     * @type int
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/createAssert.js" showLineNumbers {}
+import typia from "typia";
+
+export const assertMember = (input) => {
+    const $guard = typia.createAssert.guard;
+    const $is_uuid = typia.createAssert.is_uuid;
+    const $is_email = typia.createAssert.is_email;
+    const __is = (input) => {
+        const $is_uuid = typia.createAssert.is_uuid;
+        const $is_email = typia.createAssert.is_email;
+        return (
+            "object" === typeof input && null !== input &&
+            "string" === typeof input.id && $is_uuid(input.id) &&
+            "string" === typeof input.email && $is_email(input.email) &&
+            "number" === typeof input.age &&
+                parseInt(input.age) === input.age &&
+                19 < input.age &&
+                100 >= input.age
+        );
+    };
+    if (false === __is(input))
+        ((input, _path, _exceptionable = true) => {
+            const $ao0 = (input, _path, _exceptionable = true) =>
+                (("string" === typeof input.id &&
+                    ($is_uuid(input.id) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".id",
+                            expected: "string (@format uuid)",
+                            value: input.id,
+                        }))) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".id",
+                        expected: "string",
+                        value: input.id,
+                    })) &&
+                (("string" === typeof input.email &&
+                    ($is_email(input.email) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".email",
+                            expected: "string (@format email)",
+                            value: input.email,
+                        }))) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".email",
+                        expected: "string",
+                        value: input.email,
+                    })) &&
+                (("number" === typeof input.age &&
+                    (parseInt(input.age) === input.age ||
+                        $guard(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number (@type int)",
+                            value: input.age,
+                        })) &&
+                    (19 < input.age ||
+                        $guard(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number (@exclusiveMinimum 19)",
+                            value: input.age,
+                        })) &&
+                    (100 >= input.age ||
+                        $guard(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number (@maximum 100)",
+                            value: input.age,
+                        }))) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".age",
+                        expected: "number",
+                        value: input.age,
+                    }));
+            return (
+                (("object" === typeof input && null !== input) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "IMember",
+                        value: input,
+                    })) &&
+                $ao0(input, _path + "", true)
+            );
+        })(input, "$input", true);
+    return input;
+};
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## Performance
+Super-fast and super-safe.
+
+Comparing `typia.assert<T>()` function with other competitive libraries, maximum 20,000x faster. 
+
+Furthermore, only `typia` can validate complicate union types.
+
+![Assert Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/assert.svg)
+
+> Measured on [Intel i5-1135g7, Surface Pro 8](https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz#assert)
+
+Components               | `typia` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
+-------------------------|--------|-----------|-------|---------|-------|------------------
+**Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ 
+[Object (simple)](https://github.com/samchon/typia/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Object (additional tags)](https://github.com/samchon/typia/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (template literal types)](https://github.com/samchon/typia/blob/master/test/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Array (rest tuple)](https://github.com/samchon/typia/blob/master/test/structures/TupleRestAtomic.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Array (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
+[Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+
+> `C.V.` means `class-validator`

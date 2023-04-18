@@ -1,0 +1,309 @@
+import { Tabs, Tab } from 'nextra-theme-docs'
+
+## `parse()` functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+    <code>IValidation.ts</code>
+]}>
+    <Tab>
+```typescript
+export function isParse<T>(input: string): T | null;
+export function assertParse<T>(input: string): T;
+export function validateParse<T>(input: string): IValidation<T>;
+```
+    </Tab>
+    <Tab>
+```typescript
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+Type safe JSON parser.
+
+Unlink native `JSON.parse()` function which returns any typed instance without type checking, `typia.assertParse<T>()` function validates instance type after the parsing. If the parsed value is not following the promised type `T`, it throws `TypeGuardError` with the first type error info.
+
+If you want to know every type error infos detaily, you can use `typia.validateParse<T>()` function instead. Otherwise, you just only want to know whether the parsed value is following the type `T` or not, just call `typia.isParse<T>()` function.
+
+  - `typia.isParse<T>()`: `JSON.parse()` + [`typia.is<T>()`](../validators/is)
+  - `typia.assertParse<T>()`: `JSON.parse()` + [`typia.assert<T>()`](../validators/assert)
+  - `typia.validateParse<T>()`: `JSON.parse()` + [`typia.validate<T>()`](../validators/validate)
+
+Look at the below code, then you may understand how the `typia.assertParse<T>()` function works.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/assertParse.ts" showLineNumbers {4, 6}
+import typia from "typia";
+
+const json: string = JSON.stringify(typia.random<IMember>());
+const parsed: IMember = typia.assertParse<IMember>(json);
+
+console.log(json === JSON.stringify(parsed)); // true
+
+interface IMember {
+    /**
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * @format email
+     */
+    email: string;
+
+    /**
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/assertParse.js" showLineNumbers {3-108, 110}
+import typia from "typia";
+
+const json = JSON.stringify(
+    ((generator) => {
+        const $generator = typia.random.generator;
+        const $ro0 = (_recursive = false, _depth = 0) => ({
+            id:
+                (generator?.customs ?? $generator.customs)?.string?.([
+                    {
+                        name: "format",
+                        value: "uuid",
+                    },
+                ]) ?? (generator?.uuid ?? $generator.uuid)(),
+            email:
+                (generator?.customs ?? $generator.customs)?.string?.([
+                    {
+                        name: "format",
+                        value: "email",
+                    },
+                ]) ?? (generator?.email ?? $generator.email)(),
+            age:
+                (generator?.customs ?? $generator.customs)?.number?.([
+                    {
+                        name: "exclusiveMinimum",
+                        value: "19",
+                    },
+                    {
+                        name: "maximum",
+                        value: "100",
+                    },
+                ]) ?? (generator?.number ?? $generator.number)(19, 100),
+        });
+        return $ro0();
+    })(),
+);
+const parsed = ((input) => {
+    const assert = (input) => {
+        const $guard = typia.assertParse.guard;
+        const $is_uuid = typia.assertParse.is_uuid;
+        const $is_email = typia.assertParse.is_email;
+        const __is = (input) => {
+            return (
+                "object" === typeof input && null !== input &&
+                "string" === typeof input.id && $is_uuid(input.id) &&
+                "string" === typeof input.email && $is_email(input.email) &&
+                "number" === typeof input.age && 19 < input.age && 100 >= input.age
+            );
+        };
+        if (false === __is(input))
+            ((input, _path, _exceptionable = true) => {
+                const $ao0 = (input, _path, _exceptionable = true) =>
+                    (("string" === typeof input.id &&
+                        ($is_uuid(input.id) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".id",
+                                expected: "string (@format uuid)",
+                                value: input.id,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".id",
+                            expected: "string",
+                            value: input.id,
+                        })) &&
+                    (("string" === typeof input.email &&
+                        ($is_email(input.email) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".email",
+                                expected: "string (@format email)",
+                                value: input.email,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".email",
+                            expected: "string",
+                            value: input.email,
+                        })) &&
+                    (("number" === typeof input.age &&
+                        (19 < input.age ||
+                            $guard(_exceptionable, {
+                                path: _path + ".age",
+                                expected: "number (@exclusiveMinimum 19)",
+                                value: input.age,
+                            })) &&
+                        (100 >= input.age ||
+                            $guard(_exceptionable, {
+                                path: _path + ".age",
+                                expected: "number (@maximum 100)",
+                                value: input.age,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number",
+                            value: input.age,
+                        }));
+                return (
+                    (("object" === typeof input && null !== input) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "IMember",
+                            value: input,
+                        })) &&
+                    $ao0(input, _path + "", true)
+                );
+            })(input, "$input", true);
+        return input;
+    };
+    input = JSON.parse(input);
+    return assert(input);
+})(json);
+
+console.log(json === JSON.stringify(parsed)); // true
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## Reusable functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+    <code>IValidation.ts</code>
+]}>
+    <Tab>
+```typescript
+export function createIsParse<T>(): (input: string) => T | null;
+export function createAssertParse<T>(): (input: string) => T;
+export function createValidateParse<T>(): (input: string) => IValidation<T>;
+```
+    </Tab>
+    <Tab>
+```typescript
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+Reusable `typia.isParse<T>()` function generators.
+
+If you repeat to call `typia.isParse<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.createIsParse<T>()` function.
+
+Just look at the code below, then you may understand how to use it.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/createIsParse.ts" showLineNumbers {3}
+import typia from "typia";
+
+export const parseMember = typia.createIsParse<IMember>();
+
+interface IMember {
+    /**
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * @format email
+     */
+    email: string;
+
+    /**
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/createIsParse.js" showLineNumbers {3-15}
+import typia from "typia";
+
+export const parseMember = (input) => {
+    const is = (input) => {
+        const $is_uuid = typia.createIsParse.is_uuid;
+        const $is_email = typia.createIsParse.is_email;
+        return (
+            "object" === typeof input && null !== input &&
+            "string" === typeof input.id && $is_uuid(input.id) &&
+            "string" === typeof input.email && $is_email(input.email) &&
+            "number" === typeof input.age && 19 < input.age && 100 >= input.age
+        );
+    };
+    input = JSON.parse(input);
+    return is(input) ? input : null;
+};
+```
+    </Tab>
+</Tabs>
