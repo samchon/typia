@@ -9,12 +9,12 @@ import AlertTitle from '@mui/material/AlertTitle';
     <code>Customizable.ts</code>
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function random<T>(g?: IRandomGenerator): T;
 ```
     </Tab>
     <Tab>
-```typescript filename="typia/IRandomGenerator.ts"
+```typescript copy filename="typia/IRandomGenerator.ts"
 export interface IRandomGenerator {
     boolean(): boolean;
     integer(minimum?: number, maximum?: number): number;
@@ -48,7 +48,7 @@ export namespace IRandomGenerator {
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export interface Customizable {
     number: number;
     string: string;
@@ -64,7 +64,7 @@ When you call the `typia.random<T>()` function, `typia` will analyze your type `
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/.ts" showLineNumbers {3}
+```typescript copy filename="examples/src/.ts" showLineNumbers {3}
 import typia from "typia";
 
 const member: IMember = typia.random<IMember>();
@@ -142,12 +142,12 @@ console.log(member);
     <code>Customizable.ts</code>
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function createRandom<T>(): (g?: IRandomGenerator) => T;
 ```
     </Tab>
     <Tab>
-```typescript filename="typia/IRandomGenerator.ts"
+```typescript copy filename="typia/IRandomGenerator.ts"
 export interface IRandomGenerator {
     boolean(): boolean;
     integer(minimum?: number, maximum?: number): number;
@@ -181,7 +181,7 @@ export namespace IRandomGenerator {
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export interface Customizable {
     number: number;
     string: string;
@@ -199,7 +199,7 @@ Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/createRandom.ts" showLineNumbers {3}
+```typescript copy filename="examples/src/createRandom.ts" showLineNumbers {3}
 import typia from "typia";
 
 export const createRandomMember = typia.createRandom<IMember>();
@@ -300,7 +300,7 @@ Let's see how those comment tags work with example code.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/application-comment-tags.ts" showLineNumbers {3}
+```typescript copy filename="examples/src/application-comment-tags.ts" showLineNumbers {3}
 import typia from "typia";
 
 const data: CommentTag = typia.random<CommentTag>();
@@ -426,13 +426,13 @@ console.log(data);
     <code>Customizable.ts</code>
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function random<T>(g?: IRandomGenerator): T;
 export function createRandom<T>: (g?: IRandomGenerator) => T;
 ```
     </Tab>
     <Tab>
-```typescript filename="typia/IRandomGenerator.ts" showLineNumbers {18, 21-24}
+```typescript copy filename="typia/IRandomGenerator.ts" showLineNumbers {18, 21-24}
 export interface IRandomGenerator {
     boolean(): boolean;
     integer(minimum?: number, maximum?: number): number;
@@ -466,7 +466,7 @@ export namespace IRandomGenerator {
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export interface Customizable {
     number: number;
     string: string;
@@ -484,7 +484,7 @@ Just define custom comment tags like below, then everything would be done.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/random-customization.ts" showLineNumbers {4-23}
+```typescript copy filename="examples/src/random-customization.ts" showLineNumbers {4-23}
 import typia from "typia";
 import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
 

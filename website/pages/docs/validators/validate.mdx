@@ -8,13 +8,13 @@ import AlertTitle from '@mui/material/AlertTitle';
     <code>IValidation.ts</code>,
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function validate<T>(input: T): IValidation<T>;
 export function validate<T>(input: unknown): IValidation<T>;
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -69,7 +69,7 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/validate.ts" showLineNumbers {3-7, 9}
+```typescript copy filename="examples/src/validate.ts" showLineNumbers {3-7, 9}
 import typia from "typia";
 
 const res: typia.IValidation<IMember> = typia.validate<IMember>({
@@ -214,13 +214,13 @@ if (!res.success) console.log(res.errors);
     <code>IValidation.ts</code>,
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function validateEquals<T>(input: T): IValidation<T>;
 export function validateEquals<T>(input: unknown): IValidation<T>;
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -260,7 +260,7 @@ In the below example case, as `id` property is different with its type definitio
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/validateEquals.ts" showLineNumbers {3-8, 10}
+```typescript copy filename="examples/src/validateEquals.ts" showLineNumbers {3-8, 10}
 import typia from "typia";
 
 const res: typia.IValidation<IMember> = typia.validateEquals<IMember>({
@@ -437,13 +437,13 @@ if (!res.success) console.log(res.errors);
     <code>IValidation.ts</code>,
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function createValidate<T> = (input: unknown) => IValidation<T>;
 export function createValidateEquals<T> = (input: unknown) => IValidation<T>;
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -474,7 +474,7 @@ Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/createValidate.ts" showLineNumbers {3}
+```typescript copy filename="examples/src/createValidate.ts" showLineNumbers {3}
 import typia from "typia";
 
 export const validateMember = typia.createValidate<IMember>();
@@ -613,14 +613,14 @@ export const validateMember = (input) => {
     defaultIndex={1}
 >
     <Tab>
-```typescript
+```typescript copy
 export function validate<T>(input: T): IValidation<T>;
 export function validate<T>(input: unknown): IValidation<T>;
 export function createValidate<T>(): (input: unknown) => IValidation<T>;
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -649,7 +649,7 @@ Specify type through if condition.
 
 In TypeScript, such union type specification through common property (of different literal value() is called "Discriminated Union". Therefore, when using `typia.validate<T>()` function, let's utilize such discriminated union specification for convenience.
 
-```typescript
+```typescript copy
 import typia from "typia";
 
 const something: unknown = ...;

@@ -14,7 +14,7 @@ Therefore, don't be afraid `typia` uses only pure TypeScript types for type vali
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/is-comment-tags.ts" showLineNumbers {3}
+```typescript copy filename="examples/src/is-comment-tags.ts" showLineNumbers {3}
 import typia from "typia";
 
 export const checkCommentTag = typia.createIs<CommentTag>();
@@ -127,7 +127,7 @@ I think below list is not hard to understand.
     <code>Customizable.ts</code>
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function is<T>(input: unknown): input is T;
 export function assert<T>(input: unknown): T;
 export function validate<T>(input: unknown): IValidation<T>;
@@ -136,7 +136,7 @@ export const customValidators: CustomValidatorMap;
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export interface CustomValidatorMap {
     size(): number;
     size(name: string): number;
@@ -161,7 +161,7 @@ export namespace CustomValidatorMap {
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export interface Customizable {
     number: number;
     string: string;
@@ -181,7 +181,7 @@ If you're not familiar with functional programming, just read below example code
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/is-customization.ts" showLineNumbers {3}
+```typescript copy filename="examples/src/is-customization.ts" showLineNumbers {3}
 import typia from "typia";
 
 export const checkTagCustom = typia.createIs<TagCustom>();

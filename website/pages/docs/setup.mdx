@@ -15,7 +15,7 @@ This is the transform mode performing AOT (Ahead of Time) compilation.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/check.ts" showLineNumbers {3}
+```typescript copy filename="examples/src/check.ts" showLineNumbers {3}
 import typia from "typia";
 
 export const check = typia.createIs<IMember>();
@@ -87,7 +87,7 @@ Install `typia` through `npm install` command and run `typia generate` command. 
 
 <Tabs items={['TypeScript Source Code', 'Generated TypeScript File']}>
     <Tab>
-```typescript filename="examples/src/templates/check.ts" showLineNumbers {5}
+```typescript copy filename="examples/src/templates/check.ts" showLineNumbers {5}
 import typia from "typia";
 
 import { IMember } from "../structures/IMember";
@@ -96,7 +96,7 @@ export const check = typia.createIs<IMember>();
 ```
     </Tab>
     <Tab>
-```typescript filename="examples/src/generated/check.ts" showLineNumbers {3-13}
+```typescript copy filename="examples/src/generated/check.ts" showLineNumbers {3-13}
 import typia from "typia";
 import { IMember } from "../structures/IMember";
 export const check = (input: any): input is IMember => {
@@ -122,7 +122,7 @@ If you've made your frontend project through `vite`, you can utilize the [transf
 
 Just configure `vite.config.ts` file below, that's all.
 
-```typescript filename="vite.config.ts"
+```typescript copy filename="vite.config.ts"
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import typescript from "@rollup/plugin-typescript";
