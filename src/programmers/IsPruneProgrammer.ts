@@ -11,7 +11,8 @@ import { PruneProgrammer } from "./PruneProgrammer";
 
 export namespace IsPruneProgrammer {
     export const generate =
-        (project: IProject, modulo: ts.LeftHandSideExpression) =>
+        (project: IProject) =>
+        (modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
@@ -33,21 +34,21 @@ export namespace IsPruneProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "is",
-                        IsProgrammer.generate(project, modulo)(type, name),
+                        IsProgrammer.generate(project)(modulo)(false)(
+                            type,
+                            name,
+                        ),
                     ),
                     StatementFactory.constant(
                         "prune",
-                        PruneProgrammer.generate(
-                            {
-                                ...project,
-                                options: {
-                                    ...project.options,
-                                    functional: false,
-                                    numeric: false,
-                                },
+                        PruneProgrammer.generate({
+                            ...project,
+                            options: {
+                                ...project.options,
+                                functional: false,
+                                numeric: false,
                             },
-                            modulo,
-                        )(type, name),
+                        })(modulo)(type, name),
                     ),
                     ts.factory.createIfStatement(
                         ts.factory.createPrefixUnaryExpression(

@@ -18,37 +18,33 @@ import { UnionExplorer } from "./helpers/UnionExplorer";
 import { decode_union_object } from "./internal/decode_union_object";
 
 export namespace CloneProgrammer {
-    export function generate(
-        project: IProject,
-        modulo: ts.LeftHandSideExpression,
-    ) {
-        const importer: FunctionImporter = new FunctionImporter();
-        return FeatureProgrammer.generate(
-            project,
-            CONFIG(project, importer),
-            importer,
-            (collection) => {
-                const isFunctors = IsProgrammer.generate_functors(
-                    project,
-                    importer,
-                )(collection);
-                const isUnioners = IsProgrammer.generate_unioners(
-                    project,
-                    importer,
-                )(collection);
+    export const generate =
+        (project: IProject) => (modulo: ts.LeftHandSideExpression) => {
+            const importer: FunctionImporter = new FunctionImporter();
+            return FeatureProgrammer.generate(project)({
+                ...CONFIG(project, importer),
+                addition: (collection) => {
+                    const isFunctors = IsProgrammer.generate_functors(
+                        project,
+                        importer,
+                    )(collection);
+                    const isUnioners = IsProgrammer.generate_unioners(
+                        project,
+                        importer,
+                    )(collection);
 
-                return [
-                    ...importer.declare(modulo),
-                    ...isFunctors.filter((_, i) =>
-                        importer.hasLocal(`$io${i}`),
-                    ),
-                    ...isUnioners.filter((_, i) =>
-                        importer.hasLocal(`$iu${i}`),
-                    ),
-                ];
-            },
-        );
-    }
+                    return [
+                        ...importer.declare(modulo),
+                        ...isFunctors.filter((_, i) =>
+                            importer.hasLocal(`$io${i}`),
+                        ),
+                        ...isUnioners.filter((_, i) =>
+                            importer.hasLocal(`$iu${i}`),
+                        ),
+                    ];
+                },
+            })(importer);
+        };
 
     /* -----------------------------------------------------------
         DECODERS
@@ -259,9 +255,7 @@ export namespace CloneProgrammer {
         };
 
     const decode_array = (project: IProject, importer: FunctionImporter) =>
-        FeatureProgrammer.decode_array(
-            CONFIG(project, importer),
-            importer,
+        FeatureProgrammer.decode_array(CONFIG(project, importer))(importer)(
             CloneJoiner.array,
         );
 
@@ -350,17 +344,16 @@ export namespace CloneProgrammer {
             create_throw_error(importer, input, expected),
     });
 
-    const initializer: FeatureProgrammer.IConfig["initializer"] = (
-        { checker },
-        type,
-    ) => {
-        const collection = new MetadataCollection();
-        const meta = MetadataFactory.generate(checker, collection, type, {
-            resolve: true,
-            constant: true,
-        });
-        return [collection, meta];
-    };
+    const initializer: FeatureProgrammer.IConfig["initializer"] =
+        ({ checker }) =>
+        (type) => {
+            const collection = new MetadataCollection();
+            const meta = MetadataFactory.generate(checker, collection, type, {
+                resolve: true,
+                constant: true,
+            });
+            return [collection, meta];
+        };
 
     const create_throw_error = (
         importer: FunctionImporter,

@@ -11,7 +11,8 @@ import { CloneProgrammer } from "./CloneProgrammer";
 
 export namespace AssertCloneProgrammer {
     export const generate =
-        (project: IProject, modulo: ts.LeftHandSideExpression) =>
+        (project: IProject) =>
+        (modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
@@ -31,21 +32,21 @@ export namespace AssertCloneProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "assert",
-                        AssertProgrammer.generate(project, modulo)(type, name),
+                        AssertProgrammer.generate(project)(modulo)(false)(
+                            type,
+                            name,
+                        ),
                     ),
                     StatementFactory.constant(
                         "clone",
-                        CloneProgrammer.generate(
-                            {
-                                ...project,
-                                options: {
-                                    ...project.options,
-                                    functional: false,
-                                    numeric: false,
-                                },
+                        CloneProgrammer.generate({
+                            ...project,
+                            options: {
+                                ...project.options,
+                                functional: false,
+                                numeric: false,
                             },
-                            modulo,
-                        )(type, name),
+                        })(modulo)(type, name),
                     ),
                     ts.factory.createExpressionStatement(
                         ts.factory.createCallExpression(

@@ -15,7 +15,6 @@ export function transform(
         printer: ts.createPrinter(),
         options: options || {},
     };
-    return (context) => (file) =>
-        FileTransformer.transform(project, context, file);
+    return FileTransformer.transform(project);
 }
 export default transform;
