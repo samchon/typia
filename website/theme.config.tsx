@@ -4,13 +4,14 @@ import { DocsThemeConfig } from 'nextra-theme-docs'
 const config: DocsThemeConfig = {
   logo: () => (
     <>
-      <img src="/favicon/favicon-32x32.png" />
+      <img src="/favicon/android-chrome-192x192.png" 
+           width={32} 
+           height={32} />
       <span style={{ 
-          fontWeight: "bold", 
-          fontSize: "1.2rem",
-          paddingLeft: 10,
-          paddingRight: 10, }}
-      >
+            fontWeight: "bold", 
+            fontSize: "1.2rem",
+            paddingLeft: 10,
+            paddingRight: 10, }}>
         Typia
       </span>
       <span>Superfast Runtime Validator</span>
@@ -18,8 +19,12 @@ const config: DocsThemeConfig = {
   ),
   project: {
     link: 'https://github.com/samchon/typia',
+    icon: <img
+      alt="Typia Github repo stars" 
+      src="https://img.shields.io/github/stars/samchon/typia?style=social" 
+    />
   },
-  docsRepositoryBase: 'https://github.com/samchon/typia/blob/master/docs',
+  docsRepositoryBase: 'https://github.com/samchon/typia/blob/master/website',
   footer: {
     text: () => <span>
       Made by{" "}

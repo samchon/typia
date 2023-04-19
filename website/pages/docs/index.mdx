@@ -4,6 +4,40 @@ import Stack from '@mui/material/Stack';
 
 ## Outline
 
+<span style={{ display: "flex", flexDirection: "row" }}>
+{[
+    [
+        "MIT License",
+        "https://img.shields.io/badge/license-MIT-blue.svg",
+        "https://github.com/samchon/typia/blob/master/LICENSE",
+    ],
+    [
+        "NPM Version",
+        "https://img.shields.io/npm/v/typia.svg",
+        "https://www.npmjs.com/package/typia",
+    ],
+    [
+        "NPM Downloads",
+        "https://img.shields.io/npm/dm/typia.svg",
+        "https://www.npmjs.com/package/typia",
+    ],
+    [
+        "Build Status",
+        "https://github.com/samchon/typia/workflows/build/badge.svg",
+        "https://github.com/samchon/typia/actions?query=workflow%3Abuild",
+    ],
+    [
+        "Guide Documents",
+        "https://img.shields.io/badge/guide-documents-forestgreen",
+        "https://typia.io/docs/",
+    ]
+].map(([alt, image, url]) => (
+    <a href={url} style={{ marginTop: "30px", marginRight: "6px" }}>
+        <img src={image} alt={alt} />
+    </a>
+))}
+</span>
+
 ```typescript
 // RUNTIME VALIDATORS
 export function is<T>(input: unknown | T): input is T; // returns boolean
