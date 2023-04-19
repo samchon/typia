@@ -7,14 +7,14 @@ import { Tabs, Tab } from 'nextra-theme-docs'
     <code>IValidation.ts</code>
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function isParse<T>(input: string): T | null;
 export function assertParse<T>(input: string): T;
 export function validateParse<T>(input: string): IValidation<T>;
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -24,7 +24,7 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -61,7 +61,7 @@ Look at the below code, then you may understand how the `typia.assertParse<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/assertParse.ts" showLineNumbers {4, 6}
+```typescript copy filename="examples/src/assertParse.ts" showLineNumbers {4, 6}
 import typia from "typia";
 
 const json: string = JSON.stringify(typia.random<IMember>());
@@ -214,14 +214,14 @@ console.log(json === JSON.stringify(parsed)); // true
     <code>IValidation.ts</code>
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function createIsParse<T>(): (input: string) => T | null;
 export function createAssertParse<T>(): (input: string) => T;
 export function createValidateParse<T>(): (input: string) => IValidation<T>;
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -231,7 +231,7 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -262,7 +262,7 @@ Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/createIsParse.ts" showLineNumbers {3}
+```typescript copy filename="examples/src/createIsParse.ts" showLineNumbers {3}
 import typia from "typia";
 
 export const parseMember = typia.createIsParse<IMember>();

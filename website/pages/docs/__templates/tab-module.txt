@@ -4,11 +4,11 @@
     <code>IValidation.ts</code>
 ]}>
     <Tab>
-```typescript
+```typescript copy
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -18,7 +18,7 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;

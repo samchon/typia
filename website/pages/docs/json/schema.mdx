@@ -10,7 +10,7 @@ import AlertTitle from '@mui/material/AlertTitle';
     <code>IJsonSchema.ts</code>
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function application<
     Schemas extends unknown[],
     Purpose extends "ajv" | "swagger",
@@ -21,7 +21,7 @@ export function application<
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export interface IJsonApplication {
     schemas: IJsonSchema[];
     components: IJsonComponents;
@@ -31,7 +31,7 @@ export interface IJsonApplication {
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export interface IJsonComponents {
     schemas: Record<string, IJsonComponents.IObject>;
 }
@@ -57,7 +57,7 @@ export namespace IJsonComponents {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript copy showLineNumbers
 export type IJsonSchema = IJsonSchema.NotUnknown | IJsonSchema.IUnknown;
 export namespace IJsonSchema {
     export type NotUnknown =
@@ -194,7 +194,7 @@ If you call the `typia.application()` with specialization of target `Schemas`, `
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/application.ts" showLineNumbers {3}
+```typescript copy filename="examples/src/application.ts" showLineNumbers {3}
 import typia from "typia";
 
 export const MemberSchema = typia.application<[IMember], "ajv">();
@@ -305,7 +305,7 @@ Let's see how those comment tags works with example code.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/application-comment-tags.ts" showLineNumbers {3}
+```typescript copy filename="examples/src/application-comment-tags.ts" showLineNumbers {3}
 import typia from "typia";
 
 export const CommentTagSchema = typia.application<[CommentTag], "ajv">();

@@ -9,7 +9,7 @@ import AlertTitle from '@mui/material/AlertTitle';
     <code>IValidation.ts</code>
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function stringify<T>(input: T): string;
 export function isStringify<T>(input: unknown | T): string | null;
 export function assertStringify<T>(input: unknown | T): string;
@@ -17,7 +17,7 @@ export function validateStringify<T>(input: unknown | T): IValidation<string>;
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -27,7 +27,7 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -72,7 +72,7 @@ Instead, `typia` supports type safe JSON serialization functions like `typia.isS
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/isStringify.ts" showLineNumbers {4, 6}
+```typescript copy filename="examples/src/isStringify.ts" showLineNumbers {4, 6}
 import typia from "typia";
 
 const department: IDepartment = typia.random<IDepartment>();
@@ -232,7 +232,7 @@ console.log(json); // not null, but string
     <code>IValidation.ts</code>
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function createStringify<T>: (input: T) => string;
 export function createIsStringify<T>: (input: unknown | T) => string | null;
 export function createAssertStringify<T>: (input: unknown) => string;
@@ -240,7 +240,7 @@ export function createValidateStringify<T>: (input: unknown) => IValidation<stri
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -250,7 +250,7 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -281,7 +281,7 @@ Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/createAssertStringify.ts" showLineNumbers {3}
+```typescript copy filename="examples/src/createAssertStringify.ts" showLineNumbers {3}
 import typia from "typia";
 
 export const assertDepartment = typia.createAssertStringify<IDepartment>();

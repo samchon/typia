@@ -8,13 +8,13 @@ import AlertTitle from '@mui/material/AlertTitle';
     <code>TypeGuardError.ts</code>,
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function assert<T>(input: T): T;
 export function assert<T>(input: unknown): T;
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -53,7 +53,7 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/assert.ts" showLineNumbers {4-8}
+```typescript copy filename="examples/src/assert.ts" showLineNumbers {4-8}
 import typia from "typia";
 import { v4 } from "uuid";
 
@@ -184,13 +184,13 @@ import { v4 } from "uuid";
     <code>TypeGuardError.ts</code>,
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function assertEquals<T>(input: T): T;
 export function assertEquals<T>(input: unknown): T;
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -214,7 +214,7 @@ In the below example case, as `sex` property is not defined in the `IMember` typ
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/assert.ts" showLineNumbers {4-9}
+```typescript copy filename="examples/src/assert.ts" showLineNumbers {4-9}
 import typia from "typia";
 import { v4 } from "uuid";
 
@@ -345,13 +345,13 @@ import { v4 } from "uuid";
     <code>TypeGuardError.ts</code>,
 ]}>
     <Tab>
-```typescript
+```typescript copy
 export function createAssert<T>(): (input: unknown) => T;
 export function createAssertEquals<T>(): (input: unknown) => T;
 ```
     </Tab>
     <Tab>
-```typescript
+```typescript copy
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -370,7 +370,7 @@ Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/createAssert.ts" showLineNumbers {3}
+```typescript copy filename="examples/src/createAssert.ts" showLineNumbers {3}
 import typia from "typia";
 
 export const assertMember = typia.createAssert<IMember>();

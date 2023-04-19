@@ -3,7 +3,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
 ## `is()` function
-```typescript filename="typia"
+```typescript copy filename="typia"
 export function is<T>(input: T): input is T;
 export function is<T>(input: unknown): input is T;
 ```
@@ -31,7 +31,7 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/is.ts" showLineNumbers {4-8, 10}
+```typescript copy filename="examples/src/is.ts" showLineNumbers {4-8, 10}
 import typia from "typia";
 import { v4 } from "uuid";
 
@@ -97,7 +97,7 @@ console.log(matched); // true
 
 
 ## `equals()` function
-```typescript filename="typia"
+```typescript copy filename="typia"
 export function equals<T>(input: T): input is T;
 export function equals<T>(input: unknown): input is T;
 ```
@@ -110,7 +110,7 @@ If you want to prohibit those superfluous properties, you can use `typia.equals<
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/equals.ts" showLineNumbers {11, 13}
+```typescript copy filename="examples/src/equals.ts" showLineNumbers {11, 13}
 import typia from "typia";
 import { v4 } from "uuid";
 
@@ -199,7 +199,7 @@ console.log(is, equals); // true, false
 
 
 ## Reusable functions
-```typescript filename="typia"
+```typescript copy filename="typia"
 export function createIs<T>(): (input: unknown) => input is T;
 export function createEquals<T>(): (input: unknown) => input is T;
 ```
@@ -212,7 +212,7 @@ Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript filename="examples/src/createIs.ts" showLineNumbers {3}
+```typescript copy filename="examples/src/createIs.ts" showLineNumbers {3}
 import typia from "typia";
 
 export const check = typia.createIs<IMember>();
@@ -261,7 +261,7 @@ export const check = (input) => {
 
 
 ## Auto Type Casting
-```typescript filename="typia"
+```typescript copy filename="typia"
 export function is<T>(input: unknown): input is T;
 export function equals<T>(input: unknown): input is T;
 export function createIs<T>(): (input: unknown) => input is T;
@@ -272,7 +272,7 @@ export function createEquals<T>(): (input: unknown) => input is T;
 
 When target `input` value is following the type `T`, therefore `true` value be returned, `typia.is<T>()` function automatically casts the `input` value to the type `T`. Therefore, you can utilize the `typia.is<T>()` function for safe type casting tool like below:
 
-```typescript filename="examples/src/is-cast.ts" showLineNumbers {6-7}
+```typescript copy filename="examples/src/is-cast.ts" showLineNumbers {6-7}
 const input: unknown = {
     id: v4(),
     email: "samchon.github@gmail.com",
