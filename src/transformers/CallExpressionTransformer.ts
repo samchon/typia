@@ -45,47 +45,49 @@ import { IsTransformer } from "./features/validators/IsTransformer";
 import { ValidateTransformer } from "./features/validators/ValidateTransformer";
 
 export namespace CallExpressionTransformer {
-    export function transform(
-        project: IProject,
-        expression: ts.CallExpression,
-    ): ts.Expression {
-        //----
-        // VALIDATIONS
-        //----
-        // SIGNATURE DECLARATION
-        const declaration: ts.Declaration | undefined =
-            project.checker.getResolvedSignature(expression)?.declaration;
-        if (!declaration) return expression;
+    export const transform =
+        (project: IProject) =>
+        (expression: ts.CallExpression): ts.Expression => {
+            //----
+            // VALIDATIONS
+            //----
+            // SIGNATURE DECLARATION
+            const declaration: ts.Declaration | undefined =
+                project.checker.getResolvedSignature(expression)?.declaration;
+            if (!declaration) return expression;
 
-        // FILE PATH
-        const file: string = path.resolve(declaration.getSourceFile().fileName);
-        if (
-            file.indexOf(LIB_PATH) === -1 &&
-            file !== SRC_PATH &&
-            file !== CLI_PATH
-        )
-            return expression;
+            // FILE PATH
+            const file: string = path.resolve(
+                declaration.getSourceFile().fileName,
+            );
+            if (
+                file.indexOf(LIB_PATH) === -1 &&
+                file !== SRC_PATH &&
+                file !== CLI_PATH
+            )
+                return expression;
 
-        //----
-        // TRANSFORMATION
-        //----
-        // FUNCTION NAME
-        const { name } = project.checker.getTypeAtLocation(declaration).symbol;
+            //----
+            // TRANSFORMATION
+            //----
+            // FUNCTION NAME
+            const { name } =
+                project.checker.getTypeAtLocation(declaration).symbol;
 
-        // FIND TRANSFORMER
-        const functor: (() => Task) | undefined = FUNCTORS[name];
-        if (functor === undefined) return expression;
+            // FIND TRANSFORMER
+            const functor: (() => Task) | undefined = FUNCTORS[name];
+            if (functor === undefined) return expression;
 
-        // RETURNS WITH TRANSFORMATION
-        return functor()(project, expression.expression, expression);
-    }
+            // RETURNS WITH TRANSFORMATION
+            return functor()(project)(expression.expression)(expression);
+        };
 }
 
 type Task = (
     project: IProject,
+) => (
     modulo: ts.LeftHandSideExpression,
-    expression: ts.CallExpression,
-) => ts.Expression;
+) => (expression: ts.CallExpression) => ts.Expression;
 
 const LIB_PATH = path.join("node_modules", "typia", "lib", "module.d.ts");
 const SRC_PATH = path.resolve(path.join(__dirname, "..", "module.ts"));
@@ -114,16 +116,17 @@ const FUNCTORS: Record<string, () => Task> = {
     validateParse: () => ValidateParseTransformer.transform,
 
     // STRINGIFY FUNCTIONS
-    application: () => ApplicationTransformer.transform,
+    application: () => (project) => () =>
+        ApplicationTransformer.transform(project),
     stringify: () => StringifyTransformer.transform,
     assertStringify: () => AssertStringifyTransformer.transform,
     isStringify: () => IsStringifyTransformer.transform,
     validateStringify: () => ValidateStringifyTransformer.transform,
 
     // MISC
-    metadata: () => MetadataTransformer.transform,
+    metadata: () => (project) => () => MetadataTransformer.transform(project),
     random: () => RandomTransformer.transform,
-    literals: () => LiteralsTransformer.transform,
+    literals: () => (project) => () => LiteralsTransformer.transform(project),
 
     clone: () => CloneTransformer.transform,
     assertClone: () => AssertCloneTransformer.transform,

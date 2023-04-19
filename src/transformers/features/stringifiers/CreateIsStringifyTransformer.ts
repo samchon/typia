@@ -4,6 +4,7 @@ import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace CreateIsStringifyTransformer {
     export const transform = GenericTransformer.factory("createIsStringify")(
-        (project, modulo) => IsStringifyProgrammer.generate(project, modulo),
+        (project) => (modulo) =>
+            IsStringifyProgrammer.generate(project)(modulo),
     );
 }

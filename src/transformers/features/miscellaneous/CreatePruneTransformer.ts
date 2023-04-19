@@ -4,6 +4,6 @@ import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace CreatePruneTransformer {
     export const transform = GenericTransformer.factory("createPrune")(
-        (project, modulo) => PruneProgrammer.generate(project, modulo),
+        (project) => (modulo) => PruneProgrammer.generate(project)(modulo),
     );
 }

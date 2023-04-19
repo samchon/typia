@@ -11,7 +11,8 @@ import { ValidateProgrammer } from "./ValidateProgrammer";
 
 export namespace ValidateStringifyProgrammer {
     export const generate =
-        (project: IProject, modulo: ts.LeftHandSideExpression) =>
+        (project: IProject) =>
+        (modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
@@ -30,31 +31,25 @@ export namespace ValidateStringifyProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "validate",
-                        ValidateProgrammer.generate(
-                            {
-                                ...project,
-                                options: {
-                                    ...project.options,
-                                    functional: false,
-                                    numeric: true,
-                                },
+                        ValidateProgrammer.generate({
+                            ...project,
+                            options: {
+                                ...project.options,
+                                functional: false,
+                                numeric: true,
                             },
-                            modulo,
-                        )(type, name),
+                        })(modulo)(false)(type, name),
                     ),
                     StatementFactory.constant(
                         "stringify",
-                        StringifyProgrammer.generate(
-                            {
-                                ...project,
-                                options: {
-                                    ...project.options,
-                                    functional: false,
-                                    numeric: false,
-                                },
+                        StringifyProgrammer.generate({
+                            ...project,
+                            options: {
+                                ...project.options,
+                                functional: false,
+                                numeric: false,
                             },
-                            modulo,
-                        )(type, name),
+                        })(modulo)(type, name),
                     ),
                     StatementFactory.constant(
                         "output",

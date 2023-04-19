@@ -18,43 +18,40 @@ import { UnionExplorer } from "./helpers/UnionExplorer";
 import { decode_union_object } from "./internal/decode_union_object";
 
 export namespace PruneProgrammer {
-    export function generate(
-        project: IProject,
-        modulo: ts.LeftHandSideExpression,
-    ) {
-        const importer: FunctionImporter = new FunctionImporter();
-        return FeatureProgrammer.generate(
-            project,
-            CONFIG(project, importer),
-            importer,
-            (collection) => {
-                const isFunctors = IsProgrammer.generate_functors(
-                    project,
-                    importer,
-                )(collection);
-                const isUnioners = IsProgrammer.generate_unioners(
-                    project,
-                    importer,
-                )(collection);
+    export const generate =
+        (project: IProject) => (modulo: ts.LeftHandSideExpression) => {
+            const importer: FunctionImporter = new FunctionImporter();
+            return FeatureProgrammer.generate(project)({
+                ...configure(project)(importer),
+                addition: (collection) => {
+                    const isFunctors = IsProgrammer.generate_functors(
+                        project,
+                        importer,
+                    )(collection);
+                    const isUnioners = IsProgrammer.generate_unioners(
+                        project,
+                        importer,
+                    )(collection);
 
-                return [
-                    ...importer.declare(modulo),
-                    ...isFunctors.filter((_, i) =>
-                        importer.hasLocal(`$io${i}`),
-                    ),
-                    ...isUnioners.filter((_, i) =>
-                        importer.hasLocal(`$iu${i}`),
-                    ),
-                ];
-            },
-        );
-    }
+                    return [
+                        ...importer.declare(modulo),
+                        ...isFunctors.filter((_, i) =>
+                            importer.hasLocal(`$io${i}`),
+                        ),
+                        ...isUnioners.filter((_, i) =>
+                            importer.hasLocal(`$iu${i}`),
+                        ),
+                    ];
+                },
+            })(importer);
+        };
 
     /* -----------------------------------------------------------
         DECODERS
     ----------------------------------------------------------- */
     const decode =
-        (project: IProject, importer: FunctionImporter) =>
+        (project: IProject) =>
+        (importer: FunctionImporter) =>
         (
             input: ts.Expression,
             meta: Metadata,
@@ -91,7 +88,7 @@ export namespace PruneProgrammer {
                             [],
                         ),
                     value: () =>
-                        decode_tuple(project, importer)(input, tuple, explore),
+                        decode_tuple(project)(importer)(input, tuple, explore),
                 });
 
             // ARRAYS
@@ -100,7 +97,7 @@ export namespace PruneProgrammer {
                     type: "array",
                     is: () => ExpressionFactory.isArray(input),
                     value: () =>
-                        explore_arrays(project, importer)(
+                        explore_arrays(project)(importer)(
                             input,
                             meta.arrays,
                             {
@@ -166,7 +163,8 @@ export namespace PruneProgrammer {
         };
 
     const decode_tuple =
-        (project: IProject, importer: FunctionImporter) =>
+        (project: IProject) =>
+        (importer: FunctionImporter) =>
         (
             input: ts.Expression,
             tuple: Metadata[],
@@ -176,7 +174,7 @@ export namespace PruneProgrammer {
                 .map((elem, index) => [elem, index] as const)
                 .filter(([elem]) => filter(elem) && elem.rest === null)
                 .map(([elem, index]) =>
-                    decode(project, importer)(
+                    decode(project)(importer)(
                         ts.factory.createElementAccessExpression(input, index),
                         elem,
                         {
@@ -192,7 +190,7 @@ export namespace PruneProgrammer {
                 const rest: Metadata | null = last.rest;
                 if (rest === null || filter(rest) === false) return null;
 
-                return decode(project, importer)(
+                return decode(project)(importer)(
                     ts.factory.createCallExpression(
                         IdentifierFactory.join(input, "slice"),
                         undefined,
@@ -212,10 +210,8 @@ export namespace PruneProgrammer {
             return PruneJoiner.tuple(children, rest);
         };
 
-    const decode_array = (project: IProject, importer: FunctionImporter) =>
-        FeatureProgrammer.decode_array(
-            CONFIG(project, importer),
-            importer,
+    const decode_array = (project: IProject) => (importer: FunctionImporter) =>
+        FeatureProgrammer.decode_array(configure(project)(importer))(importer)(
             PruneJoiner.array,
         );
 
@@ -226,15 +222,16 @@ export namespace PruneProgrammer {
             functors: FUNCTORS,
         })(importer);
 
-    const explore_arrays = (project: IProject, importer: FunctionImporter) =>
-        UnionExplorer.array({
-            checker: IsProgrammer.decode(project, importer),
-            decoder: decode_array(project, importer),
-            empty: ts.factory.createReturnStatement(),
-            success: ts.factory.createTrue(),
-            failure: (input, expected) =>
-                create_throw_error(importer, input, expected),
-        });
+    const explore_arrays =
+        (project: IProject) => (importer: FunctionImporter) =>
+            UnionExplorer.array({
+                checker: IsProgrammer.decode(project, importer),
+                decoder: decode_array(project)(importer),
+                empty: ts.factory.createReturnStatement(),
+                success: ts.factory.createTrue(),
+                failure: (input, expected) =>
+                    create_throw_error(importer)(expected)(input),
+            });
 
     const explore_objects =
         (importer: FunctionImporter) =>
@@ -269,75 +266,74 @@ export namespace PruneProgrammer {
     const FUNCTORS = "$po";
     const UNIONERS = "$pu";
 
-    const CONFIG = (
-        project: IProject,
-        importer: FunctionImporter,
-    ): FeatureProgrammer.IConfig => ({
-        types: {
-            input: (type, name) =>
-                ts.factory.createTypeReferenceNode(
-                    name ?? TypeFactory.getFullName(project.checker, type),
-                ),
-            output: () => TypeFactory.keyword("void"),
-        },
-        functors: FUNCTORS,
-        unioners: UNIONERS,
-        trace: false,
-        path: false,
-        initializer,
-        decoder: decode(project, importer),
-        objector: OBJECTOR(project, importer),
-    });
-
-    const OBJECTOR = (
-        project: IProject,
-        importer: FunctionImporter,
-    ): FeatureProgrammer.IConfig.IObjector => ({
-        checker: IsProgrammer.decode(project, importer),
-        decoder: decode_object(importer),
-        joiner: PruneJoiner.object,
-        unionizer: decode_union_object(IsProgrammer.decode_object(importer))(
-            decode_object(importer),
-        )((exp) => exp)((value, expected) =>
-            create_throw_error(importer, value, expected),
-        ),
-        failure: (input, expected) =>
-            create_throw_error(importer, input, expected),
-    });
-
-    const initializer: FeatureProgrammer.IConfig["initializer"] = (
-        { checker },
-        type,
-    ) => {
-        const collection = new MetadataCollection();
-        const meta = MetadataFactory.generate(checker, collection, type, {
-            resolve: false,
-            constant: true,
-        });
-        return [collection, meta];
-    };
-
-    const create_throw_error = (
-        importer: FunctionImporter,
-        value: ts.Expression,
-        expected: string,
-    ) =>
-        ts.factory.createExpressionStatement(
-            ts.factory.createCallExpression(
-                importer.use("throws"),
-                [],
-                [
-                    ts.factory.createObjectLiteralExpression(
-                        [
-                            ts.factory.createPropertyAssignment(
-                                "expected",
-                                ts.factory.createStringLiteral(expected),
-                            ),
-                            ts.factory.createPropertyAssignment("value", value),
-                        ],
-                        true,
+    const configure =
+        (project: IProject) =>
+        (importer: FunctionImporter): FeatureProgrammer.IConfig => ({
+            types: {
+                input: (type, name) =>
+                    ts.factory.createTypeReferenceNode(
+                        name ?? TypeFactory.getFullName(project.checker, type),
                     ),
-                ],
+                output: () => TypeFactory.keyword("void"),
+            },
+            functors: FUNCTORS,
+            unioners: UNIONERS,
+            trace: false,
+            path: false,
+            initializer,
+            decoder: decode(project)(importer),
+            objector: objector(project)(importer),
+        });
+
+    const objector =
+        (project: IProject) =>
+        (importer: FunctionImporter): FeatureProgrammer.IConfig.IObjector => ({
+            checker: IsProgrammer.decode(project, importer),
+            decoder: decode_object(importer),
+            joiner: PruneJoiner.object,
+            unionizer: decode_union_object(
+                IsProgrammer.decode_object(importer),
+            )(decode_object(importer))((exp) => exp)((value, expected) =>
+                create_throw_error(importer)(expected)(value),
             ),
-        );
+            failure: (input, expected) =>
+                create_throw_error(importer)(expected)(input),
+        });
+
+    const initializer: FeatureProgrammer.IConfig["initializer"] =
+        ({ checker }) =>
+        (type) => {
+            const collection = new MetadataCollection();
+            const meta = MetadataFactory.generate(checker, collection, type, {
+                resolve: false,
+                constant: true,
+            });
+            return [collection, meta];
+        };
+
+    const create_throw_error =
+        (importer: FunctionImporter) =>
+        (expected: string) =>
+        (value: ts.Expression) =>
+            ts.factory.createExpressionStatement(
+                ts.factory.createCallExpression(
+                    importer.use("throws"),
+                    [],
+                    [
+                        ts.factory.createObjectLiteralExpression(
+                            [
+                                ts.factory.createPropertyAssignment(
+                                    "expected",
+                                    ts.factory.createStringLiteral(expected),
+                                ),
+                                ts.factory.createPropertyAssignment(
+                                    "value",
+                                    value,
+                                ),
+                            ],
+                            true,
+                        ),
+                    ],
+                ),
+            );
 }

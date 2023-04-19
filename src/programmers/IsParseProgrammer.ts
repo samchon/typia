@@ -10,7 +10,8 @@ import { IsProgrammer } from "./IsProgrammer";
 
 export namespace IsParseProgrammer {
     export const generate =
-        (project: IProject, modulo: ts.LeftHandSideExpression) =>
+        (project: IProject) =>
+        (modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
@@ -30,17 +31,14 @@ export namespace IsParseProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "is",
-                        IsProgrammer.generate(
-                            {
-                                ...project,
-                                options: {
-                                    ...project.options,
-                                    functional: false,
-                                    numeric: false,
-                                },
+                        IsProgrammer.generate({
+                            ...project,
+                            options: {
+                                ...project.options,
+                                functional: false,
+                                numeric: false,
                             },
-                            modulo,
-                        )(type, name),
+                        })(modulo)(false)(type, name),
                     ),
                     ts.factory.createExpressionStatement(
                         ts.factory.createBinaryExpression(
