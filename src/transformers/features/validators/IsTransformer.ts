@@ -6,6 +6,6 @@ export namespace IsTransformer {
     export const transform = (equals: boolean) =>
         GenericTransformer.scalar(equals ? "equals" : "is")(
             (project) => (modulo) =>
-                IsProgrammer.generate(project)(modulo)(equals),
+                IsProgrammer.write(project)(modulo)(equals),
         );
 }

@@ -6,6 +6,6 @@ export namespace ValidateTransformer {
     export const transform = (equals: boolean) =>
         GenericTransformer.scalar(equals ? "validateEquals" : "validate")(
             (project) => (modulo) =>
-                ValidateProgrammer.generate(project)(modulo)(equals),
+                ValidateProgrammer.write(project)(modulo)(equals),
         );
 }

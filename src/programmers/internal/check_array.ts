@@ -22,7 +22,7 @@ export const check_array =
         expression: ExpressionFactory.isArray(input),
         tags: [
             ...check_array_length(metaTags)(
-                IdentifierFactory.join(input, "length"),
+                IdentifierFactory.join(input)("length"),
             ),
             ...check_custom("array", "Array")(importer)(jsDocTags)(input),
             // check custom array for legacy (3.7.0)

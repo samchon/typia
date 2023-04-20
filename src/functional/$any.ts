@@ -1,3 +1,2 @@
-export function $any(val: any): any {
-    return val !== undefined ? JSON.parse(JSON.stringify(val)) : undefined;
-}
+export const $any = (val: any): any =>
+    val !== undefined ? JSON.parse(JSON.stringify(val)) : undefined;

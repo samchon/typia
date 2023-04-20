@@ -1,6 +1,6 @@
 import { TypeGuardError } from "../TypeGuardError";
 
-export function $number(value: number): number {
+export const $number = (value: number): number => {
     if (isFinite(value) === false)
         throw new TypeGuardError({
             method: "typia.stringify",
@@ -9,4 +9,4 @@ export function $number(value: number): number {
             message: "Error on typia.stringify(): infinite or not a number.",
         });
     return value;
-}
+};

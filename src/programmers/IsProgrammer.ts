@@ -66,7 +66,7 @@ export namespace IsProgrammer {
                     })(importer),
                 array: (input, arrow) =>
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(input, "every"),
+                        IdentifierFactory.join(input)("every"),
                         undefined,
                         [arrow],
                     ),
@@ -87,9 +87,21 @@ export namespace IsProgrammer {
     }
 
     /* -----------------------------------------------------------
-        GENERATORS
+        WRITERS
     ----------------------------------------------------------- */
+    /**
+     * @deprecated Use `write()` function instead
+     */
     export const generate =
+        (
+            project: IProject,
+            modulo: ts.LeftHandSideExpression,
+            equals: boolean = false,
+        ) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(equals)(type, name);
+
+    export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
         (equals: boolean) => {
@@ -128,10 +140,10 @@ export namespace IsProgrammer {
                                 false)
                     )
                         return ts.factory.createLogicalAnd(
-                            ExpressionFactory.isObject(input, {
+                            ExpressionFactory.isObject({
                                 checkNull: true,
                                 checkArray: false,
-                            }),
+                            })(input),
                             config.joiner.object(
                                 input,
                                 feature_object_entries(config as any)(importer)(
@@ -150,26 +162,22 @@ export namespace IsProgrammer {
             };
 
             // GENERATE CHECKER
-            return CheckerProgrammer.generate(project)(config)(importer);
+            return CheckerProgrammer.write(project)(config)(importer);
         };
 
-    export const generate_functors = (
-        project: IProject,
-        importer: FunctionImporter,
-    ) =>
-        CheckerProgrammer.generate_functors(project)(configure()(importer))(
-            importer,
-        );
+    export const write_functors =
+        (project: IProject) => (importer: FunctionImporter) =>
+            CheckerProgrammer.write_functors(project)(configure()(importer))(
+                importer,
+            );
 
-    export const generate_unioners = (
-        project: IProject,
-        importer: FunctionImporter,
-    ) =>
-        CheckerProgrammer.generate_unioners(
-            project,
-            configure()(importer),
-            importer,
-        );
+    export const write_unioners =
+        (project: IProject) => (importer: FunctionImporter) =>
+            CheckerProgrammer.write_unioners(
+                project,
+                configure()(importer),
+                importer,
+            );
 
     /* -----------------------------------------------------------
         DECODERS
@@ -180,26 +188,25 @@ export namespace IsProgrammer {
     export const decode_object = (importer: FunctionImporter) =>
         CheckerProgrammer.decode_object(configure()(importer))(importer);
 
-    export function decode_to_json(
-        input: ts.Expression,
-        checkNull: boolean,
-    ): ts.Expression {
-        return ts.factory.createLogicalAnd(
-            ExpressionFactory.isObject(input, {
-                checkArray: false,
-                checkNull,
-            }),
-            ts.factory.createStrictEquality(
-                ts.factory.createStringLiteral("function"),
-                ValueFactory.TYPEOF(IdentifierFactory.join(input, "toJSON")),
-            ),
-        );
-    }
+    export const decode_to_json =
+        (checkNull: boolean) =>
+        (input: ts.Expression): ts.Expression =>
+            ts.factory.createLogicalAnd(
+                ExpressionFactory.isObject({
+                    checkArray: false,
+                    checkNull,
+                })(input),
+                ts.factory.createStrictEquality(
+                    ts.factory.createStringLiteral("function"),
+                    ValueFactory.TYPEOF(
+                        IdentifierFactory.join(input)("toJSON"),
+                    ),
+                ),
+            );
 
-    export function decode_functional(input: ts.Expression) {
-        return ts.factory.createStrictEquality(
+    export const decode_functional = (input: ts.Expression) =>
+        ts.factory.createStrictEquality(
             ts.factory.createStringLiteral("function"),
             ValueFactory.TYPEOF(input),
         );
-    }
 }

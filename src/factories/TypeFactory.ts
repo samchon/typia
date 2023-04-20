@@ -1,18 +1,15 @@
 import ts from "typescript";
 
 export namespace TypeFactory {
-    export function resolve(
-        checker: ts.TypeChecker,
-        type: ts.Type,
-    ): ts.Type | null {
-        return getReturnType(checker, type, "toJSON");
-    }
+    export const resolve =
+        (checker: ts.TypeChecker) =>
+        (type: ts.Type): ts.Type | null =>
+            getReturnType(checker)(type)("toJSON");
 
-    export function isFunction(type: ts.Type): boolean {
-        return getFunction(type) !== null;
-    }
+    export const isFunction = (type: ts.Type): boolean =>
+        getFunction(type) !== null;
 
-    function getFunction(type: ts.Type) {
+    const getFunction = (type: ts.Type) => {
         const node = type.symbol?.declarations?.[0];
         if (node === undefined) return null;
 
@@ -23,82 +20,80 @@ export namespace TypeFactory {
                 ? node.initializer
                 : null
             : null;
-    }
+    };
 
-    export function getReturnType(
-        checker: ts.TypeChecker,
-        type: ts.Type,
-        name: string,
-    ): ts.Type | null {
-        // FIND TO-JSON METHOD
-        const symbol: ts.Symbol | undefined = type.getProperty(name);
-        if (!symbol) return null;
-        else if (!symbol.valueDeclaration) return null;
+    export const getReturnType =
+        (checker: ts.TypeChecker) =>
+        (type: ts.Type) =>
+        (name: string): ts.Type | null => {
+            // FIND TO-JSON METHOD
+            const symbol: ts.Symbol | undefined = type.getProperty(name);
+            if (!symbol) return null;
+            else if (!symbol.valueDeclaration) return null;
 
-        // GET FUNCTION DECLARATION
-        const functor: ts.Type = checker.getTypeOfSymbolAtLocation(
-            symbol,
-            symbol.valueDeclaration,
-        );
+            // GET FUNCTION DECLARATION
+            const functor: ts.Type = checker.getTypeOfSymbolAtLocation(
+                symbol,
+                symbol.valueDeclaration,
+            );
 
-        // RETURNS THE RETURN-TYPE
-        const signature: ts.Signature | undefined = checker.getSignaturesOfType(
-            functor,
-            ts.SignatureKind.Call,
-        )[0];
-        return signature ? signature.getReturnType() : null;
-    }
+            // RETURNS THE RETURN-TYPE
+            const signature: ts.Signature | undefined =
+                checker.getSignaturesOfType(functor, ts.SignatureKind.Call)[0];
+            return signature ? signature.getReturnType() : null;
+        };
 
-    export function getFullName(
-        checker: ts.TypeChecker,
-        type: ts.Type,
-        symbol?: ts.Symbol,
-    ): string {
-        // PRIMITIVE
-        symbol ??= type.aliasSymbol ?? type.getSymbol();
-        if (symbol === undefined) return checker.typeToString(type);
+    export const getFullName =
+        (checker: ts.TypeChecker) =>
+        (type: ts.Type, symbol?: ts.Symbol): string => {
+            // PRIMITIVE
+            symbol ??= type.aliasSymbol ?? type.getSymbol();
+            if (symbol === undefined) return checker.typeToString(type);
 
-        // UNION OR INTERSECT
-        if (type.aliasSymbol === undefined && type.isUnionOrIntersection()) {
-            const joiner: string = type.isIntersection() ? " & " : " | ";
-            return type.types
-                .map((child) => getFullName(checker, child))
-                .join(joiner);
-        }
+            // UNION OR INTERSECT
+            if (
+                type.aliasSymbol === undefined &&
+                type.isUnionOrIntersection()
+            ) {
+                const joiner: string = type.isIntersection() ? " & " : " | ";
+                return type.types
+                    .map((child) => getFullName(checker)(child))
+                    .join(joiner);
+            }
 
-        //----
-        // SPECIALIZATION
-        //----
-        const name: string = get_name(symbol);
+            //----
+            // SPECIALIZATION
+            //----
+            const name: string = get_name(symbol);
 
-        // CHECK GENERIC
-        const generic: readonly ts.Type[] = type.aliasSymbol
-            ? type.aliasTypeArguments || []
-            : checker.getTypeArguments(type as ts.TypeReference);
-        return generic.length
-            ? name === "Promise"
-                ? getFullName(checker, generic[0]!)
-                : `${name}<${generic
-                      .map((child) => getFullName(checker, child))
-                      .join(", ")}>`
-            : name;
-    }
+            // CHECK GENERIC
+            const generic: readonly ts.Type[] = type.aliasSymbol
+                ? type.aliasTypeArguments || []
+                : checker.getTypeArguments(type as ts.TypeReference);
+            return generic.length
+                ? name === "Promise"
+                    ? getFullName(checker)(generic[0]!)
+                    : `${name}<${generic
+                          .map((child) => getFullName(checker)(child))
+                          .join(", ")}>`
+                : name;
+        };
 
-    function explore_name(name: string, decl: ts.Node): string {
-        return ts.isModuleBlock(decl)
-            ? explore_name(
-                  `${decl.parent.name.getFullText().trim()}.${name}`,
-                  decl.parent.parent,
-              )
-            : name;
-    }
+    const explore_name =
+        (decl: ts.Node) =>
+        (name: string): string =>
+            ts.isModuleBlock(decl)
+                ? explore_name(decl.parent.parent)(
+                      `${decl.parent.name.getFullText().trim()}.${name}`,
+                  )
+                : name;
 
-    function get_name(symbol: ts.Symbol): string {
+    const get_name = (symbol: ts.Symbol): string => {
         const parent = symbol.getDeclarations()?.[0]?.parent;
         return parent
-            ? explore_name(symbol.escapedName.toString(), parent)
+            ? explore_name(parent)(symbol.escapedName.toString())
             : "__type";
-    }
+    };
 
     export const keyword = (
         type:

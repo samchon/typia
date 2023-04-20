@@ -61,36 +61,33 @@ export namespace ApplicationTransformer {
                 replace: MetadataCollection.replace,
             });
             const metadatas: Array<Metadata> = types.map((type) =>
-                MetadataFactory.generate(checker, collection, type, {
+                MetadataFactory.analyze(checker)({
                     resolve: true,
                     constant: true,
                     validate: (meta) => {
                         if (meta.atomics.find((str) => str === "bigint"))
                             throw new Error(NO_BIGIT);
                     },
-                }),
+                })(collection)(type),
             );
 
             // APPLICATION
-            const app: IJsonApplication = ApplicationProgrammer.generate(
-                metadatas,
-                {
-                    purpose,
-                    prefix,
-                },
-            );
+            const app: IJsonApplication = ApplicationProgrammer.write({
+                purpose,
+                prefix,
+            })(metadatas);
 
             // RETURNS WITH LITERAL EXPRESSION
             return LiteralFactory.generate(app);
         };
 
-    function get_parameter<T extends string>(
+    const get_parameter = <T extends string>(
         checker: ts.TypeChecker,
         name: string,
         node: ts.TypeNode | undefined,
         predicator: (value: string) => boolean,
         defaulter: () => T,
-    ): T {
+    ): T => {
         if (!node) return defaulter();
 
         // CHECK LITERAL TYPE
@@ -107,7 +104,7 @@ export namespace ApplicationTransformer {
                 `Error on typia.application(): invalid value on generic argument "${name}".`,
             );
         return value as T;
-    }
+    };
 }
 
 const NO_GENERIC_ARGUMENT =

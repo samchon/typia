@@ -10,7 +10,15 @@ import { CloneProgrammer } from "./CloneProgrammer";
 import { ValidateProgrammer } from "./ValidateProgrammer";
 
 export namespace ValidateCloneProgrammer {
+    /**
+     * @deprecated Use `write()` function instead
+     */
     export const generate =
+        (project: IProject, modulo: ts.LeftHandSideExpression) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(type, name);
+
+    export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type, name?: string) =>
@@ -25,14 +33,14 @@ export namespace ValidateCloneProgrammer {
                 ],
                 ts.factory.createTypeReferenceNode(
                     `typia.IValidation<typia.Primitive<${
-                        name ?? TypeFactory.getFullName(project.checker, type)
+                        name ?? TypeFactory.getFullName(project.checker)(type)
                     }>>`,
                 ),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "validate",
-                        ValidateProgrammer.generate({
+                        ValidateProgrammer.write({
                             ...project,
                             options: {
                                 ...project.options,
@@ -43,7 +51,7 @@ export namespace ValidateCloneProgrammer {
                     ),
                     StatementFactory.constant(
                         "clone",
-                        CloneProgrammer.generate({
+                        CloneProgrammer.write({
                             ...project,
                             options: {
                                 ...project.options,

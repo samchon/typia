@@ -8,6 +8,6 @@ export namespace CreateAssertTransformer {
             equals ? "createAssertEquals" : "createAssert",
         )(
             (project) => (modulo) =>
-                AssertProgrammer.generate(project)(modulo)(equals),
+                AssertProgrammer.write(project)(modulo)(equals),
         );
 }

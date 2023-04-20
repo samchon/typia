@@ -18,20 +18,28 @@ import { UnionExplorer } from "./helpers/UnionExplorer";
 import { decode_union_object } from "./internal/decode_union_object";
 
 export namespace CloneProgrammer {
+    /**
+     * @deprecated Use `write()` function instead
+     */
     export const generate =
+        (project: IProject, modulo: ts.LeftHandSideExpression) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(type, name);
+
+    export const write =
         (project: IProject) => (modulo: ts.LeftHandSideExpression) => {
             const importer: FunctionImporter = new FunctionImporter();
-            return FeatureProgrammer.generate(project)({
+            return FeatureProgrammer.analyze(project)({
                 ...CONFIG(project, importer),
                 addition: (collection) => {
-                    const isFunctors = IsProgrammer.generate_functors(
-                        project,
-                        importer,
-                    )(collection);
-                    const isUnioners = IsProgrammer.generate_unioners(
-                        project,
-                        importer,
-                    )(collection);
+                    const isFunctors =
+                        IsProgrammer.write_functors(project)(importer)(
+                            collection,
+                        );
+                    const isUnioners =
+                        IsProgrammer.write_unioners(project)(importer)(
+                            collection,
+                        );
 
                     return [
                         ...importer.declare(modulo),
@@ -82,7 +90,7 @@ export namespace CloneProgrammer {
             if (meta.resolved !== null)
                 unions.push({
                     type: "resolved",
-                    is: () => IsProgrammer.decode_to_json(input, true),
+                    is: () => IsProgrammer.decode_to_json(true)(input),
                     value: () =>
                         decode_to_json(project, importer)(
                             input,
@@ -133,25 +141,25 @@ export namespace CloneProgrammer {
             if (meta.sets.length)
                 unions.push({
                     type: "set",
-                    is: () => ExpressionFactory.isInstanceOf(input, "Set"),
+                    is: () => ExpressionFactory.isInstanceOf("Set")(input),
                     value: () => ts.factory.createIdentifier("{}"),
                 });
             if (meta.maps.length)
                 unions.push({
                     type: "map",
-                    is: () => ExpressionFactory.isInstanceOf(input, "Map"),
+                    is: () => ExpressionFactory.isInstanceOf("Map")(input),
                     value: () => ts.factory.createIdentifier("{}"),
                 });
             for (const native of meta.natives)
                 unions.push({
                     type: "native",
-                    is: () => ExpressionFactory.isInstanceOf(input, native),
+                    is: () => ExpressionFactory.isInstanceOf(native)(input),
                     value: () =>
                         native === "Boolean" ||
                         native === "Number" ||
                         native === "String"
                             ? ts.factory.createCallExpression(
-                                  IdentifierFactory.join(input, "valueOf"),
+                                  IdentifierFactory.join(input)("valueOf"),
                                   undefined,
                                   undefined,
                               )
@@ -163,10 +171,10 @@ export namespace CloneProgrammer {
                 unions.push({
                     type: "object",
                     is: () =>
-                        ExpressionFactory.isObject(input, {
+                        ExpressionFactory.isObject({
                             checkNull: true,
                             checkArray: false,
-                        }),
+                        })(input),
                     value: () =>
                         explore_objects(importer)(input, meta, {
                             ...explore,
@@ -199,7 +207,7 @@ export namespace CloneProgrammer {
         ): ts.Expression => {
             return decode(project, importer)(
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(input, "toJSON"),
+                    IdentifierFactory.join(input)("toJSON"),
                     undefined,
                     [],
                 ),
@@ -236,7 +244,7 @@ export namespace CloneProgrammer {
 
                 return decode(project, importer)(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(input, "slice"),
+                        IdentifierFactory.join(input)("slice"),
                         undefined,
                         [ts.factory.createNumericLiteral(tuple.length - 1)],
                     ),
@@ -310,12 +318,12 @@ export namespace CloneProgrammer {
         types: {
             input: (type, name) =>
                 ts.factory.createTypeReferenceNode(
-                    name ?? TypeFactory.getFullName(project.checker, type),
+                    name ?? TypeFactory.getFullName(project.checker)(type),
                 ),
             output: (type, name) =>
                 ts.factory.createTypeReferenceNode(
                     `typia.Primitive<${
-                        name ?? TypeFactory.getFullName(project.checker, type)
+                        name ?? TypeFactory.getFullName(project.checker)(type)
                     }>`,
                 ),
         },
@@ -348,10 +356,10 @@ export namespace CloneProgrammer {
         ({ checker }) =>
         (type) => {
             const collection = new MetadataCollection();
-            const meta = MetadataFactory.generate(checker, collection, type, {
+            const meta = MetadataFactory.analyze(checker)({
                 resolve: true,
                 constant: true,
-            });
+            })(collection)(type);
             return [collection, meta];
         };
 

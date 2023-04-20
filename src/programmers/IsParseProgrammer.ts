@@ -9,7 +9,15 @@ import { IProject } from "../transformers/IProject";
 import { IsProgrammer } from "./IsProgrammer";
 
 export namespace IsParseProgrammer {
+    /**
+     * @deprecated Use `write()` function instead
+     */
     export const generate =
+        (project: IProject, modulo: ts.LeftHandSideExpression) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(type, name);
+
+    export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type, name?: string) =>
@@ -24,14 +32,14 @@ export namespace IsParseProgrammer {
                 ],
                 ts.factory.createTypeReferenceNode(
                     `typia.Primitive<${
-                        name ?? TypeFactory.getFullName(project.checker, type)
+                        name ?? TypeFactory.getFullName(project.checker)(type)
                     }>`,
                 ),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "is",
-                        IsProgrammer.generate({
+                        IsProgrammer.write({
                             ...project,
                             options: {
                                 ...project.options,

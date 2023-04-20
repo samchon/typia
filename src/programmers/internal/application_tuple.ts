@@ -11,19 +11,19 @@ import { application_schema } from "./application_schema";
 export const application_tuple =
     (options: ApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
-    (
-        items: Array<Metadata>,
-        nullable: boolean,
-        attribute: IJsonSchema.IAttribute,
-    ): IJsonSchema.ITuple => ({
+    (items: Array<Metadata>) =>
+    (props: {
+        nullable: boolean;
+        attribute: IJsonSchema.IAttribute;
+    }): IJsonSchema.ITuple => ({
         type: "array",
         items: items.map((meta, i) =>
-            application_schema(options)(components)(false)(meta.rest ?? meta, {
-                ...attribute,
+            application_schema(options)(false)(components)(meta.rest ?? meta)({
+                ...props.attribute,
                 "x-typia-rest":
                     i === items.length - 1 ? meta.rest !== null : undefined,
             }),
         ),
-        nullable,
-        ...attribute,
+        nullable: props.nullable,
+        ...props.attribute,
     });

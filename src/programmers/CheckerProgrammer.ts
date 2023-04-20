@@ -91,30 +91,30 @@ export namespace CheckerProgrammer {
     }
 
     /* -----------------------------------------------------------
-        GENERATORS
+        WRITERS
     ----------------------------------------------------------- */
-    export const generate =
+    export const write =
         (project: IProject) =>
         (config: IConfig) =>
         (importer: FunctionImporter) =>
-            FeatureProgrammer.generate(project)(
+            FeatureProgrammer.analyze(project)(
                 configure(project)(config)(importer),
             )(importer);
 
-    export const generate_functors =
+    export const write_functors =
         (project: IProject) =>
         (config: IConfig) =>
         (importer: FunctionImporter) =>
-            FeatureProgrammer.generate_functors(
+            FeatureProgrammer.write_functors(
                 configure(project)(config)(importer),
             )(importer);
 
-    export const generate_unioners = (
+    export const write_unioners = (
         project: IProject,
         config: IConfig,
         importer: FunctionImporter,
     ) =>
-        FeatureProgrammer.generate_unioners(
+        FeatureProgrammer.write_unioners(
             configure(project)({ ...config, numeric: false })(importer),
         )(importer);
 
@@ -131,8 +131,7 @@ export namespace CheckerProgrammer {
                             "input",
                             ts.factory.createTypeReferenceNode(
                                 name ??
-                                    TypeFactory.getFullName(
-                                        project.checker,
+                                    TypeFactory.getFullName(project.checker)(
                                         type,
                                     ),
                             ),
@@ -147,15 +146,12 @@ export namespace CheckerProgrammer {
                     (type) => {
                         const collection: MetadataCollection =
                             new MetadataCollection();
-                        const meta: Metadata = MetadataFactory.generate(
-                            checker,
-                            collection,
-                            type,
+                        const meta: Metadata = MetadataFactory.analyze(checker)(
                             {
                                 resolve: false,
                                 constant: true,
                             },
-                        );
+                        )(collection)(type);
                         return [collection, meta];
                     },
                 addition: config.addition,
@@ -201,7 +197,7 @@ export namespace CheckerProgrammer {
             };
             if (config.numeric === true)
                 output.generator = {
-                    unioners: FeatureProgrammer.generate_unioners(
+                    unioners: FeatureProgrammer.write_unioners(
                         configure(project)({ ...config, numeric: false })(
                             importer,
                         ),
@@ -469,7 +465,7 @@ export namespace CheckerProgrammer {
             // OBJECT
             if (meta.objects.length > 0)
                 prepare(
-                    ExpressionFactory.isObject(input, {
+                    ExpressionFactory.isObject({
                         checkNull: true,
                         checkArray: meta.objects.some((obj) =>
                             obj.properties.every(
@@ -478,7 +474,7 @@ export namespace CheckerProgrammer {
                                     !prop.value.required,
                             ),
                         ),
-                    }),
+                    })(input),
                     meta.objects
                         .map((obj) => `Resolve<${obj.name}>`)
                         .join(" | "),
@@ -594,7 +590,7 @@ export namespace CheckerProgrammer {
                 tuple.length && tuple[tuple.length - 1]!.rest !== null
                     ? decode(project)(config)(importer)(
                           ts.factory.createCallExpression(
-                              IdentifierFactory.join(input, "slice"),
+                              IdentifierFactory.join(input)("slice"),
                               undefined,
                               [
                                   ts.factory.createNumericLiteral(
@@ -674,11 +670,11 @@ export namespace CheckerProgrammer {
     export const decode_object =
         (config: IConfig) => (importer: FunctionImporter) => {
             const func = FeatureProgrammer.decode_object(config)(importer);
-            return function (
+            return (
                 input: ts.Expression,
                 obj: MetadataObject,
                 explore: IExplore,
-            ) {
+            ) => {
                 obj.validated = true;
                 return func(input, obj, explore);
             };

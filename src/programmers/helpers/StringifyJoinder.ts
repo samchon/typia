@@ -61,16 +61,16 @@ export namespace StringifyJoiner {
             ]);
         };
 
-    export function array(
+    export const array = (
         input: ts.Expression,
         arrow: ts.ArrowFunction,
-    ): ts.Expression {
-        return TemplateFactory.generate([
+    ): ts.Expression =>
+        TemplateFactory.generate([
             ts.factory.createStringLiteral(`[`),
             ts.factory.createCallExpression(
                 ts.factory.createPropertyAccessExpression(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(input, "map"),
+                        IdentifierFactory.join(input)("map"),
                         undefined,
                         [arrow],
                     ),
@@ -81,12 +81,11 @@ export namespace StringifyJoiner {
             ),
             ts.factory.createStringLiteral(`]`),
         ]);
-    }
 
-    export function tuple(
+    export const tuple = (
         children: ts.Expression[],
         rest: ts.Expression | null,
-    ): ts.Expression {
+    ): ts.Expression => {
         if (children.length === 0) return ts.factory.createStringLiteral("[]");
         if (
             rest === null &&
@@ -110,5 +109,5 @@ export namespace StringifyJoiner {
 
         elements.push(ts.factory.createStringLiteral(`]`));
         return TemplateFactory.generate(elements);
-    }
+    };
 }

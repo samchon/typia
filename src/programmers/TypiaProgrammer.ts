@@ -6,16 +6,16 @@ import { ImportTransformer } from "../transformers/ImportTransformer";
 
 import transform from "../transform";
 
-export namespace TypiaFileFactory {
+export namespace TypiaProgrammer {
     export interface IProps {
         input: string;
         output: string;
         project: string;
     }
 
-    export async function generate(
-        props: TypiaFileFactory.IProps,
-    ): Promise<void> {
+    export const build = async (
+        props: TypiaProgrammer.IProps,
+    ): Promise<void> => {
         props.input = path.resolve(props.input);
         props.output = path.resolve(props.output);
 
@@ -90,7 +90,7 @@ export namespace TypiaFileFactory {
             const content: string = printer.printFile(file);
             await fs.promises.writeFile(to, emend(content), "utf8");
         }
-    }
+    };
 
     const emend = (content: string): string => {
         if (

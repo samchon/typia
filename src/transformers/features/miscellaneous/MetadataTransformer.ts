@@ -32,10 +32,10 @@ export namespace MetadataTransformer {
             // METADATA
             const collection: MetadataCollection = new MetadataCollection();
             const metadatas: Array<Metadata> = types.map((type) =>
-                MetadataFactory.generate(checker, collection, type, {
+                MetadataFactory.analyze(checker)({
                     resolve: false,
                     constant: true,
-                }),
+                })(collection)(type),
             );
 
             // CONVERT TO PRIMITIVE TYPE

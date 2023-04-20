@@ -1,5 +1,4 @@
-export function $is_ipv4(str: string): boolean {
-    return REGEX.test(str);
-}
+export const $is_ipv4 = (str: string): boolean => REGEX.test(str);
+
 const REGEX =
     /^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;

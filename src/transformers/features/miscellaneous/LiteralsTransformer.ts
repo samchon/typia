@@ -18,7 +18,7 @@ export namespace LiteralsTransformer {
             if (type.isTypeParameter()) throw new Error(NO_GENERIC_ARGUMENT);
 
             // DO TRANSFORM
-            return LiteralsProgrammer.generate(project)(type);
+            return LiteralsProgrammer.write(project)(type);
         };
 }
 

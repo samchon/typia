@@ -19,7 +19,7 @@ export namespace CreateRandomTransformer {
             if (type.isTypeParameter()) throw new Error(NO_GENERIC_ARGUMENT);
 
             // DO TRANSFORM
-            return RandomProgrammer.generate({
+            return RandomProgrammer.write({
                 ...project,
                 options: {
                     ...project.options,

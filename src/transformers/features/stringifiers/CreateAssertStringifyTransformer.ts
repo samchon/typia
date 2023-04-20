@@ -7,6 +7,6 @@ export namespace CreateAssertStringifyTransformer {
         "createAssertStringify",
     )(
         (project) => (modulo) =>
-            AssertStringifyProgrammer.generate(project)(modulo),
+            AssertStringifyProgrammer.write(project)(modulo),
     );
 }

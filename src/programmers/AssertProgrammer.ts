@@ -13,15 +13,25 @@ import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
 
 export namespace AssertProgrammer {
+    /**
+     * @deprecated Use `write()` function instead
+     */
     export const generate =
+        (
+            project: IProject,
+            modulo: ts.LeftHandSideExpression,
+            equals: boolean = false,
+        ) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(equals)(type, name);
+
+    export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
         (equals: boolean) =>
         (type: ts.Type, name?: string) => {
             const importer: FunctionImporter = new FunctionImporter();
-            const program: ts.ArrowFunction = CheckerProgrammer.generate(
-                project,
-            )({
+            const program: ts.ArrowFunction = CheckerProgrammer.write(project)({
                 functors: "$ao",
                 unioners: "$au",
                 path: true,
@@ -67,7 +77,7 @@ export namespace AssertProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    name ?? TypeFactory.getFullName(project.checker, type),
+                    name ?? TypeFactory.getFullName(project.checker)(type),
                 ),
                 undefined,
                 ts.factory.createBlock(
@@ -75,11 +85,10 @@ export namespace AssertProgrammer {
                         ...importer.declare(modulo),
                         StatementFactory.constant(
                             "__is",
-                            IsProgrammer.generate(project)(modulo)(equals)(
+                            IsProgrammer.write(project)(modulo)(equals)(
                                 type,
                                 name ??
-                                    TypeFactory.getFullName(
-                                        project.checker,
+                                    TypeFactory.getFullName(project.checker)(
                                         type,
                                     ),
                             ),
@@ -214,7 +223,7 @@ export namespace AssertProgrammer {
             object: assert_object(equals)(importer),
             array: (input, arrow) =>
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(input, "every"),
+                    IdentifierFactory.join(input)("every"),
                     undefined,
                     [arrow],
                 ),

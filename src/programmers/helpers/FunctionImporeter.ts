@@ -38,8 +38,7 @@ export class FunctionImporter {
                             TypeFactory.keyword("any"),
                         ),
                     ),
-                    name,
-                ),
+                )(name),
             ),
         );
     }
