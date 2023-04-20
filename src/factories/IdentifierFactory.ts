@@ -25,7 +25,8 @@ export namespace IdentifierFactory {
         type?: ts.TypeNode,
         init?: ts.Expression | ts.PunctuationToken<ts.SyntaxKind.QuestionToken>,
     ) => {
-        if (ts.version >= "4.8")
+        // instead of ts.version >= "4.8"
+        if (ts.getDecorators !== undefined)
             return ts.factory.createParameterDeclaration(
                 undefined,
                 undefined,
@@ -39,7 +40,7 @@ export namespace IdentifierFactory {
                     : undefined,
             );
         // eslint-disable-next-line
-        return ts.factory.createParameterDeclaration(
+        return (ts.factory.createParameterDeclaration as any)(
             undefined,
             undefined,
             undefined,

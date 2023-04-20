@@ -1,5 +1,4 @@
 import fs from "fs";
-import path from "path";
 
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { CommandExecutor } from "./setup/CommandExecutor";
@@ -8,7 +7,6 @@ import { PluginConfigurator } from "./setup/PluginConfigurator";
 
 export namespace TypiaSetupWizard {
     export interface IArguments {
-        compiler: "ts-patch" | "ttypescript";
         manager: "npm" | "pnpm" | "yarn";
         project: string | null;
     }
@@ -23,7 +21,7 @@ export namespace TypiaSetupWizard {
         const args: IArguments = await ArgumentParser.parse(pack)(inquiry);
 
         // INSTALL TYPESCRIPT
-        pack.install({ dev: true, modulo: "typescript", version: "4.9.5" });
+        pack.install({ dev: true, modulo: "typescript", version: "latest" });
         args.project ??= (() => {
             CommandExecutor.run("npx tsc --init");
             return (args.project = "tsconfig.json");
@@ -31,21 +29,19 @@ export namespace TypiaSetupWizard {
         pack.install({ dev: true, modulo: "ts-node", version: "latest" });
 
         // INSTALL COMPILER
-        pack.install({ dev: true, modulo: args.compiler, version: "latest" });
-        if (args.compiler === "ts-patch") {
-            await pack.save((data) => {
-                data.scripts ??= {};
-                if (
-                    typeof data.scripts.prepare === "string" &&
-                    data.scripts.prepare.length
-                ) {
-                    if (data.scripts.prepare.indexOf("ts-patch install") === -1)
-                        data.scripts.prepare =
-                            "ts-patch install && " + data.scripts.prepare;
-                } else data.scripts.prepare = "ts-patch install";
-            });
-            CommandExecutor.run("npm run prepare");
-        }
+        pack.install({ dev: true, modulo: "ts-patch", version: "latest" });
+        await pack.save((data) => {
+            data.scripts ??= {};
+            if (
+                typeof data.scripts.prepare === "string" &&
+                data.scripts.prepare.length
+            ) {
+                if (data.scripts.prepare.indexOf("ts-patch install") === -1)
+                    data.scripts.prepare =
+                        "ts-patch install && " + data.scripts.prepare;
+            } else data.scripts.prepare = "ts-patch install";
+        });
+        CommandExecutor.run("npm run prepare");
 
         // CONFIGURE TYPIA
         await PluginConfigurator.configure(args);
@@ -58,7 +54,6 @@ export namespace TypiaSetupWizard {
         action,
     ) => {
         // PREPARE ASSETS
-        command.option("--compiler [compiler]", "compiler type");
         command.option("--manager [manager", "package manager");
         command.option("--project [project]", "tsconfig.json file location");
 
@@ -108,14 +103,6 @@ export namespace TypiaSetupWizard {
 
         // DO CONSTRUCT
         return action(async (options) => {
-            if (options.compiler === undefined) {
-                console.log(COMPILER_DESCRIPTION);
-                options.compiler = await select("compiler")(`Compiler`)(
-                    is_nest_cli(pack)
-                        ? ["ts-patch" as const, "ttypescript" as const]
-                        : ["ttypescript" as const, "ts-patch" as const],
-                );
-            }
             options.manager ??= await select("manager")("Package Manager")([
                 "npm" as const,
                 "pnpm" as const,
@@ -128,23 +115,4 @@ export namespace TypiaSetupWizard {
             return options as IArguments;
         });
     };
-
-    function is_nest_cli(pack: PackageManager): boolean {
-        return (
-            (typeof pack.data.scripts?.build === "string" &&
-                pack.data.scripts.build.indexOf("nest build") !== -1) ||
-            fs.existsSync(path.join(pack.directory, "nest-cli.json"))
-        );
-    }
 }
-
-const COMPILER_DESCRIPTION = [
-    `About compiler, if you adapt "ttypescript", you should use "ttsc" instead.`,
-    ``,
-    `Otherwise, you choose "ts-patch", you can use the original "tsc" command.`,
-    `However, the "ts-patch" hacks "node_modules/typescript" source code.`,
-    `Also, whenever update "typescript", you've to run "npm run prepare" command.`,
-    ``,
-    `By the way, when using "@nest/cli", you must just choose "ts-patch".`,
-    ``,
-].join("\n");
