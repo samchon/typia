@@ -1,3 +1,3 @@
 import { IMetadataConstant } from "./IMetadataConstant";
 
-export import MetadataConstant = IMetadataConstant;
+export type MetadataConstant = IMetadataConstant;
