@@ -66,7 +66,7 @@ export namespace IsProgrammer {
                     })(importer),
                 array: (input, arrow) =>
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(input)("every"),
+                        IdentifierFactory.access(input)("every"),
                         undefined,
                         [arrow],
                     ),
@@ -199,7 +199,7 @@ export namespace IsProgrammer {
                 ts.factory.createStrictEquality(
                     ts.factory.createStringLiteral("function"),
                     ValueFactory.TYPEOF(
-                        IdentifierFactory.join(input)("toJSON"),
+                        IdentifierFactory.access(input)("toJSON"),
                     ),
                 ),
             );

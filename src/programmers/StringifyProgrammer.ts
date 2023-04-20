@@ -479,7 +479,7 @@ export namespace StringifyProgrammer {
 
                 const code = decode(project, importer)(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(input)("slice"),
+                        IdentifierFactory.access(input)("slice"),
                         undefined,
                         [ts.factory.createNumericLiteral(tuple.length - 1)],
                     ),
@@ -538,7 +538,7 @@ export namespace StringifyProgrammer {
             return explore.from !== "top"
                 ? input
                 : ts.factory.createCallExpression(
-                      IdentifierFactory.join(input)("toString"),
+                      IdentifierFactory.access(input)("toString"),
                       undefined,
                       undefined,
                   );
@@ -577,7 +577,7 @@ export namespace StringifyProgrammer {
         ): ts.Expression => {
             return decode(project, importer)(
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(input)("toJSON"),
+                    IdentifierFactory.access(input)("toJSON"),
                     undefined,
                     [],
                 ),

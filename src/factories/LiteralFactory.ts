@@ -21,7 +21,7 @@ export namespace LiteralFactory {
                 .filter((tuple) => tuple[1] !== undefined)
                 .map(([key, value]) =>
                     ts.factory.createPropertyAssignment(
-                        IdentifierFactory.accessor(key),
+                        IdentifierFactory.identifier(key),
                         generate(value),
                     ),
                 ),

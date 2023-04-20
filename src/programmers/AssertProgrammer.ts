@@ -223,7 +223,7 @@ export namespace AssertProgrammer {
             object: assert_object(equals)(importer),
             array: (input, arrow) =>
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(input)("every"),
+                    IdentifierFactory.access(input)("every"),
                     undefined,
                     [arrow],
                 ),

@@ -3,16 +3,22 @@ import ts from "typescript";
 import { Escaper } from "../utils/Escaper";
 
 export namespace IdentifierFactory {
-    export const accessor = (name: string) =>
+    export const identifier = (name: string) =>
         Escaper.variable(name)
             ? ts.factory.createIdentifier(name)
             : ts.factory.createStringLiteral(name);
 
-    export const join = (prefix: ts.Expression) => (name: string) => {
-        const postfix = accessor(name);
+    /**
+     * @deprecated Use `access()` function instead.
+     */
+    export const join = (prefix: ts.Expression, name: string) =>
+        access(prefix)(name);
+
+    export const access = (target: ts.Expression) => (property: string) => {
+        const postfix = identifier(property);
         return ts.isStringLiteral(postfix)
-            ? ts.factory.createElementAccessExpression(prefix, postfix)
-            : ts.factory.createPropertyAccessExpression(prefix, postfix);
+            ? ts.factory.createElementAccessExpression(target, postfix)
+            : ts.factory.createPropertyAccessExpression(target, postfix);
     };
 
     export const postfix = (str: string): string =>

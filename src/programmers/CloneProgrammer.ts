@@ -159,7 +159,7 @@ export namespace CloneProgrammer {
                         native === "Number" ||
                         native === "String"
                             ? ts.factory.createCallExpression(
-                                  IdentifierFactory.join(input)("valueOf"),
+                                  IdentifierFactory.access(input)("valueOf"),
                                   undefined,
                                   undefined,
                               )
@@ -207,7 +207,7 @@ export namespace CloneProgrammer {
         ): ts.Expression => {
             return decode(project, importer)(
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(input)("toJSON"),
+                    IdentifierFactory.access(input)("toJSON"),
                     undefined,
                     [],
                 ),
@@ -244,7 +244,7 @@ export namespace CloneProgrammer {
 
                 return decode(project, importer)(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(input)("slice"),
+                        IdentifierFactory.access(input)("slice"),
                         undefined,
                         [ts.factory.createNumericLiteral(tuple.length - 1)],
                     ),

@@ -200,7 +200,7 @@ export namespace PruneProgrammer {
 
                 return decode(project)(importer)(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(input)("slice"),
+                        IdentifierFactory.access(input)("slice"),
                         undefined,
                         [ts.factory.createNumericLiteral(tuple.length - 1)],
                     ),

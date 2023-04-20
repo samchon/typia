@@ -420,4 +420,4 @@ const COALESCE = (importer: FunctionImporter) => (name: string) =>
             ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
             ts.factory.createIdentifier(name),
         ),
-    )(IdentifierFactory.join(importer.use("generator"))(name));
+    )(IdentifierFactory.access(importer.use("generator"))(name));

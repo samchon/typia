@@ -76,7 +76,7 @@ export namespace UnionExplorer {
                 .map((spec) => {
                     const key: string = spec.property.key.getSoleLiteral()!;
                     const accessor: ts.Expression =
-                        IdentifierFactory.join(input)(key);
+                        IdentifierFactory.access(input)(key);
                     const pred: ts.Expression = spec.neighbour
                         ? config.objector.checker(
                               accessor,
@@ -159,7 +159,7 @@ export namespace UnionExplorer {
 
     export const array = (props: array.IProps) =>
         check_union_array_like<Metadata>({
-            size: (input) => IdentifierFactory.join(input)("length"),
+            size: (input) => IdentifierFactory.access(input)("length"),
             front: (input) =>
                 ts.factory.createElementAccessExpression(input, 0),
             array: (input) => input,
@@ -171,7 +171,7 @@ export namespace UnionExplorer {
 
     export const array_or_tuple = (props: array_or_tuple.IProps) =>
         check_union_array_like<Metadata | Metadata[]>({
-            size: (input) => IdentifierFactory.join(input)("length"),
+            size: (input) => IdentifierFactory.access(input)("length"),
             front: (input) =>
                 ts.factory.createElementAccessExpression(input, 0),
             array: (input) => input,
@@ -188,13 +188,13 @@ export namespace UnionExplorer {
 
     export const set = (props: set.IProps) =>
         check_union_array_like<Metadata>({
-            size: (input) => IdentifierFactory.join(input)("size"),
+            size: (input) => IdentifierFactory.access(input)("size"),
             front: (input) =>
-                IdentifierFactory.join(
+                IdentifierFactory.access(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(
+                        IdentifierFactory.access(
                             ts.factory.createCallExpression(
-                                IdentifierFactory.join(input)("values"),
+                                IdentifierFactory.access(input)("values"),
                                 undefined,
                                 undefined,
                             ),
@@ -216,13 +216,13 @@ export namespace UnionExplorer {
 
     export const map = (props: map.IProps) =>
         check_union_array_like<[Metadata, Metadata]>({
-            size: (input) => IdentifierFactory.join(input)("size"),
+            size: (input) => IdentifierFactory.access(input)("size"),
             front: (input) =>
-                IdentifierFactory.join(
+                IdentifierFactory.access(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(
+                        IdentifierFactory.access(
                             ts.factory.createCallExpression(
-                                IdentifierFactory.join(input)("entries"),
+                                IdentifierFactory.access(input)("entries"),
                                 undefined,
                                 undefined,
                             ),

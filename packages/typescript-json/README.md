@@ -8,7 +8,7 @@
 [![npm version](https://img.shields.io/npm/v/typia.svg)](https://www.npmjs.com/package/typia)
 [![Downloads](https://img.shields.io/npm/dm/typia.svg)](https://www.npmjs.com/package/typia)
 [![Build Status](https://github.com/samchon/typia/workflows/build/badge.svg)](https://github.com/samchon/typia/actions?query=workflow%3Abuild)
-[![Guide Documents](https://img.shields.io/badge/wiki-documentation-forestgreen)](https://typia.io/docs/)
+[![Guide Documents](https://img.shields.io/badge/guide-documents-forestgreen)](https://typia.io/docs/)
 
 ```typescript
 // RUNTIME VALIDATORS

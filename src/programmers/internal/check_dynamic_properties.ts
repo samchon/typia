@@ -20,7 +20,7 @@ export const check_dynamic_properties =
         regular: IExpressionEntry<ts.Expression>[],
         dynamic: IExpressionEntry<ts.Expression>[],
     ): ts.Expression => {
-        const length = IdentifierFactory.join(
+        const length = IdentifierFactory.access(
             ts.factory.createCallExpression(
                 ts.factory.createIdentifier("Object.keys"),
                 undefined,
@@ -66,7 +66,7 @@ export const check_dynamic_properties =
                   check_dynamic_property(props)(input, regular, dynamic),
               ])
             : ts.factory.createCallExpression(
-                  IdentifierFactory.join(
+                  IdentifierFactory.access(
                       ts.factory.createCallExpression(
                           ts.factory.createIdentifier("Object.keys"),
                           undefined,
@@ -170,7 +170,7 @@ const check_dynamic_property =
 
 const is_regular_property = (regular: IExpressionEntry[]) =>
     ts.factory.createCallExpression(
-        IdentifierFactory.join(
+        IdentifierFactory.access(
             ts.factory.createArrayLiteralExpression(
                 regular.map((entry) =>
                     ts.factory.createStringLiteral(entry.key.getSoleLiteral()!),

@@ -29,7 +29,7 @@ export const stringify_dynamic_properties = (
     // PREPARE RETURN FUNCTION
     const output = () => {
         const mapped = ts.factory.createCallExpression(
-            IdentifierFactory.join(
+            IdentifierFactory.access(
                 ts.factory.createCallExpression(
                     ts.factory.createIdentifier("Object.entries"),
                     undefined,
@@ -65,7 +65,7 @@ export const stringify_dynamic_properties = (
             ],
         );
         const filtered = ts.factory.createCallExpression(
-            IdentifierFactory.join(mapped)("filter"),
+            IdentifierFactory.access(mapped)("filter"),
             undefined,
             [
                 ts.factory.createArrowFunction(
@@ -82,7 +82,7 @@ export const stringify_dynamic_properties = (
             ],
         );
         return ts.factory.createCallExpression(
-            IdentifierFactory.join(filtered)("join"),
+            IdentifierFactory.access(filtered)("join"),
             undefined,
             [ts.factory.createStringLiteral(",")],
         );
@@ -93,7 +93,7 @@ export const stringify_dynamic_properties = (
         statements.push(
             ts.factory.createIfStatement(
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(
+                    IdentifierFactory.access(
                         ts.factory.createArrayLiteralExpression(
                             regular.map((key) =>
                                 ts.factory.createStringLiteral(key),

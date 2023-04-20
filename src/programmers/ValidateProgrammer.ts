@@ -107,7 +107,7 @@ export namespace ValidateProgrammer {
                         StatementFactory.constant(
                             "$report",
                             ts.factory.createCallExpression(
-                                IdentifierFactory.join(
+                                IdentifierFactory.access(
                                     ts.factory.createParenthesizedExpression(
                                         ts.factory.createAsExpression(
                                             modulo,
@@ -247,7 +247,7 @@ const joiner =
         array: (input, arrow) =>
             check_everything(
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(input)("map"),
+                    IdentifierFactory.access(input)("map"),
                     undefined,
                     [arrow],
                 ),
