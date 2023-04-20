@@ -116,7 +116,7 @@
     "suppress-warnings": "^1.0.2",
     "tgrid": "^0.8.7",
     "ts-node": "^10.9.1",
-    "ts-patch": "^3.0.0-beta3",
+    "ts-patch": "3.0.0-beta3",
     "typescript": "^5.0.4",
     "typescript-transform-paths": "^3.4.6",
     "uuid": "^8.3.2",
