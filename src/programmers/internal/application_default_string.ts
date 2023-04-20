@@ -7,7 +7,8 @@ import { application_default } from "./application_default";
  * @internal
  */
 export const application_default_string =
-    (meta: Metadata, attribute: IJsonSchema.IAttribute) =>
+    (meta: Metadata) =>
+    (attribute: IJsonSchema.IAttribute) =>
     (schema: IJsonSchema.IString) =>
         application_default(attribute)((str) => {
             const conditions: boolean[] = [];

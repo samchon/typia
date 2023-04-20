@@ -4,7 +4,6 @@ import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace ValidateCloneTransformer {
     export const transform = GenericTransformer.scalar("validatClone")(
-        (project) => (modulo) =>
-            ValidateCloneProgrammer.generate(project)(modulo),
+        (project) => (modulo) => ValidateCloneProgrammer.write(project)(modulo),
     );
 }

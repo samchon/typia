@@ -6,6 +6,6 @@ export namespace AssertTransformer {
     export const transform = (equals: boolean) =>
         GenericTransformer.scalar(equals ? "assertEquals" : "assert")(
             (project) => (modulo) =>
-                AssertProgrammer.generate(project)(modulo)(equals),
+                AssertProgrammer.write(project)(modulo)(equals),
         );
 }

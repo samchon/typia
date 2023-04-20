@@ -212,7 +212,7 @@ export namespace FeatureProgrammer {
     /* -----------------------------------------------------------
         GENERATORS
     ----------------------------------------------------------- */
-    export const generate =
+    export const analyze =
         (project: IProject) =>
         (config: IConfig) =>
         (importer: FunctionImporter) =>
@@ -235,12 +235,10 @@ export namespace FeatureProgrammer {
 
             // RETURNS THE OPTIMAL ARROW FUNCTION
             const functors: ts.VariableStatement[] = (
-                config.generator?.functors ??
-                generate_functors(config)(importer)
+                config.generator?.functors ?? write_functors(config)(importer)
             )(collection);
             const unioners: ts.VariableStatement[] = (
-                config.generator?.unioners ??
-                generate_unioners(config)(importer)
+                config.generator?.unioners ?? write_unioners(config)(importer)
             )(collection);
             const added: ts.Statement[] = (config.addition ?? (() => []))(
                 collection,
@@ -272,7 +270,7 @@ export namespace FeatureProgrammer {
             );
         };
 
-    export const generate_functors =
+    export const write_functors =
         (config: IConfig) =>
         (importer: FunctionImporter) =>
         (collection: MetadataCollection) =>
@@ -281,11 +279,11 @@ export namespace FeatureProgrammer {
                 .map((obj, i) =>
                     StatementFactory.constant(
                         `${config.functors}${i}`,
-                        generate_object(config)(importer)(obj),
+                        write_object(config)(importer)(obj),
                     ),
                 );
 
-    export const generate_unioners =
+    export const write_unioners =
         (config: IConfig) =>
         (importer: FunctionImporter) =>
         (collection: MetadataCollection) =>
@@ -294,11 +292,11 @@ export namespace FeatureProgrammer {
                 .map((union, i) =>
                     StatementFactory.constant(
                         importer.useLocal(`${config.unioners}${i}`),
-                        generate_union(config)(union),
+                        write_union(config)(union),
                     ),
                 );
 
-    const generate_object =
+    const write_object =
         (config: IConfig) =>
         (importer: FunctionImporter) =>
         (obj: MetadataObject) =>
@@ -319,7 +317,7 @@ export namespace FeatureProgrammer {
                 ),
             );
 
-    function generate_union(config: IConfig) {
+    const write_union = (config: IConfig) => {
         const explorer = UnionExplorer.object(config);
         const input = ValueFactory.INPUT();
 
@@ -345,7 +343,7 @@ export namespace FeatureProgrammer {
                     [],
                 ),
             );
-    }
+    };
 
     /* -----------------------------------------------------------
         DECODERS

@@ -7,6 +7,6 @@ export namespace CreateValidateStringifyTransformer {
         "createValidateStringify",
     )(
         (project) => (modulo) =>
-            ValidateStringifyProgrammer.generate(project)(modulo),
+            ValidateStringifyProgrammer.write(project)(modulo),
     );
 }

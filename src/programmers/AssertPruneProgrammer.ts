@@ -10,7 +10,15 @@ import { AssertProgrammer } from "./AssertProgrammer";
 import { PruneProgrammer } from "./PruneProgrammer";
 
 export namespace AssertPruneProgrammer {
+    /**
+     * @deprecated Use `write()` function instead
+     */
     export const generate =
+        (project: IProject, modulo: ts.LeftHandSideExpression) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(type, name);
+
+    export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type, name?: string) =>
@@ -24,20 +32,20 @@ export namespace AssertPruneProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    name ?? TypeFactory.getFullName(project.checker, type),
+                    name ?? TypeFactory.getFullName(project.checker)(type),
                 ),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "assert",
-                        AssertProgrammer.generate(project)(modulo)(false)(
+                        AssertProgrammer.write(project)(modulo)(false)(
                             type,
                             name,
                         ),
                     ),
                     StatementFactory.constant(
                         "prune",
-                        PruneProgrammer.generate({
+                        PruneProgrammer.write({
                             ...project,
                             options: {
                                 ...project.options,

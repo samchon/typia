@@ -18,20 +18,28 @@ import { UnionExplorer } from "./helpers/UnionExplorer";
 import { decode_union_object } from "./internal/decode_union_object";
 
 export namespace PruneProgrammer {
+    /**
+     * @deprecated Use `write()` function instead
+     */
     export const generate =
+        (project: IProject, modulo: ts.LeftHandSideExpression) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(type, name);
+
+    export const write =
         (project: IProject) => (modulo: ts.LeftHandSideExpression) => {
             const importer: FunctionImporter = new FunctionImporter();
-            return FeatureProgrammer.generate(project)({
+            return FeatureProgrammer.analyze(project)({
                 ...configure(project)(importer),
                 addition: (collection) => {
-                    const isFunctors = IsProgrammer.generate_functors(
-                        project,
-                        importer,
-                    )(collection);
-                    const isUnioners = IsProgrammer.generate_unioners(
-                        project,
-                        importer,
-                    )(collection);
+                    const isFunctors =
+                        IsProgrammer.write_functors(project)(importer)(
+                            collection,
+                        );
+                    const isUnioners =
+                        IsProgrammer.write_unioners(project)(importer)(
+                            collection,
+                        );
 
                     return [
                         ...importer.declare(modulo),
@@ -114,19 +122,19 @@ export namespace PruneProgrammer {
                 for (const native of meta.natives)
                     unions.push({
                         type: "native",
-                        is: () => ExpressionFactory.isInstanceOf(input, native),
+                        is: () => ExpressionFactory.isInstanceOf(native)(input),
                         value: () => ts.factory.createReturnStatement(),
                     });
             if (meta.sets.length)
                 unions.push({
                     type: "set",
-                    is: () => ExpressionFactory.isInstanceOf(input, "Set"),
+                    is: () => ExpressionFactory.isInstanceOf("Set")(input),
                     value: () => ts.factory.createReturnStatement(),
                 });
             if (meta.maps.length)
                 unions.push({
                     type: "map",
-                    is: () => ExpressionFactory.isInstanceOf(input, "Map"),
+                    is: () => ExpressionFactory.isInstanceOf("Map")(input),
                     value: () => ts.factory.createReturnStatement(),
                 });
 
@@ -135,10 +143,10 @@ export namespace PruneProgrammer {
                 unions.push({
                     type: "object",
                     is: () =>
-                        ExpressionFactory.isObject(input, {
+                        ExpressionFactory.isObject({
                             checkNull: true,
                             checkArray: false,
-                        }),
+                        })(input),
                     value: () =>
                         explore_objects(importer)(input, meta, {
                             ...explore,
@@ -192,7 +200,7 @@ export namespace PruneProgrammer {
 
                 return decode(project)(importer)(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(input, "slice"),
+                        IdentifierFactory.join(input)("slice"),
                         undefined,
                         [ts.factory.createNumericLiteral(tuple.length - 1)],
                     ),
@@ -272,7 +280,7 @@ export namespace PruneProgrammer {
             types: {
                 input: (type, name) =>
                     ts.factory.createTypeReferenceNode(
-                        name ?? TypeFactory.getFullName(project.checker, type),
+                        name ?? TypeFactory.getFullName(project.checker)(type),
                     ),
                 output: () => TypeFactory.keyword("void"),
             },
@@ -304,10 +312,10 @@ export namespace PruneProgrammer {
         ({ checker }) =>
         (type) => {
             const collection = new MetadataCollection();
-            const meta = MetadataFactory.generate(checker, collection, type, {
+            const meta = MetadataFactory.analyze(checker)({
                 resolve: false,
                 constant: true,
-            });
+            })(collection)(type);
             return [collection, meta];
         };
 

@@ -20,7 +20,19 @@ import { RandomRanger } from "./helpers/RandomRanger";
 import { random_custom } from "./internal/random_custom";
 
 export namespace RandomProgrammer {
+    /**
+     * @deprecated Use `write()` function instead
+     */
     export const generate =
+        (
+            project: IProject,
+            modulo: ts.LeftHandSideExpression,
+            init?: ts.Expression,
+        ) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(init)(type, name);
+
+    export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
         (init?: ts.Expression) => {
@@ -28,15 +40,12 @@ export namespace RandomProgrammer {
             return (type: ts.Type, name?: string) => {
                 // INITIALIZE METADATA
                 const collection: MetadataCollection = new MetadataCollection();
-                const meta: Metadata = MetadataFactory.generate(
-                    project.checker,
-                    collection,
-                    type,
+                const meta: Metadata = MetadataFactory.analyze(project.checker)(
                     {
                         resolve: true,
                         constant: true,
                     },
-                );
+                )(collection)(type);
 
                 // GENERATE FUNCTION
                 const functors: ts.VariableStatement[] =
@@ -64,7 +73,7 @@ export namespace RandomProgrammer {
                     ts.factory.createTypeReferenceNode(
                         `typia.Primitive<${
                             name ??
-                            TypeFactory.getFullName(project.checker, type)
+                            TypeFactory.getFullName(project.checker)(type)
                         }>`,
                     ),
                     undefined,
@@ -411,5 +420,4 @@ const COALESCE = (importer: FunctionImporter) => (name: string) =>
             ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
             ts.factory.createIdentifier(name),
         ),
-        IdentifierFactory.join(importer.use("generator"), name),
-    );
+    )(IdentifierFactory.join(importer.use("generator"))(name));

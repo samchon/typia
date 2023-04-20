@@ -8,6 +8,6 @@ export namespace CreateValidateTransformer {
             equals ? "createValidateEquals" : "createValidate",
         )(
             (project) => (modulo) =>
-                ValidateProgrammer.generate(project)(modulo)(equals),
+                ValidateProgrammer.write(project)(modulo)(equals),
         );
 }

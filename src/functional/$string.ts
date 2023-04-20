@@ -1,7 +1,7 @@
 /**
  * @internal
  */
-export function $string(str: string): string {
+export const $string = (str: string): string => {
     if (str.length > 41) return JSON.stringify(str);
 
     const length = str.length;
@@ -34,4 +34,4 @@ export function $string(str: string): string {
     return point < 32 || surrogateFound === true
         ? JSON.stringify(str)
         : `"${result}"`;
-}
+};

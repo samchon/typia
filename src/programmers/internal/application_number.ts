@@ -4,16 +4,16 @@ import { application_default } from "./application_default";
 /**
  * @internal
  */
-export const application_number = (
-    nullable: boolean,
-    attribute: IJsonSchema.IAttribute,
-): IJsonSchema.INumber | IJsonSchema.IInteger => {
+export const application_number = (props: {
+    nullable: boolean;
+    attribute: IJsonSchema.IAttribute;
+}): IJsonSchema.INumber | IJsonSchema.IInteger => {
     const output: IJsonSchema.INumber | IJsonSchema.IInteger = {
         type: "number" as "number" | "integer",
-        nullable,
-        ...attribute,
+        nullable: props.nullable,
+        ...props.attribute,
     };
-    for (const tag of attribute["x-typia-metaTags"] || []) {
+    for (const tag of props.attribute["x-typia-metaTags"] || []) {
         // CHECK TYPE
         if (
             tag.kind === "type" &&
@@ -37,7 +37,7 @@ export const application_number = (
     // WHEN UNSIGNED INT
     if (
         output.type === "integer" &&
-        (attribute["x-typia-metaTags"] || []).find(
+        (props.attribute["x-typia-metaTags"] || []).find(
             (tag) => tag.kind === "type" && tag.value === "uint",
         )
     )
@@ -52,7 +52,7 @@ export const application_number = (
         }
 
     // DEFAULT CONFIGURATION
-    output.default = application_default(attribute)((str) => {
+    output.default = application_default(props.attribute)((str) => {
         const value: number = Number(str);
         const conditions: boolean[] = [!Number.isNaN(value)];
         if (output.minimum !== undefined)

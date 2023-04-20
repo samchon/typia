@@ -26,5 +26,4 @@ export const random_custom =
                 undefined,
                 [LiteralFactory.generate(comments)],
             ),
-            expression,
-        );
+        )(expression);

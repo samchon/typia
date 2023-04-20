@@ -20,7 +20,7 @@ export namespace RandomTransformer {
 
             // DO TRANSFORM
             return ts.factory.createCallExpression(
-                RandomProgrammer.generate({
+                RandomProgrammer.write({
                     ...project,
                     options: {
                         ...project.options,

@@ -10,8 +10,7 @@ export const iterate_metadata_native =
     (checker: ts.TypeChecker) =>
     (meta: Metadata, type: ts.Type): boolean => {
         const validator = validate(checker)(type);
-        const name: string = TypeFactory.getFullName(
-            checker,
+        const name: string = TypeFactory.getFullName(checker)(
             type,
             type.getSymbol(),
         );
@@ -42,9 +41,7 @@ export const iterate_metadata_native =
 const validate =
     (checker: ts.TypeChecker) => (type: ts.Type) => (info: IClassInfo) =>
         (info.methods ?? []).every((method) => {
-            const returnType = TypeFactory.getReturnType(
-                checker,
-                type,
+            const returnType = TypeFactory.getReturnType(checker)(type)(
                 method.name,
             );
             return (

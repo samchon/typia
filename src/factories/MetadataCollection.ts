@@ -43,7 +43,7 @@ export class MetadataCollection {
             properties: [],
             description:
                 (type.symbol &&
-                    CommentFactory.generate(
+                    CommentFactory.string(
                         type.symbol.getDocumentationComment(checker),
                     )) ||
                 undefined,
@@ -62,18 +62,17 @@ export class MetadataCollection {
      */
     public getUnionIndex(meta: Metadata): number {
         const key: string = meta.objects.map((obj) => obj.name).join(" | ");
-        MapUtil.take(this.unions_, key, () => meta.objects);
+        MapUtil.take(this.unions_)(key, () => meta.objects);
         return [...this.unions_.keys()].indexOf(key);
     }
 
     private get_name(checker: ts.TypeChecker, type: ts.Type): string {
         const name: string = (() => {
-            const str: string = TypeFactory.getFullName(checker, type);
+            const str: string = TypeFactory.getFullName(checker)(type);
             return this.options?.replace ? this.options.replace(str) : str;
         })();
 
-        const duplicates: Map<ts.Type, string> = MapUtil.take(
-            this.names_,
+        const duplicates: Map<ts.Type, string> = MapUtil.take(this.names_)(
             name,
             () => new Map(),
         );
@@ -92,17 +91,17 @@ export namespace MetadataCollection {
         replace?(str: string): string;
     }
 
-    export function replace(str: string): string {
+    export const replace = (str: string): string => {
         for (const [before, after] of REPLACERS)
             str = str.split(before).join(after);
         return str;
-    }
+    };
 
-    export function escape(str: string): string {
+    export const escape = (str: string): string => {
         for (const [before, after] of REPLACERS)
             if (after !== "") str = str.split(after).join(before);
         return str;
-    }
+    };
 }
 const REPLACERS: [string, string][] = [
     ["$", "_dollar_"],

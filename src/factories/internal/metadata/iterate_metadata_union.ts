@@ -29,10 +29,8 @@ export const iterate_metadata_union =
 
         for (const individual of type.types) {
             if (filter(ts.TypeFlags.Object, individual)) {
-                const resolved: ts.Type | null = TypeFactory.resolve(
-                    checker,
-                    individual,
-                );
+                const resolved: ts.Type | null =
+                    TypeFactory.resolve(checker)(individual);
                 if (resolved !== null) toJsons.push(resolved);
                 else normals.push(individual);
             } else normals.push(individual);

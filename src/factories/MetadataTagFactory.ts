@@ -4,30 +4,29 @@ import { IMetadataTag } from "../metadata/IMetadataTag";
 import { Metadata } from "../metadata/Metadata";
 
 export namespace MetadataTagFactory {
-    export function generate(
-        identifier: () => string,
-        metadata: Metadata,
-        tagList: ts.JSDocTagInfo[],
-    ): IMetadataTag[] {
-        const output: IMetadataTag[] = [];
-        for (const tag of tagList) {
-            const elem: IMetadataTag | null = parse(
-                identifier,
-                metadata,
-                tag,
-                output,
-            );
-            if (elem !== null) output.push(elem);
-        }
-        return output;
-    }
+    export const generate =
+        (metadata: Metadata) =>
+        (tagList: ts.JSDocTagInfo[]) =>
+        (identifier: () => string): IMetadataTag[] => {
+            const output: IMetadataTag[] = [];
+            for (const tag of tagList) {
+                const elem: IMetadataTag | null = parse(
+                    identifier,
+                    metadata,
+                    tag,
+                    output,
+                );
+                if (elem !== null) output.push(elem);
+            }
+            return output;
+        };
 
-    function parse(
+    const parse = (
         identifier: () => string,
         metadata: Metadata,
         tag: ts.JSDocTagInfo,
         output: IMetadataTag[],
-    ): IMetadataTag | null {
+    ): IMetadataTag | null => {
         const closure = _PARSER[tag.name];
         if (closure === undefined) return null;
 
@@ -36,7 +35,7 @@ export namespace MetadataTagFactory {
             throw new Error(`${LABEL}: no tag value on ${identifier()}`);
 
         return closure(identifier, metadata, text, output);
-    }
+    };
 
     /**
      * @internal
@@ -225,12 +224,12 @@ export namespace MetadataTagFactory {
     };
 }
 
-function parse_number(identifier: () => string, str: string): number {
+const parse_number = (identifier: () => string, str: string): number => {
     const value: number = Number(str);
     if (isNaN(value) === true)
         throw new Error(`${LABEL}: invalid number on "${identifier()}".`);
     return value;
-}
+};
 
 const LABEL = "Error on typia.MetadataTagFactory.generate()";
 const FORMATS: Map<string, IMetadataTag.IFormat["value"]> = new Map([
@@ -251,19 +250,19 @@ const WRONG_TYPE = (
     identifier: () => string,
 ) => `${LABEL}: ${tag} requires ${type} type, but no "${identifier()}".`;
 
-function validate(
+const validate = (
     identifier: () => string,
     metadata: Metadata,
     output: IMetadataTag[],
     kind: IMetadataTag["kind"],
     type: "array" | "string" | "number",
     neighbors: IMetadataTag["kind"][],
-): void {
+): void => {
     // TYPE CHECKING
     if (type === "array") {
         if (has_array(metadata) === false)
             throw new Error(WRONG_TYPE(kind, "array", identifier));
-    } else if (has_atomic(metadata, type) === false)
+    } else if (has_atomic(metadata)(type) === false)
         throw new Error(WRONG_TYPE(kind, type, identifier));
 
     // DUPLICATED TAG
@@ -278,25 +277,21 @@ function validate(
             throw new Error(
                 `${LABEL}: ${kind} and ${name} tags on "${identifier()}".`,
             );
-}
+};
 
-function has_atomic(metadata: Metadata, type: "string" | "number"): boolean {
-    const valid =
-        type === "number"
-            ? (atom: string) => atom === type || atom === "bigint"
-            : (atom: string) => atom === type;
-    return (
-        metadata.atomics.find((atom) => valid(atom)) !== undefined ||
-        metadata.arrays.some((child) => has_atomic(child, type)) ||
+const has_atomic =
+    (metadata: Metadata) =>
+    (type: "string" | "number"): boolean =>
+        metadata.atomics.find(
+            type === "number"
+                ? (atom: string) => atom === type || atom === "bigint"
+                : (atom: string) => atom === type,
+        ) !== undefined ||
+        metadata.arrays.some((child) => has_atomic(child)(type)) ||
         metadata.tuples.some((tuple) =>
-            tuple.some((child) => has_atomic(child, type)),
-        )
-    );
-}
+            tuple.some((child) => has_atomic(child)(type)),
+        );
 
-function has_array(metadata: Metadata): boolean {
-    return (
-        metadata.arrays.length !== 0 ||
-        metadata.tuples.some((tuple) => tuple.some((child) => has_array(child)))
-    );
-}
+const has_array = (metadata: Metadata): boolean =>
+    metadata.arrays.length !== 0 ||
+    metadata.tuples.some((tuple) => tuple.some((child) => has_array(child)));

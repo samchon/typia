@@ -151,8 +151,7 @@ export const check_union_array_like =
                 ts.factory.createCallExpression(
                     IdentifierFactory.join(
                         ts.factory.createIdentifier("array"),
-                        "every",
-                    ),
+                    )("every"),
                     undefined,
                     [
                         ts.factory.createArrowFunction(

@@ -26,8 +26,7 @@ export const check_dynamic_properties =
                 undefined,
                 [input],
             ),
-            "length",
-        );
+        )("length");
         const left: ts.Expression | null =
             props.equals === true && dynamic.length === 0
                 ? props.undefined === true ||
@@ -73,8 +72,7 @@ export const check_dynamic_properties =
                           undefined,
                           [input],
                       ),
-                      props.assert ? "every" : "map",
-                  ),
+                  )(props.assert ? "every" : "map"),
                   undefined,
                   [check_dynamic_property(props)(input, regular, dynamic)],
               );
@@ -178,8 +176,7 @@ const is_regular_property = (regular: IExpressionEntry[]) =>
                     ts.factory.createStringLiteral(entry.key.getSoleLiteral()!),
                 ),
             ),
-            "some",
-        ),
+        )("some"),
         undefined,
         [
             ts.factory.createArrowFunction(

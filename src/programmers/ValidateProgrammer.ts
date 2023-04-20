@@ -14,15 +14,25 @@ import { check_everything } from "./internal/check_everything";
 import { check_object } from "./internal/check_object";
 
 export namespace ValidateProgrammer {
+    /**
+     * @deprecated Use `write()` function instead
+     */
     export const generate =
+        (
+            project: IProject,
+            modulo: ts.LeftHandSideExpression,
+            equals: boolean = false,
+        ) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(equals)(type, name);
+
+    export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
         (equals: boolean) =>
         (type: ts.Type, name?: string) => {
             const importer: FunctionImporter = new FunctionImporter();
-            const program: ts.ArrowFunction = CheckerProgrammer.generate(
-                project,
-            )({
+            const program: ts.ArrowFunction = CheckerProgrammer.write(project)({
                 functors: "$vo",
                 unioners: "$vu",
                 path: true,
@@ -69,7 +79,7 @@ export namespace ValidateProgrammer {
                 ],
                 ts.factory.createTypeReferenceNode(
                     `typia.IValidation<${
-                        name ?? TypeFactory.getFullName(project.checker, type)
+                        name ?? TypeFactory.getFullName(project.checker)(type)
                     }>`,
                 ),
                 undefined,
@@ -77,11 +87,10 @@ export namespace ValidateProgrammer {
                     [
                         StatementFactory.constant(
                             "__is",
-                            IsProgrammer.generate(project)(modulo)(equals)(
+                            IsProgrammer.write(project)(modulo)(equals)(
                                 type,
                                 name ??
-                                    TypeFactory.getFullName(
-                                        project.checker,
+                                    TypeFactory.getFullName(project.checker)(
                                         type,
                                     ),
                             ),
@@ -105,8 +114,7 @@ export namespace ValidateProgrammer {
                                             TypeFactory.keyword("any"),
                                         ),
                                     ),
-                                    "report",
-                                ),
+                                )("report"),
                                 [],
                                 [ts.factory.createIdentifier("errors")],
                             ),
@@ -239,7 +247,7 @@ const joiner =
         array: (input, arrow) =>
             check_everything(
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(input, "map"),
+                    IdentifierFactory.join(input)("map"),
                     undefined,
                     [arrow],
                 ),
@@ -262,8 +270,8 @@ const joiner =
             ),
     });
 
-function create_output() {
-    return ts.factory.createObjectLiteralExpression(
+const create_output = () =>
+    ts.factory.createObjectLiteralExpression(
         [
             ts.factory.createShorthandPropertyAssignment("success"),
             ts.factory.createShorthandPropertyAssignment("errors"),
@@ -280,7 +288,6 @@ function create_output() {
         ],
         true,
     );
-}
 
 const create_report_call =
     (exceptionable?: ts.Expression) =>

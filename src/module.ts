@@ -458,7 +458,7 @@ export const customValidators: CustomValidatorMap = {
     has: (name) => (type) => $dictionary.get(name)?.has(type) ?? false,
     get: (name) => (type) => $dictionary.get(name)?.get(type),
     insert: (name) => (type) => (closure) => {
-        const internal = MapUtil.take($dictionary, name, () => new Map());
+        const internal = MapUtil.take($dictionary)(name, () => new Map());
         if (internal.has(type)) return false;
         internal.set(type, closure);
         return true;

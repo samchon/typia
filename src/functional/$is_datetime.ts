@@ -1,3 +1,2 @@
-export function $is_datetime(value: string): boolean {
-    return !isNaN(new Date(value).getTime());
-}
+export const $is_datetime = (value: string): boolean =>
+    !isNaN(new Date(value).getTime());

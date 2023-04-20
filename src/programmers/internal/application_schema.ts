@@ -19,10 +19,10 @@ import { application_tuple } from "./application_tuple";
  */
 export const application_schema =
     (options: ApplicationProgrammer.IOptions) =>
-    (components: IJsonComponents) =>
     <BlockNever extends boolean>(blockNever: BlockNever) =>
+    (components: IJsonComponents) =>
+    (meta: Metadata) =>
     (
-        meta: Metadata,
         attribute: IJsonSchema.IAttribute,
     ): BlockNever extends true ? IJsonSchema | null : IJsonSchema => {
         // VULNERABLE CASE
@@ -37,15 +37,15 @@ export const application_schema =
 
         // toJSON() METHOD
         if (meta.resolved !== null) {
-            const resolved = application_schema(options)(components)(
-                blockNever,
-            )(meta.resolved, attribute);
+            const resolved = application_schema(options)(blockNever)(
+                components,
+            )(meta.resolved)(attribute);
             if (resolved !== null) union.push(resolved);
         }
 
         // ATOMIC TYPES
         if (meta.templates.length && AtomicPredicator.template(meta))
-            union.push(application_templates(meta, attribute));
+            union.push(application_templates(meta)(attribute));
         for (const constant of meta.constants)
             if (constant.type === "bigint") throw new Error(NO_BIGINT);
             else if (
@@ -55,7 +55,10 @@ export const application_schema =
                 continue;
             else
                 union.push(
-                    application_constant(constant, meta.nullable, attribute),
+                    application_constant(constant)({
+                        nullable: meta.nullable,
+                        attribute,
+                    }),
                 );
         for (const type of meta.atomics)
             if (type === "bigint") throw new Error(NO_BIGINT);
@@ -65,25 +68,33 @@ export const application_schema =
                     type === "string"
                         ? application_string(meta, attribute)
                         : type === "boolean"
-                        ? application_boolean(meta.nullable, attribute)
-                        : application_number(meta.nullable, attribute),
+                        ? application_boolean({
+                              nullable: meta.nullable,
+                              attribute,
+                          })
+                        : application_number({
+                              nullable: meta.nullable,
+                              attribute,
+                          }),
                 );
 
         // ARRAY
         for (const schema of meta.arrays.values())
             union.push(
-                application_array(options)(components)()(
-                    schema,
-                    meta.nullable,
+                application_array(options)(components)()(schema)({
+                    nullable: meta.nullable,
                     attribute,
-                ),
+                }),
             );
 
         // TUPLE
         for (const items of meta.tuples) {
             const tuple: IJsonSchema.ITuple = application_tuple(options)(
                 components,
-            )(items, meta.nullable, attribute);
+            )(items)({
+                nullable: meta.nullable,
+                attribute,
+            });
             if (options.purpose === "swagger" && items.length === 0)
                 throw new Error(
                     "Error on typia.application(): swagger does not support zero length tuple type.",
@@ -99,11 +110,10 @@ export const application_schema =
                     Metadata.merge(x, y),
                 );
                 union.push(
-                    application_array(options)(components)(tuple)(
-                        merged,
-                        merged?.nullable || false,
+                    application_array(options)(components)(tuple)(merged)({
+                        nullable: merged?.nullable ?? false,
                         attribute,
-                    ),
+                    }),
                 );
             }
         }
@@ -115,35 +125,44 @@ export const application_schema =
                     native === "String"
                         ? application_string(meta, attribute)
                         : native === "Boolean"
-                        ? application_boolean(meta.nullable, attribute)
-                        : application_number(meta.nullable, attribute),
+                        ? application_boolean({
+                              nullable: meta.nullable,
+                              attribute,
+                          })
+                        : application_number({
+                              nullable: meta.nullable,
+                              attribute,
+                          }),
                 );
             else
                 union.push(
-                    application_native(options)(components)(native)(
-                        meta.nullable,
+                    application_native(options)(components)(native)({
+                        nullable: meta.nullable,
                         attribute,
-                    ),
+                    }),
                 );
         if (meta.sets.length)
             union.push(
-                application_native(options)(components)(`Set`)(
-                    meta.nullable,
+                application_native(options)(components)(`Set`)({
+                    nullable: meta.nullable,
                     attribute,
-                ),
+                }),
             );
         if (meta.maps.length)
             union.push(
-                application_native(options)(components)(`Map`)(
-                    meta.nullable,
+                application_native(options)(components)(`Map`)({
+                    nullable: meta.nullable,
                     attribute,
-                ),
+                }),
             );
 
         // OBJECT
         for (const obj of meta.objects) {
             const key: string = obj.name + (meta.nullable ? ".Nullable" : "");
-            application_object(options)(components)(key, obj, meta.nullable);
+            application_object(options)(components)(obj)({
+                key,
+                nullable: meta.nullable,
+            });
             union.push(
                 (options.purpose === "ajv" && obj.recursive
                     ? recursive
