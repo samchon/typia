@@ -9,7 +9,6 @@ export namespace CommentFactory {
 
     /**
      * @deprecated
-     * @internal
      */
     export const generate = string;
 }

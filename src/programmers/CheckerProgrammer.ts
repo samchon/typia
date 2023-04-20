@@ -588,7 +588,7 @@ export namespace CheckerProgrammer {
                 tuple.length && tuple[tuple.length - 1]!.rest !== null
                     ? decode(project)(config)(importer)(
                           ts.factory.createCallExpression(
-                              IdentifierFactory.join(input)("slice"),
+                              IdentifierFactory.access(input)("slice"),
                               undefined,
                               [
                                   ts.factory.createNumericLiteral(

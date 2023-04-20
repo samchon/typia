@@ -28,7 +28,7 @@ export namespace PruneJoiner {
 
     export const array = (input: ts.Expression, arrow: ts.ArrowFunction) =>
         ts.factory.createCallExpression(
-            IdentifierFactory.join(input)("forEach"),
+            IdentifierFactory.access(input)("forEach"),
             undefined,
             [arrow],
         );
