@@ -28,7 +28,7 @@ export const test_assert_ToJsonDouble = _test_assert(
                             false === Array.isArray(input)) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<ToJsonDouble.Parent>",
+                                expected: "ToJsonDouble.Parent",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

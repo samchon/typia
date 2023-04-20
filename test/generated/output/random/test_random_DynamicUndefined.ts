@@ -86,7 +86,7 @@ export const test_random_DynamicUndefined = _test_random(
                         false === Array.isArray(input)) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<DynamicUndefined>",
+                            expected: "DynamicUndefined",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

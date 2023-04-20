@@ -90,14 +90,14 @@ export const test_createValidateClone_ObjectTuple = _test_validateClone(
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    "[Resolve<ObjectTuple.ISection>, Resolve<ObjectTuple.ICitizen>]",
+                                    "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
                                 value: input,
                             })) &&
                             (input.length === 2 ||
                                 $report(true, {
                                     path: _path + "",
                                     expected:
-                                        "[Resolve<ObjectTuple.ISection>, Resolve<ObjectTuple.ICitizen>]",
+                                        "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
                                     value: input,
                                 })) &&
                             [
@@ -105,37 +105,33 @@ export const test_createValidateClone_ObjectTuple = _test_validateClone(
                                     null !== input[0]) ||
                                     $report(true, {
                                         path: _path + "[0]",
-                                        expected:
-                                            "Resolve<ObjectTuple.ISection>",
+                                        expected: "ObjectTuple.ISection",
                                         value: input[0],
                                     })) &&
                                     $vo0(input[0], _path + "[0]", true)) ||
                                     $report(true, {
                                         path: _path + "[0]",
-                                        expected:
-                                            "Resolve<ObjectTuple.ISection>",
+                                        expected: "ObjectTuple.ISection",
                                         value: input[0],
                                     }),
                                 ((("object" === typeof input[1] &&
                                     null !== input[1]) ||
                                     $report(true, {
                                         path: _path + "[1]",
-                                        expected:
-                                            "Resolve<ObjectTuple.ICitizen>",
+                                        expected: "ObjectTuple.ICitizen",
                                         value: input[1],
                                     })) &&
                                     $vo1(input[1], _path + "[1]", true)) ||
                                     $report(true, {
                                         path: _path + "[1]",
-                                        expected:
-                                            "Resolve<ObjectTuple.ICitizen>",
+                                        expected: "ObjectTuple.ICitizen",
                                         value: input[1],
                                     }),
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
                             expected:
-                                "[Resolve<ObjectTuple.ISection>, Resolve<ObjectTuple.ICitizen>]",
+                                "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
                             value: input,
                         })
                     );

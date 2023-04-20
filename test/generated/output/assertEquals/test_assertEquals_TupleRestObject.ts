@@ -77,7 +77,7 @@ export const test_assertEquals_TupleRestObject = _test_assertEquals(
                             $guard(true, {
                                 path: _path + "",
                                 expected:
-                                    "[boolean, number, ...Resolve<TupleRestObject.IObject>]",
+                                    "[boolean, number, ...TupleRestObject.IObject]",
                                 value: input,
                             })) &&
                         ("boolean" === typeof input[0] ||
@@ -96,8 +96,7 @@ export const test_assertEquals_TupleRestObject = _test_assertEquals(
                         (Array.isArray(input.slice(2)) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<Resolve<TupleRestObject.IObject>>",
+                                expected: "Array<TupleRestObject.IObject>",
                                 value: input.slice(2),
                             })) &&
                         input.slice(2).every(
@@ -105,8 +104,7 @@ export const test_assertEquals_TupleRestObject = _test_assertEquals(
                                 (("object" === typeof elem && null !== elem) ||
                                     $guard(true, {
                                         path: _path + "[" + (2 + _index1) + "]",
-                                        expected:
-                                            "Resolve<TupleRestObject.IObject>",
+                                        expected: "TupleRestObject.IObject",
                                         value: elem,
                                     })) &&
                                 $ao0(

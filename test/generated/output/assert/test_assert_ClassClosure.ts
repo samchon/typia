@@ -50,7 +50,7 @@ export const test_assert_ClassClosure = _test_assert(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<ClassClosure.Something>",
+                                expected: "ClassClosure.Something",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

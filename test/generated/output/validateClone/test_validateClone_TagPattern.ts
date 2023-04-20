@@ -111,13 +111,13 @@ export const test_validateClone_TagPattern = _test_validateClone(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<TagPattern>",
+                                    expected: "TagPattern",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<TagPattern>",
+                                expected: "TagPattern",
                                 value: input,
                             })
                         );

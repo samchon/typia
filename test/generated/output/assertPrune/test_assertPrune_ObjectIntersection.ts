@@ -57,7 +57,7 @@ export const test_assertPrune_ObjectIntersection = _test_assertPrune(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<ObjectIntersection>",
+                                    expected: "ObjectIntersection",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

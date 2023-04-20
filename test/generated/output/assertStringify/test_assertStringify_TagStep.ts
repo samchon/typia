@@ -137,7 +137,7 @@ export const test_assertStringify_TagStep = _test_assertStringify(
                             (Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<Resolve<TagStep.Type>>",
+                                    expected: "Array<TagStep.Type>",
                                     value: input,
                                 })) &&
                             input.every(
@@ -146,7 +146,7 @@ export const test_assertStringify_TagStep = _test_assertStringify(
                                         null !== elem) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected: "Resolve<TagStep.Type>",
+                                            expected: "TagStep.Type",
                                             value: elem,
                                         })) &&
                                     $ao0(

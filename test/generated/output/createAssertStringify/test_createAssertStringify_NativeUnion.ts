@@ -105,7 +105,7 @@ export const test_createAssertStringify_NativeUnion = _test_assertStringify(
                         (Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<NativeUnion.Union>>",
+                                expected: "Array<NativeUnion.Union>",
                                 value: input,
                             })) &&
                         input.every(
@@ -113,7 +113,7 @@ export const test_createAssertStringify_NativeUnion = _test_assertStringify(
                                 (("object" === typeof elem && null !== elem) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
-                                        expected: "Resolve<NativeUnion.Union>",
+                                        expected: "NativeUnion.Union",
                                         value: elem,
                                     })) &&
                                 $ao0(elem, _path + "[" + _index1 + "]", true),
@@ -192,7 +192,7 @@ export const test_createAssertStringify_NativeUnion = _test_assertStringify(
                         return $so1(input.buffer);
                     $throws({
                         expected:
-                            "(ArrayBuffer | DataView | Resolve<__type> | SharedArrayBuffer | unknown)",
+                            "(ArrayBuffer | DataView | SharedArrayBuffer | __type | unknown)",
                         value: input.buffer,
                     });
                 })()},"weak":${(() => {

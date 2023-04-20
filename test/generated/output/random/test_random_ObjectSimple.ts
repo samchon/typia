@@ -87,7 +87,7 @@ export const test_random_ObjectSimple = _test_random(
                         null !== input.scale) ||
                         $guard(_exceptionable, {
                             path: _path + ".scale",
-                            expected: "Resolve<ObjectSimple.IPoint3D>",
+                            expected: "ObjectSimple.IPoint3D",
                             value: input.scale,
                         })) &&
                     $ao1(
@@ -99,7 +99,7 @@ export const test_random_ObjectSimple = _test_random(
                         null !== input.position) ||
                         $guard(_exceptionable, {
                             path: _path + ".position",
-                            expected: "Resolve<ObjectSimple.IPoint3D>",
+                            expected: "ObjectSimple.IPoint3D",
                             value: input.position,
                         })) &&
                     $ao1(
@@ -111,7 +111,7 @@ export const test_random_ObjectSimple = _test_random(
                         null !== input.rotate) ||
                         $guard(_exceptionable, {
                             path: _path + ".rotate",
-                            expected: "Resolve<ObjectSimple.IPoint3D>",
+                            expected: "ObjectSimple.IPoint3D",
                             value: input.rotate,
                         })) &&
                     $ao1(
@@ -123,7 +123,7 @@ export const test_random_ObjectSimple = _test_random(
                         null !== input.pivot) ||
                         $guard(_exceptionable, {
                             path: _path + ".pivot",
-                            expected: "Resolve<ObjectSimple.IPoint3D>",
+                            expected: "ObjectSimple.IPoint3D",
                             value: input.pivot,
                         })) &&
                     $ao1(input.pivot, _path + ".pivot", true && _exceptionable);
@@ -157,7 +157,7 @@ export const test_random_ObjectSimple = _test_random(
                     (("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<ObjectSimple.IBox3D>",
+                            expected: "ObjectSimple.IBox3D",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

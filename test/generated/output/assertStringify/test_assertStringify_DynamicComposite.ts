@@ -139,7 +139,7 @@ export const test_assertStringify_DynamicComposite = _test_assertStringify(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicComposite>",
+                                    expected: "DynamicComposite",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

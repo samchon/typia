@@ -178,7 +178,7 @@ export const test_createRandom_ArrayAny = _test_random(
                     (("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<ArrayAny>",
+                            expected: "ArrayAny",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

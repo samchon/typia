@@ -223,7 +223,7 @@ export const test_assertParse_TagArray = _test_assertParse(
                             (Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<Resolve<TagArray.Type>>",
+                                    expected: "Array<TagArray.Type>",
                                     value: input,
                                 })) &&
                             input.every(
@@ -232,7 +232,7 @@ export const test_assertParse_TagArray = _test_assertParse(
                                         null !== elem) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected: "Resolve<TagArray.Type>",
+                                            expected: "TagArray.Type",
                                             value: elem,
                                         })) &&
                                     $ao0(

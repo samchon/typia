@@ -23,7 +23,7 @@ export const test_createStringify_TemplateUnion = _test_stringify(
                     return `{"name":${$string(input.mixed.name)}}`;
                 $throws({
                     expected:
-                        '("the_A_value" | "the_B_value" | Resolve<__type> | `the_${number}_value` | boolean | number)',
+                        '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
                     value: input.mixed,
                 });
             })()}}`;

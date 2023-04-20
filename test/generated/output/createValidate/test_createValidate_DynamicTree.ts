@@ -63,8 +63,7 @@ export const test_createValidate_DynamicTree = _test_validate(
                             false === Array.isArray(input.children)) ||
                             $report(_exceptionable, {
                                 path: _path + ".children",
-                                expected:
-                                    "Resolve<Record<string, DynamicTree>>",
+                                expected: "Record<string, DynamicTree>",
                                 value: input.children,
                             })) &&
                             $vo1(
@@ -74,8 +73,7 @@ export const test_createValidate_DynamicTree = _test_validate(
                             )) ||
                             $report(_exceptionable, {
                                 path: _path + ".children",
-                                expected:
-                                    "Resolve<Record<string, DynamicTree>>",
+                                expected: "Record<string, DynamicTree>",
                                 value: input.children,
                             }),
                     ].every((flag: boolean) => flag);
@@ -96,8 +94,7 @@ export const test_createValidate_DynamicTree = _test_validate(
                                                 null !== value) ||
                                                 $report(_exceptionable, {
                                                     path: _path + $join(key),
-                                                    expected:
-                                                        "Resolve<DynamicTree>",
+                                                    expected: "DynamicTree",
                                                     value: value,
                                                 })) &&
                                                 $vo0(
@@ -107,8 +104,7 @@ export const test_createValidate_DynamicTree = _test_validate(
                                                 )) ||
                                             $report(_exceptionable, {
                                                 path: _path + $join(key),
-                                                expected:
-                                                    "Resolve<DynamicTree>",
+                                                expected: "DynamicTree",
                                                 value: value,
                                             })
                                         );
@@ -120,13 +116,13 @@ export const test_createValidate_DynamicTree = _test_validate(
                     ((("object" === typeof input && null !== input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<DynamicTree>",
+                            expected: "DynamicTree",
                             value: input,
                         })) &&
                         $vo0(input, _path + "", true)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Resolve<DynamicTree>",
+                        expected: "DynamicTree",
                         value: input,
                     })
                 );

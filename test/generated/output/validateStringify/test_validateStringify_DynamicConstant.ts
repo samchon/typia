@@ -90,13 +90,13 @@ export const test_validateStringify_DynamicConstant = _test_validateStringify(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicConstant>",
+                                    expected: "DynamicConstant",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<DynamicConstant>",
+                                expected: "DynamicConstant",
                                 value: input,
                             })
                         );

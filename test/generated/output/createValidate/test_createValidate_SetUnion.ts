@@ -141,7 +141,7 @@ export const test_createValidate_SetUnion = _test_validate(
                         $report(true, {
                             path: _path + "",
                             expected:
-                                "Array<(Set<Array<number>> | Set<Resolve<SetUnion.Person>> | Set<boolean> | Set<number> | Set<string>)>",
+                                "Array<(Set<Array<number>> | Set<SetUnion.Person> | Set<boolean> | Set<number> | Set<string>)>",
                             value: input,
                         })) &&
                         input
@@ -151,7 +151,7 @@ export const test_createValidate_SetUnion = _test_validate(
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "(Set<Array<number>> | Set<Resolve<SetUnion.Person>> | Set<boolean> | Set<number> | Set<string>)",
+                                                "(Set<Array<number>> | Set<SetUnion.Person> | Set<boolean> | Set<number> | Set<string>)",
                                             value: elem,
                                         })) &&
                                         (() => {
@@ -399,7 +399,7 @@ export const test_createValidate_SetUnion = _test_validate(
                                                                                     _index2 +
                                                                                     "]",
                                                                                 expected:
-                                                                                    "Resolve<SetUnion.Person>",
+                                                                                    "SetUnion.Person",
                                                                                 value: elem,
                                                                             },
                                                                         )) &&
@@ -424,7 +424,7 @@ export const test_createValidate_SetUnion = _test_validate(
                                                                                 _index2 +
                                                                                 "]",
                                                                             expected:
-                                                                                "Resolve<SetUnion.Person>",
+                                                                                "SetUnion.Person",
                                                                             value: elem,
                                                                         },
                                                                     ),
@@ -462,14 +462,14 @@ export const test_createValidate_SetUnion = _test_validate(
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
-                                                    "(Set<boolean> | Set<number> | Set<string> | Set<Array<number>> | Set<Resolve<SetUnion.Person>>)",
+                                                    "(Set<boolean> | Set<number> | Set<string> | Set<Array<number>> | Set<SetUnion.Person>)",
                                                 value: elem,
                                             });
                                         })()) ||
                                     $report(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
-                                            "(Set<Array<number>> | Set<Resolve<SetUnion.Person>> | Set<boolean> | Set<number> | Set<string>)",
+                                            "(Set<Array<number>> | Set<SetUnion.Person> | Set<boolean> | Set<number> | Set<string>)",
                                         value: elem,
                                     }),
                             )
@@ -477,7 +477,7 @@ export const test_createValidate_SetUnion = _test_validate(
                     $report(true, {
                         path: _path + "",
                         expected:
-                            "Array<(Set<Array<number>> | Set<Resolve<SetUnion.Person>> | Set<boolean> | Set<number> | Set<string>)>",
+                            "Array<(Set<Array<number>> | Set<SetUnion.Person> | Set<boolean> | Set<number> | Set<string>)>",
                         value: input,
                     })
                 );

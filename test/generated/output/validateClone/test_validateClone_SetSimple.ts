@@ -215,8 +215,7 @@ export const test_validateClone_SetSimple = _test_validateClone(
                                 ((input.objects instanceof Set ||
                                     $report(_exceptionable, {
                                         path: _path + ".objects",
-                                        expected:
-                                            "Set<Resolve<SetSimple.Person>>",
+                                        expected: "Set<SetSimple.Person>",
                                         value: input.objects,
                                     })) &&
                                     [...input.objects]
@@ -231,7 +230,7 @@ export const test_validateClone_SetSimple = _test_validateClone(
                                                             _index6 +
                                                             "]",
                                                         expected:
-                                                            "Resolve<SetSimple.Person>",
+                                                            "SetSimple.Person",
                                                         value: elem,
                                                     })) &&
                                                     $vo1(
@@ -249,15 +248,14 @@ export const test_validateClone_SetSimple = _test_validateClone(
                                                         _index6 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<SetSimple.Person>",
+                                                        "SetSimple.Person",
                                                     value: elem,
                                                 }),
                                         )
                                         .every((flag: boolean) => flag)) ||
                                     $report(_exceptionable, {
                                         path: _path + ".objects",
-                                        expected:
-                                            "Set<Resolve<SetSimple.Person>>",
+                                        expected: "Set<SetSimple.Person>",
                                         value: input.objects,
                                     }),
                             ].every((flag: boolean) => flag);
@@ -291,13 +289,13 @@ export const test_validateClone_SetSimple = _test_validateClone(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<SetSimple>",
+                                    expected: "SetSimple",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<SetSimple>",
+                                expected: "SetSimple",
                                 value: input,
                             })
                         );

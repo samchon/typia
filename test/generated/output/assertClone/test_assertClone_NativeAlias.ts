@@ -160,7 +160,7 @@ export const test_assertClone_NativeAlias = _test_assertClone(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<NativeAlias>",
+                                    expected: "NativeAlias",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

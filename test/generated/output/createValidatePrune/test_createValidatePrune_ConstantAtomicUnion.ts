@@ -52,7 +52,7 @@ export const test_createValidatePrune_ConstantAtomicUnion = _test_validatePrune(
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    'Array<("four" | "three" | 1 | 2 | Resolve<__type> | false)>',
+                                    'Array<("four" | "three" | 1 | 2 | __type | false)>',
                                 value: input,
                             })) &&
                             input
@@ -69,7 +69,7 @@ export const test_createValidatePrune_ConstantAtomicUnion = _test_validatePrune(
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
-                                                    '("four" | "three" | 1 | 2 | Resolve<__type> | false)',
+                                                    '("four" | "three" | 1 | 2 | __type | false)',
                                                 value: elem,
                                             })) &&
                                             $vo0(
@@ -80,7 +80,7 @@ export const test_createValidatePrune_ConstantAtomicUnion = _test_validatePrune(
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                '("four" | "three" | 1 | 2 | Resolve<__type> | false)',
+                                                '("four" | "three" | 1 | 2 | __type | false)',
                                             value: elem,
                                         }),
                                 )
@@ -88,7 +88,7 @@ export const test_createValidatePrune_ConstantAtomicUnion = _test_validatePrune(
                         $report(true, {
                             path: _path + "",
                             expected:
-                                'Array<("four" | "three" | 1 | 2 | Resolve<__type> | false)>',
+                                'Array<("four" | "three" | 1 | 2 | __type | false)>',
                             value: input,
                         })
                     );

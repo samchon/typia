@@ -84,8 +84,7 @@ export const test_createAssertStringify_TemplateConstant =
                             (Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<Resolve<TemplateConstant.Type>>",
+                                    expected: "Array<TemplateConstant.Type>",
                                     value: input,
                                 })) &&
                             input.every(
@@ -94,8 +93,7 @@ export const test_createAssertStringify_TemplateConstant =
                                         null !== elem) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "Resolve<TemplateConstant.Type>",
+                                            expected: "TemplateConstant.Type",
                                             value: elem,
                                         })) &&
                                     $ao0(

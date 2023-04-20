@@ -110,7 +110,7 @@ export const test_assertPrune_TagMatrix = _test_assertPrune(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<TagMatrix>",
+                                    expected: "TagMatrix",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

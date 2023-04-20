@@ -64,8 +64,7 @@ export const test_random_ObjectLiteralProperty = _test_random(
                     (("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected:
-                                "Resolve<ObjectLiteralProperty.ISomething>",
+                            expected: "ObjectLiteralProperty.ISomething",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

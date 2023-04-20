@@ -89,13 +89,13 @@ export const test_validateClone_DynamicConstant = _test_validateClone(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicConstant>",
+                                    expected: "DynamicConstant",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<DynamicConstant>",
+                                expected: "DynamicConstant",
                                 value: input,
                             })
                         );

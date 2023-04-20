@@ -82,7 +82,7 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                                 null !== input.scale) ||
                                 $report(_exceptionable, {
                                     path: _path + ".scale",
-                                    expected: "Resolve<ObjectSimple.IPoint3D>",
+                                    expected: "ObjectSimple.IPoint3D",
                                     value: input.scale,
                                 })) &&
                                 $vo1(
@@ -92,14 +92,14 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".scale",
-                                    expected: "Resolve<ObjectSimple.IPoint3D>",
+                                    expected: "ObjectSimple.IPoint3D",
                                     value: input.scale,
                                 }),
                             ((("object" === typeof input.position &&
                                 null !== input.position) ||
                                 $report(_exceptionable, {
                                     path: _path + ".position",
-                                    expected: "Resolve<ObjectSimple.IPoint3D>",
+                                    expected: "ObjectSimple.IPoint3D",
                                     value: input.position,
                                 })) &&
                                 $vo1(
@@ -109,14 +109,14 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".position",
-                                    expected: "Resolve<ObjectSimple.IPoint3D>",
+                                    expected: "ObjectSimple.IPoint3D",
                                     value: input.position,
                                 }),
                             ((("object" === typeof input.rotate &&
                                 null !== input.rotate) ||
                                 $report(_exceptionable, {
                                     path: _path + ".rotate",
-                                    expected: "Resolve<ObjectSimple.IPoint3D>",
+                                    expected: "ObjectSimple.IPoint3D",
                                     value: input.rotate,
                                 })) &&
                                 $vo1(
@@ -126,14 +126,14 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".rotate",
-                                    expected: "Resolve<ObjectSimple.IPoint3D>",
+                                    expected: "ObjectSimple.IPoint3D",
                                     value: input.rotate,
                                 }),
                             ((("object" === typeof input.pivot &&
                                 null !== input.pivot) ||
                                 $report(_exceptionable, {
                                     path: _path + ".pivot",
-                                    expected: "Resolve<ObjectSimple.IPoint3D>",
+                                    expected: "ObjectSimple.IPoint3D",
                                     value: input.pivot,
                                 })) &&
                                 $vo1(
@@ -143,7 +143,7 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".pivot",
-                                    expected: "Resolve<ObjectSimple.IPoint3D>",
+                                    expected: "ObjectSimple.IPoint3D",
                                     value: input.pivot,
                                 }),
                             4 === Object.keys(input).length ||
@@ -220,13 +220,13 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ObjectSimple.IBox3D>",
+                                expected: "ObjectSimple.IBox3D",
                                 value: input,
                             })) &&
                             $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<ObjectSimple.IBox3D>",
+                            expected: "ObjectSimple.IBox3D",
                             value: input,
                         })
                     );

@@ -50,7 +50,7 @@ export const test_assertParse_ObjectRecursive = _test_assertParse(
                                     $guard(_exceptionable, {
                                         path: _path + ".parent",
                                         expected:
-                                            "(Resolve<ObjectRecursive.IDepartment> | null)",
+                                            "(ObjectRecursive.IDepartment | null)",
                                         value: input.parent,
                                     })) &&
                                     $ao0(
@@ -88,8 +88,7 @@ export const test_assertParse_ObjectRecursive = _test_assertParse(
                                 null !== input.created_at) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".created_at",
-                                    expected:
-                                        "Resolve<ObjectRecursive.ITimestamp>",
+                                    expected: "ObjectRecursive.ITimestamp",
                                     value: input.created_at,
                                 })) &&
                             $ao1(
@@ -120,8 +119,7 @@ export const test_assertParse_ObjectRecursive = _test_assertParse(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Resolve<ObjectRecursive.IDepartment>",
+                                    expected: "ObjectRecursive.IDepartment",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

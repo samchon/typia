@@ -114,7 +114,7 @@ export const test_assertPrune_TagCustom = _test_assertPrune(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<TagCustom>",
+                                    expected: "TagCustom",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

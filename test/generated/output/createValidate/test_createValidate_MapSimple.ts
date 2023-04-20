@@ -405,8 +405,7 @@ export const test_createValidate_MapSimple = _test_validate(
                         ((input.objects instanceof Map ||
                             $report(_exceptionable, {
                                 path: _path + ".objects",
-                                expected:
-                                    "Map<Resolve<MapSimple.Person>, number>",
+                                expected: "Map<MapSimple.Person, number>",
                                 value: input.objects,
                             })) &&
                             [...input.objects]
@@ -420,7 +419,7 @@ export const test_createValidate_MapSimple = _test_validate(
                                                     _index6 +
                                                     "]",
                                                 expected:
-                                                    "[Resolve<MapSimple.Person>, number]",
+                                                    "[MapSimple.Person, number]",
                                                 value: elem,
                                             })) &&
                                             (elem.length === 2 ||
@@ -431,7 +430,7 @@ export const test_createValidate_MapSimple = _test_validate(
                                                         _index6 +
                                                         "]",
                                                     expected:
-                                                        "[Resolve<MapSimple.Person>, number]",
+                                                        "[MapSimple.Person, number]",
                                                     value: elem,
                                                 })) &&
                                             [
@@ -445,7 +444,7 @@ export const test_createValidate_MapSimple = _test_validate(
                                                             _index6 +
                                                             "][0]",
                                                         expected:
-                                                            "Resolve<MapSimple.Person>",
+                                                            "MapSimple.Person",
                                                         value: elem[0],
                                                     })) &&
                                                     $vo1(
@@ -463,7 +462,7 @@ export const test_createValidate_MapSimple = _test_validate(
                                                             _index6 +
                                                             "][0]",
                                                         expected:
-                                                            "Resolve<MapSimple.Person>",
+                                                            "MapSimple.Person",
                                                         value: elem[0],
                                                     }),
                                                 ("number" === typeof elem[1] &&
@@ -485,15 +484,14 @@ export const test_createValidate_MapSimple = _test_validate(
                                                 _index6 +
                                                 "]",
                                             expected:
-                                                "[Resolve<MapSimple.Person>, number]",
+                                                "[MapSimple.Person, number]",
                                             value: elem,
                                         }),
                                 )
                                 .every((flag: boolean) => flag)) ||
                             $report(_exceptionable, {
                                 path: _path + ".objects",
-                                expected:
-                                    "Map<Resolve<MapSimple.Person>, number>",
+                                expected: "Map<MapSimple.Person, number>",
                                 value: input.objects,
                             }),
                     ].every((flag: boolean) => flag);
@@ -527,13 +525,13 @@ export const test_createValidate_MapSimple = _test_validate(
                     ((("object" === typeof input && null !== input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<MapSimple>",
+                            expected: "MapSimple",
                             value: input,
                         })) &&
                         $vo0(input, _path + "", true)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Resolve<MapSimple>",
+                        expected: "MapSimple",
                         value: input,
                     })
                 );

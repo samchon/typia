@@ -132,13 +132,13 @@ export const test_validateStringify_DynamicTemplate = _test_validateStringify(
                                 false === Array.isArray(input)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicTemplate>",
+                                    expected: "DynamicTemplate",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<DynamicTemplate>",
+                                expected: "DynamicTemplate",
                                 value: input,
                             })
                         );

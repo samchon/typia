@@ -63,7 +63,7 @@ export const test_createAssertStringify_ObjectLiteralProperty =
                                 $guard(true, {
                                     path: _path + "",
                                     expected:
-                                        "Resolve<ObjectLiteralProperty.ISomething>",
+                                        "ObjectLiteralProperty.ISomething",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

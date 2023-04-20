@@ -116,7 +116,7 @@ export const test_createAssertClone_DynamicEnumeration = _test_assertClone(
                             false === Array.isArray(input)) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<DynamicEnumeration>",
+                                expected: "DynamicEnumeration",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

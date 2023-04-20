@@ -233,7 +233,7 @@ export const test_assertEquals_TagRange = _test_assertEquals(
                         (Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<TagRange.Type>>",
+                                expected: "Array<TagRange.Type>",
                                 value: input,
                             })) &&
                         input.every(
@@ -241,7 +241,7 @@ export const test_assertEquals_TagRange = _test_assertEquals(
                                 (("object" === typeof elem && null !== elem) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
-                                        expected: "Resolve<TagRange.Type>",
+                                        expected: "TagRange.Type",
                                         value: elem,
                                     })) &&
                                 $ao0(elem, _path + "[" + _index1 + "]", true),

@@ -66,7 +66,7 @@ export const test_createRandom_ObjectIntersection = _test_random(
                     (("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<ObjectIntersection>",
+                            expected: "ObjectIntersection",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

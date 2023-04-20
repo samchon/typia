@@ -212,7 +212,7 @@ export const test_assertStringify_TagTuple = _test_assertStringify(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<TagTuple>",
+                                    expected: "TagTuple",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

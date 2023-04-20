@@ -68,7 +68,7 @@ export const test_assertParse_DynamicConstant = _test_assertParse(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicConstant>",
+                                    expected: "DynamicConstant",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

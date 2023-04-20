@@ -105,7 +105,7 @@ export const test_createAssertClone_TagPattern = _test_assertClone(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<TagPattern>",
+                                expected: "TagPattern",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

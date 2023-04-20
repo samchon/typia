@@ -169,7 +169,7 @@ export const test_createAssertEquals_DynamicEnumeration = _test_assertEquals(
                         false === Array.isArray(input)) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<DynamicEnumeration>",
+                            expected: "DynamicEnumeration",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

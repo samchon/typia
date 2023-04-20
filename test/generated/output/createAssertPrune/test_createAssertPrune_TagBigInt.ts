@@ -99,7 +99,7 @@ export const test_createAssertPrune_TagBigInt = _test_assertPrune(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<TagBigInt>",
+                                expected: "TagBigInt",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

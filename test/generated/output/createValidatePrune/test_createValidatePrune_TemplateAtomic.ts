@@ -120,13 +120,13 @@ export const test_createValidatePrune_TemplateAtomic = _test_validatePrune(
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<TemplateAtomic>",
+                                expected: "TemplateAtomic",
                                 value: input,
                             })) &&
                             $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<TemplateAtomic>",
+                            expected: "TemplateAtomic",
                             value: input,
                         })
                     );

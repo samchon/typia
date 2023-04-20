@@ -35,7 +35,7 @@ export const test_createAssertStringify_ToJsonNull = _test_assertStringify(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<ToJsonNull>",
+                                expected: "ToJsonNull",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

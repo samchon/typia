@@ -78,7 +78,7 @@ export const test_assertClone_DynamicArray = _test_assertClone(
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicArray>",
+                                    expected: "DynamicArray",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

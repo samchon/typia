@@ -44,8 +44,7 @@ export const test_assert_ToJsonAtomicUnion = _test_assert(
                         (Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<Resolve<ToJsonAtomicUnion.IToJson>>",
+                                expected: "Array<ToJsonAtomicUnion.IToJson>",
                                 value: input,
                             })) &&
                         input.every(
@@ -53,8 +52,7 @@ export const test_assert_ToJsonAtomicUnion = _test_assert(
                                 (("object" === typeof elem && null !== elem) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
-                                        expected:
-                                            "Resolve<ToJsonAtomicUnion.IToJson>",
+                                        expected: "ToJsonAtomicUnion.IToJson",
                                         value: elem,
                                     })) &&
                                 $ao0(elem, _path + "[" + _index1 + "]", true),

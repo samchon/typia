@@ -118,13 +118,13 @@ export const test_validateStringify_TagCustom = _test_validateStringify(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<TagCustom>",
+                                    expected: "TagCustom",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<TagCustom>",
+                                expected: "TagCustom",
                                 value: input,
                             })
                         );

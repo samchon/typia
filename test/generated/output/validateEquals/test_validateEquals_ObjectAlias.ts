@@ -143,7 +143,7 @@ export const test_validateEquals_ObjectAlias = _test_validateEquals(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<ObjectAlias.IMember>>",
+                                expected: "Array<ObjectAlias.IMember>",
                                 value: input,
                             })) &&
                             input
@@ -154,8 +154,7 @@ export const test_validateEquals_ObjectAlias = _test_validateEquals(
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "Resolve<ObjectAlias.IMember>",
+                                                expected: "ObjectAlias.IMember",
                                                 value: elem,
                                             })) &&
                                             $vo0(
@@ -165,15 +164,14 @@ export const test_validateEquals_ObjectAlias = _test_validateEquals(
                                             )) ||
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "Resolve<ObjectAlias.IMember>",
+                                            expected: "ObjectAlias.IMember",
                                             value: elem,
                                         }),
                                 )
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<Resolve<ObjectAlias.IMember>>",
+                            expected: "Array<ObjectAlias.IMember>",
                             value: input,
                         })
                     );

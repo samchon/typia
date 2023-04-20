@@ -166,7 +166,7 @@ export const test_createRandom_DynamicTemplate = _test_random(
                         false === Array.isArray(input)) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<DynamicTemplate>",
+                            expected: "DynamicTemplate",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

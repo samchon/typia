@@ -230,8 +230,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 null !== input.p1) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p1",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p1,
                                 })) &&
                             $ao0(
@@ -243,8 +242,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 null !== input.p2) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p2",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p2,
                                 })) &&
                             $ao0(
@@ -261,8 +259,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 null !== input.p1) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p1",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p1,
                                 })) &&
                             $ao0(
@@ -274,8 +271,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 null !== input.p2) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p2",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p2,
                                 })) &&
                             $ao0(
@@ -287,8 +283,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 null !== input.p3) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p3",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p3,
                                 })) &&
                             $ao0(
@@ -305,8 +300,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 null !== input.p1) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p1",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p1,
                                 })) &&
                             $ao0(
@@ -318,8 +312,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 null !== input.p2) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p2",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p2,
                                 })) &&
                             $ao0(
@@ -331,8 +324,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 null !== input.p3) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p3",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p3,
                                 })) &&
                             $ao0(
@@ -344,8 +336,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 null !== input.p4) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p4",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.p4,
                                 })) &&
                             $ao0(
@@ -362,7 +353,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 $guard(_exceptionable, {
                                     path: _path + ".points",
                                     expected:
-                                        "Array<Resolve<ObjectUnionComposite.IPoint>>",
+                                        "Array<ObjectUnionComposite.IPoint>",
                                     value: input.points,
                                 })) &&
                             input.points.every(
@@ -376,7 +367,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                                 _index2 +
                                                 "]",
                                             expected:
-                                                "Resolve<ObjectUnionComposite.IPoint>",
+                                                "ObjectUnionComposite.IPoint",
                                             value: elem,
                                         })) &&
                                     $ao0(
@@ -394,8 +385,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 null !== input.outer) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".outer",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPolyline>",
+                                    expected: "ObjectUnionComposite.IPolyline",
                                     value: input.outer,
                                 })) &&
                             $ao4(
@@ -407,7 +397,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 $guard(_exceptionable, {
                                     path: _path + ".inner",
                                     expected:
-                                        "Array<Resolve<ObjectUnionComposite.IPolyline>>",
+                                        "Array<ObjectUnionComposite.IPolyline>",
                                     value: input.inner,
                                 })) &&
                             input.inner.every(
@@ -421,7 +411,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                                 _index3 +
                                                 "]",
                                             expected:
-                                                "Resolve<ObjectUnionComposite.IPolyline>",
+                                                "ObjectUnionComposite.IPolyline",
                                             value: elem,
                                         })) &&
                                     $ao4(
@@ -439,7 +429,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 $guard(_exceptionable, {
                                     path: _path + ".outer",
                                     expected:
-                                        "Array<Resolve<ObjectUnionComposite.IPoint>>",
+                                        "Array<ObjectUnionComposite.IPoint>",
                                     value: input.outer,
                                 })) &&
                             input.outer.every(
@@ -453,7 +443,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                                 _index4 +
                                                 "]",
                                             expected:
-                                                "Resolve<ObjectUnionComposite.IPoint>",
+                                                "ObjectUnionComposite.IPoint",
                                             value: elem,
                                         })) &&
                                     $ao0(
@@ -466,8 +456,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 null !== input.inner) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".inner",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.inner,
                                 })) &&
                             $ao0(
@@ -484,8 +473,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 null !== input.centroid) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".centroid",
-                                    expected:
-                                        "Resolve<ObjectUnionComposite.IPoint>",
+                                    expected: "ObjectUnionComposite.IPoint",
                                     value: input.centroid,
                                 })) &&
                             $ao0(
@@ -584,7 +572,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                 $guard(true, {
                                     path: _path + "",
                                     expected:
-                                        "Array<(Resolve<ObjectUnionComposite.ICircle> | Resolve<ObjectUnionComposite.ILine> | Resolve<ObjectUnionComposite.IPoint> | Resolve<ObjectUnionComposite.IPointedShape> | Resolve<ObjectUnionComposite.IPolygon> | Resolve<ObjectUnionComposite.IPolyline> | Resolve<ObjectUnionComposite.IRectangle> | Resolve<ObjectUnionComposite.ITriangle>)>",
+                                        "Array<(ObjectUnionComposite.ICircle | ObjectUnionComposite.ILine | ObjectUnionComposite.IPoint | ObjectUnionComposite.IPointedShape | ObjectUnionComposite.IPolygon | ObjectUnionComposite.IPolyline | ObjectUnionComposite.IRectangle | ObjectUnionComposite.ITriangle)>",
                                     value: input,
                                 })) &&
                             input.every(
@@ -594,7 +582,7 @@ export const test_assertClone_ObjectUnionComposite = _test_assertClone(
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "(Resolve<ObjectUnionComposite.ICircle> | Resolve<ObjectUnionComposite.ILine> | Resolve<ObjectUnionComposite.IPoint> | Resolve<ObjectUnionComposite.IPointedShape> | Resolve<ObjectUnionComposite.IPolygon> | Resolve<ObjectUnionComposite.IPolyline> | Resolve<ObjectUnionComposite.IRectangle> | Resolve<ObjectUnionComposite.ITriangle>)",
+                                                "(ObjectUnionComposite.ICircle | ObjectUnionComposite.ILine | ObjectUnionComposite.IPoint | ObjectUnionComposite.IPointedShape | ObjectUnionComposite.IPolygon | ObjectUnionComposite.IPolyline | ObjectUnionComposite.IRectangle | ObjectUnionComposite.ITriangle)",
                                             value: elem,
                                         })) &&
                                     $au0(

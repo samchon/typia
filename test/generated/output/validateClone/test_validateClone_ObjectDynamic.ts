@@ -79,13 +79,13 @@ export const test_validateClone_ObjectDynamic = _test_validateClone(
                                 false === Array.isArray(input)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<ObjectDynamic>",
+                                    expected: "ObjectDynamic",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ObjectDynamic>",
+                                expected: "ObjectDynamic",
                                 value: input,
                             })
                         );

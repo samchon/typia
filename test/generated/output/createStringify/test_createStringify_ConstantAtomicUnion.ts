@@ -28,8 +28,7 @@ export const test_createStringify_ConstantAtomicUnion = _test_stringify(
                     if ("object" === typeof elem && null !== elem)
                         return $so0(elem);
                     $throws({
-                        expected:
-                            '("four" | "three" | 1 | 2 | Resolve<__type> | false)',
+                        expected: '("four" | "three" | 1 | 2 | __type | false)',
                         value: elem,
                     });
                 })(),

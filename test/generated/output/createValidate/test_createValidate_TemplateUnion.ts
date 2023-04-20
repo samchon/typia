@@ -94,14 +94,14 @@ export const test_createValidate_TemplateUnion = _test_validate(
                             $report(_exceptionable, {
                                 path: _path + ".mixed",
                                 expected:
-                                    '("the_A_value" | "the_B_value" | Resolve<__type> | `the_${number}_value` | boolean | number)',
+                                    '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
                                 value: input.mixed,
                             })) &&
                             (undefined !== input.mixed ||
                                 $report(_exceptionable, {
                                     path: _path + ".mixed",
                                     expected:
-                                        '("the_A_value" | "the_B_value" | Resolve<__type> | `the_${number}_value` | boolean | number)',
+                                        '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
                                     value: input.mixed,
                                 })) &&
                             ("the_A_value" === input.mixed ||
@@ -118,7 +118,7 @@ export const test_createValidate_TemplateUnion = _test_validate(
                                     $report(_exceptionable, {
                                         path: _path + ".mixed",
                                         expected:
-                                            '("the_A_value" | "the_B_value" | Resolve<__type> | `the_${number}_value` | boolean | number)',
+                                            '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
                                         value: input.mixed,
                                     })) &&
                                     $vo1(
@@ -129,7 +129,7 @@ export const test_createValidate_TemplateUnion = _test_validate(
                                 $report(_exceptionable, {
                                     path: _path + ".mixed",
                                     expected:
-                                        '("the_A_value" | "the_B_value" | Resolve<__type> | `the_${number}_value` | boolean | number)',
+                                        '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
                                     value: input.mixed,
                                 })),
                     ].every((flag: boolean) => flag);
@@ -150,7 +150,7 @@ export const test_createValidate_TemplateUnion = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<Resolve<TemplateUnion.Type>>",
+                            expected: "Array<TemplateUnion.Type>",
                             value: input,
                         })) &&
                         input
@@ -160,8 +160,7 @@ export const test_createValidate_TemplateUnion = _test_validate(
                                         null !== elem) ||
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "Resolve<TemplateUnion.Type>",
+                                            expected: "TemplateUnion.Type",
                                             value: elem,
                                         })) &&
                                         $vo0(
@@ -171,14 +170,14 @@ export const test_createValidate_TemplateUnion = _test_validate(
                                         )) ||
                                     $report(true, {
                                         path: _path + "[" + _index1 + "]",
-                                        expected: "Resolve<TemplateUnion.Type>",
+                                        expected: "TemplateUnion.Type",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Array<Resolve<TemplateUnion.Type>>",
+                        expected: "Array<TemplateUnion.Type>",
                         value: input,
                     })
                 );

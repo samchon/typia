@@ -57,7 +57,7 @@ export const test_assertStringify_ObjectIntersection = _test_assertStringify(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<ObjectIntersection>",
+                                    expected: "ObjectIntersection",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

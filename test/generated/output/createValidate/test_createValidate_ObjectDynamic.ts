@@ -71,13 +71,13 @@ export const test_createValidate_ObjectDynamic = _test_validate(
                         false === Array.isArray(input)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<ObjectDynamic>",
+                            expected: "ObjectDynamic",
                             value: input,
                         })) &&
                         $vo0(input, _path + "", true)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Resolve<ObjectDynamic>",
+                        expected: "ObjectDynamic",
                         value: input,
                     })
                 );

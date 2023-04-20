@@ -112,7 +112,7 @@ export const test_assert_ArrayAny = _test_assert(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<ArrayAny>",
+                                expected: "ArrayAny",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

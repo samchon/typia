@@ -57,7 +57,7 @@ export const test_createAssertEquals_ToJsonUndefined = _test_assertEquals(
                         false === Array.isArray(input)) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<ToJsonUndefined>",
+                            expected: "ToJsonUndefined",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

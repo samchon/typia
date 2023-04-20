@@ -67,8 +67,7 @@ export const test_validateStringify_ArraySimple = _test_validateStringify(
                                 ((Array.isArray(input.hobbies) ||
                                     $report(_exceptionable, {
                                         path: _path + ".hobbies",
-                                        expected:
-                                            "Array<Resolve<ArraySimple.IHobby>>",
+                                        expected: "Array<ArraySimple.IHobby>",
                                         value: input.hobbies,
                                     })) &&
                                     input.hobbies
@@ -83,7 +82,7 @@ export const test_validateStringify_ArraySimple = _test_validateStringify(
                                                             _index2 +
                                                             "]",
                                                         expected:
-                                                            "Resolve<ArraySimple.IHobby>",
+                                                            "ArraySimple.IHobby",
                                                         value: elem,
                                                     })) &&
                                                     $vo1(
@@ -101,15 +100,14 @@ export const test_validateStringify_ArraySimple = _test_validateStringify(
                                                         _index2 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<ArraySimple.IHobby>",
+                                                        "ArraySimple.IHobby",
                                                     value: elem,
                                                 }),
                                         )
                                         .every((flag: boolean) => flag)) ||
                                     $report(_exceptionable, {
                                         path: _path + ".hobbies",
-                                        expected:
-                                            "Array<Resolve<ArraySimple.IHobby>>",
+                                        expected: "Array<ArraySimple.IHobby>",
                                         value: input.hobbies,
                                     }),
                             ].every((flag: boolean) => flag);
@@ -143,8 +141,7 @@ export const test_validateStringify_ArraySimple = _test_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<Resolve<ArraySimple.IPerson>>",
+                                    expected: "Array<ArraySimple.IPerson>",
                                     value: input,
                                 })) &&
                                 input
@@ -159,7 +156,7 @@ export const test_validateStringify_ArraySimple = _test_validateStringify(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<ArraySimple.IPerson>",
+                                                        "ArraySimple.IPerson",
                                                     value: elem,
                                                 })) &&
                                                 $vo0(
@@ -170,15 +167,14 @@ export const test_validateStringify_ArraySimple = _test_validateStringify(
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "Resolve<ArraySimple.IPerson>",
+                                                expected: "ArraySimple.IPerson",
                                                 value: elem,
                                             }),
                                     )
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<ArraySimple.IPerson>>",
+                                expected: "Array<ArraySimple.IPerson>",
                                 value: input,
                             })
                         );

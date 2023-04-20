@@ -105,14 +105,14 @@ export const test_validateStringify_ToJsonAtomicSimple =
                                     $report(true, {
                                         path: _path + "",
                                         expected:
-                                            "[Resolve<ToJsonAtomicSimple.IToJson<boolean>>, Resolve<ToJsonAtomicSimple.IToJson<number>>, Resolve<ToJsonAtomicSimple.IToJson<string>>]",
+                                            "[ToJsonAtomicSimple.IToJson<boolean>, ToJsonAtomicSimple.IToJson<number>, ToJsonAtomicSimple.IToJson<string>]",
                                         value: input,
                                     })) &&
                                     (input.length === 3 ||
                                         $report(true, {
                                             path: _path + "",
                                             expected:
-                                                "[Resolve<ToJsonAtomicSimple.IToJson<boolean>>, Resolve<ToJsonAtomicSimple.IToJson<number>>, Resolve<ToJsonAtomicSimple.IToJson<string>>]",
+                                                "[ToJsonAtomicSimple.IToJson<boolean>, ToJsonAtomicSimple.IToJson<number>, ToJsonAtomicSimple.IToJson<string>]",
                                             value: input,
                                         })) &&
                                     [
@@ -121,7 +121,7 @@ export const test_validateStringify_ToJsonAtomicSimple =
                                             $report(true, {
                                                 path: _path + "[0]",
                                                 expected:
-                                                    "Resolve<ToJsonAtomicSimple.IToJson<boolean>>",
+                                                    "ToJsonAtomicSimple.IToJson<boolean>",
                                                 value: input[0],
                                             })) &&
                                             $vo0(
@@ -132,7 +132,7 @@ export const test_validateStringify_ToJsonAtomicSimple =
                                             $report(true, {
                                                 path: _path + "[0]",
                                                 expected:
-                                                    "Resolve<ToJsonAtomicSimple.IToJson<boolean>>",
+                                                    "ToJsonAtomicSimple.IToJson<boolean>",
                                                 value: input[0],
                                             }),
                                         ((("object" === typeof input[1] &&
@@ -140,7 +140,7 @@ export const test_validateStringify_ToJsonAtomicSimple =
                                             $report(true, {
                                                 path: _path + "[1]",
                                                 expected:
-                                                    "Resolve<ToJsonAtomicSimple.IToJson<number>>",
+                                                    "ToJsonAtomicSimple.IToJson<number>",
                                                 value: input[1],
                                             })) &&
                                             $vo1(
@@ -151,7 +151,7 @@ export const test_validateStringify_ToJsonAtomicSimple =
                                             $report(true, {
                                                 path: _path + "[1]",
                                                 expected:
-                                                    "Resolve<ToJsonAtomicSimple.IToJson<number>>",
+                                                    "ToJsonAtomicSimple.IToJson<number>",
                                                 value: input[1],
                                             }),
                                         ((("object" === typeof input[2] &&
@@ -159,7 +159,7 @@ export const test_validateStringify_ToJsonAtomicSimple =
                                             $report(true, {
                                                 path: _path + "[2]",
                                                 expected:
-                                                    "Resolve<ToJsonAtomicSimple.IToJson<string>>",
+                                                    "ToJsonAtomicSimple.IToJson<string>",
                                                 value: input[2],
                                             })) &&
                                             $vo2(
@@ -170,14 +170,14 @@ export const test_validateStringify_ToJsonAtomicSimple =
                                             $report(true, {
                                                 path: _path + "[2]",
                                                 expected:
-                                                    "Resolve<ToJsonAtomicSimple.IToJson<string>>",
+                                                    "ToJsonAtomicSimple.IToJson<string>",
                                                 value: input[2],
                                             }),
                                     ].every((flag: boolean) => flag)) ||
                                 $report(true, {
                                     path: _path + "",
                                     expected:
-                                        "[Resolve<ToJsonAtomicSimple.IToJson<boolean>>, Resolve<ToJsonAtomicSimple.IToJson<number>>, Resolve<ToJsonAtomicSimple.IToJson<string>>]",
+                                        "[ToJsonAtomicSimple.IToJson<boolean>, ToJsonAtomicSimple.IToJson<number>, ToJsonAtomicSimple.IToJson<string>]",
                                     value: input,
                                 })
                             );

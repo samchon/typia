@@ -63,7 +63,7 @@ export const test_createAssertEquals_ToJsonNull = _test_assertEquals(
                     (("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<ToJsonNull>",
+                            expected: "ToJsonNull",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

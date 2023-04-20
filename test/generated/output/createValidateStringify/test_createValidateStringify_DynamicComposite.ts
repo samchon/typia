@@ -174,13 +174,13 @@ export const test_createValidateStringify_DynamicComposite =
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicComposite>",
+                                    expected: "DynamicComposite",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<DynamicComposite>",
+                                expected: "DynamicComposite",
                                 value: input,
                             })
                         );
