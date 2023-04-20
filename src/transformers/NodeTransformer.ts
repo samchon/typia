@@ -3,8 +3,6 @@ import ts from "typescript";
 import { CallExpressionTransformer } from "./CallExpressionTransformer";
 import { IProject } from "./IProject";
 
-// import { ExpressionWithArgumentTransformer } from "./ExpressionWithArgumentTransformer";
-
 export namespace NodeTransformer {
     export const transform =
         (project: IProject) =>
