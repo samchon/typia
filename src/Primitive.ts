@@ -58,9 +58,13 @@ type _Primitive<Instance> = _ValueOf<Instance> extends object
         : never // cannot be
     : _ValueOf<Instance>;
 
+type Spread<T extends any[]> = T extends [infer F, ...infer Rest]
+    ? [_Primitive<F>, ...Spread<Rest>]
+    : [];
+
 type _PrimitiveObject<Instance extends object> = Instance extends Array<infer T>
     ? IsTuple<Instance> extends true
-        ? [...Instance]
+        ? Spread<Instance>
         : _Primitive<T>[]
     : {
           [P in keyof Instance]: Instance[P] extends Function
