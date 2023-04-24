@@ -31,7 +31,11 @@ export namespace TypiaSetupWizard {
         pack.install({ dev: true, modulo: "ts-node", version: "latest" });
 
         // INSTALL COMPILER
-        pack.install({ dev: true, modulo: args.compiler, version: "latest" });
+        pack.install({
+            dev: true,
+            modulo: args.compiler,
+            version: args.compiler === "ttypescript" ? "latest" : "2.1.0",
+        });
         if (args.compiler === "ts-patch") {
             await pack.save((data) => {
                 data.scripts ??= {};
