@@ -9,6 +9,8 @@ console.log(
     typia.random<[number, boolean]>(),
     typia.random<{ name: string }[]>(),
     typia.random<[false, true, true, 2, 3, 4, "five", "six", "seven"]>(),
+    typia.random<[Boolean]>(),
+    typia.random<[Boolean[]]>(),
 
     typia.createRandom<readonly [1, 2, 3, 4, 5, 6]>(),
     typia.createRandom<[1, 2, 3, 4, 5, 6]>(),

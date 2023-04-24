@@ -61,7 +61,7 @@ type _Primitive<Instance> = _ValueOf<Instance> extends object
 type _PrimitiveObject<Instance extends object> = Instance extends Array<infer T>
     ? IsTuple<Instance> extends true
         ? Instance extends [infer F, ...infer Rest]
-            ? [_Primitive<F>, ..._PrimitiveObject<Rest>]
+            ? [F, ..._PrimitiveObject<Rest>]
             : []
         : _Primitive<T>[]
     : {
