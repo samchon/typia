@@ -34,6 +34,16 @@ export type Primitive<T> = _Equal<T, _Primitive<T>> extends true
 
 type _Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
+type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
+    never,
+]
+    ? false
+    : T extends readonly any[]
+    ? number extends T["length"]
+        ? false
+        : true
+    : false;
+
 type _Primitive<Instance> = _ValueOf<Instance> extends object
     ? Instance extends object
         ? Instance extends _Native
@@ -49,8 +59,10 @@ type _Primitive<Instance> = _ValueOf<Instance> extends object
     : _ValueOf<Instance>;
 
 type _PrimitiveObject<Instance extends object> = Instance extends Array<infer T>
-    ? Instance extends readonly any[]
-        ? Instance
+    ? IsTuple<Instance> extends true
+        ? Instance extends [infer F, ...infer Rest]
+            ? [_Primitive<F>, ..._PrimitiveObject<Rest>]
+            : []
         : _Primitive<T>[]
     : {
           [P in keyof Instance]: Instance[P] extends Function
