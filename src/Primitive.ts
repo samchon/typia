@@ -49,7 +49,9 @@ type _Primitive<Instance> = _ValueOf<Instance> extends object
     : _ValueOf<Instance>;
 
 type _PrimitiveObject<Instance extends object> = Instance extends Array<infer T>
-    ? _Primitive<T>[]
+    ? Instance extends readonly any[]
+        ? Instance
+        : _Primitive<T>[]
     : {
           [P in keyof Instance]: Instance[P] extends Function
               ? never
