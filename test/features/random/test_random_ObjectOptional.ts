@@ -5,5 +5,5 @@ import { ObjectOptional } from "../../structures/ObjectOptional";
 export const test_random_ObjectOptional = _test_random(
     "ObjectOptional",
     () => typia.random<ObjectOptional>(),
-    typia.createAssert<ObjectOptional>(),
+    typia.createAssert<typia.Primitive<ObjectOptional>>(),
 );

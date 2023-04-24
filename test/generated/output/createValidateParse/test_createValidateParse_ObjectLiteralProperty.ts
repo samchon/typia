@@ -93,7 +93,7 @@ export const test_createValidateParse_ObjectLiteralProperty =
             };
             input = JSON.parse(input);
             const output = validate(input);
-            return output;
+            return output as any;
         },
         ObjectLiteralProperty.SPOILERS,
     );

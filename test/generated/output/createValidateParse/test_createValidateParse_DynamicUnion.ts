@@ -128,7 +128,7 @@ export const test_createValidateParse_DynamicUnion = _test_validateParse(
         };
         input = JSON.parse(input);
         const output = validate(input);
-        return output;
+        return output as any;
     },
     DynamicUnion.SPOILERS,
 );

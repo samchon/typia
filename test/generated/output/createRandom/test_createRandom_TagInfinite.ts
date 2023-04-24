@@ -57,9 +57,9 @@ export const test_createRandom_TagInfinite = _test_random(
         });
         return $ro0();
     },
-    (input: any): TagInfinite => {
+    (input: any): typia.Primitive<TagInfinite> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is TagInfinite => {
+        const __is = (input: any): input is typia.Primitive<TagInfinite> => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&
                 Number.isFinite(input.value) &&
@@ -84,7 +84,7 @@ export const test_createRandom_TagInfinite = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TagInfinite => {
+            ): input is typia.Primitive<TagInfinite> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

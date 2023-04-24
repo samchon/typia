@@ -526,7 +526,7 @@ export const test_createAssertParse_ObjectUnionImplicit = _test_assertParse(
             return input;
         };
         input = JSON.parse(input);
-        return assert(input);
+        return assert(input) as any;
     },
     ObjectUnionImplicit.SPOILERS,
 );

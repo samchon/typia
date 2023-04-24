@@ -5,5 +5,5 @@ import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 export const test_random_ObjectUnionComposite = _test_random(
     "ObjectUnionComposite",
     () => typia.random<ObjectUnionComposite>(),
-    typia.createAssert<ObjectUnionComposite>(),
+    typia.createAssert<typia.Primitive<ObjectUnionComposite>>(),
 );

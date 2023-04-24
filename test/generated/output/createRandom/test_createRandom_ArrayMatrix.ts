@@ -19,9 +19,9 @@ export const test_createRandom_ArrayMatrix = _test_random(
             ),
         );
     },
-    (input: any): ArrayMatrix => {
+    (input: any): typia.Primitive<ArrayMatrix> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ArrayMatrix => {
+        const __is = (input: any): input is typia.Primitive<ArrayMatrix> => {
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -44,7 +44,7 @@ export const test_createRandom_ArrayMatrix = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayMatrix => {
+            ): input is typia.Primitive<ArrayMatrix> => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

@@ -57,9 +57,9 @@ export const test_random_TagLength = _test_random(
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
-    (input: any): TagLength => {
+    (input: any): typia.Primitive<TagLength> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is TagLength => {
+        const __is = (input: any): input is typia.Primitive<TagLength> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.fixed &&
                 5 === input.fixed.length &&
@@ -83,7 +83,7 @@ export const test_random_TagLength = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TagLength => {
+            ): input is typia.Primitive<TagLength> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

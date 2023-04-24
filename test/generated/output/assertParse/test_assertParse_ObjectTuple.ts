@@ -117,7 +117,7 @@ export const test_assertParse_ObjectTuple = _test_assertParse(
                 return input;
             };
             input = JSON.parse(input);
-            return assert(input);
+            return assert(input) as any;
         })(input),
     ObjectTuple.SPOILERS,
 );

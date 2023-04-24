@@ -16,9 +16,9 @@ export const test_createRandom_AtomicAlias = _test_random(
                 (generator?.string ?? $generator.string)(),
         ];
     },
-    (input: any): AtomicAlias => {
+    (input: any): typia.Primitive<AtomicAlias> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is AtomicAlias => {
+        const __is = (input: any): input is typia.Primitive<AtomicAlias> => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&
@@ -33,7 +33,7 @@ export const test_createRandom_AtomicAlias = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is AtomicAlias => {
+            ): input is typia.Primitive<AtomicAlias> => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

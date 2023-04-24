@@ -122,7 +122,7 @@ export const test_assertParse_TagLength = _test_assertParse(
                 return input;
             };
             input = JSON.parse(input);
-            return assert(input);
+            return assert(input) as any;
         })(input),
     TagLength.SPOILERS,
 );

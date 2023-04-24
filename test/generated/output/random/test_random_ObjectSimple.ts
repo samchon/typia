@@ -34,9 +34,9 @@ export const test_random_ObjectSimple = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): ObjectSimple => {
+    (input: any): typia.Primitive<ObjectSimple> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ObjectSimple => {
+        const __is = (input: any): input is typia.Primitive<ObjectSimple> => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&
@@ -77,7 +77,7 @@ export const test_random_ObjectSimple = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectSimple => {
+            ): input is typia.Primitive<ObjectSimple> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

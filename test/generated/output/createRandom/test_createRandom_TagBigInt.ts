@@ -70,9 +70,9 @@ export const test_createRandom_TagBigInt = _test_random(
         });
         return $ro0();
     },
-    (input: any): TagBigInt => {
+    (input: any): typia.Primitive<TagBigInt> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is TagBigInt => {
+        const __is = (input: any): input is typia.Primitive<TagBigInt> => {
             const $io0 = (input: any): boolean =>
                 "bigint" === typeof input.value &&
                 "bigint" === typeof input.ranged &&
@@ -91,7 +91,7 @@ export const test_createRandom_TagBigInt = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TagBigInt => {
+            ): input is typia.Primitive<TagBigInt> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

@@ -112,7 +112,7 @@ export const test_createAssertParse_DynamicUnion = _test_assertParse(
             return input;
         };
         input = JSON.parse(input);
-        return assert(input);
+        return assert(input) as any;
     },
     DynamicUnion.SPOILERS,
 );

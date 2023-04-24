@@ -5,5 +5,5 @@ import { TagArray } from "../../structures/TagArray";
 export const test_createRandom_TagArray = _test_random(
     "TagArray",
     typia.createRandom<TagArray>(),
-    typia.createAssert<TagArray>(),
+    typia.createAssert<typia.Primitive<TagArray>>(),
 );

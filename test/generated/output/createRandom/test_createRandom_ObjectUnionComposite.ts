@@ -92,9 +92,11 @@ export const test_createRandom_ObjectUnionComposite = _test_random(
             ])(),
         );
     },
-    (input: any): ObjectUnionComposite => {
+    (input: any): typia.Primitive<ObjectUnionComposite> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ObjectUnionComposite => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ObjectUnionComposite> => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 Number.isFinite(input.x) &&
@@ -233,7 +235,7 @@ export const test_createRandom_ObjectUnionComposite = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectUnionComposite => {
+            ): input is typia.Primitive<ObjectUnionComposite> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

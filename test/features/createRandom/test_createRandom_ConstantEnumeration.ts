@@ -5,5 +5,5 @@ import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 export const test_createRandom_ConstantEnumeration = _test_random(
     "ConstantEnumeration",
     typia.createRandom<ConstantEnumeration>(),
-    typia.createAssert<ConstantEnumeration>(),
+    typia.createAssert<typia.Primitive<ConstantEnumeration>>(),
 );

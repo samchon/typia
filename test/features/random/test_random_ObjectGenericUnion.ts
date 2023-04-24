@@ -5,5 +5,5 @@ import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 export const test_random_ObjectGenericUnion = _test_random(
     "ObjectGenericUnion",
     () => typia.random<ObjectGenericUnion>(),
-    typia.createAssert<ObjectGenericUnion>(),
+    typia.createAssert<typia.Primitive<ObjectGenericUnion>>(),
 );

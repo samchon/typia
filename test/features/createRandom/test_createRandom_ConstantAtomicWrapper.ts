@@ -5,5 +5,5 @@ import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 export const test_createRandom_ConstantAtomicWrapper = _test_random(
     "ConstantAtomicWrapper",
     typia.createRandom<ConstantAtomicWrapper>(),
-    typia.createAssert<ConstantAtomicWrapper>(),
+    typia.createAssert<typia.Primitive<ConstantAtomicWrapper>>(),
 );

@@ -5,5 +5,5 @@ import { DynamicUndefined } from "../../structures/DynamicUndefined";
 export const test_random_DynamicUndefined = _test_random(
     "DynamicUndefined",
     () => typia.random<DynamicUndefined>(),
-    typia.createAssert<DynamicUndefined>(),
+    typia.createAssert<typia.Primitive<DynamicUndefined>>(),
 );

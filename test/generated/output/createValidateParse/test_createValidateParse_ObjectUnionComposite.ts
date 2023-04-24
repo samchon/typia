@@ -749,7 +749,7 @@ export const test_createValidateParse_ObjectUnionComposite =
             };
             input = JSON.parse(input);
             const output = validate(input);
-            return output;
+            return output as any;
         },
         ObjectUnionComposite.SPOILERS,
     );

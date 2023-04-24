@@ -22,9 +22,9 @@ export const test_createRandom_AtomicUnion = _test_random(
             ])(),
         );
     },
-    (input: any): AtomicUnion => {
+    (input: any): typia.Primitive<AtomicUnion> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is AtomicUnion => {
+        const __is = (input: any): input is typia.Primitive<AtomicUnion> => {
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -41,7 +41,7 @@ export const test_createRandom_AtomicUnion = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is AtomicUnion => {
+            ): input is typia.Primitive<AtomicUnion> => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

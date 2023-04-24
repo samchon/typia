@@ -164,7 +164,7 @@ export const test_assertParse_AtomicClass = _test_assertParse(
                 return input;
             };
             input = JSON.parse(input);
-            return assert(input);
+            return assert(input) as any;
         })(input),
     AtomicClass.SPOILERS,
 );

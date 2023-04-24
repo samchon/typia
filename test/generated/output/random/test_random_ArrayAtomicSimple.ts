@@ -27,9 +27,11 @@ export const test_random_ArrayAtomicSimple = _test_random(
                 ),
             ];
         })(),
-    (input: any): ArrayAtomicSimple => {
+    (input: any): typia.Primitive<ArrayAtomicSimple> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ArrayAtomicSimple => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ArrayAtomicSimple> => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&
@@ -49,7 +51,7 @@ export const test_random_ArrayAtomicSimple = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayAtomicSimple => {
+            ): input is typia.Primitive<ArrayAtomicSimple> => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

@@ -5,5 +5,5 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 export const test_createRandom_ObjectAlias = _test_random(
     "ObjectAlias",
     typia.createRandom<ObjectAlias>(),
-    typia.createAssert<ObjectAlias>(),
+    typia.createAssert<typia.Primitive<ObjectAlias>>(),
 );

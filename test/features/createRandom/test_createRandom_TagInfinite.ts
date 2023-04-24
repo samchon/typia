@@ -5,5 +5,5 @@ import { TagInfinite } from "../../structures/TagInfinite";
 export const test_createRandom_TagInfinite = _test_random(
     "TagInfinite",
     typia.createRandom<TagInfinite>(),
-    typia.createAssert<TagInfinite>(),
+    typia.createAssert<typia.Primitive<TagInfinite>>(),
 );

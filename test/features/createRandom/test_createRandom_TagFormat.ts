@@ -5,5 +5,5 @@ import { TagFormat } from "../../structures/TagFormat";
 export const test_createRandom_TagFormat = _test_random(
     "TagFormat",
     typia.createRandom<TagFormat>(),
-    typia.createAssert<TagFormat>(),
+    typia.createAssert<typia.Primitive<TagFormat>>(),
 );
