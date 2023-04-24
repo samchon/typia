@@ -90,7 +90,9 @@ function script(
         feat.spoilable && struct.SPOILERS
             ? `    ${struct.name}.SPOILERS,`
             : null,
-        feat.random ? `typia.createAssert<${struct.name}>(),` : null,
+        feat.random
+            ? `typia.createAssert<typia.Primitive<${struct.name}>>(),`
+            : null,
         `);\n`,
     ];
     return elements.filter((e) => e !== null).join("\n");

@@ -62,7 +62,10 @@ export namespace ValidateParseProgrammer {
                         ),
                     ),
                     ts.factory.createReturnStatement(
-                        ts.factory.createIdentifier("output"),
+                        ts.factory.createAsExpression(
+                            ts.factory.createIdentifier("output"),
+                            ts.factory.createTypeReferenceNode("any"),
+                        ),
                     ),
                 ]),
             );
