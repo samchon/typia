@@ -1,4 +1,5 @@
 {
     "nestjs": "NestJS",
-    "trpc": "tRPC"
+    "trpc": "tRPC",
+    "prisma": "Prisma"
 }
