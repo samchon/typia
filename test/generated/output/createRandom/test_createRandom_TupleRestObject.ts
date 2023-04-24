@@ -23,25 +23,25 @@ export const test_createRandom_TupleRestObject = _test_random(
             $ro0(),
         ];
     },
-    (input: any): TupleRestObject => {
+    (input: any): typia.Primitive<TupleRestObject> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is TupleRestObject => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<TupleRestObject> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;
             return (
                 Array.isArray(input) &&
-                "boolean" === typeof input[0] &&
-                "number" === typeof input[1] &&
-                Number.isFinite(input[1]) &&
-                Array.isArray(input.slice(2)) &&
-                input
-                    .slice(2)
-                    .every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io0(elem),
-                    )
+                input.every(
+                    (elem: any) =>
+                        null !== elem &&
+                        undefined !== elem &&
+                        (("number" === typeof elem && Number.isFinite(elem)) ||
+                            "boolean" === typeof elem ||
+                            ("object" === typeof elem &&
+                                null !== elem &&
+                                $io0(elem))),
+                )
             );
         };
         if (false === __is(input))
@@ -49,7 +49,7 @@ export const test_createRandom_TupleRestObject = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TupleRestObject => {
+            ): input is typia.Primitive<TupleRestObject> => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -66,38 +66,40 @@ export const test_createRandom_TupleRestObject = _test_random(
                         $guard(true, {
                             path: _path + "",
                             expected:
-                                "[boolean, number, ...Resolve<TupleRestObject.IObject>]",
+                                "Array<(Resolve<TupleRestObject.IObject> | boolean | number)>",
                             value: input,
                         })) &&
-                    ("boolean" === typeof input[0] ||
-                        $guard(true, {
-                            path: _path + "[0]",
-                            expected: "boolean",
-                            value: input[0],
-                        })) &&
-                    (("number" === typeof input[1] &&
-                        Number.isFinite(input[1])) ||
-                        $guard(true, {
-                            path: _path + "[1]",
-                            expected: "number",
-                            value: input[1],
-                        })) &&
-                    (Array.isArray(input.slice(2)) ||
-                        $guard(true, {
-                            path: _path + "",
-                            expected: "Array<Resolve<TupleRestObject.IObject>>",
-                            value: input.slice(2),
-                        })) &&
-                    input.slice(2).every(
+                    input.every(
                         (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                            (null !== elem ||
                                 $guard(true, {
-                                    path: _path + "[" + (2 + _index1) + "]",
+                                    path: _path + "[" + _index1 + "]",
                                     expected:
-                                        "Resolve<TupleRestObject.IObject>",
+                                        "(Resolve<TupleRestObject.IObject> | boolean | number)",
                                     value: elem,
                                 })) &&
-                            $ao0(elem, _path + "[" + (2 + _index1) + "]", true),
+                            (undefined !== elem ||
+                                $guard(true, {
+                                    path: _path + "[" + _index1 + "]",
+                                    expected:
+                                        "(Resolve<TupleRestObject.IObject> | boolean | number)",
+                                    value: elem,
+                                })) &&
+                            (("number" === typeof elem &&
+                                Number.isFinite(elem)) ||
+                                "boolean" === typeof elem ||
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            "(Resolve<TupleRestObject.IObject> | boolean | number)",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    ))),
                     )
                 );
             })(input, "$input", true);

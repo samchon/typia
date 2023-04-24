@@ -5,5 +5,5 @@ import { TagCustom } from "../../structures/TagCustom";
 export const test_random_TagCustom = _test_random(
     "TagCustom",
     () => typia.random<TagCustom>(TagCustom.RANDOM),
-    typia.createAssert<TagCustom>(),
+    typia.createAssert<typia.Primitive<TagCustom>>(),
 );

@@ -5,5 +5,5 @@ import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 export const test_createRandom_DynamicEnumeration = _test_random(
     "DynamicEnumeration",
     typia.createRandom<DynamicEnumeration>(),
-    typia.createAssert<DynamicEnumeration>(),
+    typia.createAssert<typia.Primitive<DynamicEnumeration>>(),
 );

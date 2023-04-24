@@ -5,5 +5,5 @@ import { TagType } from "../../structures/TagType";
 export const test_random_TagType = _test_random(
     "TagType",
     () => typia.random<TagType>(),
-    typia.createAssert<TagType>(),
+    typia.createAssert<typia.Primitive<TagType>>(),
 );

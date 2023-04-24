@@ -435,7 +435,7 @@ export const test_createAssertParse_ArrayRecursiveUnionExplicit =
                 return input;
             };
             input = JSON.parse(input);
-            return assert(input);
+            return assert(input) as any;
         },
         ArrayRecursiveUnionExplicit.SPOILERS,
     );

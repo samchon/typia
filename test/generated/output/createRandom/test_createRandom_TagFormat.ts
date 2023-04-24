@@ -85,7 +85,7 @@ export const test_createRandom_TagFormat = _test_random(
         });
         return $ro0();
     },
-    (input: any): TagFormat => {
+    (input: any): typia.Primitive<TagFormat> => {
         const $guard = (typia.createAssert as any).guard;
         const $is_uuid = (typia.createAssert as any).is_uuid;
         const $is_email = (typia.createAssert as any).is_email;
@@ -94,7 +94,7 @@ export const test_createRandom_TagFormat = _test_random(
         const $is_ipv6 = (typia.createAssert as any).is_ipv6;
         const $is_date = (typia.createAssert as any).is_date;
         const $is_datetime = (typia.createAssert as any).is_datetime;
-        const __is = (input: any): input is TagFormat => {
+        const __is = (input: any): input is typia.Primitive<TagFormat> => {
             const $is_uuid = (typia.createAssert as any).is_uuid;
             const $is_email = (typia.createAssert as any).is_email;
             const $is_url = (typia.createAssert as any).is_url;
@@ -129,7 +129,7 @@ export const test_createRandom_TagFormat = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TagFormat => {
+            ): input is typia.Primitive<TagFormat> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

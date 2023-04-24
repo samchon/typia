@@ -452,7 +452,7 @@ export const test_createAssertParse_ObjectGenericUnion = _test_assertParse(
             return input;
         };
         input = JSON.parse(input);
-        return assert(input);
+        return assert(input) as any;
     },
     ObjectGenericUnion.SPOILERS,
 );

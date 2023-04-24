@@ -64,9 +64,9 @@ export const test_random_TemplateAtomic = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): TemplateAtomic => {
+    (input: any): typia.Primitive<TemplateAtomic> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is TemplateAtomic => {
+        const __is = (input: any): input is typia.Primitive<TemplateAtomic> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
                 RegExp(/^prefix_(.*)/).test(input.prefix) &&
@@ -93,7 +93,7 @@ export const test_random_TemplateAtomic = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TemplateAtomic => {
+            ): input is typia.Primitive<TemplateAtomic> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

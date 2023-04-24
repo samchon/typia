@@ -73,9 +73,9 @@ export const test_createRandom_ObjectGeneric = _test_random(
         });
         return [$ro0(), $ro2(), $ro4()];
     },
-    (input: any): ObjectGeneric => {
+    (input: any): typia.Primitive<ObjectGeneric> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ObjectGeneric => {
+        const __is = (input: any): input is typia.Primitive<ObjectGeneric> => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value &&
                 "object" === typeof input.child &&
@@ -142,7 +142,7 @@ export const test_createRandom_ObjectGeneric = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectGeneric => {
+            ): input is typia.Primitive<ObjectGeneric> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

@@ -5,5 +5,5 @@ import { TupleRestObject } from "../../structures/TupleRestObject";
 export const test_createRandom_TupleRestObject = _test_random(
     "TupleRestObject",
     typia.createRandom<TupleRestObject>(),
-    typia.createAssert<TupleRestObject>(),
+    typia.createAssert<typia.Primitive<TupleRestObject>>(),
 );

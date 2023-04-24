@@ -5,5 +5,5 @@ import { TagPattern } from "../../structures/TagPattern";
 export const test_createRandom_TagPattern = _test_random(
     "TagPattern",
     typia.createRandom<TagPattern>(),
-    typia.createAssert<TagPattern>(),
+    typia.createAssert<typia.Primitive<TagPattern>>(),
 );

@@ -105,9 +105,11 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
             $pick([() => $ro0(), () => $ro6()])(),
         );
     },
-    (input: any): ObjectUnionDouble => {
+    (input: any): typia.Primitive<ObjectUnionDouble> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ObjectUnionDouble => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ObjectUnionDouble> => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
@@ -177,7 +179,7 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectUnionDouble => {
+            ): input is typia.Primitive<ObjectUnionDouble> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

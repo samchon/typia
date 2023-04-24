@@ -5,5 +5,5 @@ import { TagNaN } from "../../structures/TagNaN";
 export const test_createRandom_TagNaN = _test_random(
     "TagNaN",
     typia.createRandom<TagNaN>(),
-    typia.createAssert<TagNaN>(),
+    typia.createAssert<typia.Primitive<TagNaN>>(),
 );

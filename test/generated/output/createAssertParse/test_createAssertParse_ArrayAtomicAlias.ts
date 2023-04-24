@@ -95,7 +95,7 @@ export const test_createAssertParse_ArrayAtomicAlias = _test_assertParse(
             return input;
         };
         input = JSON.parse(input);
-        return assert(input);
+        return assert(input) as any;
     },
     ArrayAtomicAlias.SPOILERS,
 );

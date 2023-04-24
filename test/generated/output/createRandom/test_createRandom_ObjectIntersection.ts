@@ -22,9 +22,11 @@ export const test_createRandom_ObjectIntersection = _test_random(
         });
         return $ro0();
     },
-    (input: any): ObjectIntersection => {
+    (input: any): typia.Primitive<ObjectIntersection> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ObjectIntersection => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ObjectIntersection> => {
             return (
                 "object" === typeof input &&
                 null !== input &&
@@ -38,7 +40,7 @@ export const test_createRandom_ObjectIntersection = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectIntersection => {
+            ): input is typia.Primitive<ObjectIntersection> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

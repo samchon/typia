@@ -55,9 +55,9 @@ export const test_createRandom_TagPattern = _test_random(
         });
         return $ro0();
     },
-    (input: any): TagPattern => {
+    (input: any): typia.Primitive<TagPattern> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is TagPattern => {
+        const __is = (input: any): input is typia.Primitive<TagPattern> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.uuid &&
                 RegExp(
@@ -82,7 +82,7 @@ export const test_createRandom_TagPattern = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TagPattern => {
+            ): input is typia.Primitive<TagPattern> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

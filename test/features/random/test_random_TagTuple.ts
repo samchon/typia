@@ -5,5 +5,5 @@ import { TagTuple } from "../../structures/TagTuple";
 export const test_random_TagTuple = _test_random(
     "TagTuple",
     () => typia.random<TagTuple>(),
-    typia.createAssert<TagTuple>(),
+    typia.createAssert<typia.Primitive<TagTuple>>(),
 );

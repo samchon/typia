@@ -38,9 +38,11 @@ export const test_random_TemplateConstant = _test_random(
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
-    (input: any): TemplateConstant => {
+    (input: any): typia.Primitive<TemplateConstant> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is TemplateConstant => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<TemplateConstant> => {
             const $io0 = (input: any): boolean =>
                 ("prefix_A" === input.prefix ||
                     "prefix_B" === input.prefix ||
@@ -70,7 +72,7 @@ export const test_random_TemplateConstant = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TemplateConstant => {
+            ): input is typia.Primitive<TemplateConstant> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

@@ -51,9 +51,9 @@ export const test_createRandom_TagAtomicUnion = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): TagAtomicUnion => {
+    (input: any): typia.Primitive<TagAtomicUnion> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is TagAtomicUnion => {
+        const __is = (input: any): input is typia.Primitive<TagAtomicUnion> => {
             const $io0 = (input: any): boolean =>
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&
@@ -74,7 +74,7 @@ export const test_createRandom_TagAtomicUnion = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TagAtomicUnion => {
+            ): input is typia.Primitive<TagAtomicUnion> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

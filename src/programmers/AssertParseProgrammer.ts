@@ -54,10 +54,13 @@ export namespace AssertParseProgrammer {
                         ),
                     ),
                     ts.factory.createReturnStatement(
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("assert"),
-                            undefined,
-                            [ts.factory.createIdentifier("input")],
+                        ts.factory.createAsExpression(
+                            ts.factory.createCallExpression(
+                                ts.factory.createIdentifier("assert"),
+                                undefined,
+                                [ts.factory.createIdentifier("input")],
+                            ),
+                            ts.factory.createTypeReferenceNode("any"),
                         ),
                     ),
                 ]),
