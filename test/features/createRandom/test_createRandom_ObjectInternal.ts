@@ -5,5 +5,5 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 export const test_createRandom_ObjectInternal = _test_random(
     "ObjectInternal",
     typia.createRandom<ObjectInternal>(),
-    typia.createAssert<ObjectInternal>(),
+    typia.createAssert<typia.Primitive<ObjectInternal>>(),
 );

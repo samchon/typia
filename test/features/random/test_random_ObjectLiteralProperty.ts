@@ -5,5 +5,5 @@ import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 export const test_random_ObjectLiteralProperty = _test_random(
     "ObjectLiteralProperty",
     () => typia.random<ObjectLiteralProperty>(),
-    typia.createAssert<ObjectLiteralProperty>(),
+    typia.createAssert<typia.Primitive<ObjectLiteralProperty>>(),
 );

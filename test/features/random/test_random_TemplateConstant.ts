@@ -5,5 +5,5 @@ import { TemplateConstant } from "../../structures/TemplateConstant";
 export const test_random_TemplateConstant = _test_random(
     "TemplateConstant",
     () => typia.random<TemplateConstant>(),
-    typia.createAssert<TemplateConstant>(),
+    typia.createAssert<typia.Primitive<TemplateConstant>>(),
 );

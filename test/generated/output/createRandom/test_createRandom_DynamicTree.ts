@@ -38,10 +38,10 @@ export const test_createRandom_DynamicTree = _test_random(
         };
         return $ro0();
     },
-    (input: any): DynamicTree => {
+    (input: any): typia.Primitive<DynamicTree> => {
         const $guard = (typia.createAssert as any).guard;
         const $join = (typia.createAssert as any).join;
-        const __is = (input: any): input is DynamicTree => {
+        const __is = (input: any): input is typia.Primitive<DynamicTree> => {
             const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -70,7 +70,7 @@ export const test_createRandom_DynamicTree = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is DynamicTree => {
+            ): input is typia.Primitive<DynamicTree> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

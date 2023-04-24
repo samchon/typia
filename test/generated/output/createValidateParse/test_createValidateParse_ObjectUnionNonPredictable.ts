@@ -295,7 +295,7 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
             };
             input = JSON.parse(input);
             const output = validate(input);
-            return output;
+            return output as any;
         },
         ObjectUnionNonPredictable.SPOILERS,
     );

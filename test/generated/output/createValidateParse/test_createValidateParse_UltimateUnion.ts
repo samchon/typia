@@ -4485,7 +4485,7 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
         };
         input = JSON.parse(input);
         const output = validate(input);
-        return output;
+        return output as any;
     },
     UltimateUnion.SPOILERS,
 );

@@ -45,9 +45,11 @@ export const test_random_ObjectRecursive = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): ObjectRecursive => {
+    (input: any): typia.Primitive<ObjectRecursive> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ObjectRecursive => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ObjectRecursive> => {
             const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&
@@ -72,7 +74,7 @@ export const test_random_ObjectRecursive = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectRecursive => {
+            ): input is typia.Primitive<ObjectRecursive> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

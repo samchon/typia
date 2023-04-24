@@ -87,9 +87,9 @@ export const test_createRandom_TagRange = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): TagRange => {
+    (input: any): typia.Primitive<TagRange> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is TagRange => {
+        const __is = (input: any): input is typia.Primitive<TagRange> => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.greater &&
                 Number.isFinite(input.greater) &&
@@ -128,7 +128,7 @@ export const test_createRandom_TagRange = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TagRange => {
+            ): input is typia.Primitive<TagRange> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

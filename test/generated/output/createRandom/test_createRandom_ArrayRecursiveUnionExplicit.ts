@@ -140,9 +140,11 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
             ])(),
         );
     },
-    (input: any): ArrayRecursiveUnionExplicit => {
+    (input: any): typia.Primitive<ArrayRecursiveUnionExplicit> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ArrayRecursiveUnionExplicit => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ArrayRecursiveUnionExplicit> => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
@@ -221,7 +223,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayRecursiveUnionExplicit => {
+            ): input is typia.Primitive<ArrayRecursiveUnionExplicit> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

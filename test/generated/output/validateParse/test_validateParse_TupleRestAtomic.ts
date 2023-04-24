@@ -97,7 +97,7 @@ export const test_validateParse_TupleRestAtomic = _test_validateParse(
             };
             input = JSON.parse(input);
             const output = validate(input);
-            return output;
+            return output as any;
         })(input),
     TupleRestAtomic.SPOILERS,
 );

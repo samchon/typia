@@ -5,5 +5,5 @@ import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 export const test_createRandom_ObjectUnionExplicit = _test_random(
     "ObjectUnionExplicit",
     typia.createRandom<ObjectUnionExplicit>(),
-    typia.createAssert<ObjectUnionExplicit>(),
+    typia.createAssert<typia.Primitive<ObjectUnionExplicit>>(),
 );

@@ -5,5 +5,5 @@ import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 export const test_random_ObjectHierarchical = _test_random(
     "ObjectHierarchical",
     () => typia.random<ObjectHierarchical>(),
-    typia.createAssert<ObjectHierarchical>(),
+    typia.createAssert<typia.Primitive<ObjectHierarchical>>(),
 );

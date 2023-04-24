@@ -28,9 +28,11 @@ export const test_random_DynamicConstant = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): DynamicConstant => {
+    (input: any): typia.Primitive<DynamicConstant> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is DynamicConstant => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<DynamicConstant> => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.a &&
                 Number.isFinite(input.a) &&
@@ -47,7 +49,7 @@ export const test_random_DynamicConstant = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is DynamicConstant => {
+            ): input is typia.Primitive<DynamicConstant> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

@@ -85,10 +85,10 @@ export const test_random_DynamicUnion = _test_random(
             };
             return $ro0();
         })(),
-    (input: any): DynamicUnion => {
+    (input: any): typia.Primitive<DynamicUnion> => {
         const $guard = (typia.createAssert as any).guard;
         const $join = (typia.createAssert as any).join;
-        const __is = (input: any): input is DynamicUnion => {
+        const __is = (input: any): input is typia.Primitive<DynamicUnion> => {
             const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key) => {
@@ -122,7 +122,7 @@ export const test_random_DynamicUnion = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is DynamicUnion => {
+            ): input is typia.Primitive<DynamicUnion> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

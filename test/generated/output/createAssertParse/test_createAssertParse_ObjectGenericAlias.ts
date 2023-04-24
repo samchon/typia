@@ -45,7 +45,7 @@ export const test_createAssertParse_ObjectGenericAlias = _test_assertParse(
             return input;
         };
         input = JSON.parse(input);
-        return assert(input);
+        return assert(input) as any;
     },
     ObjectGenericAlias.SPOILERS,
 );

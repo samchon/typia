@@ -114,7 +114,7 @@ export const test_createAssertParse_TagPattern = _test_assertParse(
             return input;
         };
         input = JSON.parse(input);
-        return assert(input);
+        return assert(input) as any;
     },
     TagPattern.SPOILERS,
 );
