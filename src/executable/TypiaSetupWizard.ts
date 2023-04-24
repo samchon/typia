@@ -1,5 +1,4 @@
 import fs from "fs";
-import path from "path";
 
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { CommandExecutor } from "./setup/CommandExecutor";
@@ -114,11 +113,10 @@ export namespace TypiaSetupWizard {
         return action(async (options) => {
             if (options.compiler === undefined) {
                 console.log(COMPILER_DESCRIPTION);
-                options.compiler = await select("compiler")(`Compiler`)(
-                    is_nest_cli(pack)
-                        ? ["ts-patch" as const, "ttypescript" as const]
-                        : ["ttypescript" as const, "ts-patch" as const],
-                );
+                options.compiler = await select("compiler")(`Compiler`)([
+                    "ts-patch" as const,
+                    "ttypescript" as const,
+                ]);
             }
             options.manager ??= await select("manager")("Package Manager")([
                 "npm" as const,
@@ -132,14 +130,6 @@ export namespace TypiaSetupWizard {
             return options as IArguments;
         });
     };
-
-    function is_nest_cli(pack: PackageManager): boolean {
-        return (
-            (typeof pack.data.scripts?.build === "string" &&
-                pack.data.scripts.build.indexOf("nest build") !== -1) ||
-            fs.existsSync(path.join(pack.directory, "nest-cli.json"))
-        );
-    }
 }
 
 const COMPILER_DESCRIPTION = [
