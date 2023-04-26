@@ -42,7 +42,9 @@
             "nullable": false,
             "x-typia-required": false
           },
-          "unknown": {}
+          "unknown": {
+            "x-typia-required": true
+          }
         },
         "nullable": false,
         "required": [

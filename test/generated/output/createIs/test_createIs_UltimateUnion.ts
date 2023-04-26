@@ -556,7 +556,34 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io31 = (input: any): boolean => true;
+        const $io31 = (input: any): boolean =>
+            null !== input.type &&
+            undefined === input.type &&
+            (undefined === input.deprecated ||
+                "boolean" === typeof input.deprecated) &&
+            (undefined === input.title || "string" === typeof input.title) &&
+            (undefined === input.description ||
+                "string" === typeof input.description) &&
+            (undefined === input["x-typia-metaTags"] ||
+                (Array.isArray(input["x-typia-metaTags"]) &&
+                    input["x-typia-metaTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $iu0(elem),
+                    ))) &&
+            (undefined === input["x-typia-jsDocTags"] ||
+                (Array.isArray(input["x-typia-jsDocTags"]) &&
+                    input["x-typia-jsDocTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io17(elem),
+                    ))) &&
+            (undefined === input["x-typia-required"] ||
+                "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-rest"] ||
+                "boolean" === typeof input["x-typia-rest"]);
         const $io32 = (input: any): boolean =>
             "object" === typeof input.schemas &&
             null !== input.schemas &&
