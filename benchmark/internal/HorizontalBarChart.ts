@@ -1,9 +1,10 @@
 import * as d3 from "d3";
-import { JSDOM } from "jsdom";
 
 import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
 import { BenchmarkStream } from "./BenhmarkStream";
+
+const JSDOM = require("jsdom").JSDOM;
 
 export namespace HorizontalBarChart {
     export interface IMeasure {
