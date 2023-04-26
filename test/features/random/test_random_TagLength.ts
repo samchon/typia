@@ -5,5 +5,5 @@ import { TagLength } from "../../structures/TagLength";
 export const test_random_TagLength = _test_random(
     "TagLength",
     () => typia.random<TagLength>(),
-    typia.createAssert<TagLength>(),
+    typia.createAssert<typia.Primitive<TagLength>>(),
 );

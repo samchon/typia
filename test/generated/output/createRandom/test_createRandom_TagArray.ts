@@ -109,10 +109,10 @@ export const test_createRandom_TagArray = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): TagArray => {
+    (input: any): typia.Primitive<TagArray> => {
         const $guard = (typia.createAssert as any).guard;
         const $is_uuid = (typia.createAssert as any).is_uuid;
-        const __is = (input: any): input is TagArray => {
+        const __is = (input: any): input is typia.Primitive<TagArray> => {
             const $is_uuid = (typia.createAssert as any).is_uuid;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.items) &&
@@ -156,7 +156,7 @@ export const test_createRandom_TagArray = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TagArray => {
+            ): input is typia.Primitive<TagArray> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

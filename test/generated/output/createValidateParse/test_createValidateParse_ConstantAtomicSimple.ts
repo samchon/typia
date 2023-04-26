@@ -87,7 +87,7 @@ export const test_createValidateParse_ConstantAtomicSimple =
             };
             input = JSON.parse(input);
             const output = validate(input);
-            return output;
+            return output as any;
         },
         ConstantAtomicSimple.SPOILERS,
     );

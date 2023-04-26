@@ -77,7 +77,7 @@ export const test_assertParse_ObjectDynamic = _test_assertParse(
                 return input;
             };
             input = JSON.parse(input);
-            return assert(input);
+            return assert(input) as any;
         })(input),
     ObjectDynamic.SPOILERS,
 );

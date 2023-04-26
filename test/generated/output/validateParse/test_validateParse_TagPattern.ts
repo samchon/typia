@@ -131,7 +131,7 @@ export const test_validateParse_TagPattern = _test_validateParse(
             };
             input = JSON.parse(input);
             const output = validate(input);
-            return output;
+            return output as any;
         })(input),
     TagPattern.SPOILERS,
 );

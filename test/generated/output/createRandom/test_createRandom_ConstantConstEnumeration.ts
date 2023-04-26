@@ -13,9 +13,11 @@ export const test_createRandom_ConstantConstEnumeration = _test_random(
             $pick([() => 0, () => 1, () => 2, () => "Three", () => "Four"])(),
         );
     },
-    (input: any): ConstantConstEnumeration => {
+    (input: any): typia.Primitive<ConstantConstEnumeration> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ConstantConstEnumeration => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ConstantConstEnumeration> => {
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -33,7 +35,7 @@ export const test_createRandom_ConstantConstEnumeration = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ConstantConstEnumeration => {
+            ): input is typia.Primitive<ConstantConstEnumeration> => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

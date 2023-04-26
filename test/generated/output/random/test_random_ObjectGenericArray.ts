@@ -48,9 +48,11 @@ export const test_random_ObjectGenericArray = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): ObjectGenericArray => {
+    (input: any): typia.Primitive<ObjectGenericArray> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ObjectGenericArray => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ObjectGenericArray> => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.pagination &&
                 null !== input.pagination &&
@@ -80,7 +82,7 @@ export const test_random_ObjectGenericArray = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectGenericArray => {
+            ): input is typia.Primitive<ObjectGenericArray> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

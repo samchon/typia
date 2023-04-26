@@ -5,5 +5,5 @@ import { TupleHierarchical } from "../../structures/TupleHierarchical";
 export const test_createRandom_TupleHierarchical = _test_random(
     "TupleHierarchical",
     typia.createRandom<TupleHierarchical>(),
-    typia.createAssert<TupleHierarchical>(),
+    typia.createAssert<typia.Primitive<TupleHierarchical>>(),
 );

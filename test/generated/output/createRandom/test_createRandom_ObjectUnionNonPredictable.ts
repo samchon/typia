@@ -67,9 +67,11 @@ export const test_createRandom_ObjectUnionNonPredictable = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): ObjectUnionNonPredictable => {
+    (input: any): typia.Primitive<ObjectUnionNonPredictable> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ObjectUnionNonPredictable => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ObjectUnionNonPredictable> => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
@@ -111,7 +113,7 @@ export const test_createRandom_ObjectUnionNonPredictable = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectUnionNonPredictable => {
+            ): input is typia.Primitive<ObjectUnionNonPredictable> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

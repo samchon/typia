@@ -33,9 +33,11 @@ export const test_random_ConstantAtomicWrapper = _test_random(
             });
             return [$ro0(), $ro1(), $ro2()];
         })(),
-    (input: any): ConstantAtomicWrapper => {
+    (input: any): typia.Primitive<ConstantAtomicWrapper> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ConstantAtomicWrapper => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ConstantAtomicWrapper> => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value;
             const $io1 = (input: any): boolean =>
@@ -61,7 +63,7 @@ export const test_random_ConstantAtomicWrapper = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ConstantAtomicWrapper => {
+            ): input is typia.Primitive<ConstantAtomicWrapper> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

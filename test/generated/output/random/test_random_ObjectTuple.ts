@@ -39,9 +39,9 @@ export const test_random_ObjectTuple = _test_random(
             });
             return [$ro0(), $ro1()];
         })(),
-    (input: any): ObjectTuple => {
+    (input: any): typia.Primitive<ObjectTuple> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ObjectTuple => {
+        const __is = (input: any): input is typia.Primitive<ObjectTuple> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&
@@ -66,7 +66,7 @@ export const test_random_ObjectTuple = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectTuple => {
+            ): input is typia.Primitive<ObjectTuple> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

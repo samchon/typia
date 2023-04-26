@@ -118,10 +118,12 @@ export const test_random_DynamicComposite = _test_random(
             };
             return $ro0();
         })(),
-    (input: any): DynamicComposite => {
+    (input: any): typia.Primitive<DynamicComposite> => {
         const $guard = (typia.createAssert as any).guard;
         const $join = (typia.createAssert as any).join;
-        const __is = (input: any): input is DynamicComposite => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<DynamicComposite> => {
             const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -155,7 +157,7 @@ export const test_random_DynamicComposite = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is DynamicComposite => {
+            ): input is typia.Primitive<DynamicComposite> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

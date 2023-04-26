@@ -5,5 +5,5 @@ import { DynamicSimple } from "../../structures/DynamicSimple";
 export const test_createRandom_DynamicSimple = _test_random(
     "DynamicSimple",
     typia.createRandom<DynamicSimple>(),
-    typia.createAssert<DynamicSimple>(),
+    typia.createAssert<typia.Primitive<DynamicSimple>>(),
 );

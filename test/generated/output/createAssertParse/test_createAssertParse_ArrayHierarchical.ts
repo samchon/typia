@@ -286,7 +286,7 @@ export const test_createAssertParse_ArrayHierarchical = _test_assertParse(
             return input;
         };
         input = JSON.parse(input);
-        return assert(input);
+        return assert(input) as any;
     },
     ArrayHierarchical.SPOILERS,
 );

@@ -24,9 +24,11 @@ export const test_createRandom_ObjectLiteralType = _test_random(
         });
         return $ro0();
     },
-    (input: any): ObjectLiteralType => {
+    (input: any): typia.Primitive<ObjectLiteralType> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ObjectLiteralType => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ObjectLiteralType> => {
             return (
                 "object" === typeof input &&
                 null !== input &&
@@ -41,7 +43,7 @@ export const test_createRandom_ObjectLiteralType = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectLiteralType => {
+            ): input is typia.Primitive<ObjectLiteralType> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

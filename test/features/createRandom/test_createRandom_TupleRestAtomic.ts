@@ -5,5 +5,5 @@ import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 export const test_createRandom_TupleRestAtomic = _test_random(
     "TupleRestAtomic",
     typia.createRandom<TupleRestAtomic>(),
-    typia.createAssert<TupleRestAtomic>(),
+    typia.createAssert<typia.Primitive<TupleRestAtomic>>(),
 );

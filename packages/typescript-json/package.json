@@ -17,6 +17,7 @@
     "dev:test": "rimraf bin && tsc -p test/tsconfig.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
+    "prepare": "ts-patch install",
     "prettier": "prettier  --write ./**/*.ts",
     "-----------------------------------------------": "",
     "issue": "node test/issue",

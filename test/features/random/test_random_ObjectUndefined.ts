@@ -5,5 +5,5 @@ import { ObjectUndefined } from "../../structures/ObjectUndefined";
 export const test_random_ObjectUndefined = _test_random(
     "ObjectUndefined",
     () => typia.random<ObjectUndefined>(),
-    typia.createAssert<ObjectUndefined>(),
+    typia.createAssert<typia.Primitive<ObjectUndefined>>(),
 );

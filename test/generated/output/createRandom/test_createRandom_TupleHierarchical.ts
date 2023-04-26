@@ -53,9 +53,11 @@ export const test_createRandom_TupleHierarchical = _test_random(
             ],
         ];
     },
-    (input: any): TupleHierarchical => {
+    (input: any): typia.Primitive<TupleHierarchical> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is TupleHierarchical => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<TupleHierarchical> => {
             return (
                 Array.isArray(input) &&
                 input.length === 5 &&
@@ -110,7 +112,7 @@ export const test_createRandom_TupleHierarchical = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TupleHierarchical => {
+            ): input is typia.Primitive<TupleHierarchical> => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

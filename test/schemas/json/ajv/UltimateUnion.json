@@ -2658,7 +2658,112 @@
       "IJsonSchema.IUnknown": {
         "$id": "components#/schemas/IJsonSchema.IUnknown",
         "type": "object",
-        "properties": {},
+        "properties": {
+          "deprecated": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false
+          },
+          "title": {
+            "type": "string",
+            "nullable": false,
+            "x-typia-required": false
+          },
+          "description": {
+            "type": "string",
+            "nullable": false,
+            "x-typia-required": false
+          },
+          "x-typia-metaTags": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IType",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinimum",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaximum",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IStep",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IFormat",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IPattern",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.ILength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxLength",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMinItems",
+                  "x-typia-required": false
+                },
+                {
+                  "$ref": "components#/schemas/IMetadataTag.IMaxItems",
+                  "x-typia-required": false
+                }
+              ],
+              "x-typia-required": false
+            },
+            "nullable": false,
+            "x-typia-required": false
+          },
+          "x-typia-jsDocTags": {
+            "type": "array",
+            "items": {
+              "$ref": "components#/schemas/IJsDocTagInfo",
+              "x-typia-required": false
+            },
+            "nullable": false,
+            "x-typia-required": false
+          },
+          "x-typia-required": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false
+          },
+          "x-typia-rest": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false
+          }
+        },
         "nullable": false,
         "x-typia-jsDocTags": []
       },

@@ -87,9 +87,11 @@ export const test_random_DynamicEnumeration = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): DynamicEnumeration => {
+    (input: any): typia.Primitive<DynamicEnumeration> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is DynamicEnumeration => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<DynamicEnumeration> => {
             const $io0 = (input: any): boolean =>
                 (undefined === input.ar || "string" === typeof input.ar) &&
                 (undefined === input["zh-Hans"] ||
@@ -115,7 +117,7 @@ export const test_random_DynamicEnumeration = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is DynamicEnumeration => {
+            ): input is typia.Primitive<DynamicEnumeration> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

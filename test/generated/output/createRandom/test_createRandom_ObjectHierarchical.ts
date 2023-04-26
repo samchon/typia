@@ -126,9 +126,11 @@ export const test_createRandom_ObjectHierarchical = _test_random(
         });
         return $ro0();
     },
-    (input: any): ObjectHierarchical => {
+    (input: any): typia.Primitive<ObjectHierarchical> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ObjectHierarchical => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ObjectHierarchical> => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
@@ -228,7 +230,7 @@ export const test_createRandom_ObjectHierarchical = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectHierarchical => {
+            ): input is typia.Primitive<ObjectHierarchical> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

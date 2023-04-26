@@ -75,9 +75,11 @@ export const test_createRandom_ArrayHierarchical = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): ArrayHierarchical => {
+    (input: any): typia.Primitive<ArrayHierarchical> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ArrayHierarchical => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ArrayHierarchical> => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
@@ -139,7 +141,7 @@ export const test_createRandom_ArrayHierarchical = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayHierarchical => {
+            ): input is typia.Primitive<ArrayHierarchical> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

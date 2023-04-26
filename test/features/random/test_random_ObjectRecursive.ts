@@ -5,5 +5,5 @@ import { ObjectRecursive } from "../../structures/ObjectRecursive";
 export const test_random_ObjectRecursive = _test_random(
     "ObjectRecursive",
     () => typia.random<ObjectRecursive>(),
-    typia.createAssert<ObjectRecursive>(),
+    typia.createAssert<typia.Primitive<ObjectRecursive>>(),
 );

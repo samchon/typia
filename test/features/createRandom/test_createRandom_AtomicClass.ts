@@ -5,5 +5,5 @@ import { AtomicClass } from "../../structures/AtomicClass";
 export const test_createRandom_AtomicClass = _test_random(
     "AtomicClass",
     typia.createRandom<AtomicClass>(),
-    typia.createAssert<AtomicClass>(),
+    typia.createAssert<typia.Primitive<AtomicClass>>(),
 );

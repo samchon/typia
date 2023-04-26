@@ -5,5 +5,5 @@ import { DynamicArray } from "../../structures/DynamicArray";
 export const test_random_DynamicArray = _test_random(
     "DynamicArray",
     () => typia.random<DynamicArray>(),
-    typia.createAssert<DynamicArray>(),
+    typia.createAssert<typia.Primitive<DynamicArray>>(),
 );

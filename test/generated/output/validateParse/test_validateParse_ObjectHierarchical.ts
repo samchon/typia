@@ -587,7 +587,7 @@ export const test_validateParse_ObjectHierarchical = _test_validateParse(
             };
             input = JSON.parse(input);
             const output = validate(input);
-            return output;
+            return output as any;
         })(input),
     ObjectHierarchical.SPOILERS,
 );

@@ -5,5 +5,5 @@ import { TupleUnion } from "../../structures/TupleUnion";
 export const test_createRandom_TupleUnion = _test_random(
     "TupleUnion",
     typia.createRandom<TupleUnion>(),
-    typia.createAssert<TupleUnion>(),
+    typia.createAssert<typia.Primitive<TupleUnion>>(),
 );

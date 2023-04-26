@@ -63,7 +63,7 @@ export const test_createAssertParse_ObjectLiteralProperty = _test_assertParse(
             return input;
         };
         input = JSON.parse(input);
-        return assert(input);
+        return assert(input) as any;
     },
     ObjectLiteralProperty.SPOILERS,
 );

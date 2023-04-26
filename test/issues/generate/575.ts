@@ -1,4 +1,4 @@
 import typia from "../../../src";
 
-const values = [true, "A", "B", 1, 2] as const;
+const values = [true, 1, 2, "A", "B"] as const;
 console.log(values);

@@ -30,9 +30,9 @@ export const test_random_TagType = _test_random(
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
-    (input: any): TagType => {
+    (input: any): typia.Primitive<TagType> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is TagType => {
+        const __is = (input: any): input is typia.Primitive<TagType> => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.int &&
                 Number.isFinite(input.int) &&
@@ -54,7 +54,7 @@ export const test_random_TagType = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TagType => {
+            ): input is typia.Primitive<TagType> => {
                 const $ao0 = (
                     input: any,
                     _path: string,
