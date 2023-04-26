@@ -427,7 +427,7 @@ export const test_createValidateParse_ObjectPropertyNullable =
             };
             input = JSON.parse(input);
             const output = validate(input);
-            return output;
+            return output as any;
         },
         ObjectPropertyNullable.SPOILERS,
     );

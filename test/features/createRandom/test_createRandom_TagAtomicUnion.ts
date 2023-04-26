@@ -5,5 +5,5 @@ import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 export const test_createRandom_TagAtomicUnion = _test_random(
     "TagAtomicUnion",
     typia.createRandom<TagAtomicUnion>(),
-    typia.createAssert<TagAtomicUnion>(),
+    typia.createAssert<typia.Primitive<TagAtomicUnion>>(),
 );

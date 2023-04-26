@@ -5,5 +5,5 @@ import { TagMatrix } from "../../structures/TagMatrix";
 export const test_random_TagMatrix = _test_random(
     "TagMatrix",
     () => typia.random<TagMatrix>(),
-    typia.createAssert<TagMatrix>(),
+    typia.createAssert<typia.Primitive<TagMatrix>>(),
 );

@@ -87,9 +87,11 @@ export const test_createRandom_ObjectPropertyNullable = _test_random(
             (generator?.array ?? $generator.array)(() => $ro3()),
         ];
     },
-    (input: any): ObjectPropertyNullable => {
+    (input: any): typia.Primitive<ObjectPropertyNullable> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ObjectPropertyNullable => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ObjectPropertyNullable> => {
             const $io0 = (input: any): boolean =>
                 null === input.value || "boolean" === typeof input.value;
             const $io1 = (input: any): boolean =>
@@ -145,7 +147,7 @@ export const test_createRandom_ObjectPropertyNullable = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectPropertyNullable => {
+            ): input is typia.Primitive<ObjectPropertyNullable> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

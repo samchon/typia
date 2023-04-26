@@ -5,5 +5,5 @@ import { TagRange } from "../../structures/TagRange";
 export const test_createRandom_TagRange = _test_random(
     "TagRange",
     typia.createRandom<TagRange>(),
-    typia.createAssert<TagRange>(),
+    typia.createAssert<typia.Primitive<TagRange>>(),
 );

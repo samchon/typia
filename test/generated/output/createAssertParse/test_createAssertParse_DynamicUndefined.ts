@@ -73,7 +73,7 @@ export const test_createAssertParse_DynamicUndefined = _test_assertParse(
             return input;
         };
         input = JSON.parse(input);
-        return assert(input);
+        return assert(input) as any;
     },
     DynamicUndefined.SPOILERS,
 );

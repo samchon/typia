@@ -31,15 +31,14 @@ export class FunctionImporter {
         return [...this.used_].map((name) =>
             StatementFactory.constant(
                 "$" + name,
-                IdentifierFactory.join(
+                IdentifierFactory.access(
                     ts.factory.createParenthesizedExpression(
                         ts.factory.createAsExpression(
                             modulo,
                             TypeFactory.keyword("any"),
                         ),
                     ),
-                    name,
-                ),
+                )(name),
             ),
         );
     }

@@ -41,7 +41,7 @@ export const check_string_tags =
                     tag,
                     ts.factory.createStrictEquality(
                         ts.factory.createNumericLiteral(tag.value),
-                        IdentifierFactory.join(input, "length"),
+                        IdentifierFactory.access(input)("length"),
                     ),
                 ]);
             else if (tag.kind === "minLength")
@@ -49,7 +49,7 @@ export const check_string_tags =
                     tag,
                     ts.factory.createLessThanEquals(
                         ts.factory.createNumericLiteral(tag.value),
-                        IdentifierFactory.join(input, "length"),
+                        IdentifierFactory.access(input)("length"),
                     ),
                 ]);
             else if (tag.kind === "maxLength")
@@ -57,7 +57,7 @@ export const check_string_tags =
                     tag,
                     ts.factory.createGreaterThanEquals(
                         ts.factory.createNumericLiteral(tag.value),
-                        IdentifierFactory.join(input, "length"),
+                        IdentifierFactory.access(input)("length"),
                     ),
                 ]);
         return conditions.map(([tag, expression]) => ({

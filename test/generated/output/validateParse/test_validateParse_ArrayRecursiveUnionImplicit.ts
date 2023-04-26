@@ -557,7 +557,7 @@ export const test_validateParse_ArrayRecursiveUnionImplicit =
                 };
                 input = JSON.parse(input);
                 const output = validate(input);
-                return output;
+                return output as any;
             })(input),
         ArrayRecursiveUnionImplicit.SPOILERS,
     );

@@ -29,7 +29,7 @@ export namespace TypiaSetupWizard {
         pack.install({ dev: true, modulo: "ts-node", version: "latest" });
 
         // INSTALL COMPILER
-        pack.install({ dev: true, modulo: "ts-patch", version: "latest" });
+        pack.install({ dev: true, modulo: "ts-patch", version: "3.0.0-beta3" });
         await pack.save((data) => {
             data.scripts ??= {};
             if (

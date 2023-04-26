@@ -34,10 +34,10 @@ export const test_random_DynamicArray = _test_random(
             };
             return $ro0();
         })(),
-    (input: any): DynamicArray => {
+    (input: any): typia.Primitive<DynamicArray> => {
         const $guard = (typia.createAssert as any).guard;
         const $join = (typia.createAssert as any).join;
-        const __is = (input: any): input is DynamicArray => {
+        const __is = (input: any): input is typia.Primitive<DynamicArray> => {
             const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key) => {
@@ -62,7 +62,7 @@ export const test_random_DynamicArray = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is DynamicArray => {
+            ): input is typia.Primitive<DynamicArray> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

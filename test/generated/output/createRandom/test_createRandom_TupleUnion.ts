@@ -27,9 +27,9 @@ export const test_createRandom_TupleUnion = _test_random(
             ])(),
         );
     },
-    (input: any): TupleUnion => {
+    (input: any): typia.Primitive<TupleUnion> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is TupleUnion => {
+        const __is = (input: any): input is typia.Primitive<TupleUnion> => {
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -94,7 +94,7 @@ export const test_createRandom_TupleUnion = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TupleUnion => {
+            ): input is typia.Primitive<TupleUnion> => {
                 return (
                     (Array.isArray(input) ||
                         $guard(true, {

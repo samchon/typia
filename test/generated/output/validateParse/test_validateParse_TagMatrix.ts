@@ -171,7 +171,7 @@ export const test_validateParse_TagMatrix = _test_validateParse(
             };
             input = JSON.parse(input);
             const output = validate(input);
-            return output;
+            return output as any;
         })(input),
     TagMatrix.SPOILERS,
 );

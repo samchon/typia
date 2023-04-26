@@ -5,5 +5,5 @@ import { ObjectNullable } from "../../structures/ObjectNullable";
 export const test_createRandom_ObjectNullable = _test_random(
     "ObjectNullable",
     typia.createRandom<ObjectNullable>(),
-    typia.createAssert<ObjectNullable>(),
+    typia.createAssert<typia.Primitive<ObjectNullable>>(),
 );

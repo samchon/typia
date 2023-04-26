@@ -1,7 +1,7 @@
 import ts from "typescript";
 
 export namespace TemplateFactory {
-    export function generate(expressions: ts.Expression[]): ts.Expression {
+    export const generate = (expressions: ts.Expression[]): ts.Expression => {
         if (expressions.every((exp) => ts.isStringLiteral(exp)))
             return ts.factory.createStringLiteral(
                 (expressions as ts.StringLiteral[])
@@ -9,18 +9,18 @@ export namespace TemplateFactory {
                     .join(""),
             );
 
-        const it: IIerator = {
+        const it: IIterator = {
             value: "",
             index: 0,
         };
-        gather(expressions, it);
+        gather(expressions)(it);
 
         const head: ts.TemplateHead = ts.factory.createTemplateHead(it.value);
         const spans: ts.TemplateSpan[] = [];
 
         while (true) {
             const elem: ts.Expression = expressions[it.index++]!;
-            gather(expressions, it);
+            gather(expressions)(it);
 
             const broken: boolean = it.index === expressions.length;
             spans.push(
@@ -34,22 +34,24 @@ export namespace TemplateFactory {
             if (broken === true) break;
         }
         return ts.factory.createTemplateExpression(head, spans);
-    }
+    };
 
-    function gather(expressions: ts.Expression[], it: IIerator): void {
-        const found: number = expressions.findIndex(
-            (elem, index) => index >= it.index && !ts.isStringLiteral(elem),
-        );
+    const gather =
+        (expressions: ts.Expression[]) =>
+        (it: IIterator): void => {
+            const found: number = expressions.findIndex(
+                (elem, index) => index >= it.index && !ts.isStringLiteral(elem),
+            );
 
-        const last: number = found !== -1 ? found : expressions.length;
-        it.value = expressions
-            .slice(it.index, last)
-            .map((elem) => (elem as ts.StringLiteral).text)
-            .reduce((x, y) => x + y, "");
-        it.index = last;
-    }
+            const last: number = found !== -1 ? found : expressions.length;
+            it.value = expressions
+                .slice(it.index, last)
+                .map((elem) => (elem as ts.StringLiteral).text)
+                .reduce((x, y) => x + y, "");
+            it.index = last;
+        };
 
-    interface IIerator {
+    interface IIterator {
         value: string;
         index: number;
     }

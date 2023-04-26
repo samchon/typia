@@ -39,9 +39,9 @@ export const test_random_ArraySimple = _test_random(
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
-    (input: any): ArraySimple => {
+    (input: any): typia.Primitive<ArraySimple> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ArraySimple => {
+        const __is = (input: any): input is typia.Primitive<ArraySimple> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.email &&
@@ -68,7 +68,7 @@ export const test_random_ArraySimple = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArraySimple => {
+            ): input is typia.Primitive<ArraySimple> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

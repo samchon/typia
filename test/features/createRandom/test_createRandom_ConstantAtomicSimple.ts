@@ -5,5 +5,5 @@ import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 export const test_createRandom_ConstantAtomicSimple = _test_random(
     "ConstantAtomicSimple",
     typia.createRandom<ConstantAtomicSimple>(),
-    typia.createAssert<ConstantAtomicSimple>(),
+    typia.createAssert<typia.Primitive<ConstantAtomicSimple>>(),
 );

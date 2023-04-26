@@ -150,6 +150,21 @@ export const test_validatePrune_DynamicUnion = _test_validatePrune(
             const prune = (input: DynamicUnion): void => {
                 const $join = (typia.validatePrune as any).join;
                 const $po0 = (input: any): any => {
+                    Object.entries(input).forEach(([key, value]) => {
+                        if (undefined === value) return;
+                        if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
+                        }
+                        if (RegExp(/^(prefix_(.*))/).test(key)) {
+                        }
+                        if (RegExp(/((.*)_postfix)$/).test(key)) {
+                        }
+                        if (
+                            RegExp(
+                                /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                            ).test(key)
+                        ) {
+                        }
+                    });
                     for (const key of Object.keys(input)) {
                         if (
                             RegExp(/^-?\d+\.?\d*$/).test(key) ||

@@ -363,7 +363,7 @@ export const test_createAssertParse_TupleHierarchical = _test_assertParse(
             return input;
         };
         input = JSON.parse(input);
-        return assert(input);
+        return assert(input) as any;
     },
     TupleHierarchical.SPOILERS,
 );

@@ -144,9 +144,9 @@ export const test_random_TagTuple = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): TagTuple => {
+    (input: any): typia.Primitive<TagTuple> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is TagTuple => {
+        const __is = (input: any): input is typia.Primitive<TagTuple> => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.tuple) &&
                 input.tuple.length === 4 &&
@@ -179,7 +179,7 @@ export const test_random_TagTuple = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TagTuple => {
+            ): input is typia.Primitive<TagTuple> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

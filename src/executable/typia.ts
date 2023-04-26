@@ -16,12 +16,12 @@ const USAGE = `Wrong command has been detected. Use like below:
     --npx typia generate --input src/templates --output src/functinoal
 `;
 
-function halt(desc: string): never {
+const halt = (desc: string): never => {
     console.error(desc);
     process.exit(-1);
-}
+};
 
-async function main(): Promise<void> {
+const main = async (): Promise<void> => {
     try {
         await import("comment-json");
         await import("inquirer");
@@ -45,7 +45,7 @@ async function main(): Promise<void> {
         const { TypiaGenerateWizard } = await import("./TypiaGenerateWizard");
         await TypiaGenerateWizard.generate();
     } else halt(USAGE);
-}
+};
 main().catch((exp) => {
     console.error(exp);
     process.exit(-1);

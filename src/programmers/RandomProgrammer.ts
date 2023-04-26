@@ -20,63 +20,74 @@ import { RandomRanger } from "./helpers/RandomRanger";
 import { random_custom } from "./internal/random_custom";
 
 export namespace RandomProgrammer {
-    export function generate(
-        project: IProject,
-        modulo: ts.LeftHandSideExpression,
-        init?: ts.Expression,
-    ) {
-        const importer: FunctionImporter = new FunctionImporter();
-        return (type: ts.Type, name?: string) => {
-            // INITIALIZE METADATA
-            const collection: MetadataCollection = new MetadataCollection();
-            const meta: Metadata = MetadataFactory.generate(
-                project.checker,
-                collection,
-                type,
-                {
-                    resolve: true,
-                    constant: true,
-                },
-            );
+    /**
+     * @deprecated Use `write()` function instead
+     */
+    export const generate =
+        (
+            project: IProject,
+            modulo: ts.LeftHandSideExpression,
+            init?: ts.Expression,
+        ) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(init)(type, name);
 
-            // GENERATE FUNCTION
-            const functors: ts.VariableStatement[] =
-                generate_functors(importer)(collection);
-            const output: ts.Expression = decode(importer)({
-                object: false,
-                recursive: false,
-            })(meta, [], []);
+    export const write =
+        (project: IProject) =>
+        (modulo: ts.LeftHandSideExpression) =>
+        (init?: ts.Expression) => {
+            const importer: FunctionImporter = new FunctionImporter();
+            return (type: ts.Type, name?: string) => {
+                // INITIALIZE METADATA
+                const collection: MetadataCollection = new MetadataCollection();
+                const meta: Metadata = MetadataFactory.analyze(project.checker)(
+                    {
+                        resolve: true,
+                        constant: true,
+                    },
+                )(collection)(type);
 
-            return ts.factory.createArrowFunction(
-                undefined,
-                undefined,
-                [
-                    IdentifierFactory.parameter(
-                        "generator",
-                        ts.factory.createTypeReferenceNode(
-                            "Partial<typia.IRandomGenerator>",
-                        ),
-                        init ??
-                            ts.factory.createToken(ts.SyntaxKind.QuestionToken),
-                    ),
-                ],
-                ts.factory.createTypeReferenceNode(
-                    `typia.Primitive<${
-                        name ?? TypeFactory.getFullName(project.checker, type)
-                    }>`,
-                ),
-                undefined,
-                ts.factory.createBlock(
+                // GENERATE FUNCTION
+                const functors: ts.VariableStatement[] =
+                    generate_functors(importer)(collection);
+                const output: ts.Expression = decode(importer)({
+                    object: false,
+                    recursive: false,
+                })(meta, [], []);
+
+                return ts.factory.createArrowFunction(
+                    undefined,
+                    undefined,
                     [
-                        ...importer.declare(modulo),
-                        ...functors,
-                        ts.factory.createReturnStatement(output),
+                        IdentifierFactory.parameter(
+                            "generator",
+                            ts.factory.createTypeReferenceNode(
+                                "Partial<typia.IRandomGenerator>",
+                            ),
+                            init ??
+                                ts.factory.createToken(
+                                    ts.SyntaxKind.QuestionToken,
+                                ),
+                        ),
                     ],
-                    true,
-                ),
-            );
+                    ts.factory.createTypeReferenceNode(
+                        `typia.Primitive<${
+                            name ??
+                            TypeFactory.getFullName(project.checker)(type)
+                        }>`,
+                    ),
+                    undefined,
+                    ts.factory.createBlock(
+                        [
+                            ...importer.declare(modulo),
+                            ...functors,
+                            ts.factory.createReturnStatement(output),
+                        ],
+                        true,
+                    ),
+                );
+            };
         };
-    }
 
     const generate_functors =
         (importer: FunctionImporter) => (collection: MetadataCollection) =>
@@ -409,5 +420,4 @@ const COALESCE = (importer: FunctionImporter) => (name: string) =>
             ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
             ts.factory.createIdentifier(name),
         ),
-        IdentifierFactory.join(importer.use("generator"), name),
-    );
+    )(IdentifierFactory.access(importer.use("generator"))(name));

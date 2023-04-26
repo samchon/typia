@@ -20,14 +20,13 @@ export const check_dynamic_properties =
         regular: IExpressionEntry<ts.Expression>[],
         dynamic: IExpressionEntry<ts.Expression>[],
     ): ts.Expression => {
-        const length = IdentifierFactory.join(
+        const length = IdentifierFactory.access(
             ts.factory.createCallExpression(
                 ts.factory.createIdentifier("Object.keys"),
                 undefined,
                 [input],
             ),
-            "length",
-        );
+        )("length");
         const left: ts.Expression | null =
             props.equals === true && dynamic.length === 0
                 ? props.undefined === true ||
@@ -67,14 +66,13 @@ export const check_dynamic_properties =
                   check_dynamic_property(props)(input, regular, dynamic),
               ])
             : ts.factory.createCallExpression(
-                  IdentifierFactory.join(
+                  IdentifierFactory.access(
                       ts.factory.createCallExpression(
                           ts.factory.createIdentifier("Object.keys"),
                           undefined,
                           [input],
                       ),
-                      props.assert ? "every" : "map",
-                  ),
+                  )(props.assert ? "every" : "map"),
                   undefined,
                   [check_dynamic_property(props)(input, regular, dynamic)],
               );
@@ -172,14 +170,13 @@ const check_dynamic_property =
 
 const is_regular_property = (regular: IExpressionEntry[]) =>
     ts.factory.createCallExpression(
-        IdentifierFactory.join(
+        IdentifierFactory.access(
             ts.factory.createArrayLiteralExpression(
                 regular.map((entry) =>
                     ts.factory.createStringLiteral(entry.key.getSoleLiteral()!),
                 ),
             ),
-            "some",
-        ),
+        )("some"),
         undefined,
         [
             ts.factory.createArrowFunction(

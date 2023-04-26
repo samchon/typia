@@ -206,7 +206,7 @@ export const test_createAssertParse_TagTuple = _test_assertParse(
             return input;
         };
         input = JSON.parse(input);
-        return assert(input);
+        return assert(input) as any;
     },
     TagTuple.SPOILERS,
 );

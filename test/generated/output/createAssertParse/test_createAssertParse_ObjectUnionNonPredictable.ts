@@ -223,7 +223,7 @@ export const test_createAssertParse_ObjectUnionNonPredictable =
                 return input;
             };
             input = JSON.parse(input);
-            return assert(input);
+            return assert(input) as any;
         },
         ObjectUnionNonPredictable.SPOILERS,
     );

@@ -15,7 +15,7 @@ export const iterate_metadata_resolve =
     (collection: MetadataCollection) =>
     (meta: Metadata, type: ts.Type, parentResolved: boolean): boolean => {
         if (options.resolve === true && parentResolved === false) {
-            const resolved: ts.Type | null = TypeFactory.resolve(checker, type);
+            const resolved: ts.Type | null = TypeFactory.resolve(checker)(type);
             if (resolved !== null) {
                 Writable(meta).resolved = explore_metadata(checker)(options)(
                     collection,

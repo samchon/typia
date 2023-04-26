@@ -10,8 +10,17 @@ import { IsProgrammer } from "./IsProgrammer";
 import { PruneProgrammer } from "./PruneProgrammer";
 
 export namespace IsPruneProgrammer {
+    /**
+     * @deprecated Use `write()` function instead
+     */
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(type, name);
+
+    export const write =
+        (project: IProject) =>
+        (modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
@@ -26,28 +35,25 @@ export namespace IsPruneProgrammer {
                     undefined,
                     "input",
                     ts.factory.createTypeReferenceNode(
-                        name ?? TypeFactory.getFullName(project.checker, type),
+                        name ?? TypeFactory.getFullName(project.checker)(type),
                     ),
                 ),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "is",
-                        IsProgrammer.generate(project, modulo)(type, name),
+                        IsProgrammer.write(project)(modulo)(false)(type, name),
                     ),
                     StatementFactory.constant(
                         "prune",
-                        PruneProgrammer.generate(
-                            {
-                                ...project,
-                                options: {
-                                    ...project.options,
-                                    functional: false,
-                                    numeric: false,
-                                },
+                        PruneProgrammer.write({
+                            ...project,
+                            options: {
+                                ...project.options,
+                                functional: false,
+                                numeric: false,
                             },
-                            modulo,
-                        )(type, name),
+                        })(modulo)(type, name),
                     ),
                     ts.factory.createIfStatement(
                         ts.factory.createPrefixUnaryExpression(

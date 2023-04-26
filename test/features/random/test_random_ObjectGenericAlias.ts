@@ -5,5 +5,5 @@ import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 export const test_random_ObjectGenericAlias = _test_random(
     "ObjectGenericAlias",
     () => typia.random<ObjectGenericAlias>(),
-    typia.createAssert<ObjectGenericAlias>(),
+    typia.createAssert<typia.Primitive<ObjectGenericAlias>>(),
 );

@@ -5,5 +5,5 @@ import { DynamicConstant } from "../../structures/DynamicConstant";
 export const test_random_DynamicConstant = _test_random(
     "DynamicConstant",
     () => typia.random<DynamicConstant>(),
-    typia.createAssert<DynamicConstant>(),
+    typia.createAssert<typia.Primitive<DynamicConstant>>(),
 );

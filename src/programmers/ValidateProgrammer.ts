@@ -14,53 +14,59 @@ import { check_everything } from "./internal/check_everything";
 import { check_object } from "./internal/check_object";
 
 export namespace ValidateProgrammer {
+    /**
+     * @deprecated Use `write()` function instead
+     */
     export const generate =
         (
             project: IProject,
             modulo: ts.LeftHandSideExpression,
             equals: boolean = false,
         ) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(equals)(type, name);
+
+    export const write =
+        (project: IProject) =>
+        (modulo: ts.LeftHandSideExpression) =>
+        (equals: boolean) =>
         (type: ts.Type, name?: string) => {
             const importer: FunctionImporter = new FunctionImporter();
-            const program: ts.ArrowFunction = CheckerProgrammer.generate(
-                project,
-                {
-                    functors: "$vo",
-                    unioners: "$vu",
-                    path: true,
-                    trace: true,
-                    numeric: OptionPredicator.numeric(project.options),
-                    equals,
-                    atomist: (explore) => (tuple) => (input) =>
-                        [
-                            tuple.expression,
-                            ...tuple.tags.map((tag) =>
-                                ts.factory.createLogicalOr(
-                                    tag.expression,
-                                    create_report_call(
-                                        explore.from === "top"
-                                            ? ts.factory.createTrue()
-                                            : ts.factory.createIdentifier(
-                                                  "_exceptionable",
-                                              ),
-                                    )(
-                                        ts.factory.createIdentifier(
-                                            explore.postfix
-                                                ? `_path + ${explore.postfix}`
-                                                : "_path",
-                                        ),
-                                        tag.expected,
-                                        input,
+            const program: ts.ArrowFunction = CheckerProgrammer.write(project)({
+                functors: "$vo",
+                unioners: "$vu",
+                path: true,
+                trace: true,
+                numeric: OptionPredicator.numeric(project.options),
+                equals,
+                atomist: (explore) => (tuple) => (input) =>
+                    [
+                        tuple.expression,
+                        ...tuple.tags.map((tag) =>
+                            ts.factory.createLogicalOr(
+                                tag.expression,
+                                create_report_call(
+                                    explore.from === "top"
+                                        ? ts.factory.createTrue()
+                                        : ts.factory.createIdentifier(
+                                              "_exceptionable",
+                                          ),
+                                )(
+                                    ts.factory.createIdentifier(
+                                        explore.postfix
+                                            ? `_path + ${explore.postfix}`
+                                            : "_path",
                                     ),
+                                    tag.expected,
+                                    input,
                                 ),
                             ),
-                        ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-                    combiner: combine(equals)(importer),
-                    joiner: joiner(equals)(importer),
-                    success: ts.factory.createTrue(),
-                },
-                importer,
-            )(type, name);
+                        ),
+                    ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
+                combiner: combine(equals)(importer),
+                joiner: joiner(equals)(importer),
+                success: ts.factory.createTrue(),
+            })(importer)(type, name);
 
             return ts.factory.createArrowFunction(
                 undefined,
@@ -73,7 +79,7 @@ export namespace ValidateProgrammer {
                 ],
                 ts.factory.createTypeReferenceNode(
                     `typia.IValidation<${
-                        name ?? TypeFactory.getFullName(project.checker, type)
+                        name ?? TypeFactory.getFullName(project.checker)(type)
                     }>`,
                 ),
                 undefined,
@@ -81,15 +87,10 @@ export namespace ValidateProgrammer {
                     [
                         StatementFactory.constant(
                             "__is",
-                            IsProgrammer.generate(
-                                project,
-                                modulo,
-                                equals,
-                            )(
+                            IsProgrammer.write(project)(modulo)(equals)(
                                 type,
                                 name ??
-                                    TypeFactory.getFullName(
-                                        project.checker,
+                                    TypeFactory.getFullName(project.checker)(
                                         type,
                                     ),
                             ),
@@ -106,15 +107,14 @@ export namespace ValidateProgrammer {
                         StatementFactory.constant(
                             "$report",
                             ts.factory.createCallExpression(
-                                IdentifierFactory.join(
+                                IdentifierFactory.access(
                                     ts.factory.createParenthesizedExpression(
                                         ts.factory.createAsExpression(
                                             modulo,
                                             TypeFactory.keyword("any"),
                                         ),
                                     ),
-                                    "report",
-                                ),
+                                )("report"),
                                 [],
                                 [ts.factory.createIdentifier("errors")],
                             ),
@@ -168,7 +168,7 @@ const combine =
     (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner =>
     (explore: CheckerProgrammer.IExplore) => {
         if (explore.tracable === false)
-            return IsProgrammer.CONFIG({
+            return IsProgrammer.configure({
                 object: validate_object(equals)(importer),
                 numeric: true,
             })(importer).combiner(explore);
@@ -247,7 +247,7 @@ const joiner =
         array: (input, arrow) =>
             check_everything(
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(input, "map"),
+                    IdentifierFactory.access(input)("map"),
                     undefined,
                     [arrow],
                 ),
@@ -270,8 +270,8 @@ const joiner =
             ),
     });
 
-function create_output() {
-    return ts.factory.createObjectLiteralExpression(
+const create_output = () =>
+    ts.factory.createObjectLiteralExpression(
         [
             ts.factory.createShorthandPropertyAssignment("success"),
             ts.factory.createShorthandPropertyAssignment("errors"),
@@ -288,7 +288,6 @@ function create_output() {
         ],
         true,
     );
-}
 
 const create_report_call =
     (exceptionable?: ts.Expression) =>

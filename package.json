@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "3.8.0-dev.20230418",
+  "version": "3.8.0-dev.20230426-2",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -75,7 +75,7 @@
     "randexp": "^0.5.3"
   },
   "peerDependencies": {
-    "typescript": ">= 4.5.2"
+    "typescript": ">= 5.0.0"
   },
   "devDependencies": {
     "@fastify/type-provider-typebox": "^3.0.0",
@@ -106,7 +106,7 @@
     "fast-json-stringify": "^5.4.0",
     "fastify": "^4.9.2",
     "io-ts": "^2.2.19",
-    "jsdom": "^20.0.2",
+    "jsdom": "^21.1.1",
     "physical-cpu-count": "^2.0.0",
     "prettier": "^2.6.2",
     "reflect-metadata": "^0.1.13",

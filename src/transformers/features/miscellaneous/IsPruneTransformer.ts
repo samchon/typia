@@ -4,6 +4,6 @@ import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace IsPruneTransformer {
     export const transform = GenericTransformer.scalar("isPrune")(
-        (project, modulo) => IsPruneProgrammer.generate(project, modulo),
+        (project) => (modulo) => IsPruneProgrammer.write(project)(modulo),
     );
 }

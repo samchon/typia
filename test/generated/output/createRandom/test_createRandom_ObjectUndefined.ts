@@ -52,9 +52,11 @@ export const test_createRandom_ObjectUndefined = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): ObjectUndefined => {
+    (input: any): typia.Primitive<ObjectUndefined> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ObjectUndefined => {
+        const __is = (
+            input: any,
+        ): input is typia.Primitive<ObjectUndefined> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 (undefined === input.professor ||
@@ -88,7 +90,7 @@ export const test_createRandom_ObjectUndefined = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectUndefined => {
+            ): input is typia.Primitive<ObjectUndefined> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

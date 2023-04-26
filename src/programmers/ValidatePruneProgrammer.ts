@@ -10,8 +10,17 @@ import { PruneProgrammer } from "./PruneProgrammer";
 import { ValidateProgrammer } from "./ValidateProgrammer";
 
 export namespace ValidatePruneProgrammer {
+    /**
+     * @deprecated Use `write()` function instead
+     */
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(type, name);
+
+    export const write =
+        (project: IProject) =>
+        (modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
@@ -24,38 +33,32 @@ export namespace ValidatePruneProgrammer {
                 ],
                 ts.factory.createTypeReferenceNode(
                     `typia.IValidation<${
-                        name ?? TypeFactory.getFullName(project.checker, type)
+                        name ?? TypeFactory.getFullName(project.checker)(type)
                     }>`,
                 ),
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "validate",
-                        ValidateProgrammer.generate(
-                            {
-                                ...project,
-                                options: {
-                                    ...project.options,
-                                    functional: false,
-                                    numeric: true,
-                                },
+                        ValidateProgrammer.write({
+                            ...project,
+                            options: {
+                                ...project.options,
+                                functional: false,
+                                numeric: true,
                             },
-                            modulo,
-                        )(type, name),
+                        })(modulo)(false)(type, name),
                     ),
                     StatementFactory.constant(
                         "prune",
-                        PruneProgrammer.generate(
-                            {
-                                ...project,
-                                options: {
-                                    ...project.options,
-                                    functional: false,
-                                    numeric: false,
-                                },
+                        PruneProgrammer.write({
+                            ...project,
+                            options: {
+                                ...project.options,
+                                functional: false,
+                                numeric: false,
                             },
-                            modulo,
-                        )(type, name),
+                        })(modulo)(type, name),
                     ),
                     StatementFactory.constant(
                         "output",

@@ -734,7 +734,7 @@ export const test_validateParse_ObjectUnionExplicit = _test_validateParse(
             };
             input = JSON.parse(input);
             const output = validate(input);
-            return output;
+            return output as any;
         })(input),
     ObjectUnionExplicit.SPOILERS,
 );

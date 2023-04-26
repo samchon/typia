@@ -8,7 +8,7 @@
 [![npm version](https://img.shields.io/npm/v/typia.svg)](https://www.npmjs.com/package/typia)
 [![Downloads](https://img.shields.io/npm/dm/typia.svg)](https://www.npmjs.com/package/typia)
 [![Build Status](https://github.com/samchon/typia/workflows/build/badge.svg)](https://github.com/samchon/typia/actions?query=workflow%3Abuild)
-[![Guide Documents](https://img.shields.io/badge/wiki-documentation-forestgreen)](https://typia.io/docs/)
+[![Guide Documents](https://img.shields.io/badge/guide-documents-forestgreen)](https://typia.io/docs/)
 
 ```typescript
 // RUNTIME VALIDATORS
@@ -37,9 +37,9 @@ Typia is a transformer library supporting below features:
 
 > **Note**
 > 
->  - **Only one line** required, with pure TypeScript type
->  - Runtime validator is **20,000x faster** than `class-validator`
->  - JSON serialization is **200x faster** than `class-transformer`
+> - **Only one line** required, with pure TypeScript type
+> - Runtime validator is **20,000x faster** than `class-validator`
+> - JSON serialization is **200x faster** than `class-transformer`
 
 
 
@@ -72,6 +72,7 @@ Check out the document in the [website](https://typia.io/docs/):
 ### 🔗 Appendix
   - Utillization Cases
     - [NestJS](https://typia.io/docs/utilization/nestjs/)
+    - [Prisma](https://typia.io/docs/utilization/prisma/)
     - [tRPC](https://typia.io/docs/utilization/trpc/)
   - [⇲ Benchmark Result](https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz)
   - [⇲ `dev.to` Articles](https://dev.to/samchon/series/22474)

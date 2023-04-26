@@ -5,5 +5,5 @@ import { ArraySimple } from "../../structures/ArraySimple";
 export const test_random_ArraySimple = _test_random(
     "ArraySimple",
     () => typia.random<ArraySimple>(),
-    typia.createAssert<ArraySimple>(),
+    typia.createAssert<typia.Primitive<ArraySimple>>(),
 );

@@ -40,9 +40,9 @@ export const test_createRandom_ObjectOptional = _test_random(
         });
         return $ro0();
     },
-    (input: any): ObjectOptional => {
+    (input: any): typia.Primitive<ObjectOptional> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ObjectOptional => {
+        const __is = (input: any): input is typia.Primitive<ObjectOptional> => {
             const $io0 = (input: any): boolean =>
                 (undefined === input.id || "string" === typeof input.id) &&
                 (undefined === input.name || "string" === typeof input.name) &&
@@ -63,7 +63,7 @@ export const test_createRandom_ObjectOptional = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectOptional => {
+            ): input is typia.Primitive<ObjectOptional> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

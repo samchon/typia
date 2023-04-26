@@ -126,7 +126,7 @@ export const test_createAssertParse_TemplateAtomic = _test_assertParse(
             return input;
         };
         input = JSON.parse(input);
-        return assert(input);
+        return assert(input) as any;
     },
     TemplateAtomic.SPOILERS,
 );

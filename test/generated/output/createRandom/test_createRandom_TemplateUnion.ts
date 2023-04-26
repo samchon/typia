@@ -77,9 +77,9 @@ export const test_createRandom_TemplateUnion = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): TemplateUnion => {
+    (input: any): typia.Primitive<TemplateUnion> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is TemplateUnion => {
+        const __is = (input: any): input is typia.Primitive<TemplateUnion> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
                 (RegExp(/^prefix_(.*)/).test(input.prefix) ||
@@ -120,7 +120,7 @@ export const test_createRandom_TemplateUnion = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TemplateUnion => {
+            ): input is typia.Primitive<TemplateUnion> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

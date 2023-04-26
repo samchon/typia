@@ -42,11 +42,11 @@ export const test_createRandom_TagCustom = _test_random(
         });
         return $ro0();
     },
-    (input: any): TagCustom => {
+    (input: any): typia.Primitive<TagCustom> => {
         const $guard = (typia.createAssert as any).guard;
         const $is_uuid = (typia.createAssert as any).is_uuid;
         const $is_custom = (typia.createAssert as any).is_custom;
-        const __is = (input: any): input is TagCustom => {
+        const __is = (input: any): input is typia.Primitive<TagCustom> => {
             const $is_uuid = (typia.createAssert as any).is_uuid;
             const $is_custom = (typia.createAssert as any).is_custom;
             const $io0 = (input: any): boolean =>
@@ -66,7 +66,7 @@ export const test_createRandom_TagCustom = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is TagCustom => {
+            ): input is typia.Primitive<TagCustom> => {
                 const $ao0 = (
                     input: any,
                     _path: string,

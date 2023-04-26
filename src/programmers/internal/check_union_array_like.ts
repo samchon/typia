@@ -149,10 +149,9 @@ export const check_union_array_like =
             ts.factory.createIdentifier("filtered"),
             ts.factory.createIfStatement(
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(
+                    IdentifierFactory.access(
                         ts.factory.createIdentifier("array"),
-                        "every",
-                    ),
+                    )("every"),
                     undefined,
                     [
                         ts.factory.createArrowFunction(

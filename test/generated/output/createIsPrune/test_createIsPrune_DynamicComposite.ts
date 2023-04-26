@@ -38,6 +38,21 @@ export const test_createIsPrune_DynamicComposite = _test_isPrune(
         const prune = (input: DynamicComposite): void => {
             const $join = (typia.createIsPrune as any).join;
             const $po0 = (input: any): any => {
+                Object.entries(input).forEach(([key, value]) => {
+                    if (undefined === value) return;
+                    if ("id" === key) return;
+                    if ("name" === key) return;
+                    if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
+                    }
+                    if (RegExp(/^(prefix_(.*))/).test(key)) {
+                    }
+                    if (RegExp(/((.*)_postfix)$/).test(key)) {
+                    }
+                    if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key)) {
+                    }
+                    if (RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)) {
+                    }
+                });
                 for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||

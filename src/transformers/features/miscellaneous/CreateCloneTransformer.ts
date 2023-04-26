@@ -4,6 +4,6 @@ import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace CreateCloneTransformer {
     export const transform = GenericTransformer.factory("createClone")(
-        (project, modulo) => CloneProgrammer.generate(project, modulo),
+        (project) => (modulo) => CloneProgrammer.write(project)(modulo),
     );
 }

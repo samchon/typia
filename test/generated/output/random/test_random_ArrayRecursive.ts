@@ -43,9 +43,9 @@ export const test_random_ArrayRecursive = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): ArrayRecursive => {
+    (input: any): typia.Primitive<ArrayRecursive> => {
         const $guard = (typia.createAssert as any).guard;
-        const __is = (input: any): input is ArrayRecursive => {
+        const __is = (input: any): input is typia.Primitive<ArrayRecursive> => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(
@@ -70,7 +70,7 @@ export const test_random_ArrayRecursive = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ArrayRecursive => {
+            ): input is typia.Primitive<ArrayRecursive> => {
                 const $ao0 = (
                     input: any,
                     _path: string,
