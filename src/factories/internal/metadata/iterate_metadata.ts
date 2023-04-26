@@ -2,8 +2,7 @@ import ts from "typescript";
 
 import { Metadata } from "../../../metadata/Metadata";
 
-import { ArrayUtil } from "../../../utils/ArrayUtil";
-
+// import { ArrayUtil } from "../../../utils/ArrayUtil";
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
 import { iterate_metadata_array } from "./iterate_metadata_array";
@@ -43,18 +42,6 @@ export const iterate_metadata =
             )
         )
             return;
-
-        // VALIDATE NODE
-        const node: ts.TypeNode | undefined = checker.typeToTypeNode(
-            type,
-            undefined,
-            undefined,
-        );
-        if (node === undefined) {
-            // EMPTY TUPLE CASE CAN BE
-            ArrayUtil.set(meta.tuples, [], () => "[]");
-            return;
-        }
 
         // ITERATE CASES
         iterate_metadata_coalesce(meta, type) ||

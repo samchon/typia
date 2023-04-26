@@ -35,7 +35,7 @@ export const application_string = (
     }
 
     // DEFAULT CONFIGURATION
-    output.default = application_default_string(meta, attribute)(output);
+    output.default = application_default_string(meta)(attribute)(output);
 
     // RETURNS
     return output;

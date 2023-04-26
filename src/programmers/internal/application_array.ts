@@ -12,25 +12,24 @@ export const application_array =
     (options: ApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
     (tuple?: IJsonSchema.ITuple) =>
-    (
-        metadata: Metadata,
-        nullable: boolean,
-        attribute: IJsonSchema.IAttribute,
-    ): IJsonSchema.IArray => {
+    (metadata: Metadata) =>
+    (props: {
+        nullable: boolean;
+        attribute: IJsonSchema.IAttribute;
+    }): IJsonSchema.IArray => {
         // SCHEMA
         const output: IJsonSchema.IArray = {
             type: "array",
-            items: application_schema(options)(components)(false)(
-                metadata,
-                attribute,
+            items: application_schema(options)(false)(components)(metadata)(
+                props.attribute,
             ),
-            nullable,
+            nullable: props.nullable,
             "x-typia-tuple": tuple,
-            ...attribute,
+            ...props.attribute,
         };
 
         // RANGE
-        for (const tag of attribute["x-typia-metaTags"] || [])
+        for (const tag of props.attribute["x-typia-metaTags"] || [])
             if (tag.kind === "minItems") output.minItems = tag.value;
             else if (tag.kind === "maxItems") output.maxItems = tag.value;
         return output;

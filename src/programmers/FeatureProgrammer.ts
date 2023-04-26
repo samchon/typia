@@ -46,13 +46,14 @@ export namespace FeatureProgrammer {
          */
         trace: boolean;
 
+        addition?(collection: MetadataCollection): ts.Statement[];
+
         /**
          * Initializer of metadata.
          */
-        initializer(
+        initializer: (
             project: IProject,
-            type: ts.Type,
-        ): [MetadataCollection, Metadata];
+        ) => (type: ts.Type) => [MetadataCollection, Metadata];
 
         /**
          * Decoder, station of every types.
@@ -211,26 +212,12 @@ export namespace FeatureProgrammer {
     /* -----------------------------------------------------------
         GENERATORS
     ----------------------------------------------------------- */
-    /**
-     * Generates a decoder function for a specific type.
-     *
-     * @param project Project configuration
-     * @param config Detailed configuration for programming
-     * @param importer Function importer
-     * @param addition Generator of additinal statements in the top of function
-     * @returns Currying function generating type decoder function
-     */
-    export const generate =
-        (
-            project: IProject,
-            config: IConfig,
-            importer: FunctionImporter,
-            addition: (
-                collection: MetadataCollection,
-            ) => ts.Statement[] | undefined,
-        ) =>
+    export const analyze =
+        (project: IProject) =>
+        (config: IConfig) =>
+        (importer: FunctionImporter) =>
         (type: ts.Type, name?: string) => {
-            const [collection, meta] = config.initializer(project, type);
+            const [collection, meta] = config.initializer(project)(type);
 
             // ITERATE OVER ALL METADATA
             const output: ts.ConciseBody = config.decoder(
@@ -248,14 +235,14 @@ export namespace FeatureProgrammer {
 
             // RETURNS THE OPTIMAL ARROW FUNCTION
             const functors: ts.VariableStatement[] = (
-                config.generator?.functors ??
-                generate_functors(config)(importer)
+                config.generator?.functors ?? write_functors(config)(importer)
             )(collection);
             const unioners: ts.VariableStatement[] = (
-                config.generator?.unioners ??
-                generate_unioners(config)(importer)
+                config.generator?.unioners ?? write_unioners(config)(importer)
             )(collection);
-            const added: ts.Statement[] | undefined = addition(collection);
+            const added: ts.Statement[] = (config.addition ?? (() => []))(
+                collection,
+            );
 
             return ts.factory.createArrowFunction(
                 undefined,
@@ -267,7 +254,7 @@ export namespace FeatureProgrammer {
                 undefined,
                 ts.factory.createBlock(
                     [
-                        ...(added || []),
+                        ...added,
                         ...functors.filter((_, i) =>
                             importer.hasLocal(`${config.functors}${i}`),
                         ),
@@ -283,7 +270,7 @@ export namespace FeatureProgrammer {
             );
         };
 
-    export const generate_functors =
+    export const write_functors =
         (config: IConfig) =>
         (importer: FunctionImporter) =>
         (collection: MetadataCollection) =>
@@ -292,11 +279,11 @@ export namespace FeatureProgrammer {
                 .map((obj, i) =>
                     StatementFactory.constant(
                         `${config.functors}${i}`,
-                        generate_object(config)(importer)(obj),
+                        write_object(config)(importer)(obj),
                     ),
                 );
 
-    export const generate_unioners =
+    export const write_unioners =
         (config: IConfig) =>
         (importer: FunctionImporter) =>
         (collection: MetadataCollection) =>
@@ -305,11 +292,11 @@ export namespace FeatureProgrammer {
                 .map((union, i) =>
                     StatementFactory.constant(
                         importer.useLocal(`${config.unioners}${i}`),
-                        generate_union(config)(union),
+                        write_union(config)(union),
                     ),
                 );
 
-    const generate_object =
+    const write_object =
         (config: IConfig) =>
         (importer: FunctionImporter) =>
         (obj: MetadataObject) =>
@@ -330,7 +317,7 @@ export namespace FeatureProgrammer {
                 ),
             );
 
-    function generate_union(config: IConfig) {
+    const write_union = (config: IConfig) => {
         const explorer = UnionExplorer.object(config);
         const input = ValueFactory.INPUT();
 
@@ -356,69 +343,70 @@ export namespace FeatureProgrammer {
                     [],
                 ),
             );
-    }
+    };
 
     /* -----------------------------------------------------------
         DECODERS
     ----------------------------------------------------------- */
-    export function decode_array(
-        config: Pick<IConfig, "trace" | "path" | "decoder">,
-        importer: FunctionImporter,
-        combiner: (
-            input: ts.Expression,
-            arrow: ts.ArrowFunction,
-            metaTags: IMetadataTag[],
-            jsDocTags: ts.JSDocTagInfo[],
-        ) => ts.Expression,
-    ) {
-        const rand: string = importer.increment().toString();
-        const tail =
-            config.path || config.trace
-                ? [
-                      IdentifierFactory.parameter(
-                          "_index" + rand,
-                          TypeFactory.keyword("number"),
-                      ),
-                  ]
-                : [];
-
-        return (
-            input: ts.Expression,
-            meta: Metadata,
-            explore: IExplore,
-            metaTags: IMetadataTag[],
-            jsDocTags: IJsDocTagInfo[],
+    export const decode_array =
+        (config: Pick<IConfig, "trace" | "path" | "decoder">) =>
+        (importer: FunctionImporter) =>
+        (
+            combiner: (
+                input: ts.Expression,
+                arrow: ts.ArrowFunction,
+                metaTags: IMetadataTag[],
+                jsDocTags: ts.JSDocTagInfo[],
+            ) => ts.Expression,
         ) => {
-            const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
-                undefined,
-                undefined,
-                [
-                    IdentifierFactory.parameter(
-                        "elem",
-                        TypeFactory.keyword("any"),
+            const rand: string = importer.increment().toString();
+            const tail =
+                config.path || config.trace
+                    ? [
+                          IdentifierFactory.parameter(
+                              "_index" + rand,
+                              TypeFactory.keyword("number"),
+                          ),
+                      ]
+                    : [];
+
+            return (
+                input: ts.Expression,
+                meta: Metadata,
+                explore: IExplore,
+                metaTags: IMetadataTag[],
+                jsDocTags: IJsDocTagInfo[],
+            ) => {
+                const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
+                    undefined,
+                    undefined,
+                    [
+                        IdentifierFactory.parameter(
+                            "elem",
+                            TypeFactory.keyword("any"),
+                        ),
+                        ...tail,
+                    ],
+                    undefined,
+                    undefined,
+                    config.decoder(
+                        ValueFactory.INPUT("elem"),
+                        meta,
+                        {
+                            tracable: explore.tracable,
+                            source: explore.source,
+                            from: "array",
+                            postfix: INDEX_SYMBOL(explore.start ?? null)(
+                                explore.postfix,
+                            )(rand),
+                        },
+                        metaTags,
+                        jsDocTags,
                     ),
-                    ...tail,
-                ],
-                undefined,
-                undefined,
-                config.decoder(
-                    ValueFactory.INPUT("elem"),
-                    meta,
-                    {
-                        tracable: explore.tracable,
-                        source: explore.source,
-                        from: "array",
-                        postfix: INDEX_SYMBOL(explore.start ?? null)(
-                            explore.postfix,
-                        )(rand),
-                    },
-                    metaTags,
-                    jsDocTags,
-                ),
-            );
-            return combiner(input, arrow, metaTags, jsDocTags);
+                );
+                return combiner(input, arrow, metaTags, jsDocTags);
+            };
         };
-    }
 
     export const decode_object =
         (config: Pick<IConfig, "trace" | "path" | "functors">) =>

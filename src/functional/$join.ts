@@ -1,14 +1,10 @@
-export function $join(str: string): string {
-    return variable(str) ? `.${str}` : `[${JSON.stringify(str)}]`;
-}
+export const $join = (str: string): string =>
+    variable(str) ? `.${str}` : `[${JSON.stringify(str)}]`;
 
-function variable(str: string): boolean {
-    return reserved(str) === false && /^[a-zA-Z_$][a-zA-Z_$0-9]*$/g.test(str);
-}
+const variable = (str: string): boolean =>
+    reserved(str) === false && /^[a-zA-Z_$][a-zA-Z_$0-9]*$/g.test(str);
 
-function reserved(str: string): boolean {
-    return RESERVED.has(str);
-}
+const reserved = (str: string): boolean => RESERVED.has(str);
 
 const RESERVED: Set<string> = new Set([
     "break",

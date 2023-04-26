@@ -3,7 +3,7 @@ import ts from "typescript";
 import { IdentifierFactory } from "./IdentifierFactory";
 
 export namespace LiteralFactory {
-    export function generate(input: any): ts.Expression {
+    export const generate = (input: any): ts.Expression => {
         if (input === null) return ts.factory.createNull();
         else if (ts.isIdentifier(input)) return input;
         else if (input instanceof Array) return generate_array(input);
@@ -13,32 +13,27 @@ export namespace LiteralFactory {
         else if (typeof input === "number") return generate_value(input);
         else if (typeof input === "bigint") return generate_value(input);
         else throw new Error("Unknown type.");
-    }
+    };
 
-    function generate_object(obj: object): ts.ObjectLiteralExpression {
-        const properties = Object.entries(obj)
-            .filter((tuple) => tuple[1] !== undefined)
-            .map(([key, value]) =>
-                ts.factory.createPropertyAssignment(
-                    IdentifierFactory.generate(key),
-                    generate(value),
+    const generate_object = (obj: object): ts.ObjectLiteralExpression =>
+        ts.factory.createObjectLiteralExpression(
+            Object.entries(obj)
+                .filter((tuple) => tuple[1] !== undefined)
+                .map(([key, value]) =>
+                    ts.factory.createPropertyAssignment(
+                        IdentifierFactory.identifier(key),
+                        generate(value),
+                    ),
                 ),
-            );
-        return ts.factory.createObjectLiteralExpression(properties, true);
-    }
-
-    function generate_array(array: any[]): ts.ArrayLiteralExpression {
-        return ts.factory.createArrayLiteralExpression(
-            array.map(generate),
             true,
         );
-    }
 
-    function generate_value(value: number | boolean | bigint): ts.Identifier {
-        return ts.factory.createIdentifier(value.toString());
-    }
+    const generate_array = (array: any[]): ts.ArrayLiteralExpression =>
+        ts.factory.createArrayLiteralExpression(array.map(generate), true);
 
-    function generate_string(value: string): ts.StringLiteral {
-        return ts.factory.createStringLiteral(value);
-    }
+    const generate_value = (value: number | boolean | bigint): ts.Identifier =>
+        ts.factory.createIdentifier(value.toString());
+
+    const generate_string = (value: string): ts.StringLiteral =>
+        ts.factory.createStringLiteral(value);
 }

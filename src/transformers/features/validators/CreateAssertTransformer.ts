@@ -6,7 +6,8 @@ export namespace CreateAssertTransformer {
     export const transform = (equals: boolean) =>
         GenericTransformer.factory(
             equals ? "createAssertEquals" : "createAssert",
-        )((project, modulo) =>
-            AssertProgrammer.generate(project, modulo, equals),
+        )(
+            (project) => (modulo) =>
+                AssertProgrammer.write(project)(modulo)(equals),
         );
 }

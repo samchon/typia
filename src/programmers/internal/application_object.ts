@@ -18,10 +18,11 @@ import { metadata_to_pattern } from "./metadata_to_pattern";
 export const application_object =
     (options: ApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
-    (key: string, obj: MetadataObject, nullable: boolean): void => {
+    (obj: MetadataObject) =>
+    (props: { key: string; nullable: boolean }): void => {
         // TEMPORARY ASSIGNMENT
-        if (components.schemas[key] !== undefined) return;
-        components.schemas[key] = {} as any;
+        if (components.schemas[props.key] !== undefined) return;
+        components.schemas[props.key] = {} as any;
 
         // ITERATE PROPERTIES
         const properties: Record<string, any> = {};
@@ -42,8 +43,8 @@ export const application_object =
 
             const key: string | null = property.key.getSoleLiteral();
             const schema: IJsonSchema | null = application_schema(options)(
-                components,
-            )(true)(property.value, {
+                true,
+            )(components)(property.value)({
                 deprecated:
                     !!property.jsDocTags.find(
                         (tag) => tag.name === "deprecated",
@@ -52,7 +53,7 @@ export const application_object =
                     const info: IJsDocTagInfo | undefined =
                         property.jsDocTags.find((tag) => tag.name === "title");
                     return info?.text?.length
-                        ? CommentFactory.generate(info.text)
+                        ? CommentFactory.string(info.text)
                         : undefined;
                 })(),
                 description: property.description,
@@ -97,13 +98,13 @@ export const application_object =
         const schema: IJsonComponents.IObject = {
             $id:
                 options.purpose === "ajv"
-                    ? options.prefix + "/" + key
+                    ? options.prefix + "/" + props.key
                     : undefined,
             $recursiveAnchor:
                 (options.purpose === "ajv" && obj.recursive) || undefined,
             type: "object",
             properties,
-            nullable,
+            nullable: props.nullable,
             required: required.length ? required : undefined,
             description: obj.description,
             "x-typia-jsDocTags": obj.jsDocTags,
@@ -118,7 +119,7 @@ export const application_object =
                           join(options)(components)(extraMeta),
                   }),
         };
-        components.schemas[key] = schema;
+        components.schemas[props.key] = schema;
     };
 
 const join =
@@ -141,7 +142,7 @@ const join =
             .map((tuple) => tuple[0])
             .reduce((x, y) => Metadata.merge(x, y));
         return (
-            application_schema(options)(components)(true)(meta, {
+            application_schema(options)(true)(components)(meta)({
                 "x-typia-required": false,
             }) ?? undefined
         );

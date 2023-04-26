@@ -458,7 +458,7 @@ export const customValidators: CustomValidatorMap = {
     has: (name) => (type) => $dictionary.get(name)?.has(type) ?? false,
     get: (name) => (type) => $dictionary.get(name)?.get(type),
     insert: (name) => (type) => (closure) => {
-        const internal = MapUtil.take($dictionary, name, () => new Map());
+        const internal = MapUtil.take($dictionary)(name, () => new Map());
         if (internal.has(type)) return false;
         internal.set(type, closure);
         return true;
@@ -570,12 +570,12 @@ export function assertParse(input: string): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertParse<T>(input: string): T;
+export function assertParse<T>(input: string): Primitive<T>;
 
 /**
  * @internal
  */
-export function assertParse<T>(): T {
+export function assertParse<T>(): Primitive<T> {
     halt("assertParse");
 }
 Object.assign(assertParse, Namespace.assert("assertParse"));
@@ -618,12 +618,12 @@ export function isParse(input: string): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isParse<T>(input: string): T | null;
+export function isParse<T>(input: string): Primitive<T> | null;
 
 /**
  * @internal
  */
-export function isParse<T>(): T | null {
+export function isParse<T>(): Primitive<T> | null {
     halt("isParse");
 }
 Object.assign(isParse, is);
@@ -668,12 +668,12 @@ export function validateParse(input: string): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validateParse<T>(input: string): IValidation<T>;
+export function validateParse<T>(input: string): IValidation<Primitive<T>>;
 
 /**
  * @internal
  */
-export function validateParse<T>(): IValidation<T> {
+export function validateParse<T>(): IValidation<Primitive<T>> {
     halt("validateParse");
 }
 Object.assign(validateParse, validate);

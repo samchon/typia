@@ -110,22 +110,18 @@ export class MetadataObject {
  * @internal
  */
 export namespace MetadataObject {
-    export function intersects(x: MetadataObject, y: MetadataObject): boolean {
-        return x.properties.some(
+    export const intersects = (x: MetadataObject, y: MetadataObject): boolean =>
+        x.properties.some(
             (prop) =>
                 y.properties.find((oppo) => prop.key === oppo.key) !==
                 undefined,
         );
-    }
 
-    export function covers(x: MetadataObject, y: MetadataObject): boolean {
-        return (
-            x.properties.length >= y.properties.length &&
-            x.properties.every(
-                (prop) =>
-                    y.properties.find((oppo) => prop.key === oppo.key) !==
-                    undefined,
-            )
+    export const covers = (x: MetadataObject, y: MetadataObject): boolean =>
+        x.properties.length >= y.properties.length &&
+        x.properties.every(
+            (prop) =>
+                y.properties.find((oppo) => prop.key === oppo.key) !==
+                undefined,
         );
-    }
 }
