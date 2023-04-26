@@ -1,14 +1,2325 @@
 import typia from "../../../../src";
-import { _test_assert } from "../../../internal/_test_assert";
+import { _test_random } from "../../../internal/_test_random";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
-export const test_createAssert_UltimateUnion = _test_assert(
+export const test_createRandom_UltimateUnion = _test_random(
     "UltimateUnion",
-    UltimateUnion.generate,
-    (input: any): UltimateUnion => {
+    (
+        generator?: Partial<typia.IRandomGenerator>,
+    ): typia.Primitive<UltimateUnion> => {
+        const $generator = (typia.createRandom as any).generator;
+        const $pick = (typia.createRandom as any).pick;
+        const $ro0 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            schemas: (generator?.array ?? $generator.array)(() =>
+                $pick([
+                    () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+                    () => $ro19(_recursive, _recursive ? 1 + _depth : _depth),
+                    () => $ro20(_recursive, _recursive ? 1 + _depth : _depth),
+                    () => $ro21(_recursive, _recursive ? 1 + _depth : _depth),
+                    () => $ro22(_recursive, _recursive ? 1 + _depth : _depth),
+                    () => $ro23(_recursive, _recursive ? 1 + _depth : _depth),
+                    () => $ro24(_recursive, _recursive ? 1 + _depth : _depth),
+                    () => $ro25(_recursive, _recursive ? 1 + _depth : _depth),
+                    () => $ro26(_recursive, _recursive ? 1 + _depth : _depth),
+                    () => $ro27(_recursive, _recursive ? 1 + _depth : _depth),
+                    () => $ro28(_recursive, _recursive ? 1 + _depth : _depth),
+                    () => $ro29(_recursive, _recursive ? 1 + _depth : _depth),
+                    () => $ro30(_recursive, _recursive ? 1 + _depth : _depth),
+                    () => $ro31(_recursive, _recursive ? 1 + _depth : _depth),
+                ])(),
+            ),
+            components: $ro32(_recursive, _recursive ? 1 + _depth : _depth),
+            purpose: $pick([() => "ajv", () => "swagger"])(),
+            prefix:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+        });
+        const $ro1 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            enum: (generator?.array ?? $generator.array)(() =>
+                (generator?.boolean ?? $generator.boolean)(),
+            ),
+            default: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            type: "boolean",
+            nullable: (generator?.boolean ?? $generator.boolean)(),
+            deprecated: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            title: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-metaTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $pick([
+                            () =>
+                                $ro2(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro3(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro4(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro5(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro6(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro7(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro8(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro9(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro10(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro11(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro12(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro13(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro14(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro15(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro16(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                        ])(),
+                    ),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $ro17(_recursive, _recursive ? 1 + _depth : _depth),
+                    ),
+            ])(),
+            "x-typia-required": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            "x-typia-rest": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+        });
+        const $ro2 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "type",
+            value: $pick([() => "int", () => "uint"])(),
+        });
+        const $ro3 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "minimum",
+            value:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+        });
+        const $ro4 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "maximum",
+            value:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+        });
+        const $ro5 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "exclusiveMinimum",
+            value:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+        });
+        const $ro6 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "exclusiveMaximum",
+            value:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+        });
+        const $ro7 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "multipleOf",
+            value:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+        });
+        const $ro8 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "step",
+            value:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+        });
+        const $ro9 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "format",
+            value: $pick([
+                () => "url",
+                () => "uuid",
+                () => "email",
+                () => "ipv4",
+                () => "ipv6",
+                () => "date",
+                () => "datetime",
+            ])(),
+        });
+        const $ro10 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "pattern",
+            value:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+        });
+        const $ro11 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "length",
+            value:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+        });
+        const $ro12 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "minLength",
+            value:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+        });
+        const $ro13 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "maxLength",
+            value:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+        });
+        const $ro14 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "items",
+            value:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+        });
+        const $ro15 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "minItems",
+            value:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+        });
+        const $ro16 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            kind: "maxItems",
+            value:
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                (generator?.number ?? $generator.number)(0, 100),
+        });
+        const $ro17 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            name:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            text: $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $ro18(_recursive, _recursive ? 1 + _depth : _depth),
+                    ),
+            ])(),
+        });
+        const $ro18 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            text:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            kind:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+        });
+        const $ro19 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            enum: (generator?.array ?? $generator.array)(
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+            ),
+            default: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+            ])(),
+            type: "number",
+            nullable: (generator?.boolean ?? $generator.boolean)(),
+            deprecated: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            title: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-metaTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $pick([
+                            () =>
+                                $ro2(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro3(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro4(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro5(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro6(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro7(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro8(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro9(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro10(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro11(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro12(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro13(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro14(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro15(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro16(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                        ])(),
+                    ),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $ro17(_recursive, _recursive ? 1 + _depth : _depth),
+                    ),
+            ])(),
+            "x-typia-required": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            "x-typia-rest": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+        });
+        const $ro20 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            enum: (generator?.array ?? $generator.array)(
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ),
+            default: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            type: "string",
+            nullable: (generator?.boolean ?? $generator.boolean)(),
+            deprecated: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            title: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-metaTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $pick([
+                            () =>
+                                $ro2(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro3(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro4(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro5(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro6(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro7(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro8(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro9(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro10(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro11(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro12(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro13(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro14(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro15(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro16(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                        ])(),
+                    ),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $ro17(_recursive, _recursive ? 1 + _depth : _depth),
+                    ),
+            ])(),
+            "x-typia-required": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            "x-typia-rest": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+        });
+        const $ro21 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            default: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            type: "boolean",
+            nullable: (generator?.boolean ?? $generator.boolean)(),
+            deprecated: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            title: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-metaTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $pick([
+                            () =>
+                                $ro2(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro3(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro4(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro5(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro6(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro7(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro8(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro9(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro10(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro11(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro12(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro13(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro14(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro15(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro16(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                        ])(),
+                    ),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $ro17(_recursive, _recursive ? 1 + _depth : _depth),
+                    ),
+            ])(),
+            "x-typia-required": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            "x-typia-rest": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+        });
+        const $ro22 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            minimum: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "type",
+                            value: "int",
+                        },
+                    ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
+            ])(),
+            maximum: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "type",
+                            value: "int",
+                        },
+                    ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
+            ])(),
+            exclusiveMinimum: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            exclusiveMaximum: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            multipleOf: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "type",
+                            value: "int",
+                        },
+                    ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
+            ])(),
+            default: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+            ])(),
+            type: "integer",
+            nullable: (generator?.boolean ?? $generator.boolean)(),
+            deprecated: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            title: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-metaTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $pick([
+                            () =>
+                                $ro2(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro3(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro4(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro5(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro6(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro7(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro8(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro9(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro10(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro11(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro12(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro13(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro14(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro15(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro16(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                        ])(),
+                    ),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $ro17(_recursive, _recursive ? 1 + _depth : _depth),
+                    ),
+            ])(),
+            "x-typia-required": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            "x-typia-rest": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+        });
+        const $ro23 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            minimum: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+            ])(),
+            maximum: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+            ])(),
+            exclusiveMinimum: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            exclusiveMaximum: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            multipleOf: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+            ])(),
+            default: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+            ])(),
+            type: "number",
+            nullable: (generator?.boolean ?? $generator.boolean)(),
+            deprecated: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            title: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-metaTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $pick([
+                            () =>
+                                $ro2(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro3(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro4(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro5(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro6(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro7(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro8(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro9(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro10(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro11(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro12(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro13(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro14(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro15(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro16(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                        ])(),
+                    ),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $ro17(_recursive, _recursive ? 1 + _depth : _depth),
+                    ),
+            ])(),
+            "x-typia-required": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            "x-typia-rest": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+        });
+        const $ro24 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            minLength: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "type",
+                            value: "uint",
+                        },
+                    ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
+            ])(),
+            maxLength: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "type",
+                            value: "uint",
+                        },
+                    ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
+            ])(),
+            pattern: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            format: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            default: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            type: "string",
+            nullable: (generator?.boolean ?? $generator.boolean)(),
+            deprecated: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            title: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-metaTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $pick([
+                            () =>
+                                $ro2(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro3(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro4(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro5(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro6(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro7(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro8(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro9(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro10(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro11(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro12(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro13(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro14(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro15(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro16(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                        ])(),
+                    ),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $ro17(_recursive, _recursive ? 1 + _depth : _depth),
+                    ),
+            ])(),
+            "x-typia-required": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            "x-typia-rest": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+        });
+        const $ro25 = (
+            _recursive: boolean = true,
+            _depth: number = 0,
+        ): any => ({
+            items: $pick([
+                () => $ro1(true, _recursive ? 1 + _depth : _depth),
+                () => $ro19(true, _recursive ? 1 + _depth : _depth),
+                () => $ro20(true, _recursive ? 1 + _depth : _depth),
+                () => $ro21(true, _recursive ? 1 + _depth : _depth),
+                () => $ro22(true, _recursive ? 1 + _depth : _depth),
+                () => $ro23(true, _recursive ? 1 + _depth : _depth),
+                () => $ro24(true, _recursive ? 1 + _depth : _depth),
+                () => $ro25(true, _recursive ? 1 + _depth : _depth),
+                () => $ro26(true, _recursive ? 1 + _depth : _depth),
+                () => $ro27(true, _recursive ? 1 + _depth : _depth),
+                () => $ro28(true, _recursive ? 1 + _depth : _depth),
+                () => $ro29(true, _recursive ? 1 + _depth : _depth),
+                () => $ro30(true, _recursive ? 1 + _depth : _depth),
+                () => $ro31(true, _recursive ? 1 + _depth : _depth),
+            ])(),
+            minItems: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "type",
+                            value: "uint",
+                        },
+                    ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
+            ])(),
+            maxItems: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "type",
+                            value: "uint",
+                        },
+                    ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
+            ])(),
+            "x-typia-tuple": $pick([
+                () => undefined,
+                () => $ro26(true, _recursive ? 1 + _depth : _depth),
+            ])(),
+            type: "array",
+            nullable: (generator?.boolean ?? $generator.boolean)(),
+            deprecated: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            title: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-metaTags": $pick([
+                () => undefined,
+                () =>
+                    _recursive && 5 < _depth
+                        ? []
+                        : (generator?.array ?? $generator.array)(() =>
+                              $pick([
+                                  () =>
+                                      $ro2(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro3(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro4(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro5(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro6(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro7(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro8(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro9(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro10(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro11(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro12(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro13(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro14(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro15(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro16(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                              ])(),
+                          ),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    _recursive && 5 < _depth
+                        ? []
+                        : (generator?.array ?? $generator.array)(() =>
+                              $ro17(true, _recursive ? 1 + _depth : _depth),
+                          ),
+            ])(),
+            "x-typia-required": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            "x-typia-rest": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+        });
+        const $ro26 = (
+            _recursive: boolean = true,
+            _depth: number = 0,
+        ): any => ({
+            items:
+                _recursive && 5 < _depth
+                    ? []
+                    : (generator?.array ?? $generator.array)(() =>
+                          $pick([
+                              () =>
+                                  $ro1(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro19(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro20(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro21(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro22(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro23(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro24(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro26(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro25(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro27(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro28(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro29(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro30(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro31(true, _recursive ? 1 + _depth : _depth),
+                          ])(),
+                      ),
+            type: "array",
+            nullable: (generator?.boolean ?? $generator.boolean)(),
+            deprecated: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            title: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-metaTags": $pick([
+                () => undefined,
+                () =>
+                    _recursive && 5 < _depth
+                        ? []
+                        : (generator?.array ?? $generator.array)(() =>
+                              $pick([
+                                  () =>
+                                      $ro2(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro3(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro4(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro5(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro6(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro7(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro8(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro9(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro10(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro11(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro12(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro13(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro14(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro15(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro16(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                              ])(),
+                          ),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    _recursive && 5 < _depth
+                        ? []
+                        : (generator?.array ?? $generator.array)(() =>
+                              $ro17(true, _recursive ? 1 + _depth : _depth),
+                          ),
+            ])(),
+            "x-typia-required": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            "x-typia-rest": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+        });
+        const $ro27 = (
+            _recursive: boolean = true,
+            _depth: number = 0,
+        ): any => ({
+            oneOf:
+                _recursive && 5 < _depth
+                    ? []
+                    : (generator?.array ?? $generator.array)(() =>
+                          $pick([
+                              () =>
+                                  $ro1(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro19(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro20(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro21(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro22(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro23(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro24(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro27(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro26(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro25(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro28(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro29(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro30(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro31(true, _recursive ? 1 + _depth : _depth),
+                          ])(),
+                      ),
+            deprecated: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            title: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-metaTags": $pick([
+                () => undefined,
+                () =>
+                    _recursive && 5 < _depth
+                        ? []
+                        : (generator?.array ?? $generator.array)(() =>
+                              $pick([
+                                  () =>
+                                      $ro2(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro3(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro4(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro5(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro6(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro7(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro8(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro9(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro10(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro11(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro12(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro13(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro14(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro15(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                                  () =>
+                                      $ro16(
+                                          true,
+                                          _recursive ? 1 + _depth : _depth,
+                                      ),
+                              ])(),
+                          ),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    _recursive && 5 < _depth
+                        ? []
+                        : (generator?.array ?? $generator.array)(() =>
+                              $ro17(true, _recursive ? 1 + _depth : _depth),
+                          ),
+            ])(),
+            "x-typia-required": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            "x-typia-rest": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+        });
+        const $ro28 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            $ref:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            deprecated: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            title: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-metaTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $pick([
+                            () =>
+                                $ro2(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro3(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro4(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro5(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro6(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro7(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro8(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro9(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro10(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro11(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro12(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro13(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro14(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro15(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro16(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                        ])(),
+                    ),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $ro17(_recursive, _recursive ? 1 + _depth : _depth),
+                    ),
+            ])(),
+            "x-typia-required": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            "x-typia-rest": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+        });
+        const $ro29 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            $recursiveRef:
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                (generator?.string ?? $generator.string)(),
+            deprecated: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            title: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-metaTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $pick([
+                            () =>
+                                $ro2(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro3(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro4(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro5(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro6(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro7(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro8(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro9(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro10(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro11(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro12(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro13(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro14(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro15(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro16(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                        ])(),
+                    ),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $ro17(_recursive, _recursive ? 1 + _depth : _depth),
+                    ),
+            ])(),
+            "x-typia-required": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            "x-typia-rest": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+        });
+        const $ro30 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            type: "null",
+            deprecated: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            title: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-metaTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $pick([
+                            () =>
+                                $ro2(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro3(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro4(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro5(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro6(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro7(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro8(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro9(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro10(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro11(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro12(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro13(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro14(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro15(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro16(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                        ])(),
+                    ),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $ro17(_recursive, _recursive ? 1 + _depth : _depth),
+                    ),
+            ])(),
+            "x-typia-required": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            "x-typia-rest": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+        });
+        const $ro31 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            type: undefined,
+            deprecated: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            title: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-metaTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $pick([
+                            () =>
+                                $ro2(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro3(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro4(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro5(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro6(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro7(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro8(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro9(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro10(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro11(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro12(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro13(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro14(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro15(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                            () =>
+                                $ro16(
+                                    _recursive,
+                                    _recursive ? 1 + _depth : _depth,
+                                ),
+                        ])(),
+                    ),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $ro17(_recursive, _recursive ? 1 + _depth : _depth),
+                    ),
+            ])(),
+            "x-typia-required": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            "x-typia-rest": $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+        });
+        const $ro32 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            schemas: $ro33(_recursive, _recursive ? 1 + _depth : _depth),
+        });
+        const $ro33 = (_recursive: boolean = true, _depth: number = 0): any => {
+            const output = {} as any;
+            if (5 >= _depth) {
+                (generator?.array ?? $generator.array)(
+                    () =>
+                        (output[
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.string?.([]) ??
+                                (generator?.string ?? $generator.string)()
+                        ] = $ro34(true, _recursive ? 1 + _depth : _depth)),
+                    (generator?.integer ?? $generator.integer)(0, 3),
+                );
+            }
+            return output;
+        };
+        const $ro34 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            $id: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            $recursiveAnchor: $pick([
+                () => undefined,
+                () => (generator?.boolean ?? $generator.boolean)(),
+            ])(),
+            type: "object",
+            nullable: (generator?.boolean ?? $generator.boolean)(),
+            properties: $ro35(_recursive, _recursive ? 1 + _depth : _depth),
+            patternProperties: $pick([
+                () => undefined,
+                () => $ro35(_recursive, _recursive ? 1 + _depth : _depth),
+            ])(),
+            additionalProperties: $pick([
+                () => undefined,
+                () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro19(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro20(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro21(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro22(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro23(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro24(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro25(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro26(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro27(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro28(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro29(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro30(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro31(_recursive, _recursive ? 1 + _depth : _depth),
+            ])(),
+            required: $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(
+                        () =>
+                            (
+                                generator?.customs ?? $generator.customs
+                            )?.string?.([]) ??
+                            (generator?.string ?? $generator.string)(),
+                    ),
+            ])(),
+            description: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+            ])(),
+            "x-typia-jsDocTags": $pick([
+                () => undefined,
+                () =>
+                    (generator?.array ?? $generator.array)(() =>
+                        $ro17(_recursive, _recursive ? 1 + _depth : _depth),
+                    ),
+            ])(),
+            "x-typia-patternProperties": $pick([
+                () => undefined,
+                () => $ro35(_recursive, _recursive ? 1 + _depth : _depth),
+            ])(),
+            "x-typia-additionalProperties": $pick([
+                () => undefined,
+                () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro19(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro20(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro21(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro22(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro23(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro24(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro25(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro26(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro27(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro28(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro29(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro30(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro31(_recursive, _recursive ? 1 + _depth : _depth),
+            ])(),
+        });
+        const $ro35 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => {
+            const output = {} as any;
+            (generator?.array ?? $generator.array)(
+                () =>
+                    (output[
+                        (generator?.customs ?? $generator.customs)?.string?.(
+                            [],
+                        ) ?? (generator?.string ?? $generator.string)()
+                    ] = $pick([
+                        () =>
+                            $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+                        () =>
+                            $ro19(_recursive, _recursive ? 1 + _depth : _depth),
+                        () =>
+                            $ro20(_recursive, _recursive ? 1 + _depth : _depth),
+                        () =>
+                            $ro21(_recursive, _recursive ? 1 + _depth : _depth),
+                        () =>
+                            $ro22(_recursive, _recursive ? 1 + _depth : _depth),
+                        () =>
+                            $ro23(_recursive, _recursive ? 1 + _depth : _depth),
+                        () =>
+                            $ro24(_recursive, _recursive ? 1 + _depth : _depth),
+                        () =>
+                            $ro25(_recursive, _recursive ? 1 + _depth : _depth),
+                        () =>
+                            $ro26(_recursive, _recursive ? 1 + _depth : _depth),
+                        () =>
+                            $ro27(_recursive, _recursive ? 1 + _depth : _depth),
+                        () =>
+                            $ro28(_recursive, _recursive ? 1 + _depth : _depth),
+                        () =>
+                            $ro29(_recursive, _recursive ? 1 + _depth : _depth),
+                        () =>
+                            $ro30(_recursive, _recursive ? 1 + _depth : _depth),
+                        () =>
+                            $ro31(_recursive, _recursive ? 1 + _depth : _depth),
+                    ])()),
+                (generator?.integer ?? $generator.integer)(0, 3),
+            );
+            return output;
+        };
+        return (generator?.array ?? $generator.array)(() => $ro0());
+    },
+    (input: any): typia.Primitive<UltimateUnion> => {
         const $guard = (typia.createAssert as any).guard;
         const $join = (typia.createAssert as any).join;
-        const __is = (input: any): input is UltimateUnion => {
+        const __is = (input: any): input is typia.Primitive<UltimateUnion> => {
             const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.schemas) &&
@@ -823,7 +3134,7 @@ export const test_createAssert_UltimateUnion = _test_assert(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is UltimateUnion => {
+            ): input is typia.Primitive<UltimateUnion> => {
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -3606,5 +5917,4 @@ export const test_createAssert_UltimateUnion = _test_assert(
             })(input, "$input", true);
         return input;
     },
-    UltimateUnion.SPOILERS,
 );

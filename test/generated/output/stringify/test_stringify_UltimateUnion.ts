@@ -10,6 +10,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
             const $string = (typia.stringify as any).string;
             const $throws = (typia.stringify as any).throws;
             const $number = (typia.stringify as any).number;
+            const $tail = (typia.stringify as any).tail;
             const $join = (typia.stringify as any).join;
             const $io1 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
@@ -523,7 +524,35 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-rest"] ||
                     "boolean" === typeof input["x-typia-rest"]);
-            const $io31 = (input: any): boolean => true;
+            const $io31 = (input: any): boolean =>
+                null !== input.type &&
+                undefined === input.type &&
+                (undefined === input.deprecated ||
+                    "boolean" === typeof input.deprecated) &&
+                (undefined === input.title ||
+                    "string" === typeof input.title) &&
+                (undefined === input.description ||
+                    "string" === typeof input.description) &&
+                (undefined === input["x-typia-metaTags"] ||
+                    (Array.isArray(input["x-typia-metaTags"]) &&
+                        input["x-typia-metaTags"].every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $iu0(elem),
+                        ))) &&
+                (undefined === input["x-typia-jsDocTags"] ||
+                    (Array.isArray(input["x-typia-jsDocTags"]) &&
+                        input["x-typia-jsDocTags"].every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io17(elem),
+                        ))) &&
+                (undefined === input["x-typia-required"] ||
+                    "boolean" === typeof input["x-typia-required"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io32 = (input: any): boolean =>
                 "object" === typeof input.schemas &&
                 null !== input.schemas &&
@@ -2044,7 +2073,70 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $so31 = (input: any): any => "{}";
+            const $so31 = (input: any): any =>
+                `{${$tail(
+                    `${
+                        undefined === input.deprecated
+                            ? ""
+                            : `"deprecated":${
+                                  undefined !== input.deprecated
+                                      ? input.deprecated
+                                      : undefined
+                              },`
+                    }${
+                        undefined === input.title
+                            ? ""
+                            : `"title":${
+                                  undefined !== input.title
+                                      ? $string(input.title)
+                                      : undefined
+                              },`
+                    }${
+                        undefined === input.description
+                            ? ""
+                            : `"description":${
+                                  undefined !== input.description
+                                      ? $string(input.description)
+                                      : undefined
+                              },`
+                    }${
+                        undefined === input["x-typia-metaTags"]
+                            ? ""
+                            : `"x-typia-metaTags":${
+                                  undefined !== input["x-typia-metaTags"]
+                                      ? `[${input["x-typia-metaTags"]
+                                            .map((elem: any) => $su0(elem))
+                                            .join(",")}]`
+                                      : undefined
+                              },`
+                    }${
+                        undefined === input["x-typia-jsDocTags"]
+                            ? ""
+                            : `"x-typia-jsDocTags":${
+                                  undefined !== input["x-typia-jsDocTags"]
+                                      ? `[${input["x-typia-jsDocTags"]
+                                            .map((elem: any) => $so17(elem))
+                                            .join(",")}]`
+                                      : undefined
+                              },`
+                    }${
+                        undefined === input["x-typia-required"]
+                            ? ""
+                            : `"x-typia-required":${
+                                  undefined !== input["x-typia-required"]
+                                      ? input["x-typia-required"]
+                                      : undefined
+                              },`
+                    }${
+                        undefined === input["x-typia-rest"]
+                            ? ""
+                            : `"x-typia-rest":${
+                                  undefined !== input["x-typia-rest"]
+                                      ? input["x-typia-rest"]
+                                      : undefined
+                              }`
+                    }`,
+                )}}`;
             const $so32 = (input: any): any =>
                 `{"schemas":${$so33(input.schemas)}}`;
             const $so33 = (input: any): any =>

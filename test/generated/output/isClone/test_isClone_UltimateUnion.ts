@@ -579,7 +579,35 @@ export const test_isClone_UltimateUnion = _test_isClone(
                         "boolean" === typeof input["x-typia-required"]) &&
                     (undefined === input["x-typia-rest"] ||
                         "boolean" === typeof input["x-typia-rest"]);
-                const $io31 = (input: any): boolean => true;
+                const $io31 = (input: any): boolean =>
+                    null !== input.type &&
+                    undefined === input.type &&
+                    (undefined === input.deprecated ||
+                        "boolean" === typeof input.deprecated) &&
+                    (undefined === input.title ||
+                        "string" === typeof input.title) &&
+                    (undefined === input.description ||
+                        "string" === typeof input.description) &&
+                    (undefined === input["x-typia-metaTags"] ||
+                        (Array.isArray(input["x-typia-metaTags"]) &&
+                            input["x-typia-metaTags"].every(
+                                (elem: any) =>
+                                    "object" === typeof elem &&
+                                    null !== elem &&
+                                    $iu0(elem),
+                            ))) &&
+                    (undefined === input["x-typia-jsDocTags"] ||
+                        (Array.isArray(input["x-typia-jsDocTags"]) &&
+                            input["x-typia-jsDocTags"].every(
+                                (elem: any) =>
+                                    "object" === typeof elem &&
+                                    null !== elem &&
+                                    $io17(elem),
+                            ))) &&
+                    (undefined === input["x-typia-required"] ||
+                        "boolean" === typeof input["x-typia-required"]) &&
+                    (undefined === input["x-typia-rest"] ||
+                        "boolean" === typeof input["x-typia-rest"]);
                 const $io32 = (input: any): boolean =>
                     "object" === typeof input.schemas &&
                     null !== input.schemas &&
@@ -1335,7 +1363,35 @@ export const test_isClone_UltimateUnion = _test_isClone(
                         "boolean" === typeof input["x-typia-required"]) &&
                     (undefined === input["x-typia-rest"] ||
                         "boolean" === typeof input["x-typia-rest"]);
-                const $io31 = (input: any): boolean => true;
+                const $io31 = (input: any): boolean =>
+                    null !== input.type &&
+                    undefined === input.type &&
+                    (undefined === input.deprecated ||
+                        "boolean" === typeof input.deprecated) &&
+                    (undefined === input.title ||
+                        "string" === typeof input.title) &&
+                    (undefined === input.description ||
+                        "string" === typeof input.description) &&
+                    (undefined === input["x-typia-metaTags"] ||
+                        (Array.isArray(input["x-typia-metaTags"]) &&
+                            input["x-typia-metaTags"].every(
+                                (elem: any) =>
+                                    "object" === typeof elem &&
+                                    null !== elem &&
+                                    $iu0(elem),
+                            ))) &&
+                    (undefined === input["x-typia-jsDocTags"] ||
+                        (Array.isArray(input["x-typia-jsDocTags"]) &&
+                            input["x-typia-jsDocTags"].every(
+                                (elem: any) =>
+                                    "object" === typeof elem &&
+                                    null !== elem &&
+                                    $io17(elem),
+                            ))) &&
+                    (undefined === input["x-typia-required"] ||
+                        "boolean" === typeof input["x-typia-required"]) &&
+                    (undefined === input["x-typia-rest"] ||
+                        "boolean" === typeof input["x-typia-rest"]);
                 const $io32 = (input: any): boolean =>
                     "object" === typeof input.schemas &&
                     null !== input.schemas &&
@@ -2015,7 +2071,30 @@ export const test_isClone_UltimateUnion = _test_isClone(
                     "x-typia-required": input["x-typia-required"] as any,
                     "x-typia-rest": input["x-typia-rest"] as any,
                 });
-                const $co31 = (input: any): any => {};
+                const $co31 = (input: any): any => ({
+                    type: input.type as any,
+                    deprecated: input.deprecated as any,
+                    title: input.title as any,
+                    description: input.description as any,
+                    "x-typia-metaTags": Array.isArray(input["x-typia-metaTags"])
+                        ? input["x-typia-metaTags"].map((elem: any) =>
+                              "object" === typeof elem && null !== elem
+                                  ? $cu0(elem)
+                                  : (elem as any),
+                          )
+                        : (input["x-typia-metaTags"] as any),
+                    "x-typia-jsDocTags": Array.isArray(
+                        input["x-typia-jsDocTags"],
+                    )
+                        ? input["x-typia-jsDocTags"].map((elem: any) =>
+                              "object" === typeof elem && null !== elem
+                                  ? $co17(elem)
+                                  : (elem as any),
+                          )
+                        : (input["x-typia-jsDocTags"] as any),
+                    "x-typia-required": input["x-typia-required"] as any,
+                    "x-typia-rest": input["x-typia-rest"] as any,
+                });
                 const $co32 = (input: any): any => ({
                     schemas:
                         "object" === typeof input.schemas &&
