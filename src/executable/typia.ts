@@ -2,12 +2,10 @@
 const USAGE = `Wrong command has been detected. Use like below:
 
   npx typia setup \\
-    --compiler (ttypescript|ts-patch) \\
     --manager (npm|pnpm|yarn) \\
     --project {tsconfig.json file path}
 
     - npx typia setup
-    - npx typia setup --compiler ts-patch
     - npx typia setup --manager pnpm
     - npx typia setup --project tsconfig.test.json
 

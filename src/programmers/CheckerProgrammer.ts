@@ -82,7 +82,7 @@ export namespace CheckerProgrammer {
             ) => ts.Expression;
         }
     }
-    export import IExplore = FeatureProgrammer.IExplore;
+    export type IExplore = FeatureProgrammer.IExplore;
 
     export interface IBinary {
         expression: ts.Expression;
