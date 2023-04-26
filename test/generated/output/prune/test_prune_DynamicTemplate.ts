@@ -9,6 +9,17 @@ export const test_prune_DynamicTemplate = _test_prune(
         ((input: DynamicTemplate): void => {
             const $join = (typia.prune as any).join;
             const $po0 = (input: any): any => {
+                Object.entries(input).forEach(([key, value]) => {
+                    if (undefined === value) return;
+                    if (RegExp(/^(prefix_(.*))/).test(key)) {
+                    }
+                    if (RegExp(/((.*)_postfix)$/).test(key)) {
+                    }
+                    if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key)) {
+                    }
+                    if (RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)) {
+                    }
+                });
                 for (const key of Object.keys(input)) {
                     if (
                         RegExp(/^(prefix_(.*))/).test(key) ||

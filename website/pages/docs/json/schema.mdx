@@ -270,11 +270,13 @@ export const MemberSchema = {
 
 
 ## Comment Tags
+https://swagger.io/docs/specification/data-models/data-types/
+
 You can utilize comments and comment tags to constructing special fields of JSON schema. 
 
 If you write any comment on a property, it would fill the `IJsonSchema.description` value. When you write some comment tags starting with `@` symbol, they would be placed into the proper properties of `IJsonSchema`. Below is the list of supported comment tags in the `typia.application()` function.
 
-Let's see how those comment tags works with example code.
+Let's see how those comment tags work with example code.
 
   - Supported comment tags
     - common
@@ -310,10 +312,6 @@ import typia from "typia";
 
 export const CommentTagSchema = typia.application<[CommentTag], "ajv">();
 
-/**
- * @title Example schema for comment tags
- * @deprecated
- */
 interface CommentTag {
     /**
      * @title Unsigned integer
