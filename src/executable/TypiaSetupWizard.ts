@@ -7,7 +7,6 @@ import { PluginConfigurator } from "./setup/PluginConfigurator";
 
 export namespace TypiaSetupWizard {
     export interface IArguments {
-        compiler: "ts-patch" | "ttypescript";
         manager: "npm" | "pnpm" | "yarn";
         project: string | null;
     }
@@ -32,23 +31,21 @@ export namespace TypiaSetupWizard {
         // INSTALL COMPILER
         pack.install({
             dev: true,
-            modulo: args.compiler,
-            version: args.compiler === "ttypescript" ? "latest" : "2.1.0",
+            modulo: "ts-patch",
+            version: "2.1.0",
         });
-        if (args.compiler === "ts-patch") {
-            await pack.save((data) => {
-                data.scripts ??= {};
-                if (
-                    typeof data.scripts.prepare === "string" &&
-                    data.scripts.prepare.length
-                ) {
-                    if (data.scripts.prepare.indexOf("ts-patch install") === -1)
-                        data.scripts.prepare =
-                            "ts-patch install && " + data.scripts.prepare;
-                } else data.scripts.prepare = "ts-patch install";
-            });
-            CommandExecutor.run("npm run prepare");
-        }
+        await pack.save((data) => {
+            data.scripts ??= {};
+            if (
+                typeof data.scripts.prepare === "string" &&
+                data.scripts.prepare.length
+            ) {
+                if (data.scripts.prepare.indexOf("ts-patch install") === -1)
+                    data.scripts.prepare =
+                        "ts-patch install && " + data.scripts.prepare;
+            } else data.scripts.prepare = "ts-patch install";
+        });
+        CommandExecutor.run("npm run prepare");
 
         // CONFIGURE TYPIA
         await PluginConfigurator.configure(args);
@@ -61,7 +58,6 @@ export namespace TypiaSetupWizard {
         action,
     ) => {
         // PREPARE ASSETS
-        command.option("--compiler [compiler]", "compiler type");
         command.option("--manager [manager", "package manager");
         command.option("--project [project]", "tsconfig.json file location");
 
@@ -111,13 +107,6 @@ export namespace TypiaSetupWizard {
 
         // DO CONSTRUCT
         return action(async (options) => {
-            if (options.compiler === undefined) {
-                console.log(COMPILER_DESCRIPTION);
-                options.compiler = await select("compiler")(`Compiler`)([
-                    "ts-patch" as const,
-                    "ttypescript" as const,
-                ]);
-            }
             options.manager ??= await select("manager")("Package Manager")([
                 "npm" as const,
                 "pnpm" as const,
@@ -131,14 +120,3 @@ export namespace TypiaSetupWizard {
         });
     };
 }
-
-const COMPILER_DESCRIPTION = [
-    `About compiler, if you adapt "ttypescript", you should use "ttsc" instead.`,
-    ``,
-    `Otherwise, you choose "ts-patch", you can use the original "tsc" command.`,
-    `However, the "ts-patch" hacks "node_modules/typescript" source code.`,
-    `Also, whenever update "typescript", you've to run "npm run prepare" command.`,
-    ``,
-    `By the way, when using "@nest/cli", you must just choose "ts-patch".`,
-    ``,
-].join("\n");
