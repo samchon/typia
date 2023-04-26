@@ -77,7 +77,7 @@ export const test_assertEquals_ClassMethod = _test_assertEquals(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<ClassMethod.Animal>",
+                                expected: "ClassMethod.Animal",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

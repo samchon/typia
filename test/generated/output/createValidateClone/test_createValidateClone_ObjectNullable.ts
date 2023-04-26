@@ -70,8 +70,7 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                                 null !== input.manufacturer) ||
                                 $report(_exceptionable, {
                                     path: _path + ".manufacturer",
-                                    expected:
-                                        "Resolve<ObjectNullable.IManufacturer>",
+                                    expected: "ObjectNullable.IManufacturer",
                                     value: input.manufacturer,
                                 })) &&
                                 $vo1(
@@ -81,8 +80,7 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".manufacturer",
-                                    expected:
-                                        "Resolve<ObjectNullable.IManufacturer>",
+                                    expected: "ObjectNullable.IManufacturer",
                                     value: input.manufacturer,
                                 }),
                             null === input.brand ||
@@ -91,7 +89,7 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                                     $report(_exceptionable, {
                                         path: _path + ".brand",
                                         expected:
-                                            "(Resolve<ObjectNullable.IBrand> | null)",
+                                            "(ObjectNullable.IBrand | null)",
                                         value: input.brand,
                                     })) &&
                                     $vo2(
@@ -101,8 +99,7 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                                     )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".brand",
-                                    expected:
-                                        "(Resolve<ObjectNullable.IBrand> | null)",
+                                    expected: "(ObjectNullable.IBrand | null)",
                                     value: input.brand,
                                 }),
                             null === input.similar ||
@@ -111,7 +108,7 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                                     $report(_exceptionable, {
                                         path: _path + ".similar",
                                         expected:
-                                            "(Resolve<ObjectNullable.IBrand> | Resolve<ObjectNullable.IManufacturer> | null)",
+                                            "(ObjectNullable.IBrand | ObjectNullable.IManufacturer | null)",
                                         value: input.similar,
                                     })) &&
                                     $vu0(
@@ -122,7 +119,7 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                                 $report(_exceptionable, {
                                     path: _path + ".similar",
                                     expected:
-                                        "(Resolve<ObjectNullable.IBrand> | Resolve<ObjectNullable.IManufacturer> | null)",
+                                        "(ObjectNullable.IBrand | ObjectNullable.IManufacturer | null)",
                                     value: input.similar,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -194,14 +191,14 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    "[Resolve<ObjectNullable.IProduct>, Resolve<ObjectNullable.IProduct>, Resolve<ObjectNullable.IProduct>]",
+                                    "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
                                 value: input,
                             })) &&
                             (input.length === 3 ||
                                 $report(true, {
                                     path: _path + "",
                                     expected:
-                                        "[Resolve<ObjectNullable.IProduct>, Resolve<ObjectNullable.IProduct>, Resolve<ObjectNullable.IProduct>]",
+                                        "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
                                     value: input,
                                 })) &&
                             [
@@ -209,52 +206,46 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                                     null !== input[0]) ||
                                     $report(true, {
                                         path: _path + "[0]",
-                                        expected:
-                                            "Resolve<ObjectNullable.IProduct>",
+                                        expected: "ObjectNullable.IProduct",
                                         value: input[0],
                                     })) &&
                                     $vo0(input[0], _path + "[0]", true)) ||
                                     $report(true, {
                                         path: _path + "[0]",
-                                        expected:
-                                            "Resolve<ObjectNullable.IProduct>",
+                                        expected: "ObjectNullable.IProduct",
                                         value: input[0],
                                     }),
                                 ((("object" === typeof input[1] &&
                                     null !== input[1]) ||
                                     $report(true, {
                                         path: _path + "[1]",
-                                        expected:
-                                            "Resolve<ObjectNullable.IProduct>",
+                                        expected: "ObjectNullable.IProduct",
                                         value: input[1],
                                     })) &&
                                     $vo0(input[1], _path + "[1]", true)) ||
                                     $report(true, {
                                         path: _path + "[1]",
-                                        expected:
-                                            "Resolve<ObjectNullable.IProduct>",
+                                        expected: "ObjectNullable.IProduct",
                                         value: input[1],
                                     }),
                                 ((("object" === typeof input[2] &&
                                     null !== input[2]) ||
                                     $report(true, {
                                         path: _path + "[2]",
-                                        expected:
-                                            "Resolve<ObjectNullable.IProduct>",
+                                        expected: "ObjectNullable.IProduct",
                                         value: input[2],
                                     })) &&
                                     $vo0(input[2], _path + "[2]", true)) ||
                                     $report(true, {
                                         path: _path + "[2]",
-                                        expected:
-                                            "Resolve<ObjectNullable.IProduct>",
+                                        expected: "ObjectNullable.IProduct",
                                         value: input[2],
                                     }),
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
                             expected:
-                                "[Resolve<ObjectNullable.IProduct>, Resolve<ObjectNullable.IProduct>, Resolve<ObjectNullable.IProduct>]",
+                                "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
                             value: input,
                         })
                     );

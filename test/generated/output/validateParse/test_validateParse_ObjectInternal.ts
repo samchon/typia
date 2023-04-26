@@ -51,13 +51,13 @@ export const test_validateParse_ObjectInternal = _test_validateParse(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<ObjectInternal>",
+                                    expected: "ObjectInternal",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ObjectInternal>",
+                                expected: "ObjectInternal",
                                 value: input,
                             })
                         );

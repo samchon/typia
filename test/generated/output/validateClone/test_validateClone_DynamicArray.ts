@@ -113,13 +113,13 @@ export const test_validateClone_DynamicArray = _test_validateClone(
                                 false === Array.isArray(input)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicArray>",
+                                    expected: "DynamicArray",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<DynamicArray>",
+                                expected: "DynamicArray",
                                 value: input,
                             })
                         );

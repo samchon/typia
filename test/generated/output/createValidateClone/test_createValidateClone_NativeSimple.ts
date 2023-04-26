@@ -160,13 +160,13 @@ export const test_createValidateClone_NativeSimple = _test_validateClone(
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<NativeSimple>",
+                                expected: "NativeSimple",
                                 value: input,
                             })) &&
                             $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<NativeSimple>",
+                            expected: "NativeSimple",
                             value: input,
                         })
                     );

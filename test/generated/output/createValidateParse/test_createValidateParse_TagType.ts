@@ -77,7 +77,7 @@ export const test_createValidateParse_TagType = _test_validateParse(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<TagType.Type>>",
+                                expected: "Array<TagType.Type>",
                                 value: input,
                             })) &&
                             input
@@ -88,8 +88,7 @@ export const test_createValidateParse_TagType = _test_validateParse(
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "Resolve<TagType.Type>",
+                                                expected: "TagType.Type",
                                                 value: elem,
                                             })) &&
                                             $vo0(
@@ -99,14 +98,14 @@ export const test_createValidateParse_TagType = _test_validateParse(
                                             )) ||
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected: "Resolve<TagType.Type>",
+                                            expected: "TagType.Type",
                                             value: elem,
                                         }),
                                 )
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<Resolve<TagType.Type>>",
+                            expected: "Array<TagType.Type>",
                             value: input,
                         })
                     );

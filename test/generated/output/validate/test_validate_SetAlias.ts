@@ -209,7 +209,7 @@ export const test_validate_SetAlias = _test_validate(
                             ((input.objects instanceof Set ||
                                 $report(_exceptionable, {
                                     path: _path + ".objects",
-                                    expected: "Set<Resolve<SetAlias.Person>>",
+                                    expected: "Set<SetAlias.Person>",
                                     value: input.objects,
                                 })) &&
                                 [...input.objects]
@@ -223,8 +223,7 @@ export const test_validate_SetAlias = _test_validate(
                                                         ".objects[" +
                                                         _index6 +
                                                         "]",
-                                                    expected:
-                                                        "Resolve<SetAlias.Person>",
+                                                    expected: "SetAlias.Person",
                                                     value: elem,
                                                 })) &&
                                                 $vo1(
@@ -241,15 +240,14 @@ export const test_validate_SetAlias = _test_validate(
                                                     ".objects[" +
                                                     _index6 +
                                                     "]",
-                                                expected:
-                                                    "Resolve<SetAlias.Person>",
+                                                expected: "SetAlias.Person",
                                                 value: elem,
                                             }),
                                     )
                                     .every((flag: boolean) => flag)) ||
                                 $report(_exceptionable, {
                                     path: _path + ".objects",
-                                    expected: "Set<Resolve<SetAlias.Person>>",
+                                    expected: "Set<SetAlias.Person>",
                                     value: input.objects,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -283,13 +281,13 @@ export const test_validate_SetAlias = _test_validate(
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<SetAlias>",
+                                expected: "SetAlias",
                                 value: input,
                             })) &&
                             $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<SetAlias>",
+                            expected: "SetAlias",
                             value: input,
                         })
                     );

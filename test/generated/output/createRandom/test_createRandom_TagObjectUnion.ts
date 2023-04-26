@@ -142,7 +142,7 @@ export const test_createRandom_TagObjectUnion = _test_random(
                         $guard(true, {
                             path: _path + "",
                             expected:
-                                "Array<(Resolve<TagObjectUnion.Literal> | Resolve<TagObjectUnion.Numeric>)>",
+                                "Array<(TagObjectUnion.Literal | TagObjectUnion.Numeric)>",
                             value: input,
                         })) &&
                     input.every(
@@ -151,7 +151,7 @@ export const test_createRandom_TagObjectUnion = _test_random(
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
-                                        "(Resolve<TagObjectUnion.Literal> | Resolve<TagObjectUnion.Numeric>)",
+                                        "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                                     value: elem,
                                 })) &&
                             $au0(elem, _path + "[" + _index1 + "]", true),

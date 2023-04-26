@@ -303,7 +303,7 @@ export const test_validateEquals_TagArray = _test_validateEquals(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<TagArray.Type>>",
+                                expected: "Array<TagArray.Type>",
                                 value: input,
                             })) &&
                             input
@@ -314,8 +314,7 @@ export const test_validateEquals_TagArray = _test_validateEquals(
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "Resolve<TagArray.Type>",
+                                                expected: "TagArray.Type",
                                                 value: elem,
                                             })) &&
                                             $vo0(
@@ -325,14 +324,14 @@ export const test_validateEquals_TagArray = _test_validateEquals(
                                             )) ||
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected: "Resolve<TagArray.Type>",
+                                            expected: "TagArray.Type",
                                             value: elem,
                                         }),
                                 )
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<Resolve<TagArray.Type>>",
+                            expected: "Array<TagArray.Type>",
                             value: input,
                         })
                     );

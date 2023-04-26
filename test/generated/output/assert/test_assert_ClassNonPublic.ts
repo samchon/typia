@@ -43,7 +43,7 @@ export const test_assert_ClassNonPublic = _test_assert(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<ClassNonPublic.Accessor>",
+                                expected: "ClassNonPublic.Accessor",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

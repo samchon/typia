@@ -71,7 +71,7 @@ export const test_createStringify_NativeUnion = _test_stringify(
                     return $so1(input.buffer);
                 $throws({
                     expected:
-                        "(ArrayBuffer | DataView | Resolve<__type> | SharedArrayBuffer | unknown)",
+                        "(ArrayBuffer | DataView | SharedArrayBuffer | __type | unknown)",
                     value: input.buffer,
                 });
             })()},"weak":${(() => {

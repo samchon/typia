@@ -49,7 +49,7 @@ export const test_random_ObjectGenericAlias = _test_random(
                     (("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<ObjectGenericAlias.Alias>",
+                            expected: "ObjectGenericAlias.Alias",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

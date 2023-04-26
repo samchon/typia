@@ -75,8 +75,7 @@ export const test_createAssertParse_ObjectPrimitive = _test_assertParse(
                         (Array.isArray(input.files) ||
                             $guard(_exceptionable, {
                                 path: _path + ".files",
-                                expected:
-                                    "Array<Resolve<ObjectPrimitive.IFile>>",
+                                expected: "Array<ObjectPrimitive.IFile>",
                                 value: input.files,
                             })) &&
                         input.files.every(
@@ -84,8 +83,7 @@ export const test_createAssertParse_ObjectPrimitive = _test_assertParse(
                                 (("object" === typeof elem && null !== elem) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".files[" + _index1 + "]",
-                                        expected:
-                                            "Resolve<ObjectPrimitive.IFile>",
+                                        expected: "ObjectPrimitive.IFile",
                                         value: elem,
                                     })) &&
                                 $ao1(
@@ -145,7 +143,7 @@ export const test_createAssertParse_ObjectPrimitive = _test_assertParse(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<ObjectPrimitive.IArticle>",
+                                expected: "ObjectPrimitive.IArticle",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

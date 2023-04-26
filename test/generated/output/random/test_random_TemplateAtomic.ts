@@ -166,7 +166,7 @@ export const test_random_TemplateAtomic = _test_random(
                     (("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<TemplateAtomic>",
+                            expected: "TemplateAtomic",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

@@ -127,14 +127,14 @@ export const test_validateClone_ToJsonArray = _test_validateClone(
                                 $report(true, {
                                     path: _path + "",
                                     expected:
-                                        "[Resolve<ToJsonArray.IArray<boolean>>, Resolve<ToJsonArray.IArray<number>>, Resolve<ToJsonArray.IArray<string>>, Resolve<ToJsonArray.IArray<ToJsonArray.IObject>>]",
+                                        "[ToJsonArray.IArray<boolean>, ToJsonArray.IArray<number>, ToJsonArray.IArray<string>, ToJsonArray.IArray<ToJsonArray.IObject>]",
                                     value: input,
                                 })) &&
                                 (input.length === 4 ||
                                     $report(true, {
                                         path: _path + "",
                                         expected:
-                                            "[Resolve<ToJsonArray.IArray<boolean>>, Resolve<ToJsonArray.IArray<number>>, Resolve<ToJsonArray.IArray<string>>, Resolve<ToJsonArray.IArray<ToJsonArray.IObject>>]",
+                                            "[ToJsonArray.IArray<boolean>, ToJsonArray.IArray<number>, ToJsonArray.IArray<string>, ToJsonArray.IArray<ToJsonArray.IObject>]",
                                         value: input,
                                     })) &&
                                 [
@@ -143,14 +143,14 @@ export const test_validateClone_ToJsonArray = _test_validateClone(
                                         $report(true, {
                                             path: _path + "[0]",
                                             expected:
-                                                "Resolve<ToJsonArray.IArray<boolean>>",
+                                                "ToJsonArray.IArray<boolean>",
                                             value: input[0],
                                         })) &&
                                         $vo0(input[0], _path + "[0]", true)) ||
                                         $report(true, {
                                             path: _path + "[0]",
                                             expected:
-                                                "Resolve<ToJsonArray.IArray<boolean>>",
+                                                "ToJsonArray.IArray<boolean>",
                                             value: input[0],
                                         }),
                                     ((("object" === typeof input[1] &&
@@ -158,14 +158,14 @@ export const test_validateClone_ToJsonArray = _test_validateClone(
                                         $report(true, {
                                             path: _path + "[1]",
                                             expected:
-                                                "Resolve<ToJsonArray.IArray<number>>",
+                                                "ToJsonArray.IArray<number>",
                                             value: input[1],
                                         })) &&
                                         $vo1(input[1], _path + "[1]", true)) ||
                                         $report(true, {
                                             path: _path + "[1]",
                                             expected:
-                                                "Resolve<ToJsonArray.IArray<number>>",
+                                                "ToJsonArray.IArray<number>",
                                             value: input[1],
                                         }),
                                     ((("object" === typeof input[2] &&
@@ -173,14 +173,14 @@ export const test_validateClone_ToJsonArray = _test_validateClone(
                                         $report(true, {
                                             path: _path + "[2]",
                                             expected:
-                                                "Resolve<ToJsonArray.IArray<string>>",
+                                                "ToJsonArray.IArray<string>",
                                             value: input[2],
                                         })) &&
                                         $vo2(input[2], _path + "[2]", true)) ||
                                         $report(true, {
                                             path: _path + "[2]",
                                             expected:
-                                                "Resolve<ToJsonArray.IArray<string>>",
+                                                "ToJsonArray.IArray<string>",
                                             value: input[2],
                                         }),
                                     ((("object" === typeof input[3] &&
@@ -188,21 +188,21 @@ export const test_validateClone_ToJsonArray = _test_validateClone(
                                         $report(true, {
                                             path: _path + "[3]",
                                             expected:
-                                                "Resolve<ToJsonArray.IArray<ToJsonArray.IObject>>",
+                                                "ToJsonArray.IArray<ToJsonArray.IObject>",
                                             value: input[3],
                                         })) &&
                                         $vo3(input[3], _path + "[3]", true)) ||
                                         $report(true, {
                                             path: _path + "[3]",
                                             expected:
-                                                "Resolve<ToJsonArray.IArray<ToJsonArray.IObject>>",
+                                                "ToJsonArray.IArray<ToJsonArray.IObject>",
                                             value: input[3],
                                         }),
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    "[Resolve<ToJsonArray.IArray<boolean>>, Resolve<ToJsonArray.IArray<number>>, Resolve<ToJsonArray.IArray<string>>, Resolve<ToJsonArray.IArray<ToJsonArray.IObject>>]",
+                                    "[ToJsonArray.IArray<boolean>, ToJsonArray.IArray<number>, ToJsonArray.IArray<string>, ToJsonArray.IArray<ToJsonArray.IObject>]",
                                 value: input,
                             })
                         );

@@ -176,13 +176,13 @@ export const test_createValidate_TagFormat = _test_validate(
                     ((("object" === typeof input && null !== input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<TagFormat>",
+                            expected: "TagFormat",
                             value: input,
                         })) &&
                         $vo0(input, _path + "", true)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Resolve<TagFormat>",
+                        expected: "TagFormat",
                         value: input,
                     })
                 );

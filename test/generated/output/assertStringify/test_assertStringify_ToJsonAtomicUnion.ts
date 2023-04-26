@@ -45,7 +45,7 @@ export const test_assertStringify_ToJsonAtomicUnion = _test_assertStringify(
                                 $guard(true, {
                                     path: _path + "",
                                     expected:
-                                        "Array<Resolve<ToJsonAtomicUnion.IToJson>>",
+                                        "Array<ToJsonAtomicUnion.IToJson>",
                                     value: input,
                                 })) &&
                             input.every(
@@ -55,7 +55,7 @@ export const test_assertStringify_ToJsonAtomicUnion = _test_assertStringify(
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "Resolve<ToJsonAtomicUnion.IToJson>",
+                                                "ToJsonAtomicUnion.IToJson",
                                             value: elem,
                                         })) &&
                                     $ao0(

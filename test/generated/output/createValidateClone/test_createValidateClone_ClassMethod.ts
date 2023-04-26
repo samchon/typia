@@ -48,13 +48,13 @@ export const test_createValidateClone_ClassMethod = _test_validateClone(
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ClassMethod.Animal>",
+                                expected: "ClassMethod.Animal",
                                 value: input,
                             })) &&
                             $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<ClassMethod.Animal>",
+                            expected: "ClassMethod.Animal",
                             value: input,
                         })
                     );

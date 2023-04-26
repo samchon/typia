@@ -43,7 +43,7 @@ export const test_createAssertParse_ObjectInternal = _test_assertParse(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<ObjectInternal>",
+                                expected: "ObjectInternal",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

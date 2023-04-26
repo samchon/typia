@@ -95,7 +95,7 @@ export const test_createAssertEquals_FunctionalPropertyUnion =
                             $guard(true, {
                                 path: _path + "",
                                 expected:
-                                    "Array<Resolve<FunctionalPropertyUnion.IUnion>>",
+                                    "Array<FunctionalPropertyUnion.IUnion>",
                                 value: input,
                             })) &&
                         input.every(
@@ -104,7 +104,7 @@ export const test_createAssertEquals_FunctionalPropertyUnion =
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
-                                            "Resolve<FunctionalPropertyUnion.IUnion>",
+                                            "FunctionalPropertyUnion.IUnion",
                                         value: elem,
                                     })) &&
                                 $ao0(elem, _path + "[" + _index1 + "]", true),

@@ -125,7 +125,7 @@ export const test_validatePrune_TagObjectUnion = _test_validatePrune(
                                 $report(true, {
                                     path: _path + "",
                                     expected:
-                                        "Array<(Resolve<TagObjectUnion.Literal> | Resolve<TagObjectUnion.Numeric>)>",
+                                        "Array<(TagObjectUnion.Literal | TagObjectUnion.Numeric)>",
                                     value: input,
                                 })) &&
                                 input
@@ -140,7 +140,7 @@ export const test_validatePrune_TagObjectUnion = _test_validatePrune(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "(Resolve<TagObjectUnion.Literal> | Resolve<TagObjectUnion.Numeric>)",
+                                                        "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                                                     value: elem,
                                                 })) &&
                                                 $vu0(
@@ -152,7 +152,7 @@ export const test_validatePrune_TagObjectUnion = _test_validatePrune(
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
-                                                    "(Resolve<TagObjectUnion.Literal> | Resolve<TagObjectUnion.Numeric>)",
+                                                    "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                                                 value: elem,
                                             }),
                                     )
@@ -160,7 +160,7 @@ export const test_validatePrune_TagObjectUnion = _test_validatePrune(
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    "Array<(Resolve<TagObjectUnion.Literal> | Resolve<TagObjectUnion.Numeric>)>",
+                                    "Array<(TagObjectUnion.Literal | TagObjectUnion.Numeric)>",
                                 value: input,
                             })
                         );

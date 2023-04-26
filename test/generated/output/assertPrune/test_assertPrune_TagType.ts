@@ -75,7 +75,7 @@ export const test_assertPrune_TagType = _test_assertPrune(
                             (Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<Resolve<TagType.Type>>",
+                                    expected: "Array<TagType.Type>",
                                     value: input,
                                 })) &&
                             input.every(
@@ -84,7 +84,7 @@ export const test_assertPrune_TagType = _test_assertPrune(
                                         null !== elem) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected: "Resolve<TagType.Type>",
+                                            expected: "TagType.Type",
                                             value: elem,
                                         })) &&
                                     $ao0(

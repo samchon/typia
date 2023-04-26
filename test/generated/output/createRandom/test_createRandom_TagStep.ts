@@ -190,7 +190,7 @@ export const test_createRandom_TagStep = _test_random(
                     (Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<Resolve<TagStep.Type>>",
+                            expected: "Array<TagStep.Type>",
                             value: input,
                         })) &&
                     input.every(
@@ -198,7 +198,7 @@ export const test_createRandom_TagStep = _test_random(
                             (("object" === typeof elem && null !== elem) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
-                                    expected: "Resolve<TagStep.Type>",
+                                    expected: "TagStep.Type",
                                     value: elem,
                                 })) &&
                             $ao0(elem, _path + "[" + _index1 + "]", true),

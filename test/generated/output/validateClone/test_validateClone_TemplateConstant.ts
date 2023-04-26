@@ -101,8 +101,7 @@ export const test_validateClone_TemplateConstant = _test_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<Resolve<TemplateConstant.Type>>",
+                                    expected: "Array<TemplateConstant.Type>",
                                     value: input,
                                 })) &&
                                 input
@@ -117,7 +116,7 @@ export const test_validateClone_TemplateConstant = _test_validateClone(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<TemplateConstant.Type>",
+                                                        "TemplateConstant.Type",
                                                     value: elem,
                                                 })) &&
                                                 $vo0(
@@ -129,15 +128,14 @@ export const test_validateClone_TemplateConstant = _test_validateClone(
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
-                                                    "Resolve<TemplateConstant.Type>",
+                                                    "TemplateConstant.Type",
                                                 value: elem,
                                             }),
                                     )
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<Resolve<TemplateConstant.Type>>",
+                                expected: "Array<TemplateConstant.Type>",
                                 value: input,
                             })
                         );

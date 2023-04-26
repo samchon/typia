@@ -197,7 +197,7 @@ export const test_createAssertPrune_TagTuple = _test_assertPrune(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<TagTuple>",
+                                expected: "TagTuple",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

@@ -87,7 +87,7 @@ export const test_validateClone_ObjectPrimitive = _test_validateClone(
                                     $report(_exceptionable, {
                                         path: _path + ".files",
                                         expected:
-                                            "Array<Resolve<ObjectPrimitive.IFile>>",
+                                            "Array<ObjectPrimitive.IFile>",
                                         value: input.files,
                                     })) &&
                                     input.files
@@ -102,7 +102,7 @@ export const test_validateClone_ObjectPrimitive = _test_validateClone(
                                                             _index1 +
                                                             "]",
                                                         expected:
-                                                            "Resolve<ObjectPrimitive.IFile>",
+                                                            "ObjectPrimitive.IFile",
                                                         value: elem,
                                                     })) &&
                                                     $vo1(
@@ -120,7 +120,7 @@ export const test_validateClone_ObjectPrimitive = _test_validateClone(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<ObjectPrimitive.IFile>",
+                                                        "ObjectPrimitive.IFile",
                                                     value: elem,
                                                 }),
                                         )
@@ -128,7 +128,7 @@ export const test_validateClone_ObjectPrimitive = _test_validateClone(
                                     $report(_exceptionable, {
                                         path: _path + ".files",
                                         expected:
-                                            "Array<Resolve<ObjectPrimitive.IFile>>",
+                                            "Array<ObjectPrimitive.IFile>",
                                         value: input.files,
                                     }),
                                 "boolean" === typeof input.secret ||
@@ -185,14 +185,13 @@ export const test_validateClone_ObjectPrimitive = _test_validateClone(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Resolve<ObjectPrimitive.IArticle>",
+                                    expected: "ObjectPrimitive.IArticle",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ObjectPrimitive.IArticle>",
+                                expected: "ObjectPrimitive.IArticle",
                                 value: input,
                             })
                         );

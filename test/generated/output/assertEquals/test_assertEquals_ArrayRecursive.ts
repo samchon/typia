@@ -84,8 +84,7 @@ export const test_assertEquals_ArrayRecursive = _test_assertEquals(
                         (Array.isArray(input.children) ||
                             $guard(_exceptionable, {
                                 path: _path + ".children",
-                                expected:
-                                    "Array<Resolve<ArrayRecursive.ICategory>>",
+                                expected: "Array<ArrayRecursive.ICategory>",
                                 value: input.children,
                             })) &&
                         input.children.every(
@@ -97,8 +96,7 @@ export const test_assertEquals_ArrayRecursive = _test_assertEquals(
                                             ".children[" +
                                             _index1 +
                                             "]",
-                                        expected:
-                                            "Resolve<ArrayRecursive.ICategory>",
+                                        expected: "ArrayRecursive.ICategory",
                                         value: elem,
                                     })) &&
                                 $ao0(
@@ -131,7 +129,7 @@ export const test_assertEquals_ArrayRecursive = _test_assertEquals(
                             null !== input.created_at) ||
                             $guard(_exceptionable, {
                                 path: _path + ".created_at",
-                                expected: "Resolve<ArrayRecursive.ITimestamp>",
+                                expected: "ArrayRecursive.ITimestamp",
                                 value: input.created_at,
                             })) &&
                         $ao1(
@@ -200,7 +198,7 @@ export const test_assertEquals_ArrayRecursive = _test_assertEquals(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<ArrayRecursive.ICategory>",
+                                expected: "ArrayRecursive.ICategory",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

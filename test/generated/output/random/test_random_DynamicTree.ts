@@ -98,7 +98,7 @@ export const test_random_DynamicTree = _test_random(
                         false === Array.isArray(input.children)) ||
                         $guard(_exceptionable, {
                             path: _path + ".children",
-                            expected: "Resolve<Record<string, DynamicTree>>",
+                            expected: "Record<string, DynamicTree>",
                             value: input.children,
                         })) &&
                     $ao1(
@@ -121,7 +121,7 @@ export const test_random_DynamicTree = _test_random(
                                     null !== value) ||
                                     $guard(_exceptionable, {
                                         path: _path + $join(key),
-                                        expected: "Resolve<DynamicTree>",
+                                        expected: "DynamicTree",
                                         value: value,
                                     })) &&
                                 $ao0(
@@ -136,7 +136,7 @@ export const test_random_DynamicTree = _test_random(
                     (("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<DynamicTree>",
+                            expected: "DynamicTree",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

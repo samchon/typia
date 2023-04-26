@@ -70,14 +70,13 @@ export const test_createValidateStringify_ObjectLiteralProperty =
                                 $report(true, {
                                     path: _path + "",
                                     expected:
-                                        "Resolve<ObjectLiteralProperty.ISomething>",
+                                        "ObjectLiteralProperty.ISomething",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Resolve<ObjectLiteralProperty.ISomething>",
+                                expected: "ObjectLiteralProperty.ISomething",
                                 value: input,
                             })
                         );

@@ -88,7 +88,7 @@ export const test_createRandom_ArraySimple = _test_random(
                     (Array.isArray(input.hobbies) ||
                         $guard(_exceptionable, {
                             path: _path + ".hobbies",
-                            expected: "Array<Resolve<ArraySimple.IHobby>>",
+                            expected: "Array<ArraySimple.IHobby>",
                             value: input.hobbies,
                         })) &&
                     input.hobbies.every(
@@ -96,7 +96,7 @@ export const test_createRandom_ArraySimple = _test_random(
                             (("object" === typeof elem && null !== elem) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".hobbies[" + _index2 + "]",
-                                    expected: "Resolve<ArraySimple.IHobby>",
+                                    expected: "ArraySimple.IHobby",
                                     value: elem,
                                 })) &&
                             $ao1(
@@ -133,7 +133,7 @@ export const test_createRandom_ArraySimple = _test_random(
                     (Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<Resolve<ArraySimple.IPerson>>",
+                            expected: "Array<ArraySimple.IPerson>",
                             value: input,
                         })) &&
                     input.every(
@@ -141,7 +141,7 @@ export const test_createRandom_ArraySimple = _test_random(
                             (("object" === typeof elem && null !== elem) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
-                                    expected: "Resolve<ArraySimple.IPerson>",
+                                    expected: "ArraySimple.IPerson",
                                     value: elem,
                                 })) &&
                             $ao0(elem, _path + "[" + _index1 + "]", true),

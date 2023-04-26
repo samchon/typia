@@ -279,8 +279,7 @@ export const test_assert_MapAlias = _test_assert(
                         (input.objects instanceof Map ||
                             $guard(_exceptionable, {
                                 path: _path + ".objects",
-                                expected:
-                                    "Map<Resolve<MapAlias.Person>, number>",
+                                expected: "Map<MapAlias.Person, number>",
                                 value: input.objects,
                             })) &&
                         [...input.objects].every(
@@ -289,16 +288,14 @@ export const test_assert_MapAlias = _test_assert(
                                     $guard(_exceptionable, {
                                         path:
                                             _path + ".objects[" + _index6 + "]",
-                                        expected:
-                                            "[Resolve<MapAlias.Person>, number]",
+                                        expected: "[MapAlias.Person, number]",
                                         value: elem,
                                     })) &&
                                 (elem.length === 2 ||
                                     $guard(_exceptionable, {
                                         path:
                                             _path + ".objects[" + _index6 + "]",
-                                        expected:
-                                            "[Resolve<MapAlias.Person>, number]",
+                                        expected: "[MapAlias.Person, number]",
                                         value: elem,
                                     })) &&
                                 (("object" === typeof elem[0] &&
@@ -309,7 +306,7 @@ export const test_assert_MapAlias = _test_assert(
                                             ".objects[" +
                                             _index6 +
                                             "][0]",
-                                        expected: "Resolve<MapAlias.Person>",
+                                        expected: "MapAlias.Person",
                                         value: elem[0],
                                     })) &&
                                 $ao1(
@@ -357,7 +354,7 @@ export const test_assert_MapAlias = _test_assert(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<MapAlias>",
+                                expected: "MapAlias",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

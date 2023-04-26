@@ -162,13 +162,13 @@ export const test_createValidateStringify_NativeAlias = _test_validateStringify(
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<NativeAlias>",
+                                expected: "NativeAlias",
                                 value: input,
                             })) &&
                             $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<NativeAlias>",
+                            expected: "NativeAlias",
                             value: input,
                         })
                     );

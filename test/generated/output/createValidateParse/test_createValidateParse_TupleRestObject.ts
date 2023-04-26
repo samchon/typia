@@ -52,7 +52,7 @@ export const test_createValidateParse_TupleRestObject = _test_validateParse(
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    "[boolean, number, ...Resolve<TupleRestObject.IObject>]",
+                                    "[boolean, number, ...TupleRestObject.IObject]",
                                 value: input,
                             })) &&
                             [
@@ -73,8 +73,7 @@ export const test_createValidateParse_TupleRestObject = _test_validateParse(
                             (((Array.isArray(input.slice(2)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<Resolve<TupleRestObject.IObject>>",
+                                    expected: "Array<TupleRestObject.IObject>",
                                     value: input.slice(2),
                                 })) &&
                                 input
@@ -90,7 +89,7 @@ export const test_createValidateParse_TupleRestObject = _test_validateParse(
                                                         (2 + _index1) +
                                                         "]",
                                                     expected:
-                                                        "Resolve<TupleRestObject.IObject>",
+                                                        "TupleRestObject.IObject",
                                                     value: elem,
                                                 })) &&
                                                 $vo0(
@@ -108,21 +107,20 @@ export const test_createValidateParse_TupleRestObject = _test_validateParse(
                                                     (2 + _index1) +
                                                     "]",
                                                 expected:
-                                                    "Resolve<TupleRestObject.IObject>",
+                                                    "TupleRestObject.IObject",
                                                 value: elem,
                                             }),
                                     )
                                     .every((flag: boolean) => flag)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<Resolve<TupleRestObject.IObject>>",
+                                    expected: "Array<TupleRestObject.IObject>",
                                     value: input.slice(2),
                                 }))) ||
                         $report(true, {
                             path: _path + "",
                             expected:
-                                "[boolean, number, ...Resolve<TupleRestObject.IObject>]",
+                                "[boolean, number, ...TupleRestObject.IObject]",
                             value: input,
                         })
                     );

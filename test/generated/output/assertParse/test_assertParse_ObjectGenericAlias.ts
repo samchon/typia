@@ -37,8 +37,7 @@ export const test_assertParse_ObjectGenericAlias = _test_assertParse(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Resolve<ObjectGenericAlias.Alias>",
+                                    expected: "ObjectGenericAlias.Alias",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

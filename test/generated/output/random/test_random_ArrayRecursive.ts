@@ -79,8 +79,7 @@ export const test_random_ArrayRecursive = _test_random(
                     (Array.isArray(input.children) ||
                         $guard(_exceptionable, {
                             path: _path + ".children",
-                            expected:
-                                "Array<Resolve<ArrayRecursive.ICategory>>",
+                            expected: "Array<ArrayRecursive.ICategory>",
                             value: input.children,
                         })) &&
                     input.children.every(
@@ -88,8 +87,7 @@ export const test_random_ArrayRecursive = _test_random(
                             (("object" === typeof elem && null !== elem) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".children[" + _index1 + "]",
-                                    expected:
-                                        "Resolve<ArrayRecursive.ICategory>",
+                                    expected: "ArrayRecursive.ICategory",
                                     value: elem,
                                 })) &&
                             $ao0(
@@ -122,7 +120,7 @@ export const test_random_ArrayRecursive = _test_random(
                         null !== input.created_at) ||
                         $guard(_exceptionable, {
                             path: _path + ".created_at",
-                            expected: "Resolve<ArrayRecursive.ITimestamp>",
+                            expected: "ArrayRecursive.ITimestamp",
                             value: input.created_at,
                         })) &&
                     $ao1(
@@ -153,7 +151,7 @@ export const test_random_ArrayRecursive = _test_random(
                     (("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<ArrayRecursive.ICategory>",
+                            expected: "ArrayRecursive.ICategory",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

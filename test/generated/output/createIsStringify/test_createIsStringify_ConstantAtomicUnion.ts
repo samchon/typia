@@ -49,7 +49,7 @@ export const test_createIsStringify_ConstantAtomicUnion = _test_isStringify(
                             return $so0(elem);
                         $throws({
                             expected:
-                                '("four" | "three" | 1 | 2 | Resolve<__type> | false)',
+                                '("four" | "three" | 1 | 2 | __type | false)',
                             value: elem,
                         });
                     })(),

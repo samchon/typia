@@ -85,8 +85,7 @@ export const test_createAssertEquals_ObjectLiteralProperty = _test_assertEquals(
                     (("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected:
-                                "Resolve<ObjectLiteralProperty.ISomething>",
+                            expected: "ObjectLiteralProperty.ISomething",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

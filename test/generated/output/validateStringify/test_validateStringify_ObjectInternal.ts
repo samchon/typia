@@ -49,13 +49,13 @@ export const test_validateStringify_ObjectInternal = _test_validateStringify(
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Resolve<ObjectInternal>",
+                                    expected: "ObjectInternal",
                                     value: input,
                                 })) &&
                                 $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ObjectInternal>",
+                                expected: "ObjectInternal",
                                 value: input,
                             })
                         );

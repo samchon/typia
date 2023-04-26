@@ -108,7 +108,7 @@ export const test_validate_NativeUnion = _test_validate(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<NativeUnion.Union>>",
+                                expected: "Array<NativeUnion.Union>",
                                 value: input,
                             })) &&
                             input
@@ -119,8 +119,7 @@ export const test_validate_NativeUnion = _test_validate(
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "Resolve<NativeUnion.Union>",
+                                                expected: "NativeUnion.Union",
                                                 value: elem,
                                             })) &&
                                             $vo0(
@@ -130,15 +129,14 @@ export const test_validate_NativeUnion = _test_validate(
                                             )) ||
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "Resolve<NativeUnion.Union>",
+                                            expected: "NativeUnion.Union",
                                             value: elem,
                                         }),
                                 )
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<Resolve<NativeUnion.Union>>",
+                            expected: "Array<NativeUnion.Union>",
                             value: input,
                         })
                     );

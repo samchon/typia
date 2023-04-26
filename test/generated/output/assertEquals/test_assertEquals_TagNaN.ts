@@ -169,7 +169,7 @@ export const test_assertEquals_TagNaN = _test_assertEquals(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<TagNaN>",
+                                expected: "TagNaN",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

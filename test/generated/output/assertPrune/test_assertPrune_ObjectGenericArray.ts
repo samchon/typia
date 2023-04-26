@@ -59,8 +59,7 @@ export const test_assertPrune_ObjectGenericArray = _test_assertPrune(
                                 null !== input.pagination) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".pagination",
-                                    expected:
-                                        "Resolve<ObjectGenericArray.IPagination>",
+                                    expected: "ObjectGenericArray.IPagination",
                                     value: input.pagination,
                                 })) &&
                             $ao1(
@@ -72,7 +71,7 @@ export const test_assertPrune_ObjectGenericArray = _test_assertPrune(
                                 $guard(_exceptionable, {
                                     path: _path + ".data",
                                     expected:
-                                        "Array<Resolve<ObjectGenericArray.IPerson>>",
+                                        "Array<ObjectGenericArray.IPerson>",
                                     value: input.data,
                                 })) &&
                             input.data.every(
@@ -86,7 +85,7 @@ export const test_assertPrune_ObjectGenericArray = _test_assertPrune(
                                                 _index1 +
                                                 "]",
                                             expected:
-                                                "Resolve<ObjectGenericArray.IPerson>",
+                                                "ObjectGenericArray.IPerson",
                                             value: elem,
                                         })) &&
                                     $ao2(
@@ -150,7 +149,7 @@ export const test_assertPrune_ObjectGenericArray = _test_assertPrune(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<ObjectGenericArray>",
+                                    expected: "ObjectGenericArray",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

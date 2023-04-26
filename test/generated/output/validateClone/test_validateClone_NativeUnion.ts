@@ -117,8 +117,7 @@ export const test_validateClone_NativeUnion = _test_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<Resolve<NativeUnion.Union>>",
+                                    expected: "Array<NativeUnion.Union>",
                                     value: input,
                                 })) &&
                                 input
@@ -133,7 +132,7 @@ export const test_validateClone_NativeUnion = _test_validateClone(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<NativeUnion.Union>",
+                                                        "NativeUnion.Union",
                                                     value: elem,
                                                 })) &&
                                                 $vo0(
@@ -144,15 +143,14 @@ export const test_validateClone_NativeUnion = _test_validateClone(
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "Resolve<NativeUnion.Union>",
+                                                expected: "NativeUnion.Union",
                                                 value: elem,
                                             }),
                                     )
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<NativeUnion.Union>>",
+                                expected: "Array<NativeUnion.Union>",
                                 value: input,
                             })
                         );

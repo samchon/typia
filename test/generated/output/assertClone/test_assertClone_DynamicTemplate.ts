@@ -104,7 +104,7 @@ export const test_assertClone_DynamicTemplate = _test_assertClone(
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicTemplate>",
+                                    expected: "DynamicTemplate",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

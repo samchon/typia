@@ -115,13 +115,13 @@ export const test_createValidateClone_ArrayAny = _test_validateClone(
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ArrayAny>",
+                                expected: "ArrayAny",
                                 value: input,
                             })) &&
                             $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<ArrayAny>",
+                            expected: "ArrayAny",
                             value: input,
                         })
                     );

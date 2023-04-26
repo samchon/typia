@@ -86,8 +86,7 @@ export const test_assertPrune_TemplateConstant = _test_assertPrune(
                             (Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<Resolve<TemplateConstant.Type>>",
+                                    expected: "Array<TemplateConstant.Type>",
                                     value: input,
                                 })) &&
                             input.every(
@@ -96,8 +95,7 @@ export const test_assertPrune_TemplateConstant = _test_assertPrune(
                                         null !== elem) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "Resolve<TemplateConstant.Type>",
+                                            expected: "TemplateConstant.Type",
                                             value: elem,
                                         })) &&
                                     $ao0(

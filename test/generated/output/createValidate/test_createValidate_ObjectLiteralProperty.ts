@@ -56,14 +56,13 @@ export const test_createValidate_ObjectLiteralProperty = _test_validate(
                     ((("object" === typeof input && null !== input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Resolve<ObjectLiteralProperty.ISomething>",
+                            expected: "ObjectLiteralProperty.ISomething",
                             value: input,
                         })) &&
                         $vo0(input, _path + "", true)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Resolve<ObjectLiteralProperty.ISomething>",
+                        expected: "ObjectLiteralProperty.ISomething",
                         value: input,
                     })
                 );

@@ -96,8 +96,7 @@ export const test_assertClone_ObjectAlias = _test_assertClone(
                             (Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<Resolve<ObjectAlias.IMember>>",
+                                    expected: "Array<ObjectAlias.IMember>",
                                     value: input,
                                 })) &&
                             input.every(
@@ -106,8 +105,7 @@ export const test_assertClone_ObjectAlias = _test_assertClone(
                                         null !== elem) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "Resolve<ObjectAlias.IMember>",
+                                            expected: "ObjectAlias.IMember",
                                             value: elem,
                                         })) &&
                                     $ao0(

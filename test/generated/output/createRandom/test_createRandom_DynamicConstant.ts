@@ -84,7 +84,7 @@ export const test_createRandom_DynamicConstant = _test_random(
                     (("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<DynamicConstant>",
+                            expected: "DynamicConstant",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

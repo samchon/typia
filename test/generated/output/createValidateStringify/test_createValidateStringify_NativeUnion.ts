@@ -110,7 +110,7 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Resolve<NativeUnion.Union>>",
+                                expected: "Array<NativeUnion.Union>",
                                 value: input,
                             })) &&
                             input
@@ -121,8 +121,7 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "Resolve<NativeUnion.Union>",
+                                                expected: "NativeUnion.Union",
                                                 value: elem,
                                             })) &&
                                             $vo0(
@@ -132,15 +131,14 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                                             )) ||
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "Resolve<NativeUnion.Union>",
+                                            expected: "NativeUnion.Union",
                                             value: elem,
                                         }),
                                 )
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<Resolve<NativeUnion.Union>>",
+                            expected: "Array<NativeUnion.Union>",
                             value: input,
                         })
                     );
@@ -222,7 +220,7 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                         return $so1(input.buffer);
                     $throws({
                         expected:
-                            "(ArrayBuffer | DataView | Resolve<__type> | SharedArrayBuffer | unknown)",
+                            "(ArrayBuffer | DataView | SharedArrayBuffer | __type | unknown)",
                         value: input.buffer,
                     });
                 })()},"weak":${(() => {

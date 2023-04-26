@@ -53,7 +53,7 @@ export const test_createAssertStringify_ObjectLiteralType =
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<__object>",
+                                    expected: "__object",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

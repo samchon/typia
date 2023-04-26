@@ -241,7 +241,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                     $report(_exceptionable, {
                                         path: _path + ".answer",
                                         expected:
-                                            "(Resolve<ObjectGenericUnion.ISaleAnswer> | null)",
+                                            "(ObjectGenericUnion.ISaleAnswer | null)",
                                         value: input.answer,
                                     })) &&
                                     $vo1(
@@ -252,7 +252,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                 $report(_exceptionable, {
                                     path: _path + ".answer",
                                     expected:
-                                        "(Resolve<ObjectGenericUnion.ISaleAnswer> | null)",
+                                        "(ObjectGenericUnion.ISaleAnswer | null)",
                                     value: input.answer,
                                 }),
                             "string" === typeof input.id ||
@@ -272,7 +272,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                 $report(_exceptionable, {
                                     path: _path + ".contents",
                                     expected:
-                                        "Array<Resolve<ObjectGenericUnion.ISaleArticle.IContent>>",
+                                        "Array<ObjectGenericUnion.ISaleArticle.IContent>",
                                     value: input.contents,
                                 })) &&
                                 input.contents
@@ -287,7 +287,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<ObjectGenericUnion.ISaleArticle.IContent>",
+                                                        "ObjectGenericUnion.ISaleArticle.IContent",
                                                     value: elem,
                                                 })) &&
                                                 $vo2(
@@ -305,7 +305,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                                     _index1 +
                                                     "]",
                                                 expected:
-                                                    "Resolve<ObjectGenericUnion.ISaleArticle.IContent>",
+                                                    "ObjectGenericUnion.ISaleArticle.IContent",
                                                 value: elem,
                                             }),
                                     )
@@ -313,7 +313,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                 $report(_exceptionable, {
                                     path: _path + ".contents",
                                     expected:
-                                        "Array<Resolve<ObjectGenericUnion.ISaleArticle.IContent>>",
+                                        "Array<ObjectGenericUnion.ISaleArticle.IContent>",
                                     value: input.contents,
                                 }),
                             "string" === typeof input.created_at ||
@@ -370,7 +370,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                 $report(_exceptionable, {
                                     path: _path + ".contents",
                                     expected:
-                                        "Array<Resolve<ObjectGenericUnion.ISaleArticle.IContent>>",
+                                        "Array<ObjectGenericUnion.ISaleArticle.IContent>",
                                     value: input.contents,
                                 })) &&
                                 input.contents
@@ -385,7 +385,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                                         _index2 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<ObjectGenericUnion.ISaleArticle.IContent>",
+                                                        "ObjectGenericUnion.ISaleArticle.IContent",
                                                     value: elem,
                                                 })) &&
                                                 $vo2(
@@ -403,7 +403,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                                     _index2 +
                                                     "]",
                                                 expected:
-                                                    "Resolve<ObjectGenericUnion.ISaleArticle.IContent>",
+                                                    "ObjectGenericUnion.ISaleArticle.IContent",
                                                 value: elem,
                                             }),
                                     )
@@ -411,7 +411,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                 $report(_exceptionable, {
                                     path: _path + ".contents",
                                     expected:
-                                        "Array<Resolve<ObjectGenericUnion.ISaleArticle.IContent>>",
+                                        "Array<ObjectGenericUnion.ISaleArticle.IContent>",
                                     value: input.contents,
                                 }),
                             "string" === typeof input.created_at ||
@@ -477,7 +477,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                 $report(_exceptionable, {
                                     path: _path + ".files",
                                     expected:
-                                        'Array<Resolve<Omit<ObjectGenericUnion.IAttachmentFile, "id">>>',
+                                        'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
                                     value: input.files,
                                 })) &&
                                 input.files
@@ -492,7 +492,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                                         _index3 +
                                                         "]",
                                                     expected:
-                                                        'Resolve<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                                                        'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
                                                     value: elem,
                                                 })) &&
                                                 $vo3(
@@ -510,7 +510,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                                     _index3 +
                                                     "]",
                                                 expected:
-                                                    'Resolve<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                                                    'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
                                                 value: elem,
                                             }),
                                     )
@@ -518,7 +518,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                 $report(_exceptionable, {
                                     path: _path + ".files",
                                     expected:
-                                        'Array<Resolve<Omit<ObjectGenericUnion.IAttachmentFile, "id">>>',
+                                        'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
                                     value: input.files,
                                 }),
                             5 === Object.keys(input).length ||
@@ -608,7 +608,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                     $report(_exceptionable, {
                                         path: _path + ".answer",
                                         expected:
-                                            "(Resolve<ObjectGenericUnion.ISaleAnswer> | null)",
+                                            "(ObjectGenericUnion.ISaleAnswer | null)",
                                         value: input.answer,
                                     })) &&
                                     $vo1(
@@ -619,7 +619,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                 $report(_exceptionable, {
                                     path: _path + ".answer",
                                     expected:
-                                        "(Resolve<ObjectGenericUnion.ISaleAnswer> | null)",
+                                        "(ObjectGenericUnion.ISaleAnswer | null)",
                                     value: input.answer,
                                 }),
                             "string" === typeof input.id ||
@@ -639,7 +639,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                 $report(_exceptionable, {
                                     path: _path + ".contents",
                                     expected:
-                                        "Array<Resolve<ObjectGenericUnion.ISaleReview.IContent>>",
+                                        "Array<ObjectGenericUnion.ISaleReview.IContent>",
                                     value: input.contents,
                                 })) &&
                                 input.contents
@@ -654,7 +654,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                                         _index4 +
                                                         "]",
                                                     expected:
-                                                        "Resolve<ObjectGenericUnion.ISaleReview.IContent>",
+                                                        "ObjectGenericUnion.ISaleReview.IContent",
                                                     value: elem,
                                                 })) &&
                                                 $vo5(
@@ -672,7 +672,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                                     _index4 +
                                                     "]",
                                                 expected:
-                                                    "Resolve<ObjectGenericUnion.ISaleReview.IContent>",
+                                                    "ObjectGenericUnion.ISaleReview.IContent",
                                                 value: elem,
                                             }),
                                     )
@@ -680,7 +680,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                 $report(_exceptionable, {
                                     path: _path + ".contents",
                                     expected:
-                                        "Array<Resolve<ObjectGenericUnion.ISaleReview.IContent>>",
+                                        "Array<ObjectGenericUnion.ISaleReview.IContent>",
                                     value: input.contents,
                                 }),
                             "string" === typeof input.created_at ||
@@ -755,7 +755,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                 $report(_exceptionable, {
                                     path: _path + ".files",
                                     expected:
-                                        'Array<Resolve<Omit<ObjectGenericUnion.IAttachmentFile, "id">>>',
+                                        'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
                                     value: input.files,
                                 })) &&
                                 input.files
@@ -770,7 +770,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                                         _index5 +
                                                         "]",
                                                     expected:
-                                                        'Resolve<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                                                        'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
                                                     value: elem,
                                                 })) &&
                                                 $vo3(
@@ -788,7 +788,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                                     _index5 +
                                                     "]",
                                                 expected:
-                                                    'Resolve<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                                                    'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
                                                 value: elem,
                                             }),
                                     )
@@ -796,7 +796,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                 $report(_exceptionable, {
                                     path: _path + ".files",
                                     expected:
-                                        'Array<Resolve<Omit<ObjectGenericUnion.IAttachmentFile, "id">>>',
+                                        'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
                                     value: input.files,
                                 }),
                             6 === Object.keys(input).length ||
@@ -854,14 +854,14 @@ export const test_createValidateEquals_ObjectGenericUnion =
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    "(Resolve<ObjectGenericUnion.ISaleQuestion> | Resolve<ObjectGenericUnion.ISaleReview>)",
+                                    "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
                                 value: input,
                             })) &&
                             $vu0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
                             expected:
-                                "(Resolve<ObjectGenericUnion.ISaleQuestion> | Resolve<ObjectGenericUnion.ISaleReview>)",
+                                "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
                             value: input,
                         })
                     );

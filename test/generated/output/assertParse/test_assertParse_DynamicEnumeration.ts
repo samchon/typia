@@ -125,7 +125,7 @@ export const test_assertParse_DynamicEnumeration = _test_assertParse(
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicEnumeration>",
+                                    expected: "DynamicEnumeration",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

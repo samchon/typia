@@ -68,7 +68,7 @@ export const test_assertStringify_ObjectDynamic = _test_assertStringify(
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<ObjectDynamic>",
+                                    expected: "ObjectDynamic",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

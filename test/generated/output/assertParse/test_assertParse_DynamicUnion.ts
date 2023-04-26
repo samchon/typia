@@ -104,7 +104,7 @@ export const test_assertParse_DynamicUnion = _test_assertParse(
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicUnion>",
+                                    expected: "DynamicUnion",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

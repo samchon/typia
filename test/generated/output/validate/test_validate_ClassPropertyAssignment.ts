@@ -69,13 +69,13 @@ export const test_validate_ClassPropertyAssignment = _test_validate(
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ClassPropertyAssignment>",
+                                expected: "ClassPropertyAssignment",
                                 value: input,
                             })) &&
                             $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<ClassPropertyAssignment>",
+                            expected: "ClassPropertyAssignment",
                             value: input,
                         })
                     );

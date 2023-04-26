@@ -306,8 +306,7 @@ export const test_assertClone_MapSimple = _test_assertClone(
                             (input.objects instanceof Map ||
                                 $guard(_exceptionable, {
                                     path: _path + ".objects",
-                                    expected:
-                                        "Map<Resolve<MapSimple.Person>, number>",
+                                    expected: "Map<MapSimple.Person, number>",
                                     value: input.objects,
                                 })) &&
                             [...input.objects].every(
@@ -320,7 +319,7 @@ export const test_assertClone_MapSimple = _test_assertClone(
                                                 _index6 +
                                                 "]",
                                             expected:
-                                                "[Resolve<MapSimple.Person>, number]",
+                                                "[MapSimple.Person, number]",
                                             value: elem,
                                         })) &&
                                     (elem.length === 2 ||
@@ -331,7 +330,7 @@ export const test_assertClone_MapSimple = _test_assertClone(
                                                 _index6 +
                                                 "]",
                                             expected:
-                                                "[Resolve<MapSimple.Person>, number]",
+                                                "[MapSimple.Person, number]",
                                             value: elem,
                                         })) &&
                                     (("object" === typeof elem[0] &&
@@ -342,8 +341,7 @@ export const test_assertClone_MapSimple = _test_assertClone(
                                                 ".objects[" +
                                                 _index6 +
                                                 "][0]",
-                                            expected:
-                                                "Resolve<MapSimple.Person>",
+                                            expected: "MapSimple.Person",
                                             value: elem[0],
                                         })) &&
                                     $ao1(
@@ -391,7 +389,7 @@ export const test_assertClone_MapSimple = _test_assertClone(
                             (("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<MapSimple>",
+                                    expected: "MapSimple",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

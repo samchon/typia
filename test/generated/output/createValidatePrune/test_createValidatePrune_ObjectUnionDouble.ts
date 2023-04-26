@@ -92,7 +92,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 null !== input.value) ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
-                                    expected: "Resolve<__type>",
+                                    expected: "__type",
                                     value: input.value,
                                 })) &&
                                 $vo1(
@@ -102,7 +102,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
-                                    expected: "Resolve<__type>",
+                                    expected: "__type",
                                     value: input.value,
                                 }),
                             ((("object" === typeof input.child &&
@@ -110,7 +110,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 $report(_exceptionable, {
                                     path: _path + ".child",
                                     expected:
-                                        "(Resolve<ObjectUnionDouble.IAA> | Resolve<ObjectUnionDouble.IAB>)",
+                                        "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
                                     value: input.child,
                                 })) &&
                                 $vu0(
@@ -121,7 +121,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 $report(_exceptionable, {
                                     path: _path + ".child",
                                     expected:
-                                        "(Resolve<ObjectUnionDouble.IAA> | Resolve<ObjectUnionDouble.IAB>)",
+                                        "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
                                     value: input.child,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -149,7 +149,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 null !== input.value) ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
-                                    expected: "Resolve<__type.o1>",
+                                    expected: "__type.o1",
                                     value: input.value,
                                 })) &&
                                 $vo3(
@@ -159,7 +159,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
-                                    expected: "Resolve<__type.o1>",
+                                    expected: "__type.o1",
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -186,7 +186,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 null !== input.value) ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
-                                    expected: "Resolve<__type.o2>",
+                                    expected: "__type.o2",
                                     value: input.value,
                                 })) &&
                                 $vo5(
@@ -196,7 +196,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
-                                    expected: "Resolve<__type.o2>",
+                                    expected: "__type.o2",
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -224,7 +224,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 null !== input.value) ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
-                                    expected: "Resolve<__type.o3>",
+                                    expected: "__type.o3",
                                     value: input.value,
                                 })) &&
                                 $vo7(
@@ -234,7 +234,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
-                                    expected: "Resolve<__type.o3>",
+                                    expected: "__type.o3",
                                     value: input.value,
                                 }),
                             ((("object" === typeof input.child &&
@@ -242,7 +242,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 $report(_exceptionable, {
                                     path: _path + ".child",
                                     expected:
-                                        "(Resolve<ObjectUnionDouble.IBA> | Resolve<ObjectUnionDouble.IBB>)",
+                                        "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
                                     value: input.child,
                                 })) &&
                                 $vu1(
@@ -253,7 +253,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 $report(_exceptionable, {
                                     path: _path + ".child",
                                     expected:
-                                        "(Resolve<ObjectUnionDouble.IBA> | Resolve<ObjectUnionDouble.IBB>)",
+                                        "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
                                     value: input.child,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -280,7 +280,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 null !== input.value) ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
-                                    expected: "Resolve<__type.o4>",
+                                    expected: "__type.o4",
                                     value: input.value,
                                 })) &&
                                 $vo9(
@@ -290,7 +290,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
-                                    expected: "Resolve<__type.o4>",
+                                    expected: "__type.o4",
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -317,7 +317,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 null !== input.value) ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
-                                    expected: "Resolve<__type.o5>",
+                                    expected: "__type.o5",
                                     value: input.value,
                                 })) &&
                                 $vo11(
@@ -327,7 +327,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
-                                    expected: "Resolve<__type.o5>",
+                                    expected: "__type.o5",
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -391,7 +391,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    "Array<(Resolve<ObjectUnionDouble.IA> | Resolve<ObjectUnionDouble.IB>)>",
+                                    "Array<(ObjectUnionDouble.IA | ObjectUnionDouble.IB)>",
                                 value: input,
                             })) &&
                             input
@@ -403,7 +403,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
-                                                    "(Resolve<ObjectUnionDouble.IA> | Resolve<ObjectUnionDouble.IB>)",
+                                                    "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
                                                 value: elem,
                                             })) &&
                                             $vu2(
@@ -414,7 +414,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "(Resolve<ObjectUnionDouble.IA> | Resolve<ObjectUnionDouble.IB>)",
+                                                "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
                                             value: elem,
                                         }),
                                 )
@@ -422,7 +422,7 @@ export const test_createValidatePrune_ObjectUnionDouble = _test_validatePrune(
                         $report(true, {
                             path: _path + "",
                             expected:
-                                "Array<(Resolve<ObjectUnionDouble.IA> | Resolve<ObjectUnionDouble.IB>)>",
+                                "Array<(ObjectUnionDouble.IA | ObjectUnionDouble.IB)>",
                             value: input,
                         })
                     );

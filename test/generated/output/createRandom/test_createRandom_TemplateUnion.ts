@@ -164,14 +164,14 @@ export const test_createRandom_TemplateUnion = _test_random(
                         $guard(_exceptionable, {
                             path: _path + ".mixed",
                             expected:
-                                '("the_A_value" | "the_B_value" | Resolve<__type> | `the_${number}_value` | boolean | number)',
+                                '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
                             value: input.mixed,
                         })) &&
                     (undefined !== input.mixed ||
                         $guard(_exceptionable, {
                             path: _path + ".mixed",
                             expected:
-                                '("the_A_value" | "the_B_value" | Resolve<__type> | `the_${number}_value` | boolean | number)',
+                                '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
                             value: input.mixed,
                         })) &&
                     ("the_A_value" === input.mixed ||
@@ -188,7 +188,7 @@ export const test_createRandom_TemplateUnion = _test_random(
                             $guard(_exceptionable, {
                                 path: _path + ".mixed",
                                 expected:
-                                    '("the_A_value" | "the_B_value" | Resolve<__type> | `the_${number}_value` | boolean | number)',
+                                    '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
                                 value: input.mixed,
                             })) &&
                             $ao1(
@@ -211,7 +211,7 @@ export const test_createRandom_TemplateUnion = _test_random(
                     (Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<Resolve<TemplateUnion.Type>>",
+                            expected: "Array<TemplateUnion.Type>",
                             value: input,
                         })) &&
                     input.every(
@@ -219,7 +219,7 @@ export const test_createRandom_TemplateUnion = _test_random(
                             (("object" === typeof elem && null !== elem) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
-                                    expected: "Resolve<TemplateUnion.Type>",
+                                    expected: "TemplateUnion.Type",
                                     value: elem,
                                 })) &&
                             $ao0(elem, _path + "[" + _index1 + "]", true),

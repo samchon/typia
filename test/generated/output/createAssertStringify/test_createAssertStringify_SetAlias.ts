@@ -141,7 +141,7 @@ export const test_createAssertStringify_SetAlias = _test_assertStringify(
                         (input.objects instanceof Set ||
                             $guard(_exceptionable, {
                                 path: _path + ".objects",
-                                expected: "Set<Resolve<SetAlias.Person>>",
+                                expected: "Set<SetAlias.Person>",
                                 value: input.objects,
                             })) &&
                         [...input.objects].every(
@@ -150,7 +150,7 @@ export const test_createAssertStringify_SetAlias = _test_assertStringify(
                                     $guard(_exceptionable, {
                                         path:
                                             _path + ".objects[" + _index6 + "]",
-                                        expected: "Resolve<SetAlias.Person>",
+                                        expected: "SetAlias.Person",
                                         value: elem,
                                     })) &&
                                 $ao1(
@@ -187,7 +187,7 @@ export const test_createAssertStringify_SetAlias = _test_assertStringify(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<SetAlias>",
+                                expected: "SetAlias",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)

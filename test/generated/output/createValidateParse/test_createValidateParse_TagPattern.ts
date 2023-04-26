@@ -108,13 +108,13 @@ export const test_createValidateParse_TagPattern = _test_validateParse(
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<TagPattern>",
+                                expected: "TagPattern",
                                 value: input,
                             })) &&
                             $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<TagPattern>",
+                            expected: "TagPattern",
                             value: input,
                         })
                     );

@@ -90,7 +90,7 @@ export const test_random_ObjectGenericArray = _test_random(
                         null !== input.pagination) ||
                         $guard(_exceptionable, {
                             path: _path + ".pagination",
-                            expected: "Resolve<ObjectGenericArray.IPagination>",
+                            expected: "ObjectGenericArray.IPagination",
                             value: input.pagination,
                         })) &&
                     $ao1(
@@ -101,8 +101,7 @@ export const test_random_ObjectGenericArray = _test_random(
                     (Array.isArray(input.data) ||
                         $guard(_exceptionable, {
                             path: _path + ".data",
-                            expected:
-                                "Array<Resolve<ObjectGenericArray.IPerson>>",
+                            expected: "Array<ObjectGenericArray.IPerson>",
                             value: input.data,
                         })) &&
                     input.data.every(
@@ -110,8 +109,7 @@ export const test_random_ObjectGenericArray = _test_random(
                             (("object" === typeof elem && null !== elem) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".data[" + _index1 + "]",
-                                    expected:
-                                        "Resolve<ObjectGenericArray.IPerson>",
+                                    expected: "ObjectGenericArray.IPerson",
                                     value: elem,
                                 })) &&
                             $ao2(
@@ -175,7 +173,7 @@ export const test_random_ObjectGenericArray = _test_random(
                     (("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<ObjectGenericArray>",
+                            expected: "ObjectGenericArray",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

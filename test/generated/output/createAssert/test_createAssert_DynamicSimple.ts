@@ -60,7 +60,7 @@ export const test_createAssert_DynamicSimple = _test_assert(
                         false === Array.isArray(input)) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<DynamicSimple>",
+                            expected: "DynamicSimple",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

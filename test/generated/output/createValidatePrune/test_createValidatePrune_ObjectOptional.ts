@@ -74,13 +74,13 @@ export const test_createValidatePrune_ObjectOptional = _test_validatePrune(
                             false === Array.isArray(input)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Resolve<ObjectOptional>",
+                                expected: "ObjectOptional",
                                 value: input,
                             })) &&
                             $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Resolve<ObjectOptional>",
+                            expected: "ObjectOptional",
                             value: input,
                         })
                     );

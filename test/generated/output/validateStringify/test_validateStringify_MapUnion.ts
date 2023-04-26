@@ -204,7 +204,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                 $report(true, {
                                     path: _path + "",
                                     expected:
-                                        "Array<(Map<Array<number>, number> | Map<Resolve<MapUnion.Person>, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)>",
+                                        "Array<(Map<Array<number>, number> | Map<MapUnion.Person, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)>",
                                     value: input,
                                 })) &&
                                 input
@@ -218,7 +218,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "(Map<Array<number>, number> | Map<Resolve<MapUnion.Person>, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)",
+                                                        "(Map<Array<number>, number> | Map<MapUnion.Person, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)",
                                                     value: elem,
                                                 })) &&
                                                 (() => {
@@ -811,7 +811,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                                             _index8 +
                                                                                             "]",
                                                                                         expected:
-                                                                                            "[Resolve<MapUnion.Person>, number]",
+                                                                                            "[MapUnion.Person, number]",
                                                                                         value: elem,
                                                                                     },
                                                                                 )) &&
@@ -828,7 +828,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                                                 _index8 +
                                                                                                 "]",
                                                                                             expected:
-                                                                                                "[Resolve<MapUnion.Person>, number]",
+                                                                                                "[MapUnion.Person, number]",
                                                                                             value: elem,
                                                                                         },
                                                                                     )) &&
@@ -848,7 +848,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                                                     _index8 +
                                                                                                     "][0]",
                                                                                                 expected:
-                                                                                                    "Resolve<MapUnion.Person>",
+                                                                                                    "MapUnion.Person",
                                                                                                 value: elem[0],
                                                                                             },
                                                                                         )) &&
@@ -873,7 +873,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                                                     _index8 +
                                                                                                     "][0]",
                                                                                                 expected:
-                                                                                                    "Resolve<MapUnion.Person>",
+                                                                                                    "MapUnion.Person",
                                                                                                 value: elem[0],
                                                                                             },
                                                                                         ),
@@ -914,7 +914,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                                         _index8 +
                                                                                         "]",
                                                                                     expected:
-                                                                                        "[Resolve<MapUnion.Person>, number]",
+                                                                                        "[MapUnion.Person, number]",
                                                                                     value: elem,
                                                                                 },
                                                                             ),
@@ -966,7 +966,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                 _index1 +
                                                                 "]",
                                                             expected:
-                                                                "(Map<boolean, number> | Map<number, number> | Map<string, number> | Map<Array<number>, number> | Map<Resolve<MapUnion.Person>, number>)",
+                                                                "(Map<boolean, number> | Map<number, number> | Map<string, number> | Map<Array<number>, number> | Map<MapUnion.Person, number>)",
                                                             value: elem,
                                                         },
                                                     );
@@ -975,7 +975,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
-                                                    "(Map<Array<number>, number> | Map<Resolve<MapUnion.Person>, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)",
+                                                    "(Map<Array<number>, number> | Map<MapUnion.Person, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)",
                                                 value: elem,
                                             }),
                                     )
@@ -983,7 +983,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                             $report(true, {
                                 path: _path + "",
                                 expected:
-                                    "Array<(Map<Array<number>, number> | Map<Resolve<MapUnion.Person>, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)>",
+                                    "Array<(Map<Array<number>, number> | Map<MapUnion.Person, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)>",
                                 value: input,
                             })
                         );

@@ -96,7 +96,7 @@ export const test_createAssertEquals_DynamicConstant = _test_assertEquals(
                     (("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Resolve<DynamicConstant>",
+                            expected: "DynamicConstant",
                             value: input,
                         })) &&
                     $ao0(input, _path + "", true)

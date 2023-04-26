@@ -78,7 +78,7 @@ export const test_assertParse_DynamicArray = _test_assertParse(
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Resolve<DynamicArray>",
+                                    expected: "DynamicArray",
                                     value: input,
                                 })) &&
                             $ao0(input, _path + "", true)

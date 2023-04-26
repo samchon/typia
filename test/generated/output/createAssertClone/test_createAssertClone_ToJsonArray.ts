@@ -89,35 +89,34 @@ export const test_createAssertClone_ToJsonArray = _test_assertClone(
                             $guard(true, {
                                 path: _path + "",
                                 expected:
-                                    "[Resolve<ToJsonArray.IArray<boolean>>, Resolve<ToJsonArray.IArray<number>>, Resolve<ToJsonArray.IArray<string>>, Resolve<ToJsonArray.IArray<ToJsonArray.IObject>>]",
+                                    "[ToJsonArray.IArray<boolean>, ToJsonArray.IArray<number>, ToJsonArray.IArray<string>, ToJsonArray.IArray<ToJsonArray.IObject>]",
                                 value: input,
                             })) &&
                         (input.length === 4 ||
                             $guard(true, {
                                 path: _path + "",
                                 expected:
-                                    "[Resolve<ToJsonArray.IArray<boolean>>, Resolve<ToJsonArray.IArray<number>>, Resolve<ToJsonArray.IArray<string>>, Resolve<ToJsonArray.IArray<ToJsonArray.IObject>>]",
+                                    "[ToJsonArray.IArray<boolean>, ToJsonArray.IArray<number>, ToJsonArray.IArray<string>, ToJsonArray.IArray<ToJsonArray.IObject>]",
                                 value: input,
                             })) &&
                         (("object" === typeof input[0] && null !== input[0]) ||
                             $guard(true, {
                                 path: _path + "[0]",
-                                expected:
-                                    "Resolve<ToJsonArray.IArray<boolean>>",
+                                expected: "ToJsonArray.IArray<boolean>",
                                 value: input[0],
                             })) &&
                         $ao0(input[0], _path + "[0]", true) &&
                         (("object" === typeof input[1] && null !== input[1]) ||
                             $guard(true, {
                                 path: _path + "[1]",
-                                expected: "Resolve<ToJsonArray.IArray<number>>",
+                                expected: "ToJsonArray.IArray<number>",
                                 value: input[1],
                             })) &&
                         $ao1(input[1], _path + "[1]", true) &&
                         (("object" === typeof input[2] && null !== input[2]) ||
                             $guard(true, {
                                 path: _path + "[2]",
-                                expected: "Resolve<ToJsonArray.IArray<string>>",
+                                expected: "ToJsonArray.IArray<string>",
                                 value: input[2],
                             })) &&
                         $ao2(input[2], _path + "[2]", true) &&
@@ -125,7 +124,7 @@ export const test_createAssertClone_ToJsonArray = _test_assertClone(
                             $guard(true, {
                                 path: _path + "[3]",
                                 expected:
-                                    "Resolve<ToJsonArray.IArray<ToJsonArray.IObject>>",
+                                    "ToJsonArray.IArray<ToJsonArray.IObject>",
                                 value: input[3],
                             })) &&
                         $ao3(input[3], _path + "[3]", true)

@@ -105,7 +105,7 @@ export const test_createAssertPrune_TagPattern = _test_assertPrune(
                         (("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Resolve<TagPattern>",
+                                expected: "TagPattern",
                                 value: input,
                             })) &&
                         $ao0(input, _path + "", true)
