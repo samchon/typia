@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "3.8.0-dev.20230420-3",
+  "version": "3.8.0-dev.20230426-2",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -17,7 +17,6 @@
     "dev:test": "rimraf bin && tsc -p test/tsconfig.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
-    "prepare": "ts-patch install",
     "prettier": "prettier  --write ./**/*.ts",
     "-----------------------------------------------": "",
     "issue": "node test/issue",
@@ -67,10 +66,10 @@
   },
   "homepage": "https://github.com/samchon/typia#readme",
   "dependencies": {
-    "typia": "3.8.0-dev.20230420-3"
+    "typia": "3.8.0-dev.20230426-2"
   },
   "peerDependencies": {
-    "typescript": ">= 4.5.2"
+    "typescript": ">= 5.0.0"
   },
   "files": [
     "LICENSE",
