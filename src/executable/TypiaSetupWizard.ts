@@ -20,16 +20,31 @@ export namespace TypiaSetupWizard {
         const pack: PackageManager = await PackageManager.mount();
         const args: IArguments = await ArgumentParser.parse(pack)(inquiry);
 
-        // INSTALL TYPESCRIPT
-        pack.install({ dev: true, modulo: "typescript", version: "latest" });
+        // INSTALL TYPESCRIPT COMPILERS
+        pack.install({ dev: true, modulo: "ts-patch", version: "latest" });
+        pack.install({ dev: true, modulo: "ts-node", version: "latest" });
+        pack.install({
+            dev: true,
+            modulo: "typescript",
+            version: (() => {
+                const version: string = (() => {
+                    try {
+                        return require("ts-patch/package.json")?.version ?? "";
+                    } catch {
+                        return "";
+                    }
+                })();
+                return Number(version.split(".")[0] ?? "") >= 3
+                    ? "latest"
+                    : "4.9.5";
+            })(),
+        });
         args.project ??= (() => {
             CommandExecutor.run("npx tsc --init");
             return (args.project = "tsconfig.json");
         })();
-        pack.install({ dev: true, modulo: "ts-node", version: "latest" });
 
-        // INSTALL COMPILER
-        pack.install({ dev: true, modulo: "ts-patch", version: "3.0.0-beta3" });
+        // SETUP TRANSFORMER
         await pack.save((data) => {
             data.scripts ??= {};
             if (
