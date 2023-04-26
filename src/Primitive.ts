@@ -49,12 +49,18 @@ type _Primitive<Instance> = _ValueOf<Instance> extends object
     : _ValueOf<Instance>;
 
 type _PrimitiveObject<Instance extends object> = Instance extends Array<infer T>
-    ? _Primitive<T>[]
+    ? _IsTuple<Instance> extends true
+        ? _PrimitiveSpread<Instance>
+        : _Primitive<T>[]
     : {
           [P in keyof Instance]: Instance[P] extends Function
               ? never
               : _Primitive<Instance[P]>;
       };
+
+type _PrimitiveSpread<T extends any[]> = T extends [infer F, ...infer Rest]
+    ? [_Primitive<F>, ..._PrimitiveSpread<Rest>]
+    : [];
 
 type _ValueOf<Instance> = _IsValueOf<Instance, Boolean> extends true
     ? boolean
@@ -83,6 +89,16 @@ type _Native =
     | ArrayBuffer
     | SharedArrayBuffer
     | DataView;
+
+type _IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
+    never,
+]
+    ? false
+    : T extends readonly any[]
+    ? number extends T["length"]
+        ? false
+        : true
+    : false;
 
 type _IsValueOf<
     Instance,

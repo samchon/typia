@@ -108,5 +108,5 @@
       { "transform": "typescript-transform-paths" },
     ]
   },
-  "include": ["../build", "./src", "./test"]
+  "include": ["./build", "../src", "../test"]
 }

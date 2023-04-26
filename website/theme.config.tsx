@@ -81,6 +81,26 @@ const config: DocsThemeConfig = {
           property: "og:url",
           content: "https://typia.io"
         },
+        {
+          name: "twitter:card",
+          content: "summary"
+        },
+        {
+          name: "twitter:image",
+          content: "https://typia.io/og.jpg"
+        },
+        {
+          name: "twitter:title",
+          content: "Typia Guide Documents"
+        },
+        {
+          name: "twitter:description",
+          content: "Superfast Runtime Validator with only one line"
+        },
+        {
+          name: "twitter:site",
+          content: "@SamchonGithub"
+        }
       ]
     }
   },

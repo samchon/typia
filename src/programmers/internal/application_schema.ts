@@ -26,7 +26,11 @@ export const application_schema =
         attribute: IJsonSchema.IAttribute,
     ): BlockNever extends true ? IJsonSchema | null : IJsonSchema => {
         // VULNERABLE CASE
-        if (meta.any === true) return {};
+        if (meta.any === true)
+            return {
+                ...attribute,
+                type: undefined,
+            };
         else if (meta.nullable && meta.empty())
             return { type: "null", ...attribute };
 
@@ -173,7 +177,13 @@ export const application_schema =
         //----
         // RETURNS
         //----
-        if (union.length === 0) return blockNever === true ? null! : {};
+        if (union.length === 0)
+            return blockNever === true
+                ? null!
+                : {
+                      ...attribute,
+                      type: undefined,
+                  };
         else if (union.length === 1) return union[0]!;
         return { oneOf: union, ...attribute };
     };
