@@ -35,7 +35,7 @@ export namespace ApplicationProgrammer {
     export const generate = (
         metadatas: Array<Metadata>,
         options?: Partial<IOptions>,
-    ): IJsonApplication => generate(metadatas, options);
+    ): IJsonApplication => write(options)(metadatas);
 
     export const write =
         (options?: Partial<IOptions>) =>
