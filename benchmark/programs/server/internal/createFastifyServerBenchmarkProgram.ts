@@ -8,7 +8,7 @@ export const createFastifyServerBenchmarkProgram = async <T>(
     app: typia.IJsonApplication,
 ) => {
     // DEFINE RESPONSE DTO THROUGH JSON-SCHEMA
-    const definitions: Record<string, typia.IJsonSchema> = {};
+    const definitions: Record<string, typia.IJsonComponents.IObject> = {};
     for (const [key, value] of Object.entries(app.components.schemas))
         definitions[key.replace("#/definitions/", "")] = value;
     const schema = {
