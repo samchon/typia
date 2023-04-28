@@ -33,17 +33,28 @@ export namespace PluginConfigurator {
             return plugins;
         })();
 
-        const strict: boolean = compilerOptions.strict === true;
+        const strict: boolean | undefined = compilerOptions.strict as
+            | boolean
+            | undefined;
+        const strictNullChecks: boolean | undefined =
+            compilerOptions.strictNullChecks as boolean | undefined;
         const oldbie: comments.CommentObject | undefined = plugins.find(
             (p) =>
                 typeof p === "object" &&
                 p !== null &&
                 p.transform === "typia/lib/transform",
         );
-        if (strict === true && oldbie !== undefined) return;
+        if (
+            strictNullChecks !== false &&
+            (strict === true || strictNullChecks === true) &&
+            oldbie !== undefined
+        )
+            return;
 
         // DO CONFIGURE
-        compilerOptions.strict = true;
+        compilerOptions.strictNullChecks = true;
+        if (strict === undefined && strictNullChecks === undefined)
+            compilerOptions.strict = true;
         if (oldbie === undefined)
             plugins.push(
                 comments.parse(`
