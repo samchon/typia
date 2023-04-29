@@ -31,6 +31,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "format": "uuid"
           },
           "dollar": {
@@ -42,7 +43,8 @@
                 "name": "dollar"
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "postfix": {
             "type": "string",
@@ -59,7 +61,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "log": {
             "type": "number",
@@ -76,7 +79,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

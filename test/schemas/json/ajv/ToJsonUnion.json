@@ -37,17 +37,20 @@
           "id": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "mobile": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -65,17 +68,20 @@
           "manufacturer": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "brand": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

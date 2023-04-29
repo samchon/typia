@@ -14,30 +14,35 @@
             "type": "string",
             "nullable": false,
             "x-typia-required": true,
+            "x-typia-optional": false,
             "pattern": "^(prefix_(.*))"
           },
           "postfix": {
             "type": "string",
             "nullable": false,
             "x-typia-required": true,
+            "x-typia-optional": false,
             "pattern": "((.*)_postfix)$"
           },
           "middle_string": {
             "type": "string",
             "nullable": false,
             "x-typia-required": true,
+            "x-typia-optional": false,
             "pattern": "^(the_(.*)_value)$"
           },
           "middle_string_empty": {
             "type": "string",
             "nullable": false,
             "x-typia-required": true,
+            "x-typia-optional": false,
             "pattern": "^(the_(.*)_value)$"
           },
           "middle_numeric": {
             "type": "string",
             "nullable": false,
             "x-typia-required": true,
+            "x-typia-optional": false,
             "pattern": "^(the_-?\\d+\\.?\\d*_value)$"
           },
           "middle_boolean": {
@@ -47,18 +52,21 @@
               "the_true_value"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "ipv4": {
             "type": "string",
             "nullable": false,
             "x-typia-required": true,
+            "x-typia-optional": false,
             "pattern": "^(-?\\d+\\.?\\d*\\.-?\\d+\\.?\\d*\\.-?\\d+\\.?\\d*\\.-?\\d+\\.?\\d*)$"
           },
           "email": {
             "type": "string",
             "nullable": false,
             "x-typia-required": true,
+            "x-typia-optional": false,
             "pattern": "((.*)@(.*)\\.(.*))"
           }
         },

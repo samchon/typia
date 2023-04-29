@@ -42,6 +42,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minimum": 3
           }
         },
@@ -89,6 +90,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minLength": 3,
             "maxLength": 7
           }

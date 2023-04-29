@@ -16,100 +16,123 @@
           "date": {
             "type": "string",
             "nullable": true,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "unsigned": {
             "oneOf": [
               {
                 "$ref": "#/components/schemas/Uint8Array",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/Uint8ClampedArray",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/Uint16Array",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/Uint32Array",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/BigUint64Array",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "signed": {
             "oneOf": [
               {
                 "$ref": "#/components/schemas/Int8Array",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/Int16Array",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/Int32Array",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/BigInt64Array",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "float": {
             "oneOf": [
               {
                 "$ref": "#/components/schemas/Float32Array",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/Float64Array",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "buffer": {
             "oneOf": [
               {
                 "$ref": "#/components/schemas/ArrayBuffer",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/SharedArrayBuffer",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/DataView",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/__type",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "weak": {
             "oneOf": [
               {
                 "$ref": "#/components/schemas/WeakSet",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/WeakMap",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -202,17 +225,20 @@
               "Buffer"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "data": {
             "type": "array",
             "items": {
               "type": "number",
               "nullable": false,
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

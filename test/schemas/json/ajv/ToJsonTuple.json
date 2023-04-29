@@ -5,19 +5,27 @@
       "items": [
         {
           "type": "string",
-          "nullable": false
+          "nullable": false,
+          "x-typia-required": true,
+          "x-typia-optional": false
         },
         {
           "type": "number",
-          "nullable": false
+          "nullable": false,
+          "x-typia-required": true,
+          "x-typia-optional": false
         },
         {
           "type": "boolean",
-          "nullable": false
+          "nullable": false,
+          "x-typia-required": true,
+          "x-typia-optional": false
         },
         {
           "$ref": "components#/schemas/ToJsonTuple.IHobby",
-          "x-typia-rest": false
+          "x-typia-rest": false,
+          "x-typia-required": true,
+          "x-typia-optional": false
         }
       ],
       "nullable": false
@@ -32,12 +40,14 @@
           "code": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

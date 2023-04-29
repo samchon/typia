@@ -50,6 +50,7 @@
                 }
               ],
               "x-typia-required": true,
+              "x-typia-optional": false,
               "format": "uuid"
             },
             "nullable": false,
@@ -83,7 +84,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "minItems": {
             "type": "array",
@@ -121,6 +123,7 @@
                 }
               ],
               "x-typia-required": true,
+              "x-typia-optional": false,
               "minimum": 3
             },
             "nullable": false,
@@ -155,6 +158,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minItems": 3
           },
           "maxItems": {
@@ -208,6 +212,7 @@
                     }
                   ],
                   "x-typia-required": true,
+                  "x-typia-optional": false,
                   "maxLength": 7
                 },
                 {
@@ -257,6 +262,7 @@
                     }
                   ],
                   "x-typia-required": true,
+                  "x-typia-optional": false,
                   "maximum": 7
                 }
               ],
@@ -303,7 +309,8 @@
                   ]
                 }
               ],
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
             "x-typia-metaTags": [
@@ -350,6 +357,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "maxItems": 7
           },
           "both": {
@@ -401,6 +409,7 @@
                 }
               ],
               "x-typia-required": true,
+              "x-typia-optional": false,
               "format": "uuid"
             },
             "nullable": false,
@@ -448,6 +457,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minItems": 3,
             "maxItems": 7
           }

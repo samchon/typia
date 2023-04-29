@@ -32,6 +32,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "format": "uuid"
           },
           "email": {
@@ -56,6 +57,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "format": "email"
           },
           "url": {
@@ -80,6 +82,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "format": "url"
           },
           "ipv4": {
@@ -104,6 +107,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "format": "ipv4"
           },
           "ipv6": {
@@ -128,6 +132,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "format": "ipv6"
           },
           "date": {
@@ -152,6 +157,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "format": "date"
           },
           "date_time": {
@@ -176,6 +182,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "format": "date-time"
           },
           "datetime": {
@@ -200,6 +207,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "format": "date-time"
           },
           "dateTime": {
@@ -224,6 +232,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "format": "date-time"
           },
           "custom": {
@@ -242,6 +251,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "format": "my-custom-format"
           }
         },

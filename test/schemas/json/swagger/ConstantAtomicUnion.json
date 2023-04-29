@@ -46,7 +46,8 @@
               "key"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

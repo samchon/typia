@@ -75,7 +75,7 @@ export const isSomeOutputDto = (input: any): ISomeOutputDto => {
                 (("object" === typeof input && null !== input) ||
                     $guard(true, {
                         path: _path + "",
-                        expected: "Resolve<ISomeOutputDto>",
+                        expected: "ISomeOutputDto",
                         value: input,
                     })) &&
                 $ao0(input, _path + "", true)

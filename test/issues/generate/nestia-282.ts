@@ -341,7 +341,7 @@ const input: Try<
                     $guard(true, {
                         path: _path + "",
                         expected:
-                            "(Resolve<ResponseForm<true>> | Resolve<__object.o1> | Resolve<__object.o2> | Resolve<__object.o3> | Resolve<__object.o4> | Resolve<__object>)",
+                            "(ResponseForm<true> | __object | __object.o1 | __object.o2 | __object.o3 | __object.o4)",
                         value: input,
                     })) &&
                 $au0(input, _path + "", true)

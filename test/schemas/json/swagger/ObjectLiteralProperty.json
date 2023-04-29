@@ -12,12 +12,14 @@
           "something-interesting-do-you-want?": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "or-something-crazy-do-you-want?": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

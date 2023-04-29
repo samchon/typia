@@ -49,6 +49,7 @@
                   }
                 ],
                 "x-typia-required": true,
+                "x-typia-optional": false,
                 "format": "uuid"
               },
               "nullable": false,
@@ -83,7 +84,8 @@
                   ]
                 }
               ],
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
             "description": "Doubled array.",
@@ -117,7 +119,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

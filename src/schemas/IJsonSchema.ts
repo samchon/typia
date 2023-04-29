@@ -124,6 +124,7 @@ export namespace IJsonSchema {
         "x-typia-metaTags"?: IMetadataTag[];
         "x-typia-jsDocTags"?: IJsDocTagInfo[];
         "x-typia-required"?: boolean;
+        "x-typia-optional"?: boolean;
         "x-typia-rest"?: boolean;
     }
 }

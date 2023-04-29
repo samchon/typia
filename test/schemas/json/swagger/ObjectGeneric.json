@@ -20,14 +20,20 @@
         "type": "array",
         "items": [
           {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_boolean_gt_"
+            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_boolean_gt_",
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_number_gt_"
+            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_number_gt_",
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           {
             "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_string_gt_",
-            "x-typia-rest": false
+            "x-typia-rest": false,
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         ],
         "nullable": false
@@ -42,20 +48,24 @@
           "value": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "child": {
             "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "elements": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -72,12 +82,14 @@
           "child_value": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "child_next": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -93,20 +105,24 @@
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "child": {
             "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_number_comma__space_number_gt_",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "elements": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_number_comma__space_number_gt_",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -123,12 +139,14 @@
           "child_value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "child_next": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -144,20 +162,24 @@
           "value": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "child": {
             "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_string_comma__space_string_gt_",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "elements": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_string_comma__space_string_gt_",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -174,12 +196,14 @@
           "child_value": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "child_next": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

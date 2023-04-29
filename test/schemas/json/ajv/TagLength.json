@@ -34,7 +34,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "minimum": {
             "type": "string",
@@ -57,6 +58,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minLength": 3
           },
           "maximum": {
@@ -80,6 +82,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "maxLength": 7
           },
           "minimum_and_maximum": {
@@ -116,6 +119,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minLength": 3,
             "maxLength": 7
           }

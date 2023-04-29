@@ -24,6 +24,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "default": true
           },
           "number": {
@@ -41,6 +42,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "default": 1
           },
           "string": {
@@ -58,6 +60,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "default": "two"
           },
           "text": {
@@ -75,6 +78,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "default": "Very long text, can you understand it?"
           },
           "template": {
@@ -92,6 +96,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "pattern": "^(prefix_(.*))",
             "default": "prefix_A"
           },
@@ -130,6 +135,7 @@
                   }
                 ],
                 "x-typia-required": true,
+                "x-typia-optional": false,
                 "default": "two"
               },
               {
@@ -165,6 +171,7 @@
                   }
                 ],
                 "x-typia-required": true,
+                "x-typia-optional": false,
                 "default": 1
               },
               {
@@ -200,6 +207,7 @@
                   }
                 ],
                 "x-typia-required": true,
+                "x-typia-optional": false,
                 "default": true
               }
             ],
@@ -232,7 +240,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "union_but_boolean": {
             "oneOf": [
@@ -250,7 +259,8 @@
                     ]
                   }
                 ],
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "type": "number",
@@ -266,7 +276,8 @@
                     ]
                   }
                 ],
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "type": "boolean",
@@ -283,6 +294,7 @@
                   }
                 ],
                 "x-typia-required": true,
+                "x-typia-optional": false,
                 "default": true
               }
             ],
@@ -297,7 +309,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "union_but_number": {
             "oneOf": [
@@ -315,7 +328,8 @@
                     ]
                   }
                 ],
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "type": "number",
@@ -332,6 +346,7 @@
                   }
                 ],
                 "x-typia-required": true,
+                "x-typia-optional": false,
                 "default": 1
               },
               {
@@ -348,7 +363,8 @@
                     ]
                   }
                 ],
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               }
             ],
             "x-typia-jsDocTags": [
@@ -362,7 +378,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "union_but_string": {
             "oneOf": [
@@ -381,6 +398,7 @@
                   }
                 ],
                 "x-typia-required": true,
+                "x-typia-optional": false,
                 "default": "two"
               },
               {
@@ -397,7 +415,8 @@
                     ]
                   }
                 ],
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "type": "boolean",
@@ -413,7 +432,8 @@
                     ]
                   }
                 ],
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               }
             ],
             "x-typia-jsDocTags": [
@@ -427,7 +447,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "vulnerable_range": {
             "type": "number",
@@ -472,6 +493,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minimum": 3,
             "maximum": 5
           },
@@ -490,6 +512,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "pattern": "^(prefix_(.*))"
           },
           "boolean_and_number_and_template": {
@@ -527,6 +550,7 @@
                   }
                 ],
                 "x-typia-required": true,
+                "x-typia-optional": false,
                 "pattern": "^(-?\\d+\\.?\\d*|true|false|(prefix_(.*)))",
                 "default": "prefix_B"
               },
@@ -563,6 +587,7 @@
                   }
                 ],
                 "x-typia-required": true,
+                "x-typia-optional": false,
                 "default": 1
               },
               {
@@ -598,6 +623,7 @@
                   }
                 ],
                 "x-typia-required": true,
+                "x-typia-optional": false,
                 "default": true
               }
             ],
@@ -630,7 +656,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

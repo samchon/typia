@@ -64,6 +64,7 @@ export const application_object =
                     ? property.jsDocTags
                     : undefined,
                 "x-typia-required": property.value.required,
+                "x-typia-optional": property.value.optional,
             });
 
             if (schema === null) continue;

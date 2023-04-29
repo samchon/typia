@@ -18,13 +18,15 @@
                 "name": "deprecated"
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "description": {
             "type": "string",
             "nullable": false,
             "description": "Descripted property.",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "title": {
             "type": "string",
@@ -42,7 +44,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "complicate_title": {
             "type": "string",
@@ -76,7 +79,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

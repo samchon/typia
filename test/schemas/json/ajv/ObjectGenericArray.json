@@ -12,16 +12,19 @@
         "properties": {
           "pagination": {
             "$ref": "components#/schemas/ObjectGenericArray.IPagination",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "data": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/ObjectGenericArray.IPerson",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -38,22 +41,26 @@
           "page": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "limit": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "total_count": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "total_pages": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -72,12 +79,14 @@
           "name": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "age": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
