@@ -22,7 +22,8 @@
               "prefix_C"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "postfix": {
             "type": "string",
@@ -32,7 +33,8 @@
               "1_postfix"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "combined": {
             "type": "string",
@@ -48,7 +50,8 @@
               "the_1_value_with_label_C"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

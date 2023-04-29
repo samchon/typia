@@ -20,69 +20,86 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IBoolean",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IInteger",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.INumber",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IString",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$recursiveRef": "components#/schemas/IJsonSchema.IArray",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$recursiveRef": "components#/schemas/IJsonSchema.ITuple",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$recursiveRef": "components#/schemas/IJsonSchema.IOneOf",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IReference",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IRecursiveReference",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.INullOnly",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IUnknown",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 }
               ],
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "components": {
             "$ref": "components#/schemas/IJsonComponents",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "purpose": {
             "type": "string",
@@ -91,12 +108,14 @@
               "ajv"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "prefix": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -117,15 +136,18 @@
             "items": {
               "type": "boolean",
               "nullable": false,
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "default": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "type": {
             "type": "string",
@@ -133,27 +155,32 @@
               "boolean"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "nullable": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "deprecated": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "title": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-metaTags": {
             "type": "array",
@@ -161,88 +188,115 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IMetadataTag.IType",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 }
               ],
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-required": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "x-typia-optional": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-rest": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -263,7 +317,8 @@
               "type"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "string",
@@ -272,7 +327,8 @@
               "uint"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -292,12 +348,14 @@
               "minimum"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -317,12 +375,14 @@
               "maximum"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -342,12 +402,14 @@
               "exclusiveMinimum"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -367,12 +429,14 @@
               "exclusiveMaximum"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -392,12 +456,14 @@
               "multipleOf"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -417,12 +483,14 @@
               "step"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -442,7 +510,8 @@
               "format"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "string",
@@ -456,7 +525,8 @@
               "datetime"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -476,12 +546,14 @@
               "pattern"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -501,12 +573,14 @@
               "length"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -526,12 +600,14 @@
               "minLength"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -551,12 +627,14 @@
               "maxLength"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -576,12 +654,14 @@
               "items"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -601,12 +681,14 @@
               "minItems"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -626,12 +708,14 @@
               "maxItems"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -648,16 +732,19 @@
           "name": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "text": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo.IText",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -673,12 +760,14 @@
           "text": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "kind": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -697,15 +786,18 @@
             "items": {
               "type": "number",
               "nullable": false,
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "default": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "type": {
             "type": "string",
@@ -713,27 +805,32 @@
               "number"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "nullable": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "deprecated": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "title": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-metaTags": {
             "type": "array",
@@ -741,88 +838,115 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IMetadataTag.IType",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 }
               ],
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-required": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "x-typia-optional": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-rest": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -842,15 +966,18 @@
             "items": {
               "type": "string",
               "nullable": false,
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "default": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "type": {
             "type": "string",
@@ -858,27 +985,32 @@
               "string"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "nullable": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "deprecated": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "title": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-metaTags": {
             "type": "array",
@@ -886,88 +1018,115 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IMetadataTag.IType",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 }
               ],
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-required": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "x-typia-optional": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-rest": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -985,7 +1144,8 @@
           "default": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "type": {
             "type": "string",
@@ -993,27 +1153,32 @@
               "boolean"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "nullable": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "deprecated": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "title": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-metaTags": {
             "type": "array",
@@ -1021,88 +1186,115 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IMetadataTag.IType",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 }
               ],
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-required": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "x-typia-optional": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-rest": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -1136,7 +1328,8 @@
                 ]
               }
             ],
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "maximum": {
             "type": "integer",
@@ -1158,17 +1351,20 @@
                 ]
               }
             ],
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "exclusiveMinimum": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "exclusiveMaximum": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "multipleOf": {
             "type": "integer",
@@ -1190,12 +1386,14 @@
                 ]
               }
             ],
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "default": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "type": {
             "type": "string",
@@ -1203,27 +1401,32 @@
               "integer"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "nullable": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "deprecated": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "title": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-metaTags": {
             "type": "array",
@@ -1231,88 +1434,115 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IMetadataTag.IType",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 }
               ],
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-required": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "x-typia-optional": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-rest": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -1329,32 +1559,38 @@
           "minimum": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "maximum": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "exclusiveMinimum": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "exclusiveMaximum": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "multipleOf": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "default": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "type": {
             "type": "string",
@@ -1362,27 +1598,32 @@
               "number"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "nullable": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "deprecated": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "title": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-metaTags": {
             "type": "array",
@@ -1390,88 +1631,115 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IMetadataTag.IType",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 }
               ],
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-required": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "x-typia-optional": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-rest": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -1506,6 +1774,7 @@
               }
             ],
             "x-typia-required": false,
+            "x-typia-optional": true,
             "minimum": 0
           },
           "maxLength": {
@@ -1529,22 +1798,26 @@
               }
             ],
             "x-typia-required": false,
+            "x-typia-optional": true,
             "minimum": 0
           },
           "pattern": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "format": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "default": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "type": {
             "type": "string",
@@ -1552,27 +1825,32 @@
               "string"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "nullable": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "deprecated": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "title": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-metaTags": {
             "type": "array",
@@ -1580,88 +1858,115 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IMetadataTag.IType",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 }
               ],
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-required": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "x-typia-optional": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-rest": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -1680,62 +1985,77 @@
             "oneOf": [
               {
                 "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IBoolean",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IInteger",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.INumber",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IString",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$recursiveRef": "components#/schemas/IJsonSchema.IArray",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$recursiveRef": "components#/schemas/IJsonSchema.ITuple",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$recursiveRef": "components#/schemas/IJsonSchema.IOneOf",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IReference",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IRecursiveReference",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.INullOnly",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IUnknown",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "minItems": {
             "type": "integer",
@@ -1758,6 +2078,7 @@
               }
             ],
             "x-typia-required": false,
+            "x-typia-optional": true,
             "minimum": 0
           },
           "maxItems": {
@@ -1781,11 +2102,13 @@
               }
             ],
             "x-typia-required": false,
+            "x-typia-optional": true,
             "minimum": 0
           },
           "x-typia-tuple": {
             "$recursiveRef": "components#/schemas/IJsonSchema.ITuple",
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "type": {
             "type": "string",
@@ -1793,27 +2116,32 @@
               "array"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "nullable": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "deprecated": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "title": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-metaTags": {
             "type": "array",
@@ -1821,88 +2149,115 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IMetadataTag.IType",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 }
               ],
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-required": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "x-typia-optional": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-rest": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -1924,65 +2279,81 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IBoolean",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IInteger",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.INumber",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IString",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$recursiveRef": "components#/schemas/IJsonSchema.ITuple",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$recursiveRef": "components#/schemas/IJsonSchema.IArray",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$recursiveRef": "components#/schemas/IJsonSchema.IOneOf",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IReference",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IRecursiveReference",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.INullOnly",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IUnknown",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 }
               ],
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "type": {
             "type": "string",
@@ -1990,27 +2361,32 @@
               "array"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "nullable": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "deprecated": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "title": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-metaTags": {
             "type": "array",
@@ -2018,88 +2394,115 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IMetadataTag.IType",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 }
               ],
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-required": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "x-typia-optional": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-rest": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -2121,80 +2524,99 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IBoolean",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IInteger",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.INumber",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IString",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$recursiveRef": "components#/schemas/IJsonSchema.IOneOf",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$recursiveRef": "components#/schemas/IJsonSchema.ITuple",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$recursiveRef": "components#/schemas/IJsonSchema.IArray",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IReference",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IRecursiveReference",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.INullOnly",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 },
                 {
                   "$ref": "components#/schemas/IJsonSchema.IUnknown",
-                  "x-typia-required": true
+                  "x-typia-required": true,
+                  "x-typia-optional": false
                 }
               ],
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "deprecated": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "title": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-metaTags": {
             "type": "array",
@@ -2202,88 +2624,115 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IMetadataTag.IType",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 }
               ],
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-required": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "x-typia-optional": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-rest": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -2299,22 +2748,26 @@
           "$ref": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "deprecated": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "title": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-metaTags": {
             "type": "array",
@@ -2322,88 +2775,115 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IMetadataTag.IType",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 }
               ],
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-required": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "x-typia-optional": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-rest": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -2419,22 +2899,26 @@
           "$recursiveRef": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "deprecated": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "title": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-metaTags": {
             "type": "array",
@@ -2442,88 +2926,115 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IMetadataTag.IType",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 }
               ],
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-required": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "x-typia-optional": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-rest": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -2542,22 +3053,26 @@
               "null"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "deprecated": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "title": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-metaTags": {
             "type": "array",
@@ -2565,88 +3080,115 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IMetadataTag.IType",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 }
               ],
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-required": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "x-typia-optional": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-rest": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -2662,17 +3204,20 @@
           "deprecated": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "title": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-metaTags": {
             "type": "array",
@@ -2680,88 +3225,115 @@
               "oneOf": [
                 {
                   "$ref": "components#/schemas/IMetadataTag.IType",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMinimum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IExclusiveMaximum",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMultipleOf",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IStep",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IFormat",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IPattern",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.ILength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxLength",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMinItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 },
                 {
                   "$ref": "components#/schemas/IMetadataTag.IMaxItems",
-                  "x-typia-required": false
+                  "x-typia-required": false,
+                  "x-typia-optional": true
                 }
               ],
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-required": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "x-typia-optional": {
+            "type": "boolean",
+            "nullable": false,
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-rest": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -2773,7 +3345,8 @@
         "properties": {
           "schemas": {
             "$ref": "components#/schemas/Record_lt_string_comma__space_IJsonComponents.IObject_gt_",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -2790,7 +3363,8 @@
         "x-typia-jsDocTags": [],
         "additionalProperties": {
           "$ref": "components#/schemas/IJsonComponents.IObject",
-          "x-typia-required": true
+          "x-typia-required": true,
+          "x-typia-optional": false
         }
       },
       "IJsonComponents.IObject": {
@@ -2800,12 +3374,14 @@
           "$id": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "$recursiveAnchor": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "type": {
             "type": "string",
@@ -2813,170 +3389,210 @@
               "object"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "nullable": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "properties": {
             "$ref": "components#/schemas/Record_lt_string_comma__space_IJsonSchema_gt_",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "patternProperties": {
             "$ref": "components#/schemas/Record_lt_string_comma__space_IJsonSchema_gt_",
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "additionalProperties": {
             "oneOf": [
               {
                 "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IBoolean",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IInteger",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.INumber",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IString",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$recursiveRef": "components#/schemas/IJsonSchema.IArray",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$recursiveRef": "components#/schemas/IJsonSchema.ITuple",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$recursiveRef": "components#/schemas/IJsonSchema.IOneOf",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IReference",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IRecursiveReference",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.INullOnly",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IUnknown",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               }
             ],
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "required": {
             "type": "array",
             "items": {
               "type": "string",
               "nullable": false,
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "description": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-jsDocTags": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/IJsDocTagInfo",
-              "x-typia-required": false
+              "x-typia-required": false,
+              "x-typia-optional": true
             },
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-patternProperties": {
             "$ref": "components#/schemas/Record_lt_string_comma__space_IJsonSchema_gt_",
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "x-typia-additionalProperties": {
             "oneOf": [
               {
                 "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IBoolean",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IInteger",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.INumber",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IString",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$recursiveRef": "components#/schemas/IJsonSchema.IArray",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$recursiveRef": "components#/schemas/IJsonSchema.ITuple",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$recursiveRef": "components#/schemas/IJsonSchema.IOneOf",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IReference",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IRecursiveReference",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.INullOnly",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "$ref": "components#/schemas/IJsonSchema.IUnknown",
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               }
             ],
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           }
         },
         "nullable": false,
@@ -2997,62 +3613,77 @@
           "oneOf": [
             {
               "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             {
               "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             {
               "$ref": "components#/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             {
               "$ref": "components#/schemas/IJsonSchema.IBoolean",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             {
               "$ref": "components#/schemas/IJsonSchema.IInteger",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             {
               "$ref": "components#/schemas/IJsonSchema.INumber",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             {
               "$ref": "components#/schemas/IJsonSchema.IString",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             {
               "$recursiveRef": "components#/schemas/IJsonSchema.IArray",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             {
               "$recursiveRef": "components#/schemas/IJsonSchema.ITuple",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             {
               "$recursiveRef": "components#/schemas/IJsonSchema.IOneOf",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             {
               "$ref": "components#/schemas/IJsonSchema.IReference",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             {
               "$ref": "components#/schemas/IJsonSchema.IRecursiveReference",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             {
               "$ref": "components#/schemas/IJsonSchema.INullOnly",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             {
               "$ref": "components#/schemas/IJsonSchema.IUnknown",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             }
           ],
-          "x-typia-required": true
+          "x-typia-required": true,
+          "x-typia-optional": false
         }
       }
     }

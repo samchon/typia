@@ -38,6 +38,8 @@ export const test_createClone_UltimateUnion = _test_clone(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io2 = (input: any): boolean =>
@@ -122,6 +124,8 @@ export const test_createClone_UltimateUnion = _test_clone(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io20 = (input: any): boolean =>
@@ -154,6 +158,8 @@ export const test_createClone_UltimateUnion = _test_clone(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io21 = (input: any): boolean =>
@@ -184,6 +190,8 @@ export const test_createClone_UltimateUnion = _test_clone(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io22 = (input: any): boolean =>
@@ -227,6 +235,8 @@ export const test_createClone_UltimateUnion = _test_clone(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io23 = (input: any): boolean =>
@@ -267,6 +277,8 @@ export const test_createClone_UltimateUnion = _test_clone(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io24 = (input: any): boolean =>
@@ -308,6 +320,8 @@ export const test_createClone_UltimateUnion = _test_clone(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io25 = (input: any): boolean =>
@@ -352,6 +366,8 @@ export const test_createClone_UltimateUnion = _test_clone(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io26 = (input: any): boolean =>
@@ -388,6 +404,8 @@ export const test_createClone_UltimateUnion = _test_clone(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io27 = (input: any): boolean =>
@@ -422,6 +440,8 @@ export const test_createClone_UltimateUnion = _test_clone(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io28 = (input: any): boolean =>
@@ -449,6 +469,8 @@ export const test_createClone_UltimateUnion = _test_clone(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io29 = (input: any): boolean =>
@@ -476,6 +498,8 @@ export const test_createClone_UltimateUnion = _test_clone(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io30 = (input: any): boolean =>
@@ -503,6 +527,8 @@ export const test_createClone_UltimateUnion = _test_clone(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io31 = (input: any): boolean =>
@@ -531,6 +557,8 @@ export const test_createClone_UltimateUnion = _test_clone(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io32 = (input: any): boolean =>
@@ -775,6 +803,7 @@ export const test_createClone_UltimateUnion = _test_clone(
                   )
                 : (input["x-typia-jsDocTags"] as any),
             "x-typia-required": input["x-typia-required"] as any,
+            "x-typia-optional": input["x-typia-optional"] as any,
             "x-typia-rest": input["x-typia-rest"] as any,
         });
         const $co2 = (input: any): any => ({
@@ -876,6 +905,7 @@ export const test_createClone_UltimateUnion = _test_clone(
                   )
                 : (input["x-typia-jsDocTags"] as any),
             "x-typia-required": input["x-typia-required"] as any,
+            "x-typia-optional": input["x-typia-optional"] as any,
             "x-typia-rest": input["x-typia-rest"] as any,
         });
         const $co20 = (input: any): any => ({
@@ -903,6 +933,7 @@ export const test_createClone_UltimateUnion = _test_clone(
                   )
                 : (input["x-typia-jsDocTags"] as any),
             "x-typia-required": input["x-typia-required"] as any,
+            "x-typia-optional": input["x-typia-optional"] as any,
             "x-typia-rest": input["x-typia-rest"] as any,
         });
         const $co21 = (input: any): any => ({
@@ -927,6 +958,7 @@ export const test_createClone_UltimateUnion = _test_clone(
                   )
                 : (input["x-typia-jsDocTags"] as any),
             "x-typia-required": input["x-typia-required"] as any,
+            "x-typia-optional": input["x-typia-optional"] as any,
             "x-typia-rest": input["x-typia-rest"] as any,
         });
         const $co22 = (input: any): any => ({
@@ -956,6 +988,7 @@ export const test_createClone_UltimateUnion = _test_clone(
                   )
                 : (input["x-typia-jsDocTags"] as any),
             "x-typia-required": input["x-typia-required"] as any,
+            "x-typia-optional": input["x-typia-optional"] as any,
             "x-typia-rest": input["x-typia-rest"] as any,
         });
         const $co23 = (input: any): any => ({
@@ -985,6 +1018,7 @@ export const test_createClone_UltimateUnion = _test_clone(
                   )
                 : (input["x-typia-jsDocTags"] as any),
             "x-typia-required": input["x-typia-required"] as any,
+            "x-typia-optional": input["x-typia-optional"] as any,
             "x-typia-rest": input["x-typia-rest"] as any,
         });
         const $co24 = (input: any): any => ({
@@ -1013,6 +1047,7 @@ export const test_createClone_UltimateUnion = _test_clone(
                   )
                 : (input["x-typia-jsDocTags"] as any),
             "x-typia-required": input["x-typia-required"] as any,
+            "x-typia-optional": input["x-typia-optional"] as any,
             "x-typia-rest": input["x-typia-rest"] as any,
         });
         const $co25 = (input: any): any => ({
@@ -1047,6 +1082,7 @@ export const test_createClone_UltimateUnion = _test_clone(
                   )
                 : (input["x-typia-jsDocTags"] as any),
             "x-typia-required": input["x-typia-required"] as any,
+            "x-typia-optional": input["x-typia-optional"] as any,
             "x-typia-rest": input["x-typia-rest"] as any,
         });
         const $co26 = (input: any): any => ({
@@ -1077,6 +1113,7 @@ export const test_createClone_UltimateUnion = _test_clone(
                   )
                 : (input["x-typia-jsDocTags"] as any),
             "x-typia-required": input["x-typia-required"] as any,
+            "x-typia-optional": input["x-typia-optional"] as any,
             "x-typia-rest": input["x-typia-rest"] as any,
         });
         const $co27 = (input: any): any => ({
@@ -1105,6 +1142,7 @@ export const test_createClone_UltimateUnion = _test_clone(
                   )
                 : (input["x-typia-jsDocTags"] as any),
             "x-typia-required": input["x-typia-required"] as any,
+            "x-typia-optional": input["x-typia-optional"] as any,
             "x-typia-rest": input["x-typia-rest"] as any,
         });
         const $co28 = (input: any): any => ({
@@ -1127,6 +1165,7 @@ export const test_createClone_UltimateUnion = _test_clone(
                   )
                 : (input["x-typia-jsDocTags"] as any),
             "x-typia-required": input["x-typia-required"] as any,
+            "x-typia-optional": input["x-typia-optional"] as any,
             "x-typia-rest": input["x-typia-rest"] as any,
         });
         const $co29 = (input: any): any => ({
@@ -1149,6 +1188,7 @@ export const test_createClone_UltimateUnion = _test_clone(
                   )
                 : (input["x-typia-jsDocTags"] as any),
             "x-typia-required": input["x-typia-required"] as any,
+            "x-typia-optional": input["x-typia-optional"] as any,
             "x-typia-rest": input["x-typia-rest"] as any,
         });
         const $co30 = (input: any): any => ({
@@ -1171,6 +1211,7 @@ export const test_createClone_UltimateUnion = _test_clone(
                   )
                 : (input["x-typia-jsDocTags"] as any),
             "x-typia-required": input["x-typia-required"] as any,
+            "x-typia-optional": input["x-typia-optional"] as any,
             "x-typia-rest": input["x-typia-rest"] as any,
         });
         const $co31 = (input: any): any => ({
@@ -1193,6 +1234,7 @@ export const test_createClone_UltimateUnion = _test_clone(
                   )
                 : (input["x-typia-jsDocTags"] as any),
             "x-typia-required": input["x-typia-required"] as any,
+            "x-typia-optional": input["x-typia-optional"] as any,
             "x-typia-rest": input["x-typia-rest"] as any,
         });
         const $co32 = (input: any): any => ({

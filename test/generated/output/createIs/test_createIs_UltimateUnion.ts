@@ -51,6 +51,8 @@ export const test_createIs_UltimateUnion = _test_is(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io2 = (input: any): boolean =>
@@ -161,6 +163,8 @@ export const test_createIs_UltimateUnion = _test_is(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io20 = (input: any): boolean =>
@@ -193,6 +197,8 @@ export const test_createIs_UltimateUnion = _test_is(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io21 = (input: any): boolean =>
@@ -223,6 +229,8 @@ export const test_createIs_UltimateUnion = _test_is(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io22 = (input: any): boolean =>
@@ -270,6 +278,8 @@ export const test_createIs_UltimateUnion = _test_is(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io23 = (input: any): boolean =>
@@ -314,6 +324,8 @@ export const test_createIs_UltimateUnion = _test_is(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io24 = (input: any): boolean =>
@@ -357,6 +369,8 @@ export const test_createIs_UltimateUnion = _test_is(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io25 = (input: any): boolean =>
@@ -403,6 +417,8 @@ export const test_createIs_UltimateUnion = _test_is(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io26 = (input: any): boolean =>
@@ -439,6 +455,8 @@ export const test_createIs_UltimateUnion = _test_is(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io27 = (input: any): boolean =>
@@ -473,6 +491,8 @@ export const test_createIs_UltimateUnion = _test_is(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io28 = (input: any): boolean =>
@@ -500,6 +520,8 @@ export const test_createIs_UltimateUnion = _test_is(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io29 = (input: any): boolean =>
@@ -527,6 +549,8 @@ export const test_createIs_UltimateUnion = _test_is(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io30 = (input: any): boolean =>
@@ -554,6 +578,8 @@ export const test_createIs_UltimateUnion = _test_is(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io31 = (input: any): boolean =>
@@ -582,6 +608,8 @@ export const test_createIs_UltimateUnion = _test_is(
                     ))) &&
             (undefined === input["x-typia-required"] ||
                 "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io32 = (input: any): boolean =>

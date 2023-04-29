@@ -64,8 +64,14 @@ export const test_createRandom_TupleUnion = _test_random(
                                         Number.isFinite(top[1]),
                                 ],
                                 [
-                                    (top: any) => elem.length === 0,
-                                    (top: any) => top.length === 0,
+                                    (top: any) =>
+                                        0 <= elem.length &&
+                                        1 >= elem.length &&
+                                        true,
+                                    (top: any) =>
+                                        0 <= top.length &&
+                                        1 >= top.length &&
+                                        true,
                                 ],
                             ];
                             const front = elem;
@@ -100,7 +106,7 @@ export const test_createRandom_TupleUnion = _test_random(
                         $guard(true, {
                             path: _path + "",
                             expected:
-                                "Array<([] | [boolean, number] | [number, string, boolean])>",
+                                "Array<([any] | [boolean, number] | [number, string, boolean])>",
                             value: input,
                         })) &&
                     input.every(
@@ -109,7 +115,7 @@ export const test_createRandom_TupleUnion = _test_random(
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
-                                        "([] | [boolean, number] | [number, string, boolean])",
+                                        "([any] | [boolean, number] | [number, string, boolean])",
                                     value: elem,
                                 })) &&
                             (() => {
@@ -206,15 +212,23 @@ export const test_createRandom_TupleUnion = _test_random(
                                                 })),
                                     ],
                                     [
-                                        (top: any) => elem.length === 0,
                                         (top: any) =>
-                                            top.length === 0 ||
-                                            $guard(true, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected: "[]",
-                                                value: top,
-                                            }),
+                                            0 <= elem.length &&
+                                            1 >= elem.length &&
+                                            true,
+                                        (top: any) =>
+                                            ((0 <= top.length &&
+                                                1 >= top.length) ||
+                                                $guard(true, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected: "[any]",
+                                                    value: top,
+                                                })) &&
+                                            true,
                                     ],
                                 ];
                                 const front = elem;
@@ -236,7 +250,7 @@ export const test_createRandom_TupleUnion = _test_random(
                                 return $guard(_exceptionable, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
-                                        "([number, string, boolean] | [boolean, number] | [])",
+                                        "([number, string, boolean] | [boolean, number] | [any])",
                                     value: elem,
                                 });
                             })(),

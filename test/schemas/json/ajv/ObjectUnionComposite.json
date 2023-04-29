@@ -42,12 +42,14 @@
           "x": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "y": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -63,11 +65,13 @@
         "properties": {
           "p1": {
             "$ref": "components#/schemas/ObjectUnionComposite.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "p2": {
             "$ref": "components#/schemas/ObjectUnionComposite.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -83,15 +87,18 @@
         "properties": {
           "p1": {
             "$ref": "components#/schemas/ObjectUnionComposite.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "p2": {
             "$ref": "components#/schemas/ObjectUnionComposite.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "p3": {
             "$ref": "components#/schemas/ObjectUnionComposite.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -108,19 +115,23 @@
         "properties": {
           "p1": {
             "$ref": "components#/schemas/ObjectUnionComposite.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "p2": {
             "$ref": "components#/schemas/ObjectUnionComposite.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "p3": {
             "$ref": "components#/schemas/ObjectUnionComposite.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "p4": {
             "$ref": "components#/schemas/ObjectUnionComposite.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -140,10 +151,12 @@
             "type": "array",
             "items": {
               "$ref": "components#/schemas/ObjectUnionComposite.IPoint",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -158,16 +171,19 @@
         "properties": {
           "outer": {
             "$ref": "components#/schemas/ObjectUnionComposite.IPolyline",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "inner": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/ObjectUnionComposite.IPolyline",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -185,14 +201,17 @@
             "type": "array",
             "items": {
               "$ref": "components#/schemas/ObjectUnionComposite.IPoint",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "inner": {
             "$ref": "components#/schemas/ObjectUnionComposite.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -208,12 +227,14 @@
         "properties": {
           "centroid": {
             "$ref": "components#/schemas/ObjectUnionComposite.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "radius": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

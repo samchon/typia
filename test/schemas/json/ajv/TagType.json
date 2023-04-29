@@ -35,7 +35,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "uint": {
             "type": "integer",
@@ -59,6 +60,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minimum": 0
           }
         },

@@ -12,16 +12,19 @@
           "id": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "sequence": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "children": {
             "$ref": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -39,11 +42,13 @@
         "x-typia-jsDocTags": [],
         "x-typia-additionalProperties": {
           "$ref": "#/components/schemas/DynamicTree",
-          "x-typia-required": true
+          "x-typia-required": true,
+          "x-typia-optional": false
         },
         "additionalProperties": {
           "$ref": "#/components/schemas/DynamicTree",
-          "x-typia-required": true
+          "x-typia-required": true,
+          "x-typia-optional": false
         }
       }
     }

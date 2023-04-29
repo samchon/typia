@@ -41,32 +41,48 @@
           {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_boolean_gt_"
+              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_boolean_gt_",
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
-            "nullable": false
+            "nullable": false,
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_number_gt_"
+              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_number_gt_",
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
-            "nullable": false
+            "nullable": false,
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_string_gt_"
+              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_string_gt_",
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
-            "nullable": false
+            "nullable": false,
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_",
-              "x-typia-rest": false
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-rest": false
+            "x-typia-rest": false,
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         ],
         "nullable": false
@@ -81,7 +97,8 @@
           "value": {
             "type": "boolean",
             "nullable": true,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -96,7 +113,8 @@
           "value": {
             "type": "number",
             "nullable": true,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -111,7 +129,8 @@
           "value": {
             "type": "string",
             "nullable": true,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -125,7 +144,8 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/ObjectPropertyNullable.IMember.Nullable",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -140,27 +160,32 @@
           "id": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": true,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "grade": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "serial": {
             "type": "number",
             "nullable": true,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "activated": {
             "type": "boolean",
             "nullable": true,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": true,

@@ -34,6 +34,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minimum": 3,
             "exclusiveMinimum": true
           },
@@ -58,6 +59,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minimum": 3
           },
           "less": {
@@ -81,6 +83,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "maximum": 7,
             "exclusiveMaximum": true
           },
@@ -105,6 +108,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "maximum": 7
           },
           "greater_less": {
@@ -141,6 +145,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minimum": 3,
             "exclusiveMinimum": true,
             "maximum": 7,
@@ -180,6 +185,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minimum": 3,
             "maximum": 7,
             "exclusiveMaximum": true
@@ -218,6 +224,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minimum": 3,
             "exclusiveMinimum": true,
             "maximum": 7
@@ -256,6 +263,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minimum": 3,
             "maximum": 7
           }

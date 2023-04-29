@@ -99,6 +99,7 @@
                   }
                 ],
                 "x-typia-required": true,
+                "x-typia-optional": false,
                 "minLength": 3,
                 "maxLength": 7
               },
@@ -188,6 +189,7 @@
                   }
                 ],
                 "x-typia-required": true,
+                "x-typia-optional": false,
                 "minimum": 3,
                 "maximum": 7
               },
@@ -279,6 +281,7 @@
                     }
                   ],
                   "x-typia-required": true,
+                  "x-typia-optional": false,
                   "minLength": 3,
                   "maxLength": 7
                 },
@@ -366,6 +369,7 @@
                   }
                 ],
                 "x-typia-required": true,
+                "x-typia-optional": false,
                 "minItems": 3,
                 "maxItems": 7
               },
@@ -457,6 +461,7 @@
                     }
                   ],
                   "x-typia-required": true,
+                  "x-typia-optional": false,
                   "x-typia-rest": false,
                   "minimum": 3,
                   "maximum": 7
@@ -545,6 +550,7 @@
                   }
                 ],
                 "x-typia-required": true,
+                "x-typia-optional": false,
                 "x-typia-rest": false,
                 "minItems": 3,
                 "maxItems": 7
@@ -633,7 +639,8 @@
                 ]
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

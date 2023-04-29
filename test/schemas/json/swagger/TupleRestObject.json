@@ -27,15 +27,21 @@
         "items": [
           {
             "type": "boolean",
-            "nullable": false
+            "nullable": false,
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           {
             "type": "number",
-            "nullable": false
+            "nullable": false,
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           {
             "$ref": "#/components/schemas/TupleRestObject.IObject",
-            "x-typia-rest": true
+            "x-typia-rest": true,
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         ],
         "nullable": false
@@ -50,7 +56,8 @@
           "value": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
