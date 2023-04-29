@@ -612,24 +612,49 @@ export namespace CheckerProgrammer {
                       )
                     : null;
 
+            const arrayLength = ts.factory.createPropertyAccessExpression(
+                input,
+                "length",
+            );
             return config.combiner(explore)("and")(
                 input,
                 [
                     ...(checkLength && rest === null
-                        ? [
-                              {
-                                  combined: false,
-                                  expression: ts.factory.createStrictEquality(
-                                      ts.factory.createPropertyAccessExpression(
-                                          input,
-                                          "length",
+                        ? tuple.every((t) => t.optional === false)
+                            ? [
+                                  {
+                                      combined: false,
+                                      expression:
+                                          ts.factory.createStrictEquality(
+                                              arrayLength,
+                                              ts.factory.createNumericLiteral(
+                                                  tuple.length,
+                                              ),
+                                          ),
+                                  },
+                              ]
+                            : [
+                                  {
+                                      combined: false,
+                                      expression: ts.factory.createLogicalAnd(
+                                          ts.factory.createLessThanEquals(
+                                              ts.factory.createNumericLiteral(
+                                                  tuple.filter(
+                                                      (t) =>
+                                                          t.optional === false,
+                                                  ).length,
+                                              ),
+                                              arrayLength,
+                                          ),
+                                          ts.factory.createGreaterThanEquals(
+                                              ts.factory.createNumericLiteral(
+                                                  tuple.length,
+                                              ),
+                                              arrayLength,
+                                          ),
                                       ),
-                                      ts.factory.createNumericLiteral(
-                                          tuple.length,
-                                      ),
-                                  ),
-                              },
-                          ]
+                                  },
+                              ]
                         : []),
                     ...(config.joiner.tuple
                         ? [
@@ -724,6 +749,7 @@ export namespace CheckerProgrammer {
                             any: false,
                             nullable: false,
                             required: true,
+                            optional: false,
                             functional: false,
                             resolved: null,
                             constants: [],

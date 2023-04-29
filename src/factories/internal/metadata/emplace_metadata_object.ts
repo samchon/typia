@@ -107,7 +107,10 @@ export const emplace_metadata_object =
             )(type, false);
 
             // INSERT WITH REQUIRED CONFIGURATION
-            if (node?.questionToken) Writable(value).required = false;
+            if (node?.questionToken) {
+                Writable(value).required = false;
+                Writable(value).optional = true;
+            }
             insert(key)(value)(() => `${obj.name}.${prop.name}`)(prop);
         }
 

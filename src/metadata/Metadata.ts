@@ -12,6 +12,7 @@ import { MetadataProperty } from "./MetadataProperty";
 export class Metadata {
     public readonly any: boolean;
     public readonly required: boolean;
+    public readonly optional: boolean;
     public readonly nullable: boolean;
     public readonly functional: boolean;
 
@@ -53,6 +54,7 @@ export class Metadata {
     private constructor(props: ClassProperties<Metadata>) {
         this.any = props.any;
         this.required = props.required;
+        this.optional = props.optional;
         this.nullable = props.nullable;
         this.functional = props.functional;
 
@@ -86,6 +88,7 @@ export class Metadata {
             any: false,
             nullable: false,
             required: true,
+            optional: false,
             functional: false,
 
             resolved: null,
@@ -109,6 +112,7 @@ export class Metadata {
         return {
             any: this.any,
             required: this.required,
+            optional: this.optional,
             nullable: this.nullable,
             functional: this.functional,
 
@@ -161,6 +165,7 @@ export class Metadata {
         return this.create({
             any: meta.any,
             required: meta.required,
+            optional: meta.optional,
             nullable: meta.nullable,
             functional: meta.functional,
 
@@ -422,6 +427,7 @@ export namespace Metadata {
             any: x.any || y.any,
             nullable: x.nullable || y.nullable,
             required: x.required && y.required,
+            optional: x.optional || y.optional,
             functional: x.functional || y.functional,
 
             resolved:
