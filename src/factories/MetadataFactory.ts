@@ -12,16 +12,6 @@ export namespace MetadataFactory {
         validate?: (meta: Metadata) => void;
     }
 
-    /**
-     * @deprecated Use `analyze` function instead
-     */
-    export const generate = (
-        checker: ts.TypeChecker,
-        collection: MetadataCollection,
-        type: ts.Type,
-        options: IOptions,
-    ) => analyze(checker)(options)(collection)(type);
-
     export const analyze =
         (checker: ts.TypeChecker) =>
         (options: IOptions) =>
@@ -59,4 +49,14 @@ export namespace MetadataFactory {
                 meta.maps.some((map) => isRecursive(name)(map.value))
             );
         };
+
+    /**
+     * @deprecated Use `analyze` function instead
+     */
+    export const generate = (
+        checker: ts.TypeChecker,
+        collection: MetadataCollection,
+        type: ts.Type,
+        options: IOptions,
+    ) => analyze(checker)(options)(collection)(type);
 }

@@ -22,6 +22,8 @@ export const application_tuple =
                 ...props.attribute,
                 "x-typia-rest":
                     i === items.length - 1 ? meta.rest !== null : undefined,
+                "x-typia-required": meta.required,
+                "x-typia-optional": meta.optional,
             }),
         ),
         nullable: props.nullable,
