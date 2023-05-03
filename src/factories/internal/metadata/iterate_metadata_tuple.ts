@@ -29,9 +29,13 @@ export const iterate_metadata_tuple =
                     collection,
                 )(elem, false);
 
+                // CHECK OPTIONAL
                 const flag: ts.ElementFlags | undefined = elementFlags[i];
-                if (flag !== ts.ElementFlags.Rest) return child;
+                if (flag === ts.ElementFlags.Optional)
+                    Writable(child).optional = true;
 
+                // REST TYPE
+                if (flag !== ts.ElementFlags.Rest) return child;
                 const wrapper: Metadata = Metadata.initialize();
                 Writable(wrapper).rest = child;
                 return wrapper;
@@ -40,6 +44,5 @@ export const iterate_metadata_tuple =
         return true;
     };
 
-function join_tuple_names(metas: Metadata[]): string {
-    return `[${metas.map((m) => m.getName).join(", ")}]`;
-}
+const join_tuple_names = (metas: Metadata[]): string =>
+    `[${metas.map((m) => m.getName).join(", ")}]`;

@@ -28,43 +28,55 @@
  * @template Instance Target argument type.
  * @author Jenogho Nam - https://github.com/samchon
  */
-export type Primitive<T> = _Equal<T, _Primitive<T>> extends true
+export type Primitive<T> = Equal<T, PrimitiveMain<T>> extends true
     ? T
-    : _Primitive<T>;
+    : PrimitiveMain<T>;
 
-type _Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
+type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
-type _Primitive<Instance> = _ValueOf<Instance> extends object
+type PrimitiveMain<Instance> = ValueOf<Instance> extends object
     ? Instance extends object
-        ? Instance extends _Native
+        ? Instance extends NativeClass
             ? {}
             : Instance extends IJsonable<infer Raw>
-            ? _ValueOf<Raw> extends object
+            ? ValueOf<Raw> extends object
                 ? Raw extends object
-                    ? _PrimitiveObject<Raw> // object would be primitified
+                    ? PrimitiveObject<Raw> // object would be primitified
                     : never // cannot be
-                : _ValueOf<Raw> // atomic value
-            : _PrimitiveObject<Instance> // object would be primitified
+                : ValueOf<Raw> // atomic value
+            : PrimitiveObject<Instance> // object would be primitified
         : never // cannot be
-    : _ValueOf<Instance>;
+    : ValueOf<Instance>;
 
-type _PrimitiveObject<Instance extends object> = Instance extends Array<infer T>
-    ? _Primitive<T>[]
+type PrimitiveObject<Instance extends object> = Instance extends Array<infer T>
+    ? IsTuple<Instance> extends true
+        ? PrimitiveTuple<Instance>
+        : PrimitiveMain<T>[]
     : {
           [P in keyof Instance]: Instance[P] extends Function
               ? never
-              : _Primitive<Instance[P]>;
+              : PrimitiveMain<Instance[P]>;
       };
 
-type _ValueOf<Instance> = _IsValueOf<Instance, Boolean> extends true
+type PrimitiveTuple<T extends readonly any[]> = T extends [infer F]
+    ? [PrimitiveMain<F>]
+    : T extends [infer F, ...infer Rest extends readonly any[]]
+    ? [PrimitiveMain<F>, ...PrimitiveTuple<Rest>]
+    : T extends [(infer F)?]
+    ? [PrimitiveMain<F>?]
+    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+    ? [PrimitiveMain<F>?, ...PrimitiveTuple<Rest>]
+    : [];
+
+type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
     ? boolean
-    : _IsValueOf<Instance, Number> extends true
+    : IsValueOf<Instance, Number> extends true
     ? number
-    : _IsValueOf<Instance, String> extends true
+    : IsValueOf<Instance, String> extends true
     ? string
     : Instance;
 
-type _Native =
+type NativeClass =
     | Set<any>
     | Map<any, any>
     | WeakSet<any>
@@ -84,10 +96,17 @@ type _Native =
     | SharedArrayBuffer
     | DataView;
 
-type _IsValueOf<
-    Instance,
-    Object extends IValueOf<any>,
-> = Instance extends Object
+type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
+    never,
+]
+    ? false
+    : T extends readonly any[]
+    ? number extends T["length"]
+        ? false
+        : true
+    : false;
+
+type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
     ? Object extends IValueOf<infer Primitive>
         ? Instance extends Primitive
             ? false

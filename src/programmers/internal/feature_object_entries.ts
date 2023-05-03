@@ -9,6 +9,9 @@ import { Escaper } from "../../utils/Escaper";
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { FunctionImporter } from "../helpers/FunctionImporeter";
 
+/**
+ * @internal
+ */
 export const feature_object_entries =
     <Output extends ts.ConciseBody>(
         config: Pick<
@@ -54,6 +57,7 @@ export const feature_object_entries =
                                   })(),
                     },
                     prop.tags,
+                    prop.jsDocTags,
                 ),
             };
         });

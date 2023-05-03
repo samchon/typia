@@ -3,8 +3,6 @@ import ts from "typescript";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { MetadataObject } from "../../metadata/MetadataObject";
-
 import { Escaper } from "../../utils/Escaper";
 
 import { metadata_to_pattern } from "../internal/metadata_to_pattern";
@@ -14,7 +12,6 @@ export namespace CloneJoiner {
     export const object = (
         input: ts.Expression,
         entries: IExpressionEntry<ts.Expression>[],
-        _obj: MetadataObject,
     ): ts.ConciseBody => {
         if (entries.length === 0) return ts.factory.createIdentifier("{}");
 

@@ -1,16 +1,11 @@
 #!/usr/bin/env node
-import { TypiaGenerateWizard } from "./TypiaGenerateWizard";
-import { TypiaSetupWizard } from "./TypiaSetupWizard";
-
 const USAGE = `Wrong command has been detected. Use like below:
 
   npx typia setup \\
-    --compiler (ttypescript|ts-patch) \\
     --manager (npm|pnpm|yarn) \\
     --project {tsconfig.json file path}
 
     - npx typia setup
-    - npx typia setup --compiler ts-patch
     - npx typia setup --manager pnpm
     - npx typia setup --project tsconfig.test.json
 
@@ -21,17 +16,36 @@ const USAGE = `Wrong command has been detected. Use like below:
     --npx typia generate --input src/templates --output src/functinoal
 `;
 
-function halt(desc: string): never {
+const halt = (desc: string): never => {
     console.error(desc);
     process.exit(-1);
-}
+};
 
-async function main(): Promise<void> {
+const main = async (): Promise<void> => {
+    try {
+        await import("comment-json");
+        await import("inquirer");
+        await import("commander");
+    } catch {
+        halt(`typia has not been installed. Run "npm i typia" before.`);
+    }
+
     const type: string | undefined = process.argv[2];
-    if (type === "setup") await TypiaSetupWizard.setup();
-    else if (type === "generate") await TypiaGenerateWizard.generate();
-    else halt(USAGE);
-}
+    if (type === "setup") {
+        const { TypiaSetupWizard } = await import("./TypiaSetupWizard");
+        await TypiaSetupWizard.setup();
+    } else if (type === "generate") {
+        try {
+            await import("typescript");
+        } catch {
+            halt(
+                `typescript has not been installed. Run "npm i -D typescript" before.`,
+            );
+        }
+        const { TypiaGenerateWizard } = await import("./TypiaGenerateWizard");
+        await TypiaGenerateWizard.generate();
+    } else halt(USAGE);
+};
 main().catch((exp) => {
     console.error(exp);
     process.exit(-1);

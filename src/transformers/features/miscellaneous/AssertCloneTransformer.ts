@@ -4,6 +4,6 @@ import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace AssertCloneTransformer {
     export const transform = GenericTransformer.scalar("assertClone")(
-        (project, modulo) => AssertCloneProgrammer.generate(project, modulo),
+        (project) => (modulo) => AssertCloneProgrammer.write(project)(modulo),
     );
 }

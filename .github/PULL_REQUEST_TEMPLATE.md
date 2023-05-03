@@ -3,10 +3,13 @@ Before submitting a Pull Request, please test your code.
 If you created a new created a new feature, then create the unit test function, too.
 
 ```bash
-# COMPILE TEST AUTOMATION PROGRAM
-npm run build:test
+# COMPILE
+npm run build
 
-# RUN THE TEST AUTOMATION PROGRAM
+# PREPARE
+npm run test:generate
+
+# DO TEST
 npm run test
 ```
 

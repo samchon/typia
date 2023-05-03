@@ -16,6 +16,7 @@ import { IProject } from "../transformers/IProject";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { AtomicPredicator } from "./helpers/AtomicPredicator";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { ICheckEntry } from "./helpers/ICheckEntry";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { UnionExplorer } from "./helpers/UnionExplorer";
@@ -37,8 +38,12 @@ export namespace CheckerProgrammer {
         trace: boolean;
         equals: boolean;
         numeric: boolean;
-        combiner: IConfig.Combiner;
+        addition?: () => ts.Statement[];
         decoder?: FeatureProgrammer.Decoder<Metadata, ts.Expression>;
+        combiner: IConfig.Combiner;
+        atomist: (
+            explore: IExplore,
+        ) => (check: ICheckEntry) => (input: ts.Expression) => ts.Expression;
         joiner: IConfig.IJoiner;
         success: ts.Expression;
     }
@@ -78,7 +83,7 @@ export namespace CheckerProgrammer {
             ) => ts.Expression;
         }
     }
-    export import IExplore = FeatureProgrammer.IExplore;
+    export type IExplore = FeatureProgrammer.IExplore;
 
     export interface IBinary {
         expression: ts.Expression;
@@ -86,168 +91,138 @@ export namespace CheckerProgrammer {
     }
 
     /* -----------------------------------------------------------
-        GENERATORS
+        WRITERS
     ----------------------------------------------------------- */
-    export function generate(
-        project: IProject,
-        config: IConfig,
-        importer: FunctionImporter,
-        addition?: () => ts.Statement[],
-    ) {
-        return FeatureProgrammer.generate(
-            project,
-            CONFIG(project, config, importer),
-            importer,
-            () => (addition ? (addition ? addition() : []) : undefined),
-        );
-    }
+    export const write =
+        (project: IProject) =>
+        (config: IConfig) =>
+        (importer: FunctionImporter) =>
+            FeatureProgrammer.analyze(project)(
+                configure(project)(config)(importer),
+            )(importer);
 
-    export const generate_functors = (
+    export const write_functors =
+        (project: IProject) =>
+        (config: IConfig) =>
+        (importer: FunctionImporter) =>
+            FeatureProgrammer.write_functors(
+                configure(project)(config)(importer),
+            )(importer);
+
+    export const write_unioners = (
         project: IProject,
         config: IConfig,
         importer: FunctionImporter,
     ) =>
-        FeatureProgrammer.generate_functors(CONFIG(project, config, importer))(
-            importer,
-        );
-
-    export const generate_unioners = (
-        project: IProject,
-        config: IConfig,
-        importer: FunctionImporter,
-    ) =>
-        FeatureProgrammer.generate_unioners(
-            CONFIG(project, { ...config, numeric: false }, importer),
+        FeatureProgrammer.write_unioners(
+            configure(project)({ ...config, numeric: false })(importer),
         )(importer);
 
-    function CONFIG(
-        project: IProject,
-        config: IConfig,
-        importer: FunctionImporter,
-    ): FeatureProgrammer.IConfig {
-        const output: FeatureProgrammer.IConfig = {
-            types: {
-                input: () => TypeFactory.keyword("any"),
-                output: (type, name) =>
-                    ts.factory.createTypePredicateNode(
-                        undefined,
-                        "input",
-                        ts.factory.createTypeReferenceNode(
-                            name ??
-                                TypeFactory.getFullName(project.checker, type),
+    const configure =
+        (project: IProject) =>
+        (config: IConfig) =>
+        (importer: FunctionImporter): FeatureProgrammer.IConfig => {
+            const output: FeatureProgrammer.IConfig = {
+                types: {
+                    input: () => TypeFactory.keyword("any"),
+                    output: (type, name) =>
+                        ts.factory.createTypePredicateNode(
+                            undefined,
+                            "input",
+                            ts.factory.createTypeReferenceNode(
+                                name ??
+                                    TypeFactory.getFullName(project.checker)(
+                                        type,
+                                    ),
+                            ),
                         ),
-                    ),
-            },
-            trace: config.trace,
-            path: config.path,
-            functors: config.functors,
-            unioners: config.unioners,
-            initializer: ({ checker }, type) => {
-                const collection: MetadataCollection = new MetadataCollection();
-                const meta: Metadata = MetadataFactory.generate(
-                    checker,
-                    collection,
-                    type,
-                    {
-                        resolve: false,
-                        constant: true,
+                },
+                trace: config.trace,
+                path: config.path,
+                functors: config.functors,
+                unioners: config.unioners,
+                initializer:
+                    ({ checker }) =>
+                    (type) => {
+                        const collection: MetadataCollection =
+                            new MetadataCollection();
+                        const meta: Metadata = MetadataFactory.analyze(checker)(
+                            {
+                                resolve: false,
+                                constant: true,
+                            },
+                        )(collection)(type);
+                        return [collection, meta];
                     },
-                );
-                return [collection, meta];
-            },
-            decoder: config.decoder || decode(project, config, importer),
-            objector: {
-                checker: config.decoder || decode(project, config, importer),
-                decoder: decode_object(config)(importer),
-                joiner: config.joiner.object,
-                unionizer: config.equals
-                    ? decode_union_object(decode_object(config)(importer))(
-                          (input, obj, explore) =>
-                              decode_object(config)(importer)(input, obj, {
-                                  ...explore,
-                                  tracable: true,
-                              }),
-                      )(config.joiner.is || ((expr) => expr))(
-                          (value, expected) =>
-                              ts.factory.createReturnStatement(
-                                  config.joiner.failure(value, expected),
-                              ),
-                      )
-                    : (input, targets, explore) =>
-                          config.combiner(explore)("or")(
-                              input,
-                              targets.map((obj) => ({
-                                  expression: decode_object(config)(importer)(
-                                      input,
-                                      obj,
-                                      explore,
+                addition: config.addition,
+                decoder: config.decoder ?? decode(project)(config)(importer),
+                objector: {
+                    checker:
+                        config.decoder ?? decode(project)(config)(importer),
+                    decoder: decode_object(config)(importer),
+                    joiner: config.joiner.object,
+                    unionizer: config.equals
+                        ? decode_union_object(decode_object(config)(importer))(
+                              (input, obj, explore) =>
+                                  decode_object(config)(importer)(input, obj, {
+                                      ...explore,
+                                      tracable: true,
+                                  }),
+                          )(config.joiner.is ?? ((expr) => expr))(
+                              (value, expected) =>
+                                  ts.factory.createReturnStatement(
+                                      config.joiner.failure(value, expected),
                                   ),
-                                  combined: true,
-                              })),
-                              `(${targets.map((t) => t.name).join(" | ")})`,
-                          ),
-                failure: (value, expected) =>
-                    ts.factory.createReturnStatement(
-                        config.joiner.failure(value, expected),
-                    ),
-                is: config.joiner.is,
-                required: config.joiner.required,
-                full: config.joiner.full,
-                type: TypeFactory.keyword("boolean"),
-            },
-        };
-        if (config.numeric === true)
-            output.generator = {
-                unioners: FeatureProgrammer.generate_unioners(
-                    CONFIG(project, { ...config, numeric: false }, importer),
-                )(importer),
+                          )
+                        : (input, targets, explore) =>
+                              config.combiner(explore)("or")(
+                                  input,
+                                  targets.map((obj) => ({
+                                      expression: decode_object(config)(
+                                          importer,
+                                      )(input, obj, explore),
+                                      combined: true,
+                                  })),
+                                  `(${targets.map((t) => t.name).join(" | ")})`,
+                              ),
+                    failure: (value, expected) =>
+                        ts.factory.createReturnStatement(
+                            config.joiner.failure(value, expected),
+                        ),
+                    is: config.joiner.is,
+                    required: config.joiner.required,
+                    full: config.joiner.full,
+                    type: TypeFactory.keyword("boolean"),
+                },
             };
-        return output;
-    }
+            if (config.numeric === true)
+                output.generator = {
+                    unioners: FeatureProgrammer.write_unioners(
+                        configure(project)({ ...config, numeric: false })(
+                            importer,
+                        ),
+                    )(importer),
+                };
+            return output;
+        };
 
     /* -----------------------------------------------------------
         DECODERS
     ----------------------------------------------------------- */
-    export function decode(
-        project: IProject,
-        config: IConfig,
-        importer: FunctionImporter,
-    ): (
-        input: ts.Expression,
-        meta: Metadata,
-        explore: IExplore,
-        tags: IMetadataTag[],
-    ) => ts.Expression;
-
     /**
      * @internal
      */
-    export function decode(
-        project: IProject,
-        config: IConfig,
-        importer: FunctionImporter,
-        checkTupleLength: boolean,
-    ): (
-        input: ts.Expression,
-        meta: Metadata,
-        explore: IExplore,
-        tags: IMetadataTag[],
-    ) => ts.Expression;
-
-    /**
-     * @internal
-     */
-    export function decode(
-        project: IProject,
-        config: IConfig,
-        importer: FunctionImporter,
-    ) {
-        return function (
+    export const decode =
+        (project: IProject) =>
+        (config: IConfig) =>
+        (importer: FunctionImporter) =>
+        (
             input: ts.Expression,
             meta: Metadata,
             explore: IExplore,
-            tags: IMetadataTag[],
-        ): ts.Expression {
+            metaTags: IMetadataTag[],
+            jsDocTags: ts.JSDocTagInfo[],
+        ): ts.Expression => {
             if (meta.any) return config.success;
 
             const top: IBinary[] = [];
@@ -315,20 +290,25 @@ export namespace CheckerProgrammer {
                 if (AtomicPredicator.atomic(meta)(type) === false) continue;
                 else if (type === "number")
                     binaries.push({
-                        expression: check_number(project, config.numeric)(
-                            input,
-                            tags,
-                        ),
+                        expression: config.atomist(explore)(
+                            check_number(project, config.numeric)(importer)(
+                                metaTags,
+                            )(jsDocTags)(input),
+                        )(input),
                         combined: false,
                     });
                 else if (type === "bigint")
                     binaries.push({
-                        expression: check_bigint(input, tags),
+                        expression: config.atomist(explore)(
+                            check_bigint(importer)(metaTags)(jsDocTags)(input),
+                        )(input),
                         combined: false,
                     });
                 else if (type === "string")
                     binaries.push({
-                        expression: check_string(importer)(input, tags),
+                        expression: config.atomist(explore)(
+                            check_string(importer)(metaTags)(jsDocTags)(input),
+                        )(input),
                         combined: false,
                     });
                 else
@@ -342,11 +322,11 @@ export namespace CheckerProgrammer {
             if (meta.templates.length)
                 if (AtomicPredicator.template(meta))
                     binaries.push({
-                        expression: check_template(importer)(
-                            input,
-                            meta.templates,
-                            tags,
-                        ),
+                        expression: config.atomist(explore)(
+                            check_template(importer)(metaTags)(jsDocTags)(
+                                meta.templates,
+                            )(input),
+                        )(input),
                         combined: false,
                     });
 
@@ -386,13 +366,14 @@ export namespace CheckerProgrammer {
                 if (meta.sets.some((elem) => elem.any)) install(null);
                 else
                     install(
-                        explore_sets(project, config, importer)(
+                        explore_sets(project)(config)(importer)(
                             input,
                             meta.sets,
                             {
                                 ...explore,
                                 from: "array",
                             },
+                            [],
                             [],
                         ),
                     );
@@ -410,13 +391,14 @@ export namespace CheckerProgrammer {
                     install(null);
                 else
                     install(
-                        explore_maps(project, config, importer)(
+                        explore_maps(project)(config)(importer)(
                             input,
                             meta.maps.map((m) => [m.key, m.value]),
                             {
                                 ...explore,
                                 from: "array",
                             },
+                            [],
                             [],
                         ),
                     );
@@ -425,7 +407,11 @@ export namespace CheckerProgrammer {
             // ARRAYS AND TUPLES
             if (meta.tuples.length + meta.arrays.length > 0) {
                 const install = prepare(
-                    check_array(input, meta.tuples.length === 0 ? tags : []),
+                    config.atomist(explore)(
+                        check_array(importer)(
+                            meta.tuples.length === 0 ? metaTags : [],
+                        )(jsDocTags)(input),
+                    )(input),
                     [...meta.tuples, ...meta.arrays]
                         .map((elem) =>
                             Array.isArray(elem)
@@ -438,14 +424,15 @@ export namespace CheckerProgrammer {
                 );
                 if (meta.arrays.length === 0)
                     install(
-                        explore_tuples(project, config, importer)(
+                        explore_tuples(project)(config)(importer)(
                             input,
                             meta.tuples,
                             {
                                 ...explore,
                                 from: "array",
                             },
-                            tags,
+                            metaTags,
+                            jsDocTags,
                         ),
                     );
                 else if (meta.arrays.some((elem) => elem.any)) install(null);
@@ -459,7 +446,8 @@ export namespace CheckerProgrammer {
                                 ...explore,
                                 from: "array",
                             },
-                            tags,
+                            metaTags,
+                            jsDocTags,
                         ),
                     );
                 else
@@ -468,7 +456,8 @@ export namespace CheckerProgrammer {
                             input,
                             [...meta.tuples, ...meta.arrays],
                             explore,
-                            tags,
+                            metaTags,
+                            jsDocTags,
                         ),
                     );
             }
@@ -476,7 +465,7 @@ export namespace CheckerProgrammer {
             // OBJECT
             if (meta.objects.length > 0)
                 prepare(
-                    ExpressionFactory.isObject(input, {
+                    ExpressionFactory.isObject({
                         checkNull: true,
                         checkArray: meta.objects.some((obj) =>
                             obj.properties.every(
@@ -485,10 +474,8 @@ export namespace CheckerProgrammer {
                                     !prop.value.required,
                             ),
                         ),
-                    }),
-                    meta.objects
-                        .map((obj) => `Resolve<${obj.name}>`)
-                        .join(" | "),
+                    })(input),
+                    meta.objects.map((obj) => obj.name).join(" | "),
                 )(
                     explore_objects(config)(importer)(input, meta, {
                         ...explore,
@@ -567,24 +554,23 @@ export namespace CheckerProgrammer {
                   )
                 : config.success;
         };
-    }
 
-    export function decode_tuple(
-        project: IProject,
-        config: IConfig,
-        importer: FunctionImporter,
-        checkLength: boolean,
-    ) {
-        return function (
+    export const decode_tuple =
+        (project: IProject) =>
+        (config: IConfig) =>
+        (importer: FunctionImporter) =>
+        (checkLength: boolean) =>
+        (
             input: ts.Expression,
             tuple: Array<Metadata>,
             explore: IExplore,
             tagList: IMetadataTag[],
-        ): ts.Expression {
+            jsDocTags: ts.JSDocTagInfo[],
+        ): ts.Expression => {
             const binaries: ts.Expression[] = tuple
                 .filter((meta) => meta.rest === null)
                 .map((meta, index) =>
-                    decode(project, config, importer)(
+                    decode(project)(config)(importer)(
                         ts.factory.createElementAccessExpression(input, index),
                         meta,
                         {
@@ -595,13 +581,14 @@ export namespace CheckerProgrammer {
                                 : `[${index}]`,
                         },
                         tagList,
+                        jsDocTags,
                     ),
                 );
             const rest: ts.Expression | null =
                 tuple.length && tuple[tuple.length - 1]!.rest !== null
-                    ? decode(project, config, importer, false)(
+                    ? decode(project)(config)(importer)(
                           ts.factory.createCallExpression(
-                              IdentifierFactory.join(input, "slice"),
+                              IdentifierFactory.access(input)("slice"),
                               undefined,
                               [
                                   ts.factory.createNumericLiteral(
@@ -621,27 +608,53 @@ export namespace CheckerProgrammer {
                               start: tuple.length - 1,
                           },
                           tagList,
+                          jsDocTags,
                       )
                     : null;
 
+            const arrayLength = ts.factory.createPropertyAccessExpression(
+                input,
+                "length",
+            );
             return config.combiner(explore)("and")(
                 input,
                 [
                     ...(checkLength && rest === null
-                        ? [
-                              {
-                                  combined: false,
-                                  expression: ts.factory.createStrictEquality(
-                                      ts.factory.createPropertyAccessExpression(
-                                          input,
-                                          "length",
+                        ? tuple.every((t) => t.optional === false)
+                            ? [
+                                  {
+                                      combined: false,
+                                      expression:
+                                          ts.factory.createStrictEquality(
+                                              arrayLength,
+                                              ts.factory.createNumericLiteral(
+                                                  tuple.length,
+                                              ),
+                                          ),
+                                  },
+                              ]
+                            : [
+                                  {
+                                      combined: false,
+                                      expression: ts.factory.createLogicalAnd(
+                                          ts.factory.createLessThanEquals(
+                                              ts.factory.createNumericLiteral(
+                                                  tuple.filter(
+                                                      (t) =>
+                                                          t.optional === false,
+                                                  ).length,
+                                              ),
+                                              arrayLength,
+                                          ),
+                                          ts.factory.createGreaterThanEquals(
+                                              ts.factory.createNumericLiteral(
+                                                  tuple.length,
+                                              ),
+                                              arrayLength,
+                                          ),
                                       ),
-                                      ts.factory.createNumericLiteral(
-                                          tuple.length,
-                                      ),
-                                  ),
-                              },
-                          ]
+                                  },
+                              ]
                         : []),
                     ...(config.joiner.tuple
                         ? [
@@ -666,123 +679,116 @@ export namespace CheckerProgrammer {
                 `[${tuple.map((t) => t.getName()).join(", ")}]`,
             );
         };
-    }
 
-    function decode_array(
-        project: IProject,
-        config: IConfig,
-        importer: FunctionImporter,
-        checkTupleLength: boolean,
-    ) {
-        return FeatureProgrammer.decode_array(
-            {
+    const decode_array =
+        (project: IProject) =>
+        (config: IConfig) =>
+        (importer: FunctionImporter) =>
+            FeatureProgrammer.decode_array({
                 trace: config.trace,
                 path: config.path,
-                decoder: decode(project, config, importer, checkTupleLength),
-            },
-            importer,
-            config.joiner.array,
-        );
-    }
+                decoder: decode(project)(config)(importer),
+            })(importer)(config.joiner.array);
 
     export const decode_object =
         (config: IConfig) => (importer: FunctionImporter) => {
             const func = FeatureProgrammer.decode_object(config)(importer);
-            return function (
+            return (
                 input: ts.Expression,
                 obj: MetadataObject,
                 explore: IExplore,
-            ) {
+            ) => {
                 obj.validated = true;
                 return func(input, obj, explore);
             };
         };
 
-    const explore_sets = (
-        project: IProject,
-        config: IConfig,
-        importer: FunctionImporter,
-    ) =>
-        UnionExplorer.set({
-            checker: decode(project, config, importer),
-            decoder: decode_array(project, config, importer, true),
-            empty: config.success,
-            success: config.success,
-            failure: (input, expected, explore) =>
-                ts.factory.createReturnStatement(
-                    config.joiner.failure(input, expected, explore),
-                ),
-        });
+    const explore_sets =
+        (project: IProject) =>
+        (config: IConfig) =>
+        (importer: FunctionImporter) =>
+            UnionExplorer.set({
+                checker: decode(project)(config)(importer),
+                decoder: decode_array(project)(config)(importer),
+                empty: config.success,
+                success: config.success,
+                failure: (input, expected, explore) =>
+                    ts.factory.createReturnStatement(
+                        config.joiner.failure(input, expected, explore),
+                    ),
+            });
 
-    const explore_maps = (
-        project: IProject,
-        config: IConfig,
-        importer: FunctionImporter,
-    ) =>
-        UnionExplorer.map({
-            checker: (input, entry, explore) => {
-                const func = decode(project, config, importer);
-                return ts.factory.createLogicalAnd(
-                    func(
-                        ts.factory.createElementAccessExpression(input, 0),
-                        entry[0],
-                        { ...explore, postfix: `${explore.postfix}[0]` },
+    const explore_maps =
+        (project: IProject) =>
+        (config: IConfig) =>
+        (importer: FunctionImporter) =>
+            UnionExplorer.map({
+                checker: (input, entry, explore) => {
+                    const func = decode(project)(config)(importer);
+                    return ts.factory.createLogicalAnd(
+                        func(
+                            ts.factory.createElementAccessExpression(input, 0),
+                            entry[0],
+                            { ...explore, postfix: `${explore.postfix}[0]` },
+                            [],
+                            [],
+                        ),
+                        func(
+                            ts.factory.createElementAccessExpression(input, 1),
+                            entry[1],
+                            { ...explore, postfix: `${explore.postfix}[1]` },
+                            [],
+                            [],
+                        ),
+                    );
+                },
+                decoder: (input, target, explore) =>
+                    decode_array(project)(config)(importer)(
+                        input,
+                        Metadata.create({
+                            any: false,
+                            nullable: false,
+                            required: true,
+                            optional: false,
+                            functional: false,
+                            resolved: null,
+                            constants: [],
+                            atomics: [],
+                            templates: [],
+                            rest: null,
+                            arrays: [],
+                            tuples: [target],
+                            objects: [],
+                            natives: [],
+                            sets: [],
+                            maps: [],
+                        }),
+                        explore,
+                        [],
                         [],
                     ),
-                    func(
-                        ts.factory.createElementAccessExpression(input, 1),
-                        entry[1],
-                        { ...explore, postfix: `${explore.postfix}[1]` },
-                        [],
+                empty: config.success,
+                success: config.success,
+                failure: (input, expected, explore) =>
+                    ts.factory.createReturnStatement(
+                        config.joiner.failure(input, expected, explore),
                     ),
-                );
-            },
-            decoder: (input, target, explore) =>
-                decode_array(project, config, importer, false)(
-                    input,
-                    Metadata.create({
-                        any: false,
-                        nullable: false,
-                        required: true,
-                        functional: false,
-                        resolved: null,
-                        constants: [],
-                        atomics: [],
-                        templates: [],
-                        rest: null,
-                        arrays: [],
-                        tuples: [target],
-                        objects: [],
-                        natives: [],
-                        sets: [],
-                        maps: [],
-                    }),
-                    explore,
-                    [],
-                ),
-            empty: config.success,
-            success: config.success,
-            failure: (input, expected, explore) =>
-                ts.factory.createReturnStatement(
-                    config.joiner.failure(input, expected, explore),
-                ),
-        });
+            });
 
-    const explore_tuples = (
-        project: IProject,
-        config: IConfig,
-        importer: FunctionImporter,
-    ) =>
-        UnionExplorer.tuple({
-            checker: check_union_tuple(project, config, importer),
-            decoder: decode_tuple(project, config, importer, true),
-            empty: config.success,
-            success: config.success,
-            failure: (input, expected, explore) =>
-                ts.factory.createReturnStatement(
-                    config.joiner.failure(input, expected, explore),
-                ),
-        });
+    const explore_tuples =
+        (project: IProject) =>
+        (config: IConfig) =>
+        (importer: FunctionImporter) =>
+            UnionExplorer.tuple({
+                checker: check_union_tuple(project)(config)(importer),
+                decoder: decode_tuple(project)(config)(importer)(true),
+                empty: config.success,
+                success: config.success,
+                failure: (input, expected, explore) =>
+                    ts.factory.createReturnStatement(
+                        config.joiner.failure(input, expected, explore),
+                    ),
+            });
 
     const explore_arrays = (
         project: IProject,
@@ -790,8 +796,8 @@ export namespace CheckerProgrammer {
         importer: FunctionImporter,
     ) =>
         UnionExplorer.array({
-            checker: decode(project, config, importer),
-            decoder: decode_array(project, config, importer, true),
+            checker: decode(project)(config)(importer),
+            decoder: decode_array(project)(config)(importer),
             empty: config.success,
             success: config.success,
             failure: (input, expected, explore) =>
@@ -806,39 +812,41 @@ export namespace CheckerProgrammer {
         importer: FunctionImporter,
     ) =>
         UnionExplorer.array_or_tuple({
-            checker: (front, target, explore, tags, array) => {
-                if (Array.isArray(target))
-                    return check_union_tuple(project, config, importer)(
-                        front,
-                        target,
-                        explore,
-                        tags,
-                        array,
-                    );
-                const condition = decode(project, config, importer)(
-                    front,
-                    target,
-                    explore,
-                    tags,
-                );
-                const length = check_array_length(array, tags);
-                return length !== null
-                    ? ts.factory.createBitwiseAnd(condition, length)
-                    : condition;
-            },
-            decoder: (input, target, explore, tags) =>
+            checker: (front, target, explore, tags, jsDocTags, array) =>
                 Array.isArray(target)
-                    ? decode_tuple(project, config, importer, true)(
-                          input,
+                    ? check_union_tuple(project)(config)(importer)(
+                          front,
                           target,
                           explore,
                           tags,
+                          jsDocTags,
+                          array,
                       )
-                    : decode_array(project, config, importer, true)(
+                    : config.atomist(explore)({
+                          expression: decode(project)(config)(importer)(
+                              front,
+                              target,
+                              explore,
+                              tags,
+                              jsDocTags,
+                          ),
+                          tags: check_array_length(tags)(array),
+                      })(array),
+            decoder: (input, target, explore, tags, jsDocTags) =>
+                Array.isArray(target)
+                    ? decode_tuple(project)(config)(importer)(true)(
                           input,
                           target,
                           explore,
                           tags,
+                          jsDocTags,
+                      )
+                    : decode_array(project)(config)(importer)(
+                          input,
+                          target,
+                          explore,
+                          tags,
+                          jsDocTags,
                       ),
             empty: config.success,
             success: config.success,

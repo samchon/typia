@@ -19,15 +19,4 @@ export namespace FileRetriever {
             else if (depth > 2) return null;
             return file(name)(path.join(directory, ".."), depth + 1);
         };
-
-    export const require =
-        (name: string) =>
-        async (directory: string, depth: number = 0) => {
-            const location: string | null = file(name)(directory, depth);
-            if (location === null)
-                throw new Error(
-                    `Unable to find installed module. Please report to the nestia - https://github.com/samchon/nestia/issues`,
-                );
-            return import(location);
-        };
 }

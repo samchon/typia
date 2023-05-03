@@ -16,7 +16,7 @@ import { check_object } from "./internal/check_object";
 import { feature_object_entries } from "./internal/feature_object_entries";
 
 export namespace IsProgrammer {
-    export const CONFIG =
+    export const configure =
         (options?: Partial<CONFIG.IOptions>) =>
         (importer: FunctionImporter): CheckerProgrammer.IConfig => ({
             functors: "$io",
@@ -27,6 +27,11 @@ export namespace IsProgrammer {
             numeric: OptionPredicator.numeric({
                 numeric: options?.numeric,
             }),
+            atomist: () => (entry) => () =>
+                [
+                    entry.expression,
+                    ...entry.tags.map((tag) => tag.expression),
+                ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
             combiner: () => (type: "and" | "or") => {
                 const initial: ts.TrueLiteral | ts.FalseLiteral =
                     type === "and"
@@ -61,7 +66,7 @@ export namespace IsProgrammer {
                     })(importer),
                 array: (input, arrow) =>
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(input, "every"),
+                        IdentifierFactory.access(input)("every"),
                         undefined,
                         [arrow],
                     ),
@@ -82,119 +87,126 @@ export namespace IsProgrammer {
     }
 
     /* -----------------------------------------------------------
-        GENERATORS
+        WRITERS
     ----------------------------------------------------------- */
-    export function generate(
-        project: IProject,
-        modulo: ts.LeftHandSideExpression,
-        equals: boolean = false,
-    ) {
-        const importer: FunctionImporter = new FunctionImporter();
+    /**
+     * @deprecated Use `write()` function instead
+     */
+    export const generate =
+        (
+            project: IProject,
+            modulo: ts.LeftHandSideExpression,
+            equals: boolean = false,
+        ) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(equals)(type, name);
 
-        // CONFIGURATION
-        const config = CONFIG({
-            object: check_object({
-                equals,
-                undefined: OptionPredicator.undefined(project.options),
-                assert: true,
-                reduce: ts.factory.createLogicalAnd,
-                positive: ts.factory.createTrue(),
-                superfluous: () => ts.factory.createFalse(),
-            })(importer),
-            numeric: OptionPredicator.numeric(project.options),
-        })(importer);
-        config.trace = equals;
+    export const write =
+        (project: IProject) =>
+        (modulo: ts.LeftHandSideExpression) =>
+        (equals: boolean) => {
+            const importer: FunctionImporter = new FunctionImporter();
 
-        config.decoder = (input, target, explore, tags) => {
-            if (
-                target.size() === 1 &&
-                target.objects.length === 1 &&
-                target.required === true &&
-                target.nullable === false
-            ) {
-                // ONLY WHEN OBJECT WITH SOME ATOMIC PROPERTIES
-                const obj: MetadataObject = target.objects[0]!;
+            // CONFIGURATION
+            const config: CheckerProgrammer.IConfig = {
+                ...configure({
+                    object: check_object({
+                        equals,
+                        undefined: OptionPredicator.undefined(project.options),
+                        assert: true,
+                        reduce: ts.factory.createLogicalAnd,
+                        positive: ts.factory.createTrue(),
+                        superfluous: () => ts.factory.createFalse(),
+                    })(importer),
+                    numeric: OptionPredicator.numeric(project.options),
+                })(importer),
+                trace: equals,
+                addition: () => importer.declare(modulo),
+            };
+
+            config.decoder = (input, target, explore, tags, jsDocTags) => {
                 if (
-                    obj._Is_simple() &&
-                    (equals === false ||
-                        OptionPredicator.undefined(project.options) === false)
-                )
-                    return ts.factory.createLogicalAnd(
-                        ExpressionFactory.isObject(input, {
-                            checkNull: true,
-                            checkArray: false,
-                        }),
-                        config.joiner.object(
-                            input,
-                            feature_object_entries(config as any)(importer)(
-                                obj,
-                            )(input),
-                        ),
-                    );
-            }
-            return CheckerProgrammer.decode(project, config, importer)(
-                input,
-                target,
-                explore,
-                tags,
-            );
+                    target.size() === 1 &&
+                    target.objects.length === 1 &&
+                    target.required === true &&
+                    target.nullable === false
+                ) {
+                    // ONLY WHEN OBJECT WITH SOME ATOMIC PROPERTIES
+                    const obj: MetadataObject = target.objects[0]!;
+                    if (
+                        obj._Is_simple() &&
+                        (equals === false ||
+                            OptionPredicator.undefined(project.options) ===
+                                false)
+                    )
+                        return ts.factory.createLogicalAnd(
+                            ExpressionFactory.isObject({
+                                checkNull: true,
+                                checkArray: false,
+                            })(input),
+                            config.joiner.object(
+                                input,
+                                feature_object_entries(config as any)(importer)(
+                                    obj,
+                                )(input),
+                            ),
+                        );
+                }
+                return CheckerProgrammer.decode(project)(config)(importer)(
+                    input,
+                    target,
+                    explore,
+                    tags,
+                    jsDocTags,
+                );
+            };
+
+            // GENERATE CHECKER
+            return CheckerProgrammer.write(project)(config)(importer);
         };
 
-        // GENERATE CHECKER
-        return CheckerProgrammer.generate(project, config, importer, () =>
-            importer.declare(modulo),
-        );
-    }
+    export const write_functors =
+        (project: IProject) => (importer: FunctionImporter) =>
+            CheckerProgrammer.write_functors(project)(configure()(importer))(
+                importer,
+            );
 
-    export const generate_functors = (
-        project: IProject,
-        importer: FunctionImporter,
-    ) =>
-        CheckerProgrammer.generate_functors(
-            project,
-            CONFIG()(importer),
-            importer,
-        );
-
-    export const generate_unioners = (
-        project: IProject,
-        importer: FunctionImporter,
-    ) =>
-        CheckerProgrammer.generate_unioners(
-            project,
-            CONFIG()(importer),
-            importer,
-        );
+    export const write_unioners =
+        (project: IProject) => (importer: FunctionImporter) =>
+            CheckerProgrammer.write_unioners(
+                project,
+                configure()(importer),
+                importer,
+            );
 
     /* -----------------------------------------------------------
         DECODERS
     ----------------------------------------------------------- */
     export const decode = (project: IProject, importer: FunctionImporter) =>
-        CheckerProgrammer.decode(project, CONFIG()(importer), importer);
+        CheckerProgrammer.decode(project)(configure()(importer))(importer);
 
     export const decode_object = (importer: FunctionImporter) =>
-        CheckerProgrammer.decode_object(CONFIG()(importer))(importer);
+        CheckerProgrammer.decode_object(configure()(importer))(importer);
 
-    export function decode_to_json(
-        input: ts.Expression,
-        checkNull: boolean,
-    ): ts.Expression {
-        return ts.factory.createLogicalAnd(
-            ExpressionFactory.isObject(input, {
-                checkArray: false,
-                checkNull,
-            }),
-            ts.factory.createStrictEquality(
-                ts.factory.createStringLiteral("function"),
-                ValueFactory.TYPEOF(IdentifierFactory.join(input, "toJSON")),
-            ),
-        );
-    }
+    export const decode_to_json =
+        (checkNull: boolean) =>
+        (input: ts.Expression): ts.Expression =>
+            ts.factory.createLogicalAnd(
+                ExpressionFactory.isObject({
+                    checkArray: false,
+                    checkNull,
+                })(input),
+                ts.factory.createStrictEquality(
+                    ts.factory.createStringLiteral("function"),
+                    ValueFactory.TYPEOF(
+                        IdentifierFactory.access(input)("toJSON"),
+                    ),
+                ),
+            );
 
-    export function decode_functional(input: ts.Expression) {
-        return ts.factory.createStrictEquality(
+    export const decode_functional = (input: ts.Expression) =>
+        ts.factory.createStrictEquality(
             ts.factory.createStringLiteral("function"),
             ValueFactory.TYPEOF(input),
         );
-    }
 }

@@ -85,6 +85,7 @@ export namespace ProtocolMetadataUtil {
         return Metadata.create({
             any: false,
             required: true,
+            optional: false,
             nullable: false,
             functional: false,
             resolved: null,
@@ -105,6 +106,7 @@ export namespace ProtocolMetadataUtil {
         return Metadata.create({
             any: false,
             required: true,
+            optional: false,
             nullable: false,
             functional: false,
             resolved: null,
@@ -125,6 +127,7 @@ export namespace ProtocolMetadataUtil {
         return Metadata.create({
             any: false,
             required: true,
+            optional: false,
             nullable: false,
             functional: false,
             resolved: null,
@@ -145,6 +148,7 @@ export namespace ProtocolMetadataUtil {
         return Metadata.create({
             any: false,
             required: true,
+            optional: false,
             nullable: false,
             functional: false,
             resolved: null,

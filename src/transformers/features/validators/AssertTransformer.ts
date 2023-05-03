@@ -5,7 +5,7 @@ import { GenericTransformer } from "../../internal/GenericTransformer";
 export namespace AssertTransformer {
     export const transform = (equals: boolean) =>
         GenericTransformer.scalar(equals ? "assertEquals" : "assert")(
-            (project, modulo) =>
-                AssertProgrammer.generate(project, modulo, equals),
+            (project) => (modulo) =>
+                AssertProgrammer.write(project)(modulo)(equals),
         );
 }

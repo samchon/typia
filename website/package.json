@@ -1,0 +1,38 @@
+{
+  "name": "typia.io",
+  "version": "0.1.0",
+  "description": "Typia Guide Documents",
+  "private": true,
+  "scripts": {
+    "build": "rimraf .next && rimraf .out && next build && next export && next-sitemap",
+    "deploy": "node deploy",
+    "dev": "next dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.12.0",
+    "next": "^13.0.6",
+    "nextra": "latest",
+    "nextra-theme-docs": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.10",
+    "@types/react": "^18.0.35",
+    "gh-pages": "^5.0.0",
+    "next-sitemap": "^4.0.7",
+    "rimraf": "^5.0.0",
+    "typescript": "^4.9.3"
+  }
+}

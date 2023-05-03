@@ -100,7 +100,7 @@ export namespace MessageProgrammer {
         (dict: Map<string, Hierarchy>) => (message: IProtocolMessage) => {
             const accessors: string[] = message.name.split(".");
             accessors.forEach((access, i) => {
-                const hierarchy: Hierarchy = MapUtil.take(dict, access, () => ({
+                const hierarchy: Hierarchy = MapUtil.take(dict)(access, () => ({
                     key: access,
                     message: null!,
                     children: new Map(),

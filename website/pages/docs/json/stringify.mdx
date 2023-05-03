@@ -1,0 +1,527 @@
+import { Tabs, Tab } from 'nextra-theme-docs'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
+## `stringify()` functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+    <code>IValidation.ts</code>
+]}>
+    <Tab>
+```typescript copy
+export function stringify<T>(input: T): string;
+export function isStringify<T>(input: unknown | T): string | null;
+export function assertStringify<T>(input: unknown | T): string;
+export function validateStringify<T>(input: unknown | T): IValidation<string>;
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+You can boost up JSON serialization speed just by calling `typia.stringify<T>()` function. Also, you even can ensure type safety of JSON serialization by calling other functions like `typia.isStringify()` and `typia.assertStringify()` functions.
+
+As `typia.stringify<T>()` function writes dedicated JSON serialization code only for the target type `T`, its performance is much faster than native `JSON.stringify()` function. However, because of the dedicated optimal JSON serialization code, when wrong typed data comes, unexpected error be occured.
+
+Instead, `typia` supports type safe JSON serialization functions like `typia.isStringify()`. The `typia.isStringify()` is a combination function of `typia.is<T>()` and `typia.stringify<T>()` function. It checks whether the input value is valid for the target type `T` or not first, and operate JSON serialization later. If the input value is not matched with the type `T`, it returns `null` value.
+
+  - `typia.isStringify()`: [`typia.is<T>()`](../validators/is) + `typia.stringify<T>()`
+  - `typia.assertStringify()`: [`typia.assert<T>()`](../validators/assert) + `typia.stringify<T>()`
+  - `typia.validateStringify()`: [`typia.validate<T>()`](../validators/validate) + `typia.stringify<T>()`
+
+<br/>
+<Alert severity="success">
+    <AlertTitle> 
+        **AOT compliation** 
+    </AlertTitle>
+
+`typia.isStringify()` and other similar functions are still much faster than native `JSON.stringify()` function, even though they include type checking process. This is the power of AOT compilation, writing optimal dedicated code by analyzing TypeScript type, in the compilation level.
+
+</Alert>
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/isStringify.ts" showLineNumbers {4, 6}
+import typia from "typia";
+
+const department: IDepartment = typia.random<IDepartment>();
+const json: string = typia.isStringify(department);
+
+console.log(json); // not null, but string
+
+interface IDepartment {
+    /**
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * @minLength 3
+     */
+    name: string;
+
+    /**
+     * @type int
+     */
+    limit: number;
+
+    clerks: IClerk[];
+}
+interface IClerk {
+    name: string;
+
+    /**
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+
+    authority: number;
+
+    /**
+     * @format date
+     */
+    joined_at: string;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/isStringify.js" showLineNumbers {63-98, 100}
+import typia from "typia";
+
+const department = ((generator) => {
+    const $generator = typia.random.generator;
+    const $ro0 = (_recursive = false, _depth = 0) => ({
+        id:
+            (generator?.customs ?? $generator.customs)?.string?.([
+                {
+                    name: "format",
+                    value: "uuid",
+                },
+            ]) ?? (generator?.uuid ?? $generator.uuid)(),
+        name:
+            (generator?.customs ?? $generator.customs)?.string?.([
+                {
+                    name: "minLength",
+                    value: "3",
+                },
+            ]) ??
+            (generator?.string ?? $generator.string)(
+                (generator?.integer ?? $generator.integer)(3, 25),
+            ),
+        limit:
+            (generator?.customs ?? $generator.customs)?.number?.([
+                {
+                    name: "type",
+                    value: "uint",
+                },
+            ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
+        clerks: (generator?.array ?? $generator.array)(() =>
+            $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+        ),
+    });
+    const $ro1 = (_recursive = false, _depth = 0) => ({
+        name:
+            (generator?.customs ?? $generator.customs)?.string?.([]) ??
+            (generator?.string ?? $generator.string)(),
+        age:
+            (generator?.customs ?? $generator.customs)?.number?.([
+                {
+                    name: "exclusiveMinimum",
+                    value: "19",
+                },
+                {
+                    name: "maximum",
+                    value: "100",
+                },
+            ]) ?? (generator?.number ?? $generator.number)(19, 100),
+        authority:
+            (generator?.customs ?? $generator.customs)?.number?.([]) ??
+            (generator?.number ?? $generator.number)(0, 100),
+        joined_at:
+            (generator?.customs ?? $generator.customs)?.string?.([
+                {
+                    name: "format",
+                    value: "date",
+                },
+            ]) ?? (generator?.date ?? $generator.date)(),
+    });
+    return $ro0();
+})();
+
+const json = ((input) => {
+    const is = (input) => {
+        const $is_uuid = typia.isStringify.is_uuid;
+        const $is_date = typia.isStringify.is_date;
+        const $io0 = (input) =>
+            "string" === typeof input.id && $is_uuid(input.id) &&
+            "string" === typeof input.name && 3 <= input.name.length &&
+            "number" === typeof input.limit && !Number.isNaN(input.limit) && parseInt(input.limit) === input.limit && 0 <= input.limit &&
+            Array.isArray(input.clerks) && input.clerks.every(
+                (elem) =>
+                    "object" === typeof elem && null !== elem && $io1(elem),
+            );
+        const $io1 = (input) =>
+            "string" === typeof input.name &&
+            "number" === typeof input.age && 19 < input.age && 100 >= input.age &&
+            "number" === typeof input.authority && !Number.isNaN(input.authority) &&
+            "string" === typeof input.joined_at && $is_date(input.joined_at);
+        return "object" === typeof input && null !== input && $io0(input);
+    };
+    const stringify = (input) => {
+        const $string = typia.isStringify.string;
+            $is_date(input.joined_at);
+        const $so0 = (input) =>
+            `{"id":${'"' + input.id + '"'},"name":${$string(
+                input.name,
+            )},"limit":${input.limit},"clerks":${`[${input.clerks
+                .map((elem) => $so1(elem))
+                .join(",")}]`}}`;
+        const $so1 = (input) =>
+            `{"name":${$string(input.name)},"age":${input.age},"authority":${
+                input.authority
+            },"joined_at":${'"' + input.joined_at + '"'}}`;
+        return $so0(input);
+    };
+    return is(input) ? stringify(input) : null;
+})(department);
+
+console.log(json); // not null, but string
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## Reusable functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+    <code>IValidation.ts</code>
+]}>
+    <Tab>
+```typescript copy
+export function createStringify<T>: (input: T) => string;
+export function createIsStringify<T>: (input: unknown | T) => string | null;
+export function createAssertStringify<T>: (input: unknown) => string;
+export function createValidateStringify<T>: (input: unknown) => IValidation<string>;
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+Reusable `typia.stringify<T>()` function generators.
+
+If you repeat to call `typia.stringify<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.createStringify<T>()` function.
+
+Just look at the code below, then you may understand how to use it.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/createAssertStringify.ts" showLineNumbers {3}
+import typia from "typia";
+
+export const assertDepartment = typia.createAssertStringify<IDepartment>();
+
+interface IDepartment {
+    /**
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * @minLength 3
+     */
+    name: string;
+
+    /**
+     * @type int
+     */
+    limit: number;
+
+    clerks: IClerk[];
+}
+interface IClerk {
+    name: string;
+
+    /**
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+
+    authority: number;
+
+    /**
+     * @format date
+     */
+    joined_at: string;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/createAssertStringify.js" showLineNumbers {3-163}
+import typia from "typia";
+
+export const assertDepartment = (input) => {
+    const assert = (input) => {
+        const $guard = typia.createAssertStringify.guard;
+        const $is_uuid = typia.createAssertStringify.is_uuid;
+        const $is_date = typia.createAssertStringify.is_date;
+        const __is = (input) => {
+            const $is_uuid = typia.createAssertStringify.is_uuid;
+            const $is_date = typia.createAssertStringify.is_date;
+            const $io0 = (input) =>
+                "string" === typeof input.id && $is_uuid(input.id) &&
+                "string" === typeof input.name && 3 <= input.name.length &&
+                "number" === typeof input.limit && !Number.isNaN(input.limit) && parseInt(input.limit) === input.limit && 0 <= input.limit &&
+                Array.isArray(input.clerks) && input.clerks.every(
+                    (elem) =>
+                        "object" === typeof elem && null !== elem && $io1(elem),
+                );
+            const $io1 = (input) =>
+                "string" === typeof input.name &&
+                "number" === typeof input.age && 19 < input.age && 100 >= input.age &&
+                "number" === typeof input.authority && !Number.isNaN(input.authority) &&
+                "string" === typeof input.joined_at && $is_date(input.joined_at);
+            return "object" === typeof input && null !== input && $io0(input);
+        };
+        if (false === __is(input))
+            ((input, _path, _exceptionable = true) => {
+                const $ao0 = (input, _path, _exceptionable = true) =>
+                    (("string" === typeof input.id &&
+                        ($is_uuid(input.id) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".id",
+                                expected: "string (@format uuid)",
+                                value: input.id,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".id",
+                            expected: "string",
+                            value: input.id,
+                        })) &&
+                    (("string" === typeof input.name &&
+                        (3 <= input.name.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".name",
+                                expected: "string (@minLength 3)",
+                                value: input.name,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".name",
+                            expected: "string",
+                            value: input.name,
+                        })) &&
+                    (("number" === typeof input.limit &&
+                        !Number.isNaN(input.limit) &&
+                        (parseInt(input.limit) === input.limit ||
+                            $guard(_exceptionable, {
+                                path: _path + ".limit",
+                                expected: "number (@type int)",
+                                value: input.limit,
+                            })) &&
+                        (0 <= input.limit ||
+                            $guard(_exceptionable, {
+                                path: _path + ".limit",
+                                expected: "number (@type int)",
+                                value: input.limit,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".limit",
+                            expected: "number",
+                            value: input.limit,
+                        })) &&
+                    (Array.isArray(input.clerks) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".clerks",
+                            expected: "Array<IClerk>",
+                            value: input.clerks,
+                        })) &&
+                    input.clerks.every(
+                        (elem, _index1) =>
+                            (("object" === typeof elem && null !== elem) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".clerks[" + _index1 + "]",
+                                    expected: "IClerk",
+                                    value: elem,
+                                })) &&
+                            $ao1(
+                                elem,
+                                _path + ".clerks[" + _index1 + "]",
+                                true && _exceptionable,
+                            ),
+                    );
+                const $ao1 = (input, _path, _exceptionable = true) =>
+                    ("string" === typeof input.name ||
+                        $guard(_exceptionable, {
+                            path: _path + ".name",
+                            expected: "string",
+                            value: input.name,
+                        })) &&
+                    (("number" === typeof input.age &&
+                        (19 < input.age ||
+                            $guard(_exceptionable, {
+                                path: _path + ".age",
+                                expected: "number (@exclusiveMinimum 19)",
+                                value: input.age,
+                            })) &&
+                        (100 >= input.age ||
+                            $guard(_exceptionable, {
+                                path: _path + ".age",
+                                expected: "number (@maximum 100)",
+                                value: input.age,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number",
+                            value: input.age,
+                        })) &&
+                    (("number" === typeof input.authority &&
+                        !Number.isNaN(input.authority)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".authority",
+                            expected: "number",
+                            value: input.authority,
+                        })) &&
+                    (("string" === typeof input.joined_at &&
+                        ($is_date(input.joined_at) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".joined_at",
+                                expected: "string (@format date)",
+                                value: input.joined_at,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".joined_at",
+                            expected: "string",
+                            value: input.joined_at,
+                        }));
+                return (
+                    (("object" === typeof input && null !== input) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "IDepartment",
+                            value: input,
+                        })) &&
+                    $ao0(input, _path + "", true)
+                );
+            })(input, "$input", true);
+        return input;
+    };
+    const stringify = (input) => {
+        const $string = typia.createAssertStringify.string;
+        const $so0 = (input) =>
+            `{"id":${'"' + input.id + '"'},"name":${$string(
+                input.name,
+            )},"limit":${input.limit},"clerks":${`[${input.clerks
+                .map((elem) => $so1(elem))
+                .join(",")}]`}}`;
+        const $so1 = (input) =>
+            `{"name":${$string(input.name)},"age":${input.age},"authority":${
+                input.authority
+            },"joined_at":${'"' + input.joined_at + '"'}}`;
+        return $so0(input);
+    };
+    return stringify(assert(input));
+};
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## Performance
+Comparing JSON serialization speed with others, it is maximum 200x faster than `class-transformer`.
+
+For reference, `class-transformer` is the most famous library used in `NestJS` with `class-validator`. Also, `fast-json-stringify` is another famous one used in `fastify`. However, whether they are fast or slow, both of them require extra schema definition, that is different with TypeScript type. If you see the code below without experience of them, you may get shocked: how complicate and inefficient they are:
+
+ - `fast-json-stringify` requires [JSON schema definition](https://github.com/samchon/typia/blob/master/test/schemas/json/swagger/ObjectHierarchical.json).
+ - `class-validator` requires [DTO class with decorator function calls](https://github.com/samchon/typia/blob/master/benchmark/structures/class-validator/ClassValidatorObjectHierarchical.ts).
+
+![Stringify Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/stringify.svg)
+
+> Measured on [Intel i5-1135g7, Surface Pro 8](https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz#stringify)
+
+
+
+
+## Server Performance
+Someone may ask:
+
+> JSON serialization speed affects on the server performance? 
+>
+> I think that the JSON serialization is just a tiny thing in the server side, isn't it?
+
+My answer is, "Yes, it affects on the server performance".
+
+Most operations in NodeJS server are asynchronously executed in background thread, what are called "event based non-blocking I/O model". However, JSON serialization is a synchronous operation running on the main thread. Therefore, if the JSON serialization speed is slow, it makes the entire server program slow.
+
+I'll show you the benchmark result that, how JSON serizliation speed affects on the server performance.
+
+![Server Benchmark](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/server.svg)
+
+> Measured on [Intel i5-1135g7, Surface Pro 8](https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz#server)

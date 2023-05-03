@@ -1,0 +1,791 @@
+import { Tabs, Tab } from 'nextra-theme-docs'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
+## `validate()` function
+<Tabs items={[
+    <code>typia</code>, 
+    <code>IValidation.ts</code>,
+]}>
+    <Tab>
+```typescript copy
+export function validate<T>(input: T): IValidation<T>;
+export function validate<T>(input: unknown): IValidation<T>;
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+Validates a value type.
+
+`typia.validate<T>()` function validates `input` value type, and archives every type errors detaily into `IValidation.IFailure.errors` array, when the `input` value is not following the promised type `T`. Of course, if the parametric `input` value is following the type `T`, `IValidation.ISuccess` instance would be returned.
+
+In the below example case, as `id` and `age` values are different with its definition of `IMember`, such errors would be archived into the `IValidation.IFailure.errors` array.
+
+  - `errors[0]`
+    - `path`: `input.id`
+    - `expected`: `string`
+    - `value`: 5
+  - `errors[1]`
+    - `path`: `input.age`
+    - `expected`: `number (@type int)`
+    - `value`: 20.75
+
+<br/>
+<Alert severity="success">
+    <AlertTitle> 
+        **AOT compliation** 
+    </AlertTitle>
+
+If you'd used other competitive validator libraries like `ajv` or `class-validator`, you may found that `typia` does not require any extra schema definition. If you have not experienced them, I can sure that you may get shocked after reading below extra schema definition files.
+
+ - `ajv` requires [JSON schema definition](https://github.com/samchon/typia/blob/master/test/schemas/json/swagger/ObjectHierarchical.json).
+ - `class-validator` requires [DTO class with decorator function calls](https://github.com/samchon/typia/blob/master/benchmark/structures/class-validator/ClassValidatorObjectHierarchical.ts).
+
+Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library, it can analyze TypeScript type by itself, and possible to write the optimal validation code like below. This is the key principle of `typia`, which needs only one line with pure TypeScript type.
+
+</Alert>
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/validate.ts" showLineNumbers {3-7, 9}
+import typia from "typia";
+
+const res: typia.IValidation<IMember> = typia.validate<IMember>({
+    id: 5, // wrong, must be string (uuid)
+    age: 20.75, // wrong, not integer
+    email: "samchon.github@gmail.com",
+});
+
+if (!res.success) console.log(res.errors);
+
+interface IMember {
+    /**
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * @format email
+     */
+    email: string;
+
+    /**
+     * @type int
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/validate.js" showLineNumbers {2-97, 99}
+import typia from "typia";
+
+const res = ((input) => {
+    const __is = (input) => {
+        const $is_uuid = typia.validate.is_uuid;
+        const $is_email = typia.validate.is_email;
+        return (
+            "object" === typeof input && null !== input &&
+            "string" === typeof input.id && $is_uuid(input.id) &&
+            "string" === typeof input.email && $is_email(input.email) &&
+            "number" === typeof input.age && 
+                parseInt(input.age) === input.age &&
+                19 < input.age && 100 >= input.age
+        );
+    };
+    const errors = [];
+    const $report = typia.validate.report(errors);
+    const $is_uuid = typia.validate.is_uuid;
+    const $is_email = typia.validate.is_email;
+    if (false === __is(input))
+        ((input, _path, _exceptionable = true) => {
+            const $vo0 = (input, _path, _exceptionable = true) =>
+                [
+                    ("string" === typeof input.id &&
+                        ($is_uuid(input.id) ||
+                            $report(_exceptionable, {
+                                path: _path + ".id",
+                                expected: "string (@format uuid)",
+                                value: input.id,
+                            }))) ||
+                        $report(_exceptionable, {
+                            path: _path + ".id",
+                            expected: "string",
+                            value: input.id,
+                        }),
+                    ("string" === typeof input.email &&
+                        ($is_email(input.email) ||
+                            $report(_exceptionable, {
+                                path: _path + ".email",
+                                expected: "string (@format email)",
+                                value: input.email,
+                            }))) ||
+                        $report(_exceptionable, {
+                            path: _path + ".email",
+                            expected: "string",
+                            value: input.email,
+                        }),
+                    ("number" === typeof input.age &&
+                        (parseInt(input.age) === input.age ||
+                            $report(_exceptionable, {
+                                path: _path + ".age",
+                                expected: "number (@type int)",
+                                value: input.age,
+                            })) &&
+                        (19 < input.age ||
+                            $report(_exceptionable, {
+                                path: _path + ".age",
+                                expected: "number (@exclusiveMinimum 19)",
+                                value: input.age,
+                            })) &&
+                        (100 >= input.age ||
+                            $report(_exceptionable, {
+                                path: _path + ".age",
+                                expected: "number (@maximum 100)",
+                                value: input.age,
+                            }))) ||
+                        $report(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number",
+                            value: input.age,
+                        }),
+                ].every((flag) => flag);
+            return (
+                ((("object" === typeof input && null !== input) ||
+                    $report(true, {
+                        path: _path + "",
+                        expected: "IMember",
+                        value: input,
+                    })) &&
+                    $vo0(input, _path + "", true)) ||
+                $report(true, {
+                    path: _path + "",
+                    expected: "IMember",
+                    value: input,
+                })
+            );
+        })(input, "$input", true);
+    const success = 0 === errors.length;
+    return {
+        success,
+        errors,
+        data: success ? input : undefined,
+    };
+})({
+    id: 5, // wrong, must be string (uuid)
+    age: 20.75, // wrong, not integer
+    email: "samchon.github@gmail.com",
+});
+if (!res.success) console.log(res.errors);
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## `validateEquals()` function
+<Tabs items={[
+    <code>typia</code>, 
+    <code>IValidation.ts</code>,
+]}>
+    <Tab>
+```typescript copy
+export function validateEquals<T>(input: T): IValidation<T>;
+export function validateEquals<T>(input: unknown): IValidation<T>;
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+More strict validatae function prohibiting superfluous properties.
+
+`typia.validate<T>` function detects every type errors of `input` value, however, it can't detect superfluous properties. If you want to prohibit those superfluous properties, so that archive them into `IValidation.IFailure.errors` array, use `typia.validateEquals<T>()` function instead.
+
+In the below example case, as `id` property is different with its type definition and `sex` property is not defined in the `IMember` type, such errors would be archived into the `IValidation.IFailure.errors` array:
+
+  - `errors[0]`
+    - `path`: `input.id`
+    - `expected`: `string (@format uuid)`
+    - `value`: `something`
+  - `errors[1]`
+    - `path`: `input.sex`
+    - `expected`: `undefined`
+    - `value`: `1`
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/validateEquals.ts" showLineNumbers {3-8, 10}
+import typia from "typia";
+
+const res: typia.IValidation<IMember> = typia.validateEquals<IMember>({
+    age: 30,
+    email: "samchon.github@gmail.com",
+    id: "something", // wrong, must be string (uuid)
+    sex: 1, // extra property
+});
+
+if (!res.success) console.log(res.errors);
+
+interface IMember {
+    /**
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * @format email
+     */
+    email: string;
+
+    /**
+     * @type int
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/validateEquals.js" showLineNumbers {3-128, 130}
+import typia from "typia";
+
+const res = ((input) => {
+    const __is = (input, _exceptionable = true) => {
+        const $is_uuid = typia.validateEquals.is_uuid;
+        const $is_email = typia.validateEquals.is_email;
+        const $io0 = (input, _exceptionable = true) =>
+            "string" === typeof input.id &&
+            $is_uuid(input.id) &&
+            "string" === typeof input.email &&
+            $is_email(input.email) &&
+            "number" === typeof input.age &&
+                parseInt(input.age) === input.age &&
+                19 < input.age && 100 >= input.age &&
+            (3 === Object.keys(input).length ||
+                Object.keys(input).every((key) => {
+                    if (["id", "email", "age"].some((prop) => key === prop))
+                        return true;
+                    const value = input[key];
+                    if (undefined === value) return true;
+                    return false;
+                }));
+        return "object" === typeof input && null !== input && $io0(input, true);
+    };
+    const errors = [];
+    const $report = typia.validateEquals.report(errors);
+    const $is_uuid = typia.validateEquals.is_uuid;
+    const $is_email = typia.validateEquals.is_email;
+    const $join = typia.validateEquals.join;
+    if (false === __is(input))
+        ((input, _path, _exceptionable = true) => {
+            const $vo0 = (input, _path, _exceptionable = true) =>
+                [
+                    ("string" === typeof input.id &&
+                        ($is_uuid(input.id) ||
+                            $report(_exceptionable, {
+                                path: _path + ".id",
+                                expected: "string (@format uuid)",
+                                value: input.id,
+                            }))) ||
+                        $report(_exceptionable, {
+                            path: _path + ".id",
+                            expected: "string",
+                            value: input.id,
+                        }),
+                    ("string" === typeof input.email &&
+                        ($is_email(input.email) ||
+                            $report(_exceptionable, {
+                                path: _path + ".email",
+                                expected: "string (@format email)",
+                                value: input.email,
+                            }))) ||
+                        $report(_exceptionable, {
+                            path: _path + ".email",
+                            expected: "string",
+                            value: input.email,
+                        }),
+                    ("number" === typeof input.age &&
+                        (parseInt(input.age) === input.age ||
+                            $report(_exceptionable, {
+                                path: _path + ".age",
+                                expected: "number (@type int)",
+                                value: input.age,
+                            })) &&
+                        (19 < input.age ||
+                            $report(_exceptionable, {
+                                path: _path + ".age",
+                                expected: "number (@exclusiveMinimum 19)",
+                                value: input.age,
+                            })) &&
+                        (100 >= input.age ||
+                            $report(_exceptionable, {
+                                path: _path + ".age",
+                                expected: "number (@maximum 100)",
+                                value: input.age,
+                            }))) ||
+                        $report(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number",
+                            value: input.age,
+                        }),
+                    3 === Object.keys(input).length ||
+                        false === _exceptionable ||
+                        Object.keys(input)
+                            .map((key) => {
+                                if (
+                                    ["id", "email", "age"].some(
+                                        (prop) => key === prop,
+                                    )
+                                )
+                                    return true;
+                                const value = input[key];
+                                if (undefined === value) return true;
+                                return $report(_exceptionable, {
+                                    path: _path + $join(key),
+                                    expected: "undefined",
+                                    value: value,
+                                });
+                            })
+                            .every((flag) => flag),
+                ].every((flag) => flag);
+            return (
+                ((("object" === typeof input && null !== input) ||
+                    $report(true, {
+                        path: _path + "",
+                        expected: "IMember",
+                        value: input,
+                    })) &&
+                    $vo0(input, _path + "", true)) ||
+                $report(true, {
+                    path: _path + "",
+                    expected: "IMember",
+                    value: input,
+                })
+            );
+        })(input, "$input", true);
+    const success = 0 === errors.length;
+    return {
+        success,
+        errors,
+        data: success ? input : undefined,
+    };
+})({
+    age: 30,
+    email: "samchon.github@gmail.com",
+    id: "something", // wrong, must be string (uuid)
+    sex: 1, // extra property
+});
+
+if (!res.success) console.log(res.errors);
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## Reusable functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>IValidation.ts</code>,
+]}>
+    <Tab>
+```typescript copy
+export function createValidate<T> = (input: unknown) => IValidation<T>;
+export function createValidateEquals<T> = (input: unknown) => IValidation<T>;
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+Reusable `typia.validate<T>()` function generators.
+
+If you repeat to call `typia.validate<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.createValidate<T>()` function.
+
+Just look at the code below, then you may understand how to use it.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/createValidate.ts" showLineNumbers {3}
+import typia from "typia";
+
+export const validateMember = typia.createValidate<IMember>();
+
+interface IMember {
+    /**
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * @format email
+     */
+    email: string;
+
+    /**
+     * @type int
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/createValidate.js" showLineNumbers {3-97}
+import typia from "typia";
+
+export const validateMember = (input) => {
+    const __is = (input) => {
+        const $is_uuid = typia.createValidate.is_uuid;
+        const $is_email = typia.createValidate.is_email;
+        return (
+            "object" === typeof input &&
+            null !== input &&
+            "string" === typeof input.id &&
+            $is_uuid(input.id) &&
+            "string" === typeof input.email &&
+            $is_email(input.email) &&
+            "number" === typeof input.age &&
+                parseInt(input.age) === input.age &&
+                19 < input.age && 100 >= input.age
+        );
+    };
+    const errors = [];
+    const $report = typia.createValidate.report(errors);
+    const $is_uuid = typia.createValidate.is_uuid;
+    const $is_email = typia.createValidate.is_email;
+    if (false === __is(input))
+        ((input, _path, _exceptionable = true) => {
+            const $vo0 = (input, _path, _exceptionable = true) =>
+                [
+                    ("string" === typeof input.id &&
+                        ($is_uuid(input.id) ||
+                            $report(_exceptionable, {
+                                path: _path + ".id",
+                                expected: "string (@format uuid)",
+                                value: input.id,
+                            }))) ||
+                        $report(_exceptionable, {
+                            path: _path + ".id",
+                            expected: "string",
+                            value: input.id,
+                        }),
+                    ("string" === typeof input.email &&
+                        ($is_email(input.email) ||
+                            $report(_exceptionable, {
+                                path: _path + ".email",
+                                expected: "string (@format email)",
+                                value: input.email,
+                            }))) ||
+                        $report(_exceptionable, {
+                            path: _path + ".email",
+                            expected: "string",
+                            value: input.email,
+                        }),
+                    ("number" === typeof input.age &&
+                        (parseInt(input.age) === input.age ||
+                            $report(_exceptionable, {
+                                path: _path + ".age",
+                                expected: "number (@type int)",
+                                value: input.age,
+                            })) &&
+                        (19 < input.age ||
+                            $report(_exceptionable, {
+                                path: _path + ".age",
+                                expected: "number (@exclusiveMinimum 19)",
+                                value: input.age,
+                            })) &&
+                        (100 >= input.age ||
+                            $report(_exceptionable, {
+                                path: _path + ".age",
+                                expected: "number (@maximum 100)",
+                                value: input.age,
+                            }))) ||
+                        $report(_exceptionable, {
+                            path: _path + ".age",
+                            expected: "number",
+                            value: input.age,
+                        }),
+                ].every((flag) => flag);
+            return (
+                ((("object" === typeof input && null !== input) ||
+                    $report(true, {
+                        path: _path + "",
+                        expected: "IMember",
+                        value: input,
+                    })) &&
+                    $vo0(input, _path + "", true)) ||
+                $report(true, {
+                    path: _path + "",
+                    expected: "IMember",
+                    value: input,
+                })
+            );
+        })(input, "$input", true);
+    const success = 0 === errors.length;
+    return {
+        success,
+        errors,
+        data: success ? input : undefined,
+    };
+};
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## Discriminated Union
+<Tabs items={[
+        <code>typia</code>, 
+        <code>IValidation.ts</code>,
+    ]}
+    defaultIndex={1}
+>
+    <Tab>
+```typescript copy
+export function validate<T>(input: T): IValidation<T>;
+export function validate<T>(input: unknown): IValidation<T>;
+export function createValidate<T>(): (input: unknown) => IValidation<T>;
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+Specify type through if condition.
+
+`typia.IValidation<T>` is an union type of `typia.IValidation.ISuccess<T>` and `typia.IValidation.IFailure`. Also, they have a common property `success` of boolean type, but different literal values. In that case, if you write a `if condition` about the `success` property, you can specify the union type like below.
+
+In TypeScript, such union type specification through common property (of different literal value() is called "Discriminated Union". Therefore, when using `typia.validate<T>()` function, let's utilize such discriminated union specification for convenience.
+
+```typescript copy
+import typia from "typia";
+
+const something: unknown = ...;
+const result: typia.IValidation<string> = typia.validate<string>(something);
+
+if (results.success) {
+    // become typia.IValidation.Success<string> type
+    result.data; // accessible
+}
+else {
+    // become typia.IValidation.Failure type
+    result.errors; //accessible
+}
+```
+
+
+
+
+## Customization
+You can enhance validation logic by using comment tags.
+
+Also, with the comment tags, you can add your custom validation logic, too.
+
+If you want to know about such comment tags detaily, read below article:
+
+  - [Comment Tags](/docs/validators/comment-tags/)
+    - [Outline](/docs/validators/comment-tags/#outline)
+    - [Supported Tags](/docs/validators/comment-tags/#supported-tags)
+    - [Customization](/docs/validators/comment-tags/#customization)
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/is-comment-tags.ts" showLineNumbers {3}
+import typia from "typia";
+
+export const checkCommentTag = typia.createIs<CommentTag>();
+
+interface CommentTag {
+    /**
+     * @type int
+     */
+    type: number;
+
+    /**
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    number?: number;
+
+    /**
+     * @minLength 3
+     */
+    string: string;
+
+    /**
+     * @pattern ^[a-z]+$
+     */
+    pattern: string;
+
+    /**
+     * @format date-time
+     */
+    format: string | null;
+
+    /**
+     * In the Array case, possible to restrict its elements.
+     *
+     * @minItems 3
+     * @maxItems 100
+     * @format uuid
+     */
+    array: string[];
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/is-comment-tags.js" showLineNumbers {3-24}
+import typia from "typia";
+
+export const checkCommentTag = (input) => {
+    const $is_datetime = typia.createIs.is_datetime;
+    const $is_uuid = typia.createIs.is_uuid;
+    const $io0 = (input) =>
+        "number" === typeof input.type &&
+        parseInt(input.type) === input.type &&
+        (undefined === input.number ||
+            ("number" === typeof input.number &&
+                19 < input.number &&
+                100 >= input.number)) &&
+        "string" === typeof input.string &&
+        3 <= input.string.length &&
+        "string" === typeof input.pattern &&
+        RegExp(/^[a-z]+$/).test(input.pattern) &&
+        (null === input.format ||
+            ("string" === typeof input.format && $is_datetime(input.format))) &&
+        Array.isArray(input.array) &&
+        3 <= input.array.length &&
+        100 >= input.array.length &&
+        input.array.every((elem) => "string" === typeof elem && $is_uuid(elem));
+    return "object" === typeof input && null !== input && $io0(input);
+};
+```
+    </Tab>
+</Tabs>
+
+
+
+
+
+## Performance
+Super-fast and super-safe.
+
+Comparing `typia.validate<T>()` function with other competitive libraries, maximum 20,000x faster. 
+
+Furthermore, only `typia` can validate complicate union types.
+
+![validate Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/validate.svg)
+
+> Measured on [Intel i5-1135g7, Surface Pro 8](https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz#validate)
+
+Components               | `typia` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
+-------------------------|--------|-----------|-------|---------|-------|------------------
+**Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ 
+[Object (simple)](https://github.com/samchon/typia/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Object (additional tags)](https://github.com/samchon/typia/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (template literal types)](https://github.com/samchon/typia/blob/master/test/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Array (rest tuple)](https://github.com/samchon/typia/blob/master/test/structures/TupleRestAtomic.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Array (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
+[Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+
+> `C.V.` means `class-validator`

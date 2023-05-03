@@ -10,10 +10,10 @@ import { IExpressionEntry } from "../helpers/IExpressionEntry";
 /**
  * @internal
  */
-export function stringify_regular_properties(
+export const stringify_regular_properties = (
     regular: IExpressionEntry<ts.Expression>[],
     dynamic: IExpressionEntry<ts.Expression>[],
-): ts.Expression[] {
+): ts.Expression[] => {
     const output: ts.Expression[] = [];
 
     regular.sort((x, y) => sequence(x.meta) - sequence(y.meta));
@@ -74,8 +74,10 @@ export function stringify_regular_properties(
         else output.push(...base);
     });
     return output;
-}
+};
 
-function sequence(meta: Metadata): number {
-    return meta.any || !meta.required || meta.functional ? 0 : 1;
-}
+/**
+ * @internal
+ */
+const sequence = (meta: Metadata): number =>
+    meta.any || !meta.required || meta.functional ? 0 : 1;

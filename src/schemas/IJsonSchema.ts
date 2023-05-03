@@ -3,9 +3,9 @@ import { IMetadataTag } from "../metadata/IMetadataTag";
 
 import { Atomic } from "../typings/Atomic";
 
-export type IJsonSchema = IJsonSchema.NotUnknown | IJsonSchema.IUnknown;
+export type IJsonSchema = IJsonSchema.Known | IJsonSchema.IUnknown;
 export namespace IJsonSchema {
-    export type NotUnknown =
+    export type Known =
         | IEnumeration<"boolean">
         | IEnumeration<"number">
         | IEnumeration<"string">
@@ -19,6 +19,15 @@ export namespace IJsonSchema {
         | IReference
         | IRecursiveReference
         | INullOnly;
+
+    export interface IUnknown extends IAttribute {
+        type: undefined;
+    }
+
+    /**
+     * @deprecated Use {@link Known} type instead.
+     */
+    export type NotUnknown = Known;
 
     /* -----------------------------------------------------------
         ATOMICS
@@ -103,7 +112,6 @@ export namespace IJsonSchema {
     export interface IOneOf extends IAttribute {
         oneOf: IJsonSchema[];
     }
-    export interface IUnknown {}
 
     export interface ISignificant<Literal extends string> extends IAttribute {
         type: Literal;
@@ -116,6 +124,7 @@ export namespace IJsonSchema {
         "x-typia-metaTags"?: IMetadataTag[];
         "x-typia-jsDocTags"?: IJsDocTagInfo[];
         "x-typia-required"?: boolean;
+        "x-typia-optional"?: boolean;
         "x-typia-rest"?: boolean;
     }
 }

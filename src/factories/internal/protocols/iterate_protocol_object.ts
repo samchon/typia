@@ -90,11 +90,11 @@ const aggregate = (properties: MetadataProperty[]): Metadata.Entry[] => {
     const unique: Map<Atomic.Literal, MetadataProperty[]> = new Map();
     for (const prop of properties) {
         if (prop.key.templates)
-            MapUtil.take(unique, "string", () => []).push(prop);
+            MapUtil.take(unique)("string", () => []).push(prop);
         for (const type of prop.key.atomics)
-            MapUtil.take(unique, type, () => []).push(prop);
+            MapUtil.take(unique)(type, () => []).push(prop);
         for (const { type } of prop.key.constants)
-            MapUtil.take(unique, type, () => []).push(prop);
+            MapUtil.take(unique)(type, () => []).push(prop);
     }
     const output: Metadata.Entry[] = [];
     for (const [key, properties] of unique) {

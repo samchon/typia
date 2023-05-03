@@ -4,6 +4,6 @@ import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace CreateValidateParseTransformer {
     export const transform = GenericTransformer.factory("createValidateParse")(
-        (project, modulo) => ValidateParseProgrammer.generate(project, modulo),
+        (project) => (modulo) => ValidateParseProgrammer.write(project)(modulo),
     );
 }

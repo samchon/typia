@@ -18,37 +18,41 @@ import { UnionExplorer } from "./helpers/UnionExplorer";
 import { decode_union_object } from "./internal/decode_union_object";
 
 export namespace CloneProgrammer {
-    export function generate(
-        project: IProject,
-        modulo: ts.LeftHandSideExpression,
-    ) {
-        const importer: FunctionImporter = new FunctionImporter();
-        return FeatureProgrammer.generate(
-            project,
-            CONFIG(project, importer),
-            importer,
-            (collection) => {
-                const isFunctors = IsProgrammer.generate_functors(
-                    project,
-                    importer,
-                )(collection);
-                const isUnioners = IsProgrammer.generate_unioners(
-                    project,
-                    importer,
-                )(collection);
+    /**
+     * @deprecated Use `write()` function instead
+     */
+    export const generate =
+        (project: IProject, modulo: ts.LeftHandSideExpression) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(type, name);
 
-                return [
-                    ...importer.declare(modulo),
-                    ...isFunctors.filter((_, i) =>
-                        importer.hasLocal(`$io${i}`),
-                    ),
-                    ...isUnioners.filter((_, i) =>
-                        importer.hasLocal(`$iu${i}`),
-                    ),
-                ];
-            },
-        );
-    }
+    export const write =
+        (project: IProject) => (modulo: ts.LeftHandSideExpression) => {
+            const importer: FunctionImporter = new FunctionImporter();
+            return FeatureProgrammer.analyze(project)({
+                ...CONFIG(project, importer),
+                addition: (collection) => {
+                    const isFunctors =
+                        IsProgrammer.write_functors(project)(importer)(
+                            collection,
+                        );
+                    const isUnioners =
+                        IsProgrammer.write_unioners(project)(importer)(
+                            collection,
+                        );
+
+                    return [
+                        ...importer.declare(modulo),
+                        ...isFunctors.filter((_, i) =>
+                            importer.hasLocal(`$io${i}`),
+                        ),
+                        ...isUnioners.filter((_, i) =>
+                            importer.hasLocal(`$iu${i}`),
+                        ),
+                    ];
+                },
+            })(importer);
+        };
 
     /* -----------------------------------------------------------
         DECODERS
@@ -86,7 +90,7 @@ export namespace CloneProgrammer {
             if (meta.resolved !== null)
                 unions.push({
                     type: "resolved",
-                    is: () => IsProgrammer.decode_to_json(input, true),
+                    is: () => IsProgrammer.decode_to_json(true)(input),
                     value: () =>
                         decode_to_json(project, importer)(
                             input,
@@ -109,6 +113,7 @@ export namespace CloneProgrammer {
                             })(),
                             explore,
                             [],
+                            [],
                         ),
                     value: () =>
                         decode_tuple(project, importer)(input, tuple, explore),
@@ -128,6 +133,7 @@ export namespace CloneProgrammer {
                                 from: "array",
                             },
                             [],
+                            [],
                         ),
                 });
 
@@ -135,25 +141,25 @@ export namespace CloneProgrammer {
             if (meta.sets.length)
                 unions.push({
                     type: "set",
-                    is: () => ExpressionFactory.isInstanceOf(input, "Set"),
+                    is: () => ExpressionFactory.isInstanceOf("Set")(input),
                     value: () => ts.factory.createIdentifier("{}"),
                 });
             if (meta.maps.length)
                 unions.push({
                     type: "map",
-                    is: () => ExpressionFactory.isInstanceOf(input, "Map"),
+                    is: () => ExpressionFactory.isInstanceOf("Map")(input),
                     value: () => ts.factory.createIdentifier("{}"),
                 });
             for (const native of meta.natives)
                 unions.push({
                     type: "native",
-                    is: () => ExpressionFactory.isInstanceOf(input, native),
+                    is: () => ExpressionFactory.isInstanceOf(native)(input),
                     value: () =>
                         native === "Boolean" ||
                         native === "Number" ||
                         native === "String"
                             ? ts.factory.createCallExpression(
-                                  IdentifierFactory.join(input, "valueOf"),
+                                  IdentifierFactory.access(input)("valueOf"),
                                   undefined,
                                   undefined,
                               )
@@ -165,10 +171,10 @@ export namespace CloneProgrammer {
                 unions.push({
                     type: "object",
                     is: () =>
-                        ExpressionFactory.isObject(input, {
+                        ExpressionFactory.isObject({
                             checkNull: true,
                             checkArray: false,
-                        }),
+                        })(input),
                     value: () =>
                         explore_objects(importer)(input, meta, {
                             ...explore,
@@ -201,7 +207,7 @@ export namespace CloneProgrammer {
         ): ts.Expression => {
             return decode(project, importer)(
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(input, "toJSON"),
+                    IdentifierFactory.access(input)("toJSON"),
                     undefined,
                     [],
                 ),
@@ -238,7 +244,7 @@ export namespace CloneProgrammer {
 
                 return decode(project, importer)(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(input, "slice"),
+                        IdentifierFactory.access(input)("slice"),
                         undefined,
                         [ts.factory.createNumericLiteral(tuple.length - 1)],
                     ),
@@ -257,9 +263,7 @@ export namespace CloneProgrammer {
         };
 
     const decode_array = (project: IProject, importer: FunctionImporter) =>
-        FeatureProgrammer.decode_array(
-            CONFIG(project, importer),
-            importer,
+        FeatureProgrammer.decode_array(CONFIG(project, importer))(importer)(
             CloneJoiner.array,
         );
 
@@ -314,12 +318,12 @@ export namespace CloneProgrammer {
         types: {
             input: (type, name) =>
                 ts.factory.createTypeReferenceNode(
-                    name ?? TypeFactory.getFullName(project.checker, type),
+                    name ?? TypeFactory.getFullName(project.checker)(type),
                 ),
             output: (type, name) =>
                 ts.factory.createTypeReferenceNode(
                     `typia.Primitive<${
-                        name ?? TypeFactory.getFullName(project.checker, type)
+                        name ?? TypeFactory.getFullName(project.checker)(type)
                     }>`,
                 ),
         },
@@ -348,17 +352,16 @@ export namespace CloneProgrammer {
             create_throw_error(importer, input, expected),
     });
 
-    const initializer: FeatureProgrammer.IConfig["initializer"] = (
-        { checker },
-        type,
-    ) => {
-        const collection = new MetadataCollection();
-        const meta = MetadataFactory.generate(checker, collection, type, {
-            resolve: true,
-            constant: true,
-        });
-        return [collection, meta];
-    };
+    const initializer: FeatureProgrammer.IConfig["initializer"] =
+        ({ checker }) =>
+        (type) => {
+            const collection = new MetadataCollection();
+            const meta = MetadataFactory.analyze(checker)({
+                resolve: true,
+                constant: true,
+            })(collection)(type);
+            return [collection, meta];
+        };
 
     const create_throw_error = (
         importer: FunctionImporter,

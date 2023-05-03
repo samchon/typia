@@ -13,21 +13,21 @@ import { FunctionImporter } from "../helpers/FunctionImporeter";
  * @todo Faster union checking logic is required
  */
 export const check_union_tuple =
-    (
-        project: IProject,
-        config: CheckerProgrammer.IConfig,
-        importer: FunctionImporter,
-    ) =>
+    (project: IProject) =>
+    (config: CheckerProgrammer.IConfig) =>
+    (importer: FunctionImporter) =>
     (
         _front: ts.Expression,
         elements: Metadata[],
         explore: CheckerProgrammer.IExplore,
         tags: IMetadataTag[],
+        jsDocTags: ts.JSDocTagInfo[],
         array: ts.Expression,
     ) =>
-        CheckerProgrammer.decode_tuple(project, config, importer, true)(
+        CheckerProgrammer.decode_tuple(project)(config)(importer)(true)(
             array,
             elements,
             explore,
             tags,
+            jsDocTags,
         );

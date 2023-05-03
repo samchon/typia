@@ -18,6 +18,7 @@ export namespace UnionExplorer {
             target: T,
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
+            jsDocTags: ts.JSDocTagInfo[],
         ): ts.Expression;
     }
     export type ObjectCombiner = Decoder<MetadataObject[]>;
@@ -32,6 +33,7 @@ export namespace UnionExplorer {
             targets: MetadataObject[],
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
+            jsDocTags: ts.JSDocTagInfo[],
         ): ts.Expression => {
             // BREAKER
             if (targets.length === 1)
@@ -40,6 +42,7 @@ export namespace UnionExplorer {
                     targets[0]!,
                     explore,
                     tags,
+                    jsDocTags,
                 );
 
             const expected: string = `(${targets
@@ -57,6 +60,7 @@ export namespace UnionExplorer {
                         tracable: false,
                     },
                     tags,
+                    jsDocTags,
                 );
                 return config.objector.full
                     ? config.objector.full(condition)(input, expected, explore)
@@ -71,10 +75,8 @@ export namespace UnionExplorer {
                 .filter((spec) => spec.property.key.getSoleLiteral() !== null)
                 .map((spec) => {
                     const key: string = spec.property.key.getSoleLiteral()!;
-                    const accessor: ts.Expression = IdentifierFactory.join(
-                        input,
-                        key,
-                    );
+                    const accessor: ts.Expression =
+                        IdentifierFactory.access(input)(key);
                     const pred: ts.Expression = spec.neighbour
                         ? config.objector.checker(
                               accessor,
@@ -85,6 +87,7 @@ export namespace UnionExplorer {
                                   postfix: IdentifierFactory.postfix(key),
                               },
                               tags,
+                              jsDocTags,
                           )
                         : (config.objector.required || ((exp) => exp))(
                               ExpressionFactory.isRequired(accessor),
@@ -97,6 +100,7 @@ export namespace UnionExplorer {
                                 spec.object,
                                 explore,
                                 tags,
+                                jsDocTags,
                             ),
                         ),
                     );
@@ -120,6 +124,7 @@ export namespace UnionExplorer {
                                           remained,
                                           explore,
                                           tags,
+                                          jsDocTags,
                                       ),
                                   )
                                 : config.objector.failure(
@@ -154,7 +159,7 @@ export namespace UnionExplorer {
 
     export const array = (props: array.IProps) =>
         check_union_array_like<Metadata>({
-            size: (input) => IdentifierFactory.join(input, "length"),
+            size: (input) => IdentifierFactory.access(input)("length"),
             front: (input) =>
                 ts.factory.createElementAccessExpression(input, 0),
             array: (input) => input,
@@ -166,7 +171,7 @@ export namespace UnionExplorer {
 
     export const array_or_tuple = (props: array_or_tuple.IProps) =>
         check_union_array_like<Metadata | Metadata[]>({
-            size: (input) => IdentifierFactory.join(input, "length"),
+            size: (input) => IdentifierFactory.access(input)("length"),
             front: (input) =>
                 ts.factory.createElementAccessExpression(input, 0),
             array: (input) => input,
@@ -183,23 +188,21 @@ export namespace UnionExplorer {
 
     export const set = (props: set.IProps) =>
         check_union_array_like<Metadata>({
-            size: (input) => IdentifierFactory.join(input, "size"),
+            size: (input) => IdentifierFactory.access(input)("size"),
             front: (input) =>
-                IdentifierFactory.join(
+                IdentifierFactory.access(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(
+                        IdentifierFactory.access(
                             ts.factory.createCallExpression(
-                                IdentifierFactory.join(input, "values"),
+                                IdentifierFactory.access(input)("values"),
                                 undefined,
                                 undefined,
                             ),
-                            "next",
-                        ),
+                        )("next"),
                         undefined,
                         undefined,
                     ),
-                    "value",
-                ),
+                )("value"),
             array: (input) =>
                 ts.factory.createArrayLiteralExpression(
                     [ts.factory.createSpreadElement(input)],
@@ -213,23 +216,21 @@ export namespace UnionExplorer {
 
     export const map = (props: map.IProps) =>
         check_union_array_like<[Metadata, Metadata]>({
-            size: (input) => IdentifierFactory.join(input, "size"),
+            size: (input) => IdentifierFactory.access(input)("size"),
             front: (input) =>
-                IdentifierFactory.join(
+                IdentifierFactory.access(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(
+                        IdentifierFactory.access(
                             ts.factory.createCallExpression(
-                                IdentifierFactory.join(input, "entries"),
+                                IdentifierFactory.access(input)("entries"),
                                 undefined,
                                 undefined,
                             ),
-                            "next",
-                        ),
+                        )("next"),
                         undefined,
                         undefined,
                     ),
-                    "value",
-                ),
+                )("value"),
             array: (input) =>
                 ts.factory.createArrayLiteralExpression(
                     [ts.factory.createSpreadElement(input)],
