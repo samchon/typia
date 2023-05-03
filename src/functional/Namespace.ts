@@ -6,6 +6,9 @@ import { $any } from "./$any";
 import { $every } from "./$every";
 import { $guard } from "./$guard";
 import { $is_between } from "./$is_between";
+import { $is_custom } from "./$is_custom";
+import { $is_date } from "./$is_date";
+import { $is_datetime } from "./$is_datetime";
 import { $is_email } from "./$is_email";
 import { $is_ipv4 } from "./$is_ipv4";
 import { $is_ipv6 } from "./$is_ipv6";
@@ -29,6 +32,9 @@ export namespace Namespace {
         is_ipv4: $is_ipv4,
         is_ipv6: $is_ipv6,
         is_between: $is_between,
+        is_date: $is_date,
+        is_datetime: $is_datetime,
+        is_custom: $is_custom,
     });
 
     export const assert = (method: string) => ({

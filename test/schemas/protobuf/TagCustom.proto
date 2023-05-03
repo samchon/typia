@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message TagCustom {
+    string id = 1;
+    string dollar = 2;
+    string postfix = 3;
+    double log = 4;
+}

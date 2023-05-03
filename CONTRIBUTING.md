@@ -27,11 +27,14 @@ I always welcome your suggestion. When you publishing a suggestion, then please 
 
 ## Contributing Code
 ### Test your code
-Before sending a pull request, please test your new code. You type the command `npm run build &&& npm run test`, then compiling your code and test-automation will be all processed.
+Before sending a pull request, please test your new code. Please run the following commands:
 
 ```bash
 # COMPILE
 npm run build
+
+# PREPARE
+npm run test:generate
 
 # DO TEST
 npm run test
@@ -92,7 +95,7 @@ When you send a pull request, please include a description, of what your change 
   - Add tests for #28
 
 ### 2. Include adequate tests
-As I've mentioned in the `Contributing Code` section, your PR should pass the test-automation module. Your PR includes *new features* that have not being handled in the ordinary test-automation module, then also update *add the testing unit* please.
+As I've mentioned in the `Contributing Code` section, your PR should pass the test-automation module. If your PR includes *new features* that have not being handled in the ordinary test-automation module, then also update *add the testing unit* please.
 
 If there're some specific reasons that could not pass the test-automation (not error but *intended*), then please update the ordinary test-automation module or write the reasons on your PR content and *const me update the test-automation module*.
 

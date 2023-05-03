@@ -12,12 +12,14 @@
           "id": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -30,42 +32,50 @@
           "^-?\\d+\\.?\\d*$": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "^(prefix_(.*))": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "((.*)_postfix)$": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "^(value_-?\\d+\\.?\\d*)$": {
             "oneOf": [
               {
                 "type": "string",
                 "nullable": false,
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "type": "number",
                 "nullable": false,
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "type": "boolean",
                 "nullable": false,
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "^(between_(.*)_and_-?\\d+\\.?\\d*)$": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "additionalProperties": {

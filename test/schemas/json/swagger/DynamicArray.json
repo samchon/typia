@@ -16,20 +16,24 @@
           "items": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "nullable": false,
-          "x-typia-required": true
+          "x-typia-required": true,
+          "x-typia-optional": false
         },
         "additionalProperties": {
           "type": "array",
           "items": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "nullable": false,
-          "x-typia-required": true
+          "x-typia-required": true,
+          "x-typia-optional": false
         }
       }
     }

@@ -18,7 +18,7 @@ export namespace ApplicationProgrammer {
      * @internal
      */
     export namespace IOptions {
-        export function complement(options?: Partial<IOptions>): IOptions {
+        export const complement = (options?: Partial<IOptions>): IOptions => {
             const purpose: "swagger" | "ajv" = options?.purpose ?? "swagger";
             return {
                 purpose,
@@ -26,30 +26,37 @@ export namespace ApplicationProgrammer {
                     options?.prefix ||
                     (purpose === "swagger" ? SWAGGER_PREFIX : AJV_PREFIX),
             };
-        }
+        };
     }
 
-    export function generate(
+    /**
+     * @deprecated Use `write()` function instead
+     */
+    export const generate = (
         metadatas: Array<Metadata>,
         options?: Partial<IOptions>,
-    ): IJsonApplication {
-        const fullOptions: IOptions = IOptions.complement(options);
-        const components: IJsonComponents = {
-            schemas: {},
-        };
-        const generator = application_schema(fullOptions)(components)(true);
+    ): IJsonApplication => write(options)(metadatas);
 
-        return {
-            schemas: metadatas.map((meta, i) => {
-                const schema: IJsonSchema | null = generator(meta, {});
-                if (schema === null)
-                    throw new Error(
-                        `Error on typia.application(): invalid type on argument - (${meta.getName()}, ${i})`,
-                    );
-                return schema;
-            }),
-            components,
-            ...fullOptions,
+    export const write =
+        (options?: Partial<IOptions>) =>
+        (metadatas: Array<Metadata>): IJsonApplication => {
+            const fullOptions: IOptions = IOptions.complement(options);
+            const components: IJsonComponents = {
+                schemas: {},
+            };
+            const generator = application_schema(fullOptions)(true)(components);
+
+            return {
+                schemas: metadatas.map((meta, i) => {
+                    const schema: IJsonSchema | null = generator(meta)({});
+                    if (schema === null)
+                        throw new Error(
+                            `Error on typia.application(): invalid type on argument - (${meta.getName()}, ${i})`,
+                        );
+                    return schema;
+                }),
+                components,
+                ...fullOptions,
+            };
         };
-    }
 }

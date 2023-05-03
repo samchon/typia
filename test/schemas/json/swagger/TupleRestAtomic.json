@@ -28,16 +28,22 @@
         "items": [
           {
             "type": "boolean",
-            "nullable": false
+            "nullable": false,
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           {
             "type": "number",
-            "nullable": false
+            "nullable": false,
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           {
             "type": "string",
             "nullable": false,
-            "x-typia-rest": true
+            "x-typia-rest": true,
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         ],
         "nullable": false

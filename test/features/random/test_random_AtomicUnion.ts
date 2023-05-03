@@ -5,5 +5,5 @@ import { AtomicUnion } from "../../structures/AtomicUnion";
 export const test_random_AtomicUnion = _test_random(
     "AtomicUnion",
     () => typia.random<AtomicUnion>(),
-    typia.createAssert<AtomicUnion>(),
+    typia.createAssert<typia.Primitive<AtomicUnion>>(),
 );

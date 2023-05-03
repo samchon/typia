@@ -8,21 +8,27 @@
           "enum": [
             false
           ],
-          "nullable": false
+          "nullable": false,
+          "x-typia-required": true,
+          "x-typia-optional": false
         },
         {
           "type": "boolean",
           "enum": [
             true
           ],
-          "nullable": false
+          "nullable": false,
+          "x-typia-required": true,
+          "x-typia-optional": false
         },
         {
           "type": "number",
           "enum": [
             2
           ],
-          "nullable": false
+          "nullable": false,
+          "x-typia-required": true,
+          "x-typia-optional": false
         },
         {
           "type": "string",
@@ -30,7 +36,9 @@
             "three"
           ],
           "nullable": false,
-          "x-typia-rest": false
+          "x-typia-rest": false,
+          "x-typia-required": true,
+          "x-typia-optional": false
         }
       ],
       "nullable": false

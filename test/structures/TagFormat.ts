@@ -4,6 +4,8 @@ import { Spoiler } from "../helpers/Spoiler";
 
 export interface TagFormat {
     /**
+     * Universally Unique Identifier.
+     *
      * @format uuid
      */
     uuid: string;
@@ -37,6 +39,34 @@ export interface TagFormat {
     ipv6: string;
 
     /**
+     * Date only.
+     *
+     * @format date
+     */
+    date: string;
+
+    /**
+     * Date and time.
+     *
+     * @format date-time
+     */
+    date_time: string;
+
+    /**
+     * Date and time with only lowercase characters.
+     *
+     * @format datetime
+     */
+    datetime: string;
+
+    /**
+     * Date and time with camelCase.
+     *
+     * @format dateTime
+     */
+    dateTime: string;
+
+    /**
      * A custom format string.
      *
      * @format my-custom-format
@@ -52,6 +82,10 @@ export namespace TagFormat {
             ipv4: "127.0.0.1",
             ipv6: "0:0:0:0:0:0:0:1",
             custom: "2016-02-06",
+            date: new Date().toISOString().substring(0, 10),
+            date_time: new Date().toLocaleDateString(),
+            datetime: new Date().toISOString(),
+            dateTime: new Date().toString(),
         };
     }
 
@@ -76,6 +110,22 @@ export namespace TagFormat {
         (input) => {
             input.ipv6 = "invalid ipv6";
             return ["$input.ipv6"];
+        },
+        (input) => {
+            input.date = new Date().toString();
+            return ["$input.date"];
+        },
+        (input) => {
+            input.date_time = "invalid datetime";
+            return ["$input.date_time"];
+        },
+        (input) => {
+            input.datetime = "invalid datetime";
+            return ["$input.datetime"];
+        },
+        (input) => {
+            input.dateTime = "invalid datetime";
+            return ["$input.dateTime"];
         },
         // ENTIRE
         (input) => {

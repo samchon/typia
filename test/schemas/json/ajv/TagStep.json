@@ -48,6 +48,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minimum": 3,
             "exclusiveMinimum": true
           },
@@ -85,6 +86,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minimum": 3
           },
           "range": {
@@ -134,6 +136,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "minimum": 0,
             "exclusiveMinimum": true,
             "maximum": 100,
@@ -186,6 +189,7 @@
               }
             ],
             "x-typia-required": true,
+            "x-typia-optional": false,
             "multipleOf": 5,
             "minimum": 3,
             "maximum": 99

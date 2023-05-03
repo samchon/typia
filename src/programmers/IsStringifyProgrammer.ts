@@ -10,8 +10,17 @@ import { IsProgrammer } from "./IsProgrammer";
 import { StringifyProgrammer } from "./StringifyProgrammer";
 
 export namespace IsStringifyProgrammer {
+    /**
+     * @deprecated Use `write()` function instead
+     */
     export const generate =
         (project: IProject, modulo: ts.LeftHandSideExpression) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(type, name);
+
+    export const write =
+        (project: IProject) =>
+        (modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type, name?: string) =>
             ts.factory.createArrowFunction(
                 undefined,
@@ -21,7 +30,7 @@ export namespace IsStringifyProgrammer {
                         "input",
                         ts.factory.createTypeReferenceNode(
                             name ??
-                                TypeFactory.getFullName(project.checker, type),
+                                TypeFactory.getFullName(project.checker)(type),
                         ),
                     ),
                 ],
@@ -33,31 +42,25 @@ export namespace IsStringifyProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "is",
-                        IsProgrammer.generate(
-                            {
-                                ...project,
-                                options: {
-                                    ...project.options,
-                                    functional: false,
-                                    numeric: true,
-                                },
+                        IsProgrammer.write({
+                            ...project,
+                            options: {
+                                ...project.options,
+                                functional: false,
+                                numeric: true,
                             },
-                            modulo,
-                        )(type, name),
+                        })(modulo)(false)(type, name),
                     ),
                     StatementFactory.constant(
                         "stringify",
-                        StringifyProgrammer.generate(
-                            {
-                                ...project,
-                                options: {
-                                    ...project.options,
-                                    functional: false,
-                                    numeric: false,
-                                },
+                        StringifyProgrammer.write({
+                            ...project,
+                            options: {
+                                ...project.options,
+                                functional: false,
+                                numeric: false,
                             },
-                            modulo,
-                        )(type, name),
+                        })(modulo)(type, name),
                     ),
                     ts.factory.createReturnStatement(
                         ts.factory.createConditionalExpression(

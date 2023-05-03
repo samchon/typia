@@ -17,11 +17,15 @@
         "type": "array",
         "items": [
           {
-            "$ref": "#/components/schemas/ObjectTuple.ISection"
+            "$ref": "#/components/schemas/ObjectTuple.ISection",
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           {
             "$ref": "#/components/schemas/ObjectTuple.ICitizen",
-            "x-typia-rest": false
+            "x-typia-rest": false,
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         ],
         "nullable": false
@@ -36,17 +40,20 @@
           "id": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "code": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -63,17 +70,20 @@
           "id": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "mobile": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

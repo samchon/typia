@@ -1,10 +1,10 @@
-import { TypeBoxArrayRecursive } from "../../benchmark/structures/typebox/TypeBoxArrayRecursive";
-import { TypeBoxArrayRecursiveUnionExplicit } from "../../benchmark/structures/typebox/TypeBoxArrayRecursiveUnionExplicit";
-import { TypeBoxArrayRecursiveUnionImplicit } from "../../benchmark/structures/typebox/TypeBoxArrayRecursiveUnionImplicit";
-import { TypeBoxObjectHierarchical } from "../../benchmark/structures/typebox/TypeBoxObjectHierarchical";
-import { TypeBoxObjectRecursive } from "../../benchmark/structures/typebox/TypeBoxObjectRecursive";
-import { TypeBoxObjectUnionExplicit } from "../../benchmark/structures/typebox/TypeBoxObjectUnionExplicit";
-import { TypeBoxObjectUnionImplicit } from "../../benchmark/structures/typebox/TypeBoxObjectUnionImplicit";
+import { TypeboxArrayRecursive } from "../../benchmark/structures/typebox/TypeboxArrayRecursive";
+import { TypeboxArrayRecursiveUnionExplicit } from "../../benchmark/structures/typebox/TypeboxArrayRecursiveUnionExplicit";
+import { TypeboxArrayRecursiveUnionImplicit } from "../../benchmark/structures/typebox/TypeboxArrayRecursiveUnionImplicit";
+import { TypeboxObjectHierarchical } from "../../benchmark/structures/typebox/TypeboxObjectHierarchical";
+import { TypeboxObjectRecursive } from "../../benchmark/structures/typebox/TypeboxObjectRecursive";
+import { TypeboxObjectUnionExplicit } from "../../benchmark/structures/typebox/TypeboxObjectUnionExplicit";
+import { TypeboxObjectUnionImplicit } from "../../benchmark/structures/typebox/TypeboxObjectUnionImplicit";
 
 function trace(name: string, code: string): void {
     console.log("//---------------------------------------------------");
@@ -15,16 +15,16 @@ function trace(name: string, code: string): void {
     console.log(`}\n\n`);
 }
 
-trace("TypeBoxArrayRecursive", TypeBoxArrayRecursive.Code());
+trace("TypeboxArrayRecursive", TypeboxArrayRecursive.Code());
 trace(
-    "TypeBoxArrayRecursiveUnionExplicit",
-    TypeBoxArrayRecursiveUnionExplicit.Code(),
+    "TypeboxArrayRecursiveUnionExplicit",
+    TypeboxArrayRecursiveUnionExplicit.Code(),
 );
 trace(
-    "TypeBoxArrayRecursiveUnionImplicit",
-    TypeBoxArrayRecursiveUnionImplicit.Code(),
+    "TypeboxArrayRecursiveUnionImplicit",
+    TypeboxArrayRecursiveUnionImplicit.Code(),
 );
-trace("TypeBoxObjectHierarchical", TypeBoxObjectHierarchical.Code());
-trace("TypeBoxObjectRecursive", TypeBoxObjectRecursive.Code());
-trace("TypeBoxObjectUnionExplicit", TypeBoxObjectUnionExplicit.Code());
-trace("TypeBoxObjectUnionImplicit", TypeBoxObjectUnionImplicit.Code());
+trace("TypeboxObjectHierarchical", TypeboxObjectHierarchical.Code());
+trace("TypeboxObjectRecursive", TypeboxObjectRecursive.Code());
+trace("TypeboxObjectUnionExplicit", TypeboxObjectUnionExplicit.Code());
+trace("TypeboxObjectUnionImplicit", TypeboxObjectUnionImplicit.Code());

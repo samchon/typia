@@ -4,14 +4,20 @@
       "type": "array",
       "items": [
         {
-          "$ref": "components#/schemas/ObjectNullable.IProduct"
-        },
-        {
-          "$ref": "components#/schemas/ObjectNullable.IProduct"
+          "$ref": "components#/schemas/ObjectNullable.IProduct",
+          "x-typia-required": true,
+          "x-typia-optional": false
         },
         {
           "$ref": "components#/schemas/ObjectNullable.IProduct",
-          "x-typia-rest": false
+          "x-typia-required": true,
+          "x-typia-optional": false
+        },
+        {
+          "$ref": "components#/schemas/ObjectNullable.IProduct",
+          "x-typia-rest": false,
+          "x-typia-required": true,
+          "x-typia-optional": false
         }
       ],
       "nullable": false
@@ -26,28 +32,34 @@
           "name": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "manufacturer": {
             "$ref": "components#/schemas/ObjectNullable.IManufacturer",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "brand": {
             "$ref": "components#/schemas/ObjectNullable.IBrand.Nullable",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "similar": {
             "oneOf": [
               {
                 "$ref": "components#/schemas/ObjectNullable.IManufacturer.Nullable",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "components#/schemas/ObjectNullable.IBrand.Nullable",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -69,12 +81,14 @@
               "manufacturer"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -94,12 +108,14 @@
               "brand"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": true,
@@ -119,12 +135,14 @@
               "manufacturer"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": true,

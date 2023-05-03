@@ -4,14 +4,20 @@
       "type": "array",
       "items": [
         {
-          "$ref": "components#/schemas/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
+          "$ref": "components#/schemas/ConstantAtomicWrapper.IPointer<boolean>",
+          "x-typia-required": true,
+          "x-typia-optional": false
         },
         {
-          "$ref": "components#/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_"
+          "$ref": "components#/schemas/ConstantAtomicWrapper.IPointer<number>",
+          "x-typia-required": true,
+          "x-typia-optional": false
         },
         {
-          "$ref": "components#/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_",
-          "x-typia-rest": false
+          "$ref": "components#/schemas/ConstantAtomicWrapper.IPointer<string>",
+          "x-typia-rest": false,
+          "x-typia-required": true,
+          "x-typia-optional": false
         }
       ],
       "nullable": false
@@ -19,14 +25,15 @@
   ],
   "components": {
     "schemas": {
-      "ConstantAtomicWrapper.IPointer_lt_boolean_gt_": {
-        "$id": "components#/schemas/ConstantAtomicWrapper.IPointer_lt_boolean_gt_",
+      "ConstantAtomicWrapper.IPointer<boolean>": {
+        "$id": "components#/schemas/ConstantAtomicWrapper.IPointer<boolean>",
         "type": "object",
         "properties": {
           "value": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -35,14 +42,15 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ConstantAtomicWrapper.IPointer_lt_number_gt_": {
-        "$id": "components#/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_",
+      "ConstantAtomicWrapper.IPointer<number>": {
+        "$id": "components#/schemas/ConstantAtomicWrapper.IPointer<number>",
         "type": "object",
         "properties": {
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -51,14 +59,15 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ConstantAtomicWrapper.IPointer_lt_string_gt_": {
-        "$id": "components#/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_",
+      "ConstantAtomicWrapper.IPointer<string>": {
+        "$id": "components#/schemas/ConstantAtomicWrapper.IPointer<string>",
         "type": "object",
         "properties": {
           "value": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

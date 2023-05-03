@@ -1,22 +1,30 @@
 import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
+import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
+import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 
+import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { ICheckEntry } from "../helpers/ICheckEntry";
 import { check_array_length } from "./check_array_length";
+import { check_custom } from "./check_custom";
 
 /**
  * @internal
  */
-export function check_array(
-    input: ts.Expression,
-    tagList: IMetadataTag[],
-): ts.Expression {
-    const conditions: ts.Expression[] = [ExpressionFactory.isArray(input)];
-
-    const length: ts.Expression | null = check_array_length(input, tagList);
-    if (length !== null) conditions.push(length);
-
-    return conditions.reduce((x, y) => ts.factory.createLogicalAnd(x, y));
-}
+export const check_array =
+    (importer: FunctionImporter) =>
+    (metaTags: IMetadataTag[]) =>
+    (jsDocTags: IJsDocTagInfo[]) =>
+    (input: ts.Expression): ICheckEntry => ({
+        expression: ExpressionFactory.isArray(input),
+        tags: [
+            ...check_array_length(metaTags)(
+                IdentifierFactory.access(input)("length"),
+            ),
+            ...check_custom("array", "Array")(importer)(jsDocTags)(input),
+            // check custom array for legacy (3.7.0)
+        ],
+    });

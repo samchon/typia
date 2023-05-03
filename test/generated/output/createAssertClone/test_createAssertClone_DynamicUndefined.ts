@@ -9,49 +9,67 @@ export const test_createAssertClone_DynamicUndefined = _test_assertClone(
         const assert = (input: any): DynamicUndefined => {
             const $guard = (typia.createAssertClone as any).guard;
             const $join = (typia.createAssertClone as any).join;
-            ((
-                input: any,
-                _path: string,
-                _exceptionable: boolean = true,
-            ): input is DynamicUndefined => {
-                const $ao0 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    false === _exceptionable ||
+            const __is = (input: any): input is DynamicUndefined => {
+                const $join = (typia.createAssertClone as any).join;
+                const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
-                            return (
-                                (null !== value ||
-                                    $guard(_exceptionable, {
-                                        path: _path + $join(key),
-                                        expected: "undefined",
-                                        value: value,
-                                    })) &&
-                                (undefined === value ||
-                                    $guard(_exceptionable, {
-                                        path: _path + $join(key),
-                                        expected: "undefined",
-                                        value: value,
-                                    }))
-                            );
+                            return null !== value && undefined === value;
                         return true;
                     });
                 return (
-                    (("object" === typeof input &&
-                        null !== input &&
-                        false === Array.isArray(input)) ||
-                        $guard(true, {
-                            path: _path + "",
-                            expected: "DynamicUndefined",
-                            value: input,
-                        })) &&
-                    $ao0(input, _path + "", true)
+                    "object" === typeof input &&
+                    null !== input &&
+                    false === Array.isArray(input) &&
+                    $io0(input)
                 );
-            })(input, "$input", true);
+            };
+            if (false === __is(input))
+                ((
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): input is DynamicUndefined => {
+                    const $ao0 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        false === _exceptionable ||
+                        Object.keys(input).every((key) => {
+                            const value = input[key];
+                            if (undefined === value) return true;
+                            if (RegExp(/(.*)/).test(key))
+                                return (
+                                    (null !== value ||
+                                        $guard(_exceptionable, {
+                                            path: _path + $join(key),
+                                            expected: "undefined",
+                                            value: value,
+                                        })) &&
+                                    (undefined === value ||
+                                        $guard(_exceptionable, {
+                                            path: _path + $join(key),
+                                            expected: "undefined",
+                                            value: value,
+                                        }))
+                                );
+                            return true;
+                        });
+                    return (
+                        (("object" === typeof input &&
+                            null !== input &&
+                            false === Array.isArray(input)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "DynamicUndefined",
+                                value: input,
+                            })) &&
+                        $ao0(input, _path + "", true)
+                    );
+                })(input, "$input", true);
             return input;
         };
         const clone = (

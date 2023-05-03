@@ -50,7 +50,7 @@ export const emplace_metadata_object =
             ): MetadataProperty => {
                 // COMMENTS AND TAGS
                 const description: string | undefined =
-                    CommentFactory.generate(
+                    CommentFactory.string(
                         symbol?.getDocumentationComment(checker) || [],
                     ) || undefined;
                 const jsDocTags: ts.JSDocTagInfo[] = (
@@ -63,10 +63,8 @@ export const emplace_metadata_object =
                     value,
                     description,
                     jsDocTags,
-                    tags: MetadataTagFactory.generate(
-                        () => identifier(),
-                        value,
-                        jsDocTags,
+                    tags: MetadataTagFactory.generate(value)(jsDocTags)(() =>
+                        identifier(),
                     ),
                 });
                 obj.properties.push(property);
@@ -109,7 +107,10 @@ export const emplace_metadata_object =
             )(type, false);
 
             // INSERT WITH REQUIRED CONFIGURATION
-            if (node?.questionToken) Writable(value).required = false;
+            if (node?.questionToken) {
+                Writable(value).required = false;
+                Writable(value).optional = true;
+            }
             insert(key)(value)(() => `${obj.name}.${prop.name}`)(prop);
         }
 

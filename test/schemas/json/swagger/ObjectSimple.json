@@ -11,19 +11,23 @@
         "properties": {
           "scale": {
             "$ref": "#/components/schemas/ObjectSimple.IPoint3D",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "position": {
             "$ref": "#/components/schemas/ObjectSimple.IPoint3D",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "rotate": {
             "$ref": "#/components/schemas/ObjectSimple.IPoint3D",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "pivot": {
             "$ref": "#/components/schemas/ObjectSimple.IPoint3D",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -41,17 +45,20 @@
           "x": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "y": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "z": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

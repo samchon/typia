@@ -12,6 +12,7 @@ import { MetadataProperty } from "./MetadataProperty";
 export class Metadata {
     public readonly any: boolean;
     public readonly required: boolean;
+    public readonly optional: boolean;
     public readonly nullable: boolean;
     public readonly functional: boolean;
 
@@ -53,6 +54,7 @@ export class Metadata {
     private constructor(props: ClassProperties<Metadata>) {
         this.any = props.any;
         this.required = props.required;
+        this.optional = props.optional;
         this.nullable = props.nullable;
         this.functional = props.functional;
 
@@ -86,6 +88,7 @@ export class Metadata {
             any: false,
             nullable: false,
             required: true,
+            optional: false,
             functional: false,
 
             resolved: null,
@@ -109,6 +112,7 @@ export class Metadata {
         return {
             any: this.any,
             required: this.required,
+            optional: this.optional,
             nullable: this.nullable,
             functional: this.functional,
 
@@ -161,6 +165,7 @@ export class Metadata {
         return this.create({
             any: meta.any,
             required: meta.required,
+            optional: meta.optional,
             nullable: meta.nullable,
             functional: meta.functional,
 
@@ -284,11 +289,11 @@ export class Metadata {
     }
 }
 export namespace Metadata {
-    export function intersects(
+    export const intersects = (
         x: Metadata,
         y: Metadata,
         deep: boolean,
-    ): boolean {
+    ): boolean => {
         // CHECK ANY & OPTIONAL
         if (x.any || y.any) return true;
         if (x.required === false && false === y.required) return true;
@@ -352,9 +357,9 @@ export namespace Metadata {
         if (x.functional === true && y.functional === true) return true;
 
         return false;
-    }
+    };
 
-    export function covers(x: Metadata, y: Metadata): boolean {
+    export const covers = (x: Metadata, y: Metadata): boolean => {
         // CHECK ANY
         if (x.any) return true;
         else if (y.any) return false;
@@ -418,13 +423,14 @@ export namespace Metadata {
 
         // SUCCESS
         return true;
-    }
+    };
 
-    export function merge(x: Metadata, y: Metadata): Metadata {
+    export const merge = (x: Metadata, y: Metadata): Metadata => {
         const output: Metadata = Metadata.create({
             any: x.any || y.any,
             nullable: x.nullable || y.nullable,
             required: x.required && y.required,
+            optional: x.optional || y.optional,
             functional: x.functional || y.functional,
 
             resolved:
@@ -470,10 +476,10 @@ export namespace Metadata {
             ArrayUtil.set(output.arrays, y.rest, (elem) => elem.getName());
 
         return output;
-    }
+    };
 }
 
-function getName(metadata: Metadata): string {
+const getName = (metadata: Metadata): string => {
     if (metadata.any === true) return "any";
 
     const elements: string[] = [];
@@ -528,7 +534,7 @@ function getName(metadata: Metadata): string {
 
     elements.sort();
     return `(${elements.join(" | ")})`;
-}
+};
 export namespace Metadata {
     export interface Entry {
         key: Metadata;

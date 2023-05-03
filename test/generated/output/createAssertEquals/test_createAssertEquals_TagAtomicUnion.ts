@@ -8,14 +8,12 @@ export const test_createAssertEquals_TagAtomicUnion = _test_assertEquals(
     (input: any): TagAtomicUnion => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
-        ((
+        const __is = (
             input: any,
-            _path: string,
             _exceptionable: boolean = true,
         ): input is TagAtomicUnion => {
-            const $ao0 = (
+            const $io0 = (
                 input: any,
-                _path: string,
                 _exceptionable: boolean = true,
             ): boolean =>
                 (("string" === typeof input.value &&
@@ -23,43 +21,93 @@ export const test_createAssertEquals_TagAtomicUnion = _test_assertEquals(
                     7 >= input.value.length) ||
                     ("number" === typeof input.value &&
                         Number.isFinite(input.value) &&
-                        3 <= input.value) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".value",
-                        expected: "(number | string)",
-                        value: input.value,
-                    })) &&
+                        3 <= input.value)) &&
                 (1 === Object.keys(input).length ||
-                    false === _exceptionable ||
                     Object.keys(input).every((key) => {
                         if (["value"].some((prop) => key === prop)) return true;
                         const value = input[key];
                         if (undefined === value) return true;
-                        return $guard(_exceptionable, {
-                            path: _path + $join(key),
-                            expected: "undefined",
-                            value: value,
-                        });
+                        return false;
                     }));
             return (
-                (Array.isArray(input) ||
-                    $guard(true, {
-                        path: _path + "",
-                        expected: "Array<TagAtomicUnion.Type>",
-                        value: input,
-                    })) &&
+                Array.isArray(input) &&
                 input.every(
                     (elem: any, _index1: number) =>
-                        (("object" === typeof elem && null !== elem) ||
-                            $guard(true, {
-                                path: _path + "[" + _index1 + "]",
-                                expected: "TagAtomicUnion.Type",
-                                value: elem,
-                            })) &&
-                        $ao0(elem, _path + "[" + _index1 + "]", true),
+                        "object" === typeof elem &&
+                        null !== elem &&
+                        $io0(elem, true),
                 )
             );
-        })(input, "$input", true);
+        };
+        if (false === __is(input))
+            ((
+                input: any,
+                _path: string,
+                _exceptionable: boolean = true,
+            ): input is TagAtomicUnion => {
+                const $ao0 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    (("string" === typeof input.value &&
+                        (3 <= input.value.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "string (@minLength 3)",
+                                value: input.value,
+                            })) &&
+                        (7 >= input.value.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "string (@maxLength 7)",
+                                value: input.value,
+                            }))) ||
+                        ("number" === typeof input.value &&
+                            Number.isFinite(input.value) &&
+                            (3 <= input.value ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "number (@minimum 3)",
+                                    value: input.value,
+                                }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "(number | string)",
+                            value: input.value,
+                        })) &&
+                    (1 === Object.keys(input).length ||
+                        false === _exceptionable ||
+                        Object.keys(input).every((key) => {
+                            if (["value"].some((prop) => key === prop))
+                                return true;
+                            const value = input[key];
+                            if (undefined === value) return true;
+                            return $guard(_exceptionable, {
+                                path: _path + $join(key),
+                                expected: "undefined",
+                                value: value,
+                            });
+                        }));
+                return (
+                    (Array.isArray(input) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "Array<TagAtomicUnion.Type>",
+                            value: input,
+                        })) &&
+                    input.every(
+                        (elem: any, _index1: number) =>
+                            (("object" === typeof elem && null !== elem) ||
+                                $guard(true, {
+                                    path: _path + "[" + _index1 + "]",
+                                    expected: "TagAtomicUnion.Type",
+                                    value: elem,
+                                })) &&
+                            $ao0(elem, _path + "[" + _index1 + "]", true),
+                    )
+                );
+            })(input, "$input", true);
         return input;
     },
 );

@@ -8,50 +8,24 @@ export const test_createAssertEquals_ArraySimple = _test_assertEquals(
     (input: any): ArraySimple => {
         const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
-        ((
+        const __is = (
             input: any,
-            _path: string,
             _exceptionable: boolean = true,
         ): input is ArraySimple => {
-            const $ao0 = (
+            const $io0 = (
                 input: any,
-                _path: string,
                 _exceptionable: boolean = true,
             ): boolean =>
-                ("string" === typeof input.name ||
-                    $guard(_exceptionable, {
-                        path: _path + ".name",
-                        expected: "string",
-                        value: input.name,
-                    })) &&
-                ("string" === typeof input.email ||
-                    $guard(_exceptionable, {
-                        path: _path + ".email",
-                        expected: "string",
-                        value: input.email,
-                    })) &&
-                (Array.isArray(input.hobbies) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".hobbies",
-                        expected: "Array<ArraySimple.IHobby>",
-                        value: input.hobbies,
-                    })) &&
+                "string" === typeof input.name &&
+                "string" === typeof input.email &&
+                Array.isArray(input.hobbies) &&
                 input.hobbies.every(
                     (elem: any, _index2: number) =>
-                        (("object" === typeof elem && null !== elem) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".hobbies[" + _index2 + "]",
-                                expected: "ArraySimple.IHobby",
-                                value: elem,
-                            })) &&
-                        $ao1(
-                            elem,
-                            _path + ".hobbies[" + _index2 + "]",
-                            true && _exceptionable,
-                        ),
+                        "object" === typeof elem &&
+                        null !== elem &&
+                        $io1(elem, true && _exceptionable),
                 ) &&
                 (3 === Object.keys(input).length ||
-                    false === _exceptionable ||
                     Object.keys(input).every((key) => {
                         if (
                             ["name", "email", "hobbies"].some(
@@ -61,38 +35,17 @@ export const test_createAssertEquals_ArraySimple = _test_assertEquals(
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
-                        return $guard(_exceptionable, {
-                            path: _path + $join(key),
-                            expected: "undefined",
-                            value: value,
-                        });
+                        return false;
                     }));
-            const $ao1 = (
+            const $io1 = (
                 input: any,
-                _path: string,
                 _exceptionable: boolean = true,
             ): boolean =>
-                ("string" === typeof input.name ||
-                    $guard(_exceptionable, {
-                        path: _path + ".name",
-                        expected: "string",
-                        value: input.name,
-                    })) &&
-                ("string" === typeof input.body ||
-                    $guard(_exceptionable, {
-                        path: _path + ".body",
-                        expected: "string",
-                        value: input.body,
-                    })) &&
-                (("number" === typeof input.rank &&
-                    Number.isFinite(input.rank)) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".rank",
-                        expected: "number",
-                        value: input.rank,
-                    })) &&
+                "string" === typeof input.name &&
+                "string" === typeof input.body &&
+                "number" === typeof input.rank &&
+                Number.isFinite(input.rank) &&
                 (3 === Object.keys(input).length ||
-                    false === _exceptionable ||
                     Object.keys(input).every((key) => {
                         if (
                             ["name", "body", "rank"].some(
@@ -102,31 +55,138 @@ export const test_createAssertEquals_ArraySimple = _test_assertEquals(
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
-                        return $guard(_exceptionable, {
-                            path: _path + $join(key),
-                            expected: "undefined",
-                            value: value,
-                        });
+                        return false;
                     }));
             return (
-                (Array.isArray(input) ||
-                    $guard(true, {
-                        path: _path + "",
-                        expected: "Array<ArraySimple.IPerson>",
-                        value: input,
-                    })) &&
+                Array.isArray(input) &&
                 input.every(
                     (elem: any, _index1: number) =>
-                        (("object" === typeof elem && null !== elem) ||
-                            $guard(true, {
-                                path: _path + "[" + _index1 + "]",
-                                expected: "ArraySimple.IPerson",
-                                value: elem,
-                            })) &&
-                        $ao0(elem, _path + "[" + _index1 + "]", true),
+                        "object" === typeof elem &&
+                        null !== elem &&
+                        $io0(elem, true),
                 )
             );
-        })(input, "$input", true);
+        };
+        if (false === __is(input))
+            ((
+                input: any,
+                _path: string,
+                _exceptionable: boolean = true,
+            ): input is ArraySimple => {
+                const $ao0 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("string" === typeof input.name ||
+                        $guard(_exceptionable, {
+                            path: _path + ".name",
+                            expected: "string",
+                            value: input.name,
+                        })) &&
+                    ("string" === typeof input.email ||
+                        $guard(_exceptionable, {
+                            path: _path + ".email",
+                            expected: "string",
+                            value: input.email,
+                        })) &&
+                    (Array.isArray(input.hobbies) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".hobbies",
+                            expected: "Array<ArraySimple.IHobby>",
+                            value: input.hobbies,
+                        })) &&
+                    input.hobbies.every(
+                        (elem: any, _index2: number) =>
+                            (("object" === typeof elem && null !== elem) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".hobbies[" + _index2 + "]",
+                                    expected: "ArraySimple.IHobby",
+                                    value: elem,
+                                })) &&
+                            $ao1(
+                                elem,
+                                _path + ".hobbies[" + _index2 + "]",
+                                true && _exceptionable,
+                            ),
+                    ) &&
+                    (3 === Object.keys(input).length ||
+                        false === _exceptionable ||
+                        Object.keys(input).every((key) => {
+                            if (
+                                ["name", "email", "hobbies"].some(
+                                    (prop) => key === prop,
+                                )
+                            )
+                                return true;
+                            const value = input[key];
+                            if (undefined === value) return true;
+                            return $guard(_exceptionable, {
+                                path: _path + $join(key),
+                                expected: "undefined",
+                                value: value,
+                            });
+                        }));
+                const $ao1 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("string" === typeof input.name ||
+                        $guard(_exceptionable, {
+                            path: _path + ".name",
+                            expected: "string",
+                            value: input.name,
+                        })) &&
+                    ("string" === typeof input.body ||
+                        $guard(_exceptionable, {
+                            path: _path + ".body",
+                            expected: "string",
+                            value: input.body,
+                        })) &&
+                    (("number" === typeof input.rank &&
+                        Number.isFinite(input.rank)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".rank",
+                            expected: "number",
+                            value: input.rank,
+                        })) &&
+                    (3 === Object.keys(input).length ||
+                        false === _exceptionable ||
+                        Object.keys(input).every((key) => {
+                            if (
+                                ["name", "body", "rank"].some(
+                                    (prop) => key === prop,
+                                )
+                            )
+                                return true;
+                            const value = input[key];
+                            if (undefined === value) return true;
+                            return $guard(_exceptionable, {
+                                path: _path + $join(key),
+                                expected: "undefined",
+                                value: value,
+                            });
+                        }));
+                return (
+                    (Array.isArray(input) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "Array<ArraySimple.IPerson>",
+                            value: input,
+                        })) &&
+                    input.every(
+                        (elem: any, _index1: number) =>
+                            (("object" === typeof elem && null !== elem) ||
+                                $guard(true, {
+                                    path: _path + "[" + _index1 + "]",
+                                    expected: "ArraySimple.IPerson",
+                                    value: elem,
+                                })) &&
+                            $ao0(elem, _path + "[" + _index1 + "]", true),
+                    )
+                );
+            })(input, "$input", true);
         return input;
     },
 );

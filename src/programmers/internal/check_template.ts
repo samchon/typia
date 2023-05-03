@@ -1,9 +1,12 @@
 import ts from "typescript";
 
+import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 import { Metadata } from "../../metadata/Metadata";
 
 import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { ICheckEntry } from "../helpers/ICheckEntry";
+import { check_custom } from "./check_custom";
 import { check_string_tags } from "./check_string_tags";
 import { template_to_pattern } from "./template_to_pattern";
 
@@ -12,31 +15,26 @@ import { template_to_pattern } from "./template_to_pattern";
  */
 export const check_template =
     (importer: FunctionImporter) =>
-    (
-        input: ts.Expression,
-        templates: Metadata[][],
-        tagList: IMetadataTag[],
-    ) => {
+    (metaTags: IMetadataTag[]) =>
+    (jsDocTags: IJsDocTagInfo[]) =>
+    (templates: Metadata[][]) =>
+    (input: ts.Expression): ICheckEntry => {
         // TYPEOF STRING & TAGS
         const conditions: ts.Expression[] = [
             ts.factory.createStrictEquality(
                 ts.factory.createStringLiteral("string"),
                 ts.factory.createTypeOfExpression(input),
             ),
-            ...check_string_tags(importer)(input, tagList),
         ];
 
         // TEMPLATES
-        const internal = templates.map((tpl) =>
-            ts.factory.createStrictEquality(
-                ts.factory.createTrue(),
-                ts.factory.createCallExpression(
-                    ts.factory.createIdentifier(
-                        `RegExp(/${template_to_pattern(true)(tpl)}/).test`,
-                    ),
-                    undefined,
-                    [input],
+        const internal: ts.Expression[] = templates.map((tpl) =>
+            ts.factory.createCallExpression(
+                ts.factory.createIdentifier(
+                    `RegExp(/${template_to_pattern(true)(tpl)}/).test`,
                 ),
+                undefined,
+                [input],
             ),
         );
         conditions.push(
@@ -46,5 +44,13 @@ export const check_template =
         );
 
         // COMBINATION
-        return conditions.reduce((x, y) => ts.factory.createLogicalAnd(x, y));
+        return {
+            expression: conditions.reduce((x, y) =>
+                ts.factory.createLogicalAnd(x, y),
+            ),
+            tags: [
+                ...check_string_tags(importer)(metaTags)(input),
+                ...check_custom("string")(importer)(jsDocTags)(input),
+            ],
+        };
     };

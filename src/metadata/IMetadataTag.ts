@@ -1,73 +1,24 @@
 export type IMetadataTag =
-    // ARRAY
-    | IMetadataTag.IItems
-    | IMetadataTag.IMinItems
-    | IMetadataTag.IMaxItems
-    // STRING
-    | IMetadataTag.IFormat
-    | IMetadataTag.IPattern
-    | IMetadataTag.ILength
-    | IMetadataTag.IMinLength
-    | IMetadataTag.IMaxLength
     // NUMBER
     | IMetadataTag.INumberType
-    | IMetadataTag.IBigintType
     | IMetadataTag.IMinimum
     | IMetadataTag.IMaximum
     | IMetadataTag.IExclusiveMinimum
     | IMetadataTag.IExclusiveMaximum
     | IMetadataTag.IMultipleOf
     | IMetadataTag.IStep
-    // BIGINT
-    | IMetadataTag.IBigintType;
+    // STRING
+    | IMetadataTag.IFormat
+    | IMetadataTag.IPattern
+    | IMetadataTag.ILength
+    | IMetadataTag.IMinLength
+    | IMetadataTag.IMaxLength
+    // ARRAY
+    | IMetadataTag.IItems
+    | IMetadataTag.IMinItems
+    | IMetadataTag.IMaxItems;
 
 export namespace IMetadataTag {
-    /* -----------------------------------------------------------
-        ARRAY   
-    ----------------------------------------------------------- */
-    export interface IItems {
-        kind: "items";
-        value: number;
-    }
-
-    export interface IMinItems {
-        kind: "minItems";
-        value: number;
-    }
-
-    export interface IMaxItems {
-        kind: "maxItems";
-        value: number;
-    }
-
-    /* -----------------------------------------------------------
-        STRING
-    ----------------------------------------------------------- */
-    export interface IFormat {
-        kind: "format";
-        value: "uuid" | "email" | "url" | "ipv4" | "ipv6";
-    }
-
-    export interface IPattern {
-        kind: "pattern";
-        value: string;
-    }
-
-    export interface ILength {
-        kind: "length";
-        value: number;
-    }
-
-    export interface IMinLength {
-        kind: "minLength";
-        value: number;
-    }
-
-    export interface IMaxLength {
-        kind: "maxLength";
-        value: number;
-    }
-
     /* -----------------------------------------------------------
         NUMBER
     ----------------------------------------------------------- */
@@ -115,15 +66,48 @@ export namespace IMetadataTag {
     }
 
     /* -----------------------------------------------------------
-        MISCELLANEOUS
+        STRING
     ----------------------------------------------------------- */
-    export interface IBigintType {
-        kind: "type";
-        value: "int64" | "uint64";
+    export interface IFormat {
+        kind: "format";
+        value: "uuid" | "email" | "url" | "ipv4" | "ipv6" | "date" | "datetime";
     }
 
-    export interface ISign {
-        include: boolean;
+    export interface IPattern {
+        kind: "pattern";
+        value: string;
+    }
+
+    export interface ILength {
+        kind: "length";
+        value: number;
+    }
+
+    export interface IMinLength {
+        kind: "minLength";
+        value: number;
+    }
+
+    export interface IMaxLength {
+        kind: "maxLength";
+        value: number;
+    }
+
+    /* -----------------------------------------------------------
+        ARRAY   
+    ----------------------------------------------------------- */
+    export interface IItems {
+        kind: "items";
+        value: number;
+    }
+
+    export interface IMinItems {
+        kind: "minItems";
+        value: number;
+    }
+
+    export interface IMaxItems {
+        kind: "maxItems";
         value: number;
     }
 }

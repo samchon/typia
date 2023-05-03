@@ -5,5 +5,5 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 export const test_createRandom_ObjectGeneric = _test_random(
     "ObjectGeneric",
     typia.createRandom<ObjectGeneric>(),
-    typia.createAssert<ObjectGeneric>(),
+    typia.createAssert<typia.Primitive<ObjectGeneric>>(),
 );

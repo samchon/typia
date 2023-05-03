@@ -12,11 +12,12 @@ import { CreateCloneTransformer } from "./features/miscellaneous/CreateCloneTran
 import { CreateIsCloneTransformer } from "./features/miscellaneous/CreateIsCloneTransformer";
 import { CreateIsPruneTransformer } from "./features/miscellaneous/CreateIsPruneTransformer";
 import { CreatePruneTransformer } from "./features/miscellaneous/CreatePruneTransformer";
-import { CreateRandomTransformer } from "./features/miscellaneous/CreateRandomGenerator";
+import { CreateRandomTransformer } from "./features/miscellaneous/CreateRandomTransformer";
 import { CreateValidateCloneTransformer } from "./features/miscellaneous/CreateValidateCloneTransformer";
 import { CreateValidatePruneTransformer } from "./features/miscellaneous/CreateValidatePruneTransformer";
 import { IsCloneTransformer } from "./features/miscellaneous/IsCloneTransformer";
 import { IsPruneTransformer } from "./features/miscellaneous/IsPruneTransformer";
+import { LiteralsTransformer } from "./features/miscellaneous/LiteralsTransformer";
 import { MetadataTransformer } from "./features/miscellaneous/MetadataTransformer";
 import { PruneTransformer } from "./features/miscellaneous/PruneTransformer";
 import { RandomTransformer } from "./features/miscellaneous/RandomTransformer";
@@ -45,47 +46,49 @@ import { IsTransformer } from "./features/validators/IsTransformer";
 import { ValidateTransformer } from "./features/validators/ValidateTransformer";
 
 export namespace CallExpressionTransformer {
-    export function transform(
-        project: IProject,
-        expression: ts.CallExpression,
-    ): ts.Expression {
-        //----
-        // VALIDATIONS
-        //----
-        // SIGNATURE DECLARATION
-        const declaration: ts.Declaration | undefined =
-            project.checker.getResolvedSignature(expression)?.declaration;
-        if (!declaration) return expression;
+    export const transform =
+        (project: IProject) =>
+        (expression: ts.CallExpression): ts.Expression => {
+            //----
+            // VALIDATIONS
+            //----
+            // SIGNATURE DECLARATION
+            const declaration: ts.Declaration | undefined =
+                project.checker.getResolvedSignature(expression)?.declaration;
+            if (!declaration) return expression;
 
-        // FILE PATH
-        const file: string = path.resolve(declaration.getSourceFile().fileName);
-        if (
-            file.indexOf(LIB_PATH) === -1 &&
-            file !== SRC_PATH &&
-            file !== CLI_PATH
-        )
-            return expression;
+            // FILE PATH
+            const file: string = path.resolve(
+                declaration.getSourceFile().fileName,
+            );
+            if (
+                file.indexOf(LIB_PATH) === -1 &&
+                file !== SRC_PATH &&
+                file !== CLI_PATH
+            )
+                return expression;
 
-        //----
-        // TRANSFORMATION
-        //----
-        // FUNCTION NAME
-        const { name } = project.checker.getTypeAtLocation(declaration).symbol;
+            //----
+            // TRANSFORMATION
+            //----
+            // FUNCTION NAME
+            const { name } =
+                project.checker.getTypeAtLocation(declaration).symbol;
 
-        // FIND TRANSFORMER
-        const functor: (() => Task) | undefined = FUNCTORS[name];
-        if (functor === undefined) return expression;
+            // FIND TRANSFORMER
+            const functor: (() => Task) | undefined = FUNCTORS[name];
+            if (functor === undefined) return expression;
 
-        // RETURNS WITH TRANSFORMATION
-        return functor()(project, expression.expression, expression);
-    }
+            // RETURNS WITH TRANSFORMATION
+            return functor()(project)(expression.expression)(expression);
+        };
 }
 
 type Task = (
     project: IProject,
+) => (
     modulo: ts.LeftHandSideExpression,
-    expression: ts.CallExpression,
-) => ts.Expression;
+) => (expression: ts.CallExpression) => ts.Expression;
 
 const LIB_PATH = path.join("node_modules", "typia", "lib", "module.d.ts");
 const SRC_PATH = path.resolve(path.join(__dirname, "..", "module.ts"));
@@ -117,7 +120,8 @@ const FUNCTORS: Record<string, () => Task> = {
     // JSON FUNCTIONS
     //----
     // SCHEMA DEFINITION
-    application: () => ApplicationTransformer.transform,
+    application: () => (project) => () =>
+        ApplicationTransformer.transform(project),
 
     // PARSER FUNCTIONS
     isParse: () => IsParseTransformer.transform,
@@ -131,8 +135,9 @@ const FUNCTORS: Record<string, () => Task> = {
     validateStringify: () => ValidateStringifyTransformer.transform,
 
     // MISC
-    metadata: () => MetadataTransformer.transform,
+    metadata: () => (project) => () => MetadataTransformer.transform(project),
     random: () => RandomTransformer.transform,
+    literals: () => (project) => () => LiteralsTransformer.transform(project),
 
     clone: () => CloneTransformer.transform,
     assertClone: () => AssertCloneTransformer.transform,

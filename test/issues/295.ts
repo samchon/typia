@@ -1,8 +1,15 @@
 import fs from "fs";
+import os from "os";
 
 import { HorizontalBarChart } from "../../benchmark/internal/HorizontalBarChart";
 
-const svg = HorizontalBarChart.generate("is() function")([
+const svg = HorizontalBarChart.generate({
+    cpu: os.cpus()[0].model.trim(),
+    memory: os.totalmem(),
+    os: os.platform(),
+    node: process.version,
+    typia: "3.7.3",
+})("is() function")([
     "typia",
     "typebox",
     "ajv",
@@ -11,7 +18,7 @@ const svg = HorizontalBarChart.generate("is() function")([
     "class-validator",
 ])([
     {
-        category: "object (simple)",
+        label: "object (simple)",
         result: {
             typia: 5936.0629136943035,
             typebox: 9144.29543790392,
@@ -22,7 +29,7 @@ const svg = HorizontalBarChart.generate("is() function")([
         },
     },
     {
-        category: "object (hierarchical)",
+        label: "object (hierarchical)",
         result: {
             typia: 2693.442244823829,
             typebox: 3304.1600000000003,
@@ -33,7 +40,7 @@ const svg = HorizontalBarChart.generate("is() function")([
         },
     },
     {
-        category: "object (recursive)",
+        label: "object (recursive)",
         result: {
             typia: 2533.0917993450767,
             typebox: 2508.143672511103,
@@ -44,7 +51,7 @@ const svg = HorizontalBarChart.generate("is() function")([
         },
     },
     {
-        category: "object (union, explicit)",
+        label: "object (union, explicit)",
         result: {
             typia: 488.7448056753976,
             typebox: 402.0703254672728,
@@ -55,7 +62,7 @@ const svg = HorizontalBarChart.generate("is() function")([
         },
     },
     {
-        category: "object (union, implicit)",
+        label: "object (union, implicit)",
         result: {
             typia: 867.1447518827324,
             typebox: 0,
@@ -66,7 +73,7 @@ const svg = HorizontalBarChart.generate("is() function")([
         },
     },
     {
-        category: "array (recursive)",
+        label: "array (recursive)",
         result: {
             typia: 2117.278545729975,
             typebox: 2112.419623506099,
@@ -77,7 +84,7 @@ const svg = HorizontalBarChart.generate("is() function")([
         },
     },
     {
-        category: "array (union, explicit)",
+        label: "array (union, explicit)",
         result: {
             typia: 1485.9095875343717,
             typebox: 718.8010362694299,
@@ -88,7 +95,7 @@ const svg = HorizontalBarChart.generate("is() function")([
         },
     },
     {
-        category: "array (union, implicit)",
+        label: "array (union, implicit)",
         result: {
             typia: 336.9237249544627,
             typebox: 0,
@@ -99,7 +106,7 @@ const svg = HorizontalBarChart.generate("is() function")([
         },
     },
     {
-        category: "ultimate union",
+        label: "ultimate union",
         result: {
             typia: 1141.126969585929,
             typebox: 0,

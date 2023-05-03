@@ -5,25 +5,25 @@
       "items": {
         "oneOf": [
           {
-            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_point_doublequote__comma__space_ObjectUnionExplicit.IPoint_gt_"
+            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator<\"point\", ObjectUnionExplicit.IPoint>"
           },
           {
-            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_line_doublequote__comma__space_ObjectUnionExplicit.ILine_gt_"
+            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator<\"line\", ObjectUnionExplicit.ILine>"
           },
           {
-            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_triangle_doublequote__comma__space_ObjectUnionExplicit.ITriangle_gt_"
+            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator<\"triangle\", ObjectUnionExplicit.ITriangle>"
           },
           {
-            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_rectangle_doublequote__comma__space_ObjectUnionExplicit.IRectangle_gt_"
+            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator<\"rectangle\", ObjectUnionExplicit.IRectangle>"
           },
           {
-            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_polyline_doublequote__comma__space_ObjectUnionExplicit.IPolyline_gt_"
+            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator<\"polyline\", ObjectUnionExplicit.IPolyline>"
           },
           {
-            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_polygon_doublequote__comma__space_ObjectUnionExplicit.IPolygon_gt_"
+            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator<\"polygon\", ObjectUnionExplicit.IPolygon>"
           },
           {
-            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicit.ICircle_gt_"
+            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator<\"circle\", ObjectUnionExplicit.ICircle>"
           }
         ]
       },
@@ -32,19 +32,21 @@
   ],
   "components": {
     "schemas": {
-      "ObjectUnionExplicit.Discriminator_lt__doublequote_point_doublequote__comma__space_ObjectUnionExplicit.IPoint_gt_": {
-        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_point_doublequote__comma__space_ObjectUnionExplicit.IPoint_gt_",
+      "ObjectUnionExplicit.Discriminator<\"point\", ObjectUnionExplicit.IPoint>": {
+        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator<\"point\", ObjectUnionExplicit.IPoint>",
         "type": "object",
         "properties": {
           "x": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "y": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "type": {
             "type": "string",
@@ -52,7 +54,8 @@
               "point"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -63,17 +66,19 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicit.Discriminator_lt__doublequote_line_doublequote__comma__space_ObjectUnionExplicit.ILine_gt_": {
-        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_line_doublequote__comma__space_ObjectUnionExplicit.ILine_gt_",
+      "ObjectUnionExplicit.Discriminator<\"line\", ObjectUnionExplicit.ILine>": {
+        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator<\"line\", ObjectUnionExplicit.ILine>",
         "type": "object",
         "properties": {
           "p1": {
             "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "p2": {
             "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "type": {
             "type": "string",
@@ -81,7 +86,8 @@
               "line"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -99,12 +105,14 @@
           "x": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "y": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -114,21 +122,24 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicit.Discriminator_lt__doublequote_triangle_doublequote__comma__space_ObjectUnionExplicit.ITriangle_gt_": {
-        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_triangle_doublequote__comma__space_ObjectUnionExplicit.ITriangle_gt_",
+      "ObjectUnionExplicit.Discriminator<\"triangle\", ObjectUnionExplicit.ITriangle>": {
+        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator<\"triangle\", ObjectUnionExplicit.ITriangle>",
         "type": "object",
         "properties": {
           "p1": {
             "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "p2": {
             "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "p3": {
             "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "type": {
             "type": "string",
@@ -136,7 +147,8 @@
               "triangle"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -148,25 +160,29 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicit.Discriminator_lt__doublequote_rectangle_doublequote__comma__space_ObjectUnionExplicit.IRectangle_gt_": {
-        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_rectangle_doublequote__comma__space_ObjectUnionExplicit.IRectangle_gt_",
+      "ObjectUnionExplicit.Discriminator<\"rectangle\", ObjectUnionExplicit.IRectangle>": {
+        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator<\"rectangle\", ObjectUnionExplicit.IRectangle>",
         "type": "object",
         "properties": {
           "p1": {
             "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "p2": {
             "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "p3": {
             "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "p4": {
             "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "type": {
             "type": "string",
@@ -174,7 +190,8 @@
               "rectangle"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -187,18 +204,20 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicit.Discriminator_lt__doublequote_polyline_doublequote__comma__space_ObjectUnionExplicit.IPolyline_gt_": {
-        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_polyline_doublequote__comma__space_ObjectUnionExplicit.IPolyline_gt_",
+      "ObjectUnionExplicit.Discriminator<\"polyline\", ObjectUnionExplicit.IPolyline>": {
+        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator<\"polyline\", ObjectUnionExplicit.IPolyline>",
         "type": "object",
         "properties": {
           "points": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "type": {
             "type": "string",
@@ -206,7 +225,8 @@
               "polyline"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -216,22 +236,25 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicit.Discriminator_lt__doublequote_polygon_doublequote__comma__space_ObjectUnionExplicit.IPolygon_gt_": {
-        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_polygon_doublequote__comma__space_ObjectUnionExplicit.IPolygon_gt_",
+      "ObjectUnionExplicit.Discriminator<\"polygon\", ObjectUnionExplicit.IPolygon>": {
+        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator<\"polygon\", ObjectUnionExplicit.IPolygon>",
         "type": "object",
         "properties": {
           "outer": {
             "$ref": "components#/schemas/ObjectUnionExplicit.IPolyline",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "inner": {
             "type": "array",
             "items": {
               "$ref": "components#/schemas/ObjectUnionExplicit.IPolyline",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "type": {
             "type": "string",
@@ -239,7 +262,8 @@
               "polygon"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -258,10 +282,12 @@
             "type": "array",
             "items": {
               "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -270,18 +296,20 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicit.Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicit.ICircle_gt_": {
-        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicit.ICircle_gt_",
+      "ObjectUnionExplicit.Discriminator<\"circle\", ObjectUnionExplicit.ICircle>": {
+        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator<\"circle\", ObjectUnionExplicit.ICircle>",
         "type": "object",
         "properties": {
           "centroid": {
             "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "radius": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "type": {
             "type": "string",
@@ -289,7 +317,8 @@
               "circle"
             ],
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

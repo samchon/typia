@@ -8,32 +8,40 @@ export const test_createAssertClone_ObjectGenericAlias = _test_assertClone(
     (input: any): typia.Primitive<ObjectGenericAlias> => {
         const assert = (input: any): ObjectGenericAlias => {
             const $guard = (typia.createAssertClone as any).guard;
-            ((
-                input: any,
-                _path: string,
-                _exceptionable: boolean = true,
-            ): input is ObjectGenericAlias => {
-                const $ao0 = (
+            const __is = (input: any): input is ObjectGenericAlias => {
+                return (
+                    "object" === typeof input &&
+                    null !== input &&
+                    "string" === typeof input.value
+                );
+            };
+            if (false === __is(input))
+                ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): boolean =>
-                    "string" === typeof input.value ||
-                    $guard(_exceptionable, {
-                        path: _path + ".value",
-                        expected: "string",
-                        value: input.value,
-                    });
-                return (
-                    (("object" === typeof input && null !== input) ||
-                        $guard(true, {
-                            path: _path + "",
-                            expected: "ObjectGenericAlias.Alias",
-                            value: input,
-                        })) &&
-                    $ao0(input, _path + "", true)
-                );
-            })(input, "$input", true);
+                ): input is ObjectGenericAlias => {
+                    const $ao0 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        "string" === typeof input.value ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "string",
+                            value: input.value,
+                        });
+                    return (
+                        (("object" === typeof input && null !== input) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectGenericAlias.Alias",
+                                value: input,
+                            })) &&
+                        $ao0(input, _path + "", true)
+                    );
+                })(input, "$input", true);
             return input;
         };
         const clone = (

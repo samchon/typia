@@ -6,5 +6,9 @@ message TagFormat {
     string url = 3;
     string ipv4 = 4;
     string ipv6 = 5;
-    string custom = 6;
+    string date = 6;
+    string date_time = 7;
+    string datetime = 8;
+    string dateTime = 9;
+    string custom = 10;
 }

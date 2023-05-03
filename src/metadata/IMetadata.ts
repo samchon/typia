@@ -6,6 +6,7 @@ import { IMetadataEntry } from "./IMetadataEntry";
 export interface IMetadata {
     any: boolean;
     required: boolean;
+    optional: boolean;
     nullable: boolean;
     functional: boolean;
 

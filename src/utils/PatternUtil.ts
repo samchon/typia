@@ -1,5 +1,5 @@
 export namespace PatternUtil {
-    export function fix(str: string): string {
+    export const fix = (str: string): string => {
         const first: number = str.indexOf(STRING);
         const last: number = str.lastIndexOf(STRING);
         return [
@@ -9,13 +9,13 @@ export namespace PatternUtil {
                 ? "$"
                 : "",
         ].join("");
-    }
+    };
 
-    export function escape(str: string): string {
+    export const escape = (str: string): string => {
         return str
             .replace(/[|\\/{}()[\]^$+*?.]/g, "\\$&")
             .replace(/-/g, "\\x2d");
-    }
+    };
 
     export const NUMBER = "-?\\d+\\.?\\d*";
     export const BOOLEAN = "true|false";

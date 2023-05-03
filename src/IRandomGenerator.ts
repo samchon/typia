@@ -1,3 +1,5 @@
+import { Customizable } from "./typings/Customizable";
+
 export interface IRandomGenerator {
     boolean(): boolean;
     integer(minimum?: number, maximum?: number): number;
@@ -12,5 +14,20 @@ export interface IRandomGenerator {
     ipv4(): string;
     ipv6(): string;
     pattern(regex: RegExp): string;
-    date(): string;
+    date(minimum?: number, maximum?: number): string;
+    datetime(minimum?: number, maximum?: number): string;
+
+    customs?: IRandomGenerator.CustomMap;
+}
+export namespace IRandomGenerator {
+    export type CustomMap = {
+        [Type in keyof Customizable]?: (
+            tags: ICommentTag[],
+        ) => Customizable[Type] | undefined;
+    };
+
+    export interface ICommentTag {
+        name: string;
+        value?: string;
+    }
 }

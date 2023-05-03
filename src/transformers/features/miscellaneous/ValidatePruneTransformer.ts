@@ -4,6 +4,6 @@ import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace ValidatePruneTransformer {
     export const transform = GenericTransformer.scalar("validatPrune")(
-        (project, modulo) => ValidatePruneProgrammer.generate(project, modulo),
+        (project) => (modulo) => ValidatePruneProgrammer.write(project)(modulo),
     );
 }

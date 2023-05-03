@@ -1,9 +1,9 @@
 import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
+import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 
-// import { StatementFactory } from "../factories/StatementFactory";
 import { IProject } from "../transformers/IProject";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
@@ -13,29 +13,59 @@ import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
 
 export namespace AssertProgrammer {
+    /**
+     * @deprecated Use `write()` function instead
+     */
     export const generate =
         (
             project: IProject,
             modulo: ts.LeftHandSideExpression,
             equals: boolean = false,
         ) =>
+        (type: ts.Type, name?: string) =>
+            write(project)(modulo)(equals)(type, name);
+
+    export const write =
+        (project: IProject) =>
+        (modulo: ts.LeftHandSideExpression) =>
+        (equals: boolean) =>
         (type: ts.Type, name?: string) => {
             const importer: FunctionImporter = new FunctionImporter();
-            const program: ts.ArrowFunction = CheckerProgrammer.generate(
-                project,
-                {
-                    functors: "$ao",
-                    unioners: "$au",
-                    path: true,
-                    trace: true,
-                    numeric: OptionPredicator.numeric(project.options),
-                    equals,
-                    combiner: combiner(equals)(importer),
-                    joiner: joiner(equals)(importer),
-                    success: ts.factory.createTrue(),
-                },
-                importer,
-            )(type, name);
+            const program: ts.ArrowFunction = CheckerProgrammer.write(project)({
+                functors: "$ao",
+                unioners: "$au",
+                path: true,
+                trace: true,
+                numeric: OptionPredicator.numeric(project.options),
+                equals,
+                atomist: (explore) => (tuple) => (input) =>
+                    [
+                        tuple.expression,
+                        ...tuple.tags.map((tag) =>
+                            ts.factory.createLogicalOr(
+                                tag.expression,
+                                create_guard_call(importer)(
+                                    explore.from === "top"
+                                        ? ts.factory.createTrue()
+                                        : ts.factory.createIdentifier(
+                                              "_exceptionable",
+                                          ),
+                                )(
+                                    ts.factory.createIdentifier(
+                                        explore.postfix
+                                            ? `_path + ${explore.postfix}`
+                                            : "_path",
+                                    ),
+                                    tag.expected,
+                                    input,
+                                ),
+                            ),
+                        ),
+                    ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
+                combiner: combiner(equals)(importer),
+                joiner: joiner(equals)(importer),
+                success: ts.factory.createTrue(),
+            })(importer)(type, name);
 
             return ts.factory.createArrowFunction(
                 undefined,
@@ -47,22 +77,45 @@ export namespace AssertProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    name ?? TypeFactory.getFullName(project.checker, type),
+                    name ?? TypeFactory.getFullName(project.checker)(type),
                 ),
                 undefined,
                 ts.factory.createBlock(
                     [
                         ...importer.declare(modulo),
-                        ts.factory.createExpressionStatement(
-                            ts.factory.createCallExpression(
-                                program,
-                                undefined,
-                                [
-                                    ts.factory.createIdentifier("input"),
-                                    ts.factory.createStringLiteral("$input"),
-                                    ts.factory.createTrue(),
-                                ],
+                        StatementFactory.constant(
+                            "__is",
+                            IsProgrammer.write(project)(modulo)(equals)(
+                                type,
+                                name ??
+                                    TypeFactory.getFullName(project.checker)(
+                                        type,
+                                    ),
                             ),
+                        ),
+                        ts.factory.createIfStatement(
+                            ts.factory.createStrictEquality(
+                                ts.factory.createFalse(),
+                                ts.factory.createCallExpression(
+                                    ts.factory.createIdentifier("__is"),
+                                    undefined,
+                                    [ts.factory.createIdentifier("input")],
+                                ),
+                            ),
+                            ts.factory.createExpressionStatement(
+                                ts.factory.createCallExpression(
+                                    program,
+                                    undefined,
+                                    [
+                                        ts.factory.createIdentifier("input"),
+                                        ts.factory.createStringLiteral(
+                                            "$input",
+                                        ),
+                                        ts.factory.createTrue(),
+                                    ],
+                                ),
+                            ),
+                            undefined,
                         ),
                         ts.factory.createReturnStatement(
                             ts.factory.createIdentifier(`input`),
@@ -78,7 +131,7 @@ export namespace AssertProgrammer {
         (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner =>
         (explore: CheckerProgrammer.IExplore) => {
             if (explore.tracable === false)
-                return IsProgrammer.CONFIG({
+                return IsProgrammer.configure({
                     object: assert_object(equals)(importer),
                     numeric: true,
                 })(importer).combiner(explore);
@@ -170,7 +223,7 @@ export namespace AssertProgrammer {
             object: assert_object(equals)(importer),
             array: (input, arrow) =>
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(input, "every"),
+                    IdentifierFactory.access(input)("every"),
                     undefined,
                     [arrow],
                 ),

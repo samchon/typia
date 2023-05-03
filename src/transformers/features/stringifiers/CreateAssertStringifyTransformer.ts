@@ -5,5 +5,8 @@ import { GenericTransformer } from "../../internal/GenericTransformer";
 export namespace CreateAssertStringifyTransformer {
     export const transform = GenericTransformer.factory(
         "createAssertStringify",
-    )((project, modulo) => AssertStringifyProgrammer.generate(project, modulo));
+    )(
+        (project) => (modulo) =>
+            AssertStringifyProgrammer.write(project)(modulo),
+    );
 }

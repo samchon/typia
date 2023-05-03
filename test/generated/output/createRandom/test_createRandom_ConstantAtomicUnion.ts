@@ -5,8 +5,7 @@ import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 export const test_createRandom_ConstantAtomicUnion = _test_random(
     "ConstantAtomicUnion",
     (
-        generator: Partial<typia.IRandomGenerator> = (typia.createRandom as any)
-            .generator,
+        generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ConstantAtomicUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
@@ -16,7 +15,7 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
         ): any => ({
             key: "key",
         });
-        return (generator.array ?? $generator.array)(() =>
+        return (generator?.array ?? $generator.array)(() =>
             $pick([
                 () => false,
                 () => 1,
@@ -27,50 +26,70 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
             ])(),
         );
     },
-    (input: any): ConstantAtomicUnion => {
+    (input: any): typia.Primitive<ConstantAtomicUnion> => {
         const $guard = (typia.createAssert as any).guard;
-        ((
+        const __is = (
             input: any,
-            _path: string,
-            _exceptionable: boolean = true,
-        ): input is ConstantAtomicUnion => {
-            const $ao0 = (
-                input: any,
-                _path: string,
-                _exceptionable: boolean = true,
-            ): boolean =>
-                "key" === input.key ||
-                $guard(_exceptionable, {
-                    path: _path + ".key",
-                    expected: '"key"',
-                    value: input.key,
-                });
+        ): input is typia.Primitive<ConstantAtomicUnion> => {
+            const $io0 = (input: any): boolean => "key" === input.key;
             return (
-                (Array.isArray(input) ||
-                    $guard(true, {
-                        path: _path + "",
-                        expected:
-                            'Array<("four" | "three" | 1 | 2 | __type | false)>',
-                        value: input,
-                    })) &&
+                Array.isArray(input) &&
                 input.every(
-                    (elem: any, _index1: number) =>
+                    (elem: any) =>
                         false === elem ||
                         1 === elem ||
                         2 === elem ||
                         "three" === elem ||
                         "four" === elem ||
-                        ((("object" === typeof elem && null !== elem) ||
-                            $guard(true, {
-                                path: _path + "[" + _index1 + "]",
-                                expected:
-                                    '("four" | "three" | 1 | 2 | __type | false)',
-                                value: elem,
-                            })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true)),
+                        ("object" === typeof elem &&
+                            null !== elem &&
+                            $io0(elem)),
                 )
             );
-        })(input, "$input", true);
+        };
+        if (false === __is(input))
+            ((
+                input: any,
+                _path: string,
+                _exceptionable: boolean = true,
+            ): input is typia.Primitive<ConstantAtomicUnion> => {
+                const $ao0 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    "key" === input.key ||
+                    $guard(_exceptionable, {
+                        path: _path + ".key",
+                        expected: '"key"',
+                        value: input.key,
+                    });
+                return (
+                    (Array.isArray(input) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected:
+                                'Array<("four" | "three" | 1 | 2 | __type | false)>',
+                            value: input,
+                        })) &&
+                    input.every(
+                        (elem: any, _index1: number) =>
+                            false === elem ||
+                            1 === elem ||
+                            2 === elem ||
+                            "three" === elem ||
+                            "four" === elem ||
+                            ((("object" === typeof elem && null !== elem) ||
+                                $guard(true, {
+                                    path: _path + "[" + _index1 + "]",
+                                    expected:
+                                        '("four" | "three" | 1 | 2 | __type | false)',
+                                    value: elem,
+                                })) &&
+                                $ao0(elem, _path + "[" + _index1 + "]", true)),
+                    )
+                );
+            })(input, "$input", true);
         return input;
     },
 );

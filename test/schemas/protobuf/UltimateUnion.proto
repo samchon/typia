@@ -56,40 +56,37 @@ message Array {
     }
 
     message Element_lt__lp_IMetadataTag {
-        message IBigintType_space__or__space_IMetadataTag {
-            message IExclusiveMaximum_space__or__space_IMetadataTag {
-                message IExclusiveMinimum_space__or__space_IMetadataTag {
-                    message IFormat_space__or__space_IMetadataTag {
-                        message IItems_space__or__space_IMetadataTag {
-                            message ILength_space__or__space_IMetadataTag {
-                                message IMaxItems_space__or__space_IMetadataTag {
-                                    message IMaxLength_space__or__space_IMetadataTag {
-                                        message IMaximum_space__or__space_IMetadataTag {
-                                            message IMinItems_space__or__space_IMetadataTag {
-                                                message IMinLength_space__or__space_IMetadataTag {
-                                                    message IMinimum_space__or__space_IMetadataTag {
-                                                        message IMultipleOf_space__or__space_IMetadataTag {
-                                                            message INumberType_space__or__space_IMetadataTag {
-                                                                message IPattern_space__or__space_IMetadataTag {
-                                                                    message IStep_rp__gt_ {
-                                                                        oneof value {
-                                                                            IMetadataTag.IItems value_o0 = 1;
-                                                                            IMetadataTag.IMinItems value_o1 = 2;
-                                                                            IMetadataTag.IMaxItems value_o2 = 3;
-                                                                            IMetadataTag.IFormat value_o3 = 4;
-                                                                            IMetadataTag.IPattern value_o4 = 5;
-                                                                            IMetadataTag.ILength value_o5 = 6;
-                                                                            IMetadataTag.IMinLength value_o6 = 7;
-                                                                            IMetadataTag.IMaxLength value_o7 = 8;
-                                                                            IMetadataTag.INumberType value_o8 = 9;
-                                                                            IMetadataTag.IBigintType value_o9 = 10;
-                                                                            IMetadataTag.IMinimum value_o10 = 11;
-                                                                            IMetadataTag.IMaximum value_o11 = 12;
-                                                                            IMetadataTag.IExclusiveMinimum value_o12 = 13;
-                                                                            IMetadataTag.IExclusiveMaximum value_o13 = 14;
-                                                                            IMetadataTag.IMultipleOf value_o14 = 15;
-                                                                            IMetadataTag.IStep value_o15 = 16;
-                                                                        }
+        message IExclusiveMaximum_space__or__space_IMetadataTag {
+            message IExclusiveMinimum_space__or__space_IMetadataTag {
+                message IFormat_space__or__space_IMetadataTag {
+                    message IItems_space__or__space_IMetadataTag {
+                        message ILength_space__or__space_IMetadataTag {
+                            message IMaxItems_space__or__space_IMetadataTag {
+                                message IMaxLength_space__or__space_IMetadataTag {
+                                    message IMaximum_space__or__space_IMetadataTag {
+                                        message IMinItems_space__or__space_IMetadataTag {
+                                            message IMinLength_space__or__space_IMetadataTag {
+                                                message IMinimum_space__or__space_IMetadataTag {
+                                                    message IMultipleOf_space__or__space_IMetadataTag {
+                                                        message INumberType_space__or__space_IMetadataTag {
+                                                            message IPattern_space__or__space_IMetadataTag {
+                                                                message IStep_rp__gt_ {
+                                                                    oneof value {
+                                                                        IMetadataTag.INumberType value_o0 = 1;
+                                                                        IMetadataTag.IMinimum value_o1 = 2;
+                                                                        IMetadataTag.IMaximum value_o2 = 3;
+                                                                        IMetadataTag.IExclusiveMinimum value_o3 = 4;
+                                                                        IMetadataTag.IExclusiveMaximum value_o4 = 5;
+                                                                        IMetadataTag.IMultipleOf value_o5 = 6;
+                                                                        IMetadataTag.IStep value_o6 = 7;
+                                                                        IMetadataTag.IFormat value_o7 = 8;
+                                                                        IMetadataTag.IPattern value_o8 = 9;
+                                                                        IMetadataTag.ILength value_o9 = 10;
+                                                                        IMetadataTag.IMinLength value_o10 = 11;
+                                                                        IMetadataTag.IMaxLength value_o11 = 12;
+                                                                        IMetadataTag.IItems value_o12 = 13;
+                                                                        IMetadataTag.IMinItems value_o13 = 14;
+                                                                        IMetadataTag.IMaxItems value_o14 = 15;
                                                                     }
                                                                 }
                                                             }
@@ -118,10 +115,11 @@ message IJsonSchema {
         optional bool deprecated = 5;
         optional string title = 6;
         optional string description = 7;
-        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
+        repeated Array.Element_lt__lp_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
         repeated IJsDocTagInfo v10 = 9;
         optional bool v11 = 10;
         optional bool v12 = 11;
+        optional bool v13 = 12;
     }
 
     message IEnumeration_lt__doublequote_number_doublequote__gt_ {
@@ -132,10 +130,11 @@ message IJsonSchema {
         optional bool deprecated = 5;
         optional string title = 6;
         optional string description = 7;
-        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
+        repeated Array.Element_lt__lp_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
         repeated IJsDocTagInfo v10 = 9;
         optional bool v11 = 10;
         optional bool v12 = 11;
+        optional bool v13 = 12;
     }
 
     message IEnumeration_lt__doublequote_string_doublequote__gt_ {
@@ -146,10 +145,11 @@ message IJsonSchema {
         optional bool deprecated = 5;
         optional string title = 6;
         optional string description = 7;
-        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
+        repeated Array.Element_lt__lp_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v9 = 8;
         repeated IJsDocTagInfo v10 = 9;
         optional bool v11 = 10;
         optional bool v12 = 11;
+        optional bool v13 = 12;
     }
 
     message IBoolean {
@@ -159,10 +159,11 @@ message IJsonSchema {
         optional bool deprecated = 4;
         optional string title = 5;
         optional string description = 6;
-        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v8 = 7;
+        repeated Array.Element_lt__lp_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v8 = 7;
         repeated IJsDocTagInfo v9 = 8;
         optional bool v10 = 9;
         optional bool v11 = 10;
+        optional bool v12 = 11;
     }
 
     message IInteger {
@@ -177,10 +178,11 @@ message IJsonSchema {
         optional bool deprecated = 9;
         optional string title = 10;
         optional string description = 11;
-        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v13 = 12;
+        repeated Array.Element_lt__lp_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v13 = 12;
         repeated IJsDocTagInfo v14 = 13;
         optional bool v15 = 14;
         optional bool v16 = 15;
+        optional bool v17 = 16;
     }
 
     message INumber {
@@ -195,10 +197,11 @@ message IJsonSchema {
         optional bool deprecated = 9;
         optional string title = 10;
         optional string description = 11;
-        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v13 = 12;
+        repeated Array.Element_lt__lp_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v13 = 12;
         repeated IJsDocTagInfo v14 = 13;
         optional bool v15 = 14;
         optional bool v16 = 15;
+        optional bool v17 = 16;
     }
 
     message IString {
@@ -212,10 +215,11 @@ message IJsonSchema {
         optional bool deprecated = 8;
         optional string title = 9;
         optional string description = 10;
-        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v12 = 11;
+        repeated Array.Element_lt__lp_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v12 = 11;
         repeated IJsDocTagInfo v13 = 12;
         optional bool v14 = 13;
         optional bool v15 = 14;
+        optional bool v16 = 15;
     }
 
     message IArray {
@@ -243,10 +247,11 @@ message IJsonSchema {
         optional bool deprecated = 20;
         optional string title = 21;
         optional string description = 22;
-        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v24 = 23;
+        repeated Array.Element_lt__lp_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v24 = 23;
         repeated IJsDocTagInfo v25 = 24;
         optional bool v26 = 25;
         optional bool v27 = 26;
+        optional bool v28 = 27;
     }
 
     message ITuple {
@@ -256,10 +261,11 @@ message IJsonSchema {
         optional bool deprecated = 4;
         optional string title = 5;
         optional string description = 6;
-        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v8 = 7;
+        repeated Array.Element_lt__lp_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v8 = 7;
         repeated IJsDocTagInfo v9 = 8;
         optional bool v10 = 9;
         optional bool v11 = 10;
+        optional bool v12 = 11;
     }
 
     message IOneOf {
@@ -267,10 +273,11 @@ message IJsonSchema {
         optional bool deprecated = 2;
         optional string title = 3;
         optional string description = 4;
-        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
+        repeated Array.Element_lt__lp_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
         repeated IJsDocTagInfo v7 = 6;
         optional bool v8 = 7;
         optional bool v9 = 8;
+        optional bool v10 = 9;
     }
 
     message IReference {
@@ -278,10 +285,11 @@ message IJsonSchema {
         optional bool deprecated = 2;
         optional string title = 3;
         optional string description = 4;
-        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
+        repeated Array.Element_lt__lp_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
         repeated IJsDocTagInfo v7 = 6;
         optional bool v8 = 7;
         optional bool v9 = 8;
+        optional bool v10 = 9;
     }
 
     message IRecursiveReference {
@@ -289,10 +297,11 @@ message IJsonSchema {
         optional bool deprecated = 2;
         optional string title = 3;
         optional string description = 4;
-        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
+        repeated Array.Element_lt__lp_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
         repeated IJsDocTagInfo v7 = 6;
         optional bool v8 = 7;
         optional bool v9 = 8;
+        optional bool v10 = 9;
     }
 
     message INullOnly {
@@ -300,63 +309,28 @@ message IJsonSchema {
         optional bool deprecated = 2;
         optional string title = 3;
         optional string description = 4;
-        repeated Array.Element_lt__lp_IMetadataTag.IBigintType_space__or__space_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
+        repeated Array.Element_lt__lp_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
         repeated IJsDocTagInfo v7 = 6;
         optional bool v8 = 7;
         optional bool v9 = 8;
+        optional bool v10 = 9;
     }
 
     message IUnknown {
+        optional uint32 type = 1;
+        optional bool deprecated = 2;
+        optional string title = 3;
+        optional string description = 4;
+        repeated Array.Element_lt__lp_IMetadataTag.IExclusiveMaximum_space__or__space_IMetadataTag.IExclusiveMinimum_space__or__space_IMetadataTag.IFormat_space__or__space_IMetadataTag.IItems_space__or__space_IMetadataTag.ILength_space__or__space_IMetadataTag.IMaxItems_space__or__space_IMetadataTag.IMaxLength_space__or__space_IMetadataTag.IMaximum_space__or__space_IMetadataTag.IMinItems_space__or__space_IMetadataTag.IMinLength_space__or__space_IMetadataTag.IMinimum_space__or__space_IMetadataTag.IMultipleOf_space__or__space_IMetadataTag.INumberType_space__or__space_IMetadataTag.IPattern_space__or__space_IMetadataTag.IStep_rp__gt_ v6 = 5;
+        repeated IJsDocTagInfo v7 = 6;
+        optional bool v8 = 7;
+        optional bool v9 = 8;
+        optional bool v10 = 9;
     }
 }
 
 message IMetadataTag {
-    message IItems {
-        string kind = 1;
-        double value = 2;
-    }
-
-    message IMinItems {
-        string kind = 1;
-        double value = 2;
-    }
-
-    message IMaxItems {
-        string kind = 1;
-        double value = 2;
-    }
-
-    message IFormat {
-        string kind = 1;
-        string value = 2;
-    }
-
-    message IPattern {
-        string kind = 1;
-        string value = 2;
-    }
-
-    message ILength {
-        string kind = 1;
-        double value = 2;
-    }
-
-    message IMinLength {
-        string kind = 1;
-        double value = 2;
-    }
-
-    message IMaxLength {
-        string kind = 1;
-        double value = 2;
-    }
-
     message INumberType {
-        string kind = 1;
-        string value = 2;
-    }
-
-    message IBigintType {
         string kind = 1;
         string value = 2;
     }
@@ -387,6 +361,46 @@ message IMetadataTag {
     }
 
     message IStep {
+        string kind = 1;
+        double value = 2;
+    }
+
+    message IFormat {
+        string kind = 1;
+        string value = 2;
+    }
+
+    message IPattern {
+        string kind = 1;
+        string value = 2;
+    }
+
+    message ILength {
+        string kind = 1;
+        double value = 2;
+    }
+
+    message IMinLength {
+        string kind = 1;
+        double value = 2;
+    }
+
+    message IMaxLength {
+        string kind = 1;
+        double value = 2;
+    }
+
+    message IItems {
+        string kind = 1;
+        double value = 2;
+    }
+
+    message IMinItems {
+        string kind = 1;
+        double value = 2;
+    }
+
+    message IMaxItems {
         string kind = 1;
         double value = 2;
     }

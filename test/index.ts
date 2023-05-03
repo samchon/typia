@@ -1,3 +1,5 @@
+import fs from "fs";
+
 import { DynamicImportIterator } from "./helpers/DynamicImportIterator";
 import { IPointer } from "./helpers/IPointer";
 
@@ -17,17 +19,22 @@ async function main(): Promise<void> {
         })),
     );
 
-    console.log("-------------------------------------------------------");
-    console.log("  GENERATION TESTING");
-    console.log("-------------------------------------------------------");
+    if (fs.existsSync(__dirname + "/generated/output")) {
+        console.log("-------------------------------------------------------");
+        console.log("  GENERATION TESTING");
+        console.log("-------------------------------------------------------");
 
-    exceptions.push(
-        ...(await DynamicImportIterator.force(__dirname + "/generated/output", {
-            prefix: "test",
-            parameters: () => [],
-            counter,
-        })),
-    );
+        exceptions.push(
+            ...(await DynamicImportIterator.force(
+                __dirname + "/generated/output",
+                {
+                    prefix: "test",
+                    parameters: () => [],
+                    counter,
+                },
+            )),
+        );
+    }
 
     // TERMINATE
     if (exceptions.length === 0) console.log("Success", counter.value);

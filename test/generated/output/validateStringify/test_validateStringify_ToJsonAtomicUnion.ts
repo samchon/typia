@@ -12,65 +12,85 @@ export const test_validateStringify_ToJsonAtomicUnion = _test_validateStringify(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<ToJsonAtomicUnion.IToJson>> => {
+                const __is = (
+                    input: any,
+                ): input is Array<ToJsonAtomicUnion.IToJson> => {
+                    const $io0 = (input: any): boolean => true;
+                    return (
+                        Array.isArray(input) &&
+                        input.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io0(elem),
+                        )
+                    );
+                };
                 const errors = [] as any[];
                 const $report = (typia.validateStringify as any).report(errors);
-                ((
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): input is Array<ToJsonAtomicUnion.IToJson> => {
-                    const $vo0 = (
+                if (false === __is(input))
+                    ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): boolean =>
-                        [
-                            true ||
-                                $report(_exceptionable, {
-                                    path: _path + ".toJSON",
-                                    expected: "unknown",
-                                    value: input.toJSON,
-                                }),
-                        ].every((flag: boolean) => flag);
-                    return (
-                        ((Array.isArray(input) ||
-                            $report(true, {
-                                path: _path + "",
-                                expected: "Array<ToJsonAtomicUnion.IToJson>",
-                                value: input,
-                            })) &&
-                            input
-                                .map(
-                                    (elem: any, _index1: number) =>
-                                        ((("object" === typeof elem &&
-                                            null !== elem) ||
+                    ): input is Array<ToJsonAtomicUnion.IToJson> => {
+                        const $vo0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            [
+                                true ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".toJSON",
+                                        expected: "unknown",
+                                        value: input.toJSON,
+                                    }),
+                            ].every((flag: boolean) => flag);
+                        return (
+                            ((Array.isArray(input) ||
+                                $report(true, {
+                                    path: _path + "",
+                                    expected:
+                                        "Array<ToJsonAtomicUnion.IToJson>",
+                                    value: input,
+                                })) &&
+                                input
+                                    .map(
+                                        (elem: any, _index1: number) =>
+                                            ((("object" === typeof elem &&
+                                                null !== elem) ||
+                                                $report(true, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected:
+                                                        "ToJsonAtomicUnion.IToJson",
+                                                    value: elem,
+                                                })) &&
+                                                $vo0(
+                                                    elem,
+                                                    _path + "[" + _index1 + "]",
+                                                    true,
+                                                )) ||
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
                                                     "ToJsonAtomicUnion.IToJson",
                                                 value: elem,
-                                            })) &&
-                                            $vo0(
-                                                elem,
-                                                _path + "[" + _index1 + "]",
-                                                true,
-                                            )) ||
-                                        $report(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "ToJsonAtomicUnion.IToJson",
-                                            value: elem,
-                                        }),
-                                )
-                                .every((flag: boolean) => flag)) ||
-                        $report(true, {
-                            path: _path + "",
-                            expected: "Array<ToJsonAtomicUnion.IToJson>",
-                            value: input,
-                        })
-                    );
-                })(input, "$input", true);
+                                            }),
+                                    )
+                                    .every((flag: boolean) => flag)) ||
+                            $report(true, {
+                                path: _path + "",
+                                expected: "Array<ToJsonAtomicUnion.IToJson>",
+                                value: input,
+                            })
+                        );
+                    })(input, "$input", true);
                 const success = 0 === errors.length;
                 return {
                     success,

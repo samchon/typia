@@ -3,20 +3,21 @@
     {
       "type": "array",
       "items": {
-        "$ref": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_"
+        "$ref": "components#/schemas/ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>"
       },
       "nullable": false
     }
   ],
   "components": {
     "schemas": {
-      "ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_",
+      "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>": {
+        "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_",
-            "x-typia-required": true
+            "$ref": "components#/schemas/ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>",
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -25,26 +26,30 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_",
+      "ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>": {
+        "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>",
         "type": "object",
         "properties": {
           "value": {
             "oneOf": [
               {
-                "$ref": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
-                "x-typia-required": true
+                "$ref": "components#/schemas/ObjectUnionNonPredictable.IWrapper<boolean>",
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
-                "$ref": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
-                "x-typia-required": true
+                "$ref": "components#/schemas/ObjectUnionNonPredictable.IWrapper<number>",
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
-                "$ref": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
-                "x-typia-required": true
+                "$ref": "components#/schemas/ObjectUnionNonPredictable.IWrapper<string>",
+                "x-typia-required": true,
+                "x-typia-optional": false
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -53,13 +58,14 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
+      "ObjectUnionNonPredictable.IWrapper<boolean>": {
+        "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper<boolean>",
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
-            "x-typia-required": true
+            "$ref": "components#/schemas/ObjectUnionNonPredictable.IPointer<boolean>",
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -68,14 +74,15 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IPointer_lt_boolean_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
+      "ObjectUnionNonPredictable.IPointer<boolean>": {
+        "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer<boolean>",
         "type": "object",
         "properties": {
           "value": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -84,13 +91,14 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IWrapper_lt_number_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
+      "ObjectUnionNonPredictable.IWrapper<number>": {
+        "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper<number>",
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
-            "x-typia-required": true
+            "$ref": "components#/schemas/ObjectUnionNonPredictable.IPointer<number>",
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -99,14 +107,15 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IPointer_lt_number_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
+      "ObjectUnionNonPredictable.IPointer<number>": {
+        "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer<number>",
         "type": "object",
         "properties": {
           "value": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -115,13 +124,14 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IWrapper_lt_string_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
+      "ObjectUnionNonPredictable.IWrapper<string>": {
+        "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper<string>",
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
-            "x-typia-required": true
+            "$ref": "components#/schemas/ObjectUnionNonPredictable.IPointer<string>",
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -130,14 +140,15 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IPointer_lt_string_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
+      "ObjectUnionNonPredictable.IPointer<string>": {
+        "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer<string>",
         "type": "object",
         "properties": {
           "value": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

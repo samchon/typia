@@ -6,12 +6,11 @@ export const test_random_ConstantEnumeration = _test_random(
     "ConstantEnumeration",
     () =>
         ((
-            generator: Partial<typia.IRandomGenerator> = (typia.random as any)
-                .generator,
+            generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ConstantEnumeration> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
-            return (generator.array ?? $generator.array)(() =>
+            return (generator?.array ?? $generator.array)(() =>
                 $pick([
                     () => 0,
                     () => 1,
@@ -21,35 +20,51 @@ export const test_random_ConstantEnumeration = _test_random(
                 ])(),
             );
         })(),
-    (input: any): ConstantEnumeration => {
+    (input: any): typia.Primitive<ConstantEnumeration> => {
         const $guard = (typia.createAssert as any).guard;
-        ((
+        const __is = (
             input: any,
-            _path: string,
-            _exceptionable: boolean = true,
-        ): input is ConstantEnumeration => {
+        ): input is typia.Primitive<ConstantEnumeration> => {
             return (
-                (Array.isArray(input) ||
-                    $guard(true, {
-                        path: _path + "",
-                        expected: 'Array<("Four" | "Three" | 0 | 1 | 2)>',
-                        value: input,
-                    })) &&
+                Array.isArray(input) &&
                 input.every(
-                    (elem: any, _index1: number) =>
+                    (elem: any) =>
                         0 === elem ||
                         1 === elem ||
                         2 === elem ||
                         "Three" === elem ||
-                        "Four" === elem ||
-                        $guard(true, {
-                            path: _path + "[" + _index1 + "]",
-                            expected: '("Four" | "Three" | 0 | 1 | 2)',
-                            value: elem,
-                        }),
+                        "Four" === elem,
                 )
             );
-        })(input, "$input", true);
+        };
+        if (false === __is(input))
+            ((
+                input: any,
+                _path: string,
+                _exceptionable: boolean = true,
+            ): input is typia.Primitive<ConstantEnumeration> => {
+                return (
+                    (Array.isArray(input) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: 'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                            value: input,
+                        })) &&
+                    input.every(
+                        (elem: any, _index1: number) =>
+                            0 === elem ||
+                            1 === elem ||
+                            2 === elem ||
+                            "Three" === elem ||
+                            "Four" === elem ||
+                            $guard(true, {
+                                path: _path + "[" + _index1 + "]",
+                                expected: '("Four" | "Three" | 0 | 1 | 2)',
+                                value: elem,
+                            }),
+                    )
+                );
+            })(input, "$input", true);
         return input;
     },
 );

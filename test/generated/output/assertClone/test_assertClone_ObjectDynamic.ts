@@ -10,17 +10,9 @@ export const test_assertClone_ObjectDynamic = _test_assertClone(
             const assert = (input: any): ObjectDynamic => {
                 const $guard = (typia.assertClone as any).guard;
                 const $join = (typia.assertClone as any).join;
-                ((
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): input is ObjectDynamic => {
-                    const $ao0 = (
-                        input: any,
-                        _path: string,
-                        _exceptionable: boolean = true,
-                    ): boolean =>
-                        false === _exceptionable ||
+                const __is = (input: any): input is ObjectDynamic => {
+                    const $join = (typia.assertClone as any).join;
+                    const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key) => {
                             const value = input[key];
                             if (undefined === value) return true;
@@ -29,27 +21,59 @@ export const test_assertClone_ObjectDynamic = _test_assertClone(
                                     "string" === typeof value ||
                                     ("number" === typeof value &&
                                         Number.isFinite(value)) ||
-                                    "boolean" === typeof value ||
-                                    $guard(_exceptionable, {
-                                        path: _path + $join(key),
-                                        expected: "(boolean | number | string)",
-                                        value: value,
-                                    })
+                                    "boolean" === typeof value
                                 );
                             return true;
                         });
                     return (
-                        (("object" === typeof input &&
-                            null !== input &&
-                            false === Array.isArray(input)) ||
-                            $guard(true, {
-                                path: _path + "",
-                                expected: "ObjectDynamic",
-                                value: input,
-                            })) &&
-                        $ao0(input, _path + "", true)
+                        "object" === typeof input &&
+                        null !== input &&
+                        false === Array.isArray(input) &&
+                        $io0(input)
                     );
-                })(input, "$input", true);
+                };
+                if (false === __is(input))
+                    ((
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): input is ObjectDynamic => {
+                        const $ao0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            false === _exceptionable ||
+                            Object.keys(input).every((key) => {
+                                const value = input[key];
+                                if (undefined === value) return true;
+                                if (RegExp(/(.*)/).test(key))
+                                    return (
+                                        "string" === typeof value ||
+                                        ("number" === typeof value &&
+                                            Number.isFinite(value)) ||
+                                        "boolean" === typeof value ||
+                                        $guard(_exceptionable, {
+                                            path: _path + $join(key),
+                                            expected:
+                                                "(boolean | number | string)",
+                                            value: value,
+                                        })
+                                    );
+                                return true;
+                            });
+                        return (
+                            (("object" === typeof input &&
+                                null !== input &&
+                                false === Array.isArray(input)) ||
+                                $guard(true, {
+                                    path: _path + "",
+                                    expected: "ObjectDynamic",
+                                    value: input,
+                                })) &&
+                            $ao0(input, _path + "", true)
+                        );
+                    })(input, "$input", true);
                 return input;
             };
             const clone = (

@@ -23,20 +23,24 @@
         "properties": {
           "value": {
             "$ref": "components#/schemas/__type",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "child": {
             "oneOf": [
               {
                 "$ref": "components#/schemas/ObjectUnionDouble.IAA",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "components#/schemas/ObjectUnionDouble.IAB",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -53,7 +57,8 @@
           "x": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -68,7 +73,8 @@
         "properties": {
           "value": {
             "$ref": "components#/schemas/__type.o1",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -84,7 +90,8 @@
           "y": {
             "type": "boolean",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -99,7 +106,8 @@
         "properties": {
           "value": {
             "$ref": "components#/schemas/__type.o2",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -115,7 +123,8 @@
           "y": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -130,20 +139,24 @@
         "properties": {
           "value": {
             "$ref": "components#/schemas/__type.o3",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "child": {
             "oneOf": [
               {
                 "$ref": "components#/schemas/ObjectUnionDouble.IBA",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               },
               {
                 "$ref": "components#/schemas/ObjectUnionDouble.IBB",
-                "x-typia-required": true
+                "x-typia-required": true,
+                "x-typia-optional": false
               }
             ],
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -160,7 +173,8 @@
           "x": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -175,7 +189,8 @@
         "properties": {
           "value": {
             "$ref": "components#/schemas/__type.o4",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -191,7 +206,8 @@
           "y": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -206,7 +222,8 @@
         "properties": {
           "value": {
             "$ref": "components#/schemas/__type.o5",
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,
@@ -224,10 +241,12 @@
             "items": {
               "type": "number",
               "nullable": false,
-              "x-typia-required": true
+              "x-typia-required": true,
+              "x-typia-optional": false
             },
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

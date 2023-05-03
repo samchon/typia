@@ -5,5 +5,5 @@ import { TagObjectUnion } from "../../structures/TagObjectUnion";
 export const test_createRandom_TagObjectUnion = _test_random(
     "TagObjectUnion",
     typia.createRandom<TagObjectUnion>(),
-    typia.createAssert<TagObjectUnion>(),
+    typia.createAssert<typia.Primitive<TagObjectUnion>>(),
 );

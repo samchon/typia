@@ -22,11 +22,11 @@ const number = (tagList: IMetadataTag[]) => {
 };
 
 const bigint = (tagList: IMetadataTag[]) => {
-    const filtered: IMetadataTag.IBigintType[] = tagList.filter(
+    const filtered: IMetadataTag.INumberType[] = tagList.filter(
         (tag) =>
             tag.kind === "type" &&
             (tag.value === "int64" || tag.value === "uint64"),
-    ) as IMetadataTag.IBigintType[];
+    ) as IMetadataTag.INumberType[];
 
     for (const { value } of filtered)
         if (value === "int64" || value === "uint64") return value;

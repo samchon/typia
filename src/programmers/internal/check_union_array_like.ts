@@ -10,6 +10,9 @@ import { CheckerProgrammer } from "../CheckerProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { UnionExplorer } from "../helpers/UnionExplorer";
 
+/**
+ * @internal
+ */
 export const check_union_array_like =
     <T>(accessor: check_union_array_like.IAccessor<T>) =>
     (props: check_union_array_like.IProps<T>) =>
@@ -18,6 +21,7 @@ export const check_union_array_like =
         targets: T[],
         explore: FeatureProgrammer.IExplore,
         tags: IMetadataTag[],
+        jsDocTags: ts.JSDocTagInfo[],
     ) => {
         // ONLY ONE TYPE
         if (targets.length === 1)
@@ -26,6 +30,7 @@ export const check_union_array_like =
                 targets[0]!,
                 explore,
                 tags,
+                jsDocTags,
             );
 
         //----
@@ -58,6 +63,7 @@ export const check_union_array_like =
                                         postfix: `"[0]"`,
                                     },
                                     tags,
+                                    jsDocTags,
                                     input,
                                 ),
                             ),
@@ -80,6 +86,7 @@ export const check_union_array_like =
                                         tracable: true,
                                     },
                                     tags,
+                                    jsDocTags,
                                 ),
                             ),
                         ]),
@@ -142,10 +149,9 @@ export const check_union_array_like =
             ts.factory.createIdentifier("filtered"),
             ts.factory.createIfStatement(
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(
+                    IdentifierFactory.access(
                         ts.factory.createIdentifier("array"),
-                        "every",
-                    ),
+                    )("every"),
                     undefined,
                     [
                         ts.factory.createArrowFunction(
@@ -232,6 +238,10 @@ export const check_union_array_like =
             undefined,
         );
     };
+
+/**
+ * @internal
+ */
 export namespace check_union_array_like {
     export interface IProps<T> {
         checker(
@@ -239,6 +249,7 @@ export namespace check_union_array_like {
             target: T,
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
+            jsDocTags: ts.JSDocTagInfo[],
             array: ts.Expression,
         ): ts.Expression;
         decoder: UnionExplorer.Decoder<T>;

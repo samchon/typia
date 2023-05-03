@@ -17,33 +17,42 @@
           "name": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "professor": {
             "oneOf": [
               {
                 "type": "string",
                 "nullable": false,
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               },
               {
                 "type": "number",
                 "nullable": false,
-                "x-typia-required": false
+                "x-typia-required": false,
+                "x-typia-optional": true
               }
             ],
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "classroom": {
             "$ref": "components#/schemas/ObjectUndefined.IClassroom",
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": true
           },
           "grade": {
             "type": "number",
             "nullable": false,
-            "x-typia-required": false
+            "x-typia-required": false,
+            "x-typia-optional": false
           },
-          "unknown": {}
+          "unknown": {
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
         },
         "nullable": false,
         "required": [
@@ -59,12 +68,14 @@
           "id": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
-            "x-typia-required": true
+            "x-typia-required": true,
+            "x-typia-optional": false
           }
         },
         "nullable": false,

@@ -8,14 +8,13 @@ export namespace GenericTransformer {
         (
             programmer: (
                 project: IProject,
+            ) => (
                 modulo: ts.LeftHandSideExpression,
             ) => (type: ts.Type, name: string) => ts.ArrowFunction,
         ) =>
-        (
-            project: IProject,
-            modulo: ts.LeftHandSideExpression,
-            expression: ts.CallExpression,
-        ) => {
+        (project: IProject) =>
+        (modulo: ts.LeftHandSideExpression) =>
+        (expression: ts.CallExpression) => {
             // CHECK PARAMETER
             if (expression.arguments.length !== 1)
                 throw new Error(`Error on typia.${method}(): no input value.`);
@@ -44,10 +43,10 @@ export namespace GenericTransformer {
 
             // DO TRANSFORM
             return ts.factory.createCallExpression(
-                programmer(project, modulo)(
+                programmer(project)(modulo)(
                     type,
                     generic
-                        ? node.getText()
+                        ? node.getFullText().trim()
                         : name(project.checker)(type)(node),
                 ),
                 undefined,
@@ -60,14 +59,13 @@ export namespace GenericTransformer {
         (
             programmer: (
                 project: IProject,
+            ) => (
                 modulo: ts.LeftHandSideExpression,
             ) => (type: ts.Type, name: string) => ts.ArrowFunction,
         ) =>
-        (
-            project: IProject,
-            modulo: ts.LeftHandSideExpression,
-            expression: ts.CallExpression,
-        ) => {
+        (project: IProject) =>
+        (modulo: ts.LeftHandSideExpression) =>
+        (expression: ts.CallExpression) => {
             // CHECK GENERIC ARGUMENT EXISTENCE
             if (!expression.typeArguments?.[0])
                 throw new Error(
@@ -84,7 +82,7 @@ export namespace GenericTransformer {
                 );
 
             // DO TRANSFORM
-            return programmer(project, modulo)(type, node.getText());
+            return programmer(project)(modulo)(type, node.getFullText().trim());
         };
 
     const name =

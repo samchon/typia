@@ -1,3 +1,5 @@
+import typia from "typia";
+
 import { Spoiler } from "../../test/helpers/Spoiler";
 
 export interface TestStructure<T> {
@@ -8,4 +10,5 @@ export interface TestStructure<T> {
     BINARABLE?: boolean;
     JSONABLE?: boolean;
     PRIMITIVE?: boolean;
+    RANDOM?: false | typia.IRandomGenerator;
 }

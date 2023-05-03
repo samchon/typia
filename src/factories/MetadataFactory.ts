@@ -12,40 +12,51 @@ export namespace MetadataFactory {
         validate?: (meta: Metadata) => void;
     }
 
-    export function generate(
+    export const analyze =
+        (checker: ts.TypeChecker) =>
+        (options: IOptions) =>
+        (collection: MetadataCollection) =>
+        (type: ts.Type | null): Metadata => {
+            // CONSTRUCT SCHEMA WITH OBJECTS
+            const metadata: Metadata = explore_metadata(checker)(options)(
+                collection,
+            )(type, false);
+
+            // FIND RECURSIVE OBJECTS
+            for (const object of collection.objects())
+                object.recursive = object.properties.some((prop) =>
+                    isRecursive(object.name)(prop.value),
+                );
+
+            // RETURNS
+            return metadata;
+        };
+
+    const isRecursive =
+        (name: string) =>
+        (meta: Metadata): boolean => {
+            const similar = (str: string) =>
+                name === str ||
+                name.indexOf(`<${str},`) !== -1 ||
+                name.indexOf(`, ${str}>`) !== -1 ||
+                name.indexOf(`, ${str},`) !== -1;
+            return (
+                meta.objects.some((obj) => similar(obj.name)) ||
+                meta.arrays.some((arr) => isRecursive(name)(arr)) ||
+                meta.tuples.some((tuple) =>
+                    tuple.some((m) => isRecursive(name)(m.rest ?? m)),
+                ) ||
+                meta.maps.some((map) => isRecursive(name)(map.value))
+            );
+        };
+
+    /**
+     * @deprecated Use `analyze` function instead
+     */
+    export const generate = (
         checker: ts.TypeChecker,
         collection: MetadataCollection,
-        type: ts.Type | null,
+        type: ts.Type,
         options: IOptions,
-    ): Metadata {
-        // CONSTRUCT SCHEMA WITH OBJECTS
-        const metadata: Metadata = explore_metadata(checker)(options)(
-            collection,
-        )(type, false);
-
-        // FIND RECURSIVE OBJECTS
-        for (const object of collection.objects())
-            object.recursive = object.properties.some((prop) =>
-                isRecursive(object.name, prop.value),
-            );
-
-        // RETURNS
-        return metadata;
-    }
-
-    function isRecursive(name: string, meta: Metadata): boolean {
-        const similar = (str: string) =>
-            name === str ||
-            name.indexOf(`<${str},`) !== -1 ||
-            name.indexOf(`, ${str}>`) !== -1 ||
-            name.indexOf(`, ${str},`) !== -1;
-        return (
-            meta.objects.some((obj) => similar(obj.name)) ||
-            meta.arrays.some((arr) => isRecursive(name, arr)) ||
-            meta.tuples.some((tuple) =>
-                tuple.some((m) => isRecursive(name, m.rest ?? m)),
-            ) ||
-            meta.maps.some((map) => isRecursive(name, map.value))
-        );
-    }
+    ) => analyze(checker)(options)(collection)(type);
 }

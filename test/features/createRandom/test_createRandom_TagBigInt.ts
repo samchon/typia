@@ -5,5 +5,5 @@ import { TagBigInt } from "../../structures/TagBigInt";
 export const test_createRandom_TagBigInt = _test_random(
     "TagBigInt",
     typia.createRandom<TagBigInt>(),
-    typia.createAssert<TagBigInt>(),
+    typia.createAssert<typia.Primitive<TagBigInt>>(),
 );

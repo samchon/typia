@@ -5,5 +5,5 @@ import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnio
 export const test_random_ArrayRecursiveUnionExplicit = _test_random(
     "ArrayRecursiveUnionExplicit",
     () => typia.random<ArrayRecursiveUnionExplicit>(),
-    typia.createAssert<ArrayRecursiveUnionExplicit>(),
+    typia.createAssert<typia.Primitive<ArrayRecursiveUnionExplicit>>(),
 );
