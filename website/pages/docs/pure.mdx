@@ -1,0 +1,655 @@
+import { Tabs, Tab } from 'nextra-theme-docs'
+
+# Pure TypeScript
+## Outline
+`typia` needs only pure TypeScript type.
+
+You know what? Every other validator libraries need extra schema definition, that is different with pure TypeScript type. For an example, `class-validator` is the most famouse validator due to used in `NestJS`. However, `NestJS` and `class-validator` force you to define triple duplicated DTO schema.
+
+  1. TypeScript Type
+  2. `class-validator` decorators
+  3. `@nestjs/swagger` decorators
+
+Another famous validator library `ajv` requires JSON schema definition. Move to the [#Demonstration](#demonstration), and click the `ajv (JSON Schema)` tab, then you may understand how it terrible. It requires hundreds of lines of JSON schema definition even just for a simple DTO.
+
+Those duplicated schema definitions are not only annoying, but also error-prone. If you take any mistake on the extra schema definition, such mistake can't be detected by TypeScript compiler. It will be detected only at runtime, therefore become a critical runtime error. Another words, it is not type safe.
+
+Besides, `typia` only needs pure TypeScript type. You don't need to define any extra schema like `class-validator` or `ajv`. Just define pure TypeScript type only (especially recommend to use `interface` type), then `typia` will do all the rest.
+
+
+
+
+## Demonstration
+If you're confusing how `typia` is different with others, just see example codes below.
+
+At first, look at the first (*`class-validator`*) tab, and find the `BbsArticle.files` property, enhanced by blue coloured blocks. Looking at the `files` property, how do you feel? Just defining an array object type, you've to call 7 decorator functions. If you take any mistake when using the decorator like omitting `isArray` property, it would be a critical runtime erorr.
+
+Besides, `typia` needs only one line. Click the third (*`typia`*) tab, and find the `IAttachmentFile.files` property. Only one line being used, and they are even not class, but just interface types. Comparing it to the first and second tabs, how do you feel? Isn't it more simple and readable?
+
+This is the power of `typia`, with pure TypeScript type.
+
+<Tabs items={[
+    <span>
+        <code>class-validator</code> <sub>(Triple duplicated)</sub>
+    </span>,
+    <span>
+        <code>ajv</code> <sub>(JSON Schema)</sub>
+    </span>,
+    <span>
+        <code>typia</code> <sub>(Pure TypeScript)</sub>
+    </span>
+]}>
+    <Tab>
+```typescript filename="BbsArticle.ts" showLineNumbers {11-27}
+import { ApiProperty } from "@nestjs/swagger";
+import { ArrayNotEmpty, IsArray, IsObject, IsOptional, IsString, Match, MaxLength, Type, ValidateNested } from "class-validator";
+
+export class BbsArticle {
+    @ApiProperty({
+        format: "uuid",
+    })
+    @IsString()
+    id!: string;
+
+    // DUPLICATED SCHEMA DEFINITION
+    // - duplicated function call + property type
+    // - have to specify `isArray` and `nullable` props by yourself
+    @ApiProperty({
+        type: () => AttachmentFile,
+        nullable: true,
+        isArray: true,
+        minItems: 1,
+        description: "List of attached files.",
+    })
+    @ArrayNotEmpty()
+    @IsArray()
+    @IsObject()
+    @IsOptional()
+    @Type(() => AttachmentFile)
+    @ValidateNested()
+    files!: AttachmentFile[] | null;
+
+    @ApiProperty({
+        type: "string",
+        nullable: true,
+        minLength: 5,
+        maxLength: 100,
+        description: "Title of the article.",
+    })
+    @IsOptional()
+    @IsString()
+    title!: string | null;
+
+    @ApiProperty({
+        description: "Main content body of the article."
+    })
+    @IsString()
+    body!: string;
+
+    @ApiProperty({
+        format: "date-time",
+        description: "Creation time of article",
+    })
+    @IsString()
+    created_at!: string;
+}
+
+export class AttachmentFile {
+    @ApiProperty({
+        type: "string",
+        nullable: true,
+        maxLength: 255,
+        pattern: "^[a-zA-Z0-9-_]+$",
+        description: "File name.",
+    })
+    @Matches(/^[a-z0-9]+$/)
+    @MaxLength(255)
+    @IsOptional()
+    @IsString()
+    name!: string | null;
+
+    @ApiProperty({
+        type: "string",
+        nullable: true,
+        maxLength: 255,
+        pattern: "^[a-zA-Z0-9-_]+$",
+        description: "File extension.",
+    })
+    @Matches(/^[a-z0-9]+$/)
+    @MaxLength(8)
+    @IsOptional()
+    @IsString()
+    extension!: string | null;
+
+    @ApiProperty({
+        format: "url",
+        description: "URL of the file.",
+    })
+    @IsString()
+    url!: string;
+}
+```
+    </Tab>
+    <Tab>
+```json filename="BbsArticle.json" showLineNumbers {38-51, 134-245}
+{
+  "schemas": [
+    {
+      "$ref": "components#/schemas/IBbsArticle"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "IBbsArticle": {
+        "$id": "components#/schemas/IBbsArticle",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": false,
+            "description": "Primary Key.",
+            "x-typia-metaTags": [
+              {
+                "kind": "format",
+                "value": "uuid"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "format",
+                "text": [
+                  {
+                    "text": "uuid",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "format": "uuid"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "components#/schemas/IAttachmentFile",
+              "description": "List of attached files.",
+              "minItems": 1,
+              "x-typia-required": true,
+              "x-typia-optional": false
+            },
+            "nullable": true,
+            "description": "List of attached files.",
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "title": {
+            "type": "string",
+            "nullable": true,
+            "description": "Title of the article.",
+            "x-typia-metaTags": [
+              {
+                "kind": "minLength",
+                "value": 5
+              },
+              {
+                "kind": "maxLength",
+                "value": 100
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "minLength",
+                "text": [
+                  {
+                    "text": "5",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "maxLength",
+                "text": [
+                  {
+                    "text": "100",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "minLength": 5,
+            "maxLength": 100
+          },
+          "body": {
+            "type": "string",
+            "nullable": false,
+            "description": "Main content body of the article.",
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "created_at": {
+            "type": "string",
+            "nullable": false,
+            "description": "Creation time of article.",
+            "x-typia-metaTags": [
+              {
+                "kind": "format",
+                "value": "datetime"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "format",
+                "text": [
+                  {
+                    "text": "date-time",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "format": "date-time"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "files",
+          "title",
+          "body",
+          "created_at"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "IAttachmentFile": {
+        "$id": "components#/schemas/IAttachmentFile",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true,
+            "description": "File name.",
+            "x-typia-metaTags": [
+              {
+                "kind": "pattern",
+                "value": "^[a-z0-9]+$"
+              },
+              {
+                "kind": "maxLength",
+                "value": 255
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "pattern",
+                "text": [
+                  {
+                    "text": "^[a-z0-9]+$",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "maxLength",
+                "text": [
+                  {
+                    "text": "255",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "pattern": "^[a-z0-9]+$",
+            "maxLength": 255
+          },
+          "extension": {
+            "type": "string",
+            "nullable": true,
+            "description": "File extension.",
+            "x-typia-metaTags": [
+              {
+                "kind": "pattern",
+                "value": "^[a-z0-9]+$"
+              },
+              {
+                "kind": "maxLength",
+                "value": 8
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "pattern",
+                "text": [
+                  {
+                    "text": "^[a-z0-9]+$",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "maxLength",
+                "text": [
+                  {
+                    "text": "8",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "pattern": "^[a-z0-9]+$",
+            "maxLength": 8
+          },
+          "url": {
+            "type": "string",
+            "nullable": false,
+            "description": "URL of the file.",
+            "x-typia-jsDocTags": [
+              {
+                "name": "format",
+                "text": [
+                  {
+                    "text": "uri",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "format": "uri"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name",
+          "extension",
+          "url"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "components#/schemas"
+}
+```
+    </Tab>
+    <Tab>
+```typescript filename="IBbsArticle.ts" showLineNumbers {9-14}
+export interface IBbsArticle {
+    /**
+     * Primary Key.
+     * 
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * List of attached files.
+     * 
+     * @minItems 1
+     */
+    files: IAttachmentFile[] | null;
+
+    /**
+     * Title of the article.
+     * 
+     * @minLength 5
+     * @maxLength 100
+     */
+    title: string | null;
+
+    /**
+     * Main content body of the article.
+     */
+    body: string;
+
+    /**
+     * Creation time of article.
+     * 
+     * @format date-time
+     */
+    created_at: string;
+}
+
+export interface IAttachmentFile {
+    /**
+     * File name.
+     * 
+     * @pattern ^[a-z0-9]+$
+     * @maxLength 255
+     */
+    name: string | null;
+
+    /**
+     * File extension.
+     * 
+     * @pattern ^[a-z0-9]+$
+     * @maxLength 8
+     */
+    extension: string | null;
+
+    /**
+     * URL of the file.
+     * 
+     * @format uri
+     */
+    url: string;
+}
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## AOT Compilation
+Someone may be suspicious of the phrase "Pure TypeScript Type".
+
+> "As you know, TypeScript types do not have any tangible instance when compiled to JS. 
+>
+> However, with only these fictitious TypeScript types, how can `typia` validates types at runtime? How `typia` builds much faster JSON serializer only with these types? Are these things really possible without extra schema definition like `class-validator` or `ajv`?"
+
+My answer is: "Yes, it is possible due to `typia` analyzes your server code, and performs AOT compilation".
+
+Such compile time optimization is called AOT (Ahead of Time) compilation. And this is the secret why `typia` can do everything with only pure TypeScript type. Read below example codes, and just look how JavaScript file being compiled. Then you may understand why `typia` is much easier, and futhermore much faster.
+
+  - Runtime validator is **20,000x** faster than `class-validator`
+  - JSON serialization is **200x faster** than `class-transformer`
+
+<Tabs 
+    items={[
+        <code>IBbsArticle.ts</code>,
+        <code>assertArticle.ts</code>,
+        'Compiled JavaScript File'
+    ]}
+    defaultIndex={1}>
+    <Tab>
+```typescript copy filenam="IBbsArticle.ts" showLineNumbers
+export interface IBbsArticle {
+    /**
+     * Primary Key.
+     * 
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * List of attached files.
+     * 
+     * @minItems 1
+     */
+    files: IAttachmentFile[] | null;
+
+    /**
+     * Title of the article.
+     * 
+     * @minLength 5
+     * @maxLength 100
+     */
+    title: string | null;
+
+    /**
+     * Main content body of the article.
+     */
+    body: string;
+
+    /**
+     * Creation time of article.
+     * 
+     * @format date-time
+     */
+    created_at: string;
+}
+
+export interface IAttachmentFile {
+    /**
+     * File name.
+     * 
+     * @pattern ^[a-z0-9]+$
+     * @maxLength 255
+     */
+    name: string | null;
+
+    /**
+     * File extension.
+     * 
+     * @pattern ^[a-z0-9]+$
+     * @maxLength 8
+     */
+    extension: string | null;
+
+    /**
+     * URL of the file.
+     * 
+     * @format uri
+     */
+    url: string;
+}
+```
+    </Tab>
+    <Tab>
+```typescript filename="assertArticle.ts" showLineNumbers
+import typia from "typia";
+
+import { IBbsArticle } from "./IBbsArticle";
+
+export const assertArticle = typia.createAssert<IBbsArticle>();
+```
+    </Tab>
+    <Tab>
+```javascript filename="assertArticle.js" showLineNumbers
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.assertArticle = void 0;
+const typia_1 = __importDefault(require("typia"));
+const assertArticle = input => {
+    const $guard = typia_1.default.createAssert.guard;
+    const $is_uuid = typia_1.default.createAssert.is_uuid;
+    const $is_datetime = typia_1.default.createAssert.is_datetime;
+    const __is = input => {
+        const $is_uuid = typia_1.default.createAssert.is_uuid;
+        const $is_datetime = typia_1.default.createAssert.is_datetime;
+        const $io0 = input => "string" === typeof input.id && $is_uuid(input.id) && (null === input.files || Array.isArray(input.files) && 1 <= input.files.length && input.files.every(elem => "object" === typeof elem && null !== elem && $io1(elem))) && (null === input.title || "string" === typeof input.title && 5 <= input.title.length && 100 >= input.title.length) && "string" === typeof input.body && ("string" === typeof input.created_at && $is_datetime(input.created_at));
+        const $io1 = input => (null === input.name || "string" === typeof input.name && RegExp(/^[a-z0-9]+$/).test(input.name) && 255 >= input.name.length) && (null === input.extension || "string" === typeof input.extension && RegExp(/^[a-z0-9]+$/).test(input.extension) && 8 >= input.extension.length) && "string" === typeof input.url;
+        return "object" === typeof input && null !== input && $io0(input);
+    };
+    if (false === __is(input))
+        ((input, _path, _exceptionable = true) => {
+            const $ao0 = (input, _path, _exceptionable = true) => ("string" === typeof input.id && ($is_uuid(input.id) || $guard(_exceptionable, {
+                path: _path + ".id",
+                expected: "string (@format uuid)",
+                value: input.id
+            })) || $guard(_exceptionable, {
+                path: _path + ".id",
+                expected: "string",
+                value: input.id
+            })) && (null === input.files || (Array.isArray(input.files) && (1 <= input.files.length || $guard(_exceptionable, {
+                path: _path + ".files",
+                expected: "Array.length (@minItems 1)",
+                value: input.files
+            })) || $guard(_exceptionable, {
+                path: _path + ".files",
+                expected: "(Array<IAttachmentFile> | null)",
+                value: input.files
+            })) && input.files.every((elem, _index1) => ("object" === typeof elem && null !== elem || $guard(_exceptionable, {
+                path: _path + ".files[" + _index1 + "]",
+                expected: "IAttachmentFile",
+                value: elem
+            })) && $ao1(elem, _path + ".files[" + _index1 + "]", true && _exceptionable))) && (null === input.title || "string" === typeof input.title && (5 <= input.title.length || $guard(_exceptionable, {
+                path: _path + ".title",
+                expected: "string (@minLength 5)",
+                value: input.title
+            })) && (100 >= input.title.length || $guard(_exceptionable, {
+                path: _path + ".title",
+                expected: "string (@maxLength 100)",
+                value: input.title
+            })) || $guard(_exceptionable, {
+                path: _path + ".title",
+                expected: "(null | string)",
+                value: input.title
+            })) && ("string" === typeof input.body || $guard(_exceptionable, {
+                path: _path + ".body",
+                expected: "string",
+                value: input.body
+            })) && ("string" === typeof input.created_at && ($is_datetime(input.created_at) || $guard(_exceptionable, {
+                path: _path + ".created_at",
+                expected: "string (@format datetime)",
+                value: input.created_at
+            })) || $guard(_exceptionable, {
+                path: _path + ".created_at",
+                expected: "string",
+                value: input.created_at
+            }));
+            const $ao1 = (input, _path, _exceptionable = true) => (null === input.name || "string" === typeof input.name && (RegExp(/^[a-z0-9]+$/).test(input.name) || $guard(_exceptionable, {
+                path: _path + ".name",
+                expected: "string (@pattern ^[a-z0-9]+$)",
+                value: input.name
+            })) && (255 >= input.name.length || $guard(_exceptionable, {
+                path: _path + ".name",
+                expected: "string (@maxLength 255)",
+                value: input.name
+            })) || $guard(_exceptionable, {
+                path: _path + ".name",
+                expected: "(null | string)",
+                value: input.name
+            })) && (null === input.extension || "string" === typeof input.extension && (RegExp(/^[a-z0-9]+$/).test(input.extension) || $guard(_exceptionable, {
+                path: _path + ".extension",
+                expected: "string (@pattern ^[a-z0-9]+$)",
+                value: input.extension
+            })) && (8 >= input.extension.length || $guard(_exceptionable, {
+                path: _path + ".extension",
+                expected: "string (@maxLength 8)",
+                value: input.extension
+            })) || $guard(_exceptionable, {
+                path: _path + ".extension",
+                expected: "(null | string)",
+                value: input.extension
+            })) && ("string" === typeof input.url || $guard(_exceptionable, {
+                path: _path + ".url",
+                expected: "string",
+                value: input.url
+            }));
+            return ("object" === typeof input && null !== input || $guard(true, {
+                path: _path + "",
+                expected: "IBbsArticle",
+                value: input
+            })) && $ao0(input, _path + "", true);
+        })(input, "$input", true);
+    return input;
+};
+exports.assertArticle = assertArticle;
+```
+    </Tab>
+</Tabs>
