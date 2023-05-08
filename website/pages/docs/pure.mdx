@@ -2,7 +2,11 @@ import { Tabs, Tab } from 'nextra-theme-docs'
 
 # Pure TypeScript
 ## Outline
-`typia` needs only pure TypeScript type.
+```typescript filename="assertArticle.ts" showLineNumbers
+typia.assert<IBbsArticle>(article);
+```
+
+`typia` needs only one line with pure TypeScript type.
 
 You know what? Every other validator libraries need extra schema definition, that is different with pure TypeScript type. For an example, `class-validator` is the most famouse validator due to used in `NestJS`. However, `NestJS` and `class-validator` force you to define triple duplicated DTO schema.
 

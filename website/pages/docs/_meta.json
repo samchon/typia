@@ -1,12 +1,12 @@
 {
     "index": "🙋🏻‍♂️ Introduction",
-    "setup": "🛠 Setup",
+    "setup": "📦 Setup",
+    "pure": "⛲ Pure TypeScript",
 
     "-- features": {
         "type": "separator",
         "title": "📖 Features"
     },
-    "pure": "Pure TypeScript",
     "validators": "Runtime Validators",
     "json": "Enhanced JSON",
     "random": "Random Generator",
