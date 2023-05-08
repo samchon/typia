@@ -6,6 +6,7 @@
         "type": "separator",
         "title": "📖 Features"
     },
+    "pure": "Pure TypeScript",
     "validators": "Runtime Validators",
     "json": "Enhanced JSON",
     "random": "Random Generator",
