@@ -10,7 +10,6 @@ export const test_createAssertStringify_DynamicNever = _test_assertStringify(
             const $guard = (typia.createAssertStringify as any).guard;
             const $join = (typia.createAssertStringify as any).join;
             const __is = (input: any): input is DynamicNever => {
-                const $join = (typia.createAssertStringify as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key) => {
                         const value = input[key];

@@ -15,24 +15,28 @@
           "^(prefix_(.*))": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "((.*)_postfix)$": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "^(value_-?\\d+\\.?\\d*)$": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "^(between_(.*)_and_-?\\d+\\.?\\d*)$": {
             "type": "boolean",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

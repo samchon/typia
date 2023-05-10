@@ -17,12 +17,14 @@
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "email": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -30,10 +32,12 @@
             "type": "array",
             "items": {
               "$ref": "components#/schemas/ArraySimple.IHobby",
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             },
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -53,18 +57,21 @@
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "body": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "rank": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

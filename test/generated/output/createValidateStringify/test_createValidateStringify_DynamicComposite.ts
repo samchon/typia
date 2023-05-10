@@ -11,7 +11,6 @@ export const test_createValidateStringify_DynamicComposite =
                 input: any,
             ): typia.IValidation<DynamicComposite> => {
                 const __is = (input: any): input is DynamicComposite => {
-                    const $join = (typia.createValidateStringify as any).join;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&

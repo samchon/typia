@@ -8,7 +8,6 @@ export const test_createValidateParse_DynamicUndefined = _test_validateParse(
     (input: string): typia.IValidation<typia.Primitive<DynamicUndefined>> => {
         const validate = (input: any): typia.IValidation<DynamicUndefined> => {
             const __is = (input: any): input is DynamicUndefined => {
-                const $join = (typia.createValidateParse as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key) => {
                         const value = input[key];

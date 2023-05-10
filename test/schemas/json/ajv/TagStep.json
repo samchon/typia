@@ -17,6 +17,7 @@
           "exclusiveMinimum": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "step",
@@ -55,6 +56,7 @@
           "minimum": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "step",
@@ -92,6 +94,7 @@
           "range": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "step",
@@ -145,6 +148,7 @@
           "multipleOf": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "multipleOf",

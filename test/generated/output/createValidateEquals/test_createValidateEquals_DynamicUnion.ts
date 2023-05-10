@@ -10,7 +10,6 @@ export const test_createValidateEquals_DynamicUnion = _test_validateEquals(
             input: any,
             _exceptionable: boolean = true,
         ): input is DynamicUnion => {
-            const $join = (typia.createValidateEquals as any).join;
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

@@ -11,7 +11,6 @@ export const test_assertClone_DynamicUndefined = _test_assertClone(
                 const $guard = (typia.assertClone as any).guard;
                 const $join = (typia.assertClone as any).join;
                 const __is = (input: any): input is DynamicUndefined => {
-                    const $join = (typia.assertClone as any).join;
                     const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key) => {
                             const value = input[key];

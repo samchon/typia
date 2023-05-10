@@ -48,7 +48,6 @@ export const test_random_ObjectDynamic = _test_random(
         const $guard = (typia.createAssert as any).guard;
         const $join = (typia.createAssert as any).join;
         const __is = (input: any): input is typia.Primitive<ObjectDynamic> => {
-            const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key) => {
                     const value = input[key];

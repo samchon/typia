@@ -12,26 +12,31 @@
         "properties": {
           "boolean": {
             "$ref": "#/components/schemas/Map",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "number": {
             "$ref": "#/components/schemas/Map",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "strings": {
             "$ref": "#/components/schemas/Map",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "arrays": {
             "$ref": "#/components/schemas/Map",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "objects": {
             "$ref": "#/components/schemas/Map",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

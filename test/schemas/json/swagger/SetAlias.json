@@ -11,26 +11,31 @@
         "properties": {
           "booleans": {
             "$ref": "#/components/schemas/Set",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "numbers": {
             "$ref": "#/components/schemas/Set",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "strings": {
             "$ref": "#/components/schemas/Set",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "arrays": {
             "$ref": "#/components/schemas/Set",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "objects": {
             "$ref": "#/components/schemas/Set",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

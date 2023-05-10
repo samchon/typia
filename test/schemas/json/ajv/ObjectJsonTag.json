@@ -14,6 +14,7 @@
             "type": "string",
             "nullable": false,
             "deprecated": true,
+            "description": "",
             "x-typia-jsDocTags": [
               {
                 "name": "deprecated"

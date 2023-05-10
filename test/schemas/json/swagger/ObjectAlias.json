@@ -16,18 +16,21 @@
           "id": {
             "type": "string",
             "nullable": true,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "email": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -40,6 +43,7 @@
                   1
                 ],
                 "nullable": true,
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
@@ -50,22 +54,26 @@
                   "female"
                 ],
                 "nullable": true,
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "age": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "dead": {
             "type": "boolean",
             "nullable": true,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

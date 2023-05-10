@@ -19,6 +19,7 @@
               {
                 "type": "string",
                 "nullable": false,
+                "description": "",
                 "x-typia-metaTags": [
                   {
                     "kind": "minimum",
@@ -70,6 +71,7 @@
               {
                 "type": "number",
                 "nullable": false,
+                "description": "",
                 "x-typia-metaTags": [
                   {
                     "kind": "minimum",
@@ -118,6 +120,7 @@
                 "minimum": 3
               }
             ],
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",

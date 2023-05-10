@@ -24,6 +24,7 @@
           "value": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -59,6 +60,7 @@
           "value": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "minLength",

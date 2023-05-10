@@ -8,7 +8,6 @@ export const test_createValidatePrune_TagArray = _test_validatePrune(
     (input: any): typia.IValidation<TagArray> => {
         const validate = (input: any): typia.IValidation<TagArray> => {
             const __is = (input: any): input is TagArray => {
-                const $is_uuid = (typia.createValidatePrune as any).is_uuid;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.items) &&
                     3 === input.items.length &&

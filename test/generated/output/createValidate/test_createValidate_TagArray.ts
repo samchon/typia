@@ -7,7 +7,6 @@ export const test_createValidate_TagArray = _test_validate(
     TagArray.generate,
     (input: any): typia.IValidation<TagArray> => {
         const __is = (input: any): input is TagArray => {
-            const $is_uuid = (typia.createValidate as any).is_uuid;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.items) &&
                 3 === input.items.length &&

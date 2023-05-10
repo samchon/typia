@@ -20,13 +20,6 @@ export const test_assertEquals_TagFormat = _test_assertEquals(
                 input: any,
                 _exceptionable: boolean = true,
             ): input is TagFormat => {
-                const $is_uuid = (typia.assertEquals as any).is_uuid;
-                const $is_email = (typia.assertEquals as any).is_email;
-                const $is_url = (typia.assertEquals as any).is_url;
-                const $is_ipv4 = (typia.assertEquals as any).is_ipv4;
-                const $is_ipv6 = (typia.assertEquals as any).is_ipv6;
-                const $is_date = (typia.assertEquals as any).is_date;
-                const $is_datetime = (typia.assertEquals as any).is_datetime;
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,

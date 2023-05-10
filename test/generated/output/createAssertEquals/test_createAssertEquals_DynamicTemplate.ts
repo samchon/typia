@@ -12,7 +12,6 @@ export const test_createAssertEquals_DynamicTemplate = _test_assertEquals(
             input: any,
             _exceptionable: boolean = true,
         ): input is DynamicTemplate => {
-            const $join = (typia.createAssertEquals as any).join;
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

@@ -13,7 +13,6 @@ export const test_assertEquals_DynamicComposite = _test_assertEquals(
                 input: any,
                 _exceptionable: boolean = true,
             ): input is DynamicComposite => {
-                const $join = (typia.assertEquals as any).join;
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,

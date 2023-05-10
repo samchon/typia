@@ -10,7 +10,6 @@ export const test_createValidateEquals_DynamicTemplate = _test_validateEquals(
             input: any,
             _exceptionable: boolean = true,
         ): input is DynamicTemplate => {
-            const $join = (typia.createValidateEquals as any).join;
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

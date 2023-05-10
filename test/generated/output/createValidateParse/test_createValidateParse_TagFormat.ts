@@ -8,14 +8,6 @@ export const test_createValidateParse_TagFormat = _test_validateParse(
     (input: string): typia.IValidation<typia.Primitive<TagFormat>> => {
         const validate = (input: any): typia.IValidation<TagFormat> => {
             const __is = (input: any): input is TagFormat => {
-                const $is_uuid = (typia.createValidateParse as any).is_uuid;
-                const $is_email = (typia.createValidateParse as any).is_email;
-                const $is_url = (typia.createValidateParse as any).is_url;
-                const $is_ipv4 = (typia.createValidateParse as any).is_ipv4;
-                const $is_ipv6 = (typia.createValidateParse as any).is_ipv6;
-                const $is_date = (typia.createValidateParse as any).is_date;
-                const $is_datetime = (typia.createValidateParse as any)
-                    .is_datetime;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
                     $is_uuid(input.uuid) &&

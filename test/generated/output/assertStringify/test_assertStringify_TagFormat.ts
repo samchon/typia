@@ -17,14 +17,6 @@ export const test_assertStringify_TagFormat = _test_assertStringify(
                 const $is_date = (typia.assertStringify as any).is_date;
                 const $is_datetime = (typia.assertStringify as any).is_datetime;
                 const __is = (input: any): input is TagFormat => {
-                    const $is_uuid = (typia.assertStringify as any).is_uuid;
-                    const $is_email = (typia.assertStringify as any).is_email;
-                    const $is_url = (typia.assertStringify as any).is_url;
-                    const $is_ipv4 = (typia.assertStringify as any).is_ipv4;
-                    const $is_ipv6 = (typia.assertStringify as any).is_ipv6;
-                    const $is_date = (typia.assertStringify as any).is_date;
-                    const $is_datetime = (typia.assertStringify as any)
-                        .is_datetime;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.uuid &&
                         $is_uuid(input.uuid) &&

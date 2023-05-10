@@ -21,6 +21,7 @@
               "prefix_C"
             ],
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -32,6 +33,7 @@
               "1_postfix"
             ],
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -49,6 +51,7 @@
               "the_1_value_with_label_C"
             ],
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

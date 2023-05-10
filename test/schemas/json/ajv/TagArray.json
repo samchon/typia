@@ -19,6 +19,7 @@
             "items": {
               "type": "string",
               "nullable": false,
+              "description": "",
               "x-typia-metaTags": [
                 {
                   "kind": "items",
@@ -54,6 +55,7 @@
               "format": "uuid"
             },
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "items",
@@ -92,6 +94,7 @@
             "items": {
               "type": "number",
               "nullable": false,
+              "description": "",
               "x-typia-metaTags": [
                 {
                   "kind": "minItems",
@@ -127,6 +130,7 @@
               "minimum": 3
             },
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "minItems",
@@ -168,6 +172,7 @@
                 {
                   "type": "string",
                   "nullable": false,
+                  "description": "",
                   "x-typia-metaTags": [
                     {
                       "kind": "maxItems",
@@ -218,6 +223,7 @@
                 {
                   "type": "number",
                   "nullable": false,
+                  "description": "",
                   "x-typia-metaTags": [
                     {
                       "kind": "maxItems",
@@ -266,6 +272,7 @@
                   "maximum": 7
                 }
               ],
+              "description": "",
               "x-typia-metaTags": [
                 {
                   "kind": "maxItems",
@@ -313,6 +320,7 @@
               "x-typia-optional": false
             },
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "maxItems",
@@ -365,6 +373,7 @@
             "items": {
               "type": "string",
               "nullable": false,
+              "description": "",
               "x-typia-metaTags": [
                 {
                   "kind": "minItems",
@@ -413,6 +422,7 @@
               "format": "uuid"
             },
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "minItems",

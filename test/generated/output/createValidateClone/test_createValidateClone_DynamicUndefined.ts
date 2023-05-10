@@ -8,7 +8,6 @@ export const test_createValidateClone_DynamicUndefined = _test_validateClone(
     (input: any): typia.IValidation<typia.Primitive<DynamicUndefined>> => {
         const validate = (input: any): typia.IValidation<DynamicUndefined> => {
             const __is = (input: any): input is DynamicUndefined => {
-                const $join = (typia.createValidateClone as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key) => {
                         const value = input[key];

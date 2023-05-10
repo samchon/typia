@@ -85,7 +85,7 @@ export namespace AssertProgrammer {
                         ...importer.declare(modulo),
                         StatementFactory.constant(
                             "__is",
-                            IsProgrammer.write(project)(modulo)(equals)(
+                            IsProgrammer.write(project)(modulo, true)(equals)(
                                 type,
                                 name ??
                                     TypeFactory.getFullName(project.checker)(

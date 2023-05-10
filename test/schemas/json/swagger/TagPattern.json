@@ -12,6 +12,7 @@
           "uuid": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "pattern",
@@ -36,6 +37,7 @@
           "email": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "pattern",
@@ -60,6 +62,7 @@
           "ipv4": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "pattern",
@@ -84,6 +87,7 @@
           "ipv6": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "pattern",

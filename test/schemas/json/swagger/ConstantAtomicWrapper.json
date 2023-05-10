@@ -48,6 +48,7 @@
           "value": {
             "type": "boolean",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -64,6 +65,7 @@
           "value": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -80,6 +82,7 @@
           "value": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

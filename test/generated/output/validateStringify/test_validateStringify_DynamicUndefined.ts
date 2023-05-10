@@ -11,7 +11,6 @@ export const test_validateStringify_DynamicUndefined = _test_validateStringify(
                 input: any,
             ): typia.IValidation<DynamicUndefined> => {
                 const __is = (input: any): input is DynamicUndefined => {
-                    const $join = (typia.validateStringify as any).join;
                     const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key) => {
                             const value = input[key];

@@ -11,7 +11,6 @@ export const test_validatePrune_DynamicComposite = _test_validatePrune(
                 input: any,
             ): typia.IValidation<DynamicComposite> => {
                 const __is = (input: any): input is DynamicComposite => {
-                    const $join = (typia.validatePrune as any).join;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&

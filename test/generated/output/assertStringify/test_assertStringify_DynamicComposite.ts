@@ -11,7 +11,6 @@ export const test_assertStringify_DynamicComposite = _test_assertStringify(
                 const $guard = (typia.assertStringify as any).guard;
                 const $join = (typia.assertStringify as any).join;
                 const __is = (input: any): input is DynamicComposite => {
-                    const $join = (typia.assertStringify as any).join;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&

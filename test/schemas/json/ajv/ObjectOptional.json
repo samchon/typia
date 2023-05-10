@@ -13,24 +13,28 @@
           "id": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "email": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "sequence": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           }

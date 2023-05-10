@@ -7,7 +7,6 @@ export const test_createValidate_DynamicNever = _test_validate(
     DynamicNever.generate,
     (input: any): typia.IValidation<DynamicNever> => {
         const __is = (input: any): input is DynamicNever => {
-            const $join = (typia.createValidate as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key) => {
                     const value = input[key];

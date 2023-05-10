@@ -7,13 +7,6 @@ export const test_createValidate_TagFormat = _test_validate(
     TagFormat.generate,
     (input: any): typia.IValidation<TagFormat> => {
         const __is = (input: any): input is TagFormat => {
-            const $is_uuid = (typia.createValidate as any).is_uuid;
-            const $is_email = (typia.createValidate as any).is_email;
-            const $is_url = (typia.createValidate as any).is_url;
-            const $is_ipv4 = (typia.createValidate as any).is_ipv4;
-            const $is_ipv6 = (typia.createValidate as any).is_ipv6;
-            const $is_date = (typia.createValidate as any).is_date;
-            const $is_datetime = (typia.createValidate as any).is_datetime;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.uuid &&
                 $is_uuid(input.uuid) &&

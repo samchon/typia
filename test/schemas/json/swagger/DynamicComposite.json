@@ -12,12 +12,14 @@
           "id": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -32,18 +34,21 @@
           "^-?\\d+\\.?\\d*$": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "^(prefix_(.*))": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "((.*)_postfix)$": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -52,28 +57,33 @@
               {
                 "type": "string",
                 "nullable": false,
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "type": "number",
                 "nullable": false,
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "type": "boolean",
                 "nullable": false,
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "^(between_(.*)_and_-?\\d+\\.?\\d*)$": {
             "type": "boolean",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

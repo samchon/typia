@@ -10,7 +10,6 @@ export const test_validate_UltimateUnion = _test_validate(
             const __is = (
                 input: any,
             ): input is Array<typia.IJsonApplication> => {
-                const $join = (typia.validate as any).join;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.schemas) &&
                     input.schemas.every(

@@ -11,7 +11,6 @@ export const test_validateEquals_TagMatrix = _test_validateEquals(
                 input: any,
                 _exceptionable: boolean = true,
             ): input is TagMatrix => {
-                const $is_uuid = (typia.validateEquals as any).is_uuid;
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,

@@ -34,7 +34,6 @@ export const test_random_DynamicUndefined = _test_random(
         const __is = (
             input: any,
         ): input is typia.Primitive<DynamicUndefined> => {
-            const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key) => {
                     const value = input[key];

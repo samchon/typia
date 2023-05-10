@@ -8,15 +8,6 @@ export const test_createValidateStringify_TagFormat = _test_validateStringify(
     (input: TagFormat): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<TagFormat> => {
             const __is = (input: any): input is TagFormat => {
-                const $is_uuid = (typia.createValidateStringify as any).is_uuid;
-                const $is_email = (typia.createValidateStringify as any)
-                    .is_email;
-                const $is_url = (typia.createValidateStringify as any).is_url;
-                const $is_ipv4 = (typia.createValidateStringify as any).is_ipv4;
-                const $is_ipv6 = (typia.createValidateStringify as any).is_ipv6;
-                const $is_date = (typia.createValidateStringify as any).is_date;
-                const $is_datetime = (typia.createValidateStringify as any)
-                    .is_datetime;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
                     $is_uuid(input.uuid) &&

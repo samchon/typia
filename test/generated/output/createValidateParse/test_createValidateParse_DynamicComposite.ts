@@ -8,7 +8,6 @@ export const test_createValidateParse_DynamicComposite = _test_validateParse(
     (input: string): typia.IValidation<typia.Primitive<DynamicComposite>> => {
         const validate = (input: any): typia.IValidation<DynamicComposite> => {
             const __is = (input: any): input is DynamicComposite => {
-                const $join = (typia.createValidateParse as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&

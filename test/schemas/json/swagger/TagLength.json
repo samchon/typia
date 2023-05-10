@@ -16,6 +16,7 @@
           "fixed": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "length",
@@ -39,6 +40,7 @@
           "minimum": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "minLength",
@@ -63,6 +65,7 @@
           "maximum": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "maxLength",
@@ -87,6 +90,7 @@
           "minimum_and_maximum": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "minLength",

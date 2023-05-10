@@ -14,7 +14,6 @@ export const test_assertEquals_TagMatrix = _test_assertEquals(
                 input: any,
                 _exceptionable: boolean = true,
             ): input is TagMatrix => {
-                const $is_uuid = (typia.assertEquals as any).is_uuid;
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,

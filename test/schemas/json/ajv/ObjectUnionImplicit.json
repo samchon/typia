@@ -39,18 +39,21 @@
           "x": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "y": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "slope": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           }
@@ -68,23 +71,27 @@
         "properties": {
           "p1": {
             "$ref": "components#/schemas/ObjectUnionImplicit.IPoint",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p2": {
             "$ref": "components#/schemas/ObjectUnionImplicit.IPoint",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "width": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "distance": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           }
@@ -102,34 +109,40 @@
         "properties": {
           "p1": {
             "$ref": "components#/schemas/ObjectUnionImplicit.IPoint",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p2": {
             "$ref": "components#/schemas/ObjectUnionImplicit.IPoint",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p3": {
             "$ref": "components#/schemas/ObjectUnionImplicit.IPoint",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "width": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "height": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "area": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           }
@@ -148,39 +161,46 @@
         "properties": {
           "p1": {
             "$ref": "components#/schemas/ObjectUnionImplicit.IPoint",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p2": {
             "$ref": "components#/schemas/ObjectUnionImplicit.IPoint",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p3": {
             "$ref": "components#/schemas/ObjectUnionImplicit.IPoint",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p4": {
             "$ref": "components#/schemas/ObjectUnionImplicit.IPoint",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "width": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "height": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "area": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           }
@@ -202,16 +222,19 @@
             "type": "array",
             "items": {
               "$ref": "components#/schemas/ObjectUnionImplicit.IPoint",
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             },
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "length": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           }
@@ -228,6 +251,7 @@
         "properties": {
           "outer": {
             "$ref": "components#/schemas/ObjectUnionImplicit.IPolyline",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -235,16 +259,19 @@
             "type": "array",
             "items": {
               "$ref": "components#/schemas/ObjectUnionImplicit.IPolyline",
+              "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
             },
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "area": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           }
@@ -261,18 +288,21 @@
         "properties": {
           "centroid": {
             "$ref": "components#/schemas/ObjectUnionImplicit.IPoint",
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "radius": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "area": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           }

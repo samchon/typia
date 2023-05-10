@@ -12,7 +12,6 @@ export const test_assert_UltimateUnion = _test_assert(
             const __is = (
                 input: any,
             ): input is Array<typia.IJsonApplication> => {
-                const $join = (typia.assert as any).join;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.schemas) &&
                     input.schemas.every(

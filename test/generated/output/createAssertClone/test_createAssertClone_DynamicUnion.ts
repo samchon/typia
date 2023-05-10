@@ -10,7 +10,6 @@ export const test_createAssertClone_DynamicUnion = _test_assertClone(
             const $guard = (typia.createAssertClone as any).guard;
             const $join = (typia.createAssertClone as any).join;
             const __is = (input: any): input is DynamicUnion => {
-                const $join = (typia.createAssertClone as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key) => {
                         const value = input[key];

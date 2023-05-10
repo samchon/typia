@@ -62,6 +62,7 @@
           "value": {
             "type": "boolean",
             "nullable": true,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -79,6 +80,7 @@
           "value": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -96,6 +98,7 @@
           "value": {
             "type": "string",
             "nullable": true,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -112,6 +115,7 @@
         "properties": {
           "value": {
             "$ref": "components#/schemas/ObjectPropertyNullable.IMember.Nullable",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -129,30 +133,35 @@
           "id": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": true,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "grade": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "serial": {
             "type": "number",
             "nullable": true,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "activated": {
             "type": "boolean",
             "nullable": true,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

@@ -22,6 +22,7 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/__type",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -29,15 +30,18 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/ObjectUnionDouble.IAA",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/ObjectUnionDouble.IAB",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -55,6 +59,7 @@
           "x": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -70,6 +75,7 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/__type.o1",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -86,6 +92,7 @@
           "y": {
             "type": "boolean",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -101,6 +108,7 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/__type.o2",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -117,6 +125,7 @@
           "y": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -132,6 +141,7 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/__type.o3",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -139,15 +149,18 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/ObjectUnionDouble.IBA",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/ObjectUnionDouble.IBB",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -165,6 +178,7 @@
           "x": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -180,6 +194,7 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/__type.o4",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -196,6 +211,7 @@
           "y": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -211,6 +227,7 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/__type.o5",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -229,10 +246,12 @@
             "items": {
               "type": "number",
               "nullable": false,
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             },
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
