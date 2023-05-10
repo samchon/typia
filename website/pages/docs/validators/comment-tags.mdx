@@ -140,18 +140,20 @@ export const customValidators: CustomValidatorMap;
 export interface CustomValidatorMap {
     size(): number;
     size(name: string): number;
+    
+    // Type: {boolean, number, bigint, string}
     has: (name: string) => (type: keyof Customizable) => boolean;
-    get(
-        name: string,
-    ): <Type extends keyof Customizable>(
-        type: Type,
-    ) => CustomValidatorMap.Closure<Type> | undefined;
-    erase(name: string): (type: keyof Customizable) => boolean;
-    insert(
-        name: string, // tag name
-    ): <Type extends keyof Customizable>(
-        type: Type, // instance type -> boolean | number | bigint | string
-    ) => (closure: CustomValidatorMap.Closure<Type>) => boolean;
+    get:
+        (name: string) => 
+        <Type extends keyof Customizable>(type: Type) => 
+            CustomValidatorMap.Closure<Type> | undefined;
+    erase: 
+        (name: string) => 
+        (type: keyof Customizable) => boolean;
+    insert: 
+        (name: string) => 
+        <Type extends keyof Customizable>(type: Type) => 
+        (closure: CustomValidatorMap.Closure<Type>) => boolean;
 }
 export namespace CustomValidatorMap {
     export type Closure<Type extends keyof Customizable> = 
@@ -173,7 +175,7 @@ export interface Customizable {
 
 You can add custom comment tags for type validation.
 
-If you need addtional comment tag for type validation, just define it by yourself. Write your custom validation logic as a closure function, and register it through `typia.customValidationMap.insert()` function, reading above `CustomValidatorMap` type definition.
+If you need addtional comment tag for type validation, just define it by yourself. Write your custom validation logic as a closure function, and register it through `typia.customValidationMap.insert()` function, following above `CustomValidatorMap` and `Customizable` types.
 
 Note that, 1st parameter of `typia.customValidationMap.insert()` function means tag name, and 2nd parameter means instance type (`boolean|nubmer|bigint|string`). Also, when defining closure currying function of validation logic, 1st parameter means tag name and 2nd means input value.
 
