@@ -16,6 +16,7 @@
           "date": {
             "type": "string",
             "nullable": true,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -23,30 +24,36 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/Uint8Array",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/Uint8ClampedArray",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/Uint16Array",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/Uint32Array",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/BigUint64Array",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -54,25 +61,30 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/Int8Array",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/Int16Array",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/Int32Array",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/BigInt64Array",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -80,15 +92,18 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/Float32Array",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/Float64Array",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -96,25 +111,30 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/ArrayBuffer",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/SharedArrayBuffer",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/DataView",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/__type",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -122,15 +142,18 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/WeakSet",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/WeakMap",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -225,6 +248,7 @@
               "Buffer"
             ],
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -233,10 +257,12 @@
             "items": {
               "type": "number",
               "nullable": false,
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             },
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

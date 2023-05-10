@@ -13,7 +13,6 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                 const __is = (
                     input: any,
                 ): input is Array<typia.IJsonApplication> => {
-                    const $join = (typia.assertStringify as any).join;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.schemas) &&
                         input.schemas.every(

@@ -7,8 +7,6 @@ export const test_createValidate_TagCustom = _test_validate(
     TagCustom.generate,
     (input: any): typia.IValidation<TagCustom> => {
         const __is = (input: any): input is TagCustom => {
-            const $is_uuid = (typia.createValidate as any).is_uuid;
-            const $is_custom = (typia.createValidate as any).is_custom;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 $is_uuid(input.id) &&

@@ -11,8 +11,6 @@ export const test_validateEquals_TagCustom = _test_validateEquals(
                 input: any,
                 _exceptionable: boolean = true,
             ): input is TagCustom => {
-                const $is_uuid = (typia.validateEquals as any).is_uuid;
-                const $is_custom = (typia.validateEquals as any).is_custom;
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,

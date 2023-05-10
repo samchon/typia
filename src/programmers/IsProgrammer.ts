@@ -12,6 +12,7 @@ import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
+import { disable_function_importer_declare } from "./helpers/disable_function_importer_declare";
 import { check_object } from "./internal/check_object";
 import { feature_object_entries } from "./internal/feature_object_entries";
 
@@ -103,9 +104,12 @@ export namespace IsProgrammer {
 
     export const write =
         (project: IProject) =>
-        (modulo: ts.LeftHandSideExpression) =>
+        (modulo: ts.LeftHandSideExpression, disable?: boolean) =>
         (equals: boolean) => {
-            const importer: FunctionImporter = new FunctionImporter();
+            const importer: FunctionImporter =
+                disable === true
+                    ? disable_function_importer_declare(new FunctionImporter())
+                    : new FunctionImporter();
 
             // CONFIGURATION
             const config: CheckerProgrammer.IConfig = {

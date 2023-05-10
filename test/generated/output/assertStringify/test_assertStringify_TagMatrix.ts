@@ -11,7 +11,6 @@ export const test_assertStringify_TagMatrix = _test_assertStringify(
                 const $guard = (typia.assertStringify as any).guard;
                 const $is_uuid = (typia.assertStringify as any).is_uuid;
                 const __is = (input: any): input is TagMatrix => {
-                    const $is_uuid = (typia.assertStringify as any).is_uuid;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.matrix) &&
                         3 === input.matrix.length &&

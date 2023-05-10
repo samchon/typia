@@ -8,7 +8,6 @@ export const test_createValidateClone_DynamicComposite = _test_validateClone(
     (input: any): typia.IValidation<typia.Primitive<DynamicComposite>> => {
         const validate = (input: any): typia.IValidation<DynamicComposite> => {
             const __is = (input: any): input is DynamicComposite => {
-                const $join = (typia.createValidateClone as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&

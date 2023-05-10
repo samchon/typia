@@ -11,7 +11,6 @@ export const test_assertPrune_DynamicComposite = _test_assertPrune(
                 const $guard = (typia.assertPrune as any).guard;
                 const $join = (typia.assertPrune as any).join;
                 const __is = (input: any): input is DynamicComposite => {
-                    const $join = (typia.assertPrune as any).join;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&

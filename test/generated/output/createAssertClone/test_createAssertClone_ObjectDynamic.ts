@@ -10,7 +10,6 @@ export const test_createAssertClone_ObjectDynamic = _test_assertClone(
             const $guard = (typia.createAssertClone as any).guard;
             const $join = (typia.createAssertClone as any).join;
             const __is = (input: any): input is ObjectDynamic => {
-                const $join = (typia.createAssertClone as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key) => {
                         const value = input[key];

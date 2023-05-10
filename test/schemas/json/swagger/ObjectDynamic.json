@@ -16,22 +16,26 @@
             {
               "type": "string",
               "nullable": false,
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             },
             {
               "type": "number",
               "nullable": false,
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             },
             {
               "type": "boolean",
               "nullable": false,
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             }
           ],
+          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false
         },
@@ -40,22 +44,26 @@
             {
               "type": "string",
               "nullable": false,
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             },
             {
               "type": "number",
               "nullable": false,
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             },
             {
               "type": "boolean",
               "nullable": false,
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             }
           ],
+          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false
         }

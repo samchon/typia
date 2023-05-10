@@ -13,35 +13,41 @@
         "properties": {
           "parent": {
             "$recursiveRef": "components#/schemas/ObjectRecursive.IDepartment.Nullable",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "id": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "code": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "sequence": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "created_at": {
             "$ref": "components#/schemas/ObjectRecursive.ITimestamp",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -64,35 +70,41 @@
         "properties": {
           "parent": {
             "$recursiveRef": "components#/schemas/ObjectRecursive.IDepartment.Nullable",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "id": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "code": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "sequence": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "created_at": {
             "$ref": "components#/schemas/ObjectRecursive.ITimestamp",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -115,12 +127,14 @@
           "time": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "zone": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

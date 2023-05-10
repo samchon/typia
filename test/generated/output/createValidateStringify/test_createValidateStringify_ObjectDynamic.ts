@@ -9,7 +9,6 @@ export const test_createValidateStringify_ObjectDynamic =
         (input: ObjectDynamic): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ObjectDynamic> => {
                 const __is = (input: any): input is ObjectDynamic => {
-                    const $join = (typia.createValidateStringify as any).join;
                     const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key) => {
                             const value = input[key];

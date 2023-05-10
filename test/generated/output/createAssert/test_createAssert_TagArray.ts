@@ -9,7 +9,6 @@ export const test_createAssert_TagArray = _test_assert(
         const $guard = (typia.createAssert as any).guard;
         const $is_uuid = (typia.createAssert as any).is_uuid;
         const __is = (input: any): input is TagArray => {
-            const $is_uuid = (typia.createAssert as any).is_uuid;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.items) &&
                 3 === input.items.length &&

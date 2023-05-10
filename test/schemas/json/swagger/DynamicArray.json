@@ -16,10 +16,12 @@
           "items": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "nullable": false,
+          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false
         },
@@ -28,10 +30,12 @@
           "items": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "nullable": false,
+          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false
         }

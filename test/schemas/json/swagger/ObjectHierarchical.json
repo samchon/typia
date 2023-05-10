@@ -12,33 +12,39 @@
           "id": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "channel": {
             "$ref": "#/components/schemas/ObjectHierarchical.IChannel",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "member": {
             "$ref": "#/components/schemas/ObjectHierarchical.IMember.Nullable",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "account": {
             "$ref": "#/components/schemas/ObjectHierarchical.IAccount.Nullable",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "href": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "referrer": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -47,6 +53,7 @@
             "items": {
               "type": "number",
               "nullable": false,
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             },
@@ -57,38 +64,45 @@
                 {
                   "type": "number",
                   "nullable": false,
+                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
                   "type": "number",
                   "nullable": false,
+                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
                   "type": "number",
                   "nullable": false,
+                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
                   "type": "number",
                   "nullable": false,
+                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false,
                   "x-typia-rest": false
                 }
               ],
               "nullable": false,
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             },
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "created_at": {
             "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -112,41 +126,48 @@
           "id": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "code": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "sequence": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "exclusive": {
             "type": "boolean",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "priority": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "created_at": {
             "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -169,12 +190,14 @@
           "time": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "zone": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -192,16 +215,19 @@
           "id": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "account": {
             "$ref": "#/components/schemas/ObjectHierarchical.IAccount",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "enterprise": {
             "$ref": "#/components/schemas/ObjectHierarchical.IEnterprise.Nullable",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -210,21 +236,25 @@
             "items": {
               "type": "string",
               "nullable": false,
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             },
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "created_at": {
             "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "authorized": {
             "type": "boolean",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -246,17 +276,20 @@
           "id": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "code": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "created_at": {
             "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -275,28 +308,33 @@
           "id": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "account": {
             "$ref": "#/components/schemas/ObjectHierarchical.IAccount",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "grade": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "created_at": {
             "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -317,17 +355,20 @@
           "id": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "code": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "created_at": {
             "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

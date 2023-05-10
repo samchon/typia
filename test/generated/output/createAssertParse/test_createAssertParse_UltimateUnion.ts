@@ -10,7 +10,6 @@ export const test_createAssertParse_UltimateUnion = _test_assertParse(
             const $guard = (typia.createAssertParse as any).guard;
             const $join = (typia.createAssertParse as any).join;
             const __is = (input: any): input is UltimateUnion => {
-                const $join = (typia.createAssertParse as any).join;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.schemas) &&
                     input.schemas.every(

@@ -16,6 +16,7 @@
           "prefix": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "pattern": "^((prefix_(.*))|(prefix_-?\\d+\\.?\\d*))$"
@@ -23,6 +24,7 @@
           "postfix": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "pattern": "(((.*)_postfix)|(-?\\d+\\.?\\d*_postfix))$"
@@ -30,6 +32,7 @@
           "middle": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "pattern": "^(the_false_value|the_true_value|(the_-?\\d+\\.?\\d*_value))$"
@@ -39,6 +42,7 @@
               {
                 "type": "string",
                 "nullable": false,
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "pattern": "^(the_A_value|the_B_value|-?\\d+\\.?\\d*|true|false|(the_-?\\d+\\.?\\d*_value))$"
@@ -46,21 +50,25 @@
               {
                 "type": "number",
                 "nullable": false,
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "type": "boolean",
                 "nullable": false,
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/__type",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -80,6 +88,7 @@
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

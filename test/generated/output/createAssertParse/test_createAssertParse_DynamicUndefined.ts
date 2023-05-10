@@ -10,7 +10,6 @@ export const test_createAssertParse_DynamicUndefined = _test_assertParse(
             const $guard = (typia.createAssertParse as any).guard;
             const $join = (typia.createAssertParse as any).join;
             const __is = (input: any): input is DynamicUndefined => {
-                const $join = (typia.createAssertParse as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key) => {
                         const value = input[key];

@@ -9,7 +9,6 @@ export const test_createAssert_DynamicComposite = _test_assert(
         const $guard = (typia.createAssert as any).guard;
         const $join = (typia.createAssert as any).join;
         const __is = (input: any): input is DynamicComposite => {
-            const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&

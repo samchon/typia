@@ -9,7 +9,6 @@ export const test_validateClone_DynamicArray = _test_validateClone(
         ((input: any): typia.IValidation<typia.Primitive<DynamicArray>> => {
             const validate = (input: any): typia.IValidation<DynamicArray> => {
                 const __is = (input: any): input is DynamicArray => {
-                    const $join = (typia.validateClone as any).join;
                     const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key) => {
                             const value = input[key];

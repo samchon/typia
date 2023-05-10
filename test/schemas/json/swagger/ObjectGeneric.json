@@ -48,11 +48,13 @@
           "value": {
             "type": "boolean",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "child": {
             "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -60,10 +62,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_",
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             },
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -82,12 +86,14 @@
           "child_value": {
             "type": "boolean",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "child_next": {
             "type": "boolean",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -105,11 +111,13 @@
           "value": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "child": {
             "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_number_comma__space_number_gt_",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -117,10 +125,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_number_comma__space_number_gt_",
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             },
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -139,12 +149,14 @@
           "child_value": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "child_next": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -162,11 +174,13 @@
           "value": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "child": {
             "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_string_comma__space_string_gt_",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -174,10 +188,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_string_comma__space_string_gt_",
+              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             },
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -196,12 +212,14 @@
           "child_value": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "child_next": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

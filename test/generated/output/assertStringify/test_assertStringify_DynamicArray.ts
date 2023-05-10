@@ -11,7 +11,6 @@ export const test_assertStringify_DynamicArray = _test_assertStringify(
                 const $guard = (typia.assertStringify as any).guard;
                 const $join = (typia.assertStringify as any).join;
                 const __is = (input: any): input is DynamicArray => {
-                    const $join = (typia.assertStringify as any).join;
                     const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key) => {
                             const value = input[key];

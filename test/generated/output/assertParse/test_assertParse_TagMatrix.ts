@@ -11,7 +11,6 @@ export const test_assertParse_TagMatrix = _test_assertParse(
                 const $guard = (typia.assertParse as any).guard;
                 const $is_uuid = (typia.assertParse as any).is_uuid;
                 const __is = (input: any): input is TagMatrix => {
-                    const $is_uuid = (typia.assertParse as any).is_uuid;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.matrix) &&
                         3 === input.matrix.length &&

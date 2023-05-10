@@ -13,6 +13,7 @@
           "boolean": {
             "type": "boolean",
             "nullable": false,
+            "description": "",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -31,6 +32,7 @@
           "number": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -49,6 +51,7 @@
           "string": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -67,6 +70,7 @@
           "text": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -85,6 +89,7 @@
           "template": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -106,6 +111,7 @@
               {
                 "type": "string",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -142,6 +148,7 @@
               {
                 "type": "number",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -178,6 +185,7 @@
               {
                 "type": "boolean",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -212,6 +220,7 @@
                 "default": true
               }
             ],
+            "description": "",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -249,6 +258,7 @@
               {
                 "type": "string",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -266,6 +276,7 @@
               {
                 "type": "number",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -283,6 +294,7 @@
               {
                 "type": "boolean",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -299,6 +311,7 @@
                 "default": true
               }
             ],
+            "description": "",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -318,6 +331,7 @@
               {
                 "type": "string",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -335,6 +349,7 @@
               {
                 "type": "number",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -353,6 +368,7 @@
               {
                 "type": "boolean",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -368,6 +384,7 @@
                 "x-typia-optional": false
               }
             ],
+            "description": "",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -387,6 +404,7 @@
               {
                 "type": "string",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -405,6 +423,7 @@
               {
                 "type": "number",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -422,6 +441,7 @@
               {
                 "type": "boolean",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -437,6 +457,7 @@
                 "x-typia-optional": false
               }
             ],
+            "description": "",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -454,6 +475,7 @@
           "vulnerable_range": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -501,6 +523,7 @@
           "vulnerable_template": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -521,6 +544,7 @@
               {
                 "type": "string",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -558,6 +582,7 @@
               {
                 "type": "number",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -594,6 +619,7 @@
               {
                 "type": "boolean",
                 "nullable": false,
+                "description": "",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -628,6 +654,7 @@
                 "default": true
               }
             ],
+            "description": "",
             "x-typia-jsDocTags": [
               {
                 "name": "default",

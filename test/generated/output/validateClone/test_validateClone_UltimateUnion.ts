@@ -17,7 +17,6 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                 const __is = (
                     input: any,
                 ): input is Array<typia.IJsonApplication> => {
-                    const $join = (typia.validateClone as any).join;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.schemas) &&
                         input.schemas.every(

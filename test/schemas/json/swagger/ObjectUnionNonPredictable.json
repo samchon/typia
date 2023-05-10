@@ -15,6 +15,7 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -32,20 +33,24 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -61,6 +66,7 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -77,6 +83,7 @@
           "value": {
             "type": "boolean",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -92,6 +99,7 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -108,6 +116,7 @@
           "value": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -123,6 +132,7 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -139,6 +149,7 @@
           "value": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

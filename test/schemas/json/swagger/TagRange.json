@@ -16,6 +16,7 @@
           "greater": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "exclusiveMinimum",
@@ -41,6 +42,7 @@
           "greater_equal": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -65,6 +67,7 @@
           "less": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "exclusiveMaximum",
@@ -90,6 +93,7 @@
           "less_equal": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "maximum",
@@ -114,6 +118,7 @@
           "greater_less": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "exclusiveMinimum",
@@ -154,6 +159,7 @@
           "greater_equal_less": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -193,6 +199,7 @@
           "greater_less_equal": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "exclusiveMinimum",
@@ -232,6 +239,7 @@
           "greater_equal_less_equal": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",

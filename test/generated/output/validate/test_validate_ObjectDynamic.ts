@@ -8,7 +8,6 @@ export const test_validate_ObjectDynamic = _test_validate(
     (input) =>
         ((input: any): typia.IValidation<ObjectDynamic> => {
             const __is = (input: any): input is ObjectDynamic => {
-                const $join = (typia.validate as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key) => {
                         const value = input[key];

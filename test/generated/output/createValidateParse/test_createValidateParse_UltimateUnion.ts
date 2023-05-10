@@ -8,7 +8,6 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
     (input: string): typia.IValidation<typia.Primitive<UltimateUnion>> => {
         const validate = (input: any): typia.IValidation<UltimateUnion> => {
             const __is = (input: any): input is UltimateUnion => {
-                const $join = (typia.createValidateParse as any).join;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.schemas) &&
                     input.schemas.every(

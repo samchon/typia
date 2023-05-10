@@ -14,12 +14,14 @@
         "x-typia-additionalProperties": {
           "type": "number",
           "nullable": false,
+          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false
         },
         "additionalProperties": {
           "type": "number",
           "nullable": false,
+          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false
         }

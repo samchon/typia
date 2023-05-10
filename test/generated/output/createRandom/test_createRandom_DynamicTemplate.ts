@@ -82,7 +82,6 @@ export const test_createRandom_DynamicTemplate = _test_random(
         const __is = (
             input: any,
         ): input is typia.Primitive<DynamicTemplate> => {
-            const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key) => {
                     const value = input[key];

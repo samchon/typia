@@ -8,7 +8,6 @@ export const test_createValidateParse_DynamicArray = _test_validateParse(
     (input: string): typia.IValidation<typia.Primitive<DynamicArray>> => {
         const validate = (input: any): typia.IValidation<DynamicArray> => {
             const __is = (input: any): input is DynamicArray => {
-                const $join = (typia.createValidateParse as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key) => {
                         const value = input[key];

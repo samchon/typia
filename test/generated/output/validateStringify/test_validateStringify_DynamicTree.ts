@@ -9,7 +9,6 @@ export const test_validateStringify_DynamicTree = _test_validateStringify(
         ((input: DynamicTree): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<DynamicTree> => {
                 const __is = (input: any): input is DynamicTree => {
-                    const $join = (typia.validateStringify as any).join;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "number" === typeof input.sequence &&

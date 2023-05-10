@@ -9,7 +9,6 @@ export const test_validateClone_DynamicTree = _test_validateClone(
         ((input: any): typia.IValidation<typia.Primitive<DynamicTree>> => {
             const validate = (input: any): typia.IValidation<DynamicTree> => {
                 const __is = (input: any): input is DynamicTree => {
-                    const $join = (typia.validateClone as any).join;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "number" === typeof input.sequence &&

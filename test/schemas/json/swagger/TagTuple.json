@@ -16,6 +16,7 @@
                 {
                   "type": "string",
                   "nullable": false,
+                  "description": "",
                   "x-typia-metaTags": [
                     {
                       "kind": "minItems",
@@ -106,6 +107,7 @@
                 {
                   "type": "number",
                   "nullable": false,
+                  "description": "",
                   "x-typia-metaTags": [
                     {
                       "kind": "minItems",
@@ -198,6 +200,7 @@
                   "items": {
                     "type": "string",
                     "nullable": false,
+                    "description": "",
                     "x-typia-metaTags": [
                       {
                         "kind": "minItems",
@@ -286,6 +289,7 @@
                     "maxLength": 7
                   },
                   "nullable": false,
+                  "description": "",
                   "x-typia-metaTags": [
                     {
                       "kind": "minItems",
@@ -378,6 +382,7 @@
                   "items": {
                     "type": "number",
                     "nullable": false,
+                    "description": "",
                     "x-typia-metaTags": [
                       {
                         "kind": "minItems",
@@ -466,6 +471,7 @@
                     "maximum": 7
                   },
                   "nullable": false,
+                  "description": "",
                   "x-typia-metaTags": [
                     {
                       "kind": "minItems",
@@ -554,6 +560,7 @@
                   "maxItems": 7
                 }
               ],
+              "description": "",
               "x-typia-metaTags": [
                 {
                   "kind": "minItems",
@@ -646,6 +653,7 @@
                 {
                   "type": "string",
                   "nullable": false,
+                  "description": "",
                   "x-typia-metaTags": [
                     {
                       "kind": "minItems",
@@ -736,6 +744,7 @@
                 {
                   "type": "number",
                   "nullable": false,
+                  "description": "",
                   "x-typia-metaTags": [
                     {
                       "kind": "minItems",
@@ -828,6 +837,7 @@
                   "items": {
                     "type": "string",
                     "nullable": false,
+                    "description": "",
                     "x-typia-metaTags": [
                       {
                         "kind": "minItems",
@@ -916,6 +926,7 @@
                     "maxLength": 7
                   },
                   "nullable": false,
+                  "description": "",
                   "x-typia-metaTags": [
                     {
                       "kind": "minItems",
@@ -1008,6 +1019,7 @@
                   "items": {
                     "type": "number",
                     "nullable": false,
+                    "description": "",
                     "x-typia-metaTags": [
                       {
                         "kind": "minItems",
@@ -1097,6 +1109,7 @@
                     "maximum": 7
                   },
                   "nullable": false,
+                  "description": "",
                   "x-typia-metaTags": [
                     {
                       "kind": "minItems",
@@ -1187,6 +1200,7 @@
                 }
               ],
               "nullable": false,
+              "description": "",
               "x-typia-metaTags": [
                 {
                   "kind": "minItems",
@@ -1272,6 +1286,7 @@
               "x-typia-required": true,
               "x-typia-optional": false
             },
+            "description": "",
             "x-typia-metaTags": [
               {
                 "kind": "minItems",

@@ -9,14 +9,6 @@ export const test_validatePrune_TagFormat = _test_validatePrune(
         ((input: any): typia.IValidation<TagFormat> => {
             const validate = (input: any): typia.IValidation<TagFormat> => {
                 const __is = (input: any): input is TagFormat => {
-                    const $is_uuid = (typia.validatePrune as any).is_uuid;
-                    const $is_email = (typia.validatePrune as any).is_email;
-                    const $is_url = (typia.validatePrune as any).is_url;
-                    const $is_ipv4 = (typia.validatePrune as any).is_ipv4;
-                    const $is_ipv6 = (typia.validatePrune as any).is_ipv6;
-                    const $is_date = (typia.validatePrune as any).is_date;
-                    const $is_datetime = (typia.validatePrune as any)
-                        .is_datetime;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.uuid &&
                         $is_uuid(input.uuid) &&

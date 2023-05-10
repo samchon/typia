@@ -11,7 +11,6 @@ export const test_validatePrune_TagArray = _test_validatePrune(
                 input: any,
             ): typia.IValidation<Array<TagArray.Type>> => {
                 const __is = (input: any): input is Array<TagArray.Type> => {
-                    const $is_uuid = (typia.validatePrune as any).is_uuid;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.items) &&
                         3 === input.items.length &&

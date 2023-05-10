@@ -13,60 +13,70 @@
           "ar": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false
           },
           "zh-Hans": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false
           },
           "zh-Hant": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false
           },
           "en": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false
           },
           "fr": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false
           },
           "de": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false
           },
           "ja": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false
           },
           "ko": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false
           },
           "pt": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false
           },
           "ru": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false
           }

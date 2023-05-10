@@ -9,8 +9,6 @@ export const test_validatePrune_TagCustom = _test_validatePrune(
         ((input: any): typia.IValidation<TagCustom> => {
             const validate = (input: any): typia.IValidation<TagCustom> => {
                 const __is = (input: any): input is TagCustom => {
-                    const $is_uuid = (typia.validatePrune as any).is_uuid;
-                    const $is_custom = (typia.validatePrune as any).is_custom;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         $is_uuid(input.id) &&

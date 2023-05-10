@@ -10,7 +10,6 @@ export const test_createAssertStringify_DynamicTree = _test_assertStringify(
             const $guard = (typia.createAssertStringify as any).guard;
             const $join = (typia.createAssertStringify as any).join;
             const __is = (input: any): input is DynamicTree => {
-                const $join = (typia.createAssertStringify as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "number" === typeof input.sequence &&

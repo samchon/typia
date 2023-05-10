@@ -13,7 +13,6 @@ export const test_assertClone_UltimateUnion = _test_assertClone(
                 const __is = (
                     input: any,
                 ): input is Array<typia.IJsonApplication> => {
-                    const $join = (typia.assertClone as any).join;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.schemas) &&
                         input.schemas.every(

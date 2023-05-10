@@ -9,7 +9,6 @@ export const test_validateClone_DynamicNever = _test_validateClone(
         ((input: any): typia.IValidation<typia.Primitive<DynamicNever>> => {
             const validate = (input: any): typia.IValidation<DynamicNever> => {
                 const __is = (input: any): input is DynamicNever => {
-                    const $join = (typia.validateClone as any).join;
                     const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key) => {
                             const value = input[key];

@@ -11,7 +11,6 @@ export const test_validateEquals_DynamicComposite = _test_validateEquals(
                 input: any,
                 _exceptionable: boolean = true,
             ): input is DynamicComposite => {
-                const $join = (typia.validateEquals as any).join;
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,

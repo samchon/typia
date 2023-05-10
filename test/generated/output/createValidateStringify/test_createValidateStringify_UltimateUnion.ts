@@ -9,7 +9,6 @@ export const test_createValidateStringify_UltimateUnion =
         (input: UltimateUnion): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<UltimateUnion> => {
                 const __is = (input: any): input is UltimateUnion => {
-                    const $join = (typia.createValidateStringify as any).join;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.schemas) &&
                         input.schemas.every(

@@ -83,13 +83,11 @@ export namespace MetadataTagFactory {
         /* -----------------------------------------------------------
             NUMBER
         ----------------------------------------------------------- */
-        type: (identifier, metadata, text, output) => {
-            validate(identifier, metadata, output, "type", "number", []);
-            if (text !== "int" && text !== "uint")
-                throw new Error(
-                    `${LABEL}: invalid type tag on "${identifier()}".`,
-                );
-            return { kind: "type", value: text };
+        type: (_identifier, metadata, text, _output) => {
+            return has_atomic(metadata)("number") &&
+                (text === "int" || text === "uint")
+                ? { kind: "type", value: text }
+                : null;
         },
         minimum: (identifier, metadata, text, output) => {
             validate(identifier, metadata, output, "minimum", "number", [

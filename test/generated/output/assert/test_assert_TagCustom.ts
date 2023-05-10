@@ -11,8 +11,6 @@ export const test_assert_TagCustom = _test_assert(
             const $is_uuid = (typia.assert as any).is_uuid;
             const $is_custom = (typia.assert as any).is_custom;
             const __is = (input: any): input is TagCustom => {
-                const $is_uuid = (typia.assert as any).is_uuid;
-                const $is_custom = (typia.assert as any).is_custom;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     $is_uuid(input.id) &&

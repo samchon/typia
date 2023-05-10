@@ -38,16 +38,19 @@
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "manufacturer": {
             "$ref": "#/components/schemas/ObjectNullable.IManufacturer",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "brand": {
             "$ref": "#/components/schemas/ObjectNullable.IBrand.Nullable",
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -55,15 +58,18 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/ObjectNullable.IManufacturer.Nullable",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/ObjectNullable.IBrand.Nullable",
+                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -86,12 +92,14 @@
               "manufacturer"
             ],
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -112,12 +120,14 @@
               "brand"
             ],
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -138,12 +148,14 @@
               "manufacturer"
             ],
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

@@ -51,11 +51,11 @@ export const emplace_metadata_object =
                 // COMMENTS AND TAGS
                 const description: string | undefined =
                     CommentFactory.string(
-                        symbol?.getDocumentationComment(checker) || [],
-                    ) || undefined;
+                        symbol?.getDocumentationComment(checker) ?? [],
+                    ) ?? undefined;
                 const jsDocTags: ts.JSDocTagInfo[] = (
-                    symbol?.getJsDocTags() || []
-                ).filter(filter || (() => true));
+                    symbol?.getJsDocTags() ?? []
+                ).filter(filter ?? (() => true));
 
                 // THE PROPERTY
                 const property = MetadataProperty.create({
@@ -77,7 +77,7 @@ export const emplace_metadata_object =
         for (const prop of parent.getApparentProperties()) {
             // CHECK INTERNAL TAG
             if (
-                (prop.getJsDocTags(checker) || []).find(
+                (prop.getJsDocTags(checker) ?? []).find(
                     (tag) => tag.name === "internal",
                 ) !== undefined
             )
@@ -85,7 +85,7 @@ export const emplace_metadata_object =
 
             // CHECK NODE IS A FORMAL PROPERTY
             const [node, type] = (() => {
-                const node = (prop.getDeclarations() || [])[0] as
+                const node = (prop.getDeclarations() ?? [])[0] as
                     | ts.PropertyDeclaration
                     | undefined;
                 const type: ts.Type | undefined = node

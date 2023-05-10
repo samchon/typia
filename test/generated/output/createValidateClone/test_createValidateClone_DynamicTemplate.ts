@@ -8,7 +8,6 @@ export const test_createValidateClone_DynamicTemplate = _test_validateClone(
     (input: any): typia.IValidation<typia.Primitive<DynamicTemplate>> => {
         const validate = (input: any): typia.IValidation<DynamicTemplate> => {
             const __is = (input: any): input is DynamicTemplate => {
-                const $join = (typia.createValidateClone as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key) => {
                         const value = input[key];

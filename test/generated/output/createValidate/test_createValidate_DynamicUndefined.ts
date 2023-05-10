@@ -7,7 +7,6 @@ export const test_createValidate_DynamicUndefined = _test_validate(
     DynamicUndefined.generate,
     (input: any): typia.IValidation<DynamicUndefined> => {
         const __is = (input: any): input is DynamicUndefined => {
-            const $join = (typia.createValidate as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key) => {
                     const value = input[key];

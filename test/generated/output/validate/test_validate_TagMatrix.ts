@@ -8,7 +8,6 @@ export const test_validate_TagMatrix = _test_validate(
     (input) =>
         ((input: any): typia.IValidation<TagMatrix> => {
             const __is = (input: any): input is TagMatrix => {
-                const $is_uuid = (typia.validate as any).is_uuid;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.matrix) &&
                     3 === input.matrix.length &&

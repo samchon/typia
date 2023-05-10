@@ -11,7 +11,6 @@ export const test_validateStringify_DynamicTemplate = _test_validateStringify(
                 input: any,
             ): typia.IValidation<DynamicTemplate> => {
                 const __is = (input: any): input is DynamicTemplate => {
-                    const $join = (typia.validateStringify as any).join;
                     const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key) => {
                             const value = input[key];

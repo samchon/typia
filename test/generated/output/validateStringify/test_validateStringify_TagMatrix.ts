@@ -9,7 +9,6 @@ export const test_validateStringify_TagMatrix = _test_validateStringify(
         ((input: TagMatrix): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<TagMatrix> => {
                 const __is = (input: any): input is TagMatrix => {
-                    const $is_uuid = (typia.validateStringify as any).is_uuid;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.matrix) &&
                         3 === input.matrix.length &&

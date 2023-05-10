@@ -9,8 +9,6 @@ export const test_validateClone_TagCustom = _test_validateClone(
         ((input: any): typia.IValidation<typia.Primitive<TagCustom>> => {
             const validate = (input: any): typia.IValidation<TagCustom> => {
                 const __is = (input: any): input is TagCustom => {
-                    const $is_uuid = (typia.validateClone as any).is_uuid;
-                    const $is_custom = (typia.validateClone as any).is_custom;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         $is_uuid(input.id) &&

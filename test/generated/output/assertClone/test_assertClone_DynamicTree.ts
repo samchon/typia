@@ -11,7 +11,6 @@ export const test_assertClone_DynamicTree = _test_assertClone(
                 const $guard = (typia.assertClone as any).guard;
                 const $join = (typia.assertClone as any).join;
                 const __is = (input: any): input is DynamicTree => {
-                    const $join = (typia.assertClone as any).join;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "number" === typeof input.sequence &&

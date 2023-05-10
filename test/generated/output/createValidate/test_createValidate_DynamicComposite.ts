@@ -7,7 +7,6 @@ export const test_createValidate_DynamicComposite = _test_validate(
     DynamicComposite.generate,
     (input: any): typia.IValidation<DynamicComposite> => {
         const __is = (input: any): input is DynamicComposite => {
-            const $join = (typia.createValidate as any).join;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&

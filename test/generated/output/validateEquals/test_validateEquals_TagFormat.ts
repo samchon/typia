@@ -11,13 +11,6 @@ export const test_validateEquals_TagFormat = _test_validateEquals(
                 input: any,
                 _exceptionable: boolean = true,
             ): input is TagFormat => {
-                const $is_uuid = (typia.validateEquals as any).is_uuid;
-                const $is_email = (typia.validateEquals as any).is_email;
-                const $is_url = (typia.validateEquals as any).is_url;
-                const $is_ipv4 = (typia.validateEquals as any).is_ipv4;
-                const $is_ipv6 = (typia.validateEquals as any).is_ipv6;
-                const $is_date = (typia.validateEquals as any).is_date;
-                const $is_datetime = (typia.validateEquals as any).is_datetime;
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,

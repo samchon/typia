@@ -17,6 +17,7 @@
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -25,31 +26,37 @@
               {
                 "type": "string",
                 "nullable": false,
+                "description": "",
                 "x-typia-required": false,
                 "x-typia-optional": true
               },
               {
                 "type": "number",
                 "nullable": false,
+                "description": "",
                 "x-typia-required": false,
                 "x-typia-optional": true
               }
             ],
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "classroom": {
             "$ref": "components#/schemas/ObjectUndefined.IClassroom",
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "grade": {
             "type": "number",
             "nullable": false,
+            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false
           },
           "unknown": {
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -68,12 +75,14 @@
           "id": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "name": {
             "type": "string",
             "nullable": false,
+            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }

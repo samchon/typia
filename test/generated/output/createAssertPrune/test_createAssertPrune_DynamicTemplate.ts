@@ -10,7 +10,6 @@ export const test_createAssertPrune_DynamicTemplate = _test_assertPrune(
             const $guard = (typia.createAssertPrune as any).guard;
             const $join = (typia.createAssertPrune as any).join;
             const __is = (input: any): input is DynamicTemplate => {
-                const $join = (typia.createAssertPrune as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key) => {
                         const value = input[key];

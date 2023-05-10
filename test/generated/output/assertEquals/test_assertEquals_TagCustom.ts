@@ -15,8 +15,6 @@ export const test_assertEquals_TagCustom = _test_assertEquals(
                 input: any,
                 _exceptionable: boolean = true,
             ): input is TagCustom => {
-                const $is_uuid = (typia.assertEquals as any).is_uuid;
-                const $is_custom = (typia.assertEquals as any).is_custom;
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,

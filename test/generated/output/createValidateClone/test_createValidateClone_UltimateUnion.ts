@@ -8,7 +8,6 @@ export const test_createValidateClone_UltimateUnion = _test_validateClone(
     (input: any): typia.IValidation<typia.Primitive<UltimateUnion>> => {
         const validate = (input: any): typia.IValidation<UltimateUnion> => {
             const __is = (input: any): input is UltimateUnion => {
-                const $join = (typia.createValidateClone as any).join;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.schemas) &&
                     input.schemas.every(
