@@ -141,7 +141,7 @@ export interface CustomValidatorMap {
     size(): number;
     size(name: string): number;
     
-    // Type: {boolean, number, bigint, string}
+    // Type: {number, bigint, string}
     has: (name: string) => (type: keyof Customizable) => boolean;
     get:
         (name: string) => 
