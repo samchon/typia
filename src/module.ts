@@ -488,7 +488,6 @@ export const customValidators: CustomValidatorMap = {
  *
  * @template Types Tuple of target types
  * @template Purpose Purpose of the JSON schema`
- * @template Prefix Prefix of the JSON components referenced by `$ref` tag
  * @return JSON schema application
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -512,17 +511,13 @@ export function application(): never;
  *
  * @template Types Tuple of target types
  * @template Purpose Purpose of the JSON schema
- * @template Prefix Prefix of the JSON components referenced by `$ref` tag
  * @return JSON schema application
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function application<
     Types extends unknown[],
-    Purpose extends "swagger" | "ajv" = "swagger",
-    Prefix extends string = Purpose extends "swagger"
-        ? "#/components/schemas"
-        : "components#/schemas",
+    Purpose extends "ajv" | "swagger" = "swagger",
 >(): IJsonApplication;
 
 /**
