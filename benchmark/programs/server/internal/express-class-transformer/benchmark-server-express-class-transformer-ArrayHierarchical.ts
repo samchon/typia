@@ -4,12 +4,10 @@ import { ArrayHierarchical } from "../../../../../test/structures/ArrayHierarchi
 import { ClassValidatorArrayHierarchical } from "../../../../structures/class-validator/ClassValidatorArrayHierarchical";
 import { createExpressServerBenchmarkProgram } from "../createExpressServerBenchmarkProgram";
 
-createExpressServerBenchmarkProgram<ArrayHierarchical>((input) =>
-    JSON.stringify(
-        input.map((elem) =>
-            instanceToPlain(
-                plainToInstance(ClassValidatorArrayHierarchical, elem),
-            ),
-        ),
+createExpressServerBenchmarkProgram<ArrayHierarchical>(
+    (input) => JSON.stringify(
+        input.map((elem) => instanceToPlain(
+            plainToInstance(ClassValidatorArrayHierarchical, elem),
+        )),
     ),
 );
