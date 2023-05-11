@@ -4,8 +4,7 @@
       "type": "array",
       "items": {
         "$ref": "#/components/schemas/TagAtomicUnion.Type"
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
@@ -16,8 +15,6 @@
           "value": {
             "oneOf": [
               {
-                "type": "string",
-                "nullable": false,
                 "description": "",
                 "x-typia-metaTags": [
                   {
@@ -64,12 +61,11 @@
                 ],
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "type": "string",
                 "minLength": 3,
                 "maxLength": 7
               },
               {
-                "type": "number",
-                "nullable": false,
                 "description": "",
                 "x-typia-metaTags": [
                   {
@@ -116,6 +112,7 @@
                 ],
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "type": "number",
                 "minimum": 3
               }
             ],

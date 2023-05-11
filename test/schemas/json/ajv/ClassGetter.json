@@ -1,38 +1,47 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/ClassGetter.Person"
+      "$ref": "#/components/schemas/ClassGetter.Person"
     }
   ],
   "components": {
     "schemas": {
       "ClassGetter.Person": {
-        "$id": "components#/schemas/ClassGetter.Person",
+        "$id": "#/components/schemas/ClassGetter.Person",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "dead": {
-            "type": "boolean",
-            "nullable": true,
+            "oneOf": [
+              {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "boolean"
+              }
+            ],
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",
@@ -43,5 +52,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

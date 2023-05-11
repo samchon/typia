@@ -5,37 +5,31 @@
       "items": {
         "oneOf": [
           {
-            "type": "boolean",
-            "nullable": false
+            "type": "boolean"
           },
           {
-            "type": "number",
-            "nullable": false
+            "type": "number"
           },
           {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TupleRestObject.IObject"
-            },
-            "nullable": false
+            }
           }
         ]
       },
-      "nullable": false,
       "x-typia-tuple": {
         "type": "array",
         "items": [
           {
-            "type": "boolean",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean"
           },
           {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           {
             "$ref": "#/components/schemas/TupleRestObject.IObject",
@@ -43,8 +37,7 @@
             "x-typia-required": true,
             "x-typia-optional": false
           }
-        ],
-        "nullable": false
+        ]
       }
     }
   ],
@@ -54,11 +47,10 @@
         "type": "object",
         "properties": {
           "value": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,

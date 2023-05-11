@@ -10,8 +10,6 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "Regular feature supported by typia",
             "x-typia-metaTags": [
               {
@@ -32,11 +30,10 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "format": "uuid"
           },
           "dollar": {
-            "type": "string",
-            "nullable": false,
             "description": "Custom feature composed with \"$\" + number",
             "x-typia-jsDocTags": [
               {
@@ -44,11 +41,10 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "postfix": {
-            "type": "string",
-            "nullable": false,
             "description": "Custom feature composed with string + \"abcd\"",
             "x-typia-jsDocTags": [
               {
@@ -62,11 +58,10 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "log": {
-            "type": "number",
-            "nullable": false,
             "description": "Custom feature meaning x^y",
             "x-typia-jsDocTags": [
               {
@@ -80,7 +75,8 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,

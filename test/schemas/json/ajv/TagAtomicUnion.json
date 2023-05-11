@@ -3,22 +3,19 @@
     {
       "type": "array",
       "items": {
-        "$ref": "components#/schemas/TagAtomicUnion.Type"
-      },
-      "nullable": false
+        "$ref": "#/components/schemas/TagAtomicUnion.Type"
+      }
     }
   ],
   "components": {
     "schemas": {
       "TagAtomicUnion.Type": {
-        "$id": "components#/schemas/TagAtomicUnion.Type",
+        "$id": "#/components/schemas/TagAtomicUnion.Type",
         "type": "object",
         "properties": {
           "value": {
             "oneOf": [
               {
-                "type": "string",
-                "nullable": false,
                 "description": "",
                 "x-typia-metaTags": [
                   {
@@ -65,12 +62,11 @@
                 ],
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "type": "string",
                 "minLength": 3,
                 "maxLength": 7
               },
               {
-                "type": "number",
-                "nullable": false,
                 "description": "",
                 "x-typia-metaTags": [
                   {
@@ -117,6 +113,7 @@
                 ],
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "type": "number",
                 "minimum": 3
               }
             ],
@@ -168,7 +165,6 @@
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
@@ -177,5 +173,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

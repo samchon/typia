@@ -4,8 +4,7 @@
       "type": "array",
       "items": {
         "$ref": "#/components/schemas/TemplateConstant.Type"
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
@@ -14,30 +13,31 @@
         "type": "object",
         "properties": {
           "prefix": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "prefix_A",
               "prefix_B",
               "prefix_C"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "postfix": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "2_postfix",
               "3_postfix",
               "1_postfix"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "combined": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "the_2_value_with_label_A",
@@ -49,11 +49,7 @@
               "the_1_value_with_label_A",
               "the_1_value_with_label_B",
               "the_1_value_with_label_C"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
         "nullable": false,

@@ -53,6 +53,7 @@ Check out the document in the [website](https://typia.io/docs/):
 ### 🏠 Home
   - [Introduction](https://typia.io/docs/)
   - [Setup](https://typia.io/docs/setup/)
+  - [Pure TypeScript](https://typia.io/docs/pure/)
   
 ### 📖 Features
   - Runtime Validators

@@ -10,34 +10,34 @@
         "type": "object",
         "properties": {
           "boolean": {
-            "$ref": "#/components/schemas/Map",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Map"
           },
           "number": {
-            "$ref": "#/components/schemas/Map",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Map"
           },
           "strings": {
-            "$ref": "#/components/schemas/Map",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Map"
           },
           "arrays": {
-            "$ref": "#/components/schemas/Map",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Map"
           },
           "objects": {
-            "$ref": "#/components/schemas/Map",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Map"
           }
         },
         "nullable": false,

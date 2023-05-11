@@ -5,25 +5,22 @@
       "items": {
         "oneOf": [
           {
-            "$ref": "components#/schemas/TagObjectUnion.Numeric"
+            "$ref": "#/components/schemas/TagObjectUnion.Numeric"
           },
           {
-            "$ref": "components#/schemas/TagObjectUnion.Literal"
+            "$ref": "#/components/schemas/TagObjectUnion.Literal"
           }
         ]
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
     "schemas": {
       "TagObjectUnion.Numeric": {
-        "$id": "components#/schemas/TagObjectUnion.Numeric",
+        "$id": "#/components/schemas/TagObjectUnion.Numeric",
         "type": "object",
         "properties": {
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -44,22 +41,20 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "minimum": 3
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
         "x-typia-jsDocTags": []
       },
       "TagObjectUnion.Literal": {
-        "$id": "components#/schemas/TagObjectUnion.Literal",
+        "$id": "#/components/schemas/TagObjectUnion.Literal",
         "type": "object",
         "properties": {
           "value": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -93,11 +88,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "minLength": 3,
             "maxLength": 7
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
@@ -106,5 +101,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

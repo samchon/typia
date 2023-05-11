@@ -4,8 +4,7 @@
       "type": "array",
       "items": {
         "$ref": "#/components/schemas/Map"
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {

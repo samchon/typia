@@ -4,8 +4,7 @@
       "type": "array",
       "items": {
         "$ref": "#/components/schemas/IJsonApplication"
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
@@ -14,6 +13,9 @@
         "type": "object",
         "properties": {
           "schemas": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "oneOf": [
@@ -105,11 +107,7 @@
               "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           },
           "components": {
             "$ref": "#/components/schemas/IJsonComponents",
@@ -118,22 +116,32 @@
             "x-typia-optional": false
           },
           "purpose": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "swagger",
               "ajv"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "prefix": {
-            "type": "string",
-            "nullable": false,
+            "deprecated": true,
             "description": "",
+            "x-typia-jsDocTags": [
+              {
+                "name": "deprecated",
+                "text": [
+                  {
+                    "text": "Always \"#/components/schemas\"",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -149,65 +157,60 @@
         "type": "object",
         "properties": {
           "enum": {
-            "type": "array",
-            "items": {
-              "type": "boolean",
-              "nullable": false,
-              "description": "",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "description": "",
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "boolean"
+            }
           },
           "default": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "boolean"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "nullable": {
-            "type": "boolean",
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "description": "Only when swagger mode.",
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "deprecated": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-metaTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "oneOf": [
@@ -305,52 +308,43 @@
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-required": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-optional": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-rest": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           }
         },
         "nullable": false,
         "required": [
           "enum",
-          "type",
-          "nullable"
+          "type"
         ],
         "x-typia-jsDocTags": []
       },
@@ -358,25 +352,23 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "type"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "int",
               "uint"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
         "nullable": false,
@@ -390,21 +382,19 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "minimum"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -418,21 +408,19 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "maximum"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -446,21 +434,19 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "exclusiveMinimum"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -474,21 +460,19 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "exclusiveMaximum"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -502,21 +486,19 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "multipleOf"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -530,21 +512,19 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "step"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -558,16 +538,18 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "format"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "uuid",
@@ -577,11 +559,7 @@
               "ipv6",
               "date",
               "datetime"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
         "nullable": false,
@@ -595,21 +573,19 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "pattern"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -623,21 +599,19 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "length"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -651,21 +625,19 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "minLength"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -679,21 +651,19 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "maxLength"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -707,21 +677,19 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "items"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -735,21 +703,19 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "minItems"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -763,21 +729,19 @@
         "type": "object",
         "properties": {
           "kind": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "maxItems"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -791,24 +755,22 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "text": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo.IText",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           }
         },
         "nullable": false,
@@ -821,18 +783,16 @@
         "type": "object",
         "properties": {
           "text": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "kind": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -846,65 +806,60 @@
         "type": "object",
         "properties": {
           "enum": {
-            "type": "array",
-            "items": {
-              "type": "number",
-              "nullable": false,
-              "description": "",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "description": "",
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number"
+            }
           },
           "default": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "number"
           },
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "number"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "nullable": {
-            "type": "boolean",
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "description": "Only when swagger mode.",
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "deprecated": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-metaTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "oneOf": [
@@ -1002,52 +957,43 @@
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-required": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-optional": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-rest": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           }
         },
         "nullable": false,
         "required": [
           "enum",
-          "type",
-          "nullable"
+          "type"
         ],
         "x-typia-jsDocTags": []
       },
@@ -1055,65 +1001,60 @@
         "type": "object",
         "properties": {
           "enum": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "nullable": false,
-              "description": "",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "description": "",
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "string"
+            }
           },
           "default": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "string"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "nullable": {
-            "type": "boolean",
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "description": "Only when swagger mode.",
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "deprecated": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-metaTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "oneOf": [
@@ -1211,52 +1152,43 @@
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-required": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-optional": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-rest": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           }
         },
         "nullable": false,
         "required": [
           "enum",
-          "type",
-          "nullable"
+          "type"
         ],
         "x-typia-jsDocTags": []
       },
@@ -1264,51 +1196,48 @@
         "type": "object",
         "properties": {
           "default": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "boolean"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "nullable": {
-            "type": "boolean",
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "description": "Only when swagger mode.",
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "deprecated": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-metaTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "oneOf": [
@@ -1406,51 +1335,42 @@
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-required": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-optional": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-rest": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           }
         },
         "nullable": false,
         "required": [
-          "type",
-          "nullable"
+          "type"
         ],
         "x-typia-jsDocTags": []
       },
@@ -1458,8 +1378,6 @@
         "type": "object",
         "properties": {
           "minimum": {
-            "type": "integer",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -1479,11 +1397,10 @@
               }
             ],
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "integer"
           },
           "maximum": {
-            "type": "integer",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -1503,25 +1420,22 @@
               }
             ],
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "integer"
           },
           "exclusiveMinimum": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "exclusiveMaximum": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "multipleOf": {
-            "type": "integer",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -1541,54 +1455,52 @@
               }
             ],
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "integer"
           },
           "default": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "number"
           },
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "integer"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "nullable": {
-            "type": "boolean",
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "description": "Only when swagger mode.",
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "deprecated": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-metaTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "oneOf": [
@@ -1686,51 +1598,42 @@
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-required": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-optional": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-rest": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           }
         },
         "nullable": false,
         "required": [
-          "type",
-          "nullable"
+          "type"
         ],
         "x-typia-jsDocTags": []
       },
@@ -1738,86 +1641,78 @@
         "type": "object",
         "properties": {
           "minimum": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "number"
           },
           "maximum": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "number"
           },
           "exclusiveMinimum": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "exclusiveMaximum": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "multipleOf": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "number"
           },
           "default": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "number"
           },
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "number"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "nullable": {
-            "type": "boolean",
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "description": "Only when swagger mode.",
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "deprecated": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-metaTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "oneOf": [
@@ -1915,51 +1810,42 @@
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-required": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-optional": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-rest": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           }
         },
         "nullable": false,
         "required": [
-          "type",
-          "nullable"
+          "type"
         ],
         "x-typia-jsDocTags": []
       },
@@ -1967,8 +1853,6 @@
         "type": "object",
         "properties": {
           "minLength": {
-            "type": "integer",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -1989,11 +1873,10 @@
             ],
             "x-typia-required": false,
             "x-typia-optional": true,
+            "type": "integer",
             "minimum": 0
           },
           "maxLength": {
-            "type": "integer",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -2014,68 +1897,64 @@
             ],
             "x-typia-required": false,
             "x-typia-optional": true,
+            "type": "integer",
             "minimum": 0
           },
           "pattern": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "format": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "default": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "string"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "nullable": {
-            "type": "boolean",
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "description": "Only when swagger mode.",
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "deprecated": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-metaTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "oneOf": [
@@ -2173,51 +2052,42 @@
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-required": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-optional": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-rest": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           }
         },
         "nullable": false,
         "required": [
-          "type",
-          "nullable"
+          "type"
         ],
         "x-typia-jsDocTags": []
       },
@@ -2316,8 +2186,6 @@
             "x-typia-optional": false
           },
           "minItems": {
-            "type": "integer",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -2338,11 +2206,10 @@
             ],
             "x-typia-required": false,
             "x-typia-optional": true,
+            "type": "integer",
             "minimum": 0
           },
           "maxItems": {
-            "type": "integer",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -2363,6 +2230,7 @@
             ],
             "x-typia-required": false,
             "x-typia-optional": true,
+            "type": "integer",
             "minimum": 0
           },
           "x-typia-tuple": {
@@ -2372,44 +2240,42 @@
             "x-typia-optional": true
           },
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "array"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "nullable": {
-            "type": "boolean",
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "description": "Only when swagger mode.",
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "deprecated": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-metaTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "oneOf": [
@@ -2507,52 +2373,43 @@
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-required": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-optional": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-rest": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           }
         },
         "nullable": false,
         "required": [
           "items",
-          "type",
-          "nullable"
+          "type"
         ],
         "x-typia-jsDocTags": []
       },
@@ -2560,6 +2417,9 @@
         "type": "object",
         "properties": {
           "items": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "oneOf": [
@@ -2651,51 +2511,45 @@
               "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           },
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "array"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "nullable": {
-            "type": "boolean",
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "description": "Only when swagger mode.",
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "deprecated": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-metaTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "oneOf": [
@@ -2793,52 +2647,43 @@
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-required": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-optional": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-rest": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           }
         },
         "nullable": false,
         "required": [
           "items",
-          "type",
-          "nullable"
+          "type"
         ],
         "x-typia-jsDocTags": []
       },
@@ -2846,6 +2691,9 @@
         "type": "object",
         "properties": {
           "oneOf": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "oneOf": [
@@ -2937,34 +2785,30 @@
               "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           },
           "deprecated": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-metaTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "oneOf": [
@@ -3062,45 +2906,37 @@
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-required": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-optional": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-rest": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           }
         },
         "nullable": false,
@@ -3113,34 +2949,33 @@
         "type": "object",
         "properties": {
           "$ref": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "deprecated": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-metaTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "oneOf": [
@@ -3238,45 +3073,37 @@
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-required": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-optional": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-rest": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           }
         },
         "nullable": false,
@@ -3289,34 +3116,33 @@
         "type": "object",
         "properties": {
           "$recursiveRef": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "deprecated": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-metaTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "oneOf": [
@@ -3414,45 +3240,37 @@
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-required": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-optional": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-rest": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           }
         },
         "nullable": false,
@@ -3465,37 +3283,36 @@
         "type": "object",
         "properties": {
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "null"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "deprecated": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-metaTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "oneOf": [
@@ -3593,45 +3410,37 @@
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-required": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-optional": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-rest": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           }
         },
         "nullable": false,
@@ -3644,27 +3453,27 @@
         "type": "object",
         "properties": {
           "deprecated": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-metaTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "oneOf": [
@@ -3762,45 +3571,37 @@
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-required": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-optional": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "x-typia-rest": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           }
         },
         "nullable": false,
@@ -3844,35 +3645,31 @@
         "type": "object",
         "properties": {
           "$id": {
-            "type": "string",
-            "nullable": false,
-            "description": "",
+            "description": "Used only when ajv mode.",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "$recursiveAnchor": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "object"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "nullable": {
-            "type": "boolean",
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "description": "Only when swagger mode.",
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "boolean"
           },
           "properties": {
             "$ref": "#/components/schemas/Record_lt_string_comma__space_IJsonSchema_gt_",
@@ -3978,38 +3775,34 @@
             "x-typia-optional": true
           },
           "required": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
-              "type": "string",
-              "nullable": false,
               "description": "",
               "x-typia-required": false,
-              "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+              "x-typia-optional": true,
+              "type": "string"
+            }
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "x-typia-jsDocTags": {
+            "description": "",
+            "x-typia-required": false,
+            "x-typia-optional": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJsDocTagInfo",
               "description": "",
               "x-typia-required": false,
               "x-typia-optional": true
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            }
           },
           "x-typia-patternProperties": {
             "$ref": "#/components/schemas/Record_lt_string_comma__space_IJsonSchema_gt_",
@@ -4112,7 +3905,6 @@
         "nullable": false,
         "required": [
           "type",
-          "nullable",
           "properties"
         ],
         "x-typia-jsDocTags": []

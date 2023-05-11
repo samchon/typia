@@ -1,31 +1,28 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/ClassMethod.Animal"
+      "$ref": "#/components/schemas/ClassMethod.Animal"
     }
   ],
   "components": {
     "schemas": {
       "ClassMethod.Animal": {
-        "$id": "components#/schemas/ClassMethod.Animal",
+        "$id": "#/components/schemas/ClassMethod.Animal",
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "age": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "name",
           "age"
@@ -35,5 +32,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

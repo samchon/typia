@@ -15,7 +15,6 @@
           }
         ]
       },
-      "nullable": false,
       "x-typia-tuple": {
         "type": "array",
         "items": [
@@ -35,8 +34,7 @@
             "x-typia-required": true,
             "x-typia-optional": false
           }
-        ],
-        "nullable": false
+        ]
       }
     }
   ],
@@ -46,11 +44,10 @@
         "type": "object",
         "properties": {
           "value": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean"
           }
         },
         "nullable": false,
@@ -63,11 +60,10 @@
         "type": "object",
         "properties": {
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -80,11 +76,10 @@
         "type": "object",
         "properties": {
           "value": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,

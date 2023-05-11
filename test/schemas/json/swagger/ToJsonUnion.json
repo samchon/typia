@@ -6,16 +6,13 @@
         "oneOf": [
           {},
           {
-            "type": "string",
-            "nullable": false
+            "type": "string"
           },
           {
-            "type": "number",
-            "nullable": false
+            "type": "number"
           },
           {
-            "type": "boolean",
-            "nullable": false
+            "type": "boolean"
           },
           {
             "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
@@ -24,8 +21,7 @@
             "$ref": "#/components/schemas/ToJsonUnion.IProduct"
           }
         ]
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
@@ -34,25 +30,22 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "mobile": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -67,25 +60,22 @@
         "type": "object",
         "properties": {
           "manufacturer": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "brand": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,

@@ -7,11 +7,18 @@ export interface IJsonComponents {
 }
 export namespace IJsonComponents {
     export interface IObject {
+        /**
+         * Used only when ajv mode.
+         */
         $id?: string;
         $recursiveAnchor?: boolean;
 
         type: "object";
-        nullable: boolean;
+
+        /**
+         * Only when swagger mode.
+         */
+        nullable?: boolean;
 
         properties: Record<string, IJsonSchema>;
         patternProperties?: Record<string, IJsonSchema>;

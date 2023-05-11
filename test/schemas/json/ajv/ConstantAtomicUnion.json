@@ -8,51 +8,45 @@
             "type": "boolean",
             "enum": [
               false
-            ],
-            "nullable": false
+            ]
           },
           {
             "type": "number",
             "enum": [
               2,
               1
-            ],
-            "nullable": false
+            ]
           },
           {
             "type": "string",
             "enum": [
               "three",
               "four"
-            ],
-            "nullable": false
+            ]
           },
           {
-            "$ref": "components#/schemas/__type"
+            "$ref": "#/components/schemas/__type"
           }
         ]
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
     "schemas": {
       "__type": {
-        "$id": "components#/schemas/__type",
+        "$id": "#/components/schemas/__type",
         "type": "object",
         "properties": {
           "key": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "key"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
-        "nullable": false,
         "required": [
           "key"
         ],
@@ -61,5 +55,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

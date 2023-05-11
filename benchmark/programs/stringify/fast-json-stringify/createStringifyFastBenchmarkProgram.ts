@@ -8,10 +8,9 @@ export const createStringifyFastBenchmarkProgram = (
 ) => {
     const stringify = (() => {
         try {
-            return fast(app.schemas[0], {
-                schema: {
-                    components: app.components,
-                } as any,
+            return fast({
+                ...app.schemas[0],
+                ...app,
             });
         } catch {
             return null;

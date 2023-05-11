@@ -49,8 +49,12 @@ export const test_random_UltimateUnion = _test_random(
                 components: $ro32(_recursive, _recursive ? 1 + _depth : _depth),
                 purpose: $pick([() => "ajv", () => "swagger"])(),
                 prefix:
-                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                    (generator?.string ?? $generator.string)(),
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "deprecated",
+                            value: 'Always "#/components/schemas"',
+                        },
+                    ]) ?? (generator?.string ?? $generator.string)(),
             });
             const $ro1 = (
                 _recursive: boolean = false,
@@ -64,7 +68,10 @@ export const test_random_UltimateUnion = _test_random(
                     () => (generator?.boolean ?? $generator.boolean)(),
                 ])(),
                 type: "boolean",
-                nullable: (generator?.boolean ?? $generator.boolean)(),
+                nullable: $pick([
+                    () => undefined,
+                    () => (generator?.boolean ?? $generator.boolean)(),
+                ])(),
                 deprecated: $pick([
                     () => undefined,
                     () => (generator?.boolean ?? $generator.boolean)(),
@@ -369,7 +376,10 @@ export const test_random_UltimateUnion = _test_random(
                         ) ?? (generator?.number ?? $generator.number)(0, 100),
                 ])(),
                 type: "number",
-                nullable: (generator?.boolean ?? $generator.boolean)(),
+                nullable: $pick([
+                    () => undefined,
+                    () => (generator?.boolean ?? $generator.boolean)(),
+                ])(),
                 deprecated: $pick([
                     () => undefined,
                     () => (generator?.boolean ?? $generator.boolean)(),
@@ -509,7 +519,10 @@ export const test_random_UltimateUnion = _test_random(
                         ) ?? (generator?.string ?? $generator.string)(),
                 ])(),
                 type: "string",
-                nullable: (generator?.boolean ?? $generator.boolean)(),
+                nullable: $pick([
+                    () => undefined,
+                    () => (generator?.boolean ?? $generator.boolean)(),
+                ])(),
                 deprecated: $pick([
                     () => undefined,
                     () => (generator?.boolean ?? $generator.boolean)(),
@@ -640,7 +653,10 @@ export const test_random_UltimateUnion = _test_random(
                     () => (generator?.boolean ?? $generator.boolean)(),
                 ])(),
                 type: "boolean",
-                nullable: (generator?.boolean ?? $generator.boolean)(),
+                nullable: $pick([
+                    () => undefined,
+                    () => (generator?.boolean ?? $generator.boolean)(),
+                ])(),
                 deprecated: $pick([
                     () => undefined,
                     () => (generator?.boolean ?? $generator.boolean)(),
@@ -815,7 +831,10 @@ export const test_random_UltimateUnion = _test_random(
                         ) ?? (generator?.number ?? $generator.number)(0, 100),
                 ])(),
                 type: "integer",
-                nullable: (generator?.boolean ?? $generator.boolean)(),
+                nullable: $pick([
+                    () => undefined,
+                    () => (generator?.boolean ?? $generator.boolean)(),
+                ])(),
                 deprecated: $pick([
                     () => undefined,
                     () => (generator?.boolean ?? $generator.boolean)(),
@@ -978,7 +997,10 @@ export const test_random_UltimateUnion = _test_random(
                         ) ?? (generator?.number ?? $generator.number)(0, 100),
                 ])(),
                 type: "number",
-                nullable: (generator?.boolean ?? $generator.boolean)(),
+                nullable: $pick([
+                    () => undefined,
+                    () => (generator?.boolean ?? $generator.boolean)(),
+                ])(),
                 deprecated: $pick([
                     () => undefined,
                     () => (generator?.boolean ?? $generator.boolean)(),
@@ -1146,7 +1168,10 @@ export const test_random_UltimateUnion = _test_random(
                         ) ?? (generator?.string ?? $generator.string)(),
                 ])(),
                 type: "string",
-                nullable: (generator?.boolean ?? $generator.boolean)(),
+                nullable: $pick([
+                    () => undefined,
+                    () => (generator?.boolean ?? $generator.boolean)(),
+                ])(),
                 deprecated: $pick([
                     () => undefined,
                     () => (generator?.boolean ?? $generator.boolean)(),
@@ -1313,7 +1338,10 @@ export const test_random_UltimateUnion = _test_random(
                     () => $ro26(true, _recursive ? 1 + _depth : _depth),
                 ])(),
                 type: "array",
-                nullable: (generator?.boolean ?? $generator.boolean)(),
+                nullable: $pick([
+                    () => undefined,
+                    () => (generator?.boolean ?? $generator.boolean)(),
+                ])(),
                 deprecated: $pick([
                     () => undefined,
                     () => (generator?.boolean ?? $generator.boolean)(),
@@ -1521,7 +1549,10 @@ export const test_random_UltimateUnion = _test_random(
                               ])(),
                           ),
                 type: "array",
-                nullable: (generator?.boolean ?? $generator.boolean)(),
+                nullable: $pick([
+                    () => undefined,
+                    () => (generator?.boolean ?? $generator.boolean)(),
+                ])(),
                 deprecated: $pick([
                     () => undefined,
                     () => (generator?.boolean ?? $generator.boolean)(),
@@ -2402,7 +2433,10 @@ export const test_random_UltimateUnion = _test_random(
                     () => (generator?.boolean ?? $generator.boolean)(),
                 ])(),
                 type: "object",
-                nullable: (generator?.boolean ?? $generator.boolean)(),
+                nullable: $pick([
+                    () => undefined,
+                    () => (generator?.boolean ?? $generator.boolean)(),
+                ])(),
                 properties: $ro35(_recursive, _recursive ? 1 + _depth : _depth),
                 patternProperties: $pick([
                     () => undefined,
@@ -2564,6 +2598,7 @@ export const test_random_UltimateUnion = _test_random(
         })(),
     (input: any): typia.Primitive<UltimateUnion> => {
         const $guard = (typia.createAssert as any).guard;
+        const $is_custom = (typia.createAssert as any).is_custom;
         const $join = (typia.createAssert as any).join;
         const __is = (input: any): input is typia.Primitive<UltimateUnion> => {
             const $io0 = (input: any): boolean =>
@@ -2579,14 +2614,21 @@ export const test_random_UltimateUnion = _test_random(
                 null !== input.components &&
                 $io32(input.components) &&
                 ("ajv" === input.purpose || "swagger" === input.purpose) &&
-                "string" === typeof input.prefix;
+                "string" === typeof input.prefix &&
+                $is_custom(
+                    "deprecated",
+                    "string",
+                    'Always "#/components/schemas"',
+                    input.prefix,
+                );
             const $io1 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "boolean" === typeof elem) &&
                 (undefined === input["default"] ||
                     "boolean" === typeof input["default"]) &&
                 "boolean" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -2700,7 +2742,8 @@ export const test_random_UltimateUnion = _test_random(
                     ("number" === typeof input["default"] &&
                         Number.isFinite(input["default"]))) &&
                 "number" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -2735,7 +2778,8 @@ export const test_random_UltimateUnion = _test_random(
                 (undefined === input["default"] ||
                     "string" === typeof input["default"]) &&
                 "string" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -2768,7 +2812,8 @@ export const test_random_UltimateUnion = _test_random(
                 (undefined === input["default"] ||
                     "boolean" === typeof input["default"]) &&
                 "boolean" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -2818,7 +2863,8 @@ export const test_random_UltimateUnion = _test_random(
                     ("number" === typeof input["default"] &&
                         Number.isFinite(input["default"]))) &&
                 "integer" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -2865,7 +2911,8 @@ export const test_random_UltimateUnion = _test_random(
                     ("number" === typeof input["default"] &&
                         Number.isFinite(input["default"]))) &&
                 "number" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -2912,7 +2959,8 @@ export const test_random_UltimateUnion = _test_random(
                 (undefined === input["default"] ||
                     "string" === typeof input["default"]) &&
                 "string" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -2961,7 +3009,8 @@ export const test_random_UltimateUnion = _test_random(
                         null !== input["x-typia-tuple"] &&
                         $io26(input["x-typia-tuple"]))) &&
                 "array" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -3000,7 +3049,8 @@ export const test_random_UltimateUnion = _test_random(
                         $iu2(elem),
                 ) &&
                 "array" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -3209,7 +3259,8 @@ export const test_random_UltimateUnion = _test_random(
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor) &&
                 "object" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 "object" === typeof input.properties &&
                 null !== input.properties &&
                 false === Array.isArray(input.properties) &&
@@ -3456,7 +3507,19 @@ export const test_random_UltimateUnion = _test_random(
                             expected: '("ajv" | "swagger")',
                             value: input.purpose,
                         })) &&
-                    ("string" === typeof input.prefix ||
+                    (("string" === typeof input.prefix &&
+                        ($is_custom(
+                            "deprecated",
+                            "string",
+                            'Always "#/components/schemas"',
+                            input.prefix,
+                        ) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".prefix",
+                                expected:
+                                    'string (@deprecated Always "#/components/schemas")',
+                                value: input.prefix,
+                            }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".prefix",
                             expected: "string",
@@ -3495,10 +3558,11 @@ export const test_random_UltimateUnion = _test_random(
                             expected: '"boolean"',
                             value: input.type,
                         })) &&
-                    ("boolean" === typeof input.nullable ||
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable ||
                         $guard(_exceptionable, {
                             path: _path + ".nullable",
-                            expected: "boolean",
+                            expected: "(boolean | undefined)",
                             value: input.nullable,
                         })) &&
                     (undefined === input.deprecated ||
@@ -3968,10 +4032,11 @@ export const test_random_UltimateUnion = _test_random(
                             expected: '"number"',
                             value: input.type,
                         })) &&
-                    ("boolean" === typeof input.nullable ||
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable ||
                         $guard(_exceptionable, {
                             path: _path + ".nullable",
-                            expected: "boolean",
+                            expected: "(boolean | undefined)",
                             value: input.nullable,
                         })) &&
                     (undefined === input.deprecated ||
@@ -4109,10 +4174,11 @@ export const test_random_UltimateUnion = _test_random(
                             expected: '"string"',
                             value: input.type,
                         })) &&
-                    ("boolean" === typeof input.nullable ||
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable ||
                         $guard(_exceptionable, {
                             path: _path + ".nullable",
-                            expected: "boolean",
+                            expected: "(boolean | undefined)",
                             value: input.nullable,
                         })) &&
                     (undefined === input.deprecated ||
@@ -4235,10 +4301,11 @@ export const test_random_UltimateUnion = _test_random(
                             expected: '"boolean"',
                             value: input.type,
                         })) &&
-                    ("boolean" === typeof input.nullable ||
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable ||
                         $guard(_exceptionable, {
                             path: _path + ".nullable",
-                            expected: "boolean",
+                            expected: "(boolean | undefined)",
                             value: input.nullable,
                         })) &&
                     (undefined === input.deprecated ||
@@ -4418,10 +4485,11 @@ export const test_random_UltimateUnion = _test_random(
                             expected: '"integer"',
                             value: input.type,
                         })) &&
-                    ("boolean" === typeof input.nullable ||
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable ||
                         $guard(_exceptionable, {
                             path: _path + ".nullable",
-                            expected: "boolean",
+                            expected: "(boolean | undefined)",
                             value: input.nullable,
                         })) &&
                     (undefined === input.deprecated ||
@@ -4583,10 +4651,11 @@ export const test_random_UltimateUnion = _test_random(
                             expected: '"number"',
                             value: input.type,
                         })) &&
-                    ("boolean" === typeof input.nullable ||
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable ||
                         $guard(_exceptionable, {
                             path: _path + ".nullable",
-                            expected: "boolean",
+                            expected: "(boolean | undefined)",
                             value: input.nullable,
                         })) &&
                     (undefined === input.deprecated ||
@@ -4763,10 +4832,11 @@ export const test_random_UltimateUnion = _test_random(
                             expected: '"string"',
                             value: input.type,
                         })) &&
-                    ("boolean" === typeof input.nullable ||
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable ||
                         $guard(_exceptionable, {
                             path: _path + ".nullable",
-                            expected: "boolean",
+                            expected: "(boolean | undefined)",
                             value: input.nullable,
                         })) &&
                     (undefined === input.deprecated ||
@@ -4949,10 +5019,11 @@ export const test_random_UltimateUnion = _test_random(
                             expected: '"array"',
                             value: input.type,
                         })) &&
-                    ("boolean" === typeof input.nullable ||
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable ||
                         $guard(_exceptionable, {
                             path: _path + ".nullable",
-                            expected: "boolean",
+                            expected: "(boolean | undefined)",
                             value: input.nullable,
                         })) &&
                     (undefined === input.deprecated ||
@@ -5092,10 +5163,11 @@ export const test_random_UltimateUnion = _test_random(
                             expected: '"array"',
                             value: input.type,
                         })) &&
-                    ("boolean" === typeof input.nullable ||
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable ||
                         $guard(_exceptionable, {
                             path: _path + ".nullable",
-                            expected: "boolean",
+                            expected: "(boolean | undefined)",
                             value: input.nullable,
                         })) &&
                     (undefined === input.deprecated ||
@@ -5858,10 +5930,11 @@ export const test_random_UltimateUnion = _test_random(
                             expected: '"object"',
                             value: input.type,
                         })) &&
-                    ("boolean" === typeof input.nullable ||
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable ||
                         $guard(_exceptionable, {
                             path: _path + ".nullable",
-                            expected: "boolean",
+                            expected: "(boolean | undefined)",
                             value: input.nullable,
                         })) &&
                     (("object" === typeof input.properties &&

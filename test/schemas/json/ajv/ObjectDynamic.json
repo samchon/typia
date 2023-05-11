@@ -1,39 +1,35 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/ObjectDynamic"
+      "$ref": "#/components/schemas/ObjectDynamic"
     }
   ],
   "components": {
     "schemas": {
       "ObjectDynamic": {
-        "$id": "components#/schemas/ObjectDynamic",
+        "$id": "#/components/schemas/ObjectDynamic",
         "type": "object",
         "properties": {},
-        "nullable": false,
         "x-typia-jsDocTags": [],
         "additionalProperties": {
           "oneOf": [
             {
-              "type": "string",
-              "nullable": false,
               "description": "",
               "x-typia-required": true,
-              "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "string"
             },
             {
-              "type": "number",
-              "nullable": false,
               "description": "",
               "x-typia-required": true,
-              "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "number"
             },
             {
-              "type": "boolean",
-              "nullable": false,
               "description": "",
               "x-typia-required": true,
-              "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "boolean"
             }
           ],
           "description": "",
@@ -44,5 +40,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

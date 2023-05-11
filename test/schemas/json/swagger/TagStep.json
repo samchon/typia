@@ -4,8 +4,7 @@
       "type": "array",
       "items": {
         "$ref": "#/components/schemas/TagStep.Type"
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
@@ -14,8 +13,6 @@
         "type": "object",
         "properties": {
           "exclusiveMinimum": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -49,12 +46,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "minimum": 3,
             "exclusiveMinimum": true
           },
           "minimum": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -88,11 +84,10 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "minimum": 3
           },
           "range": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -139,14 +134,13 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "minimum": 0,
             "exclusiveMinimum": true,
             "maximum": 100,
             "exclusiveMaximum": true
           },
           "multipleOf": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -193,6 +187,7 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "multipleOf": 5,
             "minimum": 3,
             "maximum": 99

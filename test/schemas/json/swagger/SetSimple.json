@@ -10,34 +10,34 @@
         "type": "object",
         "properties": {
           "booleans": {
-            "$ref": "#/components/schemas/Set",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Set"
           },
           "numbers": {
-            "$ref": "#/components/schemas/Set",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Set"
           },
           "strings": {
-            "$ref": "#/components/schemas/Set",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Set"
           },
           "arrays": {
-            "$ref": "#/components/schemas/Set",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Set"
           },
           "objects": {
-            "$ref": "#/components/schemas/Set",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Set"
           }
         },
         "nullable": false,

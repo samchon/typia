@@ -12,32 +12,28 @@
         "nullable": false,
         "x-typia-jsDocTags": [],
         "x-typia-additionalProperties": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          "nullable": false,
           "description": "",
           "x-typia-required": true,
-          "x-typia-optional": false
+          "x-typia-optional": false,
+          "type": "array",
+          "items": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
         },
         "additionalProperties": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          "nullable": false,
           "description": "",
           "x-typia-required": true,
-          "x-typia-optional": false
+          "x-typia-optional": false,
+          "type": "array",
+          "items": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
         }
       }
     }

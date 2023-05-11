@@ -29,8 +29,7 @@
             "$ref": "#/components/schemas/ObjectUnionComposite.ICircle"
           }
         ]
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
@@ -39,18 +38,16 @@
         "type": "object",
         "properties": {
           "x": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "y": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -154,17 +151,16 @@
         "type": "object",
         "properties": {
           "points": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
               "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           }
         },
         "nullable": false,
@@ -183,17 +179,16 @@
             "x-typia-optional": false
           },
           "inner": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ObjectUnionComposite.IPolyline",
               "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           }
         },
         "nullable": false,
@@ -207,17 +202,16 @@
         "type": "object",
         "properties": {
           "outer": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
               "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           },
           "inner": {
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
@@ -243,11 +237,10 @@
             "x-typia-optional": false
           },
           "radius": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,

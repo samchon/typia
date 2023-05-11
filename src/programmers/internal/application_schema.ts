@@ -4,6 +4,7 @@ import { IJsonSchema } from "../../schemas/IJsonSchema";
 
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
+import { JSON_SCHEMA_PREFIX } from "./JSON_SCHEMA_PREFIX";
 import { application_array } from "./application_array";
 import { application_boolean } from "./application_boolean";
 import { application_constant } from "./application_constant";
@@ -38,6 +39,20 @@ export const application_schema =
         // GATHER UNION SCHEMAS
         //----
         const union: IJsonSchema[] = [];
+        if (meta.nullable && options.purpose !== "swagger")
+            union.push({
+                ...attribute,
+                type: "null",
+            });
+
+        const insert =
+            meta.nullable && options.purpose === "swagger"
+                ? (significant: IJsonSchema.ISignificant<any>) =>
+                      union.push({
+                          ...significant,
+                          nullable: true,
+                      })
+                : (schema: IJsonSchema) => union.push(schema);
 
         // toJSON() METHOD
         if (meta.resolved !== null) {
@@ -49,7 +64,7 @@ export const application_schema =
 
         // ATOMIC TYPES
         if (meta.templates.length && AtomicPredicator.template(meta))
-            union.push(application_templates(meta)(attribute));
+            insert(application_templates(meta)(attribute));
         for (const constant of meta.constants)
             if (constant.type === "bigint") throw new Error(NO_BIGINT);
             else if (
@@ -57,48 +72,27 @@ export const application_schema =
                 AtomicPredicator.constant(meta)(constant.type) === false
             )
                 continue;
-            else
-                union.push(
-                    application_constant(constant)({
-                        nullable: meta.nullable,
-                        attribute,
-                    }),
-                );
+            else insert(application_constant(constant)(attribute));
         for (const type of meta.atomics)
             if (type === "bigint") throw new Error(NO_BIGINT);
             else if (AtomicPredicator.atomic(meta)(type) === false) continue;
             else
-                union.push(
+                insert(
                     type === "string"
-                        ? application_string(meta, attribute)
+                        ? application_string(meta)(attribute)
                         : type === "boolean"
-                        ? application_boolean({
-                              nullable: meta.nullable,
-                              attribute,
-                          })
-                        : application_number({
-                              nullable: meta.nullable,
-                              attribute,
-                          }),
+                        ? application_boolean(attribute)
+                        : application_number(attribute),
                 );
 
         // ARRAY
         for (const schema of meta.arrays.values())
-            union.push(
-                application_array(options)(components)()(schema)({
-                    nullable: meta.nullable,
-                    attribute,
-                }),
-            );
+            insert(application_array(options)(components)()(schema)(attribute));
 
         // TUPLE
         for (const items of meta.tuples) {
-            const tuple: IJsonSchema.ITuple = application_tuple(options)(
-                components,
-            )(items)({
-                nullable: meta.nullable,
-                attribute,
-            });
+            const tuple: IJsonSchema.ITuple =
+                application_tuple(options)(components)(items)(attribute);
             if (options.purpose === "swagger" && items.length === 0)
                 throw new Error(
                     "Error on typia.application(): swagger does not support zero length tuple type.",
@@ -107,17 +101,16 @@ export const application_schema =
                 options.purpose === "ajv" &&
                 !items[items.length - 1]?.rest
             )
-                union.push(tuple);
+                insert(tuple);
             else {
                 // SWAGGER DOES NOT SUPPORT TUPLE TYPE YET
                 const merged: Metadata = items.reduce((x, y) =>
                     Metadata.merge(x, y),
                 );
-                union.push(
-                    application_array(options)(components)(tuple)(merged)({
-                        nullable: merged?.nullable ?? false,
+                insert(
+                    application_array(options)(components)(tuple)(merged)(
                         attribute,
-                    }),
+                    ),
                 );
             }
         }
@@ -125,18 +118,12 @@ export const application_schema =
         // NATIVES
         for (const native of meta.natives)
             if (AtomicPredicator.native(native))
-                union.push(
+                insert(
                     native === "String"
-                        ? application_string(meta, attribute)
+                        ? application_string(meta)(attribute)
                         : native === "Boolean"
-                        ? application_boolean({
-                              nullable: meta.nullable,
-                              attribute,
-                          })
-                        : application_number({
-                              nullable: meta.nullable,
-                              attribute,
-                          }),
+                        ? application_boolean(attribute)
+                        : application_number(attribute),
                 );
             else
                 union.push(
@@ -162,15 +149,13 @@ export const application_schema =
 
         // OBJECT
         for (const obj of meta.objects) {
-            const key: string = obj.name + (meta.nullable ? ".Nullable" : "");
-            application_object(options)(components)(obj)({
-                key,
-                nullable: meta.nullable,
-            });
+            const key: string = application_object(options)(components)(obj)(
+                meta.nullable,
+            );
             union.push(
                 (options.purpose === "ajv" && obj.recursive
                     ? recursive
-                    : reference)(`${options.prefix}/${key}`, attribute),
+                    : reference)(`${JSON_SCHEMA_PREFIX}/${key}`, attribute),
             );
         }
 

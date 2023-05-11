@@ -13,7 +13,6 @@ export const application_templates =
         // CONSTRUCT PATTERN
         const output: IJsonSchema.IString = {
             type: "string",
-            nullable: meta.nullable,
             ...attribute,
         };
         output.pattern = metadata_to_pattern(true)(meta);

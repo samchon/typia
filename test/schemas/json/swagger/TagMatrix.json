@@ -10,12 +10,76 @@
         "type": "object",
         "properties": {
           "matrix": {
+            "description": "Doubled array.",
+            "x-typia-metaTags": [
+              {
+                "kind": "items",
+                "value": 3
+              },
+              {
+                "kind": "format",
+                "value": "uuid"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "items",
+                "text": [
+                  {
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "format",
+                "text": [
+                  {
+                    "text": "uuid",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
+              "description": "Doubled array.",
+              "x-typia-metaTags": [
+                {
+                  "kind": "items",
+                  "value": 3
+                },
+                {
+                  "kind": "format",
+                  "value": "uuid"
+                }
+              ],
+              "x-typia-jsDocTags": [
+                {
+                  "name": "items",
+                  "text": [
+                    {
+                      "text": "3",
+                      "kind": "text"
+                    }
+                  ]
+                },
+                {
+                  "name": "format",
+                  "text": [
+                    {
+                      "text": "uuid",
+                      "kind": "text"
+                    }
+                  ]
+                }
+              ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "type": "array",
               "items": {
-                "type": "string",
-                "nullable": false,
                 "description": "Doubled array.",
                 "x-typia-metaTags": [
                   {
@@ -49,77 +113,10 @@
                 ],
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "type": "string",
                 "format": "uuid"
-              },
-              "nullable": false,
-              "description": "Doubled array.",
-              "x-typia-metaTags": [
-                {
-                  "kind": "items",
-                  "value": 3
-                },
-                {
-                  "kind": "format",
-                  "value": "uuid"
-                }
-              ],
-              "x-typia-jsDocTags": [
-                {
-                  "name": "items",
-                  "text": [
-                    {
-                      "text": "3",
-                      "kind": "text"
-                    }
-                  ]
-                },
-                {
-                  "name": "format",
-                  "text": [
-                    {
-                      "text": "uuid",
-                      "kind": "text"
-                    }
-                  ]
-                }
-              ],
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "Doubled array.",
-            "x-typia-metaTags": [
-              {
-                "kind": "items",
-                "value": 3
-              },
-              {
-                "kind": "format",
-                "value": "uuid"
               }
-            ],
-            "x-typia-jsDocTags": [
-              {
-                "name": "items",
-                "text": [
-                  {
-                    "text": "3",
-                    "kind": "text"
-                  }
-                ]
-              },
-              {
-                "name": "format",
-                "text": [
-                  {
-                    "text": "uuid",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           }
         },
         "nullable": false,
