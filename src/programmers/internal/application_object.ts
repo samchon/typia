@@ -9,6 +9,7 @@ import { PatternUtil } from "../../utils/PatternUtil";
 
 import { IJsonSchema } from "../../module";
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
+import { JSON_SCHEMA_PREFIX } from "./JSON_SCHEMA_PREFIX";
 import { application_schema } from "./application_schema";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
@@ -19,10 +20,15 @@ export const application_object =
     (options: ApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
     (obj: MetadataObject) =>
-    (props: { key: string; nullable: boolean }): void => {
+    (nullable: boolean): string => {
+        const key =
+            options.purpose === "ajv"
+                ? obj.name
+                : `${obj.name}${nullable ? ".Nullable" : ""}`;
+
         // TEMPORARY ASSIGNMENT
-        if (components.schemas[props.key] !== undefined) return;
-        components.schemas[props.key] = {} as any;
+        if (components.schemas[key] !== undefined) return key;
+        components.schemas[key] = {} as any;
 
         // ITERATE PROPERTIES
         const properties: Record<string, any> = {};
@@ -99,13 +105,13 @@ export const application_object =
         const schema: IJsonComponents.IObject = {
             $id:
                 options.purpose === "ajv"
-                    ? options.prefix + "/" + props.key
+                    ? `${JSON_SCHEMA_PREFIX}/${key}`
                     : undefined,
             $recursiveAnchor:
                 (options.purpose === "ajv" && obj.recursive) || undefined,
             type: "object",
             properties,
-            nullable: props.nullable,
+            nullable: options.purpose === "swagger" ? nullable : undefined,
             required: required.length ? required : undefined,
             description: obj.description,
             "x-typia-jsDocTags": obj.jsDocTags,
@@ -120,7 +126,8 @@ export const application_object =
                           join(options)(components)(extraMeta),
                   }),
         };
-        components.schemas[props.key] = schema;
+        components.schemas[key] = schema;
+        return key;
     };
 
 const join =

@@ -9,69 +9,60 @@
             "enum": [
               false,
               true
-            ],
-            "nullable": false
+            ]
           },
           {
             "type": "number",
             "enum": [
               2
-            ],
-            "nullable": false
+            ]
           },
           {
             "type": "string",
             "enum": [
               "three"
-            ],
-            "nullable": false
+            ]
           }
         ]
       },
-      "nullable": false,
       "x-typia-tuple": {
         "type": "array",
         "items": [
           {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "boolean",
             "enum": [
               false,
               true
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "boolean",
             "enum": [
               true
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "number",
             "enum": [
               2
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           {
+            "x-typia-rest": false,
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "three"
-            ],
-            "nullable": false,
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
-        ],
-        "nullable": false
+        ]
       }
     }
   ],

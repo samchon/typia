@@ -10,8 +10,6 @@
         "type": "object",
         "properties": {
           "vulnerable": {
-            "type": "string",
-            "nullable": false,
             "deprecated": true,
             "description": "",
             "x-typia-jsDocTags": [
@@ -20,18 +18,16 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "Descripted property.",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "title": "something",
             "description": "Titled property.",
             "x-typia-jsDocTags": [
@@ -46,11 +42,10 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "complicate_title": {
-            "type": "string",
-            "nullable": false,
             "title": "something weirdo with {@link something } tag",
             "description": "Complicate title.",
             "x-typia-jsDocTags": [
@@ -81,7 +76,8 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,

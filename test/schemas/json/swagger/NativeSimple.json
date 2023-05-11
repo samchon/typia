@@ -10,77 +10,76 @@
         "type": "object",
         "properties": {
           "date": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "uint8Array": {
-            "$ref": "#/components/schemas/Uint8Array",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Uint8Array"
           },
           "uint8ClampedArray": {
-            "$ref": "#/components/schemas/Uint8ClampedArray",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Uint8ClampedArray"
           },
           "uint16Array": {
-            "$ref": "#/components/schemas/Uint16Array",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Uint16Array"
           },
           "uint32Array": {
-            "$ref": "#/components/schemas/Uint32Array",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Uint32Array"
           },
           "bigUint64Array": {
-            "$ref": "#/components/schemas/BigUint64Array",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/BigUint64Array"
           },
           "int8Array": {
-            "$ref": "#/components/schemas/Int8Array",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Int8Array"
           },
           "int16Array": {
-            "$ref": "#/components/schemas/Int16Array",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Int16Array"
           },
           "int32Array": {
-            "$ref": "#/components/schemas/Int32Array",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Int32Array"
           },
           "bigInt64Array": {
-            "$ref": "#/components/schemas/BigInt64Array",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/BigInt64Array"
           },
           "float32Array": {
-            "$ref": "#/components/schemas/Float32Array",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Float32Array"
           },
           "float64Array": {
-            "$ref": "#/components/schemas/Float64Array",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Float64Array"
           },
           "buffer": {
             "$ref": "#/components/schemas/__type",
@@ -89,34 +88,34 @@
             "x-typia-optional": false
           },
           "arrayBuffer": {
-            "$ref": "#/components/schemas/ArrayBuffer",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/ArrayBuffer"
           },
           "sharedArrayBuffer": {
-            "$ref": "#/components/schemas/SharedArrayBuffer",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/SharedArrayBuffer"
           },
           "dataView": {
-            "$ref": "#/components/schemas/DataView",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/DataView"
           },
           "weakSet": {
-            "$ref": "#/components/schemas/WeakSet",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/WeakSet"
           },
           "weakMap": {
-            "$ref": "#/components/schemas/WeakMap",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/WeakMap"
           }
         },
         "nullable": false,
@@ -201,28 +200,25 @@
         "type": "object",
         "properties": {
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "Buffer"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "data": {
-            "type": "array",
-            "items": {
-              "type": "number",
-              "nullable": false,
-              "description": "",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "description": "",
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number"
+            }
           }
         },
         "nullable": false,

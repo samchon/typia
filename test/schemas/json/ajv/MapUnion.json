@@ -4,20 +4,18 @@
       "type": "array",
       "items": {
         "$ref": "#/components/schemas/Map"
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
     "schemas": {
       "Map": {
         "type": "object",
-        "$id": "components#/schemas/Map",
-        "properties": {},
-        "nullable": false
+        "$id": "#/components/schemas/Map",
+        "properties": {}
       }
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

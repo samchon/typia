@@ -4,49 +4,44 @@
       "type": "array",
       "items": [
         {
+          "x-typia-required": true,
+          "x-typia-optional": false,
           "type": "boolean",
           "enum": [
             false
-          ],
-          "nullable": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
+          ]
         },
         {
+          "x-typia-required": true,
+          "x-typia-optional": false,
           "type": "boolean",
           "enum": [
             true
-          ],
-          "nullable": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
+          ]
         },
         {
+          "x-typia-required": true,
+          "x-typia-optional": false,
           "type": "number",
           "enum": [
             2
-          ],
-          "nullable": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
+          ]
         },
         {
+          "x-typia-rest": false,
+          "x-typia-required": true,
+          "x-typia-optional": false,
           "type": "string",
           "enum": [
             "three"
-          ],
-          "nullable": false,
-          "x-typia-rest": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
+          ]
         }
-      ],
-      "nullable": false
+      ]
     }
   ],
   "components": {
     "schemas": {}
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

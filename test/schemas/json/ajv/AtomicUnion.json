@@ -5,25 +5,24 @@
       "items": {
         "oneOf": [
           {
-            "type": "string",
-            "nullable": true
+            "type": "null"
           },
           {
-            "type": "number",
-            "nullable": true
+            "type": "string"
           },
           {
-            "type": "boolean",
-            "nullable": true
+            "type": "number"
+          },
+          {
+            "type": "boolean"
           }
         ]
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
     "schemas": {}
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

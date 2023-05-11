@@ -9,6 +9,7 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
         ((input: any): string => {
             const assert = (input: any): Array<typia.IJsonApplication> => {
                 const $guard = (typia.assertStringify as any).guard;
+                const $is_custom = (typia.assertStringify as any).is_custom;
                 const $join = (typia.assertStringify as any).join;
                 const __is = (
                     input: any,
@@ -27,7 +28,13 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                         $io32(input.components) &&
                         ("ajv" === input.purpose ||
                             "swagger" === input.purpose) &&
-                        "string" === typeof input.prefix;
+                        "string" === typeof input.prefix &&
+                        $is_custom(
+                            "deprecated",
+                            "string",
+                            'Always "#/components/schemas"',
+                            input.prefix,
+                        );
                     const $io1 = (input: any): boolean =>
                         Array.isArray(input["enum"]) &&
                         input["enum"].every(
@@ -36,7 +43,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                         (undefined === input["default"] ||
                             "boolean" === typeof input["default"]) &&
                         "boolean" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -152,7 +160,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             ("number" === typeof input["default"] &&
                                 Number.isFinite(input["default"]))) &&
                         "number" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -189,7 +198,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                         (undefined === input["default"] ||
                             "string" === typeof input["default"]) &&
                         "string" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -222,7 +232,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                         (undefined === input["default"] ||
                             "boolean" === typeof input["default"]) &&
                         "boolean" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -273,7 +284,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             ("number" === typeof input["default"] &&
                                 Number.isFinite(input["default"]))) &&
                         "integer" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -320,7 +332,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             ("number" === typeof input["default"] &&
                                 Number.isFinite(input["default"]))) &&
                         "number" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -367,7 +380,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                         (undefined === input["default"] ||
                             "string" === typeof input["default"]) &&
                         "string" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -416,7 +430,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                 null !== input["x-typia-tuple"] &&
                                 $io26(input["x-typia-tuple"]))) &&
                         "array" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -455,7 +470,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                 $iu2(elem),
                         ) &&
                         "array" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -665,7 +681,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                         (undefined === input.$recursiveAnchor ||
                             "boolean" === typeof input.$recursiveAnchor) &&
                         "object" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         "object" === typeof input.properties &&
                         null !== input.properties &&
                         false === Array.isArray(input.properties) &&
@@ -929,7 +946,19 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                     expected: '("ajv" | "swagger")',
                                     value: input.purpose,
                                 })) &&
-                            ("string" === typeof input.prefix ||
+                            (("string" === typeof input.prefix &&
+                                ($is_custom(
+                                    "deprecated",
+                                    "string",
+                                    'Always "#/components/schemas"',
+                                    input.prefix,
+                                ) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".prefix",
+                                        expected:
+                                            'string (@deprecated Always "#/components/schemas")',
+                                        value: input.prefix,
+                                    }))) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".prefix",
                                     expected: "string",
@@ -969,10 +998,11 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                     expected: '"boolean"',
                                     value: input.type,
                                 })) &&
-                            ("boolean" === typeof input.nullable ||
+                            (undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $guard(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 })) &&
                             (undefined === input.deprecated ||
@@ -1450,10 +1480,11 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                     expected: '"number"',
                                     value: input.type,
                                 })) &&
-                            ("boolean" === typeof input.nullable ||
+                            (undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $guard(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 })) &&
                             (undefined === input.deprecated ||
@@ -1598,10 +1629,11 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                     expected: '"string"',
                                     value: input.type,
                                 })) &&
-                            ("boolean" === typeof input.nullable ||
+                            (undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $guard(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 })) &&
                             (undefined === input.deprecated ||
@@ -1727,10 +1759,11 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                     expected: '"boolean"',
                                     value: input.type,
                                 })) &&
-                            ("boolean" === typeof input.nullable ||
+                            (undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $guard(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 })) &&
                             (undefined === input.deprecated ||
@@ -1916,10 +1949,11 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                     expected: '"integer"',
                                     value: input.type,
                                 })) &&
-                            ("boolean" === typeof input.nullable ||
+                            (undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $guard(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 })) &&
                             (undefined === input.deprecated ||
@@ -2084,10 +2118,11 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                     expected: '"number"',
                                     value: input.type,
                                 })) &&
-                            ("boolean" === typeof input.nullable ||
+                            (undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $guard(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 })) &&
                             (undefined === input.deprecated ||
@@ -2269,10 +2304,11 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                     expected: '"string"',
                                     value: input.type,
                                 })) &&
-                            ("boolean" === typeof input.nullable ||
+                            (undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $guard(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 })) &&
                             (undefined === input.deprecated ||
@@ -2461,10 +2497,11 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                     expected: '"array"',
                                     value: input.type,
                                 })) &&
-                            ("boolean" === typeof input.nullable ||
+                            (undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $guard(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 })) &&
                             (undefined === input.deprecated ||
@@ -2611,10 +2648,11 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                     expected: '"array"',
                                     value: input.type,
                                 })) &&
-                            ("boolean" === typeof input.nullable ||
+                            (undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $guard(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 })) &&
                             (undefined === input.deprecated ||
@@ -3401,10 +3439,11 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                     expected: '"object"',
                                     value: input.type,
                                 })) &&
-                            ("boolean" === typeof input.nullable ||
+                            (undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $guard(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 })) &&
                             (("object" === typeof input.properties &&
@@ -4085,6 +4124,7 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                 const $number = (typia.assertStringify as any).number;
                 const $tail = (typia.assertStringify as any).tail;
                 const $join = (typia.assertStringify as any).join;
+                const $is_custom = (typia.assertStringify as any).is_custom;
                 const $io1 = (input: any): boolean =>
                     Array.isArray(input["enum"]) &&
                     input["enum"].every(
@@ -4093,7 +4133,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                     (undefined === input["default"] ||
                         "boolean" === typeof input["default"]) &&
                     "boolean" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -4188,7 +4229,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                     (undefined === input["default"] ||
                         "number" === typeof input["default"]) &&
                     "number" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -4225,7 +4267,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                     (undefined === input["default"] ||
                         "string" === typeof input["default"]) &&
                     "string" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -4258,7 +4301,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                     (undefined === input["default"] ||
                         "boolean" === typeof input["default"]) &&
                     "boolean" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -4304,7 +4348,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                     (undefined === input["default"] ||
                         "number" === typeof input["default"]) &&
                     "integer" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -4347,7 +4392,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                     (undefined === input["default"] ||
                         "number" === typeof input["default"]) &&
                     "number" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -4392,7 +4438,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                     (undefined === input["default"] ||
                         "string" === typeof input["default"]) &&
                     "string" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -4439,7 +4486,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             null !== input["x-typia-tuple"] &&
                             $io26(input["x-typia-tuple"]))) &&
                     "array" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -4478,7 +4526,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             $iu2(elem),
                     ) &&
                     "array" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -4688,7 +4737,8 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                     (undefined === input.$recursiveAnchor ||
                         "boolean" === typeof input.$recursiveAnchor) &&
                     "object" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     "object" === typeof input.properties &&
                     null !== input.properties &&
                     false === Array.isArray(input.properties) &&
@@ -4904,6 +4954,14 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                       : undefined
                               },`
                     }${
+                        undefined === input.nullable
+                            ? ""
+                            : `"nullable":${
+                                  undefined !== input.nullable
+                                      ? input.nullable
+                                      : undefined
+                              },`
+                    }${
                         undefined === input.deprecated
                             ? ""
                             : `"deprecated":${
@@ -4982,7 +5040,7 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             expected: '"boolean"',
                             value: input.type,
                         });
-                    })()},"nullable":${input.nullable}}`;
+                    })()}}`;
                 const $so2 = (input: any): any =>
                     `{"kind":${(() => {
                         if ("string" === typeof input.kind)
@@ -5196,6 +5254,14 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                       : undefined
                               },`
                     }${
+                        undefined === input.nullable
+                            ? ""
+                            : `"nullable":${
+                                  undefined !== input.nullable
+                                      ? input.nullable
+                                      : undefined
+                              },`
+                    }${
                         undefined === input.deprecated
                             ? ""
                             : `"deprecated":${
@@ -5274,7 +5340,7 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             expected: '"number"',
                             value: input.type,
                         });
-                    })()},"nullable":${input.nullable}}`;
+                    })()}}`;
                 const $so20 = (input: any): any =>
                     `{${
                         undefined === input["default"]
@@ -5282,6 +5348,14 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             : `"default":${
                                   undefined !== input["default"]
                                       ? $string(input["default"])
+                                      : undefined
+                              },`
+                    }${
+                        undefined === input.nullable
+                            ? ""
+                            : `"nullable":${
+                                  undefined !== input.nullable
+                                      ? input.nullable
                                       : undefined
                               },`
                     }${
@@ -5363,7 +5437,7 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             expected: '"string"',
                             value: input.type,
                         });
-                    })()},"nullable":${input.nullable}}`;
+                    })()}}`;
                 const $so21 = (input: any): any =>
                     `{${
                         undefined === input["default"]
@@ -5371,6 +5445,14 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             : `"default":${
                                   undefined !== input["default"]
                                       ? input["default"]
+                                      : undefined
+                              },`
+                    }${
+                        undefined === input.nullable
+                            ? ""
+                            : `"nullable":${
+                                  undefined !== input.nullable
+                                      ? input.nullable
                                       : undefined
                               },`
                     }${
@@ -5450,7 +5532,7 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             expected: '"boolean"',
                             value: input.type,
                         });
-                    })()},"nullable":${input.nullable}}`;
+                    })()}}`;
                 const $so22 = (input: any): any =>
                     `{${
                         undefined === input.minimum
@@ -5498,6 +5580,14 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             : `"default":${
                                   undefined !== input["default"]
                                       ? $number(input["default"])
+                                      : undefined
+                              },`
+                    }${
+                        undefined === input.nullable
+                            ? ""
+                            : `"nullable":${
+                                  undefined !== input.nullable
+                                      ? input.nullable
                                       : undefined
                               },`
                     }${
@@ -5577,7 +5667,7 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             expected: '"integer"',
                             value: input.type,
                         });
-                    })()},"nullable":${input.nullable}}`;
+                    })()}}`;
                 const $so23 = (input: any): any =>
                     `{${
                         undefined === input.minimum
@@ -5625,6 +5715,14 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             : `"default":${
                                   undefined !== input["default"]
                                       ? $number(input["default"])
+                                      : undefined
+                              },`
+                    }${
+                        undefined === input.nullable
+                            ? ""
+                            : `"nullable":${
+                                  undefined !== input.nullable
+                                      ? input.nullable
                                       : undefined
                               },`
                     }${
@@ -5704,7 +5802,7 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             expected: '"number"',
                             value: input.type,
                         });
-                    })()},"nullable":${input.nullable}}`;
+                    })()}}`;
                 const $so24 = (input: any): any =>
                     `{${
                         undefined === input.minLength
@@ -5744,6 +5842,14 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             : `"default":${
                                   undefined !== input["default"]
                                       ? $string(input["default"])
+                                      : undefined
+                              },`
+                    }${
+                        undefined === input.nullable
+                            ? ""
+                            : `"nullable":${
+                                  undefined !== input.nullable
+                                      ? input.nullable
                                       : undefined
                               },`
                     }${
@@ -5823,7 +5929,7 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             expected: '"string"',
                             value: input.type,
                         });
-                    })()},"nullable":${input.nullable}}`;
+                    })()}}`;
                 const $so25 = (input: any): any =>
                     `{${
                         undefined === input.minItems
@@ -5847,6 +5953,14 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             : `"x-typia-tuple":${
                                   undefined !== input["x-typia-tuple"]
                                       ? $so26(input["x-typia-tuple"])
+                                      : undefined
+                              },`
+                    }${
+                        undefined === input.nullable
+                            ? ""
+                            : `"nullable":${
+                                  undefined !== input.nullable
+                                      ? input.nullable
                                       : undefined
                               },`
                     }${
@@ -5926,9 +6040,17 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             expected: '"array"',
                             value: input.type,
                         });
-                    })()},"nullable":${input.nullable}}`;
+                    })()}}`;
                 const $so26 = (input: any): any =>
                     `{${
+                        undefined === input.nullable
+                            ? ""
+                            : `"nullable":${
+                                  undefined !== input.nullable
+                                      ? input.nullable
+                                      : undefined
+                              },`
+                    }${
                         undefined === input.deprecated
                             ? ""
                             : `"deprecated":${
@@ -6007,7 +6129,7 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             expected: '"array"',
                             value: input.type,
                         });
-                    })()},"nullable":${input.nullable}}`;
+                    })()}}`;
                 const $so27 = (input: any): any =>
                     `{${
                         undefined === input.deprecated
@@ -6399,6 +6521,14 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                                       : undefined
                               },`
                     }${
+                        undefined === input.nullable
+                            ? ""
+                            : `"nullable":${
+                                  undefined !== input.nullable
+                                      ? input.nullable
+                                      : undefined
+                              },`
+                    }${
                         undefined === input.patternProperties
                             ? ""
                             : `"patternProperties":${
@@ -6475,9 +6605,7 @@ export const test_assertStringify_UltimateUnion = _test_assertStringify(
                             expected: '"object"',
                             value: input.type,
                         });
-                    })()},"nullable":${input.nullable},"properties":${$so35(
-                        input.properties,
-                    )}}`;
+                    })()},"properties":${$so35(input.properties)}}`;
                 const $so35 = (input: any): any =>
                     `{${Object.entries(input)
                         .map(([key, value]: [string, any]) => {

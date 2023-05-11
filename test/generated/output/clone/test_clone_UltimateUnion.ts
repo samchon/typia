@@ -11,13 +11,15 @@ export const test_clone_UltimateUnion = _test_clone(
         ): typia.Primitive<Array<typia.IJsonApplication>> => {
             const $join = (typia.clone as any).join;
             const $throws = (typia.clone as any).throws;
+            const $is_custom = (typia.clone as any).is_custom;
             const $io1 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "boolean" === typeof elem) &&
                 (undefined === input["default"] ||
                     "boolean" === typeof input["default"]) &&
                 "boolean" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -105,7 +107,8 @@ export const test_clone_UltimateUnion = _test_clone(
                 (undefined === input["default"] ||
                     "number" === typeof input["default"]) &&
                 "number" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -140,7 +143,8 @@ export const test_clone_UltimateUnion = _test_clone(
                 (undefined === input["default"] ||
                     "string" === typeof input["default"]) &&
                 "string" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -173,7 +177,8 @@ export const test_clone_UltimateUnion = _test_clone(
                 (undefined === input["default"] ||
                     "boolean" === typeof input["default"]) &&
                 "boolean" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -219,7 +224,8 @@ export const test_clone_UltimateUnion = _test_clone(
                 (undefined === input["default"] ||
                     "number" === typeof input["default"]) &&
                 "integer" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -262,7 +268,8 @@ export const test_clone_UltimateUnion = _test_clone(
                 (undefined === input["default"] ||
                     "number" === typeof input["default"]) &&
                 "number" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -307,7 +314,8 @@ export const test_clone_UltimateUnion = _test_clone(
                 (undefined === input["default"] ||
                     "string" === typeof input["default"]) &&
                 "string" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -354,7 +362,8 @@ export const test_clone_UltimateUnion = _test_clone(
                         null !== input["x-typia-tuple"] &&
                         $io26(input["x-typia-tuple"]))) &&
                 "array" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -393,7 +402,8 @@ export const test_clone_UltimateUnion = _test_clone(
                         $iu2(elem),
                 ) &&
                 "array" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -602,7 +612,8 @@ export const test_clone_UltimateUnion = _test_clone(
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor) &&
                 "object" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 "object" === typeof input.properties &&
                 null !== input.properties &&
                 false === Array.isArray(input.properties) &&

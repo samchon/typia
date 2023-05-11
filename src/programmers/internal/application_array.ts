@@ -13,23 +13,19 @@ export const application_array =
     (components: IJsonComponents) =>
     (tuple?: IJsonSchema.ITuple) =>
     (metadata: Metadata) =>
-    (props: {
-        nullable: boolean;
-        attribute: IJsonSchema.IAttribute;
-    }): IJsonSchema.IArray => {
+    (attribute: IJsonSchema.IAttribute): IJsonSchema.IArray => {
         // SCHEMA
         const output: IJsonSchema.IArray = {
+            ...attribute,
             type: "array",
             items: application_schema(options)(false)(components)(metadata)(
-                props.attribute,
+                attribute,
             ),
-            nullable: props.nullable,
             "x-typia-tuple": tuple,
-            ...props.attribute,
         };
 
         // RANGE
-        for (const tag of props.attribute["x-typia-metaTags"] || [])
+        for (const tag of attribute["x-typia-metaTags"] ?? [])
             if (tag.kind === "minItems") output.minItems = tag.value;
             else if (tag.kind === "maxItems") output.maxItems = tag.value;
         return output;

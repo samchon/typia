@@ -1,41 +1,40 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/ObjectSimple.IBox3D"
+      "$ref": "#/components/schemas/ObjectSimple.IBox3D"
     }
   ],
   "components": {
     "schemas": {
       "ObjectSimple.IBox3D": {
-        "$id": "components#/schemas/ObjectSimple.IBox3D",
+        "$id": "#/components/schemas/ObjectSimple.IBox3D",
         "type": "object",
         "properties": {
           "scale": {
-            "$ref": "components#/schemas/ObjectSimple.IPoint3D",
+            "$ref": "#/components/schemas/ObjectSimple.IPoint3D",
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "position": {
-            "$ref": "components#/schemas/ObjectSimple.IPoint3D",
+            "$ref": "#/components/schemas/ObjectSimple.IPoint3D",
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "rotate": {
-            "$ref": "components#/schemas/ObjectSimple.IPoint3D",
+            "$ref": "#/components/schemas/ObjectSimple.IPoint3D",
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "pivot": {
-            "$ref": "components#/schemas/ObjectSimple.IPoint3D",
+            "$ref": "#/components/schemas/ObjectSimple.IPoint3D",
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "scale",
           "position",
@@ -45,32 +44,28 @@
         "x-typia-jsDocTags": []
       },
       "ObjectSimple.IPoint3D": {
-        "$id": "components#/schemas/ObjectSimple.IPoint3D",
+        "$id": "#/components/schemas/ObjectSimple.IPoint3D",
         "type": "object",
         "properties": {
           "x": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "y": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "z": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "x",
           "y",
@@ -81,5 +76,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

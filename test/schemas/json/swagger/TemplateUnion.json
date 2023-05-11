@@ -4,8 +4,7 @@
       "type": "array",
       "items": {
         "$ref": "#/components/schemas/TemplateUnion.Type"
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
@@ -15,7 +14,6 @@
         "properties": {
           "prefix": {
             "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -23,7 +21,6 @@
           },
           "postfix": {
             "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -31,7 +28,6 @@
           },
           "middle": {
             "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -41,25 +37,22 @@
             "oneOf": [
               {
                 "type": "string",
-                "nullable": false,
                 "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "pattern": "^(the_A_value|the_B_value|-?\\d+\\.?\\d*|true|false|(the_-?\\d+\\.?\\d*_value))$"
               },
               {
-                "type": "number",
-                "nullable": false,
                 "description": "",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "type": "number"
               },
               {
-                "type": "boolean",
-                "nullable": false,
                 "description": "",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "type": "boolean"
               },
               {
                 "$ref": "#/components/schemas/__type",
@@ -86,11 +79,10 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,

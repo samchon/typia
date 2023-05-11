@@ -4,8 +4,7 @@
       "type": "array",
       "items": {
         "$ref": "#/components/schemas/ObjectAlias.IMember"
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
@@ -14,49 +13,47 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string",
+            "nullable": true
           },
           "email": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "sex": {
             "oneOf": [
               {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
                 "type": "number",
                 "enum": [
                   2,
                   1
                 ],
-                "nullable": true,
-                "description": "",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "nullable": true
               },
               {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
                 "type": "string",
                 "enum": [
                   "male",
                   "female"
                 ],
-                "nullable": true,
-                "description": "",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "nullable": true
               }
             ],
             "description": "",
@@ -64,18 +61,18 @@
             "x-typia-optional": false
           },
           "age": {
-            "type": "number",
-            "nullable": true,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number",
+            "nullable": true
           },
           "dead": {
-            "type": "boolean",
-            "nullable": true,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean",
+            "nullable": true
           }
         },
         "nullable": false,

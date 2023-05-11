@@ -12,18 +12,16 @@
         "nullable": false,
         "x-typia-jsDocTags": [],
         "x-typia-additionalProperties": {
-          "type": "number",
-          "nullable": false,
           "description": "",
           "x-typia-required": true,
-          "x-typia-optional": false
+          "x-typia-optional": false,
+          "type": "number"
         },
         "additionalProperties": {
-          "type": "number",
-          "nullable": false,
           "description": "",
           "x-typia-required": true,
-          "x-typia-optional": false
+          "x-typia-optional": false,
+          "type": "number"
         }
       }
     }

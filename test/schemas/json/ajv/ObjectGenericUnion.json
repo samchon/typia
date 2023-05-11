@@ -3,10 +3,10 @@
     {
       "oneOf": [
         {
-          "$ref": "components#/schemas/ObjectGenericUnion.ISaleQuestion"
+          "$ref": "#/components/schemas/ObjectGenericUnion.ISaleQuestion"
         },
         {
-          "$ref": "components#/schemas/ObjectGenericUnion.ISaleReview"
+          "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
         }
       ]
     }
@@ -14,58 +14,65 @@
   "components": {
     "schemas": {
       "ObjectGenericUnion.ISaleQuestion": {
-        "$id": "components#/schemas/ObjectGenericUnion.ISaleQuestion",
+        "$id": "#/components/schemas/ObjectGenericUnion.ISaleQuestion",
         "type": "object",
         "properties": {
           "writer": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "answer": {
-            "$ref": "components#/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
+            "oneOf": [
+              {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer",
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false
+              }
+            ],
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "hit": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "contents": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "components#/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
               "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           },
           "created_at": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "writer",
           "answer",
@@ -76,46 +83,41 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectGenericUnion.ISaleAnswer.Nullable": {
-        "$id": "components#/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
+      "ObjectGenericUnion.ISaleAnswer": {
+        "$id": "#/components/schemas/ObjectGenericUnion.ISaleAnswer",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "hit": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "contents": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "components#/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
               "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           },
           "created_at": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": true,
         "required": [
           "id",
           "hit",
@@ -125,52 +127,46 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleArticle.IContent": {
-        "$id": "components#/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+        "$id": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "created_at": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "body": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "files": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+              "$ref": "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
               "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "created_at",
@@ -181,32 +177,41 @@
         "x-typia-jsDocTags": []
       },
       "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_": {
-        "$id": "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+        "$id": "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
         "type": "object",
         "properties": {
           "url": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "extension": {
-            "type": "string",
-            "nullable": true,
+            "oneOf": [
+              {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string"
+              }
+            ],
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "url",
           "name",
@@ -215,58 +220,65 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleReview": {
-        "$id": "components#/schemas/ObjectGenericUnion.ISaleReview",
+        "$id": "#/components/schemas/ObjectGenericUnion.ISaleReview",
         "type": "object",
         "properties": {
           "writer": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "answer": {
-            "$ref": "components#/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
+            "oneOf": [
+              {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer",
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false
+              }
+            ],
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "hit": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "contents": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "components#/schemas/ObjectGenericUnion.ISaleReview.IContent",
+              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
               "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           },
           "created_at": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "writer",
           "answer",
@@ -278,59 +290,52 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleReview.IContent": {
-        "$id": "components#/schemas/ObjectGenericUnion.ISaleReview.IContent",
+        "$id": "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
         "type": "object",
         "properties": {
           "score": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "created_at": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "body": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "files": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "components#/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+              "$ref": "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
               "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           }
         },
-        "nullable": false,
         "required": [
           "score",
           "id",
@@ -344,5 +349,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

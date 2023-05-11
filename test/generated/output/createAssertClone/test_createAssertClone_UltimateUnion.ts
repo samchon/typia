@@ -8,6 +8,7 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
     (input: any): typia.Primitive<UltimateUnion> => {
         const assert = (input: any): UltimateUnion => {
             const $guard = (typia.createAssertClone as any).guard;
+            const $is_custom = (typia.createAssertClone as any).is_custom;
             const $join = (typia.createAssertClone as any).join;
             const __is = (input: any): input is UltimateUnion => {
                 const $io0 = (input: any): boolean =>
@@ -23,7 +24,13 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     null !== input.components &&
                     $io32(input.components) &&
                     ("ajv" === input.purpose || "swagger" === input.purpose) &&
-                    "string" === typeof input.prefix;
+                    "string" === typeof input.prefix &&
+                    $is_custom(
+                        "deprecated",
+                        "string",
+                        'Always "#/components/schemas"',
+                        input.prefix,
+                    );
                 const $io1 = (input: any): boolean =>
                     Array.isArray(input["enum"]) &&
                     input["enum"].every(
@@ -32,7 +39,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     (undefined === input["default"] ||
                         "boolean" === typeof input["default"]) &&
                     "boolean" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -146,7 +154,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         ("number" === typeof input["default"] &&
                             Number.isFinite(input["default"]))) &&
                     "number" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -183,7 +192,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     (undefined === input["default"] ||
                         "string" === typeof input["default"]) &&
                     "string" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -216,7 +226,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     (undefined === input["default"] ||
                         "boolean" === typeof input["default"]) &&
                     "boolean" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -266,7 +277,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         ("number" === typeof input["default"] &&
                             Number.isFinite(input["default"]))) &&
                     "integer" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -313,7 +325,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         ("number" === typeof input["default"] &&
                             Number.isFinite(input["default"]))) &&
                     "number" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -360,7 +373,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     (undefined === input["default"] ||
                         "string" === typeof input["default"]) &&
                     "string" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -409,7 +423,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                             null !== input["x-typia-tuple"] &&
                             $io26(input["x-typia-tuple"]))) &&
                     "array" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -448,7 +463,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                             $iu2(elem),
                     ) &&
                     "array" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -658,7 +674,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     (undefined === input.$recursiveAnchor ||
                         "boolean" === typeof input.$recursiveAnchor) &&
                     "object" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     "object" === typeof input.properties &&
                     null !== input.properties &&
                     false === Array.isArray(input.properties) &&
@@ -917,7 +934,19 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                                 expected: '("ajv" | "swagger")',
                                 value: input.purpose,
                             })) &&
-                        ("string" === typeof input.prefix ||
+                        (("string" === typeof input.prefix &&
+                            ($is_custom(
+                                "deprecated",
+                                "string",
+                                'Always "#/components/schemas"',
+                                input.prefix,
+                            ) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".prefix",
+                                    expected:
+                                        'string (@deprecated Always "#/components/schemas")',
+                                    value: input.prefix,
+                                }))) ||
                             $guard(_exceptionable, {
                                 path: _path + ".prefix",
                                 expected: "string",
@@ -956,10 +985,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                                 expected: '"boolean"',
                                 value: input.type,
                             })) &&
-                        ("boolean" === typeof input.nullable ||
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable ||
                             $guard(_exceptionable, {
                                 path: _path + ".nullable",
-                                expected: "boolean",
+                                expected: "(boolean | undefined)",
                                 value: input.nullable,
                             })) &&
                         (undefined === input.deprecated ||
@@ -1430,10 +1460,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                                 expected: '"number"',
                                 value: input.type,
                             })) &&
-                        ("boolean" === typeof input.nullable ||
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable ||
                             $guard(_exceptionable, {
                                 path: _path + ".nullable",
-                                expected: "boolean",
+                                expected: "(boolean | undefined)",
                                 value: input.nullable,
                             })) &&
                         (undefined === input.deprecated ||
@@ -1572,10 +1603,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                                 expected: '"string"',
                                 value: input.type,
                             })) &&
-                        ("boolean" === typeof input.nullable ||
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable ||
                             $guard(_exceptionable, {
                                 path: _path + ".nullable",
-                                expected: "boolean",
+                                expected: "(boolean | undefined)",
                                 value: input.nullable,
                             })) &&
                         (undefined === input.deprecated ||
@@ -1699,10 +1731,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                                 expected: '"boolean"',
                                 value: input.type,
                             })) &&
-                        ("boolean" === typeof input.nullable ||
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable ||
                             $guard(_exceptionable, {
                                 path: _path + ".nullable",
-                                expected: "boolean",
+                                expected: "(boolean | undefined)",
                                 value: input.nullable,
                             })) &&
                         (undefined === input.deprecated ||
@@ -1884,10 +1917,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                                 expected: '"integer"',
                                 value: input.type,
                             })) &&
-                        ("boolean" === typeof input.nullable ||
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable ||
                             $guard(_exceptionable, {
                                 path: _path + ".nullable",
-                                expected: "boolean",
+                                expected: "(boolean | undefined)",
                                 value: input.nullable,
                             })) &&
                         (undefined === input.deprecated ||
@@ -2050,10 +2084,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                                 expected: '"number"',
                                 value: input.type,
                             })) &&
-                        ("boolean" === typeof input.nullable ||
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable ||
                             $guard(_exceptionable, {
                                 path: _path + ".nullable",
-                                expected: "boolean",
+                                expected: "(boolean | undefined)",
                                 value: input.nullable,
                             })) &&
                         (undefined === input.deprecated ||
@@ -2233,10 +2268,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                                 expected: '"string"',
                                 value: input.type,
                             })) &&
-                        ("boolean" === typeof input.nullable ||
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable ||
                             $guard(_exceptionable, {
                                 path: _path + ".nullable",
-                                expected: "boolean",
+                                expected: "(boolean | undefined)",
                                 value: input.nullable,
                             })) &&
                         (undefined === input.deprecated ||
@@ -2421,10 +2457,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                                 expected: '"array"',
                                 value: input.type,
                             })) &&
-                        ("boolean" === typeof input.nullable ||
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable ||
                             $guard(_exceptionable, {
                                 path: _path + ".nullable",
-                                expected: "boolean",
+                                expected: "(boolean | undefined)",
                                 value: input.nullable,
                             })) &&
                         (undefined === input.deprecated ||
@@ -2566,10 +2603,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                                 expected: '"array"',
                                 value: input.type,
                             })) &&
-                        ("boolean" === typeof input.nullable ||
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable ||
                             $guard(_exceptionable, {
                                 path: _path + ".nullable",
-                                expected: "boolean",
+                                expected: "(boolean | undefined)",
                                 value: input.nullable,
                             })) &&
                         (undefined === input.deprecated ||
@@ -3340,10 +3378,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                                 expected: '"object"',
                                 value: input.type,
                             })) &&
-                        ("boolean" === typeof input.nullable ||
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable ||
                             $guard(_exceptionable, {
                                 path: _path + ".nullable",
-                                expected: "boolean",
+                                expected: "(boolean | undefined)",
                                 value: input.nullable,
                             })) &&
                         (("object" === typeof input.properties &&
@@ -3909,13 +3948,15 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
         ): typia.Primitive<UltimateUnion> => {
             const $join = (typia.createAssertClone as any).join;
             const $throws = (typia.createAssertClone as any).throws;
+            const $is_custom = (typia.createAssertClone as any).is_custom;
             const $io1 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "boolean" === typeof elem) &&
                 (undefined === input["default"] ||
                     "boolean" === typeof input["default"]) &&
                 "boolean" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -4003,7 +4044,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                 (undefined === input["default"] ||
                     "number" === typeof input["default"]) &&
                 "number" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -4038,7 +4080,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                 (undefined === input["default"] ||
                     "string" === typeof input["default"]) &&
                 "string" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -4071,7 +4114,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                 (undefined === input["default"] ||
                     "boolean" === typeof input["default"]) &&
                 "boolean" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -4117,7 +4161,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                 (undefined === input["default"] ||
                     "number" === typeof input["default"]) &&
                 "integer" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -4160,7 +4205,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                 (undefined === input["default"] ||
                     "number" === typeof input["default"]) &&
                 "number" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -4205,7 +4251,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                 (undefined === input["default"] ||
                     "string" === typeof input["default"]) &&
                 "string" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -4252,7 +4299,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         null !== input["x-typia-tuple"] &&
                         $io26(input["x-typia-tuple"]))) &&
                 "array" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -4291,7 +4339,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         $iu2(elem),
                 ) &&
                 "array" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
                 (undefined === input.title ||
@@ -4500,7 +4549,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor) &&
                 "object" === input.type &&
-                "boolean" === typeof input.nullable &&
+                (undefined === input.nullable ||
+                    "boolean" === typeof input.nullable) &&
                 "object" === typeof input.properties &&
                 null !== input.properties &&
                 false === Array.isArray(input.properties) &&

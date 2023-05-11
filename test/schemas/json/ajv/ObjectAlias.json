@@ -3,61 +3,74 @@
     {
       "type": "array",
       "items": {
-        "$ref": "components#/schemas/ObjectAlias.IMember"
-      },
-      "nullable": false
+        "$ref": "#/components/schemas/ObjectAlias.IMember"
+      }
     }
   ],
   "components": {
     "schemas": {
       "ObjectAlias.IMember": {
-        "$id": "components#/schemas/ObjectAlias.IMember",
+        "$id": "#/components/schemas/ObjectAlias.IMember",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true,
+            "oneOf": [
+              {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string"
+              }
+            ],
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "email": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "sex": {
             "oneOf": [
               {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
                 "type": "number",
                 "enum": [
                   2,
                   1
-                ],
-                "nullable": true,
-                "description": "",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                ]
               },
               {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
                 "type": "string",
                 "enum": [
                   "male",
                   "female"
-                ],
-                "nullable": true,
-                "description": "",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                ]
               }
             ],
             "description": "",
@@ -65,21 +78,44 @@
             "x-typia-optional": false
           },
           "age": {
-            "type": "number",
-            "nullable": true,
+            "oneOf": [
+              {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number"
+              }
+            ],
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "dead": {
-            "type": "boolean",
-            "nullable": true,
+            "oneOf": [
+              {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "description": "",
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "boolean"
+              }
+            ],
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "email",
@@ -93,5 +129,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

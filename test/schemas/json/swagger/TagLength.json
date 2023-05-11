@@ -4,8 +4,7 @@
       "type": "array",
       "items": {
         "$ref": "#/components/schemas/TagLength.Type"
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
@@ -14,8 +13,6 @@
         "type": "object",
         "properties": {
           "fixed": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -35,11 +32,10 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "minimum": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -60,11 +56,10 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "minLength": 3
           },
           "maximum": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -85,11 +80,10 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "maxLength": 7
           },
           "minimum_and_maximum": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -123,6 +117,7 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "minLength": 3,
             "maxLength": 7
           }

@@ -1,18 +1,17 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/TemplateAtomic"
+      "$ref": "#/components/schemas/TemplateAtomic"
     }
   ],
   "components": {
     "schemas": {
       "TemplateAtomic": {
-        "$id": "components#/schemas/TemplateAtomic",
+        "$id": "#/components/schemas/TemplateAtomic",
         "type": "object",
         "properties": {
           "prefix": {
             "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -20,7 +19,6 @@
           },
           "postfix": {
             "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -28,7 +26,6 @@
           },
           "middle_string": {
             "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -36,7 +33,6 @@
           },
           "middle_string_empty": {
             "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -44,26 +40,23 @@
           },
           "middle_numeric": {
             "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "pattern": "^(the_-?\\d+\\.?\\d*_value)$"
           },
           "middle_boolean": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "the_false_value",
               "the_true_value"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "ipv4": {
             "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -71,14 +64,12 @@
           },
           "email": {
             "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "pattern": "((.*)@(.*)\\.(.*))"
           }
         },
-        "nullable": false,
         "required": [
           "prefix",
           "postfix",
@@ -94,5 +85,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

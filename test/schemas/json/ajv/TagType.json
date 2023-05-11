@@ -3,20 +3,17 @@
     {
       "type": "array",
       "items": {
-        "$ref": "components#/schemas/TagType.Type"
-      },
-      "nullable": false
+        "$ref": "#/components/schemas/TagType.Type"
+      }
     }
   ],
   "components": {
     "schemas": {
       "TagType.Type": {
-        "$id": "components#/schemas/TagType.Type",
+        "$id": "#/components/schemas/TagType.Type",
         "type": "object",
         "properties": {
           "int": {
-            "type": "integer",
-            "nullable": false,
             "description": "Integer value.",
             "x-typia-metaTags": [
               {
@@ -36,11 +33,10 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "integer"
           },
           "uint": {
-            "type": "integer",
-            "nullable": false,
             "description": "Unsigned integer value.",
             "x-typia-metaTags": [
               {
@@ -61,10 +57,10 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "integer",
             "minimum": 0
           }
         },
-        "nullable": false,
         "required": [
           "int",
           "uint"
@@ -74,5 +70,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

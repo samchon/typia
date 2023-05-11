@@ -4,8 +4,7 @@
       "type": "array",
       "items": {
         "$ref": "#/components/schemas/ArrayHierarchical.ICompany"
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
@@ -14,25 +13,22 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "serial": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "established_at": {
             "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp",
@@ -41,17 +37,16 @@
             "x-typia-optional": false
           },
           "departments": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ArrayHierarchical.IDepartment",
               "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           }
         },
         "nullable": false,
@@ -68,18 +63,16 @@
         "type": "object",
         "properties": {
           "time": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "zone": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -93,25 +86,22 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "code": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "sales": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "created_at": {
             "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp",
@@ -120,17 +110,16 @@
             "x-typia-optional": false
           },
           "employees": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ArrayHierarchical.IEmployee",
               "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           }
         },
         "nullable": false,
@@ -147,32 +136,28 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "age": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "grade": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "employeed_at": {
             "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp",

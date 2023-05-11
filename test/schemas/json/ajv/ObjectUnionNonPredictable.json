@@ -3,50 +3,48 @@
     {
       "type": "array",
       "items": {
-        "$ref": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_"
-      },
-      "nullable": false
+        "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_"
+      }
     }
   ],
   "components": {
     "schemas": {
       "ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_",
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_",
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_",
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
         "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_",
         "type": "object",
         "properties": {
           "value": {
             "oneOf": [
               {
-                "$ref": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
+                "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
                 "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
-                "$ref": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
+                "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
                 "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
-                "$ref": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
+                "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
                 "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
@@ -57,112 +55,102 @@
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
         "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
         "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_boolean_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
         "type": "object",
         "properties": {
           "value": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
         "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IWrapper_lt_number_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
         "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_number_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
         "type": "object",
         "properties": {
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
         "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IWrapper_lt_string_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
         "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_string_gt_": {
-        "$id": "components#/schemas/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
         "type": "object",
         "properties": {
           "value": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
@@ -171,5 +159,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

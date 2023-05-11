@@ -4,5 +4,5 @@ import { ObjectUnionExplicit } from "../../../../../test/structures/ObjectUnionE
 import { createFastifyServerBenchmarkProgram } from "../createFastifyServerBenchmarkProgram";
 
 createFastifyServerBenchmarkProgram(
-    typia.application<[ObjectUnionExplicit[]], "ajv", "#/definitions">(),
+    typia.application<[ObjectUnionExplicit[]], "ajv">(),
 );

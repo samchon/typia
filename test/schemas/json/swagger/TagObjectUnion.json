@@ -11,8 +11,7 @@
             "$ref": "#/components/schemas/TagObjectUnion.Literal"
           }
         ]
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
@@ -21,8 +20,6 @@
         "type": "object",
         "properties": {
           "value": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -43,6 +40,7 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "minimum": 3
           }
         },
@@ -56,8 +54,6 @@
         "type": "object",
         "properties": {
           "value": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-metaTags": [
               {
@@ -91,6 +87,7 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "minLength": 3,
             "maxLength": 7
           }

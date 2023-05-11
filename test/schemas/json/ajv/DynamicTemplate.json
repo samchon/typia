@@ -1,50 +1,45 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/DynamicTemplate"
+      "$ref": "#/components/schemas/DynamicTemplate"
     }
   ],
   "components": {
     "schemas": {
       "DynamicTemplate": {
-        "$id": "components#/schemas/DynamicTemplate",
+        "$id": "#/components/schemas/DynamicTemplate",
         "type": "object",
         "properties": {},
-        "nullable": false,
         "x-typia-jsDocTags": [],
         "patternProperties": {
           "^(prefix_(.*))": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "((.*)_postfix)$": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "^(value_-?\\d+\\.?\\d*)$": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "^(between_(.*)_and_-?\\d+\\.?\\d*)$": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean"
           }
         }
       }
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

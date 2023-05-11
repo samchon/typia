@@ -1,31 +1,28 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/DynamicComposite"
+      "$ref": "#/components/schemas/DynamicComposite"
     }
   ],
   "components": {
     "schemas": {
       "DynamicComposite": {
-        "$id": "components#/schemas/DynamicComposite",
+        "$id": "#/components/schemas/DynamicComposite",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name"
@@ -33,48 +30,42 @@
         "x-typia-jsDocTags": [],
         "patternProperties": {
           "^-?\\d+\\.?\\d*$": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "^(prefix_(.*))": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "((.*)_postfix)$": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "^(value_-?\\d+\\.?\\d*)$": {
             "oneOf": [
               {
-                "type": "string",
-                "nullable": false,
                 "description": "",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "type": "string"
               },
               {
-                "type": "number",
-                "nullable": false,
                 "description": "",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "type": "number"
               },
               {
-                "type": "boolean",
-                "nullable": false,
                 "description": "",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "type": "boolean"
               }
             ],
             "description": "",
@@ -82,16 +73,15 @@
             "x-typia-optional": false
           },
           "^(between_(.*)_and_-?\\d+\\.?\\d*)$": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean"
           }
         }
       }
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

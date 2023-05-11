@@ -1,47 +1,46 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/MapAlias"
+      "$ref": "#/components/schemas/MapAlias"
     }
   ],
   "components": {
     "schemas": {
       "MapAlias": {
-        "$id": "components#/schemas/MapAlias",
+        "$id": "#/components/schemas/MapAlias",
         "type": "object",
         "properties": {
           "boolean": {
-            "$ref": "#/components/schemas/Map",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Map"
           },
           "number": {
-            "$ref": "#/components/schemas/Map",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Map"
           },
           "strings": {
-            "$ref": "#/components/schemas/Map",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Map"
           },
           "arrays": {
-            "$ref": "#/components/schemas/Map",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Map"
           },
           "objects": {
-            "$ref": "#/components/schemas/Map",
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/schemas/Map"
           }
         },
-        "nullable": false,
         "required": [
           "boolean",
           "number",
@@ -53,12 +52,11 @@
       },
       "Map": {
         "type": "object",
-        "$id": "components#/schemas/Map",
-        "properties": {},
-        "nullable": false
+        "$id": "#/components/schemas/Map",
+        "properties": {}
       }
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

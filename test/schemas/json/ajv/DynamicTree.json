@@ -1,37 +1,34 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/DynamicTree"
+      "$ref": "#/components/schemas/DynamicTree"
     }
   ],
   "components": {
     "schemas": {
       "DynamicTree": {
-        "$id": "components#/schemas/DynamicTree",
+        "$id": "#/components/schemas/DynamicTree",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "sequence": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "children": {
-            "$ref": "components#/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
+            "$ref": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "sequence",
@@ -40,13 +37,12 @@
         "x-typia-jsDocTags": []
       },
       "Record_lt_string_comma__space_DynamicTree_gt_": {
-        "$id": "components#/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
+        "$id": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
         "type": "object",
         "properties": {},
-        "nullable": false,
         "x-typia-jsDocTags": [],
         "additionalProperties": {
-          "$ref": "components#/schemas/DynamicTree",
+          "$ref": "#/components/schemas/DynamicTree",
           "description": "",
           "x-typia-required": true,
           "x-typia-optional": false
@@ -55,5 +51,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

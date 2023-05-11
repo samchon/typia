@@ -11,8 +11,7 @@
             "$ref": "#/components/schemas/ObjectUnionDouble.IB"
           }
         ]
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
@@ -57,11 +56,10 @@
         "type": "object",
         "properties": {
           "x": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -90,11 +88,10 @@
         "type": "object",
         "properties": {
           "y": {
-            "type": "boolean",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean"
           }
         },
         "nullable": false,
@@ -123,11 +120,10 @@
         "type": "object",
         "properties": {
           "y": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -176,11 +172,10 @@
         "type": "object",
         "properties": {
           "x": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -209,11 +204,10 @@
         "type": "object",
         "properties": {
           "y": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -242,18 +236,16 @@
         "type": "object",
         "properties": {
           "y": {
-            "type": "array",
-            "items": {
-              "type": "number",
-              "nullable": false,
-              "description": "",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "description": "",
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number"
+            }
           }
         },
         "nullable": false,

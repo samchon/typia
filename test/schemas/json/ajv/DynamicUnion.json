@@ -1,50 +1,45 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/DynamicUnion"
+      "$ref": "#/components/schemas/DynamicUnion"
     }
   ],
   "components": {
     "schemas": {
       "DynamicUnion": {
-        "$id": "components#/schemas/DynamicUnion",
+        "$id": "#/components/schemas/DynamicUnion",
         "type": "object",
         "properties": {},
-        "nullable": false,
         "x-typia-jsDocTags": [],
         "patternProperties": {
           "^-?\\d+\\.?\\d*$": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "^(prefix_(.*))": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "((.*)_postfix)$": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "^(value_between_-?\\d+\\.?\\d*_and_-?\\d+\\.?\\d*)$": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         }
       }
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

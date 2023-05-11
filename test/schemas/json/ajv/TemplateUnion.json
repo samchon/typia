@@ -3,20 +3,18 @@
     {
       "type": "array",
       "items": {
-        "$ref": "components#/schemas/TemplateUnion.Type"
-      },
-      "nullable": false
+        "$ref": "#/components/schemas/TemplateUnion.Type"
+      }
     }
   ],
   "components": {
     "schemas": {
       "TemplateUnion.Type": {
-        "$id": "components#/schemas/TemplateUnion.Type",
+        "$id": "#/components/schemas/TemplateUnion.Type",
         "type": "object",
         "properties": {
           "prefix": {
             "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -24,7 +22,6 @@
           },
           "postfix": {
             "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -32,7 +29,6 @@
           },
           "middle": {
             "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -42,28 +38,25 @@
             "oneOf": [
               {
                 "type": "string",
-                "nullable": false,
                 "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "pattern": "^(the_A_value|the_B_value|-?\\d+\\.?\\d*|true|false|(the_-?\\d+\\.?\\d*_value))$"
               },
               {
-                "type": "number",
-                "nullable": false,
                 "description": "",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "type": "number"
               },
               {
-                "type": "boolean",
-                "nullable": false,
                 "description": "",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "type": "boolean"
               },
               {
-                "$ref": "components#/schemas/__type",
+                "$ref": "#/components/schemas/__type",
                 "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
@@ -74,7 +67,6 @@
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "prefix",
           "postfix",
@@ -84,18 +76,16 @@
         "x-typia-jsDocTags": []
       },
       "__type": {
-        "$id": "components#/schemas/__type",
+        "$id": "#/components/schemas/__type",
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "name"
         ],
@@ -104,5 +94,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

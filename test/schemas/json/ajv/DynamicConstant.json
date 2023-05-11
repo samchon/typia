@@ -1,45 +1,40 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/DynamicConstant"
+      "$ref": "#/components/schemas/DynamicConstant"
     }
   ],
   "components": {
     "schemas": {
       "DynamicConstant": {
-        "$id": "components#/schemas/DynamicConstant",
+        "$id": "#/components/schemas/DynamicConstant",
         "type": "object",
         "properties": {
           "a": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "b": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "c": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "d": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "a",
           "b",
@@ -51,5 +46,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

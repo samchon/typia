@@ -8,6 +8,7 @@ export const test_isParse_UltimateUnion = _test_isParse(
     (input) =>
         ((input: any): typia.Primitive<UltimateUnion> => {
             const is = (input: any): input is UltimateUnion => {
+                const $is_custom = (typia.isParse as any).is_custom;
                 const $join = (typia.isParse as any).join;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.schemas) &&
@@ -22,7 +23,13 @@ export const test_isParse_UltimateUnion = _test_isParse(
                     null !== input.components &&
                     $io32(input.components) &&
                     ("ajv" === input.purpose || "swagger" === input.purpose) &&
-                    "string" === typeof input.prefix;
+                    "string" === typeof input.prefix &&
+                    $is_custom(
+                        "deprecated",
+                        "string",
+                        'Always "#/components/schemas"',
+                        input.prefix,
+                    );
                 const $io1 = (input: any): boolean =>
                     Array.isArray(input["enum"]) &&
                     input["enum"].every(
@@ -31,7 +38,8 @@ export const test_isParse_UltimateUnion = _test_isParse(
                     (undefined === input["default"] ||
                         "boolean" === typeof input["default"]) &&
                     "boolean" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -145,7 +153,8 @@ export const test_isParse_UltimateUnion = _test_isParse(
                         ("number" === typeof input["default"] &&
                             Number.isFinite(input["default"]))) &&
                     "number" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -182,7 +191,8 @@ export const test_isParse_UltimateUnion = _test_isParse(
                     (undefined === input["default"] ||
                         "string" === typeof input["default"]) &&
                     "string" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -215,7 +225,8 @@ export const test_isParse_UltimateUnion = _test_isParse(
                     (undefined === input["default"] ||
                         "boolean" === typeof input["default"]) &&
                     "boolean" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -265,7 +276,8 @@ export const test_isParse_UltimateUnion = _test_isParse(
                         ("number" === typeof input["default"] &&
                             Number.isFinite(input["default"]))) &&
                     "integer" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -312,7 +324,8 @@ export const test_isParse_UltimateUnion = _test_isParse(
                         ("number" === typeof input["default"] &&
                             Number.isFinite(input["default"]))) &&
                     "number" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -359,7 +372,8 @@ export const test_isParse_UltimateUnion = _test_isParse(
                     (undefined === input["default"] ||
                         "string" === typeof input["default"]) &&
                     "string" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -408,7 +422,8 @@ export const test_isParse_UltimateUnion = _test_isParse(
                             null !== input["x-typia-tuple"] &&
                             $io26(input["x-typia-tuple"]))) &&
                     "array" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -447,7 +462,8 @@ export const test_isParse_UltimateUnion = _test_isParse(
                             $iu2(elem),
                     ) &&
                     "array" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -657,7 +673,8 @@ export const test_isParse_UltimateUnion = _test_isParse(
                     (undefined === input.$recursiveAnchor ||
                         "boolean" === typeof input.$recursiveAnchor) &&
                     "object" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     "object" === typeof input.properties &&
                     null !== input.properties &&
                     false === Array.isArray(input.properties) &&

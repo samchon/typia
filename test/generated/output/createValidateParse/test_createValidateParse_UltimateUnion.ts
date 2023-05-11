@@ -21,7 +21,13 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                     null !== input.components &&
                     $io32(input.components) &&
                     ("ajv" === input.purpose || "swagger" === input.purpose) &&
-                    "string" === typeof input.prefix;
+                    "string" === typeof input.prefix &&
+                    $is_custom(
+                        "deprecated",
+                        "string",
+                        'Always "#/components/schemas"',
+                        input.prefix,
+                    );
                 const $io1 = (input: any): boolean =>
                     Array.isArray(input["enum"]) &&
                     input["enum"].every(
@@ -30,7 +36,8 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                     (undefined === input["default"] ||
                         "boolean" === typeof input["default"]) &&
                     "boolean" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -144,7 +151,8 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                         ("number" === typeof input["default"] &&
                             Number.isFinite(input["default"]))) &&
                     "number" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -181,7 +189,8 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                     (undefined === input["default"] ||
                         "string" === typeof input["default"]) &&
                     "string" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -214,7 +223,8 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                     (undefined === input["default"] ||
                         "boolean" === typeof input["default"]) &&
                     "boolean" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -264,7 +274,8 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                         ("number" === typeof input["default"] &&
                             Number.isFinite(input["default"]))) &&
                     "integer" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -311,7 +322,8 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                         ("number" === typeof input["default"] &&
                             Number.isFinite(input["default"]))) &&
                     "number" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -358,7 +370,8 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                     (undefined === input["default"] ||
                         "string" === typeof input["default"]) &&
                     "string" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -407,7 +420,8 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                             null !== input["x-typia-tuple"] &&
                             $io26(input["x-typia-tuple"]))) &&
                     "array" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -446,7 +460,8 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                             $iu2(elem),
                     ) &&
                     "array" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -656,7 +671,8 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                     (undefined === input.$recursiveAnchor ||
                         "boolean" === typeof input.$recursiveAnchor) &&
                     "object" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     "object" === typeof input.properties &&
                     null !== input.properties &&
                     false === Array.isArray(input.properties) &&
@@ -862,6 +878,7 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
             };
             const errors = [] as any[];
             const $report = (typia.createValidateParse as any).report(errors);
+            const $is_custom = (typia.createValidateParse as any).is_custom;
             const $join = (typia.createValidateParse as any).join;
             if (false === __is(input))
                 ((
@@ -949,7 +966,19 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                                     expected: '("ajv" | "swagger")',
                                     value: input.purpose,
                                 }),
-                            "string" === typeof input.prefix ||
+                            ("string" === typeof input.prefix &&
+                                ($is_custom(
+                                    "deprecated",
+                                    "string",
+                                    'Always "#/components/schemas"',
+                                    input.prefix,
+                                ) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".prefix",
+                                        expected:
+                                            'string (@deprecated Always "#/components/schemas")',
+                                        value: input.prefix,
+                                    }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".prefix",
                                     expected: "string",
@@ -1001,10 +1030,11 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                                     expected: '"boolean"',
                                     value: input.type,
                                 }),
-                            "boolean" === typeof input.nullable ||
+                            undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $report(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 }),
                             undefined === input.deprecated ||
@@ -1582,10 +1612,11 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                                     expected: '"number"',
                                     value: input.type,
                                 }),
-                            "boolean" === typeof input.nullable ||
+                            undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $report(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 }),
                             undefined === input.deprecated ||
@@ -1775,10 +1806,11 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                                     expected: '"string"',
                                     value: input.type,
                                 }),
-                            "boolean" === typeof input.nullable ||
+                            undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $report(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 }),
                             undefined === input.deprecated ||
@@ -1942,10 +1974,11 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                                     expected: '"boolean"',
                                     value: input.type,
                                 }),
-                            "boolean" === typeof input.nullable ||
+                            undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $report(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 }),
                             undefined === input.deprecated ||
@@ -2169,10 +2202,11 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                                     expected: '"integer"',
                                     value: input.type,
                                 }),
-                            "boolean" === typeof input.nullable ||
+                            undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $report(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 }),
                             undefined === input.deprecated ||
@@ -2375,10 +2409,11 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                                     expected: '"number"',
                                     value: input.type,
                                 }),
-                            "boolean" === typeof input.nullable ||
+                            undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $report(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 }),
                             undefined === input.deprecated ||
@@ -2598,10 +2633,11 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                                     expected: '"string"',
                                     value: input.type,
                                 }),
-                            "boolean" === typeof input.nullable ||
+                            undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $report(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 }),
                             undefined === input.deprecated ||
@@ -2840,10 +2876,11 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                                     expected: '"array"',
                                     value: input.type,
                                 }),
-                            "boolean" === typeof input.nullable ||
+                            undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $report(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 }),
                             undefined === input.deprecated ||
@@ -3050,10 +3087,11 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                                     expected: '"array"',
                                     value: input.type,
                                 }),
-                            "boolean" === typeof input.nullable ||
+                            undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $report(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 }),
                             undefined === input.deprecated ||
@@ -4109,10 +4147,11 @@ export const test_createValidateParse_UltimateUnion = _test_validateParse(
                                     expected: '"object"',
                                     value: input.type,
                                 }),
-                            "boolean" === typeof input.nullable ||
+                            undefined === input.nullable ||
+                                "boolean" === typeof input.nullable ||
                                 $report(_exceptionable, {
                                     path: _path + ".nullable",
-                                    expected: "boolean",
+                                    expected: "(boolean | undefined)",
                                     value: input.nullable,
                                 }),
                             ((("object" === typeof input.properties &&

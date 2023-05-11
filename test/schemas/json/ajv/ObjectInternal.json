@@ -1,31 +1,28 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/ObjectInternal"
+      "$ref": "#/components/schemas/ObjectInternal"
     }
   ],
   "components": {
     "schemas": {
       "ObjectInternal": {
-        "$id": "components#/schemas/ObjectInternal",
+        "$id": "#/components/schemas/ObjectInternal",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name"
@@ -35,5 +32,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

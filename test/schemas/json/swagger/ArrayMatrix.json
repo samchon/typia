@@ -7,14 +7,10 @@
         "items": {
           "type": "array",
           "items": {
-            "type": "number",
-            "nullable": false
-          },
-          "nullable": false
-        },
-        "nullable": false
-      },
-      "nullable": false
+            "type": "number"
+          }
+        }
+      }
     }
   ],
   "components": {

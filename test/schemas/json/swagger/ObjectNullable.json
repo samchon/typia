@@ -5,7 +5,6 @@
       "items": {
         "$ref": "#/components/schemas/ObjectNullable.IProduct"
       },
-      "nullable": false,
       "x-typia-tuple": {
         "type": "array",
         "items": [
@@ -25,8 +24,7 @@
             "x-typia-required": true,
             "x-typia-optional": false
           }
-        ],
-        "nullable": false
+        ]
       }
     }
   ],
@@ -36,11 +34,10 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "manufacturer": {
             "$ref": "#/components/schemas/ObjectNullable.IManufacturer",
@@ -87,21 +84,19 @@
         "type": "object",
         "properties": {
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "manufacturer"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -115,21 +110,19 @@
         "type": "object",
         "properties": {
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "brand"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": true,
@@ -143,21 +136,19 @@
         "type": "object",
         "properties": {
           "type": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "manufacturer"
-            ],
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": true,

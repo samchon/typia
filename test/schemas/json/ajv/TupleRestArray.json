@@ -5,59 +5,48 @@
       "items": {
         "oneOf": [
           {
-            "type": "boolean",
-            "nullable": false
+            "type": "boolean"
           },
           {
-            "type": "number",
-            "nullable": false
+            "type": "number"
           },
           {
             "type": "array",
             "items": {
               "type": "array",
               "items": {
-                "type": "string",
-                "nullable": false
-              },
-              "nullable": false
-            },
-            "nullable": false
+                "type": "string"
+              }
+            }
           }
         ]
       },
-      "nullable": false,
       "x-typia-tuple": {
         "type": "array",
         "items": [
           {
-            "type": "boolean",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean"
           },
           {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "nullable": false,
-              "x-typia-rest": true,
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
             "x-typia-rest": true,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "x-typia-rest": true,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "string"
+            }
           }
-        ],
-        "nullable": false
+        ]
       }
     }
   ],
@@ -65,5 +54,5 @@
     "schemas": {}
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

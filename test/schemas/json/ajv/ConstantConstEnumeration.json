@@ -10,25 +10,22 @@
               0,
               1,
               2
-            ],
-            "nullable": false
+            ]
           },
           {
             "type": "string",
             "enum": [
               "Three",
               "Four"
-            ],
-            "nullable": false
+            ]
           }
         ]
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
     "schemas": {}
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

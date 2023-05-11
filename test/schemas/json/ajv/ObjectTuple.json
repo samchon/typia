@@ -4,49 +4,44 @@
       "type": "array",
       "items": [
         {
-          "$ref": "components#/schemas/ObjectTuple.ISection",
+          "$ref": "#/components/schemas/ObjectTuple.ISection",
           "x-typia-required": true,
           "x-typia-optional": false
         },
         {
-          "$ref": "components#/schemas/ObjectTuple.ICitizen",
+          "$ref": "#/components/schemas/ObjectTuple.ICitizen",
           "x-typia-rest": false,
           "x-typia-required": true,
           "x-typia-optional": false
         }
-      ],
-      "nullable": false
+      ]
     }
   ],
   "components": {
     "schemas": {
       "ObjectTuple.ISection": {
-        "$id": "components#/schemas/ObjectTuple.ISection",
+        "$id": "#/components/schemas/ObjectTuple.ISection",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "code": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "code",
@@ -55,32 +50,28 @@
         "x-typia-jsDocTags": []
       },
       "ObjectTuple.ICitizen": {
-        "$id": "components#/schemas/ObjectTuple.ICitizen",
+        "$id": "#/components/schemas/ObjectTuple.ICitizen",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "mobile": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "mobile",
@@ -91,5 +82,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

@@ -3,39 +3,35 @@
     {
       "type": "array",
       "items": {
-        "$ref": "components#/schemas/ObjectUndefined.ILecture"
-      },
-      "nullable": false
+        "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+      }
     }
   ],
   "components": {
     "schemas": {
       "ObjectUndefined.ILecture": {
-        "$id": "components#/schemas/ObjectUndefined.ILecture",
+        "$id": "#/components/schemas/ObjectUndefined.ILecture",
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "professor": {
             "oneOf": [
               {
-                "type": "string",
-                "nullable": false,
                 "description": "",
                 "x-typia-required": false,
-                "x-typia-optional": true
+                "x-typia-optional": true,
+                "type": "string"
               },
               {
-                "type": "number",
-                "nullable": false,
                 "description": "",
                 "x-typia-required": false,
-                "x-typia-optional": true
+                "x-typia-optional": true,
+                "type": "number"
               }
             ],
             "description": "",
@@ -43,17 +39,16 @@
             "x-typia-optional": true
           },
           "classroom": {
-            "$ref": "components#/schemas/ObjectUndefined.IClassroom",
+            "$ref": "#/components/schemas/ObjectUndefined.IClassroom",
             "description": "",
             "x-typia-required": false,
             "x-typia-optional": true
           },
           "grade": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "unknown": {
             "description": "",
@@ -61,7 +56,6 @@
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "name",
           "unknown"
@@ -69,25 +63,22 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUndefined.IClassroom": {
-        "$id": "components#/schemas/ObjectUndefined.IClassroom",
+        "$id": "#/components/schemas/ObjectUndefined.IClassroom",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name"
@@ -97,5 +88,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

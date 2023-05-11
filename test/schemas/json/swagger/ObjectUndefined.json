@@ -4,8 +4,7 @@
       "type": "array",
       "items": {
         "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-      },
-      "nullable": false
+      }
     }
   ],
   "components": {
@@ -14,27 +13,24 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "professor": {
             "oneOf": [
               {
-                "type": "string",
-                "nullable": false,
                 "description": "",
                 "x-typia-required": false,
-                "x-typia-optional": true
+                "x-typia-optional": true,
+                "type": "string"
               },
               {
-                "type": "number",
-                "nullable": false,
                 "description": "",
                 "x-typia-required": false,
-                "x-typia-optional": true
+                "x-typia-optional": true,
+                "type": "number"
               }
             ],
             "description": "",
@@ -48,11 +44,10 @@
             "x-typia-optional": true
           },
           "grade": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "unknown": {
             "description": "",
@@ -71,18 +66,16 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,

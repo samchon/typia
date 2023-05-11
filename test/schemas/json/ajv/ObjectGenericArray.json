@@ -1,36 +1,34 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/ObjectGenericArray"
+      "$ref": "#/components/schemas/ObjectGenericArray"
     }
   ],
   "components": {
     "schemas": {
       "ObjectGenericArray": {
-        "$id": "components#/schemas/ObjectGenericArray",
+        "$id": "#/components/schemas/ObjectGenericArray",
         "type": "object",
         "properties": {
           "pagination": {
-            "$ref": "components#/schemas/ObjectGenericArray.IPagination",
+            "$ref": "#/components/schemas/ObjectGenericArray.IPagination",
             "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "data": {
+            "description": "",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "components#/schemas/ObjectGenericArray.IPerson",
+              "$ref": "#/components/schemas/ObjectGenericArray.IPerson",
               "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           }
         },
-        "nullable": false,
         "required": [
           "pagination",
           "data"
@@ -38,39 +36,34 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericArray.IPagination": {
-        "$id": "components#/schemas/ObjectGenericArray.IPagination",
+        "$id": "#/components/schemas/ObjectGenericArray.IPagination",
         "type": "object",
         "properties": {
           "page": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "limit": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "total_count": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "total_pages": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "page",
           "limit",
@@ -80,25 +73,22 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericArray.IPerson": {
-        "$id": "components#/schemas/ObjectGenericArray.IPerson",
+        "$id": "#/components/schemas/ObjectGenericArray.IPerson",
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "age": {
-            "type": "number",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "name",
           "age"
@@ -108,5 +98,5 @@
     }
   },
   "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "prefix": "#/components/schemas"
 }

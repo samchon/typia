@@ -7,91 +7,75 @@
           {
             "type": "array",
             "items": {
-              "type": "boolean",
-              "nullable": false
-            },
-            "nullable": false
+              "type": "boolean"
+            }
           },
           {
             "type": "array",
             "items": {
-              "type": "number",
-              "nullable": false
-            },
-            "nullable": false
+              "type": "number"
+            }
           },
           {
             "type": "array",
             "items": {
-              "type": "string",
-              "nullable": false
-            },
-            "nullable": false
+              "type": "string"
+            }
           },
           {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ToJsonArray.IObject"
-            },
-            "nullable": false
+            }
           }
         ]
       },
-      "nullable": false,
       "x-typia-tuple": {
         "type": "array",
         "items": [
           {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "type": "boolean",
-              "nullable": false,
               "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "boolean"
+            }
           },
           {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "type": "number",
-              "nullable": false,
               "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "number"
+            }
           },
           {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "type": "string",
-              "nullable": false,
               "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "string"
+            }
           },
           {
+            "x-typia-rest": false,
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ToJsonArray.IObject",
               "x-typia-rest": false,
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           }
-        ],
-        "nullable": false
+        ]
       }
     }
   ],
@@ -101,11 +85,10 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "description": "",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,

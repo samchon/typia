@@ -31,7 +31,13 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                         $io32(input.components) &&
                         ("ajv" === input.purpose ||
                             "swagger" === input.purpose) &&
-                        "string" === typeof input.prefix;
+                        "string" === typeof input.prefix &&
+                        $is_custom(
+                            "deprecated",
+                            "string",
+                            'Always "#/components/schemas"',
+                            input.prefix,
+                        );
                     const $io1 = (input: any): boolean =>
                         Array.isArray(input["enum"]) &&
                         input["enum"].every(
@@ -40,7 +46,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                         (undefined === input["default"] ||
                             "boolean" === typeof input["default"]) &&
                         "boolean" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -156,7 +163,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                             ("number" === typeof input["default"] &&
                                 Number.isFinite(input["default"]))) &&
                         "number" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -193,7 +201,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                         (undefined === input["default"] ||
                             "string" === typeof input["default"]) &&
                         "string" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -226,7 +235,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                         (undefined === input["default"] ||
                             "boolean" === typeof input["default"]) &&
                         "boolean" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -277,7 +287,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                             ("number" === typeof input["default"] &&
                                 Number.isFinite(input["default"]))) &&
                         "integer" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -324,7 +335,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                             ("number" === typeof input["default"] &&
                                 Number.isFinite(input["default"]))) &&
                         "number" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -371,7 +383,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                         (undefined === input["default"] ||
                             "string" === typeof input["default"]) &&
                         "string" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -420,7 +433,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                 null !== input["x-typia-tuple"] &&
                                 $io26(input["x-typia-tuple"]))) &&
                         "array" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -459,7 +473,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                 $iu2(elem),
                         ) &&
                         "array" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         (undefined === input.deprecated ||
                             "boolean" === typeof input.deprecated) &&
                         (undefined === input.title ||
@@ -669,7 +684,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                         (undefined === input.$recursiveAnchor ||
                             "boolean" === typeof input.$recursiveAnchor) &&
                         "object" === input.type &&
-                        "boolean" === typeof input.nullable &&
+                        (undefined === input.nullable ||
+                            "boolean" === typeof input.nullable) &&
                         "object" === typeof input.properties &&
                         null !== input.properties &&
                         false === Array.isArray(input.properties) &&
@@ -877,6 +893,7 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                 };
                 const errors = [] as any[];
                 const $report = (typia.validateClone as any).report(errors);
+                const $is_custom = (typia.validateClone as any).is_custom;
                 const $join = (typia.validateClone as any).join;
                 if (false === __is(input))
                     ((
@@ -964,7 +981,19 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                         expected: '("ajv" | "swagger")',
                                         value: input.purpose,
                                     }),
-                                "string" === typeof input.prefix ||
+                                ("string" === typeof input.prefix &&
+                                    ($is_custom(
+                                        "deprecated",
+                                        "string",
+                                        'Always "#/components/schemas"',
+                                        input.prefix,
+                                    ) ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".prefix",
+                                            expected:
+                                                'string (@deprecated Always "#/components/schemas")',
+                                            value: input.prefix,
+                                        }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".prefix",
                                         expected: "string",
@@ -1016,10 +1045,11 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                         expected: '"boolean"',
                                         value: input.type,
                                     }),
-                                "boolean" === typeof input.nullable ||
+                                undefined === input.nullable ||
+                                    "boolean" === typeof input.nullable ||
                                     $report(_exceptionable, {
                                         path: _path + ".nullable",
-                                        expected: "boolean",
+                                        expected: "(boolean | undefined)",
                                         value: input.nullable,
                                     }),
                                 undefined === input.deprecated ||
@@ -1620,10 +1650,11 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                         expected: '"number"',
                                         value: input.type,
                                     }),
-                                "boolean" === typeof input.nullable ||
+                                undefined === input.nullable ||
+                                    "boolean" === typeof input.nullable ||
                                     $report(_exceptionable, {
                                         path: _path + ".nullable",
-                                        expected: "boolean",
+                                        expected: "(boolean | undefined)",
                                         value: input.nullable,
                                     }),
                                 undefined === input.deprecated ||
@@ -1831,10 +1862,11 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                         expected: '"string"',
                                         value: input.type,
                                     }),
-                                "boolean" === typeof input.nullable ||
+                                undefined === input.nullable ||
+                                    "boolean" === typeof input.nullable ||
                                     $report(_exceptionable, {
                                         path: _path + ".nullable",
-                                        expected: "boolean",
+                                        expected: "(boolean | undefined)",
                                         value: input.nullable,
                                     }),
                                 undefined === input.deprecated ||
@@ -2016,10 +2048,11 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                         expected: '"boolean"',
                                         value: input.type,
                                     }),
-                                "boolean" === typeof input.nullable ||
+                                undefined === input.nullable ||
+                                    "boolean" === typeof input.nullable ||
                                     $report(_exceptionable, {
                                         path: _path + ".nullable",
-                                        expected: "boolean",
+                                        expected: "(boolean | undefined)",
                                         value: input.nullable,
                                     }),
                                 undefined === input.deprecated ||
@@ -2263,10 +2296,11 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                         expected: '"integer"',
                                         value: input.type,
                                     }),
-                                "boolean" === typeof input.nullable ||
+                                undefined === input.nullable ||
+                                    "boolean" === typeof input.nullable ||
                                     $report(_exceptionable, {
                                         path: _path + ".nullable",
-                                        expected: "boolean",
+                                        expected: "(boolean | undefined)",
                                         value: input.nullable,
                                     }),
                                 undefined === input.deprecated ||
@@ -2489,10 +2523,11 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                         expected: '"number"',
                                         value: input.type,
                                     }),
-                                "boolean" === typeof input.nullable ||
+                                undefined === input.nullable ||
+                                    "boolean" === typeof input.nullable ||
                                     $report(_exceptionable, {
                                         path: _path + ".nullable",
-                                        expected: "boolean",
+                                        expected: "(boolean | undefined)",
                                         value: input.nullable,
                                     }),
                                 undefined === input.deprecated ||
@@ -2730,10 +2765,11 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                         expected: '"string"',
                                         value: input.type,
                                     }),
-                                "boolean" === typeof input.nullable ||
+                                undefined === input.nullable ||
+                                    "boolean" === typeof input.nullable ||
                                     $report(_exceptionable, {
                                         path: _path + ".nullable",
-                                        expected: "boolean",
+                                        expected: "(boolean | undefined)",
                                         value: input.nullable,
                                     }),
                                 undefined === input.deprecated ||
@@ -2991,10 +3027,11 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                         expected: '"array"',
                                         value: input.type,
                                     }),
-                                "boolean" === typeof input.nullable ||
+                                undefined === input.nullable ||
+                                    "boolean" === typeof input.nullable ||
                                     $report(_exceptionable, {
                                         path: _path + ".nullable",
-                                        expected: "boolean",
+                                        expected: "(boolean | undefined)",
                                         value: input.nullable,
                                     }),
                                 undefined === input.deprecated ||
@@ -3219,10 +3256,11 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                         expected: '"array"',
                                         value: input.type,
                                     }),
-                                "boolean" === typeof input.nullable ||
+                                undefined === input.nullable ||
+                                    "boolean" === typeof input.nullable ||
                                     $report(_exceptionable, {
                                         path: _path + ".nullable",
-                                        expected: "boolean",
+                                        expected: "(boolean | undefined)",
                                         value: input.nullable,
                                     }),
                                 undefined === input.deprecated ||
@@ -4395,10 +4433,11 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                                         expected: '"object"',
                                         value: input.type,
                                     }),
-                                "boolean" === typeof input.nullable ||
+                                undefined === input.nullable ||
+                                    "boolean" === typeof input.nullable ||
                                     $report(_exceptionable, {
                                         path: _path + ".nullable",
-                                        expected: "boolean",
+                                        expected: "(boolean | undefined)",
                                         value: input.nullable,
                                     }),
                                 ((("object" === typeof input.properties &&
@@ -5184,6 +5223,7 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
             ): typia.Primitive<Array<typia.IJsonApplication>> => {
                 const $join = (typia.validateClone as any).join;
                 const $throws = (typia.validateClone as any).throws;
+                const $is_custom = (typia.validateClone as any).is_custom;
                 const $io1 = (input: any): boolean =>
                     Array.isArray(input["enum"]) &&
                     input["enum"].every(
@@ -5192,7 +5232,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                     (undefined === input["default"] ||
                         "boolean" === typeof input["default"]) &&
                     "boolean" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -5287,7 +5328,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                     (undefined === input["default"] ||
                         "number" === typeof input["default"]) &&
                     "number" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -5324,7 +5366,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                     (undefined === input["default"] ||
                         "string" === typeof input["default"]) &&
                     "string" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -5357,7 +5400,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                     (undefined === input["default"] ||
                         "boolean" === typeof input["default"]) &&
                     "boolean" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -5403,7 +5447,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                     (undefined === input["default"] ||
                         "number" === typeof input["default"]) &&
                     "integer" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -5446,7 +5491,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                     (undefined === input["default"] ||
                         "number" === typeof input["default"]) &&
                     "number" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -5491,7 +5537,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                     (undefined === input["default"] ||
                         "string" === typeof input["default"]) &&
                     "string" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -5538,7 +5585,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                             null !== input["x-typia-tuple"] &&
                             $io26(input["x-typia-tuple"]))) &&
                     "array" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -5577,7 +5625,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                             $iu2(elem),
                     ) &&
                     "array" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated) &&
                     (undefined === input.title ||
@@ -5787,7 +5836,8 @@ export const test_validateClone_UltimateUnion = _test_validateClone(
                     (undefined === input.$recursiveAnchor ||
                         "boolean" === typeof input.$recursiveAnchor) &&
                     "object" === input.type &&
-                    "boolean" === typeof input.nullable &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable) &&
                     "object" === typeof input.properties &&
                     null !== input.properties &&
                     false === Array.isArray(input.properties) &&
