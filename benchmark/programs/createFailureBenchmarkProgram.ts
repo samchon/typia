@@ -19,8 +19,9 @@ export const createFailureBenchmarkProgram =
                 return suite.map((elem: benchmark) => ({
                     amount:
                         Buffer.from(JSON.stringify(input)).byteLength *
-                        elem.count,
-                    time: elem.times.elapsed,
+                        elem.hz *
+                        elem.times.elapsed,
+                    time: elem.times.elapsed * 1_000,
                 }))[0];
             },
             validate,
