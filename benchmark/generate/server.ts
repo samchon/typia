@@ -15,7 +15,9 @@ const CLIENTS: BenchmarkProgrammer.ILibrary[] = [
     "express (pure)",
     "express (typia)",
     "express (class-transformer)",
-    "fastify",
+    "fastify (pure)",
+    "fastify (typia)",
+    "fastify (class-transformer)",
 ].map((name) => ({
     name,
     body: (type: string) =>
@@ -78,18 +80,53 @@ const SERVERS: BenchmarkProgrammer.ILibrary[] = [
         },
     },
     {
-        name: "fastify",
+        name: "fastify (pure)",
         body: (type: string) =>
             [
                 `import typia from "typia";`,
                 ``,
                 `import { ${type} } from "../../../../../test/structures/${type}";`,
-                `import { createFastifyServerBenchmarkProgram } from "../createFastifyServerBenchmarkProgram";`,
+                `import { createFastifyPureServerBenchmarkProgram } from "../createFastifyPureServerBenchmarkProgram";`,
                 ``,
-                `createFastifyServerBenchmarkProgram(`,
-                `   typia.application<[${type}[]], "ajv", "#/definitions">()`,
+                `createFastifyPureServerBenchmarkProgram(`,
+                `   typia.application<[${type}[]], "ajv">()`,
                 `);`,
             ].join("\n"),
+    },
+    {
+        name: "fastify (typia)",
+        body: (type: string) =>
+            [
+                `import typia from "typia";`,
+                ``,
+                `import { ${type} } from "../../../../../test/structures/${type}";`,
+                `import { createFastifyCustomServerBenchmarkProgram } from "../createFastifyCustomServerBenchmarkProgram";`,
+                ``,
+                `createFastifyCustomServerBenchmarkProgram(`,
+                `    typia.createStringify<${type}[]>(),`,
+                `);`,
+            ].join("\n"),
+    },
+    {
+        name: "fastify (class-transformer)",
+        body: (type: string) => {
+            const schema = `ClassValidator${BenchmarkProgrammer.pascal(type)}`;
+            return [
+                `import { instanceToPlain, plainToInstance } from "class-transformer";`,
+                ``,
+                `import { ${type} } from "../../../../../test/structures/${type}";`,
+                `import { ${schema} } from "../../../../structures/class-validator/${schema}";`,
+                `import { createFastifyCustomServerBenchmarkProgram } from "../createFastifyCustomServerBenchmarkProgram";`,
+                ``,
+                `createFastifyCustomServerBenchmarkProgram<${type}>(`,
+                `    (input) => JSON.stringify(`,
+                `        input.map((elem) => instanceToPlain(`,
+                `            plainToInstance(${schema}, elem),`,
+                `        )),`,
+                `    ),`,
+                `);`,
+            ].join("\n");
+        },
     },
 ];
 

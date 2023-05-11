@@ -4,12 +4,10 @@ import { ObjectUnionExplicit } from "../../../../../test/structures/ObjectUnionE
 import { ClassValidatorObjectUnionExplicit } from "../../../../structures/class-validator/ClassValidatorObjectUnionExplicit";
 import { createExpressServerBenchmarkProgram } from "../createExpressServerBenchmarkProgram";
 
-createExpressServerBenchmarkProgram<ObjectUnionExplicit>((input) =>
-    JSON.stringify(
-        input.map((elem) =>
-            instanceToPlain(
-                plainToInstance(ClassValidatorObjectUnionExplicit, elem),
-            ),
-        ),
+createExpressServerBenchmarkProgram<ObjectUnionExplicit>(
+    (input) => JSON.stringify(
+        input.map((elem) => instanceToPlain(
+            plainToInstance(ClassValidatorObjectUnionExplicit, elem),
+        )),
     ),
 );
