@@ -12,20 +12,16 @@ export const application_tuple =
     (options: ApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
     (items: Array<Metadata>) =>
-    (props: {
-        nullable: boolean;
-        attribute: IJsonSchema.IAttribute;
-    }): IJsonSchema.ITuple => ({
+    (attribute: IJsonSchema.IAttribute): IJsonSchema.ITuple => ({
         type: "array",
         items: items.map((meta, i) =>
             application_schema(options)(false)(components)(meta.rest ?? meta)({
-                ...props.attribute,
+                ...attribute,
                 "x-typia-rest":
                     i === items.length - 1 ? meta.rest !== null : undefined,
                 "x-typia-required": meta.required,
                 "x-typia-optional": meta.optional,
             }),
         ),
-        nullable: props.nullable,
-        ...props.attribute,
+        ...attribute,
     });

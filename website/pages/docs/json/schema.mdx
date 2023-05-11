@@ -14,9 +14,6 @@ import AlertTitle from '@mui/material/AlertTitle';
 export function application<
     Schemas extends unknown[],
     Purpose extends "ajv" | "swagger",
-    Prefix extends string = Purpose extends "ajv"
-        ? "components#/schemas"
-        : "#/components/schemas",
 >(): IJsonApplication;
 ```
     </Tab>
@@ -26,7 +23,6 @@ export interface IJsonApplication {
     schemas: IJsonSchema[];
     components: IJsonComponents;
     purpose: "swagger" | "ajv";
-    prefix: string;
 }
 ```
     </Tab>
@@ -258,7 +254,6 @@ export const MemberSchema = {
         },
     },
     purpose: "ajv",
-    prefix: "components#/schemas",
 };
 ```
     </Tab>
@@ -427,7 +422,6 @@ export const CommentTagSchema = {
         },
     },
     purpose: "ajv",
-    prefix: "components#/schemas",
 };
 ```
     </Tab>

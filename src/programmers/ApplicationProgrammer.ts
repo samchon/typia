@@ -6,12 +6,8 @@ import { IJsonSchema } from "../schemas/IJsonSchema";
 import { application_schema } from "./internal/application_schema";
 
 export namespace ApplicationProgrammer {
-    export const AJV_PREFIX = "components#/schemas";
-    export const SWAGGER_PREFIX = "#/components/schemas";
-
     export interface IOptions {
-        purpose: "swagger" | "ajv";
-        prefix: string;
+        purpose: "ajv" | "swagger";
     }
 
     /**
@@ -22,9 +18,6 @@ export namespace ApplicationProgrammer {
             const purpose: "swagger" | "ajv" = options?.purpose ?? "swagger";
             return {
                 purpose,
-                prefix:
-                    options?.prefix ||
-                    (purpose === "swagger" ? SWAGGER_PREFIX : AJV_PREFIX),
             };
         };
     }
@@ -57,6 +50,7 @@ export namespace ApplicationProgrammer {
                 }),
                 components,
                 ...fullOptions,
+                prefix: "#/components/schemas",
             };
         };
 }

@@ -7,15 +7,12 @@ import { IStringifyServerProgram } from "./IStringifyServerPgoram";
 export const createFastifyServerBenchmarkProgram = async <T>(
     app: typia.IJsonApplication,
 ) => {
-    // DEFINE RESPONSE DTO THROUGH JSON-SCHEMA
-    const definitions: Record<string, typia.IJsonComponents.IObject> = {};
-    for (const [key, value] of Object.entries(app.components.schemas))
-        definitions[key.replace("#/definitions/", "")] = value;
+    // DEFINE JSON-SCHEMA
     const schema = {
         response: {
             200: {
                 ...app.schemas[0],
-                definitions,
+                ...app,
             },
         },
     };
