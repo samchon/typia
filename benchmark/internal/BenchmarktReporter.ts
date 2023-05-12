@@ -46,7 +46,7 @@ export namespace BenchmarkReporter {
                 await stream.write(` ${label} | ${record.join(" | ")} `);
             }
             await stream.write("");
-            await stream.write("> Unit: Metabytes/sec");
+            await stream.write("> Unit: Megabytes/sec");
             await stream.write("\n\n\n");
 
             // GENERATE CHART
