@@ -35,11 +35,13 @@ export namespace BenchmarkReporter {
                     const value = report.result[type][library];
                     if (value === null) return " - ";
 
-                    const space: number = Math.floor(
-                        value.amount / (value.time / 1_000) / 1_024 / 1_024,
-                    );
+                    const space: number =
+                        value.amount / (value.time / 1_000) / 1_024 / 1_024;
                     if (isNaN(space)) return " - ";
-                    return space.toLocaleString();
+
+                    return space < 10
+                        ? space.toFixed(2)
+                        : Math.round(space).toLocaleString();
                 });
                 await stream.write(` ${label} | ${record.join(" | ")} `);
             }
