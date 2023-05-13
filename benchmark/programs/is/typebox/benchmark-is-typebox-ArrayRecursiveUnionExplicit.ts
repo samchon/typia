@@ -1,5 +1,5 @@
 import { TypeboxArrayRecursiveUnionExplicit } from "../../../structures/typebox/TypeboxArrayRecursiveUnionExplicit";
 
-import { createIsTypeboxBenchmarkProgram } from "./createIsTypeboxBenchmarkProgram";
+import { createIsTypeboxBenchmarkProgram } from "./createIsTypeBoxBenchmarkProgram";
 
 createIsTypeboxBenchmarkProgram(TypeboxArrayRecursiveUnionExplicit);
