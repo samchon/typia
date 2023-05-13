@@ -1,5 +1,5 @@
 import { TypeboxObjectUnionExplicit } from "../../../structures/typebox/TypeboxObjectUnionExplicit";
 
-import { createIsTypeboxBenchmarkProgram } from "./createIsTypeboxBenchmarkProgram";
+import { createIsTypeboxBenchmarkProgram } from "./createIsTypeBoxBenchmarkProgram";
 
 createIsTypeboxBenchmarkProgram(TypeboxObjectUnionExplicit);
