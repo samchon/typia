@@ -2,6 +2,8 @@ import * as tr from "class-transformer";
 import * as cv from "class-validator";
 import "reflect-metadata";
 
+import { ArrayRecursiveUnionImplicit } from "../../../test/structures/ArrayRecursiveUnionImplicit";
+
 export class ClassValidatorArrayRecursiveUnionImplicit {
     @cv.IsNumber()
     id!: number;
@@ -12,11 +14,11 @@ export class ClassValidatorArrayRecursiveUnionImplicit {
     @cv.IsString()
     path!: string;
 
-    @cv.IsOptional()
-    @cv.IsArray()
-    @cv.ValidateNested({ each: true })
-    @cv.IsObject()
     @tr.Type(() => ClassValidatorArrayRecursiveUnionImplicit)
+    @cv.IsArray()
+    @cv.IsObject({ each: true })
+    @cv.ValidateNested({ each: true })
+    @cv.IsOptional()
     children?: ClassValidatorArrayRecursiveUnionImplicit[];
 
     @cv.IsOptional()
@@ -53,4 +55,12 @@ export class ClassValidatorArrayRecursiveUnionImplicit {
     @cv.IsString()
     @cv.IsIn(["read", "write"])
     access?: string;
+}
+export namespace ClassValidatorArrayRecursiveUnionImplicit {
+    export const transform = (input: ArrayRecursiveUnionImplicit) =>
+        tr.plainToInstance(ClassValidatorArrayRecursiveUnionImplicit, input);
+    export const validate = (input: ArrayRecursiveUnionImplicit) =>
+        transform(input)
+            .map((item) => cv.validateSync(item))
+            .flat();
 }
