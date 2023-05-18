@@ -81,6 +81,7 @@
           "contents",
           "created_at"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleAnswer": {
@@ -124,6 +125,7 @@
           "contents",
           "created_at"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleArticle.IContent": {
@@ -174,6 +176,7 @@
           "body",
           "files"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_": {
@@ -217,6 +220,7 @@
           "name",
           "extension"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleReview": {
@@ -287,6 +291,7 @@
           "contents",
           "created_at"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleReview.IContent": {
@@ -344,6 +349,7 @@
           "body",
           "files"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

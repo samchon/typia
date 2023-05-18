@@ -50,6 +50,7 @@
         "required": [
           "key"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

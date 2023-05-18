@@ -10,54 +10,47 @@
         "type": "object",
         "properties": {},
         "nullable": false,
+        "description": "",
         "x-typia-jsDocTags": [],
         "x-typia-additionalProperties": {
           "oneOf": [
             {
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false,
               "type": "string"
             },
             {
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false,
               "type": "number"
             },
             {
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false,
               "type": "boolean"
             }
           ],
-          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false
         },
         "additionalProperties": {
           "oneOf": [
             {
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false,
               "type": "string"
             },
             {
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false,
               "type": "number"
             },
             {
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false,
               "type": "boolean"
             }
           ],
-          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false
         }

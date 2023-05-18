@@ -34,22 +34,22 @@
           "sequence",
           "children"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "Record_lt_string_comma__space_DynamicTree_gt_": {
         "type": "object",
         "properties": {},
         "nullable": false,
+        "description": "",
         "x-typia-jsDocTags": [],
         "x-typia-additionalProperties": {
           "$ref": "#/components/schemas/DynamicTree",
-          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false
         },
         "additionalProperties": {
           "$ref": "#/components/schemas/DynamicTree",
-          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false
         }

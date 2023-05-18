@@ -10,9 +10,9 @@
         "$id": "#/components/schemas/DynamicSimple",
         "type": "object",
         "properties": {},
+        "description": "",
         "x-typia-jsDocTags": [],
         "additionalProperties": {
-          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false,
           "type": "number"

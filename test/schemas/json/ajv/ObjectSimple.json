@@ -41,6 +41,7 @@
           "rotate",
           "pivot"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectSimple.IPoint3D": {
@@ -71,6 +72,7 @@
           "y",
           "z"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

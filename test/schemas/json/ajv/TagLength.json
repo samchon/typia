@@ -14,7 +14,7 @@
         "type": "object",
         "properties": {
           "fixed": {
-            "description": "",
+            "description": "@length 5",
             "x-typia-metaTags": [
               {
                 "kind": "length",
@@ -37,7 +37,7 @@
             "type": "string"
           },
           "minimum": {
-            "description": "",
+            "description": "@minLength 3",
             "x-typia-metaTags": [
               {
                 "kind": "minLength",
@@ -61,7 +61,7 @@
             "minLength": 3
           },
           "maximum": {
-            "description": "",
+            "description": "@maxLength 7",
             "x-typia-metaTags": [
               {
                 "kind": "maxLength",
@@ -85,7 +85,7 @@
             "maxLength": 7
           },
           "minimum_and_maximum": {
-            "description": "",
+            "description": "@minLength 3\n@maxLength 7",
             "x-typia-metaTags": [
               {
                 "kind": "minLength",
@@ -129,6 +129,7 @@
           "maximum",
           "minimum_and_maximum"
         ],
+        "description": "@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
       }
     }

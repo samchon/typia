@@ -80,6 +80,7 @@
           "ipv4",
           "email"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

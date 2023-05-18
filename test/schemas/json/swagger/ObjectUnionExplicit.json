@@ -118,6 +118,7 @@
           "x",
           "y"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionExplicit.Discriminator_lt__doublequote_triangle_doublequote__comma__space_ObjectUnionExplicit.ITriangle_gt_": {
@@ -298,6 +299,7 @@
         "required": [
           "points"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionExplicit.Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicit.ICircle_gt_": {

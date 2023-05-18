@@ -42,10 +42,7 @@ export class MetadataCollection {
             name: $id,
             properties: [],
             description:
-                (type.symbol &&
-                    CommentFactory.string(
-                        type.symbol.getDocumentationComment(checker),
-                    )) ||
+                (type.symbol && CommentFactory.description(type.symbol)) ??
                 undefined,
             jsDocTags: type.symbol?.getJsDocTags() || [],
             validated: false,

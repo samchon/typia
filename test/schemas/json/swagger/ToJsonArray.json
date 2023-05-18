@@ -95,6 +95,7 @@
         "required": [
           "id"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

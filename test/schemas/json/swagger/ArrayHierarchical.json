@@ -57,6 +57,7 @@
           "established_at",
           "departments"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayHierarchical.ITimestamp": {
@@ -80,6 +81,7 @@
           "time",
           "zone"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayHierarchical.IDepartment": {
@@ -130,6 +132,7 @@
           "created_at",
           "employees"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayHierarchical.IEmployee": {
@@ -174,6 +177,7 @@
           "grade",
           "employeed_at"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

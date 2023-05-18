@@ -58,6 +58,7 @@
           "child",
           "elements"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_": {
@@ -81,6 +82,7 @@
           "child_value",
           "child_next"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectGeneric.ISomething_lt_number_gt_": {
@@ -117,6 +119,7 @@
           "child",
           "elements"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectGeneric.IChild_lt_number_comma__space_number_gt_": {
@@ -140,6 +143,7 @@
           "child_value",
           "child_next"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectGeneric.ISomething_lt_string_gt_": {
@@ -176,6 +180,7 @@
           "child",
           "elements"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectGeneric.IChild_lt_string_comma__space_string_gt_": {
@@ -199,6 +204,7 @@
           "child_value",
           "child_next"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

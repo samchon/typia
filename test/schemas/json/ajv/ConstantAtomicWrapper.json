@@ -38,6 +38,7 @@
         "required": [
           "value"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ConstantAtomicWrapper.IPointer_lt_number_gt_": {
@@ -54,6 +55,7 @@
         "required": [
           "value"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ConstantAtomicWrapper.IPointer_lt_string_gt_": {
@@ -70,6 +72,7 @@
         "required": [
           "value"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

@@ -27,6 +27,7 @@
           "id",
           "flag"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

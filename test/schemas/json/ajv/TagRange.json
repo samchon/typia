@@ -14,7 +14,7 @@
         "type": "object",
         "properties": {
           "greater": {
-            "description": "",
+            "description": "@exclusiveMinimum 3",
             "x-typia-metaTags": [
               {
                 "kind": "exclusiveMinimum",
@@ -39,7 +39,7 @@
             "exclusiveMinimum": true
           },
           "greater_equal": {
-            "description": "",
+            "description": "@minimum 3",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -63,7 +63,7 @@
             "minimum": 3
           },
           "less": {
-            "description": "",
+            "description": "@exclusiveMaximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "exclusiveMaximum",
@@ -88,7 +88,7 @@
             "exclusiveMaximum": true
           },
           "less_equal": {
-            "description": "",
+            "description": "@maximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "maximum",
@@ -112,7 +112,7 @@
             "maximum": 7
           },
           "greater_less": {
-            "description": "",
+            "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "exclusiveMinimum",
@@ -152,7 +152,7 @@
             "exclusiveMaximum": true
           },
           "greater_equal_less": {
-            "description": "",
+            "description": "@minimum 3\n@exclusiveMaximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -191,7 +191,7 @@
             "exclusiveMaximum": true
           },
           "greater_less_equal": {
-            "description": "",
+            "description": "@exclusiveMinimum 3\n@maximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "exclusiveMinimum",
@@ -230,7 +230,7 @@
             "maximum": 7
           },
           "greater_equal_less_equal": {
-            "description": "",
+            "description": "@minimum 3\n@maximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -278,6 +278,7 @@
           "greater_less_equal",
           "greater_equal_less_equal"
         ],
+        "description": "@minimum 3\n@maximum 7",
         "x-typia-jsDocTags": []
       }
     }

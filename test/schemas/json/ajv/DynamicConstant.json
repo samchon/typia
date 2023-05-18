@@ -11,25 +11,21 @@
         "type": "object",
         "properties": {
           "a": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "b": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "c": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "d": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
@@ -41,6 +37,7 @@
           "c",
           "d"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

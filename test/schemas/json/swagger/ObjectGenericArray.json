@@ -33,6 +33,7 @@
           "pagination",
           "data"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectGenericArray.IPagination": {
@@ -70,6 +71,7 @@
           "total_count",
           "total_pages"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectGenericArray.IPerson": {
@@ -93,6 +95,7 @@
           "name",
           "age"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

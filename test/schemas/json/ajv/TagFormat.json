@@ -11,7 +11,7 @@
         "type": "object",
         "properties": {
           "uuid": {
-            "description": "Universally Unique Identifier.",
+            "description": "Universally Unique Identifier.\n@format uuid",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -35,7 +35,7 @@
             "format": "uuid"
           },
           "email": {
-            "description": "Email address",
+            "description": "Email address\n@format email",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -59,7 +59,7 @@
             "format": "email"
           },
           "url": {
-            "description": "URL address.",
+            "description": "URL address.\n@format url",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -83,7 +83,7 @@
             "format": "url"
           },
           "ipv4": {
-            "description": "IPv4 address.",
+            "description": "IPv4 address.\n@format ipv4",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -107,7 +107,7 @@
             "format": "ipv4"
           },
           "ipv6": {
-            "description": "IPv6 address.",
+            "description": "IPv6 address.\n@format ipv6",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -131,7 +131,7 @@
             "format": "ipv6"
           },
           "date": {
-            "description": "Date only.",
+            "description": "Date only.\n@format date",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -155,7 +155,7 @@
             "format": "date"
           },
           "date_time": {
-            "description": "Date and time.",
+            "description": "Date and time.\n@format date-time",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -179,7 +179,7 @@
             "format": "date-time"
           },
           "datetime": {
-            "description": "Date and time with only lowercase characters.",
+            "description": "Date and time with only lowercase characters.\n@format datetime",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -203,7 +203,7 @@
             "format": "date-time"
           },
           "dateTime": {
-            "description": "Date and time with camelCase.",
+            "description": "Date and time with camelCase.\n@format dateTime",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -227,7 +227,7 @@
             "format": "date-time"
           },
           "custom": {
-            "description": "A custom format string.",
+            "description": "A custom format string.\n@format my-custom-format",
             "x-typia-jsDocTags": [
               {
                 "name": "format",
@@ -257,6 +257,7 @@
           "dateTime",
           "custom"
         ],
+        "description": "A custom format string.\n@format my-custom-format",
         "x-typia-jsDocTags": []
       }
     }

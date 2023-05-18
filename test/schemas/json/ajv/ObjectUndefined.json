@@ -60,6 +60,7 @@
           "name",
           "unknown"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUndefined.IClassroom": {
@@ -83,6 +84,7 @@
           "id",
           "name"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

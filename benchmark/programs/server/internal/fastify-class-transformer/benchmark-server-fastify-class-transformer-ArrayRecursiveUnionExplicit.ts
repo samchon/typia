@@ -5,9 +5,15 @@ import { ClassValidatorArrayRecursiveUnionExplicit } from "../../../../structure
 import { createFastifyCustomServerBenchmarkProgram } from "../createFastifyCustomServerBenchmarkProgram";
 
 createFastifyCustomServerBenchmarkProgram<ArrayRecursiveUnionExplicit>(
-    (input) => JSON.stringify(
-        input.map((elem) => instanceToPlain(
-            plainToInstance(ClassValidatorArrayRecursiveUnionExplicit, elem),
-        )),
-    ),
+    (input) =>
+        JSON.stringify(
+            input.map((elem) =>
+                instanceToPlain(
+                    plainToInstance(
+                        ClassValidatorArrayRecursiveUnionExplicit,
+                        elem,
+                    ),
+                ),
+            ),
+        ),
 );

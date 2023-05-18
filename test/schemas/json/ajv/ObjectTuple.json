@@ -47,6 +47,7 @@
           "code",
           "name"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectTuple.ICitizen": {
@@ -77,6 +78,7 @@
           "mobile",
           "name"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

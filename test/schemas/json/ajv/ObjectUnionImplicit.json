@@ -71,6 +71,7 @@
           "x",
           "y"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.ILine": {
@@ -132,6 +133,7 @@
           "p1",
           "p2"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.ITriangle": {
@@ -219,6 +221,7 @@
           "p2",
           "p3"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.IRectangle": {
@@ -313,6 +316,7 @@
           "p3",
           "p4"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.IPolyline": {
@@ -354,6 +358,7 @@
         "required": [
           "points"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.IPolygon": {
@@ -401,6 +406,7 @@
         "required": [
           "outer"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.ICircle": {
@@ -442,6 +448,7 @@
         "required": [
           "radius"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

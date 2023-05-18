@@ -55,6 +55,7 @@
           "sequence",
           "created_at"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectRecursive.IDepartment.Nullable": {
@@ -106,6 +107,7 @@
           "sequence",
           "created_at"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectRecursive.ITimestamp": {
@@ -129,6 +131,7 @@
           "time",
           "zone"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

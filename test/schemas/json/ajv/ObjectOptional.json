@@ -35,6 +35,7 @@
             "type": "number"
           }
         },
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

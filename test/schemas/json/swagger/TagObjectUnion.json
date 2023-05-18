@@ -20,7 +20,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "description": "",
+            "description": "@minimum 3",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -48,13 +48,14 @@
         "required": [
           "value"
         ],
+        "description": "@minimum 3",
         "x-typia-jsDocTags": []
       },
       "TagObjectUnion.Literal": {
         "type": "object",
         "properties": {
           "value": {
-            "description": "",
+            "description": "@minLength 3\n@maxLength 7",
             "x-typia-metaTags": [
               {
                 "kind": "minLength",
@@ -96,6 +97,7 @@
         "required": [
           "value"
         ],
+        "description": "@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
       }
     }

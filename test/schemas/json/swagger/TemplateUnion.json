@@ -73,6 +73,7 @@
           "middle",
           "mixed"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "__type": {
@@ -89,6 +90,7 @@
         "required": [
           "name"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

@@ -27,6 +27,7 @@
           "name",
           "age"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

@@ -73,6 +73,7 @@
           "secret",
           "created_at"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectPrimitive.IFile": {
@@ -117,6 +118,7 @@
           "url",
           "created_at"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

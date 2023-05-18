@@ -35,6 +35,7 @@
           "name",
           "dead"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }
