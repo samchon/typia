@@ -49,10 +49,9 @@ export const emplace_metadata_object =
                 filter?: (doc: ts.JSDocTagInfo) => boolean,
             ): MetadataProperty => {
                 // COMMENTS AND TAGS
-                const description: string | undefined =
-                    CommentFactory.string(
-                        symbol?.getDocumentationComment(checker) ?? [],
-                    ) ?? undefined;
+                const description: string | undefined = symbol
+                    ? CommentFactory.description(symbol)
+                    : undefined;
                 const jsDocTags: ts.JSDocTagInfo[] = (
                     symbol?.getJsDocTags() ?? []
                 ).filter(filter ?? (() => true));

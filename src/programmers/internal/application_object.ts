@@ -59,7 +59,7 @@ export const application_object =
                     const info: IJsDocTagInfo | undefined =
                         property.jsDocTags.find((tag) => tag.name === "title");
                     return info?.text?.length
-                        ? CommentFactory.string(info.text)
+                        ? CommentFactory.merge(info.text)
                         : undefined;
                 })(),
                 description: property.description,
