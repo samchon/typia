@@ -4,5 +4,5 @@ import { ArrayRecursiveUnionExplicit } from "../../../../../test/structures/Arra
 import { createFastifyPureServerBenchmarkProgram } from "../createFastifyPureServerBenchmarkProgram";
 
 createFastifyPureServerBenchmarkProgram(
-   typia.application<[ArrayRecursiveUnionExplicit[]], "ajv">()
+    typia.application<[ArrayRecursiveUnionExplicit[]], "ajv">(),
 );

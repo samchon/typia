@@ -4,10 +4,12 @@ import { ArrayHierarchical } from "../../../../../test/structures/ArrayHierarchi
 import { ClassValidatorArrayHierarchical } from "../../../../structures/class-validator/ClassValidatorArrayHierarchical";
 import { createFastifyCustomServerBenchmarkProgram } from "../createFastifyCustomServerBenchmarkProgram";
 
-createFastifyCustomServerBenchmarkProgram<ArrayHierarchical>(
-    (input) => JSON.stringify(
-        input.map((elem) => instanceToPlain(
-            plainToInstance(ClassValidatorArrayHierarchical, elem),
-        )),
+createFastifyCustomServerBenchmarkProgram<ArrayHierarchical>((input) =>
+    JSON.stringify(
+        input.map((elem) =>
+            instanceToPlain(
+                plainToInstance(ClassValidatorArrayHierarchical, elem),
+            ),
+        ),
     ),
 );
