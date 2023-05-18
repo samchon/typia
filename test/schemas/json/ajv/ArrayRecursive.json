@@ -55,6 +55,7 @@
           "sequence",
           "created_at"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursive.ITimestamp": {
@@ -78,6 +79,7 @@
           "time",
           "zone"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

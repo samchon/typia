@@ -10,28 +10,25 @@
         "$id": "#/components/schemas/DynamicUnion",
         "type": "object",
         "properties": {},
+        "description": "",
         "x-typia-jsDocTags": [],
         "patternProperties": {
           "^-?\\d+\\.?\\d*$": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "^(prefix_(.*))": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "((.*)_postfix)$": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "^(value_between_-?\\d+\\.?\\d*_and_-?\\d+\\.?\\d*)$": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"

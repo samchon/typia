@@ -84,6 +84,7 @@
           "age",
           "dead"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

@@ -107,6 +107,7 @@
           "children",
           "type"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionExplicit.IImageFile": {
@@ -185,6 +186,7 @@
           "type",
           "extension"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionExplicit.ITextFile": {
@@ -249,6 +251,7 @@
           "type",
           "extension"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionExplicit.IZipFile": {
@@ -313,6 +316,7 @@
           "type",
           "extension"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionExplicit.IShortcut": {
@@ -401,6 +405,7 @@
           "type",
           "extension"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

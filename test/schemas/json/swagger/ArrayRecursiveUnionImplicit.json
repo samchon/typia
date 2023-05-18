@@ -106,6 +106,7 @@
           "path",
           "children"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionImplicit.ISharedDirectory": {
@@ -197,6 +198,7 @@
           "path",
           "children"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionImplicit.IImageFile": {
@@ -255,6 +257,7 @@
           "url",
           "size"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionImplicit.ITextFile": {
@@ -299,6 +302,7 @@
           "size",
           "content"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionImplicit.IZipFile": {
@@ -343,6 +347,7 @@
           "size",
           "count"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionImplicit.IShortcut": {
@@ -417,6 +422,7 @@
           "path",
           "target"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

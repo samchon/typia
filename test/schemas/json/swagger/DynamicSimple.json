@@ -10,15 +10,14 @@
         "type": "object",
         "properties": {},
         "nullable": false,
+        "description": "",
         "x-typia-jsDocTags": [],
         "x-typia-additionalProperties": {
-          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false,
           "type": "number"
         },
         "additionalProperties": {
-          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false,
           "type": "number"

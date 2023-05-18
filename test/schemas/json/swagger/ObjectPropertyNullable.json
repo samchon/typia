@@ -96,6 +96,7 @@
         "required": [
           "value"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectPropertyNullable.IPointer_lt_number_gt_": {
@@ -113,6 +114,7 @@
         "required": [
           "value"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectPropertyNullable.IPointer_lt_string_gt_": {
@@ -130,6 +132,7 @@
         "required": [
           "value"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_": {
@@ -146,6 +149,7 @@
         "required": [
           "value"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectPropertyNullable.IMember.Nullable": {
@@ -191,6 +195,7 @@
           "name",
           "activated"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

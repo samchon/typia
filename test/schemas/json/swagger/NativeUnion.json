@@ -166,6 +166,7 @@
           "buffer",
           "weak"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "Uint8Array": {
@@ -268,6 +269,7 @@
           "type",
           "data"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "WeakSet": {

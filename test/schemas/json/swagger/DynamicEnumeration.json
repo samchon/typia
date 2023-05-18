@@ -10,67 +10,58 @@
         "type": "object",
         "properties": {
           "ar": {
-            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false,
             "type": "string"
           },
           "zh-Hans": {
-            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false,
             "type": "string"
           },
           "zh-Hant": {
-            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false,
             "type": "string"
           },
           "en": {
-            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false,
             "type": "string"
           },
           "fr": {
-            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false,
             "type": "string"
           },
           "de": {
-            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false,
             "type": "string"
           },
           "ja": {
-            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false,
             "type": "string"
           },
           "ko": {
-            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false,
             "type": "string"
           },
           "pt": {
-            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false,
             "type": "string"
           },
           "ru": {
-            "description": "",
             "x-typia-required": false,
             "x-typia-optional": false,
             "type": "string"
           }
         },
         "nullable": false,
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

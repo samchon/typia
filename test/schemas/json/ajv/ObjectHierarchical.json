@@ -122,6 +122,7 @@
           "ip",
           "created_at"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IChannel": {
@@ -180,6 +181,7 @@
           "priority",
           "created_at"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.ITimestamp": {
@@ -203,6 +205,7 @@
           "time",
           "zone"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IMember": {
@@ -273,6 +276,7 @@
           "created_at",
           "authorized"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IAccount": {
@@ -303,6 +307,7 @@
           "code",
           "created_at"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IEnterprise": {
@@ -347,6 +352,7 @@
           "grade",
           "created_at"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

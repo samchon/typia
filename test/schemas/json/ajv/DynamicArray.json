@@ -10,14 +10,13 @@
         "$id": "#/components/schemas/DynamicArray",
         "type": "object",
         "properties": {},
+        "description": "",
         "x-typia-jsDocTags": [],
         "additionalProperties": {
-          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false,
           "type": "array",
           "items": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"

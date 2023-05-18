@@ -54,6 +54,7 @@
           "editable",
           "incremental"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

@@ -10,28 +10,25 @@
         "$id": "#/components/schemas/DynamicTemplate",
         "type": "object",
         "properties": {},
+        "description": "",
         "x-typia-jsDocTags": [],
         "patternProperties": {
           "^(prefix_(.*))": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "((.*)_postfix)$": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "^(value_-?\\d+\\.?\\d*)$": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "^(between_(.*)_and_-?\\d+\\.?\\d*)$": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "boolean"

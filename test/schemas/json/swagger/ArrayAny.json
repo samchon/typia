@@ -121,6 +121,7 @@
           "nullables2",
           "union"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

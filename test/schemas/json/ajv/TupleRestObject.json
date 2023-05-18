@@ -57,6 +57,7 @@
         "required": [
           "value"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

@@ -34,16 +34,17 @@
           "sequence",
           "children"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "Record_lt_string_comma__space_DynamicTree_gt_": {
         "$id": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
         "type": "object",
         "properties": {},
+        "description": "",
         "x-typia-jsDocTags": [],
         "additionalProperties": {
           "$ref": "#/components/schemas/DynamicTree",
-          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false
         }

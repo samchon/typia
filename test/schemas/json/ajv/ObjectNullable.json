@@ -91,6 +91,7 @@
           "brand",
           "similar"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectNullable.IManufacturer": {
@@ -117,6 +118,7 @@
           "type",
           "name"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectNullable.IBrand": {
@@ -143,6 +145,7 @@
           "type",
           "name"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }

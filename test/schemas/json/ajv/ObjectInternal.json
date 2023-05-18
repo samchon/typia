@@ -27,6 +27,7 @@
           "id",
           "name"
         ],
+        "description": "@internal",
         "x-typia-jsDocTags": []
       }
     }

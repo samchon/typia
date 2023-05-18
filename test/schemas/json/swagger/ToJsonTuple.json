@@ -69,6 +69,7 @@
           "code",
           "name"
         ],
+        "description": "",
         "x-typia-jsDocTags": []
       }
     }
