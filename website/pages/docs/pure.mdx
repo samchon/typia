@@ -65,12 +65,12 @@ export class BbsArticle {
         minItems: 1,
         description: "List of attached files.",
     })
-    @ArrayNotEmpty()
-    @IsArray()
-    @IsObject()
-    @IsOptional()
     @Type(() => AttachmentFile)
-    @ValidateNested()
+    @IsArray()
+    @ArrayNotEmpty()
+    @IsOptional()
+    @IsObject({ each: true })
+    @ValidateNested({ each: true })
     files!: AttachmentFile[] | null;
 
     @ApiProperty({
