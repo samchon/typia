@@ -11,13 +11,11 @@
         "type": "object",
         "properties": {
           "id": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "flag": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "boolean"
@@ -27,7 +25,6 @@
           "id",
           "flag"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

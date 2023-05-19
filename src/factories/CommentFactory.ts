@@ -9,7 +9,8 @@ export namespace CommentFactory {
         const text: string = node
             .getSourceFile()
             .text.substring(range.pos, range.end);
-        return filter(text).join("\n");
+        const output: string = transform(text).join("\n");
+        return output.length ? output : undefined;
     };
 
     export const merge = (comments: ts.SymbolDisplayPart[]): string =>
@@ -29,7 +30,7 @@ export namespace CommentFactory {
     export const generate = merge;
 }
 
-const filter = (text: string): string[] => {
+const transform = (text: string): string[] => {
     const elements: string[] = text.split("\r\n").join("\n").split("\n");
     const first: number = lastIndexOf(elements)((elem) =>
         elem.trim().startsWith("/**"),
@@ -46,7 +47,10 @@ const filter = (text: string): string[] => {
                 elem = elem.substring(0, elem.lastIndexOf("*/"));
             return trim(elem);
         })
-        .filter((elem) => elem.length > 0);
+        .filter(
+            (str, i, array) =>
+                (i !== 0 && i !== array.length - 1) || !!str.length,
+        );
 };
 
 const lastIndexOf =

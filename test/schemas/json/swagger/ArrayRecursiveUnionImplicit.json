@@ -32,25 +32,21 @@
         "type": "object",
         "properties": {
           "id": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "path": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "children": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
@@ -58,42 +54,35 @@
               "oneOf": [
                 {
                   "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory",
-                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
                   "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
-                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
                   "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile",
-                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
                   "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ITextFile",
-                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
                   "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IZipFile",
-                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
                   "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut",
-                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 }
               ],
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -106,14 +95,12 @@
           "path",
           "children"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionImplicit.ISharedDirectory": {
         "type": "object",
         "properties": {
           "access": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string",
@@ -123,25 +110,21 @@
             ]
           },
           "id": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "path": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "children": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
@@ -149,42 +132,35 @@
               "oneOf": [
                 {
                   "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory",
-                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
                   "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
-                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
                   "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile",
-                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
                   "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ITextFile",
-                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
                   "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IZipFile",
-                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
                   "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut",
-                  "description": "",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 }
               ],
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -198,50 +174,42 @@
           "path",
           "children"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionImplicit.IImageFile": {
         "type": "object",
         "properties": {
           "id": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "path": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "width": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "height": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "url": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "size": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
@@ -257,38 +225,32 @@
           "url",
           "size"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionImplicit.ITextFile": {
         "type": "object",
         "properties": {
           "id": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "path": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "size": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "content": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -302,38 +264,32 @@
           "size",
           "content"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionImplicit.IZipFile": {
         "type": "object",
         "properties": {
           "id": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "path": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "size": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "count": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
@@ -347,26 +303,22 @@
           "size",
           "count"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArrayRecursiveUnionImplicit.IShortcut": {
         "type": "object",
         "properties": {
           "id": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "path": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -375,42 +327,35 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory",
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile",
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ITextFile",
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IZipFile",
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut",
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -422,7 +367,6 @@
           "path",
           "target"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

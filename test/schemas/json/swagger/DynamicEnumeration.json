@@ -61,7 +61,6 @@
           }
         },
         "nullable": false,
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

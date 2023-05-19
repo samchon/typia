@@ -14,25 +14,21 @@
         "type": "object",
         "properties": {
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "email": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "hobbies": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ArraySimple.IHobby",
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -43,7 +39,6 @@
           "email",
           "hobbies"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ArraySimple.IHobby": {
@@ -51,19 +46,16 @@
         "type": "object",
         "properties": {
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "body": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "rank": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
@@ -74,7 +66,6 @@
           "body",
           "rank"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

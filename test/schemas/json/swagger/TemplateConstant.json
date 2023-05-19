@@ -13,7 +13,6 @@
         "type": "object",
         "properties": {
           "prefix": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string",
@@ -24,7 +23,6 @@
             ]
           },
           "postfix": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string",
@@ -35,7 +33,6 @@
             ]
           },
           "combined": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string",
@@ -58,7 +55,6 @@
           "postfix",
           "combined"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

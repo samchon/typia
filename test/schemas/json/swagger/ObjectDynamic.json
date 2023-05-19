@@ -10,7 +10,6 @@
         "type": "object",
         "properties": {},
         "nullable": false,
-        "description": "",
         "x-typia-jsDocTags": [],
         "x-typia-additionalProperties": {
           "oneOf": [

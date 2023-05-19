@@ -13,20 +13,17 @@
         "type": "object",
         "properties": {
           "id": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string",
             "nullable": true
           },
           "email": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -34,7 +31,6 @@
           "sex": {
             "oneOf": [
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "type": "number",
@@ -45,7 +41,6 @@
                 "nullable": true
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "type": "string",
@@ -56,19 +51,16 @@
                 "nullable": true
               }
             ],
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "age": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number",
             "nullable": true
           },
           "dead": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "boolean",
@@ -84,7 +76,6 @@
           "age",
           "dead"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

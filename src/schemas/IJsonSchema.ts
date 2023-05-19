@@ -21,7 +21,7 @@ export namespace IJsonSchema {
         | INullOnly;
 
     export interface IUnknown extends IAttribute {
-        type: undefined;
+        type?: undefined;
     }
 
     /**

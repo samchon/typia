@@ -11,13 +11,11 @@
         "type": "object",
         "properties": {
           "id": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -25,19 +23,16 @@
           "dead": {
             "oneOf": [
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "type": "null"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "type": "boolean"
               }
             ],
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -47,7 +42,6 @@
           "name",
           "dead"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

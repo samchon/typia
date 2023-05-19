@@ -14,49 +14,41 @@
           "parent": {
             "oneOf": [
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "type": "null"
               },
               {
                 "$recursiveRef": "#/components/schemas/ObjectRecursive.IDepartment",
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "id": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "code": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "sequence": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "created_at": {
             "$ref": "#/components/schemas/ObjectRecursive.ITimestamp",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -69,7 +61,6 @@
           "sequence",
           "created_at"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectRecursive.ITimestamp": {
@@ -77,13 +68,11 @@
         "type": "object",
         "properties": {
           "time": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "zone": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
@@ -93,7 +82,6 @@
           "time",
           "zone"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }
