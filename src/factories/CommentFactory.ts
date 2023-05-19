@@ -9,7 +9,8 @@ export namespace CommentFactory {
         const text: string = node
             .getSourceFile()
             .text.substring(range.pos, range.end);
-        return transform(text).join("\n");
+        const output: string = transform(text).join("\n");
+        return output.length ? output : undefined;
     };
 
     export const merge = (comments: ts.SymbolDisplayPart[]): string =>

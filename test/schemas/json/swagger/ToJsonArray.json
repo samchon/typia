@@ -85,7 +85,6 @@
         "type": "object",
         "properties": {
           "id": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -95,7 +94,6 @@
         "required": [
           "id"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

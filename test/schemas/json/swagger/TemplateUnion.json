@@ -14,21 +14,18 @@
         "properties": {
           "prefix": {
             "type": "string",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "pattern": "^((prefix_(.*))|(prefix_-?\\d+\\.?\\d*))$"
           },
           "postfix": {
             "type": "string",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "pattern": "(((.*)_postfix)|(-?\\d+\\.?\\d*_postfix))$"
           },
           "middle": {
             "type": "string",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "pattern": "^(the_false_value|the_true_value|(the_-?\\d+\\.?\\d*_value))$"
@@ -37,31 +34,26 @@
             "oneOf": [
               {
                 "type": "string",
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "pattern": "^(the_A_value|the_B_value|-?\\d+\\.?\\d*|true|false|(the_-?\\d+\\.?\\d*_value))$"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "type": "number"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "type": "boolean"
               },
               {
                 "$ref": "#/components/schemas/__type",
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -73,14 +65,12 @@
           "middle",
           "mixed"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "__type": {
         "type": "object",
         "properties": {
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -90,7 +80,6 @@
         "required": [
           "name"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

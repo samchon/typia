@@ -11,13 +11,11 @@
         "type": "object",
         "properties": {
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "age": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
@@ -27,7 +25,6 @@
           "name",
           "age"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

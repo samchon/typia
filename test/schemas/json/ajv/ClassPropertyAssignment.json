@@ -11,19 +11,16 @@
         "type": "object",
         "properties": {
           "id": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "note": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string",
@@ -32,7 +29,6 @@
             ]
           },
           "editable": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "boolean",
@@ -41,7 +37,6 @@
             ]
           },
           "incremental": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "boolean"
@@ -54,7 +49,6 @@
           "editable",
           "incremental"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

@@ -39,13 +39,11 @@
         "type": "object",
         "properties": {
           "x": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "y": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
@@ -55,7 +53,6 @@
           "x",
           "y"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionComposite.ILine": {
@@ -64,13 +61,11 @@
         "properties": {
           "p1": {
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p2": {
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -79,7 +74,6 @@
           "p1",
           "p2"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionComposite.ITriangle": {
@@ -88,19 +82,16 @@
         "properties": {
           "p1": {
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p2": {
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p3": {
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -110,7 +101,6 @@
           "p2",
           "p3"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionComposite.IRectangle": {
@@ -119,25 +109,21 @@
         "properties": {
           "p1": {
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p2": {
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p3": {
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p4": {
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -148,7 +134,6 @@
           "p3",
           "p4"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionComposite.IPolyline": {
@@ -156,13 +141,11 @@
         "type": "object",
         "properties": {
           "points": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -171,7 +154,6 @@
         "required": [
           "points"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionComposite.IPolygon": {
@@ -180,18 +162,15 @@
         "properties": {
           "outer": {
             "$ref": "#/components/schemas/ObjectUnionComposite.IPolyline",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "inner": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ObjectUnionComposite.IPolyline",
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -201,7 +180,6 @@
           "outer",
           "inner"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionComposite.IPointedShape": {
@@ -209,20 +187,17 @@
         "type": "object",
         "properties": {
           "outer": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false
             }
           },
           "inner": {
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -231,7 +206,6 @@
           "outer",
           "inner"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionComposite.ICircle": {
@@ -240,12 +214,10 @@
         "properties": {
           "centroid": {
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "radius": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
@@ -255,7 +227,6 @@
           "centroid",
           "radius"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

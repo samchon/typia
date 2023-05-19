@@ -22,7 +22,6 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/__type",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -30,18 +29,15 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/ObjectUnionDouble.IAA",
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/ObjectUnionDouble.IAB",
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -50,7 +46,6 @@
           "value",
           "child"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "__type": {
@@ -58,7 +53,6 @@
         "type": "object",
         "properties": {
           "x": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
@@ -67,7 +61,6 @@
         "required": [
           "x"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionDouble.IAA": {
@@ -76,7 +69,6 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/__type.o1",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -84,7 +76,6 @@
         "required": [
           "value"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "__type.o1": {
@@ -92,7 +83,6 @@
         "type": "object",
         "properties": {
           "y": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "boolean"
@@ -101,7 +91,6 @@
         "required": [
           "y"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionDouble.IAB": {
@@ -110,7 +99,6 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/__type.o2",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -118,7 +106,6 @@
         "required": [
           "value"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "__type.o2": {
@@ -126,7 +113,6 @@
         "type": "object",
         "properties": {
           "y": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
@@ -135,7 +121,6 @@
         "required": [
           "y"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionDouble.IB": {
@@ -144,7 +129,6 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/__type.o3",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -152,18 +136,15 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/ObjectUnionDouble.IBA",
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
                 "$ref": "#/components/schemas/ObjectUnionDouble.IBB",
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -172,7 +153,6 @@
           "value",
           "child"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "__type.o3": {
@@ -180,7 +160,6 @@
         "type": "object",
         "properties": {
           "x": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -189,7 +168,6 @@
         "required": [
           "x"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionDouble.IBA": {
@@ -198,7 +176,6 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/__type.o4",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -206,7 +183,6 @@
         "required": [
           "value"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "__type.o4": {
@@ -214,7 +190,6 @@
         "type": "object",
         "properties": {
           "y": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -223,7 +198,6 @@
         "required": [
           "y"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ObjectUnionDouble.IBB": {
@@ -232,7 +206,6 @@
         "properties": {
           "value": {
             "$ref": "#/components/schemas/__type.o5",
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -240,7 +213,6 @@
         "required": [
           "value"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "__type.o5": {
@@ -248,12 +220,10 @@
         "type": "object",
         "properties": {
           "y": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false,
               "type": "number"
@@ -263,7 +233,6 @@
         "required": [
           "y"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

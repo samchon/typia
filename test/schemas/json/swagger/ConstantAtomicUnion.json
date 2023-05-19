@@ -37,7 +37,6 @@
         "type": "object",
         "properties": {
           "key": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string",
@@ -50,7 +49,6 @@
         "required": [
           "key"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

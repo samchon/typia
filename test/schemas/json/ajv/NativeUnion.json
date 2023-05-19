@@ -16,156 +16,131 @@
           "date": {
             "oneOf": [
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "type": "null"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "type": "string"
               }
             ],
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "unsigned": {
             "oneOf": [
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/Uint8Array"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/Uint8ClampedArray"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/Uint16Array"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/Uint32Array"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/BigUint64Array"
               }
             ],
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "signed": {
             "oneOf": [
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/Int8Array"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/Int16Array"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/Int32Array"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/BigInt64Array"
               }
             ],
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "float": {
             "oneOf": [
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/Float32Array"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/Float64Array"
               }
             ],
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "buffer": {
             "oneOf": [
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/ArrayBuffer"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/SharedArrayBuffer"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/DataView"
               },
               {
                 "$ref": "#/components/schemas/__type",
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
             ],
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "weak": {
             "oneOf": [
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/WeakSet"
               },
               {
-                "description": "",
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/schemas/WeakMap"
               }
             ],
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -178,7 +153,6 @@
           "buffer",
           "weak"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "Uint8Array": {
@@ -256,7 +230,6 @@
         "type": "object",
         "properties": {
           "type": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string",
@@ -265,12 +238,10 @@
             ]
           },
           "data": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false,
               "type": "number"
@@ -281,7 +252,6 @@
           "type",
           "data"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "WeakSet": {

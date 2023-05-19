@@ -10,7 +10,6 @@
         "$id": "#/components/schemas/DynamicArray",
         "type": "object",
         "properties": {},
-        "description": "",
         "x-typia-jsDocTags": [],
         "additionalProperties": {
           "x-typia-required": true,

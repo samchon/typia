@@ -31,19 +31,16 @@
         "type": "object",
         "properties": {
           "id": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "mobile": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -54,7 +51,6 @@
           "mobile",
           "name"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       },
       "ToJsonUnion.IProduct": {
@@ -62,19 +58,16 @@
         "type": "object",
         "properties": {
           "manufacturer": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "brand": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -85,7 +78,6 @@
           "brand",
           "name"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }

@@ -34,13 +34,11 @@
         "type": "object",
         "properties": {
           "code": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -50,7 +48,6 @@
           "code",
           "name"
         ],
-        "description": "",
         "x-typia-jsDocTags": []
       }
     }
