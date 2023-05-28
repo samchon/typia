@@ -1,11 +1,14 @@
 import { Atomic } from "../typings/Atomic";
 import { ClassProperties } from "../typings/ClassProperties";
+import { Writable } from "../typings/Writable";
 
 import { ArrayUtil } from "../utils/ArrayUtil";
 
 import { IMetadata } from "./IMetadata";
+import { IMetadataDefinition } from "./IMetadataDefinition";
 import { IMetadataObject } from "./IMetadataObject";
 import { MetadataConstant } from "./MetadataConstant";
+import { MetadataDefinition } from "./MetadataDefinition";
 import { MetadataObject } from "./MetadataObject";
 import { MetadataProperty } from "./MetadataProperty";
 
@@ -25,6 +28,7 @@ export class Metadata {
     public readonly arrays: Metadata[];
     public readonly tuples: Metadata[][];
     public readonly objects: MetadataObject[];
+    public readonly definitions: MetadataDefinition[];
 
     public readonly natives: string[];
     public readonly sets: Metadata[];
@@ -67,6 +71,7 @@ export class Metadata {
         this.arrays = props.arrays;
         this.tuples = props.tuples;
         this.objects = props.objects;
+        this.definitions = props.definitions;
 
         this.natives = props.natives;
         this.sets = props.sets;
@@ -98,6 +103,7 @@ export class Metadata {
             arrays: [],
             tuples: [],
             objects: [],
+            definitions: [],
 
             rest: null,
             natives: [],
@@ -106,6 +112,106 @@ export class Metadata {
         });
         meta.parent_resolved_ = parentResolved;
         return meta;
+    }
+
+    public absorb(): void {
+        this._Absorb(new Set());
+    }
+
+    /**
+     * @internal
+     */
+    private _Absorb(used: Set<string>): void {
+        if (this.definitions.length === 0) return;
+
+        if (this.resolved) this.resolved.absorb();
+        if (this.rest) this.rest.absorb();
+        for (const array of this.arrays) array._Absorb(used);
+        for (const tuple of this.tuples)
+            for (const meta of tuple) meta._Absorb(used);
+        for (const obj of this.objects)
+            for (const p of obj.properties) p.value.absorb();
+        for (const set of this.sets) set._Absorb(used);
+        for (const entry of this.maps) entry.value._Absorb(used);
+
+        for (const def of this.definitions) {
+            if (used.has(def.name)) continue;
+
+            used.add(def.name);
+            def.value._Absorb(used);
+            Metadata.assign(this, def.value);
+        }
+    }
+
+    public static assign(source: Metadata, target: Metadata): void {
+        // FLAGS
+        Writable(source).any ||= target.any;
+        Writable(source).nullable ||= target.any;
+        Writable(source).optional ||= target.optional;
+        Writable(source).required &&= target.required;
+
+        // ATOMIC VALUES
+        for (const atomic of target.atomics)
+            ArrayUtil.add(source.atomics, atomic);
+        for (const constant of target.constants) {
+            const container = source.constants.find(
+                (elem) => elem.type === constant.type,
+            );
+            if (container)
+                for (const value of constant.values)
+                    ArrayUtil.add(container.values, value);
+            else
+                source.constants.push({
+                    type: constant.type,
+                    values: constant.values.slice() as any[],
+                });
+        }
+        for (const template of target.templates) {
+            const duplicated = source.templates.find(
+                (elem) =>
+                    elem.length === template.length &&
+                    elem.every((child, i) => child === template[i]),
+            );
+            if (duplicated === undefined) source.templates.push(template);
+        }
+
+        // INSTANCES
+        for (const array of target.arrays)
+            ArrayUtil.add(
+                source.arrays,
+                array,
+                (x, y) => x.getName() === y.getName(),
+            );
+        for (const tuple of target.tuples)
+            ArrayUtil.add(
+                source.tuples,
+                tuple,
+                (x, y) =>
+                    x.map((t) => t.getName()).join(",") ===
+                    y.map((t) => t.getName()).join(","),
+            );
+        for (const obj of target.objects)
+            ArrayUtil.add(source.objects, obj, (x, y) => x.name === y.name);
+        for (const def of target.definitions)
+            ArrayUtil.add(source.definitions, def, (x, y) => x.name === y.name);
+        for (const native of target.natives)
+            ArrayUtil.add(source.natives, native);
+        for (const set of target.sets)
+            ArrayUtil.add(
+                source.sets,
+                set,
+                (x, y) => x.getName() === y.getName(),
+            );
+        for (const map of target.maps)
+            ArrayUtil.add(
+                source.maps,
+                map,
+                (x, y) =>
+                    [x.key.getName(), x.value.getName()].join(",") ===
+                    [y.key.getName(), y.value.getName()].join(","),
+            );
+        source.name_ = getName(source);
+        source.parent_resolved_ ||= target.parent_resolved_;
     }
 
     public toJSON(): IMetadata {
@@ -129,6 +235,7 @@ export class Metadata {
                 meta.map((meta) => meta.toJSON()),
             ),
             objects: this.objects.map((obj) => obj.name),
+            definitions: this.definitions.map((def) => def.name),
 
             natives: this.natives.slice(),
             sets: this.sets.map((meta) => meta.toJSON()),
@@ -139,20 +246,39 @@ export class Metadata {
         };
     }
 
-    public static from(meta: IMetadata, objects: IMetadataObject[]): Metadata {
-        const dict: Map<string, MetadataObject> = new Map();
-        for (const obj of objects)
-            dict.set(obj.name, MetadataObject._From_without_properties(obj));
+    public static from(
+        meta: IMetadata,
+        objects: IMetadataObject[],
+        definitions: IMetadataDefinition[],
+    ): Metadata {
+        const objDict: Map<string, MetadataObject> = new Map(
+            objects.map((obj) => [
+                obj.name,
+                MetadataObject._From_without_properties(obj),
+            ]),
+        );
+        const defDict: Map<string, MetadataDefinition> = new Map(
+            definitions.map((def) => [
+                def.name,
+                MetadataDefinition._From_without_value(def),
+            ]),
+        );
 
         for (const obj of objects) {
-            const initialized = dict.get(obj.name)!;
+            const initialized = objDict.get(obj.name)!;
             initialized.properties.push(
                 ...obj.properties.map((prop) =>
-                    MetadataProperty._From(prop, dict),
+                    MetadataProperty._From(prop, objDict, defDict),
                 ),
             );
         }
-        return this._From(meta, dict);
+        for (const def of definitions)
+            Writable(defDict.get(def.name)!).value = this._From(
+                def.value,
+                objDict,
+                defDict,
+            );
+        return this._From(meta, objDict, defDict);
     }
 
     /**
@@ -161,6 +287,7 @@ export class Metadata {
     public static _From(
         meta: IMetadata,
         objects: Map<string, MetadataObject>,
+        definitions: Map<string, MetadataDefinition>,
     ): Metadata {
         return this.create({
             any: meta.any,
@@ -172,14 +299,20 @@ export class Metadata {
             constants: JSON.parse(JSON.stringify(meta.constants)),
             atomics: meta.atomics.slice(),
             templates: meta.templates.map((tpl) =>
-                tpl.map((meta) => this._From(meta, objects)),
+                tpl.map((meta) => this._From(meta, objects, definitions)),
             ),
-            resolved: meta.resolved ? this._From(meta.resolved, objects) : null,
+            resolved: meta.resolved
+                ? this._From(meta.resolved, objects, definitions)
+                : null,
 
-            rest: meta.rest ? this._From(meta.rest, objects) : null,
-            arrays: meta.arrays.map((meta) => this._From(meta, objects)),
+            rest: meta.rest
+                ? this._From(meta.rest, objects, definitions)
+                : null,
+            arrays: meta.arrays.map((meta) =>
+                this._From(meta, objects, definitions),
+            ),
             tuples: meta.tuples.map((tuple) =>
-                tuple.map((meta) => this._From(meta, objects)),
+                tuple.map((meta) => this._From(meta, objects, definitions)),
             ),
             objects: meta.objects.map((name) => {
                 const found = objects.get(name);
@@ -189,12 +322,22 @@ export class Metadata {
                     );
                 return found;
             }),
+            definitions: meta.definitions.map((def) => {
+                const found = definitions.get(def);
+                if (found === undefined)
+                    throw new Error(
+                        `Error on Metadata.from(): failed to find definition "${def}".`,
+                    );
+                return found;
+            }),
 
             natives: meta.natives.slice(),
-            sets: meta.sets.map((meta) => this._From(meta, objects)),
+            sets: meta.sets.map((meta) =>
+                this._From(meta, objects, definitions),
+            ),
             maps: meta.maps.map((entry) => ({
-                key: this._From(entry.key, objects),
-                value: this._From(entry.value, objects),
+                key: this._From(entry.key, objects, definitions),
+                value: this._From(entry.value, objects, definitions),
             })),
         });
     }
@@ -223,6 +366,7 @@ export class Metadata {
             this.arrays.length +
             this.tuples.length +
             this.objects.length +
+            this.definitions.length +
             this.natives.length +
             this.sets.length +
             this.maps.length
@@ -316,6 +460,8 @@ export namespace Metadata {
             if (x.objects.length && y.objects.length) return true;
         }
 
+        // DEFINITIONS - @todo
+
         // TUPLES
         for (const xt of x.tuples)
             for (const yt of y.tuples)
@@ -374,6 +520,8 @@ export namespace Metadata {
             if (x.objects.some((xo) => MetadataObject.covers(xo, yo)) === false)
                 return false;
 
+        // DEFINITIONS - @todo
+
         // TUPLES
         for (const yt of y.tuples)
             if (
@@ -388,7 +536,7 @@ export namespace Metadata {
             )
                 return false;
 
-        // NATIVES
+        // NATIVES - @todo
 
         // SETS
         for (const ys of y.sets)
@@ -445,6 +593,7 @@ export namespace Metadata {
             arrays: x.arrays.slice(),
             tuples: x.tuples.slice(),
             objects: x.objects.slice(),
+            definitions: x.definitions.slice(),
 
             natives: [...new Set([...x.natives, ...y.natives])],
             sets: x.sets.slice(),
@@ -466,6 +615,8 @@ export namespace Metadata {
             ArrayUtil.set(output.arrays, array, (elem) => elem.getName());
         for (const obj of y.objects)
             ArrayUtil.set(output.objects, obj, (elem) => elem.name);
+        for (const def of y.definitions)
+            ArrayUtil.set(output.definitions, def, (elem) => elem.name);
 
         if (x.rest !== null)
             ArrayUtil.set(output.arrays, x.rest, (elem) => elem.getName());
@@ -522,6 +673,7 @@ const getName = (metadata: Metadata): string => {
 
     // OBJECT
     for (const object of metadata.objects) elements.push(object.name);
+    for (const def of metadata.definitions) elements.push(def.name);
     if (metadata.resolved !== null) elements.push(metadata.resolved.getName());
 
     // RETURNS

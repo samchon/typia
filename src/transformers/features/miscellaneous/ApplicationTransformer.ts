@@ -58,7 +58,7 @@ export namespace ApplicationTransformer {
                         if (meta.atomics.find((str) => str === "bigint"))
                             throw new Error(NO_BIGIT);
                     },
-                })(collection)(type),
+                })(collection)(type, false),
             );
 
             // APPLICATION

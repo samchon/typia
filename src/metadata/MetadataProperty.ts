@@ -4,6 +4,7 @@ import { IJsDocTagInfo } from "./IJsDocTagInfo";
 import { IMetadataProperty } from "./IMetadataProperty";
 import { IMetadataTag } from "./IMetadataTag";
 import { Metadata } from "./Metadata";
+import { MetadataDefinition } from "./MetadataDefinition";
 import { MetadataObject } from "./MetadataObject";
 
 export class MetadataProperty {
@@ -42,10 +43,11 @@ export class MetadataProperty {
     public static _From(
         property: IMetadataProperty,
         objects: Map<string, MetadataObject>,
+        definitions: Map<string, MetadataDefinition>,
     ) {
         return this.create({
-            key: Metadata._From(property.key, objects),
-            value: Metadata._From(property.value, objects),
+            key: Metadata._From(property.key, objects, definitions),
+            value: Metadata._From(property.value, objects, definitions),
             description: property.description,
             tags: property.tags.slice(),
             jsDocTags: property.jsDocTags.slice(),

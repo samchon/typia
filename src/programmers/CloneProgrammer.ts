@@ -271,7 +271,7 @@ export namespace CloneProgrammer {
         FeatureProgrammer.decode_object({
             trace: false,
             path: false,
-            functors: FUNCTORS,
+            prefix: PREFIX,
         })(importer);
 
     const explore_arrays = (project: IProject, importer: FunctionImporter) =>
@@ -299,7 +299,9 @@ export namespace CloneProgrammer {
                 );
 
             return ts.factory.createCallExpression(
-                ts.factory.createIdentifier(`${UNIONERS}${meta.union_index!}`),
+                ts.factory.createIdentifier(
+                    `${PREFIX.union}${meta.union_index!}`,
+                ),
                 undefined,
                 [input],
             );
@@ -308,8 +310,11 @@ export namespace CloneProgrammer {
     /* -----------------------------------------------------------
         CONFIGURATIONS
     ----------------------------------------------------------- */
-    const FUNCTORS = "$co";
-    const UNIONERS = "$cu";
+    const PREFIX = {
+        object: "$co",
+        union: "$cu",
+        definition: "$cd",
+    };
 
     const CONFIG = (
         project: IProject,
@@ -327,8 +332,7 @@ export namespace CloneProgrammer {
                     }>`,
                 ),
         },
-        functors: FUNCTORS,
-        unioners: UNIONERS,
+        prefix: PREFIX,
         trace: false,
         path: false,
         initializer,
@@ -359,7 +363,7 @@ export namespace CloneProgrammer {
             const meta = MetadataFactory.analyze(checker)({
                 resolve: true,
                 constant: true,
-            })(collection)(type);
+            })(collection)(type, true);
             return [collection, meta];
         };
 

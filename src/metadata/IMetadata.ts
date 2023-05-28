@@ -19,6 +19,7 @@ export interface IMetadata {
     arrays: IMetadata[];
     tuples: IMetadata[][];
     objects: string[];
+    definitions: string[];
 
     natives: string[];
     sets: IMetadata[];

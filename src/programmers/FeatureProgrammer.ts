@@ -9,6 +9,7 @@ import { ValueFactory } from "../factories/ValueFactory";
 import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
 import { IMetadataTag } from "../metadata/IMetadataTag";
 import { Metadata } from "../metadata/Metadata";
+import { MetadataDefinition } from "../metadata/MetadataDefinition";
 import { MetadataObject } from "../metadata/MetadataObject";
 
 import { IProject } from "../transformers/IProject";
@@ -27,14 +28,9 @@ export namespace FeatureProgrammer {
         types: IConfig.ITypes;
 
         /**
-         * Prefix name of functions for specific object types.
+         * Prefix name of functions for specific types.
          */
-        functors: string;
-
-        /**
-         * Prefix name of functions for union object types.
-         */
-        unioners: string;
+        prefix: IConfig.IPrefix;
 
         /**
          * Whether to archive access path or not.
@@ -71,6 +67,11 @@ export namespace FeatureProgrammer {
         generator?: Partial<IConfig.IGenerator>;
     }
     export namespace IConfig {
+        export interface IPrefix {
+            object: string;
+            union: string;
+            definition: string;
+        }
         export interface ITypes {
             input: (type: ts.Type, name?: string) => ts.TypeNode;
             output: (type: ts.Type, name?: string) => ts.TypeNode;
@@ -174,17 +175,9 @@ export namespace FeatureProgrammer {
             type?: ts.TypeNode;
         }
         export interface IGenerator {
-            /**
-             *
-             * @param col
-             */
-            functors(col: MetadataCollection): ts.VariableStatement[];
-
-            /**
-             *
-             * @param col
-             */
-            unioners(col: MetadataCollection): ts.VariableStatement[];
+            object(col: MetadataCollection): ts.VariableStatement[];
+            union(col: MetadataCollection): ts.VariableStatement[];
+            definition(col: MetadataCollection): ts.VariableStatement[];
         }
     }
 
@@ -234,11 +227,17 @@ export namespace FeatureProgrammer {
             );
 
             // RETURNS THE OPTIMAL ARROW FUNCTION
-            const functors: ts.VariableStatement[] = (
-                config.generator?.functors ?? write_functors(config)(importer)
+            const objects: ts.VariableStatement[] = (
+                config.generator?.object ??
+                write_object_functions(config)(importer)
             )(collection);
-            const unioners: ts.VariableStatement[] = (
-                config.generator?.unioners ?? write_unioners(config)(importer)
+            const unions: ts.VariableStatement[] = (
+                config.generator?.union ??
+                write_union_functions(config)(importer)
+            )(collection);
+            const definitions: ts.VariableStatement[] = (
+                config.generator?.definition ??
+                write_definition_functions(config)(importer)
             )(collection);
             const added: ts.Statement[] = (config.addition ?? (() => []))(
                 collection,
@@ -255,11 +254,16 @@ export namespace FeatureProgrammer {
                 ts.factory.createBlock(
                     [
                         ...added,
-                        ...functors.filter((_, i) =>
-                            importer.hasLocal(`${config.functors}${i}`),
+                        ...objects.filter((_, i) =>
+                            importer.hasLocal(`${config.prefix.object}${i}`),
                         ),
-                        ...unioners.filter((_, i) =>
-                            importer.hasLocal(`${config.unioners}${i}`),
+                        ...unions.filter((_, i) =>
+                            importer.hasLocal(`${config.prefix.union}${i}`),
+                        ),
+                        ...definitions.filter((_, i) =>
+                            importer.hasLocal(
+                                `${config.prefix.definition}${i}`,
+                            ),
                         ),
                         ...(ts.isBlock(output)
                             ? output.statements
@@ -270,7 +274,7 @@ export namespace FeatureProgrammer {
             );
         };
 
-    export const write_functors =
+    export const write_object_functions =
         (config: IConfig) =>
         (importer: FunctionImporter) =>
         (collection: MetadataCollection) =>
@@ -278,12 +282,12 @@ export namespace FeatureProgrammer {
                 .objects()
                 .map((obj, i) =>
                     StatementFactory.constant(
-                        `${config.functors}${i}`,
+                        `${config.prefix.object}${i}`,
                         write_object(config)(importer)(obj),
                     ),
                 );
 
-    export const write_unioners =
+    export const write_union_functions =
         (config: IConfig) =>
         (importer: FunctionImporter) =>
         (collection: MetadataCollection) =>
@@ -291,8 +295,21 @@ export namespace FeatureProgrammer {
                 .unions()
                 .map((union, i) =>
                     StatementFactory.constant(
-                        importer.useLocal(`${config.unioners}${i}`),
+                        importer.useLocal(`${config.prefix.union}${i}`),
                         write_union(config)(union),
+                    ),
+                );
+
+    export const write_definition_functions =
+        (config: IConfig) =>
+        (importer: FunctionImporter) =>
+        (collection: MetadataCollection) =>
+            collection
+                .definitions()
+                .map((def, i) =>
+                    StatementFactory.constant(
+                        importer.useLocal(`${config.prefix.definition}${i}`),
+                        write_definition(config)(def),
                     ),
                 );
 
@@ -344,6 +361,29 @@ export namespace FeatureProgrammer {
                 ),
             );
     };
+
+    const write_definition = (config: IConfig) => (def: MetadataDefinition) =>
+        ts.factory.createArrowFunction(
+            undefined,
+            undefined,
+            PARAMETERS(config)(TypeFactory.keyword("any"))(
+                ValueFactory.INPUT(),
+            ),
+            TypeFactory.keyword("any"),
+            undefined,
+            config.decoder(
+                ValueFactory.INPUT(),
+                def.value,
+                {
+                    tracable: config.path || config.trace,
+                    source: "object",
+                    from: "object",
+                    postfix: "",
+                },
+                def.tags,
+                def.jsDocTags,
+            ),
+        );
 
     /* -----------------------------------------------------------
         DECODERS
@@ -409,12 +449,24 @@ export namespace FeatureProgrammer {
         };
 
     export const decode_object =
-        (config: Pick<IConfig, "trace" | "path" | "functors">) =>
+        (config: Pick<IConfig, "trace" | "path" | "prefix">) =>
         (importer: FunctionImporter) =>
         (input: ts.Expression, obj: MetadataObject, explore: IExplore) =>
             ts.factory.createCallExpression(
                 ts.factory.createIdentifier(
-                    importer.useLocal(`${config.functors}${obj.index}`),
+                    importer.useLocal(`${config.prefix.object}${obj.index}`),
+                ),
+                undefined,
+                get_object_arguments(config)(explore)(input),
+            );
+
+    export const decode_definition =
+        (config: Pick<IConfig, "trace" | "path" | "prefix">) =>
+        (importer: FunctionImporter) =>
+        (input: ts.Expression, def: MetadataDefinition, explore: IExplore) =>
+            ts.factory.createCallExpression(
+                ts.factory.createIdentifier(
+                    importer.useLocal(`${config.prefix.object}${def.index}`),
                 ),
                 undefined,
                 get_object_arguments(config)(explore)(input),

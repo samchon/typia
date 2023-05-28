@@ -9,6 +9,7 @@ import { ValueFactory } from "../factories/ValueFactory";
 
 import { IMetadataTag } from "../metadata/IMetadataTag";
 import { Metadata } from "../metadata/Metadata";
+import { MetadataDefinition } from "../metadata/MetadataDefinition";
 import { MetadataObject } from "../metadata/MetadataObject";
 
 import { IProject } from "../transformers/IProject";
@@ -32,8 +33,7 @@ import { decode_union_object } from "./internal/decode_union_object";
 
 export namespace CheckerProgrammer {
     export interface IConfig {
-        functors: string;
-        unioners: string;
+        prefix: FeatureProgrammer.IConfig.IPrefix;
         path: boolean;
         trace: boolean;
         equals: boolean;
@@ -105,7 +105,7 @@ export namespace CheckerProgrammer {
         (project: IProject) =>
         (config: IConfig) =>
         (importer: FunctionImporter) =>
-            FeatureProgrammer.write_functors(
+            FeatureProgrammer.write_object_functions(
                 configure(project)(config)(importer),
             )(importer);
 
@@ -114,7 +114,7 @@ export namespace CheckerProgrammer {
         config: IConfig,
         importer: FunctionImporter,
     ) =>
-        FeatureProgrammer.write_unioners(
+        FeatureProgrammer.write_union_functions(
             configure(project)({ ...config, numeric: false })(importer),
         )(importer);
 
@@ -139,8 +139,7 @@ export namespace CheckerProgrammer {
                 },
                 trace: config.trace,
                 path: config.path,
-                functors: config.functors,
-                unioners: config.unioners,
+                prefix: config.prefix,
                 initializer:
                     ({ checker }) =>
                     (type) => {
@@ -151,7 +150,7 @@ export namespace CheckerProgrammer {
                                 resolve: false,
                                 constant: true,
                             },
-                        )(collection)(type);
+                        )(collection)(type, true);
                         return [collection, meta];
                     },
                 addition: config.addition,
@@ -197,7 +196,7 @@ export namespace CheckerProgrammer {
             };
             if (config.numeric === true)
                 output.generator = {
-                    unioners: FeatureProgrammer.write_unioners(
+                    union: FeatureProgrammer.write_union_functions(
                         configure(project)({ ...config, numeric: false })(
                             importer,
                         ),
@@ -527,6 +526,21 @@ export namespace CheckerProgrammer {
                     });
             }
 
+            // ALIAS DEFINITIONS
+            for (const def of meta.definitions)
+                binaries.push({
+                    expression: ts.factory.createCallExpression(
+                        ts.factory.createIdentifier(
+                            `${config.prefix.definition}${def.index}`,
+                        ),
+                        undefined,
+                        FeatureProgrammer.get_object_arguments(config)(explore)(
+                            input,
+                        ),
+                    ),
+                    combined: false,
+                });
+
             //----
             // COMBINE CONDITIONS
             //----
@@ -703,6 +717,19 @@ export namespace CheckerProgrammer {
             };
         };
 
+    export const decode_definition =
+        (config: IConfig) => (importer: FunctionImporter) => {
+            const func = FeatureProgrammer.decode_definition(config)(importer);
+            return (
+                input: ts.Expression,
+                def: MetadataDefinition,
+                explore: IExplore,
+            ) => {
+                def.validated = true;
+                return func(input, def, explore);
+            };
+        };
+
     const explore_sets =
         (project: IProject) =>
         (config: IConfig) =>
@@ -746,22 +773,8 @@ export namespace CheckerProgrammer {
                     decode_array(project)(config)(importer)(
                         input,
                         Metadata.create({
-                            any: false,
-                            nullable: false,
-                            required: true,
-                            optional: false,
-                            functional: false,
-                            resolved: null,
-                            constants: [],
-                            atomics: [],
-                            templates: [],
-                            rest: null,
-                            arrays: [],
+                            ...Metadata.initialize(false),
                             tuples: [target],
-                            objects: [],
-                            natives: [],
-                            sets: [],
-                            maps: [],
                         }),
                         explore,
                         [],
@@ -871,7 +884,7 @@ export namespace CheckerProgrammer {
                 return ts.factory.createCallExpression(
                     ts.factory.createIdentifier(
                         importer.useLocal(
-                            `${config.unioners}${meta.union_index!}`,
+                            `${config.prefix.union}${meta.union_index!}`,
                         ),
                     ),
                     undefined,
