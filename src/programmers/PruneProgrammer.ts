@@ -227,7 +227,7 @@ export namespace PruneProgrammer {
         FeatureProgrammer.decode_object({
             trace: false,
             path: false,
-            functors: FUNCTORS,
+            prefix: PREFIX,
         })(importer);
 
     const explore_arrays =
@@ -256,7 +256,9 @@ export namespace PruneProgrammer {
                 );
 
             return ts.factory.createCallExpression(
-                ts.factory.createIdentifier(`${UNIONERS}${meta.union_index!}`),
+                ts.factory.createIdentifier(
+                    `${PREFIX.union}${meta.union_index!}`,
+                ),
                 undefined,
                 [input],
             );
@@ -271,8 +273,11 @@ export namespace PruneProgrammer {
     /* -----------------------------------------------------------
         CONFIGURATIONS
     ----------------------------------------------------------- */
-    const FUNCTORS = "$po";
-    const UNIONERS = "$pu";
+    const PREFIX = {
+        object: "$po",
+        union: "$pu",
+        definition: "$pd",
+    };
 
     const configure =
         (project: IProject) =>
@@ -284,8 +289,7 @@ export namespace PruneProgrammer {
                     ),
                 output: () => TypeFactory.keyword("void"),
             },
-            functors: FUNCTORS,
-            unioners: UNIONERS,
+            prefix: PREFIX,
             trace: false,
             path: false,
             initializer,
@@ -315,7 +319,7 @@ export namespace PruneProgrammer {
             const meta = MetadataFactory.analyze(checker)({
                 resolve: false,
                 constant: true,
-            })(collection)(type);
+            })(collection)(type, true);
             return [collection, meta];
         };
 

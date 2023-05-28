@@ -20,8 +20,11 @@ export namespace IsProgrammer {
     export const configure =
         (options?: Partial<CONFIG.IOptions>) =>
         (importer: FunctionImporter): CheckerProgrammer.IConfig => ({
-            functors: "$io",
-            unioners: "$iu",
+            prefix: {
+                object: "$io",
+                union: "$iu",
+                definition: "$id",
+            },
             trace: false,
             path: false,
             equals: !!options?.object,

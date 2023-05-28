@@ -17,6 +17,7 @@ import { IProject } from "../transformers/IProject";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { RandomJoiner } from "./helpers/RandomJoiner";
 import { RandomRanger } from "./helpers/RandomRanger";
+import { get_comment_tags } from "./internal/get_comment_tags";
 import { random_custom } from "./internal/random_custom";
 
 export namespace RandomProgrammer {
@@ -45,11 +46,14 @@ export namespace RandomProgrammer {
                         resolve: true,
                         constant: true,
                     },
-                )(collection)(type);
+                )(collection)(type, true);
 
                 // GENERATE FUNCTION
-                const functors: ts.VariableStatement[] =
-                    generate_functors(importer)(collection);
+                const objects: ts.VariableStatement[] =
+                    generate_object_functions(importer)(collection);
+                const definitions: ts.VariableStatement[] =
+                    generate_definition_functions(importer)(collection);
+
                 const output: ts.Expression = decode(importer)({
                     object: false,
                     recursive: false,
@@ -80,7 +84,8 @@ export namespace RandomProgrammer {
                     ts.factory.createBlock(
                         [
                             ...importer.declare(modulo),
-                            ...functors,
+                            ...objects,
+                            ...definitions,
                             ts.factory.createReturnStatement(output),
                         ],
                         true,
@@ -89,11 +94,11 @@ export namespace RandomProgrammer {
             };
         };
 
-    const generate_functors =
+    const generate_object_functions =
         (importer: FunctionImporter) => (collection: MetadataCollection) =>
             collection.objects().map((obj, i) =>
                 StatementFactory.constant(
-                    FUNCTOR(i),
+                    PREFIX_OBJECT(i),
                     ts.factory.createArrowFunction(
                         undefined,
                         undefined,
@@ -119,6 +124,40 @@ export namespace RandomProgrammer {
                                 object: true,
                             }),
                         )(obj),
+                    ),
+                ),
+            );
+
+    const generate_definition_functions =
+        (importer: FunctionImporter) => (collection: MetadataCollection) =>
+            collection.definitions().map((def, i) =>
+                StatementFactory.constant(
+                    PREFIX_DEFINITION(i),
+                    ts.factory.createArrowFunction(
+                        undefined,
+                        undefined,
+                        [
+                            IdentifierFactory.parameter(
+                                "_recursive",
+                                TypeFactory.keyword("boolean"),
+                                ts.factory.createTrue(),
+                            ),
+                            IdentifierFactory.parameter(
+                                "_depth",
+                                TypeFactory.keyword("number"),
+                                ts.factory.createNumericLiteral(0),
+                            ),
+                        ],
+                        TypeFactory.keyword("any"),
+                        undefined,
+                        decode(importer)({
+                            recursive: false,
+                            object: false,
+                        })(
+                            def.value,
+                            def.tags,
+                            get_comment_tags(false)(def.jsDocTags),
+                        ),
                     ),
                 ),
             );
@@ -184,7 +223,8 @@ export namespace RandomProgrammer {
                     decode(importer)(explore),
                 )(a, tags, comments);
                 expressions.push(
-                    explore.recursive && a.objects.length
+                    a.definitions.length ||
+                        (explore.recursive && a.objects.length)
                         ? ts.factory.createConditionalExpression(
                               ts.factory.createLogicalAnd(
                                   ts.factory.createIdentifier("_recursive"),
@@ -204,7 +244,7 @@ export namespace RandomProgrammer {
             for (const o of meta.objects)
                 expressions.push(
                     ts.factory.createCallExpression(
-                        ts.factory.createIdentifier(FUNCTOR(o.index)),
+                        ts.factory.createIdentifier(PREFIX_OBJECT(o.index)),
                         undefined,
                         explore.object
                             ? [
@@ -225,6 +265,14 @@ export namespace RandomProgrammer {
                                   ),
                               ]
                             : undefined,
+                    ),
+                );
+            for (const d of meta.definitions)
+                expressions.push(
+                    ts.factory.createCallExpression(
+                        ts.factory.createIdentifier(PREFIX_DEFINITION(d.index)),
+                        undefined,
+                        explore.object ? [] : undefined,
                     ),
                 );
             for (const native of meta.natives)
@@ -412,7 +460,8 @@ interface IExplore {
     recursive: boolean;
 }
 
-const FUNCTOR = (i: number) => `$ro${i}`;
+const PREFIX_OBJECT = (i: number) => `$ro${i}`;
+const PREFIX_DEFINITION = (i: number) => `$rd${i}`;
 const COALESCE = (importer: FunctionImporter) => (name: string) =>
     ExpressionFactory.coalesce(
         ts.factory.createPropertyAccessChain(

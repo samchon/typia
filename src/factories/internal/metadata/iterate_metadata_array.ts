@@ -13,10 +13,7 @@ export const iterate_metadata_array =
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
     (meta: Metadata, type: ts.Type): boolean => {
-        if (
-            !(checker as any).isArrayType(type) &&
-            !(checker as any).isArrayLikeType(type)
-        )
+        if (!checker.isArrayType(type) && !checker.isArrayLikeType(type))
             return false;
 
         const value: ts.Type | null = type.getNumberIndexType() || null;

@@ -31,7 +31,5 @@ validate("postfix")((custom) => (custom.postfix = "abcdabc"));
 validate("log")((custom) => (custom.log = 101));
 
 console.log(
-    typia
-        .metadata<[TagCustom]>()
-        .collection[0].properties.map((p) => p.jsDocTags),
+    typia.metadata<[TagCustom]>().objects[0].properties.map((p) => p.jsDocTags),
 );

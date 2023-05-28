@@ -447,7 +447,7 @@ export namespace StringifyProgrammer {
         FeatureProgrammer.decode_object({
             trace: false,
             path: false,
-            functors: FUNCTORS,
+            prefix: PREFIX,
         })(importer);
 
     const decode_tuple =
@@ -621,7 +621,9 @@ export namespace StringifyProgrammer {
                 );
 
             return ts.factory.createCallExpression(
-                ts.factory.createIdentifier(`${UNIONERS}${meta.union_index!}`),
+                ts.factory.createIdentifier(
+                    `${PREFIX.union}${meta.union_index!}`,
+                ),
                 undefined,
                 [input],
             );
@@ -711,8 +713,11 @@ export namespace StringifyProgrammer {
     /* -----------------------------------------------------------
         CONFIGURATIONS
     ----------------------------------------------------------- */
-    const FUNCTORS = "$so";
-    const UNIONERS = "$su";
+    const PREFIX = {
+        object: "$so",
+        union: "$su",
+        definition: "$sd",
+    };
 
     const configure =
         (project: IProject) =>
@@ -724,8 +729,7 @@ export namespace StringifyProgrammer {
                     ),
                 output: () => TypeFactory.keyword("string"),
             },
-            functors: FUNCTORS,
-            unioners: UNIONERS,
+            prefix: PREFIX,
             trace: false,
             path: false,
             initializer,
@@ -744,7 +748,7 @@ export namespace StringifyProgrammer {
                     if (meta.atomics.find((str) => str === "bigint"))
                         throw new Error(NO_BIGINT);
                 },
-            })(collection)(type);
+            })(collection)(type, true);
             return [collection, meta];
         };
 
