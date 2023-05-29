@@ -9,7 +9,7 @@ import { PatternUtil } from "../../utils/PatternUtil";
 
 import { IJsonSchema } from "../../module";
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
-import { JSON_SCHEMA_PREFIX } from "./JSON_SCHEMA_PREFIX";
+import { JSON_COMPONENTS_PREFIX } from "./JSON_SCHEMA_PREFIX";
 import { application_schema } from "./application_schema";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
@@ -27,8 +27,8 @@ export const application_object =
                 : `${obj.name}${nullable ? ".Nullable" : ""}`;
 
         // TEMPORARY ASSIGNMENT
-        if (components.schemas[key] !== undefined) return key;
-        components.schemas[key] = {} as any;
+        if (components.objects[key] !== undefined) return key;
+        components.objects[key] = {} as any;
 
         // ITERATE PROPERTIES
         const properties: Record<string, any> = {};
@@ -105,7 +105,7 @@ export const application_object =
         const schema: IJsonComponents.IObject = {
             $id:
                 options.purpose === "ajv"
-                    ? `${JSON_SCHEMA_PREFIX}/${key}`
+                    ? `${JSON_COMPONENTS_PREFIX}/objects/${key}`
                     : undefined,
             $recursiveAnchor:
                 (options.purpose === "ajv" && obj.recursive) || undefined,
@@ -126,7 +126,7 @@ export const application_object =
                           join(options)(components)(extraMeta),
                   }),
         };
-        components.schemas[key] = schema;
+        components.objects[key] = schema;
         return key;
     };
 

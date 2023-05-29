@@ -12,3 +12,4 @@ interface IPoint3D {
 }
 
 console.log(typia.createIs<JsonValue>().toString());
+console.log(typia.createStringify<JsonValue>().toString());

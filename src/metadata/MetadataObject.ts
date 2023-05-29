@@ -113,15 +113,17 @@ export namespace MetadataObject {
     export const intersects = (x: MetadataObject, y: MetadataObject): boolean =>
         x.properties.some(
             (prop) =>
-                y.properties.find((oppo) => prop.key === oppo.key) !==
-                undefined,
+                y.properties.find(
+                    (oppo) => prop.key.getName() === oppo.key.getName(),
+                ) !== undefined,
         );
 
     export const covers = (x: MetadataObject, y: MetadataObject): boolean =>
         x.properties.length >= y.properties.length &&
         x.properties.every(
             (prop) =>
-                y.properties.find((oppo) => prop.key === oppo.key) !==
-                undefined,
+                y.properties.find(
+                    (oppo) => prop.key.getName() === oppo.key.getName(),
+                ) !== undefined,
         );
 }

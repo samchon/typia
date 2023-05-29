@@ -35,7 +35,8 @@ export namespace ApplicationProgrammer {
         (metadatas: Array<Metadata>): IJsonApplication => {
             const fullOptions: IOptions = IOptions.complement(options);
             const components: IJsonComponents = {
-                schemas: {},
+                objects: {},
+                definitions: {},
             };
             const generator = application_schema(fullOptions)(true)(components);
 

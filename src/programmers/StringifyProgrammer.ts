@@ -401,6 +401,15 @@ export namespace StringifyProgrammer {
                               }),
                 });
 
+            // DEFINITIONS
+            for (const def of meta.definitions)
+                unions.push({
+                    type: "array",
+                    is: () => ts.factory.createTrue(),
+                    value: () =>
+                        decode_definition(importer)(input, def, explore),
+                });
+
             //----
             // RETURNS
             //----
@@ -445,6 +454,13 @@ export namespace StringifyProgrammer {
 
     const decode_object = (importer: FunctionImporter) =>
         FeatureProgrammer.decode_object({
+            trace: false,
+            path: false,
+            prefix: PREFIX,
+        })(importer);
+
+    export const decode_definition = (importer: FunctionImporter) =>
+        FeatureProgrammer.decode_definition({
             trace: false,
             path: false,
             prefix: PREFIX,
