@@ -3,7 +3,8 @@ import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
 import { IJsonSchema } from "./IJsonSchema";
 
 export interface IJsonComponents {
-    schemas: Record<string, IJsonComponents.IObject>;
+    objects: Record<string, IJsonComponents.IObject>;
+    definitions: Record<string, IJsonComponents.IDefinition>;
 }
 export namespace IJsonComponents {
     export interface IObject {
@@ -30,4 +31,8 @@ export namespace IJsonComponents {
         "x-typia-patternProperties"?: Record<string, IJsonSchema>;
         "x-typia-additionalProperties"?: IJsonSchema;
     }
+
+    export type IDefinition = IJsonSchema & {
+        $id?: string;
+    };
 }

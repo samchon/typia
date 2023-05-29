@@ -137,6 +137,7 @@ export class Metadata {
         for (const def of this.definitions) {
             if (used.has(def.name)) continue;
 
+            used = new Set([...used]);
             used.add(def.name);
             def.value._Absorb(used);
             Metadata.assign(this, def.value);
@@ -452,15 +453,16 @@ export namespace Metadata {
                     }
             for (const xo of x.objects)
                 for (const yo of y.objects)
-                    if (MetadataObject.intersects(xo, yo)) {
-                        return true;
-                    }
+                    if (MetadataObject.intersects(xo, yo)) return true;
         } else {
             if (x.arrays.length && y.arrays.length) return true;
             if (x.objects.length && y.objects.length) return true;
         }
 
-        // DEFINITIONS - @todo
+        // DEFINITIONS
+        for (const xd of x.definitions)
+            for (const yd of y.definitions)
+                if (xd.name === yd.name) return true;
 
         // TUPLES
         for (const xt of x.tuples)
@@ -520,7 +522,10 @@ export namespace Metadata {
             if (x.objects.some((xo) => MetadataObject.covers(xo, yo)) === false)
                 return false;
 
-        // DEFINITIONS - @todo
+        // DEFINITIONS
+        for (const yd of y.definitions)
+            if (x.definitions.some((xd) => xd.name === yd.name) === false)
+                return false;
 
         // TUPLES
         for (const yt of y.tuples)
@@ -536,7 +541,9 @@ export namespace Metadata {
             )
                 return false;
 
-        // NATIVES - @todo
+        // NATIVES
+        for (const yn of y.natives)
+            if (x.natives.some((xn) => xn === yn) === false) return false;
 
         // SETS
         for (const ys of y.sets)
@@ -570,6 +577,9 @@ export namespace Metadata {
         return true;
     };
 
+    /**
+     * @internal
+     */
     export const merge = (x: Metadata, y: Metadata): Metadata => {
         const output: Metadata = Metadata.create({
             any: x.any || y.any,

@@ -2,7 +2,7 @@ import { IJsonComponents } from "../../schemas/IJsonComponents";
 
 import { IJsonSchema } from "../../module";
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
-import { JSON_SCHEMA_PREFIX } from "./JSON_SCHEMA_PREFIX";
+import { JSON_COMPONENTS_PREFIX } from "./JSON_SCHEMA_PREFIX";
 
 /**
  * @internal
@@ -19,11 +19,11 @@ export const application_native =
             options.purpose === "ajv"
                 ? name
                 : `${name}${props.nullable ? ".Nullable" : ""}`;
-        components.schemas[key] ??= {
+        components.objects[key] ??= {
             type: "object",
             $id:
                 options.purpose === "ajv"
-                    ? `${JSON_SCHEMA_PREFIX}/${key}`
+                    ? `${JSON_COMPONENTS_PREFIX}/objects/${key}`
                     : undefined,
             properties: {},
             nullable:
@@ -31,6 +31,6 @@ export const application_native =
         };
         return {
             ...props.attribute,
-            $ref: `${JSON_SCHEMA_PREFIX}/${key}`,
+            $ref: `${JSON_COMPONENTS_PREFIX}/objects/${key}`,
         };
     };

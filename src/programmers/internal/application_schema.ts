@@ -4,10 +4,11 @@ import { IJsonSchema } from "../../schemas/IJsonSchema";
 
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
-import { JSON_SCHEMA_PREFIX } from "./JSON_SCHEMA_PREFIX";
+import { JSON_COMPONENTS_PREFIX } from "./JSON_SCHEMA_PREFIX";
 import { application_array } from "./application_array";
 import { application_boolean } from "./application_boolean";
 import { application_constant } from "./application_constant";
+import { application_definition } from "./application_definition";
 import { application_native } from "./application_native";
 import { application_number } from "./application_number";
 import { application_object } from "./application_object";
@@ -155,7 +156,23 @@ export const application_schema =
             union.push(
                 (options.purpose === "ajv" && obj.recursive
                     ? recursive
-                    : reference)(`${JSON_SCHEMA_PREFIX}/${key}`, attribute),
+                    : reference)(
+                    `${JSON_COMPONENTS_PREFIX}/objects/${key}`,
+                    attribute,
+                ),
+            );
+        }
+
+        // DEFINITIONS
+        for (const def of meta.definitions) {
+            const key: string = application_definition(options)(blockNever)(
+                components,
+            )(def)(meta.nullable);
+            union.push(
+                reference(
+                    `${JSON_COMPONENTS_PREFIX}/definitions/${key}`,
+                    attribute,
+                ),
             );
         }
 
